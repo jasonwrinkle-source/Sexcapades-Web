@@ -80,8 +80,8 @@ sed -i 's|src="images/|src="/hosted/app-assets/images/|g' "$HOSTED/app.html"
 
 cp "$DIR/app/css/app.css" "$HOSTED/app-assets/app.css"
 cp "$DIR/app/vendor/"* "$HOSTED/app-assets/vendor/"
-cp "$DIR/app/data/"* "$HOSTED/app-assets/"
-cp "$DIR/app/js/"* "$HOSTED/app-assets/"
+cp "$DIR/app/data/"*.js "$HOSTED/app-assets/"
+cp "$DIR/app/js/"*.js "$HOSTED/app-assets/"
 cp "$DIR/app/images/"* "$HOSTED/app-assets/images/"
 
 # Bundle all modular scripts into a single cached app.js alongside individual modules
