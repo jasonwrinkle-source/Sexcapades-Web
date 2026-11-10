@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sitemap — Sexcapades</title>
+<meta name="description" content="Every page on sexcapades.io, mapped.">
+<style>
+  :root {
+    --bg: #0b1014;
+    --surface: #12161b;
+    --text: #f4f4ef;
+    --muted: #b4bbc2;
+    --accent: #ff725e;
+    --cyan: #75d6e8;
+    --mint: #8ce0b1;
+    --gold: #e9be66;
+    --line: #313941;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .sub { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+  .map {
+    position: relative;
+    width: min(90vw, 700px);
+    height: min(90vw, 700px);
+    max-height: 70vh;
+  }
+  .center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--accent);
+    color: #1a0500;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    border-radius: 50%;
+    width: 130px; height: 130px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: 0 0 40px rgba(255,114,94,.3);
+    z-index: 2;
+  }
+  .node {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 0.6rem 1rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: border-color .2s, transform .2s;
+    z-index: 1;
+  }
+  .node:hover {
+    border-color: var(--cyan);
+    transform: translate(-50%, -50%) scale(1.08) !important;
+  }
+  .node .desc {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+  }
+  /* Radial positions — 8 nodes around center (nodes are <a> 2-9, center is <a> 1) */
+  .node:nth-of-type(2) { top: 6%; left: 50%; transform: translate(-50%,-50%); }
+  .node:nth-of-type(3) { top: 20%; left: 82%; transform: translate(-50%,-50%); }
+  .node:nth-of-type(4) { top: 50%; left: 94%; transform: translate(-50%,-50%); }
+  .node:nth-of-type(5) { top: 80%; left: 82%; transform: translate(-50%,-50%); }
+  .node:nth-of-type(6) { top: 94%; left: 50%; transform: translate(-50%,-50%); }
+  .node:nth-of-type(7) { top: 80%; left: 18%; transform: translate(-50%,-50%); }
+  .node:nth-of-type(8) { top: 50%; left: 6%; transform: translate(-50%,-50%); }
+  .node:nth-of-type(9) { top: 20%; left: 18%; transform: translate(-50%,-50%); }
+  svg.lines {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  svg.lines line { stroke: var(--line); stroke-width: 1.5; }
+  footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; }
+  footer a { color: var(--cyan); }
+  @media (max-width: 600px) {
+    .node { font-size: 0.75rem; padding: 0.5rem 0.8rem; }
+    .node .desc { display: none; }
+    .center { width: 100px; height: 100px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+  <h1>Sitemap</h1>
+  <p class="sub">Every page on sexcapades.io — click a node to visit.</p>
+
+  <div class="map" id="map">
+    <svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="50" y1="50" x2="50" y2="6"/>
+      <line x1="50" y1="50" x2="82" y2="20"/>
+      <line x1="50" y1="50" x2="94" y2="50"/>
+      <line x1="50" y1="50" x2="82" y2="80"/>
+      <line x1="50" y1="50" x2="50" y2="94"/>
+      <line x1="50" y1="50" x2="18" y2="80"/>
+      <line x1="50" y1="50" x2="6" y2="50"/>
+      <line x1="50" y1="50" x2="18" y2="20"/>
+    </svg>
+    <a class="center" href="https://sexcapades.io/">sexcapades.io</a>
+    <a class="node" href="https://sexcapades.io/hosted/app.html">Hypermap<span class="desc">Rate 400+ kinks visually</span></a>
+    <a class="node" href="https://sexcapades.io/hosted/guide.html">Guide<span class="desc">How it all works</span></a>
+    <a class="node" href="https://sexcapades.io/hosted/faq.html">FAQ<span class="desc">Common questions</span></a>
+    <a class="node" href="https://sexcapades.io/hosted/quickstart.html">Quick Start<span class="desc">54 topics, ~20 min</span></a>
+    <a class="node" href="https://sexcapades.io/hosted/compare.html">Compare<span class="desc">Vs other kink tests</span></a>
+    <a class="node" href="https://sexcapades.io/hosted/flyer.html">Flyer<span class="desc">Share the project</span></a>
+    <a class="node" href="https://sexcapades.io/hosted/how-it-works.html">How It Works<span class="desc">The method</span></a>
+    <a class="node" href="https://sexcapades.io/hosted/privacy.html">Privacy<span class="desc">Your data stays yours</span></a>
+  </div>
+
+  <footer>
+    <p><a href="https://sexcapades.io/">← Back to Sexcapades</a></p>
+  </footer>
+</body>
+</html>

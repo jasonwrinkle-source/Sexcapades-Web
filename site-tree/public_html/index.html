@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sexcapades</title>
+<meta name="description" content="Sexcapades — Rate over 400 kinks on a visual hypermap, compare with a partner, and discover where you overlap." />
+<meta property="og:title" content="Sexcapades — Compare Hypermaps" />
+<meta property="og:description" content="Rate over 400 kinks, compare your hypermap with a partner, and find where you overlap." />
+<meta property="og:url" content="https://sexcapades.io/" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://sexcapades.io/hosted/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Sexcapades — Compare Hypermaps" />
+<meta name="twitter:description" content="Rate over 400 kinks, compare your hypermap with a partner." />
+<script>
+  // Forward query params (e.g. ?utm_source=...) and #fragment to the gate.
+  // No meta-refresh: it would drop the fragment before JS runs.
+  var qs = window.location.search || "";
+  var frag = window.location.hash || "";
+  window.location.replace("/hosted/gate.html" + qs + frag);
+</script>
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#0b1014" />
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+</script>
+</head>
+<body>
+<p>Entering Sexcapades… <a href="/hosted/gate.html">click here if you are not redirected</a>.</p>
+</body>
+</html>

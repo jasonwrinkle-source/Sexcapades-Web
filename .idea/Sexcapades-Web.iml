@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/app/data/data-bootstrap.js.bak" />
+      <excludeFolder url="file://$MODULE_DIR$/deploy-all-v4.0-2026-11-09_1233-optimized.tar.gz" />
+      <excludeFolder url="file://$MODULE_DIR$/deploy-all-v4.0-2026-11-09_1300-optimized.tar.gz" />
+      <excludeFolder url="file://$MODULE_DIR$/pages/archive-nov06-exports" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/data/data-bootstrap.js" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/assets/sample-maps" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
