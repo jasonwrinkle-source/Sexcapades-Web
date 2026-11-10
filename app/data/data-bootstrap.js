@@ -7172,8 +7172,9 @@ const TAXONOMY_CATEGORIES = [
         function sxGetCategoryFilter() { return Pt; }
         function sxSetCategoryFilter(f) { Pt = f; }
 
-        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
-        window.SexcapadesRuntime.State = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SX = window.SexcapadesEngine;
+        window.SexcapadesEngine.State = {
             getActiveProfileId: sxGetActiveProfileId,
             setActiveProfileId: sxSetActiveProfileId,
             getSelectedTopicId: sxGetSelectedTopicId,
@@ -13768,7 +13769,8 @@ const TAXONOMY_CATEGORIES = [
         const sxGetComparisonOutcome = di;
         const sxGetActiveOrComparisonProfiles = Xi;
 
-        window.SexcapadesRuntime.Profiles = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SexcapadesEngine.Profiles = {
             isVeilActive: sxIsVeilActive,
             getComparisonProfileIds: sxGetComparisonProfileIds,
             isComparisonActive: sxIsComparisonActive,
@@ -13777,7 +13779,7 @@ const TAXONOMY_CATEGORIES = [
             getComparisonOutcome: sxGetComparisonOutcome,
             autoSelect: sxAutoSelect
         };
-        window.SexcapadesRuntime.Topics = {
+        window.SexcapadesEngine.Topics = {
             getStance: sxGetTopicStance,
             getScore: sxGetTopicScore,
             getVeilThreshold: sxMapVeilThreshold
@@ -19823,7 +19825,7 @@ const TAXONOMY_CATEGORIES = [
         }
         function Cr(e, t = "rendering problem") {
             window.__sxLoad && window.__sxLoad(-1);
-            jn = !0, On = null, Tn && (Tn.textContent = `The hypermap hit a ${t}. Your open profile is unchanged.`), 
+            jn = !0, On = null, Tn && (Tn.textContent = `The hypermap hit a ${t}. Your open profile is unchanged.`),
             Ln && (Ln.hidden = !1), console.error("Map paused safely.", e);
         }
         // Item 11 (Build 2026-10-16_1909) made the tuned layout the default
@@ -19983,8 +19985,8 @@ const TAXONOMY_CATEGORIES = [
         }
 
         const sxRenderMap = function(opts) { return Mr(opts); };
-        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
-        window.SexcapadesRuntime.Map = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SexcapadesEngine.Map = {
             render: sxRenderMap
         };
 
@@ -23335,8 +23337,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 }
 
         const sxUpdateGlance = function() { return vc(); };
-        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
-        window.SexcapadesRuntime.Compatibility = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SexcapadesEngine.Compatibility = {
             updateGlance: sxUpdateGlance
         };
 
@@ -37574,9 +37576,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
         };
 
-        if (window.SexcapadesRuntime && window.SexcapadesRuntime.Profiles) {
-            window.SexcapadesRuntime.Profiles.io = window.__sexcapades;
-            window.SexcapadesRuntime.Profiles.manager = window.Sexcapades2xProfiles;
+        if (window.SexcapadesEngine && window.SexcapadesEngine.Profiles) {
+            window.SexcapadesEngine.Profiles.io = window.__sexcapades;
+            window.SexcapadesEngine.Profiles.manager = window.Sexcapades2xProfiles;
         }
     }();
 

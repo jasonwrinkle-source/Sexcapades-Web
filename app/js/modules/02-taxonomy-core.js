@@ -3007,8 +3007,9 @@
         function sxGetCategoryFilter() { return Pt; }
         function sxSetCategoryFilter(f) { Pt = f; }
 
-        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
-        window.SexcapadesRuntime.State = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SX = window.SexcapadesEngine;
+        window.SexcapadesEngine.State = {
             getActiveProfileId: sxGetActiveProfileId,
             setActiveProfileId: sxSetActiveProfileId,
             getSelectedTopicId: sxGetSelectedTopicId,
@@ -9603,7 +9604,8 @@
         const sxGetComparisonOutcome = di;
         const sxGetActiveOrComparisonProfiles = Xi;
 
-        window.SexcapadesRuntime.Profiles = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SexcapadesEngine.Profiles = {
             isVeilActive: sxIsVeilActive,
             getComparisonProfileIds: sxGetComparisonProfileIds,
             isComparisonActive: sxIsComparisonActive,
@@ -9612,7 +9614,7 @@
             getComparisonOutcome: sxGetComparisonOutcome,
             autoSelect: sxAutoSelect
         };
-        window.SexcapadesRuntime.Topics = {
+        window.SexcapadesEngine.Topics = {
             getStance: sxGetTopicStance,
             getScore: sxGetTopicScore,
             getVeilThreshold: sxMapVeilThreshold
