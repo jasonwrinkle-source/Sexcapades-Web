@@ -274,3 +274,150 @@ __sxInit(function () {
   boot();
 })();
 });
+
+
+/* ---- module: view-nav-labels & list-ondeck (folded from patches) ---- */
+__sxInit(function () {
+(function () {
+  function boot() {
+  var listDlg = SexcapadesRuntime.DOM.byId("outlineDialog");
+  var safetyDlg = SexcapadesRuntime.DOM.byId("safetyDialog");
+  var scribeDlg = SexcapadesRuntime.DOM.byId("scribeDialog");
+  var scribeChoiceDlg = SexcapadesRuntime.DOM.byId("scribeChoiceDialog");
+  var setterDlg = SexcapadesRuntime.DOM.byId("negotiationDialog");
+  function listLabel() {
+    try {
+      if (typeof window.__sxOnDeckTotal === "function") {
+        var tab = document.querySelector('#profileTabs .profile-tab-button[aria-selected="true"][data-view]');
+        var pid = tab ? tab.getAttribute("data-view") : "__empty-profile-preview__";
+        if (pid && window.__sxOnDeckTotal(pid) > 0) return "On Deck";
+      }
+    } catch (e) { if (window.__sxErrLog) __sxErrLog("list-label", e); }
+    return "Popularity List";
+  }
+  function currentLabel() {
+    if (setterDlg && setterDlg.open) return "Scene Setter";
+    if ((scribeDlg && scribeDlg.open) || (scribeChoiceDlg && scribeChoiceDlg.open)) return "Scribe";
+    if (safetyDlg && safetyDlg.open) return "Scene Sentinel";
+    if (listDlg && listDlg.open) return listLabel();
+    return "Hypermap";
+  }
+  function sync() {
+    var label = currentLabel() + " ▾";
+    var btns = document.querySelectorAll(".view-nav-btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].textContent = label;
+      btns[i].setAttribute("aria-haspopup", "menu");
+      btns[i].removeAttribute("aria-pressed");
+    }
+  }
+  window.__sxSyncViewButton = sync;
+  window.__sxCurrentViewLabel = currentLabel;
+  window.__sxListLabel = listLabel;
+  try {
+    if (String(location.hash || '') === '#sentinel') {
+      try { history.replaceState(null, '', '#app/map'); } catch (e) { __sxErrLog("sentinel-route", e); }
+      setTimeout(function () { if (window.__sxOpenSentinel) window.__sxOpenSentinel(); }, 400);
+    }
+  } catch (e) { __sxErrLog("sentinel-open", e); }
+  window.addEventListener('message', function (ev) {
+    try {
+      if (ev && ev.data && ev.data.type === 'sexcapades-open-sentinel' && window.__sxOpenSentinel) window.__sxOpenSentinel();
+    } catch (e) { __sxErrLog("sentinel-message", e); }
+  });
+  if (window.MutationObserver) {
+    var dlgs = [listDlg, safetyDlg, scribeDlg, scribeChoiceDlg, setterDlg];
+    for (var j = 0; j < dlgs.length; j++) {
+      if (dlgs[j]) new MutationObserver(sync).observe(dlgs[j], { attributes: true, attributeFilter: ["open"] });
+    }
+  }
+  window.addEventListener("hashchange", sync);
+  sync();
+
+  // On Deck list item label following
+  var item = document.querySelector('#viewNavMenu [data-view-target="list"]');
+  if (item) {
+    var queued = false;
+    function refreshListLabel() {
+      var label = (typeof window.__sxListLabel === "function") ? window.__sxListLabel() : "Popularity List";
+      if (item.textContent !== label) item.textContent = label;
+      if (item.getAttribute("data-tooltip-name") !== label) item.setAttribute("data-tooltip-name", label);
+    }
+    function refreshSoon() {
+      if (queued) return;
+      queued = true;
+      var tm = window.SexcapadesRuntime && SexcapadesRuntime.TimerManager;
+      var raf = (tm && typeof tm.requestAnimationFrame === "function") ? function (cb) { return tm.requestAnimationFrame(cb); } : function (cb) { return window.requestAnimationFrame(cb); };
+      raf(function () { queued = false; refreshListLabel(); });
+    }
+    refreshListLabel();
+    var tabs = SexcapadesRuntime.DOM.byId("profileTabs");
+    if (tabs && window.MutationObserver) new MutationObserver(refreshSoon).observe(tabs, { childList: true, subtree: true, attributes: true });
+    var count = SexcapadesRuntime.DOM.byId("outlineHeaderCount");
+    if (count && window.MutationObserver) new MutationObserver(function () {
+      refreshSoon();
+      if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton();
+    }).observe(count, { childList: true, characterData: true, subtree: true });
+    document.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest(".view-nav-btn")) refreshListLabel();
+    }, true);
+  }
+  }
+  boot();
+})();
+});
+
+
+/* ---- module: list-path-display (folded from patches) ---- */
+__sxInit(function () {
+(function () {
+  var CODES = { "Power exchange": "POWEREX", "Bondage & restriction": "BONDAGE", "Impact, pain & body modification": "IMPACT", "Sensation & atmosphere": "SENSATN", "Roleplay & identity": "ROLEPLY", "Clothing, materials & objects": "CLOTHNG", "Body focus & appearance": "BODYFOCS", "Psychological dynamics": "PSYCHOL", "Watching, exposure & settings": "WATCHNG", "Partner configurations": "PARTNER", "Sex acts": "SEXACTS", "Positions": "POSITION", "Orgasm & reproductive play": "ORGASM", "Fluids & messy play": "FLUIDS", "Primal & pursuit": "PRIMAL", "Service & ritual": "SERVICE", "Fantasy & transformation": "FANTASY", "Connection & aftercare": "CONNECT" };
+  var style = document.createElement("style");
+  style.textContent = ".sx-path-line{display:block;color:var(--muted);font-size:11px;line-height:1.3;letter-spacing:.01em;white-space:normal}";
+  document.head.appendChild(style);
+  function branchTitle(details) {
+    var el = details.querySelector(":scope > * > .outline-branch-title");
+    return el ? el.textContent.trim() : "";
+  }
+  function pathFor(row) {
+    var label = row.querySelector(".outline-topic-label");
+    if (!label) return "";
+    var name = label.textContent.trim();
+    if (!name) return "";
+    var titles = [], n = row.parentElement;
+    while (n && n.id !== "outlineDialog") {
+      if (n.matches && n.matches("details.outline-branch")) {
+        var tt = branchTitle(n);
+        if (tt && tt !== name) titles.unshift(CODES[tt] || tt);
+      }
+      n = n.parentElement;
+    }
+    titles.push(name);
+    return titles.join("\u203a");
+  }
+  function applyRow(row) {
+    var path = pathFor(row);
+    if (!path) return;
+    var label = row.querySelector(".outline-topic-label");
+    if (label && label.title !== path) label.title = path;
+    var copy = row.querySelector(".outline-topic-copy");
+    if (!copy) return;
+    var line = copy.querySelector(":scope > .sx-path-line");
+    if (!line) { line = document.createElement("small"); line.className = "sx-path-line"; copy.appendChild(line); }
+    if (line.textContent !== path) line.textContent = path;
+  }
+  function scan(root) {
+    (root || document).querySelectorAll(".outline-row").forEach(applyRow);
+  }
+  var dlg = document.getElementById("outlineDialog");
+  if (!dlg) return;
+  var pending = null;
+  function schedule() {
+    if (pending) return;
+    pending = setTimeout(function () { pending = null; scan(dlg); }, 80);
+  }
+  try { new MutationObserver(schedule).observe(dlg, { childList: true, subtree: true }); } catch (e) { __sxErrLog("list-path-observe", e); }
+  dlg.addEventListener("toggle", schedule, true);
+  scan(dlg);
+})();
+});

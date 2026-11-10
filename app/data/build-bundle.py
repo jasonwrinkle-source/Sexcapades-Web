@@ -17,7 +17,8 @@ parts = [
     "04-topic-picker.js",
     "05-compatibility.js",
     "06-pdf-exporter.js",
-    "07-header-hug.js"
+    "07-header-hug.js",
+    "08-ui-wiring.js"
 ]
 
 print("[Bundle] Processing ES modules and bundling into data-bootstrap.js...")
@@ -55,5 +56,14 @@ for ph in [patches_hosted, patches_hosted_alt]:
     if os.path.exists(os.path.dirname(ph)) and os.path.exists(patches_src):
         shutil.copyfile(patches_src, ph)
         print(f"[Bundle] Synced patches.js to {ph}")
+
+# Sync all auxiliary JS files in app/js to site-tree/public_html/hosted/js
+js_src_dir = os.path.join(base_dir, "../js")
+for f in ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "avatar-music.js", "sx-songbook.js"]:
+    src_f = os.path.join(js_src_dir, f)
+    dst_f = os.path.join(base_dir, "../../site-tree/public_html/hosted/js", f)
+    if os.path.exists(src_f) and os.path.exists(os.path.dirname(dst_f)):
+        shutil.copyfile(src_f, dst_f)
+        print(f"[Bundle] Synced {f} to hosted/js/")
 
 print(f"[Bundle] Complete! Generated {round(os.path.getsize(target_app)/1024, 1)} KB ES-bundled bundle.")
