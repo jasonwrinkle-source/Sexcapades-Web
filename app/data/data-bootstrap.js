@@ -18259,7 +18259,174 @@ const TAXONOMY_CATEGORIES = [
             return true;
         }
 
+        function sxWireMapListeners() {
+            if (!In) return;
+            In.querySelectorAll(".branch-icon,.topic-icon,.category-label,.map-label").forEach(ul);
+            try { wh(); hg(); _a(); } catch (_) {}
+            In.querySelectorAll(".center-glance-ring-hit").forEach(e => {
+                e.addEventListener("mouseenter", () => Fc(e.dataset.centerGlanceIndex, e));
+                e.addEventListener("mouseleave", _c);
+                e.addEventListener("keydown", t => {
+                    "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), Fc(e.dataset.centerGlanceIndex, e));
+                });
+            });
+            In.querySelectorAll(".category-label,.map-label,.branch-icon,.topic-icon").forEach(e => e.addEventListener("click", Qa));
+            In.querySelectorAll(".concept-hit,.topic-stem,.tapered-stem,.hanky-midline,.hanky-midline-outline").forEach(e => e.addEventListener("click", Qsel));
+            In.querySelectorAll(".node-note-trigger").forEach(e => {
+                const t = t => {
+                    t.preventDefault(), t.stopPropagation();
+                    const n = e.getBoundingClientRect();
+                    xo(e.dataset.noteId, n.left + n.width / 2, n.bottom + 4, { focusNote: !0 });
+                };
+                e.addEventListener("click", t);
+                e.addEventListener("mouseenter", t);
+                e.addEventListener("keydown", e => { "Enter" !== e.key && " " !== e.key || t(e); });
+            });
+            In.querySelectorAll(".category-label,.map-label,.concept-hit,.topic-stem,.branch-icon,.topic-icon").forEach(e => e.addEventListener("dblclick", t => {
+                t.preventDefault(), t.stopPropagation();
+                const n = e.dataset.id || e.dataset.topicId || __sxClosestAction(e, "nodeGroup")?.dataset.layoutKey;
+                n && xo(n, t.clientX, t.clientY);
+            }));
+            In.querySelectorAll(".category-label,.map-label,.concept-hit").forEach(e => e.addEventListener("keydown", t => {
+                if ("Enter" !== t.key && " " !== t.key) return;
+                t.preventDefault(), t.stopPropagation();
+                const n = e.dataset.id || e.dataset.topicId;
+                t.shiftKey ? xo(n, innerWidth / 2, innerHeight / 2) : e.classList.contains("concept-hit") ? selectSpokeNode(n, !0) : $i(n);
+            }));
+            In.querySelectorAll(".hidden-count-badge").forEach(e => e.addEventListener("keydown", t => {
+                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), vi(e.dataset.id));
+            }));
+            In.querySelectorAll(".direction-hit").forEach(e => e.addEventListener("keydown", t => function(e, t) {
+                const n = "Enter" === t.key || " " === t.key, i = [ "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Home", "End" ].includes(t.key);
+                if (!n && !i) return;
+                if (mn.staticMap) return;
+                t.preventDefault(), t.stopPropagation();
+                const a = e.dataset.id, r = e.dataset.direction;
+                if (n) {
+                    if (Nt) {
+                        if (Nt.id !== a || Nt.direction !== r) return;
+                    } else Nt = { id: a, direction: r };
+                    return void Mr();
+                }
+                const o = da(a, Vi());
+                let s = o[r + "Known"] ? o[r] : 0;
+                if ("Home" === t.key) s = -100; else if ("End" === t.key) s = 100; else {
+                    const e = t.shiftKey ? 10 : 1;
+                    s += "ArrowRight" === t.key || "ArrowUp" === t.key ? e : -e;
+                }
+                const l = Vi(), c = cs(l).rated;
+                Nt = null, To(a, r, s), checkMilestoneTransition(l, c);
+            }(e, t)));
+            In.querySelectorAll(".curve-edit-handle").forEach(e => e.addEventListener("keydown", t => {
+                if (![ "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home" ].includes(t.key)) return;
+                if (mn.staticMap) return;
+                t.preventDefault(), t.stopPropagation();
+                const n = e.dataset.curveId, i = Number(e.dataset.bend) || 0;
+                "Home" === t.key ? delete bt[n] : bt[n] = Math.max(-260, Math.min(260, i + ("ArrowLeft" === t.key || "ArrowDown" === t.key ? -12 : 12)));
+                Mr({ anchorId: n });
+            }));
+            In.querySelectorAll(".rating-clear-hit").forEach(e => e.addEventListener("keydown", t => {
+                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), Fo(e.dataset.id, e.dataset.direction));
+            }));
+            const x = In.querySelector(".center-hit");
+            x && (x.addEventListener("keydown", e => {
+                "Enter" !== e.key && " " !== e.key || (e.preventDefault(), e.stopPropagation(), sh());
+            }), x.addEventListener("click", e => {
+                e.preventDefault(), e.stopPropagation(), performance.now() - Dp <= 700 || sh();
+            }), x.addEventListener("contextmenu", e => {
+                e.preventDefault();
+            }));
+            try { Ja(); } catch (_) {}
+        }
+
+        const SX_WARM_BOOT_VER = "4.0.0-w1";
+        const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v1";
+
+        function sxSaveWarmBootCache(profileId) {
+            if (!In || In.childNodes.length === 0 || !profileId) return;
+            try {
+                const key = sxGetMapVaultKey(profileId);
+                const payload = JSON.stringify({
+                    v: SX_WARM_BOOT_VER,
+                    time: Date.now(),
+                    key: key,
+                    profileId: profileId,
+                    markup: In.innerHTML
+                });
+                try {
+                    localStorage.setItem(SX_WARM_BOOT_STORAGE_KEY, payload);
+                } catch (_) {
+                    sessionStorage.setItem(SX_WARM_BOOT_STORAGE_KEY, payload);
+                }
+            } catch (_) {}
+        }
+
+        function sxGetWarmBootRaw() {
+            try {
+                return localStorage.getItem(SX_WARM_BOOT_STORAGE_KEY) || sessionStorage.getItem(SX_WARM_BOOT_STORAGE_KEY);
+            } catch (_) {
+                try {
+                    return sessionStorage.getItem(SX_WARM_BOOT_STORAGE_KEY);
+                } catch (_) {
+                    return null;
+                }
+            }
+        }
+
+        function sxTryRestoreWarmBoot() {
+            if (!In) return false;
+            try {
+                const raw = sxGetWarmBootRaw();
+                if (!raw) return false;
+                const cached = JSON.parse(raw);
+                if (!cached || cached.v !== SX_WARM_BOOT_VER) return false;
+                if (!cached.key || !cached.markup || !cached.profileId) return false;
+
+                const currentTargetId = Mt && vt[Mt] ? Mt : Object.keys(vt)[0] || null;
+                if (currentTargetId && cached.profileId !== currentTargetId) return false;
+
+                const currentKey = sxGetMapVaultKey(currentTargetId);
+                if (cached.key !== currentKey) return false;
+                if (typeof yt !== "undefined" && yt[currentTargetId]) return false;
+
+                In.innerHTML = cached.markup;
+                sxWireMapListeners();
+
+                sxActiveVaultKey = currentKey;
+                sxActiveVaultProfileId = currentTargetId;
+
+                // Dismiss boot loading dial immediately (< 50ms)
+                window.__sxBootChunkPaint = 0;
+                if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
+                if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
+                if (typeof window.__sxLoad === "function") window.__sxLoad(100);
+
+                try { vc(); } catch (_) {}
+                try { Ih(); } catch (_) {}
+                return true;
+            } catch (err) {
+                if (typeof __sxErrLog === "function") __sxErrLog("warm-boot-restore", err);
+                return false;
+            }
+        }
+
+        function sxInvalidateWarmBootCache(id) {
+            try {
+                if (!id) {
+                    localStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
+                    sessionStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
+                    return;
+                }
+                const raw = sxGetWarmBootRaw();
+                if (raw && raw.includes(id)) {
+                    localStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
+                    sessionStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
+                }
+            } catch (_) {}
+        }
+
         function sxVaultInvalidate(id) {
+            sxInvalidateWarmBootCache(id);
             if (!id) {
                 sxPlaneVault.clear();
                 sxActiveVaultKey = null;
@@ -19045,38 +19212,8 @@ const TAXONOMY_CATEGORIES = [
                     });
                 } catch (_) { __sxErrLog("layout-scoped-paint-splice", _); }
                 scTSplice = performance.now() - scTSp0;
-            }(), In.querySelectorAll(".branch-icon,.topic-icon,.category-label,.map-label").forEach(ul),
-            wh(), hg(), _a(), In.querySelectorAll(".center-glance-ring-hit").forEach(e => {
-                e.addEventListener("mouseenter", () => Fc(e.dataset.centerGlanceIndex, e)), e.addEventListener("mouseleave", _c), 
-                e.addEventListener("keydown", t => {
-                    "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), 
-                    Fc(e.dataset.centerGlanceIndex, e));
-                });
-            }), In.querySelectorAll(".category-label,.map-label,.branch-icon,.topic-icon").forEach(e => e.addEventListener("click", Qa)), In.querySelectorAll(".concept-hit,.topic-stem,.tapered-stem,.hanky-midline,.hanky-midline-outline").forEach(e => e.addEventListener("click", Qsel)), 
-            In.querySelectorAll(".node-note-trigger").forEach(e => {
-                const t = t => {
-                    t.preventDefault(), t.stopPropagation();
-                    const n = e.getBoundingClientRect();
-                    xo(e.dataset.noteId, n.left + n.width / 2, n.bottom + 4, {
-                        focusNote: !0
-                    });
-                };
-                e.addEventListener("click", t), e.addEventListener("mouseenter", t), e.addEventListener("keydown", e => {
-                    "Enter" !== e.key && " " !== e.key || t(e);
-                });
-            }), In.querySelectorAll(".category-label,.map-label,.concept-hit,.topic-stem,.branch-icon,.topic-icon").forEach(e => e.addEventListener("dblclick", t => {
-                t.preventDefault(), t.stopPropagation();
-                const n = e.dataset.id || e.dataset.topicId || __sxClosestAction(e, "nodeGroup")?.dataset.layoutKey;
-                n && xo(n, t.clientX, t.clientY);
-            })), In.querySelectorAll(".category-label,.map-label,.concept-hit").forEach(e => e.addEventListener("keydown", t => {
-                if ("Enter" !== t.key && " " !== t.key) return;
-                t.preventDefault(), t.stopPropagation();
-                const n = e.dataset.id || e.dataset.topicId;
-                t.shiftKey ? xo(n, innerWidth / 2, innerHeight / 2) : e.classList.contains("concept-hit") ? selectSpokeNode(n, !0) : $i(n);
-            })), In.querySelectorAll(".hidden-count-badge").forEach(e => e.addEventListener("keydown", t => {
-                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), 
-                vi(e.dataset.id));
-            })), vn) {
+            }(), sxWireMapListeners();
+            if (vn) {
                 const e = In.querySelector(`.hidden-count-badge[data-id="${CSS.escape(vn)}"]`), t = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                 e && Bt && !t && "function" == typeof e.animate && e.animate([ {
                     opacity: .55,
@@ -19093,51 +19230,6 @@ const TAXONOMY_CATEGORIES = [
                 }), vn = null;
             }
             yield;
-            In.querySelectorAll(".direction-hit").forEach(e => e.addEventListener("keydown", t => function(e, t) {
-                const n = "Enter" === t.key || " " === t.key, i = [ "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Home", "End" ].includes(t.key);
-                if (!n && !i) return;
-                if (mn.staticMap) return;
-                t.preventDefault(), t.stopPropagation();
-                const a = e.dataset.id, r = e.dataset.direction;
-                if (n) {
-                    if (Nt) {
-                        if (Nt.id !== a || Nt.direction !== r) return;
-                    } else Nt = {
-                        id: a,
-                        direction: r
-                    };
-                    return void Mr();
-                }
-                const o = da(a, Vi());
-                let s = o[r + "Known"] ? o[r] : 0;
-                if ("Home" === t.key) s = -100; else if ("End" === t.key) s = 100; else {
-                    const e = t.shiftKey ? 10 : 1;
-                    s += "ArrowRight" === t.key || "ArrowUp" === t.key ? e : -e;
-                }
-                const l = Vi(), c = cs(l).rated;
-                Nt = null, To(a, r, s), checkMilestoneTransition(l, c);
-            }(e, t))), In.querySelectorAll(".curve-edit-handle").forEach(e => e.addEventListener("keydown", t => {
-                if (![ "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home" ].includes(t.key)) return;
-                if (mn.staticMap) return;
-                t.preventDefault(), t.stopPropagation();
-                const n = e.dataset.curveId, i = Number(e.dataset.bend) || 0;
-                "Home" === t.key ? delete bt[n] : bt[n] = Math.max(-260, Math.min(260, i + ("ArrowLeft" === t.key || "ArrowDown" === t.key ? -12 : 12))), 
-                Mr({
-                    anchorId: n
-                });
-            })), In.querySelectorAll(".rating-clear-hit").forEach(e => e.addEventListener("keydown", t => {
-                "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), 
-                Fo(e.dataset.id, e.dataset.direction));
-            }));
-            const x = In.querySelector(".center-hit");
-            x && (x.addEventListener("keydown", e => {
-                "Enter" !== e.key && " " !== e.key || (e.preventDefault(), e.stopPropagation(), 
-                sh());
-            }), x.addEventListener("click", e => {
-                e.preventDefault(), e.stopPropagation(), performance.now() - Dp <= 700 || sh();
-            }), x.addEventListener("contextmenu", e => {
-                e.preventDefault();
-            })), Ja();
             // (Helpers hoisted to render-function scope so the
             // end-of-paint restore/blit steps below can re-run
             // finalisation after retained stems are spliced back.)
@@ -19903,6 +19995,7 @@ const TAXONOMY_CATEGORIES = [
                 if (Mt && vt[Mt] && (!yt[Mt])) {
                     sxActiveVaultKey = sxGetMapVaultKey(Mt);
                     sxActiveVaultProfileId = Mt;
+                    sxSaveWarmBootCache(Mt);
                 }
             } catch (_) {}
         }
@@ -20071,7 +20164,10 @@ const TAXONOMY_CATEGORIES = [
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SexcapadesEngine.Map = {
             render: sxRenderMap,
-            invalidateVault: sxVaultInvalidate
+            invalidateVault: sxVaultInvalidate,
+            tryRestoreWarmBoot: sxTryRestoreWarmBoot,
+            saveWarmBootCache: sxSaveWarmBootCache,
+            invalidateWarmBootCache: sxInvalidateWarmBootCache
         };
         window.SX = window.SexcapadesEngine;
 
@@ -37519,9 +37615,20 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             window.__SEXCAPADES_START_ROUTE = "", e ? !rS && (rS = !0, Ms(Mt && vt[Mt] ? Mt : Et)) : rS = !1;
         }(), document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : vS ? (mS(), 
         document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : requestAnimationFrame(() => t.setTimeout(() => {
-            Nu(), document.documentElement.classList.remove("route-listview-pending"), Do.open ? Is() : (Mr({
-                animate: !1
-            }), Ih()), mS();
+            Nu(), document.documentElement.classList.remove("route-listview-pending");
+            if (Do.open) {
+                Is();
+            } else {
+                let warmRestored = false;
+                try {
+                    warmRestored = Boolean(window.SexcapadesEngine?.Map?.tryRestoreWarmBoot?.());
+                } catch (_) {}
+                if (!warmRestored) {
+                    Mr({ animate: !1 });
+                    Ih();
+                }
+            }
+            mS();
         }, 0)), window.__sexcapades = {
             ProfileIO: yx,
             profilePayload: function(e) {
