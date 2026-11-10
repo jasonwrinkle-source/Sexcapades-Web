@@ -3859,7 +3859,7 @@
         }
         function Cr(e, t = "rendering problem") {
             window.__sxLoad && window.__sxLoad(-1);
-            jn = !0, On = null, Tn && (Tn.textContent = `The hypermap hit a ${t}. Your open profile is unchanged.`), 
+            jn = !0, On = null, Tn && (Tn.textContent = `The hypermap hit a ${t}. Your open profile is unchanged.`),
             Ln && (Ln.hidden = !1), console.error("Map paused safely.", e);
         }
         // Item 11 (Build 2026-10-16_1909) made the tuned layout the default
@@ -4019,8 +4019,8 @@
         }
 
         const sxRenderMap = function(opts) { return Mr(opts); };
-        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
-        window.SexcapadesRuntime.Map = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SexcapadesEngine.Map = {
             render: sxRenderMap
         };
 

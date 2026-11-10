@@ -277,8 +277,8 @@
                 }
 
         const sxUpdateGlance = function() { return vc(); };
-        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
-        window.SexcapadesRuntime.Compatibility = {
+        window.SexcapadesEngine = window.SexcapadesEngine || {};
+        window.SexcapadesEngine.Compatibility = {
             updateGlance: sxUpdateGlance
         };
 
