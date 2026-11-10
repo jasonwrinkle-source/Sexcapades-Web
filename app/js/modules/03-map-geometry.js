@@ -2235,7 +2235,81 @@
         // paints its checkpoints progressively. Ordinary renders
         // stay synchronous; the global default is unchanged.
         let sxChunkPaint = !1, sxPaintPromise = null, sxChunkBudget = 12;
+
+        // SX_PLANE_VAULT: Instant profile switching cache
+        // Keeps rendered DOM trees (with attached event listeners)
+        // intact in memory inside DocumentFragments.
+        const sxPlaneVault = new Map();
+        let sxActiveVaultKey = null;
+        let sxActiveVaultProfileId = null;
+
+        function sxGetMapVaultKey(id) {
+            if (!id) return "empty";
+            const v = (typeof vht !== "undefined" && Boolean(vht[id])) ? (typeof av === "function" && typeof vpt !== "undefined" ? av(vpt[id]) : "on") : "off";
+            const mode = (typeof Qi === "function" && Qi()) ? "compare:" + Array.from(Xi()).sort().join(",") : "single:" + id;
+            const search = (typeof $n !== "undefined" && $n && $n.size) ? Array.from($n).sort().join(",") : "none";
+            const detail = typeof mapDetailLevel !== "undefined" ? mapDetailLevel : "norm";
+            const cat = typeof Pt !== "undefined" ? Pt : "all";
+            const rated = typeof Sn !== "undefined" ? Sn : "all";
+            const blind = typeof Rt !== "undefined" ? Rt : false;
+            return `${mode}|det:${detail}|cat:${cat}|srch:${search}|sn:${rated}|veil:${v}|blind:${blind}`;
+        }
+
+        function sxVaultCaptureCurrent() {
+            if (!sxActiveVaultKey || !In || In.childNodes.length === 0) return;
+            const frag = document.createDocumentFragment();
+            while (In.firstChild) {
+                frag.appendChild(In.firstChild);
+            }
+            if (sxPlaneVault.size >= 8) {
+                const oldestKey = sxPlaneVault.keys().next().value;
+                sxPlaneVault.delete(oldestKey);
+            }
+            sxPlaneVault.set(sxActiveVaultKey, frag);
+            sxActiveVaultKey = null;
+            sxActiveVaultProfileId = null;
+        }
+
+        function sxVaultTryRestore(profileId) {
+            if (!profileId || !In) return false;
+            if (typeof yt !== "undefined" && yt[profileId]) return false;
+            const key = sxGetMapVaultKey(profileId);
+            const cachedFrag = sxPlaneVault.get(key);
+            if (!cachedFrag || cachedFrag.childNodes.length === 0) return false;
+
+            sxVaultCaptureCurrent();
+            if (typeof In.replaceChildren === "function") {
+                In.replaceChildren(cachedFrag);
+            } else {
+                while (In.firstChild) In.removeChild(In.firstChild);
+                In.appendChild(cachedFrag);
+            }
+            sxPlaneVault.delete(key);
+            sxActiveVaultKey = key;
+            sxActiveVaultProfileId = profileId;
+            return true;
+        }
+
+        function sxVaultInvalidate(id) {
+            if (!id) {
+                sxPlaneVault.clear();
+                sxActiveVaultKey = null;
+                sxActiveVaultProfileId = null;
+                return;
+            }
+            if (sxActiveVaultProfileId === id) {
+                sxActiveVaultKey = null;
+                sxActiveVaultProfileId = null;
+            }
+            for (const k of sxPlaneVault.keys()) {
+                if (k.includes(id)) {
+                    sxPlaneVault.delete(k);
+                }
+            }
+        }
+
         function* Ar(i = {}) {
+            try { sxVaultCaptureCurrent(); } catch (_) {}
             const scT0 = performance.now();
             ki && (t.clear(ki), ki = 0), dh(), uh(), $r(), window.__sxLoad && window.__sxLoad(5 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — render start */);
             // Blit session (P3) paint-top gate: end the session
@@ -3856,6 +3930,12 @@
                 sxFinaliseStems();
             } catch (_) { __sxErrLog("layout-stem-finalise-blit", _); }
             }
+            try {
+                if (Mt && vt[Mt] && (!yt[Mt])) {
+                    sxActiveVaultKey = sxGetMapVaultKey(Mt);
+                    sxActiveVaultProfileId = Mt;
+                }
+            } catch (_) {}
         }
         function Cr(e, t = "rendering problem") {
             window.__sxLoad && window.__sxLoad(-1);
@@ -4021,8 +4101,10 @@
         const sxRenderMap = function(opts) { return Mr(opts); };
         window.SexcapadesEngine = window.SexcapadesEngine || {};
         window.SexcapadesEngine.Map = {
-            render: sxRenderMap
+            render: sxRenderMap,
+            invalidateVault: sxVaultInvalidate
         };
+        window.SX = window.SexcapadesEngine;
 
         function Mr(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
@@ -6109,6 +6191,16 @@
             // untouched.
             if (!vt[e]) return;
             kw(), xw(), Sw(), sxDeactivateMatchStage(), wf && Lw(), It = e, Mt = e, Nt = null, Jw();
+
+            // Layer Vault (Step 1): If this profile was already rendered with
+            // identical state, restore its DOM fragment instantly (< 5ms).
+            if (sxVaultTryRestore(e)) {
+                try { vc(); } catch (_) {}
+                window.__sxLoad && window.__sxLoad(100);
+                try { Ih(); } catch (_) {}
+                return;
+            }
+
             const name = (wt && wt[e]) || e;
             window.__sxRouteChunkPaint = 40;
             if (typeof window.__sxLoadSessionStart === "function") {
@@ -6423,13 +6515,15 @@
             yl = !1, c !== Mt && Js(c);
         }), e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", () => {
             if (!an) return;
+            sxVaultInvalidate();
             sxSel(null, "dismiss"), Jw(), Mr(), Ih();
         }), e.all("[data-filter]").forEach(t => t.addEventListener("click", () => {
-            "true" !== t.getAttribute("aria-disabled") && !Rt && (Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))), 
+            "true" !== t.getAttribute("aria-disabled") && !Rt && (sxVaultInvalidate(), Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))),
             Mr());
         }));
         const xl = e.byId("blindModeToggle");
         xl && xl.addEventListener("click", () => function(e, {render: t = !0} = {}) {
+            sxVaultInvalidate();
             const n = Boolean(e) && Fa();
             n !== Rt ? (n ? (Ot = Pt, Pt = "mutual", Nt = null, so()) : Pt = Ot || "all", Rt = n, 
             Da(), t && Mr({
