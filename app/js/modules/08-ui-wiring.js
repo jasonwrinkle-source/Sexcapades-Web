@@ -148,12 +148,8 @@ __sxInit(function () {
   var searchEl = SexcapadesRuntime.DOM.byId("fetlifeMapSearch");
   var resultEl = SexcapadesRuntime.DOM.byId("fetlifeMapResult");
   var addRowEl = SexcapadesRuntime.DOM.byId("fetlifeMapAddRow");
-  var filterBtn = SexcapadesRuntime.DOM.byId("fetlifeMapFilter");
   var countEl = SexcapadesRuntime.DOM.byId("fetlifeMapCount");
   var tableBody = SexcapadesRuntime.DOM.byId("fetlifeMapTableBody");
-  var resetBtn = SexcapadesRuntime.DOM.byId("fetlifeMapResetBtn");
-  var downloadBtn = SexcapadesRuntime.DOM.byId("fetlifeMapDownloadBtn");
-  var editedCountEl = SexcapadesRuntime.DOM.byId("fetlifeMapEditedCount");
 
   function openEditor() { window.__sxDialog.open(dlg); renderTable(); }
   function closeEditor() { window.__sxDialog.close(dlg); }
@@ -195,6 +191,152 @@ __sxInit(function () {
   if (guide && window.MutationObserver) new MutationObserver(syncRow).observe(guide, { attributes: true, attributeFilter: ["hidden"] });
   document.addEventListener("click", function () { setTimeout(syncRow, 0); }, true);
   syncRow();
+})();
+});
+
+
+/* ---- consolidated observers (a11y, titles, timer auto-pause) ---- */
+__sxInit(function () {
+(function() {
+  function syncTabTitles() {
+    document.querySelectorAll('.profile-tab-button').forEach(function(btn) {
+      var label = btn.querySelector('[data-profile-label]');
+      var name = label ? (label.textContent || '').trim() : (btn.textContent || '').trim();
+      if (name) btn.title = name;
+    });
+  }
+  function syncTimerLabel() {
+    var btn = document.querySelector('.outline-timer-toggle');
+    if (!btn) return;
+    if (btn.classList.contains('is-paused')) {
+      btn.setAttribute('aria-label', 'Timer paused — tab was hidden. Tap to resume.');
+      btn.title = 'Paused — tab hidden (auto-pause). Tap to resume.';
+    } else {
+      btn.setAttribute('aria-label', 'Pause timer');
+      btn.title = '';
+    }
+  }
+  function enhanceA11y() {
+    document.querySelectorAll('[data-category-toggle], .branch-toggle, [data-branch-toggle]').forEach(function(btn) {
+      var name = btn.getAttribute('data-category-name') || btn.getAttribute('data-branch-name') ||
+                 (btn.textContent || '').trim().split('\n')[0];
+      if (name && !/category|branch/i.test(btn.getAttribute('aria-label') || '')) {
+        var cur = btn.getAttribute('aria-label') || 'Toggle';
+        btn.setAttribute('aria-label', cur + ' — ' + name + ' category');
+      }
+    });
+    document.querySelectorAll('.outline-category-title, [data-outline-category]').forEach(function(el) {
+      if (!el.getAttribute('role') && !/^H[1-6]$/.test(el.tagName)) {
+        el.setAttribute('role', 'heading');
+        el.setAttribute('aria-level', '2');
+      }
+    });
+  }
+  function syncAll() { syncTabTitles(); syncTimerLabel(); enhanceA11y(); }
+  new MutationObserver(syncAll).observe(document.body, {
+    childList: true, subtree: true, attributes: true, attributeFilter: ['class']
+  });
+  syncAll();
+})();
+});
+
+
+/* ---- unified title bar & branding links ---- */
+__sxInit(function () {
+(function () {
+  function boot() {
+    var btn = SexcapadesRuntime.DOM.byId("mapListViewButton");
+    if (btn && btn.parentNode) {
+      var h1 = btn.parentNode.querySelector("h1");
+      if (h1 && h1.parentNode === btn.parentNode) btn.parentNode.insertBefore(h1, btn);
+    }
+    var src = SexcapadesRuntime.DOM.byId("reviewLink");
+    if (src) {
+      Array.prototype.slice.call(document.querySelectorAll("[data-guide-slot]")).forEach(function (slot) {
+        var clone = src.cloneNode(true);
+        clone.removeAttribute("id");
+        Array.prototype.slice.call(clone.querySelectorAll("[id]")).forEach(function (n) { n.removeAttribute("id"); });
+        var svg = clone.querySelector("svg");
+        if (svg) {
+          svg.removeAttribute("tabindex");
+          svg.removeAttribute("role");
+          Array.prototype.slice.call(svg.querySelectorAll(".horizon-ring-hit")).forEach(function (p) { p.parentNode.removeChild(p); });
+        }
+        slot.appendChild(clone);
+      });
+    }
+    Array.prototype.slice.call(document.querySelectorAll("[data-open-about]")).forEach(function (b) {
+      b.addEventListener("click", function () {
+        var o = SexcapadesRuntime.DOM.byId("openAppAbout");
+        if (o) o.click();
+      });
+    });
+  }
+  boot();
+})();
+});
+
+
+/* ---- guide qmark gestures (1-tap Guide, 2-taps About, 5-taps Easter egg) ---- */
+__sxInit(function () {
+(function () {
+  var link = document.getElementById("reviewLink");
+  if (!link) return;
+  var WINDOW_MS = 400;
+  var count = 0;
+  var timer = null;
+  function reset() {
+    count = 0;
+    if (timer) { clearTimeout(timer); timer = null; }
+  }
+  function openGuide() { window.open(link.href, "_blank", "noopener"); }
+  function openAbout() {
+    var o = document.getElementById("openAppAbout");
+    if (o) o.click();
+  }
+  function openEasterEgg() {
+    var egg = document.querySelector(".easter-egg");
+    if (egg) { egg.click(); return; }
+    window.open("https://linktr.ee/SkewedViewBlue", "_blank", "noopener");
+  }
+  function resolveGesture() {
+    var n = count;
+    reset();
+    if (n === 1) openGuide();
+    else if (n === 2) openAbout();
+  }
+  link.addEventListener("click", function (event) {
+    event.preventDefault();
+    count += 1;
+    if (count >= 5) {
+      reset();
+      openEasterEgg();
+      return;
+    }
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(resolveGesture, WINDOW_MS);
+  });
+})();
+});
+
+
+/* ---- list view glow ---- */
+__sxInit(function () {
+(function() {
+  function init() {
+    var btn = SexcapadesRuntime.DOM.byId("mapListViewButton"), tabs = SexcapadesRuntime.DOM.byId("profileTabs");
+    if (!btn || !tabs) return;
+    var seen = false;
+    function hasProfiles() { return Boolean(tabs.querySelector(".profile-tab")); }
+    function sync() { btn.classList.toggle("list-view-glow", !seen && !hasProfiles()); }
+    function stop() { if (seen) return; seen = true; btn.classList.remove("list-view-glow"); }
+    btn.addEventListener("pointerenter", stop);
+    btn.addEventListener("focus", stop);
+    btn.addEventListener("click", stop);
+    new MutationObserver(sync).observe(tabs, { childList: true, subtree: true });
+    sync();
+  }
+  init();
 })();
 });
 

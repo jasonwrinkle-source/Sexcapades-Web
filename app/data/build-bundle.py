@@ -14,6 +14,7 @@ parts = [
     "02b-taxonomy-data.js",
     "02-taxonomy-core.js",
     "03-map-geometry.js",
+    "03b-map-interaction.js",
     "04-topic-picker.js",
     "05-compatibility.js",
     "06-pdf-exporter.js",
