@@ -2244,9 +2244,9 @@
         let sxActiveVaultProfileId = null;
 
         function sxGetMapVaultKey(id) {
-            if (!id) return "empty";
-            const v = (typeof vht !== "undefined" && Boolean(vht[id])) ? (typeof av === "function" && typeof vpt !== "undefined" ? av(vpt[id]) : "on") : "off";
-            const mode = (typeof Qi === "function" && Qi()) ? "compare:" + Array.from(Xi()).sort().join(",") : "single:" + id;
+            const profId = id || "__default__";
+            const v = (typeof vht !== "undefined" && Boolean(vht[profId])) ? (typeof av === "function" && typeof vpt !== "undefined" ? av(vpt[profId]) : "on") : "off";
+            const mode = (typeof Qi === "function" && Qi()) ? "compare:" + Array.from(Xi()).sort().join(",") : "single:" + profId;
             const search = (typeof $n !== "undefined" && $n && $n.size) ? Array.from($n).sort().join(",") : "none";
             const detail = typeof mapDetailLevel !== "undefined" ? mapDetailLevel : "norm";
             const cat = typeof Pt !== "undefined" ? Pt : "all";
@@ -2374,22 +2374,38 @@
         const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v1";
 
         function sxSaveWarmBootCache(profileId) {
-            if (!In || In.childNodes.length === 0 || !profileId) return;
+            if (!In || In.childNodes.length === 0) return;
+            const profId = profileId || "__default__";
             try {
-                const key = sxGetMapVaultKey(profileId);
+                const key = sxGetMapVaultKey(profId);
                 const payload = JSON.stringify({
                     v: SX_WARM_BOOT_VER,
                     time: Date.now(),
                     key: key,
-                    profileId: profileId,
+                    profileId: profId,
                     markup: In.innerHTML
                 });
+                let saved = false;
                 try {
                     localStorage.setItem(SX_WARM_BOOT_STORAGE_KEY, payload);
-                } catch (_) {
-                    sessionStorage.setItem(SX_WARM_BOOT_STORAGE_KEY, payload);
+                    saved = true;
+                } catch (lsErr) {
+                    console.warn("[Sexcapades WarmBoot] localStorage.setItem failed, fallback to sessionStorage:", lsErr);
                 }
-            } catch (_) {}
+                if (!saved) {
+                    try {
+                        sessionStorage.setItem(SX_WARM_BOOT_STORAGE_KEY, payload);
+                        saved = true;
+                    } catch (ssErr) {
+                        console.warn("[Sexcapades WarmBoot] sessionStorage.setItem failed:", ssErr);
+                    }
+                }
+                if (saved) {
+                    console.log("[Sexcapades WarmBoot] Saved hypermap cache for [" + profId + "] (" + Math.round(payload.length / 1024) + " KB)");
+                }
+            } catch (err) {
+                console.warn("[Sexcapades WarmBoot] Cache save error:", err);
+            }
         }
 
         function sxGetWarmBootRaw() {
@@ -2408,16 +2424,28 @@
             if (!In) return false;
             try {
                 const raw = sxGetWarmBootRaw();
-                if (!raw) return false;
+                if (!raw) {
+                    console.log("[Sexcapades WarmBoot] No warm-boot cache found in storage.");
+                    return false;
+                }
                 const cached = JSON.parse(raw);
-                if (!cached || cached.v !== SX_WARM_BOOT_VER) return false;
+                if (!cached || cached.v !== SX_WARM_BOOT_VER) {
+                    console.log("[Sexcapades WarmBoot] Cache version mismatch.");
+                    return false;
+                }
                 if (!cached.key || !cached.markup || !cached.profileId) return false;
 
-                const currentTargetId = Mt && vt[Mt] ? Mt : Object.keys(vt)[0] || null;
-                if (currentTargetId && cached.profileId !== currentTargetId) return false;
+                const currentTargetId = Mt && vt[Mt] ? Mt : (Object.keys(vt).length ? Object.keys(vt)[0] : "__default__");
+                if (cached.profileId !== currentTargetId) {
+                    console.log("[Sexcapades WarmBoot] Profile mismatch:", cached.profileId, "vs current", currentTargetId);
+                    return false;
+                }
 
                 const currentKey = sxGetMapVaultKey(currentTargetId);
-                if (cached.key !== currentKey) return false;
+                if (cached.key !== currentKey) {
+                    console.log("[Sexcapades WarmBoot] Key mismatch:", cached.key, "vs current", currentKey);
+                    return false;
+                }
                 if (typeof yt !== "undefined" && yt[currentTargetId]) return false;
 
                 n(In, cached.markup);
@@ -2434,9 +2462,11 @@
 
                 try { vc(); } catch (_) {}
                 try { Ih(); } catch (_) {}
+                console.log("[Sexcapades WarmBoot] Warm boot restore SUCCESSFUL (< 50ms) for [" + currentTargetId + "]!");
                 return true;
             } catch (err) {
                 if (typeof __sxErrLog === "function") __sxErrLog("warm-boot-restore", err);
+                console.warn("[Sexcapades WarmBoot] Warm boot restore error:", err);
                 return false;
             }
         }
@@ -4027,10 +4057,12 @@
             } catch (_) { __sxErrLog("layout-stem-finalise-blit", _); }
             }
             try {
-                if (Mt && vt[Mt] && (!yt[Mt])) {
-                    sxActiveVaultKey = sxGetMapVaultKey(Mt);
-                    sxActiveVaultProfileId = Mt;
-                    sxSaveWarmBootCache(Mt);
+                const activeId = Mt && vt[Mt] ? Mt : "__default__";
+                const isDirty = Boolean(typeof yt !== "undefined" && yt[activeId]);
+                if (!isDirty && In && In.childNodes.length > 0) {
+                    sxActiveVaultKey = sxGetMapVaultKey(activeId);
+                    sxActiveVaultProfileId = activeId;
+                    sxSaveWarmBootCache(activeId);
                 }
             } catch (_) {}
         }

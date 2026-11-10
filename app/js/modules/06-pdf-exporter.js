@@ -9143,6 +9143,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 if (!warmRestored) {
                     Mr({ animate: !1 });
                     Ih();
+                } else {
+                    try { Ih(); } catch (_) {}
                 }
             }
             mS();
