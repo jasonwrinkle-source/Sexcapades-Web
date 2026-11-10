@@ -7124,6 +7124,63 @@ const TAXONOMY_CATEGORIES = [
         Ze[Et] = {}, Qe[Et] = {}, Je[Et] = {}, et[Et] = {}, tt[Et] = {}, at[Et] = {};
         let Ct = !1, Mt = null, It = null, Pt = "all", Lt = null, Tt = "", Nt = null, Dt = null, Rt = !1, Ot = "all", Bt = !0;
         let sxSelEditorMirrored = null;
+
+        // Phase 2: Semantic state aliases and runtime state bridge
+        const sxProfileRatings = vt;
+        const sxProfileNames = wt;
+        const sxProfileAnnotations = Qe;
+        const sxProfileComparisons = ft;
+        const sxProfileDirty = yt;
+        const sxRatingSources = Ze;
+        const sxFantasyOnly = Je;
+        const sxAlreadyTried = et;
+        const sxProfileNotes = tt;
+        const sxImportedChildren = at;
+        const sxProfileVeils = vpt;
+        const sxProfileVeilEnabled = vht;
+        const sxProfileTimes = mt;
+
+        function sxGetActiveProfileId() { return Mt; }
+        function sxSetActiveProfileId(id) { Mt = id; }
+        function sxGetSelectedTopicId() { return Lt; }
+        function sxSetSelectedTopicId(id) { Lt = id; }
+        function sxGetSearchTerm() { return Tt; }
+        function sxSetSearchTerm(term) { Tt = term; }
+        function sxGetCategoryFilter() { return Pt; }
+        function sxSetCategoryFilter(f) { Pt = f; }
+
+        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
+        window.SexcapadesRuntime.State = {
+            getActiveProfileId: sxGetActiveProfileId,
+            setActiveProfileId: sxSetActiveProfileId,
+            getSelectedTopicId: sxGetSelectedTopicId,
+            setSelectedTopicId: sxSetSelectedTopicId,
+            getSearchTerm: sxGetSearchTerm,
+            setSearchTerm: sxSetSearchTerm,
+            getCategoryFilter: sxGetCategoryFilter,
+            setCategoryFilter: sxSetCategoryFilter,
+            getRatings: (id) => (id ? vt[id] : vt),
+            getNames: (id) => (id ? wt[id] : wt),
+            getVeils: (id) => (id ? vpt[id] : vpt),
+            getVeilEnabled: (id) => (id ? vht[id] : vht),
+            getComparisons: (id) => (id ? ft[id] : ft),
+            getDirty: (id) => (id ? yt[id] : yt),
+            getNotes: (id) => (id ? tt[id] : tt),
+            raw: {
+                ratings: vt,
+                names: wt,
+                annotations: Qe,
+                comparisons: ft,
+                dirty: yt,
+                sources: Ze,
+                alreadyTried: et,
+                notes: tt,
+                importedChildren: at,
+                veils: vpt,
+                veilEnabled: vht,
+                times: mt
+            }
+        };
         function jt() {
             return Mt && yt[Mt] ? Mt : Object.keys(yt).find(e => vt[e] && yt[e]) || null;
         }
@@ -13676,6 +13733,32 @@ const TAXONOMY_CATEGORIES = [
         function Fa() {
             return Ta().length >= 2 || Boolean(Kd());
         }
+
+        // Phase 2: Semantic function bridge
+        const sxIsVeilActive = Ia;
+        const sxGetComparisonProfileIds = Ta;
+        const sxIsComparisonActive = Fa;
+        const sxGetTopicStance = ca;
+        const sxGetTopicScore = Ca;
+        const sxMapVeilThreshold = Aa;
+        const sxGetActiveProfileOrDefault = Vi;
+        const sxGetComparisonOutcome = di;
+        const sxGetActiveOrComparisonProfiles = Xi;
+
+        window.SexcapadesRuntime.Profiles = {
+            isVeilActive: sxIsVeilActive,
+            getComparisonProfileIds: sxGetComparisonProfileIds,
+            isComparisonActive: sxIsComparisonActive,
+            getActiveProfileOrDefault: sxGetActiveProfileOrDefault,
+            getActiveOrComparisonProfiles: sxGetActiveOrComparisonProfiles,
+            getComparisonOutcome: sxGetComparisonOutcome,
+            autoSelect: sxAutoSelect
+        };
+        window.SexcapadesRuntime.Topics = {
+            getStance: sxGetTopicStance,
+            getScore: sxGetTopicScore,
+            getVeilThreshold: sxMapVeilThreshold
+        };
         function Na(e) {
             if (!Rt || isCatId(e)) return !1;
             const t = Ta();
@@ -19875,6 +19958,13 @@ const TAXONOMY_CATEGORIES = [
                 ctr && (window.__sxInterimAnchor = { branch: branch, x: ctr.x, y: ctr.y });
             } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
         }
+
+        const sxRenderMap = function(opts) { return Mr(opts); };
+        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
+        window.SexcapadesRuntime.Map = {
+            render: sxRenderMap
+        };
+
         function Mr(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
             if (jn && !e.recovery) return !1;
