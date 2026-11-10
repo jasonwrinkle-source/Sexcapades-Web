@@ -45,7 +45,9 @@ self.addEventListener('install', function (event) {
           var jobs = manifest.files.map(function (entry) {
             var url = entry && entry.url;
             if (!url) return Promise.resolve();
-            return cache.add(url).catch(function () { /* one bad file must not fail the rest */ });
+            return fetch(url, { cache: 'reload' }).then(function (res) {
+              if (res && res.status === 200) return cache.put(url, res);
+            }).catch(function () { /* one bad file must not fail the rest */ });
           });
           return Promise.all(jobs);
         }).catch(function () { /* manifest step is best-effort only */ });
