@@ -3081,10 +3081,12 @@
         }
         function zt(e) {
             e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), Gt(), Kt(e), sxRefreshGroupOwn(e));
+            try { window.SexcapadesEngine?.Map?.invalidateVault(e); } catch (_) {}
         }
         function Vt(e) {
             e && delete yt[e], e && delete draftRatings[e], e && draftSaveTimers[e] && (t.clear(draftSaveTimers[e]), delete draftSaveTimers[e]), 
             Gt(), e && Kt(e);
+            try { window.SexcapadesEngine?.Map?.invalidateVault(e); } catch (_) {}
         }
         let sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = [], Qt = null, Jt = () => {};
         // Last PURE pair computation per group id (blocker stage,
@@ -8257,7 +8259,8 @@
         }
         window.__SEXCAPADES_SET_MAP_DETAIL = function(level) {
             if (!Object.prototype.hasOwnProperty.call(DETAIL_CAPS, level) || level === mapDetailLevel) return;
-            mapDetailLevel = level, document.querySelectorAll("[data-detail-level]").forEach(e => e.setAttribute("aria-pressed", String(e.dataset.detailLevel === level))), 
+            try { window.SexcapadesEngine?.Map?.invalidateVault(); } catch (_) {}
+            mapDetailLevel = level, document.querySelectorAll("[data-detail-level]").forEach(e => e.setAttribute("aria-pressed", String(e.dataset.detailLevel === level))),
             Mr({
                 animate: !1,
                 forceRepaint: !0
