@@ -429,8 +429,7 @@ window.__sxProgressWidget=function(refs){
   }
   function hideNow(){
     dialog.classList.add("is-done");
-    if(reduced){dialog.hidden=true;return;}
-    setTimeout(function(){dialog.hidden=true;},320);
+    dialog.hidden = true;
   }
   function revealFallback(){
     if(document.querySelectorAll(".node-group").length>0)return;
