@@ -9131,7 +9131,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const e = dS();
             window.__SEXCAPADES_START_ROUTE = "", e ? !rS && (rS = !0, Ms(Mt && vt[Mt] ? Mt : Et)) : rS = !1;
         }(), document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : vS ? (mS(), 
-        document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : requestAnimationFrame(() => t.setTimeout(async () => {
+        document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : (async () => {
             Nu(), document.documentElement.classList.remove("route-listview-pending");
             if (Do.open) {
                 Is();
@@ -9148,7 +9148,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
             }
             mS();
-        }, 0)), window.__sexcapades = {
+        })(), window.__sexcapades = {
             ProfileIO: yx,
             profilePayload: function(e) {
                 return yx.serialize("profile", {
