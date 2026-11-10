@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://sexcapades.io/guides" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>Kink Lists & Negotiation: Four Practical Guides</title>
+  <meta name="description" content="Practical, sex-positive guides to kink lists, Yes/No/Maybe results, scene planning, and give/receive ratings—without judgment or awkwardness." />
+  <meta name="keywords" content="how to negotiate kinks, what to do after kink list, yes no maybe list, kink list for couples, kink negotiation, plan a BDSM scene, give receive kink ratings" />
+  <meta property="og:title" content="Kink Lists & Negotiation: Four Practical Guides" />
+  <meta property="og:description" content="Turn private interests into clear, useful conversations—then into scenes that respect everyone’s limits." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #101316;
+      --bg-elevated: #171c20;
+      --bg-soft: #1d2429;
+      --text: #f3f6f7;
+      --muted: #aebbc2;
+      --line: #344149;
+      --accent: #4ee0ce;
+      --accent-deep: #123d3a;
+      --warm: #ff9d6e;
+      --warm-deep: #46291f;
+      --link: #73eadc;
+      --shadow: 0 20px 55px rgba(0,0,0,.28);
+      --measure: 68ch;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        /* The publication is intentionally dark in both system modes; this
+           daylight variant raises surface contrast without turning the page white. */
+        --bg: #182024;
+        --bg-elevated: #202a2f;
+        --bg-soft: #263239;
+        --text: #f8fbfb;
+        --muted: #c0cdd2;
+        --line: #43535b;
+        --accent: #5ce8d6;
+        --accent-deep: #163f3d;
+        --warm: #ffac81;
+        --warm-deep: #513124;
+        --link: #79f0e0;
+        --shadow: 0 18px 48px rgba(0,0,0,.22);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 32px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "IBM Plex Sans", sans-serif;
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: var(--link); text-underline-offset: .18em; text-decoration-thickness: .08em; }
+    a:hover { color: var(--text); }
+    .progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 3px;
+      z-index: 10;
+      background: transparent;
+    }
+    .progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--accent);
+    }
+    .hero {
+      padding: clamp(56px, 10vw, 112px) max(22px, calc((100vw - 1160px) / 2));
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(115deg, color-mix(in srgb, var(--accent-deep) 72%, transparent), transparent 48%),
+        var(--bg);
+    }
+    .hero-inner { max-width: 930px; }
+    .series {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .series::before { content: ""; width: 34px; height: 2px; background: currentColor; }
+    h1, h2, h3 { font-family: "Source Serif 4", serif; line-height: 1.1; text-wrap: balance; }
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(2.7rem, 7vw, 5.6rem);
+      letter-spacing: -.045em;
+      font-weight: 600;
+    }
+    .hero p {
+      max-width: 680px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+      line-height: 1.65;
+    }
+    .hero .promise { color: var(--text); font-weight: 600; }
+    .layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 760px);
+      gap: clamp(34px, 7vw, 84px);
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 28px;
+      padding-top: 6px;
+    }
+    .toc-label {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .toc ol { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+    .toc li { border-bottom: 1px solid var(--line); }
+    .toc a {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 9px;
+      padding: 14px 4px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      line-height: 1.35;
+      transition: color .2s ease;
+    }
+    .toc a span { color: var(--accent); font-variant-numeric: tabular-nums; }
+    .toc a:hover, .toc a.active { color: var(--text); }
+    .articles { min-width: 0; }
+    article {
+      padding: 0 0 76px;
+      margin: 0 0 76px;
+      border-bottom: 1px solid var(--line);
+    }
+    article:last-child { margin-bottom: 0; }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      align-items: center;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    .number { color: var(--accent); }
+    .article-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--line); }
+    h2 {
+      max-width: 19ch;
+      margin: 0 0 28px;
+      font-size: clamp(2.15rem, 5vw, 3.7rem);
+      letter-spacing: -.035em;
+      font-weight: 600;
+    }
+    .dek {
+      max-width: 62ch;
+      margin: -10px 0 32px;
+      color: var(--muted);
+      font-size: 1.13rem;
+      line-height: 1.65;
+    }
+    h3 {
+      margin: 34px 0 12px;
+      font-size: 1.45rem;
+      letter-spacing: -.015em;
+    }
+    article p { max-width: var(--measure); margin: 0 0 18px; }
+    .steps {
+      display: grid;
+      gap: 12px;
+      margin: 26px 0 30px;
+      padding: 0;
+      list-style: none;
+    }
+    .steps li {
+      position: relative;
+      padding: 15px 18px 15px 48px;
+      background: var(--bg-soft);
+      border-radius: 5px 18px 18px 5px;
+      line-height: 1.5;
+    }
+    .steps li::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 17px;
+      top: 15px;
+      color: var(--accent);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .callout {
+      margin: 30px 0;
+      padding: 22px 24px;
+      background: var(--accent-deep);
+      border-radius: 4px 22px 22px 4px;
+      color: var(--text);
+    }
+    .callout strong { display: block; margin-bottom: 5px; color: var(--accent); }
+    .callout p { margin: 0; }
+    blockquote {
+      margin: 28px 0;
+      padding: 4px 0 4px 24px;
+      border-left: 3px solid var(--warm);
+      color: var(--text);
+      font-family: "Source Serif 4", serif;
+      font-size: 1.22rem;
+      line-height: 1.55;
+    }
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 36px;
+      padding: 22px 24px;
+      background: var(--warm-deep);
+      border-radius: 18px 4px 18px 4px;
+    }
+    .cta p { margin: 0; font-weight: 700; line-height: 1.4; }
+    .cta a {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: var(--warm);
+      color: #101316;
+      font-size: .9rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .cta a::after { content: "↗"; }
+    .cta a:hover { background: var(--text); color: var(--bg); }
+    .note {
+      margin: 24px 0;
+      padding: 0 0 0 18px;
+      border-left: 2px solid var(--line);
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 26px 0 30px;
+    }
+    .mini-grid > div { padding: 18px; background: var(--bg-soft); border-radius: 5px 16px 16px 5px; }
+    .mini-grid strong { display: block; margin-bottom: 4px; color: var(--accent); }
+    .mini-grid p { margin: 0; font-size: .94rem; }
+    .footer-note {
+      max-width: 1160px;
+      margin: -48px auto 0;
+      padding: 0 24px 48px;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    @media (max-width: 840px) {
+      .layout { grid-template-columns: 1fr; padding-top: 24px; }
+      .toc { position: static; margin-bottom: 24px; }
+      .toc ol { display: grid; grid-template-columns: 1fr 1fr; }
+      .toc li:nth-child(odd) { border-right: 1px solid var(--line); }
+      .toc a { padding: 12px; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding-top: 52px; padding-bottom: 48px; }
+      h1 { font-size: clamp(2.55rem, 13vw, 4.2rem); }
+      .layout { padding-inline: 18px; padding-bottom: 72px; }
+      .toc ol { grid-template-columns: 1fr; }
+      .toc li:nth-child(odd) { border-right: 0; }
+      article { padding-bottom: 56px; margin-bottom: 56px; }
+      .mini-grid { grid-template-columns: 1fr; }
+      .cta { align-items: flex-start; flex-direction: column; }
+      .cta a { width: 100%; justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="series">Practical kink conversations</p>
+      <h1>From “maybe” to a conversation worth having.</h1>
+      <p><span class="promise">A kink list is not a contract or a shopping list.</span> It is a way to notice curiosity, name limits, and ask better questions. These four guides show you how to use one without turning intimacy into an interview.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <nav class="toc" aria-label="Article index">
+      <p class="toc-label">In this collection</p>
+      <ol>
+        <li><a href="#without-awkwardness"><span>01</span> Kink lists without the awkwardness</a></li>
+        <li><a href="#after-the-list"><span>02</span> What to do after the list</a></li>
+        <li><a href="#scene-or-story"><span>03</span> Turn shared kinks into a scene</a></li>
+        <li><a href="#give-receive"><span>04</span> Why direction matters</a></li>
+      </ol>
+    </nav>
+
+    <div class="articles">
+      <article id="without-awkwardness">
+        <div class="article-meta"><span class="number">Guide 01</span><span class="dot"></span><span>5 minute read</span></div>
+        <h2>How to Do a Kink List Without the Awkwardness</h2>
+        <p class="dek">The goal is not to perform confidence. It is to make honesty safer for both of you.</p>
+
+        <p>Kink lists can feel awkward because they compress vulnerable thoughts into blunt labels. Checking “yes” beside a fantasy can feel like announcing a demand. Checking “no” can feel like rejecting your partner. And when you do not know how the other person will react, even mild curiosity can seem risky to reveal. That tension is normal; it does not mean you are bad at communication or that the conversation is doomed.</p>
+
+        <h3>Answer separately before you compare</h3>
+        <p>Do not hover over each other’s shoulders. Complete the list privately, at your own pace, and agree beforehand that a response is information—not consent and not a promise. A <strong>Blind Compare</strong> approach is especially useful: each person rates privately, and only compatible overlaps are revealed. That removes the pressure to match an answer just because you saw your partner choose it.</p>
+
+        <p>Start with fantasies rather than logistics. “What sounds interesting in imagination?” is easier to answer than “What are we doing Saturday?” Marking something as fantasy-only lets you acknowledge the appeal without implying you want it in real life. You can sort practical details later.</p>
+
+        <ul class="steps" aria-label="A low-pressure way to begin">
+          <li data-n="1">Choose a calm moment—not during sex, an argument, or immediately after a rejection.</li>
+          <li data-n="2">Explain the purpose: curiosity and mutual understanding, not pressure to add activities.</li>
+          <li data-n="3">Complete your answers separately, then begin with one easy overlap instead of reviewing every line.</li>
+        </ul>
+
+        <h3>How to bring it up</h3>
+        <blockquote>“I found a private way for us to compare interests without either of us having to reveal everything. Would you be open to trying it and talking only about the matches?”</blockquote>
+        <p>That invitation gives your partner room to say yes, no, or not yet. If they agree, set one rule before beginning: no teasing, sulking, bargaining, or treating an answer as permission.</p>
+
+        <h3>If you find a mismatch</h3>
+        <p>A mismatch is not a negotiation challenge to “solve.” Ask what the answer means. One person’s no may be a firm limit; another may mean “not with pain,” “not in public,” or “not now.” Clarification can reveal an adjacent overlap, but it should never be used to wear down a boundary. If the mismatch touches something essential for either of you, discuss that honestly outside the bedroom. Compatibility is not a moral score, and affection does not obligate either person to override themselves.</p>
+
+        <div class="callout"><strong>Keep this distinction clear</strong><p>Interest starts a conversation. Agreement defines the activity. Consent happens in the moment and can be withdrawn at any time.</p></div>
+
+        <div class="cta">
+          <p>Try Sexcapades free at sexcapades.io — no account required.</p>
+          <a href="https://sexcapades.io" target="_blank" rel="noopener">Start privately</a>
+        </div>
+      </article>
+
+      <article id="after-the-list">
+        <div class="article-meta"><span class="number">Guide 02</span><span class="dot"></span><span>5 minute read</span></div>
+        <h2>What to Do After You and Your Partner Finish a Yes/No/Maybe List</h2>
+        <p class="dek">A completed list is the beginning of the conversation—not the finished plan.</p>
+
+        <p>The “now what?” problem catches many couples. You have a page full of matches, maybes, and limits, but no obvious path from answers to real intimacy. The mistake is treating every shared yes as a task to complete. A list shows where a conversation may be welcome; it does not tell you what the activity means to each person or what conditions would make it feel good.</p>
+
+        <h3>Choose one overlap and get specific</h3>
+        <p>Begin with a shared interest that feels exciting but manageable. Then replace the label with questions. What part appeals to you—the sensation, the role, the mood, the surrender, the attention? Is this a fantasy to talk about, a story to read, or something you might actually try? What would make it a “not tonight” even if it is generally a yes?</p>
+
+        <p>A useful conversation covers four dimensions: <strong>who does what, how intense, under what conditions, and how either person can pause or stop.</strong> This often reveals that two identical yes answers describe different experiences. That is useful information, not a failed match.</p>
+
+        <ul class="steps" aria-label="Turn an overlap into a plan">
+          <li data-n="1"><strong>Name the appeal.</strong> Each person says what they hope to feel, not just what action they selected.</li>
+          <li data-n="2"><strong>Define the edges.</strong> Discuss limits, body areas, words, privacy, marks, duration, and anything that is off-limits.</li>
+          <li data-n="3"><strong>Scale it down.</strong> Plan the smallest version that still feels meaningful, especially for a first try.</li>
+          <li data-n="4"><strong>Plan the exit.</strong> Choose plain-language check-ins and a stop signal that works even if speaking becomes difficult.</li>
+        </ul>
+
+        <h3>Use the list to plan a scene</h3>
+        <p>Pick one central interest and, at most, one or two supporting elements. More matches do not automatically make a better scene. Write a short outline: opening, escalation, check-in points, ending, and aftercare. If you use Sexcapades, the visual overlap and directional ratings can help you choose complementary roles instead of assuming you both want the same side.</p>
+
+        <p>Revisit your list when something changes: after trying a new activity, when a fantasy becomes practical interest, after a health or relationship change, or simply every few months. Update it without demanding an explanation for every change. People learn, bodies change, and context matters.</p>
+
+        <div class="note">Afterward, debrief when both of you are settled. Ask “What should we keep, change, or leave out next time?” rather than “Did you like it?” The first question makes room for a nuanced answer.</div>
+
+        <div class="cta">
+          <p>Try Sexcapades free at sexcapades.io — no account required.</p>
+          <a href="https://sexcapades.io" target="_blank" rel="noopener">Explore overlaps</a>
+        </div>
+      </article>
+
+      <article id="scene-or-story">
+        <div class="article-meta"><span class="number">Guide 03</span><span class="dot"></span><span>5 minute read</span></div>
+        <h2>Turning Shared Kinks Into an Actual Scene or Story</h2>
+        <p class="dek">Most tools find the match and stop. The useful work is turning that match into something shaped for the people involved.</p>
+
+        <p>A shared kink is still only a headline. “Restraints,” “roleplay,” or “humiliation” can each describe dozens of different experiences. Moving from list to action requires a bridge: the roles, tone, intensity, boundaries, pacing, and ending that make the idea feel right for these particular partners. Sometimes the right destination is a real scene. Sometimes it is a story you enjoy together. Both are valid.</p>
+
+        <h3>Give the idea a shape</h3>
+        <p>Start by deciding what you are making. A <strong>play guide</strong> should be practical: who initiates, what is prepared, how the scene progresses, where check-ins happen, and how it ends. A <strong>story</strong> can explore more intensity because it remains fictional, but it should still reflect your chosen roles, favorite dynamics, and stated exclusions.</p>
+
+        <p>Sexcapades’ <strong>Scribe</strong> feature turns compatible profile information into either format. Treat the generated result as a draft, not an authority. Read it together, delete anything that does not fit, and translate any vague flourish into a concrete agreement before trying it. A compelling sentence is never consent.</p>
+
+        <div class="mini-grid">
+          <div><strong>For a play guide</strong><p>Use real-world interests, complementary give/receive roles, practical intensity, and only the activities everyone wants to consider.</p></div>
+          <div><strong>For a story</strong><p>Make clear what may exist only in fantasy. Fiction can explore an idea without adding it to the real-life plan.</p></div>
+        </div>
+
+        <h3>Negotiate the scene, not just the category</h3>
+        <p>Confirm the exact acts, body areas, language, level of force, privacy, recording rules, safer-sex choices, and any physical or emotional considerations that matter. Discuss how you will check in. A traffic-light system may work for some people; others prefer direct questions such as “same, more, less, or stop?” Decide what stopping looks like and what happens immediately afterward.</p>
+
+        <h3>Plan aftercare before you begin</h3>
+        <p>Aftercare is not one universal ritual. One person may want water, warmth, reassurance, quiet, food, space, or a check-in the next day. Another may want very little. Ask rather than assume, and make sure the person giving care also has a way to decompress. If the scene brings an unexpected emotional reaction, stop, get grounded, and prioritize care over staying “in character.”</p>
+
+        <div class="callout"><strong>A simple scene brief</strong><p>Intent → roles → three desired elements → hard exclusions → intensity ceiling → check-in method → stopping plan → aftercare → next-day follow-up.</p></div>
+
+        <p>The best plan leaves room for choice. You are not writing choreography that must be completed. You are agreeing on a container where both people can stay present, communicate, and change course.</p>
+
+        <div class="cta">
+          <p>Try Sexcapades free at sexcapades.io — no account required.</p>
+          <a href="https://sexcapades.io" target="_blank" rel="noopener">Try Scribe</a>
+        </div>
+      </article>
+
+      <article id="give-receive">
+        <div class="article-meta"><span class="number">Guide 04</span><span class="dot"></span><span>5 minute read</span></div>
+        <h2>Why Give/Receive Ratings Matter More Than Simple Yes/No</h2>
+        <p class="dek">Two people can both say yes to the same kink and still want the same role. Direction shows whether the interest actually connects.</p>
+
+        <p>Yes/No/Maybe lists are useful because they are quick, but a single answer flattens important differences. “Yes to massage” might mean “I love giving it,” “I want to receive it,” or both. The same issue appears across power exchange, sensation, service, restraint, roleplay, and sexual activities. When direction disappears, a match can look more compatible than it really is.</p>
+
+        <h3>Give and receive are separate interests</h3>
+        <p>Rate each direction independently. A person may strongly enjoy giving an experience and have no interest in receiving it. Another may want either role depending on the partner or mood. Complementary answers—one person interested in giving what the other wants to receive—often matter more than identical yes answers.</p>
+
+        <p>Direction also makes conversation kinder. Instead of asking “Why did you say no to this?” you can ask “Which side, if any, appeals to you?” That creates more accurate options without turning a boundary into a debate. Sexcapades maps give and receive separately so a shared topic does not hide a role mismatch.</p>
+
+        <h3>Add intensity, favorites, and limits</h3>
+        <p>Direction is only one layer. Intensity shows whether “interested” means gentle curiosity or a central desire. A favorite signals something especially meaningful. A hard limit must override every other match and stay out of practical plans. These distinctions prevent a mild maybe from being treated like an enthusiastic yes—and prevent a strong interest from getting lost among dozens of equal-looking checks.</p>
+
+        <ul class="steps" aria-label="Four useful rating layers">
+          <li data-n="1"><strong>Direction:</strong> Do you want to give, receive, or possibly do both?</li>
+          <li data-n="2"><strong>Intensity:</strong> How strong is the interest, and what level feels appealing?</li>
+          <li data-n="3"><strong>Meaning:</strong> Is it a favorite, an ordinary interest, a limit, or something already tried?</li>
+          <li data-n="4"><strong>Context:</strong> Is it for real-life exploration, fantasy only, or dependent on specific conditions?</li>
+        </ul>
+
+        <h3>Fantasy is not a lesser answer</h3>
+        <p>Some ideas are exciting precisely because they remain imagined. Others might be appealing only in fiction, dirty talk, or a highly altered version. Labeling fantasy separately protects that distinction. It lets people be honest about what turns them on without turning disclosure into a request. Likewise, “already tried” can open a useful discussion about what worked, what did not, and what would need to change.</p>
+
+        <p>Nuanced ratings do take longer than a binary list, but they reduce guessing later. You do not need to rate everything at once. Begin with the areas that matter most, compare only what you are ready to discuss, and treat every result as a prompt for conversation—not proof of consent or compatibility.</p>
+
+        <div class="cta">
+          <p>Try Sexcapades free at sexcapades.io — no account required.</p>
+          <a href="https://sexcapades.io" target="_blank" rel="noopener">Map the nuance</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <p class="footer-note">For consenting adults. These guides support communication; they do not replace informed, activity-specific safety education.</p>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('progressBar');
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var articles = Array.prototype.slice.call(document.querySelectorAll('article'));
+
+      function updateProgress() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var value = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        bar.style.width = value + '%';
+      }
+
+      function updateActive() {
+        var active = articles[0] ? articles[0].id : '';
+        var marker = window.scrollY + Math.min(220, window.innerHeight * 0.32);
+        articles.forEach(function (article) {
+          if (article.offsetTop <= marker) active = article.id;
+        });
+        links.forEach(function (link) {
+          var isActive = link.getAttribute('href') === '#' + active;
+          link.classList.toggle('active', isActive);
+          if (isActive) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      window.addEventListener('scroll', function () {
+        updateProgress();
+        updateActive();
+      }, { passive: true });
+      window.addEventListener('resize', updateProgress);
+      updateProgress();
+      updateActive();
+    }());
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="visitor-odometer-wrap" style="text-align:center;margin:20px 0;">
+  <div class="visitor-odometer" title="Unique visitors to Sexcapades" style="display:inline-flex;align-items:center;gap:8px;font-size:0.85rem;color:#a6bbb7;">
+    <div class="odometer-digits" id="odometer-digits-GUIDES" style="display:inline-flex;gap:2px;"></div>
+    <span style="opacity:0.7;">explorers</span>
+  </div>
+</div>
+<style>
+.visitor-odometer-wrap .odometer-digit{width:22px;height:32px;background:#0c191a;border:1px solid #253839;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#55dc9a;}
+</style>
+<script>
+(function(){var c=document.getElementById('odometer-digits-GUIDES');if(!c)return;
+function render(n){try{var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}catch(e){}}
+try{
+fetch('https://sexcapades.io/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
+}catch(e){render(0);}})();
+</script>
+
+</body>
+</html>

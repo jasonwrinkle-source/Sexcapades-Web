@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://sexcapades.io/examples" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Synthetic examples of the stories, practical play guides, and private overlap summaries Sexcapades can create from a kink map." />
+  <meta property="og:title" content="What Sexcapades produces" />
+  <meta property="og:description" content="See a sample story opening, a practical play guide, and an anonymized Blind Compare overlap." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071112'/%3E%3Cpath d='M18 20c0-6 5-10 14-10 7 0 12 2 16 6l-7 8c-3-3-6-4-9-4-3 0-5 1-5 3 0 7 22 2 22 18 0 8-7 13-17 13-8 0-15-3-19-8l8-8c3 4 7 6 11 6 4 0 6-1 6-3 0-7-20-3-20-21z' fill='%2355dc9a'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Literata:ital,opsz,wght@1,7..72,400;1,7..72,500&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Literata:ital,opsz,wght@1,7..72,400;1,7..72,500&amp;display=swap">
+  <title>Sexcapades Example Outputs</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #071112;
+      --surface: #0c191a;
+      --surface-2: #112123;
+      --text: #f2f7f5;
+      --muted: #a6bbb7;
+      --line: #253839;
+      --green: #55dc9a;
+      --green-ink: #04110b;
+      --cyan: #52cddb;
+      --gold: #f1c66f;
+      --danger: #ff847f;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .24);
+      --page: 1120px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        /* Sexcapades keeps its night-map identity in either system mode;
+           this variant lifts the surfaces slightly for brighter displays. */
+        --bg: #0b1516;
+        --surface: #122021;
+        --surface-2: #172728;
+        --text: #f5faf8;
+        --muted: #b4c5c2;
+        --line: #304344;
+        --green: #62e4a6;
+        --green-ink: #07110c;
+        --cyan: #68d6e1;
+        --gold: #f1ca78;
+        --danger: #ff8e88;
+        --shadow: 0 24px 60px rgba(0, 0, 0, .28);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 88% 5%, color-mix(in srgb, var(--cyan) 9%, transparent) 0 1px, transparent 2px),
+        var(--bg);
+      background-size: 28px 28px, auto;
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .wrap {
+      width: min(calc(100% - 40px), var(--page));
+      margin: 0 auto;
+    }
+
+    .intro {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(54px, 8vw, 94px) 0 54px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .intro::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      top: -210px;
+      right: max(-140px, calc((100vw - var(--page)) / 2 - 180px));
+      border: 1px solid color-mix(in srgb, var(--green) 45%, transparent);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 46px color-mix(in srgb, var(--cyan) 8%, transparent),
+        0 0 0 92px color-mix(in srgb, var(--green) 5%, transparent);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 13px;
+      color: var(--green);
+      font-size: .84rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 750px;
+      margin: 0;
+      font-size: clamp(2.45rem, 6vw, 5.1rem);
+      line-height: .98;
+      letter-spacing: -.052em;
+      font-weight: 700;
+    }
+
+    .lede {
+      max-width: 680px;
+      margin: 22px 0 28px;
+      color: var(--muted);
+      font-size: clamp(1.04rem, 2vw, 1.22rem);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 48px;
+      padding: 12px 17px 12px 20px;
+      border-radius: 10px;
+      background: var(--green);
+      color: var(--green-ink);
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 30px color-mix(in srgb, var(--green) 22%, transparent);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 34px color-mix(in srgb, var(--green) 30%, transparent); }
+    .cta:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
+    .cta svg { width: 19px; height: 19px; }
+
+    .privacy-note {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 14px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .privacy-note::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .examples {
+      padding: 56px 0 76px;
+      display: grid;
+      gap: 28px;
+    }
+
+    .example {
+      display: grid;
+      grid-template-columns: minmax(190px, 280px) minmax(0, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .example-head {
+      padding: 29px 26px;
+      background: var(--surface-2);
+      border-right: 1px solid var(--line);
+    }
+
+    .number {
+      display: block;
+      margin-bottom: 42px;
+      color: var(--cyan);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.28rem, 2vw, 1.75rem);
+      line-height: 1.15;
+      letter-spacing: -.025em;
+    }
+
+    .label {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.4;
+    }
+
+    .example-body {
+      min-width: 0;
+      padding: clamp(27px, 4vw, 46px);
+    }
+
+    .synthetic {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 5px 9px;
+      border: 1px solid color-mix(in srgb, var(--cyan) 45%, var(--line));
+      border-radius: 5px;
+      color: var(--cyan);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .story {
+      margin: 0;
+      max-width: 710px;
+      font-family: "Literata", serif;
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+      line-height: 1.85;
+      font-style: italic;
+    }
+
+    .story::first-letter {
+      float: left;
+      margin: .13em .12em 0 0;
+      color: var(--green);
+      font-family: "DM Sans", sans-serif;
+      font-size: 3.1em;
+      line-height: .72;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .guide-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: steps;
+    }
+
+    .guide-list li {
+      position: relative;
+      padding: 17px 0 17px 54px;
+      border-top: 1px solid var(--line);
+      counter-increment: steps;
+    }
+
+    .guide-list li:first-child { border-top: 0; padding-top: 0; }
+    .guide-list li::before {
+      content: counter(steps, decimal-leading-zero);
+      position: absolute;
+      top: 18px;
+      left: 0;
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .guide-list li:first-child::before { top: 1px; }
+    .guide-list strong { color: var(--text); }
+    .guide-list span { color: var(--muted); }
+
+    .overlap-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .overlap-summary li {
+      position: relative;
+      padding: 9px 12px 9px 30px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-2);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+
+    .overlap-summary li::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      transform: translateY(-50%);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 14%, transparent);
+    }
+
+    .legend {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin: 23px 0 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    .legend b { color: var(--green); }
+
+    .artifact-frame {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #0a1415;
+    }
+
+    .artifact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 14px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .artifact-actions a {
+      color: var(--cyan);
+      font-weight: 700;
+      text-underline-offset: 3px;
+    }
+
+    .artifact-actions a:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    .closing {
+      padding: 58px 0 calc(58px + env(safe-area-inset-bottom));
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    .closing p { margin: 0 0 22px; color: var(--muted); }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(calc(100% - 28px), var(--page)); }
+      .intro { padding-top: 44px; }
+      .privacy-note { display: flex; margin: 15px 0 0; }
+      .example { grid-template-columns: 1fr; border-radius: 14px; }
+      .example-head { border-right: 0; border-bottom: 1px solid var(--line); }
+      .number { margin-bottom: 17px; }
+      .example-body { padding: 26px 22px 31px; }
+      .guide-list li { padding-left: 43px; }
+      .overlap-summary { gap: 8px; }
+      .overlap-summary li { width: 100%; border-radius: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .cta { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="intro">
+    <div class="wrap">
+      <p class="eyebrow">A look inside the output</p>
+      <h1>From a kink map to something you can actually use.</h1>
+      <p class="lede">These fictional examples show how Sexcapades Scribe can turn mapped interests into an erotic story, how Scene Setter can turn them into a practical play guide—and how Blind Compare can reveal only the overlap.</p>
+      <a class="cta" href="https://sexcapades.io/#app/listview" target="_blank" rel="noopener">
+        <span>Try it yourself at sexcapades.io — free, no account.</span>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <span class="privacy-note">No real profile data appears on this page</span>
+    </div>
+  </header>
+
+  <main class="wrap examples">
+    <section class="example" aria-labelledby="map-title">
+      <div class="example-head">
+        <span class="number">00 / SAMPLE PROFILE</span>
+        <h2 id="map-title">Rowan’s 2.0 hypermap</h2>
+        <p class="label">Explore Rowan’s fictional sample profile — the current map structure, with smaller subcategory hubs grouping related topics.</p>
+      </div>
+      <div class="example-body">
+        <span class="synthetic">Fictional sample profile</span>
+        <a href="rowan-sample-hypermap.svg" target="_blank" rel="noopener" aria-label="Open Rowan's interactive sample sync hypermap (SVG)"><img class="artifact-frame" src="rowan-sample-map.png" alt="Rowan's sample 2.0 hypermap with subcategory hubs and colored rating branches" loading="lazy"/></a>
+        <p class="artifact-actions">
+          <a href="rowan-sample-hypermap.svg" target="_blank" rel="noopener">Open full size</a>
+          <span>This sample uses the full viewport SVG, including all categories and subcategory hubs. For your own map exports, choose SVG (recommended); PNG is also supported.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="story-title">
+      <div class="example-head">
+        <span class="number">01 / SCRIBE</span>
+        <h2 id="story-title">Example Story Output</h2>
+        <p class="label">A Literotica-style opening shaped by one fictional kink map.</p>
+      </div>
+      <div class="example-body">
+        <span class="synthetic">Illustrative fiction — not a real user</span>
+        <p class="story">Avery waited at the foot of the bed, pulse quickening as the soft leather cuff closed around their wrist. The quiet click of the buckle made the anticipation feel suddenly real, and the hand at the back of their neck was firm enough to make them exhale. “Tell me your color,” their partner murmured, holding the moment there until Avery answered, “Green.” Only then did the teasing begin—slow, deliberate, and exactly as merciless as Avery had hoped.</p>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="guide-title">
+      <div class="example-head">
+        <span class="number">02 / SCRIBE</span>
+        <h2 id="guide-title">Example Play Guide Output</h2>
+        <p class="label">A coordination-first excerpt for a fictional couple.</p>
+      </div>
+      <div class="example-body">
+        <span class="synthetic">Synthetic couple — practical example</span>
+        <ol class="guide-list">
+          <li><strong>Shared interests:</strong> <span>Build around mutual enthusiasm for blindfolds, light restraint, teasing, praise, and a clear top/bottom dynamic.</span></li>
+          <li><strong>Try first:</strong> <span>Begin with a blindfold and one soft wrist restraint; keep the first round short so both partners can calibrate intensity.</span></li>
+          <li><strong>Add next:</strong> <span>Layer in verbal direction and controlled teasing before introducing impact play; agree on the implement and intensity first.</span></li>
+          <li><strong>Communication:</strong> <span>Use green/yellow/red, plus a nonverbal backup signal if speech becomes difficult. Pause immediately on yellow to check and adjust.</span></li>
+          <li><strong>Respect the map:</strong> <span>Favorites can lead the scene, fantasy-only interests stay in imagination, and anything marked as a limit stays out completely.</span></li>
+          <li><strong>Aftercare:</strong> <span>Plan for water, warmth, physical closeness if wanted, and a low-pressure check-in later that evening and again the next day.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="overlap-title">
+      <div class="example-head">
+        <span class="number">03 / BLIND COMPARE</span>
+        <h2 id="overlap-title">Example Overlap — what Blind Compare shows</h2>
+        <p class="label">Only mutually green branches from two fictional profiles.</p>
+      </div>
+      <div class="example-body">
+        <span class="synthetic">Synthetic example data</span>
+        <ul class="overlap-summary" aria-label="Fictional mutually green interests">
+          <li>Blindfolds</li>
+          <li>Light bondage</li>
+          <li>Giving orders</li>
+          <li>Following orders</li>
+          <li>Praise</li>
+          <li>Dirty talk</li>
+          <li>Teasing</li>
+          <li>Edging</li>
+          <li>Mutual masturbation</li>
+          <li>Roleplay</li>
+          <li>Spanking</li>
+          <li>Hair pulling</li>
+          <li>Collars</li>
+          <li>Exhibitionism</li>
+          <li>Watching</li>
+          <li>Body worship</li>
+          <li>Erotic photography</li>
+          <li>Aftercare</li>
+        </ul>
+        <p class="legend"><b>Green</b><span>means both fictional partners rated that branch positively in compatible directions. Private mismatches and non-overlapping interests are not shown.</span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="closing">
+    <div class="wrap">
+      <p>Map your interests. Compare privately. Turn the overlap into a plan—or a story.</p>
+      <a class="cta" href="https://sexcapades.io/#app/listview" target="_blank" rel="noopener">
+        <span>Try it yourself at sexcapades.io — free, no account.</span>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

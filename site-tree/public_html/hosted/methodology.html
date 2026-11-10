@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://sexcapades.io/hosted/methodology.html" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistical Methodology — Sexcapades</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px; line-height: 1.6; color: #e8e8e8; background: #1a1a2e; }
+  h1 { font-size: 1.8em; margin-bottom: 0.2em; }
+  h2 { font-size: 1.3em; margin-top: 1.8em; color: #a8d8ff; }
+  p, li { font-size: 0.95em; }
+  code { background: #2a2a4a; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+  .back { margin-top: 2em; }
+  .back a { color: #a8d8ff; }
+  .note { background: #2a2a4a; border-left: 3px solid #a8d8ff; padding: 12px 16px; margin: 1em 0; border-radius: 0 8px 8px 0; }
+</style>
+</head>
+<body>
+
+<h1>Statistical Methodology</h1>
+<p>How Sexcapades computes and displays community ratings statistics.</p>
+
+<h2>Rating Histograms</h2>
+<p>Each topic's community ratings are displayed as a histogram with <strong>12 bins</strong> across the −100 to +100 rating scale. We chose histograms over simple averages because kink ratings are rarely normally distributed — a topic averaging 0 could mean "everyone's lukewarm" or "half love it, half hate it." The histogram shows you which.</p>
+
+<h2>Bin Width</h2>
+<p>Bin width selection involves both mathematical rules of thumb (Sturges' rule, Freedman-Diaconis, Scott's rule) and aesthetic judgment. With enough data, the underlying shape emerges regardless of the exact bin choice. Our 12-bin default will be revisited as the dataset grows.</p>
+
+<h2>Privacy Threshold</h2>
+<p>Histograms are only displayed once a topic has <strong>at least 20 community ratings</strong>. Below this threshold, the dialog shows how many ratings have been submitted so far. This prevents any individual's ratings from being identifiable.</p>
+
+<h2>Marker Percentages</h2>
+<p>Markers (Favorite ★, Hard Limit ×, Not Interested ⊘, Fantasy Only, Already Tried) are categorical, not continuous, so they're reported as percentages with <strong>Wilson score 95% confidence intervals</strong>.</p>
+<p>We use the Wilson interval rather than the normal approximation because it's more accurate for small sample sizes and extreme percentages, and it never produces impossible values (below 0% or above 100%).</p>
+<p>Example: "12% ±3% favorite" means the true population percentage is likely between 9% and 15%.</p>
+
+<h2>Community Completion</h2>
+<p>We also track <strong>how far contributors get</strong> through the map — not who they are, just how many topics get rated. This tells us whether people do a quick pass or go deep, and whether returning contributors rate more over time.</p>
+<div id="communityCompletion">
+  <p style="font-size:0.9em;opacity:0.6;" id="communityCompletionStatus">Loading community stats…</p>
+  <div id="completionHistogram" hidden></div>
+  <div id="sessionDepth" hidden style="margin-top:16px;"></div>
+</div>
+<script>
+(function(){
+  var container = document.getElementById('communityCompletion');
+  var status = document.getElementById('communityCompletionStatus');
+  var histEl = document.getElementById('completionHistogram');
+  var sessEl = document.getElementById('sessionDepth');
+  if(!container || !window.fetch) return;
+
+  function barColor(frac){
+    // teal ramp: pale for low completion, saturated for high
+    var a = 0.35 + 0.65 * frac;
+    return 'rgba(99,199,150,' + a.toFixed(2) + ')';
+  }
+
+  fetch('api/completion.php', {cache: 'no-store'})
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(!data || data.ok === false){
+        if(data && data.enough_data === false){
+          status.textContent = data.count + ' of ' + data.min_required + ' surveys submitted for community stats.';
+        } else {
+          container.style.display = 'none';
+        }
+        return;
+      }
+      if(data.enough_data === false){
+        status.textContent = data.count + ' of ' + data.min_required + ' surveys submitted for community stats.';
+        return;
+      }
+      status.style.display = 'none';
+
+      // --- Completion histogram ---
+      var comp = data.completion || {};
+      var bins = comp.bins || [];
+      var labels = comp.bin_labels || [];
+      var max = 0, i;
+      for(i = 0; i < bins.length; i++){ if(bins[i] > max) max = bins[i]; }
+      var html = '<p style="font-size:0.9em;margin:4px 0 8px;"><strong>Topics rated per contributor</strong>'
+        + ' <span style="opacity:0.65;">(n=' + (comp.binned_surveys || 0) + ', avg ' + (comp.avg_topics || 0) + ' topics)</span></p>';
+      html += '<div style="display:flex;flex-direction:column;gap:4px;">';
+      for(i = 0; i < bins.length; i++){
+        var frac = (i + 0.5) / bins.length;
+        var w = max > 0 ? Math.round(bins[i] / max * 100) : 0;
+        html += '<div style="display:flex;align-items:center;gap:8px;font-size:12px;">'
+          + '<span style="width:64px;flex:none;opacity:0.75;text-align:right;">' + (labels[i] || '') + '</span>'
+          + '<div style="flex:1;background:#2a2a4a;border-radius:4px;height:18px;position:relative;">'
+          + '<div style="position:absolute;left:0;top:0;bottom:0;width:' + w + '%;background:' + barColor(frac) + ';border-radius:4px;"></div>'
+          + '</div>'
+          + '<span style="width:36px;flex:none;text-align:right;opacity:0.85;">' + bins[i] + '</span>'
+          + '</div>';
+      }
+      html += '</div>';
+      histEl.innerHTML = html;
+      histEl.hidden = false;
+
+      // --- Session depth ---
+      var s = data.sessions || {};
+      var total = s.total_users || 0;
+      if(total > 0){
+        var onePct = Math.round(s.one / total * 100);
+        var twoPct = Math.round(s.two / total * 100);
+        var threePct = Math.round(s.three / total * 100);
+        var withinThree = Math.round((s.one + s.two + s.three) / total * 100);
+        var sh = '<p style="font-size:0.9em;margin:4px 0 8px;"><strong>Session depth</strong></p>'
+          + '<p style="font-size:0.9em;margin:6px 0;">' + withinThree + '% of contributors finished within 3 sittings '
+          + '(' + onePct + '% in one, ' + twoPct + '% in two, ' + threePct + '% in three).</p>'
+          + '<p style="font-size:0.85em;opacity:0.7;margin:6px 0;">Average topics rated: '
+          + (s.avg_topics_single_session || 0) + ' in one session vs '
+          + (s.avg_topics_multi_session || 0) + ' across multiple sessions.</p>';
+        sessEl.innerHTML = sh;
+        sessEl.hidden = false;
+      }
+    })
+    .catch(function(){
+      // silent: hide the dynamic block, keep the static description
+      container.style.display = 'none';
+    });
+})();
+</script>
+
+<h2>Rating Pace</h2>
+<p>We also measure <strong>how fast contributors rate</strong> — topics per minute and average elapsed time by how many topics were rated. This describes real sessions, not idealized ladder rungs: some people rate 4 per category, others do the full map in one sitting.</p>
+<div id="ratingPace">
+  <p style="font-size:0.9em;opacity:0.6;" id="ratingPaceStatus">Loading pace stats…</p>
+  <div id="paceSummary" hidden></div>
+  <div id="paceBands" hidden style="margin-top:12px;"></div>
+</div>
+<script>
+(function(){
+  var container = document.getElementById('ratingPace');
+  var status = document.getElementById('ratingPaceStatus');
+  var summaryEl = document.getElementById('paceSummary');
+  var bandsEl = document.getElementById('paceBands');
+  if(!container || !window.fetch) return;
+
+  fetch('api/rung_times.php', {cache: 'no-store'})
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(!data || data.ok === false || data.enough_data === false){
+        if(data && data.enough_data === false){
+          status.textContent = data.total_sessions + ' of ' + data.min_required + ' sessions recorded for pace stats.';
+        } else {
+          container.style.display = 'none';
+        }
+        return;
+      }
+      status.style.display = 'none';
+
+      var tpm = data.topics_per_minute;
+      var n = data.total_sessions;
+      summaryEl.innerHTML = '<p style="font-size:0.95em;margin:4px 0 8px;"><strong>Average rating pace: '
+        + tpm + ' topics/minute</strong> <span style="opacity:0.65;">(n=' + n + ' sessions)</span></p>';
+      summaryEl.hidden = false;
+
+      var bins = data.bins || [];
+      var max = 0, i;
+      for(i = 0; i < bins.length; i++){ if(bins[i].n > max) max = bins[i].n; }
+      var html = '<p style="font-size:0.9em;margin:4px 0 8px;"><strong>Average time by topics rated</strong></p>'
+        + '<div style="display:flex;flex-direction:column;gap:4px;">';
+      for(i = 0; i < bins.length; i++){
+        var b = bins[i];
+        var w = max > 0 ? Math.round(b.n / max * 100) : 0;
+        var val = b.avg_min === null ? '—' : b.avg_min + ' min';
+        html += '<div style="display:flex;align-items:center;gap:8px;font-size:12px;">'
+          + '<span style="width:72px;flex:none;opacity:0.75;text-align:right;">' + b.range + ' topics</span>'
+          + '<div style="flex:1;background:#2a2a4a;border-radius:4px;height:18px;position:relative;">'
+          + '<div style="position:absolute;left:0;top:0;bottom:0;width:' + w + '%;background:rgba(168,216,255,0.75);border-radius:4px;"></div>'
+          + '</div>'
+          + '<span style="width:64px;flex:none;text-align:right;opacity:0.85;">' + val + '</span>'
+          + '<span style="width:36px;flex:none;text-align:right;opacity:0.6;">n=' + b.n + '</span>'
+          + '</div>';
+      }
+      html += '</div>';
+      bandsEl.innerHTML = html;
+      bandsEl.hidden = false;
+    })
+    .catch(function(){
+      container.style.display = 'none';
+    });
+})();
+</script>
+
+<h2>What We Don't Do</h2>
+<ul>
+  <li>We never display individual ratings or identify who rated what.</li>
+  <li>We never combine your personal ratings with community data without your knowledge.</li>
+  <li>All community statistics are computed from anonymized, aggregated survey submissions.</li>
+</ul>
+
+<div class="note">
+  <strong>Note:</strong> These statistics are descriptive, not prescriptive. A kink being statistically uncommon doesn't make it wrong — it makes it yours.
+</div>
+
+<p class="back"><a href="/">← Back to Sexcapades</a></p>
+
+</body>
+</html>

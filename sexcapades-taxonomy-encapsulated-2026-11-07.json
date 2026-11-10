@@ -1,0 +1,2499 @@
+{
+  "_about": {
+    "title": "Sexcapades taxonomy — encapsulated, standalone copy",
+    "date": "2026-11-07",
+    "purpose": "A self-contained copy of the Sexcapades kink taxonomy for review (Shel / Eros). This file is the taxonomy ONLY — no app code, no profiles, no ratings. Work from this file; do not pull the taxonomy from the live website, which may be stale or use deprecated storage.",
+    "source": "taxonomy-hierarchical-stored-ids-round2-2026-11-04.json (stored-ID round 2, landed 2026-11-04). Source file: taxonomy-hierarchical-404.json (SHA b9efd1f5...).",
+    "id_system": "Stored opaque IDs, assigned once, never regenerated from a name. Category IDs c0001-c0018, subcategory IDs s0001-s0044, topic IDs t0001-t0404. Hierarchy is data, never inside an ID. New IDs are max(existing numeric ID) + 1, and only that operation creates one. Do NOT derive an ID from a name, hierarchy, or array order.",
+    "counts": "18 categories, 44 subcategories, 404 topic slots in this file. The live app shows 403 topics (live list view governs). The one slot without a record is 'Direction' (Power exchange) — it has no topic ID (null) and no app record.",
+    "unresolved_ids_null": [
+      "Direction (Power exchange)",
+      "Depilation/Shaving (Body focus & appearance)",
+      "Gangbang fantasy (Partner configurations)"
+    ],
+    "caveats": [
+      "This standalone file does not exactly match the app's live taxonomy in a couple of places (known: Bondage direct topics 9 in file vs 0 live; Tape & wrapping 4 topics in file vs 5 live). The live app list view (403 topics) is the authority; flag discrepancies, never silently resolve them.",
+      "A topic's 'risk' flag is per-topic data (exactly one topic is flagged: Edge Play, t0334).",
+      "Edging vs Edge play are DISTINCT and must not be merged: Edging = orgasm-control; Edge play = BDSM risk category. FetLife 'Edge Play' maps to Edge play.",
+      "Never delete vocabulary — retire an ID, keep an alias, migrate ratings."
+    ],
+    "queued_changes_already_known": [
+      "Rename t0120 'Formiphilia' -> 'Formicophilia' (label only; ID and ratings unchanged). 'Formiphilia' is not a real word; the description (bugs crawling on body) is formicophilia. Caught by Shel 2026-11-07. Queued for the next big build — do not re-report it as a new finding, but do check whether the same kind of error (wrong word for the description) appears elsewhere.",
+      "Add a new topic 'Forniphilia' (arousal from being used as furniture / human furniture). A separate, real term and a different concept from formicophilia. Not currently a topic. New ID = max+1. Placement to be decided (candidates: Service & ritual, Bondage & restriction, Roleplay & identity). Queued for the next big build."
+    ]
+  },
+  "categories": [
+    {
+      "name": "Power exchange",
+      "id": "c0001",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Direction",
+          "id": null,
+          "risk": null
+        },
+        {
+          "name": "Protocols & rules",
+          "id": "t0002",
+          "risk": false
+        },
+        {
+          "name": "Collars & symbols",
+          "id": "t0003",
+          "risk": false
+        },
+        {
+          "name": "Reward & correction",
+          "id": "t0004",
+          "risk": false
+        },
+        {
+          "name": "Discipline",
+          "id": "t0005",
+          "risk": false
+        },
+        {
+          "name": "Begging",
+          "id": "t0006",
+          "risk": false
+        },
+        {
+          "name": "Scene-based roles",
+          "id": "t0007",
+          "risk": false
+        },
+        {
+          "name": "Ongoing dynamics",
+          "id": "t0008",
+          "risk": false
+        },
+        {
+          "name": "FemDom",
+          "id": "t0009",
+          "risk": false
+        },
+        {
+          "name": "D/s",
+          "id": "t0010",
+          "risk": false
+        },
+        {
+          "name": "Ordered To Masturbate",
+          "id": "t0011",
+          "risk": false
+        },
+        {
+          "name": "Brats",
+          "id": "t0012",
+          "risk": false
+        },
+        {
+          "name": "24/7",
+          "id": "t0013",
+          "risk": false
+        },
+        {
+          "name": "Switching",
+          "id": "t0014",
+          "risk": false
+        },
+        {
+          "name": "Male Authority",
+          "id": "t0015",
+          "risk": false
+        },
+        {
+          "name": "Behavior Modification",
+          "id": "t0016",
+          "risk": false
+        },
+        {
+          "name": "Female Supremacy",
+          "id": "t0017",
+          "risk": false
+        },
+        {
+          "name": "Play Punishment",
+          "id": "t0018",
+          "risk": false
+        },
+        {
+          "name": "Bathroom Use Control",
+          "id": "t0019",
+          "risk": false
+        },
+        {
+          "name": "Domestic Discipline",
+          "id": "t0020",
+          "risk": false
+        },
+        {
+          "name": "Pro Domme",
+          "id": "t0021",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Bondage & restriction",
+      "id": "c0002",
+      "subcategories": [
+        {
+          "name": "Flexible ties",
+          "id": "s0001",
+          "topics": [
+            {
+              "name": "Rope bondage",
+              "id": "t0022",
+              "risk": false
+            },
+            {
+              "name": "Scarf bondage",
+              "id": "t0023",
+              "risk": false
+            },
+            {
+              "name": "Hair Bondage",
+              "id": "t0024",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Restraints",
+          "id": "s0002",
+          "topics": [
+            {
+              "name": "Armbinders",
+              "id": "t0028",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Tape & wrapping",
+          "id": "s0003",
+          "topics": [
+            {
+              "name": "Mummification",
+              "id": "t0032",
+              "risk": false
+            },
+            {
+              "name": "Bondage Tape",
+              "id": "t0029",
+              "risk": false,
+              "recordName": "Bondage tape"
+            },
+            {
+              "name": "Duct Tape",
+              "id": "t0030",
+              "risk": false,
+              "recordName": "Duct tape"
+            },
+            {
+              "name": "Cling Film",
+              "id": "t0031",
+              "risk": false,
+              "recordName": "Cling film"
+            }
+          ]
+        },
+        {
+          "name": "Sensory",
+          "id": "s0004",
+          "topics": [
+            {
+              "name": "Gags",
+              "id": "t0035",
+              "risk": false
+            },
+            {
+              "name": "Speech restriction",
+              "id": "t0036",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Confinement",
+          "id": "s0005",
+          "topics": [
+            {
+              "name": "Immobilization",
+              "id": "t0040",
+              "risk": false
+            },
+            {
+              "name": "Sleepsacks",
+              "id": "t0039",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Challenge bondage",
+          "id": "s0006",
+          "topics": [
+            {
+              "name": "Escape play",
+              "id": "t0045",
+              "risk": false
+            },
+            {
+              "name": "Suspension Bondage",
+              "id": "t0043",
+              "risk": false
+            },
+            {
+              "name": "Predicament Bondage",
+              "id": "t0044",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Specialty",
+          "id": "s0007",
+          "topics": [
+            {
+              "name": "Anal Hooks",
+              "id": "t0047",
+              "risk": false,
+              "recordName": "Anal hooks"
+            },
+            {
+              "name": "Breast Bondage",
+              "id": "t0046",
+              "risk": false,
+              "recordName": "Breast bondage"
+            },
+            {
+              "name": "Bondage Art",
+              "id": "t0050",
+              "risk": false,
+              "recordName": "Bondage art"
+            },
+            {
+              "name": "Self-Bondage",
+              "id": "t0048",
+              "risk": false,
+              "recordName": "Self-bondage"
+            },
+            {
+              "name": "Waterbondage",
+              "id": "t0049",
+              "risk": false
+            }
+          ]
+        }
+      ],
+      "topics": [
+        {
+          "name": "Cuffs & straps",
+          "id": "t0025",
+          "risk": false,
+          "recordName": "Cuffs"
+        },
+        {
+          "name": "Spreaders & bars",
+          "id": "t0026",
+          "risk": false,
+          "recordName": "Spreaders"
+        },
+        {
+          "name": "Tape & wrapping",
+          "id": "t0033",
+          "risk": false,
+          "recordName": "Tape"
+        },
+        {
+          "name": "Furniture restraint",
+          "id": "t0042",
+          "risk": false,
+          "recordName": "Furniture"
+        },
+        {
+          "name": "Blindfolded restraint",
+          "id": "t0034",
+          "risk": false,
+          "recordName": "Blindfold"
+        },
+        {
+          "name": "Caging/Confinement",
+          "id": "t0037",
+          "risk": false,
+          "recordName": "Caging"
+        },
+        {
+          "name": "Medieval Devices",
+          "id": "t0027",
+          "risk": false,
+          "recordName": "Medieval"
+        },
+        {
+          "name": "Encasement Fetish",
+          "id": "t0038",
+          "risk": false,
+          "recordName": "Encasement"
+        },
+        {
+          "name": "Crucifixion Play",
+          "id": "t0041",
+          "risk": false,
+          "recordName": "Crucifixion"
+        }
+      ]
+    },
+    {
+      "name": "Impact, pain & body modification",
+      "id": "c0003",
+      "subcategories": [
+        {
+          "name": "Hand spanking",
+          "id": "s0008",
+          "topics": [
+            {
+              "name": "Clit Spanking",
+              "id": "t0059",
+              "risk": false
+            },
+            {
+              "name": "Breast Spanking",
+              "id": "t0058",
+              "risk": false
+            },
+            {
+              "name": "Pussy Spanking",
+              "id": "t0060",
+              "risk": false
+            },
+            {
+              "name": "Tit Slapping",
+              "id": "t0061",
+              "risk": false
+            },
+            {
+              "name": "OTK Spanking",
+              "id": "t0057",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Flexible implements",
+          "id": "s0009",
+          "topics": [
+            {
+              "name": "Flogging",
+              "id": "t0062",
+              "risk": false
+            },
+            {
+              "name": "Whips",
+              "id": "t0064",
+              "risk": false
+            },
+            {
+              "name": "Belt Whippings",
+              "id": "t0065",
+              "risk": false
+            },
+            {
+              "name": "Breast Whipping",
+              "id": "t0066",
+              "risk": false
+            },
+            {
+              "name": "Fire Flogging",
+              "id": "t0063",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Rigid implements",
+          "id": "s0010",
+          "topics": [
+            {
+              "name": "Paddles & straps",
+              "id": "t0069",
+              "risk": false
+            },
+            {
+              "name": "Caning",
+              "id": "t0067",
+              "risk": false
+            },
+            {
+              "name": "Riding crops",
+              "id": "t0068",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Clamps & pinching",
+          "id": "s0011",
+          "topics": [
+            {
+              "name": "Clamps",
+              "id": "t0070",
+              "risk": false
+            },
+            {
+              "name": "Pinching",
+              "id": "t0072",
+              "risk": false
+            },
+            {
+              "name": "Clothespins",
+              "id": "t0071",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Cutting & piercing",
+          "id": "s0012",
+          "topics": [
+            {
+              "name": "Needle Play",
+              "id": "t0074",
+              "risk": false
+            },
+            {
+              "name": "Cutting",
+              "id": "t0073",
+              "risk": false
+            },
+            {
+              "name": "Scarification",
+              "id": "t0076",
+              "risk": false
+            },
+            {
+              "name": "Corset Piercing",
+              "id": "t0075",
+              "risk": false
+            },
+            {
+              "name": "Flesh Hooks",
+              "id": "t0079",
+              "risk": false
+            },
+            {
+              "name": "Cell Popping",
+              "id": "t0080",
+              "risk": false
+            },
+            {
+              "name": "Staples",
+              "id": "t0077",
+              "risk": false
+            },
+            {
+              "name": "Fish Hooks",
+              "id": "t0078",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Genital pain",
+          "id": "s0013",
+          "topics": [
+            {
+              "name": "Cock and Ball Torture",
+              "id": "t0084",
+              "risk": false
+            },
+            {
+              "name": "Cock Slapping",
+              "id": "t0083",
+              "risk": false
+            },
+            {
+              "name": "Ballbusting",
+              "id": "t0082",
+              "risk": false
+            },
+            {
+              "name": "Ball Kicking",
+              "id": "t0081",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Extreme",
+          "id": "s0014",
+          "topics": [
+            {
+              "name": "Hair pulling",
+              "id": "t0093",
+              "risk": false
+            },
+            {
+              "name": "Heavy marking",
+              "id": "t0096",
+              "risk": false
+            },
+            {
+              "name": "Extreme endurance",
+              "id": "t0097",
+              "risk": false
+            },
+            {
+              "name": "Bruises",
+              "id": "t0095",
+              "risk": false
+            },
+            {
+              "name": "Knife Play",
+              "id": "t0086",
+              "risk": false
+            },
+            {
+              "name": "Fire Play",
+              "id": "t0085",
+              "risk": false
+            },
+            {
+              "name": "Sounding",
+              "id": "t0089",
+              "risk": false
+            },
+            {
+              "name": "Figging",
+              "id": "t0088",
+              "risk": false
+            },
+            {
+              "name": "Trampling",
+              "id": "t0090",
+              "risk": false
+            },
+            {
+              "name": "Waterboarding",
+              "id": "t0087",
+              "risk": false
+            },
+            {
+              "name": "Kicking",
+              "id": "t0091",
+              "risk": false
+            },
+            {
+              "name": "Bastinado",
+              "id": "t0092",
+              "risk": false
+            },
+            {
+              "name": "Abrasion Play",
+              "id": "t0094",
+              "risk": false
+            }
+          ]
+        }
+      ],
+      "topics": [
+        {
+          "name": "Spanking",
+          "id": "t0056",
+          "risk": false,
+          "recordName": "Hand spanking"
+        },
+        {
+          "name": "Pain",
+          "id": "t0051",
+          "risk": false
+        },
+        {
+          "name": "Sadism",
+          "id": "t0252",
+          "risk": false
+        },
+        {
+          "name": "Impact Play",
+          "id": "t0053",
+          "risk": false
+        },
+        {
+          "name": "Corporal Punishment",
+          "id": "t0052",
+          "risk": false
+        },
+        {
+          "name": "Pressure points",
+          "id": "t0055",
+          "risk": false
+        },
+        {
+          "name": "Percussion Play",
+          "id": "t0054",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Sensation & atmosphere",
+      "id": "c0004",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Wax & temperature",
+          "id": "t0098",
+          "risk": false
+        },
+        {
+          "name": "Ice & cool touch",
+          "id": "t0099",
+          "risk": false
+        },
+        {
+          "name": "Tickling",
+          "id": "t0100",
+          "risk": false
+        },
+        {
+          "name": "Electrical Play",
+          "id": "t0101",
+          "risk": false
+        },
+        {
+          "name": "Texture contrast",
+          "id": "t0102",
+          "risk": false
+        },
+        {
+          "name": "Sensory deprivation",
+          "id": "t0103",
+          "risk": false
+        },
+        {
+          "name": "Sensory overload",
+          "id": "t0104",
+          "risk": false
+        },
+        {
+          "name": "ASMR & whispering",
+          "id": "t0105",
+          "risk": false
+        },
+        {
+          "name": "Music & sound",
+          "id": "t0106",
+          "risk": false
+        },
+        {
+          "name": "Mirrors",
+          "id": "t0107",
+          "risk": false
+        },
+        {
+          "name": "Low light",
+          "id": "t0108",
+          "risk": false
+        },
+        {
+          "name": "Scent",
+          "id": "t0109",
+          "risk": false
+        },
+        {
+          "name": "Tantra / energy play",
+          "id": "t0110",
+          "risk": false
+        },
+        {
+          "name": "Violet Wand",
+          "id": "t0111",
+          "risk": false
+        },
+        {
+          "name": "Wartenberg Pinwheels",
+          "id": "t0112",
+          "risk": false
+        },
+        {
+          "name": "Panty-Sniffing",
+          "id": "t0113",
+          "risk": false
+        },
+        {
+          "name": "Tens Unit",
+          "id": "t0114",
+          "risk": false
+        },
+        {
+          "name": "Smothering",
+          "id": "t0115",
+          "risk": false
+        },
+        {
+          "name": "Cupping",
+          "id": "t0116",
+          "risk": false
+        },
+        {
+          "name": "Auralism",
+          "id": "t0117",
+          "risk": false
+        },
+        {
+          "name": "Vampire gloves",
+          "id": "t0118",
+          "risk": false
+        },
+        {
+          "name": "Smoking",
+          "id": "t0119",
+          "risk": false
+        },
+        {
+          "name": "Formiphilia",
+          "id": "t0120",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Roleplay & identity",
+      "id": "c0005",
+      "subcategories": [
+        {
+          "name": "Caregiver & little roles",
+          "id": "s0015",
+          "topics": [
+            {
+              "name": "DDlg",
+              "id": "t0122",
+              "risk": false
+            },
+            {
+              "name": "Mommy/girl",
+              "id": "t0126",
+              "risk": false
+            },
+            {
+              "name": "ABDL",
+              "id": "t0121",
+              "risk": false
+            },
+            {
+              "name": "Infantilism",
+              "id": "t0124",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Authority",
+          "id": "s0016",
+          "topics": [
+            {
+              "name": "Authority roles",
+              "id": "t0127",
+              "risk": false
+            },
+            {
+              "name": "Owner & property",
+              "id": "t0131",
+              "risk": false,
+              "recordName": "Owner/property"
+            },
+            {
+              "name": "Gor",
+              "id": "t0132",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Captivity",
+          "id": "s0017",
+          "topics": []
+        },
+        {
+          "name": "Animal",
+          "id": "s0018",
+          "topics": [
+            {
+              "name": "Creature fantasy",
+              "id": "t0140",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Historical & fantasy",
+          "id": "s0019",
+          "topics": [
+            {
+              "name": "Dollification",
+              "id": "t0149",
+              "risk": false
+            },
+            {
+              "name": "Superheroes",
+              "id": "t0145",
+              "risk": false
+            },
+            {
+              "name": "Pirates",
+              "id": "t0143",
+              "risk": false
+            },
+            {
+              "name": "Clowns",
+              "id": "t0147",
+              "risk": false
+            },
+            {
+              "name": "Robots",
+              "id": "t0148",
+              "risk": false
+            },
+            {
+              "name": "Librarians",
+              "id": "t0150",
+              "risk": false
+            }
+          ]
+        }
+      ],
+      "topics": [
+        {
+          "name": "Caregiver roles (adults)",
+          "id": "t0125",
+          "risk": false,
+          "recordName": "Caregiver"
+        },
+        {
+          "name": "Age play between adults",
+          "id": "t0123",
+          "risk": false,
+          "recordName": "Age play"
+        },
+        {
+          "name": "Pet play",
+          "id": "t0136",
+          "risk": false,
+          "recordName": "Pet"
+        },
+        {
+          "name": "Pony Play",
+          "id": "t0138",
+          "risk": false,
+          "recordName": "Pony"
+        },
+        {
+          "name": "Puppy play",
+          "id": "t0137",
+          "risk": false,
+          "recordName": "Puppy"
+        },
+        {
+          "name": "Doctor/Nurse Play",
+          "id": "t0129",
+          "risk": false,
+          "recordName": "Doctor/nurse"
+        },
+        {
+          "name": "Teacher / student roleplay",
+          "id": "t0128",
+          "risk": false,
+          "recordName": "Teacher/student"
+        },
+        {
+          "name": "Captivity / kidnapping",
+          "id": "t0133",
+          "risk": false,
+          "recordName": "Kidnapping"
+        },
+        {
+          "name": "Consensual non-consent fantasy",
+          "id": "t0134",
+          "risk": false,
+          "recordName": "CNC fantasy"
+        },
+        {
+          "name": "Vampires & gothic",
+          "id": "t0146",
+          "risk": false,
+          "recordName": "Vampires"
+        },
+        {
+          "name": "Historical fantasy",
+          "id": "t0142",
+          "risk": false,
+          "recordName": "Historical"
+        },
+        {
+          "name": "1950s Household",
+          "id": "t0141",
+          "risk": false,
+          "recordName": "1950s"
+        },
+        {
+          "name": "Medical Play",
+          "id": "t0130",
+          "risk": false,
+          "recordName": "Medical"
+        },
+        {
+          "name": "Sister/Brother Roleplay",
+          "id": "t0151",
+          "risk": false,
+          "recordName": "Siblings"
+        },
+        {
+          "name": "Damsels In Distress",
+          "id": "t0135",
+          "risk": false,
+          "recordName": "Damsels"
+        },
+        {
+          "name": "Victorian Lifestyles",
+          "id": "t0144",
+          "risk": false,
+          "recordName": "Victorian"
+        },
+        {
+          "name": "Piggy Play",
+          "id": "t0139",
+          "risk": false,
+          "recordName": "Piggy"
+        }
+      ]
+    },
+    {
+      "name": "Clothing, materials & objects",
+      "id": "c0006",
+      "subcategories": [
+        {
+          "name": "Materials",
+          "id": "s0020",
+          "topics": [
+            {
+              "name": "Leather",
+              "id": "t0153",
+              "risk": false
+            },
+            {
+              "name": "Latex & rubber",
+              "id": "t0152",
+              "risk": false
+            },
+            {
+              "name": "Fur",
+              "id": "t0162",
+              "risk": false
+            },
+            {
+              "name": "Lace",
+              "id": "t0160",
+              "risk": false
+            },
+            {
+              "name": "Silk",
+              "id": "t0158",
+              "risk": false
+            },
+            {
+              "name": "Lycra/Spandex",
+              "id": "t0163",
+              "risk": false
+            },
+            {
+              "name": "Satin",
+              "id": "t0157",
+              "risk": false
+            },
+            {
+              "name": "PVC",
+              "id": "t0154",
+              "risk": false
+            },
+            {
+              "name": "Velvet",
+              "id": "t0159",
+              "risk": false
+            },
+            {
+              "name": "Metal",
+              "id": "t0156",
+              "risk": false
+            },
+            {
+              "name": "Vinyl",
+              "id": "t0155",
+              "risk": false
+            },
+            {
+              "name": "Denim",
+              "id": "t0161",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Footwear",
+          "id": "s0021",
+          "topics": [
+            {
+              "name": "Heels & boots",
+              "id": "t0166",
+              "risk": false
+            },
+            {
+              "name": "Pumps",
+              "id": "t0168",
+              "risk": false
+            },
+            {
+              "name": "High Heels",
+              "id": "t0167",
+              "risk": false
+            },
+            {
+              "name": "Knee High Socks",
+              "id": "t0170",
+              "risk": false
+            },
+            {
+              "name": "Socks",
+              "id": "t0171",
+              "risk": false
+            },
+            {
+              "name": "Boot",
+              "id": "t0165",
+              "risk": false
+            },
+            {
+              "name": "Retifism",
+              "id": "t0169",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Uniforms & costumes",
+          "id": "s0022",
+          "topics": [
+            {
+              "name": "Uniforms",
+              "id": "t0176",
+              "risk": false
+            },
+            {
+              "name": "Costume transformation",
+              "id": "t0178",
+              "risk": false
+            },
+            {
+              "name": "Schoolgirl Uniform",
+              "id": "t0175",
+              "risk": false
+            },
+            {
+              "name": "Cosplay",
+              "id": "t0177",
+              "risk": false
+            },
+            {
+              "name": "Business Suits",
+              "id": "t0172",
+              "risk": false
+            },
+            {
+              "name": "Military Uniforms",
+              "id": "t0174",
+              "risk": false
+            },
+            {
+              "name": "Military",
+              "id": "t0173",
+              "risk": false
+            },
+            {
+              "name": "Steampunk",
+              "id": "t0180",
+              "risk": false
+            },
+            {
+              "name": "Geisha",
+              "id": "t0179",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Lingerie & hosiery",
+          "id": "s0023",
+          "topics": [
+            {
+              "name": "Lingerie & stockings",
+              "id": "t0181",
+              "risk": false
+            },
+            {
+              "name": "Pantyhose/Stockings",
+              "id": "t0183",
+              "risk": false
+            },
+            {
+              "name": "Corsets",
+              "id": "t0184",
+              "risk": false
+            },
+            {
+              "name": "Fishnets",
+              "id": "t0182",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Undergarments",
+          "id": "s0024",
+          "topics": [
+            {
+              "name": "Diapers",
+              "id": "t0185",
+              "risk": false
+            },
+            {
+              "name": "Skirts",
+              "id": "t0188",
+              "risk": false
+            },
+            {
+              "name": "Sissy Panties",
+              "id": "t0186",
+              "risk": false
+            },
+            {
+              "name": "Petticoats",
+              "id": "t0187",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Masks & headwear",
+          "id": "s0025",
+          "topics": [
+            {
+              "name": "Glasses",
+              "id": "t0192",
+              "risk": false
+            },
+            {
+              "name": "Hoods",
+              "id": "t0190",
+              "risk": false
+            },
+            {
+              "name": "Gas Masks",
+              "id": "t0189",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Objects/toys",
+          "id": "s0026",
+          "topics": [
+            {
+              "name": "Harnesses",
+              "id": "t0196",
+              "risk": false
+            },
+            {
+              "name": "Anal beads",
+              "id": "t0193",
+              "risk": false
+            },
+            {
+              "name": "Glass Dildos",
+              "id": "t0194",
+              "risk": false
+            },
+            {
+              "name": "Gloves",
+              "id": "t0197",
+              "risk": false
+            },
+            {
+              "name": "Kilts",
+              "id": "t0199",
+              "risk": false
+            },
+            {
+              "name": "Zentai",
+              "id": "t0200",
+              "risk": false
+            },
+            {
+              "name": "Chaps",
+              "id": "t0198",
+              "risk": false
+            },
+            {
+              "name": "Inflatables",
+              "id": "t0195",
+              "risk": false
+            }
+          ]
+        }
+      ],
+      "topics": [
+        {
+          "name": "Masks & hoods",
+          "id": "t0191",
+          "risk": false,
+          "recordName": "Costume masks"
+        },
+        {
+          "name": "NylonLegs & Feet",
+          "id": "t0164",
+          "risk": false,
+          "recordName": "Nylon"
+        }
+      ]
+    },
+    {
+      "name": "Body focus & appearance",
+      "id": "c0007",
+      "subcategories": [
+        {
+          "name": "Head hair",
+          "id": "s0027",
+          "topics": [
+            {
+              "name": "Hair",
+              "id": "t0203",
+              "risk": false
+            },
+            {
+              "name": "Pigtails",
+              "id": "t0205",
+              "risk": false
+            },
+            {
+              "name": "Long Hair",
+              "id": "t0204",
+              "risk": false
+            },
+            {
+              "name": "Bald Girls",
+              "id": "t0206",
+              "risk": false
+            },
+            {
+              "name": "Head Shaving",
+              "id": "t0207",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Facial & body hair",
+          "id": "s0028",
+          "topics": [
+            {
+              "name": "Beards",
+              "id": "t0209",
+              "risk": false
+            },
+            {
+              "name": "Pubic Hair",
+              "id": "t0211",
+              "risk": false
+            },
+            {
+              "name": "Facial Hair",
+              "id": "t0208",
+              "risk": false
+            },
+            {
+              "name": "Body Hair",
+              "id": "t0210",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Lower body",
+          "id": "s0029",
+          "topics": [
+            {
+              "name": "Buttocks",
+              "id": "t0218",
+              "risk": false
+            },
+            {
+              "name": "Foot Worship",
+              "id": "t0215",
+              "risk": false
+            },
+            {
+              "name": "Legs",
+              "id": "t0217",
+              "risk": false
+            },
+            {
+              "name": "Boot Worship",
+              "id": "t0216",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Torso",
+          "id": "s0030",
+          "topics": [
+            {
+              "name": "Breasts",
+              "id": "t0220",
+              "risk": false
+            },
+            {
+              "name": "Pregnancy focus",
+              "id": "t0222",
+              "risk": false
+            },
+            {
+              "name": "Big Tits",
+              "id": "t0219",
+              "risk": false
+            },
+            {
+              "name": "Large Labia",
+              "id": "t0221",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Face",
+          "id": "s0031",
+          "topics": [
+            {
+              "name": "Lipstick",
+              "id": "t0224",
+              "risk": false
+            },
+            {
+              "name": "Tongues",
+              "id": "t0228",
+              "risk": false
+            },
+            {
+              "name": "Makeup",
+              "id": "t0223",
+              "risk": false
+            },
+            {
+              "name": "Freckles",
+              "id": "t0225",
+              "risk": false
+            },
+            {
+              "name": "Armpits",
+              "id": "t0226",
+              "risk": false
+            },
+            {
+              "name": "Braces",
+              "id": "t0227",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Body type",
+          "id": "s0032",
+          "topics": [
+            {
+              "name": "Size contrast",
+              "id": "t0234",
+              "risk": false
+            },
+            {
+              "name": "Older Women",
+              "id": "t0233",
+              "risk": false
+            },
+            {
+              "name": "BBW",
+              "id": "t0229",
+              "risk": false
+            },
+            {
+              "name": "BBC",
+              "id": "t0230",
+              "risk": false
+            },
+            {
+              "name": "Older Men",
+              "id": "t0232",
+              "risk": false
+            },
+            {
+              "name": "Uncut Cock",
+              "id": "t0235",
+              "risk": false
+            },
+            {
+              "name": "Body Modification",
+              "id": "t0236",
+              "risk": false
+            },
+            {
+              "name": "Muscles",
+              "id": "t0231",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Worship",
+          "id": "s0033",
+          "topics": [
+            {
+              "name": "Body worship",
+              "id": "t0237",
+              "risk": false
+            },
+            {
+              "name": "Muscle Worship",
+              "id": "t0238",
+              "risk": false
+            }
+          ]
+        }
+      ],
+      "topics": [
+        {
+          "name": "Feet & footwear",
+          "id": "t0213",
+          "risk": false,
+          "recordName": "Feet"
+        },
+        {
+          "name": "Hands & gloves",
+          "id": "t0202",
+          "risk": false
+        },
+        {
+          "name": "Toes and Feet",
+          "id": "t0214",
+          "risk": false,
+          "recordName": "Toes"
+        },
+        {
+          "name": "Depilation/Shaving",
+          "id": null,
+          "risk": null
+        },
+        {
+          "name": "Hands",
+          "id": "t0201",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Psychological dynamics",
+      "id": "c0008",
+      "subcategories": [
+        {
+          "name": "Humiliation",
+          "id": "s0034",
+          "topics": [
+            {
+              "name": "Humiliation language",
+              "id": "t0240",
+              "risk": false
+            },
+            {
+              "name": "Degradation",
+              "id": "t0239",
+              "risk": false
+            },
+            {
+              "name": "Objectification",
+              "id": "t0243",
+              "risk": false
+            },
+            {
+              "name": "Female Humiliation",
+              "id": "t0241",
+              "risk": false,
+              "recordName": "Female humiliation"
+            }
+          ]
+        },
+        {
+          "name": "Intimidation",
+          "id": "s0035",
+          "topics": [
+            {
+              "name": "Fear Play",
+              "id": "t0245",
+              "risk": false
+            },
+            {
+              "name": "Interrogation",
+              "id": "t0246",
+              "risk": false
+            },
+            {
+              "name": "Fear",
+              "id": "t0244",
+              "risk": false
+            },
+            {
+              "name": "Military Interrogation",
+              "id": "t0247",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Mind control",
+          "id": "s0036",
+          "topics": [
+            {
+              "name": "Mind Fucks",
+              "id": "t0249",
+              "risk": false,
+              "recordName": "Mind fucks"
+            },
+            {
+              "name": "Mental Bondage",
+              "id": "t0250",
+              "risk": false,
+              "recordName": "Mental bondage"
+            }
+          ]
+        },
+        {
+          "name": "Emotional",
+          "id": "s0037",
+          "topics": [
+            {
+              "name": "Tearing off Clothing",
+              "id": "t0257",
+              "risk": false
+            },
+            {
+              "name": "Crying",
+              "id": "t0254",
+              "risk": false
+            },
+            {
+              "name": "Tears",
+              "id": "t0256",
+              "risk": false
+            },
+            {
+              "name": "Emotional Sadism",
+              "id": "t0251",
+              "risk": false
+            },
+            {
+              "name": "Dacryphilia",
+              "id": "t0255",
+              "risk": false
+            },
+            {
+              "name": "Affectionate Cruelty",
+              "id": "t0253",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Vulnerability",
+          "id": "s0038",
+          "topics": [
+            {
+              "name": "Anticipation & suspense",
+              "id": "t0258",
+              "risk": false
+            },
+            {
+              "name": "Confession & secrets",
+              "id": "t0262",
+              "risk": false
+            },
+            {
+              "name": "Trust",
+              "id": "t0259",
+              "risk": false
+            },
+            {
+              "name": "Attention",
+              "id": "t0260",
+              "risk": false
+            },
+            {
+              "name": "Blushing",
+              "id": "t0261",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Verbal",
+          "id": "s0039",
+          "topics": [
+            {
+              "name": "Dirty talk",
+              "id": "t0263",
+              "risk": false
+            },
+            {
+              "name": "Graphoerotica",
+              "id": "t0265",
+              "risk": false
+            }
+          ]
+        }
+      ],
+      "topics": [
+        {
+          "name": "Praise (in scene)",
+          "id": "t0264",
+          "risk": false,
+          "recordName": "Praise"
+        },
+        {
+          "name": "Hypnosis & mind-control fantasy",
+          "id": "t0248",
+          "risk": false,
+          "recordName": "Hypnosis"
+        },
+        {
+          "name": "small penis humiliation",
+          "id": "t0242",
+          "risk": false,
+          "recordName": "SPH humiliation"
+        }
+      ]
+    },
+    {
+      "name": "Watching, exposure & settings",
+      "id": "c0009",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Watching & being watched",
+          "id": "t0266",
+          "risk": false
+        },
+        {
+          "name": "Private photo & video",
+          "id": "t0267",
+          "risk": false
+        },
+        {
+          "name": "Performance for a partner",
+          "id": "t0268",
+          "risk": false
+        },
+        {
+          "name": "Public & outdoor play",
+          "id": "t0269",
+          "risk": false
+        },
+        {
+          "name": "Exhibition / voyeurism",
+          "id": "t0270",
+          "risk": false
+        },
+        {
+          "name": "Sexting",
+          "id": "t0271",
+          "risk": false
+        },
+        {
+          "name": "Burlesque",
+          "id": "t0272",
+          "risk": false
+        },
+        {
+          "name": "Sex in the cemetery",
+          "id": "t0273",
+          "risk": false
+        },
+        {
+          "name": "Pin-Ups",
+          "id": "t0274",
+          "risk": false
+        },
+        {
+          "name": "Fetish Models",
+          "id": "t0275",
+          "risk": false
+        },
+        {
+          "name": "Vintage Porn",
+          "id": "t0276",
+          "risk": false
+        },
+        {
+          "name": "Bellydancing",
+          "id": "t0277",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Partner configurations",
+      "id": "c0010",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Threesomes",
+          "id": "t0278",
+          "risk": false
+        },
+        {
+          "name": "Group encounters",
+          "id": "t0279",
+          "risk": false
+        },
+        {
+          "name": "Swinging",
+          "id": "t0280",
+          "risk": false
+        },
+        {
+          "name": "Cuckold / hotwife",
+          "id": "t0281",
+          "risk": false
+        },
+        {
+          "name": "Polyamory with kink",
+          "id": "t0282",
+          "risk": false
+        },
+        {
+          "name": "Group service",
+          "id": "t0283",
+          "risk": false
+        },
+        {
+          "name": "Gangbang fantasy",
+          "id": null,
+          "risk": null
+        },
+        {
+          "name": "Age gap",
+          "id": "t0285",
+          "risk": false
+        },
+        {
+          "name": "FMF threesomes",
+          "id": "t0286",
+          "risk": false
+        },
+        {
+          "name": "Interracial Sex",
+          "id": "t0287",
+          "risk": false
+        },
+        {
+          "name": "Hotwife",
+          "id": "t0288",
+          "risk": false
+        },
+        {
+          "name": "Cuckold Humiliation",
+          "id": "t0289",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Sex acts",
+      "id": "c0011",
+      "subcategories": [
+        {
+          "name": "Oral",
+          "id": "s0040",
+          "topics": [
+            {
+              "name": "Rimming",
+              "id": "t0294",
+              "risk": false
+            },
+            {
+              "name": "Facefucking",
+              "id": "t0292",
+              "risk": false
+            },
+            {
+              "name": "Facesitting",
+              "id": "t0293",
+              "risk": false
+            },
+            {
+              "name": "Oral sex",
+              "id": "t0291",
+              "risk": false
+            },
+            {
+              "name": "Road Head",
+              "id": "t0296",
+              "risk": false,
+              "recordName": "Road head"
+            }
+          ]
+        },
+        {
+          "name": "Anal",
+          "id": "s0041",
+          "topics": [
+            {
+              "name": "Anal fisting",
+              "id": "t0300",
+              "risk": false
+            },
+            {
+              "name": "Pegging",
+              "id": "t0301",
+              "risk": false
+            },
+            {
+              "name": "Anal sex",
+              "id": "t0297",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Manual",
+          "id": "s0042",
+          "topics": [
+            {
+              "name": "Handjobs",
+              "id": "t0302",
+              "risk": false
+            },
+            {
+              "name": "Vaginal fingering",
+              "id": "t0304",
+              "risk": false
+            },
+            {
+              "name": "Mutual Masturbation",
+              "id": "t0303",
+              "risk": false,
+              "recordName": "Mutual masturbation"
+            },
+            {
+              "name": "Nipple Play",
+              "id": "t0305",
+              "risk": false,
+              "recordName": "Nipple play"
+            }
+          ]
+        },
+        {
+          "name": "Insertion",
+          "id": "s0043",
+          "topics": [
+            {
+              "name": "Penetration",
+              "id": "t0306",
+              "risk": false
+            },
+            {
+              "name": "Large objects",
+              "id": "t0308",
+              "risk": false
+            },
+            {
+              "name": "Catheters",
+              "id": "t0313",
+              "risk": false
+            }
+          ]
+        },
+        {
+          "name": "Fluids",
+          "id": "s0044",
+          "topics": [
+            {
+              "name": "Creampies",
+              "id": "t0315",
+              "risk": false
+            },
+            {
+              "name": "Facials",
+              "id": "t0314",
+              "risk": false
+            },
+            {
+              "name": "Squirting",
+              "id": "t0316",
+              "risk": false
+            }
+          ]
+        }
+      ],
+      "topics": [
+        {
+          "name": "Anal fingering",
+          "id": "t0299",
+          "risk": false,
+          "recordName": "Fingering"
+        },
+        {
+          "name": "Fingering mouths",
+          "id": "t0295",
+          "risk": false,
+          "recordName": "Mouth fingering"
+        },
+        {
+          "name": "Vaginal fisting",
+          "id": "t0310",
+          "risk": false,
+          "recordName": "Fisting"
+        },
+        {
+          "name": "Morning Sex",
+          "id": "t0290",
+          "risk": false
+        },
+        {
+          "name": "Anal Training",
+          "id": "t0298",
+          "risk": false,
+          "recordName": "Training"
+        },
+        {
+          "name": "Fucking Machines",
+          "id": "t0307",
+          "risk": false,
+          "recordName": "Machines"
+        },
+        {
+          "name": "Vaginal Stretching",
+          "id": "t0309",
+          "risk": false,
+          "recordName": "Stretching"
+        },
+        {
+          "name": "Vacuum pumping",
+          "id": "t0311",
+          "risk": false,
+          "recordName": "Pumping"
+        },
+        {
+          "name": "Urethral Fucking",
+          "id": "t0312",
+          "risk": false,
+          "recordName": "Urethral"
+        }
+      ]
+    },
+    {
+      "name": "Positions",
+      "id": "c0012",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "69",
+          "id": "t0317",
+          "risk": false
+        },
+        {
+          "name": "Cowgirl",
+          "id": "t0318",
+          "risk": false
+        },
+        {
+          "name": "Doggystyle",
+          "id": "t0319",
+          "risk": false
+        },
+        {
+          "name": "Missionary",
+          "id": "t0320",
+          "risk": false
+        },
+        {
+          "name": "Reverse cowgirl",
+          "id": "t0321",
+          "risk": false
+        },
+        {
+          "name": "Spooning",
+          "id": "t0322",
+          "risk": false
+        },
+        {
+          "name": "Standing up",
+          "id": "t0323",
+          "risk": false
+        },
+        {
+          "name": "Queening",
+          "id": "t0324",
+          "risk": false
+        },
+        {
+          "name": "Gorean Slave Positions",
+          "id": "t0325",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Orgasm & reproductive play",
+      "id": "c0013",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Orgasm control",
+          "id": "t0326",
+          "risk": false
+        },
+        {
+          "name": "Orgasm denial",
+          "id": "t0327",
+          "risk": false
+        },
+        {
+          "name": "Chastity",
+          "id": "t0328",
+          "risk": false
+        },
+        {
+          "name": "Edging",
+          "id": "t0329",
+          "risk": false
+        },
+        {
+          "name": "Teasing",
+          "id": "t0330",
+          "risk": false
+        },
+        {
+          "name": "Breeding / pregnancy fantasy",
+          "id": "t0331",
+          "risk": false
+        },
+        {
+          "name": "Surrogacy fantasy",
+          "id": "t0332",
+          "risk": false
+        },
+        {
+          "name": "Oviposition fantasy",
+          "id": "t0333",
+          "risk": false
+        },
+        {
+          "name": "Edge Play",
+          "id": "t0334",
+          "risk": true
+        },
+        {
+          "name": "Cock Milking",
+          "id": "t0335",
+          "risk": false
+        },
+        {
+          "name": "Tease & Denial",
+          "id": "t0336",
+          "risk": false
+        },
+        {
+          "name": "Anal Chastity",
+          "id": "t0337",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Fluids & messy play",
+      "id": "c0014",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Watersports",
+          "id": "t0338",
+          "risk": false
+        },
+        {
+          "name": "Lactation",
+          "id": "t0339",
+          "risk": false
+        },
+        {
+          "name": "Blood play",
+          "id": "t0340",
+          "risk": false
+        },
+        {
+          "name": "Spit",
+          "id": "t0341",
+          "risk": false
+        },
+        {
+          "name": "Enemas",
+          "id": "t0342",
+          "risk": false
+        },
+        {
+          "name": "Breastfeeding",
+          "id": "t0343",
+          "risk": false
+        },
+        {
+          "name": "Creampie Cleanup",
+          "id": "t0344",
+          "risk": false
+        },
+        {
+          "name": "Toilet slave",
+          "id": "t0345",
+          "risk": false
+        },
+        {
+          "name": "Liquor",
+          "id": "t0346",
+          "risk": false
+        },
+        {
+          "name": "Douching",
+          "id": "t0347",
+          "risk": false
+        },
+        {
+          "name": "Nyotaimori",
+          "id": "t0348",
+          "risk": false
+        },
+        {
+          "name": "Chocolate",
+          "id": "t0349",
+          "risk": false
+        },
+        {
+          "name": "Klismaphilia",
+          "id": "t0350",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Primal & pursuit",
+      "id": "c0015",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Hunter / prey",
+          "id": "t0351",
+          "risk": false
+        },
+        {
+          "name": "Chase scenes",
+          "id": "t0352",
+          "risk": false
+        },
+        {
+          "name": "Wrestling & struggle",
+          "id": "t0353",
+          "risk": false
+        },
+        {
+          "name": "Biting & scratching",
+          "id": "t0354",
+          "risk": false
+        },
+        {
+          "name": "Being Overpowered",
+          "id": "t0355",
+          "risk": false
+        },
+        {
+          "name": "Manhandling",
+          "id": "t0356",
+          "risk": false
+        },
+        {
+          "name": "Pursuit, Take-Down & Capture",
+          "id": "t0357",
+          "risk": false
+        },
+        {
+          "name": "Primal",
+          "id": "t0358",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Service & ritual",
+      "id": "c0016",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Acts of service",
+          "id": "t0359",
+          "risk": false
+        },
+        {
+          "name": "Domestic service",
+          "id": "t0360",
+          "risk": false
+        },
+        {
+          "name": "Formal etiquette",
+          "id": "t0361",
+          "risk": false
+        },
+        {
+          "name": "Grooming rituals",
+          "id": "t0362",
+          "risk": false
+        },
+        {
+          "name": "Dressing a partner",
+          "id": "t0363",
+          "risk": false
+        },
+        {
+          "name": "Permission rituals",
+          "id": "t0364",
+          "risk": false
+        },
+        {
+          "name": "Daily tasks",
+          "id": "t0365",
+          "risk": false
+        },
+        {
+          "name": "Ceremonial scenes",
+          "id": "t0366",
+          "risk": false
+        },
+        {
+          "name": "Spiritual play",
+          "id": "t0367",
+          "risk": false
+        },
+        {
+          "name": "Foot Massage",
+          "id": "t0368",
+          "risk": false
+        },
+        {
+          "name": "Domestic Servitude",
+          "id": "t0369",
+          "risk": false
+        },
+        {
+          "name": "French Maids",
+          "id": "t0370",
+          "risk": false
+        },
+        {
+          "name": "Maid",
+          "id": "t0371",
+          "risk": false
+        },
+        {
+          "name": "Crawling",
+          "id": "t0372",
+          "risk": false
+        },
+        {
+          "name": "Boot Blacking",
+          "id": "t0373",
+          "risk": false
+        },
+        {
+          "name": "Religious Play",
+          "id": "t0374",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Fantasy & transformation",
+      "id": "c0017",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Romantic surrender",
+          "id": "t0375",
+          "risk": false
+        },
+        {
+          "name": "Seduction scenarios",
+          "id": "t0376",
+          "risk": false
+        },
+        {
+          "name": "Strangers fantasy",
+          "id": "t0377",
+          "risk": false
+        },
+        {
+          "name": "Secret identity",
+          "id": "t0378",
+          "risk": false
+        },
+        {
+          "name": "Mythical creatures",
+          "id": "t0379",
+          "risk": false
+        },
+        {
+          "name": "Aliens",
+          "id": "t0380",
+          "risk": false
+        },
+        {
+          "name": "Growth / shrinking fantasy",
+          "id": "t0381",
+          "risk": false
+        },
+        {
+          "name": "Body-swapping fantasy",
+          "id": "t0382",
+          "risk": false
+        },
+        {
+          "name": "Furry transformation fantasy",
+          "id": "t0383",
+          "risk": false
+        },
+        {
+          "name": "Gender Play",
+          "id": "t0384",
+          "risk": false
+        },
+        {
+          "name": "Crossdressing",
+          "id": "t0385",
+          "risk": false
+        },
+        {
+          "name": "Sissification",
+          "id": "t0386",
+          "risk": false
+        },
+        {
+          "name": "Celebrity fantasy",
+          "id": "t0387",
+          "risk": false
+        },
+        {
+          "name": "Erotic Literature",
+          "id": "t0388",
+          "risk": false
+        },
+        {
+          "name": "Anime",
+          "id": "t0389",
+          "risk": false
+        },
+        {
+          "name": "Hentai",
+          "id": "t0390",
+          "risk": false
+        },
+        {
+          "name": "Writing Erotica",
+          "id": "t0391",
+          "risk": false
+        },
+        {
+          "name": "Transvestism",
+          "id": "t0392",
+          "risk": false
+        },
+        {
+          "name": "Androgyny",
+          "id": "t0393",
+          "risk": false
+        },
+        {
+          "name": "Butches",
+          "id": "t0394",
+          "risk": false
+        },
+        {
+          "name": "Psycholagny",
+          "id": "t0395",
+          "risk": false
+        }
+      ]
+    },
+    {
+      "name": "Connection & aftercare",
+      "id": "c0018",
+      "subcategories": [],
+      "topics": [
+        {
+          "name": "Verbal check-ins",
+          "id": "t0396",
+          "risk": false
+        },
+        {
+          "name": "Cuddling & touch",
+          "id": "t0397",
+          "risk": false
+        },
+        {
+          "name": "Food & hydration",
+          "id": "t0398",
+          "risk": false
+        },
+        {
+          "name": "Quiet decompression",
+          "id": "t0399",
+          "risk": false
+        },
+        {
+          "name": "Praise (aftercare)",
+          "id": "t0400",
+          "risk": false
+        },
+        {
+          "name": "Post-scene review",
+          "id": "t0401",
+          "risk": false
+        },
+        {
+          "name": "Space & solitude",
+          "id": "t0402",
+          "risk": false
+        },
+        {
+          "name": "Next-day check-in",
+          "id": "t0403",
+          "risk": false
+        },
+        {
+          "name": "Affection",
+          "id": "t0404",
+          "risk": false
+        }
+      ]
+    }
+  ]
+}

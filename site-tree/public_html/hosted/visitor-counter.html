@@ -1,0 +1,84 @@
+<!-- Sexcapades Visitor Counter — Odometer Style -->
+<!-- Include this snippet where you want the counter. Requires: <div id="visitor-counter"></div> -->
+<style>
+.visitor-odometer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "DM Sans", sans-serif;
+  color: #a6bbb7;
+  font-size: 0.85rem;
+}
+.odometer-digits {
+  display: inline-flex;
+  gap: 2px;
+}
+.odometer-digit {
+  width: 22px;
+  height: 32px;
+  background: #0c191a;
+  border: 1px solid #253839;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #55dc9a;
+  position: relative;
+  overflow: hidden;
+}
+.odometer-digit .digit-inner {
+  transition: transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+.odometer-digit.rolling .digit-inner {
+  transform: translateY(-2px);
+}
+.visitor-label {
+  opacity: 0.7;
+}
+</style>
+<div class="visitor-odometer" id="visitor-counter" title="Unique visitors to Sexcapades">
+  <div class="odometer-digits" id="odometer-digits"></div>
+  <span class="visitor-label">explorers</span>
+</div>
+<script>
+(function() {
+  var container = document.getElementById('odometer-digits');
+  if (!container) return;
+  
+  function renderDigits(count) {
+    var str = String(count).padStart(6, '0');
+    container.innerHTML = '';
+    for (var i = 0; i < str.length; i++) {
+      var d = document.createElement('div');
+      d.className = 'odometer-digit';
+      var inner = document.createElement('div');
+      inner.className = 'digit-inner';
+      inner.textContent = str[i];
+      d.appendChild(inner);
+      container.appendChild(d);
+    }
+    // Trigger roll animation
+    setTimeout(function() {
+      var digits = container.querySelectorAll('.odometer-digit');
+      digits.forEach(function(d, idx) {
+        setTimeout(function() { d.classList.add('rolling'); }, idx * 80);
+      });
+    }, 100);
+  }
+  
+  // Fetch count from API
+  fetch('https://sexcapades.io/hosted/api/collect.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({action: 'get_stats'})
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.ok) renderDigits(data.unique_visitors || 0);
+    else renderDigits(0);
+  })
+  .catch(function() { renderDigits(0); });
+})();
+</script>

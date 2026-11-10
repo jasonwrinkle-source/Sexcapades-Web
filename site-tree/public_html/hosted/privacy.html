@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://sexcapades.io/privacy" />
+  <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="https://sexcapades.io/hosted/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="https://sexcapades.io/hosted/favicon.ico" />
+    <meta name="description" content="Sexcapades — Rate over 400 kinks on a visual hypermap, compare with a partner, and discover where you overlap." />
+    <meta property="og:title" content="Sexcapades — Compare Hypermaps" />
+    <meta property="og:description" content="Rate over 400 kinks, compare your hypermap with a partner, and find where you overlap." />
+    <meta property="og:url" content="https://sexcapades.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://sexcapades.io/hosted/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sexcapades — Compare Hypermaps" />
+    <meta name="twitter:description" content="Rate over 400 kinks, compare your hypermap with a partner." />
+    <meta name="twitter:image" content="https://sexcapades.io/hosted/og-image.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="How Sexcapades handles kink profiles, optional on-device saving, shared files, anonymous survey submissions, visitor counting, and age confirmation." />
+  <title>Sexcapades Privacy Policy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,700&display=swap');
+
+    :root {
+      color-scheme: dark;
+      --bg: #10171b;
+      --surface: #172126;
+      --surface-soft: #1d2a30;
+      --text: #f3f8f8;
+      --muted: #b5c2c8;
+      --line: #35464d;
+      --accent: #66d8ca;
+      --accent-soft: #173b35;
+      --accent-strong: #91e8de;
+      --warning: #ffc56f;
+      --warning-soft: #3c2c18;
+      --focus: #8ce9df;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #080c0e;
+        --surface: #10171b;
+        --surface-soft: #162126;
+        --text: #f4f8f8;
+        --muted: #a9b8bf;
+        --line: #2a3940;
+        --accent: #5ed8c9;
+        --accent-soft: #12352f;
+        --accent-strong: #8ae7dc;
+        --warning: #ffc167;
+        --warning-soft: #392815;
+        --focus: #80e8dc;
+        --shadow: 0 22px 60px rgba(0, 0, 0, 0.36);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 0;
+      background:
+        linear-gradient(180deg, var(--surface-soft) 0, var(--bg) 25rem);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-strong); text-underline-offset: 0.18em; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    .page {
+      width: min(100% - 36px, 920px);
+      margin-inline: auto;
+      padding: clamp(44px, 8vw, 88px) 0 56px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(250px, 0.72fr);
+      gap: clamp(28px, 6vw, 72px);
+      align-items: end;
+      padding-bottom: clamp(36px, 6vw, 64px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent-strong);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+    }
+
+    h1, h2 {
+      font-family: "Source Serif 4", Georgia, serif;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 11ch;
+      margin: 0;
+      font-size: clamp(2.65rem, 8vw, 5.1rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.16rem);
+      line-height: 1.72;
+    }
+
+    .intro strong { color: var(--text); }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin: 0;
+      background: var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .summary div {
+      background: var(--surface);
+      padding: 24px 22px;
+    }
+
+    .summary dt {
+      margin: 0 0 5px;
+      color: var(--accent-strong);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .summary dd {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.91rem;
+      line-height: 1.48;
+    }
+
+    article {
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 178px minmax(0, 1fr);
+      gap: clamp(24px, 6vw, 64px);
+      padding: clamp(34px, 6vw, 58px) clamp(24px, 7vw, 68px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section:last-of-type { border-bottom: 0; }
+
+    .number {
+      display: block;
+      margin-bottom: 13px;
+      color: var(--accent-strong);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 4vw, 2.1rem);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+
+    .copy p { margin: 0; }
+    .copy p + p { margin-top: 16px; }
+    .copy strong { font-weight: 700; }
+
+    .callout {
+      margin-top: 24px;
+      padding: 18px 20px;
+      background: var(--warning-soft);
+      color: var(--text);
+      border-radius: 5px;
+    }
+
+    .callout strong { color: var(--warning); }
+
+    .no-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px 26px;
+      margin: 4px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .no-list li {
+      position: relative;
+      padding-left: 21px;
+      font-weight: 600;
+    }
+
+    .no-list li::before {
+      content: "×";
+      position: absolute;
+      left: 0;
+      top: -0.05em;
+      color: var(--accent-strong);
+      font-size: 1.18em;
+      font-weight: 700;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: baseline;
+      padding: 25px 2px 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    footer p { margin: 0; }
+    footer a { font-weight: 700; }
+
+    @media (max-width: 720px) {
+      .page { width: min(100% - 24px, 920px); padding-top: 36px; }
+      header { grid-template-columns: 1fr; align-items: start; }
+      h1 { max-width: 10ch; }
+      .intro { max-width: 38rem; }
+      .summary { grid-template-columns: 1fr; }
+      .summary div { padding: 18px 20px; }
+      .section { grid-template-columns: 1fr; gap: 18px; }
+      .section-heading { display: grid; grid-template-columns: 34px 1fr; align-items: start; gap: 4px; }
+      .number { margin: 4px 0 0; }
+      .no-list { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 7px; }
+    }
+
+    @media (max-width: 380px) {
+      body { font-size: 15px; }
+      .page { width: min(100% - 18px, 920px); }
+      .section { padding-inline: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      .page { width: 100%; padding: 0; }
+      article { box-shadow: none; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+  <style>
+/* AVATAR-MUSIC */
+.sx-head{position:relative}
+.sx-avatar-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:0;margin:0;background:none;border:0;cursor:pointer;border-radius:999px;line-height:0;font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+.sx-avatar-btn img{display:block}
+.sx-avatar-btn:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.sx-avatar-btn::after{content:"";position:absolute;inset:-4px;border-radius:999px;border:2px solid currentColor;opacity:0;pointer-events:none}
+.sx-avatar-btn.is-loading::after{opacity:.45;animation:sxAvatarPulse 1s ease-in-out infinite}
+.sx-avatar-btn.is-playing::after{opacity:.9;animation:sxAvatarPulse 1.6s ease-in-out infinite}
+@keyframes sxAvatarPulse{0%,100%{transform:scale(.96)}50%{transform:scale(1.05)}}
+.sx-avatar-badge{position:absolute;right:-3px;bottom:-3px;width:18px;height:18px;border-radius:50%;background:#111;color:#fff;border:1px solid rgba(128,128,128,.55);font-size:11px;line-height:16px;text-align:center;display:none;pointer-events:none}
+.sx-avatar-btn.is-playing .sx-avatar-badge{display:block}
+.sx-avatar-btn--corner{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;width:56px;height:56px;z-index:5}
+.sx-avatar-btn--corner img{width:100%;height:100%;object-fit:contain}
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="sx-head">
+      <!-- AVATAR-MUSIC -->
+      <button type="button" class="sx-avatar-btn sx-avatar-btn--corner" data-sx-display="Privacy" aria-pressed="false" aria-label="Play the verse for Privacy"><img src="https://sexcapades.io/hosted/guide-assets/yobitch-wave.webp" alt=""/><span class="sx-avatar-badge" aria-hidden="true">♪</span></button>
+      <div>
+        <p class="eyebrow">Privacy policy</p>
+        <h1>Privacy, without the fine print.</h1>
+      </div>
+      <p class="intro"><strong>Your kink profile belongs to you.</strong> Sexcapades is designed so your ratings stay on your device unless you deliberately export, share, or submit them to the optional anonymous survey. Here’s exactly what that means.</p>
+    </header>
+
+    <article aria-label="Privacy policy details">
+      <dl class="summary" aria-label="Privacy at a glance">
+        <div>
+          <dt>Your ratings</dt>
+          <dd>Stay in browser memory unless you opt in to saving them on this device.</dd>
+        </div>
+        <div>
+          <dt>Your exports</dt>
+          <dd>Leave your device only when you share them.</dd>
+        </div>
+        <div>
+          <dt>Our business</dt>
+          <dd>Making the tool—not selling your data.</dd>
+        </div>
+      </dl>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="number">01</span>
+          <h2>Profile data on your device</h2>
+        </div>
+        <div class="copy">
+          <p>By default, your kink ratings and profile live only in your browser’s temporary memory while Sexcapades is open. <strong>Close or reload the page and they’re gone</strong> unless you exported them first.</p>
+          <p><strong>Crash protection:</strong> As you rate topics, your ratings are automatically saved on this device (in your browser’s localStorage) every few seconds — even before you create a profile. This is anonymous: it stores only topic IDs and your give/receive ratings, with no name or identifying information. It never leaves your device. If your browser crashes or you reload accidentally, you’ll be offered a chance to restore your unsaved ratings. This automatic backup is always on and cannot be disabled; it’s deleted when you create a profile from the ratings or explicitly discard it.</p>
+          <p>If you turn on <strong>“Remember my profile on this device”</strong>—which is off by default—your full profile (including name and other details you enter) is saved in that browser’s localStorage on that device only. Saving it there does not send it to us or make it available on your other devices. Note: your ratings are already backed up automatically as described above; this setting controls whether your identifiable profile data is kept long-term.</p>
+          <p>You can turn the setting off at any time, which deletes the saved profile. You can also use the <strong>“Clear saved profile data”</strong> button. The automatic ratings backup is separate and is cleared when you create a profile or discard the draft.</p>
+          <div class="callout"><strong>Don’t turn this on on a shared device.</strong> Anyone with access to your device and browser could read profile data saved there.</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="number">02</span>
+          <h2>Exports and sharing</h2>
+        </div>
+        <div class="copy">
+          <p>When you export your profile — as a PNG, SVG, PDF, or sync card — your profile data travels inside the file you download. That keeps it portable without putting it in an online account.</p>
+          <p>Exports include only what’s currently visible on your map, plus any contact information you choose to add. Select only what you want to share — hidden topics stay private.</p>
+          <p>Sharing happens only when <strong>you</strong> choose to send or show that file. We don’t receive a copy and can’t access profiles you share.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="number">03</span>
+          <h2>What’s inside a sync card</h2>
+        </div>
+        <div class="copy">
+          <p>The QR codes on a sync card contain your profile data. Anyone who scans them can read your ratings and import the profile.</p>
+          <div class="callout"><strong>Treat a sync card like the profile itself:</strong> share it only with people you trust, and remember that someone you send it to may keep a copy.</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="number">04</span>
+          <h2>Optional anonymous survey</h2>
+        </div>
+        <div class="copy">
+          <p>If <strong>“Share anonymous ratings”</strong> is checked — on by default — saving the profile sends your ratings, the app version, and a random anonymous UUID to a database on sexcapades.io. Uncheck the box to opt out; nothing is sent. The UUID is generated on your device and kept only in the page’s temporary memory; it is not saved in localStorage and is not connected to a name, email address, or account.</p>
+          <p>Anonymous contributions include: compact ratings, topic count, app version, and the random anonymous ID. Never: favorites, limits, notes, profile details, photos, or personal information.</p>
+          <p>You can submit a partially rated map; you do not need to rate every topic. Because the anonymous ID lives only in the page’s memory, saving again during the same visit updates your earlier submission — but reloading the page starts a fresh anonymous entry.</p>
+          <p>No name, email address, account, IP address, or browser or device fingerprint is collected or stored with a survey submission. We use the submitted data to build aggregate statistics about how common different interests are in the community.</p>
+          <p>Until we have at least 20 submissions, the results are noise—not a statistically significant finding—and we won’t claim otherwise.</p>
+          <p><strong>Importer feedback.</strong> When you import from FetLife, KinkTest, or BDSMtest, any fetish names that don't match our topics can be shared anonymously to help improve future imports. This is opt-out (checked by default) — uncheck the box to skip it. If shared, we receive only the unmatched fetish name, whether it was in your "Into" or "Curious" list, and the same random anonymous UUID used for surveys. No ratings, no profile data, no personal information. We use these to add missing mappings.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="number">05</span>
+          <h2>Anonymous usage pings</h2>
+        </div>
+        <div class="copy">
+          <p><strong>Visitor counter.</strong> We count unique visitors using a random UUID saved in your browser’s localStorage. It contains no personal information. We do not store your IP address.</p>
+          <p><strong>Usage events.</strong> Separately, the site sends small anonymous pings: when you pass the age gate, and once per visit with how long you stayed and how many topics you rated. These carry only a random anonymous ID plus the event itself — for example, whether you arrived via a flyer QR code. They fire automatically, with no opt-in and no on/off switch. They contain no personal information, no kink ratings, and no IP addresses. We use them to understand which pages are useful and where visitors drop off, and to build the community statistics described above.</p>
+          <p><strong>Age confirmation.</strong> The site’s age gate does not remember you between visits — each visit asks again, and the gate itself stores nothing about the confirmation. (The guide keeps its own separate age confirmation on your device.)</p>
+          <p>None of these pings contain your kink ratings.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="number">06</span>
+          <h2>What we don’t do</h2>
+        </div>
+        <div class="copy">
+          <ul class="no-list">
+            <li>No accounts</li>
+            <li>No tracking pixels</li>
+            <li>No third-party analytics</li>
+            <li>No advertising</li>
+            <li>No data sales</li>
+            <li>No data shared without your action</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="number">07</span>
+          <h2>Questions?</h2>
+        </div>
+        <div class="copy">
+          <p>If anything here is unclear, email <a href="mailto:help@sexcapades.io">help@sexcapades.io</a>. Plain questions are welcome, and we’ll answer in plain language.</p>
+        </div>
+      </section>
+    </article>
+
+    <footer>
+      <p>Last updated October 15, 2026</p>
+      <p><a href="mailto:help@sexcapades.io">help@sexcapades.io</a></p>
+    </footer>
+  </main>
+
+  <div id="sexcapades_privacy_footer" style="text-align:center;padding:1.5em;font-size:1em;font-weight:bold;">
+    <a href="https://sexcapades.io/" style="color:inherit;">← Back to Sexcapades</a>
+  </div>
+
+  <div id="sexcapades_age_overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.95);align-items:center;justify-content:center;">
+    <div style="text-align:center;color:#fff;max-width:400px;padding:2em;">
+      <h2 style="margin-bottom:1em;">Are you 18 or older?</h2>
+      <p style="opacity:.7;margin-bottom:2em;">Sexcapades contains explicit sexual content.</p>
+      <button id="sexcapades_age_yes" style="padding:12px 32px;margin:0 8px;font-size:16px;cursor:pointer;background:#4a9eff;color:#fff;border:none;border-radius:8px;">Yes, I'm 18+</button>
+      <button id="sexcapades_age_no" style="padding:12px 32px;margin:0 8px;font-size:16px;cursor:pointer;background:#333;color:#fff;border:none;border-radius:8px;">No</button>
+    </div>
+  </div>
+  <script>
+    (function () {
+      try {
+        if (window.localStorage.getItem('sexcapades_age_verified') !== 'true') {
+          var overlay = document.getElementById('sexcapades_age_overlay');
+          overlay.style.display = 'flex';
+          document.getElementById('sexcapades_age_yes').addEventListener('click', function () {
+            try { window.localStorage.setItem('sexcapades_age_verified', 'true'); } catch (e) {}
+            overlay.style.display = 'none';
+          });
+          document.getElementById('sexcapades_age_no').addEventListener('click', function () {
+            window.location.href = 'https://www.google.com/';
+          });
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+</html>

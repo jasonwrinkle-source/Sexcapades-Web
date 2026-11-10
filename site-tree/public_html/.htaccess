@@ -1,0 +1,71 @@
+# Security headers for sexcapades.io
+# HSTS: force HTTPS, include subdomains, 1 year max-age
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+# Prevent MIME type sniffing
+Header always set X-Content-Type-Options "nosniff"
+
+# Branded 404 page
+ErrorDocument 404 /404.html
+
+# Clean URLs for SEO (rewrite /app -> /hosted/app.html, etc.)
+RewriteEngine On
+RewriteRule ^favicon\.ico$ /hosted/favicon.ico [L]
+RewriteRule ^app/?$ /hosted/app.html [L]
+RewriteRule ^guide/?$ /hosted/guide.html [L]
+RewriteRule ^quickstart/?$ /hosted/quickstart.html [L]
+RewriteRule ^privacy/?$ /hosted/privacy.html [L]
+RewriteRule ^flyer/?$ /hosted/flyer.html [L]
+RewriteRule ^compare/?$ /hosted/compare.html [L]
+RewriteRule ^examples/?$ /hosted/examples.html [L]
+RewriteRule ^guides/?$ /hosted/guides.html [L]
+RewriteRule ^how-it-works/?$ /hosted/how-it-works.html [L]
+RewriteRule ^terms/?$ /hosted/terms.html [L]
+
+# Cache discipline (2026-10-20): a deploy must never split a pair.
+# Hostinger's CDN held bundled JS under its default max-age=604800 (7 days),
+# so a fresh app.html shipped against a stale app.js and the app booted
+# broken. Force revalidation for entry pages and code bundles: caches may
+# store them, but must check ETag/Last-Modified before reuse (a 304 when
+# unchanged), so every file of a new deploy takes effect immediately.
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  # sw.js exactly (2026-10-20): the service worker script itself must always
+  # revalidate, so a browser's worker-update check always reaches the server
+  # instead of trusting a cached copy. The packagers stamp a per-build cache
+  # name into its bytes, so a new release's worker always differs and the
+  # update check can never conclude "unchanged" (304) for a new release.
+  # Placed after the generic js rule so it wins for this one file.
+  <FilesMatch "^sw\.js$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # version-manifest.json exactly (2026-10-25, gate prefetch): the gate's
+  # prefetch consumer reads this manifest on every gate visit; it must
+  # never be served stale, or the gate prefetches a previous build's files.
+  <FilesMatch "^version-manifest\.json$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # guide-manifest.json exactly (2026-10-28, gate prefetch both pages):
+  # same stale-manifest rule as version-manifest, for the guide leg.
+  <FilesMatch "^guide-manifest\.json$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # audio-manifest.json exactly (2026-10-28, gate prefetch songs):
+  # same stale-manifest rule as version-manifest, for the songs leg.
+  <FilesMatch "^audio-manifest\.json$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# Deny direct access to the visitor-counter data file (2026-10-09: was publicly downloadable)
+<Files "counter_uuid_data.txt">
+    Require all denied
+</Files>
+<Files "counter_throttle.txt">
+    Require all denied
+</Files>
