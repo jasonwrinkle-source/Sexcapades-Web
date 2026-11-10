@@ -111,7 +111,30 @@ if (typeof window.__sxErrLog !== "function") {
     document.addEventListener('pointerdown', function (ev) { dispatch(ptrBubble, ev); });
     document.addEventListener('keydown', function (ev) { dispatch(keyCapture, ev); }, !0);
     document.addEventListener('keydown', function (ev) { dispatch(keyBubble, ev); });
+
+    window.__sxInitQueue = window.__sxInitQueue || [];
+    window.__sxInitFlushed = window.__sxInitFlushed || false;
+    window.__sxRunInit = function (fn) {
+        try { fn(); } catch (e) { if (typeof window.__sxErrLog === "function") window.__sxErrLog("consolidated-init", e); }
+    };
+    window.__sxInit = function (fn) {
+        if (window.__sxInitFlushed) { window.__sxRunInit(fn); return; }
+        window.__sxInitQueue.push(fn);
+    };
+    window.__sxFlushInit = function () {
+        if (window.__sxInitFlushed) return;
+        window.__sxInitFlushed = true;
+        var queue = window.__sxInitQueue;
+        window.__sxInitQueue = [];
+        for (var i = 0; i < queue.length; i++) window.__sxRunInit(queue[i]);
+    };
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__sxFlushInit, { once: true });
+    } else {
+        setTimeout(window.__sxFlushInit, 0);
+    }
 })();
+var __sxInit = window.__sxInit;
 
 (window.__SEXCAPADES_DATA_READY || Promise.resolve()).then(function() {
     /* Boot gate (Build 2026-10-18_1250, restructured 2026-10-18_1321):
