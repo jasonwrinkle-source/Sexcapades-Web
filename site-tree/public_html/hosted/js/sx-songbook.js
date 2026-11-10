@@ -28,7 +28,8 @@
    privacy have no determined path and must stay pathless. */
 (function () {
   "use strict";
-  var BASE = "https://sexcapades.io/hosted/assets/audio/";
+  var isLocal = typeof location !== "undefined" && (location.hostname === "localhost" || location.hostname === "127.0.0.1");
+  var BASE = isLocal ? "/hosted/assets/audio/" : "https://sexcapades.io/hosted/assets/audio/";
   var TAG = "?sx=1";
   /* The seven verse slugs, named once. TABLE rows on the app and buttons
      elsewhere reference these names; nothing retypes a verse path. */
