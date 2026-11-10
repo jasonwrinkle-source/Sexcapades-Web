@@ -19,7 +19,8 @@ parts = [
     "05-compatibility.js",
     "06-pdf-exporter.js",
     "07-header-hug.js",
-    "08-ui-wiring.js"
+    "08-ui-wiring.js",
+    "09-profile-storage.js"
 ]
 
 print("[Bundle] Processing ES modules and bundling into data-bootstrap.js...")
