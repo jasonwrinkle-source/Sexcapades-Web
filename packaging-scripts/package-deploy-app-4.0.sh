@@ -28,13 +28,26 @@ echo "=== Packaging Sexcapades 4.0 App Deploy (Build $BUILD_NUM) ==="
 WORK=$(mktemp -d)
 trap "rm -rf $WORK" EXIT
 
-echo "Optimizing..."
-python3 "$OPTIMIZER" "$SRC" "$WORK/opt" app.html app-assets app
+echo "Staging modular app..."
+HOSTED="$WORK/pkg/sexcapades.io/public_html/hosted"
+mkdir -p "$HOSTED/app-assets/vendor" "$HOSTED/app-assets/images"
 
-echo "Packaging..."
-mkdir -p "$WORK/pkg/sexcapades.io/public_html/hosted"
-mv "$WORK/opt/app.html" "$WORK/pkg/sexcapades.io/public_html/hosted/app.html"
-mv "$WORK/opt/app-assets" "$WORK/pkg/sexcapades.io/public_html/hosted/"
+cp "$SRC" "$HOSTED/app.html"
+sed -i 's|href="css/app.css"|href="/hosted/app-assets/app.css"|g' "$HOSTED/app.html"
+sed -i 's|src="vendor/|src="/hosted/app-assets/vendor/|g' "$HOSTED/app.html"
+sed -i 's|src="data/|src="/hosted/app-assets/|g' "$HOSTED/app.html"
+sed -i 's|src="js/|src="/hosted/app-assets/|g' "$HOSTED/app.html"
+sed -i 's|src="images/|src="/hosted/app-assets/images/|g' "$HOSTED/app.html"
+
+cp "$DIR/app/css/app.css" "$HOSTED/app-assets/app.css"
+cp "$DIR/app/vendor/"* "$HOSTED/app-assets/vendor/"
+cp "$DIR/app/data/"*.js "$HOSTED/app-assets/"
+cp "$DIR/app/js/"*.js "$HOSTED/app-assets/"
+cp "$DIR/app/images/"* "$HOSTED/app-assets/images/"
+
+cat "$DIR/app/js/view-nav.js" "$DIR/app/js/layout-editor.js" "$DIR/app/js/patches.js" "$DIR/app/js/scene-sentinel.js" > "$HOSTED/app-assets/app.js"
+
+mkdir -p "$WORK/pkg/sexcapades.io/public_html"
 sed "s/__SX_CACHE__/$BUILD_NUM/g" "$SW_SRC" > "$WORK/pkg/sexcapades.io/public_html/sw.js"
 touch "$WORK/pkg/sexcapades.io/public_html/sw.js"
 echo "Service worker cache stamped: sexcapades-v$BUILD_NUM"
