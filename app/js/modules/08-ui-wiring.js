@@ -1,14 +1,252 @@
 /* ---- module: ui-wiring (folded from patches.js) ---- */
 
+var SX_SHELL_COLLECT_URL = 'https://sexcapades.io/hosted/api/collect.php';
+function sxShellOnLiveHost() {
+  return location.hostname === 'sexcapades.io' || location.hostname === 'www.sexcapades.io';
+}
+
+/* ---- visitor-counter ---- */
+__sxInit(function () {
+(function() {
+  function counterElements() {
+    return document.querySelectorAll('#appAboutDialog .about-visitor-count');
+  }
+
+  function renderUnavailable() {
+    counterElements().forEach(function(el) {
+      el.replaceChildren();
+      el.textContent = '—';
+      el.classList.add('is-unavailable');
+      el.setAttribute('aria-label', 'Site visitors unavailable');
+      el.title = 'Visitor count unavailable';
+    });
+  }
+
+  function renderCount(value) {
+    var number = Number(value);
+    if (!Number.isFinite(number) || number < 0) throw new Error('Invalid visitor count');
+    var digits = String(Math.floor(number)).padStart(6, '0');
+    counterElements().forEach(function(el) {
+      var fragment = document.createDocumentFragment();
+      digits.split('').forEach(function(ch) {
+        var digit = document.createElement('span');
+        digit.className = 'odo-digit';
+        digit.textContent = ch;
+        fragment.appendChild(digit);
+      });
+      el.replaceChildren(fragment);
+      el.classList.remove('is-unavailable');
+      el.setAttribute('aria-label', number + ' site visitors');
+      el.removeAttribute('title');
+    });
+  }
+
+  function fetchCount() {
+    fetch(SX_SHELL_COLLECT_URL + '?action=get_stats')
+      .then(function(response) {
+        if (!response.ok) throw new Error('Visitor count request failed');
+        return response.json();
+      })
+      .then(function(data) {
+        renderCount(data && data.unique_visitors);
+      })
+      .catch(function() {
+        renderUnavailable();
+      });
+  }
+
+  function initCounter() {
+    var about = SexcapadesRuntime.DOM.byId('appAboutDialog');
+    if (!about || about.querySelector('.about-visitor-count')) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'about-counter-wrap';
+    var label = document.createElement('div');
+    label.className = 'about-counter-label';
+    label.textContent = 'Site visitors';
+    var count = document.createElement('div');
+    count.className = 'about-visitor-count is-unavailable';
+    count.setAttribute('role', 'status');
+    count.setAttribute('aria-live', 'polite');
+    count.setAttribute('aria-label', 'Site visitors unavailable');
+    count.title = 'Visitor count unavailable';
+    count.textContent = '—';
+    wrap.appendChild(label);
+    wrap.appendChild(count);
+    about.appendChild(wrap);
+
+    var requested = false;
+    function requestWhenOpen() {
+      if (requested || !about.open) return;
+      requested = true;
+      fetchCount();
+      observer.disconnect();
+    }
+    var observer = new MutationObserver(requestWhenOpen);
+    observer.observe(about, {attributes: true, attributeFilter: ['open']});
+    requestWhenOpen();
+  }
+
+  initCounter();
+})();
+});
+
+
+/* ---- survey-consent ---- */
+__sxInit(function () {
+(function() {
+  var surveyOptedIn = true;
+  window.__sxSurveyOptedIn = function(){ return surveyOptedIn; };
+  function applySurveyConsent(){
+    document.querySelectorAll('[data-survey-consent]').forEach(function(control){ control.checked = surveyOptedIn; });
+  }
+  function wireSurveyConsent(control){
+    if (control.__sxSurveyWired) { control.checked = surveyOptedIn; return; }
+    control.__sxSurveyWired = true;
+    control.checked = surveyOptedIn;
+    control.addEventListener('change', function(){ surveyOptedIn = control.checked; applySurveyConsent(); });
+  }
+  function initSurveyConsent(){
+    document.querySelectorAll('[data-survey-consent]').forEach(wireSurveyConsent);
+    if (window.MutationObserver && document.body) {
+      new MutationObserver(function(records){
+        records.forEach(function(record){
+          record.addedNodes.forEach(function(node){
+            if (node.nodeType !== 1) return;
+            if (window.SVGElement && node instanceof window.SVGElement) return;
+            if (node.matches && node.matches('[data-survey-consent]')) wireSurveyConsent(node);
+            if (node.querySelectorAll) node.querySelectorAll('[data-survey-consent]').forEach(wireSurveyConsent);
+          });
+        });
+      }).observe(document.body, {childList: true, subtree: true});
+    }
+  }
+  initSurveyConsent();
+})();
+});
+
+
+/* ---- unmapped-fetish-share ---- */
+__sxInit(function () {
+(function() {
+  var row = SexcapadesRuntime.DOM.byId('unmappedShareRow');
+  var box = SexcapadesRuntime.DOM.byId('shareUnmappedFetishes');
+  var preview = SexcapadesRuntime.DOM.byId('converterPreview');
+  var guide = SexcapadesRuntime.DOM.byId('fetlifeGuide');
+  var apply = SexcapadesRuntime.DOM.byId('applyConverter');
+  if (!row || !box || !preview || !apply) return;
+  function syncVisibility(){
+    var fetlifeMode = !!(guide && !guide.hidden);
+    var hasUnmapped = !!(window.__sxUnmappedShare && window.__sxUnmappedShare.length);
+    row.hidden = !(fetlifeMode && !preview.hidden && hasUnmapped);
+    var labelSpan = row.querySelector('span');
+    var dlgTitle = SexcapadesRuntime.DOM.byId('converterTitle');
+    var isBdsm = !!(dlgTitle && /bdsmtest/i.test(dlgTitle.textContent || ''));
+    if (labelSpan) {
+      labelSpan.textContent = isBdsm
+        ? 'Help improve imports by sharing unmatched role names anonymously'
+        : 'Help improve imports by sharing unmatched fetish names anonymously';
+    }
+    if (row.title) {
+      row.title = isBdsm
+        ? 'Sharing unmatched role names helps us improve the importer so it can handle more role lists.'
+        : 'Sharing unmatched fetish names helps us improve the importer so it can handle more\'s fetish lists.';
+    }
+  }
+  function observe(el){
+    if (el && window.MutationObserver) new MutationObserver(syncVisibility).observe(el, {attributes: true, attributeFilter: ['hidden']});
+  }
+  observe(preview);
+  observe(guide);
+  document.addEventListener('click', function(){ setTimeout(syncVisibility, 0); }, true);
+  syncVisibility();
+  var sentFor = null;
+  apply.addEventListener('click', function(){
+    if (!box.checked || row.hidden) return;
+    if (!sxShellOnLiveHost()) return;
+    var items = window.__sxUnmappedShare;
+    if (!items || !items.length || sentFor === items) return;
+    sentFor = items;
+    var seen = {}, payload = [];
+    items.forEach(function(item){
+      if (!item || !item.fetish_name) return;
+      var type = item.list_type === 'curious' ? 'curious' : 'into';
+      var key = String(item.fetish_name).toLowerCase() + '|' + type;
+      if (seen[key]) return;
+      seen[key] = true;
+      payload.push({name: item.fetish_name, list_type: type});
+    });
+    if (!payload.length) return;
+    var uuid = '';
+    try { uuid = typeof window.__sxAnonUuid === 'function' ? String(window.__sxAnonUuid() || '') : ''; } catch (e) { if (typeof __sxErrLog === "function") __sxErrLog("anon-uuid", e); }
+    try {
+      fetch(SX_SHELL_COLLECT_URL + '?action=unmapped', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({action: 'unmapped', uuid: uuid, fetishes: payload}),
+        keepalive: true
+      }).catch(function (e) { if (typeof __sxErrLog === "function") __sxErrLog("analytics-beacon", e); });
+    } catch (e) { if (typeof __sxErrLog === "function") __sxErrLog("analytics-beacon", e); }
+  });
+})();
+});
+
+
+/* ---- scribe-gate ---- */
+__sxInit(function () {
+(function() {
+  function ratingCount(){
+    var counter = SexcapadesRuntime.DOM.byId('ratedCount');
+    if(!counter) return 0;
+    var match = String(counter.textContent || '').replace(/,/g, '').match(/\d+/);
+    return match ? Number(match[0]) : 0;
+  }
+  function syncScribeGate(){
+    var hasRatings = ratingCount() > 0;
+    var tabs = SexcapadesRuntime.DOM.byId('profileTabs');
+    var hasTab = tabs && tabs.querySelector('.profile-tab-button,button');
+    var show = hasRatings || !!hasTab;
+    var zone = document.querySelector('.scribe-zone');
+    var separator = document.querySelector('.scribe-separator');
+    if(zone) zone.hidden = !show;
+    if(separator) separator.hidden = !show;
+  }
+  function initScribeGate(){
+    var counter = SexcapadesRuntime.DOM.byId('ratedCount');
+    syncScribeGate();
+    if(counter) new MutationObserver(syncScribeGate).observe(counter, {childList: true, characterData: true, subtree: true});
+  }
+  initScribeGate();
+})();
+});
+
+
+/* ---- sentinel-toolbar-gate ---- */
+__sxInit(function () {
+(function() {
+  var sentinelBtn = document.getElementById('openSentinel');
+  var setterBtn = document.getElementById('openNegotiation');
+  if(!sentinelBtn) return;
+  function syncSentinelGate(){
+    if(setterBtn) sentinelBtn.hidden = !!setterBtn.hidden;
+  }
+  sentinelBtn.addEventListener('click', function() {
+    if(window.__sxOpenSentinel) window.__sxOpenSentinel();
+  });
+  syncSentinelGate();
+  if(setterBtn && typeof MutationObserver === "function"){
+    new MutationObserver(syncSentinelGate).observe(setterBtn, {attributes: true, attributeFilter: ["hidden"]});
+  }
+  var tabs = document.getElementById('profileTabs');
+  if(tabs && typeof MutationObserver === "function"){
+    new MutationObserver(function(){ try{ setTimeout(syncSentinelGate, 0); } catch(e){ syncSentinelGate(); } }).observe(tabs, {childList: true, subtree: true});
+  }
+})();
+});
+
+
 /* ---- take-test & source tooltip wiring ---- */
 __sxInit(function () {
-// Build 2026-10-17_0449 — Take-test / source wiring: (1) hover/focus tooltips
-// for every [data-source-name] control (the relabeled Take KinkTest /
-// Import BDSM test / Take Yes-No/Maybe / Import FetLife fetishes buttons and
-// the take-test dropdown items) showing a clickable link to the source
-// site; (2) open/close behavior for the profile dialog's take-test
-// dropdown, whose items launch their flows through the existing
-// [data-profile-details-converter] handlers.
 (function () {
   var tip = SexcapadesRuntime.DOM.byId("sourceTip");
   var tipName = SexcapadesRuntime.DOM.byId("sourceTipName");
@@ -112,7 +350,6 @@ __sxInit(function () {
 
 /* ---- references dialog wiring ---- */
 __sxInit(function () {
-// External References wiring: open references dialog from [data-open-references] or #references
 (function () {
   var dlg = SexcapadesRuntime.DOM.byId("referencesDialog");
   function openRefs() { window.__sxDialog.open(dlg); }
@@ -140,7 +377,6 @@ __sxInit(function () {
 
 /* ---- fetlife mapping editor ---- */
 __sxInit(function () {
-// Build 2026-10-18_1658 — FetLife mapping EDITOR.
 (function () {
   var dlg = SexcapadesRuntime.DOM.byId("fetlifeMapDialog");
   if (!dlg) return;
