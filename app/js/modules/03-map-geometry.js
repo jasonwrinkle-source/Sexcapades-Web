@@ -4017,6 +4017,13 @@
                 ctr && (window.__sxInterimAnchor = { branch: branch, x: ctr.x, y: ctr.y });
             } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
         }
+
+        const sxRenderMap = function(opts) { return Mr(opts); };
+        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
+        window.SexcapadesRuntime.Map = {
+            render: sxRenderMap
+        };
+
         function Mr(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
             if (jn && !e.recovery) return !1;
