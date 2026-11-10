@@ -9285,4 +9285,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
             }
         };
+
+        if (window.SexcapadesRuntime && window.SexcapadesRuntime.Profiles) {
+            window.SexcapadesRuntime.Profiles.io = window.__sexcapades;
+            window.SexcapadesRuntime.Profiles.manager = window.Sexcapades2xProfiles;
+        }
     }();
