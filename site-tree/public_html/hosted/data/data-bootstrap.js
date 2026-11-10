@@ -18389,7 +18389,7 @@ const TAXONOMY_CATEGORIES = [
                 if (cached.key !== currentKey) return false;
                 if (typeof yt !== "undefined" && yt[currentTargetId]) return false;
 
-                In.innerHTML = cached.markup;
+                n(In, cached.markup);
                 sxWireMapListeners();
 
                 sxActiveVaultKey = currentKey;
