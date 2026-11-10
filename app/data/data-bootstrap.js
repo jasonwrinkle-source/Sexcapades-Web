@@ -19127,14 +19127,17 @@ const TAXONOMY_CATEGORIES = [
                     });
                 });
             }
-            if (n(In, v), window.__sxLoad && window.__sxLoad(90 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — markup injected */), function() {
+            n(In, v);
+            window.__sxLoad && window.__sxLoad(90 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — markup injected */);
+            (function() {
                 const e = In.querySelector(".common-overlap-layer");
                 if (!e) return;
                 const t = document.createElementNS("http://www.w3.org/2000/svg", "g");
                 t.setAttribute("class", "common-overlap-layer branch-relation-layer"), t.setAttribute("aria-hidden", "true"), 
                 e.querySelectorAll(":scope > .common-overlap-link").forEach(e => t.appendChild(e)), 
                 t.childNodes.length ? (In.appendChild(t), e.childNodes.length || e.remove()) : e.childNodes.length || e.remove();
-            }(), function() {
+            })();
+            (function() {
                 // Segment paint (P1) splice: re-insert each retained
                 // frozen segment whose branch the string build just
                 // skipped. The segment's extracted pieces are moved
@@ -19212,7 +19215,8 @@ const TAXONOMY_CATEGORIES = [
                     });
                 } catch (_) { __sxErrLog("layout-scoped-paint-splice", _); }
                 scTSplice = performance.now() - scTSp0;
-            }(), sxWireMapListeners();
+            })();
+            sxWireMapListeners();
             if (vn) {
                 const e = In.querySelector(`.hidden-count-badge[data-id="${CSS.escape(vn)}"]`), t = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                 e && Bt && !t && "function" == typeof e.animate && e.animate([ {
