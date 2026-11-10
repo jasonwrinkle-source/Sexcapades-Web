@@ -2370,66 +2370,114 @@
             try { Ja(); } catch (_) {}
         }
 
-        const SX_WARM_BOOT_VER = "4.0.0-w1";
-        const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v1";
+        const SX_WARM_BOOT_VER = "4.0.0-w2";
+        const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v2";
+        const SX_IDB_NAME = "sx_hypermap_db";
+        const SX_IDB_STORE = "hypermap_cache";
+        const SX_IDB_VERSION = 1;
+
+        function sxOpenIdb() {
+            return new Promise((resolve, reject) => {
+                if (typeof window === "undefined" || !window.indexedDB) {
+                    return reject(new Error("IndexedDB not available"));
+                }
+                const req = indexedDB.open(SX_IDB_NAME, SX_IDB_VERSION);
+                req.onupgradeneeded = () => {
+                    const db = req.result;
+                    if (!db.objectStoreNames.contains(SX_IDB_STORE)) {
+                        db.createObjectStore(SX_IDB_STORE);
+                    }
+                };
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error || new Error("IDB open failed"));
+            });
+        }
+
+        function sxIdbGet(key) {
+            return sxOpenIdb().then(db => new Promise((resolve, reject) => {
+                const tx = db.transaction(SX_IDB_STORE, "readonly");
+                const store = tx.objectStore(SX_IDB_STORE);
+                const req = store.get(key);
+                req.onsuccess = () => resolve(req.result || null);
+                req.onerror = () => reject(req.error || new Error("IDB get failed"));
+            }));
+        }
+
+        function sxIdbSet(key, value) {
+            return sxOpenIdb().then(db => new Promise((resolve, reject) => {
+                const tx = db.transaction(SX_IDB_STORE, "readwrite");
+                const store = tx.objectStore(SX_IDB_STORE);
+                const req = store.put(value, key);
+                req.onsuccess = () => resolve(true);
+                req.onerror = () => reject(req.error || new Error("IDB put failed"));
+            }));
+        }
+
+        function sxIdbDelete(key) {
+            return sxOpenIdb().then(db => new Promise((resolve, reject) => {
+                const tx = db.transaction(SX_IDB_STORE, "readwrite");
+                const store = tx.objectStore(SX_IDB_STORE);
+                const req = store.delete(key);
+                req.onsuccess = () => resolve(true);
+                req.onerror = () => reject(req.error || new Error("IDB delete failed"));
+            }));
+        }
+
+        let sxWarmBootCachedObj = null;
+        let sxWarmBootPromise = null;
+
+        function sxWarmBootInit() {
+            try {
+                try {
+                    localStorage.removeItem("sx_hypermap_warm_boot_v1");
+                    sessionStorage.removeItem("sx_hypermap_warm_boot_v1");
+                } catch (_) {}
+                sxWarmBootPromise = sxIdbGet(SX_WARM_BOOT_STORAGE_KEY).then(res => {
+                    sxWarmBootCachedObj = res;
+                    return res;
+                }).catch(() => null);
+            } catch (_) {}
+        }
+        sxWarmBootInit();
 
         function sxSaveWarmBootCache(profileId) {
             if (!In || In.childNodes.length === 0) return;
             const profId = profileId || "__default__";
             try {
                 const key = sxGetMapVaultKey(profId);
-                const payload = JSON.stringify({
+                const payload = {
                     v: SX_WARM_BOOT_VER,
                     time: Date.now(),
                     key: key,
                     profileId: profId,
                     markup: In.innerHTML
+                };
+                sxWarmBootCachedObj = payload;
+                sxIdbSet(SX_WARM_BOOT_STORAGE_KEY, payload).then(() => {
+                    console.log("[Sexcapades WarmBoot] Saved hypermap to IndexedDB for [" + profId + "] (" + Math.round(payload.markup.length / 1024) + " KB)");
+                }).catch(err => {
+                    console.warn("[Sexcapades WarmBoot] IndexedDB save failed:", err);
                 });
-                let saved = false;
-                try {
-                    localStorage.setItem(SX_WARM_BOOT_STORAGE_KEY, payload);
-                    saved = true;
-                } catch (lsErr) {
-                    console.warn("[Sexcapades WarmBoot] localStorage.setItem failed, fallback to sessionStorage:", lsErr);
-                }
-                if (!saved) {
-                    try {
-                        sessionStorage.setItem(SX_WARM_BOOT_STORAGE_KEY, payload);
-                        saved = true;
-                    } catch (ssErr) {
-                        console.warn("[Sexcapades WarmBoot] sessionStorage.setItem failed:", ssErr);
-                    }
-                }
-                if (saved) {
-                    console.log("[Sexcapades WarmBoot] Saved hypermap cache for [" + profId + "] (" + Math.round(payload.length / 1024) + " KB)");
-                }
             } catch (err) {
                 console.warn("[Sexcapades WarmBoot] Cache save error:", err);
             }
         }
 
-        function sxGetWarmBootRaw() {
-            try {
-                return localStorage.getItem(SX_WARM_BOOT_STORAGE_KEY) || sessionStorage.getItem(SX_WARM_BOOT_STORAGE_KEY);
-            } catch (_) {
-                try {
-                    return sessionStorage.getItem(SX_WARM_BOOT_STORAGE_KEY);
-                } catch (_) {
-                    return null;
-                }
-            }
-        }
-
-        function sxTryRestoreWarmBoot() {
+        async function sxTryRestoreWarmBoot() {
             if (!In) return false;
             try {
-                const raw = sxGetWarmBootRaw();
-                if (!raw) {
-                    console.log("[Sexcapades WarmBoot] No warm-boot cache found in storage.");
+                let cached = sxWarmBootCachedObj;
+                if (!cached && sxWarmBootPromise) {
+                    cached = await sxWarmBootPromise;
+                }
+                if (!cached) {
+                    cached = await sxIdbGet(SX_WARM_BOOT_STORAGE_KEY).catch(() => null);
+                }
+                if (!cached) {
+                    console.log("[Sexcapades WarmBoot] No warm-boot cache found in IndexedDB.");
                     return false;
                 }
-                const cached = JSON.parse(raw);
-                if (!cached || cached.v !== SX_WARM_BOOT_VER) {
+                if (cached.v !== SX_WARM_BOOT_VER) {
                     console.log("[Sexcapades WarmBoot] Cache version mismatch.");
                     return false;
                 }
@@ -2462,7 +2510,7 @@
 
                 try { vc(); } catch (_) {}
                 try { Ih(); } catch (_) {}
-                console.log("[Sexcapades WarmBoot] Warm boot restore SUCCESSFUL (< 50ms) for [" + currentTargetId + "]!");
+                console.log("[Sexcapades WarmBoot] Warm boot restore SUCCESSFUL (< 50ms) from IndexedDB for [" + currentTargetId + "]!");
                 return true;
             } catch (err) {
                 if (typeof __sxErrLog === "function") __sxErrLog("warm-boot-restore", err);
@@ -2473,16 +2521,8 @@
 
         function sxInvalidateWarmBootCache(id) {
             try {
-                if (!id) {
-                    localStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
-                    sessionStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
-                    return;
-                }
-                const raw = sxGetWarmBootRaw();
-                if (raw && raw.includes(id)) {
-                    localStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
-                    sessionStorage.removeItem(SX_WARM_BOOT_STORAGE_KEY);
-                }
+                sxWarmBootCachedObj = null;
+                sxIdbDelete(SX_WARM_BOOT_STORAGE_KEY).catch(() => {});
             } catch (_) {}
         }
 
