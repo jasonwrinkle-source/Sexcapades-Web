@@ -458,25 +458,14 @@ window.__sxProgressWidget=function(refs){
     if(dismissed||finishing)return;
     finishing=true;
     clearTimeout(failTimer);
-    if(abort){
-      dismissed=true;
-      setBusyFalse();
+    widget.show(100);
+    if (abort) {
       revealFallback();
       hideNow();
       return;
     }
-    widget.show(100);
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        var wait=Math.max(0,400-(nowMs()-t0));
-        setTimeout(function(){
-          if(dismissed)return;
-          dismissed=true;
-          setBusyFalse();
-          hideNow();
-        },wait);
-      });
-    });
+    // Dismiss dial immediately when 100% or warm restore finishes
+    hideNow();
   }
   window.__sxBootFinish=function(abort){dismiss(!!abort);};
   function fail(){

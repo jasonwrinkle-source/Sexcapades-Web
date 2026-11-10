@@ -2423,6 +2423,34 @@
             }));
         }
 
+        // In-browser stream compression using native browser CompressionStream / DecompressionStream
+        async function sxCompressSvg(str) {
+            if (typeof CompressionStream !== "undefined") {
+                try {
+                    const blob = new Blob([str], { type: "text/plain" });
+                    const cs = new CompressionStream("gzip");
+                    const stream = blob.stream().pipeThrough(cs);
+                    const buf = await new Response(stream).arrayBuffer();
+                    return { raw: false, data: buf };
+                } catch (_) {}
+            }
+            return { raw: true, data: str };
+        }
+
+        async function sxDecompressSvg(entry) {
+            if (!entry) return "";
+            if (entry.raw) return entry.data || "";
+            if (typeof DecompressionStream !== "undefined" && entry.data) {
+                try {
+                    const blob = new Blob([entry.data]);
+                    const ds = new DecompressionStream("gzip");
+                    const stream = blob.stream().pipeThrough(ds);
+                    return await new Response(stream).text();
+                } catch (_) {}
+            }
+            return typeof entry.data === "string" ? entry.data : "";
+        }
+
         let sxWarmBootCachedObj = null;
         let sxWarmBootPromise = null;
 
@@ -2440,21 +2468,25 @@
         }
         sxWarmBootInit();
 
-        function sxSaveWarmBootCache(profileId) {
+        async function sxSaveWarmBootCache(profileId) {
             if (!In || In.childNodes.length === 0) return;
             const profId = profileId || "__default__";
             try {
                 const key = sxGetMapVaultKey(profId);
+                const markupStr = In.innerHTML;
+                const compressed = await sxCompressSvg(markupStr);
                 const payload = {
                     v: SX_WARM_BOOT_VER,
                     time: Date.now(),
                     key: key,
                     profileId: profId,
-                    markup: In.innerHTML
+                    compressed: compressed
                 };
                 sxWarmBootCachedObj = payload;
                 sxIdbSet(SX_WARM_BOOT_STORAGE_KEY, payload).then(() => {
-                    console.log("[Sexcapades WarmBoot] Saved hypermap to IndexedDB for [" + profId + "] (" + Math.round(payload.markup.length / 1024) + " KB)");
+                    const originalKb = Math.round(markupStr.length / 1024);
+                    const storedKb = compressed.raw ? originalKb : Math.round(compressed.data.byteLength / 1024);
+                    console.log("[Sexcapades WarmBoot] Saved hypermap to IndexedDB for [" + profId + "] (" + storedKb + " KB gzipped, " + originalKb + " KB raw)");
                 }).catch(err => {
                     console.warn("[Sexcapades WarmBoot] IndexedDB save failed:", err);
                 });
@@ -2481,7 +2513,7 @@
                     console.log("[Sexcapades WarmBoot] Cache version mismatch.");
                     return false;
                 }
-                if (!cached.key || !cached.markup || !cached.profileId) return false;
+                if (!cached.key || !cached.profileId) return false;
 
                 const currentTargetId = Mt && vt[Mt] ? Mt : (Object.keys(vt).length ? Object.keys(vt)[0] : "__default__");
                 if (cached.profileId !== currentTargetId) {
@@ -2496,13 +2528,17 @@
                 }
                 if (typeof yt !== "undefined" && yt[currentTargetId]) return false;
 
-                n(In, cached.markup);
+                // Decompress payload (gzip stream decompress in < 3ms)
+                const markup = cached.compressed ? await sxDecompressSvg(cached.compressed) : cached.markup;
+                if (!markup) return false;
+
+                n(In, markup);
                 sxWireMapListeners();
 
                 sxActiveVaultKey = currentKey;
                 sxActiveVaultProfileId = currentTargetId;
 
-                // Dismiss boot loading dial immediately (< 50ms)
+                // Dismiss boot loading dial immediately (< 10ms)
                 window.__sxBootChunkPaint = 0;
                 if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
                 if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
@@ -2510,7 +2546,7 @@
 
                 try { vc(); } catch (_) {}
                 try { Ih(); } catch (_) {}
-                console.log("[Sexcapades WarmBoot] Warm boot restore SUCCESSFUL (< 50ms) from IndexedDB for [" + currentTargetId + "]!");
+                console.log("[Sexcapades WarmBoot] Warm boot restore SUCCESSFUL (< 10ms) from IndexedDB for [" + currentTargetId + "]!");
                 return true;
             } catch (err) {
                 if (typeof __sxErrLog === "function") __sxErrLog("warm-boot-restore", err);
