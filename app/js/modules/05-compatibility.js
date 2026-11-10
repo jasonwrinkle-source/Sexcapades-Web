@@ -275,6 +275,13 @@
                 color: "var(--red)"
             } ], s), p();
                 }
+
+        const sxUpdateGlance = function() { return vc(); };
+        window.SexcapadesRuntime = window.SexcapadesRuntime || {};
+        window.SexcapadesRuntime.Compatibility = {
+            updateGlance: sxUpdateGlance
+        };
+
         function vc() {
             const t = Xi().filter(e => vt[e]), n = t.length > 1 ? Dd(zd(t), null, t.map(id => sxHeatFor(id))) : null, i = Object.keys(At).length > 0, a = Uc(), r = e.byId("glanceSummary"), o = Mt && vt[Mt] ? [ Mt ] : i ? [ Et ] : [], s = na(t.length > 1 ? t : o), l = (s.percent, 
             e.byId("glanceData")), c = e.byId("glanceCompatibility"), d = c.querySelector("span"), u = {
