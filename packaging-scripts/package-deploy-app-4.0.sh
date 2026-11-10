@@ -20,6 +20,8 @@ OUTFILE="$OUTDIR/deploy-app-v4.0-${TS}-optimized.tar.gz"
 SW_SRC="$DIR/site-tree/public_html/sw.js"
 [ -f "$SW_SRC" ] || { echo "ERROR: service worker source not found: $SW_SRC"; exit 1; }
 
+python3 "$DIR/packaging-scripts/bump-build.py" "$TS"
+
 BUILD_NUM=$(grep -o 'Version [0-9.]* · Build [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' "$SRC" | head -1 | sed 's/^.*Build //' || true)
 [ -n "$BUILD_NUM" ] || { echo "ERROR: could not read build number from source export: $SRC"; exit 1; }
 

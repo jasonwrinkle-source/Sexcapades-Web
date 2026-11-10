@@ -34,6 +34,8 @@ if [ ! -d "$STATIC" ]; then
   exit 1
 fi
 
+python3 "$DIR/packaging-scripts/bump-build.py" "$TS"
+
 EXPECTED_BUILD=$(grep -o 'Version [0-9.]* · Build [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' "$APP_EXPORT" | head -1 || true)
 if [ -z "$EXPECTED_BUILD" ]; then
   echo "ERROR: Could not read build marker from app export"
