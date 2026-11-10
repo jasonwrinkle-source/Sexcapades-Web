@@ -32,7 +32,7 @@ trap "rm -rf $WORK" EXIT
 
 echo "Staging modular app..."
 HOSTED="$WORK/pkg/sexcapades.io/public_html/hosted"
-mkdir -p "$HOSTED/app-assets/vendor" "$HOSTED/app-assets/images"
+mkdir -p "$HOSTED/app-assets/vendor" "$HOSTED/app-assets/images" "$HOSTED/images"
 
 cp "$SRC" "$HOSTED/app.html"
 sed -i 's|href="css/app.css"|href="/hosted/app-assets/app.css"|g' "$HOSTED/app.html"
@@ -46,6 +46,11 @@ cp "$DIR/app/vendor/"* "$HOSTED/app-assets/vendor/"
 cp "$DIR/app/data/"*.js "$HOSTED/app-assets/"
 cp "$DIR/app/js/"*.js "$HOSTED/app-assets/"
 cp "$DIR/app/images/"* "$HOSTED/app-assets/images/"
+cp "$DIR/app/images/"* "$HOSTED/images/"
+
+mkdir -p "$DIR/site-tree/public_html/hosted/app-assets/images"
+cp "$DIR/app/images/"* "$DIR/site-tree/public_html/hosted/app-assets/images/" 2>/dev/null || true
+cp "$DIR/app/images/"* "$DIR/site-tree/public_html/hosted/images/" 2>/dev/null || true
 
 cat "$DIR/app/js/view-nav.js" "$DIR/app/js/layout-editor.js" "$DIR/app/js/patches.js" "$DIR/app/js/scene-sentinel.js" > "$HOSTED/app-assets/app.js"
 
@@ -56,7 +61,7 @@ echo "Service worker cache stamped: sexcapades-v$BUILD_NUM"
 
 echo "Writing version manifest..."
 MANIFEST="$WORK/pkg/sexcapades.io/public_html/hosted/app-assets/version-manifest.json"
-for asset in app.css app.js vendor/qrcode.min.js data-bootstrap.js images/guide-avatar.jpg images/hanky-chart.jpg images/avatar-1.jpg images/avatar-2.jpg images/avatar-3.jpg images/avatar-4.jpg images/avatar-5.jpg images/avatar-anon.webp images/deknotter-icon.webp; do
+for asset in app.css app.js vendor/qrcode.min.js data-bootstrap.js images/guide-avatar.jpg images/hanky-chart.jpg images/avatar-1.jpg images/avatar-2.jpg images/avatar-3.jpg images/avatar-4.jpg images/avatar-5.jpg images/avatar-anon.webp images/avatar-eve.webp images/img-13.webp images/img-14.webp images/deknotter-icon.webp; do
   [ -f "$WORK/pkg/sexcapades.io/public_html/hosted/app-assets/$asset" ] || { echo "ERROR: manifest asset missing from package: $asset"; exit 1; }
 done
 
@@ -76,6 +81,9 @@ cat > "$MANIFEST" <<EOF
     { "url": "/hosted/app-assets/images/avatar-4.jpg", "as": "image" },
     { "url": "/hosted/app-assets/images/avatar-5.jpg", "as": "image" },
     { "url": "/hosted/app-assets/images/avatar-anon.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-eve.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/img-13.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/img-14.webp", "as": "image" },
     { "url": "/hosted/app-assets/images/deknotter-icon.webp", "as": "image" }
   ]
 }
@@ -119,8 +127,8 @@ fi
 MANIFEST_JSON=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/app-assets/version-manifest.json 2>/dev/null || true)
 if [ -z "$MANIFEST_JSON" ]; then
   fail "packaged version-manifest.json missing or unreadable"
-elif ! printf '%s' "$MANIFEST_JSON" | python3 -c "import json,sys; m=json.load(sys.stdin); assert m['build']=='$BUILD_NUM'; assert len(m['files'])==13" 2>/dev/null; then
-  fail "packaged version-manifest.json is invalid, names the wrong build, or lists != 13 files"
+elif ! printf '%s' "$MANIFEST_JSON" | python3 -c "import json,sys; m=json.load(sys.stdin); assert m['build']=='$BUILD_NUM'; assert len(m['files'])==16" 2>/dev/null; then
+  fail "packaged version-manifest.json is invalid, names the wrong build, or lists != 16 files"
 fi
 
 SW_CACHE=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/sw.js 2>/dev/null | grep -o 'sexcapades-v[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' | head -1 || true)
