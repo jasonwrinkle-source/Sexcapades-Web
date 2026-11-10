@@ -22436,6 +22436,217 @@ const TAXONOMY_CATEGORIES = [
             // (tree flattening), zlRenderRows renders the option rows,
             // zlMove is the keyboard highlight step used by the key handler.
 
+/* ---- module: map-interaction (folded from patches.js) ---- */
+
+/* ---- drag-vs-tap disambiguation ---- */
+__sxInit(function () {
+// A pointerup >10px from its pointerdown suppresses the subsequent click,
+// so panning across the center hub no longer pops the rating dialog.
+(function() {
+  var downX = 0, downY = 0, downT = 0, suppress = false;
+  document.addEventListener('pointerdown', function(e) {
+    downX = e.clientX; downY = e.clientY; downT = Date.now(); suppress = false;
+  }, true);
+  document.addEventListener('pointerup', function(e) {
+    var dx = e.clientX - downX, dy = e.clientY - downY;
+    suppress = (dx * dx + dy * dy) > 100; /* 10px squared */
+  }, true);
+  document.addEventListener('click', function(e) {
+    if (suppress) { e.stopPropagation(); e.preventDefault(); suppress = false; }
+  }, true);
+})();
+});
+
+
+/* ---- map-touch-selection-guard ---- */
+__sxInit(function () {
+// Pixel touch lockup guard: refuse selection / drag / context-menu takeovers
+// that start on the SVG map and clear any selection that already exists.
+(function() {
+  function inMap(e) {
+    var t = e && e.target;
+    return !!(t && t.closest && t.closest("#mapSvg"));
+  }
+  function clearSelection() {
+    try {
+      var s = window.getSelection && window.getSelection();
+      if (s && !s.isCollapsed) s.removeAllRanges();
+    } catch (err) { if (typeof __sxErrLog === "function") __sxErrLog("map-selection-clear", err); }
+  }
+  document.addEventListener("selectstart", function(e) { if (inMap(e)) e.preventDefault(); }, true);
+  document.addEventListener("dragstart", function(e) { if (inMap(e)) e.preventDefault(); }, true);
+  document.addEventListener("contextmenu", function(e) { if (inMap(e)) e.preventDefault(); }, true);
+  document.addEventListener("pointerdown", function(e) { if (inMap(e)) clearSelection(); }, true);
+  document.addEventListener("touchstart", function(e) { if (inMap(e)) clearSelection(); }, { capture: true, passive: true });
+})();
+});
+
+
+/* ---- map-selection-dim ---- */
+__sxInit(function () {
+// Branch selection dimming: when a branch is selected (.selected-spoke),
+// dim everything else so the selection stands out.
+(function() {
+  var svg = document.getElementById("mapSvg");
+  if (!svg) return;
+  var queued = false;
+  function syncSelectionDim() {
+    var spokes = svg.querySelectorAll(".selected-spoke"), i;
+    if (!spokes.length) {
+      svg.classList.remove("has-selection");
+      var stale = svg.querySelectorAll(".sel-keep");
+      for (i = 0; i < stale.length; i++) stale[i].classList.remove("sel-keep");
+      return;
+    }
+    svg.classList.add("has-selection");
+    var keep = [];
+    for (i = 0; i < spokes.length; i++) {
+      var g = spokes[i].closest ? spokes[i].closest(".node-group") : null;
+      if (!g) continue;
+      if (keep.indexOf(g) === -1) keep.push(g);
+      var key = g.getAttribute("data-layout-key");
+      if (key) {
+        var u = svg.querySelector('.spoke-underlay-item[data-spoke-for="' + key + '"]');
+        if (u && keep.indexOf(u) === -1) keep.push(u);
+      }
+    }
+    var marked = svg.querySelectorAll(".sel-keep");
+    for (i = 0; i < marked.length; i++) {
+      if (keep.indexOf(marked[i]) === -1) marked[i].classList.remove("sel-keep");
+    }
+    for (i = 0; i < keep.length; i++) keep[i].classList.add("sel-keep");
+  }
+  function schedule() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function() { queued = false; syncSelectionDim(); });
+  }
+  new MutationObserver(schedule).observe(svg, { childList: true, subtree: true });
+  syncSelectionDim();
+})();
+});
+
+
+/* ---- map detail toggle ---- */
+__sxInit(function () {
+(function() {
+  function init() {
+    var control = document.querySelector(".detail-control");
+    var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-detail-level]"));
+    if (control && buttons.length) {
+      var close = function() { control.classList.remove("is-open"); };
+      buttons.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          if (!control.classList.contains("is-open") && btn.getAttribute("aria-pressed") === "true") {
+            control.classList.add("is-open");
+            return;
+          }
+          buttons.forEach(function(b) { b.setAttribute("aria-pressed", String(b === btn)); });
+          if (typeof window.__SEXCAPADES_SET_MAP_DETAIL === "function") {
+            window.__SEXCAPADES_SET_MAP_DETAIL(btn.getAttribute("data-detail-level"));
+          }
+          close();
+        });
+      });
+      document.addEventListener("pointerdown", function(e) { if (!control.contains(e.target)) close(); });
+      document.addEventListener("keydown", function(e) { if (e.key === "Escape") close(); });
+    }
+  }
+  init();
+})();
+});
+
+
+/* ---- relations overlay & routing ---- */
+__sxInit(function () {
+(function() {
+  "use strict";
+  var svg = document.getElementById("mapSvg");
+  if (!svg) return;
+  var ARC_R_BASE = 1356.91;
+  function sxRaf(fn) {
+    var tm = window.SexcapadesRuntime && SexcapadesRuntime.TimerManager;
+    if (tm && typeof tm.requestAnimationFrame === "function") return tm.requestAnimationFrame(fn);
+    return window.requestAnimationFrame(fn);
+  }
+  function anchorLinks() {
+    var layer = svg.querySelector(".common-overlap-layer");
+    if (!layer) return;
+    var scale = (typeof window.__sxLayoutCenterRingScale === "number" && window.__sxLayoutCenterRingScale > 0) ? window.__sxLayoutCenterRingScale : 1;
+    var arcR = ARC_R_BASE * scale;
+    var hits = layer.querySelectorAll(".relation-hit");
+    for (var i = 0; i < hits.length; i++) {
+      var hit = hits[i];
+      var fromKey = hit.getAttribute("data-from"), toKey = hit.getAttribute("data-to");
+      if (!fromKey || !toKey) continue;
+      var fromG = svg.querySelector('.node-group[data-layout-key="' + fromKey + '"]');
+      var toG = svg.querySelector('.node-group[data-layout-key="' + toKey + '"]');
+      if (!fromG || !toG) continue;
+      var fx = Number(fromG.getAttribute("data-label-x") || fromG.getAttribute("data-anchor-x"));
+      var fy = Number(fromG.getAttribute("data-label-y") || fromG.getAttribute("data-anchor-y"));
+      var tx = Number(toG.getAttribute("data-label-x") || toG.getAttribute("data-anchor-x"));
+      var ty = Number(toG.getAttribute("data-label-y") || toG.getAttribute("data-anchor-y"));
+      if (!isFinite(fx) || !isFinite(fy) || !isFinite(tx) || !isFinite(ty)) continue;
+      var d = Math.sqrt((tx - fx) * (tx - fx) + (ty - fy) * (ty - fy));
+      if (d <= 0) continue;
+      var rNear = Math.min(Math.sqrt(fx * fx + fy * fy), Math.sqrt(tx * tx + ty * ty));
+      var rArc = Math.max(arcR, rNear * 0.55);
+      var mx = (fx + tx) / 2, my = (fy + ty) / 2;
+      var mLen = Math.sqrt(mx * mx + my * my);
+      if (mLen > 0) { mx = (mx / mLen) * rArc; my = (my / mLen) * rArc; }
+      var pathD = "M" + fx.toFixed(2) + "," + fy.toFixed(2) + " Q" + mx.toFixed(2) + "," + my.toFixed(2) + " " + tx.toFixed(2) + "," + ty.toFixed(2);
+      hit.setAttribute("d", pathD);
+      var visiblePath = hit.previousElementSibling;
+      if (visiblePath && visiblePath.classList.contains("relation-line")) visiblePath.setAttribute("d", pathD);
+    }
+  }
+  function clearFocus() {
+    svg.classList.remove("relation-focused");
+    var marked = svg.querySelectorAll(".relation-focus-keep");
+    for (var i = 0; i < marked.length; i++) marked[i].classList.remove("relation-focus-keep");
+  }
+  function applyFocus(hit) {
+    if (!hit) return;
+    clearFocus();
+    svg.classList.add("relation-focused");
+    var fromKey = hit.getAttribute("data-from"), toKey = hit.getAttribute("data-to");
+    [fromKey, toKey].forEach(function(k) {
+      if (!k) return;
+      var g = svg.querySelector('.node-group[data-layout-key="' + k + '"]');
+      if (g) {
+        g.classList.add("relation-focus-keep");
+        var branch = g.closest(".branch-group") || g;
+        branch.classList.add("relation-focus-keep");
+        var underlays = svg.querySelectorAll('.spoke-underlay-item[data-spoke-for="' + k + '"]');
+        for (var j = 0; j < underlays.length; j++) underlays[j].classList.add("relation-focus-keep");
+      }
+    });
+    hit.classList.add("relation-focus-keep");
+    if (hit.previousElementSibling) hit.previousElementSibling.classList.add("relation-focus-keep");
+  }
+  function init() {
+    anchorLinks();
+    new MutationObserver(function() { sxRaf(anchorLinks); }).observe(svg, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-layout-key"] });
+    document.addEventListener("click", function(ev) {
+      var hit = ev.target && ev.target.closest ? ev.target.closest(".relation-hit") : null;
+      if (hit) { sxRaf(function() { sxRaf(function() { applyFocus(hit); }); }); return; }
+      if (svg.classList.contains("relation-focused")) {
+        var t = ev.target;
+        if (t === svg || (t.closest && !t.closest(".node-group") && !t.closest(".direction-control") && !t.closest(".common-overlap-layer"))) clearFocus();
+      }
+    }, true);
+    document.addEventListener("keydown", function(ev) {
+      if (ev.key === "Escape") { clearFocus(); return; }
+      if ((ev.key === "Enter" || ev.key === " ") && ev.target && ev.target.closest && ev.target.closest(".relation-hit")) {
+        var h = ev.target.closest(".relation-hit");
+        sxRaf(function() { sxRaf(function() { applyFocus(h); }); });
+      }
+    }, true);
+  }
+  init();
+})();
+});
+
             function zlFlatten() {
                     if (!e.tree) return i.slice();
                     const t = new Map;
@@ -37647,12 +37858,8 @@ __sxInit(function () {
   var searchEl = SexcapadesRuntime.DOM.byId("fetlifeMapSearch");
   var resultEl = SexcapadesRuntime.DOM.byId("fetlifeMapResult");
   var addRowEl = SexcapadesRuntime.DOM.byId("fetlifeMapAddRow");
-  var filterBtn = SexcapadesRuntime.DOM.byId("fetlifeMapFilter");
   var countEl = SexcapadesRuntime.DOM.byId("fetlifeMapCount");
   var tableBody = SexcapadesRuntime.DOM.byId("fetlifeMapTableBody");
-  var resetBtn = SexcapadesRuntime.DOM.byId("fetlifeMapResetBtn");
-  var downloadBtn = SexcapadesRuntime.DOM.byId("fetlifeMapDownloadBtn");
-  var editedCountEl = SexcapadesRuntime.DOM.byId("fetlifeMapEditedCount");
 
   function openEditor() { window.__sxDialog.open(dlg); renderTable(); }
   function closeEditor() { window.__sxDialog.close(dlg); }
@@ -37694,6 +37901,152 @@ __sxInit(function () {
   if (guide && window.MutationObserver) new MutationObserver(syncRow).observe(guide, { attributes: true, attributeFilter: ["hidden"] });
   document.addEventListener("click", function () { setTimeout(syncRow, 0); }, true);
   syncRow();
+})();
+});
+
+
+/* ---- consolidated observers (a11y, titles, timer auto-pause) ---- */
+__sxInit(function () {
+(function() {
+  function syncTabTitles() {
+    document.querySelectorAll('.profile-tab-button').forEach(function(btn) {
+      var label = btn.querySelector('[data-profile-label]');
+      var name = label ? (label.textContent || '').trim() : (btn.textContent || '').trim();
+      if (name) btn.title = name;
+    });
+  }
+  function syncTimerLabel() {
+    var btn = document.querySelector('.outline-timer-toggle');
+    if (!btn) return;
+    if (btn.classList.contains('is-paused')) {
+      btn.setAttribute('aria-label', 'Timer paused — tab was hidden. Tap to resume.');
+      btn.title = 'Paused — tab hidden (auto-pause). Tap to resume.';
+    } else {
+      btn.setAttribute('aria-label', 'Pause timer');
+      btn.title = '';
+    }
+  }
+  function enhanceA11y() {
+    document.querySelectorAll('[data-category-toggle], .branch-toggle, [data-branch-toggle]').forEach(function(btn) {
+      var name = btn.getAttribute('data-category-name') || btn.getAttribute('data-branch-name') ||
+                 (btn.textContent || '').trim().split('\n')[0];
+      if (name && !/category|branch/i.test(btn.getAttribute('aria-label') || '')) {
+        var cur = btn.getAttribute('aria-label') || 'Toggle';
+        btn.setAttribute('aria-label', cur + ' — ' + name + ' category');
+      }
+    });
+    document.querySelectorAll('.outline-category-title, [data-outline-category]').forEach(function(el) {
+      if (!el.getAttribute('role') && !/^H[1-6]$/.test(el.tagName)) {
+        el.setAttribute('role', 'heading');
+        el.setAttribute('aria-level', '2');
+      }
+    });
+  }
+  function syncAll() { syncTabTitles(); syncTimerLabel(); enhanceA11y(); }
+  new MutationObserver(syncAll).observe(document.body, {
+    childList: true, subtree: true, attributes: true, attributeFilter: ['class']
+  });
+  syncAll();
+})();
+});
+
+
+/* ---- unified title bar & branding links ---- */
+__sxInit(function () {
+(function () {
+  function boot() {
+    var btn = SexcapadesRuntime.DOM.byId("mapListViewButton");
+    if (btn && btn.parentNode) {
+      var h1 = btn.parentNode.querySelector("h1");
+      if (h1 && h1.parentNode === btn.parentNode) btn.parentNode.insertBefore(h1, btn);
+    }
+    var src = SexcapadesRuntime.DOM.byId("reviewLink");
+    if (src) {
+      Array.prototype.slice.call(document.querySelectorAll("[data-guide-slot]")).forEach(function (slot) {
+        var clone = src.cloneNode(true);
+        clone.removeAttribute("id");
+        Array.prototype.slice.call(clone.querySelectorAll("[id]")).forEach(function (n) { n.removeAttribute("id"); });
+        var svg = clone.querySelector("svg");
+        if (svg) {
+          svg.removeAttribute("tabindex");
+          svg.removeAttribute("role");
+          Array.prototype.slice.call(svg.querySelectorAll(".horizon-ring-hit")).forEach(function (p) { p.parentNode.removeChild(p); });
+        }
+        slot.appendChild(clone);
+      });
+    }
+    Array.prototype.slice.call(document.querySelectorAll("[data-open-about]")).forEach(function (b) {
+      b.addEventListener("click", function () {
+        var o = SexcapadesRuntime.DOM.byId("openAppAbout");
+        if (o) o.click();
+      });
+    });
+  }
+  boot();
+})();
+});
+
+
+/* ---- guide qmark gestures (1-tap Guide, 2-taps About, 5-taps Easter egg) ---- */
+__sxInit(function () {
+(function () {
+  var link = document.getElementById("reviewLink");
+  if (!link) return;
+  var WINDOW_MS = 400;
+  var count = 0;
+  var timer = null;
+  function reset() {
+    count = 0;
+    if (timer) { clearTimeout(timer); timer = null; }
+  }
+  function openGuide() { window.open(link.href, "_blank", "noopener"); }
+  function openAbout() {
+    var o = document.getElementById("openAppAbout");
+    if (o) o.click();
+  }
+  function openEasterEgg() {
+    var egg = document.querySelector(".easter-egg");
+    if (egg) { egg.click(); return; }
+    window.open("https://linktr.ee/SkewedViewBlue", "_blank", "noopener");
+  }
+  function resolveGesture() {
+    var n = count;
+    reset();
+    if (n === 1) openGuide();
+    else if (n === 2) openAbout();
+  }
+  link.addEventListener("click", function (event) {
+    event.preventDefault();
+    count += 1;
+    if (count >= 5) {
+      reset();
+      openEasterEgg();
+      return;
+    }
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(resolveGesture, WINDOW_MS);
+  });
+})();
+});
+
+
+/* ---- list view glow ---- */
+__sxInit(function () {
+(function() {
+  function init() {
+    var btn = SexcapadesRuntime.DOM.byId("mapListViewButton"), tabs = SexcapadesRuntime.DOM.byId("profileTabs");
+    if (!btn || !tabs) return;
+    var seen = false;
+    function hasProfiles() { return Boolean(tabs.querySelector(".profile-tab")); }
+    function sync() { btn.classList.toggle("list-view-glow", !seen && !hasProfiles()); }
+    function stop() { if (seen) return; seen = true; btn.classList.remove("list-view-glow"); }
+    btn.addEventListener("pointerenter", stop);
+    btn.addEventListener("focus", stop);
+    btn.addEventListener("click", stop);
+    new MutationObserver(sync).observe(tabs, { childList: true, subtree: true });
+    sync();
+  }
+  init();
 })();
 });
 
