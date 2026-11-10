@@ -9134,20 +9134,23 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : (async () => {
             Nu(), document.documentElement.classList.remove("route-listview-pending");
             if (Do.open) {
-                Is();
+                Is(), mS();
             } else {
                 let warmRestored = false;
                 try {
                     warmRestored = await window.SexcapadesEngine?.Map?.tryRestoreWarmBoot?.();
                 } catch (_) {}
-                if (!warmRestored) {
-                    Mr({ animate: !1 });
-                    Ih();
-                } else {
+                if (warmRestored) {
                     try { Ih(); } catch (_) {}
+                    mS();
+                } else {
+                    requestAnimationFrame(() => t.setTimeout(() => {
+                        Mr({ animate: !1 });
+                        Ih();
+                        mS();
+                    }, 0));
                 }
             }
-            mS();
         })(), window.__sexcapades = {
             ProfileIO: yx,
             profilePayload: function(e) {
