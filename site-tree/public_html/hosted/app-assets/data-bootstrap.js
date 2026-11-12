@@ -41014,57 +41014,6 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Bk.textContent = `${xt(Jk())} elapsed · ${t} of ${e} answered`;
             ktPagerState();
         }
-        function ktRender() {
-            const per = 10, total = ix.length, pages = Math.ceil(total / per);
-            ktPage = Math.max(0, Math.min(ktPage, pages - 1));
-            const start = ktPage * per, end = Math.min(start + per, total);
-            let h = "";
-            for (let k = start; k < end; k++) {
-                const e = ix[k];
-                h += `<article class="test-question"><div class="test-question-text"><b>${e.number}.</b> ${Hi(e.question)}</div><div class="test-answer-groups"><div class="test-choice-group" role="group" aria-label="Rating for question ${e.number}">${Sx("1 \u00b7 Never", "1", "answer", k)}${Sx("2 \u00b7 Not my thing", "2", "answer", k)}${Sx("3 \u00b7 Enjoy", "3", "answer", k)}${Sx("4 \u00b7 Really enjoy", "4", "answer", k)}</div></div></article>`;
-            }
-            h += `<div class="test-pager" role="navigation" aria-label="Test pages"><button type="button" class="action-btn" data-kt-nav="prev"${ktPage === 0 ? " disabled" : ""}>\u2190 Previous</button><span class="test-pager-info"></span>`;
-            h += ktPage < pages - 1 ? `<button type="button" class="action-btn primary" data-kt-nav="next" disabled>Next \u2192</button>` : `<span class="test-pager-done">Last page \u2014 use \u201cPreview answers\u201d above when finished.</span>`;
-            h += `<button type="button" class="action-btn" data-kt-nav="fill1" title="Testing shortcut: answer 1 (Never) for every question on this page">Fill page with 1s</button></div>`;
-            n(Ok, h);
-            for (let k = start; k < end; k++) {
-                const a = Xk[k];
-                if (a && a.answer) {
-                    const b = Ok.querySelector(`[data-test-index="${k}"][data-test-value="${a.answer}"]`);
-                    b && b.setAttribute("aria-pressed", "true");
-                }
-            }
-            ktPagerState();
-        }
-        function ktPagerState() {
-            if ("kinktest" !== Gk) return;
-            const per = 10, total = ix.length, pages = Math.ceil(total / per);
-            const start = ktPage * per, end = Math.min(start + per, total);
-            let n2 = 0, done = true;
-            for (let k = start; k < end; k++) {
-                if (Xk[k] && Xk[k].answer) n2++; else done = false;
-            }
-            const info = Ok.querySelector(".test-pager-info");
-            info && (info.textContent = `Page ${ktPage + 1} of ${pages} \u00b7 ${n2} of ${end - start} answered`);
-            const next = Ok.querySelector('[data-kt-nav="next"]');
-            next && (next.disabled = !done);
-        }
-        function ktNavGo(a) {
-            const per = 10, pages = Math.ceil(ix.length / per);
-            if ("prev" === a) {
-                if (ktPage > 0) { ktPage--; ktRender(); Ok.scrollIntoView({ block: "start" }); }
-            } else if ("next" === a) {
-                if (ktPage < pages - 1) {
-                    const start = ktPage * per, end = Math.min(start + per, ix.length);
-                    for (let k = start; k < end; k++) { if (!(Xk[k] && Xk[k].answer)) return; }
-                    ktPage++; ktRender(); Ok.scrollIntoView({ block: "start" });
-                }
-            } else if ("fill1" === a) {
-                const start = ktPage * per, end = Math.min(start + per, ix.length);
-                for (let k = start; k < end; k++) { Xk[k] || (Xk[k] = {}); Xk[k].answer = "1"; }
-                ktRender(); Ex();
-            }
-        }
         function Ax(t, i = "auto", sxTargetId) {
             // No silent fallback (firm spec, owner ruling 2026-10-27
             // 02:47, reaffirmed 08:49; the 08:02 reversal is withdrawn):
@@ -41944,6 +41893,58 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         e.one(".intro h1").addEventListener("click", () => {
             t.clear(aS), aS = t.setTimeout(() => iS = 0, 1700), 5 === ++iS && (iS = 0, nS.click());
         });
+
+        function ktRender() {
+            const per = 10, total = ix.length, pages = Math.ceil(total / per);
+            ktPage = Math.max(0, Math.min(ktPage, pages - 1));
+            const start = ktPage * per, end = Math.min(start + per, total);
+            let h = "";
+            for (let k = start; k < end; k++) {
+                const e = ix[k];
+                h += `<article class="test-question"><div class="test-question-text"><b>${e.number}.</b> ${Hi(e.question)}</div><div class="test-answer-groups"><div class="test-choice-group" role="group" aria-label="Rating for question ${e.number}">${Sx("1 \u00b7 Never", "1", "answer", k)}${Sx("2 \u00b7 Not my thing", "2", "answer", k)}${Sx("3 \u00b7 Enjoy", "3", "answer", k)}${Sx("4 \u00b7 Really enjoy", "4", "answer", k)}</div></div></article>`;
+            }
+            h += `<div class="test-pager" role="navigation" aria-label="Test pages"><button type="button" class="action-btn" data-kt-nav="prev"${ktPage === 0 ? " disabled" : ""}>\u2190 Previous</button><span class="test-pager-info"></span>`;
+            h += ktPage < pages - 1 ? `<button type="button" class="action-btn primary" data-kt-nav="next" disabled>Next \u2192</button>` : `<span class="test-pager-done">Last page \u2014 use \u201cPreview answers\u201d above when finished.</span>`;
+            h += `<button type="button" class="action-btn" data-kt-nav="fill1" title="Testing shortcut: answer 1 (Never) for every question on this page">Fill page with 1s</button></div>`;
+            n(Ok, h);
+            for (let k = start; k < end; k++) {
+                const a = Xk[k];
+                if (a && a.answer) {
+                    const b = Ok.querySelector(`[data-test-index="${k}"][data-test-value="${a.answer}"]`);
+                    b && b.setAttribute("aria-pressed", "true");
+                }
+            }
+            ktPagerState();
+        }
+        function ktPagerState() {
+            if ("kinktest" !== Gk) return;
+            const per = 10, total = ix.length, pages = Math.ceil(total / per);
+            const start = ktPage * per, end = Math.min(start + per, total);
+            let n2 = 0, done = true;
+            for (let k = start; k < end; k++) {
+                if (Xk[k] && Xk[k].answer) n2++; else done = false;
+            }
+            const info = Ok.querySelector(".test-pager-info");
+            info && (info.textContent = `Page ${ktPage + 1} of ${pages} \u00b7 ${n2} of ${end - start} answered`);
+            const next = Ok.querySelector('[data-kt-nav="next"]');
+            next && (next.disabled = !done);
+        }
+        function ktNavGo(a) {
+            const per = 10, pages = Math.ceil(ix.length / per);
+            if ("prev" === a) {
+                if (ktPage > 0) { ktPage--; ktRender(); Ok.scrollIntoView({ block: "start" }); }
+            } else if ("next" === a) {
+                if (ktPage < pages - 1) {
+                    const start = ktPage * per, end = Math.min(start + per, ix.length);
+                    for (let k = start; k < end; k++) { if (!(Xk[k] && Xk[k].answer)) return; }
+                    ktPage++; ktRender(); Ok.scrollIntoView({ block: "start" });
+                }
+            } else if ("fill1" === a) {
+                const start = ktPage * per, end = Math.min(start + per, ix.length);
+                for (let k = start; k < end; k++) { Xk[k] || (Xk[k] = {}); Xk[k].answer = "1"; }
+                ktRender(); Ex();
+            }
+        }
         let rS = !1, oS = !1, sS = !1, lS = !1;
         function cS() {
             let e = String(window.__SEXCAPADES_START_ROUTE || (window.__SEXCAPADES_LAYOUT_ROUTE ? window.__SEXCAPADES_LAYOUT_ROUTE(location.hash) : location.hash) || "");
