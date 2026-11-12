@@ -1,0 +1,2226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="https://sexcapades.io/hosted/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="https://sexcapades.io/hosted/favicon.ico" />
+    <meta name="description" content="Sexcapades — Rate ~400 kinks on a visual hypermap, compare with a partner, and discover where you overlap." />
+    <meta property="og:title" content="Sexcapades — Compare Hypermaps" />
+    <meta property="og:description" content="Rate ~400 kinks, compare your hypermap with a partner, and find where you overlap." />
+    <meta property="og:url" content="https://sexcapades.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://sexcapades.io/hosted/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sexcapades — Compare Hypermaps" />
+    <meta name="twitter:description" content="Rate ~400 kinks, compare your hypermap with a partner." />
+    <meta name="twitter:image" content="https://sexcapades.io/hosted/og-image.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>Sexcapades — Adults Only</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --page: #111417;
+        --surface: #191d21;
+        --surface-raised: #20252a;
+        --text: #f4f5f6;
+        --muted: #b6bdc4;
+        --line: #343a40;
+        --accent: #ff4d64;
+        --accent-strong: #e83c53;
+        --accent-ink: #170407;
+        --link: #65d7dc;
+        --focus: #fff2a6;
+        --shadow: rgba(0, 0, 0, 0.38);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --page: #0b0d0f;
+          --surface: #14181b;
+          --surface-raised: #1b2024;
+          --text: #f7f8f8;
+          --muted: #b9c0c5;
+          --line: #30373c;
+          --accent: #ff536a;
+          --accent-strong: #f0435a;
+          --accent-ink: #180407;
+          --link: #6fdee2;
+          --focus: #fff2a6;
+          --shadow: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { min-height: 100%; }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--page);
+        color: var(--text);
+        font-family: "IBM Plex Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, transparent 0 49.9%, rgba(255,255,255,.022) 50%, transparent 50.1%),
+          repeating-linear-gradient(0deg, transparent 0 46px, rgba(255,255,255,.018) 47px, transparent 48px);
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: clamp(18px, 5vw, 64px);
+      }
+
+      .panel {
+        width: min(780px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 24px 70px var(--shadow);
+      }
+
+      .gate-body {
+        display: grid;
+        grid-template-columns: 168px minmax(0, 1fr);
+      }
+
+      .age-mark {
+        display: grid;
+        place-items: center;
+        padding: 20px 16px;
+        border-right: 1px solid var(--line);
+        background: var(--surface-raised);
+      }
+
+      .age-mark span {
+        color: var(--accent);
+        font-size: clamp(4rem, 9vw, 6rem);
+        font-weight: 800;
+        letter-spacing: -.06em;
+        line-height: .82;
+        white-space: nowrap;
+        text-shadow: 4px 4px 0 rgba(0,0,0,.28);
+      }
+
+      .hero {
+        padding: clamp(30px, 6vw, 58px);
+      }
+
+      .rule {
+        width: 48px;
+        height: 4px;
+        margin-bottom: 22px;
+        background: var(--accent);
+      }
+
+      h1 {
+        max-width: 13ch;
+        margin: 0;
+        font-size: clamp(2.2rem, 6vw, 3.65rem);
+        line-height: .98;
+        letter-spacing: -.035em;
+      }
+
+      .value-prop {
+        max-width: 48ch;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 2vw, 1.12rem);
+        line-height: 1.55;
+      }
+
+      .community-feature {
+        margin-top: 26px;
+        padding: 20px 0 19px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .community-feature h2 {
+        margin: 0;
+        color: var(--text);
+        font-size: clamp(1.28rem, 3vw, 1.65rem);
+        line-height: 1.15;
+        letter-spacing: -.015em;
+      }
+
+      .community-feature h2 strong {
+        color: var(--link);
+        font-weight: 800;
+      }
+
+      .community-intro,
+      .community-note {
+        max-width: 54ch;
+        color: var(--muted);
+        line-height: 1.48;
+      }
+
+      .community-intro {
+        margin: 9px 0 0;
+        font-size: .96rem;
+      }
+
+      .community-counts {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .community-counts li {
+        padding: 0 12px;
+        border-left: 1px solid var(--line);
+        color: var(--muted);
+        font-size: .78rem;
+        line-height: 1.35;
+      }
+
+      .community-counts li:first-child {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .community-counts strong,
+      .community-counts span {
+        display: block;
+      }
+
+      .community-counts strong {
+        color: var(--text);
+        font-size: .94rem;
+      }
+
+      .community-counts span:first-of-type {
+        margin-top: 3px;
+        color: var(--link);
+        font-size: 1.32rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .community-counts span:last-child {
+        margin-top: 3px;
+      }
+
+      .community-note {
+        margin: 15px 0 0;
+        font-size: .86rem;
+      }
+
+      .community-note strong { color: var(--text); }
+
+      .benefits {
+        display: grid;
+        gap: 10px;
+        margin: 26px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .benefits li {
+        display: grid;
+        grid-template-columns: 12px minmax(0, 1fr);
+        gap: 12px;
+        color: var(--text);
+        line-height: 1.45;
+      }
+
+      .benefits li::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        margin-top: .5em;
+        background: var(--link);
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: 32px;
+      }
+
+      button,
+      .exit-link,
+      .destination-link {
+        font: inherit;
+      }
+
+      button {
+        appearance: none;
+        min-height: 54px;
+        border: 0;
+        border-radius: 2px;
+        padding: 14px 24px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 160ms ease, transform 160ms ease;
+      }
+
+      button:hover { background: var(--accent-strong); }
+      button:active { transform: translateY(1px); }
+
+      .exit-link {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 4px;
+        color: var(--muted);
+        font-weight: 500;
+        text-decoration-color: var(--line);
+        text-underline-offset: 5px;
+      }
+
+      .exit-link:hover { color: var(--text); }
+
+      .destination-menu {
+        position: relative;
+        isolation: isolate;
+        display: none;
+        min-height: clamp(480px, 72vh, 720px);
+        overflow: hidden;
+        border-top: 1px solid var(--line);
+        background: var(--surface-raised);
+      }
+
+      .destination-menu::before,
+      .destination-menu::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .destination-menu::before {
+        z-index: 0;
+        background: var(--surface-raised);
+      }
+
+      .destination-menu::after {
+        z-index: 1;
+        background: none;
+      }
+
+      .destination-menu.is-visible { display: block; }
+
+      .destination-menu-label {
+        margin: 0;
+        padding: 8px 14px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: .76rem;
+        font-weight: 600;
+      }
+
+      .quick-start-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 52px;
+        padding: 9px 14px;
+        border-bottom: 1px solid var(--line);
+        background: var(--accent);
+        color: var(--accent-ink);
+        text-decoration: none;
+        transition: background-color 160ms ease;
+      }
+
+      .quick-start-link:hover { background: var(--accent-strong); }
+
+      .quick-start-copy {
+        display: grid;
+        gap: 2px;
+      }
+
+      .quick-start-copy strong {
+        font-size: 1rem;
+        line-height: 1.1;
+      }
+
+      .quick-start-copy span {
+        font-size: .76rem;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+
+      .quick-start-link::after {
+        content: "→";
+        flex: none;
+        font-size: 1.18rem;
+        font-weight: 800;
+      }
+
+      .scan-import-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 46px;
+        padding: 8px 14px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(25, 29, 33, .9);
+        color: var(--text);
+        text-decoration: none;
+        transition: background-color 160ms ease;
+      }
+
+      .scan-import-link:hover { background: var(--page); }
+
+      .scan-import-copy {
+        display: grid;
+        gap: 1px;
+      }
+
+      .scan-import-copy strong {
+        color: var(--link);
+        font-size: .9rem;
+        line-height: 1.15;
+      }
+
+      .scan-import-copy span {
+        color: var(--muted);
+        font-size: .72rem;
+        font-weight: 500;
+        line-height: 1.25;
+      }
+
+      .scan-import-link::after {
+        content: "→";
+        flex: none;
+        color: var(--link);
+        font-size: 1.05rem;
+        font-weight: 800;
+      }
+
+      .guide-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 40px;
+        padding: 7px 14px;
+        border-bottom: 1px solid var(--line);
+        color: var(--text);
+        text-decoration: none;
+        transition: background-color 160ms ease;
+      }
+
+      .guide-link:hover { background: var(--surface); }
+
+      .guide-copy {
+        display: grid;
+        gap: 1px;
+      }
+
+      .guide-copy strong {
+        font-size: .86rem;
+        line-height: 1.15;
+      }
+
+      .guide-copy span {
+        color: var(--muted);
+        font-size: .7rem;
+        font-weight: 500;
+      }
+
+      .guide-link::after {
+        content: "→";
+        flex: none;
+        color: var(--link);
+        font-size: 1rem;
+      }
+
+      .destination-secondary-label {
+        margin: 0;
+        padding: 7px 14px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: .72rem;
+        font-weight: 600;
+      }
+
+
+      .destination-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-height: 38px;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        background: rgba(20, 24, 27, .9);
+        color: var(--text);
+        font-size: .78rem;
+        font-weight: 600;
+        line-height: 1.15;
+        text-decoration: none;
+        transition: background-color 160ms ease;
+      }
+
+      .destination-link::after {
+        content: "→";
+        flex: none;
+        color: var(--link);
+        font-size: .9rem;
+      }
+
+      .destination-link:hover { background: var(--surface); }
+
+      .destination-trigger {
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        text-align: left;
+      }
+
+      .destination-trigger:hover { background: var(--surface); }
+      .destination-trigger:active { transform: none; }
+
+      .gate.is-confirmed .gate-body { display: none; }
+
+      .gate.is-confirmed {
+        width: min(980px, 100%);
+      }
+
+      .destination-header {
+        position: relative;
+        z-index: 2;
+        padding: 10px;
+        background: rgba(11, 13, 15, .9);
+      }
+
+      .destination-header-actions {
+        display: grid;
+        grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+        gap: 6px;
+      }
+
+      .destination-header .quick-start-link,
+      .destination-header .scan-import-link,
+      .destination-header .guide-link {
+        min-height: 38px;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+      }
+
+      .destination-header .quick-start-copy span,
+      .destination-header .scan-import-copy span,
+      .destination-header .guide-copy span {
+        display: none;
+      }
+
+      .destination-header .quick-start-copy strong,
+      .destination-header .scan-import-copy strong,
+      .destination-header .guide-copy strong {
+        font-size: .78rem;
+      }
+
+      .privacy-model {
+        padding: 24px clamp(24px, 5vw, 44px) 26px;
+        border-top: 1px solid var(--line);
+      }
+
+      .privacy-model h2 {
+        margin: 0;
+        font-size: 1.35rem;
+        line-height: 1.15;
+      }
+
+      .privacy-intro {
+        max-width: 62ch;
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: .92rem;
+        line-height: 1.5;
+      }
+
+      .privacy-groups {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+        margin-top: 18px;
+      }
+
+      .privacy-group h3 {
+        margin: 0 0 7px;
+        color: var(--link);
+        font-size: .92rem;
+        line-height: 1.3;
+      }
+
+      .privacy-group p {
+        margin: 0;
+        color: var(--muted);
+        font-size: .82rem;
+        line-height: 1.5;
+      }
+
+      .privacy-group p + p { margin-top: 7px; }
+      .privacy-group strong { color: var(--text); }
+
+      .site-footer {
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px 14px;
+        padding: 9px 14px;
+        border-top: 1px solid var(--line);
+        background: rgba(11, 13, 15, .96);
+        color: var(--muted);
+        font-size: .72rem;
+      }
+
+      .gate.is-confirmed .site-footer { display: flex; }
+
+      .site-footer a {
+        color: var(--muted);
+        text-decoration-color: var(--line);
+        text-underline-offset: 4px;
+      }
+
+      .site-footer a:hover { color: var(--link); }
+
+      .patreon-support {
+        flex-basis: 100%;
+        margin: 0;
+        text-align: center;
+        font-size: .68rem;
+      }
+
+      @media (max-width: 600px) {
+        .patreon-support { text-align: left; }
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 4px;
+      }
+
+      @media (max-width: 600px) {
+        main { padding: 14px; }
+
+        .gate-body {
+          grid-template-columns: 1fr;
+        }
+
+        .age-mark {
+          min-height: 108px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .age-mark span {
+          font-size: 4.6rem;
+        }
+
+        .hero {
+          padding: 28px 24px 30px;
+        }
+
+        h1 {
+          max-width: 12ch;
+          font-size: clamp(2.1rem, 11vw, 3rem);
+        }
+
+        .value-prop { margin-top: 14px; }
+        .benefits { margin-top: 22px; }
+
+        .actions {
+          align-items: stretch;
+          flex-direction: column;
+          gap: 8px;
+          margin-top: 26px;
+        }
+
+        button,
+        .exit-link {
+          justify-content: center;
+          width: 100%;
+          text-align: center;
+        }
+
+        .destination-menu { min-height: 70vh; }
+        .destination-header-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .destination-header-actions > :first-child { grid-column: 1 / -1; }
+
+        .privacy-model { padding: 22px 24px 24px; }
+        .privacy-groups { grid-template-columns: 1fr; gap: 16px; }
+
+        .site-footer {
+          justify-content: center;
+          padding: 8px 10px;
+        }
+      }
+
+
+      /* Centered gate window */
+      body {
+        background:
+          radial-gradient(circle at 50% 16%, rgba(255, 255, 255, .045), transparent 34rem),
+          var(--page);
+      }
+
+      body::before { display: none; }
+
+      main {
+        padding: clamp(14px, 4vw, 52px);
+      }
+
+      .panel {
+        width: min(960px, 100%);
+        overflow: hidden;
+        border-color: #3a4147;
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: 0 28px 90px rgba(0, 0, 0, .52);
+      }
+
+      .gate-body {
+        grid-template-columns: minmax(330px, .9fr) minmax(420px, 1.1fr);
+        min-height: 510px;
+      }
+
+      .concept-graphic {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+        margin: 0;
+        padding: 26px 24px 24px;
+        overflow: hidden;
+        border-right: 1px solid var(--line);
+        background: #101417;
+      }
+
+      .concept-graphic::before {
+        content: "";
+        position: absolute;
+        inset: 13% 8% auto;
+        height: 62%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 116, 90, .08), transparent 69%);
+        pointer-events: none;
+      }
+
+      .mind-map-art {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 12px 28px rgba(0, 0, 0, .34));
+      }
+
+      .branch {
+        stroke-width: 4;
+        opacity: .82;
+      }
+
+      .branch.connect { stroke: #ff6f68; }
+      .branch.explore { stroke: #f5b84d; }
+      .branch.restore { stroke: #54c7bc; }
+      .branch.create { stroke: #df6585; }
+
+      .concept-nodes rect {
+        stroke-width: 1.5;
+      }
+
+      .concept-nodes text {
+        fill: #fff8f3;
+        font-family: "IBM Plex Sans", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        text-anchor: middle;
+        letter-spacing: .04em;
+      }
+
+      .concept-center rect {
+        fill: #20262a;
+        stroke: #ff8a62;
+        stroke-width: 2;
+      }
+
+      .concept-center text {
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .connect-node rect, .connect-leaf rect { fill: #432426; stroke: #ff6f68; }
+      .explore-node rect, .explore-leaf rect { fill: #3d3220; stroke: #f5b84d; }
+      .restore-node rect, .restore-leaf rect { fill: #183633; stroke: #54c7bc; }
+      .create-node rect, .create-leaf rect { fill: #3b2330; stroke: #df6585; }
+
+      .concept-leaf text {
+        font-size: 8.2px;
+        font-weight: 600;
+        letter-spacing: 0;
+      }
+
+      .graphic-caption {
+        position: relative;
+        z-index: 1;
+        max-width: 42ch;
+        margin: -3px auto 0;
+        color: var(--muted);
+        font-size: .78rem;
+        line-height: 1.45;
+        text-align: center;
+      }
+
+      .graphic-caption strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--text);
+        font-size: .86rem;
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: clamp(38px, 6vw, 66px);
+      }
+
+      .gate-kicker {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        color: var(--muted);
+        font-size: .78rem;
+        font-weight: 600;
+        letter-spacing: .045em;
+        text-transform: uppercase;
+      }
+
+      .age-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 48px;
+        height: 30px;
+        border: 1px solid rgba(255, 83, 106, .6);
+        border-radius: 15px;
+        background: rgba(255, 83, 106, .1);
+        color: var(--accent);
+        font-size: .9rem;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .hero h1 {
+        max-width: 10ch;
+        font-size: clamp(2.6rem, 5.5vw, 4.65rem);
+        line-height: .95;
+        letter-spacing: -.045em;
+      }
+
+      .value-prop {
+        max-width: 45ch;
+        margin-top: 23px;
+        color: #c7cdd1;
+        font-size: 1rem;
+        line-height: 1.58;
+      }
+
+      .age-copy {
+        margin: 24px 0 0;
+        padding-top: 17px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: .85rem;
+        line-height: 1.45;
+      }
+
+      .actions {
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .actions button {
+        min-height: 50px;
+        padding-inline: 20px;
+      }
+
+      .site-footer {
+        display: flex;
+        justify-content: center;
+        gap: 6px 16px;
+        padding: 14px 22px 13px;
+        background: #0f1214;
+        font-size: .68rem;
+      }
+
+      .patreon-support {
+        margin-top: 2px;
+      }
+
+      .gate.is-confirmed {
+        width: min(960px, 100%);
+      }
+
+      .destination-menu {
+        min-height: 0;
+        border-top: 0;
+        background: var(--surface-raised);
+      }
+
+      .destination-menu::before,
+      .destination-menu::after {
+        display: none;
+      }
+
+      .destination-header {
+        padding: 22px;
+        background: var(--surface-raised);
+      }
+
+      .destination-menu-label {
+        padding: 0 0 12px;
+        border-bottom: 0;
+        color: var(--text);
+        font-size: .82rem;
+      }
+
+      @media (max-width: 760px) {
+        main { align-items: start; padding: 12px; }
+
+        .panel { border-radius: 14px; }
+
+        .gate-body {
+          grid-template-columns: 1fr;
+          min-height: 0;
+        }
+
+        .concept-graphic {
+          min-height: 0;
+          padding: 14px 18px 16px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .mind-map-art {
+          width: min(100%, 420px);
+          max-height: 250px;
+          margin-inline: auto;
+        }
+
+        .graphic-caption {
+          max-width: 48ch;
+          margin-top: -5px;
+        }
+
+        .hero {
+          padding: 28px 24px 30px;
+        }
+
+        .gate-kicker { margin-bottom: 19px; }
+
+        .hero h1 {
+          max-width: 11ch;
+          font-size: clamp(2.45rem, 11.5vw, 3.6rem);
+        }
+
+        .value-prop { margin-top: 17px; }
+        .age-copy { margin-top: 19px; }
+        .actions { margin-top: 17px; }
+
+        .site-footer {
+          justify-content: center;
+          padding: 12px 14px;
+          text-align: center;
+        }
+
+        .patreon-support { text-align: center; }
+      }
+
+      @media (max-width: 420px) {
+        .concept-graphic { padding-inline: 8px; }
+        .mind-map-art { max-height: 218px; }
+        .graphic-caption { padding-inline: 10px; }
+        .hero { padding: 25px 20px 26px; }
+        .hero h1 { font-size: 2.65rem; }
+      }
+
+      /* Destination hero image (the unrated sync map) */
+      .destination-menu {
+        min-height: clamp(320px, 46vh, 480px);
+      }
+
+      .destination-menu::after {
+        display: block;
+        background: none center 42% / cover no-repeat;
+        opacity: .5;
+      }
+
+      .destination-header {
+        background: rgba(13, 16, 18, .88);
+      }
+
+      /* Footer sitemap: pull-up dropdown menus */
+      .site-footer { align-items: center; }
+
+      .sitemap-group { position: relative; }
+
+      .sitemap-trigger {
+        min-height: 0;
+        padding: 2px 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: var(--muted);
+        font-size: .72rem;
+        font-weight: 500;
+        text-decoration: underline;
+        text-decoration-color: var(--line);
+        text-underline-offset: 4px;
+        cursor: pointer;
+      }
+
+      .sitemap-trigger:hover {
+        background: transparent;
+        color: var(--link);
+      }
+
+      .sitemap-trigger:active { transform: none; }
+
+      .sitemap-menu {
+        position: absolute;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        z-index: 30;
+        min-width: 216px;
+        max-height: 62vh;
+        margin: 0;
+        padding: 6px;
+        overflow: auto;
+        transform: translateX(-50%);
+        list-style: none;
+        text-align: left;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 50px var(--shadow);
+      }
+
+      .sitemap-menu[hidden] { display: none; }
+
+      .site-footer .sitemap-menu a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 10px;
+        color: var(--text);
+        font-size: .8rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-decoration: none;
+      }
+
+      .site-footer .sitemap-menu a::after {
+        content: "→";
+        flex: none;
+        color: var(--link);
+      }
+
+      .site-footer .sitemap-menu a:hover {
+        background: var(--surface-raised);
+        color: var(--text);
+      }
+
+      .site-footer .sitemap-menu a.sitemap-menu-primary {
+        background: var(--accent);
+        color: var(--accent-ink);
+      }
+
+      .site-footer .sitemap-menu a.sitemap-menu-primary::after { color: var(--accent-ink); }
+
+      .site-footer .sitemap-menu a.sitemap-menu-primary:hover {
+        background: var(--accent-strong);
+        color: var(--accent-ink);
+      }
+
+      .sitemap-menu-wide {
+        width: min(440px, 88vw);
+        columns: 2;
+        column-gap: 8px;
+      }
+
+      .sitemap-menu-wide li { break-inside: avoid; }
+
+      /* App menu: same pull-up menu as Guide/FAQ, about half the width —
+         just wide enough for its longest label plus the arrow. */
+      .sitemap-menu-app {
+        width: 152px;
+        min-width: 0;
+      }
+
+      .sitemap-menu-app a { white-space: nowrap; }
+
+      /* App view pull-down: anchored to the "App" button in the
+         destination banner, drops down from it (same menu styling as the
+         footer sitemap menus, opening downward instead of up). */
+      .app-view-group { position: relative; }
+
+      .app-view-menu {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        z-index: 40;
+        min-width: 216px;
+        max-width: calc(100vw - 24px);
+        margin: 0;
+        padding: 6px;
+        list-style: none;
+        text-align: left;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 50px var(--shadow);
+      }
+
+      .app-view-menu[hidden] { display: none; }
+
+      .app-view-menu a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 9px 10px;
+        color: var(--text);
+        font-size: .85rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .app-view-menu a::after {
+        content: "→";
+        flex: none;
+        color: var(--link);
+      }
+
+      .app-view-menu a:hover { background: var(--surface-raised); }
+
+      .app-view-menu a.app-view-menu-primary {
+        background: var(--accent);
+        color: var(--accent-ink);
+      }
+
+      .app-view-menu a.app-view-menu-primary::after { color: var(--accent-ink); }
+
+      .app-view-menu a.app-view-menu-primary:hover {
+        background: var(--accent-strong);
+        color: var(--accent-ink);
+      }
+
+      @media (max-width: 600px) {
+        .sitemap-menu {
+          position: fixed;
+          right: 12px;
+          bottom: 72px;
+          left: 12px;
+          width: auto;
+          max-height: 58vh;
+          transform: none;
+        }
+
+        .sitemap-menu-wide { columns: 1; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          scroll-behavior: auto !important;
+          transition-duration: .01ms !important;
+        }
+      }
+
+      /* Full-screen map window: the whole sync map, zoomed out and fitted
+         inside a frame set slightly in from the viewport edges, behind
+         the age-verification panel. `contain` keeps the full map visible
+         at the largest size the frame allows — nothing cropped. The
+         frame's black interior matches the map image's own black
+         background, so the fit blends seamlessly at any aspect ratio. */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: clamp(8px, 1.8vmin, 20px);
+        z-index: 0;
+        border: 1px solid #2e353c;
+        border-radius: 16px;
+        background-color: #000;
+        background-image:
+          linear-gradient(rgba(4, 5, 6, .2), rgba(4, 5, 6, .2)),
+          none;
+        background-position: center, center;
+        background-size: auto, contain;
+        background-repeat: no-repeat;
+        box-shadow:
+          0 24px 70px rgba(0, 0, 0, .5),
+          inset 0 0 90px rgba(0, 0, 0, .5);
+        pointer-events: none;
+      }
+
+      .build-stamp {
+        flex-basis: 100%;
+        margin: 2px 0 0;
+        text-align: center;
+        color: var(--muted);
+        font-size: .66rem;
+        opacity: .75;
+      }
+
+      /* Full-screen gate layout: a title bar across the top, the unrated
+         sample map fully contained in the stage between the header and
+         the footer, and the footer across the bottom. Header, stage, and
+         footer sit in normal flow and never overlap; the map uses
+         `contain`, so the whole image stays visible inside the stage at
+         any viewport size. The gate panel floats centered in the stage. */
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+      }
+
+      body::after { display: none !important; }
+
+      .site-header {
+        flex: 0 0 auto;
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px clamp(16px, 4vw, 28px);
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .site-title {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: 800;
+        letter-spacing: -.02em;
+        line-height: 1;
+      }
+
+      .site-header-note {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0;
+        color: var(--muted);
+        font-size: .78rem;
+        font-weight: 600;
+        letter-spacing: .045em;
+        text-transform: uppercase;
+      }
+
+      .site-header .age-badge {
+        min-width: 44px;
+        height: 26px;
+        font-size: .82rem;
+      }
+
+      main {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        align-items: center;
+        padding: clamp(10px, 2.2vmin, 26px);
+      }
+
+      .map-stage {
+        display: none !important;
+        position: absolute;
+        inset: clamp(6px, 1.2vmin, 14px);
+        border: 1px solid #2e353c;
+        border-radius: 14px;
+        background-color: #000;
+        background-image:
+          linear-gradient(rgba(4, 5, 6, .2), rgba(4, 5, 6, .2)),
+          none;
+        background-position: center, center;
+        background-size: auto, contain;
+        background-repeat: no-repeat;
+        box-shadow:
+          0 24px 70px rgba(0, 0, 0, .5),
+          inset 0 0 90px rgba(0, 0, 0, .5);
+        pointer-events: none;
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        max-height: 100%;
+      }
+
+      .gate-body {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .concept-graphic { min-height: 0; }
+
+      .hero {
+        min-height: 0;
+        overflow-y: auto;
+      }
+
+      .destination-menu {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+      }
+
+      .destination-menu.is-visible {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .destination-header {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .site-footer {
+        flex: 0 0 auto;
+        position: relative;
+        z-index: 2;
+        display: flex;
+        width: 100%;
+      }
+
+      @media (max-width: 760px) {
+        .site-header { padding: 8px 14px; }
+        .site-title { font-size: 1.12rem; }
+        .site-header-note { font-size: .7rem; }
+        main { padding: 10px; }
+        .concept-graphic { max-height: 252px; }
+        .mind-map-art { max-height: 168px; }
+        .hero { padding: 22px 20px 24px; }
+      }
+
+      main {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 0;
+        width: 100%;
+        padding: clamp(10px, 2.2vmin, 26px);
+      }
+
+      .map-stage {
+        display: none !important;
+      }
+
+      .panel {
+        width: 100%;
+        max-width: 680px;
+        margin: auto;
+      }
+
+      /* Docs dropdown & sitemap menus */
+      .docs-dropdown-menu,
+      .sitemap-menu-docs {
+        min-width: 260px;
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+      .docs-details {
+        margin: 2px 0;
+      }
+      .docs-summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 10px;
+        color: var(--text);
+        font-size: .85rem;
+        font-weight: 600;
+        cursor: pointer;
+        list-style: none;
+        user-select: none;
+      }
+      .docs-summary::-webkit-details-marker { display: none; }
+      .docs-summary:hover {
+        background: var(--surface-raised);
+      }
+      .docs-arrow {
+        font-size: .75rem;
+        color: var(--link);
+        transition: transform .2s ease;
+      }
+      .docs-details[open] .docs-arrow {
+        transform: rotate(180deg);
+      }
+      .docs-sub-list {
+        list-style: none;
+        margin: 0;
+        padding: 4px 0 4px 12px;
+        border-left: 2px solid var(--line);
+      }
+      .site-footer .docs-sub-list a,
+      .app-view-menu .docs-sub-list a {
+        font-size: .78rem !important;
+        font-weight: 500 !important;
+        padding: 5px 8px !important;
+        opacity: .9;
+      }
+      .site-footer .docs-sub-list a.docs-main-link,
+      .app-view-menu .docs-sub-list a.docs-main-link {
+        font-weight: 700 !important;
+        color: var(--link) !important;
+      }
+
+      .gate-body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .concept-graphic {
+        flex: 0 1 auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 16px 18px 12px;
+      }
+
+      .mind-map-art {
+        width: auto;
+        max-width: 100%;
+        max-height: 185px;
+        margin-inline: auto;
+      }
+
+      .hero {
+        flex: 1 1 auto;
+        padding: clamp(26px, 3.5vw, 44px);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.3rem, 3.6vw, 3.4rem);
+      }
+
+      @media (max-width: 900px) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+          grid-template-rows: minmax(120px, 26vh) minmax(0, 1fr);
+        }
+
+        .concept-graphic { display: none; }
+        .hero { padding: 22px 20px 24px; }
+      }
+
+      /* Destination banner: once the gate is passed, the destination menu
+         becomes a slim banner pinned to the top edge of the concept
+         graphic, and the graphic fills the panel below it — the menu no
+         longer takes over the panel as a side block. */
+      .gate.is-confirmed .gate-body { display: flex; }
+      .gate.is-confirmed .hero { display: none; }
+      .gate.is-confirmed .concept-graphic {
+        flex: 1 1 auto;
+        border-bottom: 0;
+      }
+
+      .destination-menu.is-visible {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        display: block;
+        min-height: 0;
+        overflow: visible;
+        border-bottom: 1px solid var(--line);
+        background: rgba(11, 13, 15, .88);
+      }
+
+      .destination-menu::after { display: none; }
+
+      .destination-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 10px;
+        padding: 6px 10px;
+        background: transparent;
+      }
+
+      .destination-menu-label {
+        padding: 0;
+        color: var(--muted);
+        font-size: .72rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .destination-header-actions {
+        display: flex;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .destination-header .quick-start-link,
+      .destination-header .scan-import-link,
+      .destination-header .guide-link,
+      .destination-header .destination-link {
+        min-height: 34px;
+        padding: 5px 9px;
+      }
+
+      @media (max-width: 900px) {
+        .gate.is-confirmed .concept-graphic { display: flex; }
+      }
+
+      @media (max-width: 760px) {
+        .gate.is-confirmed .concept-graphic { max-height: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <p class="site-title">Sexcapades</p>
+      <p class="site-header-note"><span class="age-badge">18+</span><span>Adults only</span></p>
+    </header>
+    <main>
+            <section class="panel gate" id="ageGate" aria-labelledby="gateTitle">
+        <div class="gate-body">
+          <figure class="concept-graphic" aria-labelledby="mapConceptCaption">
+            <nav class="destination-menu" id="destinationMenu" aria-label="Sexcapades destinations" aria-hidden="true">
+              <div class="destination-header">
+                <p class="destination-menu-label">Choose where to go</p>
+                <div class="destination-header-actions">
+                  <div class="app-view-group">
+                    <button class="destination-link destination-trigger" id="appViewTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="appViewMenu">App</button>
+                    <ul class="app-view-menu" id="appViewMenu" hidden>
+                      <li><a class="app-view-menu-primary" href="/hosted/app.html#app/list">Popularity List</a></li>
+                      <li><a href="/hosted/app.html#app/map">Hypermap</a></li>
+                      <li><a href="/hosted/app.html#sentinel">Scene Sentinel</a></li>
+                    </ul>
+                  </div>
+                  <a class="scan-import-link" href="/hosted/app.html#app/import">
+                    <span class="scan-import-copy"><strong>Scan or Import</strong><span>QR Sheet, Sync Card, or QR image</span></span>
+                  </a>
+                  <div class="app-view-group docs-view-group">
+                    <button class="destination-link destination-trigger" id="docsViewTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="docsViewMenu">Docs</button>
+                    <ul class="app-view-menu docs-dropdown-menu" id="docsViewMenu" hidden>
+                      <li><a href="/hosted/how-it-works.html">How it works</a></li>
+                      <li><a href="/hosted/quickstart.html">Quick Start</a></li>
+                      <li><a href="/hosted/guide.html">Guide</a></li>
+                      <li><a href="/compare">Compare</a></li>
+                      <li class="docs-submenu-item">
+                        <details class="docs-details">
+                          <summary class="docs-summary"><span>Glossary</span><span class="docs-arrow">▾</span></summary>
+                          <ul class="docs-sub-list">
+                            <li><a class="docs-main-link" href="/hosted/glossary.html">All Glossary Terms</a></li>
+                            <li><a href="/hosted/glossary.html#sync-map">Hypermap</a></li>
+                            <li><a href="/hosted/glossary.html#quick-start">Quick Start</a></li>
+                            <li><a href="/hosted/glossary.html#net">Net</a></li>
+                            <li><a href="/hosted/glossary.html#cast">Cast</a></li>
+                            <li><a href="/hosted/glossary.html#scribe">Scribe</a></li>
+                            <li><a href="/hosted/glossary.html#scene-setter">Scene Setter</a></li>
+                            <li><a href="/hosted/glossary.html#scan-or-import">Scan or Import</a></li>
+                            <li><a href="/hosted/glossary.html#sync-card">Sync Card</a></li>
+                            <li><a href="/hosted/glossary.html#qr-sheet">QR Sheet</a></li>
+                            <li><a href="/hosted/glossary.html#compare-sync-maps">Compare hypermaps?</a></li>
+                            <li><a href="/hosted/glossary.html#kink-categories">Kink categories</a></li>
+                            <li><a href="/hosted/glossary.html#kink-lines">Kink lines</a></li>
+                          </ul>
+                        </details>
+                      </li>
+                      <li class="docs-submenu-item">
+                        <details class="docs-details">
+                          <summary class="docs-summary"><span>FAQ</span><span class="docs-arrow">▾</span></summary>
+                          <ul class="docs-sub-list">
+                            <li><a class="docs-main-link" href="/hosted/faq.html">All FAQ Questions</a></li>
+                            <li><a href="/hosted/faq.html#loading">The site won’t load, or I see an old version</a></li>
+                            <li><a href="/hosted/faq.html#profile">My profile disappeared after refresh</a></li>
+                            <li><a href="/hosted/faq.html#compare">How do I compare with a partner?</a></li>
+                            <li><a href="/hosted/faq.html#privacy">Is my data private?</a></li>
+                            <li><a href="/hosted/faq.html#import">Import isn’t working</a></li>
+                            <li><a href="/hosted/faq.html#views">What’s the difference between list view and map view?</a></li>
+                            <li><a href="/hosted/faq.html#sharing">How do I share my profile?</a></li>
+                            <li><a href="/hosted/faq.html#colors">What do the colors mean?</a></li>
+                          </ul>
+                        </details>
+                      </li>
+                      <li><a href="/hosted/flyer.html">Flyer</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <svg class="mind-map-art" viewBox="0 0 520 430" role="img" aria-labelledby="mapArtTitle mapArtDescription">
+              <title id="mapArtTitle">A mind map demonstrating the power of mapping desires</title>
+              <desc id="mapArtDescription">Mapping desires branches into clarifying wants, noticing patterns, seeing connections, and guiding conversations, with practical insights grouped beneath each theme.</desc>
+              <defs>
+                <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0" stop-color="#ff8a62" stop-opacity=".3" />
+                  <stop offset="1" stop-color="#ff8a62" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle cx="260" cy="215" r="105" fill="url(#centerGlow)" />
+
+              <g fill="none" stroke-linecap="round">
+                <path class="branch connect" d="M218 196 C176 171 158 132 136 102 M136 102 C105 83 78 75 47 74 M136 102 C114 119 86 129 53 130" />
+                <path class="branch explore" d="M302 196 C344 171 362 132 384 102 M384 102 C415 83 443 76 473 74 M384 102 C406 120 434 130 467 131" />
+                <path class="branch restore" d="M218 235 C175 259 158 298 136 328 M136 328 C106 347 78 355 47 356 M136 328 C114 311 86 301 53 300" />
+                <path class="branch create" d="M302 235 C345 259 362 298 384 328 M384 328 C414 347 442 355 473 356 M384 328 C406 311 434 301 467 300" />
+              </g>
+
+              <g class="concept-nodes">
+                <g class="concept-center">
+                  <rect x="204" y="183" width="112" height="64" rx="32" />
+                  <text x="260" y="209">MAPPING</text>
+                  <text x="260" y="227">DESIRES</text>
+                </g>
+
+                <g class="concept-node connect-node">
+                  <rect x="89" y="82" width="94" height="40" rx="20" />
+                  <text x="136" y="107">CLARIFY</text>
+                </g>
+                <g class="concept-leaf connect-leaf">
+                  <rect x="10" y="57" width="80" height="32" rx="16" />
+                  <text x="50" y="78">WHAT I WANT</text>
+                  <rect x="10" y="114" width="86" height="32" rx="16" />
+                  <text x="53" y="135">MY LIMITS</text>
+                </g>
+
+                <g class="concept-node explore-node">
+                  <rect x="337" y="82" width="94" height="40" rx="20" />
+                  <text x="384" y="107">NOTICE</text>
+                </g>
+                <g class="concept-leaf explore-leaf">
+                  <rect x="430" y="57" width="80" height="32" rx="16" />
+                  <text x="470" y="78">PATTERNS</text>
+                  <rect x="422" y="114" width="88" height="32" rx="16" />
+                  <text x="466" y="135">SURPRISES</text>
+                </g>
+
+                <g class="concept-node restore-node">
+                  <rect x="89" y="308" width="94" height="40" rx="20" />
+                  <text x="136" y="333">CONNECT</text>
+                </g>
+                <g class="concept-leaf restore-leaf">
+                  <rect x="10" y="340" width="80" height="32" rx="16" />
+                  <text x="50" y="361">COMMON GROUND</text>
+                  <rect x="10" y="284" width="86" height="32" rx="16" />
+                  <text x="53" y="305">DIFFERENCES</text>
+                </g>
+
+                <g class="concept-node create-node">
+                  <rect x="337" y="308" width="94" height="40" rx="20" />
+                  <text x="384" y="333">TALK</text>
+                </g>
+                <g class="concept-leaf create-leaf">
+                  <rect x="430" y="340" width="80" height="32" rx="16" />
+                  <text x="470" y="361">ASK CLEARLY</text>
+                  <rect x="425" y="284" width="85" height="32" rx="16" />
+                  <text x="467" y="305">LISTEN BETTER</text>
+                </g>
+              </g>
+            </svg>
+            <figcaption class="graphic-caption" id="mapConceptCaption"><strong>Turn scattered feelings into something you can see.</strong> A mind map reveals what matters, where ideas connect, and what is worth talking about.</figcaption>
+          </figure>
+          <div class="hero">
+            <div class="gate-kicker"><span class="age-badge">18+</span><span>Adults only</span></div>
+            <h1 id="gateTitle">54 taps → see your map come alive.</h1>
+            <p class="value-prop">Start with a private, 10-minute tour of your desires. Your choices take shape as a personal map built for reflection, comparison, and better conversations.</p>
+            <p class="age-copy">Please confirm that you are at least 18 years old to continue.</p>
+            <div class="actions">
+              <button type="button" id="enterButton" aria-expanded="false" aria-controls="destinationMenu">I am 18 or older — Enter</button>
+              <a class="exit-link" href="https://www.google.com" target="_top">Exit</a>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="site-footer" aria-label="Site map">
+      <div class="sitemap-group">
+        <button class="sitemap-trigger" id="appMenuTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="appMenu">App</button>
+        <ul class="sitemap-menu sitemap-menu-app" id="appMenu" hidden>
+          <li><a class="sitemap-menu-primary" href="/hosted/app.html#app/list">Popularity List</a></li>
+          <li><a href="/hosted/app.html#app/map">Hypermap</a></li>
+          <li><a href="/hosted/app.html">Scribe</a></li>
+          <li><a href="/hosted/app.html">Scene Setter</a></li>
+          <li><a href="/hosted/app.html#sentinel">Scene Sentinel</a></li>
+        </ul>
+      </div>
+      <div class="sitemap-group">
+        <button class="sitemap-trigger" id="docsMenuTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="docsMenu">Docs</button>
+        <ul class="sitemap-menu sitemap-menu-docs" id="docsMenu" hidden>
+          <li><a href="/hosted/how-it-works.html">How it works</a></li>
+          <li><a href="/hosted/quickstart.html">Quick Start</a></li>
+          <li><a href="/hosted/guide.html">Guide</a></li>
+          <li><a href="/compare">Compare</a></li>
+          <li class="docs-submenu-item">
+            <details class="docs-details">
+              <summary class="docs-summary"><span>Glossary</span><span class="docs-arrow">▾</span></summary>
+              <ul class="docs-sub-list">
+                <li><a class="docs-main-link" href="/hosted/glossary.html">All Glossary Terms</a></li>
+                <li><a href="/hosted/glossary.html#sync-map">Hypermap</a></li>
+                <li><a href="/hosted/glossary.html#quick-start">Quick Start</a></li>
+                <li><a href="/hosted/glossary.html#net">Net</a></li>
+                <li><a href="/hosted/glossary.html#cast">Cast</a></li>
+                <li><a href="/hosted/glossary.html#scribe">Scribe</a></li>
+                <li><a href="/hosted/glossary.html#scene-setter">Scene Setter</a></li>
+                <li><a href="/hosted/glossary.html#scan-or-import">Scan or Import</a></li>
+                <li><a href="/hosted/glossary.html#sync-card">Sync Card</a></li>
+                <li><a href="/hosted/glossary.html#qr-sheet">QR Sheet</a></li>
+                <li><a href="/hosted/glossary.html#compare-sync-maps">Compare hypermaps?</a></li>
+                <li><a href="/hosted/glossary.html#kink-categories">Kink categories</a></li>
+                <li><a href="/hosted/glossary.html#kink-lines">Kink lines</a></li>
+              </ul>
+            </details>
+          </li>
+          <li class="docs-submenu-item">
+            <details class="docs-details">
+              <summary class="docs-summary"><span>FAQ</span><span class="docs-arrow">▾</span></summary>
+              <ul class="docs-sub-list">
+                <li><a class="docs-main-link" href="/hosted/faq.html">All FAQ Questions</a></li>
+                <li><a href="/hosted/faq.html#loading">The site won’t load, or I see an old version</a></li>
+                <li><a href="/hosted/faq.html#profile">My profile disappeared after refresh</a></li>
+                <li><a href="/hosted/faq.html#compare">How do I compare with a partner?</a></li>
+                <li><a href="/hosted/faq.html#privacy">Is my data private?</a></li>
+                <li><a href="/hosted/faq.html#import">Import isn’t working</a></li>
+                <li><a href="/hosted/faq.html#views">What’s the difference between list view and map view?</a></li>
+                <li><a href="/hosted/faq.html#sharing">How do I share my profile?</a></li>
+                <li><a href="/hosted/faq.html#colors">What do the colors mean?</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="/hosted/flyer.html">Flyer</a></li>
+        </ul>
+      </div>
+      <a href="/hosted/examples.html">Examples</a>
+      <a href="/hosted/privacy.html">Privacy</a>
+      <a href="mailto:help@sexcapades.io">Contact</a>
+      <a href="/sitemap.html">Sitemap</a>
+      <p class="patreon-support"><a href="https://patreon.com/SexcapadesIO">Support Sexcapades on Patreon</a> — the site stays up because of patrons.</p>
+      <p class="build-stamp">Build 2026-10-18_2143</p>
+    </footer>
+
+
+    <script>
+      (function () {
+        var funnelEndpoint = '/hosted/api/collect.php';
+        var incomingSearchParams = new URLSearchParams(window.location.search);
+        var incomingUtmSource = incomingSearchParams.get('utm_source') || '';
+        var isFlyerReferral = incomingSearchParams.get('src') === 'flyer';
+        var ageGate = document.getElementById('ageGate');
+        var destinationMenu = document.getElementById('destinationMenu');
+        var enterButton = document.getElementById('enterButton');
+        var appViewTrigger = document.getElementById('appViewTrigger');
+        var appViewMenu = document.getElementById('appViewMenu');
+
+        try {
+          window.sessionStorage.setItem('sexcapades_utm_source', incomingUtmSource);
+        } catch (storageError) {
+          // Continue without persistence when browser storage is unavailable.
+        }
+
+        function createBrowserUuid() {
+          if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+            return window.crypto.randomUUID();
+          }
+
+          return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (character) {
+            var randomValue = Math.random() * 16 | 0;
+            var replacement = character === 'x' ? randomValue : (randomValue & 3 | 8);
+            return replacement.toString(16);
+          });
+        }
+
+        function getBrowserUuid() {
+          var browserUuid = '';
+
+          try {
+            browserUuid = window.localStorage.getItem('sexcapades_uuid') || '';
+            if (!browserUuid) {
+              browserUuid = createBrowserUuid();
+              window.localStorage.setItem('sexcapades_uuid', browserUuid);
+            }
+          } catch (storageError) {
+            browserUuid = createBrowserUuid();
+          }
+
+          return browserUuid;
+        }
+
+        function getStoredUtmSource() {
+          try {
+            return window.sessionStorage.getItem('sexcapades_utm_source') || '';
+          } catch (storageError) {
+            return incomingUtmSource;
+          }
+        }
+
+        function sendGatePassedEvent() {
+          var payload = JSON.stringify({
+            action: 'event',
+            uuid: getBrowserUuid(),
+            event_type: 'gate_passed',
+            utm_source: getStoredUtmSource()
+          });
+
+          if (navigator.sendBeacon) {
+            try {
+              if (navigator.sendBeacon(funnelEndpoint, new Blob([payload], { type: 'application/json' }))) return;
+            } catch (beaconError) {
+              // Fall through to a keepalive fetch.
+            }
+          }
+
+          fetch(funnelEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payload,
+            keepalive: true
+          }).catch(function () {
+            // Tracking must never interrupt navigation.
+          });
+        }
+
+        var destinationUrls = {
+          app: '/hosted/app.html',
+          guide: '/hosted/guide.html',
+          flyer: '/hosted/flyer.html',
+          faq: '/hosted/faq.html',
+          quickstart: '/hosted/quickstart.html',
+          'how-it-works': '/hosted/how-it-works.html',
+          examples: '/hosted/examples.html'
+        };
+
+        // Guide sections: a guide deep link may name a section after the
+        // page (guide/scene-sentinel), and a bare section hashtag
+        // (scene-sentinel) is a guide section too. The section is a single
+        // safe anchor (letters, digits, hyphens); guide.html itself ignores
+        // unknown anchors and shows the contents page, so this cannot
+        // misdirect — the URL stays on sexcapades.io, and the gate still
+        // runs first before any of these destinations are followed.
+        var guideSectionPattern = /^[a-z0-9][a-z0-9_-]*$/i;
+
+        function getDeepLinkDestination() {
+          var fragment = window.location.hash.slice(1);
+          var segments;
+          var page;
+          var subroute;
+
+          if (!fragment || fragment.indexOf('#') !== -1) return '';
+
+          segments = fragment.split('/');
+          page = segments.shift().toLowerCase();
+
+          // A bare section hashtag is a guide section (e.g. #scene-sentinel
+          // opens the Sentinel section of the guide after the gate passes).
+          if (!Object.prototype.hasOwnProperty.call(destinationUrls, page)) {
+            if (segments.length) return '';
+            if (!guideSectionPattern.test(page)) return '';
+            return destinationUrls.guide + '#' + page;
+          }
+          if (!segments.length) return destinationUrls[page];
+
+          if (page === 'guide') {
+            subroute = segments.join('/');
+            if (!guideSectionPattern.test(subroute)) return '';
+            return destinationUrls.guide + '#' + subroute;
+          }
+
+          if (page !== 'app') return '';
+
+          subroute = segments.join('/');
+          if (!/^[a-z0-9][a-z0-9/_-]*$/i.test(subroute)) return '';
+
+          return destinationUrls.app + '#app/' + subroute;
+        }
+
+        // The app bounces unverified visitors here with ?return=<the app URL
+        // they came from>. Honor it after verification, but only for same-site
+        // HTTPS URLs and never back to this gate page itself, so the parameter
+        // can't be abused as an open redirect or restart the loop.
+        function getReturnDestination() {
+          var raw;
+          var parsed;
+
+          try {
+            raw = new URLSearchParams(window.location.search).get('return');
+          } catch (searchError) {
+            return '';
+          }
+
+          if (!raw) return '';
+
+          try {
+            parsed = new URL(raw);
+          } catch (parseError) {
+            return '';
+          }
+
+          if (parsed.protocol !== 'https:') return '';
+          if (parsed.hostname !== 'sexcapades.io' && parsed.hostname !== 'www.sexcapades.io') return '';
+          if (parsed.username || parsed.password) return '';
+          if (/\/gate\.html$/i.test(parsed.pathname) || parsed.pathname === '/hosted/gate.html') return '';
+
+          return parsed.href;
+        }
+
+        function markAgeVerified() {
+          try {
+            window.localStorage.setItem('sexcapades_age_verified', 'true');
+            window.localStorage.setItem('sexcapades_age_verified_at', new Date().toISOString());
+          } catch (storageError) {
+            // Storage can be unavailable (private mode); the cookie below still remembers this visit's pass.
+          }
+
+          try {
+            // Both an Expires date and Max-Age: some browsers/webviews drop a
+            // cookie that carries only one of the two lifetime attributes.
+            var cookieValue = 'sexcapades_age_verified=1' +
+              '; Expires=' + new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString() +
+              '; Max-Age=31536000; Path=/; SameSite=Lax';
+            // Share the pass between the apex domain and www (and any other
+            // subdomain): a host-only cookie set on one is invisible to the other.
+            if (/(^|\.)sexcapades\.io$/i.test(window.location.hostname)) {
+              cookieValue += '; Domain=sexcapades.io';
+            }
+            if (window.location.protocol === 'https:') cookieValue += '; Secure';
+            document.cookie = cookieValue;
+          } catch (cookieError) {
+            // Cookies can be unavailable too; the gate still works for this visit.
+          }
+        }
+
+        function hasAgeVerifiedCookie() {
+          try {
+            return document.cookie.split(';').some(function (part) {
+              return part.trim() === 'sexcapades_age_verified=1';
+            });
+          } catch (cookieError) {
+            return false;
+          }
+        }
+
+        function hasPreviousGatePass() {
+          if (hasAgeVerifiedCookie()) return true;
+
+          try {
+            return window.localStorage.getItem('sexcapades_age_verified') === 'true' ||
+              Boolean(window.localStorage.getItem('sexcapades_uuid'));
+          } catch (storageError) {
+            return false;
+          }
+        }
+
+        function revealDestinations() {
+          ageGate.classList.add('is-confirmed');
+          ageGate.removeAttribute('aria-labelledby');
+          ageGate.setAttribute('aria-label', 'Sexcapades destinations');
+          destinationMenu.classList.add('is-visible');
+          destinationMenu.setAttribute('aria-hidden', 'false');
+          enterButton.setAttribute('aria-expanded', 'true');
+        }
+
+
+        var initialDeepLinkDestination = getDeepLinkDestination();
+        var previousGatePass = hasPreviousGatePass();
+
+        // Self-heal: if either store kept the pass, rewrite both. A returning
+        // visitor whose cookie survived but whose localStorage was cleared (or
+        // the reverse) would otherwise lose the gate skip the next time the
+        // surviving store is cleared too.
+        if (previousGatePass) markAgeVerified();
+
+        // A returning visitor bounced here by the app carries a return URL
+        // with verified=1: send them straight back before any other branch.
+        if (previousGatePass) {
+          var returnDestination = getReturnDestination();
+          if (returnDestination) {
+            window.location.replace(returnDestination);
+            return;
+          }
+        }
+
+        if (initialDeepLinkDestination && previousGatePass) {
+          window.location.replace(initialDeepLinkDestination);
+          return;
+        }
+
+        // Returning verified visitors skip the confirmation panel entirely:
+        // flyer referrals go straight to Quick Start (same as clicking Enter),
+        // everyone else lands on the destination menu.
+        if (previousGatePass) {
+          if (isFlyerReferral) {
+            window.location.replace(destinationUrls.quickstart);
+            return;
+          }
+
+          revealDestinations();
+        }
+
+        enterButton.addEventListener('click', function () {
+          var deepLinkDestination = getDeepLinkDestination();
+
+          markAgeVerified();
+          sendGatePassedEvent();
+
+          var returnDestination = getReturnDestination();
+          if (returnDestination) {
+            window.location.assign(returnDestination);
+            return;
+          }
+
+          if (deepLinkDestination) {
+            window.location.assign(deepLinkDestination);
+            return;
+          }
+
+          if (isFlyerReferral) {
+            window.location.assign(destinationUrls.quickstart);
+            return;
+          }
+
+          revealDestinations();
+          destinationMenu.querySelector('.quick-start-link').focus();
+        });
+
+        // App view pull-down menu: anchored to the "App" button, drops
+        // down from it, closes on outside click and on Escape. Entries are
+        // plain links, so choosing one navigates exactly as before.
+        if (appViewTrigger && appViewMenu) {
+          var appViewItems = Array.prototype.slice.call(appViewMenu.querySelectorAll('a'));
+
+          function closeAppViewMenu() {
+            appViewMenu.hidden = true;
+            appViewTrigger.setAttribute('aria-expanded', 'false');
+          }
+
+          function openAppViewMenu() {
+            appViewMenu.hidden = false;
+            appViewTrigger.setAttribute('aria-expanded', 'true');
+          }
+
+          appViewTrigger.addEventListener('click', function () {
+            if (appViewMenu.hidden) openAppViewMenu();
+            else closeAppViewMenu();
+          });
+
+          // Keyboard: ArrowDown/ArrowUp on the trigger opens the menu and
+          // moves focus into it; arrows then move between items (wrapping),
+          // and Escape closes the menu and returns focus to the trigger.
+          appViewTrigger.addEventListener('keydown', function (event) {
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+            event.preventDefault();
+            if (appViewMenu.hidden) openAppViewMenu();
+            var item = event.key === 'ArrowDown' ? appViewItems[0] : appViewItems[appViewItems.length - 1];
+            if (item) item.focus();
+          });
+
+          appViewMenu.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+              closeAppViewMenu();
+              appViewTrigger.focus();
+              return;
+            }
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+            event.preventDefault();
+            var index = appViewItems.indexOf(document.activeElement);
+            if (event.key === 'ArrowDown') {
+              index = index < 0 ? 0 : (index + 1) % appViewItems.length;
+            } else {
+              index = index < 0 ? appViewItems.length - 1 : (index - 1 + appViewItems.length) % appViewItems.length;
+            }
+            if (appViewItems[index]) appViewItems[index].focus();
+          });
+
+          document.addEventListener('click', function (event) {
+            if (!appViewMenu.hidden &&
+                !appViewMenu.contains(event.target) &&
+                !appViewTrigger.contains(event.target)) {
+              closeAppViewMenu();
+            }
+          });
+
+          document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !appViewMenu.hidden) {
+              closeAppViewMenu();
+              appViewTrigger.focus();
+            }
+          });
+        }
+
+        // Footer sitemap: pull-up dropdown menus (App, Guide, FAQ, Glossary).
+        // Everything here is looked up defensively and wired independently, so a
+        // missing element can never break the gate itself.
+        var openSitemapMenu = null;
+        var openSitemapTrigger = null;
+
+        function closeSitemapMenu() {
+          if (openSitemapMenu) openSitemapMenu.hidden = true;
+          if (openSitemapTrigger) openSitemapTrigger.setAttribute('aria-expanded', 'false');
+          openSitemapMenu = null;
+          openSitemapTrigger = null;
+        }
+
+        function wireSitemapMenu(triggerId, menuId) {
+          var trigger = document.getElementById(triggerId);
+          var menu = document.getElementById(menuId);
+          if (!trigger || !menu) return;
+
+          var items = Array.prototype.slice.call(menu.querySelectorAll('a'));
+
+          function openMenu() {
+            closeSitemapMenu();
+            menu.hidden = false;
+            trigger.setAttribute('aria-expanded', 'true');
+            openSitemapMenu = menu;
+            openSitemapTrigger = trigger;
+          }
+
+          trigger.addEventListener('click', function () {
+            if (menu.hidden) openMenu();
+            else closeSitemapMenu();
+          });
+
+          // Keyboard: ArrowDown/ArrowUp on the trigger opens the menu and
+          // moves focus into it; arrows then move between items (wrapping),
+          // Enter follows the focused link natively, and Escape closes the
+          // menu and returns focus to the trigger.
+          trigger.addEventListener('keydown', function (event) {
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+            event.preventDefault();
+            if (menu.hidden) openMenu();
+            var item = event.key === 'ArrowDown' ? items[0] : items[items.length - 1];
+            if (item) item.focus();
+          });
+
+          menu.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+              closeSitemapMenu();
+              trigger.focus();
+              return;
+            }
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+            event.preventDefault();
+            var index = items.indexOf(document.activeElement);
+            if (event.key === 'ArrowDown') {
+              index = index < 0 ? 0 : (index + 1) % items.length;
+            } else {
+              index = index < 0 ? items.length - 1 : (index - 1 + items.length) % items.length;
+            }
+            if (items[index]) items[index].focus();
+          });
+        }
+
+        wireSitemapMenu('appMenuTrigger', 'appMenu');
+        wireSitemapMenu('docsMenuTrigger', 'docsMenu');
+
+        // Also wire docsViewMenu in destination header
+        (function() {
+          var docsTrigger = document.getElementById('docsViewTrigger');
+          var docsMenu = document.getElementById('docsViewMenu');
+          if (!docsTrigger || !docsMenu) return;
+          var items = Array.prototype.slice.call(docsMenu.querySelectorAll('a'));
+          function closeDocs() {
+            docsMenu.hidden = true;
+            docsTrigger.setAttribute('aria-expanded', 'false');
+          }
+          function openDocs() {
+            docsMenu.hidden = false;
+            docsTrigger.setAttribute('aria-expanded', 'true');
+          }
+          docsTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (docsMenu.hidden) openDocs();
+            else closeDocs();
+          });
+          docsTrigger.addEventListener('keydown', function(e) {
+            if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+            e.preventDefault();
+            if (docsMenu.hidden) openDocs();
+            var item = e.key === 'ArrowDown' ? items[0] : items[items.length - 1];
+            if (item) item.focus();
+          });
+          document.addEventListener('click', function(e) {
+            if (!docsMenu.hidden && !docsMenu.contains(e.target) && !docsTrigger.contains(e.target)) {
+              closeDocs();
+            }
+          });
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !docsMenu.hidden) {
+              closeDocs();
+              docsTrigger.focus();
+            }
+          });
+        })();
+
+        document.addEventListener('click', function (event) {
+          if (openSitemapMenu && !openSitemapMenu.contains(event.target) &&
+              openSitemapTrigger && !openSitemapTrigger.contains(event.target)) {
+            closeSitemapMenu();
+          }
+        });
+
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') closeSitemapMenu();
+        });
+
+      }());
+    </script>
+
+<div class="visitor-odometer-wrap" style="text-align:center;margin:20px 0;">
+  <div class="visitor-odometer" title="Unique visitors to Sexcapades" style="display:inline-flex;align-items:center;gap:8px;font-size:0.85rem;color:#a6bbb7;">
+    <div class="odometer-digits" id="odometer-digits-GATE" style="display:inline-flex;gap:2px;"></div>
+    <span style="opacity:0.7;">explorers</span>
+  </div>
+</div>
+<style>
+.visitor-odometer-wrap .odometer-digit{width:22px;height:32px;background:#0c191a;border:1px solid #253839;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#55dc9a;}
+</style>
+<script>
+(function(){var c=document.getElementById('odometer-digits-GATE');if(!c)return;
+function render(n){try{var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}catch(e){}}
+try{
+fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
+}catch(e){render(0);}})();
+</script>
+
+</body>
+</html>
