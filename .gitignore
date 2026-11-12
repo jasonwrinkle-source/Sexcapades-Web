@@ -1,2 +1,6 @@
 deploy-*.tar.gz
 *.db
+.cursor/
+.scratch/
+__pycache__/
+*.pyc
