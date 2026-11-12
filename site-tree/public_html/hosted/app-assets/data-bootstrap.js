@@ -8797,6 +8797,7 @@ const TAXONOMY_CATEGORIES = [
         // note above). Do not move, wrap, gate, or delete this line
         // without an owner ruling.
         p("gate_passed");
+
         /* ================= TaxonomyLoader module — BEGIN ================= */
         /* ================================================================
            TaxonomyLoader — the 403-topic taxonomy as a validated data
@@ -11528,6 +11529,7 @@ const TAXONOMY_CATEGORIES = [
         h.forEach(e => Object.entries(e.topicDetails || {}).forEach(([e, t]) => {
             "single" === t.type && Ue.add(Wn(e));
         }));
+
         const Ke = new Set;
         function ze(e, t) {
             return new Proxy(t, {
@@ -11717,6 +11719,7 @@ const TAXONOMY_CATEGORIES = [
             Gt(), e && Kt(e);
             try { window.SexcapadesEngine?.Map?.invalidateVault(e); } catch (_) {}
         }
+
         let sxGroupLeniency = 50, sxWriterLeniency = 50, sxCompareIds = [], Qt = null, Jt = () => {};
         // Last PURE pair computation per group id (blocker stage,
         // 2026-10-27): the tag-free baseline Rd and sxRefreshGroupOwn
