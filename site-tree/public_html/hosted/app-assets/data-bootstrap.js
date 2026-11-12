@@ -22706,6 +22706,7 @@ const TAXONOMY_CATEGORIES = [
         // stay synchronous; the global default is unchanged.
         let sxChunkPaint = !1, sxPaintPromise = null, sxChunkBudget = 12;
 
+
         // SX_PLANE_VAULT: Instant profile switching cache
         // Keeps rendered DOM trees (with attached event listeners)
         // intact in memory inside DocumentFragments.
@@ -22760,6 +22761,7 @@ const TAXONOMY_CATEGORIES = [
             return true;
         }
 
+        // Listener wiring stays between the memory vault and the warm-boot read: the restore rebinds this same tree.
         function sxWireMapListeners() {
             if (!In) return;
             In.querySelectorAll(".branch-icon,.topic-icon,.category-label,.map-label").forEach(ul);
@@ -23067,6 +23069,7 @@ const TAXONOMY_CATEGORIES = [
                 }
             }
         }
+
 
         function* Ar(i = {}) {
             try { sxVaultCaptureCurrent(); } catch (_) {}

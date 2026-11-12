@@ -30,6 +30,8 @@ parts = [
     "02c-layout-solver.js",
     "03a-midline-solver.js",
     "03-map-geometry.js",
+    "03c-map-vault.js",
+    "03e-map-paint.js",
     "03d-outline.js",
     "04-topic-picker.js",
     "05a-sync-engine.js",
