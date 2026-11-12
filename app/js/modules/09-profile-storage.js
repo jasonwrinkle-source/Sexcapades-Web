@@ -148,8 +148,28 @@ __sxInit(function () {
     }
   }
 
+  function saveOne(profileId) {
+    var api = profilesApi();
+    if (!api || !profileId) return false;
+    try {
+      var current = api.getAll();
+      var profile = current[profileId];
+      if (!profile) return false;
+      var stored = readStoredProfiles();
+      stored[profileId] = { data: JSON.parse(JSON.stringify(profile)), savedAt: Date.now() };
+      if (!writeStoredProfiles(stored)) return false;
+      syncSavedMenu();
+      return true;
+    } catch (error) {
+      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+      showSaveError();
+      return false;
+    }
+  }
+
   window.Sexcapades2xRememberProfiles = {
     saveNow: saveNow,
+    saveOne: saveOne,
     flush: flushStoredProfiles,
     isEnabled: function () {
       var control = checkbox();
@@ -475,9 +495,6 @@ __sxInit(function () {
         prompt.appendChild(load);
         prompt.appendChild(dismiss);
         document.body.appendChild(prompt);
-        SexcapadesRuntime.TimerManager.setTimeout(function () {
-          if (prompt.parentNode) prompt.remove();
-        }, 30000);
       }
     }, 2000);
   }

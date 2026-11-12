@@ -131,18 +131,56 @@ __sxInit(function () {
     closeScribe();
     closeSetter();
     closeListViaRoute();
+    if (safetyDlg && safetyDlg.open) { syncBtn(); return; }
     openDialog(safetyDlg);
     if (window.__sxSentinelNotifInit) window.__sxSentinelNotifInit();
     if (window.__sxSentinelRenderAll) window.__sxSentinelRenderAll();
     syncBtn();
   }
   window.__sxOpenSentinel = goSafety;
-  /* Pull-down doors for Scribe and Scene Setter REMOVED (owner ruling,
-     2026-10-27): the pull-down needs no multi-select context, so it
-     cannot be a valid doorway into either — the Scribe button and the
-     Scene Setter button are the only doorways. Leaving either view
-     still works from this menu (map / list / safety entries remain),
-     as do Escape and backdrop clicks. */
+
+  function goSetter() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeScribe();
+    closeListViaRoute();
+    if (setterDlg && setterDlg.open) { syncBtn(); return; }
+    var btn = SexcapadesRuntime.DOM.byId("openNegotiation");
+    if (btn) btn.click();
+    else if (setterDlg) openDialog(setterDlg);
+    syncBtn();
+  }
+
+  function goScribe() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeSetter();
+    closeListViaRoute();
+    if ((scribeDlg && scribeDlg.open) || (scribeChoiceDlg && scribeChoiceDlg.open)) { syncBtn(); return; }
+    var btn = SexcapadesRuntime.DOM.byId("scribeTab");
+    if (btn) btn.click();
+    else if (scribeChoiceDlg) openDialog(scribeChoiceDlg);
+    syncBtn();
+  }
+
+  function getMultiSelectCount() {
+    try {
+      if (window.SexcapadesEngine && window.SexcapadesEngine.State) {
+        if (typeof window.SexcapadesEngine.State.getMultiSelectCount === "function") {
+          return window.SexcapadesEngine.State.getMultiSelectCount();
+        }
+        if (typeof window.SexcapadesEngine.State.getMultiSelectIds === "function") {
+          var ids = window.SexcapadesEngine.State.getMultiSelectIds();
+          if (Array.isArray(ids)) return ids.length;
+        }
+      }
+    } catch (e) {}
+    var selected = document.querySelectorAll("#profileTabs .profile-tab-button.is-selected, #profileTabs .profile-tab-button.is-multiselected");
+    if (selected.length > 0) return selected.length;
+    var allTabs = document.querySelectorAll("#profileTabs .profile-tab-button");
+    if (allTabs.length === 1) return 1;
+    return 0;
+  }
 
   /* -------- View navigation dropdown (pull-down menu, not a modal) -------- */
   function menuItems() {
@@ -150,19 +188,33 @@ __sxInit(function () {
   }
   function itemEnabled(it) { return !it.classList.contains("is-disabled"); }
   function refreshMenu() {
-    /* Shell-ui sweep (2026-10-27): the menu carries only map / list /
-       safety items. The former scribe / setter entries are gone, and
-       with them their disable-when-the-toolbar-button-is-hidden
-       branches and hint text — that dead routing is removed, so no
-       item in this menu is ever disabled; refresh only syncs the
-       current-view check mark and clears any stale disabled state. */
     var cur = currentView();
+    var count = getMultiSelectCount();
     menuItems().forEach(function (it) {
       var v = it.getAttribute("data-view-target");
       it.setAttribute("aria-checked", v === cur ? "true" : "false");
-      it.classList.remove("is-disabled");
-      it.removeAttribute("aria-disabled");
-      it.removeAttribute("title");
+      var disabled = false;
+      var reason = "";
+      if (v === "setter" || v === "safety") {
+        if (count < 2) {
+          disabled = true;
+          reason = "Requires 2 or more profiles in multi-select";
+        }
+      } else if (v === "scribe") {
+        if (count < 1) {
+          disabled = true;
+          reason = "Requires at least 1 profile in multi-select";
+        }
+      }
+      if (disabled) {
+        it.classList.add("is-disabled");
+        it.setAttribute("aria-disabled", "true");
+        it.setAttribute("title", reason);
+      } else {
+        it.classList.remove("is-disabled");
+        it.removeAttribute("aria-disabled");
+        it.removeAttribute("title");
+      }
     });
   }
   function positionMenu(btn) {
@@ -203,6 +255,7 @@ __sxInit(function () {
     var btn = menuBtn;
     menu.hidden = true;
     menuBtn = null;
+    if (menu.parentNode !== document.body) document.body.appendChild(menu);
     if (btn) {
       btn.setAttribute("aria-expanded", "false");
       if (refocus) { try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); } }
@@ -214,7 +267,9 @@ __sxInit(function () {
     var v = it.getAttribute("data-view-target");
     if (v === "map") goMap();
     else if (v === "list") goList();
+    else if (v === "setter") goSetter();
     else if (v === "safety") goSafety();
+    else if (v === "scribe") goScribe();
     if (btn && document.contains(btn)) {
       var host = btn.closest("dialog");
       if (!host || !host.open) { try { btn.focus({ preventScroll: true }); } catch (e) { __sxErrLog("focus", e); } }
@@ -300,6 +355,7 @@ __sxInit(function () {
     if ((scribeDlg && scribeDlg.open) || (scribeChoiceDlg && scribeChoiceDlg.open)) return "Scribe";
     if (safetyDlg && safetyDlg.open) return "Scene Sentinel";
     if (listDlg && listDlg.open) return listLabel();
+    if (/^#\/?(?:app\/)?compare\/?$/i.test(String(location.hash || ""))) return "Compare";
     return "Hypermap";
   }
   function sync() {

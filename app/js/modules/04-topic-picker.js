@@ -201,6 +201,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     parentId: a ? Un(e.name, a.name) : t,
                     label: sxName(n),
                     displayLabel: sxName(n),
+                    giveLabel: n && n.give_label || "",
+                    receiveLabel: n && n.receive_label || "",
                     type: "topic",
                     group: e.name,
                     icon: i,
@@ -237,12 +239,16 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // Revert preview-only expansions, clear both preview ids, and always re-render
             _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
-            Dt = null; Lt = null;
+            Dt = null; Lt = null; Tt = "";
             Mr();
         }
-        // Safety net: Escape clears preview even when focus is outside the dropdown menu
+        // Safety net: Escape clears a search preview, and a leftover
+        // search dim, even when focus is outside the dropdown menu.
+        // An open dialog keeps Escape for itself.
         window.__sxOnKey( function(ev) {
-            if (ev.key === "Escape" && Dt) { Jl(); }
+            if (ev.key !== "Escape" || document.querySelector("dialog[open]")) return;
+            if (Dt) Jl();
+            else if (Tt || Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".is-dim, .is-preview, .rel-active"))) clearSpokeSelection();
         }, true);
         Vl.forEach(({branch: e, items: t}) => {
             const n = document.createElement("optgroup");
@@ -260,10 +266,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             onPreview: Ql,
             onClose: Jl,
             onCommit: e => {
-                Bl.value = e.displayLabel, Ql(e);
+                Bl && (Bl.value = e.displayLabel), Ql(e);
             }
         });
-        Bl.addEventListener("input", e => {
+        Bl && Bl.addEventListener("input", e => {
             const t = e.target.value.trim().toLowerCase();
             if (!t) return Tt = "", Lt = null, ec.render([]), ec.close(), Mr({
                 animate: !1
@@ -285,7 +291,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = i.filter(t => t.branch === e.branch);
                     t.forEach(e => a.add(e.id)), r.push(e.category, ...e.subcategories, ...e.topics, ...t);
                 }), r.push(...i.filter(e => !a.has(e.id)));
-                const o = e => String(e.displayLabel || "").toLowerCase(), s = e => {
+                const o = e => [ e.displayLabel, e.giveLabel, e.receiveLabel ].map(v => String(v || "").toLowerCase()).join(" "), s = e => {
                     const t = o(e), i = t.indexOf(n);
                     return i < 0 ? 99 : t === n ? 0 : 0 === i ? 1 : t.split(/[^a-z0-9]+/).some(e => e.startsWith(n)) ? 2 : 3;
                 };
@@ -471,14 +477,26 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         tc.render(Yl, {
             grouped: !0
-        }), Hl.addEventListener("click", () => {
-            if (Wl.hidden) {
-                tc.reveal(ql.value);
-                const e = tc.getItems().findIndex(e => e.value === ql.value);
+        }), Hl && Hl.addEventListener("click", () => {
+            if (Wl && Wl.hidden) {
+                ql && tc.reveal(ql.value);
+                const e = ql ? tc.getItems().findIndex(e => e.value === ql.value) : -1;
                 tc.open(e >= 0 ? e : 0, !0);
             } else tc.close();
-        }), ql.addEventListener("change", () => {
-            nc(), ql.value && So(ql.value);
+        }), ql && ql.addEventListener("change", () => {
+            nc();
+            if (!ql.value) return;
+            const id = ql.value;
+            const rec = (typeof Xn === "function" ? Xn(id) : null) || null;
+            const branch = rec && rec.branch || "";
+            if (branch && !rn.has(branch)) rn.add(branch);
+            if (rec && rec.parentId && !on.has(rec.parentId)) on.add(rec.parentId);
+            if (rec && "Subcategory" === rec.kind) on.add(id);
+            Lt = id;
+            Mr();
+            const focus = () => { if (typeof Th === "function") Th(id, branch); };
+            if (window.sxPaintPromise && window.sxPaintPromise.then) window.sxPaintPromise.then(() => requestAnimationFrame(focus));
+            else requestAnimationFrame(focus);
         }), nc();
         let pc = [], hc = "", gc = "";
         const mc = new Set, fc = new Set;

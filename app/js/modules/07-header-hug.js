@@ -1,3 +1,4 @@
+    }();
 });
 
 /* HEADER-HUG boot seat (2026-11-02): the render-path hug (in the header-ring

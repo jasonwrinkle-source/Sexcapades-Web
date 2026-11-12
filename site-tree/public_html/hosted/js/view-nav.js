@@ -355,6 +355,7 @@ __sxInit(function () {
     if ((scribeDlg && scribeDlg.open) || (scribeChoiceDlg && scribeChoiceDlg.open)) return "Scribe";
     if (safetyDlg && safetyDlg.open) return "Scene Sentinel";
     if (listDlg && listDlg.open) return listLabel();
+    if (/^#\/?(?:app\/)?compare\/?$/i.test(String(location.hash || ""))) return "Compare";
     return "Hypermap";
   }
   function sync() {

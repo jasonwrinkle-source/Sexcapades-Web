@@ -76,7 +76,7 @@ footer a { color: var(--accent); }
 <p>The second-generation lines radiating from a kink category. Each represents a specific kink or practice. The line is split: the top half shows the give rating, the bottom half shows the receive rating, with the hanky-code color in the center.</p>
 </div>
 <footer>
-<p><a href="https://sexcapades.io/">← Back to Sexcapades</a></p>
+<p><a href="/">← Back to Sexcapades</a></p>
 <div class="visitor-odometer" id="visitor-counter" title="Unique visitors to Sexcapades" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:0.85rem;color:#a6bbb7;">
   
 </div>
@@ -86,7 +86,7 @@ footer a { color: var(--accent); }
 <script>
 (function(){var c=document.getElementById('odometer-digits');if(!c)return;
 function render(n){var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}
-fetch('https://sexcapades.io/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render(d.ok?(d.unique_visitors||0):0);}).catch(function(){render(0);});})();
+fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render(d.ok?(d.unique_visitors||0):0);}).catch(function(){render(0);});})();
 </script>
 </footer>
 <div style="text-align:center;margin:20px 0;">
@@ -100,7 +100,7 @@ fetch('https://sexcapades.io/hosted/api/collect.php',{method:'POST',headers:{'Co
 <script>
 (function(){var c=document.getElementById('odometer-digits-GLOSS');if(!c)return;
 function render(n){var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}
-fetch('https://sexcapades.io/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render(d.ok?(d.unique_visitors||0):0);}).catch(function(){render(0);});})();
+fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render(d.ok?(d.unique_visitors||0):0);}).catch(function(){render(0);});})();
 </script>
 
 
@@ -194,7 +194,7 @@ fetch('https://sexcapades.io/hosted/api/collect.php',{method:'POST',headers:{'Co
 (function(){var c=document.getElementById('odometer-digits-GLOSS');if(!c)return;
 function render(n){try{var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}catch(e){}}
 try{
-fetch('https://sexcapades.io/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
+fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
 }catch(e){render(0);}})();
 </script>
 

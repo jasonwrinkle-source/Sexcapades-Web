@@ -5263,6 +5263,12 @@ const TAXONOMY_CATEGORIES = [
         // written against. Bump it whenever the catalog's topic set or a
         // topic's meaning changes.
         const TAXONOMY_VERSION = "2026-10-22";
+        // sxName's other copy lives inside the map IIFE in 02-taxonomy-core.js.
+        // This catalog pass runs in the outer boot function, before that IIFE,
+        // so it needs its own copy. Function declarations do not cross that boundary.
+        function sxName(e) {
+            return e && "object" == typeof e ? String(e.name || "") : String(e || "");
+        }
         h.forEach(e => {
             e.topicDetails = e.topicDetails || {};
             e.topics.forEach(t => {
@@ -6958,6 +6964,9 @@ const TAXONOMY_CATEGORIES = [
             }
             return j(e);
         }
+        function ho(e, t) {
+            return [ e, ...I[e] || [] ].map(e => w[e]).find(e => e && Number.isFinite(Number(e.pct)) && (/lehmiller/i.test(e.source || "") ? "lehmiller" : "joyal") === t) || null;
+        }
         const q = Object.freeze([ {
             id: "fetlife",
             value: e => B(e),
@@ -8585,6 +8594,14 @@ const TAXONOMY_CATEGORIES = [
             "t0385": [ "wears", "admires" ],
             "t0375": [ "accepts", "surrenders" ]
         };
+        function Wn(e) {
+            if (e && "object" == typeof e && e.id) return e.id;
+            const t = sxName(e);
+            for (const cat of h) for (const topic of cat.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+            const n = topicRecords[t] && topicRecords[t].id;
+            if (!n) throw new Error(`Missing stored topic ID for "${t}". Assign max(existing ID) + 1 on the topic object.`);
+            return n;
+        }
         h.forEach(cat => (cat.topics || []).forEach(topic => {
             if (!topic || "give_receive" !== topic.type) return;
             const n = Wn(topic);
@@ -11675,6 +11692,12 @@ const TAXONOMY_CATEGORIES = [
         }
         function zt(e) {
             e && vt[e] && (yt[e] = !0, queueDraftAutosave(e), Gt(), Kt(e), sxRefreshGroupOwn(e));
+            try {
+                if (e && typeof Oo !== "undefined" && Oo && (typeof Go === "undefined" || !Go || Go === e)) {
+                    const name = e === Et ? "New profile" : (wt[e] || "Profile");
+                    Oo.textContent = name + (yt[e] ? " *" : "");
+                }
+            } catch (_) {}
             try { window.SexcapadesEngine?.Map?.invalidateVault(e); } catch (_) {}
         }
         function Vt(e) {
@@ -16865,7 +16888,7 @@ const TAXONOMY_CATEGORIES = [
         const qn = {};
         let sxStemFinaliseHook = null;
         function Hn(e) {
-            return e.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+            return String(e == null ? "" : e).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
         }
         
         function sxName(e) {
@@ -18121,7 +18144,11 @@ const TAXONOMY_CATEGORIES = [
             }), r;
         }
         function Aa(e) {
-            return 80 - 1.8 * av(e);
+            // The popover runs Revealed (0) to Concealed (100), and the
+            // number it shows is the minimum rating that stays visible.
+            // Unrated topics have no rating, so they stay hidden whenever
+            // the veil is on. A level of 83 hides a 73 and keeps a 93.
+            return av(e);
         }
         function Ca(e, t = {}, n = {}) {
             if (n && "favorite" === n[e]) return 100;
@@ -18864,7 +18891,7 @@ const TAXONOMY_CATEGORIES = [
                     hoverOnly: !1
                 })}/>`;
             }
-            selectionMarkKind(e, Lt, Lt ? qn[Lt] || Xn(Lt) || (at[Vi()] || {})[Lt] : null) && (D += `<path class="selected-spoke" d="${t}" style="stroke-width:${9 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`);
+            selectionMarkKind(e, Lt, Lt ? qn[Lt] || Xn(Lt) || (at[Vi()] || {})[Lt] : null) && (D += `<path class="selected-spoke" d="${t}" vector-effect="non-scaling-stroke" stroke-width="14" aria-hidden="true"/>`);
             const B = m ? ` ${m}` : "", j = Math.hypot(o - pr.centerX, s - pr.centerY), q = Ga.railsBaseWidth(e, n, j, k, sxD), H = Ga.tipWidth(n);
             const tipCircle = SpokeGeometry.buildTipCircle(o, s, l, c, null != sxLeafD ? sxLeafD : u * mapFontScale());
             let W = "";
@@ -19262,6 +19289,11 @@ const TAXONOMY_CATEGORIES = [
             // Build 2026-10-19_1535: expand/collapse on label/icon click COMMENTED OUT per Jason — click is selection only (highlight + dim), no expand/contract. Restore by uncommenting the $i(n) line.
             // n && $i(n);
             n && selectSpokeNode(n, !0);
+            const rec = n && (qn[n] || Xn(n));
+            if (rec && "Topic" === rec.kind && typeof xo === "function") {
+                const box = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
+                xo(n, box.left + box.width / 2, box.bottom + 8);
+            }
         }
         function clearSelectionMarking() {
             if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());
@@ -19275,12 +19307,21 @@ const TAXONOMY_CATEGORIES = [
             // DeKnotter runs) that exists only in the rendered DOM. The
             // map-selection-dim observer clears sel-keep /
             // has-selection in response to the marking removal.
+            // A search focus and a relation-line focus dim the map
+            // without a selected spoke, so those are cleared here too.
             // Returns whether anything was selected.
-            const had = Boolean(Lt || Nt);
-            if (had) {
-                Lt = null, Nt = null, sxSelEditorMirrored = null;
-                clearSelectionMarking();
+            const search = e.byId("searchInput"), picker = e.byId("topicPicker");
+            const had = Boolean(Lt || Nt || Dt || Tt || (search && search.value) || (picker && picker.value) || (Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".selected-spoke, .is-preview, .is-dim"))));
+            Lt = null, Nt = null, Dt = null, Tt = "", sxSelEditorMirrored = null;
+            search && (search.value = "");
+            if (picker && picker.value) picker.value = "", picker.dispatchEvent(new Event("change", { bubbles: true }));
+            clearSelectionMarking();
+            if (Cn) {
+                Cn.classList.remove("has-selection", "relation-focused");
+                Cn.querySelectorAll(".sel-keep, .is-dim, .is-preview, .relation-focus-keep, .rel-endpoint, .rel-active").forEach(el => el.classList.remove("sel-keep", "is-dim", "is-preview", "relation-focus-keep", "rel-endpoint", "rel-active"));
             }
+            const menu = e.byId("searchDropdown");
+            menu && (menu.hidden = true);
             return had;
         }
         function stampSelectedSpoke(d, host) {
@@ -19288,6 +19329,8 @@ const TAXONOMY_CATEGORIES = [
             const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
             p.setAttribute("class", "selected-spoke");
             p.setAttribute("d", d || "");
+            p.setAttribute("vector-effect", "non-scaling-stroke");
+            p.setAttribute("stroke-width", "14");
             p.setAttribute("aria-hidden", "true");
             let ref = host.firstChild;
             while (ref && 1 === ref.nodeType && ref.classList.contains("group-heat")) ref = ref.nextSibling;
@@ -19381,10 +19424,15 @@ const TAXONOMY_CATEGORIES = [
             n && selectSpokeNode(n, !0);
         }
         function Ja() {
+            // A rating-details pass can clear the expanded-branch set
+            // while the map is still in its expanded state (kn). Re-seed
+            // that set before deciding which topic names stay visible, so
+            // fit zoom does not lose every label.
+            kn && !rn.size && h.forEach(e => e && e.name && rn.add(e.name));
             In.querySelectorAll(".map-label").forEach(e => {
                 const t = qn[e.dataset.topicId];
                 if (!t) return;
-                const n = Tt && t.label.toLowerCase().includes(Tt);
+                const n = Tt && String(t.label || "").toLowerCase().includes(Tt);
                 e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
             }), function() {
                 if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap || void 0 === nh) return;
@@ -19433,968 +19481,10 @@ const TAXONOMY_CATEGORIES = [
             const link = event.target.closest?.(".common-overlap-link.relation-hit");
             link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
         }, !0);
-        // ===== Map layout geometry ==============================================
-        // One pipeline owns spoke radii, collision relief, crossing assignment,
-        // and angular nudging. Keep this order stable: each later pass consumes the
-        // coordinates established by the pass before it.
-        window.er = Object.freeze({
-            fullTurn: 2 * Math.PI,
-            inwardExclusion: Math.PI / 6,
-            halfExclusion: Math.PI / 12,
-            spread: 11 * Math.PI / 6,
-            pitch: 150,
-            minimumRadius: 170
-        });
-        function tr(e) {
-            return Math.atan2(Math.sin(e), Math.cos(e));
-        }
-        window.nr = Object.freeze({
-            spread: 11 * Math.PI / 6,
-            halfSpread: 11 * Math.PI / 12,
-            inwardExclusion: Math.PI / 6,
-            referenceSpread: 2 * Math.PI / 3,
-            pitch: er.pitch,
-            minimumRadius: er.minimumRadius
-        });
-        function ir(e, t, n) {
-            const i = Math.max(0, Number(t) || 0);
-            if (!i) return tr(e);
-            const a = Math.ceil(i / 2), r = i % 2 == 1 ? 1 : -1;
-            return tr(e + Math.max(-window.nr.halfSpread, Math.min(window.nr.halfSpread, r * a * (Number(n) || 0))));
-        }
-        function ar(e, t, n) {
-            const i = Math.max(0, Number(t) || 0);
-            if (!i) return [];
-            const a = Math.ceil((i - 1) / 2), r = a > 0 ? window.nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
-            return !o || a * o <= window.nr.halfSpread ? Array.from({
-                length: i
-            }, (t, n) => ir(e, n, o)) : Array.from({
-                length: i
-            }, (e, t) => -window.nr.halfSpread + window.nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
-        }
-        const rr = Object.freeze({
-            // --- Spoke length calculations (uniform sibling radii) ---------------
-            slotAngle: ir,
-            fanAngles: ar,
-            childFanAngles: (e, t, n) => ar(e, t, n),
-            stepForRadius: e => window.nr.pitch / Math.max(1, e),
-            cloudRadiusFor(e) {
-                const t = Math.max(window.nr.minimumRadius, e * window.nr.pitch / window.nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * window.nr.pitch / window.nr.halfSpread : 0;
-                return Math.max(t, i);
-            },
-            branchDepth: e => Math.max(0, ...(e.topics || []).map(e => rr.renderedSpokeLength(e) + (e.topic.isSubcategory && e.children && e.children.length ? 1.18 * (e.childCloudRadius || 0) + pr.topicIcon + rr.CONTROL_STATION + rr.LABEL_ALLOWANCE : 0))),
-            renderedSpokeLength(e) {
-                const t = e.cloudRadius || 0, n = e.topic && e.topic.label || "";
-                let i = t;
-                try {
-                    i = Za.topicSpokeEstimate(n, t).spokeLength;
-                } catch (e) { __sxErrLog("layout-measure", e); }
-                if (e.topic && e.topic.isSubcategory) {
-                    i = Math.max(i, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(e.cloudCount));
-                    try {
-                        const e = Za.topicSpokeEstimate(n, t);
-                        i = Za.hubSpokeLength(n, e.fontSize, i, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
-                    } catch (e) { __sxErrLog("layout-measure", e); }
-                }
-                var subMul = 1, cloudMul = 1, kinkMul = 1;
-                if (e.topic && e.topic.isSubcategory && mn.subcatOverrides) {
-                    var so = mn.subcatOverrides[e.topic.label];
-                    if (so) {
-                        if (typeof so.length === "number" && so.length > 0) subMul = so.length;
-                        if (typeof so.cloud === "number" && so.cloud > 0) cloudMul = so.cloud;
-                    }
-                }
-                if (e.topic && !e.topic.isSubcategory && mn.kinkOverrides) {
-                    var ko = mn.kinkOverrides[e.topic.id];
-                    if (ko && typeof ko.length === "number" && ko.length > 0) kinkMul = ko.length;
-                }
-                return i * (e.topic && e.topic.isSubcategory ? mn.subLen * subMul : mn.spokeLen * kinkMul) * ("grow" === mn.collision ? 1.22 : "shrink" === mn.collision ? .72 : "off" === mn.collision ? .56 : 1);
-            },
-            CONTROL_STATION: 54,
-            LABEL_ALLOWANCE: 44,
-            branchExpanded: e => (e.topics || []).some(e => e.topic.isSubcategory && e.children && e.children.length),
-            MAX_CASCADE_PASSES: 8,
-            MAX_TOPIC_GROWTH: 1100,
-            ELEMENT_CLEARANCE: 30,
-            topicElementRadius(e) {
-                const t = e.topic || e.child || {}, n = t.isSubcategory ? pr.subcategoryIcon : pr.topicIcon;
-                let i = 0;
-                try {
-                    i = Za.measure(t.label || "", t.isSubcategory || !e.child ? sxFontCoef(2) : sxFontCoef(3));
-                } catch (e) { __sxErrLog("layout-measure", e); }
-                return Math.max(n / 2 + rr.ELEMENT_CLEARANCE * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1), n / 2 + rr.CONTROL_STATION, Math.min(260, i / 2 + 34 * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1)));
-            },
-            _lineEndpoint(e, t) {
-                const n = e.child ? e.cloudRadius || 0 : rr.renderedSpokeLength(e);
-                return {
-                    x: t.x + Math.cos(e.cloudAngle) * n,
-                    y: t.y + Math.sin(e.cloudAngle) * n
-                };
-            },
-            _rotateSibling(e, t) {
-                const n = Math.atan2(Math.sin(t - e.cloudAngle), Math.cos(t - e.cloudAngle));
-                e.cloudAngle = tr(t), (e.children || []).forEach(e => {
-                    e.cloudAngle = tr(e.cloudAngle + n);
-                });
-            },
-            // --- Angular nudge -------------------------------------------------
-            // Gently separates adjacent siblings without changing their radius.
-            applyAngularNudge(e, t) {
-                if (!mn.nudge || !Array.isArray(e) || e.length < 2) return;
-                const n = e.map(e => ({
-                    item: e,
-                    rel: Math.atan2(Math.sin(e.cloudAngle - t), Math.cos(e.cloudAngle - t))
-                })).sort((e, t) => e.rel - t.rel), i = Math.max(Math.PI / 45, Math.min(Math.PI / 7, Math.atan2(8 * rr.SPOKE_HALF_WIDTH + 32 * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1), 190)));
-                for (let e = 1; e < n.length; e++) {
-                    const t = n[e].rel - n[e - 1].rel;
-                    if (t >= i) continue;
-                    const a = Math.min(Math.PI / 24, (i - t) / 2);
-                    n[e - 1].rel -= a, n[e].rel += a;
-                }
-                n.forEach(e => rr._rotateSibling(e.item, t + e.rel));
-            },
-            // --- Crossing minimizer (sibling angular assignment) -----------------
-            _segmentsCross(e, t) {
-                const n = (e, t, n) => (t.x - e.x) * (n.y - e.y) - (t.y - e.y) * (n.x - e.x);
-                if ([ e.a, e.b ].some(e => [ t.a, t.b ].some(t => Math.hypot(e.x - t.x, e.y - t.y) < .5))) return !1;
-                const i = n(e.a, e.b, t.a), a = n(e.a, e.b, t.b), r = n(t.a, t.b, e.a), o = n(t.a, t.b, e.b);
-                return i * a < -.01 && r * o < -.01;
-            },
-            _siblingSegments(e, t) {
-                const n = [];
-                return e.forEach(e => {
-                    const i = rr._lineEndpoint(e, t);
-                    n.push({
-                        a: t,
-                        b: i
-                    }), (e.children || []).forEach(e => {
-                        n.push({
-                            a: i,
-                            b: rr._lineEndpoint(e, i)
-                        });
-                    });
-                }), n;
-            },
-            _crossingScore(e, t) {
-                let n = 0;
-                for (let i = 0; i < e.length; i++) {
-                    for (let t = i + 1; t < e.length; t++) rr._segmentsCross(e[i], e[t]) && n++;
-                    for (const a of t) rr._segmentsCross(e[i], a) && n++;
-                }
-                return n;
-            },
-            minimizeSiblingCrossings(e, t, n) {
-                if (!mn.crossmin || !Array.isArray(e) || e.length < 2) return rr._siblingSegments(e || [], t);
-                for (let i = 0; i < 2; i++) {
-                    let i = !1;
-                    for (let a = 0; a < e.length - 1; a++) {
-                        const r = e[a], o = e[a + 1], s = r.cloudAngle, l = o.cloudAngle, c = rr._crossingScore(rr._siblingSegments(e, t), n);
-                        rr._rotateSibling(r, l), rr._rotateSibling(o, s), rr._crossingScore(rr._siblingSegments(e, t), n) < c ? i = !0 : (rr._rotateSibling(r, s), 
-                        rr._rotateSibling(o, l));
-                    }
-                    if (!i) break;
-                }
-                return rr._siblingSegments(e, t);
-            },
-            minimizeCrossings(e) {
-                if (!mn.crossmin || !Array.isArray(e)) return;
-                const t = {
-                    x: pr.centerX,
-                    y: pr.centerY
-                }, n = e.map(e => ({
-                    a: t,
-                    b: rr.branchAnchor(e)
-                }));
-                e.forEach(e => {
-                    const t = rr.branchAnchor(e), i = rr.minimizeSiblingCrossings(e.topics || [], t, n);
-                    n.push(...i), (e.topics || []).filter(e => e.children && e.children.length).forEach(e => {
-                        const i = rr._lineEndpoint(e, t), a = rr.minimizeSiblingCrossings(e.children, i, n);
-                        n.push(...a);
-                    });
-                });
-            },
-            // --- Collision avoidance: local grow/shrink ---------------------------
-            resolveRadialSiblings(e, allowShrink = !0, itemGate = null, itemArm = null) {
-                if ("off" === mn.collision || !Array.isArray(e) || e.length < 2) return;
-                e.forEach(item => {
-                    // _radialBase20 signature invalidation (E3): the
-                    // captured base is recaptured whenever it is not
-                    // finite OR the item's governing signature
-                    // (_radialBase20Sig, see dkRadialBaseInfo) differs
-                    // from the current key — from the item's fit target
-                    // when fit-armed, else from its current cloudRadius,
-                    // with the legacy max(1, ...) capture floor. With an
-                    // unchanged signature there is NO recapture: the base
-                    // captured in the first resolver round of a solve
-                    // survives unchanged into the second round. A
-                    // recapture driven by a signature mismatch — against
-                    // the wrapper's own stored signature, or, for the
-                    // fresh wrappers each fr() run allocates, against the
-                    // same stable identity's entry in the driver's
-                    // base-state registry — is recorded in the DeKnotter
-                    // run log as 'base-recapture' with the item's stable
-                    // key; a first-ever capture is not a recapture and is
-                    // not logged. The registry is refreshed either way.
-                    const info = dkRadialBaseInfo(item), prev = dkBaseStates.get(info.key), prevSig = "string" == typeof item._radialBase20Sig ? item._radialBase20Sig : prev ? prev.sig : null;
-                    item._radialFit20 = info.fit, item._radialKey20 = info.key;
-                    if (!Number.isFinite(item._radialBase20) || item._radialBase20Sig !== info.sig) {
-                        const mismatch = null !== prevSig && prevSig !== info.sig;
-                        item._radialBase20 = Math.max(1, null != info.fit ? info.fit : Number(item.cloudRadius) || 1), item._radialBase20Sig = info.sig, mismatch && dkLog.push({
-                            type: "base-recapture",
-                            key: info.key,
-                            branch: dkCtx ? dkCtx.branch : null,
-                            phase: dkCtx ? dkCtx.phase : null,
-                            base: item._radialBase20,
-                            sig: info.sig
-                        });
-                    }
-                    dkBaseStates.set(info.key, {
-                        base: item._radialBase20,
-                        sig: item._radialBase20Sig
-                    });
-                });
-                // Fit floor (E3, wired in E4): for a fit-armed item the
-                // resolver floor IS its fit target, not max(82, 0.58 ×
-                // base). _radialFit20 carries the item's registered
-                // target whenever one exists; non-fit items keep the
-                // legacy floor and cap exactly.
-                const t = e => Number.isFinite(e._radialFit20) ? e._radialFit20 : Math.max(82, .58 * e._radialBase20), n = e => e._radialBase20 + rr.MAX_TOPIC_GROWTH, i = (e, t, n, i, a, r) => {
-                    const o = e.cloudRadius, s = t.cloudRadius, l = Math.cos(e.cloudAngle) * o - Math.cos(t.cloudAngle) * s, c = Math.sin(e.cloudAngle) * o - Math.sin(t.cloudAngle) * s, d = Math.hypot(l, c), u = rr.topicElementRadius(e) + rr.topicElementRadius(t);
-                    if (d + .5 >= u) return null;
-                    const p = [], h = (e, t, n, i) => {
-                        const a = e.cloudRadius, r = t.cloudRadius, o = Math.cos(e.cloudAngle - t.cloudAngle) * r, s = Math.max(0, r * r - o * o);
-                        if (s >= u * u) return;
-                        const l = Math.sqrt(Math.max(0, u * u - s)), c = o - l - 2, d = o + l + 2;
-                        c < a && c >= n && p.push({
-                            item: e,
-                            radius: c,
-                            delta: c - a,
-                            shrink: 1
-                        }), d > a && d <= i && p.push({
-                            item: e,
-                            radius: d,
-                            delta: d - a,
-                            shrink: 0
-                        });
-                    };
-                    return h(e, t, n, i), h(t, e, a, r), p.filter(e => (!1 !== allowShrink || 1 !== e.shrink) && (!itemGate || 1 !== e.shrink || itemGate(e.item))).filter(e => "grow" === mn.collision ? e.delta > 0 || (1 === e.shrink && itemArm && itemArm(e.item)) : "shrink" !== mn.collision || e.delta < 0).filter(e => !(itemArm && e.delta > 0 && itemArm(e.item))).sort((e, t) => Math.abs(e.delta) - Math.abs(t.delta) || t.shrink - e.shrink)[0] || null;
-                    // Group 3d fix (symptom #1, toggles move nothing): the
-                    // last filter above is new. An item whose auto-shrink
-                    // is armed enters this resolver already carrying the
-                    // armed compaction factor (clouds 0.74x / spokes
-                    // 0.76x, applied in frCloudLayout / frCollisionPasses)
-                    // — but sibling separation then grew it back out
-                    // toward the un-shrunk radius (the pair separation
-                    // floor for dense child clouds lands within a few
-                    // units of the un-shrunk radius), so the delivered
-                    // layout showed no movement at all (Fleet 3: 0 of 466
-                    // nodes). Armed items may still shrink or hold here;
-                    // they may not grow. Separation for an armed pair is
-                    // achieved by the unarmed partner growing, or not at
-                    // all — the overlap trade the armed shrink commands.
-                    // Unarmed items are untouched (itemArm null or false
-                    // passes every candidate exactly as before).
-                };
-                for (let a = 0; a < 16; a++) {
-                    let a = !1;
-                    for (let r = 0; r < e.length; r++) for (let o = r + 1; o < e.length; o++) {
-                        const s = e[r], l = e[o], c = i(s, l, t(s), n(s), t(l), n(l));
-                        // Fit deviation (E4): an outward push that sibling
-                        // separation forces on a fit item is allowed (its
-                        // floor is the target, so it can never be pushed
-                        // below it), but never silent — each push is
-                        // recorded with the item's stable key, its
-                        // target, and the radius it was pushed to.
-                        c && (Number.isFinite(c.item._radialFit20) && c.radius > c.item._radialFit20 + 1e-9 && dkLog.push({
-                            type: "fit-deviation",
-                            key: c.item._radialKey20 || null,
-                            target: c.item._radialFit20,
-                            delivered: c.radius
-                        }), c.item.cloudRadius = c.radius, a = !0);
-                    }
-                    if (!a) break;
-                }
-            },
-            topicPosition(e, t, n) {
-                const i = rr.renderedSpokeLength(t);
-                return {
-                    x: n.x + Math.cos(t.cloudAngle) * i,
-                    y: n.y + Math.sin(t.cloudAngle) * i
-                };
-            },
-            branchAnchor(e) {
-                const t = yr(e.entry.branch);
-                return {
-                    x: pr.centerX + Math.cos(e.angle) * t,
-                    y: pr.centerY + Math.sin(e.angle) * t
-                };
-            },
-            // --- Expansion relief ------------------------------------------------
-            // Expanded subtrees yield space through bounded branch/topic growth.
-            applyBranchReliefPass(e, t, n) {
-                const i = new Map;
-                if (scCtx && scCtx.r6Abort) return !1;
-                e.forEach((t, n) => {
-                    const a = e[(n + 1) % e.length];
-                    if (a === t) return;
-                    const r = rr.branchAnchor(t), o = rr.branchAnchor(a), s = Math.hypot(r.x - o.x, r.y - o.y), l = rr.branchDepth(t) + rr.branchDepth(a) - s;
-                    if (l <= 0) return;
-                    const c = rr.branchExpanded(t), d = rr.branchExpanded(a), adds = c && !d ? [ [ a, t, l ] ] : d && !c ? [ [ t, a, l ] ] : c && d ? [ [ t, a, l / 2 ], [ a, t, l / 2 ] ] : [];
-                    // Scoped solve (T3, L5): a relief candidate
-                    // whose source or target branch is frozen is
-                    // suppressed, counted, and logged as a boundary
-                    // event (pass 0 = the branch relief pass);
-                    // candidates between two recompute-set branches
-                    // accumulate exactly as before.
-                    adds.forEach(([tgt, src, amt]) => {
-                        if (scCtx && (scSectorFrozen(tgt) || scSectorFrozen(src))) return void scReliefBoundary(scCtx, scSectorName(src), scSectorName(tgt), 0);
-                        i.set(tgt, (i.get(tgt) || 0) + amt);
-                    });
-                });
-                let a = !1;
-                return i.forEach((e, i) => {
-                    const r = t.get(i) || 0, o = Math.min(e, rr.MAX_TOPIC_GROWTH - r);
-                    if (o <= 0) return;
-                    t.set(i, r + o);
-                    const s = Math.max(1, i.topicCloudRadius), l = (s + o) / s;
-                    i.topicCloudRadius = s + o, (i.topics || []).forEach(e => {
-                        // Fit guard (E4): branch relief never scales a
-                        // fit item's cloudRadius — nor a fit
-                        // subcategory's childCloudRadius — and every
-                        // would-be touch of a fit item is logged.
-                        const fv = dkFitTargetValueFor(e);
-                        if (null != fv) dkLog.push({
-                            type: "fit-relief-skip",
-                            key: dkRadialBaseInfo(e).key,
-                            target: fv,
-                            delivered: Number.isFinite(e.cloudRadius) ? e.cloudRadius : null,
-                            via: "branch-relief"
-                        }); else e.cloudRadius = (e.cloudRadius || 0) * l, e.childCloudRadius && (e.childCloudRadius *= l);
-                        n.add(e);
-                    }), a = !0;
-                }), a;
-            },
-            cascadeReliefPass(e, t, n) {
-                if (scCtx && scCtx.r6Abort) return !1;
-                // Scoped solve (T3, L5): rSrc records, per growth
-                // demand, the sector whose obstacles exert the
-                // pressure (the demand's source branch), and itemSec
-                // maps each topic item to its owning sector (the
-                // target branch) — the application loop below
-                // suppresses any demand whose source or target
-                // branch is frozen. Both maps are inert bookkeeping
-                // when no scope is active.
-                const i = e.length, a = new Map(e.map(e => [ e, rr.branchAnchor(e) ])), r = new Map, rSrc = new Map, itemSec = new Map, o = (e, t, n) => {
-                    if (!e.length) return;
-                    const i = rr.topicPosition(t, n, a.get(t)), o = rr.topicElementRadius(n), srcSec = t;
-                    e.forEach(e => {
-                        const t = i.x - e.x, a = i.y - e.y, s = Math.hypot(t, a), l = e.r + o - s;
-                        if (l <= 1 || s < .001) return;
-                        const c = Math.cos(n.cloudAngle) * (t / s) + Math.sin(n.cloudAngle) * (a / s);
-                        var d, u;
-                        c <= .1 || (d = n, (u = l / c) > 0 && (!r.has(d) || u > r.get(d)) && (r.set(d, u), rSrc.set(d, srcSec)));
-                    });
-                };
-                scCtx && e.forEach(sec => (sec.topics || []).forEach(tp => itemSec.set(tp, sec)));
-                e.forEach((n, r) => {
-                    const s = a.get(n), l = [ n, e[(r + 1) % i], e[(r - 1 + i) % i] ].filter((e, t, n) => n.indexOf(e) === t);
-                    (n.topics || []).forEach(e => {
-                        const i = Boolean(e.topic.isSubcategory && e.children && e.children.length);
-                        if (!i && !t.has(e)) return;
-                        const a = rr.topicPosition(n, e, s), r = [];
-                        i ? e.children.forEach(e => {
-                            r.push({
-                                x: a.x + Math.cos(e.cloudAngle) * (e.cloudRadius || 0),
-                                y: a.y + Math.sin(e.cloudAngle) * (e.cloudRadius || 0),
-                                r: pr.topicIcon / 2 + rr.ELEMENT_CLEARANCE
-                            });
-                        }) : r.push({
-                            x: a.x,
-                            y: a.y,
-                            r: rr.topicElementRadius(e)
-                        }), l.forEach(t => {
-                            (t.topics || []).forEach(n => {
-                                n !== e && o(r, t, n);
-                            });
-                        });
-                    });
-                });
-                let s = !1;
-                return r.forEach((e, i) => {
-                    const a = n.get(i) || 0, r = Math.min(e, rr.MAX_TOPIC_GROWTH - a);
-                    if (r <= .5) return;
-                    // Scoped solve (T3, L5): a growth demand whose
-                    // source branch (pressure) or target branch (the
-                    // item's owner) is frozen is suppressed, counted,
-                    // and logged as a boundary event at the current
-                    // cascade pass. The pass's return value still
-                    // reflects only applied growth, so the cascade
-                    // terminates by its own rules.
-                    if (scCtx) {
-                        const scTgt = itemSec.get(i), scSrc = rSrc.get(i);
-                        if (scSectorFrozen(scTgt) || scSectorFrozen(scSrc)) return void scReliefBoundary(scCtx, scSectorName(scSrc), scSectorName(scTgt), scCtx.reliefPass || 0);
-                    }
-                    // Fit guard (E4): cascade relief never grows a fit
-                    // item away from its target — the skip is logged.
-                    const fv = dkFitTargetValueFor(i);
-                    if (null != fv) return void dkLog.push({
-                        type: "fit-relief-skip",
-                        key: dkRadialBaseInfo(i).key,
-                        target: fv,
-                        delivered: Number.isFinite(i.cloudRadius) ? i.cloudRadius : null,
-                        via: "cascade-relief"
-                    });
-                    i.cloudRadius = (i.cloudRadius || 0) + r, n.set(i, a + r), t.add(i), s = !0;
-                }), s;
-            },
-            applyExpansionRelief(e) {
-                if (e.length <= 1 || "off" === mn.collision || "shrink" === mn.collision) return;
-                const t = new Set, n = new Map, i = new Map;
-                rr.applyBranchReliefPass(e, i, t);
-                // Scoped solve (T3, L5): the context carries the
-                // 1-based cascade pass number so boundaryLog entries
-                // name the pass that produced them (the branch
-                // relief pass above is pass 0); under the R6 abort
-                // flag the cascade stops at once — pass accounting
-                // is otherwise unchanged.
-                for (let i = 0; i < rr.MAX_CASCADE_PASSES; i++) {
-                    if (scCtx) {
-                        if (scCtx.r6Abort) break;
-                        scCtx.reliefPass = i + 1;
-                    }
-                    if (!rr.cascadeReliefPass(e, t, n)) break;
-                }
-            },
-            // --- Element footprints and whole-branch spoke optimization -----------
-            // Circles cover node icons, labels, slider controls, and badges.
-            SPOKE_HALF_WIDTH: 16,
-            SPOKE_MIN_RADIUS: 950,
-            SPOKE_MAX_GROWTH: 4500,
-            SPOKE_GROWTH_MARGIN: 56,
-            SPOKE_ELEMENT_PAD: 50,
-            BADGE_RADIUS: 30,
-            elementCircles(e, t) {
-                const n = Math.cos(e.angle), i = Math.sin(e.angle), a = [ {
-                    x: t.x,
-                    y: t.y,
-                    r: pr.categoryIcon / 2 + rr.ELEMENT_CLEARANCE
-                }, {
-                    x: t.x - n * (pr.categoryIcon / 2 + 20),
-                    y: t.y - i * (pr.categoryIcon / 2 + 20),
-                    r: rr.BADGE_RADIUS
-                } ];
-                return (e.topics || []).forEach(n => {
-                    const i = rr.topicPosition(e, n, t);
-                    if (a.push({
-                        x: i.x,
-                        y: i.y,
-                        r: rr.topicElementRadius(n)
-                    }), n.topic.allImported && n.topic.allImported.length) {
-                        const e = (n.topic.isSubcategory ? pr.subcategoryIcon : pr.topicIcon) / 2 + 20;
-                        a.push({
-                            x: i.x + Math.cos(n.cloudAngle) * e,
-                            y: i.y + Math.sin(n.cloudAngle) * e,
-                            r: rr.BADGE_RADIUS
-                        });
-                    }
-                    n.topic.isSubcategory && n.children && n.children.forEach(e => {
-                        a.push({
-                            x: i.x + Math.cos(e.cloudAngle) * (e.cloudRadius || 0),
-                            y: i.y + Math.sin(e.cloudAngle) * (e.cloudRadius || 0),
-                            r: rr.topicElementRadius(e)
-                        });
-                    });
-                }), a;
-            },
-            segmentDistance(e, t, n, i, a, r) {
-                const o = a - n, s = r - i, l = o * o + s * s, c = l ? A(((e - n) * o + (t - i) * s) / l) : 0;
-                return {
-                    distance: Math.hypot(e - (n + o * c), t - (i + s * c)),
-                    fraction: c
-                };
-            },
-            optimizeSpokeLengths(e) {
-                if (e.length <= 1 || "off" === mn.collision) return;
-                const t = {
-                    x: pr.centerX,
-                    y: pr.centerY
-                }, n = new Map, i = e => {
-                    const t = rr.branchAnchor(e), i = rr.elementCircles(e, t).map(e => ({
-                        x: e.x,
-                        y: e.y,
-                        r: e.r + rr.SPOKE_ELEMENT_PAD * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1)
-                    })), a = Math.max(0, ...i.map(e => Math.hypot(e.x - t.x, e.y - t.y) + e.r)), r = [];
-                    (e.topics || []).forEach(n => {
-                        const i = rr.topicPosition(e, n, t);
-                        r.push({
-                            x1: t.x,
-                            y1: t.y,
-                            x2: i.x,
-                            y2: i.y
-                        }), n.topic.isSubcategory && n.children && n.children.forEach(e => {
-                            r.push({
-                                x1: i.x,
-                                y1: i.y,
-                                x2: i.x + Math.cos(e.cloudAngle) * (e.cloudRadius || 0),
-                                y2: i.y + Math.sin(e.cloudAngle) * (e.cloudRadius || 0)
-                            });
-                        });
-                    }), n.set(e, {
-                        anchor: t,
-                        circles: i,
-                        depth: a,
-                        segments: r
-                    });
-                };
-                e.forEach(i);
-                const a = (i = null) => {
-                    const a = [], r = (e, t, n, i, r, o) => {
-                        const s = ((e, t, n) => {
-                            const i = (e => ({
-                                x: Math.cos(e.angle),
-                                y: Math.sin(e.angle)
-                            }))(e);
-                            return i.x * t + i.y * n;
-                        })(n, i, r);
-                        Math.abs(s) <= .1 || a.push({
-                            a: e,
-                            b: t,
-                            target: n,
-                            delta: (s > 0 ? 1 : -1) * (o / Math.abs(s) + rr.SPOKE_GROWTH_MARGIN)
-                        });
-                    };
-                    for (let a = 0; a < e.length; a++) for (let o = a + 1; o < e.length; o++) {
-                        const s = e[a], l = e[o];
-                        // Scoped solve (T3, L4): a pair with BOTH
-                        // branches frozen can only produce deltas
-                        // against frozen targets, which are suppressed
-                        // by construction — skip the pair outright
-                        // (the latency win). Recompute×frozen pairs
-                        // are still evaluated; their frozen-target
-                        // candidates are suppressed + counted at the
-                        // candidate filter below.
-                        if (scCtx && scSectorFrozen(s) && scSectorFrozen(l)) continue;
-                        if (i && s !== i && l !== i) continue;
-                        const c = n.get(s), d = n.get(l);
-                        Math.hypot(c.anchor.x - d.anchor.x, c.anchor.y - d.anchor.y) <= c.depth + d.depth && c.circles.forEach(e => d.circles.forEach(t => {
-                            const n = e.x - t.x, i = e.y - t.y, a = Math.hypot(n, i), o = e.r + t.r - a;
-                            if (o <= 1 || a < .001) return;
-                            const c = n / a, d = i / a;
-                            r(s, l, s, c, d, o), r(s, l, l, -c, -d, o);
-                        })), [ [ s, l ], [ l, s ] ].forEach(([e, i]) => {
-                            const a = n.get(e), o = n.get(i);
-                            rr.segmentDistance(o.anchor.x, o.anchor.y, t.x, t.y, a.anchor.x, a.anchor.y).distance > o.depth + rr.SPOKE_HALF_WIDTH + 2 || o.circles.forEach(n => {
-                                const o = rr.segmentDistance(n.x, n.y, t.x, t.y, a.anchor.x, a.anchor.y), s = n.r + rr.SPOKE_HALF_WIDTH - o.distance;
-                                if (s <= 1 || o.distance < .001) return;
-                                const l = t.x + (a.anchor.x - t.x) * o.fraction, c = t.y + (a.anchor.y - t.y) * o.fraction;
-                                r(e, i, i, (n.x - l) / o.distance, (n.y - c) / o.distance, s);
-                            });
-                        }), [ [ s, l ], [ l, s ] ].forEach(([e, t]) => {
-                            const i = n.get(e), a = n.get(t);
-                            Math.hypot(i.anchor.x - a.anchor.x, i.anchor.y - a.anchor.y) > i.depth + a.depth + rr.SPOKE_HALF_WIDTH + 2 || i.segments.forEach(n => {
-                                a.circles.forEach(i => {
-                                    const a = rr.segmentDistance(i.x, i.y, n.x1, n.y1, n.x2, n.y2), o = i.r + rr.SPOKE_HALF_WIDTH - a.distance;
-                                    if (o <= 1 || a.distance < .001) return;
-                                    const s = n.x1 + (n.x2 - n.x1) * a.fraction, l = n.y1 + (n.y2 - n.y1) * a.fraction;
-                                    r(e, t, t, (i.x - s) / a.distance, (i.y - l) / a.distance, o);
-                                });
-                            });
-                        });
-                    }
-                    return a;
-                };
-                for (let e = 0; e < SX_SCORE.OPTIMIZER_MAX_PASSES; e++) {
-                    // Q1: heartbeat / cancel / phase-budget poll —
-                    // a no-op unless a DeKnotter context is active.
-                    dkSolvePoll();
-                    const e = a();
-                    if (!e.length) break;
-                    const t = e.map(e => {
-                        const t = Number(e.target.entry.branch._spokeAdjust20) || 0, n = t + e.delta;
-                        return {
-                            ...e,
-                            current: t,
-                            next: n
-                        };
-                    }).filter(e => Math.abs(e.delta) > .5 && ("grow" === mn.collision ? e.delta > 0 || ("armed" === sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)) : "shrink" !== mn.collision || e.delta < 0) && e.next >= rr.SPOKE_MIN_RADIUS - (e.target, 
-                    1450) && e.next <= rr.SPOKE_MAX_GROWTH && (e.delta > 0 || ("veto" !== sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)))).filter(e => !scCtx || !scSectorFrozen(e.target) || (scCtx.dropped.optimiser++, !1)).sort((e, t) => Math.abs(e.delta) - Math.abs(t.delta) || (e.delta < 0 ? -1 : 1) - (t.delta < 0 ? -1 : 1) || String(e.target.entry.branch.name).localeCompare(String(t.target.entry.branch.name))), n = t[0];
-                    if (!n) break;
-                    // DeKnotter log (E1): while a run context is active,
-                    // record every change the optimiser makes to the
-                    // ACTIVE branch's _spokeAdjust20 (before/after). The
-                    // optimiser window itself is observed, not widened.
-                    if (dkCtx && n.target && n.target.entry && n.target.entry.branch && n.target.entry.branch.name === dkCtx.branch && n.next !== n.current) dkLog.push({
-                        type: "spoke-optimiser",
-                        branch: dkCtx.branch,
-                        phase: dkCtx.phase,
-                        before: n.current,
-                        after: n.next
-                    });
-                    // Fit guard (E4): an optimiser adjustment to a branch
-                    // carrying fit items is recorded as a fit-deviation
-                    // for each fit item of that branch, so a spoke move
-                    // can never silently carry a fit item off target.
-                    if (dkFitRegistry.size && n.target && n.target.topics) n.target.topics.forEach(tp => {
-                        const fv = dkFitTargetValueFor(tp);
-                        null != fv && dkLog.push({
-                            type: "fit-deviation",
-                            key: dkRadialBaseInfo(tp).key,
-                            target: fv,
-                            delivered: Number.isFinite(tp.cloudRadius) ? tp.cloudRadius : null,
-                            via: "spoke-optimiser"
-                        }), tp.topic && tp.topic.isSubcategory && (tp.children || []).forEach(ch => {
-                            const cfv = dkFitTargetValueFor(ch);
-                            null != cfv && dkLog.push({
-                                type: "fit-deviation",
-                                key: dkRadialBaseInfo(ch).key,
-                                target: cfv,
-                                delivered: Number.isFinite(ch.cloudRadius) ? ch.cloudRadius : null,
-                                via: "spoke-optimiser"
-                            });
-                        });
-                    });
-                    n.target.entry.branch._spokeAdjust20 = n.next, i(n.target);
-                }
-            }
-        }), or = Math.max(1, ...h.map(e => e.subcategories?.length ? (e.parentTopics || []).length + e.subcategories.length : e.topics.length)), sr = Math.ceil(20 / (2 * Math.sin(er.spread / (2 * or)))), lr = Math.max(48, 2 * sr), cr = Math.max(1, ...h.flatMap(e => (e.subcategories || []).map(e => e.topics.length))), dr = Math.ceil(20 / (2 * Math.sin(er.spread / (2 * cr)))), ur = Math.max(48, Math.min(lr - 24, 2 * dr)), pr = {
-            centerX: 900,
-            centerY: 620,
-            centerRadius: ea.outerRadius,
-            categoryIcon: lr,
-            subcategoryIcon: ur,
-            topicIcon: 48,
-            importedIcon: 34
-        };
-        // Font-as-master-knob, part 2 (Build 2026-10-19_0924): mapFontScale()
-        // reads the live fontScale layout value (Layout Editor "Font scale"
-        // slider, part 1) through the same layout object the API getter
-        // exposes, so map icon, give/receive slider, and hanky-midline
-        // render geometry scales with the labels. At fontScale 1 every
-        // consumer renders exactly as before this build.
-        function mapFontScale() {
-            const v = Number(mn && mn.fontScale);
-            return Number.isFinite(v) && v > 0 ? v : 1;
-        }
-        // UNIFY (2026-11-02): sxSyncMapFontBase is the ONE setter of the
-        // stylesheet's --map-font-base variable, fed by the LIVE scale
-        // (mapFontScale() above) — U = 22 x live fontScale. It runs on
-        // every render (Mr) and is exposed for the shell's boot/apply
-        // paths, which call it instead of setting the variable from the
-        // defaults/apply channel. No other code sets --map-font-base.
-        function sxSyncMapFontBase() {
-            try {
-                document.documentElement.style.setProperty("--map-font-base", String(22 * mapFontScale()) + "px");
-                // FONT LAW (2026-11-02 17:24): the stylesheet's
-                // per-depth label fallbacks (.category-label,
-                // .map-label, subcategory/child .map-label)
-                // read these per-depth sizes, published here by
-                // the same ONE setter; each CSS rule keeps its
-                // historical calc() as the var() fallback for
-                // any frame before this runs.
-                if ("function" === typeof sxFontSize) {
-                    document.documentElement.style.setProperty("--map-font-d1", String(sxFontSize(1)) + "px");
-                    document.documentElement.style.setProperty("--map-font-d2", String(sxFontSize(2)) + "px");
-                    document.documentElement.style.setProperty("--map-font-d3", String(sxFontSize(3)) + "px");
-                }
-            } catch (err) { __sxErrLog("map-font-base-sync", err); }
-        }
-        try { window.__sxSyncMapFontBase = sxSyncMapFontBase; } catch (_) {}
-        // SPOKE BASE FORMULA (ruled 2026-11-01, Jason): the base of a
-        // subcategory segment is no longer the fixed 430 floor. Base =
-        // drawn icon radius x (300deg / number of spokes): the usable
-        // circle around the branch hub icon — 360deg less the reserved
-        // 60deg back angle = 300deg = 5pi/3 radians — shared equally
-        // among the spokes fanning out of that hub, so a crowded fan
-        // gets a smaller base and a sparse fan a bigger one. The icon
-        // radius is the DRAWN radius (sxIconRadius(1) under
-        // the 2026-11-02 icon depth law — (2/3)^1 x
-        // sqrt(R x W), R the centre-disc radius and W the
-        // ring width, floored at 12 x font scale; supersedes
-        // the 0.6 linear law —
-        // the size the hub icon actually renders at), never the
-        // raw unscaled pr value the retired floor measured icons at.
-        // The spoke count is the solved entry's cloudCount — the
-        // number of gen-2 spokes in that branch's fan, stamped by
-        // frCloudLayout. This helper is the ONE formula: every
-        // segment-composition site (the closing capture, the
-        // delivered-radius reading, the solver's renderedSpokeLength,
-        // the SCC geometry build's drawH, and Ar's paint) calls it,
-        // so solve, delivered, capsule and paint stay one formula.
-        function sxSpokeBase(spokeCount) {
-            const n = Math.max(1, Number(spokeCount) || 1);
-            return sxIconRadius(1) * (5 * Math.PI / 3) / n;
-        }
-        // Slider size repair #2 (2026-11-01): the rating rail's visible
-        // thickness and its hit strokes are screen-px quantities
-        // (non-scaling-stroke), while the track length (320 * control
-        // scale, map units) is camera-scaled — so a fixed 44px thickness
-        // stays correct up close but dwarfs the delivered track at Full
-        // zoom-out, where one inadvertently opened slider rendered as a
-        // fat pill over the bunched centre spokes. sxRailPx(m) returns
-        // the zoom-appropriate thickness for a control of scale m from
-        // the track's CURRENT delivered screen length (14% of it, the
-        // full 44px whenever the delivered length supports it, a 9px
-        // floor); sxSyncRailPx() publishes that value plus the hit
-        // thickness (1.6x visible, 44px cap, 14px floor) as the
-        // --sx-rail-px / --sx-rail-hit-px custom properties the
-        // .rating-rail / .rating-track-hit / .direction-hit CSS rules
-        // read. It runs on every render (Mr) and every camera settle
-        // (kh), so the open slider resizes with the camera instead of
-        // keeping the size of the zoom it was opened at.
-        function sxRailPx(m) {
-            try {
-                const rect = Cn.getBoundingClientRect(), vb = (Cn.getAttribute("viewBox") || "").split(/\s+/).map(Number), vbw = vb.length === 4 && vb[2] > 0 ? vb[2] : 3200, w = rect && rect.width > 0 ? rect.width : 1440, per = $p * w / vbw, len = 320 * (Number(m) > 0 ? m : mapFontScale()) * per;
-                return Math.max(9, Math.min(44, len * .14));
-            } catch (err) {
-                return 44;
-            }
-        }
-        function sxSyncRailPx() {
-            try {
-                const rail = sxRailPx(mapFontScale());
-                Cn.style.setProperty("--sx-rail-px", rail.toFixed(1) + "px"), Cn.style.setProperty("--sx-rail-hit-px", Math.max(14, Math.min(44, rail * 1.6)).toFixed(1) + "px");
-            } catch (err) { __sxErrLog("rail-px-sync", err); }
-        }
-        function hr(e) {
-            return [ 128, 180, 1080, 3300 ][e] || 3300 + 1700 * (e - 3);
-        }
-        function gr(e, t, n, i, a = 0) {
-            return Za.angularDemand(e, t, n, i, a);
-        }
-        function mr(e, t, n, i, a, r, o = 0) {
-            return Za.allocateSectors(e, t, n, i, a, r, o);
-        }
-        // Branch order (Build 2026-10-16_2020): mn.branchOrder selects the angular
-        // order of the top-level branches around the center node. "popularity"
-        // places the most popular category at 12:00 and continues in descending
-        // popularity clockwise, using the same mean-topic-popularity scoring
-        // (z over H, ordered by U) as the outline and detail caps. "relations"
-        // starts from the popularity order and hill-climbs pairwise branch swaps
-        // to minimize the summed chord length over the branch relation pairs
-        // (ue), so related branches sit angularly close. "landscape-antipodal" sorts by
-        // descendant topic count and anchors to the landscape axis: densest at
-        // 3:00, second densest at 9:00, sparsest at 12:00, second sparsest at
-        // 6:00 (nearest available positions when the even spacing misses a
-        // cardinal point), the rest in descending density toward the vertical
-        // positions. Results are cached per mode; the data never changes at
-        // runtime, so a cached order stays valid for the life of the page.
-        // Build 2026-10-17_0308: the "stagger" mode is renamed
-        // "landscape-antipodal" (display name "Landscape-Antipodal"); the
-        // legacy value "stagger" is still accepted and normalized to the
-        // new name in branchOrderRankMap, and the ordering function
-        // (branchOrderStaggerNames) and its geometry are unchanged.
-        // Build 2026-10-16_2101: branchOrderRankMap previously resolved any
-        // mode other than "relations"/"stagger" to "stagger", so the
-        // "popularity" mode silently rendered the stagger order; the mode
-        // check below now accepts all three modes.
-        // Build 2026-10-16_2206: fourth mode "alternate" (Alternate density)
-        // interleaves the density-sorted branches — densest, sparsest, 2nd
-        // densest, 2nd sparsest, ... — so every dense branch is flanked by
-        // sparse neighbors. Separately, mn.propFan (Proportional fan) is
-        // orthogonal to the order mode: when on, each branch spoke sits at
-        // the center of the sector allocateSectors sized in proportion to
-        // its topic weight, instead of the even 2π/count slot.
-        // Build 2026-10-17_0044: fifth mode "subbranches" (Sub-branches)
-        // orders by subcategory count with antipodal separation (see
-        // branchOrderSubBranchesNames). Two more orthogonal flags land in
-        // this build: mn.subcatOrder (Antipodal subcategories) reorders the
-        // gen-2 siblings inside each subcategorized branch in fr(), and
-        // mn.staggerDensity (Stagger density, default on) scales category
-        // spoke lengths by kink-count density in yr().
-        // Build 2026-10-17_0330: ninth mode "complexity-antipodal"
-        // (Complexity-Antipodal) — see branchOrderComplexityAntipodalNames.
-        let branchOrderCacheMode = "", branchOrderCacheMap = null;
-        function branchOrderPopularityNames() {
-            return U(h, z, e => e.name).map(e => e.name);
-        }
-        function branchOrderRelationsNames(start) {
-            const order = start.slice(), count = order.length, pos = new Map(order.map((name, i) => [ name, i ])), pairs = pe(ue).filter(pair => pos.has(pair[0]) && pos.has(pair[1])), step = 2 * Math.PI / count, chord = (a, b) => {
-                const d = Math.min(Math.abs(pos.get(a) - pos.get(b)), count - Math.abs(pos.get(a) - pos.get(b))) * step;
-                return 2 * Math.sin(d / 2);
-            }, total = () => pairs.reduce((sum, pair) => sum + chord(pair[0], pair[1]), 0);
-            let cost = total();
-            for (let pass = 0; pass < 80; pass++) {
-                let improved = !1;
-                for (let i = 0; i < count - 1; i++) for (let j = i + 1; j < count; j++) {
-                    const a = order[i], b = order[j];
-                    pos.set(a, j), pos.set(b, i), order[i] = b, order[j] = a;
-                    const next = total();
-                    if (next < cost - 1e-9) cost = next, improved = !0; else pos.set(a, i), pos.set(b, j), order[i] = a, order[j] = b;
-                }
-                if (!improved) break;
-            }
-            return order;
-        }
-        function branchOrderStaggerNames() {
-            const count = h.length, byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
-                let best = -1, bestDist = Infinity, bestSin = -Infinity;
-                for (let p = 0; p < count; p++) {
-                    if (order[p]) continue;
-                    const a = angle(p), dist = Math.abs(Math.atan2(Math.sin(a - target), Math.cos(a - target))), sin = Math.sin(a);
-                    if (dist < bestDist - 1e-9 || Math.abs(dist - bestDist) <= 1e-9 && sin > bestSin) best = p, bestDist = dist, bestSin = sin;
-                }
-                return best;
-            };
-            order[nearest(0)] = byDensity[0].name, order[nearest(Math.PI)] = byDensity[1].name, order[nearest(-Math.PI / 2)] = byDensity[count - 1].name, order[nearest(Math.PI / 2)] = byDensity[count - 2].name;
-            const rest = [];
-            for (let p = 0; p < count; p++) order[p] || rest.push(p);
-            rest.sort((p, q) => Math.abs(Math.cos(angle(q))) - Math.abs(Math.cos(angle(p))) || angle(p) - angle(q));
-            const middle = byDensity.slice(2, count - 2);
-            return rest.forEach((p, i) => order[p] = middle[i].name), order;
-        }
-        function branchOrderAlternateNames() {
-            const byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = [];
-            let lo = 0, hi = byDensity.length - 1, dense = !0;
-            while (lo <= hi) dense ? (order.push(byDensity[lo++].name), dense = !1) : (order.push(byDensity[hi--].name), dense = !0);
-            return order;
-        }
-        // Sub-branches (Build 2026-10-17_0044): order the primary branches by
-        // SUBCATEGORY count (not kink count) with antipodal separation. The
-        // branch with the most sub-branches anchors at 0°, the 2nd most at
-        // 180°, the 3rd at 90°, the 4th at 270° (nearest free slots); the
-        // remaining slots fill by descending |cos| (alternating sides toward
-        // the verticals), taking branches sparse-first interleaved with
-        // next-densest, so the slots beside the anchors go to the branches
-        // with the fewest sub-branches and no two sub-branch-heavy branches
-        // sit adjacent.
-        function branchOrderSubBranchesNames() {
-            const count = h.length, subCount = e => (e.subcategories || []).length, bySub = h.slice().sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
-                let best = -1, bestDist = Infinity, bestSin = -Infinity;
-                for (let p = 0; p < count; p++) {
-                    if (order[p]) continue;
-                    const a = angle(p), dist = Math.abs(Math.atan2(Math.sin(a - target), Math.cos(a - target))), sin = Math.sin(a);
-                    if (dist < bestDist - 1e-9 || Math.abs(dist - bestDist) <= 1e-9 && sin > bestSin) best = p, bestDist = dist, bestSin = sin;
-                }
-                return best;
-            };
-            order[nearest(0)] = bySub[0].name, order[nearest(Math.PI)] = bySub[1].name, order[nearest(Math.PI / 2)] = bySub[2].name, order[nearest(-Math.PI / 2)] = bySub[3].name;
-            const rest = [];
-            for (let p = 0; p < count; p++) order[p] || rest.push(p);
-            rest.sort((p, q) => Math.abs(Math.cos(angle(q))) - Math.abs(Math.cos(angle(p))) || angle(p) - angle(q));
-            const tail = bySub.slice(4), fill = [];
-            let lo = 0, hi = tail.length - 1, sparseFirst = !0;
-            while (lo <= hi) sparseFirst ? (fill.push(tail[hi--].name), sparseFirst = !1) : (fill.push(tail[lo++].name), sparseFirst = !0);
-            return rest.forEach((p, i) => order[p] = fill[i]), order;
-        }
-        // Three more modes (Build 2026-10-17_0103). "antipodal" (Antipodal
-        // Total): sort by TOTAL children — subcategory count plus direct
-        // (parent) topics for subcategorized branches, topic count for flat
-        // ones — then pair the sorted list (1st with 2nd, 3rd with 4th, ...)
-        // and place each pair 180° apart: pair leaders take every other slot
-        // starting from the slot nearest 0°, partners sit exactly opposite,
-        // so the heaviest branches are maximally separated, never adjacent.
-        // "quadrant" (Quadrant Balance): deal the branches in descending
-        // topic-weight order into the four quadrants (NE/SE/SW/NW slot
-        // groups), each branch going to the eligible quadrant with the least
-        // accumulated topic weight, so every quadrant carries roughly equal
-        // visual weight; within a quadrant, dealt order fills its slots in
-        // circular order. "branching" (Branching-First Interleave): the
-        // categories that HAVE subcategories, sorted by subcategory count,
-        // take evenly spaced slots (one per 360/7 step from the top), and
-        // the flat categories fill the remaining slots in descending topic
-        // count — structural branching complexity is spread around the map
-        // instead of topic bulk.
-        function branchOrderAntipodalNames() {
-            const count = h.length, totalChildren = e => e.subcategories && e.subcategories.length ? e.subcategories.length + (e.parentTopics || []).length : e.topics.length, byTotal = h.slice().sort((a, b) => totalChildren(b) - totalChildren(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, half = count / 2;
-            let start = 0, bestDist = Infinity;
-            for (let p = 0; p < count; p++) {
-                const a = angle(p), d = Math.abs(Math.atan2(Math.sin(a), Math.cos(a)));
-                d < bestDist - 1e-9 && (bestDist = d, start = p);
-            }
-            for (let j = 0; j < half; j++) {
-                const s = (start + 2 * j) % count;
-                order[s] = byTotal[2 * j].name, order[(s + half) % count] = byTotal[2 * j + 1].name;
-            }
-            return order;
-        }
-        function branchOrderQuadrantNames() {
-            const count = h.length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, quadrants = [ [], [], [], [] ];
-            for (let p = 0; p < count; p++) {
-                const deg = (angle(p) * 180 / Math.PI + 360) % 360;
-                quadrants[deg >= 270 ? 0 : deg < 90 ? 1 : deg < 180 ? 2 : 3].push(p);
-            }
-            const byWeight = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), dealt = [ [], [], [], [] ], load = [ 0, 0, 0, 0 ], order = new Array(count).fill(null);
-            byWeight.forEach(e => {
-                let pick = -1;
-                for (let q = 0; q < 4; q++) {
-                    if (dealt[q].length >= quadrants[q].length) continue;
-                    if (pick < 0 || load[q] < load[pick] || load[q] === load[pick] && dealt[q].length < dealt[pick].length) pick = q;
-                }
-                dealt[pick].push(e.name), load[pick] += e.topics.length;
-            });
-            return quadrants.forEach((slots, q) => slots.forEach((p, i) => order[p] = dealt[q][i])), order;
-        }
-        function branchOrderBranchingNames() {
-            const count = h.length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, branched = h.filter(e => e.subcategories && e.subcategories.length).sort((a, b) => b.subcategories.length - a.subcategories.length || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), flat = h.filter(e => !(e.subcategories && e.subcategories.length)).sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), spread = [];
-            branched.forEach((e, k) => {
-                const target = -Math.PI / 2 + k * 2 * Math.PI / branched.length;
-                let best = -1, bestDist = Infinity;
-                for (let p = 0; p < count; p++) {
-                    if (order[p] || spread.includes(p)) continue;
-                    const d = Math.abs(Math.atan2(Math.sin(angle(p) - target), Math.cos(angle(p) - target)));
-                    d < bestDist - 1e-9 && (bestDist = d, best = p);
-                }
-                spread.push(best);
-            });
-            spread.sort((a, b) => a - b), spread.forEach((p, i) => order[p] = branched[i].name);
-            const rest = [];
-            for (let p = 0; p < count; p++) order[p] || rest.push(p);
-            return rest.forEach((p, i) => order[p] = flat[i].name), order;
-        }
-        // Complexity-Antipodal (Build 2026-10-17_0330): ninth mode
-        // "complexity-antipodal". The categories that HAVE subcategories,
-        // sorted by subcategory count descending (ties: topic count,
-        // popularity, name), become anchors placed in exact antipodal
-        // pairs around the clock: #1 at 3:00 with #2 exactly opposite at
-        // 9:00, #3 at 12:00 with #4 at 6:00, #5 at 1:30 with #6 at 7:30,
-        // #7 at 4:30 (nearest free slots to each target). Every other
-        // slot is a buffer, filled sparsest-first: categories with NO
-        // subcategories, fewest kinks (topics) first; if that list ever
-        // runs out, the remaining categories with the fewest
-        // subcategories come next. Slots beside an anchor fill before
-        // slots farther away, so each complex branch is cushioned on
-        // both sides by the simplest branches.
-        function branchOrderComplexityAntipodalNames() {
-            const count = h.length, subCount = e => (e.subcategories || []).length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, order = new Array(count).fill(null), used = new Set, nearest = target => {
-                let best = -1, bestDist = Infinity, bestSin = -Infinity;
-                for (let p = 0; p < count; p++) {
-                    if (order[p]) continue;
-                    const a = angle(p), dist = Math.abs(Math.atan2(Math.sin(a - target), Math.cos(a - target))), sin = Math.sin(a);
-                    if (dist < bestDist - 1e-9 || Math.abs(dist - bestDist) <= 1e-9 && sin > bestSin) best = p, bestDist = dist, bestSin = sin;
-                }
-                return best;
-            }, pairTargets = [ 0, -Math.PI / 2, -Math.PI / 4, Math.PI / 4, -3 * Math.PI / 8, 3 * Math.PI / 8 ], anchors = h.filter(e => subCount(e) > 0).sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)).slice(0, 2 * pairTargets.length), anchorSlots = [];
-            anchors.forEach((e, i) => {
-                let p;
-                if (i % 2 === 0) p = nearest(pairTargets[i / 2]); else {
-                    const anti = (anchorSlots[i - 1] + count / 2) % count;
-                    p = Number.isInteger(anti) && !order[anti] ? anti : nearest(pairTargets[(i - 1) / 2] + Math.PI);
-                }
-                order[p] = e.name, used.add(e.name), anchorSlots.push(p);
-            });
-            const buffers = h.filter(e => !used.has(e.name)).sort((a, b) => subCount(a) - subCount(b) || a.topics.length - b.topics.length || (z(a) ?? 0) - (z(b) ?? 0) || a.name.localeCompare(b.name)), rest = [];
-            for (let p = 0; p < count; p++) order[p] || rest.push(p);
-            rest.sort((p, q) => {
-                const steps = s => anchorSlots.length ? Math.min(...anchorSlots.map(a => Math.min(Math.abs(s - a), count - Math.abs(s - a)))) : 0;
-                return steps(p) - steps(q) || p - q;
-            });
-            return rest.forEach((p, i) => order[p] = buffers[i].name), order;
-        }
-        function branchOrderRankMap() {
-            const mode = "popularity" === mn.branchOrder || "relations" === mn.branchOrder || "landscape-antipodal" === mn.branchOrder || "stagger" === mn.branchOrder || "alternate" === mn.branchOrder || "subbranches" === mn.branchOrder || "antipodal" === mn.branchOrder || "quadrant" === mn.branchOrder || "branching" === mn.branchOrder || "complexity-antipodal" === mn.branchOrder ? ("stagger" === mn.branchOrder ? "landscape-antipodal" : mn.branchOrder) : "landscape-antipodal";
-            if (branchOrderCacheMap && branchOrderCacheMode === mode) return branchOrderCacheMap;
-            const order = "relations" === mode ? branchOrderRelationsNames(branchOrderPopularityNames()) : "landscape-antipodal" === mode ? branchOrderStaggerNames() : "alternate" === mode ? branchOrderAlternateNames() : "subbranches" === mode ? branchOrderSubBranchesNames() : "antipodal" === mode ? branchOrderAntipodalNames() : "quadrant" === mode ? branchOrderQuadrantNames() : "branching" === mode ? branchOrderBranchingNames() : "complexity-antipodal" === mode ? branchOrderComplexityAntipodalNames() : branchOrderPopularityNames(), map = new Map;
-            return order.forEach((name, i) => map.set(name, i)), branchOrderCacheMode = mode, branchOrderCacheMap = map, map;
-        }
-        // Build the complete map geometry, then run the layout passes in a fixed,
-        // documented order. Default sibling radii are uniform.
-        // P1 refactor (Build 2026-10-18_2227): fr (map geometry) split by
-        // responsibility — frBuildTree builds the visible topic tree,
-        // frAssignCategoryAngles the branch spoke angles,
-        // frAllocateTopicSectors the gen-2/gen-3 sectors, frCloudLayout
-        // the topic clouds, frClampCloudRadii the neighbor radius clamp,
-        // and frCollisionPasses the collision/crossing passes. fr itself
-        // is now a thin orchestrator.
+        // Map layout geometry (er, nr, rr, and the branch-order helpers)
+        // lives in 02c-layout-solver.js. A second copy here is a strict-mode
+        // SyntaxError (Identifier 'nr'/'rr' has already been declared) and
+        // the bootstrap script never runs.
 
         // ===== Map layout geometry ==============================================
         // One pipeline owns spoke radii, collision relief, crossing assignment,
@@ -20411,7 +19501,7 @@ const TAXONOMY_CATEGORIES = [
         function tr(e) {
             return Math.atan2(Math.sin(e), Math.cos(e));
         }
-        window.nr = Object.freeze({
+        const nr = Object.freeze({
             spread: 11 * Math.PI / 6,
             halfSpread: 11 * Math.PI / 12,
             inwardExclusion: Math.PI / 6,
@@ -20423,26 +19513,26 @@ const TAXONOMY_CATEGORIES = [
             const i = Math.max(0, Number(t) || 0);
             if (!i) return tr(e);
             const a = Math.ceil(i / 2), r = i % 2 == 1 ? 1 : -1;
-            return tr(e + Math.max(-window.nr.halfSpread, Math.min(window.nr.halfSpread, r * a * (Number(n) || 0))));
+            return tr(e + Math.max(-nr.halfSpread, Math.min(nr.halfSpread, r * a * (Number(n) || 0))));
         }
         function ar(e, t, n) {
             const i = Math.max(0, Number(t) || 0);
             if (!i) return [];
-            const a = Math.ceil((i - 1) / 2), r = a > 0 ? window.nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
-            return !o || a * o <= window.nr.halfSpread ? Array.from({
+            const a = Math.ceil((i - 1) / 2), r = a > 0 ? nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
+            return !o || a * o <= nr.halfSpread ? Array.from({
                 length: i
             }, (t, n) => ir(e, n, o)) : Array.from({
                 length: i
-            }, (e, t) => -window.nr.halfSpread + window.nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
+            }, (e, t) => -nr.halfSpread + nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
         }
         const rr = Object.freeze({
             // --- Spoke length calculations (uniform sibling radii) ---------------
             slotAngle: ir,
             fanAngles: ar,
             childFanAngles: (e, t, n) => ar(e, t, n),
-            stepForRadius: e => window.nr.pitch / Math.max(1, e),
+            stepForRadius: e => nr.pitch / Math.max(1, e),
             cloudRadiusFor(e) {
-                const t = Math.max(window.nr.minimumRadius, e * window.nr.pitch / window.nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * window.nr.pitch / window.nr.halfSpread : 0;
+                const t = Math.max(nr.minimumRadius, e * nr.pitch / nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * nr.pitch / nr.halfSpread : 0;
                 return Math.max(t, i);
             },
             branchDepth: e => Math.max(0, ...(e.topics || []).map(e => rr.renderedSpokeLength(e) + (e.topic.isSubcategory && e.children && e.children.length ? 1.18 * (e.childCloudRadius || 0) + pr.topicIcon + rr.CONTROL_STATION + rr.LABEL_ALLOWANCE : 0))),
@@ -21412,7 +20502,7 @@ const TAXONOMY_CATEGORIES = [
                                 risk: Boolean(((e.topics || []).find(topic => sxName(topic) === sxName(t)) || {}).risk),
                                 parentId: i.id,
                                 isStaticTopic: !0
-                            })), a = fi(i.id, n.map(e => e.id)), o = on.has(i.id) ? n.filter(e => a.visible.includes(e.id) || e.id === Lt || Tt && e.label.toLowerCase().includes(Tt)).filter((e, t) => !Number.isFinite(DETAIL_CAPS[mapDetailLevel]) || t < DETAIL_CAPS[mapDetailLevel] || topicRatedForDetail(e.id)).slice(0, r) : [];
+                            })), a = fi(i.id, n.map(e => e.id)), o = on.has(i.id) ? n.filter(e => a.visible.includes(e.id) || e.id === Lt || Tt && String(e.label || "").toLowerCase().includes(Tt)).filter((e, t) => !Number.isFinite(DETAIL_CAPS[mapDetailLevel]) || t < DETAIL_CAPS[mapDetailLevel] || topicRatedForDetail(e.id)).slice(0, r) : [];
                             r = Math.max(0, r - o.length);
                             const s = gr(i.label, hr(2), pr.subcategoryIcon, 18, 176), l = o.reduce((e, t) => e + gr(t.label, hr(3), pr.topicIcon, 15, 112), 0);
                             return void m.push({
@@ -23922,6 +23012,16 @@ const TAXONOMY_CATEGORIES = [
             } catch (_) {}
         }
 
+        function sxTopicKnownInOpenGroup(id) {
+            const g = typeof Kd === "function" ? Kd() : null;
+            if (!g || Rt) return !1;
+            const own = ca(id, Vi());
+            if (own.giveKnown || own.receiveKnown) return !0;
+            return (g.sourceIds || []).some(pid => {
+                const c = ca(id, pid);
+                return c.giveKnown || c.receiveKnown;
+            });
+        }
         function sxVaultInvalidate(id) {
             sxInvalidateWarmBootCache(id);
             if (!id) {
@@ -24514,12 +23614,14 @@ const TAXONOMY_CATEGORIES = [
                 const E = Math.max(140, .48 * (s - ea.lineStartRadius)) + (t % 2 ? 55 : -35), A = Za.categoryFontSize(i.name, g.labelWidth, E, r), C = Vi(), M = Rt ? null : Qe[C]?.[dCat], I = Rt ? null : null !== fa(i, C, "give") || null !== fa(i, C, "receive") ? 1 : null, P = Ne.get(i.name) || Fe(i), L = (O = I, 
                 B = P, Rt ? "var(--green)" : "noCode" === B.key ? Ga.NO_CODE_COLOR : Te(B.lineColor || B.color) || Ga.FALLBACK_COLOR), T = Rt ? null : fa(i, C, "give"), F = Rt ? null : fa(i, C, "receive"), N = Rt ? "var(--green)" : null === T ? "noCode" === P.key ? Ga.NO_CODE_COLOR : Te(P.lineColor || P.color) : zi(T), _ = Rt ? "var(--green)" : null === F ? "noCode" === P.key ? Ga.NO_CODE_COLOR : Te(P.lineColor || P.color) : zi(F), D = Rt || null !== I ? "" : "noCode" === P.key ? "gen1-hanky-line gen1-no-hanky-line no-hanky-code-line" : "gen1-hanky-line" + (P.mixed ? " mixed-hanky-code-line" : ""), R = Rt || null !== I || "noCode" !== P.key && !P.mixed ? "none" : "noCode" === P.key ? "5 7" : "18 12";
                 var O, B;
-                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? `<g class="branch-icon${"noCode" === Q.hankyKey ? " no-hanky-code-icon" : ""}" data-diameter="${Y}" ${Sa(dCat, qn[dCat], C, { tapFirst: !0 })} aria-hidden="true" style="color:${Q.color}" transform="translate(${(J.x - X).toFixed(2)} ${(J.y - X).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${X}" cy="${X}" r="${X - .5}"/><circle class="icon-disc" cx="${X}" cy="${X}" r="${X - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${X}" cy="${X}" r="${X - 3.5}"/><g transform="scale(${Z.toFixed(5)})">${Q.glyph}</g></g>` : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = yi(J.x - g.ux * oe, J.y - g.uy * oe, re, dCat, !0), le = r ? function(e, t, n, i, a, r) {
+                const sxCatHeatVals = Rt ? [] : [ T, F ].filter(v => null != v && Number.isFinite(+v));
+                const sxCatHeat = sxCatHeatVals.length ? zi(sxCatHeatVals.reduce((s, v) => s + +v, 0) / sxCatHeatVals.length) : null;
+                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? `<g class="branch-icon${"noCode" === Q.hankyKey ? " no-hanky-code-icon" : ""}" data-diameter="${Y}" ${Sa(dCat, qn[dCat], C, { tapFirst: !0 })} aria-hidden="true" style="color:${sxCatHeat || Q.color}" transform="translate(${(J.x - X).toFixed(2)} ${(J.y - X).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${X}" cy="${X}" r="${X - .5}"/><circle class="icon-disc" cx="${X}" cy="${X}" r="${X - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${X}" cy="${X}" r="${X - 3.5}"/><g transform="scale(${Z.toFixed(5)})">${Q.glyph}</g></g>` : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = yi(J.x - g.ux * oe, J.y - g.uy * oe, re, dCat, !0), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color};--gen1-line-color:${L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, L, !1, D, null === I ? L : N, null === I ? L : _, "noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR, "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}" y2="${(q + g.uy * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${(sxFontSize(1) * A / 23).toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`, 
+                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || Q.color};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}" y2="${(q + g.uy * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${(sxFontSize(1) * A / 23).toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`, 
                 e.topics.forEach(t => {
                     window.__sxNodeTick && window.__sxNodeTick();
                     const n = t.topic, a = n.label, r = n.id, o = Boolean(n.isSubcategory);
@@ -24555,13 +23657,14 @@ const TAXONOMY_CATEGORIES = [
                     const M = n.allImported.some(e => Ra(e.id) === Pt);
                     "all" === Pt || o || x === Pt || M || E.push("is-hidden"), !Tt || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt) || n.allImported.some(e => String(e.label || "").toLowerCase().includes(Tt)) || E.push("is-dim");
                     o && n.unratedHub && E.push("is-unrated"); /* DIMFIX F2 (was HUB-BACKBONE W4): the dim reads the F1 rating-presence flag, not the Net-filtered allImported list; the dedicated class (never is-dim) keeps selection/focus precedence clean */
+                    !o && !Rt && Kd() && !sxTopicKnownInOpenGroup(r) && E.push("is-unrated");
                     const I = null !== Dt && (r === Dt || dCat === Dt || t.children.some(e => e.child.id === Dt));
                     Dt && !I && E.push("is-dim"), Dt && r === Dt && E.push("is-preview");
                     const P = Za.topicLabelOffset(y.routedLength, y.labelOffset, t.cloudIndex), L = Math.cos(s) < 0, T = L ? `pr-${r}` : `p-${r}`, F = L ? y.routedLength - P : P, N = L ? ' text-anchor="end"' : "", _ = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
                         return pa((e?.topics || []).map(Wn), t, e => ua(e, t));
                     }(n.group, D) : ua(r, D), O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null, W = j && j.giveKnown ? j.give : q, U = j && j.receiveKnown ? j.receive : H, G = o ? Q.color : Rt ? "var(--green)" : null === R ? Te(B.lineColor) : zi(R), K = Rt ? "var(--green)" : null === W ? Te(B.lineColor) : zi(W), z = Rt ? "var(--green)" : null === U ? Te(B.lineColor) : zi(U), V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
-                    }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = `<g class="topic-icon${o ? " subcategory-icon" : "noCode" === B.hankyKey ? " no-hanky-code-icon" : ""}${B.glyphFallback ? " glyph-fallback" : ""}"${B.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${te}" ${ee} aria-hidden="true" style="color:${B.color}" transform="translate(${(V - ne).toFixed(2)} ${(Y - ne).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${ne}" cy="${ne}" r="${ne - .5}"/><circle class="icon-disc" cx="${ne}" cy="${ne}" r="${ne - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${ne}" cy="${ne}" r="${ne - 3.5}"/><g transform="translate(${ie.toFixed(3)} ${ie.toFixed(3)}) scale(${ae.toFixed(5)})">${B.glyph}${B.accent}</g></g>`, oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = yi(y.icon.x + y.ux * (ne + 20), y.icon.y + y.uy * (ne + 20), se, r), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, B.lineColor, sxFl ? sxFl.give : Rt || j && j.giveKnown ? K : null, sxFl ? sxFl.receive : Rt || j && j.receiveKnown ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${Ka(r, peT, 18, a, y.nx, y.ny, l.x, l.y, V, Y, !0, pr.topicIcon, G, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
+                    }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = `<g class="topic-icon${o ? " subcategory-icon" : "noCode" === B.hankyKey ? " no-hanky-code-icon" : ""}${B.glyphFallback ? " glyph-fallback" : ""}"${B.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${te}" ${ee} aria-hidden="true" style="color:${B.color}" transform="translate(${(V - ne).toFixed(2)} ${(Y - ne).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${ne}" cy="${ne}" r="${ne - .5}"/><circle class="icon-disc" cx="${ne}" cy="${ne}" r="${ne - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${ne}" cy="${ne}" r="${ne - 3.5}"/><g transform="translate(${ie.toFixed(3)} ${ie.toFixed(3)}) scale(${ae.toFixed(5)})">${B.glyph}${B.accent}</g></g>`, oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = yi(y.icon.x + y.ux * (ne + 20), y.icon.y + y.uy * (ne + 20), se, r), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : j && (j.giveKnown || j.receiveKnown) ? zi(((j.giveKnown ? j.give : 0) + (j.receiveKnown ? j.receive : 0)) / ((j.giveKnown ? 1 : 0) + (j.receiveKnown ? 1 : 0))) : B.lineColor, sxFl ? sxFl.give : Rt || j && j.giveKnown ? K : null, sxFl ? sxFl.receive : Rt || j && j.receiveKnown ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${Ka(r, peT, 18, a, y.nx, y.ny, l.x, l.y, V, Y, !0, pr.topicIcon, G, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
                     v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${_}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${P}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${(sxFontSize(2) * b / 17).toFixed(2)}px" dominant-baseline="middle"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F}"${N}>&#160;${Hi(a)}</textPath></text></g>`, 
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
@@ -24613,10 +23716,10 @@ const TAXONOMY_CATEGORIES = [
                                 bend: 0,
                                 pointAtDistance: x
                             };
-                        }(V, Y, l.x, l.y, 0, s, hr(3), pr.importedIcon / 2 + 10, e.curve, 270, c.offset, u, c.limit), h = Math.cos(s) < 0, g = h ? `pr-${n.id}` : `p-${n.id}`, m = h ? p.routedLength - p.labelOffset : p.labelOffset, y = h ? ' text-anchor="end"' : "", b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name), E = S && S.giveKnown ? S.give : null, A = S && S.receiveKnown ? S.receive : null, M = Rt ? "var(--green)" : null === E ? Te($.lineColor) : zi(E), I = Rt ? "var(--green)" : null === A ? Te($.lineColor) : zi(A), P = Rt ? "var(--green)" : null === w ? Te($.lineColor) : zi(w), L = Oe(n.label, i.name), T = sxIconDiameter(3), F = T / 2, N = p.icon.x, _ = p.icon.y, R = Boolean(Tt && (n.label.toLowerCase().includes(Tt) || a.toLowerCase().includes(Tt) || i.name.toLowerCase().includes(Tt))), O = [ "node-group", o ? "subcategory-topic" : "imported-child" ];
+                        }(V, Y, l.x, l.y, 0, s, hr(3), pr.importedIcon / 2 + 10, e.curve, 270, c.offset, u, c.limit), h = Math.cos(s) < 0, g = h ? `pr-${n.id}` : `p-${n.id}`, m = h ? p.routedLength - p.labelOffset : p.labelOffset, y = h ? ' text-anchor="end"' : "", b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name), E = S && S.giveKnown ? S.give : null, A = S && S.receiveKnown ? S.receive : null, M = Rt ? "var(--green)" : null === E ? Te($.lineColor) : zi(E), I = Rt ? "var(--green)" : null === A ? Te($.lineColor) : zi(A), P = Rt ? "var(--green)" : null === w ? Te($.lineColor) : zi(w), L = Oe(n.label, i.name), T = sxIconDiameter(3), F = T / 2, N = p.icon.x, _ = p.icon.y, R = Boolean(Tt && (String(n.label || "").toLowerCase().includes(Tt) || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt))), O = [ "node-group", o ? "subcategory-topic" : "imported-child" ];
                         !Rt && (Qi() || Kd()) && qa(n.id, Je) && O.push("is-fantasy-only"), !Rt && (Qi() || Kd()) && qa(n.id, et) && O.push("is-already-tried"), 
                         C && C.has(n.id) && !Eo(Vi(), n.id) && O.push("import-newest"), "all" !== Pt && Ra(n.id) !== Pt && O.push("is-hidden"), 
-                        Tt && !R && O.push("is-dim");
+                        Tt && !R && O.push("is-dim"), Kd() && !sxTopicKnownInOpenGroup(n.id) && O.push("is-unrated");
                         const B = null !== Dt && (n.id === Dt || r === Dt || dCat === Dt);
                         Dt && !B && O.push("is-dim"), Dt && n.id === Dt && O.push("is-preview");
                         const j = !o && Boolean(si(n.id)) ? ` Tap to adopt it into ${wt[Vi()] || "the active profile"} unrated, then use the normal give and receive controls.` : "", q = `<g class="topic-icon${"noCode" === $.key ? " no-hanky-code-icon" : ""}${L.glyphFallback ? " glyph-fallback" : ""}"${L.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${T}" ${ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 })} aria-hidden="true" style="color:${L.color}" transform="translate(${(N - F).toFixed(2)} ${(_ - F).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${F}" cy="${F}" r="${F - .5}"/><circle class="icon-disc" cx="${F}" cy="${F}" r="${F - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${F}" cy="${F}" r="${F - 3.5}"/><g transform="translate(${(T / 6).toFixed(2)} ${(T / 6).toFixed(2)}) scale(${(T / 24).toFixed(5)})">${L.glyph}${L.accent}</g></g>`, H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = sxPairTapers ? sxPairTapers(n.id) : null, pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, $.lineColor, sxFl ? sxFl.give : Rt || S && S.giveKnown ? M : null, sxFl ? sxFl.receive : Rt || S && S.receiveKnown ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${Ka(n.id, pT, 18, n.label, p.nx, p.ny, V, Y, N, _, !0, pr.topicIcon, P, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(3), 3)}</g>` : Ka(n.id, pT, 6, n.label, p.nx, p.ny, V, Y, l.x, l.y, !0, pr.importedIcon, P, !0, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
@@ -25485,6 +24588,10 @@ const TAXONOMY_CATEGORIES = [
             // paint's vault/image step (see blitPaintEnd at the
             // scCtx declarations).
             try {
+                const sxGlanceRings = In && In.querySelector(".center-glance-rings");
+                sxGlanceRings && In.appendChild(sxGlanceRings);
+            } catch (_) {}
+            try {
                 blitPaintEnd(scKeep, scSeg);
             } catch (_) {
                 __sxErrLog("layout-blit-end", _);
@@ -25982,6 +25089,7 @@ const TAXONOMY_CATEGORIES = [
             "Rope Bondage": "https://en.wikipedia.org/wiki/Bondage"
         }), Pr = e.byId("markMenu"), Lr = e.byId("markMenuTitle"), Tr = e.byId("markDescription"), Fr = e.byId("markPrevalence"), Nr = e.byId("markPrevalenceText"), _r = e.byId("markPrevalenceSource"), Dr = e.byId("markCommunityRatings"), Rr = e.byId("markCommunityRatingsBody"), Or = e.byId("markPopularitySourcesList"), Br = e.byId("markLearnMore"), jr = e.byId("markFetlifeTrigger"), qr = e.byId("markRedditTrigger"), Hr = e.byId("markDiscordTrigger"), Wr = e.byId("markCommunityFallback"), Ur = e.byId("markCommunityPopover"), Gr = e.byId("markCommunityPopoverHeading"), Kr = e.byId("markCommunityList"), zr = e.byId("markSources"), Vr = e.byId("markSourcesTrigger"), Yr = e.byId("markImportNotes"), Xr = e.byId("markImportNotesList"), Zr = e.byId("markNoteInput");
         let Qr = null, Jr = null, eo = null, to = !1, no = null;
+        sxBindMarkRatings();
         function io() {
             Jr && (t.clear(Jr), Jr = null);
         }
@@ -26148,6 +25256,31 @@ const TAXONOMY_CATEGORIES = [
                 preventScroll: !0
             });
         }
+        function sxSyncMarkRatings(id) {
+            const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
+            if (!give || !id) return;
+            const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
+            recvRow && (recvRow.hidden = single);
+            giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
+            recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
+            give.value = rec.giveKnown ? rec.give : 0;
+            recv && (recv.value = rec.receiveKnown ? rec.receive : 0);
+            giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
+            recvOut && (recvOut.textContent = rec.receiveKnown ? String(Math.round(rec.receive)) : "Unrated");
+        }
+        function sxBindMarkRatings() {
+            const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
+            if (!give || give.dataset.bound) return;
+            give.dataset.bound = "1";
+            const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
+            give.addEventListener("input", () => show(give, giveOut, !0));
+            give.addEventListener("change", () => { Qr && (To(Qr, "give", Number(give.value), !0), sxSyncMarkRatings(Qr)); });
+            e.byId("markGiveClear") && e.byId("markGiveClear").addEventListener("click", () => { Qr && (Fo(Qr, "give", !0), sxSyncMarkRatings(Qr)); });
+            if (!recv) return;
+            recv.addEventListener("input", () => show(recv, recvOut, !0));
+            recv.addEventListener("change", () => { Qr && (To(Qr, "receive", Number(recv.value), !0), sxSyncMarkRatings(Qr)); });
+            e.byId("markReceiveClear") && e.byId("markReceiveClear").addEventListener("click", () => { Qr && (Fo(Qr, "receive", !0), sxSyncMarkRatings(Qr)); });
+        }
         function xo(e, t, i, a = {}) {
             if (Rt || !qn[e]) return;
             Qr && Qr !== e && ao();
@@ -26222,6 +25355,8 @@ const TAXONOMY_CATEGORIES = [
             if (Zr.value = h.join(" "), Yr.hidden = !0, n(Xr, ""), Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === (s || "neutral")))), 
             Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[Vi()]?.[e]))), 
             Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[Vi()]?.[e]))), 
+            sxSyncMarkRatings(e), 
+            Pr.dataset.openedAt = String(performance.now()),
             Pr.hidden = !1, innerWidth <= 620) Pr.style.removeProperty("left"), Pr.style.removeProperty("top"); else {
                 const e = Pr.getBoundingClientRect(), n = 12;
                 Pr.style.left = Math.max(8, Math.min(innerWidth - e.width - 8, t - e.width / 2)) + "px", 
@@ -26237,7 +25372,7 @@ const TAXONOMY_CATEGORIES = [
             let t = qn[e];
             if (t || h.some(n => n.topics.some(i => Wn(i) === e && (t = {
                 id: e,
-                label: i,
+                label: sxName(i),
                 branch: n.name,
                 kind: "Topic",
                 risk: Boolean(((n.topics || []).find(topic => sxName(topic) === sxName(i)) || {}).risk)
@@ -26403,12 +25538,12 @@ const TAXONOMY_CATEGORIES = [
             r ? Number.NaN : s;
         }
         Pr && Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
-            if (!Qr) return;
+            if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
             const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
             "neutral" === i ? delete Qe[t][n] : Qe[t][n] = i, Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === ("neutral" === i ? "neutral" : i)))), 
             a !== ("neutral" === i ? void 0 : i) && zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
         })), Pr && Pr.querySelectorAll("[data-topic-flag]").forEach(e => e.addEventListener("click", () => {
-            if (!Qr) return;
+            if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
             const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
             i[t] || (i[t] = {}), a ? i[t][n] = !0 : delete i[t][n], e.setAttribute("aria-pressed", String(a)), 
             zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
@@ -27374,7 +26509,7 @@ const TAXONOMY_CATEGORIES = [
                         }
                     });
                 }
-            }), ws();
+            }), sxApplyOutlineSearch(), ws();
         }
         function Ms(n = Vi()) {
             p("quickstart_started");
@@ -27766,7 +26901,7 @@ const TAXONOMY_CATEGORIES = [
             const t = zo, {input: n, clear: i} = t;
             if (zo = null, Ys(t), !Go) return;
             const previousRatedCount = Number(n.dataset.milestoneStartRated), a = getOutlineRow(n);
-            delete n.dataset.milestoneStartRated, i ? Fo(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go) : To(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !1, Go), 
+            delete n.dataset.milestoneStartRated, i ? Fo(a.dataset.outlineId, n.dataset.outlineDirection, !1, Go) : To(a.dataset.outlineId, n.dataset.outlineDirection, Number(n.value), !0, Go), 
             Ss(a), ws(), ls(a.dataset.outlineId, Go) ? os.add(a.dataset.outlineId) : os.delete(a.dataset.outlineId), 
             checkMilestoneTransition(Go, previousRatedCount);
         }, !0), window.addEventListener("pointercancel", e => {
@@ -27784,6 +26919,7 @@ const TAXONOMY_CATEGORIES = [
             // paints in chunks. Detail level and profile data are
             // untouched.
             if (!vt[e]) return;
+            ft[e] && "group" === ft[e].kind ? (sxHoldExpansion(), sxExpandGroupMap()) : sxReleaseExpansion();
             kw(), xw(), Sw(), sxDeactivateMatchStage(), wf && Lw(), It = e, Mt = e, Nt = null, Jw();
 
             // Layer Vault (Step 1): If this profile was already rendered with
@@ -27895,9 +27031,8 @@ const TAXONOMY_CATEGORIES = [
         }), e.byId("startListRatingButton")?.addEventListener("click", () => {
             Ms(Vi());
         });
-        const outlineSearchEl = e.byId("outlineSearch");
-        outlineSearchEl && outlineSearchEl.addEventListener("input", ev => {
-            const query = (ev.target.value || "").trim().toLowerCase();
+        function sxApplyOutlineSearch() {
+            const query = (e.byId("outlineSearch")?.value || "").trim().toLowerCase();
             Ro && Ro.querySelectorAll(".outline-branch").forEach(branch => {
                 let anyVisible = false;
                 branch.querySelectorAll(".outline-row").forEach(row => {
@@ -27914,7 +27049,9 @@ const TAXONOMY_CATEGORIES = [
                     branch._syncOutlineVisibility?.(Number(branch.dataset.outlineVisible || 3));
                 }
             });
-        });
+        }
+        const outlineSearchEl = e.byId("outlineSearch");
+        outlineSearchEl && outlineSearchEl.addEventListener("input", sxApplyOutlineSearch);
         const tl = e.byId("profileTabs");
         let nl = null, il = null, al = null, rl = 0, ol = null, tfHide = 0;
         function sl() {
@@ -28495,6 +27632,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     parentId: a ? Un(e.name, a.name) : t,
                     label: sxName(n),
                     displayLabel: sxName(n),
+                    giveLabel: n && n.give_label || "",
+                    receiveLabel: n && n.receive_label || "",
                     type: "topic",
                     group: e.name,
                     icon: i,
@@ -28531,12 +27670,16 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // Revert preview-only expansions, clear both preview ids, and always re-render
             _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
-            Dt = null; Lt = null;
+            Dt = null; Lt = null; Tt = "";
             Mr();
         }
-        // Safety net: Escape clears preview even when focus is outside the dropdown menu
+        // Safety net: Escape clears a search preview, and a leftover
+        // search dim, even when focus is outside the dropdown menu.
+        // An open dialog keeps Escape for itself.
         window.__sxOnKey( function(ev) {
-            if (ev.key === "Escape" && Dt) { Jl(); }
+            if (ev.key !== "Escape" || document.querySelector("dialog[open]")) return;
+            if (Dt) Jl();
+            else if (Tt || Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".is-dim, .is-preview, .rel-active"))) clearSpokeSelection();
         }, true);
         Vl.forEach(({branch: e, items: t}) => {
             const n = document.createElement("optgroup");
@@ -28579,7 +27722,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = i.filter(t => t.branch === e.branch);
                     t.forEach(e => a.add(e.id)), r.push(e.category, ...e.subcategories, ...e.topics, ...t);
                 }), r.push(...i.filter(e => !a.has(e.id)));
-                const o = e => String(e.displayLabel || "").toLowerCase(), s = e => {
+                const o = e => [ e.displayLabel, e.giveLabel, e.receiveLabel ].map(v => String(v || "").toLowerCase()).join(" "), s = e => {
                     const t = o(e), i = t.indexOf(n);
                     return i < 0 ? 99 : t === n ? 0 : 0 === i ? 1 : t.split(/[^a-z0-9]+/).some(e => e.startsWith(n)) ? 2 : 3;
                 };
@@ -28772,7 +27915,19 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 tc.open(e >= 0 ? e : 0, !0);
             } else tc.close();
         }), ql && ql.addEventListener("change", () => {
-            nc(), ql.value && So(ql.value);
+            nc();
+            if (!ql.value) return;
+            const id = ql.value;
+            const rec = (typeof Xn === "function" ? Xn(id) : null) || null;
+            const branch = rec && rec.branch || "";
+            if (branch && !rn.has(branch)) rn.add(branch);
+            if (rec && rec.parentId && !on.has(rec.parentId)) on.add(rec.parentId);
+            if (rec && "Subcategory" === rec.kind) on.add(id);
+            Lt = id;
+            Mr();
+            const focus = () => { if (typeof Th === "function") Th(id, branch); };
+            if (window.sxPaintPromise && window.sxPaintPromise.then) window.sxPaintPromise.then(() => requestAnimationFrame(focus));
+            else requestAnimationFrame(focus);
         }), nc();
         let pc = [], hc = "", gc = "";
         const mc = new Set, fc = new Set;
@@ -28856,7 +28011,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     return l.classList.add("rating-breakdown"), c.hidden = !1, c.className = "glance-compatibility is-mid",
                     d.textContent = "no score", e.byId("glanceCompatibilityPercent").textContent = "—",
                     c.setAttribute("aria-label", "No score: every shared topic is set aside by a limit or a fantasy-only mark."),
-                    u.mutual.textContent = "Hot topics", u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", // FQ2-BAKEIN: header "Want to do" -> "Hot topics"; "Curious about" -> "Curiosity?"; "apart" KEPT (comparison red); Apart -> Not topics (SURFACES)
+                    u.mutual.textContent = "Hot topics together", u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", // FQ2-BAKEIN: header "Want to do" -> "Hot topics together"; "Curious about" -> "Curiosity?"; "apart" KEPT (comparison red); Apart -> Not topics (SURFACES)
                     sc("mutualCount", 0, "Hot topics together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"
                     sc("exploreCount", 0, "Curiosity? together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"
                     sc("ratedCount", 0, "Not topics together", [], "No shared topics can be scored.", []), // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
@@ -28926,13 +28081,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     } ], n), void p(n);
                 }
                 d.textContent = `match · ${i.clicks} of ${i.things} shared topics`, e.byId("glanceCompatibilityPercent").textContent = `${o}%`, 
-                c.setAttribute("aria-label", `${o}% — ${i.clicks} of ${i.things} shared topics`), u.mutual.textContent = "Hot topics", // FQ2-BAKEIN: header "Want to do" -> "Hot topics"
+                c.setAttribute("aria-label", `${o}% — ${i.clicks} of ${i.things} shared topics`), u.mutual.textContent = "Hot topics together", // FQ2-BAKEIN: header "Want to do" -> "Hot topics together"
                 u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics", sc("mutualCount", r.matches.length, "Hot topics together", r.matches, "No shared Hot topics.", oc(r.matches, "green", a)), // FQ2-BAKEIN: header "Curious about" -> "Curiosity?" ("apart" KEPT); tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics." -> "No shared Hot topics." (redundant trailing "topics" dropped); Apart -> Not topics (SURFACES)
                 sc("exploreCount", r.curiousAbout.length, "Curiosity? together", r.curiousAbout, "No shared Curiosity? topics.", oc(r.curiousAbout, "yellow", a)), // FQ2-BAKEIN: tooltip title "Curious about together" -> "Curiosity? together"; empty text "No shared Curious about topics." -> "No shared Curiosity? topics."
                 sc("ratedCount", r.mismatched.length, "Not topics together", r.mismatched, "No rated topics fall outside the group overlap.", oc(r.mismatched, "red", a)); // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
                 const h = uc([ r.matches.length, r.curiousAbout.length, r.mismatched.length ]), g = na(a);
                 return bc([ {
-                    label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
+                    label: "Hot topics together", // FQ2-BAKEIN: "Want to do" -> "Hot topics together"
                     count: r.matches.length,
                     percent: h[0],
                     sourceId: "mutualCount",
@@ -28959,7 +28114,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 }, n = Number(g.percent) || 0, i = n < 33 ? "is-low" : n > 66 ? "is-high" : "is-mid";
                 l.classList.add("rating-breakdown"), c.hidden = !1, c.className = `glance-compatibility ${i}`, 
                 e.byId("glanceCompatibilityPercent").textContent = g.noScore ? "—" : `${n}%`, c.setAttribute("aria-label", g.noScore ? `No group match score for ${wt[Mt]}: every shared topic is set aside.` : `${n}% group match score for ${wt[Mt]} — ${g.clicks} of ${g.things} shared topics`), 
-                u.mutual.textContent = "Hot topics", u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics"; // FQ2-BAKEIN: header "Want to do" -> "Hot topics"; "Curious about" -> "Curiosity?"; "apart" KEPT (group red); Apart -> Not topics (SURFACES)
+                u.mutual.textContent = "Hot topics together", u.explore.textContent = "Curiosity?", u.rated.textContent = "Not topics"; // FQ2-BAKEIN: header "Want to do" -> "Hot topics together"; "Curious about" -> "Curiosity?"; "apart" KEPT (group red); Apart -> Not topics (SURFACES)
                 const a = Array.isArray(g.sourceProfiles) ? g.sourceProfiles : [];
                 sc("mutualCount", t.matches.length, "Hot topics together", t.matches, "No shared Hot topics.", function(e, t) { // FQ2-BAKEIN: tooltip title "Want to do together" -> "Hot topics together"; empty text "No shared Want to do topics." -> "No shared Hot topics." (redundant trailing "topics" dropped)
                     const n = new Map, i = ft[t], a = i && Array.isArray(i.sourceProfiles) ? i.sourceProfiles : [], details = i && i.matchDetails || {}, ids = i && Array.isArray(i.sourceIds) ? i.sourceIds : [];
@@ -29000,7 +28155,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 sc("ratedCount", t.mismatched.length, "Not topics together", t.mismatched, "No rated topics fall outside the group overlap.", oc(t.mismatched, "red", a)); // FQ2-BAKEIN: tooltip title "Topics apart" -> "Not topics together"; Apart -> Not topics (SURFACES)
                 const r = uc([ t.matches.length, t.curiousAbout.length, t.mismatched.length ]);
                 return bc([ {
-                    label: "Hot topics", // FQ2-BAKEIN: "Want to do" -> "Hot topics"
+                    label: "Hot topics together", // FQ2-BAKEIN: "Want to do" -> "Hot topics together"
                     count: t.matches.length,
                     percent: r[0],
                     sourceId: "mutualCount",
@@ -29083,7 +28238,16 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             updateGlance: sxUpdateGlance
         };
 
+        function sxKeepCompareRoute() {
+            if (typeof xS !== "function" || !xS()) return;
+            const picked = (typeof Yi === "function" ? Yi() : []).filter(id => vt[id]);
+            if (an && picked.length >= 2) return;
+            const all = Object.keys(vt || {}).filter(id => id && id !== Et && vt[id]);
+            const ids = picked.length >= 2 ? picked : all;
+            ids.length >= 2 && sxSel(ids, "set");
+        }
         function vc() {
+            sxKeepCompareRoute();
             const t = Xi().filter(e => vt[e]), n = t.length > 1 ? Dd(zd(t), null, t.map(id => sxHeatFor(id))) : null, i = Object.keys(At).length > 0, a = Uc(), r = e.byId("glanceSummary"), o = Mt && vt[Mt] ? [ Mt ] : i ? [ Et ] : [], s = na(t.length > 1 ? t : o), l = (s.percent, 
             e.byId("glanceData")), c = e.byId("glanceCompatibility"), d = c ? c.querySelector("span") : null, u = {
                 mutual: e.byId("mutualLabel"),
@@ -29223,7 +28387,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }, Tc(n), gc && fc.add(gc), In.querySelector(".center-glance-rings")?.classList.remove("glance-ready");
         }
         function Nc() {
-            t.clear(Ac), wc.hidden = !0, Ec = null, wc.dataset.copy = "", $c.textContent = "";
+            t.clear(Ac), wc.hidden = !0, Ec = null, wc.dataset.copy = "", $c.textContent = "", Ja();
         }
         function _c() {
             t.clear(Ac), Ac = t.setTimeout(Nc, 320);
@@ -32285,6 +31449,44 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // brief's displayed cast value in Jd, and the writers keep
         // their displayed cast number — neither is an input to any
         // computation.
+        // A Krossmatch or Straight map uses the same shared expand sets
+        // as every profile. Opening one shows the full tree, the way an
+        // ordinary profile does. The sets from before that open are held
+        // and put back when a non-group profile is activated, so the
+        // profiles that went into the match are unchanged.
+        let sxExpandHold = null;
+        function sxHoldExpansion() {
+            if (sxExpandHold) return;
+            sxExpandHold = {
+                rn: [ ...rn ],
+                on: [ ...on ],
+                un: new Map(un),
+                kn: kn,
+                xn: xn,
+                Lt: Lt,
+                Nt: Nt
+            };
+        }
+        function sxReleaseExpansion() {
+            if (!sxExpandHold) return;
+            const s = sxExpandHold;
+            sxExpandHold = null;
+            rn.clear(), s.rn.forEach(e => rn.add(e));
+            on.clear(), s.on.forEach(e => on.add(e));
+            un.clear(), s.un.forEach((v, k) => un.set(k, v));
+            kn = s.kn, xn = s.xn, Lt = s.Lt, Nt = s.Nt;
+        }
+        function sxExpandGroupMap() {
+            kn = !0, xn = null, Lt = null, Nt = null, rn.clear(), on.clear(), h.forEach(e => {
+                rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
+                    const s = Un(e.name, t.name);
+                    un.set(s, "all"), mn.expandAll && on.add(s);
+                }), e.topics.forEach(t => {
+                    const s = Wn(t);
+                    un.set(s, "all"), mn.expandAll && on.add(s);
+                });
+            });
+        }
         function Zd(pairOp) {
             // Pair kind (2026-10-27): "straight" mints a ⊙ pair; every
             // other call is the original bowtie mint, unchanged. The
@@ -32347,7 +31549,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     curiousAbout: [],
                     mismatched: []
                 }
-            }, Rd(o), la(o), Mt = o, It = o, sxSel(null, "clear"), qd = [], Wd = null, rn.clear(), 
+            }, Rd(o), la(o), Mt = o, It = o, sxSel(null, "clear"), qd = [], Wd = null, sxHoldExpansion(), sxExpandGroupMap(), 
             // Save marking (2026-10-26): Rd marks EVERY recompute dirty
             // (zt at its tail) — that recompute-marking, not the save
             // itself, is why a freshly saved group tab still read
@@ -32361,7 +31563,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // persists the group like any other profile; that timer's
             // own Vt then finishes the cleanup. Later edits re-mark
             // through zt as usual.
-            on.clear(), delete yt[o], Gt(), Jw(), Mr(), Ih(), !0;
+            delete yt[o], Gt(), Jw(), Mr(), Ih(), !0;
         }
         function Qd(t) {
             const i = t[0];
@@ -33918,24 +33120,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 payload: w,
                 vcard: k
             };
-            await c(52, "Building card back", "Preparing guide and profile codes…");
-            const S = document.createElement("canvas");
-            S.width = 1200, S.height = 2100;
-            const $ = S.getContext("2d");
-            $.fillStyle = "white" === s ? "#ffffff" : "#151816", "transparent" !== s && $.fillRect(0, 0, S.width, S.height), 
-            $.textBaseline = "top", $.fillStyle = "#d7bd55", $.font = `700 25px ${l}`, $.fillText("SYNC CARD · BACK", 72, 54);
-            const E = await qu(su, 720);
-            $.fillStyle = "#fff", $.fillRect(60, 100, 444, 444), $.imageSmoothingEnabled = !1, 
-            $.drawImage(E, 72, 112, 420, 420), $.imageSmoothingEnabled = !0, $.fillStyle = g, 
-            $.font = `700 27px ${l}`, $.fillText("Syncing Sexcapades Guide", 72, 560), $.font = `500 19px ${l}`, 
-            $.fillStyle = m, $.fillText(su, 72, 602);
-            const A = Di(r);
-            $.fillStyle = g, $.font = `700 30px ${l}`, $.fillText("Contact", 550, 112), $.font = `600 23px ${l}`;
-            let C = 160;
-            A.length ? A.forEach(e => {
-                C = eu($, `${e.label}: ${e.user}`, 550, C, 578, 31, 2) + 9;
-            }) : ($.fillStyle = m, $.font = `500 22px ${l}`, $.fillText("No contact details included.", 550, C));
-            const M = function(e) {
+            await c(52, "Checking card size", "Seeing whether this profile fits a Sync card…");
+            const sxCardEncoded = await Ru(e, u, i, a), sxCardFit = function(e) {
                 const t = chunkPayload(e, {
                     chunkCount: 2
                 });
@@ -33955,7 +33141,24 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     maxVersion: 15
                 };
                 throw new Error(sxOversizeCardMessage(e.length));
-            }(await Ru(e, u, i, a)), I = M.parts, P = [];
+            }(sxCardEncoded);
+            const S = document.createElement("canvas");
+            S.width = 1200, S.height = 2100;
+            const $ = S.getContext("2d");
+            $.fillStyle = "white" === s ? "#ffffff" : "#151816", "transparent" !== s && $.fillRect(0, 0, S.width, S.height), 
+            $.textBaseline = "top", $.fillStyle = "#d7bd55", $.font = `700 25px ${l}`, $.fillText("SYNC CARD · BACK", 72, 54);
+            const E = await qu(su, 720);
+            $.fillStyle = "#fff", $.fillRect(60, 100, 444, 444), $.imageSmoothingEnabled = !1, 
+            $.drawImage(E, 72, 112, 420, 420), $.imageSmoothingEnabled = !0, $.fillStyle = g, 
+            $.font = `700 27px ${l}`, $.fillText("Syncing Sexcapades Guide", 72, 560), $.font = `500 19px ${l}`, 
+            $.fillStyle = m, $.fillText(su, 72, 602);
+            const A = Di(r);
+            $.fillStyle = g, $.font = `700 30px ${l}`, $.fillText("Contact", 550, 112), $.font = `600 23px ${l}`;
+            let C = 160;
+            A.length ? A.forEach(e => {
+                C = eu($, `${e.label}: ${e.user}`, 550, C, 578, 31, 2) + 9;
+            }) : ($.fillStyle = m, $.font = `500 22px ${l}`, $.fillText("No contact details included.", 550, C));
+            const M = sxCardFit, I = M.parts, P = [];
             for (let e = 0; e < I.length; e++) await c(58 + Math.round(22 * (e + 1) / I.length), "Building profile codes", `Creating profile code ${e + 1} of ${I.length}…`), 
             P.push(await qu(I[e], 900, {
                 version: M.maxVersion,
@@ -34493,7 +33696,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create Sync card pages", jm.textContent = sxCardOversize ? String(e.message) : `This browser could not finish both ${i} pages.`, 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", console.error("Sync card page export failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(r, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card page export failed.", e);
             }
         }
         async function sp(e, t = {}) {
@@ -34590,7 +33793,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 // replaced by the generic failure text.
                 const sxCardOversize = /too large for the reliable/i.test(String(e && e.message || ""));
                 Bm.textContent = sxCardOversize ? "Sync card too large" : "Could not create card-back sheet", jm.textContent = sxCardOversize ? String(e.message) : "This browser could not finish the printable Sync card-back sheet.", 
-                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", console.error("Sync card-back sheet export failed.", e);
+                tf.textContent = sxCardOversize ? "Close this window, then use Export QR codes for the numbered QR sheet." : "Close this window and try again.", qf(n, 100, Bm.textContent, jm.textContent, !1, "error"), console.error("Sync card-back sheet export failed.", e);
             }
         }
         async function cp(t, n = {}) {
@@ -35085,7 +34288,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Zk || (Zk = Date.now(), Ex(), Qk = t.setInterval(Ex, 1e3));
         }
         const nx = {
-            kinktest: "Pleasure Control: 48% Dom, 36% sub Restraint: 0% Dom, 70% sub Roleplay: 19% Dom, 22% sub Degradation: 4% Dom, 22% sub Pain: 8% Dom, 3% sub Sensation: 0% Dom, 0% sub Edge Play: 0% Dom, 0% sub Potty Play: 0% Dom, 0% sub",
+            kinktest: "Pleasure Control: 48% Dom, 36% sub\nRestraint: 0% Dom, 70% sub\nRoleplay: 19% Dom, 22% sub\nDegradation: 4% Dom, 22% sub\nPain: 8% Dom, 3% sub\nSensation: 0% Dom, 0% sub\nEdge Play: 0% Dom, 0% sub\nPotty Play: 0% Dom, 0% sub",
             checklist: "",
             fetlife: "Into: Spanking — Everything to do with it, Rope bondage — Giving, Leather — Wearing Curious about: Pet play — Receiving Soft limits: Temperature play Hard limits: Choking",
             bdsmtest: "100% Dominant 82% Switch 64% Rigger 41% Rope bunny 18% Primal (Prey)"
@@ -35536,11 +34739,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         },
                         "curious about": {
                             kind: "curious",
-                            value: 0
+                            value: 33
                         },
                         curious: {
                             kind: "curious",
-                            value: 0
+                            value: 33
                         },
                         neutral: {
                             kind: "neutral",
@@ -36592,80 +35795,79 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 anchorY = pt.y;
             }
 
+            // Fit the subcategory hubs and the topic clusters that sit on
+            // them. Farther leaves, and a spoke's getBBox back to the map
+            // center, stretch the box until the fan is clipped against the
+            // card edge. 70k is just past one topic cluster; measured from
+            // the hub-to-subcategory gaps in this layout.
+            let framedEls = childEls;
+            if (isCat && Number.isFinite(anchorX) && Number.isFinite(anchorY)) {
+                const hubs = childEls.filter(el => el.classList.contains("subcategory-node")).map(el => ({
+                    x: Number(el.dataset.layoutX),
+                    y: Number(el.dataset.layoutY)
+                })).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+                if (hubs.length) {
+                    const near = childEls.filter(el => {
+                        const x = Number(el.dataset.layoutX), y = Number(el.dataset.layoutY);
+                        if (!Number.isFinite(x) || !Number.isFinite(y)) return false;
+                        if (Math.hypot(x - anchorX, y - anchorY) <= 80000) return true;
+                        return hubs.some(h => Math.hypot(x - h.x, y - h.y) <= 70000);
+                    });
+                    if (near.length) framedEls = near;
+                }
+            }
+
             // Collect all points: the selected branch/subcategory anchor icon + all child icons
             const points = [];
             if (Number.isFinite(anchorX) && Number.isFinite(anchorY)) {
                 points.push({ x: anchorX, y: anchorY, isAnchor: true });
             }
 
-            childEls.forEach(el => {
+            framedEls.forEach(el => {
                 const lx = Number(el.dataset.layoutX), ly = Number(el.dataset.layoutY);
-                if (Number.isFinite(lx) && Number.isFinite(ly)) {
-                    points.push({ x: lx, y: ly, isAnchor: false });
-                    return;
-                }
-                try {
-                    const b = el.getBBox();
-                    if (Number.isFinite(b.x) && Number.isFinite(b.y) && b.width > 0 && b.height > 0) {
-                        points.push({ x: b.x + b.width / 2, y: b.y + b.height / 2, isAnchor: false });
-                    }
-                } catch (_) {}
+                if (Number.isFinite(lx) && Number.isFinite(ly)) points.push({ x: lx, y: ly, isAnchor: false });
             });
 
             if (points.length > 0) {
-                const anchorPt = points.find(p => p.isAnchor) || points[0];
-                const childPts = points.filter(p => !p.isAnchor);
-
-                let targetPoints = [anchorPt];
-                if (childPts.length > 0) {
-                    // Sort children by radial distance from anchor so we include 90% of children closest to the fan
-                    childPts.sort((p1, p2) => Math.hypot(p1.x - anchorPt.x, p1.y - anchorPt.y) - Math.hypot(p2.x - anchorPt.x, p2.y - anchorPt.y));
-                    const keepCount = Math.max(1, Math.ceil(childPts.length * 0.90));
-                    targetPoints = targetPoints.concat(childPts.slice(0, keepCount));
-                }
-
-                // Center is anchored on the selected branch hub so spokes fan out symmetrically
-                const cx = anchorPt.x;
-                const cy = anchorPt.y;
-
-                // Max radial distance from anchor hub to children (excluding branch label text per request)
-                let maxDistX = 0, maxDistY = 0;
-                targetPoints.forEach(pt => {
-                    maxDistX = Math.max(maxDistX, Math.abs(pt.x - cx));
-                    maxDistY = Math.max(maxDistY, Math.abs(pt.y - cy));
+                // A category fan is one-sided: children sit outward from the
+                // hub, away from the map center. A circle centered on the hub
+                // spends half the card on empty inward space and clips the
+                // fan against the far edge. Frame the bounding box of the hub
+                // and its own icons and labels instead, and center that box.
+                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                const add = (x, y) => {
+                    if (!Number.isFinite(x) || !Number.isFinite(y)) return;
+                    minX = Math.min(minX, x);
+                    minY = Math.min(minY, y);
+                    maxX = Math.max(maxX, x);
+                    maxY = Math.max(maxY, y);
+                };
+                points.forEach(pt => add(pt.x, pt.y));
+                const labelNodes = anchorEl ? framedEls.concat(anchorEl) : framedEls;
+                labelNodes.forEach(el => {
+                    add(Number(el.dataset.layoutX), Number(el.dataset.layoutY));
+                    add(Number(el.dataset.labelX), Number(el.dataset.labelY));
                 });
-
-                // Visible viewport aspect ratio and viewBox world space extents (matching Ih)
-                const sw = Cn && Cn.clientWidth ? Cn.clientWidth : innerWidth;
-                const sh = Cn && Cn.clientHeight ? Cn.clientHeight : innerHeight;
-                const asp = sw > 0 && sh > 0 ? sw / sh : 1;
-                const hw = (nh.width / 2) * Math.max(1, asp);
-                const hh = (nh.height / 2) * Math.max(1, 1 / asp);
-
-                // Clearances in viewBox units for top bar (~90px), bottom dock (~75px), side margins (~70px)
-                const topClearance = (90 / Math.max(300, sh)) * nh.height;
-                const bottomClearance = (75 / Math.max(300, sh)) * nh.height;
-                const sideClearance = (70 / Math.max(300, sw)) * nh.width * asp;
-                const availH = Math.max(600, hh - (topClearance + bottomClearance) / 2);
-                const availW = Math.max(600, hw - sideClearance);
-
-                // Span needed to encompass the anchor hub and 90% of children with icon padding
-                const pad = isCat ? 140 : 100;
-                // Fan extent is radial from anchor hub, so full span is 2 * maxDist
-                const extentX = Math.max(isCat ? 1800 : 1200, 2 * (maxDistX + pad));
-                const extentY = Math.max(isCat ? 1800 : 1200, 2 * (maxDistY + pad));
-
-                const fitScale = Math.min(availW / extentX, availH / extentY);
-
-                // Framing scale: frame comfortably in viewport (e.g. 0.35 - 0.55), NOT zoomed into outer space
-                const maxScale = isCat ? 0.45 : 0.65;
-                const minScale = 0.25;
-                const targetScale = Math.max(minScale, Math.min(maxScale, fitScale));
-
-                // Screen center in map world space (offset by +15 vertically to balance top header vs bottom dock)
-                const tx = 900 - cx * targetScale;
-                const ty = 635 - cy * targetScale;
-
+                if (!Number.isFinite(minX)) return void (branchName && Lh(branchName));
+                const spanX = Math.max(0, maxX - minX), spanY = Math.max(0, maxY - minY);
+                const padX = Math.max(3600, spanX * 0.14);
+                const padY = Math.max(3600, spanY * 0.14);
+                minX -= padX;
+                maxX += padX;
+                minY -= padY;
+                maxY += padY;
+                const bw = Math.max(6400, maxX - minX);
+                const bh = Math.max(6400, maxY - minY);
+                const cx = (minX + maxX) / 2;
+                const cy = (minY + maxY) / 2;
+                // preserveAspectRatio is meet, so the whole viewBox is on
+                // screen. Do not widen the fit by the card's aspect: that
+                // pushes the fan past the viewBox edge.
+                const vb = Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0 ? Cn.viewBox.baseVal : nh;
+                const fitScale = Math.min((vb.width * 0.86) / bw, (vb.height * 0.78) / bh);
+                const targetScale = Math.max(1e-9, Math.min(2, fitScale));
+                const tx = (vb.x + vb.width / 2) - cx * targetScale;
+                const ty = (vb.y + vb.height / 2) - cy * targetScale;
                 return void Ph(targetScale, tx, ty);
             }
 
@@ -36719,12 +35921,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 // pointerdown fallback armed Sq only when the press hit no
                 // node, control, or label, so a release within 10px is a
                 // tap on empty map — clear the spoke selection through
-                // the shared clear path (clearSpokeSelection: Lt/Nt +
-                // marking removal, no re-render) and
+                // the shared clear path (clearSpokeSelection: Lt/Nt,
+                // a search dim, relation emphasis, marking removal,
+                // no re-render) and
                 // tell the Layout Editor so its selects follow. A drag
                 // (pan) or a second finger disarms Sq without deselecting.
                 const t = Sq;
-                if (Sq = null, "pointerup" === e.type && Math.hypot(e.clientX - t.x, e.clientY - t.y) < 10 && (Lt || Nt)) clearSpokeSelection(), (() => {
+                if (Sq = null, "pointerup" === e.type && Math.hypot(e.clientX - t.x, e.clientY - t.y) < 10 && clearSpokeSelection()) (() => {
                     try {
                         window.__SEXCAPADES_LAYOUT_UI && window.__SEXCAPADES_LAYOUT_UI.clearSelection && window.__SEXCAPADES_LAYOUT_UI.clearSelection();
                     } catch (err) {
@@ -36792,6 +35995,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     sxLastNodeTapId = null;
                     sxLastDoubleTime = now;
 
+                    if (!isCat && !isSub && rec && "Topic" === rec.kind) {
+                        selectSpokeNode(sid, !0);
+                        if (typeof xo === "function") xo(sid, e.clientX, e.clientY, { focusNote: !0 });
+                        return;
+                    }
                     // Immediately close any about dialog, mark menu, or open modal
                     try {
                         const mm = document.getElementById("markMenu");
@@ -37026,7 +36234,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     curveNy: Number(o && o.dataset.ny) || 0,
                     longPressed: !1
                 }, io(), void (Jr = t.setTimeout(() => {
-                    eo && eo.pointerId === e.pointerId && (eo.longPressed = !0, to = !0, xo(n, eo.startX, eo.startY));
+                    eo && eo.pointerId === e.pointerId && (eo.longPressed = !0, to = !0, xo(n, eo.startX, eo.startY, { focusNote: !0 }));
                 }, 520));
             }
             return l && 1 === eh.size ? (e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
@@ -37732,7 +36940,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             e.preventDefault(), Zf();
         }), e.byId("closeFileDialog").onclick = Kf, Gm.addEventListener("click", () => {
             qf(vf, 100, "Starting download", "Handing the finished file to your browser…", !0), 
-            mf ? hf && ny(hf, gf) : ny(uf, Gm.dataset.filename), yf && Vt(yf), Kf();
+            mf ? hf && ny(hf, gf) : ny(uf, Gm.dataset.filename), yf && Vt(yf);
         }), Km.addEventListener("click", () => {
             window.open("https://ninjatransfers.com", "_blank", "noopener,noreferrer"), ny(uf, Gm.dataset.filename), 
             yf && Vt(yf);
@@ -38719,7 +37927,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             return Math.round(Math.max(0, Math.min(100, Number.isFinite(t) ? t : 50)));
         }
         function veilZoneText(t) {
-            return `${t <= 0 ? "Concealed" : t <= 33 ? "Veiled" : t <= 66 ? "Parted" : t < 100 ? "Unveiling" : "Revealed"} · ${t}`;
+            return `${t <= 0 ? "Revealed" : t <= 33 ? "Unveiling" : t <= 66 ? "Parted" : t < 100 ? "Veiled" : "Concealed"} · ${t}`;
         }
         const rv = e.byId("audienceView"), ov = e.byId("veilControl"), sv = e.byId("veilTrigger"), lv = e.byId("veilEnabled"), cv = e.byId("tabVeilEnabled"), dv = e.byId("veilPopover"), uv = e.byId("veilTooltip"), pv = e.byId("audienceVeilSlider"), hv = e.byId("audienceVeilValue"), qzv = e.byId("audienceVeilZone"), gv = e.byId("audienceVeilProfile"), mv = e.byId("audienceVeilHelp"), fv = mv.textContent;
         let yv = 0, bv = sv;
@@ -39742,14 +38950,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }), e.byId("saveProfileDetails").onclick = () => vw(), e.byId("saveActiveProfile").onclick = () => {
             const e = Mt;
             if (!e || !vt[e]) return;
-            const t = window.SexcapadesRuntime.DOM.byId("rememberProfileCheckbox2x"), n = window.Sexcapades2xRememberProfiles;
-            if (t && t.checked && n && "function" == typeof n.saveNow) {
-                if (!n.saveNow()) return void tS("Could not save this profile on this device.", {
-                    tone: "error",
-                    persistent: !0
-                });
-                Vt(e), tS(`${wt[e]} saved to profile memory.`);
-            } else Vt(e), tS(`${wt[e]} saved in this tab.`);
+            const n = window.Sexcapades2xRememberProfiles;
+            if (!n || "function" != typeof n.saveOne || !n.saveOne(e)) return void tS("Could not save this profile on this device.", {
+                tone: "error",
+                persistent: !0
+            });
+            n.isEnabled && n.isEnabled() && n.saveNow && n.saveNow(), Vt(e), tS(`${wt[e]} saved on this device.`);
         };
         const Bw = e.byId("appAboutDialog");
         e.byId("openAppAbout") && e.byId("openAppAbout").addEventListener("click", () => {
@@ -40184,7 +39390,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const i = Yi(), r = Boolean(Kd()), o = i.length > 1, s = an && o, l = o || r, c = s || r, d = t.map(e => {
                 sxNormalizePairName(e);
                 if (Xw && Xw.id === e) return sxDupTabLabel(e, wt[e]), Zw(0, wt[e], `Rename ${wt[e]}`);
-                const t = i.includes(e), n = la(e), o = sxDupTabLabel(e, "group" === ft[e]?.kind ? wt[e] : Ji(wt[e])), s = Mt === e, l = Boolean(ft[e]), c = av(vpt[e]), d = Boolean(vht[e]), u = zi(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${Hi(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${Hi(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${Hi(e)}" aria-controls="heatPopover" aria-expanded="false" aria-label="${Hi(wt[e])} ${l ? "Group Heat" : "Heat"} ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${Hi(sxHeatZone(sxHeatDisplayFor(e)))}</span></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${Hi(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${Hi(wt[e])}" title="Load or import data for ${Hi(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
+                const t = i.includes(e), n = la(e), o = sxDupTabLabel(e, "group" === ft[e]?.kind ? wt[e] : Ji(wt[e])), s = Mt === e, l = Boolean(ft[e]), c = av(vpt[e]), d = Boolean(vht[e]), u = zi(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${Hi(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${Hi(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${Hi(e)}" aria-controls="heatPopover" aria-expanded="false" aria-label="${Hi(wt[e])} ${l ? "Group Heat" : "Heat"} ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}"><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${Hi(sxHeatZone(sxHeatDisplayFor(e)))}</span><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${Hi(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${Hi(wt[e])}" title="Load or import data for ${Hi(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
                 return `<span class="profile-tab" style="--profile-color:${n}"><button type="button" class="profile-tab-save" data-save-profile="${Hi(e)}" aria-label="Export ${Hi(wt[e])}" data-ui-tooltip="Export this profile map." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 6.5 10 4h4l1.5 2.5H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></button>${g}${heatBtn}${loadBtn}<button type="button" role="tab" data-view="${Hi(e)}" class="profile-tab-button has-profile-color ${s ? "is-active " : ""}${t ? "is-selected is-multiselected " : ""}${d ? "has-veil" : ""}" style="--profile-color:${n};--veil-color:${u}" aria-selected="${s}" aria-pressed="${s}" data-ui-tooltip="Switch to this profile. Ctrl+click (Cmd+click on Mac) adds it to the group comparison." data-tooltip-name="${Hi(o)}" aria-label="${Hi(o)} profile, ${Hi(Qv(e))}${yt[e] ? ", unsaved changes" : ""}${t ? ", selected for grouping" : ""}${d ? `, Veil on at ${c}` : ""}"><span data-profile-label data-full-label="${Hi(o)}">${Hi(o)}</span>${h}</button><button type="button" class="profile-tab-close" data-close-profile="${Hi(e)}" aria-label="Close ${Hi(wt[e])} profile">×</button></span>`;
             }), u = Xw && null === Xw.id ? Zw(0, "", "Name new profile") : "", p = `<span class="profile-add-stack"><button type="button" class="profile-add" data-add-profile aria-label="Add or import a profile" aria-haspopup="menu" aria-expanded="false" title="Add or import a profile">+</button>${sxMatchIconsHtml()}</span>`, h = d.pop() || "", g = e.byId("profileTabs"); const sxMtHtml = sxMatchTabsHtml();
             g.classList.remove("is-empty"), e.one(".toolbar").classList.toggle("has-no-profiles", !t.length);
@@ -40693,6 +39899,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         const ok = {
             "pleasure control": "cat-orgasm-reproductive-play",
             restraint: "cat-bondage-restriction",
+            bondage: "cat-bondage-restriction",
             roleplay: "cat-roleplay-identity",
             degradation: "cat-psychological-dynamics",
             pain: "cat-impact-pain-body-modification",
@@ -40918,11 +40125,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
 
         const fx = {
             dominant: {
-                id: null,
+                id: "t0010",
                 direction: "give"
             },
             submissive: {
-                id: null,
+                id: "t0010",
                 direction: "receive"
             },
             "master mistress": {
@@ -41038,11 +40245,16 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 if ("kinktest" === n) i = function(e) {
                     const t = {}, n = {}, i = {}, a = {}, r = {}, o = {}, s = [], l = [], c = [];
                     let d = 0, u = 0;
-                    return e.split(/\r?\n/).forEach((e, p) => {
+                    // Load example used to join every result with spaces, and a
+                    // pasted line can carry a trailing "#1: favorite" note.
+                    // Break those into the newline records this parser reads,
+                    // without splitting a multi-word activity name.
+                    const sxLines = String(e || "").replace(/\r\n?/g, "\n").replace(/[ \t]*[/|,;]*[ \t]+(?=#\d{1,2}\s*:)/g, "\n").replace(/(\bsub\b)[ \t]+(?=[A-Za-z])/gi, "$1\n").split("\n");
+                    return sxLines.forEach((e, p) => {
                         const h = e.trim();
                         if (!h) return;
                         u++;
-                        const g = h.match(/^([^:]+):\s*(\d{1,3})\s*%?\s*(?:dom|d)\s*[,;/]\s*(\d{1,3})\s*%?\s*(?:sub|s)\s*$/i);
+                        const g = h.match(/^([^:]+):\s*(\d{1,3})\s*%?\s*(?:dom|d)\s*[,;/]\s*(\d{1,3})\s*%?\s*(?:sub|s)\s*[\/|,;\s]*$/i);
                         if (g) {
                             const e = ck(g[1]), n = ok[e] && migrateNodeKey(ok[e]), i = Number(g[2]), a = Number(g[3]);
                             return !n || i > 100 || a > 100 ? void s.push(`Line ${p + 1}: category or percentage not recognized.`) : (sx(t, n, "give", Math.round(2 * i - 100)), 
@@ -42092,7 +41304,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const n = Xk[t] && Xk[t].answer;
                 return n ? `${e}: ${n[0].toUpperCase() + n.slice(1)}, S` : "";
             }).filter(Boolean);
-            e.length ? ($k.value = e.join(" "), $k.dispatchEvent(new Event("input", {
+            e.length ? ($k.value = e.join("\n"), $k.dispatchEvent(new Event("input", {
                 bubbles: !0
             })), Mx(), Ck.scrollIntoView({
                 block: "nearest"
@@ -42113,7 +41325,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }), vk.addEventListener("cancel", e => {
             e.preventDefault(), Px();
         }), e.byId("loadConverterExample") && (e.byId("loadConverterExample").onclick = () => {
-            Vk = null, Yk = null, $k.value = "fetlife" === Gk ? fetlifeSampleHtml : "checklist" === Gk ? ax.map((e, t) => `${e}: ${t % 6}`).join(" ") : nx[Gk] || "", 
+            Vk = null, Yk = null, $k.value = "fetlife" === Gk ? fetlifeSampleHtml : "checklist" === Gk ? ax.map((e, t) => `${e}: ${t % 6}`).join("\n") : nx[Gk] || "", 
             Ck.hidden = !0, Lk.disabled = !0, Pk.textContent = "", "fetlife" === Gk && Mx();
         }), Tk && (Tk.onclick = () => Fk.click()), Fk.addEventListener("change", e => {
             const t = e.target.files[0];
@@ -42639,6 +41851,33 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const e = uS();
             return window.__SEXCAPADES_START_ROUTE = "", e ? !oS && (oS = !0, Do.open ? Is() : (sxRouteRender(), !0)) : (oS = !1, !1);
         }
+        function xS() {
+            return /^#\/?(?:app\/)?compare\/?$/i.test(cS());
+        }
+        // #app/compare is the pair glance on the map. Multi-select wins
+        // when two or more profiles are already chosen; otherwise every
+        // open profile joins the comparison. The view button reads the
+        // hash itself.
+        function sxShowCompareRoute() {
+            if (!xS()) {
+                if ("compare" === document.documentElement.dataset.sxRoute) delete document.documentElement.dataset.sxRoute;
+                return !1;
+            }
+            document.documentElement.dataset.sxRoute = "compare";
+            const all = Object.keys(vt || {}).filter(id => id && id !== Et && vt[id]);
+            const picked = (typeof Yi === "function" ? Yi() : []).filter(id => vt[id]);
+            const ids = picked.length >= 2 ? picked : all;
+            if (ids.length >= 2 && typeof sxSel === "function") {
+                sxSel(ids, "set");
+                try {
+                    vc();
+                } catch (err) {
+                    __sxErrLog("compare-route", err);
+                }
+            }
+            if (typeof window.__sxSyncViewButton === "function") window.__sxSyncViewButton();
+            return !0;
+        }
         function mS() {
             const e = pS(), t = Boolean(function() {
                 const e = cS();
@@ -42658,6 +41897,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // the import dialog keeps its own doors (the import route and
         // the add-profile menu), unchanged.
         window.addEventListener("hashchange", () => {
+            if (xS()) return window.__SEXCAPADES_START_ROUTE = "", sxShowCompareRoute(), void Nu();
             window.__SEXCAPADES_START_ROUTE = "", function() {
                 let e = String(location.hash || "");
                 try {
@@ -43507,17 +42747,24 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         };
 
         if (window.__SX_HEADLESS) {
+            document.documentElement.classList.remove("route-listview-pending");
             console.log("[Sexcapades] Headless test mode active — skipping interactive map boot.");
             return;
         }
 
         bS ? (gS(), document.documentElement.classList.remove("route-listview-pending"),
         t.setTimeout(Nu, 0)) : yS ? (function() {
-            const e = dS();
-            window.__SEXCAPADES_START_ROUTE = "", e ? !rS && (rS = !0, Ms(Mt && vt[Mt] ? Mt : Et)) : rS = !1;
-        }(), document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : vS ? (mS(),
+            try {
+                const e = dS();
+                window.__SEXCAPADES_START_ROUTE = "", e ? !rS && (rS = !0, Ms(Mt && vt[Mt] ? Mt : Et)) : rS = !1;
+            } finally {
+                // A throw inside the list open used to skip this and leave
+                // the whole page visibility:hidden, including the list.
+                document.documentElement.classList.remove("route-listview-pending");
+            }
+        }(), t.setTimeout(Nu, 0)) : vS ? (mS(),
         document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : (async () => {
-            Nu(), document.documentElement.classList.remove("route-listview-pending");
+            Nu(), sxShowCompareRoute(), document.documentElement.classList.remove("route-listview-pending");
             if (Do.open) {
                 Is(), mS();
             } else {
@@ -43682,6 +42929,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }
     }();
 
+    }();
 });
 
 /* HEADER-HUG boot seat (2026-11-02): the render-path hug (in the header-ring
@@ -44699,8 +43947,28 @@ __sxInit(function () {
     }
   }
 
+  function saveOne(profileId) {
+    var api = profilesApi();
+    if (!api || !profileId) return false;
+    try {
+      var current = api.getAll();
+      var profile = current[profileId];
+      if (!profile) return false;
+      var stored = readStoredProfiles();
+      stored[profileId] = { data: JSON.parse(JSON.stringify(profile)), savedAt: Date.now() };
+      if (!writeStoredProfiles(stored)) return false;
+      syncSavedMenu();
+      return true;
+    } catch (error) {
+      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+      showSaveError();
+      return false;
+    }
+  }
+
   window.Sexcapades2xRememberProfiles = {
     saveNow: saveNow,
+    saveOne: saveOne,
     flush: flushStoredProfiles,
     isEnabled: function () {
       var control = checkbox();
@@ -45026,9 +44294,6 @@ __sxInit(function () {
         prompt.appendChild(load);
         prompt.appendChild(dismiss);
         document.body.appendChild(prompt);
-        SexcapadesRuntime.TimerManager.setTimeout(function () {
-          if (prompt.parentNode) prompt.remove();
-        }, 30000);
       }
     }, 2000);
   }

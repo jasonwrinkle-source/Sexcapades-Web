@@ -412,7 +412,7 @@
   <header class="topbar">
     <div class="wrap">
       <p><strong>Short answer:</strong> Sexcapades Quick Start leads on speed; the full map leads on depth.</p>
-      <a class="cta" href="https://sexcapades.io/">Try Sexcapades →</a>
+      <a class="cta" href="/">Try Sexcapades →</a>
     </div>
   </header>
 
@@ -427,7 +427,7 @@
         <aside class="hero-card" aria-label="Quick verdict">
           <p><strong>Choose simple for tonight.</strong><span>Fast answers, low learning curve, mutual matches.</span></p>
           <p><strong>Choose depth for what comes next.</strong><span>Roles, intensity, a visual map, stories, and practical play guides.</span></p>
-          <a class="cta" href="https://sexcapades.io/">Explore the deeper option</a>
+          <a class="cta" href="/">Explore the deeper option</a>
         </aside>
       </div>
     </section>
@@ -696,7 +696,7 @@
         <p class="eyebrow">Bottom line</p>
         <blockquote>“If you want the quickest start, use Sexcapades Quick Start. If you want depth, nuance, and something you can actually use afterward, <em>keep exploring the full map.</em>”</blockquote>
         <p class="sub">Quick Start covers three topics per category—54 topics total—in ~20 minutes. You can expand into the full map whenever you want more depth.</p>
-        <a class="cta" href="https://sexcapades.io/">Try Sexcapades free →</a>
+        <a class="cta" href="/">Try Sexcapades free →</a>
       </div>
     </section>
   </main>
@@ -803,7 +803,7 @@
 (function(){var c=document.getElementById('odometer-digits-COMPARE');if(!c)return;
 function render(n){try{var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}catch(e){}}
 try{
-fetch('https://sexcapades.io/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
+fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
 }catch(e){render(0);}})();
 </script>
 
