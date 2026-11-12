@@ -13904,6 +13904,7 @@ const TAXONOMY_CATEGORIES = [
                 });
             });
         }
+
         // DeKnotter cascade driver (E5, ASSESSMENT §3.4, §3.7, §5.6,
         // §5.8, §5.11): one full run for one branch, driven entirely
         // through the bundle layout API — never the editor shell's
@@ -16854,6 +16855,7 @@ const TAXONOMY_CATEGORIES = [
             }
             return report;
         }
+
         h.forEach(e => {
             rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
                 const n = Un(e.name, t.name);
