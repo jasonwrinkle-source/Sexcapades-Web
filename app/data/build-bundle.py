@@ -20,6 +20,8 @@ parts = [
     "02h-inner-opener.js",
     "02i-taxonomy-catalog.js",
     "02j-profile-state.js",
+    "02k-compare-dials.js",
+    "02l-deknotter-session.js",
     "02-taxonomy-core.js",
     "02c-layout-solver.js",
     "03a-midline-solver.js",

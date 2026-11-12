@@ -11813,6 +11813,7 @@ const TAXONOMY_CATEGORIES = [
             return Number.isFinite(n) && n > 0 && n <= 1 ? n : .76;
         }
         const rn = new Set, on = new Set, sn = new Map, ln = {}, cn = {}, dn = {}, un = new Map, pn = {}, hn = {}, gn = new Set, mn = window.__SEXCAPADES_LAYOUT || sxGeneratedFallbackDials();
+
         // DeKnotter run context (E1): module-scoped state behind the
         // dedicated driver API at __SEXCAPADES_LAYOUT_API.deknotter. While
         // a context is active, deknotter.applyPhase validates every
@@ -13351,6 +13352,7 @@ const TAXONOMY_CATEGORIES = [
             }
             return Array.isArray(value) ? "[" + value.map(dkStableStringify).join(",") + "]" : "{" + Object.keys(value).sort().map(key => JSON.stringify(key) + ":" + dkStableStringify(value[key])).join(",") + "}";
         }
+
         // Fit-target registry (E4): target radii in final rendered
         // units, keyed by the same stable item identity as the
         // base-state registry above ('topic|<branch>|<topicId>',
