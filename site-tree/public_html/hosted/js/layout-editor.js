@@ -3300,6 +3300,12 @@
       setTimeout(function(){saveDefaultsBtn.textContent=original},1600);
     });
     sync();
+    (function bootDisplayClasses() {
+      var svg = document.getElementById("mapSvg"), c = config();
+      if (!svg || !c) return;
+      svg.classList.toggle("relations-off", !c.showRelations);
+      svg.classList.toggle("is-static", !!c.staticMap);
+    })();
     watchMap();
     if(!customSpacing)customSpacing=spacingValuesOf(config());
     // Late-joiner handover (Group 4, G4-1): a window that opens after

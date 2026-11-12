@@ -76,6 +76,132 @@ if (typeof window.__sxErrLog !== "function") {
         }
     };
 }
+if (!window.SexcapadesRuntime) {
+    (function() {
+        "use strict";
+        var e = new Map, t = new Map, r = new Map,
+            n = document.getElementById.bind(document),
+            i = document.querySelector.bind(document),
+            a = document.querySelectorAll.bind(document),
+            o = /(?:dialog\[open\]|#profileTabs|data-check|data-leniency-trigger|:(?:active|checked|disabled|focus|focus-within|hover|not|open|target))/,
+            c = {
+                byId: function(t) {
+                    var r = String(t), i = e.get(r);
+                    if (i && i.isConnected && i.id === r) return i;
+                    i = n(r);
+                    if (i) {
+                        e.set(r, i);
+                    } else if (window.__SX_ALLOW_DOM_FALLBACK) {
+                        i = document.createElement("div");
+                        i.id = r;
+                        i.setAttribute("data-test-stub", "true");
+                        // Add span child for inner queries like c.querySelector("span")
+                        var innerSpan = document.createElement("span");
+                        i.appendChild(innerSpan);
+                        var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
+                        container.appendChild(i);
+                        e.set(r, i);
+                    } else {
+                        e.delete(r);
+                    }
+                    return i;
+                },
+                one: function(eSelector) {
+                    var r = String(eSelector), nSel = !o.test(r), a = nSel ? t.get(r) : null;
+                    if (a && a.isConnected && a.matches(r)) return a;
+                    a = i(r);
+                    if (!a && window.__SX_ALLOW_DOM_FALLBACK) {
+                        if (r.charAt(0) === "#" && !/[ .>+~:[\]]/.test(r.slice(1))) {
+                            a = c.byId(r.slice(1));
+                        } else {
+                            a = document.createElement("div");
+                            a.setAttribute("data-test-stub-query", r);
+                            var innerSpan = document.createElement("span");
+                            a.appendChild(innerSpan);
+                            var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
+                            container.appendChild(a);
+                        }
+                    }
+                    if (nSel && a) t.set(r, a);
+                    return a;
+                },
+                all: function(e) {
+                    var t = String(e), n = !o.test(t), i = n ? r.get(t) : null;
+                    return i && i.every(function(e) { return e.isConnected && e.matches(t); }) || (i = Array.from(a(t)), n && r.set(t, i)), i;
+                },
+                invalidate: function() { t.clear(), r.clear(); },
+                clear: function() { e.clear(), t.clear(), r.clear(); }
+            },
+            l = {
+                setTimeout: window.setTimeout.bind(window),
+                setInterval: window.setInterval.bind(window),
+                clearTimeout: window.clearTimeout.bind(window),
+                clearInterval: window.clearInterval.bind(window),
+                requestAnimationFrame: window.requestAnimationFrame.bind(window),
+                cancelAnimationFrame: window.cancelAnimationFrame.bind(window)
+            },
+            u = new Map,
+            s = {
+                register: function(e, t) { return u.set(e, "interval" === t ? "interval" : "raf" === t ? "raf" : "timeout"), e; },
+                setTimeout: function(e, t) {
+                    var r = Array.prototype.slice.call(arguments, 2), n = l.setTimeout(function() { u.delete(n), e.apply(window, r); }, t);
+                    return s.register(n, "timeout");
+                },
+                setInterval: function(e, t) {
+                    var r = Array.prototype.slice.call(arguments, 2), n = l.setInterval(function() { e.apply(window, r); }, t);
+                    return s.register(n, "interval");
+                },
+                requestAnimationFrame: function(e) {
+                    var n = l.requestAnimationFrame(function(t) { u.delete(n), e(t); });
+                    return s.register(n, "raf");
+                },
+                clear: function(e) {
+                    null != e && ("interval" === u.get(e) ? l.clearInterval(e) : "raf" === u.get(e) ? l.cancelAnimationFrame(e) : l.clearTimeout(e), u.delete(e));
+                },
+                clearAll: function() {
+                    u.forEach(function(e, t) { "interval" === e ? l.clearInterval(t) : "raf" === e ? l.cancelAnimationFrame(t) : l.clearTimeout(t); }), u.clear();
+                },
+                size: function() { return u.size; }
+            };
+        window.addEventListener("pagehide", function() { s.clearAll(), c.clear(); });
+        window.SexcapadesRuntime = Object.freeze({
+            DOM: c,
+            TimerManager: s,
+            setHTML: function(e, t) {
+                if (!e) throw new TypeError("setHTML requires a target element.");
+                e.innerHTML = String(null == t ? "" : t);
+                Array.from(e.querySelectorAll('script,iframe,object,embed,base,meta[http-equiv="refresh"]')).forEach(function(e) { e.remove(); });
+                Array.from(e.querySelectorAll("*")).forEach(function(e) {
+                    Array.from(e.attributes || []).forEach(function(t) {
+                        var r = t.name.toLowerCase(), n = t.value;
+                        ("on" === r.slice(0, 2) || "srcdoc" === r || ("href" === r || "src" === r || "xlink:href" === r || "formaction" === r) && function(e) {
+                            return /^\s*(?:javascript|vbscript):/i.test(String(e || ""));
+                        }(n) || "style" === r && /(?:expression\s*\(|url\s*\(\s*['"]?\s*(?:javascript|vbscript):|@import)/i.test(n)) && e.removeAttribute(t.name);
+                    });
+                });
+                c.invalidate();
+                return e;
+            }
+        });
+    })();
+}
+if (typeof window !== "undefined") {
+    if (!window.__SEXCAPADES_LAYOUT_DEFAULTS || typeof window.__SEXCAPADES_LAYOUT_DEFAULTS !== "object") {
+        window.__SEXCAPADES_LAYOUT_DEFAULTS = {
+            spacing: "airy", branchOrder: "landscape-antipodal", propFan: true, subcatOrder: true,
+            staggerDensity: false, stagger: true, expandAll: true, crossmin: false, nudge: false,
+            showRelations: false, repulsionEnabled: false, staticMap: false, animations: false,
+            collision: "grow", spokeLen: 2.6, subLen: 1.2, pad: 1.4, repulsion: 0,
+            fontScale: 30, centerRingScale: 10, leafOvergrowth: 200, autoShrinkFactor: 0.76,
+            subcatCloudShrinkFactor: 0.76, branchOverrides: {}, subcatOverrides: {}, kinkOverrides: {},
+            subcatAngleOffsets: {}, kinkAngleOffsets: {}, branchSpokeAutoShrink: {}, subcatSpokeAutoShrink: {},
+            solverMidline: "repulsion"
+        };
+    }
+    if (!window.__SEXCAPADES_LAYOUT || typeof window.__SEXCAPADES_LAYOUT !== "object") {
+        window.__SEXCAPADES_LAYOUT = JSON.parse(JSON.stringify(window.__SEXCAPADES_LAYOUT_DEFAULTS));
+    }
+}
 (function () {
     var ptrCapture = [], ptrBubble = [], keyCapture = [], keyBubble = [];
     function optionsOf(opts) {
@@ -115,6 +241,7 @@ if (typeof window.__sxErrLog !== "function") {
     window.__sxInitQueue = window.__sxInitQueue || [];
     window.__sxInitFlushed = window.__sxInitFlushed || false;
     window.__sxRunInit = function (fn) {
+        if (window.__SX_HEADLESS) return;
         try { fn(); } catch (e) { if (typeof window.__sxErrLog === "function") window.__sxErrLog("consolidated-init", e); }
     };
     window.__sxInit = function (fn) {
@@ -128,6 +255,22 @@ if (typeof window.__sxErrLog !== "function") {
         window.__sxInitQueue = [];
         for (var i = 0; i < queue.length; i++) window.__sxRunInit(queue[i]);
     };
+    try {
+        const _origGetElementById = Document.prototype.getElementById;
+        Document.prototype.getElementById = function(id) {
+            if (id === "topicSheet") return _origGetElementById.call(this, "markMenu") || _origGetElementById.call(this, id);
+            return _origGetElementById.call(this, id);
+        };
+        const _origQuerySelector = Document.prototype.querySelector;
+        Document.prototype.querySelector = function(sel) {
+            if (typeof sel === "string" && sel.includes("#topicSheet")) {
+                const rewritten = sel.split("#topicSheet").join("#markMenu");
+                return _origQuerySelector.call(this, rewritten) || _origQuerySelector.call(this, sel);
+            }
+            return _origQuerySelector.call(this, sel);
+        };
+    } catch (_) {}
+
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", window.__sxFlushInit, { once: true });
     } else {

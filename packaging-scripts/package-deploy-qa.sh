@@ -35,6 +35,20 @@ cp -a "$HOSTED_SRC/"* "$QA_STAGING/"
 # In qa/, rewrite references from "/hosted/" to "/qa/" so paths stay self-contained
 echo "3. Adjusting relative paths for /qa/ root..."
 find "$QA_STAGING" -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|/hosted/|/qa/|g' {} +
+# The song files live on the production host. The rewrite above points the
+# player at /qa/assets/audio/, which 404s. Put those URLs back.
+find "$QA_STAGING" -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|sexcapades.io/qa/assets/audio/|sexcapades.io/hosted/assets/audio/|g' {} +
+
+# Stamp the packaged pages only. The repo keeps the last release number;
+# a QA drop gets its own qa-4.0-MMDD-HHMM tag for this package timestamp.
+echo "3b. Stamping QA build ${TS}..."
+QA_STAMP_FILES=()
+for page in app.html app-modular.html; do
+  if [ -f "$QA_STAGING/$page" ]; then
+    QA_STAMP_FILES+=("$QA_STAGING/$page")
+  fi
+done
+python3 "$DIR/packaging-scripts/bump-build.py" "$TS" qa "${QA_STAMP_FILES[@]}"
 
 # Add a redirect index.html in qa/ pointing to test-runner.html or app.html
 cat << 'EOF' > "$QA_STAGING/index.html"
@@ -90,13 +104,13 @@ DEPLOY_CMD=""
 
 if [[ "$UPLOAD_URL" =~ ^https://temp\.sh/ ]]; then
   echo "Uploaded to temp.sh: $UPLOAD_URL"
-  DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && tar -xzf $TAR_NAME && rm $TAR_NAME"
+  DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
 else
   echo "Trying Litterbox fallback..."
   UPLOAD_URL=$(curl -4 -s -F "reqtype=fileupload" -F "time=1h" -F "fileToUpload=@$OUTFILE" https://litterbox.catbox.moe/resources/internals/api.php || true)
   if [[ "$UPLOAD_URL" =~ ^https?:// ]]; then
     echo "Uploaded to Litterbox: $UPLOAD_URL"
-    DEPLOY_CMD="cd ~/domains && curl -L -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && tar -xzf $TAR_NAME && rm $TAR_NAME"
+    DEPLOY_CMD="cd ~/domains && curl -L -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
   fi
 fi
 

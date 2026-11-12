@@ -914,10 +914,10 @@
     // re-broadcasting a state it just received — no echo loop. Reset
     // to defaults stays muted via liveSyncMuted exactly as before.
     var editorSyncGuard=false;
-    function collectEditorState(){var pT=document.getElementById("layoutPowerUser");return{metricOverlayOn:metricOverlayOn!==false,metricId:typeof metricId==="string"?metricId:"off",powerUser:pT?!!pT.checked:panel.classList.contains("le-power"),fullscreen:panel.classList.contains("layout-fullscreen"),customSpacing:customSpacing?spacingValuesOf(customSpacing):null,armScope:(typeof lrG3CollectArmScope==="function"?lrG3CollectArmScope():null)}}
+    function collectEditorState(){var pT=document.getElementById("layoutPowerUser");return{metricOverlayOn:Boolean(metricOverlayOn&&metricId!=="off"),metricId:typeof metricId==="string"?metricId:"off",powerUser:pT?!!pT.checked:panel.classList.contains("le-power"),fullscreen:panel.classList.contains("layout-fullscreen"),customSpacing:customSpacing?spacingValuesOf(customSpacing):null,armScope:(typeof lrG3CollectArmScope==="function"?lrG3CollectArmScope():null)}}
     function applyEditorState(st){if(!st||typeof st!=="object")return;editorSyncGuard=true;try{
       if(typeof st.metricId==="string"&&(st.metricId==="off"||LayoutMetrics.get(st.metricId))){metricId=st.metricId;metricOn=metricId!=="off";if(metricSelect)metricSelect.value=metricId;if(metricButton)metricButton.disabled=!metricOn;stopMetricBusy();clearMetricGlobal();if(metricOn)scheduleMetric();else{metricRun++;metricGlobalRun++;if(metricTimer)clearTimeout(metricTimer);clearMetricOverlay()}}
-      if(typeof st.metricOverlayOn==="boolean"){metricOverlayOn=st.metricOverlayOn;if(metricOverlayToggle)metricOverlayToggle.checked=metricOverlayOn;if(metricOverlayOn){renderMetricOverlayCache();if(metricOn&&metricId!=="off")scheduleMetric()}else clearMetricOverlay()}
+      if(typeof st.metricOverlayOn==="boolean"){metricOverlayOn=Boolean(st.metricOverlayOn&&metricId!=="off");if(metricOverlayToggle)metricOverlayToggle.checked=metricOverlayOn;if(metricOverlayOn){renderMetricOverlayCache();if(metricOn&&metricId!=="off")scheduleMetric()}else clearMetricOverlay()}
       if(st.customSpacing&&typeof st.customSpacing==="object"){var csv=spacingValuesOf(st.customSpacing);if(csv)customSpacing=csv}
       if(typeof st.powerUser==="boolean"){var pT=document.getElementById("layoutPowerUser");if(pT)pT.checked=st.powerUser;panel.classList.toggle("le-power",st.powerUser);panel.querySelectorAll(".le-adv").forEach(function(d){d.open=st.powerUser})}
       if(st.armScope&&typeof lrG3ApplyArmScope==="function")lrG3ApplyArmScope(st.armScope);
@@ -3300,6 +3300,12 @@
       setTimeout(function(){saveDefaultsBtn.textContent=original},1600);
     });
     sync();
+    (function bootDisplayClasses() {
+      var svg = document.getElementById("mapSvg"), c = config();
+      if (!svg || !c) return;
+      svg.classList.toggle("relations-off", !c.showRelations);
+      svg.classList.toggle("is-static", !!c.staticMap);
+    })();
     watchMap();
     if(!customSpacing)customSpacing=spacingValuesOf(config());
     // Late-joiner handover (Group 4, G4-1): a window that opens after
