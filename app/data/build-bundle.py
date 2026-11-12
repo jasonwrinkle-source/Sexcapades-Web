@@ -22,6 +22,8 @@ parts = [
     "02j-profile-state.js",
     "02k-compare-dials.js",
     "02l-deknotter-session.js",
+    "02m-fit-targets.js",
+    "02n-deknotter-cascade.js",
     "02-taxonomy-core.js",
     "02c-layout-solver.js",
     "03a-midline-solver.js",
