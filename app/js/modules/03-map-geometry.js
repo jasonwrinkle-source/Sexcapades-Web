@@ -2105,111 +2105,142 @@
                         t && t.classList.remove("layout-enter-start");
                     }), n.forEach(e => e.classList.add("layout-exit-active"));
                 }), Zp = t.setTimeout($r, s ? 650 : l.length || i.length ? 560 : 430);
-            }(E, A, C)), function() {
-                const e = In.querySelector(".node-interaction-overlay");
-                e && e.remove();
-                const t = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                t.setAttribute("class", "node-interaction-overlay"), In.querySelectorAll(".node-group:not(.is-hidden)").forEach(e => {
-                    const n = e.querySelector(":scope > .hidden-count-badge");
-                    if (n && t.appendChild(n), isSubId(e.dataset.layoutKey)) {
-                        const a = Number(e.dataset.layoutX), r = Number(e.dataset.layoutY);
-                        if (Number.isFinite(a) && Number.isFinite(r)) {
-                            const n = document.createElementNS("http://www.w3.org/2000/svg", "circle"), i = e.querySelector(":scope > .concept-hit"), s = e.querySelector(":scope > .topic-icon"), d = Number(s && s.dataset.diameter);
-                            n.setAttribute("class", "category-toggle-hit category-icon-hit"), n.setAttribute("data-id", e.dataset.layoutKey), 
-                            n.setAttribute("cx", a.toFixed(2)), n.setAttribute("cy", r.toFixed(2)), n.setAttribute("r", String(Number.isFinite(d) && d > 0 ? d / 2 : sxIconRadius(2))), 
-                            n.setAttribute("aria-hidden", "true");
-                            const o = i && i.dataset.uiTooltip;
-                            o && (n.dataset.uiTooltip = o, n.setAttribute("data-tooltip-hover-only", ""), ul(n)), 
-                            n.addEventListener("click", Qa), t.appendChild(n);
-                        }
-                        return;
+            }(E, A, C));
+            // The walks below move every visible name and rating control.
+            // They used to be one generator step. WebKit stayed inside
+            // that step long enough that the boot dial, the 12s failsafe,
+            // and a waiting page.evaluate never ran. A bare yield returns
+            // the step to Mr, whose chunk budget gives the event loop a
+            // frame. The synchronous render path calls next() straight
+            // through, so those yields do not paint a gap.
+            let sxStackSlice = performance.now();
+            const sxOldOverlay = In.querySelector(".node-interaction-overlay");
+            sxOldOverlay && sxOldOverlay.remove();
+            const sxOverlay = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            sxOverlay.setAttribute("class", "node-interaction-overlay");
+            const sxStackGroups = Array.from(In.querySelectorAll(".node-group:not(.is-hidden)"));
+            for (let sxGi = 0; sxGi < sxStackGroups.length; sxGi++) {
+                const e = sxStackGroups[sxGi];
+                const n = e.querySelector(":scope > .hidden-count-badge");
+                if (n && sxOverlay.appendChild(n), isSubId(e.dataset.layoutKey)) {
+                    const a = Number(e.dataset.layoutX), r = Number(e.dataset.layoutY);
+                    if (Number.isFinite(a) && Number.isFinite(r)) {
+                        const hit = document.createElementNS("http://www.w3.org/2000/svg", "circle"), topicHit = e.querySelector(":scope > .concept-hit"), topicIcon = e.querySelector(":scope > .topic-icon"), d = Number(topicIcon && topicIcon.dataset.diameter);
+                        hit.setAttribute("class", "category-toggle-hit category-icon-hit"), hit.setAttribute("data-id", e.dataset.layoutKey), 
+                        hit.setAttribute("cx", a.toFixed(2)), hit.setAttribute("cy", r.toFixed(2)), hit.setAttribute("r", String(Number.isFinite(d) && d > 0 ? d / 2 : sxIconRadius(2))), 
+                        hit.setAttribute("aria-hidden", "true");
+                        const o = topicHit && topicHit.dataset.uiTooltip;
+                        o && (hit.dataset.uiTooltip = o, hit.setAttribute("data-tooltip-hover-only", ""), ul(hit)), 
+                        hit.addEventListener("click", Qa), sxOverlay.appendChild(hit);
                     }
-                    if (!isCatId(e.dataset.layoutKey)) return;
-                    const i = e.querySelector(":scope > .category-label");
-                    if (i) {
-                        const n = i.cloneNode(!0);
-                        n.setAttribute("class", "category-toggle-hit"), n.setAttribute("data-id", e.dataset.layoutKey), 
-                        n.removeAttribute("tabindex"), n.removeAttribute("role"), n.removeAttribute("aria-label"), 
-                        n.removeAttribute("aria-expanded"), n.setAttribute("aria-hidden", "true"), n.addEventListener("click", Qa), 
-                        t.appendChild(n);
+                } else if (isCatId(e.dataset.layoutKey)) {
+                    const label = e.querySelector(":scope > .category-label");
+                    if (label) {
+                        const clone = label.cloneNode(!0);
+                        clone.setAttribute("class", "category-toggle-hit"), clone.setAttribute("data-id", e.dataset.layoutKey), 
+                        clone.removeAttribute("tabindex"), clone.removeAttribute("role"), clone.removeAttribute("aria-label"), 
+                        clone.removeAttribute("aria-expanded"), clone.setAttribute("aria-hidden", "true"), clone.addEventListener("click", Qa), 
+                        sxOverlay.appendChild(clone);
                     }
                     const a = Number(e.dataset.layoutX), r = Number(e.dataset.layoutY);
                     if (Number.isFinite(a) && Number.isFinite(r)) {
-                        const n = document.createElementNS("http://www.w3.org/2000/svg", "circle"), i = e.querySelector(":scope > .concept-hit"), s = e.querySelector(":scope > .branch-icon"), d = Number(s && s.dataset.diameter);
-                        n.setAttribute("class", "category-toggle-hit category-icon-hit"), n.setAttribute("data-id", e.dataset.layoutKey), 
-                        n.setAttribute("cx", a.toFixed(2)), n.setAttribute("cy", r.toFixed(2)), n.setAttribute("r", String(Number.isFinite(d) && d > 0 ? d / 2 : sxIconRadius(1))), 
-                        n.setAttribute("aria-hidden", "true");
-                        const o = i && i.dataset.uiTooltip;
-                        o && (n.dataset.uiTooltip = o, n.setAttribute("data-tooltip-hover-only", ""), ul(n)), 
-                        n.addEventListener("click", Qa), t.appendChild(n);
+                        const hit = document.createElementNS("http://www.w3.org/2000/svg", "circle"), topicHit = e.querySelector(":scope > .concept-hit"), branchIcon = e.querySelector(":scope > .branch-icon"), d = Number(branchIcon && branchIcon.dataset.diameter);
+                        hit.setAttribute("class", "category-toggle-hit category-icon-hit"), hit.setAttribute("data-id", e.dataset.layoutKey), 
+                        hit.setAttribute("cx", a.toFixed(2)), hit.setAttribute("cy", r.toFixed(2)), hit.setAttribute("r", String(Number.isFinite(d) && d > 0 ? d / 2 : sxIconRadius(1))), 
+                        hit.setAttribute("aria-hidden", "true");
+                        const o = topicHit && topicHit.dataset.uiTooltip;
+                        o && (hit.dataset.uiTooltip = o, hit.setAttribute("data-tooltip-hover-only", ""), ul(hit)), 
+                        hit.addEventListener("click", Qa), sxOverlay.appendChild(hit);
                     }
-                }), t.childNodes.length && In.appendChild(t);
-            }(), function() {
-                const e = In.querySelector("[data-center-branch-toggle-wrap]");
-                e && In.appendChild(e);
-            }(), function() {
-                const e = In.querySelector(":scope > .map-label-stack");
-                if (e) return void In.appendChild(e);
-                const t = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                t.setAttribute("class", "map-label-stack"), In.querySelectorAll(".node-group:not(.is-hidden)").forEach(e => {
-                    const n = e.querySelector(":scope > .category-label, :scope > .map-label");
-                    if (!n) return;
-                    const i = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                    i.setAttribute("class", "map-label-stack-item");
-                    const a = e.getAttribute("style");
-                    a && i.setAttribute("style", a), e.classList.contains("is-dim") && i.setAttribute("opacity", ".18"), 
-                    i.appendChild(n), t.appendChild(i);
-                }), t.childNodes.length && In.appendChild(t);
-            }(), function() {
-                const e = In.querySelector(":scope > .direction-control-stack");
-                e && e.remove();
-                const t = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                t.setAttribute("class", "direction-control-stack"), In.querySelectorAll(".node-group:not(.is-hidden):not(.rating-control-stack-item)").forEach(e => {
-                    const n = Array.from(e.querySelectorAll(":scope > .direction-control"));
-                    if (!n.length) return;
-                    const i = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                    i.setAttribute("class", "node-group rating-control-stack-item");
-                    const a = e.getAttribute("style");
-                    a && i.setAttribute("style", a), e.classList.contains("is-dim") && i.setAttribute("opacity", ".18"), 
-                    n.forEach(e => i.appendChild(e)), t.appendChild(i);
-                }), t.childNodes.length && In.appendChild(t);
-            }(), (function() {
-                // Q3 hub-icon hit raise: the label stack and the
-                // direction-control (rating) stack are appended after
-                // the interaction overlay in this pass, so at fit view
-                // a neighbour's detached rating hit paths paint over a
-                // branch hub icon's own centre and swallow its taps.
-                // Move ONLY the icon hit circles into a fresh layer
-                // appended last in this pass, so the icon's hit area
-                // resolves to its own branch group; the label clones
-                // and hidden-count badges stay in the overlay, in
-                // their existing paint order.
-                const stale = In.querySelector(":scope > .category-icon-hit-layer");
-                stale && stale.remove();
-                const icons = In.querySelectorAll(".node-interaction-overlay > circle.category-icon-hit");
-                if (icons.length) {
-                    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                    g.setAttribute("class", "category-icon-hit-layer"), icons.forEach(el => g.appendChild(el)), 
-                    In.appendChild(g);
                 }
-            })(), (function() {
-                // Q3 selection sync: mirror every RENDERED selection
-                // change into the Layout Editor, including the paths
-                // that mutate the selection without notifying —
-                // label/icon toggle taps (Si/$i), rating-target
-                // clears, and profile resets all assign Lt and land
-                // here through Mr(). A change to null is a map-side
-                // clear, mirrored as an editor clear. Editor-
-                // initiated selection (API selectNode) does not
-                // render, so it never echoes back through here.
-                if (Lt === sxSelEditorMirrored) return;
+                if (performance.now() - sxStackSlice >= 40) {
+                    yield;
+                    sxStackSlice = performance.now();
+                }
+            }
+            sxOverlay.childNodes.length && In.appendChild(sxOverlay);
+            const sxCenterToggle = In.querySelector("[data-center-branch-toggle-wrap]");
+            sxCenterToggle && In.appendChild(sxCenterToggle);
+            const sxLabelExisting = In.querySelector(":scope > .map-label-stack");
+            if (sxLabelExisting) In.appendChild(sxLabelExisting);
+            else {
+                const sxLabels = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                sxLabels.setAttribute("class", "map-label-stack");
+                for (let sxGi = 0; sxGi < sxStackGroups.length; sxGi++) {
+                    const e = sxStackGroups[sxGi];
+                    const labelNode = e.querySelector(":scope > .category-label, :scope > .map-label");
+                    if (labelNode) {
+                        const stackItem = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                        stackItem.setAttribute("class", "map-label-stack-item");
+                        const stackStyle = e.getAttribute("style");
+                        stackStyle && stackItem.setAttribute("style", stackStyle), e.classList.contains("is-dim") && stackItem.setAttribute("opacity", ".18"), 
+                        stackItem.appendChild(labelNode), sxLabels.appendChild(stackItem);
+                    }
+                    if (performance.now() - sxStackSlice >= 40) {
+                        yield;
+                        sxStackSlice = performance.now();
+                    }
+                }
+                sxLabels.childNodes.length && In.appendChild(sxLabels);
+            }
+            const sxOldControls = In.querySelector(":scope > .direction-control-stack");
+            sxOldControls && sxOldControls.remove();
+            const sxControls = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            sxControls.setAttribute("class", "direction-control-stack");
+            const sxControlGroups = Array.from(In.querySelectorAll(".node-group:not(.is-hidden):not(.rating-control-stack-item)"));
+            for (let sxGi = 0; sxGi < sxControlGroups.length; sxGi++) {
+                const e = sxControlGroups[sxGi];
+                const controls = Array.from(e.querySelectorAll(":scope > .direction-control"));
+                if (controls.length) {
+                    const stackItem = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                    stackItem.setAttribute("class", "node-group rating-control-stack-item");
+                    const stackStyle = e.getAttribute("style");
+                    stackStyle && stackItem.setAttribute("style", stackStyle), e.classList.contains("is-dim") && stackItem.setAttribute("opacity", ".18"), 
+                    controls.forEach(el => stackItem.appendChild(el)), sxControls.appendChild(stackItem);
+                }
+                if (performance.now() - sxStackSlice >= 40) {
+                    yield;
+                    sxStackSlice = performance.now();
+                }
+            }
+            sxControls.childNodes.length && In.appendChild(sxControls);
+            // Q3 hub-icon hit raise: the label stack and the
+            // direction-control (rating) stack are appended after
+            // the interaction overlay in this pass, so at fit view
+            // a neighbour's detached rating hit paths paint over a
+            // branch hub icon's own centre and swallow its taps.
+            // Move ONLY the icon hit circles into a fresh layer
+            // appended last in this pass, so the icon's hit area
+            // resolves to its own branch group; the label clones
+            // and hidden-count badges stay in the overlay, in
+            // their existing paint order.
+            const sxStaleIconLayer = In.querySelector(":scope > .category-icon-hit-layer");
+            sxStaleIconLayer && sxStaleIconLayer.remove();
+            const sxIconHits = In.querySelectorAll(".node-interaction-overlay > circle.category-icon-hit");
+            if (sxIconHits.length) {
+                const sxIconLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                sxIconLayer.setAttribute("class", "category-icon-hit-layer"), sxIconHits.forEach(el => sxIconLayer.appendChild(el)), 
+                In.appendChild(sxIconLayer);
+            }
+            // Q3 selection sync: mirror every RENDERED selection
+            // change into the Layout Editor, including the paths
+            // that mutate the selection without notifying —
+            // label/icon toggle taps (Si/$i), rating-target
+            // clears, and profile resets all assign Lt and land
+            // here through Mr(). A change to null is a map-side
+            // clear, mirrored as an editor clear. Editor-
+            // initiated selection (API selectNode) does not
+            // render, so it never echoes back through here.
+            if (Lt !== sxSelEditorMirrored) {
                 sxSelEditorMirrored = Lt;
                 try {
                     const ui = window.__SEXCAPADES_LAYOUT_UI;
-                    if (!ui) return;
-                    if (Lt) ui.selectNode && ui.selectNode(Lt); else ui.clearSelection && ui.clearSelection();
+                    if (ui) {
+                        if (Lt) ui.selectNode && ui.selectNode(Lt); else ui.clearSelection && ui.clearSelection();
+                    }
                 } catch (err) { __sxErrLog("layout-select-sync", err); }
-            })(), window.__sxLoad && window.__sxLoad(96 /* F5 checkpoint: DOM stacks, interaction overlays, and controls installed */);
+            }
+            window.__sxLoad && window.__sxLoad(96 /* F5 checkpoint: DOM stacks, interaction overlays, and controls installed */);
             yield "paint";
             Nt && function(e, t) {
                 const n = Array.from(In.querySelectorAll(".direction-control")).find(n => n.dataset.id === e && n.dataset.direction === t), i = n && __sxClosestAction(n, "nodeGroup");
