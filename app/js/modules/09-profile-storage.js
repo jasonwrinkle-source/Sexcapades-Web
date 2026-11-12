@@ -3,6 +3,7 @@
 __sxInit(function () {
 (function () {
   var storageKey = "sexcapades_2x_remembered_profiles";
+  var rememberFlagKey = "sexcapades_2x_remember_on";
   var rememberEnabled = false;
   var saveTimer = null;
 
@@ -24,16 +25,35 @@ __sxInit(function () {
     }
   }
 
+  function readRememberFlag() {
+    try { return localStorage.getItem(rememberFlagKey) === "1"; }
+    catch (error) {
+      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+      return false;
+    }
+  }
+
+  function writeRememberFlag(on) {
+    try {
+      if (on) localStorage.setItem(rememberFlagKey, "1");
+      else localStorage.removeItem(rememberFlagKey);
+    } catch (error) {
+      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+    }
+  }
+
   function flushStoredProfiles() {
     if (saveTimer) {
       try { SexcapadesRuntime.TimerManager.clear(saveTimer); } catch (error) { if (typeof __sxErrLog === "function") __sxErrLog("timer-clear", error); }
       saveTimer = null;
     }
     try { localStorage.removeItem(storageKey); } catch (error) { if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error); }
+    writeRememberFlag(false);
   }
 
   function showSaveError() {
     rememberEnabled = false;
+    writeRememberFlag(false);
     var control = checkbox();
     if (control) control.checked = false;
     if (SexcapadesRuntime.DOM.byId("rememberProfilesSaveError")) return;
@@ -65,6 +85,7 @@ __sxInit(function () {
 
   function showRestoreError(failedCount) {
     rememberEnabled = false;
+    writeRememberFlag(false);
     var control = checkbox();
     if (control) control.checked = false;
     if (SexcapadesRuntime.DOM.byId("rememberProfilesRestoreError")) return;
@@ -432,6 +453,7 @@ __sxInit(function () {
     control.checked = false;
     control.addEventListener("change", function () {
       rememberEnabled = control.checked;
+      writeRememberFlag(rememberEnabled);
       if (rememberEnabled) {
         loadStoredProfiles();
         saveNow();
@@ -443,6 +465,21 @@ __sxInit(function () {
         }
       }
     });
+    if (readRememberFlag()) {
+      control.checked = true;
+      rememberEnabled = true;
+      var restoreTries = 0;
+      var restoreTimer = SexcapadesRuntime.TimerManager.setInterval(function () {
+        restoreTries++;
+        var api = profilesApi();
+        if (api && api.importData) {
+          SexcapadesRuntime.TimerManager.clear(restoreTimer);
+          loadStoredProfiles();
+        } else if (restoreTries > 40) {
+          SexcapadesRuntime.TimerManager.clear(restoreTimer);
+        }
+      }, 100);
+    }
     var flushButton = SexcapadesRuntime.DOM.byId("flushProfilesBtn2x");
     if (flushButton) {
       flushButton.addEventListener("click", function () {

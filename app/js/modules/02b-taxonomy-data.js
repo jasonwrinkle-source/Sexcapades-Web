@@ -3228,7 +3228,9 @@ export const TAXONOMY_CATEGORIES = [
                 "id": "t0334",
                 "risk": true,
                 "kinksters": 570643,
-                "type": "single"
+                "type": "give_receive",
+                "give_label": "take to the edge",
+                "receive_label": "be taken to the edge"
             },
             {
                 "name": "Cock Milking",
@@ -3268,7 +3270,9 @@ export const TAXONOMY_CATEGORIES = [
             },
             "Edge Play": {
                 "kinksters": 570643,
-                "type": "single"
+                "type": "give_receive",
+                "give_label": "take to the edge",
+                "receive_label": "be taken to the edge"
             },
             "Cock Milking": {
                 "give_label": "milk",

@@ -241,6 +241,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
             Dt = null; Lt = null; Tt = "";
             Mr();
+            if (typeof Ih === "function") Ih();
         }
         // Safety net: Escape clears a search preview, and a leftover
         // search dim, even when focus is outside the dropdown menu.
@@ -295,7 +296,19 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = o(e), i = t.indexOf(n);
                     return i < 0 ? 99 : t === n ? 0 : 0 === i ? 1 : t.split(/[^a-z0-9]+/).some(e => e.startsWith(n)) ? 2 : 3;
                 };
-                return r.filter(e => o(e).includes(n)).sort((e, t) => s(e) - s(t) || o(e).localeCompare(o(t)) || String(e.group || "").localeCompare(String(t.group || ""))).slice(0, t);
+                return r.filter(e => o(e).includes(n)).filter(e => {
+                    // A veiled topic stays off the map, so it stays out of
+                    // search too. Selecting one used to pan onto an empty view.
+                    if (typeof Ia !== "function" || !Ia() || typeof Ca !== "function" || typeof Aa !== "function") return true;
+                    const profile = (typeof Vi === "function" && Vi()) || Mt;
+                    if (!profile || !vt[profile]) return true;
+                    if ("category" === e.type && typeof Ma === "function") {
+                        const cat = h.find(c => catId(c.name) === e.id || c.id === e.id);
+                        return Boolean(cat && Ma(cat, profile));
+                    }
+                    const score = Ca(e.id, vt[profile], Qe[profile]);
+                    return null !== score && score >= Aa(vpt[profile]);
+                }).sort((e, t) => s(e) - s(t) || o(e).localeCompare(o(t)) || String(e.group || "").localeCompare(String(t.group || ""))).slice(0, t);
             }(t, 24);
             ec.render(n), n.length ? ec.open(0, !1) : ec.close();
         });

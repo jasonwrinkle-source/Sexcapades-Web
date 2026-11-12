@@ -8897,6 +8897,7 @@
         // express it without changing which profiles are chosen.
         function sxSel(e, t = "add") {
             if ("dismiss" === t) return void (an = !1);
+            if ("show" === t) return void (an = Yi().length >= 2);
             if ("clear" === t) en.clear();
             else if ("set" === t) en.clear(), (e || []).forEach(e => en.add(e));
             else if ("remove" === t) en.delete(e);
@@ -10700,7 +10701,8 @@
             // without a selected spoke, so those are cleared here too.
             // Returns whether anything was selected.
             const search = e.byId("searchInput"), picker = e.byId("topicPicker");
-            const had = Boolean(Lt || Nt || Dt || Tt || (search && search.value) || (picker && picker.value) || (Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".selected-spoke, .is-preview, .is-dim"))));
+            const searchDim = Boolean(Dt || Tt || (search && search.value) || (Cn && Cn.querySelector(".is-dim, .is-preview")));
+            const had = Boolean(Lt || Nt || searchDim || (picker && picker.value) || (Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".selected-spoke, .rel-active"))));
             Lt = null, Nt = null, Dt = null, Tt = "", sxSelEditorMirrored = null;
             search && (search.value = "");
             if (picker && picker.value) picker.value = "", picker.dispatchEvent(new Event("change", { bubbles: true }));
@@ -10708,9 +10710,11 @@
             if (Cn) {
                 Cn.classList.remove("has-selection", "relation-focused");
                 Cn.querySelectorAll(".sel-keep, .is-dim, .is-preview, .relation-focus-keep, .rel-endpoint, .rel-active").forEach(el => el.classList.remove("sel-keep", "is-dim", "is-preview", "relation-focus-keep", "rel-endpoint", "rel-active"));
+                Cn.querySelectorAll(".map-label-stack-item[opacity], .rating-control-stack-item[opacity]").forEach(el => el.removeAttribute("opacity"));
             }
             const menu = e.byId("searchDropdown");
             menu && (menu.hidden = true);
+            if (searchDim && typeof Ih === "function") Ih();
             return had;
         }
         function stampSelectedSpoke(d, host) {

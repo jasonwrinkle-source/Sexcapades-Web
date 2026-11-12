@@ -3530,7 +3530,9 @@ const TAXONOMY_CATEGORIES = [
                 "id": "t0334",
                 "risk": true,
                 "kinksters": 570643,
-                "type": "single"
+                "type": "give_receive",
+                "give_label": "take to the edge",
+                "receive_label": "be taken to the edge"
             },
             {
                 "name": "Cock Milking",
@@ -3570,7 +3572,9 @@ const TAXONOMY_CATEGORIES = [
             },
             "Edge Play": {
                 "kinksters": 570643,
-                "type": "single"
+                "type": "give_receive",
+                "give_label": "take to the edge",
+                "receive_label": "be taken to the edge"
             },
             "Cock Milking": {
                 "give_label": "milk",
@@ -17508,6 +17512,7 @@ const TAXONOMY_CATEGORIES = [
         // express it without changing which profiles are chosen.
         function sxSel(e, t = "add") {
             if ("dismiss" === t) return void (an = !1);
+            if ("show" === t) return void (an = Yi().length >= 2);
             if ("clear" === t) en.clear();
             else if ("set" === t) en.clear(), (e || []).forEach(e => en.add(e));
             else if ("remove" === t) en.delete(e);
@@ -19311,7 +19316,8 @@ const TAXONOMY_CATEGORIES = [
             // without a selected spoke, so those are cleared here too.
             // Returns whether anything was selected.
             const search = e.byId("searchInput"), picker = e.byId("topicPicker");
-            const had = Boolean(Lt || Nt || Dt || Tt || (search && search.value) || (picker && picker.value) || (Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".selected-spoke, .is-preview, .is-dim"))));
+            const searchDim = Boolean(Dt || Tt || (search && search.value) || (Cn && Cn.querySelector(".is-dim, .is-preview")));
+            const had = Boolean(Lt || Nt || searchDim || (picker && picker.value) || (Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".selected-spoke, .rel-active"))));
             Lt = null, Nt = null, Dt = null, Tt = "", sxSelEditorMirrored = null;
             search && (search.value = "");
             if (picker && picker.value) picker.value = "", picker.dispatchEvent(new Event("change", { bubbles: true }));
@@ -19319,9 +19325,11 @@ const TAXONOMY_CATEGORIES = [
             if (Cn) {
                 Cn.classList.remove("has-selection", "relation-focused");
                 Cn.querySelectorAll(".sel-keep, .is-dim, .is-preview, .relation-focus-keep, .rel-endpoint, .rel-active").forEach(el => el.classList.remove("sel-keep", "is-dim", "is-preview", "relation-focus-keep", "rel-endpoint", "rel-active"));
+                Cn.querySelectorAll(".map-label-stack-item[opacity], .rating-control-stack-item[opacity]").forEach(el => el.removeAttribute("opacity"));
             }
             const menu = e.byId("searchDropdown");
             menu && (menu.hidden = true);
+            if (searchDim && typeof Ih === "function") Ih();
             return had;
         }
         function stampSelectedSpoke(d, host) {
@@ -27137,15 +27145,15 @@ const TAXONOMY_CATEGORIES = [
                 const i = tl.querySelector(".profile-add-stack"), a = Math.max(0, tl.clientWidth - 6), r = i ? Math.ceil(i.getBoundingClientRect().width) : 42, o = 2 * (e.length + 1), s = [ {
                     name: "full",
                     labels: t.map(e => e.dataset.fullLabel || ""),
-                    widths: t.map(e => Math.max(96, Math.min(180, 70 + 7 * (e.dataset.fullLabel || "").length)))
+                    widths: t.map(e => Math.max(168, Math.min(220, 70 + 7 * (e.dataset.fullLabel || "").length)))
                 }, {
                     name: "short",
-                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 3)),
-                    widths: t.map(() => 82)
+                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 12)),
+                    widths: t.map(() => 168)
                 }, {
                     name: "initial",
-                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 1)),
-                    widths: t.map(() => 70)
+                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 8)),
+                    widths: t.map(() => 148)
                 } ];
                 let l = s.find(e => e.widths.reduce((e, t) => e + t, r + o) <= a) || s[s.length - 1];
                 l.labels.forEach((e, n) => {
@@ -27263,9 +27271,9 @@ const TAXONOMY_CATEGORIES = [
             });
         }
         e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", () => {
-            if (!an) return;
+            if (Yi().length < 2) return;
             sxVaultInvalidate();
-            sxSel(null, "dismiss"), Jw(), Mr(), Ih();
+            sxSel(null, an ? "dismiss" : "show"), Jw(), Mr(), Ih();
         });
         e.all("[data-filter]").forEach(t => t.addEventListener("click", () => {
             "true" !== t.getAttribute("aria-disabled") && !Rt && (sxVaultInvalidate(), Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))),
@@ -27672,6 +27680,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
             Dt = null; Lt = null; Tt = "";
             Mr();
+            if (typeof Ih === "function") Ih();
         }
         // Safety net: Escape clears a search preview, and a leftover
         // search dim, even when focus is outside the dropdown menu.
@@ -27726,7 +27735,19 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = o(e), i = t.indexOf(n);
                     return i < 0 ? 99 : t === n ? 0 : 0 === i ? 1 : t.split(/[^a-z0-9]+/).some(e => e.startsWith(n)) ? 2 : 3;
                 };
-                return r.filter(e => o(e).includes(n)).sort((e, t) => s(e) - s(t) || o(e).localeCompare(o(t)) || String(e.group || "").localeCompare(String(t.group || ""))).slice(0, t);
+                return r.filter(e => o(e).includes(n)).filter(e => {
+                    // A veiled topic stays off the map, so it stays out of
+                    // search too. Selecting one used to pan onto an empty view.
+                    if (typeof Ia !== "function" || !Ia() || typeof Ca !== "function" || typeof Aa !== "function") return true;
+                    const profile = (typeof Vi === "function" && Vi()) || Mt;
+                    if (!profile || !vt[profile]) return true;
+                    if ("category" === e.type && typeof Ma === "function") {
+                        const cat = h.find(c => catId(c.name) === e.id || c.id === e.id);
+                        return Boolean(cat && Ma(cat, profile));
+                    }
+                    const score = Ca(e.id, vt[profile], Qe[profile]);
+                    return null !== score && score >= Aa(vpt[profile]);
+                }).sort((e, t) => s(e) - s(t) || o(e).localeCompare(o(t)) || String(e.group || "").localeCompare(String(t.group || ""))).slice(0, t);
             }(t, 24);
             ec.render(n), n.length ? ec.open(0, !1) : ec.close();
         });
@@ -37943,7 +37964,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             a && (a.classList.toggle("is-enabled", n), a.style.setProperty("--veil-color", i), 
             a.setAttribute("aria-pressed", String(n)), a.setAttribute("aria-label", `${wt[e] || "Profile"} Veil ${n ? "on" : "off"}, level ${t}. Open Veil settings.`), 
             a.title = `Veil ${n ? "on" : "off"} · ${t}`), r && (r.classList.toggle("has-veil", n), 
-            r.style.setProperty("--veil-color", i));
+            r.style.setProperty("--veil-color", i), r.setAttribute("aria-label", `${(r.getAttribute("aria-label") || "").replace(/, Veil on at \d+/, "")}${n ? `, Veil on at ${t}` : ""}`));
         }
         function xv() {
             if (dv.hidden) return;
@@ -39402,7 +39423,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const y = e.byId("openOpener"), b = e.byId("openNegotiation");
             y.hidden = _g && _g.open ? !(Hy && vt[Hy] && !ft[Hy]) : !Mt || !vt[Mt] || Boolean(ft[Mt]), b.hidden = !(i.length >= 2 || r && (ft[Mt]?.sourceIds || []).length >= 2);
             const k = e.byId("overlayTab");
-            k.hidden = !s, k.textContent = "Hide group overlay", k.title = "Hide the selected profiles’ comparison overlay", 
+            k.hidden = !o, k.textContent = an ? "Hide group overlay" : "Show group overlay", k.title = an ? "Hide the selected profiles’ comparison overlay" : "Show the selected profiles’ comparison overlay", 
             k.setAttribute("aria-pressed", String(an));
             const x = e.byId("overlayStatus");
             x.textContent = "", x.parentElement.hidden = !0, e.one(".filters").hidden = !t.length,
@@ -43802,6 +43823,7 @@ __sxInit(function () {
 __sxInit(function () {
 (function () {
   var storageKey = "sexcapades_2x_remembered_profiles";
+  var rememberFlagKey = "sexcapades_2x_remember_on";
   var rememberEnabled = false;
   var saveTimer = null;
 
@@ -43823,16 +43845,35 @@ __sxInit(function () {
     }
   }
 
+  function readRememberFlag() {
+    try { return localStorage.getItem(rememberFlagKey) === "1"; }
+    catch (error) {
+      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+      return false;
+    }
+  }
+
+  function writeRememberFlag(on) {
+    try {
+      if (on) localStorage.setItem(rememberFlagKey, "1");
+      else localStorage.removeItem(rememberFlagKey);
+    } catch (error) {
+      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+    }
+  }
+
   function flushStoredProfiles() {
     if (saveTimer) {
       try { SexcapadesRuntime.TimerManager.clear(saveTimer); } catch (error) { if (typeof __sxErrLog === "function") __sxErrLog("timer-clear", error); }
       saveTimer = null;
     }
     try { localStorage.removeItem(storageKey); } catch (error) { if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error); }
+    writeRememberFlag(false);
   }
 
   function showSaveError() {
     rememberEnabled = false;
+    writeRememberFlag(false);
     var control = checkbox();
     if (control) control.checked = false;
     if (SexcapadesRuntime.DOM.byId("rememberProfilesSaveError")) return;
@@ -43864,6 +43905,7 @@ __sxInit(function () {
 
   function showRestoreError(failedCount) {
     rememberEnabled = false;
+    writeRememberFlag(false);
     var control = checkbox();
     if (control) control.checked = false;
     if (SexcapadesRuntime.DOM.byId("rememberProfilesRestoreError")) return;
@@ -44231,6 +44273,7 @@ __sxInit(function () {
     control.checked = false;
     control.addEventListener("change", function () {
       rememberEnabled = control.checked;
+      writeRememberFlag(rememberEnabled);
       if (rememberEnabled) {
         loadStoredProfiles();
         saveNow();
@@ -44242,6 +44285,21 @@ __sxInit(function () {
         }
       }
     });
+    if (readRememberFlag()) {
+      control.checked = true;
+      rememberEnabled = true;
+      var restoreTries = 0;
+      var restoreTimer = SexcapadesRuntime.TimerManager.setInterval(function () {
+        restoreTries++;
+        var api = profilesApi();
+        if (api && api.importData) {
+          SexcapadesRuntime.TimerManager.clear(restoreTimer);
+          loadStoredProfiles();
+        } else if (restoreTries > 40) {
+          SexcapadesRuntime.TimerManager.clear(restoreTimer);
+        }
+      }, 100);
+    }
     var flushButton = SexcapadesRuntime.DOM.byId("flushProfilesBtn2x");
     if (flushButton) {
       flushButton.addEventListener("click", function () {
