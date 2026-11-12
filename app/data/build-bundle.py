@@ -39,6 +39,7 @@ parts = [
     "06a-export-renderers.js",
     "06b-fetlife-importer.js",
     "06-pdf-exporter.js",
+    "06d-profile-sheet.js",
     "06c-converter-pipeline.js",
     "07-header-hug.js",
     "03b-map-interaction.js",
