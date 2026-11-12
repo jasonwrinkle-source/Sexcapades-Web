@@ -18361,6 +18361,7 @@ const TAXONOMY_CATEGORIES = [
             };
         }
         Cn.addEventListener("pointerdown", sa, !0), Cn.addEventListener("keydown", sa, !0);
+
         /* ================= SpokeGeometry module — BEGIN ================= */
         /* ================================================================
            SpokeGeometry — spoke path geometry for the map renderer.
@@ -19505,6 +19506,7 @@ const TAXONOMY_CATEGORIES = [
             const link = event.target.closest?.(".common-overlap-link.relation-hit");
             link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
         }, !0);
+
         // Map layout geometry (er, nr, rr, and the branch-order helpers)
         // lives in 02c-layout-solver.js. A second copy here is a strict-mode
         // SyntaxError (Identifier 'nr'/'rr' has already been declared) and
