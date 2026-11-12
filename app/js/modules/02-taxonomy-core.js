@@ -8443,7 +8443,7 @@
                     const i = Vn(t, n);
                     return {
                         id: e,
-                        label: n,
+                        label: sxName(n),
                         branch: t.name,
                         kind: "Topic",
                         risk: Boolean(((t.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
@@ -10843,7 +10843,7 @@
         // One pipeline owns spoke radii, collision relief, crossing assignment,
         // and angular nudging. Keep this order stable: each later pass consumes the
         // coordinates established by the pass before it.
-        const er = Object.freeze({
+        window.er = Object.freeze({
             fullTurn: 2 * Math.PI,
             inwardExclusion: Math.PI / 6,
             halfExclusion: Math.PI / 12,
@@ -10854,7 +10854,7 @@
         function tr(e) {
             return Math.atan2(Math.sin(e), Math.cos(e));
         }
-        const nr = Object.freeze({
+        window.nr = Object.freeze({
             spread: 11 * Math.PI / 6,
             halfSpread: 11 * Math.PI / 12,
             inwardExclusion: Math.PI / 6,
@@ -10866,26 +10866,26 @@
             const i = Math.max(0, Number(t) || 0);
             if (!i) return tr(e);
             const a = Math.ceil(i / 2), r = i % 2 == 1 ? 1 : -1;
-            return tr(e + Math.max(-nr.halfSpread, Math.min(nr.halfSpread, r * a * (Number(n) || 0))));
+            return tr(e + Math.max(-window.nr.halfSpread, Math.min(window.nr.halfSpread, r * a * (Number(n) || 0))));
         }
         function ar(e, t, n) {
             const i = Math.max(0, Number(t) || 0);
             if (!i) return [];
-            const a = Math.ceil((i - 1) / 2), r = a > 0 ? nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
-            return !o || a * o <= nr.halfSpread ? Array.from({
+            const a = Math.ceil((i - 1) / 2), r = a > 0 ? window.nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
+            return !o || a * o <= window.nr.halfSpread ? Array.from({
                 length: i
             }, (t, n) => ir(e, n, o)) : Array.from({
                 length: i
-            }, (e, t) => -nr.halfSpread + nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
+            }, (e, t) => -window.nr.halfSpread + window.nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
         }
         const rr = Object.freeze({
             // --- Spoke length calculations (uniform sibling radii) ---------------
             slotAngle: ir,
             fanAngles: ar,
             childFanAngles: (e, t, n) => ar(e, t, n),
-            stepForRadius: e => nr.pitch / Math.max(1, e),
+            stepForRadius: e => window.nr.pitch / Math.max(1, e),
             cloudRadiusFor(e) {
-                const t = Math.max(nr.minimumRadius, e * nr.pitch / nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * nr.pitch / nr.halfSpread : 0;
+                const t = Math.max(window.nr.minimumRadius, e * window.nr.pitch / window.nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * window.nr.pitch / window.nr.halfSpread : 0;
                 return Math.max(t, i);
             },
             branchDepth: e => Math.max(0, ...(e.topics || []).map(e => rr.renderedSpokeLength(e) + (e.topic.isSubcategory && e.children && e.children.length ? 1.18 * (e.childCloudRadius || 0) + pr.topicIcon + rr.CONTROL_STATION + rr.LABEL_ALLOWANCE : 0))),

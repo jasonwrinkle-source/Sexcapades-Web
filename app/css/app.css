@@ -887,7 +887,7 @@ html.shrink-busy,html.shrink-busy *{cursor:progress!important}
 .view-nav-item:before{content:"";flex:0 0 1em;text-align:center}
 .view-nav-item[aria-checked="true"]:before{content:"✓";color:var(--focus)}
 .view-nav-item:hover,.view-nav-item:focus-visible,.view-nav-item.is-active{background:var(--paper-2);outline:2px solid var(--focus);outline-offset:-2px}
-.view-nav-item.is-disabled{opacity:.45;cursor:default}
+.view-nav-item.is-disabled{opacity:.45;cursor:not-allowed;pointer-events:auto}
 .view-nav-item.is-disabled:hover,.view-nav-item.is-disabled.is-active{background:none;outline:none}
 /* Every view's selector button: fixed width sized for "Scene Sentinel ▾",
    so it never changes width between views, in dialog heads as in the title row. */
@@ -1387,3 +1387,8 @@ textarea{font-size:16px}
 .sx-buzzer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .sx-buzzer-actions .action-btn{flex:1 1 120px;min-height:44px}
 @media(max-width:560px){.sx-headline-value{font-size:21px}.sx-ctl{grid-template-columns:auto minmax(0,1fr) auto}}
+
+.selected-spoke {
+    fill: none !important;
+    stroke: color-mix(in srgb, currentColor 60%, transparent) !important;
+}

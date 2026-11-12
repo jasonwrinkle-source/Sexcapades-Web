@@ -12,11 +12,22 @@ target_hosted_alt = os.path.join(base_dir, "../../hosted/data/data-bootstrap.js"
 parts = [
     "01-dispatcher.js",
     "02b-taxonomy-data.js",
+    "02a-taxonomy-models.js",
+    "02e-font-ladder.js",
+    "02f-spoke-geometry.js",
+    "02d-selection-marking.js",
+    "02g-definitions-ratings.js",
     "02-taxonomy-core.js",
+    "02c-layout-solver.js",
+    "03a-midline-solver.js",
     "03-map-geometry.js",
     "04-topic-picker.js",
+    "05a-sync-engine.js",
     "05-compatibility.js",
+    "06a-export-renderers.js",
+    "06b-fetlife-importer.js",
     "06-pdf-exporter.js",
+    "06c-converter-pipeline.js",
     "07-header-hug.js",
     "03b-map-interaction.js",
     "08-ui-wiring.js",
@@ -46,10 +57,25 @@ for p in parts:
 with open(target_app, "w", encoding="utf-8") as out:
     out.write("\n".join(combined_code))
 
-for th in [target_hosted, target_hosted_alt]:
+target_app_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/data-bootstrap.js")
+
+for th in [target_hosted, target_hosted_alt, target_app_assets]:
     if os.path.exists(os.path.dirname(th)):
         shutil.copyfile(target_app, th)
         print(f"[Bundle] Synced to {th}")
+
+template_src = os.path.join(base_dir, "../../site-tree/public_html/hosted/data/unrated-map-template.js")
+template_app = os.path.join(base_dir, "unrated-map-template.js")
+template_app_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/unrated-map-template.js")
+if os.path.exists(template_src):
+    shutil.copyfile(template_src, template_app)
+    print(f"[Bundle] Synced unrated-map-template.js to app/data/")
+elif os.path.exists(template_app):
+    shutil.copyfile(template_app, template_src)
+    print(f"[Bundle] Synced unrated-map-template.js to site-tree/public_html/hosted/data/")
+if os.path.exists(template_app) and os.path.exists(os.path.dirname(template_app_assets)):
+    shutil.copyfile(template_app, template_app_assets)
+    print(f"[Bundle] Synced unrated-map-template.js to app-assets/")
 
 patches_src = os.path.join(base_dir, "../js/patches.js")
 patches_hosted = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/patches.js")
