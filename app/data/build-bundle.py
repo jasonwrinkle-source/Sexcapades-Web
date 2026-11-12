@@ -41,6 +41,7 @@ parts = [
     "06-pdf-exporter.js",
     "06d-profile-sheet.js",
     "06c-converter-pipeline.js",
+    "06e-kinktest-routes.js",
     "07-header-hug.js",
     "03b-map-interaction.js",
     "08-ui-wiring.js",
