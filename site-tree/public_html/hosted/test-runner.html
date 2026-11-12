@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sexcapades Automated Test Harness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --green: #2ea043;
+      --red: #f85149;
+      --yellow: #d29922;
+      --blue: #58a6ff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    h1 {
+      font-size: 24px;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .badge.running { background: var(--blue); color: #fff; }
+    .badge.passed { background: var(--green); color: #fff; }
+    .badge.failed { background: var(--red); color: #fff; }
+
+    .summary-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 32px;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-val {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .test-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .test-table th, .test-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .test-table th {
+      background: #21262d;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .test-table tr:last-child td {
+      border-bottom: none;
+    }
+    .status-pass { color: var(--green); font-weight: bold; }
+    .status-fail { color: var(--red); font-weight: bold; }
+    .error-log {
+      color: var(--red);
+      font-family: monospace;
+      font-size: 12px;
+      background: rgba(248, 81, 73, 0.1);
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin-top: 4px;
+      white-space: pre-wrap;
+    }
+    .btn-rerun {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .btn-rerun:hover {
+      opacity: 0.9;
+    }
+    #rawTelemetry {
+      margin-top: 24px;
+      background: #000;
+      color: #39d353;
+      padding: 16px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+  </style>
+
+  <!-- Headless Configuration & Early Logging Setup -->
+  <script>
+    window.__SX_HEADLESS = true;
+    window.__SX_ALLOW_DOM_FALLBACK = true;
+    window.__sxErrLog = window.__sxErrLog || function(tag, err) {
+      window.__sxErrLogQueue = window.__sxErrLogQueue || [];
+      window.__sxErrLogQueue.push({ tag: tag, err: err, time: Date.now() });
+      if (typeof console !== "undefined" && console.warn) console.warn("[__sxErrLog:" + tag + "]", err);
+    };
+    window.__sxErrLogQueue = window.__sxErrLogQueue || [];
+  </script>
+
+  <!-- Load App Data & Bundled Code -->
+  <script defer src="data/unrated-map-template.js"></script>
+  <script defer src="data/data-bootstrap.js?v=4.3.2"></script>
+</head>
+<body>
+
+  <!-- Headless / Harness Mock DOM Container -->
+  <div id="sxHarnessMockContainer" style="display:none!important;" aria-hidden="true">
+    <div class="map-card"><div id="mapHint"></div></div>
+    <div id="legendEmpty"></div>
+    <div id="legendPopup"><div data-legend-group="ratings"></div><div data-legend-entry></div></div>
+    <div id="glanceData"><div id="glanceCompatibility"><span></span></div></div>
+    <div id="glanceSummary"></div>
+    <div id="mutualLabel"></div><div id="exploreLabel"></div><div id="ratedLabel"></div>
+    <svg id="mapSvg"><g id="mapScene"><g id="mapLayer"></g><defs id="mapDefs"></defs></g></svg>
+    <dialog id="unsavedChangesDialog"><div id="unsavedChangesQuestion"></div><button id="saveUnsavedToMemory"></button></dialog>
+    <dialog id="outlineDialog"></dialog>
+    <dialog id="scribeDialog"></dialog>
+    <dialog id="scribeChoiceDialog"></dialog>
+    <dialog id="novelAiDialog"></dialog>
+    <div id="markMenu" data-topic-sheet="true"></div>
+    <div id="topicSheet"></div>
+    <div id="profileTabs"></div>
+    <div id="outlineSections"></div>
+    <input id="outlineSearch" type="search" />
+  </div>
+
+  <h1>
+    Sexcapades Automated Test Runner
+    <span id="suiteBadge" class="badge running">RUNNING</span>
+  </h1>
+
+  <button class="btn-rerun" onclick="window.location.reload()">Re-run All Tests</button>
+
+  <div class="summary-card">
+    <div class="stat">
+      <span id="statTotal" class="stat-val">0</span>
+      <span class="stat-label">Total Tests</span>
+    </div>
+    <div class="stat">
+      <span id="statPassed" class="stat-val" style="color: var(--green);">0</span>
+      <span class="stat-label">Passed</span>
+    </div>
+    <div class="stat">
+      <span id="statFailed" class="stat-val" style="color: var(--red);">0</span>
+      <span class="stat-label">Failed</span>
+    </div>
+    <div class="stat">
+      <span id="statDuration" class="stat-val">0ms</span>
+      <span class="stat-label">Duration</span>
+    </div>
+  </div>
+
+  <table class="test-table">
+    <thead>
+      <tr>
+        <th style="width: 80px;">Status</th>
+        <th style="width: 140px;">Squad / Area</th>
+        <th>Test Description</th>
+        <th style="width: 100px;">Time</th>
+      </tr>
+    </thead>
+    <tbody id="testResultsBody"></tbody>
+  </table>
+
+  <h3>Live JSON Telemetry (For AI Scrapers)</h3>
+  <pre id="rawTelemetry">Waiting for tests to complete...</pre>
+
+  <script>
+    console.log("[Harness] Test runner script parsed, readyState:", document.readyState);
+    async function startHarness() {
+      console.log("[Harness] Waiting for Sexcapades bundle...");
+      const start = performance.now();
+      while (!window.__sexcapades && (performance.now() - start < 6000)) {
+        await new Promise(r => setTimeout(r, 40));
+      }
+      if (!window.__sexcapades) {
+        console.error("[Harness] Timed out waiting for window.__sexcapades!");
+      } else {
+        console.log("[Harness] Sexcapades bundle detected in", Math.round(performance.now() - start), "ms. Running tests...");
+      }
+      runAllTests();
+    }
+    if (document.readyState === "loading") {
+      window.addEventListener("DOMContentLoaded", startHarness);
+    } else {
+      startHarness();
+    }
+
+    const results = [];
+    let startTime = 0;
+
+    function assert(cond, msg) {
+      if (!cond) throw new Error(msg || "Assertion failed");
+    }
+
+    function recordResult(squad, name, fn) {
+      const t0 = performance.now();
+      try {
+        fn();
+        const duration = Math.round(performance.now() - t0);
+        results.push({ squad, name, passed: true, duration, error: null });
+      } catch (err) {
+        const duration = Math.round(performance.now() - t0);
+        results.push({ squad, name, passed: false, duration, error: err.message || String(err) });
+      }
+    }
+
+    async function recordResultAsync(squad, name, fn) {
+      const t0 = performance.now();
+      try {
+        await fn();
+        const duration = Math.round(performance.now() - t0);
+        results.push({ squad, name, passed: true, duration, error: null });
+      } catch (err) {
+        const duration = Math.round(performance.now() - t0);
+        results.push({ squad, name, passed: false, duration, error: err.message || String(err) });
+      }
+    }
+
+    async function runAllTests() {
+      console.log("[Harness] runAllTests() started execution!");
+      startTime = performance.now();
+
+      // ==========================================
+      // Squad 1: Data Models & Parsers / Exporters
+      // ==========================================
+      recordResult("Squad 1", "ProfileIO Global Exposure", () => {
+        assert(window.__sexcapades && window.__sexcapades.ProfileIO, "ProfileIO interface is not exposed on window.__sexcapades");
+      });
+
+      recordResult("Squad 1", "JSON Profile Ingestion & Validation", () => {
+        const mockProfile = {
+          app: "sexcapades",
+          version: 16,
+          profileName: "Automated Test Profile",
+          ratings: { "t0001": { give: 85, receive: 40 }, "t0022": 100, "t0056": -30 },
+          annotations: { "t0001": "favorite", "t0022": "limit" },
+          fantasyOnly: { "t0056": true },
+          notes: { "t0001": ["Harness note entry"] }
+        };
+        const id = window.__sexcapades.ProfileIO.importData(mockProfile, { autoSelect: true });
+        assert(id && typeof id === "string", "Profile importData returned invalid profile ID");
+      });
+
+      recordResult("Squad 1", "KinkTest Text Ingestion Parser", () => {
+        const text = "Restraint: 80% dom, 40% sub\n#1: favorite\n#2: hard limit\n#3: 4";
+        const res = window.__sexcapades.ProfileIO.parse("kinktest", text);
+        assert(res && res.ratings && Object.keys(res.ratings).length > 0, "KinkTest parsing returned empty ratings");
+        assert(res.annotations && Object.keys(res.annotations).length > 0, "KinkTest annotations missing");
+      });
+
+      recordResult("Squad 1", "BDSMtest Raw Text Ingestion Parser", () => {
+        const text = "100% Dominant\n90% Rigger\n0% Submissive";
+        const res = window.__sexcapades.ProfileIO.parse("bdsmtest", text);
+        assert(res && res.ratings && Object.keys(res.ratings).length > 0, "BDSMtest parsing returned empty ratings");
+      });
+
+      // ==========================================
+      // Squad 2: Hypermap Geometry & Math Metrics
+      // ==========================================
+      recordResult("Squad 2", "Crossing Measure Engine Readout", () => {
+        assert(typeof window.__sxCrossingMeasure === "function", "window.__sxCrossingMeasure is missing");
+        const measure = window.__sxCrossingMeasure();
+        assert(measure && Number.isFinite(measure.crossing), "Crossing measure did not return valid numeric value");
+      });
+
+      recordResult("Squad 2", "Radial Solvers & Staged Cloud Scoring", () => {
+        assert(typeof window.__sxCrossingStagedCloud === "function", "window.__sxCrossingStagedCloud missing");
+        const val = window.__sxCrossingStagedCloud("Bondage & restriction", true);
+        assert(val === null || Number.isFinite(val), "Staged cloud score returned non-finite value");
+      });
+
+      // ==========================================
+      // Squad 3: Multi-Profile Compatibility Engine
+      // ==========================================
+      recordResult("Squad 3", "Headless Pairwise Sync Engine Calculation", () => {
+        assert(window.__SEXCAPADES_SYNC_ENGINE && typeof window.__SEXCAPADES_SYNC_ENGINE.pair === "function", "Sync Engine pair calculation function missing");
+        const p1 = {
+          name: "Tester A",
+          ratings: { "t0022": { give: 100, receive: -50 }, "t0001": 80 },
+          annotations: { "t0022": "favorite" }
+        };
+        const p2 = {
+          name: "Tester B",
+          ratings: { "t0022": { give: -30, receive: 90 }, "t0001": 60 },
+          annotations: {}
+        };
+        const pair = window.__SEXCAPADES_SYNC_ENGINE.pair(p1, p2);
+        assert(pair && pair.play, "Pair computation failed to return play outcomes");
+        assert(Number.isFinite(pair.play.headline) && pair.play.headline > 0, "Compatibility score headline is non-positive or not finite");
+      });
+
+      recordResult("Squad 3", "Multi-Profile Group Sync Aggregation", () => {
+        assert(typeof window.__SEXCAPADES_SYNC_ENGINE.group === "function", "Group calculation function missing");
+        const p1 = { name: "A", ratings: { "t0001": 100 } };
+        const p2 = { name: "B", ratings: { "t0001": 80 } };
+        const p3 = { name: "C", ratings: { "t0001": 50 } };
+        const grp = window.__SEXCAPADES_SYNC_ENGINE.group([p1, p2, p3]);
+        assert(grp && grp.play, "Group calculation failed to return group play outcomes");
+      });
+
+      // ==========================================
+      // Squad 4: Error Logger & Telemetry State
+      // ==========================================
+      recordResult("Squad 4", "Error Logger Telemetry Integrity", () => {
+        assert(typeof window.__sxErrLog === "function", "Global error logger __sxErrLog is not installed");
+      });
+
+      renderSummary();
+    }
+
+    function renderSummary() {
+      const total = results.length;
+      const passed = results.filter(r => r.passed).length;
+      const failed = total - passed;
+      const duration = Math.round(performance.now() - startTime);
+
+      document.getElementById("statTotal").textContent = total;
+      document.getElementById("statPassed").textContent = passed;
+      document.getElementById("statFailed").textContent = failed;
+      document.getElementById("statDuration").textContent = duration + "ms";
+
+      const badge = document.getElementById("suiteBadge");
+      if (failed === 0) {
+        badge.className = "badge passed";
+        badge.textContent = "ALL TESTS PASSED";
+      } else {
+        badge.className = "badge failed";
+        badge.textContent = `${failed} FAILED`;
+      }
+
+      const tbody = document.getElementById("testResultsBody");
+      tbody.innerHTML = "";
+
+      results.forEach(r => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><span class="${r.passed ? 'status-pass' : 'status-fail'}">${r.passed ? 'PASS' : 'FAIL'}</span></td>
+          <td><b>${r.squad}</b></td>
+          <td>
+            ${r.name}
+            ${r.error ? `<div class="error-log">${r.error}</div>` : ''}
+          </td>
+          <td>${r.duration}ms</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Output machine-readable JSON for online AI agents
+      const telemetry = {
+        timestamp: new Date().toISOString(),
+        total,
+        passed,
+        failed,
+        durationMs: duration,
+        status: failed === 0 ? "PASSED" : "FAILED",
+        tests: results
+      };
+      document.getElementById("rawTelemetry").textContent = JSON.stringify(telemetry, null, 2);
+    }
+  </script>
+</body>
+</html>

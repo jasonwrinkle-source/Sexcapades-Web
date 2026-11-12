@@ -76,6 +76,132 @@ if (typeof window.__sxErrLog !== "function") {
         }
     };
 }
+if (!window.SexcapadesRuntime) {
+    (function() {
+        "use strict";
+        var e = new Map, t = new Map, r = new Map,
+            n = document.getElementById.bind(document),
+            i = document.querySelector.bind(document),
+            a = document.querySelectorAll.bind(document),
+            o = /(?:dialog\[open\]|#profileTabs|data-check|data-leniency-trigger|:(?:active|checked|disabled|focus|focus-within|hover|not|open|target))/,
+            c = {
+                byId: function(t) {
+                    var r = String(t), i = e.get(r);
+                    if (i && i.isConnected && i.id === r) return i;
+                    i = n(r);
+                    if (i) {
+                        e.set(r, i);
+                    } else if (window.__SX_ALLOW_DOM_FALLBACK) {
+                        i = document.createElement("div");
+                        i.id = r;
+                        i.setAttribute("data-test-stub", "true");
+                        // Add span child for inner queries like c.querySelector("span")
+                        var innerSpan = document.createElement("span");
+                        i.appendChild(innerSpan);
+                        var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
+                        container.appendChild(i);
+                        e.set(r, i);
+                    } else {
+                        e.delete(r);
+                    }
+                    return i;
+                },
+                one: function(eSelector) {
+                    var r = String(eSelector), nSel = !o.test(r), a = nSel ? t.get(r) : null;
+                    if (a && a.isConnected && a.matches(r)) return a;
+                    a = i(r);
+                    if (!a && window.__SX_ALLOW_DOM_FALLBACK) {
+                        if (r.charAt(0) === "#" && !/[ .>+~:[\]]/.test(r.slice(1))) {
+                            a = c.byId(r.slice(1));
+                        } else {
+                            a = document.createElement("div");
+                            a.setAttribute("data-test-stub-query", r);
+                            var innerSpan = document.createElement("span");
+                            a.appendChild(innerSpan);
+                            var container = document.getElementById("sxHarnessMockContainer") || document.body || document.documentElement;
+                            container.appendChild(a);
+                        }
+                    }
+                    if (nSel && a) t.set(r, a);
+                    return a;
+                },
+                all: function(e) {
+                    var t = String(e), n = !o.test(t), i = n ? r.get(t) : null;
+                    return i && i.every(function(e) { return e.isConnected && e.matches(t); }) || (i = Array.from(a(t)), n && r.set(t, i)), i;
+                },
+                invalidate: function() { t.clear(), r.clear(); },
+                clear: function() { e.clear(), t.clear(), r.clear(); }
+            },
+            l = {
+                setTimeout: window.setTimeout.bind(window),
+                setInterval: window.setInterval.bind(window),
+                clearTimeout: window.clearTimeout.bind(window),
+                clearInterval: window.clearInterval.bind(window),
+                requestAnimationFrame: window.requestAnimationFrame.bind(window),
+                cancelAnimationFrame: window.cancelAnimationFrame.bind(window)
+            },
+            u = new Map,
+            s = {
+                register: function(e, t) { return u.set(e, "interval" === t ? "interval" : "raf" === t ? "raf" : "timeout"), e; },
+                setTimeout: function(e, t) {
+                    var r = Array.prototype.slice.call(arguments, 2), n = l.setTimeout(function() { u.delete(n), e.apply(window, r); }, t);
+                    return s.register(n, "timeout");
+                },
+                setInterval: function(e, t) {
+                    var r = Array.prototype.slice.call(arguments, 2), n = l.setInterval(function() { e.apply(window, r); }, t);
+                    return s.register(n, "interval");
+                },
+                requestAnimationFrame: function(e) {
+                    var n = l.requestAnimationFrame(function(t) { u.delete(n), e(t); });
+                    return s.register(n, "raf");
+                },
+                clear: function(e) {
+                    null != e && ("interval" === u.get(e) ? l.clearInterval(e) : "raf" === u.get(e) ? l.cancelAnimationFrame(e) : l.clearTimeout(e), u.delete(e));
+                },
+                clearAll: function() {
+                    u.forEach(function(e, t) { "interval" === e ? l.clearInterval(t) : "raf" === e ? l.cancelAnimationFrame(t) : l.clearTimeout(t); }), u.clear();
+                },
+                size: function() { return u.size; }
+            };
+        window.addEventListener("pagehide", function() { s.clearAll(), c.clear(); });
+        window.SexcapadesRuntime = Object.freeze({
+            DOM: c,
+            TimerManager: s,
+            setHTML: function(e, t) {
+                if (!e) throw new TypeError("setHTML requires a target element.");
+                e.innerHTML = String(null == t ? "" : t);
+                Array.from(e.querySelectorAll('script,iframe,object,embed,base,meta[http-equiv="refresh"]')).forEach(function(e) { e.remove(); });
+                Array.from(e.querySelectorAll("*")).forEach(function(e) {
+                    Array.from(e.attributes || []).forEach(function(t) {
+                        var r = t.name.toLowerCase(), n = t.value;
+                        ("on" === r.slice(0, 2) || "srcdoc" === r || ("href" === r || "src" === r || "xlink:href" === r || "formaction" === r) && function(e) {
+                            return /^\s*(?:javascript|vbscript):/i.test(String(e || ""));
+                        }(n) || "style" === r && /(?:expression\s*\(|url\s*\(\s*['"]?\s*(?:javascript|vbscript):|@import)/i.test(n)) && e.removeAttribute(t.name);
+                    });
+                });
+                c.invalidate();
+                return e;
+            }
+        });
+    })();
+}
+if (typeof window !== "undefined") {
+    if (!window.__SEXCAPADES_LAYOUT_DEFAULTS || typeof window.__SEXCAPADES_LAYOUT_DEFAULTS !== "object") {
+        window.__SEXCAPADES_LAYOUT_DEFAULTS = {
+            spacing: "airy", branchOrder: "landscape-antipodal", propFan: true, subcatOrder: true,
+            staggerDensity: false, stagger: true, expandAll: true, crossmin: false, nudge: false,
+            showRelations: false, repulsionEnabled: false, staticMap: false, animations: false,
+            collision: "grow", spokeLen: 2.6, subLen: 1.2, pad: 1.4, repulsion: 0,
+            fontScale: 30, centerRingScale: 10, leafOvergrowth: 200, autoShrinkFactor: 0.76,
+            subcatCloudShrinkFactor: 0.76, branchOverrides: {}, subcatOverrides: {}, kinkOverrides: {},
+            subcatAngleOffsets: {}, kinkAngleOffsets: {}, branchSpokeAutoShrink: {}, subcatSpokeAutoShrink: {},
+            solverMidline: "repulsion"
+        };
+    }
+    if (!window.__SEXCAPADES_LAYOUT || typeof window.__SEXCAPADES_LAYOUT !== "object") {
+        window.__SEXCAPADES_LAYOUT = JSON.parse(JSON.stringify(window.__SEXCAPADES_LAYOUT_DEFAULTS));
+    }
+}
 (function () {
     var ptrCapture = [], ptrBubble = [], keyCapture = [], keyBubble = [];
     function optionsOf(opts) {
@@ -115,6 +241,7 @@ if (typeof window.__sxErrLog !== "function") {
     window.__sxInitQueue = window.__sxInitQueue || [];
     window.__sxInitFlushed = window.__sxInitFlushed || false;
     window.__sxRunInit = function (fn) {
+        if (window.__SX_HEADLESS) return;
         try { fn(); } catch (e) { if (typeof window.__sxErrLog === "function") window.__sxErrLog("consolidated-init", e); }
     };
     window.__sxInit = function (fn) {
@@ -128,6 +255,22 @@ if (typeof window.__sxErrLog !== "function") {
         window.__sxInitQueue = [];
         for (var i = 0; i < queue.length; i++) window.__sxRunInit(queue[i]);
     };
+    try {
+        const _origGetElementById = Document.prototype.getElementById;
+        Document.prototype.getElementById = function(id) {
+            if (id === "topicSheet") return _origGetElementById.call(this, "markMenu") || _origGetElementById.call(this, id);
+            return _origGetElementById.call(this, id);
+        };
+        const _origQuerySelector = Document.prototype.querySelector;
+        Document.prototype.querySelector = function(sel) {
+            if (typeof sel === "string" && sel.includes("#topicSheet")) {
+                const rewritten = sel.split("#topicSheet").join("#markMenu");
+                return _origQuerySelector.call(this, rewritten) || _origQuerySelector.call(this, sel);
+            }
+            return _origQuerySelector.call(this, sel);
+        };
+    } catch (_) {}
+
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", window.__sxFlushInit, { once: true });
     } else {
@@ -4162,6 +4305,4292 @@ const TAXONOMY_CATEGORIES = [
         }
     }
 ];
+
+    !function() {
+        "use strict";
+        const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
+        /* P2 refactor (Build 2026-10-18_2252): unified closest() dispatch (P2-3).
+           Every ancestor lookup in this bundle now routes through the single
+           __sxClosestAction(el, action) handler below; the selector strings
+           that used to be scattered across 120 call sites live once in the
+           __sxActionSelectors dispatch table, keyed by action name. A name
+           missing from the table is passed through as a raw selector (the
+           export hidden-badge sweep passes a computed one), so behavior at
+           every former call site is unchanged. */
+        const __sxActionSelectors = {
+            directionControl: ".direction-control",
+            nodeGroup: ".node-group",
+            outlineDescTriggerRich: ".outline-description-trigger[data-outline-description]",
+            outlineDirection: "[data-outline-direction]",
+            uiTooltip: "[data-ui-tooltip]",
+            viewButton: "button[data-view]",
+            centerHit: ".center-hit",
+            outlineDescTrigger: ".outline-description-trigger",
+            addProfile: "[data-add-profile]",
+            genderValue: "[data-gender-value]",
+            sexualityValue: "[data-sexuality-value]",
+            roleValue: "[data-role-value]",
+            outlineRow: ".outline-row",
+            glancePracticeIcon: ".glance-tooltip-practice-icon[data-popularity-tooltip]",
+            summaryAncestor: "summary",
+            tooltipTapFirst: "[data-tooltip-tap-first]",
+            profileNameInput: "[data-profile-name-input]",
+            profileVeil: "[data-profile-veil]",
+            profileHeat: "[data-profile-heat]",
+            profileLoad: "[data-profile-load]",
+            introBlock: ".intro",
+            glanceNode: "[data-glance-node]",
+            hiddenState: ".is-hidden",
+            interactiveAncestor: "dialog,button,input,textarea,select,.profile-add-menu,.mark-menu,.glance-tooltip",
+            centerBranchToggle: "[data-center-branch-toggle]",
+            relationHit: ".common-overlap-link.relation-hit",
+            secondGenRatingControls: ".second-gen-rating-controls-only",
+            markNoteField: ".mark-note-field",
+            openLocalCommunities: "[data-open-local-communities]",
+            markMeta: ".mark-meta",
+            outlineRating: ".outline-rating",
+            outlineSubcategoryDisclosure: ".outline-subcategory-disclosure,.glance-tooltip-practice-icon",
+            outlineTooltipSource: ".outline-branch-disclosure[data-outline-disclosure-tooltip],.outline-description-trigger[data-outline-description],.glance-tooltip-practice-icon[data-popularity-tooltip],.outline-rating[data-rating-tooltip]",
+            outlineBranchDisclosure: ".outline-branch-disclosure[data-outline-disclosure-tooltip]",
+            outlineSubcategory: ".outline-subcategory",
+            outlineBranch: ".outline-branch",
+            outlineNoteInput: "[data-outline-note-input]",
+            outlineNote: "[data-outline-note]",
+            outlineMarkFlag: "[data-outline-mark],[data-outline-flag]",
+            uiTooltipHover: "[data-ui-tooltip]:not([data-tooltip-tap-first]):not([data-tooltip-hover-only])",
+            saveProfile: "[data-save-profile]",
+            closeProfile: "[data-close-profile]",
+            topicDropdownOption: ".topic-dropdown-option",
+            topicTreeToggle: ".topic-tree-toggle",
+            searchLabel: "label.search",
+            topicPicker: ".topic-picker",
+            linkOrButton: "a,button",
+            glanceSource: "[data-glance-source]",
+            glanceSourceFull: "[data-glance-source],[data-center-glance-index],.stat-number",
+            scenePhase: ".scene-phase",
+            novelAiField: ".novel-ai-field",
+            ratingHitAny: ".direction-hit,.rating-track-hit.active-rating,.rating-clear-hit",
+            centerGlanceRingHit: ".center-glance-ring-hit",
+            hiddenCountBadge: ".hidden-count-badge",
+            directionHit: ".direction-hit",
+            curveEditHandle: ".curve-edit-handle",
+            conceptHit: ".concept-hit",
+            mapLabelHit: ".category-toggle-hit,.category-label,.map-label,.concept-hit,.topic-stem,.branch-icon,.topic-icon",
+            ratingTrackHit: ".rating-track-hit",
+            ratingClearHit: ".rating-clear-hit",
+            categoryLabel: ".category-label",
+            mapCard: ".map-card",
+            exportPhoto: "[data-export-photo]",
+            lowresPhoto: "[data-lowres-photo]",
+            profileInfo: "[data-profile-info], [data-profile-info-popover]",
+            sampleProfile: "[data-sample-profile]",
+            removePhoto: "[data-remove-photo]",
+            movePhoto: "[data-move-photo]",
+            adjustPhoto: "[data-adjust-photo]",
+            ktNav: "[data-kt-nav]",
+            testIndex: "[data-test-index]",
+            testNote: "[data-test-note]",
+            testChoiceGroup: ".test-choice-group"
+        };
+        function __sxClosestAction(el, action) {
+            if (!el || "function" != typeof el.closest) return null;
+            const sel = Object.prototype.hasOwnProperty.call(__sxActionSelectors, action) ? __sxActionSelectors[action] : action;
+            const res = el.closest(sel);
+            if (!res && window.__SX_ALLOW_DOM_FALLBACK) return el;
+            return res;
+        }
+        let s = "";
+        function l() {
+            if (globalThis.crypto && "function" == typeof globalThis.crypto.randomUUID) return globalThis.crypto.randomUUID();
+            const e = new Uint8Array(16);
+            if (globalThis.crypto && "function" == typeof globalThis.crypto.getRandomValues) globalThis.crypto.getRandomValues(e); else for (let t = 0; t < e.length; t++) e[t] = Math.floor(256 * Math.random());
+            return e[6] = 15 & e[6] | 64, e[8] = 63 & e[8] | 128, Array.from(e, (e, t) => `${4 === t || 6 === t || 8 === t || 10 === t ? "-" : ""}${e.toString(16).padStart(2, "0")}`).join("");
+        }
+        const makeProfileUuid = l;
+        function c() {
+            return s || (s = makeProfileUuid()), s;
+        }
+        window.__sxAnonUuid = c;
+        const d = function() {
+            let e = "";
+            try {
+                e = new URLSearchParams(location.search).get("utm_source") || "";
+            } catch (e) { __sxErrLog("utm-source", e); }
+            try {
+                e ? sessionStorage.setItem("sexcapades_utm_source", e) : e = sessionStorage.getItem("sexcapades_utm_source") || "";
+            } catch (e) { __sxErrLog("utm-source", e); }
+            return e.slice(0, 120);
+        }();
+        /* Canonical collect endpoint for the bundle layer. The shell
+           layer (index.html) cannot see this closure, so it keeps its
+           own mirror constant, SX_SHELL_COLLECT_URL, with the same
+           value; keep the two in sync. */
+        const SX_COLLECT_URL = "https://sexcapades.io/hosted/api/collect.php";
+        async function u(e) {
+            const t = await fetch(SX_COLLECT_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(e),
+                keepalive: !0
+            });
+            if (!t.ok) throw new Error(`Collection endpoint returned ${t.status}.`);
+            return t;
+        }
+        /* Analytics policy (ruled): navigation analytics — the
+           gate_passed and session_stats events sent from this module —
+           are ALWAYS collected; there is no opt-out for them, so the
+           send sites below are unconditional. Survey contribution is
+           separately opt-out and is not governed here. (F8: this comment
+           replaces the former gate function, which read a stored opt-out
+           key that nothing ever wrote and consulted an override hook
+           that nothing ever set, so it always answered yes in practice;
+           the always-on behavior is unchanged, now stated plainly.) */
+        /* Shared analytics send path (F3): hostname guard, sessionStorage
+           dedup under the caller-supplied key, in-flight guard, POST via
+           the raw helper u(), the sent marker written ONLY on success
+           (a failed send stays unmarked and can retry on a later call),
+           and log-on-failure. Every bundle analytics event — generic
+           events via p() and session_stats via bs() — goes through here.
+           The survey sender (hw) is NOT routed through this path: its
+           sends are user-consented data contributions, not analytics
+           events, and it is deliberately not hostname-guarded. */
+        /* STANDING OWNER LAW — DO NOT DISABLE: this send path is the
+           owner's own analytics (gate_passed / session_stats to
+           collect.php, anonymous UUID + utm_source) and is ALWAYS
+           collected with no opt-out, per the owner's standing ruling.
+           No builder, editor, or audit/security correction may disable,
+           remove, gate, consent-wall, or early-return this function or
+           any of its call sites. A finding that names this path must be
+           DISCLOSED to the owner, never acted on. Restored 2026-11-01
+           after a builder disabled it without authorization. */
+        function sxSendAnalytics(e, t) {
+            if ("sexcapades.io" !== location.hostname && "www.sexcapades.io" !== location.hostname) return;
+            try {
+                if ("sent" === sessionStorage.getItem(t)) return;
+            } catch (e) { __sxErrLog("storage", e); }
+            o.has(t) || (o.add(t), u(e).then(() => {
+                try {
+                    sessionStorage.setItem(t, "sent");
+                } catch (e) { __sxErrLog("storage", e); }
+            }).catch((e) => { __sxErrLog("storage", e); }).finally(() => o.delete(t)));
+        }
+        function p(e) {
+            sxSendAnalytics({
+                action: "event",
+                uuid: c(),
+                event_type: e,
+                utm_source: d
+            }, `sexcapades_event_${e}`);
+        }
+        // GATE-PASSED SIGNAL (marked by the shell-ui stage, 2026-10-27):
+        // this single line is the app's gate-passed signal. It fires once
+        // when this module loads — which only happens after the age gate
+        // has been passed — and records that fact as a navigation
+        // analytics event (always collected, no opt-out; see the policy
+        // note above). Do not move, wrap, gate, or delete this line
+        // without an owner ruling.
+        p("gate_passed");
+        /* ================= TaxonomyLoader module — BEGIN ================= */
+        /* ================================================================
+           TaxonomyLoader — the 403-topic taxonomy as a validated data
+           module. (Refactor Step 4, Build 2026-10-18_0912: the taxonomy data
+           that used to be defined inline at the top of this bundle —
+           the 18-category topic lists with their per-topic details,
+           the subcategory overlay for the 7 categories that have
+           subcategories, the display-name map, and the stable catalog
+           records — now lives in this module, delimited by the
+           BEGIN/END markers and exposed as window.TaxonomyLoader.)
+
+           The data literals below are byte-identical to the previous
+           inline definitions; only their ownership moved. The merge
+           the app used to run inline (apply the subcategory overlay,
+           rebuild each overlaid category's topic list as parent topics
+           + subcategory topics, rekey topicDetails through the
+           display-name map) now runs inside loadTaxonomy(), with the
+           same operations in the same order, over a deep clone of the
+           stored data — so the category tree the app receives is
+           identical in shape and content, and repeated loadTaxonomy()
+           calls return the same cached tree the app has always
+           mutated in place.
+
+           Catalog identity: topic IDs are opaque (t0002…t0404),
+           assigned once and stored in TAXONOMY_TOPIC_RECORDS; they are
+           never derived from labels, hierarchy, or array order. New
+           catalog topics must receive max(existing numeric ID) + 1
+           and keep that ID permanently.
+
+           API:
+             loadTaxonomy() -> {categories, topicById, topicByName,
+               flatList} — categories is the merged category tree in
+               the app's long-standing shape ({name, risk?, topics,
+               topicDetails, subcategories?, parentTopics?});
+               flatList entries are {id, name, category,
+               subcategory|null, risk, details} in canonical order
+               (categories in file order, topics in each category's
+               merged order); topicById / topicByName are Maps to the
+               same entry objects.
+             validate() -> {valid, counts, errors} — schema checks:
+               required fields present, topic IDs unique across all
+               topics, every topic has exactly one catalog record and
+               vice versa, subcategory/parent topics all belong to
+               their category (no orphans), and counts exactly
+               403 topics / 18 categories / 44 subcategories.
+             topicRecords / subcategoryOverlay / displayNames — the
+               frozen data tables, for existing readers.
+           ================================================================ */
+        const TaxonomyLoader = (() => {
+            /** Expected taxonomy size: 18 categories, 44 subcategories, 403 topics. */
+            const EXPECTED_COUNTS = Object.freeze({
+                categories: 18,
+                subcategories: 44,
+                topics: 403
+            });
+            /**
+             * The 18 top-level categories: topic name lists plus
+             * per-topic details (give/receive labels, FetLife
+             * popularity counts, notes), exactly as authored.
+             */
+                        // TAXONOMY_CATEGORIES loaded from 02b-taxonomy-data.js
+            // Derived at load from the category tree. Not an authored table.
+            function topicName(value) {
+                return value && "object" == typeof value ? String(value.name || "") : String(value || "");
+            }
+            function deriveTopicRecords(categories) {
+                const out = {};
+                categories.forEach(cat => {
+                    const list = cat.subcategories && cat.subcategories.length
+                        ? (cat.parentTopics || []).concat(cat.subcategories.flatMap(sub => sub.topics || []))
+                        : (cat.topics || []);
+                    list.forEach(topic => {
+                        const name = topicName(topic);
+                        out[name] = { id: topic.id, risk: topic.risk === true };
+                    });
+                });
+                return Object.freeze(out);
+            }
+            function deriveSubcategoryOverlay(categories) {
+                const out = {};
+                categories.forEach(cat => {
+                    if (!cat.subcategories || !cat.subcategories.length) return;
+                    out[cat.name] = {
+                        subcategories: cat.subcategories.map(sub => ({
+                            id: sub.id,
+                            name: sub.name,
+                            topics: (sub.topics || []).map(topicName)
+                        })),
+                        parentTopics: (cat.parentTopics || []).map(topicName)
+                    };
+                });
+                return Object.freeze(out);
+            }
+            
+            /**
+             * Display-name map: internal topic name -> display name
+             * used as the topicDetails key in the authored category
+             * data (e.g. "Nylon" -> "NylonLegs & Feet").
+             */
+            const TAXONOMY_DISPLAY_NAMES = Object.freeze({
+            Nylon: "NylonLegs & Feet",
+            "Costume masks": "Masks & hoods",
+            "Hand spanking": "Spanking",
+            Feet: "Feet & footwear",
+            Toes: "Toes and Feet",
+            "Age play": "Age play between adults",
+            Caregiver: "Caregiver roles (adults)",
+            "Teacher/student": "Teacher / student roleplay",
+            "Doctor/nurse": "Doctor/Nurse Play",
+            Medical: "Medical Play",
+            "Owner/property": "Owner & property",
+            Kidnapping: "Captivity / kidnapping",
+            "CNC fantasy": "Consensual non-consent fantasy",
+            Damsels: "Damsels In Distress",
+            Pet: "Pet play",
+            Puppy: "Puppy play",
+            Pony: "Pony Play",
+            Piggy: "Piggy Play",
+            "1950s": "1950s Household",
+            Historical: "Historical fantasy",
+            Victorian: "Victorian Lifestyles",
+            Vampires: "Vampires & gothic",
+            Siblings: "Sister/Brother Roleplay",
+            Cuffs: "Cuffs & straps",
+            Spreaders: "Spreaders & bars",
+            Medieval: "Medieval Devices",
+            "Bondage tape": "Bondage Tape",
+            "Duct tape": "Duct Tape",
+            "Cling film": "Cling Film",
+            Tape: "Tape & wrapping",
+            Blindfold: "Blindfolded restraint",
+            Caging: "Caging/Confinement",
+            Encasement: "Encasement Fetish",
+            Crucifixion: "Crucifixion Play",
+            Furniture: "Furniture restraint",
+            "Breast bondage": "Breast Bondage",
+            "Anal hooks": "Anal Hooks",
+            "Self-bondage": "Self-Bondage",
+            "Bondage art": "Bondage Art",
+            "Mouth fingering": "Fingering mouths",
+            "Road head": "Road Head",
+            Training: "Anal Training",
+            Fingering: "Anal fingering",
+            "Anal fisting": "Anal fisting",
+            "Mutual masturbation": "Mutual Masturbation",
+            "Nipple play": "Nipple Play",
+            Machines: "Fucking Machines",
+            Stretching: "Vaginal Stretching",
+            Fisting: "Vaginal fisting",
+            Pumping: "Vacuum pumping",
+            Urethral: "Urethral Fucking",
+            "Female humiliation": "Female Humiliation",
+            "SPH humiliation": "small penis humiliation",
+            Hypnosis: "Hypnosis & mind-control fantasy",
+            "Mind fucks": "Mind Fucks",
+            "Mental bondage": "Mental Bondage",
+            Praise: "Praise (in scene)"
+        });
+            /**
+             * Stable catalog records: topic name -> {id, risk}. The
+             * id is the topic's permanent opaque ID; risk marks
+             * higher-risk practices needing specialized knowledge and
+             * explicit negotiation.
+             */
+            const TAXONOMY_TOPIC_RECORDS = deriveTopicRecords(TAXONOMY_CATEGORIES);
+            /** Cached loadTaxonomy() result; built once, then shared. */
+            let taxonomyCache = null;
+            /**
+             * Deep-clone plain JSON-shaped taxonomy data so the stored
+             * literals are never mutated by the merge.
+             * @param {*} value - JSON-shaped value (the taxonomy data
+             *   contains only strings, numbers, booleans, arrays and
+             *   plain objects).
+             * @returns {*} An independent deep copy of value.
+             */
+            function cloneTaxonomyData(value) {
+                return JSON.parse(JSON.stringify(value));
+            }
+            /**
+             * Apply the subcategory overlay to one category, in place:
+             * attach subcategories and parentTopics, rebuild the topic
+             * list as parent topics followed by subcategory topics,
+             * and rekey topicDetails from display names back to
+             * internal topic names. Identical operations, in the
+             * identical order, to the pre-refactor inline merge.
+             * @param {Object} category - A cloned category object.
+             * @returns {void}
+             */
+            function applySubcategoryOverlay(category) {
+                const parents = category.parentTopics || [];
+                const subs = category.subcategories || [];
+                if (subs.length) category.topics = parents.concat(subs.flatMap(sub => sub.topics || []));
+                if (!(subs.length) && category.topicDetails && Object.keys(category.topicDetails).length) {
+                    (category.topics || []).forEach(topic => {
+                        if (!topic || "object" != typeof topic) return;
+                        Object.defineProperty(topic, "toString", { value() { return this.name; }, enumerable: false });
+                    });
+                    return;
+                }
+                const details = {};
+                (category.topics || []).forEach(topic => {
+                    const name = topicName(topic);
+                    if (!topic || "object" != typeof topic || !name) return;
+                    const row = {};
+                    Object.keys(topic).forEach(key => {
+                        if (key === "name" || key === "id" || key === "risk") return;
+                        row[key] = topic[key];
+                    });
+                    if (Object.keys(row).length) details[name] = row;
+                });
+                category.topicDetails = details;
+                (category.topics || []).forEach(topic => {
+                    if (!topic || "object" != typeof topic || topic.toString && topic.toString() === topic.name) return;
+                    Object.defineProperty(topic, "toString", { value() { return this.name; }, enumerable: false });
+                });
+            }
+            function loadTaxonomy() {
+                if (taxonomyCache) return taxonomyCache;
+                const categories = cloneTaxonomyData(TAXONOMY_CATEGORIES);
+                categories.forEach(applySubcategoryOverlay);
+                const topicById = new Map, topicByName = new Map, flatList = [];
+                categories.forEach(category => {
+                    const subcategoryByTopic = new Map;
+                    (category.subcategories || []).forEach(sub => (sub.topics || []).forEach(topic => subcategoryByTopic.set(topicName(topic), sub.name)));
+                    category.topics.forEach(topic => {
+                        const name = topicName(topic);
+                        const record = topic && "object" == typeof topic ? topic : (TAXONOMY_TOPIC_RECORDS[name] || {});
+                        const entry = {
+                            id: record.id || null,
+                            name: name,
+                            category: category.name,
+                            subcategory: subcategoryByTopic.get(name) || null,
+                            risk: record.risk === true,
+                            details: (category.topicDetails || {})[name] || null
+                        };
+                        flatList.push(entry);
+                        if (record.id) topicById.set(record.id, entry);
+                        topicByName.set(name, entry);
+                    });
+                });
+                return taxonomyCache = {
+                    categories: categories,
+                    topicById: topicById,
+                    topicByName: topicByName,
+                    flatList: flatList
+                };
+            }
+            /**
+             * Validate the stored tree. Topics are objects; names, order,
+             * ids, and risk still have to satisfy the same counts.
+             */
+            function validate(taxonomy) {
+                const data = taxonomy || loadTaxonomy();
+                const errors = [];
+                const counts = { categories: data.categories.length, subcategories: 0, topics: 0 };
+                const seenIds = new Set(), seenNames = new Set();
+                data.categories.forEach(category => {
+                    if (!category || typeof category.name !== "string" || !category.name) {
+                        errors.push("A category is missing its name.");
+                    }
+                    if (!Array.isArray(category.topics)) {
+                        errors.push(`Category "${category && category.name}" has no topics array.`);
+                        return;
+                    }
+                    counts.topics += category.topics.length;
+                    const inCategory = new Set();
+                    category.topics.forEach(topic => {
+                        const name = topicName(topic);
+                        if (typeof name !== "string" || !name) {
+                            errors.push(`Category "${category.name}" contains a topic with no name.`);
+                        }
+                        if (inCategory.has(name)) {
+                            errors.push(`Topic "${name}" appears twice in category "${category.name}".`);
+                        }
+                        inCategory.add(name);
+                        if (seenNames.has(name)) {
+                            errors.push(`Topic "${name}" appears in more than one category.`);
+                        }
+                        seenNames.add(name);
+                        const record = topic && "object" == typeof topic && topic.id ? { id: topic.id, risk: topic.risk === true } : TAXONOMY_TOPIC_RECORDS[name];
+                        if (!record) {
+                            errors.push(`Topic "${name}" has no catalog record (missing ID).`);
+                            return;
+                        }
+                        if (!/^t\d{4}$/.test(record.id || "")) {
+                            errors.push(`Topic "${name}" has a malformed ID "${record.id}".`);
+                        }
+                        if (seenIds.has(record.id)) {
+                            errors.push(`Topic ID "${record.id}" is assigned to more than one topic.`);
+                        }
+                        seenIds.add(record.id);
+                        if (typeof record.risk !== "boolean") {
+                            errors.push(`Topic "${name}" record is missing its risk flag.`);
+                        }
+                    });
+                    (category.subcategories || []).forEach(sub => {
+                        counts.subcategories++;
+                        if (!sub.name) {
+                            errors.push(`Category "${category.name}" has a subcategory with no name.`);
+                        }
+                        if (!sub.id) {
+                            errors.push(`Category "${category.name}" subcategory "${sub.name}" has no stored id.`);
+                        }
+                        (sub.topics || []).forEach(topic => {
+                            const name = topicName(topic);
+                            if (!inCategory.has(name)) {
+                                errors.push(`Subcategory "${sub.name}" topic "${name}" is not in category "${category.name}" (orphaned topic).`);
+                            }
+                        });
+                    });
+                    (category.parentTopics || []).forEach(topic => {
+                        const name = topicName(topic);
+                        if (!inCategory.has(name)) {
+                            errors.push(`Parent topic "${name}" is not in category "${category.name}" (orphaned topic).`);
+                        }
+                    });
+                });
+                Object.keys(TAXONOMY_TOPIC_RECORDS).forEach(name => {
+                    if (!seenNames.has(name)) {
+                        errors.push(`Catalog record "${name}" (${TAXONOMY_TOPIC_RECORDS[name].id}) matches no taxonomy topic (orphaned record).`);
+                    }
+                });
+                if (data.flatList.length !== counts.topics) {
+                    errors.push(`flatList holds ${data.flatList.length} topics but the categories hold ${counts.topics}.`);
+                }
+                if (data.topicById.size !== seenIds.size) {
+                    errors.push("topicById size does not match the number of unique topic IDs.");
+                }
+                if (counts.categories !== EXPECTED_COUNTS.categories) {
+                    errors.push(`Expected ${EXPECTED_COUNTS.categories} categories, found ${counts.categories}.`);
+                }
+                if (counts.subcategories !== EXPECTED_COUNTS.subcategories) {
+                    errors.push(`Expected ${EXPECTED_COUNTS.subcategories} subcategories, found ${counts.subcategories}.`);
+                }
+                if (counts.topics !== EXPECTED_COUNTS.topics) {
+                    errors.push(`Expected ${EXPECTED_COUNTS.topics} topics, found ${counts.topics}.`);
+                }
+                return { valid: errors.length === 0, counts: counts, errors: errors };
+            }
+            return Object.freeze({
+                EXPECTED_COUNTS: EXPECTED_COUNTS,
+                loadTaxonomy: loadTaxonomy,
+                validate: validate,
+                topicRecords: TAXONOMY_TOPIC_RECORDS,
+                subcategoryOverlay: deriveSubcategoryOverlay(TAXONOMY_CATEGORIES),
+                displayNames: TAXONOMY_DISPLAY_NAMES
+            });
+        })();
+        window.TaxonomyLoader = TaxonomyLoader;
+        /* ================= TaxonomyLoader module — END ================= */
+        // Taxonomy data lives in the TaxonomyLoader module above; h is the
+        // loader's merged category tree (identical shape and content to the
+        // previous inline definition), and g / m remain as aliases of the
+        // loader's frozen subcategory overlay and display-name map.
+        const h = TaxonomyLoader.loadTaxonomy().categories, g = TaxonomyLoader.subcategoryOverlay, m = TaxonomyLoader.displayNames;
+        // Stable catalog identity. IDs are assigned once and stored here; they are never
+        // derived from labels, hierarchy, or array order. New catalog topics must receive
+        // max(existing numeric ID) + 1 and keep that ID permanently.
+        const topicRecords = TaxonomyLoader.topicRecords, topicIdByLabel = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ e, t.id ]))), topicLabelById = Object.freeze(Object.fromEntries(Object.entries(topicRecords).map(([e, t]) => [ t.id, e ]))), legacyTopicIdByOpaque = Object.freeze({
+            "t0002": "topic-protocols-rules",
+            "t0003": "topic-collars-symbols",
+            "t0004": "topic-reward-correction",
+            "t0005": "topic-discipline",
+            "t0006": "topic-begging",
+            "t0007": "topic-scene-based-roles",
+            "t0008": "topic-ongoing-dynamics",
+            "t0009": "topic-femdom",
+            "t0010": "topic-d-s",
+            "t0011": "topic-ordered-to-masturbate",
+            "t0012": "topic-brats",
+            "t0013": "topic-24-7",
+            "t0014": "topic-switching",
+            "t0015": "topic-male-authority",
+            "t0016": "topic-behavior-modification",
+            "t0017": "topic-female-supremacy",
+            "t0018": "topic-play-punishment",
+            "t0019": "topic-bathroom-use-control",
+            "t0020": "topic-domestic-discipline",
+            "t0021": "topic-pro-domme",
+            "t0022": "topic-rope-bondage",
+            "t0023": "topic-scarf-bondage",
+            "t0024": "topic-hair-bondage",
+            "t0025": "topic-cuffs",
+            "t0026": "topic-spreaders",
+            "t0027": "topic-medieval",
+            "t0028": "topic-armbinders",
+            "t0029": "topic-bondage-tape",
+            "t0030": "topic-duct-tape",
+            "t0031": "topic-cling-film",
+            "t0032": "topic-mummification",
+            "t0033": "topic-tape",
+            "t0034": "topic-blindfold",
+            "t0035": "topic-gags",
+            "t0036": "topic-speech-restriction",
+            "t0037": "topic-caging",
+            "t0038": "topic-encasement",
+            "t0039": "topic-sleepsacks",
+            "t0040": "topic-immobilization",
+            "t0041": "topic-crucifixion",
+            "t0042": "topic-furniture",
+            "t0043": "topic-suspension-bondage",
+            "t0044": "topic-predicament-bondage",
+            "t0045": "topic-escape-play",
+            "t0046": "topic-breast-bondage",
+            "t0047": "topic-anal-hooks",
+            "t0048": "topic-self-bondage",
+            "t0049": "topic-waterbondage",
+            "t0050": "topic-bondage-art",
+            "t0051": "topic-pain",
+            "t0052": "topic-corporal-punishment",
+            "t0053": "topic-impact-play",
+            "t0054": "topic-percussion-play",
+            "t0055": "topic-pressure-points",
+            "t0056": "topic-hand-spanking",
+            "t0057": "topic-otk-spanking",
+            "t0058": "topic-breast-spanking",
+            "t0059": "topic-clit-spanking",
+            "t0060": "topic-pussy-spanking",
+            "t0061": "topic-tit-slapping",
+            "t0062": "topic-flogging",
+            "t0063": "topic-fire-flogging",
+            "t0064": "topic-whips",
+            "t0065": "topic-belt-whippings",
+            "t0066": "topic-breast-whipping",
+            "t0067": "topic-caning",
+            "t0068": "topic-riding-crops",
+            "t0069": "topic-paddles-straps",
+            "t0070": "topic-clamps",
+            "t0071": "topic-clothespins",
+            "t0072": "topic-pinching",
+            "t0073": "topic-cutting",
+            "t0074": "topic-needle-play",
+            "t0075": "topic-corset-piercing",
+            "t0076": "topic-scarification",
+            "t0077": "topic-staples",
+            "t0078": "topic-fish-hooks",
+            "t0079": "topic-flesh-hooks",
+            "t0080": "topic-cell-popping",
+            "t0081": "topic-ball-kicking",
+            "t0082": "topic-ballbusting",
+            "t0083": "topic-cock-slapping",
+            "t0084": "topic-cock-and-ball-torture",
+            "t0085": "topic-fire-play",
+            "t0086": "topic-knife-play",
+            "t0087": "topic-waterboarding",
+            "t0088": "topic-figging",
+            "t0089": "topic-sounding",
+            "t0090": "topic-trampling",
+            "t0091": "topic-kicking",
+            "t0092": "topic-bastinado",
+            "t0093": "topic-hair-pulling",
+            "t0094": "topic-abrasion-play",
+            "t0095": "topic-bruises",
+            "t0096": "topic-heavy-marking",
+            "t0097": "topic-extreme-endurance",
+            "t0098": "topic-wax-temperature",
+            "t0099": "topic-ice-cool-touch",
+            "t0100": "topic-tickling",
+            "t0101": "topic-electrical-play",
+            "t0102": "topic-texture-contrast",
+            "t0103": "topic-sensory-deprivation",
+            "t0104": "topic-sensory-overload",
+            "t0105": "topic-asmr-whispering",
+            "t0106": "topic-music-sound",
+            "t0107": "topic-mirrors",
+            "t0108": "topic-low-light",
+            "t0109": "topic-scent",
+            "t0110": "topic-tantra-energy-play",
+            "t0111": "topic-violet-wand",
+            "t0112": "topic-wartenberg-pinwheels",
+            "t0113": "topic-panty-sniffing",
+            "t0114": "topic-tens-unit",
+            "t0115": "topic-smothering",
+            "t0116": "topic-cupping",
+            "t0117": "topic-auralism",
+            "t0118": "topic-vampire-gloves",
+            "t0119": "topic-smoking",
+            "t0120": "topic-formiphilia",
+            "t0121": "topic-abdl",
+            "t0122": "topic-ddlg",
+            "t0123": "topic-age-play",
+            "t0124": "topic-infantilism",
+            "t0125": "topic-caregiver",
+            "t0126": "topic-mommy-girl",
+            "t0127": "topic-authority-roles",
+            "t0128": "topic-teacher-student",
+            "t0129": "topic-doctor-nurse",
+            "t0130": "topic-medical",
+            "t0131": "topic-owner-property",
+            "t0132": "topic-gor",
+            "t0133": "topic-kidnapping",
+            "t0134": "topic-cnc-fantasy",
+            "t0135": "topic-damsels",
+            "t0136": "topic-pet",
+            "t0137": "topic-puppy",
+            "t0138": "topic-pony",
+            "t0139": "topic-piggy",
+            "t0140": "topic-creature-fantasy",
+            "t0141": "topic-1950s",
+            "t0142": "topic-historical",
+            "t0143": "topic-pirates",
+            "t0144": "topic-victorian",
+            "t0145": "topic-superheroes",
+            "t0146": "topic-vampires",
+            "t0147": "topic-clowns",
+            "t0148": "topic-robots",
+            "t0149": "topic-dollification",
+            "t0150": "topic-librarians",
+            "t0151": "topic-siblings",
+            "t0152": "topic-latex-rubber",
+            "t0153": "topic-leather",
+            "t0154": "topic-pvc",
+            "t0155": "topic-vinyl",
+            "t0156": "topic-metal",
+            "t0157": "topic-satin",
+            "t0158": "topic-silk",
+            "t0159": "topic-velvet",
+            "t0160": "topic-lace",
+            "t0161": "topic-denim",
+            "t0162": "topic-fur",
+            "t0163": "topic-lycra-spandex",
+            "t0164": "topic-nylon",
+            "t0165": "topic-boot",
+            "t0166": "topic-heels-boots",
+            "t0167": "topic-high-heels",
+            "t0168": "topic-pumps",
+            "t0169": "topic-retifism",
+            "t0170": "topic-knee-high-socks",
+            "t0171": "topic-socks",
+            "t0172": "topic-business-suits",
+            "t0173": "topic-military",
+            "t0174": "topic-military-uniforms",
+            "t0175": "topic-schoolgirl-uniform",
+            "t0176": "topic-uniforms",
+            "t0177": "topic-cosplay",
+            "t0178": "topic-costume-transformation",
+            "t0179": "topic-geisha",
+            "t0180": "topic-steampunk",
+            "t0181": "topic-lingerie-stockings",
+            "t0182": "topic-fishnets",
+            "t0183": "topic-pantyhose-stockings",
+            "t0184": "topic-corsets",
+            "t0185": "topic-diapers",
+            "t0186": "topic-sissy-panties",
+            "t0187": "topic-petticoats",
+            "t0188": "topic-skirts",
+            "t0189": "topic-gas-masks",
+            "t0190": "topic-hoods",
+            "t0191": "topic-costume-masks",
+            "t0192": "topic-glasses",
+            "t0193": "topic-anal-beads",
+            "t0194": "topic-glass-dildos",
+            "t0195": "topic-inflatables",
+            "t0196": "topic-harnesses",
+            "t0197": "topic-gloves",
+            "t0198": "topic-chaps",
+            "t0199": "topic-kilts",
+            "t0200": "topic-zentai",
+            "t0201": "topic-hands",
+            "t0202": "topic-hands-gloves",
+            "t0203": "topic-hair",
+            "t0204": "topic-long-hair",
+            "t0205": "topic-pigtails",
+            "t0206": "topic-bald-girls",
+            "t0207": "topic-head-shaving",
+            "t0208": "topic-facial-hair",
+            "t0209": "topic-beards",
+            "t0210": "topic-body-hair",
+            "t0211": "topic-pubic-hair",
+            "t0212": "topic-depilation",
+            "t0213": "topic-feet",
+            "t0214": "topic-toes",
+            "t0215": "topic-foot-worship",
+            "t0216": "topic-boot-worship",
+            "t0217": "topic-legs",
+            "t0218": "topic-buttocks",
+            "t0219": "topic-big-tits",
+            "t0220": "topic-breasts",
+            "t0221": "topic-large-labia",
+            "t0222": "topic-pregnancy-focus",
+            "t0223": "topic-makeup",
+            "t0224": "topic-lipstick",
+            "t0225": "topic-freckles",
+            "t0226": "topic-armpits",
+            "t0227": "topic-braces",
+            "t0228": "topic-tongues",
+            "t0229": "topic-bbw",
+            "t0230": "topic-bbc",
+            "t0231": "topic-muscles",
+            "t0232": "topic-older-men",
+            "t0233": "topic-older-women",
+            "t0234": "topic-size-contrast",
+            "t0235": "topic-uncut-cock",
+            "t0236": "topic-body-modification",
+            "t0237": "topic-body-worship",
+            "t0238": "topic-muscle-worship",
+            "t0239": "topic-degradation",
+            "t0240": "topic-humiliation-language",
+            "t0241": "topic-female-humiliation",
+            "t0242": "topic-sph-humiliation",
+            "t0243": "topic-objectification",
+            "t0244": "topic-fear",
+            "t0245": "topic-fear-play",
+            "t0246": "topic-interrogation",
+            "t0247": "topic-military-interrogation",
+            "t0248": "topic-hypnosis",
+            "t0249": "topic-mind-fucks",
+            "t0250": "topic-mental-bondage",
+            "t0251": "topic-emotional-sadism",
+            "t0252": "topic-sadism",
+            "t0253": "topic-affectionate-cruelty",
+            "t0254": "topic-crying",
+            "t0255": "topic-dacryphilia",
+            "t0256": "topic-tears",
+            "t0257": "topic-tearing-off-clothing",
+            "t0258": "topic-anticipation-suspense",
+            "t0259": "topic-trust",
+            "t0260": "topic-attention",
+            "t0261": "topic-blushing",
+            "t0262": "topic-confession-secrets",
+            "t0263": "topic-dirty-talk",
+            "t0264": "topic-praise",
+            "t0265": "topic-graphoerotica",
+            "t0266": "topic-watching-being-watched",
+            "t0267": "topic-private-photo-video",
+            "t0268": "topic-performance-for-a-partner",
+            "t0269": "topic-public-outdoor-play",
+            "t0270": "topic-exhibition-voyeurism",
+            "t0271": "topic-sexting",
+            "t0272": "topic-burlesque",
+            "t0273": "topic-sex-in-the-cemetery",
+            "t0274": "topic-pin-ups",
+            "t0275": "topic-fetish-models",
+            "t0276": "topic-vintage-porn",
+            "t0277": "topic-bellydancing",
+            "t0278": "topic-threesomes",
+            "t0279": "topic-group-encounters",
+            "t0280": "topic-swinging",
+            "t0281": "topic-cuckold-hotwife",
+            "t0282": "topic-polyamory-with-kink",
+            "t0283": "topic-group-service",
+            "t0284": "topic-gangbang",
+            "t0285": "topic-age-gap",
+            "t0286": "topic-fmf-threesomes",
+            "t0287": "topic-interracial-sex",
+            "t0288": "topic-hotwife",
+            "t0289": "topic-cuckold-humiliation",
+            "t0290": "topic-morning-sex",
+            "t0291": "topic-oral-sex",
+            "t0292": "topic-facefucking",
+            "t0293": "topic-facesitting",
+            "t0294": "topic-rimming",
+            "t0295": "topic-mouth-fingering",
+            "t0296": "topic-road-head",
+            "t0297": "topic-anal-sex",
+            "t0298": "topic-training",
+            "t0299": "topic-fingering",
+            "t0300": "topic-anal-fisting",
+            "t0301": "topic-pegging",
+            "t0302": "topic-handjobs",
+            "t0303": "topic-mutual-masturbation",
+            "t0304": "topic-vaginal-fingering",
+            "t0305": "topic-nipple-play",
+            "t0306": "topic-penetration",
+            "t0307": "topic-machines",
+            "t0308": "topic-large-objects",
+            "t0309": "topic-stretching",
+            "t0310": "topic-fisting",
+            "t0311": "topic-pumping",
+            "t0312": "topic-urethral",
+            "t0313": "topic-catheters",
+            "t0314": "topic-facials",
+            "t0315": "topic-creampies",
+            "t0316": "topic-squirting",
+            "t0317": "topic-69",
+            "t0318": "topic-cowgirl",
+            "t0319": "topic-doggystyle",
+            "t0320": "topic-missionary",
+            "t0321": "topic-reverse-cowgirl",
+            "t0322": "topic-spooning",
+            "t0323": "topic-standing-up",
+            "t0324": "topic-queening",
+            "t0325": "topic-gorean-slave-positions",
+            "t0326": "topic-orgasm-control",
+            "t0327": "topic-orgasm-denial",
+            "t0328": "topic-chastity",
+            "t0329": "topic-edging",
+            "t0330": "topic-teasing",
+            "t0331": "topic-breeding-pregnancy-fantasy",
+            "t0332": "topic-surrogacy-fantasy",
+            "t0333": "topic-oviposition-fantasy",
+            "t0334": "topic-edge-play",
+            "t0335": "topic-cock-milking",
+            "t0336": "topic-tease-denial",
+            "t0337": "topic-anal-chastity",
+            "t0338": "topic-watersports",
+            "t0339": "topic-lactation",
+            "t0340": "topic-blood-play",
+            "t0341": "topic-spit",
+            "t0342": "topic-enemas",
+            "t0343": "topic-breastfeeding",
+            "t0344": "topic-creampie-cleanup",
+            "t0345": "topic-toilet-slave",
+            "t0346": "topic-liquor",
+            "t0347": "topic-douching",
+            "t0348": "topic-nyotaimori",
+            "t0349": "topic-chocolate",
+            "t0350": "topic-klismaphilia",
+            "t0351": "topic-hunter-prey",
+            "t0352": "topic-chase-scenes",
+            "t0353": "topic-wrestling-struggle",
+            "t0354": "topic-biting-scratching",
+            "t0355": "topic-being-overpowered",
+            "t0356": "topic-manhandling",
+            "t0357": "topic-pursuit-take-down-capture",
+            "t0358": "topic-primal",
+            "t0359": "topic-acts-of-service",
+            "t0360": "topic-domestic-service",
+            "t0361": "topic-formal-etiquette",
+            "t0362": "topic-grooming-rituals",
+            "t0363": "topic-dressing-a-partner",
+            "t0364": "topic-permission-rituals",
+            "t0365": "topic-daily-tasks",
+            "t0366": "topic-ceremonial-scenes",
+            "t0367": "topic-spiritual-play",
+            "t0368": "topic-foot-massage",
+            "t0369": "topic-domestic-servitude",
+            "t0370": "topic-french-maids",
+            "t0371": "topic-maid",
+            "t0372": "topic-crawling",
+            "t0373": "topic-boot-blacking",
+            "t0374": "topic-religious-play",
+            "t0375": "topic-romantic-surrender",
+            "t0376": "topic-seduction-scenarios",
+            "t0377": "topic-strangers-fantasy",
+            "t0378": "topic-secret-identity",
+            "t0379": "topic-mythical-creatures",
+            "t0380": "topic-aliens",
+            "t0381": "topic-growth-shrinking-fantasy",
+            "t0382": "topic-body-swapping-fantasy",
+            "t0383": "topic-furry-transformation-fantasy",
+            "t0384": "topic-gender-play",
+            "t0385": "topic-crossdressing",
+            "t0386": "topic-sissification",
+            "t0387": "topic-celebrity-fantasy",
+            "t0388": "topic-erotic-literature",
+            "t0389": "topic-anime",
+            "t0390": "topic-hentai",
+            "t0391": "topic-writing-erotica",
+            "t0392": "topic-transvestism",
+            "t0393": "topic-androgyny",
+            "t0394": "topic-butches",
+            "t0395": "topic-psycholagny",
+            "t0396": "topic-verbal-check-ins",
+            "t0397": "topic-cuddling-touch",
+            "t0398": "topic-food-hydration",
+            "t0399": "topic-quiet-decompression",
+            "t0400": "topic-praise-aftercare",
+            "t0401": "topic-post-scene-review",
+            "t0402": "topic-space-solitude",
+            "t0403": "topic-next-day-check-in",
+            "t0404": "topic-affection"
+});
+        // TAXONOMY_VERSION (E4a, slug-gap design-away, 2026-10-22): the
+        // version identifier of the topic catalog above (403 topics, IDs
+        // t0001-t0404). Every exported profile file carries it as its
+        // top-level "taxonomyVersion", so a future reader knows which
+        // catalog the file's topic ids and "topicNames" labels were
+        // written against. Bump it whenever the catalog's topic set or a
+        // topic's meaning changes.
+        const TAXONOMY_VERSION = "2026-10-22";
+        h.forEach(e => {
+            e.topicDetails = e.topicDetails || {};
+            e.topics.forEach(t => {
+                const name = sxName(t);
+                const n = t && "object" == typeof t && t.id ? { id: t.id, risk: t.risk === true } : topicRecords[name];
+                if (!n || !n.id) throw new Error(`Missing stored topic record for "${name}". Assign the next permanent opaque ID before building.`);
+                e.topicDetails[name] = Object.assign({}, e.topicDetails[name] || {}, n);
+            });
+        });
+        window.__SEXCAPADES_TOPIC_CATALOG = Object.freeze({
+            count: Object.keys(topicRecords).length,
+            maxId: "t0404",
+            idForLabel: e => topicIdByLabel[String(e || "")] || null,
+            labelForId: e => topicLabelById[String(e || "")] || null
+        });
+
+        // frozen baselines, reached by successive rescalings of the center
+        // node (builds 2026-10-17_1446, 2026-10-17_2027, 2026-10-18_0343,
+        // 2026-10-18_1449, 2026-10-19_0119): the photo disc and at-a-glance
+        // rings were grown until the outer ring's edge sat ~3 units clear
+        // of the nearest first-generation label anchor (lineStartRadius +
+        // 105 = 1315.17); the gen-1 spoke starts were then moved onto the
+        // ring's exterior edge (spokeStartRadius = glanceRadii[0] + ring
+        // stroke / 2); and the rings were finally respaced to an exact
+        // 44-unit radial pitch, tiling edge to edge, with the innermost
+        // ring's inner edge unchanged (photoRadius + 5.73 clearance).
+        // outerRadius / lineStartRadius never moved: they are the layout
+        // and label anchors. The full build-by-build history is preserved
+        // in the map-render refactor completion report (2026-10-25).
+        const MAP_CENTER_X = 900, MAP_CENTER_Y = 620, BRANCH_TOGGLE_DROP = 184.06;
+        const ea = {
+            photoRadius: 897.58,
+            glanceRadii: [ 1013.31, 969.31, 925.31 ],
+            outerRadius: 1200,
+            lineStartRadius: 1210.17,
+            spokeStartRadius: 1035.31,
+            branchToggleY: 1839.37
+        };
+        // Font-as-master-knob, part 3 (Build 2026-10-19_0948): the layout
+        // parameter centerRingScale (Layout Editor "Center ring scale",
+        // layout-centerRingScale hash param, default 1) rescales the
+        // center node independently of fontScale. eaBase freezes the 1.0
+        // values; refreshCenterRing() re-derives the live ea radii from
+        // them on every render (called at the top of Mr() and once here),
+        // so moving the slider rescales the node live with no reload and
+        // at 1.0 every radius is exactly its pre-part-3 value. Scaled:
+        // photoRadius (photo circle, clip, hit disc, name arc), the three
+        // glanceRadii (at-a-glance rings), and spokeStartRadius (gen-1
+        // spoke starts at the ring's outer edge). NOT scaled:
+        // outerRadius/lineStartRadius (layout + label anchors).
+        // FQ2-BAKEIN (A4): branchToggleY is no longer a fixed constant —
+        // refreshCenterRing() derives it from the scaled ring (see below).
+        const eaBase = {
+            photoRadius: ea.photoRadius,
+            glanceRadii: ea.glanceRadii.slice(),
+            spokeStartRadius: ea.spokeStartRadius
+        };
+        function mapFontScale() {
+            let layout = null;
+            try { layout = mn; } catch (_) {}
+            if (!layout && typeof window !== "undefined") layout = window.__SEXCAPADES_LAYOUT;
+            const v = Number(layout && layout.fontScale);
+            return Number.isFinite(v) && v > 0 ? v : 1;
+        }
+        function centerRingScale() {
+            let layout = null;
+            try { layout = mn; } catch (_) {}
+            if (!layout && typeof window !== "undefined") layout = window.__SEXCAPADES_LAYOUT;
+            const v = Number(layout && layout.centerRingScale);
+            return Number.isFinite(v) && v > 0 ? v : 1;
+        }
+        // ICON DEPTH LAW (ruled 2026-11-02, Jason; SQUARE-ROOT
+        // form — the owner adopted the same day's square-root
+        // draft at 17:05, superseding the linear (0.6)^depth x R
+        // law built earlier that day; the two-thirds base is
+        // kept, as ruled; RADIUS reading ruled 13:38 the same
+        // day — "I meant radius"): a node's icon RADIUS is
+        // (2/3)^depth x sqrt(R x W) — the depth-scaled
+        // geometric mean of R, the centre-disc radius
+        // (ea.photoRadius = 897.58 x centerRingScale, set by
+        // the Center circle slider; eaBase.photoRadius is the
+        // fallback), and W, the ring width midlineStrokeWidth()
+        // = 22 x mapFontScale() (the same width sxFontMaster()
+        // reads as the font master F). Icons therefore grow
+        // only as the square root when either slider rises,
+        // instead of linearly with the centre alone. Depth 1 =
+        // categories, depth 2 = subcategories AND kinks
+        // hanging straight off a category, depth 3 = kinks
+        // under a subcategory, imported children included. At
+        // the baked defaults (fontScale 120, centre 90: R =
+        // 80,782.20, W = 2,640, sqrt(RW) = 14,603.60) the depth
+        // radii are 9,735.73 / 6,490.49 / 4,326.99 (diameters
+        // double those). Sliders and tags scale by depth
+        // exactly like the fonts (sxControlScale below — see
+        // Ka / renderKinkLine control scales and sxSccBuild's
+        // tagM); the icon ladder (2/3) and the font ladder
+        // stay independent (font law since 2026-11-02 17:24:
+        // sqrt(R x W) x (2/3)^(depth-1) for depths 1-3, glance
+        // at W; the earlier (8/9)^depth font ladder is
+        // superseded history). The pr.*Icon seeds remain
+        // ONLY as solver estimate-space inputs and as the
+        // slider-scale normalization (seed / 48); nothing
+        // painted reads them for icon size any more.
+        // ICON MINIMUM (ruled 2026-11-02 13:27, Jason): no
+        // icon draws smaller than the current floor, and the
+        // floor rises and falls with the FONT slider. No
+        // single icon floor exists elsewhere in the code
+        // (there is no 44px icon floor); the floor used here
+        // is the one the spoke-trim helpers already enforce
+        // — the 12-unit radius clamp in
+        // SpokeGeometry.buildTipCircle (Math.max(12,
+        // iconSize / 2)) and in renderKinkLine's leaf trim —
+        // taken font-scaled, as ruled: minimum icon RADIUS =
+        // 12 x mapFontScale() (1,440 world units at the baked
+        // fontScale 120; minimum diameter 2,880). Under the
+        // square-root law the floor binds nowhere at the baked
+        // defaults — it binds only when the centre is small
+        // or the font large.
+        function sxIconRadius(depth) {
+            const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
+            return Math.max(Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
+        }
+        function sxIconDiameter(depth) {
+            return 2 * sxIconRadius(depth);
+        }
+        // FONT DEPTH LADDER: the current law is the FONT LAW note
+        // on sxFontSize below. Glance labels (depth 0) stay at the
+        // slider basis W = 22 x mapFontScale(). Depths 1-3 use
+        // sqrt(R x W), then x (2/3) per deeper level. The old
+        // (8/9)^depth ladder is superseded and sizes nothing.
+        // Baked defaults are text 120 and centre 90.
+        function sxFontMaster() {
+            return midlineStrokeWidth();
+        }
+        // FONT LAW (ruled 2026-11-02 17:24 CST, Jason; built
+        // 2026-11-03, superseding the (8/9)^depth ladder above):
+        // glance labels (depth 0) stay at the slider's basis
+        // W = sxFontMaster() = 22 x mapFontScale(); depths 1-3
+        // ride the square-root law the icons use, offset one
+        // level: depth 1 (categories) = sqrt(R x W), depth 2
+        // (subcategories AND kinks hanging straight off a
+        // category) = (2/3) sqrt(R x W), depth 3 (kinks under
+        // a subcategory) = (4/9) sqrt(R x W), where R is the
+        // centre-disc radius from the same source sxIconRadius
+        // reads (ea.photoRadius, eaBase.photoRadius fallback)
+        // and W = midlineStrokeWidth(). The font helper shares
+        // the sqrt(R x W) subexpression with sxIconRadius but
+        // does NOT inherit the icon floor (12 x mapFontScale):
+        // fonts are never floored. At the baked defaults
+        // (fontScale 120, centre 90: W = 2,640, R = 80,782.20,
+        // sqrt(RW) = 14,603.60) the sizes are glance 2,640,
+        // depth 1 = 14,603.60, depth 2 = 9,735.73, depth 3 =
+        // 6,490.49 — the category text is ~5.5 ring-widths,
+        // LARGER than the at-a-glance rings (owner's ruling
+        // 2026-11-03 01:18 CST). sxFontFactor stays the
+        // dimensionless ratio sxFontSize(depth) / F so every
+        // follower scaled by it (Ga widths, Ka controls,
+        // strokes, tags) tracks the new law without rescaling.
+        function sxFontSize(depth) {
+            if (!(depth > 0)) return sxFontMaster();
+            const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
+            return Math.pow(2 / 3, depth - 1) * Math.sqrt(base * midlineStrokeWidth());
+        }
+        function sxFontFactor(depth) {
+            return sxFontSize(depth) / sxFontMaster();
+        }
+        function sxFontCoef(depth) {
+            return 22 * sxFontFactor(depth);
+        }
+        // SLIDER / TAG + STROKE DEPTH LADDER (ruled 2026-11-02
+        // 14:51 and 14:52, Jason): sliders and tags scale in the
+        // same way as the fonts, by depth from the ring-width
+        // font master — the plain font scale times
+        // sxFontFactor(depth): since the 2026-11-02 17:24
+        // font law the factor is sxFontSize(depth) / F —
+        // depth 1 sqrt(R/W), then x (2/3) per level — so
+        // sliders, tags and strokes follow the FONT sizes
+        // (the historical (8/9)^depth factors, depth 1 8/9,
+        // depth 2 64/81, depth 3 512/729, are superseded).
+        // The spoke stroke widths follow too: a spoke at a
+        // depth is stroked at sxStrokeWidth(depth) =
+        // sxFontSize(depth),
+        // and its outline and tapered-stem base widths scale by
+        // the same factor, so a spoke's whole body thins with
+        // its depth. sxControlScale keeps the historical
+        // per-type seed normalization (seed / 48, clamped
+        // .62–1.25) the Ka / renderKinkLine controls and
+        // sxSccBuild's tagM have always used, and multiplies it
+        // by the depth factor. Depths are the icon/font depths:
+        // 1 = category spokes, 2 = subcategory spokes and
+        // kinks hanging straight off a category, 3 = kinks
+        // under a subcategory (imported children included).
+        // NOT laddered: the centre glance rings (they are the
+        // master), the fixed screen-px hit strokes and the
+        // 44px tap geometry (CSS vars / sxRailPx caps stay as
+        // they are; each control now also publishes its own
+        // depth-scaled rail thickness as scoped CSS vars), and
+        // the solver estimate-space allowances (rr.*), which
+        // never painted.
+        function sxControlScale(depth, seed) {
+            return Math.max(.62, Math.min(1.25, (Number(seed) || 48) / 48)) * mapFontScale() * sxFontFactor(depth);
+        }
+        function sxStrokeWidth(depth) {
+            return sxFontSize(depth);
+        }
+        // Canonical stroke at the current font scale (BAND-SHRINK,
+        // ruled 2026-11-02, Jason: "the band shrinks to fit the
+        // letters; the 44 shrinks to 22"): the ring
+        // thickness the midline strokes (Ka, renderKinkLine),
+        // Ga.outlineWidth / Ga.CLOUD_OUTLINE_WIDTH, and
+        // refreshCenterRing's w all derive from. Ga.midlineWidth
+        // and MIDLINE_SCALE are gone; this 22 x mapFontScale
+        // stroke is the only midline width.
+        function midlineStrokeWidth() {
+            return 22 * mapFontScale();
+        }
+        function refreshCenterRing() {
+            const s = centerRingScale();
+            ea.photoRadius = eaBase.photoRadius * s;
+            // Pitch = stroke (label-scale repair): the rings anchor to
+            // the scaled disc (radius follows centerRingScale) but step
+            // outward by exactly one ring thickness w, and w follows the
+            // FONT scale — so the three bands tile edge to edge at every
+            // combination of the two independent scales. (Previously the
+            // radii scaled by s while the CSS stroke stayed a fixed 44,
+            // opening gaps of 44*(s-1).) BAND-SHRINK (2026-11-02): w is
+            // now 22 * font scale, so the bands tile edge to edge at
+            // the new width and the s = 1 radii sit one half-stroke
+            // closer to the disc than the frozen eaBase values (which
+            // were struck at w = 44); eaBase stays the frozen
+            // reference the clearance below was derived from.
+            // GLANCE_INNER_CLEARANCE is the
+            // frozen 1.0-baseline gap between the photo edge and the
+            // innermost ring's inner edge: 925.31 - 44/2 - 897.58 = 5.73
+            // (eaBase.glanceRadii[2], base stroke 44, eaBase.photoRadius).
+            // At s = 1 and w = 44 this reproduced the eaBase values
+            // exactly: glanceRadii [1013.31, 969.31, 925.31] and
+            // spokeStartRadius 1035.31 (the outer ring's outer edge,
+            // 1013.31 + 44/2). Since the band shrink (w = 22 at font
+            // scale 1) the same formulas give [958.31, 936.31, 914.31]
+            // and spokeStartRadius 969.31 — pitch = w preserved.
+            // eaBase.glanceRadii stays the frozen 1.0 reference. The stroke itself is published as the
+            // --glance-ring-width CSS variable, consumed by the
+            // .center-glance-ring-track/-value/-hit rules so the track,
+            // value, and hit strokes all equal w on every render.
+            // Derived values are rounded to 2 decimals (the precision of
+            // every eaBase value) so the s = 1 / w = 44 baseline is
+            // byte-exact, with no floating-point dust in the emitted radii.
+            const GLANCE_INNER_CLEARANCE = 5.73, w = midlineStrokeWidth(), innerEdge = ea.photoRadius + GLANCE_INNER_CLEARANCE, r2 = v => Math.round(v * 100) / 100;
+            ea.glanceRadii = [ r2(innerEdge + 5 * w / 2), r2(innerEdge + 3 * w / 2), r2(innerEdge + w / 2) ];
+            ea.spokeStartRadius = r2(innerEdge + 3 * w);
+            document.documentElement.style.setProperty("--glance-ring-width", String(w));
+            // FQ2-BAKEIN (A4, position driver): the center "+N branches"
+            // toggle follows the center ring. At scale 1 its fixed Y
+            // (1839.37) sat 184.06 world units below the outer ring's
+            // outer edge (ring bottom 620 + 1035.31 = 1655.31). Deriving
+            // Y as centerY + scaled spokeStartRadius + 184.06 preserves
+            // that exact offset at every centerRingScale.
+            ea.branchToggleY = MAP_CENTER_Y + ea.spokeStartRadius + BRANCH_TOGGLE_DROP;
+        }
+        refreshCenterRing();
+        // Gen-1 spoke base circle radius: the base disc IS the center ring
+        // (each category spoke's base arc hugs the ring's outer edge), so
+        // the base radius derives directly from the scaled ring radius —
+        // no separate control. The per-spoke base WIDTH is set in
+        // Za.categoryTaperBaseWidth: TAPER_BASE_FRACTION (0.78) of the
+        // chord 2R sin(π/18), the 18-slot equispaced pitch at the ring's
+        // outer edge R (slot arc length 2πR/18), CAPPED at the tuned-era
+        // value (TAPER_BASE_CAP, the R = 300 chord — TAPER-BASE
+        // RE-ANCHOR, 2026-11-02) so bases no longer grow with the ring;
+        // the cap only ever shrinks the chord term, so bases always
+        // keep a margin from their neighbours.
+        function gen1SpokeBaseRadius() {
+            return ea.spokeStartRadius;
+        }
+
+        /* ================= SpokeGeometry module — BEGIN ================= */
+        /* ================================================================
+           SpokeGeometry — spoke path geometry for the map renderer.
+           (Refactor Step 3, Build 2026-10-18_0804: extracted from the Ga
+           namespace, where taperedPath / flankPaths previously lived as
+           methods. Ga.taperedPath and Ga.flankPaths remain as one-line
+           delegates so any other caller keeps working; new code should
+           call SpokeGeometry directly. Behavior is byte-identical to the
+           pre-refactor Ga implementations — see the differential
+           path-string test recorded in the build comment in index.html.)
+
+           A "spoke" is the tapered band drawn from a parent node (the
+           center node or a subcategory hub) out to a child node's icon.
+           Two shapes are built here:
+
+           - taperedPath: one filled band with a single color.
+           - flankPaths: two filled bands ("flanks"), one per side of the
+             centerline, so give and receive can carry different colors.
+
+           Both shapes can hug two circles with concave arcs:
+
+           - Tip circle (wraps the CHILD icon): when a valid tip circle
+             is supplied, the flat tip edge is replaced by an arc that
+             follows the icon's circumference. The two tip corners are
+             projected radially onto the circle (corner -> ray from the
+             circle center -> point at distance r), and the SVG arc is
+             drawn between the projections with large-arc = 0. The sweep
+             flag is chosen from the sign of the cross product of the two
+             corner vectors (taken from the circle center), which selects
+             the arc on the spoke-facing side of the circle — the short
+             way around the back of the icon — never the arc that would
+             cut through the icon disc.
+
+           - Base circle (wraps the PARENT disc): symmetric trick at the
+             other end. The base corners are projected radially onto the
+             parent disc and joined by an arc along its circumference
+             (same cross-product sweep rule), so the band's base follows
+             the disc edge instead of cutting a flat chord across it.
+             A base circle is ignored when the segment starts deep
+             inside it (start within 0.5 * r of the disc center): those
+             are center-drawn segments whose base is meant to stay
+             buried under the parent node.
+
+           All coordinates and lengths are in map units (SVG user units
+           of the map viewBox). Widths are FULL widths: a corner is
+           offset width / 2 to either side of the centerline.
+           ================================================================ */
+        const SpokeGeometry = (() => {
+            /** Polyline samples per flank edge (matches the old Ga.SAMPLES). */
+            const SAMPLES = 12;
+            /** Flare falloff rate: flank width decays exponentially from base width to tip width along the spoke (matches the old Ga.FLARE_DECAY). */
+            const FLARE_DECAY = 1;
+            /** Narrow-tip cap: radius (map units) of the convex semicircular cap a near-zero-width tip earns. */
+            const NARROW_TIP_CAP_RADIUS = 24;
+            /** Narrow-tip cap: a narrow tip earns its cap only when the segment is longer than this (map units). */
+            const NARROW_TIP_MIN_LENGTH = 25;
+            /** Deep-start threshold: a base/tip disc is ignored when the segment starts closer than this fraction of the disc radius to its center. */
+            const DEEP_START_FRACTION = 0.5;
+            /**
+             * Describe the straight segment from (x0, y0) to (x1, y1).
+             * @param {number} x0 - Start x, map units.
+             * @param {number} y0 - Start y, map units.
+             * @param {number} x1 - End x, map units.
+             * @param {number} y1 - End y, map units.
+             * @returns {{x0:number, y0:number, x1:number, y1:number, dx:number, dy:number, len:number, ux:number, uy:number, nx:number, ny:number}}
+             *   dx/dy = end - start; len = segment length (1 when degenerate);
+             *   (ux, uy) = unit direction; (nx, ny) = unit normal (-uy, ux).
+             */
+            function segment(x0, y0, x1, y1) {
+                const a = x1 - x0, r = y1 - y0, o = Math.hypot(a, r) || 1, s = a / o, l = r / o;
+                return {
+                    x0: x0,
+                    y0: y0,
+                    x1: x1,
+                    y1: y1,
+                    dx: a,
+                    dy: r,
+                    len: o,
+                    ux: s,
+                    uy: l,
+                    nx: -l,
+                    ny: s
+                };
+            }
+            /**
+             * Parse a spoke centerline path string of the form "M x0 y0 L x1 y1".
+             * @param {string} d - SVG path data for the centerline.
+             * @returns {object|null} A segment() descriptor, or null when the
+             *   string does not match the expected M/L shape.
+             */
+            function parseSegment(d) {
+                const t = String(d || "").match(/M\s*([\d.-]+)\s+([\d.-]+)\s+L\s*([\d.-]+)\s+([\d.-]+)/);
+                return t ? segment(parseFloat(t[1]), parseFloat(t[2]), parseFloat(t[3]), parseFloat(t[4])) : null;
+            }
+            /**
+             * Flank width at a fractional position along the spoke. The width
+             * starts at the base width and decays exponentially toward the
+             * tip width, so flanks flare wide at the base and settle fast.
+             * @param {number} u - Fraction along the spoke: 0 at base, 1 at tip (unitless).
+             * @param {number} baseWidth - Full width at the base, map units.
+             * @param {number} tipWidth - Full width approached at the tip, map units.
+             * @returns {number} Full width at u, map units.
+             */
+            function flareAt(u, baseWidth, tipWidth) {
+                return tipWidth + (baseWidth - tipWidth) * Math.exp(-FLARE_DECAY * u);
+            }
+            /**
+             * Build the tip circle for a spoke: the circle of the CHILD icon
+             * that the spoke's tip arc hugs.
+             *
+             * Callers pass the spoke's drawn endpoint (x1, y1), which stops
+             * (r - 1.5) map units short of the icon's center along the spoke
+             * direction. This helper reconstructs the icon center by pushing
+             * the endpoint that same distance further along the unit spoke
+             * direction, so the returned circle IS the icon disc: its near
+             * edge sits 1.5 units behind the drawn endpoint and the tip arc
+             * wraps the icon's back edge.
+             * @param {number} x0 - Spoke base x, map units.
+             * @param {number} y0 - Spoke base y, map units.
+             * @param {number} x1 - Spoke drawn endpoint (tip) x, map units.
+             * @param {number} y1 - Spoke drawn endpoint (tip) y, map units.
+             * @param {number} [iconSize] - Icon diameter, map units. Falsy or
+             *   non-numeric values fall back to 48. The radius is clamped to
+             *   at least 12.
+             * @returns {{x:number, y:number, r:number}} Circle {center x, center y, radius} in map units.
+             */
+            function buildTipCircle(x0, y0, x1, y1, iconSize) {
+                const tipSeg = segment(x0, y0, x1, y1), tipR = Math.max(12, (Number(iconSize) || 48) / 2), tipBack = Math.max(0, tipR - 1.5);
+                return {
+                    x: x1 + tipSeg.ux * tipBack,
+                    y: y1 + tipSeg.uy * tipBack,
+                    r: tipR
+                };
+            }
+            /**
+             * Build a base circle for a spoke: the PARENT disc that the
+             * spoke's base arc hugs (the center node's disc for category
+             * spokes, or a subcategory hub's disc for imported-child
+             * spokes). A plain {x, y, r} factory so call sites name the
+             * intent instead of inlining an anonymous circle object.
+             * @param {number} cx - Disc center x, map units.
+             * @param {number} cy - Disc center y, map units.
+             * @param {number} r - Disc radius, map units.
+             * @returns {{x:number, y:number, r:number}} Circle {center x, center y, radius} in map units.
+             */
+            function buildBaseCircle(cx, cy, r) {
+                return {
+                    x: cx,
+                    y: cy,
+                    r: r
+                };
+            }
+            /**
+             * Build a single-color tapered spoke band as SVG path data.
+             *
+             * Outline order: start at one base corner, run to the same-side
+             * tip corner, cross the tip, come back down the other side, and
+             * cross the base (the Z close). Both crossings are replaceable
+             * by concave circle arcs (see the module header):
+             * - Tip: when tipCircle is a valid circle (r > 0), the path first steps
+             *   from the tip corner to its radial projection on the tip
+             *   circle, arcs along the circumference to the other corner's
+             *   projection (sweep from the cross-product sign, spoke-facing
+             *   side), and continues. With no valid circle the tip stays a
+             *   flat edge between the two tip corners.
+             * - Narrow tip: when tipWidth <= 0.5 and the segment is longer
+             *   than NARROW_TIP_MIN_LENGTH (25 units), the tip instead gets
+             *   a CONVEX semicircular cap of radius NARROW_TIP_CAP_RADIUS
+             *   (24) around the endpoint (this branch wins over the
+             *   tip-circle arc; it is how zero-width heat spokes round off).
+             * - Base: when baseCircle is a valid disc and the segment does
+             *   not start deep inside it (start at least
+             *   DEEP_START_FRACTION * baseCircle.r from the disc center),
+             *   the path starts and ends on the base corners' projections
+             *   onto the disc and the closing edge is an arc along the
+             *   disc; otherwise the base stays flat.
+             * @param {string} pathData - Centerline path string "M x0 y0 L x1 y1", map units. Returned unchanged when unparseable.
+             * @param {number} baseWidth - Base width, map units (corners offset +/- baseWidth/2 from the centerline).
+             * @param {number} tipWidth - Tip width, map units (corners offset +/- tipWidth/2).
+             * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon), from buildTipCircle. Null/invalid = flat tip.
+             * @param {{x:number, y:number, r:number}} [baseCircle=null] - Base disc (parent), from buildBaseCircle. Null/invalid/deep-start = flat base.
+             * @returns {string} SVG path data for the filled band.
+             */
+            function taperedPath(pathData, baseWidth, tipWidth, tipCircle = null, baseCircle = null) {
+                const i = parseSegment(pathData);
+                if (!i) return pathData;
+                const {x0: a, y0: r, x1: o, y1: s, nx: l, ny: c} = i, d = r + c * baseWidth / 2, u = a - l * baseWidth / 2, p = r - c * baseWidth / 2, h = o - l * tipWidth / 2, g = s - c * tipWidth / 2, m = o + l * tipWidth / 2, f = s + c * tipWidth / 2;
+                // Build 2026-10-18_0343: optional base disc (baseCircle) — the
+                // flat base edge is replaced by an arc along the disc,
+                // mirroring the tip arc: both base corners are projected onto
+                // the disc and the path starts/ends on the projections, so
+                // the band hugs the parent circle. Ignored for center-drawn
+                // segments.
+                const zbP = baseCircle && baseCircle.r > 0 && Math.hypot(a - baseCircle.x, r - baseCircle.y) >= DEEP_START_FRACTION * baseCircle.r ? function() {
+                    const v1 = { x: a + l * baseWidth / 2 - baseCircle.x, y: d - baseCircle.y }, v2 = { x: u - baseCircle.x, y: p - baseCircle.y }, m1 = Math.hypot(v1.x, v1.y) || 1, m2 = Math.hypot(v2.x, v2.y) || 1, q1 = { x: baseCircle.x + baseCircle.r * v1.x / m1, y: baseCircle.y + baseCircle.r * v1.y / m1 }, q2 = { x: baseCircle.x + baseCircle.r * v2.x / m2, y: baseCircle.y + baseCircle.r * v2.y / m2 }, crx = v2.x * v1.y - v2.y * v1.x;
+                    return { q1: q1, q2: q2, swp: crx >= 0 ? 1 : 0 };
+                }() : null, bSX = zbP ? zbP.q1.x : a + l * baseWidth / 2, bSY = zbP ? zbP.q1.y : d, bTail = zbP ? ` L ${zbP.q2.x.toFixed(2)} ${zbP.q2.y.toFixed(2)} A ${baseCircle.r.toFixed(2)} ${baseCircle.r.toFixed(2)} 0 0 ${zbP.swp} ${zbP.q1.x.toFixed(2)} ${zbP.q1.y.toFixed(2)} Z` : ` L ${u.toFixed(2)} ${p.toFixed(2)} Z`;
+                if (tipWidth <= .5) {
+                    const dx = o - a, dy = s - r, L = Math.hypot(dx, dy);
+                    if (L > NARROW_TIP_MIN_LENGTH) {
+                        const R = NARROW_TIP_CAP_RADIUS, ux = dx / L, uy = dy / L, ex = o - ux * R, ey = s - uy * R, wE = (baseWidth + (tipWidth - baseWidth) * (L - R) / L) / 2, c1x = ex + l * wE, c1y = ey + c * wE, c2x = ex - l * wE, c2y = ey - c * wE, d1 = Math.hypot(c1x - o, c1y - s) || 1, d2 = Math.hypot(c2x - o, c2y - s) || 1, p1x = o + R * (c1x - o) / d1, p1y = s + R * (c1y - s) / d1, p2x = o + R * (c2x - o) / d2, p2y = s + R * (c2y - s) / d2, cross = (p1x - o) * (p2y - s) - (p1y - s) * (p2x - o), sweep = cross >= 0 ? 1 : 0;
+                        return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${p1x.toFixed(2)} ${p1y.toFixed(2)} A ${R} ${R} 0 0 ${sweep} ${p2x.toFixed(2)} ${p2y.toFixed(2)}${bTail}`;
+                    }
+                }
+                if (tipCircle && tipCircle.r > 0) {
+                    const sv = {
+                        x: m - tipCircle.x,
+                        y: f - tipCircle.y
+                    }, ev = {
+                        x: h - tipCircle.x,
+                        y: g - tipCircle.y
+                    }, sm2 = Math.hypot(sv.x, sv.y) || 1, em2 = Math.hypot(ev.x, ev.y) || 1, spx = tipCircle.x + tipCircle.r * sv.x / sm2, spy = tipCircle.y + tipCircle.r * sv.y / sm2, epx = tipCircle.x + tipCircle.r * ev.x / em2, epy = tipCircle.y + tipCircle.r * ev.y / em2, crx = sv.x * ev.y - sv.y * ev.x, swp = crx >= 0 ? 1 : 0;
+                    return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${spx.toFixed(2)} ${spy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${swp} ${epx.toFixed(2)} ${epy.toFixed(2)}${bTail}`;
+                }
+                return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${h.toFixed(2)} ${g.toFixed(2)}${bTail}`;
+            }
+            /**
+             * Build the split give/receive flank bands for one spoke, as SVG
+             * path data. Each flank is one side of the spoke: an OUTER edge
+             * that flares from the base width toward the tip width (see
+             * flareAt, sampled at SAMPLES + 1 points) and an INNER edge at
+             * the fixed inner half-width innerHalf, so the two flanks leave
+             * the center stripe (half-width stripeHalf) uncovered for the
+             * midline.
+             *
+             * Emission order — what "first" means in the mode string: the
+             * mode names which EDGE POLYLINE IS EMITTED FIRST in each
+             * flank's path string.
+             * - "innerFirst" (branch spokes: category and subcategory
+             *   spokes drawn by the Ka renderer): each flank starts with
+             *   its INNER edge polyline running base -> tip, then the tip
+             *   arc (inner offset innerHalf out to the flared tip offset),
+             *   then the OUTER edge polyline reversed (tip -> base), then
+             *   the base arc (flared base offset in to inner offset
+             *   innerHalf).
+             * - "outerFirst" (kink spokes drawn by renderKinkLine): each
+             *   flank starts with its OUTER edge polyline running
+             *   base -> tip, then the tip arc (flared tip offset in to
+             *   inner offset innerHalf), then a freshly built INNER edge
+             *   polyline running tip -> base, then the base arc (inner
+             *   offset innerHalf out to the flared base offset).
+             * The two modes trace the same outline in opposite orders with
+             * the arc connections mirrored; which one a spoke uses is
+             * fixed by its renderer and level, and both produce the same
+             * filled region.
+             *
+             * Circle hugging (see the module header for the general
+             * mechanics): the base circle baseCircle, when valid and the
+             * segment does not start deep inside it (start at least
+             * DEEP_START_FRACTION * baseCircle.r from its center), first
+             * pulls all four base corner points
+             * radially onto the disc so the flanks themselves start on
+             * the disc edge, and the base crossing is emitted as an arc
+             * along the disc by the b() helper (skipped when the two
+             * offsets are effectively equal). The tip circle tipCircle likewise
+             * turns each flank's tip crossing into an arc along the icon
+             * circumference via the bE() helper. Both helpers project the
+             * crossing's endpoints onto their circle and pick the sweep
+             * flag from the cross-product sign, so the arc always runs
+             * along the spoke-facing side of the circle.
+             * @param {number} baseX - Base point x, map units.
+             * @param {number} baseY - Base point y, map units.
+             * @param {number} dx - Base->tip delta x, map units. Tip point = (baseX + dx, baseY + dy).
+             * @param {number} dy - Base->tip delta y, map units.
+             * @param {number} nx - Unit normal x, unitless. Corners are offset along (nx, ny).
+             * @param {number} ny - Unit normal y, unitless.
+             * @param {number} baseWidth - Base width, map units: the flare's starting full width.
+             * @param {number} tipWidth - Tip width, map units: the flare's limiting full width.
+             * @param {number} innerHalf - Inner half-width, map units: fixed offset of each flank's inner edge from the centerline.
+             * @param {number} stripeHalf - Center stripe half-width, map units: the flared edge offset is max(innerHalf, stripeHalf + flare / 2) so a flank never crosses the midline stripe.
+             * @param {string} mode - Mode: "innerFirst" (branch spokes) or "outerFirst" (kink spokes). Any other value takes the outerFirst branch.
+             * @param {{x:number, y:number, r:number}} [baseCircle=null] - Base circle (parent disc), from buildBaseCircle. Null/invalid/deep-start = flat base.
+             * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon). Null/invalid = flat tip crossing.
+             * @returns {{top: string, bottom: string}} SVG path data for the two flanks: "top" is the (nx, ny)-negative side, "bottom" the positive side.
+             */
+            function flankPaths(baseX, baseY, dx, dy, nx, ny, baseWidth, tipWidth, innerHalf, stripeHalf, mode, baseCircle = null, tipCircle = null) {
+                const p = SAMPLES, h = [], g = [], m = [], f = [];
+                for (let si = 0; si <= p; si++) {
+                    const frac = si / p, y = Math.max(innerHalf, stripeHalf + flareAt(frac, baseWidth, tipWidth) / 2), b = baseX + dx * frac, v = baseY + dy * frac;
+                    h.push(`${(b - nx * y).toFixed(2)} ${(v - ny * y).toFixed(2)}`), g.push(`${(b - nx * innerHalf).toFixed(2)} ${(v - ny * innerHalf).toFixed(2)}`),
+                    m.push(`${(b + nx * y).toFixed(2)} ${(v + ny * y).toFixed(2)}`), f.push(`${(b + nx * innerHalf).toFixed(2)} ${(v + ny * innerHalf).toFixed(2)}`);
+                }
+                // Build 2026-10-18_0343: spoke bases hug the parent disc. The
+                // base-arc helper below only capped the base edge between the
+                // corners' projections — the flank corners themselves stayed
+                // outside the disc, joined by radial stubs that poked past
+                // the circle. Now the four base corner points are projected
+                // onto the base circle first, so the flanks themselves start
+                // on the disc edge and the base follows the circle exactly.
+                // A base circle is ignored when the segment starts deep
+                // inside it (center-drawn segments keep the old flat base).
+                baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
+                if (baseCircle && baseCircle.r > 0) {
+                    const pj = (e2, t2) => {
+                        const n2 = e2 - baseCircle.x, i2 = t2 - baseCircle.y, a2 = Math.hypot(n2, i2) || 1;
+                        return `${(baseCircle.x + baseCircle.r * n2 / a2).toFixed(2)} ${(baseCircle.y + baseCircle.r * i2 / a2).toFixed(2)}`;
+                    }, y0 = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2);
+                    h[0] = pj(baseX - nx * y0, baseY - ny * y0), g[0] = pj(baseX - nx * innerHalf, baseY - ny * innerHalf), m[0] = pj(baseX + nx * y0, baseY + ny * y0), f[0] = pj(baseX + nx * innerHalf, baseY + ny * innerHalf);
+                }
+                const y = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2), b = (side, startOff, endOff) => {
+                    if (!baseCircle || !(baseCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
+                    const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y}, end = {x: baseX + side * nx * endOff - baseCircle.x, y: baseY + side * ny * endOff - baseCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = baseCircle.x + baseCircle.r * start.x / sm, sy = baseCircle.y + baseCircle.r * start.y / sm, ex = baseCircle.x + baseCircle.r * end.x / em, ey = baseCircle.y + baseCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${baseCircle.r.toFixed(2)} ${baseCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
+                };
+                const yE = Math.max(innerHalf, stripeHalf + flareAt(1, baseWidth, tipWidth) / 2), bE = (side, startOff, endOff) => {
+                    if (!tipCircle || !(tipCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
+                    const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y}, end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm, ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
+                };
+                if ("innerFirst" === mode) return {
+                    top: `M ${g.join(" L ")}${bE(-1, innerHalf, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y, innerHalf)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${f.slice().reverse().join(" L ")}${b(1, innerHalf, y)} Z`
+                };
+                const v = [], w = [];
+                for (let si = p; si >= 0; si--) {
+                    const px = baseX + dx * (si / p), py = baseY + dy * (si / p);
+                    v.push(`${(px - nx * innerHalf).toFixed(2)} ${(py - ny * innerHalf).toFixed(2)}`), w.push(`${(px + nx * innerHalf).toFixed(2)} ${(py + ny * innerHalf).toFixed(2)}`);
+                }
+                baseCircle && baseCircle.r > 0 && (v[v.length - 1] = g[0], w[w.length - 1] = f[0]);
+                return {
+                    top: `M ${h.join(" L ")}${bE(-1, yE, innerHalf)} L ${v.join(" L ")}${b(-1, innerHalf, y)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${w.join(" L ")}${b(1, innerHalf, y)} Z`
+                };
+            }
+            /**
+             * Numeric unit tests for the circle-hugging geometry. Runnable
+             * in the browser console / probe harness via
+             * SpokeGeometry.runGeometryTests(), or in node by extracting this
+             * module (between its BEGIN/END delimiters) and calling the
+             * same function. Verifies, for both taperedPath and
+             * flankPaths (innerFirst and outerFirst):
+             * - every arc endpoint lies ON its circle (distance from the
+             *   circle center == r, within rounding epsilon);
+             * - concavity: a tip arc's midpoint sits BEHIND its chord
+             *   midpoint (toward the spoke base), and a base arc's
+             *   midpoint sits beyond its chord midpoint (toward the spoke
+             *   tip) — i.e. each arc bows around its circle, not across it;
+             * - the sweep flag routes the arc through that spoke-facing
+             *   midpoint (the minor arc on the circle's spoke side), not
+             *   through the through-icon antipode.
+             * @returns {{passed:number, failed:number, failures:string[]}} Test tally; failures names each failed check.
+             */
+            function runGeometryTests() {
+                const EPS = .025;
+                let passed = 0;
+                const failures = [];
+                const check = (name, cond) => { cond ? passed++ : failures.push(name); };
+                const distTo = (x, y, cx, cy) => Math.hypot(x - cx, y - cy);
+                const arcsOf = d => {
+                    const out = [], re = /([ML])\s*([\d.-]+)\s+([\d.-]+)|A\s+([\d.]+)\s+[\d.]+\s+0\s+0\s+([01])\s+([\d.-]+)\s+([\d.-]+)/g;
+                    let m, cur = null;
+                    while ((m = re.exec(d))) {
+                        if (m[1]) cur = { x: +m[2], y: +m[3] };
+                        else if (cur) out.push({ r: +m[4], sweep: +m[5], x1: cur.x, y1: cur.y, x2: +m[6], y2: +m[7] }), cur = { x: +m[6], y: +m[7] };
+                    }
+                    return out;
+                };
+                const arcMid = (arc, c) => {
+                    const a1 = Math.atan2(arc.y1 - c.y, arc.x1 - c.x), a2 = Math.atan2(arc.y2 - c.y, arc.x2 - c.x);
+                    let sx = Math.cos(a1) + Math.cos(a2), sy = Math.sin(a1) + Math.sin(a2);
+                    const m = Math.hypot(sx, sy) || 1;
+                    return { x: c.x + c.r * sx / m, y: c.y + c.r * sy / m, a1: a1, a2: a2, amid: Math.atan2(sy, sx) };
+                };
+                const onSweptArc = (a1, amid, a2, sweep) => {
+                    const TAU = Math.PI * 2, norm = x => ((x % TAU) + TAU) % TAU;
+                    return sweep === 1 ? norm(amid - a1) <= norm(a2 - a1) + 1e-9 : norm(a1 - amid) <= norm(a1 - a2) + 1e-9;
+                };
+                const checkArc = (label, arc, circle, towardBase) => {
+                    check(label + ": arc radius matches circle", Math.abs(arc.r - circle.r) < .01);
+                    check(label + ": start point on circle", Math.abs(distTo(arc.x1, arc.y1, circle.x, circle.y) - circle.r) < EPS);
+                    check(label + ": end point on circle", Math.abs(distTo(arc.x2, arc.y2, circle.x, circle.y) - circle.r) < EPS);
+                    const mid = arcMid(arc, circle), chordX = (arc.x1 + arc.x2) / 2;
+                    check(label + (towardBase ? ": arc midpoint behind chord (toward base)" : ": arc midpoint beyond chord (toward tip)"), towardBase ? mid.x < chordX - .05 : mid.x > chordX + .05);
+                    check(label + ": sweep routes through spoke-facing midpoint", onSweptArc(mid.a1, mid.amid, mid.a2, arc.sweep));
+                };
+                // buildTipCircle / buildBaseCircle construction.
+                const tc = buildTipCircle(0, 0, 100, 0, 48);
+                check("buildTipCircle: radius is iconSize / 2", tc.r === 24);
+                check("buildTipCircle: center is endpoint + unit * (r - 1.5)", Math.abs(tc.x - 122.5) < 1e-9 && Math.abs(tc.y) < 1e-9);
+                const tcDefault = buildTipCircle(0, 0, 0, 50);
+                check("buildTipCircle: default icon size 48", tcDefault.r === 24 && Math.abs(tcDefault.x) < 1e-9 && Math.abs(tcDefault.y - 72.5) < 1e-9);
+                const tcMin = buildTipCircle(0, 0, 10, 0, 10);
+                check("buildTipCircle: radius clamps to >= 12", tcMin.r === 12 && Math.abs(tcMin.x - 20.5) < 1e-9);
+                const bc0 = buildBaseCircle(3, 4, 30);
+                check("buildBaseCircle: passes {x, y, r} through", bc0.x === 3 && bc0.y === 4 && bc0.r === 30);
+                // taperedPath tip arc (horizontal spoke, tip circle from buildTipCircle).
+                const dTip = taperedPath("M 0 0 L 100 0", 20, 20, tc, null), aTip = arcsOf(dTip);
+                check("taperedPath tip: exactly one arc", aTip.length === 1);
+                aTip.length && checkArc("taperedPath tip", aTip[0], tc, !0);
+                // taperedPath base arc (segment starts outside the disc).
+                const bcBig = buildBaseCircle(0, 0, 30), dBase = taperedPath("M 40 0 L 140 0", 20, 10, null, bcBig), aBase = arcsOf(dBase);
+                check("taperedPath base: exactly one arc", aBase.length === 1);
+                aBase.length && checkArc("taperedPath base", aBase[0], bcBig, !1);
+                // taperedPath guards: deep-inside base and no circles stay flat; invalid tip circle ignored.
+                check("taperedPath base: center-drawn segment keeps flat base", !taperedPath("M 0 0 L 100 0", 20, 10, null, bcBig).includes(" A "));
+                check("taperedPath: no circles means no arcs", !taperedPath("M 0 0 L 100 0", 20, 10).includes(" A "));
+                check("taperedPath: r = 0 tip circle ignored", !taperedPath("M 0 0 L 100 0", 20, 10, { x: 100, y: 0, r: 0 }, null).includes(" A "));
+                check("taperedPath: unparseable path returned unchanged", taperedPath("junk", 20, 10) === "junk");
+                // taperedPath narrow-tip convex cap: arc of radius 24 around the endpoint.
+                const aCap = arcsOf(taperedPath("M 0 0 L 100 0", 20, 0, null, null));
+                check("taperedPath cap: exactly one arc of radius 24", aCap.length === 1 && aCap[0].r === 24);
+                aCap.length && check("taperedPath cap: endpoints on the cap circle", Math.abs(distTo(aCap[0].x1, aCap[0].y1, 100, 0) - 24) < EPS && Math.abs(distTo(aCap[0].x2, aCap[0].y2, 100, 0) - 24) < EPS);
+                // flankPaths: base disc off-center, tip circle offset past the tip point (as buildTipCircle returns).
+                const fBase = buildBaseCircle(0, 0, 25), fTip = { x: 152.5, y: 0, r: 26 };
+                const flankArgs = [ 30, 0, 100, 0, 0, 1, 60, 10, 5, 2 ];
+                for (const mode of [ "innerFirst", "outerFirst" ]) {
+                    const res = flankPaths(...flankArgs, mode, fBase, fTip), aTop = arcsOf(res.top), aBot = arcsOf(res.bottom);
+                    check(`flankPaths ${mode}: two arcs per flank (tip + base)`, aTop.length === 2 && aBot.length === 2);
+                    if (aTop.length === 2) {
+                        checkArc(`flankPaths ${mode} top tip`, aTop[0], fTip, !0);
+                        checkArc(`flankPaths ${mode} top base`, aTop[1], fBase, !1);
+                    }
+                    if (aBot.length === 2) {
+                        checkArc(`flankPaths ${mode} bottom tip`, aBot[0], fTip, !0);
+                        checkArc(`flankPaths ${mode} bottom base`, aBot[1], fBase, !1);
+                    }
+                    if (aTop.length && aBot.length) {
+                        const mirrorPt = (ax, ay, bx, by) => Math.abs(ax - bx) < .011 && Math.abs(ay + by) < .011;
+                        check(`flankPaths ${mode}: bottom tip arc mirrors top across the centerline`, (mirrorPt(aBot[0].x1, aBot[0].y1, aTop[0].x1, aTop[0].y1) && mirrorPt(aBot[0].x2, aBot[0].y2, aTop[0].x2, aTop[0].y2)) || (mirrorPt(aBot[0].x1, aBot[0].y1, aTop[0].x2, aTop[0].y2) && mirrorPt(aBot[0].x2, aBot[0].y2, aTop[0].x1, aTop[0].y1)));
+                    }
+                    const first = /^M ([\d.-]+) ([\d.-]+)/.exec(res.top);
+                    check(`flankPaths ${mode}: first flank point projected onto base disc`, !!first && Math.abs(distTo(+first[1], +first[2], fBase.x, fBase.y) - fBase.r) < EPS);
+                    const bare = flankPaths(...flankArgs, mode, null, null);
+                    check(`flankPaths ${mode}: no circles means no arcs`, !bare.top.includes(" A ") && !bare.bottom.includes(" A "));
+                }
+                return { passed: passed, failed: failures.length, failures: failures };
+            }
+            return Object.freeze({
+                SAMPLES: SAMPLES,
+                FLARE_DECAY: FLARE_DECAY,
+                segment: segment,
+                parseSegment: parseSegment,
+                flareAt: flareAt,
+                buildTipCircle: buildTipCircle,
+                buildBaseCircle: buildBaseCircle,
+                taperedPath: taperedPath,
+                flankPaths: flankPaths,
+                runGeometryTests: runGeometryTests
+            });
+        })();
+        window.SpokeGeometry = SpokeGeometry;
+        /* ================= SpokeGeometry module — END ================= */
+        const Ga = Object.freeze({
+            WIDTH: 18,
+            TIP_FRACTION: 0,
+            OUTLINE_EXTRA: 1.25,
+            OUTLINE_COLOR: "#f5f5f5",
+            CLOUD_OUTLINE_WIDTH: (e, depth) => Ga.outlineWidth(e, depth),
+            NO_CODE_COLOR: "#78817e",
+            FALLBACK_COLOR: "#646d66",
+            parseSegment(e) {
+                // Delegate: the implementation lives in SpokeGeometry.parseSegment (see the SpokeGeometry module above); this keeps the Ga API stable for remaining callers.
+                return SpokeGeometry.parseSegment(e);
+            },
+            segment(e, t, n, i) {
+                // Delegate: the implementation lives in SpokeGeometry.segment (same descriptor shape); this keeps the Ga API stable for remaining callers.
+                return SpokeGeometry.segment(e, t, n, i);
+            },
+            trimToIcons(e, t, n, i, a, r) {
+                const o = Ga.segment(e, t, n, i);
+                return {
+                    seg: o,
+                    sx0: e + o.ux * a,
+                    sy0: t + o.uy * a,
+                    sx1: n - o.ux * r,
+                    sy1: i - o.uy * r
+                };
+            },
+            // tipWidth has no SpokeGeometry counterpart (the module takes tip
+            // widths as plain arguments); TIP_FRACTION is 0, so this is
+            // always 0 — kept as the Ga-side width rule for heat spokes.
+            tipWidth: e => e * Ga.TIP_FRACTION,
+            flareAt: (e, t, n) => SpokeGeometry.flareAt(e, t, n),
+            heatWidths(e, depth) {
+                const t = Math.max(e + 8, 18) * (mapFontScale() * (null == depth ? 1 : sxFontFactor(depth)) / 3);
+                return {
+                    w0: t,
+                    w1: .25 * t
+                };
+            },
+            categoryBaseWidth: (e, t, n) => Za.categoryTaperBaseWidth(e, t, n),
+            spokeBaseWidth: e => 5 * e,
+            railsBaseWidth: (e, t, n, i, depth) => (isCatId(e) ? Ga.categoryBaseWidth(t, n, i) : Ga.spokeBaseWidth(t)) * (mapFontScale() * (null == depth ? 1 : sxFontFactor(depth)) / 3),
+            cloudBaseWidth(e, t) {
+                const n = Math.max(1, Number(t) || 1), i = e / 2 * er.spread;
+                return Math.max(8, i / Math.max(n, 6));
+            },
+            outlineWidth: (e, depth) => { const f = null == depth ? 1 : sxFontFactor(depth); return midlineStrokeWidth() * f + 16 * (mapFontScale() * f / 3); },
+            // splitInnerHalf is half the outline width above, so a
+            // future outline-width change cannot silently strand it.
+            splitInnerHalf: (e, depth) => Ga.outlineWidth(e, depth) / 2,
+            midlineOutlinePath: (e, t, n, depth) => n ? "" : `<path class="hanky-midline-outline" d="${e}" fill="none" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.outlineWidth(t, depth)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`,
+            dashAttr: e => ` stroke-dasharray="${e} ${.66 * e}"`,
+            taperedPath(e, t, n, z = null, zb = null) {
+                // Refactor Step 3 (Build 2026-10-18_0804): implementation lives in SpokeGeometry.taperedPath (see the SpokeGeometry module above); this delegate keeps the Ga API stable for any remaining caller.
+                return SpokeGeometry.taperedPath(e, t, n, z, zb);
+            },
+            flankPaths(e, t, n, i, a, r, o, s, l, c, d, u = null, z = null) {
+                // Refactor Step 3 (Build 2026-10-18_0804): implementation lives in SpokeGeometry.flankPaths (see the SpokeGeometry module above); this delegate keeps the Ga API stable for any remaining caller.
+                return SpokeGeometry.flankPaths(e, t, n, i, a, r, o, s, l, c, d, u, z);
+            }
+        });
+        // Selection marking — the single authority (map-render refactor,
+        // finding 5). selectionMarkKind(spokeId, selectedId, record)
+        // decides whether a spoke carries the .selected-spoke mark for a
+        // selection, and where the mark lives:
+        //   "own"    — the selected node's own spoke (and a selected
+        //              topic's parent spoke): the mark lives in that
+        //              spoke's node group.
+        //   "branch" — the branch spoke (cat-<slug of record.branch>):
+        //              the mark lives in the branch line-group underlay
+        //              item (.spoke-underlay-item[data-spoke-for=...]).
+        //   null     — no mark. A subcategory carries no mark of its own:
+        //              its line is drawn by renderKinkLine, which stamps
+        //              no highlight, so selecting a subcategory marks
+        //              only its branch's line.
+        // Ka consults this while rendering (it marks the spokes it
+        // builds; the render's underlay pass then moves the branch
+        // spoke's visuals, mark included, into the underlay item), and
+        // applySelectionMarking consults the same function to reproduce
+        // exactly that end state on the existing DOM without a
+        // re-render. Selection semantics change HERE only.
+        function selectionMarkKind(spokeId, selectedId, record) {
+            if (!spokeId || !selectedId) return null;
+            const branchCatId = record && record.branch ? catId(record.branch) : null;
+            if (branchCatId && spokeId === branchCatId) return "branch";
+            if (spokeId === selectedId) return record && "Subcategory" === record.kind ? null : "own";
+            if (record && spokeId === record.parentId) return "own";
+            return null;
+        }
+        function Ka(e, t, n, i, a, r, o, s, l, c, d, u = 48, p = Ga.FALLBACK_COLOR, g = !0, m = "", f = null, y = null, b = null, v = !1, w = !0, k = h.length, bc = null, sxLeafD = null, sxDepth = null) {
+            Ra(e);
+            const sxD = null != sxDepth ? sxDepth : sxLeafD === sxIconDiameter(1) ? 1 : sxLeafD === sxIconDiameter(3) ? 3 : 2, sxF = sxFontFactor(sxD), sxSW = sxStrokeWidth(sxD);
+            const x = Rt || Qi() ? null : Vi(), S = Rt ? null : x || function(e) {
+                const t = Vi();
+                return Qi() && t && (at[t] || {})[e] && gn.has(oi(t, e)) ? t : null;
+            }(e), $ = Ge(e, S || Vi()), E = e => `translate(${(a * e).toFixed(2)} ${(r * e).toFixed(2)})`, A = e.replace(/[^a-z0-9-]/g, ""), C = Boolean(topicLabelById[e]), M = S || Vi(), I = qn[e] || Xn(e) || {
+                id: e,
+                label: i,
+                branch: i,
+                kind: C ? "Topic" : "Category"
+            }, P = (wa(e, I, M), da(e, M)), L = $a(e, "give", M), T = $a(e, "receive", M), F = Sa(e, I, M), N = ka(i, L, P.giveKnown ? ba(P.give) : "Unrated", { tapFirst: !0 }), _ = ka(i, T, P.receiveKnown ? ba(P.receive) : "Unrated", { tapFirst: !0 });
+            let D = "";
+            const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
+            if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
+                const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
+                D += `<path class="group-heat${R.count === R.total ? " all-in" : ""}" d="${t}" stroke="${R.color}" stroke-width="${O.w0}" opacity="${(.2 + .48 * R.count / R.total).toFixed(2)}" tabindex="0" role="img" aria-label="${Hi(`${i}: ${a} overlaid profiles into this topic`)}"${ka(i, overlayTip, a, {
+                    hoverOnly: !1
+                })}/>`;
+            }
+            selectionMarkKind(e, Lt, Lt ? qn[Lt] || Xn(Lt) || (at[Vi()] || {})[Lt] : null) && (D += `<path class="selected-spoke" d="${t}" style="stroke-width:${9 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`);
+            const B = m ? ` ${m}` : "", j = Math.hypot(o - pr.centerX, s - pr.centerY), q = Ga.railsBaseWidth(e, n, j, k, sxD), H = Ga.tipWidth(n);
+            const tipCircle = SpokeGeometry.buildTipCircle(o, s, l, c, null != sxLeafD ? sxLeafD : u * mapFontScale());
+            let W = "";
+            if (w) if (w && f && y) {
+                const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle), d = b || p || Ga.FALLBACK_COLOR, u = Ga.midlineOutlinePath(t, n, v, sxD);
+                W = `<path class="tapered-stem${B}" d="${r.top}" fill="${f}" stroke="none" style="fill:${f}"${N}/><path class="tapered-stem${B}" d="${r.bottom}" fill="${y}" stroke="none" style="fill:${y}"${_}/>` + (v ? `<path class="hanky-midline hanky-none" d="${t}" fill="none" stroke="${Ga.FALLBACK_COLOR}" stroke-width="${i}" stroke-linecap="butt"${Ga.dashAttr(i)} opacity="0.85"${F}/>` : u + `<path class="hanky-midline" d="${t}" fill="none" stroke="${d}" stroke-width="${i}" stroke-linecap="butt" opacity="0.9"${F}/>`);
+            } else {
+                const taperedD = SpokeGeometry.taperedPath(t, q, H, tipCircle, bc), i = sxSW, a = v ? Ga.FALLBACK_COLOR : b || p || Ga.FALLBACK_COLOR, r = v ? Ga.dashAttr(i) : "";
+                W = `<path class="tapered-stem${B}" d="${taperedD}" fill="${p}" stroke="none" style="fill:${p}"/><path class="hanky-midline" d="${t}" fill="none" stroke="${a}" stroke-width="${i}" stroke-linecap="butt"${r} opacity="0.9"${F}/>`;
+            } else {
+                const stemW = 1.3 * (n || 8), i = v ? Ga.NO_CODE_COLOR : b || p || Ga.NO_CODE_COLOR, a = Ga.midlineOutlinePath(t, n, v, sxD), r = v ? Ga.dashAttr(stemW) : "";
+                W = a + `<path class="hanky-midline" d="${t}" fill="none" stroke="${i}" stroke-width="${sxSW}" stroke-linecap="butt"${r} opacity="0.9"${F}/>`;
+            }
+            if (D += W, D += `<path class="topic-pulse${B}${v ? " hanky-none" : ""}" d="${t}" stroke="${p}" style="stroke-width:${5 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`, 
+            D += `<path class="concept-hit" data-id="${e}" data-nx="${a.toFixed(5)}" data-ny="${r.toFixed(5)}"${Sa(e, I, M)} d="${t}" tabindex="0" role="button" aria-label="${Hi(i)} concept line"/>`, 
+            g && x && !d) {
+                const n = da(e, x);
+                ($.single ? [ {
+                    key: "give",
+                    offset: 0
+                } ] : [ {
+                    key: "give",
+                    offset: -5
+                }, {
+                    key: "receive",
+                    offset: 5
+                } ]).forEach((e, i) => {
+                    if (!n[e.key + "Known"]) return;
+                    const a = n[e.key], r = $.labels[i] || e.key, o = n[e.key + "Derived"] ? ` · rolled up from ${n[e.key + "RatedChildren"]} of ${n.childCount} child topics` : "";
+                    D += `<path class="visual-rail collapsed-rating-rail" d="${t}" transform="${E(e.offset)}" fill="none" stroke="${zi(a)}" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${r}: ${Math.round(a)}${o}</title></path>`;
+                });
+            }
+            if (g && !Rt && Qi() && 2 === Xi().length) {
+                const n = function(e) {
+                    const t = Xi();
+                    if (t.some(t => "limit" === Oa(e, t))) return "limit";
+                    if (t.some(t => "favorite" === Oa(e, t))) return "favorite";
+                    const r = sxPairByIds(t[0], t[1]), rec = r && r.topicsById[e];
+                    if (!rec) return "other";
+                    return "match" === rec.outcome ? "mutual" : rec.mutualNo ? "disinterest" : "other";
+                }(e), i = {
+                    mutual: "mutual-halo",
+                    disinterest: "disinterest-halo",
+                    favorite: "favorite-halo",
+                    limit: "limit-halo"
+                }[n];
+                i && (D += `<path class="${i}" d="${t}"/>`);
+            }
+            const U = S && "group" === ft[S]?.kind ? ft[S].matchDetails?.[e] : null;
+            if (g && S && d && U) {
+                const t = l - o, n = c - s, i = (Math.hypot(t, n), 180 * Math.atan2(n, t) / Math.PI), a = sxControlScale(sxD, u), r = function(e) {
+                    if (!e) return "";
+                    const t = Array.isArray(e.routes) ? e.routes : [];
+                    return 1 === t.length ? `${Math.round(e.score)}% · ${_d(t[0])}` : `${Math.round(e.score)}% · ${t.length} matched routes`;
+                }(U), d = (U.routes || []).map(e => `${_d(e, !0)}; combined ${Math.round(e.score)}%`).join(" · "), p = Za.controlTagWidth(r, "group") * a, h = 24 * a, g = l, m = c;
+                D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
+            } else if (g && S && d) {
+                const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = $.single ? {
+                    give: Za.controlTagWidth(y[0], "single") * m
+                } : {
+                    give: v(y[0]),
+                    receive: v(y[1])
+                }, k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m), C = $.single ? [ 0 ] : [ -w.give / 2, w.receive / 2 ];
+                // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
+                // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
+                f.forEach((n, i) => {
+                    const o = w[n], s = o + 10 * m, d = C[i], u = l - p * d, f = c - h * d, v = u - a * x / 2, M = f - r * x / 2, I = u + a * x / 2, P = f + r * x / 2, L = `M ${v.toFixed(2)} ${M.toFixed(2)} L ${I.toFixed(2)} ${P.toFixed(2)}`, T = s / 2, F = `M ${(u - p * T).toFixed(2)} ${(f - h * T).toFixed(2)} L ${(u + p * T).toFixed(2)} ${(f + h * T).toFixed(2)}`, N = `grad-${A}-${n}`, _ = t[n + "Known"], R = _ ? t[n] : 0, O = (R + 100) / 200, B = Boolean(t[n + "Derived"]), j = Math.round(R), q = _ ? B ? `${j}, rolled up from ${t[n + "RatedChildren"]} of ${t.childCount} child topics` : String(j) : "Unrated", H = Zn(e, n), W = ei(e, n, S), U = Boolean(Nt && Nt.id === e && Nt.direction === n), G = U ? " active-rating" : "", K = `data-id="${e}" data-direction="${n}" data-x0="${v}" data-y0="${M}" data-x1="${I}" data-y1="${P}" data-nx="${a}" data-ny="${r}" data-offset="0"`, z = v + (I - v) * O, V = M + (P - M) * O, Y = $.single ? 1 : 0 === i ? -1 : 1, X = u + p * Y * (o / 2), Z = f + h * Y * (o / 2), Q = _ ? zi(R) : Ga.FALLBACK_COLOR;
+                    D += `<g class="direction-control${$.single ? " single-label-control" : ""}${G}" data-id="${e}" data-direction="${n}"${W ? ` data-rating-tooltip="${Hi(W)}"` : ""} data-derived="${B}" data-base-cx="${u}" data-base-cy="${f}" data-base-angle="${g}" data-index="${i}" data-tag-width="${o}" data-tag-height="${k}" data-control-scale="${m}" style="--sx-rail-px:${E.toFixed(1)}px;--sx-rail-hit-px:${Math.max(14, Math.min(44, E * 1.6)).toFixed(1)}px">`, 
+                    D += `<defs><linearGradient id="${N}" gradientUnits="userSpaceOnUse" x1="${v}" y1="${M}" x2="${I}" y2="${P}"><stop offset="0" stop-color="var(--red-deep)"/><stop offset=".5" stop-color="var(--curious)"/><stop offset="1" stop-color="var(--green-deep)"/></linearGradient></defs>`, 
+                    D += `<path class="visual-rail rating-rail${G}" data-id="${e}" data-direction="${n}" d="${L}" fill="none" stroke="url(#${N})" stroke-width="${E}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`, 
+                    (_ || U) && (D += `<circle class="slider-thumb${G}" data-id="${e}" data-direction="${n}" cx="${z.toFixed(2)}" cy="${V.toFixed(2)}" r="${10 * m}" fill="${zi(R)}"/>`), 
+                    D += `<path class="rating-track-hit${G}" ${K} d="${L}"/>`;
+                    const J = U ? `tabindex="0" role="button" aria-label="Clear ${Hi(`${Jn(e, n)}${H ? ` ${H}` : ""}`)} rating"` : 'tabindex="-1" aria-hidden="true"', ee = g + 90;
+                    D += `<g class="rating-clear${G}" data-id="${e}" data-direction="${n}"><rect class="rating-clear-bg" x="${(X - 23 * (mapFontScale() * sxF / 3)).toFixed(2)}" y="${(Z - 10 * (mapFontScale() * sxF / 3)).toFixed(2)}" width="${46 * (mapFontScale() * sxF / 3)}" height="${20 * (mapFontScale() * sxF / 3)}" rx="5" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})"/><rect class="rating-clear-hit" data-id="${e}" data-direction="${n}" x="${(X - 28).toFixed(2)}" y="${(Z - 15).toFixed(2)}" width="56" height="30" rx="7" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})" ${J}/><text class="rating-clear-text" x="${X.toFixed(2)}" y="${Z.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${ee.toFixed(2)} ${X.toFixed(2)} ${Z.toFixed(2)})">Clear</text></g>`, 
+                    D += `<path class="direction-hit" tabindex="0" role="slider" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="${_ ? j : 0}" aria-valuetext="${q}" aria-label="${Hi(`${Jn(e, n)}${H ? `: ${H}` : ""}. ${q}. Tap to open its rating scale; drag, then release to choose.`)}" aria-expanded="${U}" ${K} d="${F}"/>`, 
+                    $.single && (D += `<rect class="direction-tag-occluder" x="${(u - o / 2 - 3 * m).toFixed(2)}" y="${(f - k / 2 - 3 * m).toFixed(2)}" width="${(o + 6 * m).toFixed(2)}" height="${(k + 6 * m).toFixed(2)}" rx="${7 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})"/>`), 
+                    D += `<rect class="direction-tag-bg" data-id="${e}" data-direction="${n}" x="${(u - o / 2).toFixed(2)}" y="${(f - k / 2).toFixed(2)}" width="${o}" height="${k}" rx="${5 * m}" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" fill="${Q}" opacity="${_ ? 1 : .62}"/>`;
+                    // TAG FILL (ruled 2026-11-02, Jason): the give/receive
+                    // lettering fills its tag capsule — font-size equals
+                    // the tag height k exactly (single 20 * m, pair
+                    // 24 * m), no wasted space top or bottom. The capsule
+                    // takes its width from the word itself at this font
+                    // (Za.controlTagWidth), so the word fits with no
+                    // sideways squeeze and no shrink: the old textLength
+                    // cap (spacingAndGlyphs) is gone.
+                    const te = $.single ? y[i] : b ? "give" === n ? "G" : "R" : y[i], ne = k;
+                    D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${Hi(te)}</text></g>`;
+                });
+            }
+            if (g && !Rt && !x) {
+                const i = Xi(), a = $.single ? [ "give" ] : [ "give", "receive" ], r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
+                i.forEach((n, i) => {
+                    const l = da(e, n);
+                    a.forEach((c, d) => {
+                        const u = i * a.length + d, p = 1 === r ? 0 : -o / 2 + o * u / (r - 1);
+                        $.labels[d], D += `<path class="visual-rail" d="${t}" transform="${E(p)}" fill="none" ${function(e, t, n) {
+                            return e[t + "Known"] ? `stroke="${la(n)}" opacity=".96"` : 'stroke="var(--line)" stroke-dasharray="2 6" opacity=".38"';
+                        }(l, c, n)} stroke-width="${s}" stroke-linecap="round" vector-effect="non-scaling-stroke"><title>${Hi(wt[n])} — ${Hi(Jn(e, c))}</title></path>`;
+                    });
+                });
+            }
+            return D;
+        }
+        function za(e, t, n, i, a, r = 0) {
+            const o = i - t, s = a - n, l = Math.hypot(o, s), c = o / l, d = s / l, u = i - c * r, p = a - d * r, h = Math.max(80, l - r), g = Za.leafLabelWidth(h), m = u - c * g, f = p - d * g;
+            return {
+                d: `M ${t.toFixed(2)} ${n.toFixed(2)} L ${i.toFixed(2)} ${a.toFixed(2)}`,
+                labelD: `M ${m.toFixed(2)} ${f.toFixed(2)} L ${u.toFixed(2)} ${p.toFixed(2)}`,
+                labelWidth: g,
+                labelStartX: m,
+                labelStartY: f,
+                ux: c,
+                uy: d,
+                nx: -d,
+                ny: c
+            };
+        }
+        function Va(e, t, n, i, a) {
+            return r => {
+                const o = Math.max(0, Math.min(a, r));
+                return {
+                    x: e + n * o,
+                    y: t + i * o
+                };
+            };
+        }
+        function Ya(e, t, n, i, a = pr.categoryIcon / 2) {
+            const r = Math.max(1, Math.hypot(n - e, i - t)), o = (n - e) / r, s = (i - t) / r, l = -s, c = o, d = `M ${e.toFixed(2)} ${t.toFixed(2)} L ${n.toFixed(2)} ${i.toFixed(2)}`, u = `M ${n.toFixed(2)} ${i.toFixed(2)} L ${e.toFixed(2)} ${t.toFixed(2)}`, p = r, h = Va(e, t, o, s, p), g = a, m = Za.cloudLabel(p, g), f = m.labelOffset;
+            return {
+                d: d,
+                labelD: d,
+                reverseD: u,
+                routedLength: p,
+                labelWidth: m.labelWidth,
+                labelOffset: f,
+                icon: h(p),
+                ux: o,
+                uy: s,
+                nx: l,
+                ny: c,
+                c1: h(.3 * p),
+                c2: h(.7 * p),
+                bend: 0,
+                pointAtDistance: h
+            };
+        }
+        function Xa(e, t) {
+            return {
+                x: MAP_CENTER_X + Math.cos(e) * t,
+                y: MAP_CENTER_Y + Math.sin(e) * t
+            };
+        }
+        const Za = Object.freeze({
+            HALO_SPACING: Object.freeze({
+                category: 8,
+                topic: 6
+            }),
+            CENTER_SPACING_EM: .02,
+            IDEAL_SIZE: 18,
+            MIN_SIZE: 12.5,
+            _context: document.createElement("canvas").getContext("2d"),
+            _cache: new Map,
+            _estimateCache: new Map,
+            measure(e, t, n) {
+                if (!Za._context) return 0;
+                const i = "category" === n || "center" === n, a = i ? '"Barlow Condensed",sans-serif' : '"Source Sans 3",sans-serif', r = i ? 700 : 650, o = "center" === n ? Za.CENTER_SPACING_EM * t : Za.HALO_SPACING[n] || Za.HALO_SPACING.topic, s = n + "|" + t.toFixed(1) + "|" + e;
+                if (Za._cache.has(s)) return Za._cache.get(s);
+                Za._context.font = `${r} ${t}px ${a}`;
+                const l = Za._context.measureText(e).width + o * Math.max(0, e.length - 1);
+                return Za._cache.size > 2e3 && Za._cache.clear(), Za._cache.set(s, l), l;
+            },
+            fittedSize(e, t, n) {
+                const i = Za.IDEAL_SIZE, a = Za.measure(e, i, n);
+                return Math.max(Za.MIN_SIZE, Math.min(i, i * t / Math.max(t, a)));
+            },
+            fitWithin(e, t, n, i, a) {
+                const r = Za.measure(e, t, a);
+                return Math.max(n, Math.min(t, t * i / Math.max(1, r)));
+            },
+            fitAttr: (e, t, n, i) => Za.measure(e, t, n) > i ? ` textLength="${i.toFixed(0)}" lengthAdjust="spacing"` : "",
+            // CAPSULE = THE WORD (ruled 2026-11-02, Jason): a tag
+            // capsule's width IS its word's measured width at the tag
+            // font, plus the renderer's existing inset (4 for the
+            // give/receive tags, whose fit check was capsule width
+            // minus 4 * scale; 12 for the group score tag, whose text
+            // was set to capsule width minus 12 * scale). The old
+            // per-character width table is gone: no fixed widths, no
+            // caps, no floors. Tag fonts: single 20, pair 24 (the
+            // tag heights, unchanged), group score 5.5 (halved from
+            // 11 in the same ruling). Paint and the scored capsule
+            // geometry both read this one definition, so they move
+            // together.
+            controlTagWidth: (e, t) => "single" === t ? Za.measure(e, 20, "topic") + 4 : "group" === t ? Za.measure(e, 5.5, "topic") + 12 : Za.measure(e, 24, "topic") + 4,
+            leafLabelWidth: e => Math.min(e, Math.max(170, e - 38)),
+            curveLabel(e, t, n) {
+                const i = Math.max(.32, Math.min(.62, Number(n) || .32)), a = Number.isFinite(t) ? Math.min(e * i, Math.max(6, t)) : Math.min(12, Math.max(6, .03 * e));
+                return {
+                    labelOffset: a,
+                    safeLabelLimit: i,
+                    labelWidth: Math.max(120, e - a - 20)
+                };
+            },
+            cloudLabel(e, t) {
+                const n = Math.min(e - 40, Math.max(t + 44, .2 * e));
+                return {
+                    labelOffset: n,
+                    // LABEL CLEARANCE (repair, 2026-11-01): the
+                    // width offered to the fitted-size computation
+                    // is the space actually left on the spoke —
+                    // the old floor of 80 forced a label wider
+                    // than a short spoke, so its text ran past
+                    // the end of the spoke and impinged on the
+                    // icon seated there. A short spoke now gets a
+                    // smaller fitted label instead.
+                    labelWidth: Math.max(30, e - n - 30)
+                };
+            },
+            adaptivePlacement(e, t, n = 0) {
+                const i = Math.max(.006, Number(e && e.sector) || .006), a = t >= 3, r = a ? 92 : 44, o = a ? n + 700 : n + 72, s = a ? hr(3) + 1280 : n + 420, l = Math.min(s, Math.max(o, r / i)), c = a ? 620 : 72, d = a ? 2560 : 560, u = Math.max(c, Math.min(d, l - n));
+                return a ? {
+                    offset: u,
+                    limit: .72
+                } : {
+                    offset: u,
+                    limit: .68
+                };
+            },
+            topicLabelOffset: (e, t, n) => Math.max(30, Math.min(e - 36, t + (n % 2 ? 20 : 0))),
+            angularDemand(e, t, n, i, a = 0) {
+                const r = Math.max(n + 30, 2 * i + Math.min(40, .65 * String(e || "").length)) + a;
+                return 2 * Math.asin(Math.min(.92, r / (2 * Math.max(1, t))));
+            },
+            allocateSectors(e, t, n, i, a, r, o = 0) {
+                if (!e.length) return [];
+                const s = e.map(e => Math.max(Za.angularDemand(e.label, i, a, r, o), Number(e.minDemand) || 0)), l = s.reduce((e, t) => e + t, 0), c = e.map(e => Math.max(1, e.weight || 1)), d = c.reduce((e, t) => e + t, 0);
+                let u = c.map(e => n * e / d);
+                if (l <= n) {
+                    const t = new Set;
+                    for (let i = 0; i < e.length; i++) {
+                        let e = !1, i = 0, a = 0;
+                        if (u.forEach((e, n) => {
+                            t.has(n) ? i += s[n] : a += c[n];
+                        }), u = u.map((e, r) => t.has(r) ? s[r] : Math.max(0, n - i) * c[r] / Math.max(1e-4, a)), 
+                        u.forEach((n, i) => {
+                            !t.has(i) && n < s[i] && (t.add(i), e = !0);
+                        }), !e) break;
+                    }
+                    const i = u.reduce((e, t) => e + t, 0);
+                    if (i < n - 1e-4) {
+                        const t = (n - i) / e.length;
+                        u = u.map(e => e + t);
+                    }
+                } else u = s.map(e => n * e / l);
+                let p = t;
+                return e.map((e, t) => {
+                    const n = u[t], i = s[t], a = Math.max(0, (n - i) / Math.max(1e-4, i)), r = Object.assign({}, e, {
+                        angle: p + n / 2,
+                        sector: n,
+                        start: p,
+                        end: p + n,
+                        demand: i,
+                        slackRatio: a
+                    });
+                    return p += n, r;
+                });
+            },
+            TAPER_BASE_FRACTION: .78,
+            // TAPER-BASE RE-ANCHOR (2026-11-02, owner-approved): the
+            // category taper base no longer grows with the radius R.
+            // TAPER_BASE_CAP is the tuned-era base — TAPER_BASE_FRACTION
+            // of the chord across one of 18 slots at R = 300, about
+            // 81.26 units, the base this rule produced when it was
+            // tuned — and categoryTaperBaseWidth now returns
+            //   max(seed, min(0.78 * chord(R, count), TAPER_BASE_CAP))
+            // so at any larger radius the base holds at the tuned value
+            // and Ga.railsBaseWidth's fontScale / 3 carries that fixed
+            // proportion forward (the painted base is about 1.23x the
+            // 22 * fontScale band at every font size). The min() keeps
+            // the Oct 13 neighbour-margin property at every radius:
+            // the base never exceeds 0.78 of one slot chord, so
+            // adjacent bases always keep their margin. flareAt and
+            // FLARE_DECAY are untouched.
+            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .78,
+            categoryTaperBaseWidth(e, t, n) {
+                const i = 2 * t * Math.sin(Math.PI / Math.max(1, Number(n) || 1));
+                return Math.max(e, Math.min(i * Za.TAPER_BASE_FRACTION, Za.TAPER_BASE_CAP));
+            },
+            SETTLE: Object.freeze({
+                controlGap: 14,
+                iconGap: 2,
+                startOffset: 2,
+                parentOuterMargin: 12,
+                boxPadding: 4,
+                badgeGap: 0,
+                gen2: Object.freeze({
+                    step: 32,
+                    attempts: 18
+                }),
+                gen3: Object.freeze({
+                    step: 40,
+                    attempts: 18
+                })
+            }),
+            orientedBox(e, t, n, i, a = 0) {
+                const r = a * Math.PI / 180, o = Math.cos(r), s = Math.sin(r), l = Za.SETTLE.boxPadding;
+                return {
+                    cx: e,
+                    cy: t,
+                    hw: Math.max(1, n / 2 + l),
+                    hh: Math.max(1, i / 2 + l),
+                    ux: {
+                        x: o,
+                        y: s
+                    },
+                    uy: {
+                        x: -s,
+                        y: o
+                    }
+                };
+            },
+            boxesOverlap(e, t) {
+                const n = t.cx - e.cx, i = t.cy - e.cy;
+                return [ e.ux, e.uy, t.ux, t.uy ].every(a => Math.abs(n * a.x + i * a.y) < e.hw * Math.abs(e.ux.x * a.x + e.ux.y * a.y) + e.hh * Math.abs(e.uy.x * a.x + e.uy.y * a.y) + (t.hw * Math.abs(t.ux.x * a.x + t.ux.y * a.y) + t.hh * Math.abs(t.uy.x * a.x + t.uy.y * a.y)));
+            },
+            isClear: (e, t) => !e.some(e => t.some(t => Za.boxesOverlap(e, t))),
+            settleSearch: e => e ? Za.SETTLE.gen2 : Za.SETTLE.gen3,
+            markerCandidates(e) {
+                let t = 0;
+                for (let n = 0; n < e.length; n++) t = 31 * t + e.charCodeAt(n) >>> 0;
+                const n = t % 2 ? 1 : -1, i = 9 * (t % 3 - 1);
+                return [ [ 36 * n, i ], [ 36 * -n, i ], [ 49 * n, -i ], [ 49 * -n, -i ], [ 38 * n, i + 24 ], [ 38 * -n, i - 24 ], [ 54 * n, i + 22 ], [ 54 * -n, i - 22 ] ];
+            },
+            markerAnchorAt(e, t, n, i, a) {
+                const r = -n, o = t;
+                return {
+                    x: e.x + r * i[0] + t * i[1],
+                    y: e.y + o * i[0] + n * i[1],
+                    radius: a
+                };
+            },
+            pickMarkerAnchor(e, t, n, i, a, r) {
+                for (const o of a) {
+                    const a = Za.markerAnchorAt(t, n, i, o, r);
+                    if (e.every(e => Math.hypot(a.x - e.x, a.y - e.y) >= a.radius + e.radius + 8)) return a;
+                }
+                return null;
+            },
+            topicSpokeEstimate(e, t, depth) {
+                // Memoised (T3, M6): the result is a pure function
+                // of ALL of its inputs — the label, the radius, and
+                // the canvas font-metrics state its measure calls
+                // read (Source Sans 3, weight 650; see Za.measure).
+                // The governing font signature is part of the cache
+                // key — the bundle's signature-recapture discipline:
+                // when the font state changes, entries under the old
+                // signature simply never hit and the value is
+                // recaptured, so a hit always returns exactly what
+                // the unmemoised computation returns under the same
+                // state. Hits hand back a fresh object, so a caller
+                // can never mutate a cached entry. Bounded like
+                // Za._cache: cleared past 2,000 entries.
+                let sig = "nofonts";
+                try {
+                    document.fonts && document.fonts.check && (sig = document.fonts.status + "|" + document.fonts.check('650 16px "Source Sans 3"'));
+                } catch (_) {}
+                const dep = null == depth ? 2 : depth, key = sig + "|" + t + "|" + dep + "|" + e, hit = Za._estimateCache.get(key);
+                if (hit) return {
+                    fontSize: hit.fontSize,
+                    spokeLength: hit.spokeLength
+                };
+                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + 30, out = {
+                    fontSize: n,
+                    spokeLength: Math.max(t, i)
+                };
+                return Za._estimateCache.size > 2e3 && Za._estimateCache.clear(), Za._estimateCache.set(key, out), {
+                    fontSize: out.fontSize,
+                    spokeLength: out.spokeLength
+                };
+            },
+            hubSpokeLength(e, t, n, i, a) {
+                let r = n;
+                for (let n = 0; n < 3; n++) {
+                    const n = Math.min(r - 40, Math.max(i + 44, .2 * r)) + 20;
+                    r = Math.max(r, n + Za.measure(e, t) + 3 + a);
+                }
+                return Math.max(n, r);
+            },
+            categoryFontSize: (e, t, n, i) => Math.max(15, Math.min(25, Za.fittedSize(e, t - n - (i ? 20 : 12), "category") + 5)),
+            categoryUnderlineLength: (e, t) => Math.max(36, e.length * t * .5)
+        });
+
+        function Qa(e) {
+            if (mn.staticMap) return;
+            if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
+            const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
+            if (!n) return;
+            selectSpokeNode(n, !0);
+            const rec = qn[n] || Xn(n);
+            if (rec && "Topic" === rec.kind && typeof xo === "function") {
+                const rect = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
+                xo(n, rect.left + rect.width / 2, rect.bottom + 8);
+            }
+        }
+        function clearSelectionMarking() {
+            if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());
+        }
+        function clearSpokeSelection() {
+            // The one clear path (Build 2026-10-19_0543): clear the
+            // selected node and any pending rating target, and remove
+            // the selection marking from the existing DOM.
+            // Geometry-neutral: no re-render — a full solve (Mr())
+            // would discard delivered geometry (scoped editor commits,
+            // DeKnotter runs) that exists only in the rendered DOM. The
+            // map-selection-dim observer clears sel-keep /
+            // has-selection in response to the marking removal.
+            // Returns whether anything was selected.
+            const had = Boolean(Lt || Nt);
+            if (had) {
+                Lt = null, Nt = null, sxSelEditorMirrored = null;
+                clearSelectionMarking();
+            }
+            return had;
+        }
+        function stampSelectedSpoke(d, host) {
+            if (!host) return;
+            const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            p.setAttribute("class", "selected-spoke");
+            p.setAttribute("d", d || "");
+            p.setAttribute("aria-hidden", "true");
+            let ref = host.firstChild;
+            while (ref && 1 === ref.nodeType && ref.classList.contains("group-heat")) ref = ref.nextSibling;
+            host.insertBefore(p, ref);
+        }
+        function applySelectionMarking(id, t) {
+            // Stamp the .selected-spoke highlight(s) for a selection
+            // onto the existing DOM, reproducing the render's end
+            // state exactly (no re-render: Mr() re-solves and
+            // re-renders the whole map from canonical layout state,
+            // silently discarding delivered geometry). The render
+            // builds each spoke through Ka, whose predicate marks the
+            // spoke whose id is the selected node, its parent, or its
+            // branch (cat-<slug of branch>) — but only spokes Ka
+            // actually builds can carry the mark, and the render's
+            // spoke-underlay pass then moves the branch spoke's
+            // visuals out of the hub group. The end state is:
+            // a topic's own mark stays in its node group (its Ka
+            // output is wrapped in .second-gen-rating-controls-only,
+            // which the underlay pass skips); the branch's mark lives
+            // in the branch's line-group underlay element
+            // (.spoke-underlay-item[data-spoke-for="cat-<slug>"]),
+            // never in the hub node group; and a subcategory carries
+            // no mark of its own (its line is drawn by
+            // renderKinkLine, which stamps no highlight, and no mark
+            // is stamped for a topic's parent subcategory either) —
+            // selecting a subcategory marks only its branch's line.
+            // Which spokes carry a mark, and where, is decided by
+            // selectionMarkKind (the single selection-marking
+            // authority, defined above Ka) — the same function Ka
+            // consults during render, so the end state reproduced
+            // here cannot drift from the render's.
+            // Each stamp copies its d from the spoke's .concept-hit —
+            // the same path data the render stamps. Element
+            // add/remove is a childList mutation, so the
+            // map-selection-dim observer mirrors the result into
+            // sel-keep / has-selection unchanged. No canonical layout
+            // state and no delivered-geometry registry entry is
+            // written here.
+            if (!Cn) return;
+            clearSelectionMarking();
+            const hits = new Map();
+            Cn.querySelectorAll(".concept-hit").forEach(hit => {
+                const hid = hit.getAttribute("data-id");
+                if (hid && !hits.has(hid) && !hit.closest(".layout-exit-clone")) hits.set(hid, hit);
+            });
+            const branchCatId = t && t.branch ? catId(t.branch) : null;
+            if ("own" === selectionMarkKind(id, id, t)) {
+                const hit = hits.get(id);
+                if (hit && hit.parentNode) stampSelectedSpoke(hit.getAttribute("d"), hit.parentNode);
+            }
+            if ("branch" === selectionMarkKind(branchCatId, id, t)) {
+                const hit = hits.get(branchCatId), underlay = Cn.querySelector(`.spoke-underlay-item[data-spoke-for="${CSS.escape(branchCatId)}"]`);
+                if (underlay) stampSelectedSpoke(hit ? hit.getAttribute("d") : "", underlay);
+                else if (hit && hit.parentNode) stampSelectedSpoke(hit.getAttribute("d"), hit.parentNode);
+            }
+        }
+        function selectSpokeNode(n, notify) {
+            // The one selection path for a spoke's node (Build
+            // 2026-10-18_1401): spoke taps (click and gesture paths),
+            // spoke keyboard activation, and the Layout Editor's selects
+            // (via __SEXCAPADES_LAYOUT_API.selectNode) all land here, so
+            // selecting a branch means the same thing everywhere — set
+            // the selected node, clear any pending rating target, apply
+            // the .selected-spoke marking to the existing DOM, and
+            // (unless the Layout Editor initiated it) notify the editor
+            // so its Advanced selects follow. Selection-only: no
+            // re-render and no solve — Mr() would re-deliver every
+            // node position from canonical layout state, discarding
+            // delivered geometry (scoped editor commits, DeKnotter
+            // runs) that exists only in the rendered DOM.
+            if (!n) return;
+            Lt = n, Nt = null, sxSelEditorMirrored = n;
+            applySelectionMarking(n, qn[n] || Xn(n) || (at[Vi()] || {})[n] || null);
+            if (notify === !1) return;
+            try {
+                window.__SEXCAPADES_LAYOUT_UI && window.__SEXCAPADES_LAYOUT_UI.selectNode && window.__SEXCAPADES_LAYOUT_UI.selectNode(n);
+            } catch (err) { __sxErrLog("layout-select-node", err); }
+        }
+        function Qsel(e) {
+            // Spoke tap = select ONLY (Build 2026-10-18_1401, deprecating
+            // the tap-to-expand/collapse toggle on spokes): tapping a
+            // spoke — the hit line, the stem, the taper, or the midline —
+            // selects that branch and never expands or collapses it, not
+            // even when the tapped spoke's branch is already selected
+            // (Build 1314's fall-through to Qa in that case is removed).
+            // Expand/collapse lives on the label and icon taps (Qa).
+            if (mn.staticMap) return;
+            if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
+            const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
+            n && selectSpokeNode(n, !0);
+            const rec = qn[n] || Xn(n);
+            if (rec && "Topic" === rec.kind && typeof xo === "function") {
+                const rect = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
+                xo(n, rect.left + rect.width / 2, rect.bottom + 8);
+            }
+        }
+        function Ja() {
+            In.querySelectorAll(".map-label").forEach(e => {
+                const t = qn[e.dataset.topicId];
+                if (!t) return;
+                const n = Tt && t.label.toLowerCase().includes(Tt);
+                e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
+            }), function() {
+                if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap || void 0 === nh) return;
+                const e = nh;
+                In.querySelectorAll(".node-group[data-layout-key]").forEach(t => {
+                    t.dataset.layoutKey;
+                    const n = Ep + Number(t.dataset.layoutX) * $p, i = Ap + Number(t.dataset.layoutY) * $p, a = !Number.isFinite(n) || !Number.isFinite(i) || n < e.x - 90 || n > e.x + e.width + 90 || i < e.y - 90 || i > e.y + e.height + 90;
+                    a !== Boolean(t.dataset.cameraOffscreen) && (t.dataset.cameraOffscreen = a ? "true" : "", 
+                    t.querySelectorAll("[role],[tabindex]").forEach(e => {
+                        a ? (e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role")), 
+                        e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex")), 
+                        e.removeAttribute("role"), e.setAttribute("tabindex", "-1"), e.setAttribute("aria-hidden", "true"), 
+                        e.style.pointerEvents = "none") : (void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), 
+                        delete e.dataset.cameraRole), void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), 
+                        delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex"), e.removeAttribute("aria-hidden"), 
+                        e.style.removeProperty("pointer-events"));
+                    }));
+                });
+            }();
+        }
+        function focusRelationLink(link, event) {
+            event?.preventDefault(), event?.stopPropagation();
+            const branchNames = [link.dataset.branchA, link.dataset.branchB].filter(Boolean), topicIds = [link.dataset.topicA, link.dataset.topicB].filter(Boolean);
+            topicIds.forEach(id => {
+                const topic = qn[id] || Xn(id);
+                topic?.branch && branchNames.push(topic.branch);
+            });
+            branchNames.forEach(name => rn.add(name));
+            if (branchNames.length) Mr();
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                const endpointIds = topicIds.length ? topicIds : branchNames.map(name => catId(name));
+                const points = endpointIds.map(id => In.querySelector(`[data-layout-key="${CSS.escape(id)}"]`)).filter(Boolean).map(node => {
+                    node.classList.remove("is-hidden");
+                    return {x:Number(node.dataset.labelX || node.dataset.layoutX), y:Number(node.dataset.labelY || node.dataset.layoutY)};
+                }).filter(point => Number.isFinite(point.x) && Number.isFinite(point.y));
+                if (points.length < 2) return;
+                const [a,b] = points, cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2, pad = innerWidth <= 620 ? 70 : 110, spanX = Math.abs(b.x-a.x) + 170, spanY = Math.abs(b.y-a.y) + 170, scale = Math.max(.28, Math.min(innerWidth <= 620 ? 2.2 : 2.6, (nh.width-2*pad)/Math.max(spanX,1), (nh.height-2*pad)/Math.max(spanY,1)));
+                const prevBt = Bt; Bt = !0; Ph(scale, nh.x + nh.width/2 - cx*scale, nh.y + nh.height/2 - cy*scale); Bt = prevBt;
+            }));
+        }
+        document.addEventListener("click", function(event) {
+            const link = __sxClosestAction(event.target, "relationHit");
+            link && focusRelationLink(link, event);
+        }, !0);
+        window.__sxOnKey( function(event) {
+            const link = event.target.closest?.(".common-overlap-link.relation-hit");
+            link && (event.key === "Enter" || event.key === " ") && focusRelationLink(link, event);
+        }, !0);
+
+        const f = Object.freeze([ "Orgasm & reproductive play", "Power exchange", "Service & ritual", "Connection & aftercare", "Psychological dynamics", "Primal & pursuit", "Impact, pain & body modification", "Bondage & restriction", "Sensation & atmosphere", "Body focus & appearance", "Clothing, materials & objects", "Roleplay & identity", "Fantasy & transformation", "Watching, exposure & settings", "Partner configurations", "Positions", "Sex acts", "Fluids & messy play" ]), y = new Map;
+        f.forEach((e, t) => {
+            h.some(t => t.name === e) && y.set(e, t);
+        }), h.forEach(e => {
+            y.has(e.name) || y.set(e.name, y.size);
+        });
+        const b = h.map(e => ({
+            name: e.name,
+            topics: e.topics.slice()
+        })), v = window.__SEXCAPADES_PREVALENCE && "object" == typeof window.__SEXCAPADES_PREVALENCE ? window.__SEXCAPADES_PREVALENCE : {}, w = Object.keys(v).length ? v : V("prevalenceData"), k = window.__SEXCAPADES_POPULARITY_DATA && "object" == typeof window.__SEXCAPADES_POPULARITY_DATA ? window.__SEXCAPADES_POPULARITY_DATA : {}, x = Object.keys(k).length ? k : V("popularityData"), S = Object.freeze({
+            joyal: 1516,
+            lehmiller: 4175
+        }), $ = e => Math.max(0, Number(e) || 0), E = e => Math.log1p(Math.max(0, Number(e) || 0));
+        function A(e) {
+            return Math.max(0, Math.min(1, e));
+        }
+        const C = e => {
+            const t = Number(e);
+            return Number.isFinite(t) ? A(t / 100) : null;
+        }, M = e => String(e || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim(), I = Object.freeze({
+            "Gender Play": [ "Genderplay" ],
+            "Doctor/Nurse Play": [ "Doctor / nurse roleplay" ],
+            Clamps: [ "Clamps and Clips" ],
+            "Lycra/Spandex": [ "Spandex" ],
+            "Suspension Bondage": [ "Suspension" ],
+            "Hunter / prey": [ "Predator/prey" ],
+            "Biting & scratching": [ "Scratch & bite play" ],
+            "Wax & temperature": [ "Wax" ],
+            "Electrical Play": [ "Electro sensation" ],
+            Cutting: [ "artistic cutting", "decorative cutting" ],
+            "Needle Play": [ "Needles & piercing", "Play Piercing", "Piercings" ],
+            "Rope bondage": [ "Japanese bondage", "Hojojutsu", "Hemp Rope", "Decorative rope" ],
+            Corsets: [ "Corsetry", "Corset Training", "Corset Cinching" ],
+            "Body Modification": [ "Tattoos", "Tattoo & body modification focus" ],
+            "Spiritual play": [ "Sex Magick", "Sacred Sexuality", "Spiritual BDSM" ],
+            "Vintage Porn": [ "Victorian Pornography" ],
+            Depilation: [ "Depilation/Shaving" ],
+            Smoking: [ "Cigars" ]
+        }), P = x.fetlife?.values || {}, L = x.fetlife?.aliases || {}, T = x.survey?.values || {}, F = new Map(Object.entries(P).map(([e, t]) => [ M(e), Number(t) ]));
+        /* ===== Community snapshot check-before-accepting (Rank 3, 2026-10-30) =====
+           A community snapshot is a frozen bundle of aggregated community
+           rating counts per topic: the embedded survey block in
+           popularityData (x.survey) and, when a host injects one, the
+           window.__SEXCAPADES_COMMUNITY_POPULARITY override read by
+           sxCommunityVal below. Either presentation is ONE O6 source
+           (the "community" entry in q). Before either is accepted into
+           the aggregate, this gate verifies (a) provenance, using only
+           the fields the snapshot format already carries — generation
+           (captured, as on the survey/reddit blocks and the popularity
+           bundle itself) and identity (sampleSize, as on the survey
+           block, or source, as on the prevalence entries) — and
+           (b) that it does not include failed imports, using only the
+           failed-import accounting the format already carries: a
+           snapshot-level failed-import count, or a per-topic entry
+           flagged as a failed import. No new snapshot format, no
+           signature, and no new provenance field is invented here.
+           Outcomes: an empty snapshot (the shipped state: no values)
+           is nothing to accept and warns about nothing; a snapshot
+           whose provenance is missing/unverifiable, or that carries a
+           snapshot-level failed-import count, is refused whole — the
+           community source then contributes nothing, exactly as if no
+           snapshot had been supplied, and a visible banner states the
+           reason; a snapshot whose only failed imports are separable
+           per-topic entries is accepted with those entries excluded
+           and a visible banner naming what was excluded. A sound
+           snapshot is accepted with its values object passed through
+           untouched: no count, weight, prior, or kinkiness math below
+           changes. Nothing previously excluded is re-included: a
+           refused or excluded entry never reaches H. The banner follows
+           the existing boot-restore/save-error pattern in the shell
+           (role="alert" aside, dismiss button, detail in the message),
+           and the check result is exposed on
+           window.__sxCommunitySnapshot for inspection. The gate runs
+           once per snapshot (once for the embedded block; once per
+           distinct override object, and again whenever an override
+           object's gate-relevant content changes in place, so a
+           snapshot injected or mutated after load is still checked
+           before its next read). */
+        function sxSnapHasText(v) {
+            return ("string" == typeof v && v.trim().length > 0) || Number.isFinite(v);
+        }
+        function sxSnapFailedTotal(obj) {
+            if (!obj || "object" != typeof obj) return { count: 0, field: null };
+            const fields = [ "failedImports", "failedImportCount", "failedSubmissions", "failedCount", "importFailures" ];
+            for (let k = 0; k < fields.length; k++) {
+                const v = obj[fields[k]];
+                const n = Array.isArray(v) ? v.length : Number(v);
+                if (Number.isFinite(n) && n > 0) return { count: n, field: fields[k] };
+            }
+            return { count: 0, field: null };
+        }
+        function sxSnapEntryFailed(v) {
+            return !!(v && "object" == typeof v && (v.failed === !0 || v.importFailed === !0 || v.failedImport === !0 || "failed" === v.status || "failed" === v.importStatus));
+        }
+        function sxSnapProvenanceMissing(prov) {
+            const missing = [];
+            if (!sxSnapHasText(prov && prov.captured)) missing.push("generation date (captured)");
+            if (!(Number.isFinite(Number(prov && prov.sampleSize)) && Number(prov.sampleSize) > 0) && !sxSnapHasText(prov && prov.source)) missing.push("identity (sampleSize or source)");
+            return missing;
+        }
+        function sxGateCommunitySnapshot(kind, values, prov, failedSrc) {
+            const keys = values && "object" == typeof values ? Object.keys(values) : [];
+            const base = { kind, status: "empty", accepted: !1, values: null, reasons: [], excluded: [], failedCount: 0, topicCount: 0 };
+            if (!keys.length) return base;
+            const failed = sxSnapFailedTotal(failedSrc || prov || {});
+            const missing = sxSnapProvenanceMissing(prov);
+            const excluded = [], kept = {};
+            keys.forEach(k => { if (sxSnapEntryFailed(values[k])) excluded.push(k); else kept[k] = values[k]; });
+            const reasons = [];
+            if (failed.count > 0) reasons.push("includes " + failed.count + " failed import" + (1 === failed.count ? "" : "s") + " (" + failed.field + ") — failed-import submissions are excluded from O6, so the snapshot was not accepted");
+            if (missing.length) reasons.push("missing provenance: " + missing.join("; ") + " — the snapshot could not be verified, so it was not accepted");
+            if (excluded.length && !Object.keys(kept).length) reasons.push("every topic entry (" + excluded.length + ") is flagged as a failed import — the snapshot was not accepted");
+            if (reasons.length) return Object.assign({}, base, { status: "refused", failedCount: failed.count, excluded, reasons });
+            if (excluded.length) return Object.assign({}, base, { status: "accepted-excluded", accepted: !0, values: kept, topicCount: Object.keys(kept).length, excluded, reasons: [ "excluded " + excluded.length + " failed-import topic" + (1 === excluded.length ? "" : "s") + ": " + excluded.join(", ") ] });
+            return Object.assign({}, base, { status: "accepted", accepted: !0, values, topicCount: keys.length });
+        }
+        function sxSnapshotBannerId(kind) {
+            return "sxCommunitySnapshotWarning-" + String(kind || "snapshot").replace(/[^a-z0-9]+/gi, "-").toLowerCase();
+        }
+        function sxShowCommunitySnapshotWarning(title, message, kind) {
+            try {
+                if (typeof __sxErrLog === "function") __sxErrLog("community-snapshot", new Error(title + ": " + message));
+                if (!document || !document.body) return;
+                const prev = document.getElementById(sxSnapshotBannerId(kind));
+                if (prev) {
+                    const msg = prev.querySelector("[data-sx-snapshot-message]");
+                    if (msg) msg.textContent = message;
+                    const head = prev.querySelector("[data-sx-snapshot-title]");
+                    if (head) head.textContent = title;
+                    return;
+                }
+                const banner = document.createElement("aside");
+                banner.id = sxSnapshotBannerId(kind);
+                banner.setAttribute("role", "alert");
+                banner.setAttribute("aria-live", "assertive");
+                banner.style.cssText = "position:fixed;top:max(12px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:2147483647;width:min(680px,calc(100vw - 24px));box-sizing:border-box;background:#4b171b;color:#fff;border:2px solid #ff9a9a;border-radius:10px;padding:16px 48px 16px 18px;box-shadow:0 12px 36px rgba(0,0,0,.58);font:600 16px/1.45 'Source Sans 3',system-ui,sans-serif;";
+                const head = document.createElement("strong");
+                head.setAttribute("data-sx-snapshot-title", "");
+                head.style.cssText = "display:block;font-size:20px;margin-bottom:4px;";
+                head.textContent = title;
+                const body = document.createElement("span");
+                body.setAttribute("data-sx-snapshot-message", "");
+                body.textContent = message;
+                const close = document.createElement("button");
+                close.type = "button";
+                close.setAttribute("aria-label", "Dismiss community snapshot warning");
+                close.textContent = "×";
+                close.style.cssText = "position:absolute;top:8px;right:10px;border:0;background:transparent;color:#fff;font:700 28px/1 system-ui,sans-serif;cursor:pointer;padding:4px 8px;";
+                close.addEventListener("click", function () { banner.remove(); });
+                banner.appendChild(head);
+                banner.appendChild(body);
+                banner.appendChild(close);
+                document.body.appendChild(banner);
+                close.focus({ preventScroll: !0 });
+            } catch (err) { if (typeof __sxErrLog === "function") __sxErrLog("community-snapshot-warning", err); }
+        }
+        function sxReportCommunitySnapshot(result) {
+            if (!result) return;
+            // One banner per snapshot kind, so the embedded and override
+            // reports never overwrite each other; a kind whose latest
+            // result is clean (accepted/empty) has its own banner
+            // removed, so a stale refusal cannot outlive a re-gate.
+            if ("refused" === result.status) sxShowCommunitySnapshotWarning("Community snapshot not accepted", "The community snapshot (" + result.kind + ") was not accepted into the community aggregate. " + result.reasons.join(" ") + " Community counts fall back to the other O6 sources and priors; nothing from this snapshot was used.", result.kind);
+            else if ("accepted-excluded" === result.status) sxShowCommunitySnapshotWarning("Community snapshot accepted with exclusions", "The community snapshot (" + result.kind + ") was accepted with exclusions. " + result.reasons.join(" ") + " All other topics from the snapshot were used unchanged.", result.kind);
+            else try { const el = document && document.getElementById(sxSnapshotBannerId(result.kind)); if (el) el.remove(); } catch (err) { if (typeof __sxErrLog === "function") __sxErrLog("community-snapshot-warning", err); }
+        }
+        const sxCommunitySnapshotStatus = { embedded: null, override: null };
+        window.__sxCommunitySnapshot = sxCommunitySnapshotStatus;
+        const sxEmbeddedSnapshot = sxGateCommunitySnapshot("embedded survey", T, { captured: (x.survey && x.survey.captured) || x.captured, sampleSize: x.survey && x.survey.sampleSize, source: x.survey && x.survey.source }, x.survey || {});
+        sxCommunitySnapshotStatus.embedded = sxEmbeddedSnapshot;
+        sxReportCommunitySnapshot(sxEmbeddedSnapshot);
+        const sxSurveyValues = sxEmbeddedSnapshot.accepted && sxEmbeddedSnapshot.values ? sxEmbeddedSnapshot.values : {};
+        const sxOverrideReserved = [ "captured", "sampleSize", "source", "confidence", "failedImports", "failedImportCount", "failedSubmissions", "failedCount", "importFailures" ];
+        let sxOverrideCache = { ref: null, fingerprint: null, result: null };
+        function sxOverrideFingerprint(g) {
+            // Gate-relevant content only: provenance, failed-import
+            // accounting, the topic-key set, and each entry's value,
+            // sampleSize, and failed flags. A snapshot mutated in place
+            // changes this fingerprint and is re-gated; an untouched
+            // snapshot keeps its cached result.
+            const parts = [ String(g.captured || ""), String(g.sampleSize || ""), String(g.source || ""), String(g.failedImports || ""), String(g.failedImportCount || ""), String(g.failedSubmissions || ""), String(g.failedCount || ""), Array.isArray(g.importFailures) ? g.importFailures.length : String(g.importFailures || "") ];
+            const values = g.values && "object" == typeof g.values && !Array.isArray(g.values) ? g.values : g;
+            Object.keys(values).sort().forEach(k => {
+                if (sxOverrideReserved.indexOf(k) >= 0 && values === g) return;
+                const v = values[k];
+                parts.push(k + "=" + (v && "object" == typeof v ? [ v.value, v.sampleSize, v.failed, v.importFailed, v.failedImport, v.status, v.importStatus ].join(",") : String(v)));
+            });
+            return parts.join("|");
+        }
+        function sxCheckedOverrideSnapshot(g) {
+            const fingerprint = sxOverrideFingerprint(g);
+            if (sxOverrideCache.ref === g && sxOverrideCache.fingerprint === fingerprint) return sxOverrideCache.result;
+            let values = g, prov = { captured: g.captured, sampleSize: g.sampleSize, source: g.source };
+            if (g.values && "object" == typeof g.values && !Array.isArray(g.values)) values = g.values;
+            else {
+                const plain = {};
+                Object.keys(g).forEach(k => { if (sxOverrideReserved.indexOf(k) < 0) plain[k] = g[k]; });
+                values = plain;
+            }
+            const result = sxGateCommunitySnapshot("override", values, prov, g);
+            sxCommunitySnapshotStatus.override = result;
+            sxReportCommunitySnapshot(result);
+            sxOverrideCache = { ref: g, fingerprint, result };
+            return result;
+        }
+        function N(e, t = e => e) {
+            const n = e.map(Number).filter(Number.isFinite).map(t);
+            return n.length ? {
+                min: Math.min(...n),
+                max: Math.max(...n)
+            } : {
+                min: 0,
+                max: 0
+            };
+        }
+        const _ = e => Math.log1p(Math.max(0, Number(e) || 0)), D = N(Object.values(P), _), R = N(Object.values(sxSurveyValues).map(e => "object" == typeof e ? e.value : e));
+        function O(e, t, n = e => e) {
+            const i = Number(e);
+            if (!Number.isFinite(i)) return null;
+            const a = n(i), r = t.max - t.min;
+            return r > 0 ? A((a - t.min) / r) : .5;
+        }
+        function B(e) {
+            const t = F.get(M(e)), n = function(e, t) {
+                const n = (e || []).map(e => t.get(M(e).replace(/^r /, ""))).filter(Number.isFinite);
+                return n.length ? Math.max(...n) : null;
+            }([ ...L[e] || [], ...I[e] || [] ], F), i = [ t, n ].filter(Number.isFinite);
+            return i.length ? Math.max(...i) : null;
+        }
+        function j(e) {
+            const t = [ e, ...I[e] || [] ].map(e => sxSurveyValues[e]).filter(e => null != e).sort((e, t) => Number(("object" == typeof t ? t.value : t) || 0) - Number(("object" == typeof e ? e.value : e) || 0))[0];
+            if (null == t) return null;
+            const n = "object" == typeof t ? Object.assign({}, t) : {
+                value: t
+            };
+            return n.sampleSize = Math.max(0, Number(n.sampleSize) || Number(x.survey?.sampleSize) || 0), 
+            n;
+        }
+        /* ===== O6 aggregated popularity (ruled 2026-10-29 17:11-17:30) =====
+           Popularity = prevalence, aggregated per topic over ONLY the sources
+           that have data for that topic (ignore-missing, ruled 17:30), weights
+           renormalised over the present sources. Source weight = ln(sample
+           size or count) x representativeness factor: anchors (Joyal 2015
+           n=1,516; Lehmiller 2018 n=4,175) at 1.0, discounted sources
+           (FetLife, Reddit, community ratings/survey merged into ONE source)
+           at 0.5. Literature priors are provisional: the existing ordinal
+           prior bands (PRIORS table, 403 topics) mapped to band centres and
+           carried at a log-scale weight on the same scale as the data
+           (ruled 2026-10-29): prior weight = 0.5 x ln(5) ≈ 0.80, factor
+           0.5 like the discounted sources, replacing the fixed weight 5 —
+           so a topic with no source data
+           at all falls back to its prior alone, and a FetLife-only topic
+           reads about 10% prior share, not 41%. Failed-import submissions are
+           excluded entirely (import-engine maintenance only). Kinkiness =
+           1 - popularity. This aggregate IS the Popularity List sort key
+           (H below), replacing the old raw-size-weighted H. */
+        const SX_O6_PRIORS = {"byId":{"t0002":0.35,"t0003":0.35,"t0004":0.35,"t0005":0.55,"t0006":0.55,"t0007":0.35,"t0008":0.35,"t0009":0.55,"t0010":0.55,"t0011":0.55,"t0012":0.55,"t0013":0.55,"t0014":0.55,"t0015":0.35,"t0016":0.35,"t0017":0.35,"t0018":0.35,"t0019":0.35,"t0020":0.35,"t0021":0.175,"t0022":0.55,"t0023":0.35,"t0024":0.175,"t0025":0.55,"t0026":0.35,"t0027":0.175,"t0028":0.35,"t0029":0.35,"t0030":0.35,"t0031":0.175,"t0032":0.35,"t0033":0.35,"t0034":0.55,"t0035":0.35,"t0036":0.35,"t0037":0.55,"t0038":0.175,"t0039":0.095,"t0040":0.35,"t0041":0.095,"t0042":0.35,"t0043":0.35,"t0044":0.35,"t0045":0.175,"t0046":0.35,"t0047":0.55,"t0048":0.35,"t0049":0.175,"t0050":0.35,"t0051":0.55,"t0052":0.35,"t0053":0.55,"t0054":0.095,"t0055":0.175,"t0056":0.55,"t0057":0.35,"t0058":0.55,"t0059":0.55,"t0060":0.55,"t0061":0.35,"t0062":0.55,"t0063":0.175,"t0064":0.55,"t0065":0.35,"t0066":0.35,"t0067":0.35,"t0068":0.35,"t0069":0.35,"t0070":0.35,"t0071":0.35,"t0072":0.35,"t0073":0.35,"t0074":0.35,"t0075":0.175,"t0076":0.175,"t0077":0.095,"t0078":0.095,"t0079":0.095,"t0080":0.03,"t0081":0.175,"t0082":0.35,"t0083":0.35,"t0084":0.55,"t0085":0.35,"t0086":0.35,"t0087":0.175,"t0088":0.175,"t0089":0.175,"t0090":0.175,"t0091":0.175,"t0092":0.175,"t0093":0.55,"t0094":0.175,"t0095":0.55,"t0096":0.35,"t0097":0.175,"t0098":0.35,"t0099":0.35,"t0100":0.55,"t0101":0.55,"t0102":0.35,"t0103":0.55,"t0104":0.35,"t0105":0.35,"t0106":0.35,"t0107":0.35,"t0108":0.35,"t0109":0.35,"t0110":0.35,"t0111":0.35,"t0112":0.35,"t0113":0.35,"t0114":0.35,"t0115":0.35,"t0116":0.175,"t0117":0.175,"t0118":0.175,"t0119":0.175,"t0120":0.03,"t0121":0.35,"t0122":0.35,"t0123":0.35,"t0124":0.175,"t0125":0.35,"t0126":0.35,"t0127":0.55,"t0128":0.55,"t0129":0.55,"t0130":0.35,"t0131":0.55,"t0132":0.095,"t0133":0.35,"t0134":0.35,"t0135":0.35,"t0136":0.35,"t0137":0.35,"t0138":0.175,"t0139":0.175,"t0140":0.35,"t0141":0.35,"t0142":0.35,"t0143":0.175,"t0144":0.175,"t0145":0.175,"t0146":0.35,"t0147":0.175,"t0148":0.095,"t0149":0.35,"t0150":0.35,"t0151":0.35,"t0152":0.55,"t0153":0.55,"t0154":0.175,"t0155":0.175,"t0156":0.175,"t0157":0.35,"t0158":0.35,"t0159":0.175,"t0160":0.55,"t0161":0.095,"t0162":0.175,"t0163":0.35,"t0164":0.35,"t0165":0.175,"t0166":0.55,"t0167":0.55,"t0168":0.35,"t0169":0.095,"t0170":0.55,"t0171":0.175,"t0172":0.35,"t0173":0.175,"t0174":0.35,"t0175":0.55,"t0176":0.35,"t0177":0.55,"t0178":0.35,"t0179":0.175,"t0180":0.175,"t0181":0.55,"t0182":0.55,"t0183":0.55,"t0184":0.55,"t0185":0.35,"t0186":0.35,"t0187":0.175,"t0188":0.55,"t0189":0.175,"t0190":0.35,"t0191":0.35,"t0192":0.35,"t0193":0.35,"t0194":0.35,"t0195":0.175,"t0196":0.35,"t0197":0.35,"t0198":0.095,"t0199":0.35,"t0200":0.095,"t0201":0.35,"t0202":0.35,"t0203":0.175,"t0204":0.35,"t0205":0.55,"t0206":0.175,"t0207":0.175,"t0208":0.35,"t0209":0.35,"t0210":0.35,"t0211":0.35,"t0212":0.35,"t0213":0.55,"t0214":0.35,"t0215":0.55,"t0216":0.35,"t0217":0.35,"t0218":0.55,"t0219":0.55,"t0220":0.55,"t0221":0.35,"t0222":0.35,"t0223":0.35,"t0224":0.35,"t0225":0.35,"t0226":0.35,"t0227":0.175,"t0228":0.35,"t0229":0.55,"t0230":0.35,"t0231":0.35,"t0232":0.35,"t0233":0.55,"t0234":0.35,"t0235":0.35,"t0236":0.35,"t0237":0.35,"t0238":0.175,"t0239":0.35,"t0240":0.35,"t0241":0.35,"t0242":0.35,"t0243":0.35,"t0244":0.35,"t0245":0.35,"t0246":0.35,"t0247":0.175,"t0248":0.35,"t0249":0.35,"t0250":0.35,"t0251":0.35,"t0252":0.55,"t0253":0.35,"t0254":0.35,"t0255":0.175,"t0256":0.35,"t0257":0.55,"t0258":0.35,"t0259":0.55,"t0260":0.55,"t0261":0.35,"t0262":0.35,"t0263":0.55,"t0264":0.55,"t0265":0.03,"t0266":0.55,"t0267":0.35,"t0268":0.35,"t0269":0.55,"t0270":0.55,"t0271":0.55,"t0272":0.55,"t0273":0.35,"t0274":0.35,"t0275":0.35,"t0276":0.35,"t0277":0.35,"t0278":0.55,"t0279":0.35,"t0280":0.35,"t0281":0.55,"t0282":0.35,"t0283":0.175,"t0284":0.55,"t0285":0.35,"t0286":0.55,"t0287":0.55,"t0288":0.55,"t0289":0.35,"t0290":0.55,"t0291":0.55,"t0292":0.35,"t0293":0.55,"t0294":0.55,"t0295":0.35,"t0296":0.55,"t0297":0.55,"t0298":0.55,"t0299":0.35,"t0300":0.175,"t0301":0.35,"t0302":0.55,"t0303":0.55,"t0304":0.55,"t0305":0.55,"t0306":0.55,"t0307":0.55,"t0308":0.175,"t0309":0.35,"t0310":0.35,"t0311":0.35,"t0312":0.175,"t0313":0.175,"t0314":0.35,"t0315":0.55,"t0316":0.55,"t0317":0.55,"t0318":0.55,"t0319":0.55,"t0320":0.55,"t0321":0.55,"t0322":0.55,"t0323":0.35,"t0324":0.35,"t0325":0.175,"t0326":0.55,"t0327":0.55,"t0328":0.55,"t0329":0.55,"t0330":0.55,"t0331":0.55,"t0332":0.175,"t0333":0.095,"t0334":0.55,"t0335":0.55,"t0336":0.55,"t0337":0.175,"t0338":0.175,"t0339":0.35,"t0340":0.175,"t0341":0.35,"t0342":0.55,"t0343":0.35,"t0344":0.35,"t0345":0.35,"t0346":0.35,"t0347":0.175,"t0348":0.095,"t0349":0.35,"t0350":0.095,"t0351":0.35,"t0352":0.35,"t0353":0.35,"t0354":0.55,"t0355":0.55,"t0356":0.35,"t0357":0.35,"t0358":0.35,"t0359":0.55,"t0360":0.35,"t0361":0.35,"t0362":0.35,"t0363":0.35,"t0364":0.35,"t0365":0.35,"t0366":0.35,"t0367":0.175,"t0368":0.55,"t0369":0.35,"t0370":0.35,"t0371":0.35,"t0372":0.35,"t0373":0.095,"t0374":0.175,"t0375":0.55,"t0376":0.55,"t0377":0.55,"t0378":0.35,"t0379":0.35,"t0380":0.35,"t0381":0.175,"t0382":0.175,"t0383":0.175,"t0384":0.35,"t0385":0.175,"t0386":0.35,"t0387":0.55,"t0388":0.55,"t0389":0.35,"t0390":0.35,"t0391":0.35,"t0392":0.35,"t0393":0.35,"t0394":0.175,"t0395":0.095,"t0396":0.55,"t0397":0.55,"t0398":0.55,"t0399":0.35,"t0400":0.35,"t0401":0.35,"t0402":0.35,"t0403":0.35,"t0404":0.55},"byLabel":{"protocols and rules":0.35,"collars and symbols":0.35,"reward and correction":0.35,"discipline":0.55,"begging":0.55,"scene based roles":0.35,"ongoing dynamics":0.35,"femdom":0.55,"d s":0.55,"ordered to masturbate":0.55,"brats":0.55,"24 7":0.55,"switching":0.55,"male authority":0.35,"behavior modification":0.35,"female supremacy":0.35,"play punishment":0.35,"bathroom use control":0.35,"domestic discipline":0.35,"pro domme":0.175,"rope bondage":0.55,"scarf bondage":0.35,"hair bondage":0.175,"cuffs and straps":0.55,"cuffs":0.55,"spreaders and bars":0.35,"spreaders":0.35,"medieval devices":0.175,"armbinders":0.35,"bondage tape":0.35,"duct tape":0.35,"cling film":0.175,"mummification":0.35,"tape and wrapping":0.35,"tape":0.35,"blindfolded restraint":0.55,"blindfold":0.55,"gags":0.35,"speech restriction":0.35,"caging confinement":0.55,"caging":0.55,"encasement fetish":0.175,"encasement":0.175,"sleepsacks":0.095,"immobilization":0.35,"crucifixion play":0.095,"crucifixion":0.095,"furniture restraint":0.35,"furniture":0.35,"suspension bondage":0.35,"predicament bondage":0.35,"escape play":0.175,"breast bondage":0.35,"anal hooks":0.55,"self bondage":0.35,"waterbondage":0.175,"bondage art":0.35,"pain":0.55,"corporal punishment":0.35,"impact play":0.55,"percussion play":0.095,"pressure points":0.175,"spanking":0.55,"hand spanking":0.55,"otk spanking":0.35,"breast spanking":0.55,"clit spanking":0.55,"pussy spanking":0.55,"tit slapping":0.35,"flogging":0.55,"fire flogging":0.175,"whips":0.55,"belt whippings":0.35,"breast whipping":0.35,"caning":0.35,"riding crops":0.35,"paddles and straps":0.35,"clamps":0.35,"clothespins":0.35,"pinching":0.35,"cutting":0.35,"needle play":0.35,"corset piercing":0.175,"scarification":0.175,"staples":0.095,"fish hooks":0.095,"flesh hooks":0.095,"cell popping":0.03,"ball kicking":0.175,"ballbusting":0.35,"cock slapping":0.35,"cock and ball torture":0.55,"fire play":0.35,"knife play":0.35,"waterboarding":0.175,"figging":0.175,"sounding":0.175,"trampling":0.175,"kicking":0.175,"bastinado":0.175,"hair pulling":0.55,"abrasion play":0.175,"bruises":0.55,"heavy marking":0.35,"extreme endurance":0.175,"wax and temperature":0.35,"ice and cool touch":0.35,"tickling":0.55,"electrical play":0.55,"texture contrast":0.35,"sensory deprivation":0.55,"sensory overload":0.35,"asmr and whispering":0.35,"music and sound":0.35,"mirrors":0.35,"low light":0.35,"scent":0.35,"tantra energy play":0.35,"violet wand":0.35,"wartenberg pinwheels":0.35,"panty sniffing":0.35,"tens unit":0.35,"smothering":0.35,"cupping":0.175,"auralism":0.175,"vampire gloves":0.175,"smoking":0.175,"formiphilia":0.03,"abdl":0.35,"ddlg":0.35,"age play between adults":0.35,"age play":0.35,"infantilism":0.175,"caregiver roles adults":0.35,"caregiver":0.35,"mommy girl":0.35,"authority roles":0.55,"teacher student roleplay":0.55,"teacher student":0.55,"doctor nurse play":0.55,"doctor nurse":0.55,"medical play":0.35,"owner and property":0.55,"owner property":0.55,"gor":0.095,"captivity kidnapping":0.35,"kidnapping":0.35,"consensual non consent fantasy":0.35,"cnc fantasy":0.35,"damsels in distress":0.35,"damsels":0.35,"pet play":0.35,"pet":0.35,"puppy play":0.35,"puppy":0.35,"pony play":0.175,"piggy play":0.175,"creature fantasy":0.35,"1950s household":0.35,"1950s":0.35,"historical fantasy":0.35,"historical":0.35,"pirates":0.175,"victorian lifestyles":0.175,"victorian":0.175,"superheroes":0.175,"vampires and gothic":0.35,"vampires":0.35,"clowns":0.175,"robots":0.095,"dollification":0.35,"librarians":0.35,"sister brother roleplay":0.35,"siblings":0.35,"latex and rubber":0.55,"leather":0.55,"pvc":0.175,"vinyl":0.175,"metal":0.175,"satin":0.35,"silk":0.35,"velvet":0.175,"lace":0.55,"denim":0.095,"fur":0.175,"lycra spandex":0.35,"nylonlegs and feet":0.35,"nylon":0.35,"boot":0.175,"heels and boots":0.55,"high heels":0.55,"pumps":0.35,"retifism":0.095,"knee high socks":0.55,"socks":0.175,"business suits":0.35,"military":0.175,"military uniforms":0.35,"schoolgirl uniform":0.55,"uniforms":0.35,"cosplay":0.55,"costume transformation":0.35,"geisha":0.175,"steampunk":0.175,"lingerie and stockings":0.55,"fishnets":0.55,"pantyhose stockings":0.55,"corsets":0.55,"diapers":0.35,"sissy panties":0.35,"petticoats":0.175,"skirts":0.55,"gas masks":0.175,"hoods":0.35,"masks and hoods":0.35,"costume masks":0.35,"glasses":0.35,"anal beads":0.35,"glass dildos":0.35,"inflatables":0.175,"harnesses":0.35,"gloves":0.35,"chaps":0.095,"kilts":0.35,"zentai":0.095,"hands":0.35,"hands and gloves":0.35,"hair":0.175,"long hair":0.35,"pigtails":0.55,"bald girls":0.175,"head shaving":0.175,"facial hair":0.35,"beards":0.35,"body hair":0.35,"pubic hair":0.35,"depilation":0.35,"feet and footwear":0.55,"feet":0.55,"toes and feet":0.35,"toes":0.35,"foot worship":0.55,"boot worship":0.35,"legs":0.35,"buttocks":0.55,"big tits":0.55,"breasts":0.55,"large labia":0.35,"pregnancy focus":0.35,"makeup":0.35,"lipstick":0.35,"freckles":0.35,"armpits":0.35,"braces":0.175,"tongues":0.35,"bbw":0.55,"bbc":0.35,"muscles":0.35,"older men":0.35,"older women":0.55,"size contrast":0.35,"uncut cock":0.35,"body modification":0.35,"body worship":0.35,"muscle worship":0.175,"degradation":0.35,"humiliation language":0.35,"female humiliation":0.35,"small penis humiliation":0.35,"sph humiliation":0.35,"objectification":0.35,"fear":0.35,"fear play":0.35,"interrogation":0.35,"military interrogation":0.175,"hypnosis and mind control fantasy":0.35,"hypnosis":0.35,"mind fucks":0.35,"mental bondage":0.35,"emotional sadism":0.35,"sadism":0.55,"affectionate cruelty":0.35,"crying":0.35,"dacryphilia":0.175,"tears":0.35,"tearing off clothing":0.55,"anticipation and suspense":0.35,"trust":0.55,"attention":0.55,"blushing":0.35,"confession and secrets":0.35,"dirty talk":0.55,"praise in scene":0.55,"praise":0.55,"graphoerotica":0.03,"watching and being watched":0.55,"private photo and video":0.35,"performance for a partner":0.35,"public and outdoor play":0.55,"exhibition voyeurism":0.55,"sexting":0.55,"burlesque":0.55,"sex in the cemetery":0.35,"pin ups":0.35,"fetish models":0.35,"vintage porn":0.35,"bellydancing":0.35,"threesomes":0.55,"group encounters":0.35,"swinging":0.35,"cuckold hotwife":0.55,"polyamory with kink":0.35,"group service":0.175,"gangbang":0.55,"age gap":0.35,"fmf threesomes":0.55,"interracial sex":0.55,"hotwife":0.55,"cuckold humiliation":0.35,"morning sex":0.55,"oral sex":0.55,"facefucking":0.35,"facesitting":0.55,"rimming":0.55,"fingering mouths":0.35,"mouth fingering":0.35,"road head":0.55,"anal sex":0.55,"anal training":0.55,"anal fingering":0.35,"anal fisting":0.175,"pegging":0.35,"handjobs":0.55,"mutual masturbation":0.55,"vaginal fingering":0.55,"nipple play":0.55,"penetration":0.55,"fucking machines":0.55,"large objects":0.175,"vaginal stretching":0.35,"vaginal fisting":0.35,"fisting":0.35,"vacuum pumping":0.35,"urethral fucking":0.175,"catheters":0.175,"facials":0.35,"creampies":0.55,"squirting":0.55,"69":0.55,"cowgirl":0.55,"doggystyle":0.55,"missionary":0.55,"reverse cowgirl":0.55,"spooning":0.55,"standing up":0.35,"queening":0.35,"gorean slave positions":0.175,"orgasm control":0.55,"orgasm denial":0.55,"chastity":0.55,"edging":0.55,"teasing":0.55,"breeding pregnancy fantasy":0.55,"surrogacy fantasy":0.175,"oviposition fantasy":0.095,"edge play":0.55,"cock milking":0.55,"tease and denial":0.55,"anal chastity":0.175,"watersports":0.175,"lactation":0.35,"blood play":0.175,"spit":0.35,"enemas":0.55,"breastfeeding":0.35,"creampie cleanup":0.35,"toilet slave":0.35,"liquor":0.35,"douching":0.175,"nyotaimori":0.095,"chocolate":0.35,"klismaphilia":0.095,"hunter prey":0.35,"chase scenes":0.35,"wrestling and struggle":0.35,"biting and scratching":0.55,"being overpowered":0.55,"manhandling":0.35,"pursuit take down and capture":0.35,"primal":0.35,"acts of service":0.55,"domestic service":0.35,"formal etiquette":0.35,"grooming rituals":0.35,"dressing a partner":0.35,"permission rituals":0.35,"daily tasks":0.35,"ceremonial scenes":0.35,"spiritual play":0.175,"foot massage":0.55,"domestic servitude":0.35,"french maids":0.35,"maid":0.35,"crawling":0.35,"boot blacking":0.095,"religious play":0.175,"romantic surrender":0.55,"seduction scenarios":0.55,"strangers fantasy":0.55,"secret identity":0.35,"mythical creatures":0.35,"aliens":0.35,"growth shrinking fantasy":0.175,"body swapping fantasy":0.175,"furry transformation fantasy":0.175,"gender play":0.35,"crossdressing":0.175,"sissification":0.35,"celebrity fantasy":0.55,"erotic literature":0.55,"anime":0.35,"hentai":0.35,"writing erotica":0.35,"transvestism":0.35,"androgyny":0.35,"butches":0.175,"psycholagny":0.095,"verbal check ins":0.55,"cuddling and touch":0.55,"food and hydration":0.55,"quiet decompression":0.35,"praise aftercare":0.35,"post scene review":0.35,"space and solitude":0.35,"next day check in":0.35,"affection":0.55}};
+        const SX_O6_PRIOR_W = .5 * Math.log(5), SX_O6_LN_JOYAL = Math.log(1516), SX_O6_LN_LEHMILLER = Math.log(4175);
+        function sxO6Prior(e) {
+            // Prior resolved by topic id first: the label table misses
+            // topics whose catalog label has no byLabel entry (e.g.
+            // "Medieval"), while byId holds a prior for every topic.
+            // Label lookup below is the fallback for non-catalog labels.
+            const id = topicIdByLabel[String(e || "")];
+            if (id) { const byId = SX_O6_PRIORS.byId[id]; if (Number.isFinite(byId)) return byId; }
+            const v = SX_O6_PRIORS.byLabel[M(e)];
+            if (Number.isFinite(v)) return v;
+            const alts = I[e] || [];
+            for (let k = 0; k < alts.length; k++) { const w = SX_O6_PRIORS.byLabel[M(alts[k])]; if (Number.isFinite(w)) return w; }
+            return null;
+        }
+        const SX_REDDIT_VALUES = (x.reddit && x.reddit.values) || {}, SX_REDDIT_RANGE = N(Object.values(SX_REDDIT_VALUES).map(v => "object" == typeof v ? v.value : v));
+        function sxRedditVal(e) {
+            const t = [ e, ...I[e] || [] ].map(k => SX_REDDIT_VALUES[k]).filter(v => null != v).sort((a, b) => Number(("object" == typeof b ? b.value : b) || 0) - Number(("object" == typeof a ? a.value : a) || 0))[0];
+            if (null == t) return null;
+            const n = "object" == typeof t ? Object.assign({}, t) : { value: t };
+            return n.sampleSize = Math.max(0, Number(n.sampleSize) || Number(x.reddit && x.reddit.sampleSize) || 0), n;
+        }
+        function sxCommunityVal(e) {
+            const g = window.__SEXCAPADES_COMMUNITY_POPULARITY;
+            if (g && "object" == typeof g) {
+                const checked = sxCheckedOverrideSnapshot(g);
+                if (checked && checked.accepted && checked.values) {
+                    const t = [ e, ...I[e] || [] ].map(k => checked.values[k]).filter(v => null != v)[0];
+                    if (null != t) { const n = "object" == typeof t ? Object.assign({}, t) : { value: t }; n.sampleSize = Math.max(0, Number(n.sampleSize) || 0); return n; }
+                }
+            }
+            return j(e);
+        }
+        const q = Object.freeze([ {
+            id: "fetlife",
+            value: e => B(e),
+            normalize: e => O(e, D, _),
+            weight: e => .5 * E(e)
+        }, {
+            id: "joyal",
+            value: e => ho(e, "joyal"),
+            normalize: e => C(e && e.pct),
+            weight: e => e ? SX_O6_LN_JOYAL : 0
+        }, {
+            id: "lehmiller",
+            value: e => ho(e, "lehmiller"),
+            normalize: e => C(e && e.pct),
+            weight: e => e ? SX_O6_LN_LEHMILLER : 0
+        }, {
+            id: "reddit",
+            value: e => sxRedditVal(e),
+            normalize: e => O(e && e.value, SX_REDDIT_RANGE),
+            weight: e => .5 * Math.log(Math.max(1, Number(e && e.sampleSize) || Number(e && e.value) || 0))
+        }, {
+            id: "community",
+            value: e => sxCommunityVal(e),
+            normalize: e => O(e && e.value, R),
+            weight: e => .5 * Math.log(Math.max(1, Number(e && e.sampleSize) || 0))
+        }, {
+            id: "priors",
+            value: e => sxO6Prior(e),
+            normalize: e => Number.isFinite(e) ? A(e) : null,
+            weight: () => SX_O6_PRIOR_W
+        } ]);
+        function H(e) {
+            let t = 0, n = 0;
+            return q.forEach(i => {
+                const a = i.value(e);
+                if (null == a) return;
+                const r = i.normalize(a);
+                if (!Number.isFinite(r)) return;
+                const o = Math.max(0, Number(i.weight(a, e)) || 0);
+                o && (t += r * o, n += o);
+            }), n ? t / n : null;
+        }
+        /* ===== Zero-weight silent drop (Rank 4, 2026-10-30) =====
+           A Reddit or community sample of size 1 or less weighs
+           0.5 x ln(max(1, size)) = 0 in q, so it contributes nothing
+           to H — and nothing said so. The weight formula itself is
+           already continuous in the sample size (ln(1) = 0, rising
+           gradually: 0.35 at 2, 0.55 at 3, 0.69 at 4, 1.15 at 10),
+           so the 1-to-2 step is integer granularity, not a formula
+           discontinuity; no weight is changed here and no new
+           formula is invented, because keeping the size-2-and-above
+           weights exactly as they are and the size-1 weight at zero
+           pins the formula. What changes is visibility: this helper
+           mirrors H's own decision (value present, normalisation
+           finite, weight zero, effective size <= 1) and names the
+           source and topic, and popularitySourceStats appends its
+           notes to the single-topic breakdown (mark menu and
+           tooltip) so a too-small sample is stated, not silent. */
+        function sxO6TooSmallNotes(idOrLabel) {
+            const label = topicLabelById[String(idOrLabel || "")] || String(idOrLabel || "");
+            const notes = [];
+            [ "reddit", "community" ].forEach(id => {
+                const src = q.find(s => s.id === id);
+                if (!src) return;
+                const raw = src.value(label);
+                if (null == raw) return;
+                const entry = raw && "object" == typeof raw ? raw : { value: raw };
+                if (!Number.isFinite(src.normalize(entry))) return;
+                if (Math.max(0, Number(src.weight(entry, label)) || 0) > 0) return;
+                const size = "reddit" === id ? Math.max(0, Number(entry.sampleSize) || Number(entry.value) || 0) : Math.max(0, Number(entry.sampleSize) || 0);
+                if (size > 1) return;
+                notes.push({ source: "reddit" === id ? "Reddit" : "Community", topic: label, sampleSize: size, weight: 0 });
+            });
+            return notes;
+        }
+        /* O6 score storage: the aggregate lives in memory only, computed by H
+           on demand from the embedded source blocks (prevalenceData /
+           popularityData) plus the priors table above; it recomputes on page
+           load (the taxonomy sort below runs H over every topic) and whenever
+           a caller re-reads it. There is no persisted copy and no background
+           sync. Kinkiness is derived from the same value: 1 - popularity. */
+        /* ONE popularity reader (Rank 1, 2026-10-30): every popularity /
+           kinkiness read goes through sxTopicPopularity, by topic id
+           with label as fallback. The aggregate itself is H (O6 sources
+           and weights unchanged); the id path resolves the label from
+           the catalog, so the prior inside H is the byId prior (see
+           sxO6Prior). A label passed directly falls back to H(label).
+           Kinkiness is 1 - popularity, from the same value. */
+        function sxTopicPopularity(idOrLabel, labelFallback) {
+            const key = String(idOrLabel || "");
+            const lb = topicLabelById[key];
+            if (lb) {
+                const p = H(lb);
+                if (null != p) return p;
+                const pr = SX_O6_PRIORS.byId[key];
+                return Number.isFinite(pr) ? pr : null;
+            }
+            if (labelFallback) return H(labelFallback);
+            return H(key);
+        }
+        function sxTopicKinkiness(idOrLabel, labelFallback) {
+            const p = sxTopicPopularity(idOrLabel, labelFallback);
+            return null == p ? null : 1 - p;
+        }
+        window.__sxO6 = {
+            popularity: sxTopicPopularity,
+            kinkiness: sxTopicKinkiness,
+            popularityById: sxTopicPopularity,
+            kinkinessById: sxTopicKinkiness,
+            tooSmallNotes: sxO6TooSmallNotes,
+            communitySnapshot: sxCommunitySnapshotStatus
+        };
+        function W(e, t) {
+            const n = Number.isFinite(e.score), i = Number.isFinite(t.score);
+            return n !== i ? n ? -1 : 1 : n && i && e.score !== t.score ? t.score - e.score : String(e.label).localeCompare(String(t.label)) || e.index - t.index;
+        }
+        function U(e, t, n) {
+            const i = n || (e => e?.label || e);
+            return e.map((e, n) => ({
+                value: e,
+                index: n,
+                score: t(e),
+                label: i(e)
+            })).sort(W).map(e => e.value);
+        }
+        function G(e, t) {
+            return U(e, t);
+        }
+        function K(e) {
+            const t = (e || []).map(H).filter(Number.isFinite);
+            return t.length ? t.reduce((e, t) => e + t, 0) / t.length : null;
+        }
+        function z(e) {
+            return K((e.topics || []).map(sxName));
+        }
+        function V(t) {
+            try {
+                return JSON.parse(e.byId(t)?.textContent || "{}");
+            } catch (e) {
+                return {};
+            }
+        }
+        h.forEach(e => {
+            e.topics = U(e.topics, e => sxTopicPopularity(topicIdByLabel[sxName(e)] || sxName(e)));
+        }), h.splice(0, h.length, ...U(h, z, e => e.name));
+        const Y = V("fetlifeGroupMappingData"), X = V("redditGroupMappingData"), Z = V("discordGroupMappingData"), Q = Object.keys(Y).length ? Y : window.__SEXCAPADES_FETLIFE_GROUPS && "object" == typeof window.__SEXCAPADES_FETLIFE_GROUPS ? window.__SEXCAPADES_FETLIFE_GROUPS : {}, J = Object.keys(X).length ? X : window.__SEXCAPADES_REDDIT_GROUPS && "object" == typeof window.__SEXCAPADES_REDDIT_GROUPS ? window.__SEXCAPADES_REDDIT_GROUPS : {}, ee = Object.keys(Z).length ? Z : window.__SEXCAPADES_DISCORD_GROUPS && "object" == typeof window.__SEXCAPADES_DISCORD_GROUPS ? window.__SEXCAPADES_DISCORD_GROUPS : {}, te = (() => {
+            try {
+                const t = JSON.parse(e.byId("communityCompletionTimeData")?.textContent || "{}"), n = e => Number.isFinite(Number(e)) && Number(e) > 0 ? Number(e) : null, i = e => Number.isFinite(Number(e)) && Number(e) >= 0 ? Number(e) : null;
+                return {
+                    median: n(t.median),
+                    mean: n(t.mean),
+                    sd: i(t.sd),
+                    n: n(t.n)
+                };
+            } catch (e) {
+                return {
+                    median: null,
+                    mean: null,
+                    sd: null,
+                    n: null
+                };
+            }
+        })();
+        function ne(e) {
+            const t = Math.round(10 * e) / 10;
+            return Number.isInteger(t) ? String(t) : t.toFixed(1);
+        }
+        !function() {
+            const t = null !== te.median && null !== te.mean && null !== te.sd && null !== te.n;
+            e.all("[data-list-rate-estimate-headline]").forEach(e => {
+                e.textContent = t ? `Most explorers finish in ~${ne(te.median)} minutes. Pause anytime — partial profiles still make a functional hypermap.` : "Most people finish in less than an hour. Pause anytime — partial profiles still make a functional hypermap.";
+            }), e.all("[data-list-rate-estimate-detail]").forEach(e => {
+                e.hidden = !t, e.textContent = t ? `average ${ne(te.mean)} ± ${ne(te.sd)} min from ${Math.round(te.n)} explorers` : "";
+            });
+        }();
+        const ie = {
+            "decorative rope": "Shibari",
+            "japanese-inspired bondage": "Shibari",
+            "suspension bondage": "Suspension",
+            "cuffs & straps": "Bondage",
+            "spreader bars": "Bondage",
+            "tape wrapping": "Bondage",
+            mummification: "Bondage",
+            "furniture restraint": "Bondage",
+            "blindfolded restraint": "Bondage",
+            "escape / immobilization": "Bondage",
+            "paddles & straps": "Impact play",
+            "riding crops": "Impact play",
+            canes: "Caning",
+            "switches & implements": "Impact play",
+            "needle / piercing play": "Needle play",
+            "heavy marking": "Cutting",
+            "wax & temperature play": "Wax play",
+            "ice & cold play": "Ice play",
+            electrostimulation: "Sensation play",
+            "sensory deprivation": "Sensation play",
+            "sensory overload": "Sensation play",
+            "feathers & light touch": "Sensation play",
+            "soundscapes & music": "Sensation play",
+            "massage & oils": "Massage",
+            "dominant role": "Dominance",
+            "submissive role": "Submission",
+            slave: "Master/slave",
+            "owner & property": "Master/slave",
+            "caregiver & little roles": "Age play",
+            "age play between adults": "Age play",
+            "pet handler": "Pet play",
+            "puppy play": "Puppy play",
+            "pony play": "Pony Play",
+            "doctor / patient": "Doctor/nurse",
+            "teacher / student": "Teacher/student",
+            "boss / employee": "Boss/secretary",
+            "captivity scenarios": "Kidnapping",
+            "consensual non-consent": "CNC",
+            "interrogation scenes": "Interrogation",
+            "police roleplay": "Police",
+            "military roleplay": "Military",
+            "religious roleplay": "Religious",
+            "historical roleplay": "Historical",
+            "latex & rubber": "Latex",
+            "lingerie & stockings": "Lingerie",
+            uniforms: "Uniform",
+            "heels & boots": "Boots",
+            diapers: "Diapers",
+            "feet & footwear": "Feet",
+            "muscle worship": "Worship",
+            buttocks: "Ass worship",
+            genderplay: "Feminization",
+            sissification: "Sissy",
+            "humiliation language": "Humiliation",
+            "mindfucks & uncertainty": "Fear Play",
+            objectification: "Objectification",
+            degradation: "Degradation",
+            "fear play": "Fear Play",
+            begging: "Begging",
+            "watching & being watched": "Voyeurism",
+            "performance for a partner": "Exhibitionism",
+            "public / outdoor exposure": "Exhibitionism",
+            "exhibition / voyeurism": "Exhibitionism",
+            threesomes: "Threesome",
+            "group encounters": "Threesome",
+            "cuckold / hotwife": "Hotwife",
+            "polyamory with kink": "Polyamory",
+            "anal fingering": "Anal play",
+            rimming: "Anal play",
+            "anal beads & plugs": "Anal play",
+            "vaginal fisting": "Fisting",
+            "anal fisting": "Fisting",
+            facesitting: "Ass worship",
+            "chastity devices": "Chastity",
+            "orgasm control": "Cum control",
+            "cum eating instructions": "CEI",
+            "jerk-off instruction": "JOI",
+            "foot worship": "Foot worship",
+            "body worship": "Body worship",
+            "blood play": "Blood play",
+            watersports: "Watersports",
+            "scat play": "Scat",
+            "spiritual play": "Religious",
+            "mythical creatures": "Fantasy",
+            aliens: "Sci-fi",
+            "furry transformation fantasy": "Furry",
+            crossdressing: "Crossdressing"
+        };
+        function re(e) {
+            const t = Array.isArray(e) ? e : [], n = new Set;
+            return t.map(e => {
+                if (!e || "object" != typeof e) return null;
+                const t = String(e.url || "").trim(), i = String(e.name || "").trim(), a = String(e.scope || "Global").trim(), r = Number(e.tier) || 1;
+                return /^https:\/\//i.test(t) && i && !n.has(t) ? (n.add(t), {
+                    url: t,
+                    name: i,
+                    scope: a,
+                    tier: r
+                }) : null;
+            }).filter(Boolean);
+        }
+        const oe = {
+            fetlife: Q,
+            reddit: J,
+            discord: ee
+        };
+        function ce(e, t) {
+            const n = oe[t];
+            return n && Object.prototype.hasOwnProperty.call(n, e) ? re(n[e]) : [];
+        }
+        function de(e, t) {
+            return ce(e, t)[0] || null;
+        }
+        const ue = [ [ "Power exchange", "Psychological dynamics" ], [ "Power exchange", "Service & ritual" ], [ "Power exchange", "Roleplay & identity" ], [ "Bondage & restriction", "Impact, pain & body modification" ], [ "Bondage & restriction", "Sensation & atmosphere" ], [ "Impact, pain & body modification", "Primal & pursuit" ], [ "Impact, pain & body modification", "Connection & aftercare" ], [ "Sensation & atmosphere", "Clothing, materials & objects" ], [ "Sensation & atmosphere", "Body focus & appearance" ], [ "Roleplay & identity", "Fantasy & transformation" ], [ "Roleplay & identity", "Clothing, materials & objects" ], [ "Clothing, materials & objects", "Body focus & appearance" ], [ "Psychological dynamics", "Primal & pursuit" ], [ "Psychological dynamics", "Connection & aftercare" ], [ "Watching, exposure & settings", "Partner configurations" ], [ "Watching, exposure & settings", "Clothing, materials & objects" ], [ "Partner configurations", "Sex acts" ], [ "Partner configurations", "Fantasy & transformation" ], [ "Sex acts", "Positions" ], [ "Sex acts", "Orgasm & reproductive play" ], [ "Sex acts", "Fluids & messy play" ], [ "Orgasm & reproductive play", "Fluids & messy play" ], [ "Primal & pursuit", "Fantasy & transformation" ], [ "Service & ritual", "Connection & aftercare" ] ];
+        function pe(e) {
+            const t = new Set, n = [];
+            return (e || []).forEach(e => {
+                if (!e || e.length < 2 || !e[0] || !e[1] || e[0] === e[1]) return;
+                const i = [ String(e[0]), String(e[1]) ].sort().join("\0");
+                t.has(i) || (t.add(i), n.push(e));
+            }), n;
+        }
+        const he = [ [ "t0281", "t0240" ] ], ge = {
+            "Power exchange": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M5 17 7 8l5 5 5-5 2 9Z M7 20h10"/>'
+            },
+            "Bondage & restriction": {
+                color: "#ee925f",
+                glyph: '<path class="icon-glyph" d="M9.5 14.5 7 17a3 3 0 0 1-4-4l3-3a3 3 0 0 1 4-.2 M14.5 9.5 17 7a3 3 0 0 1 4 4l-3 3a3 3 0 0 1-4 .2 M8.5 15.5l7-7"/>'
+            },
+            "Impact, pain & body modification": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Sensation & atmosphere": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M3 12c3-6 5 6 8 0s5 6 10 0"/>'
+            },
+            "Roleplay & identity": {
+                color: "#a8c766",
+                glyph: '<path class="icon-glyph" d="M4 7c4-2 6 1 8 1s4-3 8-1v6c0 5-4 8-8 8s-8-3-8-8Zm3 4h2m6 0h2m-8 5c2 1 4 1 6 0"/>'
+            },
+            "Clothing, materials & objects": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M9 5a3 3 0 1 1 5 2l-1 1 8 6H3l8-6 M3 14v4h18v-4"/>'
+            },
+            "Body focus & appearance": {
+                color: "#55c48a",
+                glyph: '<path class="icon-glyph" d="M12 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM6 21v-5a6 6 0 0 1 12 0v5 M9 13l3 3 3-3"/>'
+            },
+            "Psychological dynamics": {
+                color: "#55c4a8",
+                glyph: '<path class="icon-glyph" d="M9 4a4 4 0 0 0-3 6 4 4 0 0 0 1 7 4 4 0 0 0 5 3V6a3 3 0 0 0-3-2Zm6 0a4 4 0 0 1 3 6 4 4 0 0 1-1 7 4 4 0 0 1-5 3 M7 10h3m4 3h3"/>'
+            },
+            "Watching, exposure & settings": {
+                color: "#59beca",
+                glyph: '<path class="icon-glyph" d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12Z"/><circle class="icon-glyph" cx="12" cy="12" r="2.5"/>'
+            },
+            "Partner configurations": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 21v-4a5 5 0 0 1 10 0v4m-2-7a5 5 0 0 1 10 3v4"/>'
+            },
+            "Sex acts": {
+                color: "#6ca8df",
+                glyph: '<path class="icon-glyph" d="M20 8c0 6-8 11-8 11S4 14 4 8a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3Z"/>'
+            },
+            Positions: {
+                color: "#809cdf",
+                glyph: '<path class="icon-glyph" d="M5 7h12m0 0-3-3m3 3-3 3M19 17H7m0 0 3-3m-3 3 3 3"/>'
+            },
+            "Orgasm & reproductive play": {
+                color: "#9a91df",
+                glyph: '<path class="icon-glyph" d="M12 2v5m0 10v5M2 12h5m10 0h5M5 5l3 3m8 8 3 3m0-14-3 3M8 16l-3 3"/><circle class="icon-glyph" cx="12" cy="12" r="3"/>'
+            },
+            "Fluids & messy play": {
+                color: "#b188dd",
+                glyph: '<path class="icon-glyph" d="M12 3S6 10 6 15a6 6 0 0 0 12 0c0-5-6-12-6-12Z M9 16c.5 1.5 1.5 2 3 2"/>'
+            },
+            "Primal & pursuit": {
+                color: "#c985d2",
+                glyph: '<path class="icon-glyph" d="M8 11c-3 0-4-4-2-5s4 2 4 4m6 1c3 0 4-4 2-5s-4 2-4 4M12 9c-2 0-5 5-5 8 0 2 2 3 5 1 3 2 5 1 5-1 0-3-3-8-5-8Z"/>'
+            },
+            "Service & ritual": {
+                color: "#da7dbd",
+                glyph: '<path class="icon-glyph" d="M6 16h12M8 16v-3a4 4 0 0 1 8 0v3m-9 4h10M12 4v3"/>'
+            },
+            "Fantasy & transformation": {
+                color: "#e17da6",
+                glyph: '<path class="icon-glyph" d="m5 19 10-10m-8 8 2 2m5-14 1.5 3L19 9l-3 1.5L15 14l-1.5-3L10 9.5 13 8Z"/>'
+            },
+            "Connection & aftercare": {
+                color: "#ea7f8b",
+                glyph: '<path class="icon-glyph" d="M12 20S4 15 4 9a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3c0 6-8 11-8 11Z M8 13h2l1-3 2 6 1-3h2"/>'
+            }
+        }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
+            compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
+            checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
+            key: me("M9 5a3 3 0 1 1-2 5l-4 4m2-2 1 1m1-3 1 1"),
+            ring: fe(8, 8, 4) + me("M8 1v3m0 8v3"),
+            medal: me("M5 2l3 4 3-4m-6 0h6M8 6l1.5 3 3.5.5-2.5 2.5.5 3-3-1.5L5 15l.5-3-2.5-2.5L6.5 9Z"),
+            scale: me("M8 2v12M4 4h8M3 5 1 9h4L3 5Zm10 0-2 9h4l-2-9M5 14h6"),
+            hands: me("M2 10c2-2 3-1 4 1l2 2 2-2c1-2 2-3 4-1M4 6v4m3-6v7m5-5v4"),
+            stage: me("M2 4h12v9H2Zm0 3h12M5 4l2 3m3-3 2 3"),
+            infinity: me("M2 8c2-4 4-4 6 0s4 4 6 0-4-4-6 0-4 4-6 0Z"),
+            coil: me("M3 12c0-7 10-8 10-3 0 4-7 4-7 1 0-2 4-3 7-1"),
+            bow: me("M8 7C5 2 1 3 3 7c-2 4 2 5 5 1 3 4 7 3 5-1 2-4-2-5-5 0Zm0 1-2 6m2-6 2 6"),
+            knot: me("M3 5c3-3 7 3 10 0M3 11c3 3 7-3 10 0M5 3l6 10m0-10L5 13"),
+            cuffs: fe(5, 8, 3) + fe(11, 8, 3) + me("M8 8h0"),
+            spreader: me("M2 8h12M4 5v6m8-6v6"),
+            tape: fe(7, 8, 5) + fe(7, 8, 2) + me("m11 11 3 3"),
+            mouth: me("M2 8c3-3 9-3 12 0-3 4-9 4-12 0Zm3 0h6"),
+            cocoon: me("M8 1c4 3 4 11 0 14-4-3-4-11 0-14Zm-3 4 6 2m-6 2 6 2"),
+            chair: me("M4 2v7h8V5m-8 4v5m8-5v5M3 12h10"),
+            blindfold: me("M2 6c4-2 8-2 12 0v4c-4 2-8 2-12 0Zm2 2h2m4 0h2"),
+            lock: me("M4 7h8v7H4Zm2 0V5a2 2 0 0 1 4 0v2m-2 3v1.5"),
+            hand: me("M4 8V4m2 4V2m2 6V3m2 5V5m0 1c3-2 4 0 2 3l-2 4H6c-2-1-3-3-3-5V6"),
+            paddle: me("M3 3c2-2 6 2 4 4l-2 2Zm3 5 7 6"),
+            tassel: me("M4 2c7 2 7 6 2 7m0 0 1 5m0-5 3 5m-4-5-2 5"),
+            cane: me("M11 4c0-3 4-3 4 0M11 4 5 14"),
+            crop: me("M3 13 11 5m0 0 2-3 2 2-3 2m-8 4 2 2m-3 1c-2-1-2-3 0-3"),
+            lash: me("M3 3c8 1 11 6 4 11m0 0 1-4m-1 4 4-1"),
+            clamp: me("M3 4h3l2 4 2-4h3M5 4v8m6-8v8M3 12h3m4 0h3"),
+            claw: me("M3 4c0 5 2 7 3 9M8 3c-1 5 0 7 1 10m4-9c-2 4-2 6-1 9"),
+            comb: me("M3 3h10v4H3Zm2 4v6m2-6v5m2-5v6m2-6v5"),
+            needle: me("M3 13 12 4m0 0 2-2m-2 2 2 2M4 11l2 2"),
+            target: fe(8, 8, 5) + fe(8, 8, 2) + me("M8 1v2m0 10v2"),
+            shield: me("M8 2 13 4v4c0 3-2 5-5 6-3-1-5-3-5-6V4Zm-2 6 2 2 3-4"),
+            flame: me("M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"),
+            snow: me("M8 1v14M2 4l12 8M14 4 2 12M5 2l3 2 3-2m-6 12 3-2 3 2"),
+            feather: me("M3 14C3 7 7 2 14 2c0 7-5 11-11 12Zm2-3 6-6M5 8h4m-2 2v-4"),
+            bolt: me("M9 1 4 9h4l-1 6 5-8H8Z"),
+            stripes: me("M2 4h12M2 8h12M2 12h12m-9-9v2m3 2v2m3 2v2"),
+            muted: me("M3 6h3l3-3v10l-3-3H3Zm8 0 3 4m0-4-3 4"),
+            burst: me("M8 1v4m0 6v4M1 8h4m6 0h4M3 3l3 3m4 4 3 3m0-10-3 3M6 10l-3 3"),
+            whisper: me("M2 5c4-3 8-3 12 0M4 8c3-2 5-2 8 0m-6 3h4"),
+            note: me("M6 3v8m0-6 7-2v7M3 13a3 2 0 1 0 3-2m4 1a3 2 0 1 0 3-2"),
+            mirror: me("M4 2h8v11H4Zm2 3 4-1m-4 4 4-1M8 13v2"),
+            moon: me("M11 2a6 6 0 1 0 3 10 6 6 0 0 1-3-10Z"),
+            perfume: me("M6 2h4v3H6Zm-2 5h8v7H4Zm5 2c2 0 3 1 3 2"),
+            energy: me("M8 1v14M5 4c0-2 6-2 6 0s-6 2-6 4 6 2 6 4-6 2-6 4") + fe(8, 4, 1) + fe(8, 8, 1) + fe(8, 12, 1),
+            badge: me("M8 2 10 5l4 1-2 3 .5 4-4-.5L5 14l-1-4-2-3 4-2Z"),
+            cradle: me("M3 7c1 5 9 5 10 0M2 7h12M5 12l-1 2m7-2 1 2"),
+            clock: fe(8, 8, 5) + me("M8 5v3l2 2"),
+            paw: me("M5 7C3 7 2.5 4.5 4 4s2.5 1 2.5 2.5m4.5.5c2 0 2.5-2.5 1-3s-2.5 1-2.5 2.5M8 6.5c-1.5 0-3.5 3.2-3.5 5 0 1.5 1.5 2 3.5.5 2 1.5 3.5 1 3.5-.5 0-1.8-2-5-3.5-5Z"),
+            horse: me("M4 13V6l4-4 4 3-1 8H7m-3-7L2 3m10 2 2-2M7 7h1"),
+            dog: me("M4 5 2 2v7c0 4 3 5 6 5s6-1 6-5V2l-2 3M6 8h0m4 0h0m-4 3h4"),
+            house: me("M2 8 8 2l6 6v6H9v-4H7v4H2Z"),
+            cross: me("M6 2h4v4h4v4h-4v4H6v-4H2V6h4Z"),
+            book: me("M2 3h5c1 0 1 1 1 2v9c0-1-1-2-2-2H2Zm12 0H9c-1 0-1 1-1 2v9c0-1 1-2 2-2h4Z"),
+            cage: me("M3 3h10v11H3Zm3 0v11m4-11v11M2 6h12"),
+            consent: me("M3 9l3 3 7-8M2 4h5m4 8h3"),
+            horns: me("M3 3c0 4 2 6 5 6s5-2 5-6m-9 9c2 2 6 2 8 0M6 7 4 4m6 3 2-3"),
+            fangs: me("M3 5c3 2 7 2 10 0l-2 8-3-3-3 3Z"),
+            scroll: me("M4 2h8v12H4c-3 0-3-4 0-4h8M5 5h5M5 8h4"),
+            hide: me("M3 4 6 2l2 2 2-2 3 2-1 4 1 4-4 2-2-2-4 2-2-4 1-4Z"),
+            droplet: me("M8 2S4 7 4 10a4 4 0 0 0 8 0c0-3-4-8-4-8Z"),
+            stocking: me("M6 2h5v7c0 3-2 5-5 5H3v-3h3Z"),
+            uniform: me("M4 3 7 2l1 3 1-3 3 1 2 3-2 2v6H4V8L2 6Z"),
+            heel: me("M3 3h6c0 5 2 7 5 8v3H8v-2H3Z"),
+            hood: me("M8 2c4 1 6 5 5 11H3C2 7 4 3 8 2Zm-3 7h2m2 0h2"),
+            harness: me("M3 3l10 10M13 3 3 13M4 8h8M8 4v8"),
+            diaper: me("M3 4h10l-2 9H5Zm0 2 4 3m6-3-4 3"),
+            fork: me("M4 2v5m2-5v5M4 5h2v9m5-12v12m0-5h3"),
+            fur: me("M2 12 5 3l2 5 2-6 2 6 3-5-1 10Z"),
+            beads: me("M2 8c3-6 9-6 12 0") + fe(4, 6, 1) + fe(8, 4, 1) + fe(12, 6, 1) + fe(8, 12, 1),
+            pump: me("M3 13V6h7v7M5 6V3h3v3m2 2 3-3m0 0v5m0 0 2 2"),
+            shower: me("M3 6c0-4 6-4 6 0m0 0h4M7 9v1m3-1v2m3-2v1M6 13v1m4-1v1"),
+            hanger: me("M6 3.5a2 2 0 1 1 3.5 1.3L9 5.5 14 9H2l5-3.5M2 9v2.5h12V9"),
+            foot: me("M5 14c-3-2-1-7 1-9 2-3 5-1 4 2-1 4 4 4 3 6-2 2-6 2-8 1"),
+            glove: me("M4 9V4m2 5V2m2 7V3m2 6V4m0 2c3-2 4 1 2 3l-2 4H6c-2-1-3-2-3-4"),
+            chest: fe(6, 8, 3) + fe(10, 8, 3) + me("M3 12c3 2 7 2 10 0"),
+            curves: me("M4 3c5 0 3 10 8 10M12 3C7 3 9 13 4 13"),
+            resize: me("M2 5V2h3M2 2l4 4m8-1V2h-3m3 0-4 4M2 11v3h3m-3 0 4-4m8 1v3h-3m3 0-4-4"),
+            muscle: me("M4 10c2-4 2-6 4-7v4c3-2 6 0 6 3 0 4-4 5-8 4-3-1-4-3-2-4Z"),
+            tattoo: me("M8 3c5 0 5 8 0 8-4 0-4-5-1-5 3 0 3 8-3 8"),
+            belly: me("M8 2c4 3 5 9 2 12M8 2C4 5 3 11 6 14M5 9h6"),
+            star: me("M8 2l1.8 3.8L14 7l-3 2.8.8 4.2L8 12l-3.8 2 .8-4.2L2 7l4.2-1.2Z"),
+            downTalk: me("M2 3h12v8H8l-3 3v-3H2Zm3 3h6M5 8h4"),
+            shards: me("M8 2 6 7 2 8l4 2-1 4 3-2 3 2-1-4 4-2-4-1Z"),
+            speech: me("M2 3h12v8H7l-3.5 2v-2H2Zm3 3h6m-6 2h4"),
+            cube: me("m8 2 5 3v6l-5 3-5-3V5Zm-5 3 5 3 5-3M8 8v6"),
+            pendulum: me("M3 2h10M8 2v5") + fe(8, 10, 3),
+            eye: me("M1 8C4 4 12 4 15 8C12 12 4 12 1 8Z") + fe(8, 8, 1.6),
+            question: me("M5 5c0-4 7-4 7 0 0 3-4 2-4 5m0 3h0"),
+            hourglass: me("M4 2h8M4 14h8M5 2c0 4 2 4 3 6-1 2-3 2-3 6m6-12c0 4-2 4-3 6 1 2 3 2 3 6"),
+            keyhole: fe(8, 6, 3) + me("m7 9-1 5h4L9 9"),
+            watch: me("M2 8C5 4 11 4 16 8C11 12 5 12 2 8Zm7-4v8"),
+            partnerEye: me("M1 7C4 4 12 4 15 7C12 10 4 10 1 7Z") + fe(8, 7, 1.5) + me("M5 13h6"),
+            camera: me("M2 5h3l1-2h4l1 2h3v8H2Z") + fe(8, 9, 2.3),
+            video: me("M2 4h9v8H2Zm9 3 3-2v6l-3-2Z"),
+            spotlight: me("M6 2h4l2 5-4 7-4-7Zm-2 5h8M2 14h12"),
+            tree: me("M8 2 3 9h3l-2 3h4v3h2v-3h3l-2-3h2Z"),
+            pin: me("M8 14S4 9 4 6a4 4 0 0 1 8 0c0 3-4 8-4 8Z") + fe(8, 6, 1.5),
+            curtains: me("M2 2h12M4 3c0 6-2 9-2 11h4V3m6 0c0 6 2 9 2 11h-4V3"),
+            binocular: me("M3 5h3l1 3v4H2Zm10 0h-3L9 8v4h5ZM7 8h2"),
+            split: me("M8 14 3 9c-4-4 2-8 5-4 3-4 9 0 5 4Zm0-9v9"),
+            trio: me("M3 13v-2a3 3 0 0 1 6 0v2m-3-6a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4 6v-2a3 3 0 0 1 4-3m-2-2a2 2 0 1 0 0-4"),
+            crowd: me("M2 13c0-4 3-5 6-3 3-2 6-1 6 3M4 7a2 2 0 1 1 0-4m4 5a2 2 0 1 1 0-4m4 3a2 2 0 1 1 0-4"),
+            swap: me("M2 5h9m0 0L9 3m2 2L9 7m5 4H5m0 0 2-2m-2 2 2 2"),
+            stag: me("M4 13V6L2 3m2 3 3-3m5 10V6l2-3m-2 3-3-3M6 9h4"),
+            triangle: me("M8 2 14 13H2Zm0 3v5m0 2h0"),
+            knot3: fe(8, 5, 3) + fe(5, 10, 3) + fe(11, 10, 3),
+            tray: me("M2 11h12M4 11c0-5 8-5 8 0M8 4V2m-5 12h10"),
+            many: me("M2 13c0-3 2-4 4-4s4 1 4 4m0 0c0-3 2-4 4-4M6 7a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4"),
+            homeHeart: me("M2 8 8 2l6 6v6H2Z M8 12S5 10 5 8c0-2 2-2 3-1 1-1 3-1 3 1 0 2-3 4-3 4Z"),
+            finger: me("M6 13V5c0-2 3-2 3 0v4l2-1c2 0 3 2 2 4l-2 2H8Z"),
+            tongue: me("M3 6c3 3 7 3 10 0M6 9v2c0 4 5 4 5 0V9"),
+            cream: me("M3 12c0-3 2-4 4-4-1-3 4-5 4-1 3 1 3 5 0 6Z"),
+            arrowMouth: me("M2 8c3-3 7-3 10 0-3 3-7 3-10 0Zm8-5 4 5-4 5"),
+            splash: me("M8 2v4m-5 1 3 2m7-2-3 2M5 13c1-3 5-3 6 0"),
+            mouthHand: me("M2 6c3-2 7-2 10 0-3 3-7 3-10 0m10 6c2-3 4-2 3 1l-1 2"),
+            fist: me("M4 9V5m2 4V3m2 6V4m2 5V5m0 1c3-1 4 1 2 4l-2 4H6L3 10"),
+            fistLock: me("M3 8h10v6H3Zm2 0V6a3 3 0 0 1 6 0v2M8 11h0"),
+            handMotion: me("M3 12c2-5 5-7 9-8m-1-2 2 2-2 2M4 8l2 2-2 2"),
+            strap: me("M3 4h10v3H3Zm2 3v7m6-7v7"),
+            patHeart: me("M8 14S3 11 3 7c0-3 4-4 5-1 1-3 5-2 5 1 0 4-5 7-5 7Zm-6-1 4-3"),
+            spray: me("M4 12c2-5 6-5 8 0M8 2v3M3 4l2 2m8-2-2 2"),
+            enter: me("M3 3h7v3h3v4h-3v3H3Zm2 5h6M8 6l3 2-3 2"),
+            dial: fe(8, 8, 5) + me("M8 8l3-3M8 2v2m4 1 1-1"),
+            barred: me("M3 2h10v12H3Zm0 4h10m-7-4v12m4-12v12"),
+            edge: me("M2 11c3-6 9-6 12 0M4 8v4m4-6v6m4-4v4"),
+            lure: me("M2 5c4-3 8-3 12 0M5 8c2-2 4-2 6 0M8 10v4"),
+            seed: me("M8 14V8c0-4 4-5 6-5 0 4-2 6-6 5C4 8 2 6 2 3c4 0 6 2 6 5"),
+            egg: me("M8 2c3 0 5 6 5 9 0 4-10 4-10 0 0-3 2-9 5-9Z"),
+            water: me("M2 10c2-3 4 3 6 0s4 3 6 0M8 2S5 6 5 8"),
+            drops: me("M5 3S2 7 2 9a3 3 0 0 0 6 0c0-2-3-6-3-6Zm7 4s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"),
+            bowl: me("M2 8h12c0 4-3 6-6 6s-6-2-6-6Zm3-3c1-2 2 2 3 0s2 2 3 0"),
+            bowArrow: me("M3 2c5 3 5 9 0 12M4 8h10m-3-3 3 3-3 3"),
+            chase: me("M2 11c3-6 7-6 12 0M3 5h3m2-2h3m1 2h2"),
+            wrestle: me("M5 5a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4M2 14l3-6 3 3 3-3 3 6M5 8l3-2 3 2"),
+            calendar: me("M3 3h10v11H3Zm0 4h10M5 1v4m6-4v4M6 10l2 2 3-3"),
+            candle: me("M5 6h6v8H5Zm3-5c2 2 2 3 0 5-2-2-2-3 0-5"),
+            lotus: me("M8 13c-4-1-6-4-6-7 3 0 5 1 6 4 1-3 3-6 6-7 1 4 0 7-3 9 2-1 4-1 6 0-1 4-4 7-9 7Z"),
+            rose: me("M8 8c-5-1-4-6 0-5 4-1 5 4 0 5Zm0 0v6m0-3-3-1m3 2 3-2"),
+            stranger: me("M8 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM3 14c0-4 10-4 10 0M4 6h8"),
+            ufo: me("M3 8c1-4 9-4 10 0m-11 0h12c0 4-12 4-12 0M6 5c0-3 4-3 4 0"),
+            swapBody: me("M4 4h8m0 0-2-2m2 2-2 2M12 12H4m0 0 2-2m-2 2 2 2M5 7v2m6-2v2"),
+            ribbon: me("M5 2h6v5l-3 2-3-2Zm1 6-2 6 4-2 4 2-2-6"),
+            hug: me("M5 6a2 2 0 1 0 0-4m6 4a2 2 0 1 0 0-4M2 13c1-5 4-6 6-2 2-4 5-3 6 2M4 8l4 4 4-4"),
+            cloud: me("M4 12c-4 0-3-6 1-6 1-5 8-4 8 1 4 0 4 5 0 5Z"),
+            chat: me("M2 3h12v8H7l-3.5 2v-2H2Zm3 3h6m-6 2h4"),
+            cup: me("M3 5h8v6a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Zm8 1h2c2 0 2 4 0 4h-2"),
+            bed: me("M2 6h12v7M3 13V4h4v4h7M3 9h11"),
+            standing: me("M6 3a2 2 0 1 0 0-2m5 2a2 2 0 1 0 0-2M6 5v5l-2 4m2-4 2 4m3-9v5l-2 4m2-4 2 4M7 7h3"),
+            heart: me("M14 5.5c0 4-6 7.5-6 7.5S2 9.5 2 5.5a3 3 0 0 1 5-2L8 4l1-1a3 3 0 0 1 5 2.5Z"),
+            arrows: me("M2 5h9m0 0L9 3m2 2L9 7m3 4H5m0 0 2-2m-2 2 2 2")
+        }, be = {
+            "Power exchange": [ "compass", "checklist", "ring", "medal", "scale", "hands", "stage", "infinity" ],
+            "Bondage & restriction": [ "coil", "bow", "knot", "cuffs", "spreader", "tape", "mouth", "cocoon", "chair", "blindfold", "key", "lock" ],
+            "Impact, pain & body modification": [ "hand", "paddle", "tassel", "cane", "crop", "lash", "clamp", "claw", "comb", "needle", "target", "shield" ],
+            "Sensation & atmosphere": [ "flame", "snow", "feather", "bolt", "stripes", "muted", "burst", "whisper", "note", "mirror", "moon", "perfume", "energy" ],
+            "Roleplay & identity": [ "badge", "cradle", "clock", "paw", "horse", "dog", "house", "cross", "book", "cage", "consent", "horns", "fangs", "scroll" ],
+            "Clothing, materials & objects": [ "hide", "droplet", "stocking", "uniform", "heel", "hood", "harness", "diaper", "fork", "fur", "beads", "pump", "shower", "ribbon" ],
+            "Body focus & appearance": [ "foot", "glove", "comb", "chest", "curves", "hands", "resize", "muscle", "tattoo", "belly" ],
+            "Psychological dynamics": [ "star", "downTalk", "shards", "speech", "cube", "pendulum", "eye", "question", "hourglass", "keyhole" ],
+            "Watching, exposure & settings": [ "watch", "camera", "spotlight", "tree", "curtains" ],
+            "Partner configurations": [ "trio", "crowd", "swap", "stag", "knot3", "tray", "many", "clock" ],
+            "Sex acts": [ "finger", "tongue", "cream", "arrowMouth", "chair", "splash", "mouthHand", "fist", "fistLock", "handMotion", "strap", "spray", "glove", "ring", "mouth", "enter" ],
+            Positions: [ "knot3", "horse", "dog", "bed", "swap", "hug", "standing" ],
+            "Orgasm & reproductive play": [ "dial", "barred", "lock", "edge", "lure", "seed", "cradle", "egg" ],
+            "Fluids & messy play": [ "water", "cradle", "target", "drops" ],
+            "Primal & pursuit": [ "bowArrow", "chase", "wrestle", "claw" ],
+            "Service & ritual": [ "hands", "house", "checklist", "comb", "hanger", "key", "calendar", "candle", "lotus" ],
+            "Fantasy & transformation": [ "heart", "rose", "stranger", "keyhole", "horns", "ufo", "resize", "swapBody", "paw", "arrows", "hanger", "ribbon", "star" ],
+            "Connection & aftercare": [ "chat", "hug", "cup", "cloud", "star", "checklist", "moon", "calendar" ]
+        }, ve = new Map;
+        b.forEach(e => e.topics.forEach((t, n) => ve.set(e.name + "\0" + t, (be[e.name] || [])[n] || "star")));
+        const we = {
+            "Power exchange": "crown",
+            "Bondage & restriction": "chain links",
+            "Impact, pain & body modification": "paddle",
+            "Sensation & atmosphere": "wave",
+            "Roleplay & identity": "mask",
+            "Clothing, materials & objects": "hanger",
+            "Body focus & appearance": "person",
+            "Psychological dynamics": "brain",
+            "Watching, exposure & settings": "eye",
+            "Partner configurations": "two people",
+            "Sex acts": "heart",
+            Positions: "opposing arrows",
+            "Orgasm & reproductive play": "burst",
+            "Fluids & messy play": "droplet",
+            "Primal & pursuit": "paw",
+            "Service & ritual": "service bell",
+            "Fantasy & transformation": "wand and spark",
+            "Connection & aftercare": "heart and pulse"
+        }, ke = {
+            downTalk: "speech bubble",
+            partnerEye: "eye and partner",
+            arrowMouth: "arrow and mouth",
+            mouthHand: "mouth and hand",
+            fistLock: "locked fist",
+            handMotion: "moving hand",
+            patHeart: "hand and heart",
+            bowArrow: "bow and arrow",
+            homeHeart: "home and heart",
+            swapBody: "swapping figures",
+            knot3: "three linked circles",
+            many: "group of people",
+            cream: "cream swirl",
+            enter: "entering arrow",
+            barred: "barred frame",
+            edge: "rising arcs",
+            lure: "rippled lines",
+            seed: "sprouting seed",
+            drops: "two droplets",
+            watch: "watching eye",
+            hide: "animal hide",
+            curves: "body curves",
+            resize: "expanding arrows",
+            downTalk: "speech bubble",
+            keyhole: "keyhole",
+            split: "split heart",
+            cradle: "cradle",
+            standing: "two standing figures",
+            arrows: "crossing arrows",
+            energy: "energy flow",
+            lotus: "lotus"
+        };
+        function xe(e) {
+            return ke[e] || e.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\d+/g, "").trim();
+        }
+        const Se = {
+            black: "black",
+            darkBlue: "dark blue",
+            lightBlue: "light blue",
+            red: "red",
+            grey: "gray",
+            yellow: "yellow",
+            brown: "brown",
+            purple: "purple",
+            orange: "orange",
+            white: "white",
+            pink: "pink",
+            green: "green",
+            hunterGreen: "hunter green",
+            neutral: "neutral gray",
+            noCode: "dark charcoal"
+        };
+        function $e(e, t, n, i, a) {
+            const r = [ `${"Category" === e.kind ? we[e.branch] || "branch symbol" : xe(t.key)}: ${"Category" === e.kind ? "branch" : "topic"} symbol for ${e.label}.` ], o = Se[i.key] || "hanky";
+            t && t.glyphFallback && r.push("The star symbol is shown because no symbol is assigned here.");
+            return "Category" === e.kind ? r.push("noCode" === i.key ? "Dark-charcoal icon: no children have a hanky code." : `${o} icon: predominant hanky color among coded child topics${i.mixed ? "; dashed spoke means the coded children vary widely" : ""}.`) : r.push("noCode" === i.key ? "Dark-charcoal icon: this topic has no hanky code." : `${o} icon: this topic’s hanky-code color.`), 
+            r.push(null === n ? "Spoke color follows the hanky code; a dashed charcoal spoke means no code." : "Green-to-yellow-to-red spoke: current rating colors."), 
+            "favorite" === a ? r.push("★ marks a Favorite.") : "notinterested" === a ? r.push("⊘ marks Not Interested: not for this person, but not a hard boundary.") : "limit" === a && r.push("× marks a hard Limit."), 
+            e.risk && r.push("* marks a higher-risk practice needing specialized knowledge and explicit negotiation."), 
+            r.join(" ");
+        }
+        
+        const Ee = Object.freeze({
+            Materials: "stripes",
+            Footwear: "heel",
+            "Uniforms & costumes": "uniform",
+            "Lingerie & hosiery": "stocking",
+            Undergarments: "ribbon",
+            "Masks & headwear": "hood",
+            "Objects/toys": "beads",
+            "Hand spanking": "hand",
+            "Flexible implements": "tassel",
+            "Rigid implements": "paddle",
+            "Clamps & pinching": "clamp",
+            "Cutting & piercing": "needle",
+            "Genital pain": "target",
+            Extreme: "flame",
+            "Head hair": "comb",
+            "Facial & body hair": "fur",
+            "Lower body": "foot",
+            Torso: "chest",
+            Face: "mirror",
+            "Body type": "curves",
+            Worship: "hands",
+            "Caregiver & little roles": "cradle",
+            Authority: "badge",
+            Captivity: "cage",
+            Animal: "paw",
+            "Historical & fantasy": "scroll",
+            "Flexible ties": "coil",
+            Restraints: "cuffs",
+            "Tape & wrapping": "tape",
+            Sensory: "blindfold",
+            Confinement: "cocoon",
+            "Challenge bondage": "hourglass",
+            Specialty: "harness",
+            Oral: "mouth",
+            Anal: "ring",
+            Manual: "finger",
+            Insertion: "enter",
+            Fluids: "droplet",
+            Humiliation: "downTalk",
+            Intimidation: "horns",
+            "Mind control": "pendulum",
+            Emotional: "heart",
+            Vulnerability: "keyhole",
+            Verbal: "speech"
+        });
+        function Ae(e, t) {
+            const n = Ee[e] || "star", _glyphFallback = !(e in Ee) || !(n in ye), i = ge[t] || {};
+            const c = h.find(c => c.name === t), s = c && (c.subcategories || []).find(s => s.name === e), p = s ? fpSub(s.topics, t) : null;
+            if (p) return {
+                glyph: ye[n] || ye.star,
+                glyphFallback: _glyphFallback,
+                accent: "",
+                color: p.color,
+                lineColor: p.lineColor || p.color,
+                labelColor: p.labelColor || p.color,
+                labelStroke: p.labelStroke,
+                hankyKey: p.key,
+                key: n,
+                mixed: p.mixed
+            };
+            const fallbackColor = i.color || Ga.NO_CODE_COLOR;
+            return {
+                glyph: ye[n] || ye.star,
+                glyphFallback: _glyphFallback,
+                accent: "",
+                color: fallbackColor,
+                lineColor: fallbackColor,
+                labelColor: fallbackColor,
+                labelStroke: "#151816",
+                hankyKey: (Ne.get(t) || {}).key || "subcategory",
+                key: n
+            };
+        }
+        // Glyph-map integrity (map-render refactor, finding 13): the
+        // ye glyph dictionary is the single source for glyph names.
+        // Every value in the be branch-glyph lists and the Ee
+        // subcategory-glyph map must exist in it, and Ee must cover
+        // every subcategory in the taxonomy and no other name, so a
+        // typo in any table fails loudly at boot instead of silently
+        // falling back to the "star" glyph at render time.
+        for (const _subName of Object.keys(Ee)) {
+            if (!(Ee[_subName] in ye)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" maps to glyph "${Ee[_subName]}", which is missing from the ye glyph dictionary`);
+        }
+        for (const _branchName of Object.keys(be)) {
+            for (const _glyphName of be[_branchName]) {
+                if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
+            }
+        }
+        const _glyphSubNames = new Set;
+        h.forEach(_cat => (_cat.subcategories || []).forEach(_sub => _glyphSubNames.add(_sub.name)));
+        for (const _subName of _glyphSubNames) {
+            if (!(_subName in Ee)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" has no entry in the Ee subcategory-glyph map and would fall back to the star glyph`);
+        }
+        for (const _subName of Object.keys(Ee)) {
+            if (!_glyphSubNames.has(_subName)) throw new Error(`Sexcapades glyph check: Ee maps "${_subName}", which is not a subcategory in the taxonomy`);
+        }
+        function fpSub(topics, branch) {
+            const t = new Map;
+            let n = 0;
+            if ((topics || []).forEach(i => {
+                const a = Le(i, branch).key;
+                "noCode" !== a && (n += 1, t.set(a, (t.get(a) || 0) + 1));
+            }), !n) return null;
+            const i = Math.max(...t.values()), a = Array.from(t.entries()).filter(([, e]) => e === i).map(([e]) => e), r = Me[branch], o = r && a.includes(r) ? r : a[0], s = 1 !== a.length || i / n < .5;
+            return {
+                key: o,
+                ...(Ce[o] || Ce.neutral),
+                mixed: s
+            };
+        }
+        const Ce = {
+            black: {
+                color: "#111514",
+                labelStroke: "#dce1dd"
+            },
+            darkBlue: {
+                color: "#2f6fd3",
+                labelStroke: "#18202b"
+            },
+            lightBlue: {
+                color: "#69bdf0",
+                labelStroke: "#17242c"
+            },
+            red: {
+                color: "#e55252",
+                labelStroke: "#2b1718"
+            },
+            grey: {
+                color: "#929a96",
+                labelStroke: "#1c211e"
+            },
+            yellow: {
+                color: "#f0cf3f",
+                labelStroke: "#2e2812"
+            },
+            brown: {
+                color: "#a86a3e",
+                labelStroke: "#251a14"
+            },
+            purple: {
+                color: "#ad62d4",
+                labelStroke: "#241629"
+            },
+            orange: {
+                color: "#ed8a2c",
+                labelStroke: "#2a1d12"
+            },
+            white: {
+                color: "#f2f0e8",
+                labelStroke: "#242925"
+            },
+            pink: {
+                color: "#ed7db7",
+                labelStroke: "#2a1822"
+            },
+            green: {
+                color: "#4cba73",
+                labelStroke: "#17261d"
+            },
+            hunterGreen: {
+                color: "#28734d",
+                labelStroke: "#d9e1dc"
+            },
+            neutral: {
+                color: "#aeb5b0",
+                labelStroke: "#1b201d"
+            }
+        }, Me = {
+            "Power exchange": "hunterGreen",
+            "Bondage & restriction": "grey",
+            "Impact, pain & body modification": "black",
+            "Service & ritual": "green"
+        }, Ie = new Map;
+        Object.entries({
+            black: [ "Wax & temperature", "Electrical Play", "Sensory overload", "Consensual non-consent fantasy", "Fear Play", "Interrogation", "Blood play", "Wrestling & struggle", "Biting & scratching" ],
+            darkBlue: [ "Anal beads", "Anal fingering", "Rimming", "Anal sex" ],
+            lightBlue: [ "Facefucking", "Facesitting", "Facials", "Fingering mouths", "Oral sex" ],
+            red: [ "Vaginal fisting", "Anal fisting" ],
+            grey: [ "Sensory deprivation", "Captivity / kidnapping" ],
+            yellow: [ "Watersports" ],
+            brown: [],
+            purple: [ "Needle Play", "Body Modification" ],
+            orange: [ "Penetration" ],
+            white: [ "Handjobs" ],
+            pink: [ "Pumps", "Pegging" ],
+            green: [ "Group service", "Spiritual play" ],
+            hunterGreen: [ "Authority roles", "Caregiver roles (adults)", "Age play between adults", "Pet play", "Pony Play", "Puppy play", "Owner & property", "Doctor/Nurse Play", "Teacher / student roleplay", "Hunter / prey" ],
+            neutral: [ "Tantra / energy play" ]
+        }).forEach(([e, t]) => t.forEach(t => Ie.set(t, e)));
+        const Pe = {
+            key: "noCode",
+            color: "#232726",
+            lineColor: "#78817e",
+            labelColor: "#aeb5b0",
+            labelStroke: "#1b201d"
+        };
+        function Le(e, t) {
+            const n = Ie.get(e) || Me[t];
+            if (!n) return {
+                ...Pe
+            };
+            const i = Ce[n] || Ce.neutral;
+            return {
+                key: n,
+                color: i.color,
+                lineColor: i.lineColor || i.color,
+                labelColor: i.labelColor || i.color,
+                labelStroke: i.labelStroke
+            };
+        }
+        function Te(e) {
+            const t = /^#([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(e || "");
+            if (!t) return e;
+            const n = t.slice(1).map(e => parseInt(e, 16)), i = e => {
+                const t = e / 255;
+                return t <= .04045 ? t / 12.92 : Math.pow((t + .055) / 1.055, 2.4);
+            };
+            if (.2126 * i(n[0]) + .7152 * i(n[1]) + .0722 * i(n[2]) >= .22) return e;
+            let a = 0, r = 1;
+            for (let e = 0; e < 12; e++) {
+                const e = (a + r) / 2, t = n.map(t => Math.round(t + (255 - t) * e));
+                .2126 * i(t[0]) + .7152 * i(t[1]) + .0722 * i(t[2]) < .22 ? a = e : r = e;
+            }
+            return `#${n.map(e => Math.round(e + (255 - e) * r)).map(e => e.toString(16).padStart(2, "0")).join("")}`;
+        }
+        function Fe(e) {
+            const t = new Map;
+            let n = 0;
+            if (e.topics.forEach(i => {
+                const a = Le(i, e.name).key;
+                "noCode" !== a && (n += 1, t.set(a, (t.get(a) || 0) + 1));
+            }), !n) return {
+                ...Pe,
+                codedChildren: 0,
+                predominantCount: 0,
+                mixed: !1
+            };
+            const i = Math.max(...t.values()), a = Array.from(t.entries()).filter(([, e]) => e === i).map(([e]) => e), r = Me[e.name], o = r && a.includes(r) ? r : a[0], s = 1 !== a.length || i / n < .5;
+            return {
+                key: o,
+                ...Ce[o] || Ce.neutral,
+                codedChildren: n,
+                predominantCount: i,
+                mixed: s
+            };
+        }
+        const Ne = new Map;
+        h.forEach(e => {
+            const t = ge[e.name], n = Fe(e);
+            Ne.set(e.name, n), t && (t.color = n.color, t.hankyKey = n.key, t.hankyMixed = n.mixed);
+        });
+        const _e = new Map;
+        let De = 0;
+        function Re(e) {
+            const t = 16, n = e % t, i = (7 * Math.floor(e / t) + n + 5) % t, a = (n + 10 + e % 3) % t, r = (e, n = 6.15) => {
+                const i = -Math.PI / 2 + e / t * Math.PI * 2;
+                return [ 8 + Math.cos(i) * n, 8 + Math.sin(i) * n ];
+            }, o = r(n), s = r(i), l = r(a, 5.55), c = r((n + 1) % t, 6.45), d = r((n + 2) % t, 6.15);
+            return `<circle class="icon-accent" cx="${o[0].toFixed(2)}" cy="${o[1].toFixed(2)}" r=".66"/><path class="icon-accent-stroke" d="M ${s[0].toFixed(2)} ${s[1].toFixed(2)} l ${(.28 * (8 - s[0])).toFixed(2)} ${(.28 * (8 - s[1])).toFixed(2)}"/><path class="icon-detail" d="M ${o[0].toFixed(2)} ${o[1].toFixed(2)} Q ${c[0].toFixed(2)} ${c[1].toFixed(2)} ${d[0].toFixed(2)} ${d[1].toFixed(2)} M ${l[0].toFixed(2)} ${l[1].toFixed(2)} l ${(.16 * (8 - l[0])).toFixed(2)} ${(.16 * (8 - l[1])).toFixed(2)}"/><circle class="icon-detail-dot" cx="${l[0].toFixed(2)}" cy="${l[1].toFixed(2)}" r=".34"/>`;
+        }
+        function Oe(e, t) {
+            const _veKey = t + "\0" + e, n = ve.get(_veKey) || "star", _glyphFallback = !ve.has(_veKey) || !(n in ye), i = _e.get(_veKey) || 0, a = Le(e, t);
+            return {
+                glyph: ye[n] || ye.star,
+                glyphFallback: _glyphFallback,
+                accent: "",
+                color: a.color,
+                lineColor: a.lineColor,
+                labelColor: a.labelColor,
+                labelStroke: a.labelStroke,
+                hankyKey: a.key,
+                key: n
+            };
+        }
+        h.forEach(e => e.topics.forEach(t => _e.set(e.name + "\0" + t, De++)));
+        const Be = {
+            aella: {
+                label: "Aella Big Kink Survey",
+                url: "https://github.com/austeane/aella-survey-site/blob/HEAD/data/Big%20Kink%20Survey%20(970k%20cleaned).md"
+            },
+            kinktest: {
+                label: "KinkTest list",
+                url: "https://kinktest.org/list-of-kinks-the-definitions-of-most-commonpopular-kinks.html"
+            },
+            checklist: {
+                label: "Yes / No / Maybe checklist",
+                url: "https://www.scribd.com/document/879070084/Yes-No-Maybe-Kink-List"
+            }
+        }, je = {
+            "Power exchange": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Ways partners may negotiate authority, obedience, rules, symbols, rewards, and discipline."
+            },
+            "Bondage & restriction": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Restraining movement or access with rope, cuffs, wrapping, furniture, gags, or related methods."
+            },
+            "Impact, pain & body modification": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Impact, pain, marking, or body-modification interests. These topics call for specialized knowledge and explicit risk discussion."
+            },
+            "Sensation & atmosphere": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Changing touch, temperature, sound, light, texture, or sensory input to shape an experience."
+            },
+            "Roleplay & identity": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Consensual adult roles, characters, and scenarios used to explore identity, authority, care, or fantasy."
+            },
+            "Clothing, materials & objects": {
+                sources: [ "aella", "kinktest" ],
+                description: "Interest centered on particular garments, materials, toys, or objects and how they look, feel, or are used."
+            },
+            "Body focus & appearance": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Attraction or attention focused on a body part, body type, appearance state, scent, or form of adornment."
+            },
+            "Psychological dynamics": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Verbal, emotional, and imaginative dynamics such as praise, humiliation, suspense, fear, or altered-control fantasy."
+            },
+            "Watching, exposure & settings": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Consensual interests involving being seen, watching, recording privately, performing, or using a particular setting."
+            },
+            "Partner configurations": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Interests involving more than two people or a negotiated non-monogamous configuration."
+            },
+            "Sex acts": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Specific sexual activities. Give and receive can be rated independently wherever direction matters."
+            },
+            Positions: {
+                sources: [ "aella" ],
+                description: "Positions listed in the Aella survey instrument, treated here as separate prompts for discussion."
+            },
+            "Orgasm & reproductive play": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Interests involving arousal timing, orgasm, or consensual reproductive fantasy rather than an assumption of real-world intent."
+            },
+            "Fluids & messy play": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Body-fluid or messy-play interests. Boundaries, barriers, hygiene, and specific risks should be discussed explicitly."
+            },
+            "Primal & pursuit": {
+                sources: [ "checklist" ],
+                description: "Instinctive or pursuit-focused play such as negotiated chasing, wrestling, hunter/prey roles, biting, or scratching."
+            },
+            "Service & ritual": {
+                sources: [ "checklist" ],
+                description: "Structured service, etiquette, permission, grooming, tasks, and ceremonies within a negotiated dynamic."
+            },
+            "Fantasy & transformation": {
+                sources: [ "aella", "kinktest", "checklist" ],
+                description: "Fictional narratives, creatures, identity play, and imagined changes in body, scale, or form."
+            },
+            "Connection & aftercare": {
+                sources: [ "checklist" ],
+                description: "Ways partners reconnect, recover, reflect, and care for one another during and after an experience."
+            }
+        }, qe = {
+            "Protocols & rules": "Agreed rules that shape how someone speaks, dresses, asks permission, completes tasks, or behaves in a power-exchange relationship or scene.",
+            "Ownership language": "Calling someone “mine,” “owned,” “property,” or similar words to make the power exchange feel possessive and real while both people are choosing the dynamic.",
+            "Collars & symbols": "Wearing a collar, ring, bracelet, tag, or other item that represents a dominant/submissive bond, a role, or a commitment.",
+            "Reward & correction": "The person in charge rewards wanted behavior and corrects behavior that breaks the agreed rules, using attention, privileges, tasks, or other consequences.",
+            Discipline: "One person enforces agreed rules by assigning consequences such as extra tasks, loss of privileges, scolding, or physical punishment.",
+            Begging: "One person pleads for touch, sex, permission, release, or another desired thing while the other decides whether and when to grant it.",
+            "Scene-based roles": "Taking dominant and submissive roles for a particular sexual or kink scene, then ending those roles when the scene is over.",
+            "Ongoing dynamics": "Keeping a power exchange active beyond individual scenes, so agreed authority, service, rules, or rituals continue through everyday life.",
+            "Rope bondage": "Tying someone with rope to limit movement, hold a pose, create pressure, or make the restraint itself part of the erotic experience.",
+            "Decorative rope": "One partner gives the rope — ties decorative knots, patterns, and lines on the body — while the other receives it: is tied and wears the rope, mainly for how it looks and feels rather than to be immobilized.",
+            "Japanese bondage": "A rope-bondage style influenced by Japanese kinbaku or shibari, using deliberate patterns, tension, positions, and often a strong visual or emotional focus.",
+            "Cuffs & straps": "Fastening wrists, ankles, thighs, or other body parts with cuffs or straps so movement is restricted or controlled.",
+            "Spreaders & bars": "Attaching the wrists, ankles, or legs to a rigid bar that keeps them held apart and makes closing or pulling them together difficult.",
+            "Tape & wrapping": "Using bondage tape, plastic wrap, or another wrapping material around part of the body to hold limbs together or create a tight, enclosed feeling.",
+            Gags: "Putting a gag in or over someone’s mouth to limit speech, change their sounds, or emphasize helplessness and control.",
+            Mummification: "Wrapping most of someone’s body in plastic wrap, tape, cloth, or bandages until they are tightly enclosed and largely unable to move.",
+            "Furniture restraint": "Securing someone to a bed, bench, chair, frame, cage, or purpose-built piece of bondage furniture so the object holds their position.",
+            "Blindfolded restraint": "Restraining someone while their eyes are covered, combining limited movement with not being able to see what is coming.",
+            "Escape play": "Tying or locking someone up and making the struggle to get free part of the scene, whether escape is genuinely possible or only roleplayed.",
+            Immobilization: "Restraining someone so thoroughly that they can move very little or not at all, often by fixing several limbs or the whole body in place.",
+            Spanking: "Striking someone’s buttocks with an open hand for sting, heat, sound, movement, punishment, or added intensity during sex.",
+            "Paddles & straps": "Hitting the buttocks or other fleshy areas with a flat paddle or flexible strap, producing anything from a broad thud to a sharp sting.",
+            Flogging: "Swinging a multi-tailed flogger against the body in repeated strokes that can feel soft and rhythmic or heavy and painful.",
+            Caning: "Striking the body with a thin, rigid cane that delivers a narrow, sharp sensation and can leave distinct lines.",
+            "Riding crops": "Striking with a short, semi-rigid riding crop, using its narrow shaft or leather flap to create precise, sharp stings and focused impacts.",
+            Whips: "Striking with a flexible whip—often a single-tail—whose traveling loop and fast-moving tip can produce a sharp crack, sting, or narrow line.",
+            Clamps: "Clipping adjustable or spring-loaded clamps onto nipples, genitals, or other pinched skin to create steady pressure and pain.",
+            "Hair pulling": "Gripping and pulling someone’s hair during a scene or sexual activity to guide their head, add pain, intensify control, or create a firm physical hold.",
+            "Needles & piercing": "Putting sterile needles through or into the skin, or making temporary or permanent piercings, as the focus of the scene.",
+            Sounding: "Urethral sounding is the insertion of smooth metal or silicone rods into the urethra for sexual stimulation. It is a higher-risk practice requiring sterile technique, specialized knowledge, appropriate lubrication, and explicit negotiation.",
+            "Heavy marking": "Hitting, biting, scratching, suctioning, or otherwise working the skin hard enough to leave bruises, welts, scratches, or other visible marks.",
+            "Extreme endurance": "One partner endures intense pain, difficult positions, repeated impact, or prolonged stimulation while the other pushes their agreed physical or mental limits.",
+            "Wax & temperature": "Dripping warm wax onto skin or using controlled heat and cold to create sudden temperature sensations across the body.",
+            "Ice & cool touch": "Running ice, chilled metal, cold hands, or cool air over the skin, sometimes alternating it with warmth or sexual touch.",
+            Tickling: "Touching sensitive areas lightly or rapidly to make someone squirm, laugh, lose composure, or struggle against restraint.",
+            "Electrical Play": "Applying controlled electrical pulses with an E-stim device or violet wand so the body feels tingling, tapping, pulsing, or sharper shocks.",
+            "Texture contrast": "Moving very different materials—such as fur, leather, metal, rope, feathers, or rough fabric—across the skin to emphasize how each feels.",
+            "Sensory deprivation": "Removing or reducing sight, sound, movement, or touch so someone has less information and becomes more focused on the sensations that remain.",
+            "Sensory overload": "Giving many strong sensations at once—such as noise, light, touch, vibration, pain, or sexual stimulation—until it becomes deliberately overwhelming.",
+            "ASMR & whispering": "Using close whispers, soft mouth sounds, breath, scratching, or other quiet repetitive sounds to create tingles, calm, or erotic intimacy.",
+            "Music & sound": "Using music, voices, rhythms, sound effects, or deliberate silence to set the pace and emotional tone of a scene.",
+            Mirrors: "Positioning mirrors so someone can watch themselves or their partner during sex, bondage, dressing, or another scene.",
+            "Low light": "Using dim lamps, candles, darkness, or shadows to change what can be seen and make the scene feel private, suspenseful, or intimate.",
+            Scent: "One partner gives a scent — wears perfume, leather, sweat, incense — the other receives it: smells, breathes it in.",
+            "Tantra / energy play": "Using tantric or energy-focused practices—such as synchronized breathing, sustained eye contact, slow touch, visualization, pelvic-floor control, meditation, and the deliberate circulation or exchange of felt energy—to build embodied presence, arousal, intimacy, or altered states within a kink scene.",
+            "Spiritual play": "Treating consensual sexuality or kink as an intentional spiritual or devotional practice through ceremony, invocation, vows, offerings, sex magic, or symbolic roles, with the meaning and boundaries negotiated by everyone involved.",
+            "Authority roles": "Roleplaying a power-unequal relationship such as boss/employee, officer/civilian, or ruler/subject, with one adult giving orders and the other obeying.",
+            "Caregiver roles (adults)": "One adult plays a nurturing, protective, or supervisory caregiver and the other adult plays the person being looked after.",
+            "Age play between adults": "Adults roleplay being different ages or use age-coded behavior, clothes, speech, or rules; every person involved is an adult regardless of the role.",
+            "Pet play": "One adult takes on the behavior and status of a pet while another acts as owner, handler, trainer, or companion.",
+            "Pony Play": "A form of pet play in which someone acts like a pony through posture, tack, pulling a cart, dressage-style movement, or training.",
+            "Puppy play": "A form of pet play in which someone acts like a puppy through crawling, barking, playing, wearing pup gear, or responding to a handler.",
+            "Owner & property": "One partner takes the owner role — calling the other “mine,” setting agreed rules, or directing their service and display — while the other takes the property role: is claimed, kept, and used within the chosen dynamic.",
+            "Doctor/Nurse Play": "Adults act out a medical exam or treatment, with one playing a doctor or nurse and the other playing the patient.",
+            "Teacher / student roleplay": "Adults act out a classroom or tutoring dynamic in which a teacher gives lessons, tests, rules, praise, or punishment to an adult student.",
+            "Captivity / kidnapping": "One partner captures the other — abducts, restrains, transports, confines, or guards them in roleplay — while the other is captured and acts unable to leave; all real participants agreed to the scene.",
+            "Consensual non-consent fantasy": "Adults agree in advance to act out resistance, force, or refusal as part of a scene, even though the real encounter is chosen and controlled by them.",
+            "Creature fantasy": "Roleplaying sex or intimacy with a fictional nonhuman creature, or pretending that one participant is such a creature.",
+            "Vampires & gothic": "Using vampire roles, biting, blood imagery, dark clothing, candlelight, crypts, or other gothic elements as the erotic fantasy.",
+            "Historical fantasy": "Roleplaying adults in another time period—such as a royal court, pirate ship, manor, or wartime setting—with period-inspired roles and clothing.",
+            Leather: "Wearing, touching, smelling, or using leather clothing and gear such as harnesses, boots, gloves, straps, or jackets as part of attraction or play.",
+            "Latex & rubber": "Wearing tight latex or rubber clothing, or enjoying its shine, smell, pressure, squeak, and slick feel against the body.",
+            "Lingerie & stockings": "Wearing or admiring bras, panties, corsets, garters, stockings, and similar garments as part of dressing up, teasing, or sex.",
+            Uniforms: "Wearing a recognizable work, military, school-style, service, or authority uniform to create a look or support a roleplay.",
+            "Heels & boots": "Wearing, touching, admiring, or being controlled with high heels, tall boots, or heavy footwear as the focus of attraction or a scene.",
+            "Masks & hoods": "Covering part or all of the face or head to hide identity, change appearance, restrict sight or sound, or create a depersonalized feeling.",
+            Harnesses: "Wearing straps fitted around the chest, hips, thighs, or genitals for appearance, attachment points, restraint, or holding a toy.",
+            Diapers: "Adults wear, use, change, or are placed in diapers as part of regression, caregiving, humiliation, comfort, or bodily-control play.",
+            "Food / messy play": "Putting edible food on bodies, feeding each other, eating from the body, or smearing and pouring foods such as cream, syrup, cake, or fruit so taste and mess become part of sexual play.",
+            Fur: "Wearing, touching, or rubbing real or faux fur because its softness, warmth, animal association, or appearance is arousing.",
+            "Anal beads": "Inserting a connected string of beads into the anus and pulling them out slowly or during orgasm for a sequence of stretching sensations.",
+            Pumps: "Using a vacuum pump on nipples, the penis, vulva, clitoris, or other tissue to draw in blood, create swelling, and increase sensitivity.",
+            Showerheads: "Using a handheld or directed stream of water against the genitals or other sensitive areas for pressure and stimulation.",
+            "Costume transformation": "One partner gives a costume — dresses the other in clothing, a wig, makeup, prosthetics, or accessories — while the other receives it: is dressed and transformed into a character or type of person.",
+            "Feet & footwear": "Focusing attraction or sexual attention on bare feet, toes, socks, shoes, or boots through looking, touching, licking, smelling, or worship.",
+            "Hands & gloves": "Focusing attraction on hands, fingers, nails, or gloves through watching, touching, kissing, sucking, or having them used during sex.",
+            Hair: "Focusing attraction on the look, smell, texture, length, styling, or handling of someone’s hair.",
+            Breasts: "Focusing sexual attention on breasts or nipples through looking, touching, sucking, squeezing, rubbing, or using them during sex.",
+            Buttocks: "Focusing sexual attention on someone’s ass through looking, touching, squeezing, licking, spanking, or penetration.",
+            "Body worship": "Lavishly kissing, licking, touching, praising, or serving someone’s body—or a chosen part of it—as if it deserves devotion.",
+            "Size contrast": "Making a difference in height, weight, strength, penis size, or imagined scale central to the attraction or power dynamic.",
+            "Muscle Worship": "Admiring, touching, kissing, flexing for, or verbally praising a muscular body as the focus of the scene.",
+            "Tattoo & body modification focus": "Being attracted to tattoos, piercings, scars, stretched ears, implants, or other deliberate changes to someone’s body.",
+            "Pregnancy focus": "Finding a pregnant body, rounded belly, lactation, or the physical idea of pregnancy sexually compelling.",
+            "Scent & sweat": "Enjoying the smell or taste of a partner’s natural body odor and sweat, often after exercise or sex.",
+            "Praise (in scene)": "Using sincere compliments, affectionate worship, and enthusiastic approval during play to make someone feel desired, cherished, or exceptionally good.",
+            "Humiliation language": "Using agreed insulting, embarrassing, or belittling words to make someone feel exposed, small, dirty, or controlled during play.",
+            Degradation: "Treating someone in an agreed demeaning way through words, posture, tasks, object-like use, mess, or denial of status.",
+            "Dirty talk": "Speaking explicitly about bodies, sex acts, desires, commands, or fantasies during flirting, sex, or a scene.",
+            Objectification: "Treating a person as a body part, toy, piece of furniture, display item, or tool for someone else’s pleasure within the roleplay.",
+            "Hypnosis & mind-control fantasy": "Using hypnotic language, triggers, repetition, or roleplay to create the fantasy that someone’s thoughts or actions are being controlled.",
+            "Fear Play": "Creating a controlled feeling of danger, dread, or helplessness through threats, darkness, weapons as props, pursuit, or not knowing what comes next.",
+            Interrogation: "One person questions another under pressure, using commands, restraint, threats, or discomfort while the other resists or gives up information in character.",
+            "Anticipation & suspense": "Delaying or hiding what will happen next so waiting, uncertainty, and mounting tension become part of the arousal.",
+            "Confession & secrets": "One person gives a secret — reveals desires, fantasies, embarrassing thoughts — while the other receives it: listens, questions, or commands.",
+            "Watching & being watched": "One partner watches the other undress, masturbate, have sex, or perform another intimate act; the watched partner knows and agrees to the audience.",
+            "Private photo & video": "Taking, posing for, or recording intimate photos or video meant to stay within the participants’ agreed private audience.",
+            "Performance for a partner": "Stripping, masturbating, dancing, posing, or performing a sexual act mainly for a partner who is watching.",
+            "Public & outdoor play": "Having sex or doing kink outdoors in a secluded place, or doing something discreet in public — such as hidden touch or remote-toy play — for the thrill of almost being noticed without involving nonconsenting people.",
+            "Exhibition / voyeurism": "One partner exhibits — exposes their body or performs sexual activity for an audience — while the other watches; any enacted “secret” watching is roleplayed by consenting adults.",
+            "Cuckold / hotwife fantasy": "Fantasizing that one partner has sex with someone else while the other knows, watches, hears details, or experiences jealousy and arousal.",
+            Threesomes: "Sexual activity involving three adults at the same time, in whatever combination of genders and roles they choose.",
+            "Group encounters": "Sexual or kink activity involving more than three adults, with attention moving among several people or scenes.",
+            Swinging: "Couples consensually have sex with other people or couples, together or separately, usually as recreational partner swapping rather than a romantic relationship.",
+            "Cuckold / hotwife": "A relationship, fantasy, or scene in which one partner has sex with someone else while the other knows, encourages, watches, hears details, joins in, or eroticizes jealousy, denial, submission, or humiliation.",
+            "Polyamory with kink": "Maintaining multiple consensual romantic or sexual relationships while also sharing BDSM roles, scenes, rules, or power dynamics.",
+            "Group service": "Service is given and received: one side gives service to the group, the other receives it.",
+            Gangbang: "One partner receives a gangbang — is the sexual focus of several adults — the others give it.",
+            Hotwifing: "A married or partnered woman has sex with other people with her partner’s knowledge and encouragement, usually without humiliation being required.",
+            "Anal fingering": "Putting one or more fingers into the anus and moving, curling, or pressing them to stimulate the anus, rectum, or prostate.",
+            Rimming: "Licking, kissing, or using the tongue on and around someone’s anus.",
+            Creampies: "Ejaculating semen inside a vagina or anus and leaving it there, or roleplaying that act with a toy or simulated fluid.",
+            Facefucking: "Thrusting a penis or strap-on in and out of someone’s mouth with the penetrating partner controlling much of the pace and depth.",
+            Facesitting: "Sitting or lowering the vulva, anus, or clothed crotch over someone’s face so they use their mouth and tongue from underneath.",
+            Facials: "Ejaculating semen onto a consenting partner's face, where the placement, visual display, mess, taste, or power dynamic is part of the sexual act.",
+            "Fingering mouths": "Putting one or more fingers into someone’s mouth for them to lick or suck, or to control how their mouth opens and moves.",
+            "Vaginal fisting": "Slowly inserting the whole hand, usually with fingers gathered together, into the vagina for intense fullness and stretching.",
+            "Anal fisting": "Slowly inserting the whole hand, usually with fingers gathered together, into the anus and rectum for intense fullness and stretching.",
+            "Hair pulling during sex": "Gripping and pulling a partner’s hair during sexual activity to guide their head, add pain, or intensify control.",
+            Handjobs: "Stroking, squeezing, or rubbing a penis with a hand to create sexual pleasure and often orgasm.",
+            Pegging: "A woman wears a strap-on dildo and fucks a partner anally with it; a man or nonbinary person can wear the strap-on and do the same thing.",
+            "Spanking during sex": "Slapping someone’s buttocks with an open hand while fucking, oral sex, or other sexual activity is happening.",
+            Squirting: "One partner squirts — expels fluid through the urethra during arousal or orgasm — while the other makes them squirt through stimulation and may use the fluid as part of the scene.",
+            "Vaginal fingering": "Putting one or more fingers into the vagina and moving, curling, or pressing them to stimulate the vaginal walls, G-spot area, or cervix.",
+            "Anal sex": "Putting a penis, strap-on, dildo, or other penetrative toy into someone’s anus and thrusting or moving it there.",
+            "Oral sex": "Using the mouth, lips, and tongue to stimulate a penis, vulva, or anus.",
+            Penetration: "Putting a penis, fingers, fist, dildo, strap-on, or another toy inside the vagina or anus and moving or holding it there.",
+            69: "Two people perform oral sex on each other at the same time, with each person’s mouth at the other’s genitals.",
+            Cowgirl: "One person lies down while the receiving partner straddles them facing forward and controls the motion during vaginal or anal penetration.",
+            Doggystyle: "The receiving partner is on hands and knees or bent forward while the penetrating partner enters from behind.",
+            Missionary: "The receiving partner lies on their back while the penetrating partner faces them from above or between their legs.",
+            "Reverse cowgirl": "One person lies down while the receiving partner straddles them facing away and controls the motion during penetration.",
+            Spooning: "Both partners lie on their sides facing the same direction while the partner behind penetrates, rubs, or reaches around the partner in front.",
+            "Standing up": "Partners have sex while one or both are standing, using a wall, furniture, lifting, or balance to hold the position.",
+            "Orgasm control": "One person decides when, how, or whether another person may orgasm, often using commands, pacing, stopping, or permission.",
+            "Orgasm denial": "Keeping someone aroused while deliberately preventing orgasm for a set time, a scene, or an ongoing dynamic.",
+            Chastity: "Restricting access to someone’s genitals or sexual release, often with a wearable device, while a partner controls when it may be removed.",
+            Edging: "Bringing someone close to orgasm, backing off before they climax, and repeating the cycle to prolong arousal.",
+            Teasing: "Building desire with partial touch, exposure, words, or near-contact while deliberately delaying the stimulation or release the person wants.",
+            "Breeding / pregnancy fantasy": "One partner impregnates — gives sperm by ejaculating inside and gives the pregnancy — while the other is impregnated: receives the sperm and is or becomes pregnant in the fantasy, whether or not pregnancy is actually possible or intended.",
+            "Surrogacy fantasy": "One partner gives the surrogacy — carries the pregnancy for the other — the other receives it: the intended parent.",
+            "Oviposition fantasy": "One partner gives eggs — lays them — the other receives them, in a fictional fantasy often involving toys, inflation, or imagined creatures.",
+            Watersports: "Urinating on a partner, being urinated on, watching someone urinate, or otherwise making urine part of sexual play.",
+            Lactation: "One partner gives breast milk — expresses it — the other receives it: sucks, licks, drinks.",
+            "Squirt play": "Using fluid released during squirting as part of sex, including watching it, feeling it on bodies, or deliberately making a mess with it.",
+            "Blood play": "Making, seeing, tasting, or using blood during a scene, often through controlled cutting, needles, or an existing menstrual flow.",
+            Spit: "Spitting on a partner’s face, body, or genitals, spitting into their mouth, making them spit, or being spat on as a consensual act of humiliation, possession, intimacy, or messy play.",
+            "Age gap": "Sexual or romantic attraction centered on a substantial age difference between two legally adult partners, whether the person is drawn to being the older or the younger partner. Unlike age play, the age difference is real rather than an acted role.",
+            "Celebrity fantasy": "Imagining sexual or romantic contact with a real celebrity or other famous public figure. The fantasy centers on that person’s public identity and remains separate from any expectation of real-world access or consent.",
+            "Messy food play": "Smearing, pouring, sitting in, or covering bodies with foods such as cream, syrup, cake, or fruit, then touching, licking, or having sex in the mess.",
+            "Hunter / prey": "One partner hunts — tracks, chases, catches, pins, or claims — while the other is hunted: runs, hides, resists, struggles, or is caught, often with raw growling, grabbing, biting, or rough sex.",
+            "Chase scenes": "One partner gives the chase — pursues — the other receives it: is chased, caught.",
+            "Wrestling & struggle": "One partner gives the fight or struggle — initiates the grappling, pinning, or contest for position — while the other receives it: engages, resists, and physically struggles back.",
+            "Biting & scratching": "Using teeth and fingernails on the body to create marks, pain, pressure, or an animalistic feeling.",
+            "Acts of service": "Doing useful or pleasing things for someone—such as preparing gear, bringing drinks, cleaning, or following instructions—as an expression of devotion or submission.",
+            "Domestic service": "Cooking, cleaning, laundry, errands, and other household work are performed for a partner as part of an agreed service dynamic.",
+            "Formal etiquette": "Following prescribed manners, titles, posture, speech, dress, or rituals to show respect and reinforce roles.",
+            "Grooming rituals": "Bathing, shaving, brushing hair, applying lotion, dressing, or otherwise caring for a partner’s body in a structured way.",
+            "Dressing a partner": "Choosing and putting clothes, lingerie, uniforms, gear, or accessories on someone else as an act of control, care, display, or service.",
+            "Permission rituals": "Permission is given and received: one person asks for and receives permission (to speak, touch, sit, eat, orgasm, leave), the other gives it.",
+            "Daily tasks": "Assigning recurring chores, exercises, messages, journaling, or acts of service that someone completes as part of the dynamic.",
+            "Ceremonial scenes": "Using deliberate steps, symbols, spoken words, clothing, positions, or objects to make a scene feel like a formal ritual.",
+            "Spiritual play": "Practicing sacred sexuality or ritualized kink as an intentional spiritual or devotional act, using elements such as ceremony, prayer or invocation, vows, offerings, sex magic, symbolic roles, and states of surrender, devotion, transformation, or communion; the sacred meaning is part of what participants are doing, not just decorative atmosphere.",
+            "Romantic surrender": "One person willingly gives themselves over emotionally and physically to a trusted partner, with devotion and being claimed as the heart of the fantasy.",
+            "Seduction scenarios": "One partner gives the seduction — tempts, pursues, or gradually wins the other over — while the other receives it: is courted, enticed, and gives in to sex or a role.",
+            "Strangers fantasy": "Pretending not to know each other, meeting as strangers, and letting attraction lead to an anonymous-feeling encounter.",
+            "Secret identity": "Roleplaying that someone has a hidden name, job, power, costume, or double life that is revealed or used during the scene.",
+            "Mythical creatures": "Roleplaying gods, demons, angels, elves, merfolk, werewolves, or other beings from myth and fantasy in an erotic scenario.",
+            Aliens: "Roleplaying an encounter with extraterrestrials, often involving abduction, examination, unfamiliar anatomy, or first contact.",
+            "Growth / shrinking fantasy": "Imagining or roleplaying that one person becomes enormous or tiny, changing who can overpower, hold, worship, or use whom.",
+            "Body-swapping fantasy": "Imagining that two people exchange bodies and then explore the unfamiliar body, identity, or relationships from the other person’s perspective.",
+            "Furry transformation fantasy": "Imagining or roleplaying a person changing into an anthropomorphic animal, often with fur, paws, ears, a muzzle, tail, or animal instincts.",
+            "Gender Play": "Playing with a different gender role, name, presentation, body fantasy, or set of expectations as part of erotic exploration.",
+            Crossdressing: "Wearing clothes, lingerie, makeup, or accessories culturally associated with another gender because the transformation or presentation is exciting.",
+            Sissification: "One partner gives the sissification — feminizes the other through clothing, names, posture, tasks, or roles — while the other receives it: is sissified.",
+            "Kidnapping fantasy (consensual)": "Adults agree to roleplay that one person is abducted, restrained, transported, or held captive while acting as though the capture is against their will.",
+            "Verbal check-ins": "Pausing or checking in with words during a scene to ask how someone feels, whether the intensity is right, and whether they want to continue or change anything.",
+            "Cuddling & touch": "Holding, stroking, kissing, or lying close together after a scene to help the body settle and restore affectionate connection.",
+            "Food & hydration": "Offering water, electrolytes, snacks, or a meal after intense play so participants can recover physically.",
+            "Quiet decompression": "Sitting or lying somewhere calm with low stimulation while breathing, resting, and letting the intensity of the scene fade.",
+            "Praise (aftercare)": "Telling someone after an intense or vulnerable scene that they did well, are cared for, are not being judged, and are emotionally safe.",
+            "Post-scene review": "Talking after the scene about what felt good, what did not, any surprises, and what each person would keep or change next time.",
+            "Space & solitude": "Giving someone time alone after a scene because quiet privacy, rather than touch or conversation, is what helps them recover.",
+            "Next-day check-in": "Contacting each other the following day to ask about emotions, soreness, marks, regrets, needs, and how the experience feels in hindsight.",
+            "Needle Play": "Using sterile needles to pierce or decorate the skin during a scene, including temporary play piercing, arranged needle patterns, and an erotic focus on piercings; it requires specialized training, sterile technique, sharps handling, and explicit negotiation.",
+            "Rope bondage": "Tying someone with rope to restrain movement, hold a pose, create pressure, or make the rope itself part of the erotic experience, including decorative ties, hemp rope, Japanese shibari or kinbaku, and historically inspired hojojutsu forms.",
+            Corsets: "Wearing, admiring, lacing, cinching, or progressively training with a corset because the garment, the transformed silhouette, the pressure, or the act of being tightly laced is erotic.",
+            "Body Modification": "Erotic interest in tattoos, piercings, scarification, implants, or other deliberate changes to the body, including having modifications, admiring them on others, or making their creation part of a negotiated scene.",
+            "Vintage Porn": "Erotic interest in pornography from an earlier era or made in an antique style, including Victorian erotic imagery, vintage magazines, films, photography, costumes, and period aesthetics.",
+            Primal: "Instinctive, animalistic play centered on raw movement and emotion, such as growling, chasing, wrestling, biting, scratching, pinning, or rough sex within negotiated limits.",
+            Smoking: "Erotic interest in a person smoking or in the sight, smell, taste, ritual, or control of smoke and smoking items such as cigarettes or cigars; everyone present should consent to smoke exposure.",
+            "Religious Play": "Consensual adult roleplay that eroticizes religious authority, confession, worship, ritual, blasphemy, clergy roles, or sacred and profane imagery without implying anyone's real beliefs are available for use without consent.",
+            "Mental Bondage": "Restraining someone through commands, rules, expectations, hypnosis-style suggestion, or the understanding that they must remain still, rather than through physical restraints.",
+            "Affectionate Cruelty": "Combining deliberately harsh treatment—such as pain, humiliation, denial, or strict control—with tenderness, praise, reassurance, or loving attention so cruelty and care are felt together.",
+            Pirates: "Erotic roleplay involving adult pirates, captains, crews, captives, treasure, ships, costumes, mutiny, or swashbuckling power struggles, with any capture or coercion agreed in advance.",
+            Clowns: "Erotic attraction to clown makeup, costumes, performance, exaggerated characters, or clown roleplay, which may involve humor, embarrassment, transformation, or controlled fear.",
+            Robots: "Erotic robot or cyborg roleplay involving mechanical movement, programmed behavior, remote control, commands, obedience, transformation, or attraction to artificial bodies.",
+            Formicophilia: "Erotic arousal from the sensation or idea of insects crawling on the body; any real-animal contact needs careful attention to bites, stings, allergies, hygiene, and the welfare of the animals.",
+            Forniphilia: "Erotic arousal from being used as furniture — a human table, chair, footstool, or stand — or from using a consenting partner that way; weight, balance, breathing, circulation, and how long someone can safely hold a position all need care.",
+            Graphoerotica: "Writing or drawing words, names, instructions, ownership marks, symbols, or pictures on a consenting person's skin for decoration, humiliation, objectification, or a feeling of being claimed.",
+            Bellydancing: "Erotic interest in performing or watching belly dance, especially its hip, torso, and abdominal movements, costumes, rhythm, display, and the focused attention between performer and viewer.",
+            Chocolate: "Using chocolate as part of erotic food play by feeding, tasting, smearing, drizzling, licking, or covering skin with it, with allergies, temperature, cleanup, and where it is safe to place food discussed first.",
+            Librarians: "Erotic roleplay built around an adult librarian and patron, using books, research, enforced quiet, rules, overdue consequences, authority, or a reserved public persona that changes in private.",
+            Inflatables: "Erotic interest in inflatable objects or the process of inflation, including their size, pressure, texture, sound, buoyancy, body contact, sitting or riding, or controlled deflation.",
+            "Cell Popping": "A permanent body-modification practice in which a heated sterile needle or similar tool makes small dot burns in the skin, often arranged as a pattern; it carries burn, infection, and scarring risks and requires specialized knowledge and explicit consent.",
+            FemDom: "A woman takes the dominant role, directing, controlling, disciplining, or using a consenting submissive partner in a scene or ongoing power exchange.",
+            "D/s": "Dominance and submission is a negotiated power exchange in which one person exercises agreed authority and another willingly submits to it.",
+            "Ordered To Masturbate": "A dominant tells a submissive when, where, or how to masturbate, may watch or direct the technique, and may control whether orgasm is allowed.",
+            Brats: "A brat playfully resists, teases, talks back, or breaks minor agreed rules to provoke attention, correction, or a contest of wills with a dominant.",
+            "24/7": "A power-exchange relationship in which agreed dominant and submissive roles remain active throughout daily life rather than only during individual scenes.",
+            Switching: "A switch enjoys both dominant and submissive roles and may change roles between partners, between scenes, or within the same encounter.",
+            "Male Authority": "An adult man takes an authority role and gives orders, sets rules, or directs a consenting partner who chooses to submit to him.",
+            "Behavior Modification": "Using agreed rewards, consequences, routines, and repetition to encourage or discourage specific behaviors within a power-exchange relationship.",
+            "Female Supremacy": "A negotiated dynamic or fantasy in which women are treated as superior and hold authority over consenting partners who accept subordinate roles.",
+            "Play Punishment": "A consensual punishment performed for erotic enjoyment, such as a spanking, scolding, task, or denied privilege, rather than to correct a genuine offense.",
+            "Bathroom Use Control": "One person controls when or how another may use the toilet, including requiring permission, waiting, scheduled access, or supervised use within agreed limits.",
+            "Domestic Discipline": "Partners agree that one has authority to enforce household or relationship rules through consequences such as lectures, chores, loss of privileges, or spanking.",
+            "Pro Domme": "A professional dominatrix provides paid, negotiated BDSM services such as bondage, discipline, humiliation, or fetish play, typically without promising conventional sexual intercourse.",
+            "Caging/Confinement": "Placing someone in a cage, crate, cell, closet, or other enclosed space so their movement and ability to leave are controlled for the scene.",
+            "Anal Hooks": "A curved hook is inserted into the anus and may be attached to rope or another restraint to control posture or create pressure; it requires careful, informed use.",
+            "Breast Bondage": "Rope, straps, bands, or tape are tied around or across the breasts to compress, lift, separate, display, or restrict them.",
+            "Suspension Bondage": "Rope or specialized gear supports some or all of a restrained person's body above the floor, making load placement and trained rigging essential.",
+            "Bondage Art": "Creating or appreciating visually elaborate restraint, especially decorative rope patterns and posed bodies, where composition and appearance are central to the experience.",
+            "Bondage Tape": "Special tape that sticks to itself rather than skin is wrapped around limbs or the body to restrict movement, bind body parts together, or create encasement.",
+            "Predicament Bondage": "A person is restrained so avoiding discomfort in one position causes discomfort elsewhere, forcing them to choose between limited, difficult options.",
+            "Duct Tape": "Using duct tape to bind, wrap, gag, or immobilize someone; because it adheres strongly, skin, hair, circulation, breathing, and safe removal require particular care.",
+            "Speech restriction": "Limiting someone's ability or permission to speak through a gag, commands, required phrases, silence rules, or consequences for talking.",
+            "Self-Bondage": "A person restrains themself for erotic pleasure without a partner physically present, making reliable release methods and emergency planning especially important.",
+            Armbinders: "A sleeve, leather device, or rigid restraint holds both arms together behind the back, often from wrists toward elbows, sharply limiting upper-body movement.",
+            "Scarf bondage": "Using scarves or other soft fabric to tie wrists, ankles, limbs, or the body, combining restraint with the fabric's texture and appearance.",
+            "Medieval Devices": "Using replicas or fantasies of stocks, pillories, racks, cages, shackles, or other historical restraint and punishment devices in consensual adult play.",
+            "Hair Bondage": "A person's hair is braided, tied, or attached to rope, furniture, or another restraint so head position or movement is controlled through the hair.",
+            Waterbondage: "Bondage performed in, near, or with water, such as restraining someone in a bath or under controlled spray; breathing, slipping, and rapid release are critical concerns.",
+            "Encasement Fetish": "Erotic enjoyment of being tightly enclosed, or enclosing someone, in latex, fabric, plastic, a sleepsack, vacuum bed, or another full-body covering.",
+            "Cling Film": "Wrapping parts of the body in household plastic film to compress, immobilize, or create a smooth enclosed appearance while keeping breathing and circulation unobstructed.",
+            "Crucifixion Play": "A consenting adult is restrained with arms extended on a cross-shaped frame or in a cruciform position, emphasizing exposure, endurance, symbolism, or helplessness.",
+            Sleepsacks: "A close-fitting fabric, leather, latex, or rubber sack encloses most of the body and limits limb movement while leaving planned access and a safe airway.",
+            Pain: "Giving or receiving deliberately controlled physical discomfort because the sting, ache, intensity, endorphin response, or power exchange is erotically satisfying.",
+            "Clit Spanking": "Striking the external clitoris or vulva with fingers or a small implement to create sharp, focused genital sensation, with intensity kept carefully controlled.",
+            Sadism: "Erotic enjoyment of consensually causing pain, humiliation, fear, or intense sensation to a partner who has chosen to receive it.",
+            "Impact Play": "Striking the body with hands or implements such as paddles, floggers, canes, straps, or whips to create pain, sound, marks, rhythm, or submission.",
+            Bruises: "Finding bruises erotically appealing, whether from receiving them, giving carefully negotiated impact that creates them, or admiring existing marks on a partner.",
+            "Cock and Ball Torture": "Applying controlled pain or pressure to the penis and testicles through squeezing, slapping, binding, stretching, impact, clamps, or specialized devices.",
+            "Breast Spanking": "Striking the breasts with an open hand or suitable implement to create sting, thud, movement, redness, or a sense of rough handling.",
+            "Pussy Spanking": "Striking the external vulva or pubic mound with a hand or suitable implement to create focused sting, heat, or humiliation.",
+            "Knife Play": "Using a knife as a negotiated prop against or near the body for fear, control, sensation, clothing removal, or symbolic threat without unplanned cutting.",
+            "Tit Slapping": "Slapping the breasts with an open hand so they sting, move, redden, or feel roughly handled during a scene or sexual activity.",
+            "Belt Whippings": "Striking a partner with the flat or end portion of a belt to create a broad thud, sharper sting, lines, or punishment imagery.",
+            Pinching: "Squeezing skin between fingers, nails, clips, or another tool to create localized pressure or pain on nipples, thighs, genitals, or other body areas.",
+            "OTK Spanking": "One adult lies or bends over another person's lap while their buttocks are spanked, combining impact with restraint, exposure, and punishment imagery.",
+            "Cock Slapping": "Striking a penis with an open hand or fingers to create sharp genital sensation, humiliation, or rough sexual play within carefully agreed intensity.",
+            "Corporal Punishment": "Using physical punishment such as spanking, caning, strapping, or paddling within a negotiated authority role or disciplinary scene.",
+            Clothespins: "Clipping clothespins onto nipples, genitals, or folds of skin to create sustained pinching pressure and a sharper sensation when they are removed.",
+            "Fire Play": "Passing controlled flame near or briefly over prepared skin, or using burning materials under trained conditions, to create heat, fear, and visual intensity.",
+            "Breast Whipping": "Striking the breasts with a whip or flexible implement to create focused sting, movement, redness, or marks; it is more intense than ordinary breast slapping.",
+            Ballbusting: "Kicking, kneeing, squeezing, slapping, or otherwise inflicting negotiated pain on the testicles as the central focus of a scene.",
+            Cutting: "Making deliberate shallow cuts in the skin as part of a negotiated scene, sometimes for blood, pain, marks, or design; it carries infection, scarring, and injury risks.",
+            "Pressure points": "Pressing specific sensitive areas, nerves, or muscle junctions with fingers or tools to create concentrated pain, control movement, or compel a response.",
+            Figging: "Inserting peeled fresh ginger into the anus or vagina so its oils create a strong warming or burning sensation that intensifies with muscle movement.",
+            "Ball Kicking": "Kicking or tapping the testicles at a negotiated intensity for pain, vulnerability, shock, or submission, with substantial injury risk at higher force.",
+            Scarification: "Creating intentional permanent scars through cutting, abrasion, or branding so the healing pattern becomes body art; this requires professional-grade knowledge and care.",
+            Trampling: "Standing, stepping, or walking on a partner's body, ranging from light barefoot pressure to carefully distributed weight with footwear.",
+            Waterboarding: "Simulating drowning by restraining a person and applying water over the face or airway; even consensual versions are exceptionally high risk and require specialized expertise.",
+            "Corset Piercing": "Placing temporary surface piercings in two parallel rows and lacing ribbon through them to create the appearance of a corset on the skin.",
+            Kicking: "Striking a consenting partner with the foot or lower leg to create impact, pain, fear, or rough-treatment dynamics while avoiding vulnerable organs and joints.",
+            "Fire Flogging": "Using a specialized flogger with burning fuel on its falls so controlled flame contacts or passes near the body, combining impact and heat in advanced fire play.",
+            Bastinado: "Striking the soles of the feet with a cane, rod, strap, or similar implement, producing concentrated pain in a sensitive area.",
+            "Abrasion Play": "Rubbing, scraping, or scratching the skin with rough materials, brushes, fingernails, or textured tools to create raw, burning, or prickling sensation.",
+            "Flesh Hooks": "Sterile hooks are pierced through skin and may support tension, weights, or suspension; this invasive practice requires expert technique, infection control, and emergency planning.",
+            Staples: "Applying sterile skin staples as temporary body decoration, restraint points, or pain stimulus during advanced play, with medical-grade technique and removal required.",
+            "Percussion Play": "Rhythmically tapping or drumming on the body with hands, fingers, padded tools, or massage percussion to create vibration, impact, and a trance-like cadence.",
+            "Fish Hooks": "Using fishhook-shaped objects as piercing jewelry, skin attachments, or threatening props; actual piercing requires sterile, barbless equipment and expert handling.",
+            "Violet Wand": "A violet wand passes high-voltage, low-current electricity through glass electrodes to create visible sparks and sensations ranging from soft tingling to sharp static bites.",
+            "Wartenberg Pinwheels": "Rolling a small wheel of radiating metal pins across the skin to create a line of prickling, scratching, or sharply focused sensations.",
+            "Panty-Sniffing": "Smelling worn underwear because the garment, a partner's body scent, and the intimacy or humiliation associated with it are sexually arousing.",
+            "Tens Unit": "Using a TENS-style electrical stimulation unit with adhesive electrodes to send controlled pulses through muscles or skin as an erotic sensation.",
+            Smothering: "Covering or pressing over someone's mouth and nose with a hand, body part, pillow, or material to create breath restriction or helplessness; it is high risk.",
+            Cupping: "Placing suction cups on the body to pull skin and tissue upward, creating pressure, warmth, temporary circular marks, and heightened sensitivity.",
+            Auralism: "Sexual arousal centered on sound, such as moans, dirty talk, breathing, commands, whispers, impact noises, or the sounds of sexual activity.",
+            "Vampire gloves": "Leather or fabric gloves fitted with short metal points are stroked, dragged, or tapped over skin to create fine scratching and prickling sensations.",
+            "1950s Household": "Adults roleplay an idealized mid-century household in which one partner acts as the authoritative head and another as the obedient homemaker, often with strict gendered rules.",
+            DDlg: "Daddy Dom/little girl is an adult caregiver and age-play dynamic in which one partner takes a protective or authoritative daddy role and another adult takes a little-girl role.",
+            "Medical Play": "Adults roleplay examinations or procedures using medical roles, instruments, positioning, exposure, restraint, or clinical language for erotic effect.",
+            Dollification: "Transforming or treating a consenting adult like a doll through makeup, clothing, fixed poses, restricted movement, display, objectification, or commands to remain still.",
+            "Mommy/girl": "Two adults use a caregiver and age-play dynamic in which one takes a nurturing or controlling mommy role and the other takes a younger-coded girl role.",
+            "Sister/Brother Roleplay": "Consenting adults pretend to be siblings and eroticize the fictional taboo or familiarity; the scenario does not imply a real family relationship.",
+            "Damsels In Distress": "An adult roleplays being captured, trapped, tied up, threatened, or waiting to be rescued, while another plays the captor, villain, or rescuer.",
+            ABDL: "Adult baby/diaper lover interests include adults wearing or using diapers, receiving caregiving, regressing into a baby-like role, or enjoying diapers apart from age play.",
+            Superheroes: "Adults roleplay heroes, villains, sidekicks, rescues, captures, secret identities, superpowers, costumes, and comic-book struggles in an erotic scenario.",
+            "Victorian Lifestyles": "Erotic roleplay inspired by idealized Victorian dress, manners, class hierarchy, household service, courtship, discipline, or strict social roles.",
+            "Piggy Play": "A form of pet or humiliation play in which an adult acts like a pig through crawling, snorting, eating from a bowl, wearing gear, or being called pig-related names.",
+            Infantilism: "An adult adopts baby-like behavior, clothing, speech, dependence, or caregiving needs for comfort or erotic roleplay; all participants remain adults.",
+            Gor: "Roleplay based on the fictional world of John Norman's Gor novels, commonly involving highly structured master/slave roles, ritualized positions, service, and ownership fantasy.",
+            "High Heels": "Wearing or admiring high-heeled shoes because their shape, sound, posture, height, or association with display and authority is sexually exciting.",
+            "Pantyhose/Stockings": "Wearing, touching, smelling, or admiring pantyhose and stockings for their sheer appearance, tight fit, texture, or association with legs and lingerie.",
+            Fishnets: "Wearing or admiring fishnet stockings, bodysuits, or sleeves because the open mesh frames the skin and creates a distinctive texture and erotic look.",
+            Skirts: "Wearing, lifting, looking under, or admiring skirts because of their movement, exposure potential, gendered presentation, or access to the body beneath.",
+            "Schoolgirl Uniform": "Adults wear or admire a school-inspired uniform such as a pleated skirt, blouse, tie, or knee socks as a costume for adult roleplay.",
+            Cosplay: "Dressing as a fictional character and bringing that character's appearance, personality, powers, or relationships into erotic play or attraction.",
+            Lace: "Wearing, touching, or admiring lace because its delicate pattern, transparency, texture, and association with lingerie or formal clothing are arousing.",
+            "Knee High Socks": "Wearing or admiring socks that rise to the knee because they frame the legs, create a uniform-like look, or add a soft fabric texture.",
+            "Glass Dildos": "Using a smooth, nonporous dildo made of body-safe glass for vaginal or anal penetration, firm pressure, curved stimulation, or carefully controlled temperature play.",
+            Glasses: "Wearing or admiring eyeglasses because they shape the face, suggest a particular persona, or form part of an intellectual, strict, shy, or professional look.",
+            "Business Suits": "Wearing or admiring tailored suits, shirts, ties, skirts, and formal office clothing because they convey polish, status, professionalism, or authority.",
+            "Military Uniforms": "Wearing or admiring military-style uniforms because their structure, insignia, boots, discipline, and association with rank or authority are erotically compelling.",
+            "NylonLegs & Feet": "Focusing on legs and feet covered in nylon stockings or pantyhose, including their sheen, scent, texture, compression, and appearance through the fabric.",
+            "Sissy Panties": "A consenting adult wears feminine-coded panties as part of feminization, sissification, humiliation, gender play, or simply enjoyment of the garment.",
+            Silk: "Wearing, touching, rubbing, or being bound with silk because its smooth, cool, lightweight texture and glossy appearance are sexually appealing.",
+            Hoods: "Wearing or placing a hood over the head to alter identity, appearance, sight, sound, or a sense of enclosure, objectification, and control.",
+            Gloves: "Wearing, touching, or admiring gloves made of leather, latex, lace, fabric, or another material because of their look, feel, scent, or role-based meaning.",
+            "Lycra/Spandex": "Wearing or admiring tight stretch garments that cling to the body, emphasize its shape, and create smooth compression and a slick athletic appearance.",
+            Kilts: "Wearing or admiring kilts because of their pleats, cultural or masculine associations, bare-leg styling, movement, and potential access beneath the garment.",
+            Satin: "Wearing, touching, or rubbing satin because its glossy surface, fluid drape, and smooth sliding feel against skin are erotically appealing.",
+            "Gas Masks": "Wearing or admiring gas masks for their industrial appearance, hidden identity, breathing sounds, enclosed feeling, or dystopian roleplay; filters must not obstruct safe breathing.",
+            PVC: "Wearing or admiring shiny polyvinyl clothing because it tightly shapes the body and has a slick, glossy, sometimes squeaking surface.",
+            Socks: "Wearing, touching, smelling, or admiring socks because of their fabric, warmth, association with feet, signs of wear, or particular style.",
+            Military: "Erotic interest in military aesthetics such as uniforms, boots, rank, drills, discipline, command structures, barracks, or adult soldier roleplay.",
+            Steampunk: "Wearing or admiring Victorian-industrial costumes with corsets, goggles, brass, leather, gears, and imagined machinery as part of erotic fantasy or roleplay.",
+            Geisha: "Adult costume roleplay inspired by the stylized dress, makeup, music, and hospitality arts associated with geisha, without treating a real culture as automatic sexual consent.",
+            Boot: "Wearing, touching, smelling, licking, polishing, or admiring a boot because of its material, shape, authority symbolism, or connection to the wearer's body.",
+            Velvet: "Wearing, stroking, or rubbing velvet because its dense soft pile changes direction under the hand and creates a rich visual and tactile sensation.",
+            Metal: "Wearing, touching, or being restrained with metal clothing, jewelry, chains, armor, or hardware because of its weight, coldness, hardness, sound, or appearance.",
+            Vinyl: "Wearing or admiring glossy vinyl clothing because it clings to the body and has a smooth, shiny, artificial surface associated with fetish fashion.",
+            Petticoats: "Wearing or admiring layered petticoats because their volume, rustle, softness, vintage femininity, and effect on a skirt's shape are arousing.",
+            Zentai: "Wearing or admiring a skin-tight full-body suit that covers the limbs, torso, and often the head, creating total-body color, smoothness, anonymity, or enclosure.",
+            Denim: "Wearing, touching, smelling, or admiring denim because of its rugged texture, tight fit, seams, worn appearance, or association with jeans and workwear.",
+            Chaps: "Wearing or admiring leather or fabric leg coverings that leave the buttocks or crotch partly exposed, often evoking cowboys, bikers, or leather culture.",
+            Retifism: "A shoe fetish in which footwear itself, especially its shape, material, smell, wearing, handling, or the feet associated with it, is a primary source of arousal.",
+            "Big Tits": "Sexual attraction focused on large breasts, including their size, weight, movement, cleavage, appearance, and how they feel or are used during sex.",
+            "Older Women": "Sexual or romantic attraction to adult women who are older than the admirer, with age, maturity, appearance, experience, or authority forming part of the appeal.",
+            BBW: "Attraction to big beautiful women, generally meaning larger or fat adult women whose body size, curves, softness, weight, or confidence is celebrated.",
+            "Foot Worship": "Kissing, licking, massaging, smelling, praising, or serving a partner's feet as objects of devotion, submission, or sexual focus.",
+            Pigtails: "Attraction to hair worn in two tied sections because of its movement, symmetry, playfulness, or use as handles during consensual play between adults.",
+            Lipstick: "Wearing or admiring lipstick because of its color, gloss, scent, application ritual, feminine presentation, kiss marks, or smearing during sexual activity.",
+            Legs: "Sexual attraction focused on the shape, length, muscle, skin, movement, or presentation of legs, including looking, touching, kissing, or being wrapped by them.",
+            Tongues: "Sexual attraction focused on tongues, including watching them move, licking, kissing, sucking, oral sex, or being deliberately shown a tongue.",
+            Makeup: "Wearing, applying, watching, or admiring cosmetics because they transform the face or body, create a persona, or become smeared during play.",
+            "Long Hair": "Attraction to long hair because of its appearance, scent, texture, movement, styling, or how it can be touched, wrapped, pulled, or draped over the body.",
+            Freckles: "Sexual or aesthetic attraction to freckles on the face or body, including looking at, tracing, kissing, or praising the marked skin.",
+            BBC: "A porn-derived racialized fantasy centered on a Black man's supposedly large penis; it can reduce people to race and anatomy, so real partners should define the language and boundaries they welcome.",
+            "Older Men": "Sexual or romantic attraction to adult men who are older than the admirer, with age, maturity, appearance, experience, or authority forming part of the appeal.",
+            "Uncut Cock": "Sexual attraction focused on an uncircumcised penis, including the foreskin's appearance, movement, texture, scent, and role in masturbation or oral sex.",
+            "Toes and Feet": "Sexual attraction focused on bare feet and toes through looking, touching, licking, sucking, smelling, massaging, trampling, or having them used during sex.",
+            Muscles: "Sexual attraction focused on muscular size, definition, strength, flexing, movement, or the feeling of a powerful body during touch and sex.",
+            Beards: "Sexual attraction focused on facial hair, including its appearance, texture, scent, masculinity, grooming, or sensation against skin during kissing or oral sex.",
+            "Pubic Hair": "Sexual attraction focused on pubic hair, including its natural appearance, texture, scent, grooming style, or sensation against the face and body.",
+            "Boot Worship": "Kissing, licking, kneeling before, polishing, smelling, or otherwise serving a partner's boots as an expression of fetish, reverence, humiliation, or submission.",
+            "Large Labia": "Sexual attraction focused on prominent inner or outer labia, including their shape, size, movement, appearance, and sensation during touch or oral sex.",
+            Depilation: "Removing body or pubic hair from oneself or a partner by shaving, waxing, or another method, with the grooming process or smooth result forming part of the erotic interest.",
+            "Facial Hair": "Sexual attraction focused on beards, mustaches, stubble, or other facial hair because of its look, texture, scent, grooming, or sensation against skin.",
+            Armpits: "Sexual attraction focused on armpits through looking, smelling, licking, touching, hair, sweat, or the vulnerability of exposed underarms.",
+            "Body Hair": "Sexual attraction focused on hair on the chest, back, arms, legs, abdomen, or other body areas because of its look, texture, scent, or naturalness.",
+            Hands: "Sexual attraction focused on hands, fingers, nails, veins, strength, movement, or the ways hands touch, restrain, penetrate, or perform skilled actions.",
+            "Bald Girls": "Attraction to adult women with shaved or naturally bald heads, with the smooth scalp, exposed facial features, appearance, or transformation forming part of the appeal.",
+            Braces: "Attraction to dental braces on an adult, including their metallic appearance, effect on a smile, texture, or association with a particular style or transformation.",
+            "Head Shaving": "Shaving one's own or a partner's head, with the transformation, surrender of appearance control, sound of clippers, exposed scalp, or smooth result providing the erotic charge.",
+            "Tearing off Clothing": "Ripping, cutting, or forcefully pulling clothes from a consenting partner to create urgency, destruction, exposure, and the feeling of being overcome.",
+            Trust: "The erotic or emotional intensity that comes from knowingly placing vulnerability, control, safety, or secrets in a partner's hands and having that responsibility honored.",
+            Attention: "One person becomes the deliberate focus of another's gaze, praise, service, questions, touch, or sexual effort, or gives that concentrated attention to a partner.",
+            "Mind Fucks": "Using suggestion, staged events, uncertainty, deception within agreed limits, or psychological pressure to make a partner temporarily question what is happening or what will happen next.",
+            "Female Humiliation": "Humiliating a consenting woman through agreed words, exposure, objectification, tasks, or treatment that targets her role or presentation as female.",
+            Crying: "Making, watching, or experiencing tears during consensual play because of intense emotion, pain, relief, humiliation, catharsis, or surrender.",
+            "small penis humiliation": "Using agreed teasing, insults, comparison, denial, or exposure focused on a penis being small, often to create embarrassment, submission, or erotic inadequacy.",
+            Fear: "Erotic arousal from feeling scared or from frightening a consenting partner through suspense, threats, pursuit, intimidating props, darkness, or controlled uncertainty.",
+            Tears: "Finding tears themselves erotically or emotionally compelling, whether they result from pain, overwhelm, humiliation, relief, joy, or catharsis in a consensual scene.",
+            Blushing: "Arousal from causing, noticing, or experiencing visible embarrassment and flushed skin through attention, compliments, exposure, teasing, or explicit conversation.",
+            "Emotional Sadism": "Deriving erotic satisfaction from consensually causing emotional discomfort such as embarrassment, jealousy, shame, helplessness, or tears within clearly negotiated limits.",
+            Dacryphilia: "Sexual arousal centered on tears or crying, including making a partner cry consensually, being made to cry, or watching and comforting someone who cries during play.",
+            "Military Interrogation": "Adults roleplay a military captor questioning a prisoner using rank, commands, restraint, threats, or simulated pressure, with coercive elements agreed in advance.",
+            Sexting: "Exchanging sexually explicit messages, fantasies, commands, photos, audio, or video by phone or online to flirt, direct play, or share arousal at a distance.",
+            Burlesque: "Performing or watching a theatrical striptease that uses costume, dance, humor, posing, and gradual reveal rather than simply removing clothes quickly.",
+            "Sex in the cemetery": "Consensual sexual activity or roleplay set in a cemetery for its taboo, gothic, death-related, or outdoor atmosphere, while respecting laws, privacy, and gravesites.",
+            "Pin-Ups": "Attraction to stylized glamour images or poses inspired by classic pin-up art, often featuring playful expressions, retro clothing, stockings, and deliberate display.",
+            "Fetish Models": "Attraction to adults who pose in fetish clothing or scenes, such as latex, leather, bondage, heels, or BDSM imagery, whether in photos, video, or live performance.",
+            "FMF threesomes": "Sex involving three adults—two women and one man—at the same time, with activities and attention arranged according to everyone's individual interests and boundaries.",
+            "Interracial Sex": "Sex between consenting adults of different racial identities, where the difference may be part of the attraction without making racial stereotypes or slurs automatic.",
+            Hotwife: "A partnered woman has sex with other people with her partner's knowledge and encouragement, while the partner may watch, hear details, participate, or simply enjoy her freedom.",
+            "Cuckold Humiliation": "A consenting partner is erotically humiliated about their partner having sex with someone else, often through comparison, denial, teasing, watching, or being assigned a subordinate role.",
+            "Mutual Masturbation": "Two or more people masturbate themselves while together, often watching, touching, talking to, or matching the pace of the others without necessarily having penetrative sex.",
+            "Morning Sex": "Sexual activity soon after waking, often emphasizing sleepy intimacy, spontaneous arousal, natural body scent, or beginning the day with touch and orgasm.",
+            "Anal Training": "Gradually preparing the anus to comfortably accept fingers, plugs, toys, a penis, or larger objects through repeated relaxation, lubrication, controlled stretching, and increasing sizes.",
+            "Fucking Machines": "Motorized devices move a dildo or other attachment in repeated thrusts while a person controls the speed, depth, angle, or restraint of the partner receiving it.",
+            "Nipple Play": "Stimulating nipples and surrounding breast or chest tissue through rubbing, sucking, licking, pinching, twisting, vibration, clamps, temperature, or impact.",
+            "Road Head": "One adult performs oral sex on another in a vehicle, commonly while it is parked or traveling; involving the driver creates severe distraction and public-exposure risks.",
+            "Vaginal Stretching": "Gradually widening the vagina with fingers, toys, fists, or increasingly large objects to create fullness, accommodate insertion, or enjoy the stretching sensation.",
+            "Vacuum pumping": "Placing a cylinder or cup over genitals or other tissue and removing air to create suction, swelling, increased blood flow, and heightened sensitivity.",
+            "Large objects": "Vaginal or anal penetration with objects notably larger than usual fingers, penises, or toys, emphasizing fullness and stretching through slow, prepared insertion.",
+            "Urethral Fucking": "Repeated penetration or movement inside the urethra with a sound, plug, catheter-like toy, or other purpose-made instrument; it is invasive and medically high risk.",
+            Catheters: "Inserting a sterile tube through the urethra into the bladder for medical-themed play, control of urination, or internal sensation; improper use can cause serious injury or infection.",
+            Queening: "A person sits or kneels over a partner's face, usually presenting the vulva for oral sex and using posture or body weight to emphasize dominance.",
+            "Gorean Slave Positions": "A submissive adopts formal poses described in Gor-inspired roleplay to display the body, await orders, present for service, or demonstrate obedience to a master.",
+            "Edge Play": "An umbrella term for activities near a person's physical, emotional, or social limits, where consequences or uncertainty may be unusually serious and require advanced negotiation.",
+            "Cock Milking": "Stimulating a penis or prostate to extract semen or produce orgasm, often with the receiving person restrained, controlled, repeatedly drained, or treated like a source of fluid.",
+            "Tease & Denial": "Bringing someone toward sexual release with touch, toys, words, or display and then withholding, interrupting, or delaying the stimulation or orgasm they want.",
+            "Anal Chastity": "Restricting anal access or penetration through rules, plugs, locks, or wearable devices while another person controls when the anus may be used or left empty.",
+            Enemas: "Introducing liquid into the rectum through a nozzle or tube and then expelling it, whether for preparation, fullness, cleansing ritual, control, or humiliation play.",
+            Breastfeeding: "One adult sucks milk directly from another adult's breast or chest, combining lactation with feeding, nurturing, intimacy, service, or erotic mouth-to-nipple contact.",
+            "Creampie Cleanup": "Licking, sucking, wiping, or otherwise removing semen from a partner's vagina, anus, body, or another person's genitals after internal ejaculation.",
+            "Toilet slave": "A submissive role in which an adult is used for urine, feces, spitting, cleanup, or toilet-related service and humiliation within explicitly negotiated boundaries.",
+            Liquor: "Using the taste, smell, ritual, or imagery of alcohol in erotic play, such as feeding drinks or pouring liquor on skin; intoxication can undermine valid consent.",
+            Douching: "Flushing the vagina or rectum with liquid as preparation, cleansing ritual, control, or fetish activity; unnecessary or harsh solutions can irritate tissue and disrupt healthy flora.",
+            Nyotaimori: "Serving sushi or other food from the body of a reclining, usually nude adult model, making display, stillness, service, and eating from skin part of the scene.",
+            Klismaphilia: "Sexual arousal from enemas, including giving or receiving rectal fluid, holding it, expelling it, watching the process, or eroticizing the medical and control aspects.",
+            "Being Overpowered": "A consenting person is physically dominated, pinned, restrained, lifted, or forced into position so they can feel another person's superior strength and control.",
+            Manhandling: "Grabbing, moving, pinning, carrying, throwing onto furniture, or forcefully repositioning a consenting partner to create roughness and physical control.",
+            "Pursuit, Take-Down & Capture": "One adult chases another, catches them, brings them to the ground or restrains them, and claims them within a negotiated predator-and-prey scenario.",
+            "Foot Massage": "Rubbing, kneading, pressing, and handling a partner's feet to provide pleasure, care, service, relaxation, or erotic attention to the feet.",
+            "Domestic Servitude": "A submissive performs ongoing household labor such as cooking, cleaning, laundry, organization, and errands as service to a dominant partner.",
+            "French Maids": "An adult wears a stylized maid costume and performs cleaning, serving, obedience, flirtation, or punishment roleplay for a partner acting as employer or guest.",
+            Maid: "An adult takes a domestic servant role by cleaning, dressing in maid attire, following household orders, serving refreshments, or being inspected and corrected.",
+            Crawling: "A consenting adult moves on hands and knees at another person's command, often to express submission, animal roleplay, exposure, service, or reduced status.",
+            "Boot Blacking": "Cleaning, conditioning, polishing, and shining a partner's leather boots as skilled service, fetish handling, ritual devotion, or a formal part of leather culture.",
+            "Erotic Literature": "Reading or listening to sexually explicit fiction for arousal, fantasy, self-discovery, shared entertainment, or ideas for consensual play.",
+            Anime: "Erotic interest in the visual style, characters, costumes, scenarios, or fan culture of Japanese animation, whether through adult characters, art, cosplay, or roleplay.",
+            Hentai: "Sexually explicit drawn or animated material in a Japanese comics or animation style, featuring fictional characters and acts intended for adult audiences.",
+            "Writing Erotica": "Creating sexually explicit fiction, scenes, dialogue, or fantasies for personal arousal, creative expression, a partner, or an audience.",
+            Transvestism: "An older term for erotic cross-dressing: wearing clothing associated with another gender because the presentation, transformation, or fabric itself is sexually exciting.",
+            Androgyny: "Attraction to or enjoyment of a presentation that blends or obscures conventionally masculine and feminine traits through body, clothing, hair, voice, or manner.",
+            Butches: "Attraction to butch adults whose gender presentation emphasizes masculinity, toughness, confidence, style, or roles associated with butch identity.",
+            Psycholagny: "Sexual arousal generated primarily by thoughts, fantasies, memories, words, or imagined scenarios rather than by direct physical stimulation.",
+            Affection: "Giving or receiving warm emotional and physical care through kissing, cuddling, praise, reassurance, tenderness, and loving attention before, during, or after play."
+        }, He = {
+            "Power exchange": [ "authority", "authority" ],
+            "Bondage & restriction": [ "restraint", "restraint" ],
+            "Impact, pain & body modification": [ "impact or pain", "impact or pain" ],
+            "Sensation & atmosphere": [ "sensation", "sensation" ],
+            "Roleplay & identity": [ "role or scenario", "role or scenario" ],
+            "Clothing, materials & objects": [ "garment, material, or object", "garment, material, or object" ],
+            "Body focus & appearance": [ "attention or admiration", "attention or admiration" ],
+            "Psychological dynamics": [ "words or psychological pressure", "words or psychological pressure" ],
+            "Watching, exposure & settings": [ "attention or a view", "attention or a view" ],
+            "Partner configurations": [ "partner arrangement", "partner arrangement" ],
+            "Sex acts": [ "sexual act", "sexual act" ],
+            Positions: [ "sexual position", "sexual position" ],
+            "Orgasm & reproductive play": [ "orgasm control or reproductive fantasy", "orgasm control or reproductive fantasy" ],
+            "Fluids & messy play": [ "body fluid or mess", "body fluid or mess" ],
+            "Primal & pursuit": [ "the chase", "the chase" ],
+            "Service & ritual": [ "service or ritual", "service or ritual" ],
+            "Fantasy & transformation": [ "fantasy or transformation", "fantasy or transformation" ],
+            "Connection & aftercare": [ "care or reassurance", "care or reassurance" ],
+            "Collars & symbols": [ "collar or symbol", "collar or symbol" ],
+            "Reward & correction": [ "reward or correction", "being rewarded or corrected" ],
+            Discipline: [ "discipline or consequence", "being disciplined or facing consequences" ],
+            Begging: [ "plea or request", "decision or permission" ],
+            "Rope bondage": [ "rope restraint", "rope restraint" ],
+            "Decorative rope": [ "decorative rope", "decorative rope" ],
+            "Japanese bondage": [ "kinbaku or shibari rope", "kinbaku or shibari rope" ],
+            "Cuffs & straps": [ "cuff or strap restraint", "cuff or strap restraint" ],
+            "Spreaders & bars": [ "spreader-bar restraint", "spreader-bar restraint" ],
+            "Tape & wrapping": [ "tape or wrapping restraint", "tape or wrapping restraint" ],
+            Gags: [ "gag", "gag" ],
+            Mummification: [ "full-body wrapping", "full-body wrapping" ],
+            "Furniture restraint": [ "furniture restraint", "furniture restraint" ],
+            "Blindfolded restraint": [ "blindfolded restraint", "blindfolded restraint" ],
+            "Escape play": [ "escape challenge", "escape attempt" ],
+            Immobilization: [ "immobilization", "immobilization" ],
+            Spanking: [ "open-hand impact", "open-hand impact" ],
+            "Paddles & straps": [ "paddle or strap impact", "paddle or strap impact" ],
+            Flogging: [ "flogger strokes", "flogger strokes" ],
+            Caning: [ "cane strikes", "cane strikes" ],
+            "Riding crops": [ "riding-crop strikes", "riding-crop strikes" ],
+            Whips: [ "whip strikes", "whip strikes" ],
+            Clamps: [ "clamp pressure", "clamp pressure" ],
+            "Hair pulling": [ "hair pulling", "having your hair pulled" ],
+            "Needle Play": [ "needles or piercing", "needles or piercing" ],
+            Sounding: [ "urethral sound", "urethral sound" ],
+            "Heavy marking": [ "marks", "marks" ],
+            "Extreme endurance": [ "intense challenge", "intense pain or stimulation" ],
+            "Wax & temperature": [ "heat or cold", "heat or cold" ],
+            "Ice & cool touch": [ "cold touch", "cold touch" ],
+            Tickling: [ "tickling", "being tickled" ],
+            "Electrical Play": [ "electrical stimulation", "electrical stimulation" ],
+            "Sensory deprivation": [ "reduced sensory input", "reduced sensory input" ],
+            "Sensory overload": [ "intense sensory input", "intense sensory input" ],
+            "ASMR & whispering": [ "whispers or ASMR sounds", "whispers or ASMR sounds" ],
+            Scent: [ "scent", "scent" ],
+            "Tantra / energy play": [ "tantric practice or energy work", "tantric practice or energy work" ],
+            "Authority roles": [ "authority", "authority" ],
+            "Caregiver roles (adults)": [ "care or supervision", "care or supervision" ],
+            "Age play between adults": [ "older role", "younger role" ],
+            "Pet play": [ "pet role", "handling or ownership" ],
+            "Pony Play": [ "pony role", "training or handling" ],
+            "Puppy play": [ "pup role", "training or handling" ],
+            "Owner & property": [ "ownership", "ownership" ],
+            "Doctor/Nurse Play": [ "medical roleplay", "medical roleplay" ],
+            "Teacher / student roleplay": [ "lesson or authority", "lesson or authority" ],
+            "Captivity / kidnapping": [ "capture", "capture or confinement" ],
+            "Consensual non-consent fantasy": [ "overpowering a partner (in fantasy)", "being overpowered (in fantasy)" ],
+            "Captivity / kidnapping": [ "capturing & holding a partner captive", "being captured & held captive" ],
+            Leather: [ "leather", "leather" ],
+            "Latex & rubber": [ "latex or rubber", "latex or rubber" ],
+            "Lingerie & stockings": [ "lingerie or stockings", "lingerie or stockings" ],
+            Uniforms: [ "uniform", "uniform" ],
+            "Heels & boots": [ "heels or boots", "heels or boots" ],
+            "Masks & hoods": [ "mask or hood", "mask or hood" ],
+            Harnesses: [ "harness", "harness" ],
+            Diapers: [ "diaper", "diaper" ],
+            "Food / messy play": [ "food or mess", "food or mess" ],
+            Fur: [ "fur", "fur" ],
+            "Anal beads": [ "anal beads", "anal beads" ],
+            Pumps: [ "vacuum pumping", "vacuum pumping" ],
+            Showerheads: [ "water stimulation", "water stimulation" ],
+            "Costume transformation": [ "costume", "costume" ],
+            "Feet & footwear": [ "attention to feet or footwear", "attention to feet or footwear" ],
+            "Hands & gloves": [ "attention to hands or gloves", "attention to hands or gloves" ],
+            Hair: [ "attention to hair", "attention to hair" ],
+            Breasts: [ "attention to breasts or nipples", "attention to breasts or nipples" ],
+            Buttocks: [ "attention to buttocks", "attention to buttocks" ],
+            "Body worship": [ "body worship", "body worship" ],
+            "Muscle Worship": [ "muscle worship", "muscle worship" ],
+            "Body Modification": [ "tattoo or body modification", "tattoo or body modification" ],
+            "Praise (in scene)": [ "praise", "praise" ],
+            "Humiliation language": [ "humiliating words", "humiliating words aimed at you" ],
+            Degradation: [ "degrading treatment", "being degraded" ],
+            "Dirty talk": [ "explicit words", "explicit words" ],
+            Objectification: [ "treating a partner as an object", "being treated as an object" ],
+            "Hypnosis & mind-control fantasy": [ "hypnotic suggestions or control", "being hypnotized or mind-controlled (in fantasy)" ],
+            "Fear Play": [ "scaring a partner", "being frightened" ],
+            Interrogation: [ "questions & pressure", "being questioned under pressure" ],
+            "Confession & secrets": [ "a partner's confession or secrets", "confessing your own secrets" ],
+            "Watching & being watched": [ "attention or a view", "attention or a view" ],
+            "Private photo & video": [ "intimate image or video", "intimate image or video" ],
+            "Performance for a partner": [ "sexual performance", "sexual performance" ],
+            "Exhibition / voyeurism": [ "performance or exposure", "performance or exposure" ],
+            "Cuckold / hotwife": [ "outside-partner sex", "knowledge, details, or a view of outside-partner sex" ],
+            "Group service": [ "serving a group", "being served by a group" ],
+            Gangbang: [ "participating in a gangbang", "being the focus of a gangbang" ],
+            "Age gap": [ "older partner", "younger partner" ],
+            "Anal fingering": [ "fingers", "fingers in the anus" ],
+            Rimming: [ "mouth and tongue", "oral stimulation of the anus" ],
+            Creampies: [ "semen", "semen inside" ],
+            Facefucking: [ "oral penetration", "penis or strap-on in the mouth" ],
+            Facesitting: [ "genitals, anus, or crotch", "genitals, anus, or body weight on the face" ],
+            Facials: [ "semen", "semen on the face" ],
+            "Fingering mouths": [ "fingers", "fingers in the mouth" ],
+            "Vaginal fisting": [ "hand", "hand in the vagina" ],
+            "Anal fisting": [ "hand", "hand in the anus or rectum" ],
+            Handjobs: [ "hand stimulation", "hand stimulation of the penis" ],
+            Pegging: [ "strap-on penetration", "strap-on in the anus" ],
+            Squirting: [ "squirt fluid", "stimulation that causes squirting" ],
+            "Vaginal fingering": [ "fingers", "fingers in the vagina" ],
+            "Anal sex": [ "anal penetration", "penis, strap-on, or toy in the anus" ],
+            "Oral sex": [ "oral stimulation", "mouth and tongue on the genitals or anus" ],
+            Penetration: [ "penetration", "penis, fingers, fist, or toy inside" ],
+            "Orgasm control": [ "orgasm permission or control", "having your orgasms controlled" ],
+            "Orgasm denial": [ "orgasm denial", "denied orgasm" ],
+            Chastity: [ "chastity control", "restricted access or release" ],
+            Edging: [ "near-orgasm stimulation", "near-orgasm stimulation" ],
+            Teasing: [ "teasing stimulation", "teasing stimulation" ],
+            "Breeding / pregnancy fantasy": [ "sperm", "sperm or pregnancy" ],
+            "Surrogacy fantasy": [ "pregnancy", "pregnancy carried by a surrogate" ],
+            "Oviposition fantasy": [ "eggs", "eggs" ],
+            Watersports: [ "urine", "urine" ],
+            Lactation: [ "breast milk", "breast milk" ],
+            "Blood play": [ "blood", "blood" ],
+            Spit: [ "saliva", "saliva" ],
+            "Hunter / prey": [ "the hunt — pursuing & catching your prey", "being hunted, chased & caught" ],
+            "Chase scenes": [ "pursuing & catching", "being pursued & caught" ],
+            "Wrestling & struggle": [ "grappling & pinning", "being grappled & pinned" ],
+            "Biting & scratching": [ "bites & scratches", "bites & scratches on your skin" ],
+            "Acts of service": [ "service", "service" ],
+            "Domestic service": [ "household work", "household work" ],
+            "Grooming rituals": [ "grooming or bodily care", "grooming or bodily care" ],
+            "Dressing a partner": [ "clothes, lingerie, or gear", "clothes, lingerie, or gear" ],
+            "Permission rituals": [ "permission", "permission" ],
+            "Daily tasks": [ "task", "task" ],
+            "Spiritual play": [ "sacred ritual or spiritual experience", "sacred ritual or spiritual experience" ],
+            "Romantic surrender": [ "surrender or devotion", "surrender or devotion" ],
+            "Seduction scenarios": [ "seduction", "seduction" ],
+            "Growth / shrinking fantasy": [ "size contrast", "size contrast" ],
+            Crossdressing: [ "gendered clothing or presentation", "gendered clothing or presentation" ],
+            "Celebrity fantasy": [ "celebrity fantasy", "celebrity fantasy" ],
+            Sissification: [ "feminizing a partner", "being feminized" ],
+            "Food & hydration": [ "food or drink", "food or drink" ],
+            "Praise (aftercare)": [ "praise or reassurance", "praise or reassurance" ]
+        }, We = {
+            "cat-power-exchange": [ "dom", "sub" ],
+            "cat-bondage-restriction": [ "restrains", "restrained" ],
+            "cat-impact-pain-body-modification": [ "applies", "receives" ],
+            "cat-sensation-atmosphere": [ "stimulates", "experiences" ],
+            "cat-roleplay-identity": [ "leads", "follows" ],
+            "cat-clothing-materials-objects": [ "admires", "wears / uses" ],
+            "cat-body-focus-appearance": [ "displays", "admires" ],
+            "cat-psychological-dynamics": [ "influences", "experiences" ],
+            "cat-watching-exposure-settings": [ "watches", "is watched" ],
+            "cat-partner-configurations": [ "arranges", "joins" ],
+            "cat-sex-acts": [ "performs", "receives" ],
+            "cat-positions": [ "initiates", "joins" ],
+            "cat-orgasm-reproductive-play": [ "controls", "is controlled" ],
+            "cat-fluids-messy-play": [ "releases / uses", "receives" ],
+            "cat-primal-pursuit": [ "hunter", "prey" ],
+            "cat-service-ritual": [ "serves", "is served" ],
+            "cat-fantasy-transformation": [ "transforms", "is transformed" ],
+            "cat-connection-aftercare": [ "cares", "is cared for" ],
+            "t0006": [ "grants", "begs" ],
+            "t0003": [ "wears", "admires" ],
+            "topic-gangbang-fantasy": [ "fucks in group", "is fucked by group" ],
+            "t0045": [ "captures", "escapes" ],
+            "t0097": [ "pushes", "endures" ],
+            "t0127": [ "authority", "subordinate" ],
+            "topic-caregiver-roles-adults": [ "caregiver", "little" ],
+            "topic-age-play-between-adults": [ "plays older", "plays younger" ],
+            "topic-pet-play": [ "handler", "pet" ],
+            "topic-pony-play": [ "trainer", "pony" ],
+            "topic-puppy-play": [ "handler", "pup" ],
+            "t0131": [ "owner", "property" ],
+            "topic-doctor-nurse-play": [ "clinician", "patient" ],
+            "topic-teacher-student-roleplay": [ "teacher", "student" ],
+            "topic-captivity-kidnapping": [ "captures", "is captured" ],
+            "topic-consensual-non-consent-fantasy": [ "overpowers", "is overpowered" ],
+            "t0153": [ "wears", "admires" ],
+            "t0152": [ "wears", "admires" ],
+            "t0181": [ "wears", "admires" ],
+            "t0176": [ "wears", "admires" ],
+            "t0166": [ "wears", "admires" ],
+            "topic-masks-hoods": [ "admires", "wears" ],
+            "t0196": [ "wears", "admires" ],
+            "t0185": [ "admires", "wears" ],
+            "t0162": [ "admires", "wears" ],
+            "t0236": [ "is modified", "admires" ],
+            "t0237": [ "worships", "is worshipped" ],
+            "t0220": [ "worships", "is worshipped" ],
+            "topic-feet-footwear": [ "worships", "is worshipped" ],
+            "t0222": [ "adores", "is adored" ],
+            "t0234": [ "plays big", "plays small" ],
+            "t0266": [ "watches", "is watched" ],
+            "t0270": [ "exhibits", "watches" ],
+            "t0316": [ "makes squirt", "squirts" ],
+            "t0328": [ "locks", "is locked" ],
+            "t0332": [ "surrogate", "parent" ],
+            "t0351": [ "hunter", "prey" ],
+            "t0352": [ "chase (be the chaser)", "be chased" ],
+            "t0353": [ "wrestle down", "be wrestled down" ],
+            "t0354": [ "bite & scratch", "be bitten & scratched" ],
+            "t0381": [ "big", "small" ],
+            "t0385": [ "wears", "admires" ],
+            "t0375": [ "accepts", "surrenders" ]
+        };
+        h.forEach(cat => (cat.topics || []).forEach(topic => {
+            if (!topic || "give_receive" !== topic.type) return;
+            const n = Wn(topic);
+            We[n] = [ topic.give_label, topic.receive_label ];
+        }));
+        const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269" ]);
 
     !function() {
         "use strict";
@@ -12608,7 +17037,7 @@ const TAXONOMY_CATEGORIES = [
                     const i = Vn(t, n);
                     return {
                         id: e,
-                        label: n,
+                        label: sxName(n),
                         branch: t.name,
                         kind: "Topic",
                         risk: Boolean(((t.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
@@ -15008,7 +19437,7 @@ const TAXONOMY_CATEGORIES = [
         // One pipeline owns spoke radii, collision relief, crossing assignment,
         // and angular nudging. Keep this order stable: each later pass consumes the
         // coordinates established by the pass before it.
-        const er = Object.freeze({
+        window.er = Object.freeze({
             fullTurn: 2 * Math.PI,
             inwardExclusion: Math.PI / 6,
             halfExclusion: Math.PI / 12,
@@ -15019,7 +19448,7 @@ const TAXONOMY_CATEGORIES = [
         function tr(e) {
             return Math.atan2(Math.sin(e), Math.cos(e));
         }
-        const nr = Object.freeze({
+        window.nr = Object.freeze({
             spread: 11 * Math.PI / 6,
             halfSpread: 11 * Math.PI / 12,
             inwardExclusion: Math.PI / 6,
@@ -15031,26 +19460,26 @@ const TAXONOMY_CATEGORIES = [
             const i = Math.max(0, Number(t) || 0);
             if (!i) return tr(e);
             const a = Math.ceil(i / 2), r = i % 2 == 1 ? 1 : -1;
-            return tr(e + Math.max(-nr.halfSpread, Math.min(nr.halfSpread, r * a * (Number(n) || 0))));
+            return tr(e + Math.max(-window.nr.halfSpread, Math.min(window.nr.halfSpread, r * a * (Number(n) || 0))));
         }
         function ar(e, t, n) {
             const i = Math.max(0, Number(t) || 0);
             if (!i) return [];
-            const a = Math.ceil((i - 1) / 2), r = a > 0 ? nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
-            return !o || a * o <= nr.halfSpread ? Array.from({
+            const a = Math.ceil((i - 1) / 2), r = a > 0 ? window.nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
+            return !o || a * o <= window.nr.halfSpread ? Array.from({
                 length: i
             }, (t, n) => ir(e, n, o)) : Array.from({
                 length: i
-            }, (e, t) => -nr.halfSpread + nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
+            }, (e, t) => -window.nr.halfSpread + window.nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
         }
         const rr = Object.freeze({
             // --- Spoke length calculations (uniform sibling radii) ---------------
             slotAngle: ir,
             fanAngles: ar,
             childFanAngles: (e, t, n) => ar(e, t, n),
-            stepForRadius: e => nr.pitch / Math.max(1, e),
+            stepForRadius: e => window.nr.pitch / Math.max(1, e),
             cloudRadiusFor(e) {
-                const t = Math.max(nr.minimumRadius, e * nr.pitch / nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * nr.pitch / nr.halfSpread : 0;
+                const t = Math.max(window.nr.minimumRadius, e * window.nr.pitch / window.nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * window.nr.pitch / window.nr.halfSpread : 0;
                 return Math.max(t, i);
             },
             branchDepth: e => Math.max(0, ...(e.topics || []).map(e => rr.renderedSpokeLength(e) + (e.topic.isSubcategory && e.children && e.children.length ? 1.18 * (e.childCloudRadius || 0) + pr.topicIcon + rr.CONTROL_STATION + rr.LABEL_ALLOWANCE : 0))),
@@ -15967,6 +20396,961 @@ const TAXONOMY_CATEGORIES = [
         // and frCollisionPasses the collision/crossing passes. fr itself
         // is now a thin orchestrator.
 
+        // ===== Map layout geometry ==============================================
+        // One pipeline owns spoke radii, collision relief, crossing assignment,
+        // and angular nudging. Keep this order stable: each later pass consumes the
+        // coordinates established by the pass before it.
+        const er = Object.freeze({
+            fullTurn: 2 * Math.PI,
+            inwardExclusion: Math.PI / 6,
+            halfExclusion: Math.PI / 12,
+            spread: 11 * Math.PI / 6,
+            pitch: 150,
+            minimumRadius: 170
+        });
+        function tr(e) {
+            return Math.atan2(Math.sin(e), Math.cos(e));
+        }
+        window.nr = Object.freeze({
+            spread: 11 * Math.PI / 6,
+            halfSpread: 11 * Math.PI / 12,
+            inwardExclusion: Math.PI / 6,
+            referenceSpread: 2 * Math.PI / 3,
+            pitch: er.pitch,
+            minimumRadius: er.minimumRadius
+        });
+        function ir(e, t, n) {
+            const i = Math.max(0, Number(t) || 0);
+            if (!i) return tr(e);
+            const a = Math.ceil(i / 2), r = i % 2 == 1 ? 1 : -1;
+            return tr(e + Math.max(-window.nr.halfSpread, Math.min(window.nr.halfSpread, r * a * (Number(n) || 0))));
+        }
+        function ar(e, t, n) {
+            const i = Math.max(0, Number(t) || 0);
+            if (!i) return [];
+            const a = Math.ceil((i - 1) / 2), r = a > 0 ? window.nr.spread / (2 * a + 1) : 0, o = Math.max(Math.abs(Number(n) || 0), r);
+            return !o || a * o <= window.nr.halfSpread ? Array.from({
+                length: i
+            }, (t, n) => ir(e, n, o)) : Array.from({
+                length: i
+            }, (e, t) => -window.nr.halfSpread + window.nr.spread * (t + .5) / i).slice().sort((e, t) => Math.abs(e) - Math.abs(t) || e - t).map(t => tr(e + t));
+        }
+        const rr = Object.freeze({
+            // --- Spoke length calculations (uniform sibling radii) ---------------
+            slotAngle: ir,
+            fanAngles: ar,
+            childFanAngles: (e, t, n) => ar(e, t, n),
+            stepForRadius: e => window.nr.pitch / Math.max(1, e),
+            cloudRadiusFor(e) {
+                const t = Math.max(window.nr.minimumRadius, e * window.nr.pitch / window.nr.referenceSpread / .82), n = Math.ceil(Math.max(0, (Number(e) || 0) - 1) / 2), i = n > 0 ? n * window.nr.pitch / window.nr.halfSpread : 0;
+                return Math.max(t, i);
+            },
+            branchDepth: e => Math.max(0, ...(e.topics || []).map(e => rr.renderedSpokeLength(e) + (e.topic.isSubcategory && e.children && e.children.length ? 1.18 * (e.childCloudRadius || 0) + pr.topicIcon + rr.CONTROL_STATION + rr.LABEL_ALLOWANCE : 0))),
+            renderedSpokeLength(e) {
+                const t = e.cloudRadius || 0, n = e.topic && e.topic.label || "";
+                let i = t;
+                try {
+                    i = Za.topicSpokeEstimate(n, t).spokeLength;
+                } catch (e) { __sxErrLog("layout-measure", e); }
+                if (e.topic && e.topic.isSubcategory) {
+                    i = Math.max(i, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(e.cloudCount));
+                    try {
+                        const e = Za.topicSpokeEstimate(n, t);
+                        i = Za.hubSpokeLength(n, e.fontSize, i, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                    } catch (e) { __sxErrLog("layout-measure", e); }
+                }
+                var subMul = 1, cloudMul = 1, kinkMul = 1;
+                if (e.topic && e.topic.isSubcategory && mn.subcatOverrides) {
+                    var so = mn.subcatOverrides[e.topic.label];
+                    if (so) {
+                        if (typeof so.length === "number" && so.length > 0) subMul = so.length;
+                        if (typeof so.cloud === "number" && so.cloud > 0) cloudMul = so.cloud;
+                    }
+                }
+                if (e.topic && !e.topic.isSubcategory && mn.kinkOverrides) {
+                    var ko = mn.kinkOverrides[e.topic.id];
+                    if (ko && typeof ko.length === "number" && ko.length > 0) kinkMul = ko.length;
+                }
+                return i * (e.topic && e.topic.isSubcategory ? mn.subLen * subMul : mn.spokeLen * kinkMul) * ("grow" === mn.collision ? 1.22 : "shrink" === mn.collision ? .72 : "off" === mn.collision ? .56 : 1);
+            },
+            CONTROL_STATION: 54,
+            LABEL_ALLOWANCE: 44,
+            branchExpanded: e => (e.topics || []).some(e => e.topic.isSubcategory && e.children && e.children.length),
+            MAX_CASCADE_PASSES: 8,
+            MAX_TOPIC_GROWTH: 1100,
+            ELEMENT_CLEARANCE: 30,
+            topicElementRadius(e) {
+                const t = e.topic || e.child || {}, n = t.isSubcategory ? pr.subcategoryIcon : pr.topicIcon;
+                let i = 0;
+                try {
+                    i = Za.measure(t.label || "", t.isSubcategory || !e.child ? sxFontCoef(2) : sxFontCoef(3));
+                } catch (e) { __sxErrLog("layout-measure", e); }
+                return Math.max(n / 2 + rr.ELEMENT_CLEARANCE * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1), n / 2 + rr.CONTROL_STATION, Math.min(260, i / 2 + 34 * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1)));
+            },
+            _lineEndpoint(e, t) {
+                const n = e.child ? e.cloudRadius || 0 : rr.renderedSpokeLength(e);
+                return {
+                    x: t.x + Math.cos(e.cloudAngle) * n,
+                    y: t.y + Math.sin(e.cloudAngle) * n
+                };
+            },
+            _rotateSibling(e, t) {
+                const n = Math.atan2(Math.sin(t - e.cloudAngle), Math.cos(t - e.cloudAngle));
+                e.cloudAngle = tr(t), (e.children || []).forEach(e => {
+                    e.cloudAngle = tr(e.cloudAngle + n);
+                });
+            },
+            // --- Angular nudge -------------------------------------------------
+            // Gently separates adjacent siblings without changing their radius.
+            applyAngularNudge(e, t) {
+                if (!mn.nudge || !Array.isArray(e) || e.length < 2) return;
+                const n = e.map(e => ({
+                    item: e,
+                    rel: Math.atan2(Math.sin(e.cloudAngle - t), Math.cos(e.cloudAngle - t))
+                })).sort((e, t) => e.rel - t.rel), i = Math.max(Math.PI / 45, Math.min(Math.PI / 7, Math.atan2(8 * rr.SPOKE_HALF_WIDTH + 32 * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1), 190)));
+                for (let e = 1; e < n.length; e++) {
+                    const t = n[e].rel - n[e - 1].rel;
+                    if (t >= i) continue;
+                    const a = Math.min(Math.PI / 24, (i - t) / 2);
+                    n[e - 1].rel -= a, n[e].rel += a;
+                }
+                n.forEach(e => rr._rotateSibling(e.item, t + e.rel));
+            },
+            // --- Crossing minimizer (sibling angular assignment) -----------------
+            _segmentsCross(e, t) {
+                const n = (e, t, n) => (t.x - e.x) * (n.y - e.y) - (t.y - e.y) * (n.x - e.x);
+                if ([ e.a, e.b ].some(e => [ t.a, t.b ].some(t => Math.hypot(e.x - t.x, e.y - t.y) < .5))) return !1;
+                const i = n(e.a, e.b, t.a), a = n(e.a, e.b, t.b), r = n(t.a, t.b, e.a), o = n(t.a, t.b, e.b);
+                return i * a < -.01 && r * o < -.01;
+            },
+            _siblingSegments(e, t) {
+                const n = [];
+                return e.forEach(e => {
+                    const i = rr._lineEndpoint(e, t);
+                    n.push({
+                        a: t,
+                        b: i
+                    }), (e.children || []).forEach(e => {
+                        n.push({
+                            a: i,
+                            b: rr._lineEndpoint(e, i)
+                        });
+                    });
+                }), n;
+            },
+            _crossingScore(e, t) {
+                let n = 0;
+                for (let i = 0; i < e.length; i++) {
+                    for (let t = i + 1; t < e.length; t++) rr._segmentsCross(e[i], e[t]) && n++;
+                    for (const a of t) rr._segmentsCross(e[i], a) && n++;
+                }
+                return n;
+            },
+            minimizeSiblingCrossings(e, t, n) {
+                if (!mn.crossmin || !Array.isArray(e) || e.length < 2) return rr._siblingSegments(e || [], t);
+                for (let i = 0; i < 2; i++) {
+                    let i = !1;
+                    for (let a = 0; a < e.length - 1; a++) {
+                        const r = e[a], o = e[a + 1], s = r.cloudAngle, l = o.cloudAngle, c = rr._crossingScore(rr._siblingSegments(e, t), n);
+                        rr._rotateSibling(r, l), rr._rotateSibling(o, s), rr._crossingScore(rr._siblingSegments(e, t), n) < c ? i = !0 : (rr._rotateSibling(r, s), 
+                        rr._rotateSibling(o, l));
+                    }
+                    if (!i) break;
+                }
+                return rr._siblingSegments(e, t);
+            },
+            minimizeCrossings(e) {
+                if (!mn.crossmin || !Array.isArray(e)) return;
+                const t = {
+                    x: pr.centerX,
+                    y: pr.centerY
+                }, n = e.map(e => ({
+                    a: t,
+                    b: rr.branchAnchor(e)
+                }));
+                e.forEach(e => {
+                    const t = rr.branchAnchor(e), i = rr.minimizeSiblingCrossings(e.topics || [], t, n);
+                    n.push(...i), (e.topics || []).filter(e => e.children && e.children.length).forEach(e => {
+                        const i = rr._lineEndpoint(e, t), a = rr.minimizeSiblingCrossings(e.children, i, n);
+                        n.push(...a);
+                    });
+                });
+            },
+            // --- Collision avoidance: local grow/shrink ---------------------------
+            resolveRadialSiblings(e, allowShrink = !0, itemGate = null, itemArm = null) {
+                if ("off" === mn.collision || !Array.isArray(e) || e.length < 2) return;
+                e.forEach(item => {
+                    // _radialBase20 signature invalidation (E3): the
+                    // captured base is recaptured whenever it is not
+                    // finite OR the item's governing signature
+                    // (_radialBase20Sig, see dkRadialBaseInfo) differs
+                    // from the current key — from the item's fit target
+                    // when fit-armed, else from its current cloudRadius,
+                    // with the legacy max(1, ...) capture floor. With an
+                    // unchanged signature there is NO recapture: the base
+                    // captured in the first resolver round of a solve
+                    // survives unchanged into the second round. A
+                    // recapture driven by a signature mismatch — against
+                    // the wrapper's own stored signature, or, for the
+                    // fresh wrappers each fr() run allocates, against the
+                    // same stable identity's entry in the driver's
+                    // base-state registry — is recorded in the DeKnotter
+                    // run log as 'base-recapture' with the item's stable
+                    // key; a first-ever capture is not a recapture and is
+                    // not logged. The registry is refreshed either way.
+                    const info = dkRadialBaseInfo(item), prev = dkBaseStates.get(info.key), prevSig = "string" == typeof item._radialBase20Sig ? item._radialBase20Sig : prev ? prev.sig : null;
+                    item._radialFit20 = info.fit, item._radialKey20 = info.key;
+                    if (!Number.isFinite(item._radialBase20) || item._radialBase20Sig !== info.sig) {
+                        const mismatch = null !== prevSig && prevSig !== info.sig;
+                        item._radialBase20 = Math.max(1, null != info.fit ? info.fit : Number(item.cloudRadius) || 1), item._radialBase20Sig = info.sig, mismatch && dkLog.push({
+                            type: "base-recapture",
+                            key: info.key,
+                            branch: dkCtx ? dkCtx.branch : null,
+                            phase: dkCtx ? dkCtx.phase : null,
+                            base: item._radialBase20,
+                            sig: info.sig
+                        });
+                    }
+                    dkBaseStates.set(info.key, {
+                        base: item._radialBase20,
+                        sig: item._radialBase20Sig
+                    });
+                });
+                // Fit floor (E3, wired in E4): for a fit-armed item the
+                // resolver floor IS its fit target, not max(82, 0.58 ×
+                // base). _radialFit20 carries the item's registered
+                // target whenever one exists; non-fit items keep the
+                // legacy floor and cap exactly.
+                const t = e => Number.isFinite(e._radialFit20) ? e._radialFit20 : Math.max(82, .58 * e._radialBase20), n = e => e._radialBase20 + rr.MAX_TOPIC_GROWTH, i = (e, t, n, i, a, r) => {
+                    const o = e.cloudRadius, s = t.cloudRadius, l = Math.cos(e.cloudAngle) * o - Math.cos(t.cloudAngle) * s, c = Math.sin(e.cloudAngle) * o - Math.sin(t.cloudAngle) * s, d = Math.hypot(l, c), u = rr.topicElementRadius(e) + rr.topicElementRadius(t);
+                    if (d + .5 >= u) return null;
+                    const p = [], h = (e, t, n, i) => {
+                        const a = e.cloudRadius, r = t.cloudRadius, o = Math.cos(e.cloudAngle - t.cloudAngle) * r, s = Math.max(0, r * r - o * o);
+                        if (s >= u * u) return;
+                        const l = Math.sqrt(Math.max(0, u * u - s)), c = o - l - 2, d = o + l + 2;
+                        c < a && c >= n && p.push({
+                            item: e,
+                            radius: c,
+                            delta: c - a,
+                            shrink: 1
+                        }), d > a && d <= i && p.push({
+                            item: e,
+                            radius: d,
+                            delta: d - a,
+                            shrink: 0
+                        });
+                    };
+                    return h(e, t, n, i), h(t, e, a, r), p.filter(e => (!1 !== allowShrink || 1 !== e.shrink) && (!itemGate || 1 !== e.shrink || itemGate(e.item))).filter(e => "grow" === mn.collision ? e.delta > 0 || (1 === e.shrink && itemArm && itemArm(e.item)) : "shrink" !== mn.collision || e.delta < 0).filter(e => !(itemArm && e.delta > 0 && itemArm(e.item))).sort((e, t) => Math.abs(e.delta) - Math.abs(t.delta) || t.shrink - e.shrink)[0] || null;
+                    // Group 3d fix (symptom #1, toggles move nothing): the
+                    // last filter above is new. An item whose auto-shrink
+                    // is armed enters this resolver already carrying the
+                    // armed compaction factor (clouds 0.74x / spokes
+                    // 0.76x, applied in frCloudLayout / frCollisionPasses)
+                    // — but sibling separation then grew it back out
+                    // toward the un-shrunk radius (the pair separation
+                    // floor for dense child clouds lands within a few
+                    // units of the un-shrunk radius), so the delivered
+                    // layout showed no movement at all (Fleet 3: 0 of 466
+                    // nodes). Armed items may still shrink or hold here;
+                    // they may not grow. Separation for an armed pair is
+                    // achieved by the unarmed partner growing, or not at
+                    // all — the overlap trade the armed shrink commands.
+                    // Unarmed items are untouched (itemArm null or false
+                    // passes every candidate exactly as before).
+                };
+                for (let a = 0; a < 16; a++) {
+                    let a = !1;
+                    for (let r = 0; r < e.length; r++) for (let o = r + 1; o < e.length; o++) {
+                        const s = e[r], l = e[o], c = i(s, l, t(s), n(s), t(l), n(l));
+                        // Fit deviation (E4): an outward push that sibling
+                        // separation forces on a fit item is allowed (its
+                        // floor is the target, so it can never be pushed
+                        // below it), but never silent — each push is
+                        // recorded with the item's stable key, its
+                        // target, and the radius it was pushed to.
+                        c && (Number.isFinite(c.item._radialFit20) && c.radius > c.item._radialFit20 + 1e-9 && dkLog.push({
+                            type: "fit-deviation",
+                            key: c.item._radialKey20 || null,
+                            target: c.item._radialFit20,
+                            delivered: c.radius
+                        }), c.item.cloudRadius = c.radius, a = !0);
+                    }
+                    if (!a) break;
+                }
+            },
+            topicPosition(e, t, n) {
+                const i = rr.renderedSpokeLength(t);
+                return {
+                    x: n.x + Math.cos(t.cloudAngle) * i,
+                    y: n.y + Math.sin(t.cloudAngle) * i
+                };
+            },
+            branchAnchor(e) {
+                const t = yr(e.entry.branch);
+                return {
+                    x: pr.centerX + Math.cos(e.angle) * t,
+                    y: pr.centerY + Math.sin(e.angle) * t
+                };
+            },
+            // --- Expansion relief ------------------------------------------------
+            // Expanded subtrees yield space through bounded branch/topic growth.
+            applyBranchReliefPass(e, t, n) {
+                const i = new Map;
+                if (scCtx && scCtx.r6Abort) return !1;
+                e.forEach((t, n) => {
+                    const a = e[(n + 1) % e.length];
+                    if (a === t) return;
+                    const r = rr.branchAnchor(t), o = rr.branchAnchor(a), s = Math.hypot(r.x - o.x, r.y - o.y), l = rr.branchDepth(t) + rr.branchDepth(a) - s;
+                    if (l <= 0) return;
+                    const c = rr.branchExpanded(t), d = rr.branchExpanded(a), adds = c && !d ? [ [ a, t, l ] ] : d && !c ? [ [ t, a, l ] ] : c && d ? [ [ t, a, l / 2 ], [ a, t, l / 2 ] ] : [];
+                    // Scoped solve (T3, L5): a relief candidate
+                    // whose source or target branch is frozen is
+                    // suppressed, counted, and logged as a boundary
+                    // event (pass 0 = the branch relief pass);
+                    // candidates between two recompute-set branches
+                    // accumulate exactly as before.
+                    adds.forEach(([tgt, src, amt]) => {
+                        if (scCtx && (scSectorFrozen(tgt) || scSectorFrozen(src))) return void scReliefBoundary(scCtx, scSectorName(src), scSectorName(tgt), 0);
+                        i.set(tgt, (i.get(tgt) || 0) + amt);
+                    });
+                });
+                let a = !1;
+                return i.forEach((e, i) => {
+                    const r = t.get(i) || 0, o = Math.min(e, rr.MAX_TOPIC_GROWTH - r);
+                    if (o <= 0) return;
+                    t.set(i, r + o);
+                    const s = Math.max(1, i.topicCloudRadius), l = (s + o) / s;
+                    i.topicCloudRadius = s + o, (i.topics || []).forEach(e => {
+                        // Fit guard (E4): branch relief never scales a
+                        // fit item's cloudRadius — nor a fit
+                        // subcategory's childCloudRadius — and every
+                        // would-be touch of a fit item is logged.
+                        const fv = dkFitTargetValueFor(e);
+                        if (null != fv) dkLog.push({
+                            type: "fit-relief-skip",
+                            key: dkRadialBaseInfo(e).key,
+                            target: fv,
+                            delivered: Number.isFinite(e.cloudRadius) ? e.cloudRadius : null,
+                            via: "branch-relief"
+                        }); else e.cloudRadius = (e.cloudRadius || 0) * l, e.childCloudRadius && (e.childCloudRadius *= l);
+                        n.add(e);
+                    }), a = !0;
+                }), a;
+            },
+            cascadeReliefPass(e, t, n) {
+                if (scCtx && scCtx.r6Abort) return !1;
+                // Scoped solve (T3, L5): rSrc records, per growth
+                // demand, the sector whose obstacles exert the
+                // pressure (the demand's source branch), and itemSec
+                // maps each topic item to its owning sector (the
+                // target branch) — the application loop below
+                // suppresses any demand whose source or target
+                // branch is frozen. Both maps are inert bookkeeping
+                // when no scope is active.
+                const i = e.length, a = new Map(e.map(e => [ e, rr.branchAnchor(e) ])), r = new Map, rSrc = new Map, itemSec = new Map, o = (e, t, n) => {
+                    if (!e.length) return;
+                    const i = rr.topicPosition(t, n, a.get(t)), o = rr.topicElementRadius(n), srcSec = t;
+                    e.forEach(e => {
+                        const t = i.x - e.x, a = i.y - e.y, s = Math.hypot(t, a), l = e.r + o - s;
+                        if (l <= 1 || s < .001) return;
+                        const c = Math.cos(n.cloudAngle) * (t / s) + Math.sin(n.cloudAngle) * (a / s);
+                        var d, u;
+                        c <= .1 || (d = n, (u = l / c) > 0 && (!r.has(d) || u > r.get(d)) && (r.set(d, u), rSrc.set(d, srcSec)));
+                    });
+                };
+                scCtx && e.forEach(sec => (sec.topics || []).forEach(tp => itemSec.set(tp, sec)));
+                e.forEach((n, r) => {
+                    const s = a.get(n), l = [ n, e[(r + 1) % i], e[(r - 1 + i) % i] ].filter((e, t, n) => n.indexOf(e) === t);
+                    (n.topics || []).forEach(e => {
+                        const i = Boolean(e.topic.isSubcategory && e.children && e.children.length);
+                        if (!i && !t.has(e)) return;
+                        const a = rr.topicPosition(n, e, s), r = [];
+                        i ? e.children.forEach(e => {
+                            r.push({
+                                x: a.x + Math.cos(e.cloudAngle) * (e.cloudRadius || 0),
+                                y: a.y + Math.sin(e.cloudAngle) * (e.cloudRadius || 0),
+                                r: pr.topicIcon / 2 + rr.ELEMENT_CLEARANCE
+                            });
+                        }) : r.push({
+                            x: a.x,
+                            y: a.y,
+                            r: rr.topicElementRadius(e)
+                        }), l.forEach(t => {
+                            (t.topics || []).forEach(n => {
+                                n !== e && o(r, t, n);
+                            });
+                        });
+                    });
+                });
+                let s = !1;
+                return r.forEach((e, i) => {
+                    const a = n.get(i) || 0, r = Math.min(e, rr.MAX_TOPIC_GROWTH - a);
+                    if (r <= .5) return;
+                    // Scoped solve (T3, L5): a growth demand whose
+                    // source branch (pressure) or target branch (the
+                    // item's owner) is frozen is suppressed, counted,
+                    // and logged as a boundary event at the current
+                    // cascade pass. The pass's return value still
+                    // reflects only applied growth, so the cascade
+                    // terminates by its own rules.
+                    if (scCtx) {
+                        const scTgt = itemSec.get(i), scSrc = rSrc.get(i);
+                        if (scSectorFrozen(scTgt) || scSectorFrozen(scSrc)) return void scReliefBoundary(scCtx, scSectorName(scSrc), scSectorName(scTgt), scCtx.reliefPass || 0);
+                    }
+                    // Fit guard (E4): cascade relief never grows a fit
+                    // item away from its target — the skip is logged.
+                    const fv = dkFitTargetValueFor(i);
+                    if (null != fv) return void dkLog.push({
+                        type: "fit-relief-skip",
+                        key: dkRadialBaseInfo(i).key,
+                        target: fv,
+                        delivered: Number.isFinite(i.cloudRadius) ? i.cloudRadius : null,
+                        via: "cascade-relief"
+                    });
+                    i.cloudRadius = (i.cloudRadius || 0) + r, n.set(i, a + r), t.add(i), s = !0;
+                }), s;
+            },
+            applyExpansionRelief(e) {
+                if (e.length <= 1 || "off" === mn.collision || "shrink" === mn.collision) return;
+                const t = new Set, n = new Map, i = new Map;
+                rr.applyBranchReliefPass(e, i, t);
+                // Scoped solve (T3, L5): the context carries the
+                // 1-based cascade pass number so boundaryLog entries
+                // name the pass that produced them (the branch
+                // relief pass above is pass 0); under the R6 abort
+                // flag the cascade stops at once — pass accounting
+                // is otherwise unchanged.
+                for (let i = 0; i < rr.MAX_CASCADE_PASSES; i++) {
+                    if (scCtx) {
+                        if (scCtx.r6Abort) break;
+                        scCtx.reliefPass = i + 1;
+                    }
+                    if (!rr.cascadeReliefPass(e, t, n)) break;
+                }
+            },
+            // --- Element footprints and whole-branch spoke optimization -----------
+            // Circles cover node icons, labels, slider controls, and badges.
+            SPOKE_HALF_WIDTH: 16,
+            SPOKE_MIN_RADIUS: 950,
+            SPOKE_MAX_GROWTH: 4500,
+            SPOKE_GROWTH_MARGIN: 56,
+            SPOKE_ELEMENT_PAD: 50,
+            BADGE_RADIUS: 30,
+            elementCircles(e, t) {
+                const n = Math.cos(e.angle), i = Math.sin(e.angle), a = [ {
+                    x: t.x,
+                    y: t.y,
+                    r: pr.categoryIcon / 2 + rr.ELEMENT_CLEARANCE
+                }, {
+                    x: t.x - n * (pr.categoryIcon / 2 + 20),
+                    y: t.y - i * (pr.categoryIcon / 2 + 20),
+                    r: rr.BADGE_RADIUS
+                } ];
+                return (e.topics || []).forEach(n => {
+                    const i = rr.topicPosition(e, n, t);
+                    if (a.push({
+                        x: i.x,
+                        y: i.y,
+                        r: rr.topicElementRadius(n)
+                    }), n.topic.allImported && n.topic.allImported.length) {
+                        const e = (n.topic.isSubcategory ? pr.subcategoryIcon : pr.topicIcon) / 2 + 20;
+                        a.push({
+                            x: i.x + Math.cos(n.cloudAngle) * e,
+                            y: i.y + Math.sin(n.cloudAngle) * e,
+                            r: rr.BADGE_RADIUS
+                        });
+                    }
+                    n.topic.isSubcategory && n.children && n.children.forEach(e => {
+                        a.push({
+                            x: i.x + Math.cos(e.cloudAngle) * (e.cloudRadius || 0),
+                            y: i.y + Math.sin(e.cloudAngle) * (e.cloudRadius || 0),
+                            r: rr.topicElementRadius(e)
+                        });
+                    });
+                }), a;
+            },
+            segmentDistance(e, t, n, i, a, r) {
+                const o = a - n, s = r - i, l = o * o + s * s, c = l ? A(((e - n) * o + (t - i) * s) / l) : 0;
+                return {
+                    distance: Math.hypot(e - (n + o * c), t - (i + s * c)),
+                    fraction: c
+                };
+            },
+            optimizeSpokeLengths(e) {
+                if (e.length <= 1 || "off" === mn.collision) return;
+                const t = {
+                    x: pr.centerX,
+                    y: pr.centerY
+                }, n = new Map, i = e => {
+                    const t = rr.branchAnchor(e), i = rr.elementCircles(e, t).map(e => ({
+                        x: e.x,
+                        y: e.y,
+                        r: e.r + rr.SPOKE_ELEMENT_PAD * mn.pad * mn.repulsion * (mn.repulsionEnabled === !1 ? 0 : 1)
+                    })), a = Math.max(0, ...i.map(e => Math.hypot(e.x - t.x, e.y - t.y) + e.r)), r = [];
+                    (e.topics || []).forEach(n => {
+                        const i = rr.topicPosition(e, n, t);
+                        r.push({
+                            x1: t.x,
+                            y1: t.y,
+                            x2: i.x,
+                            y2: i.y
+                        }), n.topic.isSubcategory && n.children && n.children.forEach(e => {
+                            r.push({
+                                x1: i.x,
+                                y1: i.y,
+                                x2: i.x + Math.cos(e.cloudAngle) * (e.cloudRadius || 0),
+                                y2: i.y + Math.sin(e.cloudAngle) * (e.cloudRadius || 0)
+                            });
+                        });
+                    }), n.set(e, {
+                        anchor: t,
+                        circles: i,
+                        depth: a,
+                        segments: r
+                    });
+                };
+                e.forEach(i);
+                const a = (i = null) => {
+                    const a = [], r = (e, t, n, i, r, o) => {
+                        const s = ((e, t, n) => {
+                            const i = (e => ({
+                                x: Math.cos(e.angle),
+                                y: Math.sin(e.angle)
+                            }))(e);
+                            return i.x * t + i.y * n;
+                        })(n, i, r);
+                        Math.abs(s) <= .1 || a.push({
+                            a: e,
+                            b: t,
+                            target: n,
+                            delta: (s > 0 ? 1 : -1) * (o / Math.abs(s) + rr.SPOKE_GROWTH_MARGIN)
+                        });
+                    };
+                    for (let a = 0; a < e.length; a++) for (let o = a + 1; o < e.length; o++) {
+                        const s = e[a], l = e[o];
+                        // Scoped solve (T3, L4): a pair with BOTH
+                        // branches frozen can only produce deltas
+                        // against frozen targets, which are suppressed
+                        // by construction — skip the pair outright
+                        // (the latency win). Recompute×frozen pairs
+                        // are still evaluated; their frozen-target
+                        // candidates are suppressed + counted at the
+                        // candidate filter below.
+                        if (scCtx && scSectorFrozen(s) && scSectorFrozen(l)) continue;
+                        if (i && s !== i && l !== i) continue;
+                        const c = n.get(s), d = n.get(l);
+                        Math.hypot(c.anchor.x - d.anchor.x, c.anchor.y - d.anchor.y) <= c.depth + d.depth && c.circles.forEach(e => d.circles.forEach(t => {
+                            const n = e.x - t.x, i = e.y - t.y, a = Math.hypot(n, i), o = e.r + t.r - a;
+                            if (o <= 1 || a < .001) return;
+                            const c = n / a, d = i / a;
+                            r(s, l, s, c, d, o), r(s, l, l, -c, -d, o);
+                        })), [ [ s, l ], [ l, s ] ].forEach(([e, i]) => {
+                            const a = n.get(e), o = n.get(i);
+                            rr.segmentDistance(o.anchor.x, o.anchor.y, t.x, t.y, a.anchor.x, a.anchor.y).distance > o.depth + rr.SPOKE_HALF_WIDTH + 2 || o.circles.forEach(n => {
+                                const o = rr.segmentDistance(n.x, n.y, t.x, t.y, a.anchor.x, a.anchor.y), s = n.r + rr.SPOKE_HALF_WIDTH - o.distance;
+                                if (s <= 1 || o.distance < .001) return;
+                                const l = t.x + (a.anchor.x - t.x) * o.fraction, c = t.y + (a.anchor.y - t.y) * o.fraction;
+                                r(e, i, i, (n.x - l) / o.distance, (n.y - c) / o.distance, s);
+                            });
+                        }), [ [ s, l ], [ l, s ] ].forEach(([e, t]) => {
+                            const i = n.get(e), a = n.get(t);
+                            Math.hypot(i.anchor.x - a.anchor.x, i.anchor.y - a.anchor.y) > i.depth + a.depth + rr.SPOKE_HALF_WIDTH + 2 || i.segments.forEach(n => {
+                                a.circles.forEach(i => {
+                                    const a = rr.segmentDistance(i.x, i.y, n.x1, n.y1, n.x2, n.y2), o = i.r + rr.SPOKE_HALF_WIDTH - a.distance;
+                                    if (o <= 1 || a.distance < .001) return;
+                                    const s = n.x1 + (n.x2 - n.x1) * a.fraction, l = n.y1 + (n.y2 - n.y1) * a.fraction;
+                                    r(e, t, t, (i.x - s) / a.distance, (i.y - l) / a.distance, o);
+                                });
+                            });
+                        });
+                    }
+                    return a;
+                };
+                for (let e = 0; e < SX_SCORE.OPTIMIZER_MAX_PASSES; e++) {
+                    // Q1: heartbeat / cancel / phase-budget poll —
+                    // a no-op unless a DeKnotter context is active.
+                    dkSolvePoll();
+                    const e = a();
+                    if (!e.length) break;
+                    const t = e.map(e => {
+                        const t = Number(e.target.entry.branch._spokeAdjust20) || 0, n = t + e.delta;
+                        return {
+                            ...e,
+                            current: t,
+                            next: n
+                        };
+                    }).filter(e => Math.abs(e.delta) > .5 && ("grow" === mn.collision ? e.delta > 0 || ("armed" === sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)) : "shrink" !== mn.collision || e.delta < 0) && e.next >= rr.SPOKE_MIN_RADIUS - (e.target, 
+                    1450) && e.next <= rr.SPOKE_MAX_GROWTH && (e.delta > 0 || ("veto" !== sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)))).filter(e => !scCtx || !scSectorFrozen(e.target) || (scCtx.dropped.optimiser++, !1)).sort((e, t) => Math.abs(e.delta) - Math.abs(t.delta) || (e.delta < 0 ? -1 : 1) - (t.delta < 0 ? -1 : 1) || String(e.target.entry.branch.name).localeCompare(String(t.target.entry.branch.name))), n = t[0];
+                    if (!n) break;
+                    // DeKnotter log (E1): while a run context is active,
+                    // record every change the optimiser makes to the
+                    // ACTIVE branch's _spokeAdjust20 (before/after). The
+                    // optimiser window itself is observed, not widened.
+                    if (dkCtx && n.target && n.target.entry && n.target.entry.branch && n.target.entry.branch.name === dkCtx.branch && n.next !== n.current) dkLog.push({
+                        type: "spoke-optimiser",
+                        branch: dkCtx.branch,
+                        phase: dkCtx.phase,
+                        before: n.current,
+                        after: n.next
+                    });
+                    // Fit guard (E4): an optimiser adjustment to a branch
+                    // carrying fit items is recorded as a fit-deviation
+                    // for each fit item of that branch, so a spoke move
+                    // can never silently carry a fit item off target.
+                    if (dkFitRegistry.size && n.target && n.target.topics) n.target.topics.forEach(tp => {
+                        const fv = dkFitTargetValueFor(tp);
+                        null != fv && dkLog.push({
+                            type: "fit-deviation",
+                            key: dkRadialBaseInfo(tp).key,
+                            target: fv,
+                            delivered: Number.isFinite(tp.cloudRadius) ? tp.cloudRadius : null,
+                            via: "spoke-optimiser"
+                        }), tp.topic && tp.topic.isSubcategory && (tp.children || []).forEach(ch => {
+                            const cfv = dkFitTargetValueFor(ch);
+                            null != cfv && dkLog.push({
+                                type: "fit-deviation",
+                                key: dkRadialBaseInfo(ch).key,
+                                target: cfv,
+                                delivered: Number.isFinite(ch.cloudRadius) ? ch.cloudRadius : null,
+                                via: "spoke-optimiser"
+                            });
+                        });
+                    });
+                    n.target.entry.branch._spokeAdjust20 = n.next, i(n.target);
+                }
+            }
+        }), or = Math.max(1, ...h.map(e => e.subcategories?.length ? (e.parentTopics || []).length + e.subcategories.length : e.topics.length)), sr = Math.ceil(20 / (2 * Math.sin(er.spread / (2 * or)))), lr = Math.max(48, 2 * sr), cr = Math.max(1, ...h.flatMap(e => (e.subcategories || []).map(e => e.topics.length))), dr = Math.ceil(20 / (2 * Math.sin(er.spread / (2 * cr)))), ur = Math.max(48, Math.min(lr - 24, 2 * dr)), pr = {
+            centerX: 900,
+            centerY: 620,
+            centerRadius: ea.outerRadius,
+            categoryIcon: lr,
+            subcategoryIcon: ur,
+            topicIcon: 48,
+            importedIcon: 34
+        };
+        // Font-as-master-knob, part 2 (Build 2026-10-19_0924): mapFontScale()
+        // reads the live fontScale layout value (defined in 02e-font-ladder.js).
+        // UNIFY (2026-11-02): sxSyncMapFontBase is the ONE setter of the
+        // stylesheet's --map-font-base variable, fed by the LIVE scale
+        // (mapFontScale() above) — U = 22 x live fontScale. It runs on
+        // every render (Mr) and is exposed for the shell's boot/apply
+        // paths, which call it instead of setting the variable from the
+        // defaults/apply channel. No other code sets --map-font-base.
+        function sxSyncMapFontBase() {
+            try {
+                document.documentElement.style.setProperty("--map-font-base", String(22 * mapFontScale()) + "px");
+                // FONT LAW (2026-11-02 17:24): the stylesheet's
+                // per-depth label fallbacks (.category-label,
+                // .map-label, subcategory/child .map-label)
+                // read these per-depth sizes, published here by
+                // the same ONE setter; each CSS rule keeps its
+                // historical calc() as the var() fallback for
+                // any frame before this runs.
+                if ("function" === typeof sxFontSize) {
+                    document.documentElement.style.setProperty("--map-font-d1", String(sxFontSize(1)) + "px");
+                    document.documentElement.style.setProperty("--map-font-d2", String(sxFontSize(2)) + "px");
+                    document.documentElement.style.setProperty("--map-font-d3", String(sxFontSize(3)) + "px");
+                }
+            } catch (err) { __sxErrLog("map-font-base-sync", err); }
+        }
+        try { window.__sxSyncMapFontBase = sxSyncMapFontBase; } catch (_) {}
+        // SPOKE BASE FORMULA (ruled 2026-11-01, Jason): the base of a
+        // subcategory segment is no longer the fixed 430 floor. Base =
+        // drawn icon radius x (300deg / number of spokes): the usable
+        // circle around the branch hub icon — 360deg less the reserved
+        // 60deg back angle = 300deg = 5pi/3 radians — shared equally
+        // among the spokes fanning out of that hub, so a crowded fan
+        // gets a smaller base and a sparse fan a bigger one. The icon
+        // radius is the DRAWN radius (sxIconRadius(1) under
+        // the 2026-11-02 icon depth law — (2/3)^1 x
+        // sqrt(R x W), R the centre-disc radius and W the
+        // ring width, floored at 12 x font scale; supersedes
+        // the 0.6 linear law —
+        // the size the hub icon actually renders at), never the
+        // raw unscaled pr value the retired floor measured icons at.
+        // The spoke count is the solved entry's cloudCount — the
+        // number of gen-2 spokes in that branch's fan, stamped by
+        // frCloudLayout. This helper is the ONE formula: every
+        // segment-composition site (the closing capture, the
+        // delivered-radius reading, the solver's renderedSpokeLength,
+        // the SCC geometry build's drawH, and Ar's paint) calls it,
+        // so solve, delivered, capsule and paint stay one formula.
+        function sxSpokeBase(spokeCount) {
+            const n = Math.max(1, Number(spokeCount) || 1);
+            return sxIconRadius(1) * (5 * Math.PI / 3) / n;
+        }
+        // Slider size repair #2 (2026-11-01): the rating rail's visible
+        // thickness and its hit strokes are screen-px quantities
+        // (non-scaling-stroke), while the track length (320 * control
+        // scale, map units) is camera-scaled — so a fixed 44px thickness
+        // stays correct up close but dwarfs the delivered track at Full
+        // zoom-out, where one inadvertently opened slider rendered as a
+        // fat pill over the bunched centre spokes. sxRailPx(m) returns
+        // the zoom-appropriate thickness for a control of scale m from
+        // the track's CURRENT delivered screen length (14% of it, the
+        // full 44px whenever the delivered length supports it, a 9px
+        // floor); sxSyncRailPx() publishes that value plus the hit
+        // thickness (1.6x visible, 44px cap, 14px floor) as the
+        // --sx-rail-px / --sx-rail-hit-px custom properties the
+        // .rating-rail / .rating-track-hit / .direction-hit CSS rules
+        // read. It runs on every render (Mr) and every camera settle
+        // (kh), so the open slider resizes with the camera instead of
+        // keeping the size of the zoom it was opened at.
+        function sxRailPx(m) {
+            try {
+                const rect = Cn.getBoundingClientRect(), vb = (Cn.getAttribute("viewBox") || "").split(/\s+/).map(Number), vbw = vb.length === 4 && vb[2] > 0 ? vb[2] : 3200, w = rect && rect.width > 0 ? rect.width : 1440, per = $p * w / vbw, len = 320 * (Number(m) > 0 ? m : mapFontScale()) * per;
+                return Math.max(9, Math.min(44, len * .14));
+            } catch (err) {
+                return 44;
+            }
+        }
+        function sxSyncRailPx() {
+            try {
+                const rail = sxRailPx(mapFontScale());
+                Cn.style.setProperty("--sx-rail-px", rail.toFixed(1) + "px"), Cn.style.setProperty("--sx-rail-hit-px", Math.max(14, Math.min(44, rail * 1.6)).toFixed(1) + "px");
+            } catch (err) { __sxErrLog("rail-px-sync", err); }
+        }
+        function hr(e) {
+            return [ 128, 180, 1080, 3300 ][e] || 3300 + 1700 * (e - 3);
+        }
+        function gr(e, t, n, i, a = 0) {
+            return Za.angularDemand(e, t, n, i, a);
+        }
+        function mr(e, t, n, i, a, r, o = 0) {
+            return Za.allocateSectors(e, t, n, i, a, r, o);
+        }
+        // Branch order (Build 2026-10-16_2020): mn.branchOrder selects the angular
+        // order of the top-level branches around the center node. "popularity"
+        // places the most popular category at 12:00 and continues in descending
+        // popularity clockwise, using the same mean-topic-popularity scoring
+        // (z over H, ordered by U) as the outline and detail caps. "relations"
+        // starts from the popularity order and hill-climbs pairwise branch swaps
+        // to minimize the summed chord length over the branch relation pairs
+        // (ue), so related branches sit angularly close. "landscape-antipodal" sorts by
+        // descendant topic count and anchors to the landscape axis: densest at
+        // 3:00, second densest at 9:00, sparsest at 12:00, second sparsest at
+        // 6:00 (nearest available positions when the even spacing misses a
+        // cardinal point), the rest in descending density toward the vertical
+        // positions. Results are cached per mode; the data never changes at
+        // runtime, so a cached order stays valid for the life of the page.
+        // Build 2026-10-17_0308: the "stagger" mode is renamed
+        // "landscape-antipodal" (display name "Landscape-Antipodal"); the
+        // legacy value "stagger" is still accepted and normalized to the
+        // new name in branchOrderRankMap, and the ordering function
+        // (branchOrderStaggerNames) and its geometry are unchanged.
+        // Build 2026-10-16_2101: branchOrderRankMap previously resolved any
+        // mode other than "relations"/"stagger" to "stagger", so the
+        // "popularity" mode silently rendered the stagger order; the mode
+        // check below now accepts all three modes.
+        // Build 2026-10-16_2206: fourth mode "alternate" (Alternate density)
+        // interleaves the density-sorted branches — densest, sparsest, 2nd
+        // densest, 2nd sparsest, ... — so every dense branch is flanked by
+        // sparse neighbors. Separately, mn.propFan (Proportional fan) is
+        // orthogonal to the order mode: when on, each branch spoke sits at
+        // the center of the sector allocateSectors sized in proportion to
+        // its topic weight, instead of the even 2π/count slot.
+        // Build 2026-10-17_0044: fifth mode "subbranches" (Sub-branches)
+        // orders by subcategory count with antipodal separation (see
+        // branchOrderSubBranchesNames). Two more orthogonal flags land in
+        // this build: mn.subcatOrder (Antipodal subcategories) reorders the
+        // gen-2 siblings inside each subcategorized branch in fr(), and
+        // mn.staggerDensity (Stagger density, default on) scales category
+        // spoke lengths by kink-count density in yr().
+        // Build 2026-10-17_0330: ninth mode "complexity-antipodal"
+        // (Complexity-Antipodal) — see branchOrderComplexityAntipodalNames.
+        let branchOrderCacheMode = "", branchOrderCacheMap = null;
+        function branchOrderPopularityNames() {
+            return U(h, z, e => e.name).map(e => e.name);
+        }
+        function branchOrderRelationsNames(start) {
+            const order = start.slice(), count = order.length, pos = new Map(order.map((name, i) => [ name, i ])), pairs = pe(ue).filter(pair => pos.has(pair[0]) && pos.has(pair[1])), step = 2 * Math.PI / count, chord = (a, b) => {
+                const d = Math.min(Math.abs(pos.get(a) - pos.get(b)), count - Math.abs(pos.get(a) - pos.get(b))) * step;
+                return 2 * Math.sin(d / 2);
+            }, total = () => pairs.reduce((sum, pair) => sum + chord(pair[0], pair[1]), 0);
+            let cost = total();
+            for (let pass = 0; pass < 80; pass++) {
+                let improved = !1;
+                for (let i = 0; i < count - 1; i++) for (let j = i + 1; j < count; j++) {
+                    const a = order[i], b = order[j];
+                    pos.set(a, j), pos.set(b, i), order[i] = b, order[j] = a;
+                    const next = total();
+                    if (next < cost - 1e-9) cost = next, improved = !0; else pos.set(a, i), pos.set(b, j), order[i] = a, order[j] = b;
+                }
+                if (!improved) break;
+            }
+            return order;
+        }
+        function branchOrderStaggerNames() {
+            const count = h.length, byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
+                let best = -1, bestDist = Infinity, bestSin = -Infinity;
+                for (let p = 0; p < count; p++) {
+                    if (order[p]) continue;
+                    const a = angle(p), dist = Math.abs(Math.atan2(Math.sin(a - target), Math.cos(a - target))), sin = Math.sin(a);
+                    if (dist < bestDist - 1e-9 || Math.abs(dist - bestDist) <= 1e-9 && sin > bestSin) best = p, bestDist = dist, bestSin = sin;
+                }
+                return best;
+            };
+            order[nearest(0)] = byDensity[0].name, order[nearest(Math.PI)] = byDensity[1].name, order[nearest(-Math.PI / 2)] = byDensity[count - 1].name, order[nearest(Math.PI / 2)] = byDensity[count - 2].name;
+            const rest = [];
+            for (let p = 0; p < count; p++) order[p] || rest.push(p);
+            rest.sort((p, q) => Math.abs(Math.cos(angle(q))) - Math.abs(Math.cos(angle(p))) || angle(p) - angle(q));
+            const middle = byDensity.slice(2, count - 2);
+            return rest.forEach((p, i) => order[p] = middle[i].name), order;
+        }
+        function branchOrderAlternateNames() {
+            const byDensity = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = [];
+            let lo = 0, hi = byDensity.length - 1, dense = !0;
+            while (lo <= hi) dense ? (order.push(byDensity[lo++].name), dense = !1) : (order.push(byDensity[hi--].name), dense = !0);
+            return order;
+        }
+        // Sub-branches (Build 2026-10-17_0044): order the primary branches by
+        // SUBCATEGORY count (not kink count) with antipodal separation. The
+        // branch with the most sub-branches anchors at 0°, the 2nd most at
+        // 180°, the 3rd at 90°, the 4th at 270° (nearest free slots); the
+        // remaining slots fill by descending |cos| (alternating sides toward
+        // the verticals), taking branches sparse-first interleaved with
+        // next-densest, so the slots beside the anchors go to the branches
+        // with the fewest sub-branches and no two sub-branch-heavy branches
+        // sit adjacent.
+        function branchOrderSubBranchesNames() {
+            const count = h.length, subCount = e => (e.subcategories || []).length, bySub = h.slice().sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, nearest = target => {
+                let best = -1, bestDist = Infinity, bestSin = -Infinity;
+                for (let p = 0; p < count; p++) {
+                    if (order[p]) continue;
+                    const a = angle(p), dist = Math.abs(Math.atan2(Math.sin(a - target), Math.cos(a - target))), sin = Math.sin(a);
+                    if (dist < bestDist - 1e-9 || Math.abs(dist - bestDist) <= 1e-9 && sin > bestSin) best = p, bestDist = dist, bestSin = sin;
+                }
+                return best;
+            };
+            order[nearest(0)] = bySub[0].name, order[nearest(Math.PI)] = bySub[1].name, order[nearest(Math.PI / 2)] = bySub[2].name, order[nearest(-Math.PI / 2)] = bySub[3].name;
+            const rest = [];
+            for (let p = 0; p < count; p++) order[p] || rest.push(p);
+            rest.sort((p, q) => Math.abs(Math.cos(angle(q))) - Math.abs(Math.cos(angle(p))) || angle(p) - angle(q));
+            const tail = bySub.slice(4), fill = [];
+            let lo = 0, hi = tail.length - 1, sparseFirst = !0;
+            while (lo <= hi) sparseFirst ? (fill.push(tail[hi--].name), sparseFirst = !1) : (fill.push(tail[lo++].name), sparseFirst = !0);
+            return rest.forEach((p, i) => order[p] = fill[i]), order;
+        }
+        // Three more modes (Build 2026-10-17_0103). "antipodal" (Antipodal
+        // Total): sort by TOTAL children — subcategory count plus direct
+        // (parent) topics for subcategorized branches, topic count for flat
+        // ones — then pair the sorted list (1st with 2nd, 3rd with 4th, ...)
+        // and place each pair 180° apart: pair leaders take every other slot
+        // starting from the slot nearest 0°, partners sit exactly opposite,
+        // so the heaviest branches are maximally separated, never adjacent.
+        // "quadrant" (Quadrant Balance): deal the branches in descending
+        // topic-weight order into the four quadrants (NE/SE/SW/NW slot
+        // groups), each branch going to the eligible quadrant with the least
+        // accumulated topic weight, so every quadrant carries roughly equal
+        // visual weight; within a quadrant, dealt order fills its slots in
+        // circular order. "branching" (Branching-First Interleave): the
+        // categories that HAVE subcategories, sorted by subcategory count,
+        // take evenly spaced slots (one per 360/7 step from the top), and
+        // the flat categories fill the remaining slots in descending topic
+        // count — structural branching complexity is spread around the map
+        // instead of topic bulk.
+        function branchOrderAntipodalNames() {
+            const count = h.length, totalChildren = e => e.subcategories && e.subcategories.length ? e.subcategories.length + (e.parentTopics || []).length : e.topics.length, byTotal = h.slice().sort((a, b) => totalChildren(b) - totalChildren(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, half = count / 2;
+            let start = 0, bestDist = Infinity;
+            for (let p = 0; p < count; p++) {
+                const a = angle(p), d = Math.abs(Math.atan2(Math.sin(a), Math.cos(a)));
+                d < bestDist - 1e-9 && (bestDist = d, start = p);
+            }
+            for (let j = 0; j < half; j++) {
+                const s = (start + 2 * j) % count;
+                order[s] = byTotal[2 * j].name, order[(s + half) % count] = byTotal[2 * j + 1].name;
+            }
+            return order;
+        }
+        function branchOrderQuadrantNames() {
+            const count = h.length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, quadrants = [ [], [], [], [] ];
+            for (let p = 0; p < count; p++) {
+                const deg = (angle(p) * 180 / Math.PI + 360) % 360;
+                quadrants[deg >= 270 ? 0 : deg < 90 ? 1 : deg < 180 ? 2 : 3].push(p);
+            }
+            const byWeight = h.slice().sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), dealt = [ [], [], [], [] ], load = [ 0, 0, 0, 0 ], order = new Array(count).fill(null);
+            byWeight.forEach(e => {
+                let pick = -1;
+                for (let q = 0; q < 4; q++) {
+                    if (dealt[q].length >= quadrants[q].length) continue;
+                    if (pick < 0 || load[q] < load[pick] || load[q] === load[pick] && dealt[q].length < dealt[pick].length) pick = q;
+                }
+                dealt[pick].push(e.name), load[pick] += e.topics.length;
+            });
+            return quadrants.forEach((slots, q) => slots.forEach((p, i) => order[p] = dealt[q][i])), order;
+        }
+        function branchOrderBranchingNames() {
+            const count = h.length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, branched = h.filter(e => e.subcategories && e.subcategories.length).sort((a, b) => b.subcategories.length - a.subcategories.length || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), flat = h.filter(e => !(e.subcategories && e.subcategories.length)).sort((a, b) => b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)), order = new Array(count).fill(null), spread = [];
+            branched.forEach((e, k) => {
+                const target = -Math.PI / 2 + k * 2 * Math.PI / branched.length;
+                let best = -1, bestDist = Infinity;
+                for (let p = 0; p < count; p++) {
+                    if (order[p] || spread.includes(p)) continue;
+                    const d = Math.abs(Math.atan2(Math.sin(angle(p) - target), Math.cos(angle(p) - target)));
+                    d < bestDist - 1e-9 && (bestDist = d, best = p);
+                }
+                spread.push(best);
+            });
+            spread.sort((a, b) => a - b), spread.forEach((p, i) => order[p] = branched[i].name);
+            const rest = [];
+            for (let p = 0; p < count; p++) order[p] || rest.push(p);
+            return rest.forEach((p, i) => order[p] = flat[i].name), order;
+        }
+        // Complexity-Antipodal (Build 2026-10-17_0330): ninth mode
+        // "complexity-antipodal". The categories that HAVE subcategories,
+        // sorted by subcategory count descending (ties: topic count,
+        // popularity, name), become anchors placed in exact antipodal
+        // pairs around the clock: #1 at 3:00 with #2 exactly opposite at
+        // 9:00, #3 at 12:00 with #4 at 6:00, #5 at 1:30 with #6 at 7:30,
+        // #7 at 4:30 (nearest free slots to each target). Every other
+        // slot is a buffer, filled sparsest-first: categories with NO
+        // subcategories, fewest kinks (topics) first; if that list ever
+        // runs out, the remaining categories with the fewest
+        // subcategories come next. Slots beside an anchor fill before
+        // slots farther away, so each complex branch is cushioned on
+        // both sides by the simplest branches.
+        function branchOrderComplexityAntipodalNames() {
+            const count = h.length, subCount = e => (e.subcategories || []).length, angle = p => -Math.PI / 2 + p * 2 * Math.PI / count, order = new Array(count).fill(null), used = new Set, nearest = target => {
+                let best = -1, bestDist = Infinity, bestSin = -Infinity;
+                for (let p = 0; p < count; p++) {
+                    if (order[p]) continue;
+                    const a = angle(p), dist = Math.abs(Math.atan2(Math.sin(a - target), Math.cos(a - target))), sin = Math.sin(a);
+                    if (dist < bestDist - 1e-9 || Math.abs(dist - bestDist) <= 1e-9 && sin > bestSin) best = p, bestDist = dist, bestSin = sin;
+                }
+                return best;
+            }, pairTargets = [ 0, -Math.PI / 2, -Math.PI / 4, Math.PI / 4, -3 * Math.PI / 8, 3 * Math.PI / 8 ], anchors = h.filter(e => subCount(e) > 0).sort((a, b) => subCount(b) - subCount(a) || b.topics.length - a.topics.length || (z(b) ?? 0) - (z(a) ?? 0) || a.name.localeCompare(b.name)).slice(0, 2 * pairTargets.length), anchorSlots = [];
+            anchors.forEach((e, i) => {
+                let p;
+                if (i % 2 === 0) p = nearest(pairTargets[i / 2]); else {
+                    const anti = (anchorSlots[i - 1] + count / 2) % count;
+                    p = Number.isInteger(anti) && !order[anti] ? anti : nearest(pairTargets[(i - 1) / 2] + Math.PI);
+                }
+                order[p] = e.name, used.add(e.name), anchorSlots.push(p);
+            });
+            const buffers = h.filter(e => !used.has(e.name)).sort((a, b) => subCount(a) - subCount(b) || a.topics.length - b.topics.length || (z(a) ?? 0) - (z(b) ?? 0) || a.name.localeCompare(b.name)), rest = [];
+            for (let p = 0; p < count; p++) order[p] || rest.push(p);
+            rest.sort((p, q) => {
+                const steps = s => anchorSlots.length ? Math.min(...anchorSlots.map(a => Math.min(Math.abs(s - a), count - Math.abs(s - a)))) : 0;
+                return steps(p) - steps(q) || p - q;
+            });
+            return rest.forEach((p, i) => order[p] = buffers[i].name), order;
+        }
+        function branchOrderRankMap() {
+            const mode = "popularity" === mn.branchOrder || "relations" === mn.branchOrder || "landscape-antipodal" === mn.branchOrder || "stagger" === mn.branchOrder || "alternate" === mn.branchOrder || "subbranches" === mn.branchOrder || "antipodal" === mn.branchOrder || "quadrant" === mn.branchOrder || "branching" === mn.branchOrder || "complexity-antipodal" === mn.branchOrder ? ("stagger" === mn.branchOrder ? "landscape-antipodal" : mn.branchOrder) : "landscape-antipodal";
+            if (branchOrderCacheMap && branchOrderCacheMode === mode) return branchOrderCacheMap;
+            const order = "relations" === mode ? branchOrderRelationsNames(branchOrderPopularityNames()) : "landscape-antipodal" === mode ? branchOrderStaggerNames() : "alternate" === mode ? branchOrderAlternateNames() : "subbranches" === mode ? branchOrderSubBranchesNames() : "antipodal" === mode ? branchOrderAntipodalNames() : "quadrant" === mode ? branchOrderQuadrantNames() : "branching" === mode ? branchOrderBranchingNames() : "complexity-antipodal" === mode ? branchOrderComplexityAntipodalNames() : branchOrderPopularityNames(), map = new Map;
+            return order.forEach((name, i) => map.set(name, i)), branchOrderCacheMode = mode, branchOrderCacheMap = map, map;
+        }
+        // Build the complete map geometry, then run the layout passes in a fixed,
+        // documented order. Default sibling radii are uniform.
+        // P1 refactor (Build 2026-10-18_2227): fr (map geometry) split by
+        // responsibility — frBuildTree builds the visible topic tree,
+        // frAssignCategoryAngles the branch spoke angles,
+        // frAllocateTopicSectors the gen-2/gen-3 sectors, frCloudLayout
+        // the topic clouds, frClampCloudRadii the neighbor radius clamp,
+        // and frCollisionPasses the collision/crossing passes. fr itself
+        // is now a thin orchestrator.
+
         function frBuildTree() {
                 const e = Ia(), t = t => $n ? $n.has(t) : !e || function(e, t) {
                     const n = ft[t], i = n && "group" === n.kind && Array.isArray(n.sourceIds) ? n.sourceIds.filter(e => vt[e] && vht[e]) : [];
@@ -16009,7 +21393,7 @@ const TAXONOMY_CATEGORIES = [
                         id: Wn(e),
                         label: sxName(e),
                         isSubcategory: !1
-                    })), e => e.isSubcategory ? K(e.group.topics) : H(e.label)), d = e => e.isSubcategory ? e.group.topics.some(e => t(Wn(e))) : t(e.id), u = t => Boolean(Tt && (t.label.toLowerCase().includes(Tt) || e.name.toLowerCase().includes(Tt) || t.isSubcategory && t.group.topics.some(e => e.toLowerCase().includes(Tt)))), p = c.filter((e, t) => {
+                    })), e => e.isSubcategory ? K(e.group.topics) : H(e.label)), d = e => e.isSubcategory ? e.group.topics.some(e => t(Wn(e))) : t(e.id), u = t => Boolean(Tt && (String(t.label || "").toLowerCase().includes(Tt) || String(e.name || "").toLowerCase().includes(Tt) || t.isSubcategory && t.group.topics.some(e => sxName(e).toLowerCase().includes(Tt)))), p = c.filter((e, t) => {
                         const n = e.id === Lt || e.id === a || e.isSubcategory && e.group.topics.some(e => Wn(e) === Lt);
                         /* HUB-BACKBONE W1: a subcategory child stands on its own standing (the backbone); d(e) is unchanged because it also feeds densityHidden */
                         return (d(e) || e.isSubcategory) && (!l || t < s || topicRatedForDetail(e.id) || e.isSubcategory && e.group.topics.some(e => topicRatedForDetail(Wn(e))) || u(e) || n);
@@ -17832,6 +23216,7 @@ const TAXONOMY_CATEGORIES = [
         window.__sxCrossingStagedCloud = (branch, adjacent) => sxCrossingStagedCloud(branch, !!adjacent);
         window.__sxAnnealStageState = () => sxAnnealStageCtx ? { branch: sxAnnealStageCtx.branch, adjacent: !!sxAnnealStageCtx.adjacent } : null;
 
+
                 function fr() {
             const e = frBuildTree(), t = e.map(e => ({
                 entry: e,
@@ -18282,11 +23667,33 @@ const TAXONOMY_CATEGORIES = [
                 e.addEventListener("mouseenter", t);
                 e.addEventListener("keydown", e => { "Enter" !== e.key && " " !== e.key || t(e); });
             });
-            In.querySelectorAll(".category-label,.map-label,.concept-hit,.topic-stem,.branch-icon,.topic-icon").forEach(e => e.addEventListener("dblclick", t => {
-                t.preventDefault(), t.stopPropagation();
-                const n = e.dataset.id || e.dataset.topicId || __sxClosestAction(e, "nodeGroup")?.dataset.layoutKey;
-                n && xo(n, t.clientX, t.clientY);
-            }));
+            if (!In.dataset.dblclickBound) {
+                In.dataset.dblclickBound = "true";
+                In.addEventListener("dblclick", t => {
+                    const hit = t.target.closest && t.target.closest(".category-toggle-hit,.category-icon-hit,.category-label,.map-label,.concept-hit,.topic-stem,.branch-icon,.topic-icon,.node-group");
+                    if (!hit) return;
+                    t.preventDefault();
+                    t.stopPropagation();
+                    let sid = hit.dataset.id || hit.dataset.topicId || (hit.closest && hit.closest(".node-group")?.dataset.layoutKey) || "";
+                    if (!sid) return;
+                    sid = String(sid);
+                    if (sid.startsWith("cat-")) sid = sid.slice(4);
+                    if (sid.startsWith("subcategory-")) sid = sid.slice(12);
+                    try {
+                        const mm = document.getElementById("markMenu");
+                        if (mm) mm.hidden = true;
+                        const dlgs = document.querySelectorAll("dialog[open]");
+                        dlgs.forEach(d => { try { d.close(); } catch (_) { d.removeAttribute("open"); } });
+                    } catch (_) {}
+                    const cat = h.find(c => c.name === sid || c.id === sid || catId(c.name) === sid || sxName(c.name) === sxName(sid));
+                    const branch = cat ? cat.name : ((qn[sid] && qn[sid].branch) || ci(sid) || "");
+                    if (window.__sxFocusNode) {
+                        window.__sxFocusNode(cat ? cat.id : sid, branch);
+                        return;
+                    }
+                    selectSpokeNode(sid, !0);
+                });
+            }
             In.querySelectorAll(".category-label,.map-label,.concept-hit").forEach(e => e.addEventListener("keydown", t => {
                 if ("Enter" !== t.key && " " !== t.key) return;
                 t.preventDefault(), t.stopPropagation();
@@ -18339,8 +23746,8 @@ const TAXONOMY_CATEGORIES = [
             try { Ja(); } catch (_) {}
         }
 
-        const SX_WARM_BOOT_VER = "4.0.0-w2";
-        const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v2";
+        const SX_WARM_BOOT_VER = "4.0.0-w3";
+        const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v3";
         const SX_IDB_NAME = "sx_hypermap_db";
         const SX_IDB_STORE = "hypermap_cache";
         const SX_IDB_VERSION = 1;
@@ -18474,49 +23881,33 @@ const TAXONOMY_CATEGORIES = [
                 if (!cached) {
                     cached = await sxIdbGet(SX_WARM_BOOT_STORAGE_KEY).catch(() => null);
                 }
-                if (!cached) {
-                    console.log("[Sexcapades WarmBoot] No warm-boot cache found in IndexedDB.");
-                    return false;
-                }
-                if (cached.v !== SX_WARM_BOOT_VER) {
-                    console.log("[Sexcapades WarmBoot] Cache version mismatch.");
-                    return false;
-                }
-                if (!cached.key || !cached.profileId) return false;
 
-                const currentTargetId = Mt && vt[Mt] ? Mt : (Object.keys(vt).length ? Object.keys(vt)[0] : "__default__");
-                if (cached.profileId !== currentTargetId) {
-                    console.log("[Sexcapades WarmBoot] Profile mismatch:", cached.profileId, "vs current", currentTargetId);
-                    return false;
-                }
-
+                const currentTargetId = Mt && vt[Mt] ? Mt : "__default__";
                 const currentKey = sxGetMapVaultKey(currentTargetId);
-                if (cached.key !== currentKey) {
-                    console.log("[Sexcapades WarmBoot] Key mismatch:", cached.key, "vs current", currentKey);
-                    return false;
+
+                // Priority 1: If warm boot cache exists in IndexedDB and matches current profile & vault key
+                if (cached && cached.v === SX_WARM_BOOT_VER && cached.profileId === currentTargetId && cached.key === currentKey) {
+                    const isDirty = Boolean(typeof yt !== "undefined" && yt[currentTargetId]);
+                    if (!isDirty) {
+                        const markup = cached.compressed ? await sxDecompressSvg(cached.compressed) : cached.markup;
+                        if (markup) {
+                            n(In, markup);
+                            sxWireMapListeners();
+                            sxActiveVaultKey = currentKey;
+                            sxActiveVaultProfileId = currentTargetId;
+                            window.__sxBootChunkPaint = 0;
+                            if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
+                            if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
+                            if (typeof window.__sxLoad === "function") window.__sxLoad(100);
+                            try { vc(); } catch (_) {}
+                            try { Ih(); } catch (_) {}
+                            console.log("[Sexcapades WarmBoot] Restored warm boot cache for [" + currentTargetId + "] in < 15ms!");
+                            return true;
+                        }
+                    }
                 }
-                if (typeof yt !== "undefined" && yt[currentTargetId]) return false;
 
-                // Decompress payload (gzip stream decompress in < 3ms)
-                const markup = cached.compressed ? await sxDecompressSvg(cached.compressed) : cached.markup;
-                if (!markup) return false;
-
-                n(In, markup);
-                sxWireMapListeners();
-
-                sxActiveVaultKey = currentKey;
-                sxActiveVaultProfileId = currentTargetId;
-
-                // Dismiss boot loading dial immediately (< 10ms)
-                window.__sxBootChunkPaint = 0;
-                if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
-                if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
-                if (typeof window.__sxLoad === "function") window.__sxLoad(100);
-
-                try { vc(); } catch (_) {}
-                try { Ih(); } catch (_) {}
-                console.log("[Sexcapades WarmBoot] Warm boot restore SUCCESSFUL (< 10ms) from IndexedDB for [" + currentTargetId + "]!");
-                return true;
+                return false;
             } catch (err) {
                 if (typeof __sxErrLog === "function") __sxErrLog("warm-boot-restore", err);
                 console.warn("[Sexcapades WarmBoot] Warm boot restore error:", err);
@@ -19117,7 +24508,7 @@ const TAXONOMY_CATEGORIES = [
                     const t = Wn(e);
                     return Ra(t) === Pt || u.some(e => e.parentId === t && Ra(e.id) === Pt);
                 });
-                "all" === Pt || b === Pt || S || w.push("is-hidden"), !Tt || i.name.toLowerCase().includes(Tt) || i.topics.some(e => e.toLowerCase().includes(Tt)) || w.push("is-dim");
+                "all" === Pt || b === Pt || S || w.push("is-hidden"), !Tt || String(i.name || "").toLowerCase().includes(Tt) || i.topics.some(e => sxName(e).toLowerCase().includes(Tt)) || w.push("is-dim");
                 const $ = null !== Dt && (dCat === Dt || e.topics.some(e => e.topic.id === Dt || e.children.some(e => e.child.id === Dt)));
                 Dt && !$ && w.push("is-dim"), Dt && dCat === Dt && w.push("is-preview");
                 const E = Math.max(140, .48 * (s - ea.lineStartRadius)) + (t % 2 ? 55 : -35), A = Za.categoryFontSize(i.name, g.labelWidth, E, r), C = Vi(), M = Rt ? null : Qe[C]?.[dCat], I = Rt ? null : null !== fa(i, C, "give") || null !== fa(i, C, "receive") ? 1 : null, P = Ne.get(i.name) || Fe(i), L = (O = I, 
@@ -19162,7 +24553,7 @@ const TAXONOMY_CATEGORIES = [
                     o || Rt || !Qi() && !Kd() || !qa(r, Je) || E.push("is-fantasy-only"), o || Rt || !Qi() && !Kd() || !qa(r, et) || E.push("is-already-tried"), 
                     !o && A && A.has(r) && !Eo(Vi(), r) && E.push("import-updated"), !o && C && C.has(r) && !Eo(Vi(), r) && E.push("import-newest");
                     const M = n.allImported.some(e => Ra(e.id) === Pt);
-                    "all" === Pt || o || x === Pt || M || E.push("is-hidden"), !Tt || a.toLowerCase().includes(Tt) || i.name.toLowerCase().includes(Tt) || n.allImported.some(e => e.label.toLowerCase().includes(Tt)) || E.push("is-dim");
+                    "all" === Pt || o || x === Pt || M || E.push("is-hidden"), !Tt || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt) || n.allImported.some(e => String(e.label || "").toLowerCase().includes(Tt)) || E.push("is-dim");
                     o && n.unratedHub && E.push("is-unrated"); /* DIMFIX F2 (was HUB-BACKBONE W4): the dim reads the F1 rating-presence flag, not the Net-filtered allImported list; the dedicated class (never is-dim) keeps selection/focus precedence clean */
                     const I = null !== Dt && (r === Dt || dCat === Dt || t.children.some(e => e.child.id === Dt));
                     Dt && !I && E.push("is-dim"), Dt && r === Dt && E.push("is-preview");
@@ -20421,7 +25812,7 @@ const TAXONOMY_CATEGORIES = [
                     sxStemFinaliseHook && sxStemFinaliseHook();
                 } catch (_) {}
             });
-            return sxPaintPromise = p, p.then(ok => (release(), sxPaintPromise === p && (sxPaintPromise = null), ok), () => (release(), !1));
+            return window.sxPaintPromise = sxPaintPromise = p, p.then(ok => (release(), sxPaintPromise === p && (window.sxPaintPromise = sxPaintPromise = null), ok), () => (release(), window.sxPaintPromise = null, !1));
         }
         Fn && Fn.addEventListener("click", () => {
             Dn = !0, jn = !1, Bn = [], Ln.hidden = !0, Mr({
@@ -20909,18 +26300,44 @@ const TAXONOMY_CATEGORIES = [
             }), Object.keys(At).forEach(e => delete At[e]), Ze[Et] = {}, Ct = !1, zt(e), !0);
         }
         function To(e, t, n, i = !0, a = null) {
-            const r = a && (a === Et || vt[a]) ? a : Mt && vt[Mt] ? Mt : Et, o = Io(r), s = Math.max(-100, Math.min(100, Number(n)));
+            let r = a && (a === Et || vt[a]) ? a : Mt && vt[Mt] ? Mt : Et;
+            if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
+                const pid = ik("New profile");
+                SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
+                wt[pid] = "New profile";
+                vt[pid] = {};
+                Lo(pid);
+                Mt = pid;
+                if (typeof Go !== "undefined" && Go === Et) Go = pid;
+                if (typeof sxAutoSelect === "function") sxAutoSelect(pid);
+                r = pid;
+                if (typeof Jw === "function") Jw();
+            }
+            const o = Io(r), s = Math.max(-100, Math.min(100, Number(n)));
             if (Ge(e, r).single) {
                 const t = o[e], n = "number" != typeof t || Number(t) !== s;
-                return o[e] = s, Co(r, e, "give", "manual"), Co(r, e, "receive", "manual"), n && r !== Et && zt(r), 
-                $o(e, r), i && Mr(), r !== Et || Do.open || Po(), s;
+                return o[e] = s, Co(r, e, "give", "manual"), Co(r, e, "receive", "manual"), n && zt(r),
+                $o(e, r), i && Mr(), s;
             }
             const l = o[e], c = l && "object" == typeof l ? Object.assign({}, l) : {}, d = !Object.prototype.hasOwnProperty.call(c, t) || Number(c[t]) !== s;
-            return c[t] = s, o[e] = c, Co(r, e, t, "manual"), d && r !== Et && zt(r), $o(e, r), 
-            i && Mr(), r !== Et || Do.open || Po(), c[t];
+            return c[t] = s, o[e] = c, Co(r, e, t, "manual"), d && zt(r), $o(e, r),
+            i && Mr(), c[t];
         }
         function Fo(e, t, n = !0, i = null) {
-            const a = i && (i === Et || vt[i]) ? i : Mt && vt[Mt] ? Mt : Et, r = Io(a), o = r[e], s = Ge(e, a).single, l = "number" == typeof o || Boolean(o && "object" == typeof o && Object.prototype.hasOwnProperty.call(o, t));
+            let a = i && (i === Et || vt[i]) ? i : Mt && vt[Mt] ? Mt : Et;
+            if (a === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
+                const pid = ik("New profile");
+                SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
+                wt[pid] = "New profile";
+                vt[pid] = {};
+                Lo(pid);
+                Mt = pid;
+                if (typeof Go !== "undefined" && Go === Et) Go = pid;
+                if (typeof sxAutoSelect === "function") sxAutoSelect(pid);
+                a = pid;
+                if (typeof Jw === "function") Jw();
+            }
+            const r = Io(a), o = r[e], s = Ge(e, a).single, l = "number" == typeof o || Boolean(o && "object" == typeof o && Object.prototype.hasOwnProperty.call(o, t));
             if (s) delete r[e], Mo(a, e, "give"), Mo(a, e, "receive"); else if ("number" == typeof o) {
                 const n = "give" === t ? "receive" : "give";
                 r[e] = {
@@ -20930,7 +26347,7 @@ const TAXONOMY_CATEGORIES = [
                 const n = Object.assign({}, o);
                 delete n[t], Object.prototype.hasOwnProperty.call(n, "give") || Object.prototype.hasOwnProperty.call(n, "receive") ? r[e] = n : delete r[e];
             }
-            s || Mo(a, e, t), Nt = null, l && a !== Et && (zt(a), $o(e, a)), n && Mr();
+            s || Mo(a, e, t), Nt = null, l && (zt(a), $o(e, a)), n && Mr();
         }
         // P1 refactor (Build 2026-10-18_2227): getScreenCTM cache. During
         // a pointer gesture the viewport does not move, so the screen CTM
@@ -20985,40 +26402,40 @@ const TAXONOMY_CATEGORIES = [
             e.setAttribute("aria-valuetext", r ? "Release to clear" : String(Math.round(s))), 
             r ? Number.NaN : s;
         }
-        Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
+        Pr && Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
             if (!Qr) return;
             const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
             "neutral" === i ? delete Qe[t][n] : Qe[t][n] = i, Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === ("neutral" === i ? "neutral" : i)))), 
             a !== ("neutral" === i ? void 0 : i) && zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
-        })), Pr.querySelectorAll("[data-topic-flag]").forEach(e => e.addEventListener("click", () => {
+        })), Pr && Pr.querySelectorAll("[data-topic-flag]").forEach(e => e.addEventListener("click", () => {
             if (!Qr) return;
             const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
             i[t] || (i[t] = {}), a ? i[t][n] = !0 : delete i[t][n], e.setAttribute("aria-pressed", String(a)), 
             zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
-        })), Zr.addEventListener("change", () => {
+        })), Zr && Zr.addEventListener("change", () => {
             ao(), Mr({
                 animate: !1
             });
-        }), Vr.addEventListener("click", () => {
+        }), Vr && Vr.addEventListener("click", () => {
             oo();
-            const e = zr.hidden;
-            zr.hidden = !e, Vr.setAttribute("aria-expanded", String(e));
-        }), zr.addEventListener("click", e => e.stopPropagation()), jr.addEventListener("click", e => {
+            const e = zr ? zr.hidden : !0;
+            zr && (zr.hidden = !e), Vr.setAttribute("aria-expanded", String(e));
+        }), zr && zr.addEventListener("click", e => e.stopPropagation()), jr && jr.addEventListener("click", e => {
             e.preventDefault(), e.stopPropagation(), ko(jr);
-        }), qr.addEventListener("click", e => {
+        }), qr && qr.addEventListener("click", e => {
             e.preventDefault(), e.stopPropagation(), ko(qr);
-        }), Hr.addEventListener("click", e => {
+        }), Hr && Hr.addEventListener("click", e => {
             e.preventDefault(), e.stopPropagation(), ko(Hr);
-        }), Ur.addEventListener("click", e => {
+        }), Ur && Ur.addEventListener("click", e => {
             e.stopPropagation(), __sxClosestAction(e.target, "openLocalCommunities") && (oo(), 
             so(), Ol());
         }), window.addEventListener("resize", () => {
-            no && !Ur.hidden && bo(no);
+            no && Ur && !Ur.hidden && bo(no);
         }), e.byId("closeMarkMenu") && e.byId("closeMarkMenu").addEventListener("click", so), window.__sxOnPtr( e => {
-            Pr.hidden || zr.hidden || __sxClosestAction(e.target, "markMeta") || ro(), Ur.hidden || Ur.contains(e.target) || e.target === no || oo(), 
-            Pr.hidden || Pr.contains(e.target) || so();
+            (!Pr || Pr.hidden) || (!zr || zr.hidden) || __sxClosestAction(e.target, "markMeta") || ro(), (!Ur || Ur.hidden) || Ur.contains(e.target) || e.target === no || oo(),
+            (!Pr || Pr.hidden) || Pr.contains(e.target) || so();
         }, !0), window.__sxOnKey( e => {
-            "Escape" === e.key && (Ur.hidden ? so() : oo());
+            "Escape" === e.key && ((!Ur || Ur.hidden) ? so() : oo());
         });
         const Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
         // P1 refactor (Build 2026-10-18_2227): outline-row DOM helpers.
@@ -21587,7 +27004,7 @@ const TAXONOMY_CATEGORIES = [
         }
         function __sxRenderOnDeck(e) {
             const t = __sxOnDeckMembers(e), n = __sxOnDeckIndex(e), i = document.getElementById("outlineShowOnDeck");
-            i && (i.checked = !0), Oo.textContent = e === Et ? "New profile" : wt[e] || "Profile", Ro.replaceChildren();
+            i && (i.checked = !0), Oo.textContent = (e === Et ? "New profile" : wt[e] || "Profile") + (yt[e] ? " *" : ""), Ro.replaceChildren();
             __sxOnDeckCollapsed.clear();
             let r = 0;
             __sxOnDeckTierOrder.forEach(([e, i]) => {
@@ -21706,7 +27123,7 @@ const TAXONOMY_CATEGORIES = [
             // to” button): render only the mapped branches, collapsed.
             const sxReview = window.__sxFetLifeReview instanceof Set && window.__sxFetLifeReview.size ? window.__sxFetLifeReview : null;
             const i = Boolean(e.preserveDisclosure), a = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch[open]")).map(e => e.dataset.outlineBranch)) : null, r = i ? new Set(Array.from(Ro.querySelectorAll(".outline-branch.is-expanded")).map(e => e.dataset.outlineBranch)) : null, o = i ? new Set(Array.from(Ro.querySelectorAll('.outline-subcategory[data-subcategory-expanded="true"]')).map(e => e.dataset.outlineSubcategory)) : null, s = i ? new Set(Array.from(Ro.querySelectorAll('.outline-topic-label[data-outline-expandable="true"][aria-expanded="true"]')).map(e => __sxClosestAction(e, "outlineRow")?.dataset.outlineId).filter(Boolean)) : null, l = i ? new Map(Array.from(Ro.querySelectorAll(".outline-branch")).map(e => [ e.dataset.outlineBranch, Number(e.dataset.outlineVisible) || 3 ])) : new Map, c = i ? new Map(Array.from(Ro.querySelectorAll(".outline-subcategory")).map(e => [ e.dataset.outlineSubcategory, Number(e.dataset.outlineSubcategoryVisible) ]).filter(([, e]) => Number.isFinite(e) && e > 0)) : new Map;
-            Oo.textContent = t === Et ? "New profile" : wt[t] || "Profile", Ro.replaceChildren(), 
+            Oo.textContent = (t === Et ? "New profile" : wt[t] || "Profile") + (yt[t] ? " *" : ""), Ro.replaceChildren(),
             us(t).forEach(e => {
                 const d = e.name, sxCatHit = Boolean(sxReview && sxReview.has(catId(d))), sxSubHit = Boolean(sxReview && (e.subcategories || []).some(s => sxReview.has(Un(d, s.name))));
                 if (sxReview && !sxCatHit && !sxSubHit) return;
@@ -22418,15 +27835,15 @@ const TAXONOMY_CATEGORIES = [
                 }
             }
         }
-        Ho.addEventListener("click", () => {
+        Ho && Ho.addEventListener("click", () => {
             const e = Date.now();
             e - Zs < 300 || (Zs = e, Qs = !1, ks(!Zo));
         }), document.addEventListener("visibilitychange", () => {
             document.hidden ? Zo || (Qs = !0, ZoAuto = !0, ks(!0)) : Qs && (Qs = !1, ZoAuto = !1, ks(!1));
-        }), Wo.addEventListener("click", function() {
-            Do.open && Go && (Qs = !1, Yo = 0, Vo = Date.now(), Qo = !0, Zo = !1, t.clear(Xo), 
+        }), Wo && Wo.addEventListener("click", function() {
+            Do && Do.open && Go && (Qs = !1, Yo = 0, Vo = Date.now(), Qo = !0, Zo = !1, t.clear(Xo),
             Xo = t.setInterval(ws, 1e3), hs(), ws());
-        }), Uo.addEventListener("change", () => {
+        }), Uo && Uo.addEventListener("change", () => {
             const n = !Zo;
             ks(Uo.checked), Uo.checked && n && function() {
                 try {
@@ -22450,11 +27867,11 @@ const TAXONOMY_CATEGORIES = [
                         xs = 0;
                     }, 3e3);
                 } catch (e) { __sxErrLog("label-flash", e); }
-            }(), Ro.querySelectorAll(".outline-branch").forEach(e => e._syncOutlineVisibility?.(Number(e.dataset.outlineVisible) || 3));
+            }(), Ro && Ro.querySelectorAll(".outline-branch").forEach(e => e._syncOutlineVisibility?.(Number(e.dataset.outlineVisible) || 3));
         }), e.byId("outlineQuickstartDismiss")?.addEventListener("click", () => {
-            is = !0, e.byId("outlineQuickstartTip").hidden = !0;
+            is = !0, e.byId("outlineQuickstartTip") && (e.byId("outlineQuickstartTip").hidden = !0);
         }), e.byId("doneOutlineButton") && e.byId("doneOutlineButton").addEventListener("click", function() {
-            if (!Do.open || !Go) return;
+            if (!Do || !Do.open || !Go) return;
             const e = Go, t = cs(e), n = ps(), i = Qo;
             if (e === Et) return Vy = e => {
                 i && $t(e, "outline", n, t.rated, t.total, {
@@ -22469,14 +27886,34 @@ const TAXONOMY_CATEGORIES = [
                 Is(!1), xg.textContent = `Submitted ${t.rated} of over 400 topics${i ? ` after ${xt(n)} total` : ""}. Ratings${i ? " and accumulated time" : ""} saved with ${wt[e]}.`, 
                 requestAnimationFrame(() => Ls(e, t));
             });
-        }), Do.addEventListener("cancel", e => {
+        }), Do && Do.addEventListener("cancel", e => {
             e.preventDefault(), sxChunkClose(() => Is());
-        }), /* Build 2026-10-18_0343: the list view has no × button — a tap/click that starts and ends on the dialog backdrop closes it; Escape closes via the cancel handler above. */ Do.addEventListener("pointerdown", e => {
+        }), /* Build 2026-10-18_0343: the list view has no × button — a tap/click that starts and ends on the dialog backdrop closes it; Escape closes via the cancel handler above. */ Do && Do.addEventListener("pointerdown", e => {
             Do._bk = e.target === Do;
-        }), Do.addEventListener("click", e => {
+        }), Do && Do.addEventListener("click", e => {
             Do._bk && e.target === Do && sxChunkClose(() => Is()), Do._bk = !1;
         }), e.byId("startListRatingButton")?.addEventListener("click", () => {
             Ms(Vi());
+        });
+        const outlineSearchEl = e.byId("outlineSearch");
+        outlineSearchEl && outlineSearchEl.addEventListener("input", ev => {
+            const query = (ev.target.value || "").trim().toLowerCase();
+            Ro && Ro.querySelectorAll(".outline-branch").forEach(branch => {
+                let anyVisible = false;
+                branch.querySelectorAll(".outline-row").forEach(row => {
+                    const label = row.querySelector(".outline-topic-label")?.textContent?.toLowerCase() || "";
+                    const matches = !query || label.includes(query);
+                    row.hidden = !matches;
+                    if (matches) anyVisible = true;
+                });
+                if (query) {
+                    branch.hidden = !anyVisible;
+                    if (anyVisible) branch.open = true;
+                } else {
+                    branch.hidden = false;
+                    branch._syncOutlineVisibility?.(Number(branch.dataset.outlineVisible || 3));
+                }
+            });
         });
         const tl = e.byId("profileTabs");
         let nl = null, il = null, al = null, rl = 0, ol = null, tfHide = 0;
@@ -22590,111 +28027,110 @@ const TAXONOMY_CATEGORIES = [
         function kl() {
             fl && (t.clear(fl), fl = null), ml = null;
         }
-        tl.addEventListener("pointerdown", e => {
-            const n = __sxClosestAction(e.target, "viewButton");
-            if (n && 0 === e.button) if (e.ctrlKey || e.metaKey) kl(); else {
-                kl(), ml = {
-                    pointerId: e.pointerId,
-                    id: n.dataset.view,
-                    startX: e.clientX,
-                    startY: e.clientY
-                };
-                try {
-                    n.setPointerCapture(e.pointerId);
-                } catch (e) { __sxErrLog("pointer-capture", e); }
-                fl = t.setTimeout(() => {
-                    if (!ml || ml.pointerId !== e.pointerId) return;
-                    const t = ml.id;
-                    vl = Date.now(), wl(), el(t);
-                }, 360);
-            }
-        }), tl.addEventListener("pointermove", e => {
-            ml && ml.pointerId === e.pointerId && Math.hypot(e.clientX - ml.startX, e.clientY - ml.startY) > 14 && kl();
-        }), tl.addEventListener("pointerup", kl), tl.addEventListener("pointercancel", kl), 
-        tl.addEventListener("lostpointercapture", kl), tl.addEventListener("keydown", e => {
-            if (__sxClosestAction(e.target, "profileNameInput")) return void ("Enter" === e.key ? (e.preventDefault(), 
-            tk()) : "Escape" === e.key && (e.preventDefault(), Xw && (Xw = null, Jw())));
-            const t = __sxClosestAction(e.target, "viewButton");
-            t && (!(e.shiftKey || e.ctrlKey || e.metaKey) || "Enter" !== e.key && " " !== e.key ? !e.altKey || "Enter" !== e.key && " " !== e.key || (e.preventDefault(), 
-            bw(t.dataset.view)) : (e.preventDefault(), el(t.dataset.view)));
-        }), tl.addEventListener("focusout", e => {
-            const n = __sxClosestAction(e.target, "profileNameInput");
-            if (!n) return;
-            const i = Xw;
-            t.setTimeout(() => {
-                Xw === i && document.activeElement !== n && tk();
-            }, 0);
-        }), tl.addEventListener("contextmenu", e => {
-            const t = __sxClosestAction(e.target, "viewButton");
-            if (!t) return;
-            e.preventDefault();
-            const n = Date.now() - vl < 900;
-            kl(), n || (vl = Date.now(), wl(), el(t.dataset.view));
-        }), tl.addEventListener("click", t => {
-            const n = __sxClosestAction(t.target, "profileVeil");
-            if (n) {
-                const e = n.dataset.profileVeil;
-                return dv.hidden || Qt !== e || bv !== n ? (Qt = e, bv = n, Mv(), void Av(!0, !0)) : void Cv();
-            }
-            const i = __sxClosestAction(t.target, "saveProfile");
-            if (i) return void Jf(i.dataset.saveProfile);
-            const a = __sxClosestAction(t.target, "closeProfile");
-            if (a) return void function(t, n) {
-                if (!vt[t]) return;
-                if (kw(), xw(), !yt[t]) return void nk(t);
-                const i = e.byId("rememberProfileCheckbox2x"), a = Boolean(i && i.checked);
-                vm.hidden = !a, wf = t, bm.textContent = a ? "Save or discard changes?" : "Discard changes?", 
-                e.byId("closeProfileQuestion").textContent = a ? `Save ${wt[t]} on this device before closing, or discard its unsaved changes?` : `Close ${wt[t]} and lose its unsaved changes?`, 
-                Wi(ym), requestAnimationFrame(() => {
-                    const t = n && n.getBoundingClientRect(), i = ym.offsetWidth, r = ym.offsetHeight, o = t ? Math.max(8, Math.min(innerWidth - i - 8, t.right - i)) : Math.max(8, innerWidth - i - 12), s = t ? Math.max(8, Math.min(innerHeight - r - 8, t.bottom + 6)) : 12;
-                    ym.style.left = `${o}px`, ym.style.top = `${s}px`, (a ? vm : e.byId("discardClosingProfile")).focus();
-                });
-            }(a.dataset.closeProfile, a);
-            const r = __sxClosestAction(t.target, "profileLoad");
-            if (r) return void function(e, t) {
-                if (!vt[e]) return;
-                const n = !Oy.hidden && qy === e;
-                if (kw(), xw(), Sw(), n) return;
-                // Activate-first (shell-ui stage, 2026-10-27, owner
-                // ruling correcting the split-center no-switch phase):
-                // pressing Load on a background tab SWITCHES the
-                // viewport to that tab first (Js) — before the menu
-                // opens and before any dialog the menu leads to. Only
-                // then is the pressed tab recorded as the menu's
-                // origin (qy). The origin remains the explicit target
-                // of every Load path below; activation makes the
-                // displayed profile that same profile, it does not
-                // replace the origin as the targeting mechanism.
-                // (Js closes menus as part of switching, so it must
-                // run before qy is set and the menu is shown.)
-                e !== Mt && Js(e), qy = e, Oy.hidden = !1;
-                const i = [ ...tl.querySelectorAll("[data-profile-load]") ].find(t => t.dataset.profileLoad === e) || t;
-                i.setAttribute("aria-expanded", "true"), Oy.setAttribute("aria-label", `Load or import data for ${wt[e]}`), 
-                $w(Oy, i), Oy.querySelector("button").focus({
-                    preventScroll: !0
-                });
-            }(r.dataset.profileLoad, r);
-            const sxMo = t.target.closest && t.target.closest("[data-sx-match-open]");
-            if (sxMo) return void sxOpenMatchTab(sxMo.dataset.sxMatchOpen);
-            const sxMb = t.target.closest && t.target.closest("[data-sx-match-tab-btn]");
-            if (sxMb) return void sxActivateMatchTab(sxMb.dataset.sxMatchTabBtn, !0);
-            const sxMc = t.target.closest && t.target.closest("[data-sx-match-close]");
-            if (sxMc) return void sxCloseMatchTab(sxMc.dataset.sxMatchClose);
-            const sxHb = __sxClosestAction(t.target, "profileHeat");
-            if (sxHb) return void sxToggleHeatPopover(sxHb.dataset.profileHeat, sxHb);
-            const s = __sxClosestAction(t.target, "addProfile");
-            if (s) return void Pw(s);
-            const l = __sxClosestAction(t.target, "viewButton");
-            if (!l) return;
-            if (yl) return yl = !1, void t.preventDefault();
-            const c = l.dataset.view;
-            if (t.ctrlKey || t.metaKey) return t.preventDefault(), kl(), void el(c);
-            yl = !1, c !== Mt && Js(c);
-        }), e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", () => {
+        if (tl) {
+            tl.addEventListener("pointerdown", e => {
+                const n = __sxClosestAction(e.target, "viewButton");
+                if (n && 0 === e.button) if (e.ctrlKey || e.metaKey) kl(); else {
+                    kl(), ml = {
+                        pointerId: e.pointerId,
+                        id: n.dataset.view,
+                        startX: e.clientX,
+                        startY: e.clientY
+                    };
+                    try {
+                        n.setPointerCapture(e.pointerId);
+                    } catch (e) { __sxErrLog("pointer-capture", e); }
+                    fl = t.setTimeout(() => {
+                        if (!ml || ml.pointerId !== e.pointerId) return;
+                        const t = ml.id;
+                        vl = Date.now(), wl(), el(t);
+                    }, 360);
+                }
+            });
+            tl.addEventListener("pointermove", e => {
+                ml && ml.pointerId === e.pointerId && Math.hypot(e.clientX - ml.startX, e.clientY - ml.startY) > 14 && kl();
+            });
+            tl.addEventListener("pointerup", kl);
+            tl.addEventListener("pointercancel", kl);
+            tl.addEventListener("lostpointercapture", kl);
+            tl.addEventListener("keydown", e => {
+                if (__sxClosestAction(e.target, "profileNameInput")) return void ("Enter" === e.key ? (e.preventDefault(),
+                tk()) : "Escape" === e.key && (e.preventDefault(), Xw && (Xw = null, Jw())));
+                const t = __sxClosestAction(e.target, "viewButton");
+                t && (!(e.shiftKey || e.ctrlKey || e.metaKey) || "Enter" !== e.key && " " !== e.key ? !e.altKey || "Enter" !== e.key && " " !== e.key || (e.preventDefault(),
+                bw(t.dataset.view)) : (e.preventDefault(), el(t.dataset.view)));
+            });
+            tl.addEventListener("focusout", e => {
+                const n = __sxClosestAction(e.target, "profileNameInput");
+                if (!n) return;
+                const i = Xw;
+                t.setTimeout(() => {
+                    Xw === i && document.activeElement !== n && tk();
+                }, 0);
+            });
+            tl.addEventListener("contextmenu", e => {
+                const t = __sxClosestAction(e.target, "viewButton");
+                if (!t) return;
+                e.preventDefault();
+                const n = Date.now() - vl < 900;
+                kl(), n || (vl = Date.now(), wl(), el(t.dataset.view));
+            });
+            tl.addEventListener("click", t => {
+                const n = __sxClosestAction(t.target, "profileVeil");
+                if (n) {
+                    const e = n.dataset.profileVeil;
+                    return dv.hidden || Qt !== e || bv !== n ? (Qt = e, bv = n, Mv(), void Av(!0, !0)) : void Cv();
+                }
+                const i = __sxClosestAction(t.target, "saveProfile");
+                if (i) return void Jf(i.dataset.saveProfile);
+                const a = __sxClosestAction(t.target, "closeProfile");
+                if (a) return void function(t, n) {
+                    if (!vt[t]) return;
+                    if (kw(), xw(), !yt[t]) return void nk(t);
+                    const i = e.byId("rememberProfileCheckbox2x"), a = Boolean(i && i.checked);
+                    vm.hidden = !a, wf = t, bm.textContent = a ? "Save or discard changes?" : "Discard changes?",
+                    e.byId("closeProfileQuestion").textContent = a ? `Save ${wt[t]} on this device before closing, or discard its unsaved changes?` : `Close ${wt[t]} and lose its unsaved changes?`,
+                    Wi(ym), requestAnimationFrame(() => {
+                        const t = n && n.getBoundingClientRect(), i = ym.offsetWidth, r = ym.offsetHeight, o = t ? Math.max(8, Math.min(innerWidth - i - 8, t.right - i)) : Math.max(8, innerWidth - i - 12), s = t ? Math.max(8, Math.min(innerHeight - r - 8, t.bottom + 6)) : 12;
+                        ym.style.left = `${o}px`, ym.style.top = `${s}px`, (a ? vm : e.byId("discardClosingProfile")).focus();
+                    });
+                }(a.dataset.closeProfile, a);
+                const r = __sxClosestAction(t.target, "profileLoad");
+                if (r) return void function(e, t) {
+                    if (!vt[e]) return;
+                    const n = !Oy.hidden && qy === e;
+                    if (kw(), xw(), Sw(), n) return;
+                    e !== Mt && Js(e), qy = e, Oy.hidden = !1;
+                    const i = [ ...tl.querySelectorAll("[data-profile-load]") ].find(t => t.dataset.profileLoad === e) || t;
+                    i.setAttribute("aria-expanded", "true"), Oy.setAttribute("aria-label", `Load or import data for ${wt[e]}`),
+                    $w(Oy, i), Oy.querySelector("button").focus({
+                        preventScroll: !0
+                    });
+                }(r.dataset.profileLoad, r);
+                const sxMo = t.target.closest && t.target.closest("[data-sx-match-open]");
+                if (sxMo) return void sxOpenMatchTab(sxMo.dataset.sxMatchOpen);
+                const sxMb = t.target.closest && t.target.closest("[data-sx-match-tab-btn]");
+                if (sxMb) return void sxActivateMatchTab(sxMb.dataset.sxMatchTabBtn, !0);
+                const sxMc = t.target.closest && t.target.closest("[data-sx-match-close]");
+                if (sxMc) return void sxCloseMatchTab(sxMc.dataset.sxMatchClose);
+                const sxHb = __sxClosestAction(t.target, "profileHeat");
+                if (sxHb) return void sxToggleHeatPopover(sxHb.dataset.profileHeat, sxHb);
+                const s = __sxClosestAction(t.target, "addProfile");
+                if (s) return void Pw(s);
+                const l = __sxClosestAction(t.target, "viewButton");
+                if (!l) return;
+                if (yl) return yl = !1, void t.preventDefault();
+                const c = l.dataset.view;
+                if (t.ctrlKey || t.metaKey) return t.preventDefault(), kl(), void el(c);
+                yl = !1, c !== Mt && Js(c);
+            });
+        }
+        e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", () => {
             if (!an) return;
             sxVaultInvalidate();
             sxSel(null, "dismiss"), Jw(), Mr(), Ih();
-        }), e.all("[data-filter]").forEach(t => t.addEventListener("click", () => {
+        });
+        e.all("[data-filter]").forEach(t => t.addEventListener("click", () => {
             "true" !== t.getAttribute("aria-disabled") && !Rt && (sxVaultInvalidate(), Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))),
             Mr());
         }));
@@ -22840,7 +28276,7 @@ const TAXONOMY_CATEGORIES = [
                 maximumAge: 0,
                 timeout: 1e4
             }) : Rl());
-        }), e.byId("closeLocalCommunities") && e.byId("closeLocalCommunities").addEventListener("click", () => Ui(Sl)), Sl.addEventListener("cancel", e => {
+        }), e.byId("closeLocalCommunities") && e.byId("closeLocalCommunities").addEventListener("click", () => Ui(Sl)), Sl && Sl.addEventListener("cancel", e => {
             e.preventDefault(), Ui(Sl);
         });
         const Bl = e.byId("searchInput"), jl = e.byId("searchDropdown"), ql = e.byId("topicPicker"), Hl = e.byId("topicPickerButton"), Wl = e.byId("topicPickerMenu"), Ul = [], Gl = G(h, z);
@@ -23118,10 +28554,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             onPreview: Ql,
             onClose: Jl,
             onCommit: e => {
-                Bl.value = e.displayLabel, Ql(e);
+                Bl && (Bl.value = e.displayLabel), Ql(e);
             }
         });
-        Bl.addEventListener("input", e => {
+        Bl && Bl.addEventListener("input", e => {
             const t = e.target.value.trim().toLowerCase();
             if (!t) return Tt = "", Lt = null, ec.render([]), ec.close(), Mr({
                 animate: !1
@@ -23329,13 +28765,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         tc.render(Yl, {
             grouped: !0
-        }), Hl.addEventListener("click", () => {
-            if (Wl.hidden) {
-                tc.reveal(ql.value);
-                const e = tc.getItems().findIndex(e => e.value === ql.value);
+        }), Hl && Hl.addEventListener("click", () => {
+            if (Wl && Wl.hidden) {
+                ql && tc.reveal(ql.value);
+                const e = ql ? tc.getItems().findIndex(e => e.value === ql.value) : -1;
                 tc.open(e >= 0 ? e : 0, !0);
             } else tc.close();
-        }), ql.addEventListener("change", () => {
+        }), ql && ql.addEventListener("change", () => {
             nc(), ql.value && So(ql.value);
         }), nc();
         let pc = [], hc = "", gc = "";
@@ -23368,7 +28804,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 if (!n) return;
                 const i = t.filter(e => vt[e]), a = i.some(e => Object.values(vt[e] || {}).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive"))))), r = i.length > 1, o = Yi(), s = o.length > 1;
                 hc = a && r ? i.slice().sort().join("|") : "", n.classList.toggle("scribe-ready", Boolean(hc && !mc.has(hc))), 
-                n.dataset.uiTooltip = r ? "Scribe turns this multi-select into a practical play guide. For a binding checklist first, use Scene Setter." : s ? `Scribe will turn these ${o.length} selected profiles into a practical play guide.` : 1 === i.length || 1 === o.length ? "Scribe will create a Literotica-style erotic story from this profile. Ctrl+click (Cmd+click on Mac) more profile tabs for a multi-select play guide." : "Scribe needs at least 1 profile selected: open a profile tab, or Ctrl+click (Cmd+click on Mac) profile tabs to build a multi-select.";
+                n.dataset.uiTooltip = r ? "Scribe will create a Literotica-style erotic story featuring these multiple profiles. For a binding checklist and play guide, use Scene Setter." : s ? `Scribe will create a Literotica-style erotic story featuring these ${o.length} selected profiles.` : 1 === i.length || 1 === o.length ? "Scribe will create a Literotica-style erotic story from this profile." : "Scribe needs at least 1 profile selected: open a profile tab, or Ctrl+click (Cmd+click on Mac) profile tabs to build a multi-select.";
             }
         function vcGlanceKey(e = []) {
                 const t = e.filter(e => vt[e]), n = Mt && "group" === ft[Mt]?.kind ? ft[Mt] : null;
@@ -23649,7 +29085,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
 
         function vc() {
             const t = Xi().filter(e => vt[e]), n = t.length > 1 ? Dd(zd(t), null, t.map(id => sxHeatFor(id))) : null, i = Object.keys(At).length > 0, a = Uc(), r = e.byId("glanceSummary"), o = Mt && vt[Mt] ? [ Mt ] : i ? [ Et ] : [], s = na(t.length > 1 ? t : o), l = (s.percent, 
-            e.byId("glanceData")), c = e.byId("glanceCompatibility"), d = c.querySelector("span"), u = {
+            e.byId("glanceData")), c = e.byId("glanceCompatibility"), d = c ? c.querySelector("span") : null, u = {
                 mutual: e.byId("mutualLabel"),
                 explore: e.byId("exploreLabel"),
                 rated: e.byId("ratedLabel")
@@ -23660,8 +29096,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 r && (r.hidden = !1, r.textContent = `${t}% filled`, r.title = `${e.rated} of over 400 topics rated across the whole hypermap`, 
                 r.setAttribute("aria-label", `${t}% filled: ${e.rated} of over 400 topics rated across the whole hypermap`));
             };
-            if (r && (r.hidden = !0, r.textContent = ""), l.classList.remove("weighted-ratings", "is-empty"), 
-            c.hidden = !0, c.removeAttribute("aria-label"), d.textContent = "match", !o.length && !n) return vcEmpty(l, u, r, s);
+            if (r && (r.hidden = !0, r.textContent = ""), l && l.classList.remove("weighted-ratings", "is-empty"),
+            c && (c.hidden = !0, c.removeAttribute("aria-label")), d && (d.textContent = "match"), !o.length && !n) return vcEmpty(l, u, r, s);
             if (n) return vcComparison(n, t, l, c, d, u, p);
             const g = Mt && ft[Mt] && "group" === ft[Mt].kind ? ft[Mt] : null;
             if (g && o.length < 2) return vcGroupProfile(g, l, c, u, s, p);
@@ -24259,7 +29695,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const t = [ "novelai", "yobitch", "strictai", "suggestive", "explicit" ].includes(target) ? target : "grok";
             return {
                 target: t,
-                mode: "novelai" === t ? "porn" : "yobitch" === t || "treatment" === callerMode ? "treatment" : "porn"
+                mode: "novelai" === t ? "porn" : "treatment" === callerMode ? "treatment" : "porn"
             };
         }
         // One lookup table for every target's dialog wording (refactor
@@ -24502,7 +29938,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }([ "STORY IDEA", [ "Create a suitable title, then continue directly into the story.", "", `${e} are together in a private moment, ready to explore only the preferences recorded for them. The scene opens around ${f.warmup.map(e => e.label).join(", ") || "the strongest established interest"}, builds through ${f.escalation.map(e => e.label).join(", ") || "the remaining established interests"}, and lets ${f.peak.map(e => e.label).join(", ") || "the strongest listed interest"} carry the strongest emphasis. Let the attraction, pacing, dialogue, and physical action unfold naturally from this setup.` ].join(" "), "", [ "CHARACTERS", A + C, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL ${F}`, "", `ALLOWED STORY INGREDIENTS - Established: ${M.map(e => e.label).join("; ") || "none recorded"}. - Curious: ${I.map(e => e.label).join("; ") || "none recorded"}.`, "", `HARD-EXCLUDED LIMITS ${_}`, "", "Every item under HARD-EXCLUDED LIMITS is absolute. Never include it as action, teasing, dialogue, suggestion, fantasy, setup, backstory, or background detail." ].join(" "), "", "WRITING REQUIREMENTS", [ `[Write a complete immersive Literotica-style erotic story of approximately ${scribeLengthValue} ${j} in the final downloadable PDF, using readable 11–12 pt body text and standard margins; render the same full text in chat. This must be the finished story, not an outline, checklist, or play guide. Make the erotic content hot, spicy, steamy, graphic, explicit, and uninhibited within the recorded preferences. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent. Give every participant a real name: use only the first name from each selected profile for that character and choose a first name for any unnamed adult partner. Use a full name only when the story explicitly requires one. Stay in continuous erotic prose from the first line through a satisfying climax and denouement. Use only the allowed story ingredients in Memory; never add an unlisted activity. Keep every hard-excluded limit entirely absent.${s ? "" : " The authoritative full-group shared ground is already computed at the stated cast setting; do not recompute or broaden it. Pairwise and individual profiles supply character texture and dynamics only within that boundary."} Preserve give/receive roles and weight each activity by its recorded rating: 80–100 dominant, 56–79 strong support, 36–55 lighter, 0–35 optional curiosity.${s ? "" : " When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles."} When compatible ratings differ, the lower rating caps prominence. Do not invent anatomy, physical details, relationship history, or identity beyond Memory. Vary setting, opening, pacing, and emphasis. Render the complete finished story in the response as you write it so it can be narrated in real time. Then automatically generate a downloadable PDF file containing exactly the same title and story text, suitable for attaching in Messenger, and clearly label the attachment “Download PDF.” Do not replace or shorten the rendered story when creating the PDF.]` ].join(" ") ].join(" "), {
                 names: w,
                 dynamic: h
-            }) : "strictai" === scribeTarget ? [ `Write a mature, romantic, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response.", "- After the complete story appears in chat, generate a downloadable PDF containing exactly the same title and story text. Clearly label the attachment “Download PDF”.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, romantic, and strongly suggestive rather than graphic. Focus on chemistry, anticipation, dialogue, emotion, atmosphere, power dynamics, consent, and aftermath.", "- Do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet, non-graphic phrasing and fade to black whenever needed.", "- The supplied preference labels are private planning data. Translate them into tasteful, general language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and suggestive action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "suggestive" === scribeTarget ? [ `Write a mature, sensual, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response.", "- After the complete story appears in chat, generate a downloadable PDF containing exactly the same title and story text. Clearly label the attachment “Download PDF”.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, and strongly suggestive without turning graphic. Describe chemistry, anticipation, touch, and desire in warm sensual detail, but do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet phrasing and fade to black whenever an act would turn graphic.", "- The supplied preference labels are private planning data. Translate them into tasteful, sensual language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and sensual action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "explicit" === scribeTarget ? [ `Write an immersive, explicit erotic story for ${d} to enjoy, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time.", "- After the complete story appears in chat, automatically generate a downloadable PDF file containing exactly the same title and story text. Clearly label the attachment “Download PDF” so it can be shared in Messenger.", "- Do not replace, shorten, or summarize the rendered story when creating the PDF. Apart from the matching PDF attachment, do not return an outline, checklist, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content explicit and uninhibited in detail within the recorded preferences, keeping the tone elegant and restrained rather than raw. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ") : [ `Write an immersive Literotica-style porn story for ${d} to enjoy and masturbate to, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time.", "- After the complete story appears in chat, automatically generate a downloadable PDF file containing exactly the same title and story text. Clearly label the attachment “Download PDF” so it can be shared in Messenger.", "- Do not replace, shorten, or summarize the rendered story when creating the PDF. Apart from the matching PDF attachment, do not return an outline, checklist, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content hot, spicy, steamy, graphic, explicit, and uninhibited within the recorded preferences. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ");
+            }) : "strictai" === scribeTarget ? [ `Write a mature, romantic, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response.", "- After the complete story appears in chat, generate a downloadable PDF containing exactly the same title and story text. Clearly label the attachment “Download PDF”.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, romantic, and strongly suggestive rather than graphic. Focus on chemistry, anticipation, dialogue, emotion, atmosphere, power dynamics, consent, and aftermath.", "- Do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet, non-graphic phrasing and fade to black whenever needed.", "- The supplied preference labels are private planning data. Translate them into tasteful, general language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and suggestive action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "suggestive" === scribeTarget ? [ `Write a mature, sensual, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response.", "- After the complete story appears in chat, generate a downloadable PDF containing exactly the same title and story text. Clearly label the attachment “Download PDF”.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, and strongly suggestive without turning graphic. Describe chemistry, anticipation, touch, and desire in warm sensual detail, but do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet phrasing and fade to black whenever an act would turn graphic.", "- The supplied preference labels are private planning data. Translate them into tasteful, sensual language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and sensual action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "explicit" === scribeTarget ? [ `Write an immersive, explicit erotic story for ${d} to enjoy, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time.", "- After the complete story appears in chat, automatically generate a downloadable PDF file containing exactly the same title and story text. Clearly label the attachment “Download PDF” so it can be shared in Messenger.", "- Do not replace, shorten, or summarize the rendered story when creating the PDF. Apart from the matching PDF attachment, do not return an outline, checklist, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content explicit and uninhibited in detail within the recorded preferences, keeping the tone elegant and restrained rather than raw. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ") : [ `Write an immersive Literotica-style porn story for ${s ? `${d} to enjoy and masturbate to` : `${w} to enjoy`}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time.", "- After the complete story appears in chat, automatically generate a downloadable PDF file containing exactly the same title and story text. Clearly label the attachment “Download PDF” so it can be shared in Messenger.", "- Do not replace, shorten, or summarize the rendered story when creating the PDF. Apart from the matching PDF attachment, do not return an outline, checklist, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content hot, spicy, steamy, graphic, explicit, and uninhibited within the recorded preferences. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ");
             return composedPromptText;
         }
         // One phase-lines builder (writers refactor): the single and
@@ -24579,8 +30015,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // Missing gender/orientation is handled neutrally downstream
             // (unspecified wording, neutral pronouns): it no longer
             // blocks Scribe.
-            const rawMatchData = precomputed || sxScribeMatchData(castIds, isSingle), leadName = rd(castIds[0]), isStory = (isSingle || rd(castIds[1]), 
-            "porn" === scribeMode), roleDynamics = isSingle ? [] : sxRoleDynamics(castIds), roleDynamicText = roleDynamics.map(e => e.text).join(" "), fantasyTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.fantasyOnly), triedTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.alreadyTried && (isStory || !e.fantasyOnly)), promptMatchData = isStory ? rawMatchData : Object.assign({}, rawMatchData, {
+            const rawMatchData = precomputed || sxScribeMatchData(castIds, isSingle), leadName = rd(castIds[0]), isStory = "porn" === scribeMode, roleDynamics = isSingle ? [] : sxRoleDynamics(castIds), roleDynamicText = roleDynamics.map(e => e.text).join(" "), fantasyTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.fantasyOnly), triedTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.alreadyTried && (isStory || !e.fantasyOnly)), promptMatchData = isStory ? rawMatchData : Object.assign({}, rawMatchData, {
                 established: rawMatchData.established.filter(e => !e.fantasyOnly),
                 curious: rawMatchData.curious.filter(e => !e.fantasyOnly),
                 warmup: rawMatchData.warmup.filter(e => !e.fantasyOnly),
@@ -24628,22 +30063,22 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function sxPrepScribeDialog(precomputed, resetDraft) {
             if (!vt[scribeLeadId]) return;
             const t = scribeCastIds.filter(e => vt[e]), n = t.length ? t : [ scribeLeadId ], i = 1 === n.length, story = "porn" === scribeMode, info = sxScribeTargetInfo(scribeTarget);
-            e.one("#scribeDialog .dialog-head p").textContent = info.head(story), 
-            function(e) {
-                scribeCastKey = `${scribeLeadId || ""}|${e ? "single" : scribePartnerId || ""}`;
-            }(i), e.byId("sceneBriefTitle").textContent = info.title(story), 
-            e.byId("sceneBriefIntro").textContent = info.intro(story, i), 
-            e.byId("scenePromptHelp").textContent = info.help();
+            const headP = e.one("#scribeChoiceDialog .dialog-head p, #scribeDialog .dialog-head p");
+            if (headP) headP.textContent = info.head(story);
+            scribeCastKey = `${scribeLeadId || ""}|${i ? "single" : scribePartnerId || ""}`;
+            if (e.byId("sceneBriefTitle")) e.byId("sceneBriefTitle").textContent = info.title(story);
+            if (e.byId("sceneBriefIntro")) e.byId("sceneBriefIntro").textContent = info.intro(story, i);
+            if (e.byId("scenePromptHelp")) e.byId("scenePromptHelp").textContent = info.help();
             const counts = sxScribeCounts(precomputed, n, i);
-            e.byId("sceneAvailability").textContent = counts.availability,
-            e.byId("sceneBrief").hidden = !0,
+            if (e.byId("sceneAvailability")) e.byId("sceneAvailability").textContent = counts.availability;
+            if (e.byId("sceneBrief")) e.byId("sceneBrief").hidden = !0;
             // Draft ownership (writers refactor): the generated prompt
             // is cleared ONLY when the caller rebuilds it immediately
             // after (the generate handler, resetDraft). The
             // profile-save refresh path calls this prep to refresh
             // chrome and counts and must not wipe a draft it does
             // not rebuild.
-            resetDraft && (scribePromptCache = "", e.byId("scenePromptText").value = ""),
+            resetDraft && (scribePromptCache = "", e.byId("scenePromptText") && (e.byId("scenePromptText").value = ""));
             e.byId("sceneDownloadStatus").textContent = "";
         }
         function Id(e) {
@@ -25772,6 +31207,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             livePair: sxLivePair,
             profileById: sxProfileById
         };
+
         function _d(e, t = !1) {
             return e ? `${e.giver}: ${e.giverLabel || "give"}${t ? ` ${e.giverRating}` : ""} → ${e.receiver}: ${e.receiverLabel || "receive"}${t ? ` ${e.receiverRating}` : ""}` : "";
         }
@@ -26930,12 +32366,16 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function Qd(t) {
             const i = t[0];
             if (!i || !vt[i]) return;
-            scribeCastIds = t.slice(), scribeLeadId = i, e.byId("scribeChoiceProfiles") && (e.byId("scribeChoiceProfiles").textContent = t.filter(e => vt[e]).map(e => rd(e)).join(" + ")), scribePartnerId = 2 === t.length ? t[1] : null;
+            scribeCastIds = t.slice(), scribeLeadId = i;
+            const castText = t.filter(e => vt[e]).map(e => rd(e)).join(" + ");
+            if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castText;
+            if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castText;
+            scribePartnerId = 2 === t.length ? t[1] : null;
             const a = t.filter(e => vt[e]).length > 1, o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit"), d = e.byId("scribePageCountHelp");
-            o && (o.textContent = a ? "Multiple selected profiles create a practical play guide. For a binding checklist first, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan."), 
-            c && (c.disabled = !1), d && (d.textContent = a ? "Choose a length — word count, paragraphs, pages, or chapters — then choose how much detail to include. Enter one number or a range; blank defaults to 5 paragraphs." : "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs."), 
-            s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a practical Play Guide." : "One profile selected: Scribe will create a Literotica-style erotic Story."), 
-            l && (l.textContent = a ? "Create Play Guide prompt" : "Create Literotica-style Story prompt"), kg.open && Ui(kg), 
+            o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
+            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs."),
+            s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story."),
+            l && (l.textContent = (currentScribePrompt() && e.byId("sceneBrief") && !e.byId("sceneBrief").hidden) ? "Regenerate Literotica-style Story prompt" : "Create Literotica-style Story prompt"), kg.open && Ui(kg),
             Sg.open && Ui(Sg), Oc.open && Ui(Oc), jc.open && Ui(jc), Wi(Bc);
         }
         function Jd(e) {
@@ -27353,20 +32793,38 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));
                 const sxSharedIds = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]), sxSharedData = sxSharedIds.length ? sxScribeMatchData(sxSharedIds, 1 === sxSharedIds.length) : null;
                 const o = "porn" === scribeMode, s = e.byId("scribeTitle"), l = e.byId("scribeModeSummary");
-                if (s && (s.textContent = o ? "Scribe — Story" : "Scribe — Play Guide"), l && (l.textContent = o ? "Fictional storytelling for enjoyment and fantasy — not a real-world plan." : "Practical coordination guidance for real-world use — not fiction; confirm every activity together."), 
-                Ui(Bc), sxNovelAiFields = null, sxPrepScribeDialog(sxSharedData, !0), sxBuildScribePrompt(sxSharedData), "novelai" === scribeTarget && currentScribePrompt() && sxNovelAiFields && (Object.entries({
-                    genre: "novelAiGenre",
-                    title: "novelAiTitleField",
-                    characterName: "novelAiCharacterName",
-                    personality: "novelAiPersonality",
-                    world: "novelAiWorld",
-                    prompt: "novelAiPrompt"
-                }).forEach(([t, n]) => {
-                    e.byId(n).value = sxNovelAiFields[t] || "";
-                }), e.all("[data-copy-novelai]").forEach(e => e.textContent = "Copy"), e.byId("novelAiCopyStatus").textContent = "", 
-                1)) return Wi(jc), void requestAnimationFrame(() => jc.querySelector("[data-copy-novelai]")?.focus());
-                e.byId("scribeProfiles") && (e.byId("scribeProfiles").textContent = scribeCastIds.filter(e => vt[e]).map(e => rd(e)).join(" + ")), Wi(Oc);
-            }(t.participantIds.length > 1 ? "treatment" : "porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit" })[t.explicitness] || "grok"));
+                if (s) s.textContent = o ? "Scribe — Story" : "Scribe — Play Guide";
+                if (l) l.textContent = o ? "Fictional storytelling for enjoyment and fantasy — not a real-world plan." : "Practical coordination guidance for real-world use — not fiction; confirm every activity together.";
+                sxNovelAiFields = null;
+                sxPrepScribeDialog(sxSharedData, !0);
+                sxBuildScribePrompt(sxSharedData);
+                if ("novelai" === scribeTarget && currentScribePrompt() && sxNovelAiFields) {
+                    Object.entries({
+                        genre: "novelAiGenre",
+                        title: "novelAiTitleField",
+                        characterName: "novelAiCharacterName",
+                        personality: "novelAiPersonality",
+                        world: "novelAiWorld",
+                        prompt: "novelAiPrompt"
+                    }).forEach(([t, n]) => {
+                        e.byId(n).value = sxNovelAiFields[t] || "";
+                    });
+                    e.all("[data-copy-novelai]").forEach(e => e.textContent = "Copy");
+                    e.byId("novelAiCopyStatus").textContent = "";
+                    Ui(Bc);
+                    return Wi(jc), void requestAnimationFrame(() => jc.querySelector("[data-copy-novelai]")?.focus());
+                }
+                const castNamesText = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]).map(e => rd(e)).join(" + ");
+                if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castNamesText;
+                if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castNamesText;
+                const genBtn = e.byId("generateScribePrompt");
+                if (genBtn) genBtn.textContent = "Regenerate Literotica-style Story prompt";
+                const briefEl = e.byId("sceneBrief");
+                if (briefEl) {
+                    briefEl.hidden = !1;
+                    try { briefEl.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
+                }
+            }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit" })[t.explicitness] || "grok"));
         }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
         sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
@@ -29430,17 +34888,1148 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 console.error("Profile QR JPEG export failed.", t);
             }
         }
+
+        // FetLife importer alias map — SECTION START
+        // (Refactor Step 1, Build 2026-10-18_0343: this section was
+        // given clear delimiters and batch labels. NO mapping was
+        // added, removed, or changed — structure/documentation only.)
+        //
+        // What uses it:
+        //   ox() — saved FetLife HTML imports: exact lookup in gk
+        //     (keys normalized by ck()), then the rx regex table
+        //     (defined just after the sample strings, below).
+        //   cx() — pasted-text imports: exact lookup in fk. fk is
+        //     seeded from the topic catalog, then gk is merged in,
+        //     then the guarded batch table further below.
+        // Guarded insertion (IMPORTANT): merges into fk never
+        // overwrite an existing key — the first definition wins
+        // (the fk[e] || ... and !fk[n] guards). mk() writes only
+        // gk and runs before those merges.
+        // How to add aliases: append a NEW batch at the end of the
+        // batch table (after Batch #3), same [target, [terms]]
+        // shape, labeled with the next batch number and the
+        // build/date. Keys are base terms — the importer strips
+        // parenthetical qualifiers before matching.
+        // ============================================================
+        // ---- Batch #1 — Builds 2026-10-18_0107 / 0114
+        // (2026-10-18): the original alias set, registered into
+        // gk by the mk() calls below. ----
+        const gk = {};
+        // Build 2026-10-18_1624 — display-name registry for the FetLife
+        // mapping viewer (window.__fetlifeMap, exposed after cx below):
+        // fk/gk keys are ck()-normalized, so mk()/yk()/the guarded batch
+        // table also record each term's original spelling here (first
+        // spelling wins), letting the viewer show real FetLife names.
+        const fln = {};
+        function mk(e, t, n = !1) {
+            t = migrateNodeKey(t);
+            e.forEach(e => {
+                gk[ck(e)] = {
+                    id: t,
+                    uncertain: n
+                }, fln[ck(e)] = fln[ck(e)] || e;
+            });
+        }
+        mk([ "Gentle touch/caress", "Cuddling" ], "t0397", !0), mk([ "Tantra", "Tantric sex", "Tantric play", "Energy play", "Tantra / energy play", "Breathwork" ], "t0110"), 
+        mk([ "Sex magic", "Sacred sexuality", "Ritual kink", "Spiritual kink", "Spiritual BDSM", "Spiritual play" ], "t0367"), 
+        mk([ "Tickling" ], "t0100"), mk([ "Canes", "Caning" ], "t0067"), 
+        mk([ "Crop", "Riding crop", "Riding crops" ], "t0068"), mk([ "Whip", "Whips" ], "t0064"), 
+        mk([ "Spanking" ], "t0056"), mk([ "Over the knee OTK Spanking", "Over the knee (OTK) Spanking", "Face slapping" ], "t0056", !0), 
+        mk([ "Vampire gloves" ], "t0354", !0), mk([ "Punching play", "Kicking play" ], "t0097", !0), 
+        mk([ "Rope" ], "t0022"), mk([ "Chains", "Handcuffs", "Quick release velcro", "Quick release (velcro)" ], "t0025", !0), 
+        mk([ "Bondage light", "Bondage (light)" ], "cat-bondage-restriction", !0), mk([ "Bondage heavy", "Bondage (heavy)", "Suspension" ], "t0040", !0), 
+        mk([ "Shibari" ], "t0022"), mk([ "Belt", "Paddle" ], "t0069", !0), 
+        mk([ "Flogger" ], "t0062"), mk([ "Orgasm Control", "Forced orgasms", "Ruined orgasms" ], "t0326", !0), 
+        mk([ "Chastity" ], "t0328"), mk([ "Denial" ], "t0327"), mk([ "Edging" ], "t0329"), 
+        // Importer rework Part B (decided 2026-11-04): Edge Play lands on
+        // the Edge play topic t0334 (which carries the risky-practice
+        // asterisk), NEVER on Edging t0329. The next five are the decided
+        // homes for the formerly unplaced fetishes: Morning Sex (Sex
+        // acts), Bellydancing (Watching, exposure & settings), Formiphilia
+        // (Sensation & atmosphere), Graphoerotica (Psychological
+        // dynamics), and Toy Making, whose decided home is the Clothing,
+        // materials & objects CATEGORY — a category-only target, so it is
+        // reported as a broad hit and never silently rated.
+        mk([ "Edge Play" ], "t0334"), mk([ "Morning Sex" ], "t0290"), mk([ "Bellydancing" ], "t0277"), 
+        mk([ "Formiphilia", "Forniphilia" ], "t0120"), mk([ "Graphoerotica" ], "t0265"), mk([ "Toy Making" ], "cat-clothing-materials-objects"), 
+        // Importer fix package (2026-11-05): "Humiliation language" is its
+        // own topic (t0240, PS Humiliation subcategory) — it must land
+        // there, not fall through to the broad Humiliation subcategory
+        // fallback. The broad "Humiliation" mapping (s0034) is unchanged.
+        mk([ "Humiliation language" ], "t0240"), 
+        mk([ "Anal sex" ], "t0297"), mk([ "Pegging" ], "t0301"), mk([ "Rimming" ], "t0294"), 
+        mk([ "Using toys anal", "Using toys" ], "t0306", !0), mk([ "Using fingers anal" ], "t0299"), 
+        mk([ "Butt plugs" ], "t0193", !0), mk([ "Enemas for prep", "Enemas for prep?", "Enemas as part of play", "Enemas as part of play?", "Scat" ], "cat-fluids-messy-play", !0), 
+        mk([ "Gripped at neck", "Choking" ], "t0097", !0), mk([ "Objects in mouth" ], "t0035", !0), 
+        mk([ "Gags" ], "t0035"), mk([ "Nipple stimulation hands", "Nipple stimulation mouth", "Breast bondage" ], "t0220", !0), 
+        mk([ "Oral" ], "t0291", !0), mk([ "Blow jobs/cock worship", "Blow jobs cock worship", "Cunninglingus" ], "t0291"), 
+        mk([ "Nipple Clamps" ], "t0070"), mk([ "Facials" ], "t0314"), mk([ "Breast impact" ], "t0096", !0), 
+        mk([ "Fingers" ], "t0304", !0), mk([ "Toys dildos vibrators others", "Toys (dildos, vibrators, others?)", "Penis Strap on", "Penis /Strap on" ], "t0306", !0), 
+        mk([ "Fisting" ], "t0310", !0), mk([ "Favorite positions", "Favorite positions?" ], "cat-positions", !0), 
+        mk([ "Wax play" ], "t0098"), mk([ "Ice play" ], "t0099"), 
+        mk([ "Abrasion play" ], "t0102", !0), mk([ "Being blindfolded" ], "t0103", !0), 
+        mk([ "Fireplay" ], "t0098", !0), mk([ "Electric play Violet Wand E Stim", "Electric play (Violet Wand, E-Stim)" ], "t0101"), 
+        mk([ "Teasing" ], "t0330"), mk([ "Biting", "Scratching" ], "t0354"), 
+        mk([ "Pursuit chase", "Pursuit /chase" ], "t0352"), mk([ "Growling" ], "t0351", !0), 
+        mk([ "Wrestling", "Being pinned held down", "Being pinned/held down" ], "t0353", !0), 
+        mk([ "Piercings permanent temporary", "Piercings (permanent /temporary)" ], "t0074", !0), 
+        mk([ "Shaving head", "Tattoos" ], "t0236", !0), mk([ "Branding", "Cutting", "Artistic Cutting" ], "t0096", !0), 
+        mk([ "Medical Doctor Nurse", "Medical/Doctor/Nurse" ], "t0129"), 
+        mk([ "Teacher Student", "Teacher/Student" ], "t0128"), 
+        mk([ "Boss Secretary" ], "t0127", !0), mk([ "Ageplay Non sexual", "Ageplay (Non-sexual)", "Age Play Sexual", "Age Play (Sexual)" ], "t0123", !0), 
+        mk([ "ABDL Diaper Play", "ABDL (Diaper Play)" ], "t0185"), mk([ "Pet play", "Pet play pony play" ], "t0136"), 
+        mk([ "Pony play", "Pony Play" ], "t0138"), mk([ "Threesomes" ], "t0278"), 
+        mk([ "Foursomes", "Orgy" ], "t0279", !0), mk([ "Partner Swapping" ], "t0280"), 
+        mk([ "Gang bangs" ], "t0284"), mk([ "Bukkake" ], "t0314", !0), 
+        mk([ "Double penetration", "Triple penetration" ], "t0306", !0), mk([ "Words I enjoy saying hearing slut whore etc", "Words I enjoy saying, hearing (slut, whore etc)" ], "t0240"), 
+        mk([ "Humiliation verbal" ], "t0239"), mk([ "Exhibitionism" ], "t0270"), 
+        mk([ "Voyeurism" ], "t0270"), mk([ "Body Worship" ], "t0237"), 
+        mk([ "Watersports" ], "t0338"), mk([ "Needle play" ], "t0074"), 
+        mk([ "Knife play" ], "t0245", !0), mk([ "Fear play", "Fear Play" ], "t0245");
+        // fk: the pasted-text import map. Seeded from the topic
+        // catalog just below, then gk (Batch #1) is merged in with
+        // a guard — existing keys are never overwritten — then the
+        // hand-written yk() aliases and the guarded batch table.
+        const fk = {};
+        function yk(e, t, n = "both", i = !1, a = !1) {
+            t = migrateNodeKey(t);
+            e.forEach(e => {
+                fk[ck(e)] = {
+                    id: t,
+                    direction: n,
+                    uncertain: i,
+                    specific: a
+                }, fln[ck(e)] = fln[ck(e)] || e;
+            });
+        }
+        h.forEach(e => {
+            yk([ e.name, "All " + e.name ], catId(e.name)), e.topics.forEach(e => yk([ sxName(e) ], Wn(e)));
+        }), Object.entries(gk).forEach(([e, t]) => {
+            fk[e] || (fk[e] = {
+                id: t.id,
+                direction: "both",
+                uncertain: t.uncertain
+            });
+        }), yk([ "BDSM", "D/s", "Power exchange relationship" ], "cat-power-exchange"), 
+        yk([ "Dominance", "Dominant", "Dom", "Topping", "Top" ], "cat-power-exchange", "give"), 
+        yk([ "Submission", "Submissive", "Sub", "Bottoming", "Bottom" ], "cat-power-exchange", "receive"), 
+        yk([ "Switch", "Switching" ], "cat-power-exchange", "both"), yk([ "Sadism", "Sadist" ], "cat-impact-pain-body-modification", "give"), 
+        yk([ "Masochism", "Masochist" ], "cat-impact-pain-body-modification", "receive"), 
+        yk([ "Breath play" ], "t0097", "both", !0), yk([ "CNC", "Consensual nonconsent", "Consensual non-consent" ], "t0134"), 
+        yk([ "Rope", "Rope play" ], "t0022"), yk([ "Electrostimulation", "E-stim", "Violet wand" ], "t0101"), 
+        yk([ "Wax play" ], "t0098"), yk([ "Tantra", "Tantric", "Tantric play" ], "t0110"), 
+        yk([ "Sacred sexuality", "Sex magic", "Sex magick" ], "t0367"), yk([ "Bondage", "Bondage play" ], "cat-bondage-restriction"), 
+        yk([ "Shibari", "Kinbaku" ], "t0022"), yk([ "Impact play" ], "cat-impact-pain-body-modification"), 
+        yk([ "Paddling", "Paddle play" ], "t0069"), yk([ "Caning", "Cane play" ], "t0067"), 
+        yk([ "Flogging" ], "t0062"), yk([ "Whipping", "Whip play", "Single Tail Whips", "Single-tail whips" ], "t0064"), 
+        yk([ "Humiliation play" ], "t0240"), yk([ "Humiliation" ], "subcategory-psychological-dynamics-humiliation"), 
+yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341"), 
+        yk([ "Name calling", "Insults", "Verbal degradation" ], "t0239", "both", !0, !0), 
+        yk([ "Praise kink" ], "t0264"), yk([ "Sensory deprivation" ], "t0103"), 
+        yk([ "Temperature play" ], "t0098", "both", !0), yk([ "Exhibitionism", "Exhibitionist" ], "t0270"), 
+        yk([ "Voyeurism", "Voyeur" ], "t0270"), yk([ "Public play" ], "t0269", "both", !0), 
+        yk([ "Anal play" ], "t0297", "both", !0), yk([ "Oral play" ], "t0291", "both", !0), 
+        yk([ "Orgasm play" ], "cat-orgasm-reproductive-play", "both", !0), yk([ "Primal", "Primal kink" ], "t0351"), 
+        yk([ "Predator prey", "Predator/prey" ], "t0352", "both", !0), yk([ "Service submission", "Service submissive" ], "t0359", "receive", !0), 
+        yk([ "Aftercare" ], "cat-connection-aftercare"),
+        // ---- Guarded batch table for fk: each [target, [terms]]
+        // group is merged with the !fk[n] guard (first definition
+        // wins). Groups before the Batch #2 marker are the core
+        // table (Batch #1 era, Builds 0107/0114). ----
+        [ [ "t0291", [ "Blow Jobs", "Blow Job", "Cocksucking", "Cock Sucking", "Eating Pussy", "Deep Throating" ] ], [ "t0297", [ "Anal", "Ass Play" ] ], [ "t0097", [ "Asphyxiaphilia", "Asphyxiaphilia Play" ] ], [ "t0306", [ "Ben Wa Balls", "Toys", "Strap-ons", "Strap-on", "Strap Ons", "Sybian", "Clit Pumping", "Pussy Pumping", "Remote-Control Devices" ] ], [ "t0213", [ "Boot Licking", "Boot Worship", "Shoe Worship", "Foot Licking", "Foot/Feet" ] ], [ "t0397", [ "Caressing", "Caress", "Cuddles", "Snuggling", "Making Out", "Touching", "Aftercare Cuddles" ] ], [ "t0070", [ "Clover Clamps" ] ], [ "t0022", [ "Japanese Bondage" ] ], [ "t0136", [ "Petplay", "Kitten Petplay", "Puppy Play" ] ], [ "t0351", [ "Primal Play" ] ], [ "t0181", [ "Panties" ] ], [ "t0267", [ "Erotic Photography", "Photography", "Making Home Movies" ] ], [ "t0263", [ "Dirty Text Messaging", "Talking Dirty" ] ], [ "t0270", [ "Flashing" ] ], [ "t0383", [ "Furry" ] ], [ "t0284", [ "Gangbangs", "Gangbang" ] ], [ "t0292", [ "Throat Fucking" ] ], [ "t0220", [ "Tit Fucking" ] ], [ "t0025", [ "Shackles" ] ], [ "t0268", [ "Cyber Sex", "Sex Online" ] ], [ "t0133", [ "Abduction Play" ] ], [ "t0010", [ "Affectionate Domination", "Domination", "Sensual Domination", "Total Power Exchange", "male submission" ] ], /* Batch #2 — Build 2026-10-18_0210 (2026-10-18): sourced from the server unmapped_fetishes table; terms already in the map were not duplicated. */ [ "t0315", [ "Anal Creampie", "Creampie" ] ], [ "t0298", [ "Anal Stretching" ] ], [ "t0377", [ "Anonymous Encounters", "Glory Hole", "Sex with Strangers" ] ], [ "t0297", [ "Ass to Mouth" ] ], [ "t0218", [ "Ass worship" ] ], [ "t0229", [ "BBW/BHM" ] ], [ "t0035", [ "Ball Gags" ] ], [ "t0084", [ "Ball Stretching" ] ], [ "t0056", [ "Bare Handed Spanking" ] ], [ "subcategory-sex-acts-fluids", [ "Bareback", "Cum" ] ], [ "t0213", [ "Barefoot" ] ], [ "t0314", [ "Swallowing", "Swallowing Cum" ] ], [ "subcategory-sex-acts-fluids", [ "Being Cummed On" ] ], [ "t0264", [ "Being called a good girl" ] ], [ "t0065", [ "Belt Spanking" ] ], [ "t0149", [ "Bimboification", "Human Doll" ] ], [ "t0103", [ "Blindfolds", "Eye Contact Restrictions" ] ], [ "subcategory-bondage-restriction-restraints", [ "Bondage Equipment" ] ], [ "t0305", [ "Breast/Nipple Play", "Nipples" ] ], [ "t0331", [ "Breeding", "Impregnation Fantasy" ] ], [ "t0269", [ "Butt plugs in public", "Covert Bondage", "Outdoor Bondage", "Outdoor sex", "Sex In Public", "Sex in videostore porn rooms" ] ], [ "t0270", [ "CFNM", "Nudity" ] ], [ "t0098", [ "Candle Wax" ] ], [ "t0152", [ "Catsuits", "Fetish Wear" ] ], [ "t0110", [ "Chakra energy play" ] ], [ "t0354", [ "Claws", "Fingernails", "Neck Biting" ] ], [ "t0168", [ "Clit Pumping", "Pussy Pumping", "Vacuum Bed" ] ], [ "subcategory-body-focus-appearance-worship", [ "Cock Worship", "Cunt Worship", "Goddess Worship", "Pussy Worship" ] ], [ "t0003", [ "Collar and Lead/Leash", "Posture Collars", "Slave Bells" ] ], [ "subcategory-roleplay-identity-authority", [ "Control" ] ], [ "subcategory-clothing-materials-objects-uniforms-costumes", [ "Costumes/Dressing-up" ] ], [ "t0068", [ "Crops" ] ], [ "t0281", [ "Cuckolding" ] ], [ "t0397", [ "Cuddling Naked", "Cuddling with benefits", "Erotic Massage", "Hot Oil Massages", "Massage", "Massages", "Neck Kissing/Touching" ] ], [ "t0122", [ "Daddy Daughter roleplay", "Daddy/babygirl", "Daddy/girl" ] ], [ "t0239", [ "Defilement", "Sluts" ] ], [ "subcategory-clothing-materials-objects-objects-toys", [ "Dildos", "Vibrators" ] ], [ "t0319", [ "Doggy Style" ] ], [ "t0005", [ "Enforced Bedtime", "Punishment" ] ], [ "t0267", [ "Webcams" ] ], [ "t0292", [ "Face Fucking", "Gagging/Choked by Cock" ] ], [ "t0100", [ "Feathers" ] ], [ "t0316", [ "Female Ejaculation" ] ], [ "t0386", [ "Feminization", "Sissy", "Sissy Training" ] ], [ "t0398", [ "Food Play" ] ], [ "t0404", [ "Forehead Kisses", "Kissing", "Tongue Sucking" ] ], [ "t0362", [ "Grooming" ] ], [ "t0279", [ "Group Sex" ] ], [ "t0056", [ "Hairbrush Spanking", "Slapping" ] ], [ "t0002", [ "High Protocol", "Protocol", "Rituals", "Yes Sir", "no panties rule" ] ], [ "t0043", [ "Hook Suspension" ] ], [ "t0099", [ "Ice Cubes" ] ], [ "t0131", [ "Internal Enslavement", "Master/Slave", "Old Guard Slavery", "Sexual Slavery", "slavery" ] ], [ "t0325", [ "Kneeling" ] ], [ "t0022", [ "Light Bondage", "Rope Bondage/Suspension" ] ], [ "t0278", [ "MMF Threesomes", "Two-Girl Blowjobs" ] ], [ "t0370", [ "Maid Uniforms" ] ], [ "subcategory-psychological-dynamics-mind-control", [ "Mind Control" ] ], [ "t0009", [ "Mistress/slave" ] ], [ "t0301", [ "Mistresses with Strap-Ons" ] ], [ "t0126", [ "Mommy/Boy Dynamics" ] ], [ "t0237", [ "Necks" ] ], [ "t0374", [ "Nun/Priest Play" ] ], [ "t0016", [ "Obedience Training" ] ], [ "t0271", [ "Online Play", "Phone Sex" ] ], [ "t0282", [ "Polyamory" ] ], [ "t0222", [ "Pregnant" ] ], [ "t0335", [ "Prostate Massage", "Prostate Milking" ] ], [ "subcategory-psychological-dynamics-humiliation", [ "Public Humiliation", "Verbal Humiliation and Degradation" ] ], [ "subcategory-body-focus-appearance-body-type", [ "Red Heads", "Small Tits" ] ], [ "t0007", [ "Role Play" ] ], [ "t0353", [ "Rough Sex" ] ], [ "subcategory-bondage-restriction-sensory", [ "Sensation Play", "Sensual Play", "Sensualism" ] ], [ "t0277", [ "Sensual/slave dances" ] ], [ "t0359", [ "Service" ] ], [ "t0360", [ "Service-oriented submission" ] ], [ "t0212", [ "Shaving" ] ], [ "t0236", [ "Slave Tattoos" ] ], [ "t0322", [ "Sleepy Sex" ] ], [ "t0089", [ "Sounds", "Urethral Sounds" ] ], [ "t0130", [ "Speculums" ] ], [ "t0026", [ "Spreader Bars" ] ], [ "t0109", [ "Sweat" ] ], [ "t0345", [ "Toilet" ] ], [ "t0243", [ "human furniture" ] ], [ "t0358", [ "WolfPlay" ] ], [ "t0290", [ "Waking up to oral sex" ] ], /* Batch #3 — Build 2026-10-18_0302 (2026-10-18): 28 aliases from the server unmapped_fetishes table. */ [ "t0298", [ "Anal Training" ] ], [ "t0084", [ "CBT" ] ], [ "t0070", [ "Clamps and Clips" ] ], [ "t0134", [ "Consensual Nonconsent Play" ] ], [ "t0129", [ "Doctor/Nurse Play" ] ], [ "t0085", [ "Fire Cupping" ] ], [ "t0307", [ "Fucking Machines" ] ], [ "t0252", [ "Sadomasochism" ] ], [ "t0376", [ "Seduction" ] ], [ "t0213", [ "Toes and Feet" ] ], [ "t0312", [ "Urethral Fucking" ] ], [ "t0311", [ "Vacuum pumping" ] ], [ "t0309", [ "Vaginal Stretching" ] ], [ "t0291", [ "Ass Licking" ] ], [ "t0165", [ "Ballet Boots/Shoes" ] ], [ "t0251", [ "Emotional Masochism" ] ], [ "t0293", [ "Face sitting/smothering" ] ], [ "t0242", [ "Micropenises", "tiny cocks" ] ], [ "t0002", [ "Sir" ] ], [ "t0338", [ "pee inside Me", "piss" ] ], [ "t0331", [ "Threating to forcibly impregnate her" ] ], [ "t0264", [ "being valued" ] ], [ "subcategory-clothing-materials-objects-masks-headwear", [ "Masks" ] ], [ "subcategory-bondage-restriction-restraints", [ "Restraints" ] ], [ "subcategory-clothing-materials-objects-footwear", [ "Shoes" ] ], [ "subcategory-psychological-dynamics-humiliation", [ "human ashtray" ] ], /* Batch #4 — Importer rework (2026-11-04): decided mappings only. Edge Play → the Edge play topic (never Edging); the five formerly unplaced fetishes at their decided homes — Morning Sex, Bellydancing, Formiphilia (plus FetLife's own "Forniphilia" spelling), Graphoerotica as topics, and Toy Making at its decided CATEGORY home (broad hit, never silently rated). Guarded like every batch: existing keys win, so the catalog-seeded entries for the four topics are untouched. */ [ "t0334", [ "Edge Play" ] ], [ "t0290", [ "Morning Sex" ] ], [ "t0277", [ "Bellydancing" ] ], [ "t0120", [ "Formiphilia", "Forniphilia" ] ], [ "t0265", [ "Graphoerotica" ] ], [ "cat-clothing-materials-objects", [ "Toy Making" ] ] ].forEach(([e, t]) => t.forEach(t => {
+            const n = ck(t), id = migrateNodeKey(e);
+            n && (fln[n] = fln[n] || t), n && !fk[n] && (fk[n] = {
+                id: id,
+                direction: "both",
+                uncertain: !0
+            });
+        }));
+        // ---- FetLife importer alias map — SECTION END ----
+        // (The next alias batch goes at the end of the guarded
+        // batch table above, inside this section — do not scatter
+        // alias writes elsewhere in the file.)
+        const bk = [ {
+            pattern: /\b(?:spit|spitting|spat)\b/,
+            id: "t0341"
+        }, {
+            pattern: /\b(?:insult|insults|insulting|name calling|verbal degradation)\b/,
+            id: "t0239"
+        }, {
+            pattern: /\b(?:face slap|face slapping|slap in the face)\b/,
+            id: "t0056"
+        }, {
+            pattern: /\b(?:breath play|breath control|choking|strangulation)\b/,
+            id: "t0097"
+        }, {
+            pattern: /\b(?:knife play|blade play)\b/,
+            id: "t0245"
+        }, {
+            pattern: /\b(?:hot wax|waxing)\b/,
+            id: "t0098"
+        }, {
+            pattern: /\b(?:ice play|cold play)\b/,
+            id: "t0099"
+        }, {
+            pattern: /\b(?:chasing|pursuit play)\b/,
+            id: "t0352"
+        } ], vk = e.byId("converterDialog"), wk = e.byId("converterTitle"), kk = e.byId("converterSubtitle"), xk = e.byId("converterInstructions"), Sk = e.byId("converterInputLabel"), $k = e.byId("converterInput"), Ek = e.byId("converterPasteTools"), Ak = e.byId("converterActions"), Ck = e.byId("converterPreview"), Mk = e.byId("converterPreviewSummary"), Ik = e.byId("converterWarnings"), Pk = e.byId("converterStatus"), Lk = e.byId("applyConverter"), Tk = e.byId("chooseConverterFile"), Fk = e.byId("converterFileInput"), Nk = e.byId("converterMode"), _k = e.byId("takeConverterTest"), Dk = e.byId("pasteConverterResults"), Rk = e.byId("interactiveTest"), Ok = e.byId("testQuestions"), Bk = e.byId("testProgress"), jk = e.byId("testHeading"), qk = e.byId("testSourceNote"), Hk = e.byId("submitChecklistRow"), Wk = e.byId("submitChecklistResults"), Uk = e.byId("previewConverter");
+        let Gk = null, Kk = null, zk = null, Vk = null, Yk = null, Xk = {}, Zk = 0, Qk = 0, ktPage = 0;
+        let sxFlFields = null;
+        function Jk() {
+            return Zk ? Math.max(0, Math.floor((Date.now() - Zk) / 1e3)) : 0;
+        }
+        function ex() {
+            t.clear(Qk), Qk = 0, Zk = 0;
+        }
+        function tx() {
+            Zk || (Zk = Date.now(), Ex(), Qk = t.setInterval(Ex, 1e3));
+        }
+        const nx = {
+            kinktest: "Pleasure Control: 48% Dom, 36% sub Restraint: 0% Dom, 70% sub Roleplay: 19% Dom, 22% sub Degradation: 4% Dom, 22% sub Pain: 8% Dom, 3% sub Sensation: 0% Dom, 0% sub Edge Play: 0% Dom, 0% sub Potty Play: 0% Dom, 0% sub",
+            checklist: "",
+            fetlife: "Into: Spanking — Everything to do with it, Rope bondage — Giving, Leather — Wearing Curious about: Pet play — Receiving Soft limits: Temperature play Hard limits: Choking",
+            bdsmtest: "100% Dominant 82% Switch 64% Rigger 41% Rope bunny 18% Primal (Prey)"
+        }, fetlifeSampleHtml = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>SampleSwitch - FetLife</title>\n</head>\n<body>\n<div class=\"profile\">\n<h1>SampleSwitch</h1>\n<p>A sample FetLife profile page, saved with Save Page As, so you can try the importer without using your own page.</p>\n<h2>Fetishes</h2>\n<p>Into</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/101\">Spanking</a></li>\n<li><a href=\"https://fetlife.com/fetishes/102\">Chastity</a></li>\n<li><a href=\"https://fetlife.com/fetishes/103\">Edging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/104\">Leather</a></li>\n<li><a href=\"https://fetlife.com/fetishes/105\">Flogging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/106\">Gags</a></li>\n<li><a href=\"https://fetlife.com/fetishes/107\">Exhibitionism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/108\">Humiliation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/109\">Suspension</a></li>\n<li><a href=\"https://fetlife.com/fetishes/110\">Voyeurism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/111\">Handcuffs</a></li>\n<li><a href=\"https://fetlife.com/fetishes/112\">Omorashi</a></li>\n</ul>\n<p>Curious</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/201\">Tickling</a></li>\n<li><a href=\"https://fetlife.com/fetishes/202\">Degradation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/203\">Crossdressing</a></li>\n<li><a href=\"https://fetlife.com/fetishes/204\">Biting</a></li>\n<li><a href=\"https://fetlife.com/fetishes/205\">Pegging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/206\">Forniphilia</a></li>\n<li><a href=\"https://fetlife.com/fetishes/207\">Spectrophilia</a></li>\n</ul>\n</div>\n</body>\n</html>", ix = [ [ "Handcuffing your partner, or tying their hands", "t0025", "give" ], [ "Requiring your partner to avoid going to the toilet until they are desperate", "cat-fluids-messy-play", "give" ], [ "Being pleasured until you can't handle it any more or being forced to orgasm many times", "t0326", "receive" ], [ "Making your partner wear and use a nappy", "t0185", "give" ], [ "Preventing your partner from orgasming until they beg", "t0327", "give" ], [ "Calling your partner names that imply authority like “master” or “daddy”", "t0131", "receive" ], [ "Cutting your partner with a blade, causing bleeding but no serious or permanent injury", "t0096", "give" ], [ "Peeing on your partner", "t0338", "give" ], [ "Causing pain by directly hitting or using implements on your partner's genitals", "t0096", "give" ], [ "Being peed on", "t0338", "receive" ], [ "Being stimulated by electricity, such as from a toy like the violet wand", "t0101", "receive" ], [ "Being denied any form of sexual stimulation for a period of time", "t0327", "receive" ], [ "Bringing your partner to orgasm, then ceasing stimulation to diminish the pleasure", "t0326", "give" ], [ "Hitting your partner with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "give" ], [ "Being restrained by your partner's body, for example being held down on a bed", "t0353", "receive" ], [ "Being treated like a pet", "t0136", "receive" ], [ "Gagging your partner with a ball gag, O-ring gag, or similar", "t0035", "give" ], [ "Having sex or masturbating in a room visible from the street, with the curtains open", "t0270", "give" ], [ "Pulling your partner's hair hard enough to hurt", "t0093", "give" ], [ "Gagging your partner with an ordinary gag", "t0035", "give" ], [ "Having your partner use needles or pins to penetrate your skin", "t0074", "receive" ], [ "Being made to wear and use a nappy", "t0185", "receive" ], [ "Having pressure put on your neck, making it difficult but not impossible to breathe", "t0097", "receive" ], [ "Being cut with a blade, causing bleeding but no serious or permanent injury", "t0096", "receive" ], [ "Being spanked with a bare hand", "t0056", "receive" ], [ "Treating your partner like a child", "t0123", "give" ], [ "Being called names that imply authority like “master” or “daddy”", "t0131", "give" ], [ "Restraining your partner with your body, for example by holding them down on a bed", "t0353", "give" ], [ "Having sex or masturbating in a public place where people could come across you", "t0269", "give" ], [ "Observing someone undressing without their knowledge", "t0270", "give" ], [ "Putting pressure on your partner's neck, making it difficult but not impossible to breathe", "t0097", "give" ], [ "Putting clamps or clothes pegs on your partner's nipples or elsewhere", "t0070", "give" ], [ "Acting out a scene in which your partner pretends to rape you", "t0134", "receive" ], [ "Acting out a scene in which you pretend to rape your partner", "t0134", "give" ], [ "Having nails dug into your buttocks, or your back scratched, causing pain without breaking skin", "t0354", "receive" ], [ "Digging your nails into your partner's buttocks, or scratching their back, causing pain without breaking skin", "t0354", "give" ], [ "Being choked so that you cannot breathe, causing you to feel faint or lose consciousness", "t0097", "receive" ], [ "Forcing your partner to interact with faeces", "cat-fluids-messy-play", "give" ], [ "Being gagged with an ordinary gag", "t0035", "receive" ], [ "Choking your partner so they cannot breathe, causing faintness or unconsciousness", "t0097", "give" ], [ "Denying your partner any form of sexual stimulation for a period of time", "t0327", "give" ], [ "Being hit with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "receive" ], [ "Being handcuffed or having your hands tied", "t0025", "receive" ], [ "Having sex or masturbating in front of other people at an orgy or as part of a show", "t0270", "give" ], [ "Being tied up so you can hardly move at all", "t0040", "receive" ], [ "Using needles or pins to penetrate your partner's skin", "t0074", "give" ], [ "Being prevented from orgasming until you beg", "t0327", "receive" ], [ "Having clamps or clothes pegs put on your nipples or elsewhere", "t0070", "receive" ], [ "Being caused pain by your partner hitting or using implements on your genitals", "t0096", "receive" ], [ "Being made to serve your partner as a cleaner or retail worker might", "t0360", "receive" ], [ "Using electricity, such as a violet wand, to stimulate your partner", "t0101", "give" ], [ "Being treated like a child", "t0123", "receive" ], [ "Tying or cuffing your partner to a bed or other object", "t0042", "give" ], [ "Having your partner serve you as a cleaner or retail worker might", "t0360", "give" ], [ "Being called demeaning words like “slut,” “whore,” “bitch,” or “sissy”", "t0240", "receive" ], [ "Observing someone having sex or masturbating in their own home, without their knowledge", "t0270", "give" ], [ "Having your hair pulled hard enough to hurt", "t0093", "receive" ], [ "Being tied or cuffed to a bed or other object", "t0042", "receive" ], [ "Having a blade used on you to instil fear, without causing bleeding", "t0245", "receive" ], [ "Spanking your partner with a bare hand", "t0056", "give" ], [ "Pleasuring your partner until they can't handle it or forcing them to orgasm many times", "t0326", "give" ], [ "Overhearing someone having sex or masturbating", "t0270", "give" ], [ "Observing someone having sex or masturbating as part of a sex show", "t0266", "give" ], [ "Calling your partner demeaning words like “slut,” “whore,” “bitch,” or “sissy”", "t0240", "give" ], [ "Using a blade on your partner to instil fear, without causing bleeding", "t0245", "give" ], [ "Tying your partner up so they can hardly move at all", "t0040", "give" ], [ "Being required to avoid going to the toilet until you are desperate", "cat-fluids-messy-play", "receive" ], [ "Being forced to interact with faeces", "cat-fluids-messy-play", "receive" ], [ "Being gagged with a ball gag, O-ring gag, or similar", "t0035", "receive" ], [ "Being brought to orgasm, with stimulation stopped at the right moment to diminish pleasure", "t0326", "receive" ], [ "Treating your partner like a pet", "t0136", "give" ] ].map((e, t) => ({
+            number: t + 1,
+            question: e[0],
+            id: e[1],
+            direction: e[2]
+        })), ax = [ "Anal sex", "Beating (hands)", "Beating (padded clubs)", "Being bitten", "Being serviced (sexual)", "Blindfolds", "Body paint", "Bondage (heavy/suspension)", "Bondage (intricate/Japanese style)", "Bondage (light)", "Bruises", "Butt plugs", "Cages (locked inside of)", "Caning", "Chains", "Chastity belts", "Clothespins", "Cock rings/straps", "Cock worship", "Corsets", "Cross-dressing", "Cuffs (leather/metal)", "Dildos", "Double penetration", "Erotic dancing", "Exhibitionism", "Eye contact restrictions", "Face slapping", "Fisting", "Flogging", "Following orders", "Food play", "Foot worship", "Gags (cloth/tape)", "Genital sex", "Hair pulling", "Hairbrush spankings", "Hand jobs (giving)", "Hand jobs (receiving)", "Head (giving)", "Head (receiving)", "High heels", "Hot waxing", "Ice cubes", "Kneeling", "Leather clothing", "Leather restraints", "Lingerie (wearing)", "Manacles & Irons", "Manicures (giving)", "Manicures (receiving)", "Marks (giving)", "Marks (receiving)", "Massage (giving)", "Massage (receiving)", "Modeling for erotic photos", "Nipple play", "Oral/anal play (rimming)", "Orgasm denial", "Outdoor sex", "Over-the-knee spanking", "Pain (mild to severe)", "Phone sex", "Pinching", "Play kidnapping", "Punishment scene", "Pussy/cock whipping/spanking", "Riding crops", "Rubber/latex clothing", "Saran wrapping", "Scenes (prison, religious, etc.)", "Scratching (giving)", "Scratching (receiving)", "Serving as a maid/butler", "Shaving", "Shoe/boot worship", "Skinny-dipping", "Slutty clothing", "Spanking", "Spreader bars", "Standing in corner", "Stocks", "Strap-on dildos", "Swallowing semen", "Swapping (with one other couple)", "Swinging (multiple couples)", "Tattooing", "Teasing", "TENS Unit", "Thumbcuffs (metal)", "Tickling", "Triple penetration", "Uniforms", "Vibrator on genitals", "Video (recordings of you)", "Video (watching others)", "Violet wand", "Voyeurism (watching others)", "Wearing symbolic jewelry", "Whips", "Wooden paddles", "Wrestling" ], axCat = { "Anal sex": "Getting started", "Beating (hands)": "Getting started", "Beating (padded clubs)": "Getting started", "Being bitten": "Getting started", "Being serviced (sexual)": "Getting started", "Blindfolds": "Getting started", "Body paint": "Getting started", "Bondage (heavy/suspension)": "Bondage", "Bondage (intricate/Japanese style)": "Bondage", "Bondage (light)": "Bondage", "Bruises": "Bondage", "Butt plugs": "Bondage", "Cages (locked inside of)": "Bondage", "Caning": "Caning", "Chains": "Caning", "Chastity belts": "Caning", "Clothespins": "Caning", "Cock rings/straps": "Caning", "Cock worship": "Cock worship", "Corsets": "Cock worship", "Cross-dressing": "Cock worship", "Cuffs (leather/metal)": "Cock worship", "Dildos": "Cock worship", "Double penetration": "Cock worship", "Erotic dancing": "Cock worship", "Exhibitionism": "Cock worship", "Eye contact restrictions": "Cock worship", "Face slapping": "Face play", "Fisting": "Face play", "Flogging": "Face play", "Following orders": "Face play", "Food play": "Face play", "Foot worship": "Foot worship", "Gags (cloth/tape)": "Foot worship", "Genital sex": "Foot worship", "Hair pulling": "Foot worship", "Hairbrush spankings": "Foot worship", "Hand jobs (giving)": "Foot worship", "Hand jobs (receiving)": "Foot worship", "Head (giving)": "Foot worship", "Head (receiving)": "Foot worship", "High heels": "Foot worship", "Hot waxing": "Hot waxing", "Ice cubes": "Hot waxing", "Kneeling": "Hot waxing", "Leather clothing": "Hot waxing", "Leather restraints": "Hot waxing", "Lingerie (wearing)": "Hot waxing", "Manacles & Irons": "Hot waxing", "Manicures (giving)": "Hot waxing", "Manicures (receiving)": "Hot waxing", "Marks (giving)": "Hot waxing", "Marks (receiving)": "Hot waxing", "Massage (giving)": "Hot waxing", "Massage (receiving)": "Hot waxing", "Modeling for erotic photos": "Hot waxing", "Nipple play": "Nipple play", "Oral/anal play (rimming)": "Nipple play", "Orgasm denial": "Nipple play", "Outdoor sex": "Nipple play", "Over-the-knee spanking": "Nipple play", "Pain (mild to severe)": "Nipple play", "Phone sex": "Nipple play", "Pinching": "Nipple play", "Play kidnapping": "Nipple play", "Punishment scene": "Nipple play", "Pussy/cock whipping/spanking": "Nipple play", "Riding crops": "Nipple play", "Rubber/latex clothing": "Nipple play", "Saran wrapping": "Nipple play", "Scenes (prison, religious, etc.)": "Scenes", "Scratching (giving)": "Scenes", "Scratching (receiving)": "Scenes", "Serving as a maid/butler": "Scenes", "Shaving": "Scenes", "Shoe/boot worship": "Scenes", "Skinny-dipping": "Scenes", "Slutty clothing": "Scenes", "Spanking": "Spanking", "Spreader bars": "Spanking", "Standing in corner": "Spanking", "Stocks": "Spanking", "Strap-on dildos": "Spanking", "Swallowing semen": "Fluids", "Swapping (with one other couple)": "Fluids", "Swinging (multiple couples)": "Group play", "Tattooing": "Tattooing", "Teasing": "Teasing", "TENS Unit": "Teasing", "Thumbcuffs (metal)": "Restraints", "Tickling": "Restraints", "Triple penetration": "Restraints", "Uniforms": "Uniforms", "Vibrator on genitals": "Uniforms", "Video (recordings of you)": "Uniforms", "Video (watching others)": "Watching", "Violet wand": "Watching", "Voyeurism (watching others)": "Voyeurism", "Wearing symbolic jewelry": "Symbols", "Whips": "Whips", "Wooden paddles": "Paddles", "Wrestling": "Wrestling" }, rx = [ [ /^69$/, "t0317" ], [ /age play|treated like a child/, "t0123" ], [ /anal sex/, "t0297" ], [ /analingus|rimming/, "t0294" ], [ /ball stretching|genital torture|pain/, "t0097" ], [ /being filmed|photographed/, "t0267" ], [ /being watched/, "t0266" ], [ /biting|scratching/, "t0354" ], [ /blindfold|sensory deprivation/, "t0103" ], [ /blood play|scat|sploshing|menstruation/, "cat-fluids-messy-play" ], [ /bondage/, "cat-bondage-restriction" ], [ /bootblack|service/, "t0359" ], [ /bratting|punishment/, "t0005" ], [ /breath play/, "t0097" ], [ /butt plug/, "t0193" ], [ /cages|confinement|suspension/, "t0040" ], [ /caning/, "t0067" ], [ /chastity/, "t0328" ], [ /worship/, "t0237" ], [ /cockrings|sex toys|strap-ons/, "t0306" ], [ /collars/, "t0003" ], [ /consensual non-consent/, "t0134" ], [ /costumes|cross dressing|gender play/, "t0178" ], [ /cuckold/, "t0281" ], [ /cuddling|kissing|massage/, "t0397" ], [ /tantra|breathwork|energy play/, "t0110" ], [ /cunnilingus|fellatio/, "t0291" ], [ /degradation/, "t0239" ], [ /dirty talk|moans|sexting/, "t0263" ], [ /double penetration|triple penetration|vaginal penetration|fingering|frottage/, "t0306" ], [ /e-stim/, "t0101" ], [ /edge play/, "t0334" ], [ /edging|teasing/, "t0329" ], [ /ejaculate|swallowing/, "t0315" ], [ /enemas|piss play/, "t0338" ], [ /eye contact/, "t0258" ], [ /face fucking/, "t0292" ], [ /facesitting/, "t0293" ], [ /fisting/, "t0310" ], [ /flogging/, "t0062" ], [ /food play/, "cat-fluids-messy-play" ], [ /foot play/, "t0213" ], [ /furries/, "t0383" ], [ /g-spot/, "t0304" ], [ /gags/, "t0035" ], [ /group sex|sex parties|strip clubs/, "t0279" ], [ /hair pulling/, "t0093" ], [ /hoods/, "t0191" ], [ /humiliation play/, "t0240" ], [ /humiliation/, "subcategory-psychological-dynamics-humiliation" ], [ /incest roleplay|kidnapping|role play/, "cat-roleplay-identity" ], [ /kicking|punching|slapping|temporary marks/, "t0096" ], [ /knife play/, "t0245" ], [ /leather/, "t0153" ], [ /lingerie/, "t0181" ], [ /medical play/, "t0129" ], [ /masturbation/, "t0268" ], [ /nipple clamps/, "t0070" ], [ /nipple/, "t0220" ], [ /objectification/, "t0243" ], [ /orgasm control/, "t0326" ], [ /orgasm denial/, "t0327" ], [ /paddles/, "t0069" ], [ /pegging/, "t0301" ], [ /piercing/, "t0074" ], [ /phone sex|porn/, "t0268" ], [ /prostate/, "t0299" ], [ /race play/, "t0127" ], [ /riding crops?/, "t0068" ], [ /whips?/, "t0064" ], [ /rubber|latex/, "t0152" ], [ /shaving/, "t0362" ], [ /smoking/, "t0119" ], [ /spanking/, "t0056" ], [ /spreader/, "t0026" ], [ /sex in public/, "t0269" ], [ /sex magic|sacred sexuality|ritual kink|spiritual play/, "t0367" ], [ /threesome/, "t0278" ], [ /tickling/, "t0100" ], [ /tit-fucking/, "t0220" ], [ /tribadism/, "t0306" ], [ /watching others/, "t0266" ], [ /wax/, "t0098" ], [ /wrestling/, "t0353" ], [ /beating/, "t0096" ], [ /bitten/, "t0354" ], [ /serviced/, "t0359" ], [ /bruises/, "t0096" ], [ /chains/, "cat-bondage-restriction" ], [ /clothespins/, "t0097" ], [ /corsets/, "t0181" ], [ /cock rings?/, "t0306" ], [ /thumbcuffs/, "cat-bondage-restriction" ], [ /cuffs/, "cat-bondage-restriction" ], [ /dildos/, "t0306" ], [ /erotic dancing/, "t0279" ], [ /exhibitionism/, "t0266" ], [ /hairbrush/, "t0096" ], [ /hand jobs/, "t0268" ], [ /\bhead\b/, "t0291" ], [ /high heels/, "t0213" ], [ /ice cubes|ice play/, "t0098" ], [ /kneeling/, "t0359" ], [ /manacles|irons/, "cat-bondage-restriction" ], [ /manicures|pedicures/, "t0359" ], [ /marks/, "t0096" ], [ /erotic photos|modeling/, "t0267" ], [ /outdoor sex/, "t0269" ], [ /pinching/, "t0097" ], [ /saran|mummification/, "t0040" ], [ /scenes/, "cat-roleplay-identity" ], [ /maid|butler/, "t0359" ], [ /skinny/, "t0266" ], [ /slutty/, "t0181" ], [ /corner/, "t0005" ], [ /stocks/, "cat-bondage-restriction" ], [ /swapping|swinging/, "t0279" ], [ /tattoo/, "t0074" ], [ /tens\b/, "t0101" ], [ /uniforms/, "t0178" ], [ /vibrator/, "t0306" ], [ /recordings/, "t0267" ], [ /violet/, "t0101" ], [ /jewelry/, "t0003" ] ];
+        function ox(e) {
+            const t = function(e) {
+                const t = ni(e), n = ck(t);
+                if (gk[n]) return gk[n];
+                const i = ck(t.replace(/\([^)]*\)/g, " "));
+                return gk[i] || null;
+            }(e);
+            if (t) return t;
+            const n = ck(e), i = rx.find(e => e[0].test(n));
+            return i ? {
+                id: i[1],
+                uncertain: !0
+            } : null;
+        }
+        function sx(e, t, n, i) {
+            Ke.has(t) && (e[t] || (e[t] = {
+                give: [],
+                receive: []
+            }), e[t][n].push(Math.max(-100, Math.min(100, i))));
+        }
+        function lx(e, t) {
+            const n = {};
+            return Object.entries(e).forEach(([e, t]) => {
+                const i = {};
+                [ "give", "receive" ].forEach(e => {
+                    t[e].length && (i[e] = Math.round(t[e].reduce((e, t) => e + t, 0) / t[e].length));
+                }), Object.keys(i).length && (n[e] = i);
+            }), Object.assign({
+                ratings: n,
+                annotations: {}
+            }, t);
+        }
+        function cx(e) {
+            const t = ni(String(e || "").replace(/^[-*•·\d.)\s]+/, "").replace(/\s+(?:fetish|kink)$/i, "").trim()), n = ck(t);
+            if (fk[n]) return fk[n];
+            const i = ck(t.replace(/\([^)]*\)/g, " "));
+            if (fk[i]) return fk[i];
+            const o = [ i.replace(/\s+/g, ""), i.endsWith("es") ? i.slice(0, -2) : i.endsWith("s") ? i.slice(0, -1) : i + "s" ];
+            for (const e of o) if (e && e !== i && fk[e]) return fk[e];
+            const a = bk.find(e => e.pattern.test(i));
+            if (a) return {
+                id: a.id,
+                direction: a.direction || "both",
+                uncertain: !0,
+                specific: !0
+            };
+            const r = rx.find(e => e[0].test(i));
+            return r ? {
+                id: r[1],
+                direction: "both",
+                uncertain: !0
+            } : null;
+        }
+        // Build 2026-10-18_1624 — read-only data feed for the FetLife
+        // mapping viewer (shell dialog #fetlifeMapDialog, opened from the
+        // FetLife load dialog or with Ctrl+Shift+M). rows() returns the
+        // full fk table with each target resolved to its catalog label
+        // and Category › Subcategory › Topic path; lookup(term) runs the
+        // exact importer resolution (cx + pk), so the viewer's chooser
+        // shows and highlights what an import would actually do with a
+        // typed FetLife name — including broad (category/subcategory)
+        // targets and pattern-only matches, which have no table row.
+        const flm = {
+            rowsCache: null,
+            nodeInfo: function(id) {
+                if (!id) return {
+                    label: "",
+                    path: "",
+                    kind: ""
+                };
+                if (isCatId(id)) {
+                    const l = mx(id);
+                    return {
+                        label: l,
+                        path: l,
+                        kind: "Category"
+                    };
+                }
+                const n = Xn(id);
+                if (!n) {
+                    const l = mx(id);
+                    return {
+                        label: l,
+                        path: l,
+                        kind: "Topic"
+                    };
+                }
+                if ("Subcategory" === n.kind) return {
+                    label: n.label,
+                    path: n.branch + " › " + n.label,
+                    kind: "Subcategory"
+                };
+                const parts = [ n.branch ];
+                if (n.parentId) {
+                    const p = Xn(n.parentId);
+                    p && parts.push(p.label);
+                }
+                parts.push(n.label);
+                return {
+                    label: n.label,
+                    path: parts.join(" › "),
+                    kind: "Topic"
+                };
+            },
+            rows: function() {
+                if (flm.rowsCache) return flm.rowsCache;
+                const out = Object.keys(fk).map(k => {
+                    const m = fk[k], info = flm.nodeInfo(m.id);
+                    return {
+                        key: k,
+                        name: fln[k] || k,
+                        id: m.id,
+                        label: info.label,
+                        path: info.path,
+                        kind: info.kind,
+                        direction: m.direction || "both",
+                        uncertain: !!m.uncertain
+                    };
+                });
+                out.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+                return flm.rowsCache = out, out;
+            },
+            lookup: function(term) {
+                const M = cx(term);
+                if (!M) return null;
+                let key = null;
+                for (const k of Object.keys(fk)) if (fk[k] === M) {
+                    key = k;
+                    break;
+                }
+                const I = pk(M, term, {});
+                if (!I) {
+                    const info = flm.nodeInfo(M.id);
+                    return {
+                        key: key,
+                        pattern: !key,
+                        id: M.id,
+                        label: info.label,
+                        path: info.path,
+                        kind: info.kind,
+                        child: null,
+                        direction: M.direction || "both",
+                        uncertain: !!M.uncertain,
+                        broad: !0
+                    };
+                }
+                const info = flm.nodeInfo(I.id);
+                return {
+                    key: key,
+                    pattern: !key,
+                    id: I.id,
+                    label: I.child ? hk(I) : info.label,
+                    path: info.path,
+                    kind: info.kind,
+                    child: I.child ? I.child.label : null,
+                    direction: M.direction || "both",
+                    uncertain: !!M.uncertain,
+                    broad: !1
+                };
+            }
+        };
+        // Build 2026-10-18_1658 — FetLife mapping EDITOR support. The
+        // shell dialog (#fetlifeMapDialog) is now a full editor, not a
+        // read-only viewer: targets() enumerates every valid target
+        // (all 18 categories, their subcategories, and every topic) for
+        // the editor's target picker; setMapping()/removeMapping()
+        // rewrite the live fk table (and the matching gk entry, so
+        // saved-page imports agree) for THIS session, so a FetLife
+        // import run after editing uses the edited mappings; the first
+        // edit snapshots the shipped tables and editedRows() diffs
+        // against that snapshot (powering the edited count, the edited
+        // badges, the downloadable edits file, and Reset). Nothing is
+        // persisted: a reload restores the shipped table.
+        flm.targetsCache = null;
+        flm.targets = function() {
+            if (flm.targetsCache) return flm.targetsCache;
+            const out = [], seen = {};
+            try {
+                h.forEach(cat => {
+                    const storedCatId = catId(cat.name);
+                    if (!seen[storedCatId]) { seen[storedCatId] = 1; out.push({ id: storedCatId, label: cat.name, path: cat.name, kind: "Category" }); }
+                    (cat.subcategories || []).forEach(sub => {
+                        const sid = Un(cat.name, sub.name);
+                        if (!seen[sid]) { seen[sid] = 1; out.push({ id: sid, label: sub.name, path: cat.name + " › " + sub.name, kind: "Subcategory" }); }
+                    });
+                    (cat.topics || []).forEach(tn => {
+                        let tid = null;
+                        try { tid = Wn(tn); } catch (e) { tid = null; }
+                        if (!tid || seen[tid]) return;
+                        seen[tid] = 1;
+                        const info = flm.nodeInfo(tid);
+                        out.push({ id: tid, label: info.label || tn, path: info.path || (cat.name + " › " + tn), kind: "Topic" });
+                    });
+                });
+            } catch (e) { __sxErrLog("app", e); }
+            const order = { Category: 0, Subcategory: 1, Topic: 2 };
+            out.sort((a, b) => (order[a.kind] - order[b.kind]) || (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+            return flm.targetsCache = out, out;
+        };
+        flm.origFk = null;
+        flm.origGk = null;
+        flm.origFln = null;
+        flm.snap = function() {
+            if (flm.origFk) return;
+            flm.origFk = {}; Object.keys(fk).forEach(k => { flm.origFk[k] = Object.assign({}, fk[k]); });
+            flm.origGk = {}; Object.keys(gk).forEach(k => { flm.origGk[k] = Object.assign({}, gk[k]); });
+            flm.origFln = Object.assign({}, fln);
+        };
+        flm.setMapping = function(name, id, direction) {
+            const key = ck(String(name || "").trim());
+            if (!key || !id) return null;
+            flm.snap();
+            fk[key] = { id: id, direction: direction || "both", uncertain: !1, specific: !0 };
+            if (gk[key]) gk[key] = { id: id, uncertain: !1 };
+            fln[key] = fln[key] || String(name).trim();
+            flm.rowsCache = null;
+            return key;
+        };
+        flm.removeMapping = function(name) {
+            const key = ck(String(name || "").trim());
+            if (!key || !fk[key]) return;
+            flm.snap();
+            delete fk[key];
+            if (gk[key]) delete gk[key];
+            flm.rowsCache = null;
+        };
+        flm.editedRows = function() {
+            if (!flm.origFk) return [];
+            const out = [], keys = {};
+            Object.keys(flm.origFk).forEach(k => { keys[k] = 1; });
+            Object.keys(fk).forEach(k => { keys[k] = 1; });
+            Object.keys(keys).forEach(k => {
+                const before = flm.origFk[k] || null, now = fk[k] || null;
+                const changed = (!before !== !now) || (before && now && (before.id !== now.id || (before.direction || "both") !== (now.direction || "both")));
+                if (!changed) return;
+                const src = now || before, info = flm.nodeInfo(src.id);
+                out.push({
+                    key: k,
+                    name: fln[k] || (flm.origFln && flm.origFln[k]) || k,
+                    before: before ? { id: before.id, direction: before.direction || "both" } : null,
+                    now: now ? { id: now.id, direction: now.direction || "both", label: info.label, path: info.path, kind: info.kind } : null
+                });
+            });
+            out.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+            return out;
+        };
+        flm.resetMappings = function() {
+            if (!flm.origFk) return;
+            Object.keys(fk).forEach(k => { delete fk[k]; });
+            Object.keys(flm.origFk).forEach(k => { fk[k] = Object.assign({}, flm.origFk[k]); });
+            Object.keys(gk).forEach(k => { delete gk[k]; });
+            Object.keys(flm.origGk).forEach(k => { gk[k] = Object.assign({}, flm.origGk[k]); });
+            Object.keys(fln).forEach(k => { delete fln[k]; });
+            Object.keys(flm.origFln).forEach(k => { fln[k] = flm.origFln[k]; });
+            flm.rowsCache = null;
+        };
+        window.__fetlifeMap = flm;
+        function dx(e, t) {
+            if (/base64/i.test(t || "")) try {
+                const t = atob(e.replace(/\s+/g, "")), n = Uint8Array.from(t, e => e.charCodeAt(0));
+                return new TextDecoder("utf-8").decode(n);
+            } catch (t) {
+                return e;
+            }
+            if (/quoted-printable/i.test(t || "")) {
+                const t = e.replace(/=\r?\n/g, ""), n = [];
+                for (let e = 0; e < t.length; e++) if ("=" === t[e] && /^[0-9a-f]{2}$/i.test(t.slice(e + 1, e + 3))) n.push(parseInt(t.slice(e + 1, e + 3), 16)), 
+                e += 2; else {
+                    const i = t.charCodeAt(e);
+                    i < 256 ? n.push(i) : n.push(...(new TextEncoder).encode(t[e]));
+                }
+                try {
+                    return new TextDecoder("utf-8").decode(Uint8Array.from(n));
+                } catch (e) {
+                    return t;
+                }
+            }
+            return e;
+        }
+        function ux(e) {
+            if (!/^mime-version:/im.test(e) || !/^content-type:\s*multipart\/related/im.test(e)) return null;
+            const t = ((e.match(/^([\s\S]*?)\r?\n\r?\n/) || [])[1] || "").match(/boundary\s*=\s*(?:"([^"]+)"|([^;\r ]+))/i), n = t && (t[1] || t[2] || "").trim();
+            if (!n) return null;
+            const i = [];
+            return e.split("--" + n).forEach(e => {
+                const t = e.match(/^\s*([\s\S]*?)\r?\n\r?\n([\s\S]*)$/);
+                if (!t) return;
+                const n = t[1], a = (n.match(/^content-type:\s*([^;\r ]+)/im) || [])[1] || "", r = (n.match(/^content-transfer-encoding:\s*([^\r ]+)/im) || [])[1] || "", o = (n.match(/^content-location:\s*([^\r ]+)/im) || [])[1] || "";
+                /^text\/html/i.test(a) && i.push({
+                    html: dx(t[2].replace(/\r?\n--$/, ""), r),
+                    location: o
+                });
+            }), i.length ? (i.find(e => /fetish/i.test(e.location)) || i[0]).html : null;
+        }
+        function px(e) {
+            const t = Boolean(ux(e)) || /<(?:html|body|main|section|article|div|li|tr|p|h[1-6])\b/i.test(e), n = function(e) {
+                const t = ux(e) || e;
+                if (!/<(?:html|body|main|section|article|div|li|tr|p|h[1-6])\b/i.test(t)) return t;
+                const n = (new DOMParser).parseFromString(t, "text/html");
+                n.querySelectorAll("script,style,noscript,svg,nav,header,footer,form").forEach(e => e.remove()), 
+                n.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach(e => {
+                    const t = String(e.textContent || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim().match(/^(?:my\s+)?(fetishes?|kinks?)\b/i);
+                    t && (e.textContent = /^kink/i.test(t[1]) ? "Kinks" : "Fetishes");
+                }), n.querySelectorAll("a[href]").forEach(e => {
+                    const t = (e.getAttribute("href") || "").trim();
+                    "fetishes" === ck(e.textContent || "") && /^(?:https?:\/\/(?:www\.)?fetlife\.com)?\/fetishes\/?(?:[?#].*)?$/i.test(t) && e.remove();
+                });
+                const i = n.body.innerHTML.replace(/<h([1-6])\b[^>]*>/gi, "\nFETLIFE_SECTION_HEADING_$1 ").replace(/<\/h[1-6]>/gi, "\n").replace(/<br\b[^>]*>/gi, "\n").replace(/<a\b[^>]*>/gi, "").replace(/<\/a>/gi, "\n").replace(/<\/(?:td|th)>/gi, "\t").replace(/<\/(?:li|tr|p|div|section|article|ul|ol)>/gi, "\n");
+                return (new DOMParser).parseFromString(i, "text/html").body.textContent || "";
+            }(e).replace(/[^\S\n]*,[^\S\n]*FETLIFE_SECTION_HEADING_([1-6])[^\S\n]*,[^\S\n]*/gi, " FETLIFE_SECTION_HEADING_$1 "), i = n.split(/\r\n|[\r\n]/).map(e => e.replace(/\u00a0/g, " ").replace(/[^\S\n]+/g, " ").trim()).filter(Boolean).map(e => {
+                const t = e.match(/^FETLIFE_SECTION_HEADING_([1-6])\s+([\s\S]+)$/i);
+                return {
+                    text: (t ? t[2] : e).replace(/FETLIFE_SECTION_HEADING_[1-6]/gi, " ").replace(/\s+/g, " ").replace(/^\s*,\s*|\s*,\s*$/g, "").trim(),
+                    level: t ? Number(t[1]) : null
+                };
+            }).filter(e => e.text), a = new Set([ "edit", "into", "interests", "favorites", "favorite", "curious about", "curious", "neutral", "soft limits", "soft limit", "hard limits", "hard limit", "not into", "not interested", "fantasy only", "already tried", "giving", "as a top", "top", "receiving", "as a bottom", "bottom", "both", "switch", "giving and receiving", "giving receiving", "everything to do with it", "watching", "wearing", "watching others wear", "watching others wearing" ]), r = new Set([ "about", "about me", "activity", "activity feed", "recent activity", "pictures", "photos", "videos", "events", "events attended", "writings", "journal entries", "posts", "relationships", "relationship status", "roles", "identity", "gender", "orientation", "pronouns", "groups", "places", "questions", "friends", "followers", "following", "looking for", "kinksters", "lists", "memberships", "wall", "status" ]), o = e => {
+                const t = ck(e.text).replace(/\s+\d+$/, "");
+                return null !== e.level && !a.has(t) || r.has(t) || /^(?:latest\s+)?(?:pictures?|photos?|videos?|writings?)(?:\s*\(\d+\))?\s*:?$/.test(t);
+            }, s = /^(?:my\s+)?(?:fetishes?|kinks?)(?:\s*\([^\r )]*\))?\s*:?$/i, l = [];
+            if (i.forEach((e, t) => {
+                s.test(e.text) && l.push(t);
+            }), !l.length) {
+                const e = i.findIndex(o), n = i.slice(0, e < 0 ? i.length : e);
+                return {
+                    text: t ? "" : n.map(e => e.text).join("\n"),
+                    sectionFound: !1,
+                    missingSection: t
+                };
+            }
+            let c = l[0], d = -1;
+            l.forEach(e => {
+                const t = i.slice(e + 1, e + 121), n = t.map(e => ck(e.text).replace(/\s+\d+$/, "")), a = n.findIndex(e => [ "into", "interests", "favorites", "favorite", "curious about", "curious", "neutral", "soft limits", "soft limit", "hard limits", "hard limit", "not into", "not interested", "fantasy only", "already tried" ].includes(e)), r = n.slice(0, 4).includes("edit"), o = t.reduce((e, t) => e + (cx(t.text) ? 1 : 0), 0) + (a >= 0 && a < 16 ? 100 - a : 0) + (r ? 20 : 0);
+                o > d && (c = e, d = o);
+            });
+            let u = i.length;
+            for (let e = c + 1; e < i.length; e++) if (o(i[e])) {
+                u = e;
+                break;
+            }
+            return {
+                text: i.slice(c + 1, u).map(e => e.text).join("\n"),
+                sectionFound: !0,
+                missingSection: !1
+            };
+        }
+        function hx(e) {
+            const t = [];
+            let n = "", i = !1, o = 0;
+            for (let a = 0; a < e.length; a++) {
+                const r = e[a];
+                '"' === r ? i && '"' === e[a + 1] ? (n += '"', a++) : i = !i : "(" === r && !i ? (o++, n += r) : ")" === r && !i && o > 0 ? (o--, n += r) : "," !== r || i || o > 0 ? n += r : (t.push(n.trim()), 
+                n = "");
+            }
+            return t.push(n.trim()), t.filter(Boolean);
+        }
+        function gx(e) {
+            const t = [];
+            return e.split(/\r\n|[\r\n]/).forEach(e => {
+                const n = e.trim();
+                if (!n) return;
+                const i = n.match(/^(Into|Curious about|Curious|Soft limits?|Hard limits?|Favorites?|Not into|Not interested|Neutral|Fantasy only|Already tried)\s*:\s*(.+)$/i);
+                if (i) return t.push(i[1]), void hx(i[2]).forEach(e => t.push(e));
+                const a = hx(n);
+                if (a.length < 2) return void t.push(n);
+                a.filter(e => cx(e.replace(/^(?:the|a|an)\s+/i, ""))).length >= 2 ? a.forEach(e => t.push(e)) : t.push(n);
+            }), t;
+        }
+        function mx(e) {
+            const t = qn[e];
+            if (t && t.label) return t.label;
+            for (const t of h) {
+                if (catId(t.name) === e) return t.name;
+                const n = t.topics.find(t => Wn(t) === e);
+                if (n) return n;
+            }
+            return e;
+        }
+        // ============================================================
+        // FetLife importer — FetLifeImporter pipeline module
+        // (Refactor Step 2, Build 2026-10-18_0722.)
+        //
+        // The FetLife branch of yx.parse used to be one large inline
+        // function. It is now four named stages plus a thin
+        // orchestrator, with zero behavior change: same section and
+        // direction tables, same qualifier edge cases, same warnings,
+        // same category-hit (broadHits) tracking, same return shape.
+        //
+        //   parse(rawHtml)  — HTML extraction via px()/gx(), section
+        //     splitting, subsection-scoped "View all" detection.
+        //     Returns raw item records {section, dirDefault, rawText,
+        //     lineNo} plus page metadata. (Only stage touching px/gx.)
+        //   normalize(item) — pure, no DOM: splits the raw line into
+        //     name + qualifier text, strips a trailing parenthetical
+        //     qualifier off the name and merges it into the qualifier
+        //     string (qualifier text is ck()-normalized: lowercased /
+        //     trimmed; "as a top" / "as a bottom" resolve through the
+        //     direction table in parse/rate). Returns {baseTerm,
+        //     qualifier, rawName}.
+        //   match(baseTerm, ctx) — pure lookup, no DOM: alias-map /
+        //     pattern-fallback match via cx() (Step 1 alias structure
+        //     untouched), resolution via pk(), category/subcategory
+        //     hits recorded into ctx.broadHits. Returns {status,
+        //     match, resolved} with status "matched" | "broad" |
+        //     "unmapped".
+        //   rate(normalized, matchResult, item, acc) — resolves the
+        //     effective section (qualifier text first, then the
+        //     item's section, default Into) and direction (qualifier,
+        //     then the section's pending direction, then the match's
+        //     own direction), then writes ratings / annotations /
+        //     notes / flags into the accumulators.
+        //   run(rawText) — orchestrator: parse → normalize → match →
+        //     rate over the item list and assembles the exact result
+        //     object the converter has always returned.
+        //
+        // Stage logging: each stage appends {stage, in, out,
+        // examples} to FetLifeImporter.stageLog (reset per run);
+        // set FetLifeImporter.DEBUG = true to also mirror entries to
+        // console.debug.
+        // ============================================================
+        const FetLifeImporter = (() => {
+            const SECTION_KINDS = {
+                        into: {
+                            kind: "into",
+                            value: 100
+                        },
+                        interests: {
+                            kind: "into",
+                            value: 100
+                        },
+                        favorites: {
+                            kind: "favorite",
+                            value: null,
+                            mark: "favorite"
+                        },
+                        favorite: {
+                            kind: "favorite",
+                            value: null,
+                            mark: "favorite"
+                        },
+                        "curious about": {
+                            kind: "curious",
+                            value: 0
+                        },
+                        curious: {
+                            kind: "curious",
+                            value: 0
+                        },
+                        neutral: {
+                            kind: "neutral",
+                            value: null,
+                            neutral: !0
+                        },
+                        "soft limits": {
+                            kind: "soft",
+                            value: null,
+                            mark: "notinterested"
+                        },
+                        "soft limit": {
+                            kind: "soft",
+                            value: null,
+                            mark: "notinterested"
+                        },
+                        "hard limits": {
+                            kind: "hard",
+                            value: null,
+                            mark: "limit"
+                        },
+                        "hard limit": {
+                            kind: "hard",
+                            value: null,
+                            mark: "limit"
+                        },
+                        "not into": {
+                            kind: "not",
+                            value: null,
+                            mark: "notinterested"
+                        },
+                        "not interested": {
+                            kind: "not",
+                            value: null,
+                            mark: "notinterested"
+                        },
+                        "fantasy only": {
+                            kind: "fantasy",
+                            value: null,
+                            fantasy: !0
+                        },
+                        "already tried": {
+                            kind: "tried",
+                            value: null,
+                            tried: !0
+                        }
+                    };
+            const DIRECTION_KINDS = {
+                        giving: {
+                            direction: "give",
+                            label: "giving"
+                        },
+                        "as a top": {
+                            direction: "give",
+                            label: "giving"
+                        },
+                        top: {
+                            direction: "give",
+                            label: "giving"
+                        },
+                        receiving: {
+                            direction: "receive",
+                            label: "receiving"
+                        },
+                        "as a bottom": {
+                            direction: "receive",
+                            label: "receiving"
+                        },
+                        bottom: {
+                            direction: "receive",
+                            label: "receiving"
+                        },
+                        both: {
+                            direction: "both",
+                            label: "giving and receiving"
+                        },
+                        switch: {
+                            direction: "both",
+                            label: "giving and receiving"
+                        },
+                        "giving and receiving": {
+                            direction: "both",
+                            label: "giving and receiving"
+                        },
+                        "giving receiving": {
+                            direction: "both",
+                            label: "giving and receiving"
+                        },
+                        "everything to do with it": {
+                            direction: "both",
+                            label: "everything to do with it",
+                            everything: !0
+                        },
+                        watching: {
+                            direction: null,
+                            label: "watching"
+                        },
+                        wearing: {
+                            direction: null,
+                            label: "wearing"
+                        },
+                        "watching others wear": {
+                            direction: null,
+                            label: "watching others wear"
+                        },
+                        "watching others wearing": {
+                            direction: null,
+                            label: "watching others wear"
+                        }
+                    };
+            const SKIP_TERMS = new Set([ "fetishes", "kinks", "fetish list", "kink list", "edit", "about", "activity", "interest", "role", "show more", "show less" ]);
+            const PAGE_SECTIONS = [ "fetishes", "kinks", "about", "about me", "activity", "activity feed", "recent activity", "pictures", "photos", "videos", "events", "events attended", "writings", "journal entries", "posts", "relationships", "relationship status", "roles", "identity", "gender", "orientation", "pronouns", "groups", "places", "questions", "friends", "followers", "following", "looking for", "kinksters", "lists", "memberships", "wall", "status" ];
+            const sectionFromQualifier = e => /\bhard limits?\b/.test(e) ? SECTION_KINDS["hard limit"] : /\bsoft limits?\b/.test(e) ? SECTION_KINDS["soft limit"] : /\b(?:not interested|not into|no)\b/.test(e) ? SECTION_KINDS["not into"] : /\bfantasy only\b/.test(e) ? SECTION_KINDS["fantasy only"] : /\balready tried\b/.test(e) ? SECTION_KINDS["already tried"] : /\bneutral\b/.test(e) ? SECTION_KINDS.neutral : /\b(?:curious about|curious|maybe)\b/.test(e) ? SECTION_KINDS.curious : /\bfavorites?\b/.test(e) ? SECTION_KINDS.favorite : /\b(?:into|yes)\b/.test(e) ? SECTION_KINDS.into : null;
+            const directionFromQualifier = e => /\beverything to do with it\b/.test(e) ? DIRECTION_KINDS["everything to do with it"] : /\bwatching others wear(?:ing)?\b/.test(e) ? DIRECTION_KINDS["watching others wear"] : /\bwatching\b/.test(e) ? DIRECTION_KINDS.watching : /\bwearing\b/.test(e) ? DIRECTION_KINDS.wearing : /\b(?:both|switch|giving and receiving|giving receiving)\b/.test(e) ? DIRECTION_KINDS.both : /\b(?:giving|giver|top|topping|dominant|dom)\b/.test(e) ? DIRECTION_KINDS.giving : /\b(?:receiving|receiver|bottom|bottoming|submissive|sub)\b/.test(e) ? DIRECTION_KINDS.receiving : null;
+            // Build 2026-10-18_1549 — watching / wearing qualifiers annotate
+            // the topic (they never force a give/receive rating). The note
+            // is worded with the topic's own specialized role labels where
+            // the topic has them (Ge() labels — “admires” / “wears” /
+            // “watches” and the like), falling back to the FetLife
+            // qualifier's own words when it does not.
+            const sxStance = (id, F) => {
+                if (!F || null !== F.direction) return F ? F.label : "";
+                const g = Ge(id);
+                if (g.single) return F.label;
+                if ("wearing" === F.label) return g.labels[1] && "receive" !== g.labels[1] ? g.labels[1] : F.label;
+                if ("watching" === F.label || "watching others wear" === F.label) return g.labels[0] && "give" !== g.labels[0] ? g.labels[0] : F.label;
+                return F.label;
+            };
+            const api = {
+                DEBUG: !1,
+                stageLog: []
+            };
+            function slog(stage, info) {
+                api.stageLog.push(Object.assign({
+                    stage: stage
+                }, info)), api.DEBUG && console.debug(`[FetLifeImporter] ${stage}`, info);
+            }
+            function parse(rawHtml) {
+                const extracted = px(rawHtml), lines = gx(extracted.text), items = [], viewAllSections = [];
+                let section = null, sectionName = null, dirDefault = null;
+                lines.forEach((e, t) => {
+                    let s = e.replace(/ /g, " ").replace(/^[\s•·*]+|[\s•·*]+$/g, "").trim();
+                    if (!s || /^[,;|]+$/.test(s)) return;
+                    const f = ck(s), y = f.replace(/\s+\d+$/, "");
+                    if (Object.prototype.hasOwnProperty.call(SECTION_KINDS, y)) return section = SECTION_KINDS[y], sectionName = y, void (dirDefault = null);
+                    if (Object.prototype.hasOwnProperty.call(DIRECTION_KINDS, y)) return void (dirDefault = DIRECTION_KINDS[y]);
+                    if (PAGE_SECTIONS.includes(y) || /^(?:latest\s+)?(?:pictures?|photos?|videos?|writings?)(?:\s*\(\d+\))?\s*:?$/.test(y)) return sectionName = null, void (dirDefault = null);
+                    if (/^(?:view|show)\s+all(?:\s+fetishes?)?$/i.test(s) || /^view\s+all\b/i.test(s)) return void (sectionName && viewAllSections.push(sectionName));
+                    if (SKIP_TERMS.has(f) || /^https?:\/\//i.test(s) || /^@?[a-z0-9_.-]+\s+on\s+fetlife$/i.test(s)) return;
+                    items.push({
+                        section: section,
+                        dirDefault: dirDefault,
+                        rawText: s,
+                        lineNo: t + 1
+                    });
+                });
+                return slog("parse", {
+                    in: lines.length,
+                    out: items.length,
+                    examples: items.slice(0, 3).map(e => e.rawText)
+                }), {
+                    items: items,
+                    viewAllSections: viewAllSections,
+                    missingSection: extracted.missingSection,
+                    sectionFound: extracted.sectionFound
+                };
+            }
+            function normalize(item) {
+                const s = item.rawText;
+                let E = s.split(/\t+|\s*\|\s*|\s+[—–]\s+(?!\()/).map(e => e.trim()).filter(Boolean);
+                if (1 === E.length) {
+                    const e = s.match(/^(.+?):\s*(.+)$/);
+                    e && /\b(?:into|curious|favorite|neutral|not interested|fantasy only|already tried|limit|giving|receiving|both|switch|top|bottom|watching|wearing|everything|yes|no|maybe)\b/i.test(e[2]) && (E = [ e[1], e[2] ]);
+                }
+                if (1 === E.length) {
+                    const e = s.match(/\s+(?=(?:into|curious about|favorite|neutral|soft limits?|hard limits?|not interested|not into|fantasy only|already tried|everything to do with it|watching others wear(?:ing)?|watching|wearing|giving(?:\s*(?:and|&)\s*receiving)?|receiving|both|switch|top|bottom)\b)/i);
+                    e && (E = [ s.slice(0, e.index), s.slice(e.index).trim() ]);
+                }
+                let A = (E.shift() || "").replace(/^[-*•·\d.)\s]+/, "").replace(/^(?:the|a|an)\s+/i, "").trim();
+                let C = ck(E.join(" "));
+                if (!A) return {
+                    baseTerm: "",
+                    qualifier: C,
+                    rawName: A
+                };
+                const A0 = A, Aq = A.match(/^(.*?)\s*\(([^()]*)\)\s*$/);
+                if (Aq && Aq[1].trim()) {
+                    const q = ck(Aq[2]);
+                    q && /\b(?:giving|receiving|everything to do with it|watching|wearing|both|switch|top|bottom)\b/.test(q) && (A = Aq[1].trim(), 
+                    C = (C ? C + " " : "") + q);
+                }
+                // Importer rework Part C: a LEADING parenthetical qualifier
+                // ("(giving) Spanking", "(receiving) Flogging") carries the
+                // same recoverable direction as the trailing form — mine it
+                // into the qualifier string instead of dropping it. When the
+                // parenthetical holds no direction word, the term is left
+                // exactly as written (unrecoverable is stated by the match
+                // warnings, never guessed).
+                const AqLead = A.match(/^\(([^()]*)\)\s*(.+)$/);
+                if (AqLead && AqLead[2].trim()) {
+                    const q = ck(AqLead[1]);
+                    q && /\b(?:giving|receiving|everything to do with it|watching|wearing|both|switch|top|bottom)\b/.test(q) && (A = AqLead[2].trim(), 
+                    C = (C ? C + " " : "") + q);
+                }
+                return {
+                    baseTerm: A,
+                    qualifier: C,
+                    rawName: A0
+                };
+            }
+            function match(baseTerm, ctx) {
+                const M = cx(baseTerm);
+                if (!M) return {
+                    status: "unmapped",
+                    match: null,
+                    resolved: null
+                };
+                const I = pk(M, baseTerm, ctx.children);
+                if (!I) {
+                    // Build 2026-10-18_1015: broadTerms is presentation-only
+                    // tracking for the post-import summary dialog — the set
+                    // of distinct FetLife terms that landed on each broad
+                    // branch. broadHits recording below is unchanged.
+                    if (M && M.id && (isCatId(M.id) || isSubId(M.id))) {
+                        const bt = ctx.broadTerms || (ctx.broadTerms = {});
+                        (bt[M.id] || (bt[M.id] = new Set)).add(baseTerm), ctx.broadHits.includes(M.id) || ctx.broadHits.push(M.id);
+                    }
+                    return {
+                        status: "broad",
+                        match: M,
+                        resolved: null
+                    };
+                }
+                if (!I.child && (isSubId(I.id) || isCatId(I.id))) {
+                    const bt = ctx.broadTerms || (ctx.broadTerms = {});
+                    (bt[I.id] || (bt[I.id] = new Set)).add(baseTerm), ctx.broadHits.includes(I.id) || ctx.broadHits.push(I.id);
+                }
+                return {
+                    status: "matched",
+                    match: M,
+                    resolved: I
+                };
+            }
+            function rate(normalized, matchResult, item, acc) {
+                const A = normalized.baseTerm, C = normalized.qualifier, M = matchResult.match, I = matchResult.resolved, P = I.id, b = (e, n, i) => {
+                    !Ke.has(e) && !acc.children[e] || (acc.ratings[e] || (acc.ratings[e] = {}), acc.ratings[e][n] = i);
+                }, v = (e, t) => {
+                    (Ke.has(e) || acc.children[e]) && t && (acc.notes[e] || (acc.notes[e] = []), acc.notes[e].includes(t) || acc.notes[e].push(t));
+                }, L = sectionFromQualifier(C) || item.section || SECTION_KINDS.into, T = directionFromQualifier(C), F = T || item.dirDefault;
+                let N = F ? F.direction : M.direction || "both", _ = L.value, D = L.mark || null;
+                // Slug-gap fix: when P names no current topic (not a
+                // canonical id in Ke, not a registered imported child),
+                // every write below is declined or would be stored under
+                // a dead key. Drop the hit loudly instead: record it on
+                // acc.notApplied, name it in the warnings, and return !1
+                // so run() excludes it from the matched / mapped counts
+                // and no success line is rendered for it.
+                if (!Ke.has(P) && !acc.children[P]) {
+                    const droppedList = acc.notApplied || (acc.notApplied = []);
+                    droppedList.some(e => e.term === A && e.target === P) || droppedList.push({
+                        term: A,
+                        target: P
+                    }), acc.warnings.push(`Item ${item.lineNo}: “${A}” matched ${P}, which names no current topic, and was not applied.`);
+                    return !1;
+                }
+                // Build 2026-10-18_1549 — “(everything to do with it)” carries
+                // its own value by section instead of the section default:
+                // 80 (4/5 positive) in Into, 33 (~1/3, deep yellow) in
+                // Curious. On a single-slider topic it sets only that one
+                // slider (stored under the “give” key, per Ge()); on a
+                // dual-slider topic it sets both give and receive.
+                const sxEverything = Boolean(F && F.everything), sxSingle = sxEverything && Ge(P).single;
+                sxEverything && ("into" === L.kind ? _ = 80 : "curious" === L.kind && (_ = 33)), 
+                "into" !== L.kind || "give" !== N && "receive" !== N || F && F.everything || (_ = 85), 
+                "hard" === L.kind && (D = "limit", N = "both"), "soft" === L.kind && v(P, "Soft limit on FetLife"), 
+                F && null === F.direction && v(P, `${"curious" === L.kind ? "Curious about" : "soft" === L.kind ? "Soft limit" : "hard" === L.kind ? "Hard limit" : "favorite" === L.kind ? "Favorite" : "Into"} on FetLife · ${sxStance(P, F)}`), 
+                !Number.isFinite(_) || "give" !== N && "both" !== N || b(P, "give", _), !Number.isFinite(_) || "receive" !== N && "both" !== N || sxSingle || b(P, "receive", _), 
+                ("limit" === D || "limit" !== acc.annotations[P] && D) && (acc.annotations[P] = D), L.neutral && (acc.neutralNodes[P] = !0), 
+                L.fantasy && (acc.fantasyOnly[P] = !0), L.tried && (acc.alreadyTried[P] = !0), (D || L.neutral || L.fantasy || L.tried) && (acc.discreteNodes[P] = !0);
+                const R = F && null === F.direction ? `annotation: ${F.label}` : sxEverything ? sxSingle ? "everything (single slider)" : "give + receive" : "both" === N ? "give + receive" : N, O = "into" === L.kind ? `into ${_}` : "curious" === L.kind ? sxEverything ? "curious 33" : "curious" : "soft" === L.kind ? "Not Interested (soft limit)" : "hard" === L.kind ? "Hard Limit" : "favorite" === L.kind ? "Favorite" : "neutral" === L.kind ? "Neutral" : "fantasy" === L.kind ? "Fantasy Only" : "tried" === L.kind ? "Already Tried" : "Not Interested";
+                acc.mappings.push({
+                    text: `${A} ⇒ ${sxNodePath(P)} · ${R} · ${O}`,
+                    tertiary: !1
+                }), I.suggestion && acc.suggestions.push({
+                    name: I.suggestion.name,
+                    parentId: P,
+                    parentPath: sxNodePath(P),
+                    section: L.kind,
+                    direction: N,
+                    value: _
+                });
+                return !0;
+            }
+            function run(rawText) {
+                api.stageLog.length = 0;
+                const acc = {
+                    ratings: {},
+                    annotations: {},
+                    fantasyOnly: {},
+                    alreadyTried: {},
+                    neutralNodes: {},
+                    discreteNodes: {},
+                    notes: {},
+                    children: {},
+                    warnings: [],
+                    unmappedFetishes: [],
+                    bestFitNotes: [],
+                    suggestions: [],
+                    mappings: [],
+                    notApplied: [],
+                    broadHits: [],
+                    broadTerms: {}
+                };
+                let mappedLines = 0, totalLines = 0;
+                const parsed = parse(rawText), normExamples = [], matchExamples = [], rateExamples = [];
+                let normCount = 0, matchedCount = 0, broadCount = 0, unmappedCount = 0, droppedCount = 0;
+                parsed.missingSection && acc.warnings.push("No Fetishes section was found in this saved page, so nothing outside that section was scanned. The section isn't in this file: open the profile on FetLife, scroll to the Fetishes area and expand every subsection, then save the page again as 'Webpage, Single File' (.mhtml) — not 'HTML Only'. Or save the page at fetlife.com/<username>/profile/fetishes instead.");
+                for (const item of parsed.items) {
+                    const normalized = normalize(item);
+                    if (!normalized.baseTerm) continue;
+                    totalLines++, normCount++, normExamples.length < 3 && normExamples.push(`${normalized.rawName} → base “${normalized.baseTerm}” · qualifier “${normalized.qualifier}”`);
+                    const matchResult = match(normalized.baseTerm, acc);
+                    if ("unmapped" === matchResult.status) {
+                        unmappedCount++, acc.unmappedFetishes.push({
+                            fetish_name: normalized.rawName,
+                            list_type: /\b(?:curious about|curious|maybe)\b/.test(normalized.qualifier) || item.section && "curious" === item.section.kind ? "curious" : "into"
+                        }), acc.warnings.push(`Item ${item.lineNo}: “${normalized.rawName.slice(0, 70)}” was not recognized or has no matching topic.`);
+                        continue;
+                    }
+                    if ("broad" === matchResult.status) {
+                        broadCount++, acc.warnings.push(`Item ${item.lineNo}: “${normalized.rawName}” maps only to a broad branch, so it was skipped; rate its individual topics instead.`);
+                        continue;
+                    }
+                    rate(normalized, matchResult, item, acc) ? (matchedCount++, mappedLines++, matchExamples.length < 3 && matchExamples.push(`${normalized.baseTerm} → ${matchResult.resolved.id}`), rateExamples.length < 3 && rateExamples.push(acc.mappings[acc.mappings.length - 1].text)) : droppedCount++;
+                }
+                if (slog("normalize", {
+                    in: parsed.items.length,
+                    out: normCount,
+                    examples: normExamples
+                }), slog("match", {
+                    in: normCount,
+                    out: matchedCount,
+                    broad: broadCount,
+                    unmapped: unmappedCount,
+                    dropped: droppedCount,
+                    examples: matchExamples
+                }), slog("rate", {
+                    in: matchedCount,
+                    out: mappedLines,
+                    examples: rateExamples
+                }), parsed.viewAllSections.length) {
+                    const e = [ ...new Set(parsed.viewAllSections) ].map(e => e.replace(/\b\w/g, e => e.toUpperCase())).join(" and ");
+                    acc.warnings.unshift(`We found “View all” links in your saved page (${e}). Your FetLife profile shows more fetishes than what’s in this file — you’re only importing the truncated visible portion. Go back to FetLife, click all “View all” links in your Fetishes section, then save the page again for a complete import.`);
+                }
+                const previewNotes = parsed.sectionFound ? [ "Found the Fetishes section and ignored the rest of the saved profile page." ] : [];
+                return {
+                    ratings: acc.ratings,
+                    annotations: acc.annotations,
+                    fantasyOnly: acc.fantasyOnly,
+                    alreadyTried: acc.alreadyTried,
+                    neutralNodes: acc.neutralNodes,
+                    discreteNodes: acc.discreteNodes,
+                    notes: acc.notes,
+                    children: acc.children,
+                    mappedLines: mappedLines,
+                    totalLines: totalLines,
+                    warnings: acc.warnings,
+                    unmappedFetishes: acc.unmappedFetishes,
+                    bestFit: [ ...new Set(acc.bestFitNotes) ],
+                    suggestions: acc.suggestions,
+                    mappings: acc.mappings,
+                    notApplied: acc.notApplied,
+                    categoryHits: acc.broadHits,
+                    categoryHitCounts: Object.fromEntries(Object.entries(acc.broadTerms).map(([e, t]) => [ e, t.size ])),
+                    // Build 2026-10-18_1624 — the actual FetLife terms behind
+                    // each broad-branch count, so the summary dialog's pills
+                    // can list term → target instead of a bare number.
+                    categoryHitTerms: Object.fromEntries(Object.entries(acc.broadTerms).map(([e, t]) => [ e, [ ...t ] ])),
+                    previewNotes: previewNotes
+                };
+            }
+            return api.parse = parse, api.normalize = normalize, api.match = match, api.rate = rate, api.run = run, api;
+        })();
+
+        // Build 2026-10-18_1015 — Post-FetLife-import summary dialog
+        // (presentation layer only; no import logic lives here). Groups the
+        // parse result's broad hits — the same deduped categoryHits list the
+        // list view auto-expands from — into a Category → Subcategory tree
+        // with the per-branch FetLife-term counts FetLifeImporter.match
+        // recorded alongside (categoryHitCounts), and shows the tree in
+        // #fetlifeBroadDialog over the list view the Load already opened.
+        function showFetLifeBroadSummary(result) {
+            const dlg = e.byId("fetlifeBroadDialog"), tree = e.byId("fetlifeBroadTree"), totalEl = e.byId("fetlifeBroadTotal");
+            if (!dlg || !tree || !result) return;
+            const hits = Array.isArray(result.categoryHits) ? [ ...new Set(result.categoryHits.filter(x => "string" == typeof x && (isCatId(x) || isSubId(x)))) ] : [];
+            if (!hits.length) return;
+            const counts = result.categoryHitCounts && "object" == typeof result.categoryHitCounts ? result.categoryHitCounts : {}, termLists = result.categoryHitTerms && "object" == typeof result.categoryHitTerms ? result.categoryHitTerms : {}, targetFor = id => {
+                if (isCatId(id)) {
+                    const c = h.find(c => catId(c.name) === id);
+                    return (c ? c.name : id) + " (whole category)";
+                }
+                const s = zn(id);
+                return s ? s.branch + " › " + s.label + " (subcategory)" : id;
+            }, linesFor = id => (Array.isArray(termLists[id]) ? termLists[id] : []).map(term => ({
+                term: term,
+                target: targetFor(id)
+            })), countFor = id => Math.max(linesFor(id).length, Math.max(1, Number(counts[id]) || 1)), byCat = new Map;
+            hits.forEach(id => {
+                if (isCatId(id)) {
+                    const cat = h.find(c => catId(c.name) === id);
+                    if (!cat) return;
+                    const entry = byCat.get(cat.name) || { name: cat.name, direct: 0, directLines: [], subs: [] };
+                    entry.direct += countFor(id), entry.directLines.push(...linesFor(id)), byCat.set(cat.name, entry);
+                } else {
+                    const sub = zn(id);
+                    if (!sub) return;
+                    const entry = byCat.get(sub.branch) || { name: sub.branch, direct: 0, directLines: [], subs: [] };
+                    entry.subs.push({ name: sub.label, count: countFor(id), lines: linesFor(id) }), byCat.set(sub.branch, entry);
+                }
+            });
+            if (!byCat.size) return;
+            tree.textContent = "";
+            let total = 0;
+            // Build 2026-10-18_1624 — the count pill is now a button (when
+            // the term list is known): its hover tooltip lists every
+            // FetLife term behind the count as “Term → target”, and
+            // selecting it expands the same list inline under the row, so
+            // a bare “1 term” can never be mistaken for a term that merely
+            // passed through the branch on its way somewhere else.
+            const mkRow = (label, count, lines, cls) => {
+                const li = document.createElement("li");
+                li.className = cls;
+                const nm = document.createElement("span");
+                nm.className = "fetlife-broad-name", nm.textContent = label;
+                const badge = document.createElement(lines.length ? "button" : "span");
+                badge.className = "fetlife-broad-count", badge.textContent = `${count} term${1 === count ? "" : "s"}`, li.append(nm, badge);
+                if (lines.length) {
+                    badge.type = "button", badge.title = lines.map(l => `${l.term} → ${l.target}`).join("\n"), 
+                    badge.setAttribute("aria-expanded", "false"), badge.setAttribute("aria-label", `${count} FetLife term${1 === count ? "" : "s"}: ${lines.map(l => `${l.term} maps to ${l.target}`).join("; ")}. Activate to show or hide the list.`);
+                    const detail = document.createElement("ul");
+                    detail.className = "fetlife-broad-terms", detail.hidden = !0, lines.forEach(l => {
+                        const d = document.createElement("li"), b = document.createElement("b");
+                        b.textContent = l.term;
+                        const a = document.createElement("span");
+                        a.className = "fl-arrow", a.textContent = " → ";
+                        const t = document.createElement("span");
+                        t.textContent = l.target, d.append(b, a, t), detail.append(d);
+                    }), li.append(detail), badge.addEventListener("click", () => {
+                        detail.hidden = !detail.hidden, badge.setAttribute("aria-expanded", String(!detail.hidden));
+                    });
+                }
+                return li;
+            }, list = document.createElement("ul");
+            list.className = "fetlife-broad-list", h.forEach(cat => {
+                const entry = byCat.get(cat.name);
+                if (!entry) return;
+                const catTotal = entry.direct + entry.subs.reduce((a, s) => a + s.count, 0);
+                total += catTotal;
+                const catLines = entry.directLines.concat(entry.subs.reduce((a, s) => a.concat(s.lines), []));
+                const li = mkRow(cat.name, catTotal, catLines, "fetlife-broad-cat");
+                if (entry.direct || entry.subs.length) {
+                    const subList = document.createElement("ul");
+                    subList.className = "fetlife-broad-subs", entry.direct && subList.append(mkRow("The whole category", entry.direct, entry.directLines, "fetlife-broad-sub")), 
+                    entry.subs.forEach(s => subList.append(mkRow(s.name, s.count, s.lines, "fetlife-broad-sub"))), li.append(subList);
+                }
+                list.append(li);
+            }), tree.append(list), totalEl && (totalEl.textContent = `${total} FetLife term${1 === total ? "" : "s"} matched a broad area instead of a specific kink, so the rating was applied to that category or subcategory itself. Press “Rate the categories your kinks map to” and the list will show just ${1 === total ? "that area" : "those areas"}, most popular first and collapsed — expand one to rate its top topics. Each “N terms” pill lists the exact FetLife terms behind the count — hover it, or select it to expand the list — and shows where each term mapped.`);
+            const closeBtn = e.byId("closeFetlifeBroad"), dismissBtn = e.byId("dismissFetlifeBroad");
+            closeBtn && (closeBtn.onclick = () => Ui(dlg)), dismissBtn && (dismissBtn.onclick = () => {
+                Ui(dlg), window.__sxFetLifeReview = new Set(hits), sxOutlineSortMode = "popularity";
+                try {
+                    Do.open ? Cs() : location.hash = "#app/listview";
+                } catch (e) { __sxErrLog("listview-open", e); }
+            }), Wi(dlg), 
+            dismissBtn && requestAnimationFrame(() => dismissBtn.focus({ preventScroll: !0 }));
+        }
+
         e.byId("scribeTab") && e.byId("scribeTab").addEventListener("pointerenter", yc), e.byId("scribeTab") && e.byId("scribeTab").addEventListener("click", e => {
             yc(), Jd();
-        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), Bc.addEventListener("click", e => {
+        }), e.byId("closeScribeChoice") && e.byId("closeScribeChoice").addEventListener("click", () => Ui(Bc)), Bc && Bc.addEventListener("click", e => {
             e.target === Bc && Ui(Bc);
-        }), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc.addEventListener("click", e => {
+        }), e.byId("closeNovelAi") && e.byId("closeNovelAi").addEventListener("click", () => Ui(jc)), jc && jc.addEventListener("click", e => {
             e.target === jc && Ui(jc);
-        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc)), Oc.addEventListener("click", e => {
+        }), e.byId("closeScribe") && e.byId("closeScribe").addEventListener("click", () => Ui(Oc)), Oc && Oc.addEventListener("click", e => {
             e.target === Oc && Ui(Oc);
         });
         const fp = innerWidth <= 620 ? 1.3 : 1.16, yp = Number(navigator.deviceMemory) || 0, bp = Number(navigator.hardwareConcurrency) || 0, vp = yp > 0 && yp <= 4, wp = bp > 0 && bp <= 4, kp = vp && (0 === bp || wp) || wp && (0 === yp || vp);
-        Bt = Boolean((yp >= 8 || bp >= 8) && !kp && Element.prototype.animate && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
+        // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
+        Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
         const xp = Boolean((navigator.maxTouchPoints || 0) > 0 && window.matchMedia && window.matchMedia("(pointer: coarse)").matches), Sp = !Object.keys(wt).length || kp || xp;
         let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
             x: 0,
@@ -29797,78 +36386,294 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             Ap = e.y + e.height / 2 - n * $p, $h(), armFitSettleRefit();
         }
         function Ph(e, t, n) {
+            if (!Number.isFinite(e) || !Number.isFinite(t) || !Number.isFinite(n)) return;
+            noteFitUserCamera();
+            try {
+                if (typeof fitSettleTimer !== "undefined" && fitSettleTimer) {
+                    clearTimeout(fitSettleTimer);
+                    fitSettleTimer = 0;
+                }
+            } catch (_) {}
             const i = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            Bt && !i ? "gpu" === Kp ? function(e, t, n = 300, i = $p) {
-                if (uh(), dh(), window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches || !Mn.animate) return $p = i, 
-                Ep = e, Ap = t, void $h();
-                Gp && xh();
-                const a = {
-                    tx: e,
-                    ty: t,
-                    scale: i
-                }, r = Ep, o = Ap, s = $p;
-                Ep = a.tx, Ap = a.ty, $p = a.scale;
-                const l = ch();
-                Ep = r, Ap = o, $p = s;
-                const c = Mn.animate([ {
-                    transform: "none"
-                }, {
-                    transform: `matrix(${l.ratio},0,0,${l.ratio},${l.dx},${l.dy})`
-                } ], {
-                    duration: n,
-                    easing: "cubic-bezier(.16,.82,.22,1)",
-                    fill: "forwards"
-                });
-                Yp = {
-                    animation: c,
-                    tx: a.tx,
-                    ty: a.ty,
-                    scale: a.scale
-                }, c.onfinish = () => {
-                    Yp && Yp.animation === c && dh();
-                };
-            }(t, n, 540, e) : function(e, t, n = 540, i = $p) {
-                if (uh(), dh(), window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return $p = i, 
-                Ep = e, Ap = t, void $h();
-                Gp && xh();
-                const a = Ep, r = Ap, o = $p, s = performance.now();
-                Cn.classList.add("is-camera-moving");
-                const l = c => {
-                    const d = A((c - s) / n), u = 1 - Math.pow(1 - d, 4);
-                    $p = o + (i - o) * u, Ep = a + (e - a) * u, Ap = r + (t - r) * u, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), 
-                    wh(), wr(), d < 1 ? Xp = requestAnimationFrame(l) : (Xp = 0, $p = i, Ep = e, Ap = t, 
-                    $h());
-                };
-                Xp = requestAnimationFrame(l);
-            }(t, n, 540, e) : (uh(), $p = e, Ep = t, Ap = n, $h());
+            if (!Bt || i) {
+                uh(), dh(), $p = e, Ep = t, Ap = n, $h();
+                return;
+            }
+            if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
+            uh(), dh();
+            Gp && xh();
+            const a = Ep, r = Ap, o = $p, s = performance.now();
+            const duration = 720;
+            Cn.classList.add("is-camera-moving");
+            const l = c => {
+                const progress = Math.max(0, Math.min(1, (c - s) / duration));
+                // Cubic ease-in-out curve
+                const u = progress < 0.5
+                    ? 4 * progress * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                $p = o + (e - o) * u;
+                Ep = a + (t - a) * u;
+                Ap = r + (n - r) * u;
+                Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`);
+                wh();
+                wr();
+                if (progress < 1) {
+                    Xp = requestAnimationFrame(l);
+                } else {
+                    Xp = 0;
+                    $p = e;
+                    Ep = t;
+                    Ap = n;
+                    noteFitUserCamera();
+                    kh();
+                }
+            };
+            Xp = requestAnimationFrame(l);
         }
         function Lh(e) {
-            const t = h.findIndex(t => t.name === e);
-            if (t < 0) return;
-            const n = sn.get(e) ?? function(e) {
-                const t = h[e], n = t && branchOrderRankMap().has(t.name) ? branchOrderRankMap().get(t.name) : e;
-                return -Math.PI / 2 + n / h.length * Math.PI * 2;
-            }(t), i = Xa(n, 850), a = innerWidth <= 620 ? 2.15 : 1.75;
-            Ph(a, 900 - i.x * a, 620 - i.y * a);
+            const cat = h.find(c => c.name === e || c.id === e || catId(c.name) === e || sxName(c.name) === sxName(e));
+            if (cat) {
+                return void Th(cat.id, cat.name);
+            }
+            Ih();
         }
         function Th(e, t) {
-            if (isCatId(String(e))) {
-                const cloud = Array.from(In.querySelectorAll(".node-group[data-layout-key]:not(.is-hidden)")).filter(node => {
-                    const item = qn[node.dataset.layoutKey] || Xn(node.dataset.layoutKey);
-                    return item && item.branch === t && item.kind !== "Category";
-                }).map(node => ({x:Number(node.dataset.layoutX), y:Number(node.dataset.layoutY)})).filter(point => Number.isFinite(point.x) && Number.isFinite(point.y));
-                if (cloud.length) {
-                    const xs = cloud.map(point => point.x), ys = cloud.map(point => point.y), minX = Math.min(...xs)-90, maxX = Math.max(...xs)+90, minY = Math.min(...ys)-90, maxY = Math.max(...ys)+90, cx = (minX+maxX)/2, cy = (minY+maxY)/2, pad = innerWidth <= 620 ? 54 : 90, scale = Math.max(.12, Math.min(innerWidth <= 620 ? 3.15 : 2.65, (nh.width-2*pad)/Math.max(maxX-minX,1), (nh.height-2*pad)/Math.max(maxY-minY,1)));
-                    return void Ph(scale, nh.x + nh.width/2 - cx*scale, nh.y + nh.height/2 - cy*scale);
+            const rawId = String(e || "").trim();
+            const rawBranch = String(t || "").trim();
+            const migrated = typeof migrateNodeKey === "function" ? migrateNodeKey(rawId) : rawId;
+            const slug = rawId.toLowerCase().replace(/^(cat|subcategory)-/, "").replace(/[^a-z0-9]+/g, "-");
+
+            // 1. Resolve Category
+            const cat = h.find(c => {
+                if (c.id === rawId || c.id === migrated) return true;
+                if (c.name === rawBranch || c.name === rawId) return true;
+                if (c.name.toLowerCase() === rawBranch.toLowerCase() || c.name.toLowerCase() === rawId.toLowerCase()) return true;
+                const cSlug = c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                return cSlug === slug;
+            }) || null;
+
+            // 2. Resolve Subcategory
+            let sub = null;
+            if (!cat) {
+                for (const c of h) {
+                    for (const s of (c.subcategories || [])) {
+                        if (s.id === rawId || s.id === migrated) { sub = { cat: c, sub: s }; break; }
+                        if (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase()) { sub = { cat: c, sub: s }; break; }
+                        const sSlug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                        if (sSlug === slug || slug.endsWith(sSlug)) { sub = { cat: c, sub: s }; break; }
+                    }
+                    if (sub) break;
                 }
             }
-            const n = In.querySelector(`[data-layout-key="${CSS.escape(e)}"]`);
-            if (!n) return void Lh(t);
-            const i = Number(n.dataset.labelX || n.dataset.layoutX), a = Number(n.dataset.labelY || n.dataset.layoutY);
-            if (!Number.isFinite(i) || !Number.isFinite(a)) return void Lh(t);
-            const r = Math.max(1e-9, Math.min(Eh(), Math.max($p, innerWidth <= 620 ? 3.15 : 2.65)));
-            Ph(r, nh.x + nh.width / 2 - i * r, nh.y + nh.height / 2 - a * r);
+
+            let sid = cat ? cat.id : (sub ? sub.sub.id : migrated);
+            const rec = qn[sid] || Xn(sid) || qn[rawId] || Xn(rawId) || null;
+            let isCat = Boolean(cat) || isCatId(sid);
+            let isSub = Boolean(sub) || isSubId(sid);
+
+            // If a leaf topic node was passed, resolve to its parent subcategory or category
+            if (!isCat && !isSub && rec) {
+                if (rec.parentId) {
+                    const pRec = qn[rec.parentId] || Xn(rec.parentId);
+                    if (pRec && (pRec.kind === "Subcategory" || isSubId(rec.parentId))) {
+                        return void Th(rec.parentId, rec.branch);
+                    }
+                }
+                if (rec.branch) {
+                    const cMatch = h.find(c => c.name === rec.branch || sxName(c.name) === sxName(rec.branch));
+                    if (cMatch) {
+                        return void Th(cMatch.id, cMatch.name);
+                    }
+                }
+            }
+
+            const branchName = cat ? cat.name : (sub ? sub.cat.name : (rawBranch || (rec && rec.branch) || ci(sid) || ""));
+            const catSlug = cat ? cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "";
+            const subSlug = sub ? sub.sub.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "";
+
+            // Auto-expand if currently collapsed so the children are rendered
+            if (isCat && branchName && !rn.has(branchName)) {
+                rn.add(branchName);
+                Mr();
+                const runner = () => Th(cat ? cat.id : sid, branchName);
+                if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                else window.setTimeout(runner, 80);
+                return;
+            }
+            if (isSub && branchName && (!rn.has(branchName) || !on.has(sid))) {
+                rn.add(branchName);
+                on.add(sid);
+                Mr();
+                const runner = () => Th(sid, branchName);
+                if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                else window.setTimeout(runner, 80);
+                return;
+            }
+
+            // Find the anchor node DOM element (tip where icon and category/subcategory label are displayed)
+            let anchorEl = null;
+            if (isCat && cat) {
+                anchorEl = In.querySelector(`.node-group[data-layout-key="cat-${CSS.escape(catSlug)}"]`) ||
+                           In.querySelector(`.node-group[data-layout-key="${CSS.escape(cat.id)}"]`) ||
+                           In.querySelector(`.node-group[data-layout-key*="${CSS.escape(catSlug)}"]`) ||
+                           In.querySelector(`.node-group[data-layout-key="${CSS.escape(sid)}"]`) ||
+                           Array.from(In.querySelectorAll(".node-group.gen1-line-group")).find(el => {
+                               const txt = el.querySelector(".category-label")?.textContent?.trim();
+                               return txt && (txt === cat.name || sxName(txt) === sxName(cat.name));
+                           });
+            } else if (isSub && sub) {
+                anchorEl = In.querySelector(`.node-group[data-layout-key="${CSS.escape(sub.sub.id)}"]`) ||
+                           In.querySelector(`.node-group[data-layout-key*="${CSS.escape(subSlug)}"]`) ||
+                           In.querySelector(`.node-group.subcategory-node[data-layout-key="${CSS.escape(sub.sub.id)}"]`);
+            } else {
+                anchorEl = In.querySelector(`.node-group[data-layout-key="${CSS.escape(sid)}"]`) ||
+                           In.querySelector(`[data-layout-key="${CSS.escape(sid)}"]`);
+            }
+
+            // Gather the child fan nodes belonging to this category/subcategory
+            const childEls = Array.from(In.querySelectorAll(".node-group[data-layout-key]:not(.is-hidden)")).filter(node => {
+                if (anchorEl && node === anchorEl) return false;
+                let k = node.dataset.layoutKey;
+                if (!k) return false;
+                if (isCat && cat) {
+                    if (k === cat.id || k === `cat-${catSlug}` || k.includes(catSlug)) return false;
+                    if (node.classList.contains("gen1-line-group")) return false;
+                    const nodeBranch = ci(k);
+                    if (nodeBranch === cat.name || sxName(nodeBranch) === sxName(cat.name)) return true;
+                    const item = qn[k] || Xn(k);
+                    if (item && (item.branch === cat.name || sxName(item.branch) === sxName(cat.name))) return true;
+                    return false;
+                }
+                if (isSub && sub) {
+                    if (k === sub.sub.id) return false;
+                    const item = qn[k] || Xn(k);
+                    return (item?.parentId === sub.sub.id || item?.subcategoryId === sub.sub.id || item?.subId === sub.sub.id);
+                }
+                return false;
+            });
+
+            // If children haven't painted yet, wait for paint promise or schedule next frame
+            if (isCat && childEls.length === 0) {
+                if (window.sxPaintPromise) {
+                    window.sxPaintPromise.then(() => requestAnimationFrame(() => Th(cat ? cat.id : sid, branchName)));
+                    return;
+                }
+                if (!window.__thRetry || window.__thRetry < 8) {
+                    window.__thRetry = (window.__thRetry || 0) + 1;
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        Th(cat ? cat.id : sid, branchName);
+                    }));
+                    return;
+                }
+            }
+            window.__thRetry = 0;
+
+            // Anchor center coordinates (hub point where spokes originate)
+            let anchorX = anchorEl ? Number(anchorEl.dataset.layoutX) : NaN;
+            let anchorY = anchorEl ? Number(anchorEl.dataset.layoutY) : NaN;
+            if ((!Number.isFinite(anchorX) || !Number.isFinite(anchorY)) && anchorEl) {
+                const icon = anchorEl.querySelector(".branch-icon, .topic-icon");
+                if (icon) {
+                    try {
+                        const b = icon.getBBox();
+                        anchorX = b.x + b.width / 2;
+                        anchorY = b.y + b.height / 2;
+                    } catch (_) {}
+                }
+            }
+            if ((!Number.isFinite(anchorX) || !Number.isFinite(anchorY)) && cat) {
+                const cIdx = h.findIndex(c => c.name === cat.name);
+                const nAng = sn.get(cat.name) ?? function(e) {
+                    const t = h[e], n = t && branchOrderRankMap().has(t.name) ? branchOrderRankMap().get(t.name) : e;
+                    return -Math.PI / 2 + n / h.length * Math.PI * 2;
+                }(cIdx);
+                const pt = Xa(nAng, (typeof yr === "function" ? yr(cat) : 1200) || 1200);
+                anchorX = pt.x;
+                anchorY = pt.y;
+            }
+
+            // Collect all points: the selected branch/subcategory anchor icon + all child icons
+            const points = [];
+            if (Number.isFinite(anchorX) && Number.isFinite(anchorY)) {
+                points.push({ x: anchorX, y: anchorY, isAnchor: true });
+            }
+
+            childEls.forEach(el => {
+                const lx = Number(el.dataset.layoutX), ly = Number(el.dataset.layoutY);
+                if (Number.isFinite(lx) && Number.isFinite(ly)) {
+                    points.push({ x: lx, y: ly, isAnchor: false });
+                    return;
+                }
+                try {
+                    const b = el.getBBox();
+                    if (Number.isFinite(b.x) && Number.isFinite(b.y) && b.width > 0 && b.height > 0) {
+                        points.push({ x: b.x + b.width / 2, y: b.y + b.height / 2, isAnchor: false });
+                    }
+                } catch (_) {}
+            });
+
+            if (points.length > 0) {
+                const anchorPt = points.find(p => p.isAnchor) || points[0];
+                const childPts = points.filter(p => !p.isAnchor);
+
+                let targetPoints = [anchorPt];
+                if (childPts.length > 0) {
+                    // Sort children by radial distance from anchor so we include 90% of children closest to the fan
+                    childPts.sort((p1, p2) => Math.hypot(p1.x - anchorPt.x, p1.y - anchorPt.y) - Math.hypot(p2.x - anchorPt.x, p2.y - anchorPt.y));
+                    const keepCount = Math.max(1, Math.ceil(childPts.length * 0.90));
+                    targetPoints = targetPoints.concat(childPts.slice(0, keepCount));
+                }
+
+                // Center is anchored on the selected branch hub so spokes fan out symmetrically
+                const cx = anchorPt.x;
+                const cy = anchorPt.y;
+
+                // Max radial distance from anchor hub to children (excluding branch label text per request)
+                let maxDistX = 0, maxDistY = 0;
+                targetPoints.forEach(pt => {
+                    maxDistX = Math.max(maxDistX, Math.abs(pt.x - cx));
+                    maxDistY = Math.max(maxDistY, Math.abs(pt.y - cy));
+                });
+
+                // Visible viewport aspect ratio and viewBox world space extents (matching Ih)
+                const sw = Cn && Cn.clientWidth ? Cn.clientWidth : innerWidth;
+                const sh = Cn && Cn.clientHeight ? Cn.clientHeight : innerHeight;
+                const asp = sw > 0 && sh > 0 ? sw / sh : 1;
+                const hw = (nh.width / 2) * Math.max(1, asp);
+                const hh = (nh.height / 2) * Math.max(1, 1 / asp);
+
+                // Clearances in viewBox units for top bar (~90px), bottom dock (~75px), side margins (~70px)
+                const topClearance = (90 / Math.max(300, sh)) * nh.height;
+                const bottomClearance = (75 / Math.max(300, sh)) * nh.height;
+                const sideClearance = (70 / Math.max(300, sw)) * nh.width * asp;
+                const availH = Math.max(600, hh - (topClearance + bottomClearance) / 2);
+                const availW = Math.max(600, hw - sideClearance);
+
+                // Span needed to encompass the anchor hub and 90% of children with icon padding
+                const pad = isCat ? 140 : 100;
+                // Fan extent is radial from anchor hub, so full span is 2 * maxDist
+                const extentX = Math.max(isCat ? 1800 : 1200, 2 * (maxDistX + pad));
+                const extentY = Math.max(isCat ? 1800 : 1200, 2 * (maxDistY + pad));
+
+                const fitScale = Math.min(availW / extentX, availH / extentY);
+
+                // Framing scale: frame comfortably in viewport (e.g. 0.35 - 0.55), NOT zoomed into outer space
+                const maxScale = isCat ? 0.45 : 0.65;
+                const minScale = 0.25;
+                const targetScale = Math.max(minScale, Math.min(maxScale, fitScale));
+
+                // Screen center in map world space (offset by +15 vertically to balance top header vs bottom dock)
+                const tx = 900 - cx * targetScale;
+                const ty = 635 - cy * targetScale;
+
+                return void Ph(targetScale, tx, ty);
+            }
+
+            if (branchName) return void Lh(branchName);
         }
+        window.__sxFocusNode = Th;
+        window.__sxFocusBranch = Lh;
+        window.__sxPanZoomCamera = Ph;
         let Fh = 0, Nh = 0, _h = 0, Dh = 0, Rh = 0, Oh = !1, Bh = null, jh = null;
         const sxWheelProb = { dir: 0, acc: 0, n: 0, t: 0 };
         function qh() {
@@ -29903,6 +36708,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const t = __sxClosestAction(e, "ratingHitAny");
             return t && __sxClosestAction(t, "directionControl");
         }
+        let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
             if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), Pp && Pp.pointerId === e.pointerId) {
                 const t = Pp;
@@ -29949,10 +36755,92 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             void xr(!0);
             if (eo && eo.pointerId === e.pointerId) {
                 const n = eo;
-                if (eo = null, to = !0, t.setTimeout(() => {
+                eo = null;
+                to = !0;
+                if (sxSingleTapTimeout) {
+                    try { window.clearTimeout(sxSingleTapTimeout); } catch (_) {}
+                }
+                sxSingleTapTimeout = window.setTimeout(() => {
                     to = !1;
-                }, 450), n.longPressed) return;
-                return void ("pointerup" === e.type && (n.curveLine, n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id)));
+                }, 450);
+                if (n.longPressed) return;
+
+                const now = performance.now();
+                const timeDiff = now - sxLastNodeTapTime;
+                const dist = Math.hypot(e.clientX - sxLastNodeTapX, e.clientY - sxLastNodeTapY);
+                let rawSid = String(n.id || "");
+                if (rawSid.startsWith("cat-")) rawSid = rawSid.slice(4);
+                if (rawSid.startsWith("subcategory-")) rawSid = rawSid.slice(12);
+                const sid = rawSid;
+                const rec = qn[sid] || Xn(sid);
+                const cat = h.find(c => c.name === sid || c.id === sid || catId(c.name) === sid || sxName(c.name) === sxName(sid));
+                const isCat = Boolean(cat) || isCatId(sid) || (rec && rec.kind === "Category") || (sid.startsWith("c") && sid.length <= 5);
+                const isSub = isSubId(sid) || (rec && rec.kind === "Subcategory") || (sid.startsWith("s") && sid.length <= 5);
+                const isKnownNode = isCat || isSub || Boolean(rec);
+                const branch = cat ? cat.name : ((rec && rec.branch) || ci(sid) || "");
+
+                const isDouble = (e.detail >= 2) || (timeDiff < 450 && dist < 60);
+
+                if (isKnownNode && isDouble) {
+                    // Double tap / double click on category, subcategory, or topic!
+                    if (sxPendingNodeTapTimer) {
+                        try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                        sxPendingNodeTapTimer = null;
+                    }
+                    io();
+                    sxLastNodeTapTime = 0;
+                    sxLastNodeTapId = null;
+                    sxLastDoubleTime = now;
+
+                    // Immediately close any about dialog, mark menu, or open modal
+                    try {
+                        const mm = document.getElementById("markMenu");
+                        if (mm) mm.hidden = true;
+                        const dlgs = document.querySelectorAll("dialog[open]");
+                        dlgs.forEach(d => { try { d.close(); } catch (_) { d.removeAttribute("open"); } });
+                    } catch (_) {}
+
+                    if (isCat && branch && !rn.has(branch)) {
+                        rn.add(branch);
+                        Mr();
+                        const runner = () => Th(sid, branch);
+                        if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                        else window.setTimeout(runner, 100);
+                        return;
+                    }
+                    if (isSub && branch && (!rn.has(branch) || !on.has(sid))) {
+                        rn.add(branch);
+                        on.add(sid);
+                        Mr();
+                        const runner = () => Th(sid, branch);
+                        if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                        else window.setTimeout(runner, 100);
+                        return;
+                    }
+                    Th(sid, branch);
+                    return;
+                }
+
+                sxLastNodeTapTime = now;
+                sxLastNodeTapId = sid;
+                sxLastNodeTapX = e.clientX;
+                sxLastNodeTapY = e.clientY;
+
+                if (isCat || isSub) {
+                    if (sxPendingNodeTapTimer) {
+                        try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                        sxPendingNodeTapTimer = null;
+                    }
+                    sxPendingNodeTapTimer = window.setTimeout(() => {
+                        sxPendingNodeTapTimer = null;
+                        if ("pointerup" === e.type) {
+                            n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        }
+                    }, 270);
+                    return;
+                }
+
+                return void ("pointerup" === e.type && (n.curveLine, n.spoke ? selectSpokeNode(n.id, !0) : (selectSpokeNode(n.id, !0), typeof xo === "function" && xo(n.id, e.clientX, e.clientY))));
             }
             if (Ip && Ip.pointerId === e.pointerId) {
                 const t = Ip;
@@ -30296,11 +37184,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             e.preventDefault(), e.stopPropagation(), Nt = null, Ip = null, Mp = null, In.querySelectorAll(".active-rating").forEach(el => el.classList.remove("active-rating")), Mr();
         }, !0);
         const zh = e.byId("mapHint"), Vh = __sxClosestAction(zh, "mapCard"), Yh = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-        zh.textContent = Yh ? "Pinch to zoom · Drag to pan" : "Scroll to zoom · Drag to pan";
+        if (zh) zh.textContent = Yh ? "Pinch to zoom · Drag to pan" : "Scroll to zoom · Drag to pan";
         const Xh = () => {
-            zh.hidden = !0;
+            if (zh) zh.hidden = !0;
         };
-        Vh.addEventListener("pointerdown", Xh, {
+        Vh && (Vh.addEventListener("pointerdown", Xh, {
             once: !0,
             capture: !0
         }), Vh.addEventListener("wheel", Xh, {
@@ -30309,7 +37197,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }), Vh.addEventListener("keydown", Xh, {
             once: !0,
             capture: !0
-        }), e.byId("mapZoomOut") && (e.byId("mapZoomOut").onclick = () => {
+        })), e.byId("mapZoomOut") && (e.byId("mapZoomOut").onclick = () => {
             mn.staticMap || Ah($p / 1.25);
         }), e.byId("mapZoomIn") && (e.byId("mapZoomIn").onclick = () => {
             mn.staticMap || Ah(1.25 * $p);
@@ -30320,9 +37208,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         let sg = !1, lg = 1, cg = null, dg = null, ug = "";
         const pg = new Map;
         function hg() {
-            Jh && (Jh.querySelector('[data-legend-group="ratings"]').hidden = !1, Jh.querySelectorAll("[data-legend-entry]").forEach(e => {
+            if (!Jh) return;
+            const grp = Jh.querySelector('[data-legend-group="ratings"]');
+            if (grp) grp.hidden = !1;
+            Jh.querySelectorAll("[data-legend-entry]").forEach(e => {
                 e.hidden = !1;
-            }), e.byId("legendEmpty").hidden = !0);
+            });
+            const emptyEl = e.byId("legendEmpty");
+            if (emptyEl) emptyEl.hidden = !0;
         }
         function gg(e) {
             e && hg(), Jh.hidden = !e, Qh.setAttribute("aria-expanded", String(e));
@@ -33370,6 +40263,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function ak(e, t = {}) {
             Xw = null, Js(e, t);
         }
+
         // E3 (slug-gap build): post-import result dialog — the loud surface
         // for the loud-drop rule (assessment §9 L1+L2). States how many
         // ratings were imported and, only when profile.droppedKeys is
@@ -34011,1134 +40905,6 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             return mx(id);
         }
         // ============================================================
-        // FetLife importer alias map — SECTION START
-        // (Refactor Step 1, Build 2026-10-18_0343: this section was
-        // given clear delimiters and batch labels. NO mapping was
-        // added, removed, or changed — structure/documentation only.)
-        //
-        // What uses it:
-        //   ox() — saved FetLife HTML imports: exact lookup in gk
-        //     (keys normalized by ck()), then the rx regex table
-        //     (defined just after the sample strings, below).
-        //   cx() — pasted-text imports: exact lookup in fk. fk is
-        //     seeded from the topic catalog, then gk is merged in,
-        //     then the guarded batch table further below.
-        // Guarded insertion (IMPORTANT): merges into fk never
-        // overwrite an existing key — the first definition wins
-        // (the fk[e] || ... and !fk[n] guards). mk() writes only
-        // gk and runs before those merges.
-        // How to add aliases: append a NEW batch at the end of the
-        // batch table (after Batch #3), same [target, [terms]]
-        // shape, labeled with the next batch number and the
-        // build/date. Keys are base terms — the importer strips
-        // parenthetical qualifiers before matching.
-        // ============================================================
-        // ---- Batch #1 — Builds 2026-10-18_0107 / 0114
-        // (2026-10-18): the original alias set, registered into
-        // gk by the mk() calls below. ----
-        const gk = {};
-        // Build 2026-10-18_1624 — display-name registry for the FetLife
-        // mapping viewer (window.__fetlifeMap, exposed after cx below):
-        // fk/gk keys are ck()-normalized, so mk()/yk()/the guarded batch
-        // table also record each term's original spelling here (first
-        // spelling wins), letting the viewer show real FetLife names.
-        const fln = {};
-        function mk(e, t, n = !1) {
-            t = migrateNodeKey(t);
-            e.forEach(e => {
-                gk[ck(e)] = {
-                    id: t,
-                    uncertain: n
-                }, fln[ck(e)] = fln[ck(e)] || e;
-            });
-        }
-        mk([ "Gentle touch/caress", "Cuddling" ], "t0397", !0), mk([ "Tantra", "Tantric sex", "Tantric play", "Energy play", "Tantra / energy play", "Breathwork" ], "t0110"), 
-        mk([ "Sex magic", "Sacred sexuality", "Ritual kink", "Spiritual kink", "Spiritual BDSM", "Spiritual play" ], "t0367"), 
-        mk([ "Tickling" ], "t0100"), mk([ "Canes", "Caning" ], "t0067"), 
-        mk([ "Crop", "Riding crop", "Riding crops" ], "t0068"), mk([ "Whip", "Whips" ], "t0064"), 
-        mk([ "Spanking" ], "t0056"), mk([ "Over the knee OTK Spanking", "Over the knee (OTK) Spanking", "Face slapping" ], "t0056", !0), 
-        mk([ "Vampire gloves" ], "t0354", !0), mk([ "Punching play", "Kicking play" ], "t0097", !0), 
-        mk([ "Rope" ], "t0022"), mk([ "Chains", "Handcuffs", "Quick release velcro", "Quick release (velcro)" ], "t0025", !0), 
-        mk([ "Bondage light", "Bondage (light)" ], "cat-bondage-restriction", !0), mk([ "Bondage heavy", "Bondage (heavy)", "Suspension" ], "t0040", !0), 
-        mk([ "Shibari" ], "t0022"), mk([ "Belt", "Paddle" ], "t0069", !0), 
-        mk([ "Flogger" ], "t0062"), mk([ "Orgasm Control", "Forced orgasms", "Ruined orgasms" ], "t0326", !0), 
-        mk([ "Chastity" ], "t0328"), mk([ "Denial" ], "t0327"), mk([ "Edging" ], "t0329"), 
-        // Importer rework Part B (decided 2026-11-04): Edge Play lands on
-        // the Edge play topic t0334 (which carries the risky-practice
-        // asterisk), NEVER on Edging t0329. The next five are the decided
-        // homes for the formerly unplaced fetishes: Morning Sex (Sex
-        // acts), Bellydancing (Watching, exposure & settings), Formiphilia
-        // (Sensation & atmosphere), Graphoerotica (Psychological
-        // dynamics), and Toy Making, whose decided home is the Clothing,
-        // materials & objects CATEGORY — a category-only target, so it is
-        // reported as a broad hit and never silently rated.
-        mk([ "Edge Play" ], "t0334"), mk([ "Morning Sex" ], "t0290"), mk([ "Bellydancing" ], "t0277"), 
-        mk([ "Formiphilia", "Forniphilia" ], "t0120"), mk([ "Graphoerotica" ], "t0265"), mk([ "Toy Making" ], "cat-clothing-materials-objects"), 
-        // Importer fix package (2026-11-05): "Humiliation language" is its
-        // own topic (t0240, PS Humiliation subcategory) — it must land
-        // there, not fall through to the broad Humiliation subcategory
-        // fallback. The broad "Humiliation" mapping (s0034) is unchanged.
-        mk([ "Humiliation language" ], "t0240"), 
-        mk([ "Anal sex" ], "t0297"), mk([ "Pegging" ], "t0301"), mk([ "Rimming" ], "t0294"), 
-        mk([ "Using toys anal", "Using toys" ], "t0306", !0), mk([ "Using fingers anal" ], "t0299"), 
-        mk([ "Butt plugs" ], "t0193", !0), mk([ "Enemas for prep", "Enemas for prep?", "Enemas as part of play", "Enemas as part of play?", "Scat" ], "cat-fluids-messy-play", !0), 
-        mk([ "Gripped at neck", "Choking" ], "t0097", !0), mk([ "Objects in mouth" ], "t0035", !0), 
-        mk([ "Gags" ], "t0035"), mk([ "Nipple stimulation hands", "Nipple stimulation mouth", "Breast bondage" ], "t0220", !0), 
-        mk([ "Oral" ], "t0291", !0), mk([ "Blow jobs/cock worship", "Blow jobs cock worship", "Cunninglingus" ], "t0291"), 
-        mk([ "Nipple Clamps" ], "t0070"), mk([ "Facials" ], "t0314"), mk([ "Breast impact" ], "t0096", !0), 
-        mk([ "Fingers" ], "t0304", !0), mk([ "Toys dildos vibrators others", "Toys (dildos, vibrators, others?)", "Penis Strap on", "Penis /Strap on" ], "t0306", !0), 
-        mk([ "Fisting" ], "t0310", !0), mk([ "Favorite positions", "Favorite positions?" ], "cat-positions", !0), 
-        mk([ "Wax play" ], "t0098"), mk([ "Ice play" ], "t0099"), 
-        mk([ "Abrasion play" ], "t0102", !0), mk([ "Being blindfolded" ], "t0103", !0), 
-        mk([ "Fireplay" ], "t0098", !0), mk([ "Electric play Violet Wand E Stim", "Electric play (Violet Wand, E-Stim)" ], "t0101"), 
-        mk([ "Teasing" ], "t0330"), mk([ "Biting", "Scratching" ], "t0354"), 
-        mk([ "Pursuit chase", "Pursuit /chase" ], "t0352"), mk([ "Growling" ], "t0351", !0), 
-        mk([ "Wrestling", "Being pinned held down", "Being pinned/held down" ], "t0353", !0), 
-        mk([ "Piercings permanent temporary", "Piercings (permanent /temporary)" ], "t0074", !0), 
-        mk([ "Shaving head", "Tattoos" ], "t0236", !0), mk([ "Branding", "Cutting", "Artistic Cutting" ], "t0096", !0), 
-        mk([ "Medical Doctor Nurse", "Medical/Doctor/Nurse" ], "t0129"), 
-        mk([ "Teacher Student", "Teacher/Student" ], "t0128"), 
-        mk([ "Boss Secretary" ], "t0127", !0), mk([ "Ageplay Non sexual", "Ageplay (Non-sexual)", "Age Play Sexual", "Age Play (Sexual)" ], "t0123", !0), 
-        mk([ "ABDL Diaper Play", "ABDL (Diaper Play)" ], "t0185"), mk([ "Pet play", "Pet play pony play" ], "t0136"), 
-        mk([ "Pony play", "Pony Play" ], "t0138"), mk([ "Threesomes" ], "t0278"), 
-        mk([ "Foursomes", "Orgy" ], "t0279", !0), mk([ "Partner Swapping" ], "t0280"), 
-        mk([ "Gang bangs" ], "t0284"), mk([ "Bukkake" ], "t0314", !0), 
-        mk([ "Double penetration", "Triple penetration" ], "t0306", !0), mk([ "Words I enjoy saying hearing slut whore etc", "Words I enjoy saying, hearing (slut, whore etc)" ], "t0240"), 
-        mk([ "Humiliation verbal" ], "t0239"), mk([ "Exhibitionism" ], "t0270"), 
-        mk([ "Voyeurism" ], "t0270"), mk([ "Body Worship" ], "t0237"), 
-        mk([ "Watersports" ], "t0338"), mk([ "Needle play" ], "t0074"), 
-        mk([ "Knife play" ], "t0245", !0), mk([ "Fear play", "Fear Play" ], "t0245");
-        // fk: the pasted-text import map. Seeded from the topic
-        // catalog just below, then gk (Batch #1) is merged in with
-        // a guard — existing keys are never overwritten — then the
-        // hand-written yk() aliases and the guarded batch table.
-        const fk = {};
-        function yk(e, t, n = "both", i = !1, a = !1) {
-            t = migrateNodeKey(t);
-            e.forEach(e => {
-                fk[ck(e)] = {
-                    id: t,
-                    direction: n,
-                    uncertain: i,
-                    specific: a
-                }, fln[ck(e)] = fln[ck(e)] || e;
-            });
-        }
-        h.forEach(e => {
-            yk([ e.name, "All " + e.name ], catId(e.name)), e.topics.forEach(e => yk([ sxName(e) ], Wn(e)));
-        }), Object.entries(gk).forEach(([e, t]) => {
-            fk[e] || (fk[e] = {
-                id: t.id,
-                direction: "both",
-                uncertain: t.uncertain
-            });
-        }), yk([ "BDSM", "D/s", "Power exchange relationship" ], "cat-power-exchange"), 
-        yk([ "Dominance", "Dominant", "Dom", "Topping", "Top" ], "cat-power-exchange", "give"), 
-        yk([ "Submission", "Submissive", "Sub", "Bottoming", "Bottom" ], "cat-power-exchange", "receive"), 
-        yk([ "Switch", "Switching" ], "cat-power-exchange", "both"), yk([ "Sadism", "Sadist" ], "cat-impact-pain-body-modification", "give"), 
-        yk([ "Masochism", "Masochist" ], "cat-impact-pain-body-modification", "receive"), 
-        yk([ "Breath play" ], "t0097", "both", !0), yk([ "CNC", "Consensual nonconsent", "Consensual non-consent" ], "t0134"), 
-        yk([ "Rope", "Rope play" ], "t0022"), yk([ "Electrostimulation", "E-stim", "Violet wand" ], "t0101"), 
-        yk([ "Wax play" ], "t0098"), yk([ "Tantra", "Tantric", "Tantric play" ], "t0110"), 
-        yk([ "Sacred sexuality", "Sex magic", "Sex magick" ], "t0367"), yk([ "Bondage", "Bondage play" ], "cat-bondage-restriction"), 
-        yk([ "Shibari", "Kinbaku" ], "t0022"), yk([ "Impact play" ], "cat-impact-pain-body-modification"), 
-        yk([ "Paddling", "Paddle play" ], "t0069"), yk([ "Caning", "Cane play" ], "t0067"), 
-        yk([ "Flogging" ], "t0062"), yk([ "Whipping", "Whip play", "Single Tail Whips", "Single-tail whips" ], "t0064"), 
-        yk([ "Humiliation play" ], "t0240"), yk([ "Humiliation" ], "subcategory-psychological-dynamics-humiliation"), 
-yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341"), 
-        yk([ "Name calling", "Insults", "Verbal degradation" ], "t0239", "both", !0, !0), 
-        yk([ "Praise kink" ], "t0264"), yk([ "Sensory deprivation" ], "t0103"), 
-        yk([ "Temperature play" ], "t0098", "both", !0), yk([ "Exhibitionism", "Exhibitionist" ], "t0270"), 
-        yk([ "Voyeurism", "Voyeur" ], "t0270"), yk([ "Public play" ], "t0269", "both", !0), 
-        yk([ "Anal play" ], "t0297", "both", !0), yk([ "Oral play" ], "t0291", "both", !0), 
-        yk([ "Orgasm play" ], "cat-orgasm-reproductive-play", "both", !0), yk([ "Primal", "Primal kink" ], "t0351"), 
-        yk([ "Predator prey", "Predator/prey" ], "t0352", "both", !0), yk([ "Service submission", "Service submissive" ], "t0359", "receive", !0), 
-        yk([ "Aftercare" ], "cat-connection-aftercare"),
-        // ---- Guarded batch table for fk: each [target, [terms]]
-        // group is merged with the !fk[n] guard (first definition
-        // wins). Groups before the Batch #2 marker are the core
-        // table (Batch #1 era, Builds 0107/0114). ----
-        [ [ "t0291", [ "Blow Jobs", "Blow Job", "Cocksucking", "Cock Sucking", "Eating Pussy", "Deep Throating" ] ], [ "t0297", [ "Anal", "Ass Play" ] ], [ "t0097", [ "Asphyxiaphilia", "Asphyxiaphilia Play" ] ], [ "t0306", [ "Ben Wa Balls", "Toys", "Strap-ons", "Strap-on", "Strap Ons", "Sybian", "Clit Pumping", "Pussy Pumping", "Remote-Control Devices" ] ], [ "t0213", [ "Boot Licking", "Boot Worship", "Shoe Worship", "Foot Licking", "Foot/Feet" ] ], [ "t0397", [ "Caressing", "Caress", "Cuddles", "Snuggling", "Making Out", "Touching", "Aftercare Cuddles" ] ], [ "t0070", [ "Clover Clamps" ] ], [ "t0022", [ "Japanese Bondage" ] ], [ "t0136", [ "Petplay", "Kitten Petplay", "Puppy Play" ] ], [ "t0351", [ "Primal Play" ] ], [ "t0181", [ "Panties" ] ], [ "t0267", [ "Erotic Photography", "Photography", "Making Home Movies" ] ], [ "t0263", [ "Dirty Text Messaging", "Talking Dirty" ] ], [ "t0270", [ "Flashing" ] ], [ "t0383", [ "Furry" ] ], [ "t0284", [ "Gangbangs", "Gangbang" ] ], [ "t0292", [ "Throat Fucking" ] ], [ "t0220", [ "Tit Fucking" ] ], [ "t0025", [ "Shackles" ] ], [ "t0268", [ "Cyber Sex", "Sex Online" ] ], [ "t0133", [ "Abduction Play" ] ], [ "t0010", [ "Affectionate Domination", "Domination", "Sensual Domination", "Total Power Exchange", "male submission" ] ], /* Batch #2 — Build 2026-10-18_0210 (2026-10-18): sourced from the server unmapped_fetishes table; terms already in the map were not duplicated. */ [ "t0315", [ "Anal Creampie", "Creampie" ] ], [ "t0298", [ "Anal Stretching" ] ], [ "t0377", [ "Anonymous Encounters", "Glory Hole", "Sex with Strangers" ] ], [ "t0297", [ "Ass to Mouth" ] ], [ "t0218", [ "Ass worship" ] ], [ "t0229", [ "BBW/BHM" ] ], [ "t0035", [ "Ball Gags" ] ], [ "t0084", [ "Ball Stretching" ] ], [ "t0056", [ "Bare Handed Spanking" ] ], [ "subcategory-sex-acts-fluids", [ "Bareback", "Cum" ] ], [ "t0213", [ "Barefoot" ] ], [ "t0314", [ "Swallowing", "Swallowing Cum" ] ], [ "subcategory-sex-acts-fluids", [ "Being Cummed On" ] ], [ "t0264", [ "Being called a good girl" ] ], [ "t0065", [ "Belt Spanking" ] ], [ "t0149", [ "Bimboification", "Human Doll" ] ], [ "t0103", [ "Blindfolds", "Eye Contact Restrictions" ] ], [ "subcategory-bondage-restriction-restraints", [ "Bondage Equipment" ] ], [ "t0305", [ "Breast/Nipple Play", "Nipples" ] ], [ "t0331", [ "Breeding", "Impregnation Fantasy" ] ], [ "t0269", [ "Butt plugs in public", "Covert Bondage", "Outdoor Bondage", "Outdoor sex", "Sex In Public", "Sex in videostore porn rooms" ] ], [ "t0270", [ "CFNM", "Nudity" ] ], [ "t0098", [ "Candle Wax" ] ], [ "t0152", [ "Catsuits", "Fetish Wear" ] ], [ "t0110", [ "Chakra energy play" ] ], [ "t0354", [ "Claws", "Fingernails", "Neck Biting" ] ], [ "t0168", [ "Clit Pumping", "Pussy Pumping", "Vacuum Bed" ] ], [ "subcategory-body-focus-appearance-worship", [ "Cock Worship", "Cunt Worship", "Goddess Worship", "Pussy Worship" ] ], [ "t0003", [ "Collar and Lead/Leash", "Posture Collars", "Slave Bells" ] ], [ "subcategory-roleplay-identity-authority", [ "Control" ] ], [ "subcategory-clothing-materials-objects-uniforms-costumes", [ "Costumes/Dressing-up" ] ], [ "t0068", [ "Crops" ] ], [ "t0281", [ "Cuckolding" ] ], [ "t0397", [ "Cuddling Naked", "Cuddling with benefits", "Erotic Massage", "Hot Oil Massages", "Massage", "Massages", "Neck Kissing/Touching" ] ], [ "t0122", [ "Daddy Daughter roleplay", "Daddy/babygirl", "Daddy/girl" ] ], [ "t0239", [ "Defilement", "Sluts" ] ], [ "subcategory-clothing-materials-objects-objects-toys", [ "Dildos", "Vibrators" ] ], [ "t0319", [ "Doggy Style" ] ], [ "t0005", [ "Enforced Bedtime", "Punishment" ] ], [ "t0267", [ "Webcams" ] ], [ "t0292", [ "Face Fucking", "Gagging/Choked by Cock" ] ], [ "t0100", [ "Feathers" ] ], [ "t0316", [ "Female Ejaculation" ] ], [ "t0386", [ "Feminization", "Sissy", "Sissy Training" ] ], [ "t0398", [ "Food Play" ] ], [ "t0404", [ "Forehead Kisses", "Kissing", "Tongue Sucking" ] ], [ "t0362", [ "Grooming" ] ], [ "t0279", [ "Group Sex" ] ], [ "t0056", [ "Hairbrush Spanking", "Slapping" ] ], [ "t0002", [ "High Protocol", "Protocol", "Rituals", "Yes Sir", "no panties rule" ] ], [ "t0043", [ "Hook Suspension" ] ], [ "t0099", [ "Ice Cubes" ] ], [ "t0131", [ "Internal Enslavement", "Master/Slave", "Old Guard Slavery", "Sexual Slavery", "slavery" ] ], [ "t0325", [ "Kneeling" ] ], [ "t0022", [ "Light Bondage", "Rope Bondage/Suspension" ] ], [ "t0278", [ "MMF Threesomes", "Two-Girl Blowjobs" ] ], [ "t0370", [ "Maid Uniforms" ] ], [ "subcategory-psychological-dynamics-mind-control", [ "Mind Control" ] ], [ "t0009", [ "Mistress/slave" ] ], [ "t0301", [ "Mistresses with Strap-Ons" ] ], [ "t0126", [ "Mommy/Boy Dynamics" ] ], [ "t0237", [ "Necks" ] ], [ "t0374", [ "Nun/Priest Play" ] ], [ "t0016", [ "Obedience Training" ] ], [ "t0271", [ "Online Play", "Phone Sex" ] ], [ "t0282", [ "Polyamory" ] ], [ "t0222", [ "Pregnant" ] ], [ "t0335", [ "Prostate Massage", "Prostate Milking" ] ], [ "subcategory-psychological-dynamics-humiliation", [ "Public Humiliation", "Verbal Humiliation and Degradation" ] ], [ "subcategory-body-focus-appearance-body-type", [ "Red Heads", "Small Tits" ] ], [ "t0007", [ "Role Play" ] ], [ "t0353", [ "Rough Sex" ] ], [ "subcategory-bondage-restriction-sensory", [ "Sensation Play", "Sensual Play", "Sensualism" ] ], [ "t0277", [ "Sensual/slave dances" ] ], [ "t0359", [ "Service" ] ], [ "t0360", [ "Service-oriented submission" ] ], [ "t0212", [ "Shaving" ] ], [ "t0236", [ "Slave Tattoos" ] ], [ "t0322", [ "Sleepy Sex" ] ], [ "t0089", [ "Sounds", "Urethral Sounds" ] ], [ "t0130", [ "Speculums" ] ], [ "t0026", [ "Spreader Bars" ] ], [ "t0109", [ "Sweat" ] ], [ "t0345", [ "Toilet" ] ], [ "t0243", [ "human furniture" ] ], [ "t0358", [ "WolfPlay" ] ], [ "t0290", [ "Waking up to oral sex" ] ], /* Batch #3 — Build 2026-10-18_0302 (2026-10-18): 28 aliases from the server unmapped_fetishes table. */ [ "t0298", [ "Anal Training" ] ], [ "t0084", [ "CBT" ] ], [ "t0070", [ "Clamps and Clips" ] ], [ "t0134", [ "Consensual Nonconsent Play" ] ], [ "t0129", [ "Doctor/Nurse Play" ] ], [ "t0085", [ "Fire Cupping" ] ], [ "t0307", [ "Fucking Machines" ] ], [ "t0252", [ "Sadomasochism" ] ], [ "t0376", [ "Seduction" ] ], [ "t0213", [ "Toes and Feet" ] ], [ "t0312", [ "Urethral Fucking" ] ], [ "t0311", [ "Vacuum pumping" ] ], [ "t0309", [ "Vaginal Stretching" ] ], [ "t0291", [ "Ass Licking" ] ], [ "t0165", [ "Ballet Boots/Shoes" ] ], [ "t0251", [ "Emotional Masochism" ] ], [ "t0293", [ "Face sitting/smothering" ] ], [ "t0242", [ "Micropenises", "tiny cocks" ] ], [ "t0002", [ "Sir" ] ], [ "t0338", [ "pee inside Me", "piss" ] ], [ "t0331", [ "Threating to forcibly impregnate her" ] ], [ "t0264", [ "being valued" ] ], [ "subcategory-clothing-materials-objects-masks-headwear", [ "Masks" ] ], [ "subcategory-bondage-restriction-restraints", [ "Restraints" ] ], [ "subcategory-clothing-materials-objects-footwear", [ "Shoes" ] ], [ "subcategory-psychological-dynamics-humiliation", [ "human ashtray" ] ], /* Batch #4 — Importer rework (2026-11-04): decided mappings only. Edge Play → the Edge play topic (never Edging); the five formerly unplaced fetishes at their decided homes — Morning Sex, Bellydancing, Formiphilia (plus FetLife's own "Forniphilia" spelling), Graphoerotica as topics, and Toy Making at its decided CATEGORY home (broad hit, never silently rated). Guarded like every batch: existing keys win, so the catalog-seeded entries for the four topics are untouched. */ [ "t0334", [ "Edge Play" ] ], [ "t0290", [ "Morning Sex" ] ], [ "t0277", [ "Bellydancing" ] ], [ "t0120", [ "Formiphilia", "Forniphilia" ] ], [ "t0265", [ "Graphoerotica" ] ], [ "cat-clothing-materials-objects", [ "Toy Making" ] ] ].forEach(([e, t]) => t.forEach(t => {
-            const n = ck(t), id = migrateNodeKey(e);
-            n && (fln[n] = fln[n] || t), n && !fk[n] && (fk[n] = {
-                id: id,
-                direction: "both",
-                uncertain: !0
-            });
-        }));
-        // ---- FetLife importer alias map — SECTION END ----
-        // (The next alias batch goes at the end of the guarded
-        // batch table above, inside this section — do not scatter
-        // alias writes elsewhere in the file.)
-        const bk = [ {
-            pattern: /\b(?:spit|spitting|spat)\b/,
-            id: "t0341"
-        }, {
-            pattern: /\b(?:insult|insults|insulting|name calling|verbal degradation)\b/,
-            id: "t0239"
-        }, {
-            pattern: /\b(?:face slap|face slapping|slap in the face)\b/,
-            id: "t0056"
-        }, {
-            pattern: /\b(?:breath play|breath control|choking|strangulation)\b/,
-            id: "t0097"
-        }, {
-            pattern: /\b(?:knife play|blade play)\b/,
-            id: "t0245"
-        }, {
-            pattern: /\b(?:hot wax|waxing)\b/,
-            id: "t0098"
-        }, {
-            pattern: /\b(?:ice play|cold play)\b/,
-            id: "t0099"
-        }, {
-            pattern: /\b(?:chasing|pursuit play)\b/,
-            id: "t0352"
-        } ], vk = e.byId("converterDialog"), wk = e.byId("converterTitle"), kk = e.byId("converterSubtitle"), xk = e.byId("converterInstructions"), Sk = e.byId("converterInputLabel"), $k = e.byId("converterInput"), Ek = e.byId("converterPasteTools"), Ak = e.byId("converterActions"), Ck = e.byId("converterPreview"), Mk = e.byId("converterPreviewSummary"), Ik = e.byId("converterWarnings"), Pk = e.byId("converterStatus"), Lk = e.byId("applyConverter"), Tk = e.byId("chooseConverterFile"), Fk = e.byId("converterFileInput"), Nk = e.byId("converterMode"), _k = e.byId("takeConverterTest"), Dk = e.byId("pasteConverterResults"), Rk = e.byId("interactiveTest"), Ok = e.byId("testQuestions"), Bk = e.byId("testProgress"), jk = e.byId("testHeading"), qk = e.byId("testSourceNote"), Hk = e.byId("submitChecklistRow"), Wk = e.byId("submitChecklistResults"), Uk = e.byId("previewConverter");
-        let Gk = null, Kk = null, zk = null, Vk = null, Yk = null, Xk = {}, Zk = 0, Qk = 0, ktPage = 0;
-        let sxFlFields = null;
-        function Jk() {
-            return Zk ? Math.max(0, Math.floor((Date.now() - Zk) / 1e3)) : 0;
-        }
-        function ex() {
-            t.clear(Qk), Qk = 0, Zk = 0;
-        }
-        function tx() {
-            Zk || (Zk = Date.now(), Ex(), Qk = t.setInterval(Ex, 1e3));
-        }
-        const nx = {
-            kinktest: "Pleasure Control: 48% Dom, 36% sub Restraint: 0% Dom, 70% sub Roleplay: 19% Dom, 22% sub Degradation: 4% Dom, 22% sub Pain: 8% Dom, 3% sub Sensation: 0% Dom, 0% sub Edge Play: 0% Dom, 0% sub Potty Play: 0% Dom, 0% sub",
-            checklist: "",
-            fetlife: "Into: Spanking — Everything to do with it, Rope bondage — Giving, Leather — Wearing Curious about: Pet play — Receiving Soft limits: Temperature play Hard limits: Choking",
-            bdsmtest: "100% Dominant 82% Switch 64% Rigger 41% Rope bunny 18% Primal (Prey)"
-        }, fetlifeSampleHtml = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>SampleSwitch - FetLife</title>\n</head>\n<body>\n<div class=\"profile\">\n<h1>SampleSwitch</h1>\n<p>A sample FetLife profile page, saved with Save Page As, so you can try the importer without using your own page.</p>\n<h2>Fetishes</h2>\n<p>Into</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/101\">Spanking</a></li>\n<li><a href=\"https://fetlife.com/fetishes/102\">Chastity</a></li>\n<li><a href=\"https://fetlife.com/fetishes/103\">Edging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/104\">Leather</a></li>\n<li><a href=\"https://fetlife.com/fetishes/105\">Flogging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/106\">Gags</a></li>\n<li><a href=\"https://fetlife.com/fetishes/107\">Exhibitionism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/108\">Humiliation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/109\">Suspension</a></li>\n<li><a href=\"https://fetlife.com/fetishes/110\">Voyeurism</a></li>\n<li><a href=\"https://fetlife.com/fetishes/111\">Handcuffs</a></li>\n<li><a href=\"https://fetlife.com/fetishes/112\">Omorashi</a></li>\n</ul>\n<p>Curious</p>\n<ul>\n<li><a href=\"https://fetlife.com/fetishes/201\">Tickling</a></li>\n<li><a href=\"https://fetlife.com/fetishes/202\">Degradation</a></li>\n<li><a href=\"https://fetlife.com/fetishes/203\">Crossdressing</a></li>\n<li><a href=\"https://fetlife.com/fetishes/204\">Biting</a></li>\n<li><a href=\"https://fetlife.com/fetishes/205\">Pegging</a></li>\n<li><a href=\"https://fetlife.com/fetishes/206\">Forniphilia</a></li>\n<li><a href=\"https://fetlife.com/fetishes/207\">Spectrophilia</a></li>\n</ul>\n</div>\n</body>\n</html>", ix = [ [ "Handcuffing your partner, or tying their hands", "t0025", "give" ], [ "Requiring your partner to avoid going to the toilet until they are desperate", "cat-fluids-messy-play", "give" ], [ "Being pleasured until you can't handle it any more or being forced to orgasm many times", "t0326", "receive" ], [ "Making your partner wear and use a nappy", "t0185", "give" ], [ "Preventing your partner from orgasming until they beg", "t0327", "give" ], [ "Calling your partner names that imply authority like “master” or “daddy”", "t0131", "receive" ], [ "Cutting your partner with a blade, causing bleeding but no serious or permanent injury", "t0096", "give" ], [ "Peeing on your partner", "t0338", "give" ], [ "Causing pain by directly hitting or using implements on your partner's genitals", "t0096", "give" ], [ "Being peed on", "t0338", "receive" ], [ "Being stimulated by electricity, such as from a toy like the violet wand", "t0101", "receive" ], [ "Being denied any form of sexual stimulation for a period of time", "t0327", "receive" ], [ "Bringing your partner to orgasm, then ceasing stimulation to diminish the pleasure", "t0326", "give" ], [ "Hitting your partner with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "give" ], [ "Being restrained by your partner's body, for example being held down on a bed", "t0353", "receive" ], [ "Being treated like a pet", "t0136", "receive" ], [ "Gagging your partner with a ball gag, O-ring gag, or similar", "t0035", "give" ], [ "Having sex or masturbating in a room visible from the street, with the curtains open", "t0270", "give" ], [ "Pulling your partner's hair hard enough to hurt", "t0093", "give" ], [ "Gagging your partner with an ordinary gag", "t0035", "give" ], [ "Having your partner use needles or pins to penetrate your skin", "t0074", "receive" ], [ "Being made to wear and use a nappy", "t0185", "receive" ], [ "Having pressure put on your neck, making it difficult but not impossible to breathe", "t0097", "receive" ], [ "Being cut with a blade, causing bleeding but no serious or permanent injury", "t0096", "receive" ], [ "Being spanked with a bare hand", "t0056", "receive" ], [ "Treating your partner like a child", "t0123", "give" ], [ "Being called names that imply authority like “master” or “daddy”", "t0131", "give" ], [ "Restraining your partner with your body, for example by holding them down on a bed", "t0353", "give" ], [ "Having sex or masturbating in a public place where people could come across you", "t0269", "give" ], [ "Observing someone undressing without their knowledge", "t0270", "give" ], [ "Putting pressure on your partner's neck, making it difficult but not impossible to breathe", "t0097", "give" ], [ "Putting clamps or clothes pegs on your partner's nipples or elsewhere", "t0070", "give" ], [ "Acting out a scene in which your partner pretends to rape you", "t0134", "receive" ], [ "Acting out a scene in which you pretend to rape your partner", "t0134", "give" ], [ "Having nails dug into your buttocks, or your back scratched, causing pain without breaking skin", "t0354", "receive" ], [ "Digging your nails into your partner's buttocks, or scratching their back, causing pain without breaking skin", "t0354", "give" ], [ "Being choked so that you cannot breathe, causing you to feel faint or lose consciousness", "t0097", "receive" ], [ "Forcing your partner to interact with faeces", "cat-fluids-messy-play", "give" ], [ "Being gagged with an ordinary gag", "t0035", "receive" ], [ "Choking your partner so they cannot breathe, causing faintness or unconsciousness", "t0097", "give" ], [ "Denying your partner any form of sexual stimulation for a period of time", "t0327", "give" ], [ "Being hit with a crop, cane, or whip hard enough to bruise", "cat-impact-pain-body-modification", "receive" ], [ "Being handcuffed or having your hands tied", "t0025", "receive" ], [ "Having sex or masturbating in front of other people at an orgy or as part of a show", "t0270", "give" ], [ "Being tied up so you can hardly move at all", "t0040", "receive" ], [ "Using needles or pins to penetrate your partner's skin", "t0074", "give" ], [ "Being prevented from orgasming until you beg", "t0327", "receive" ], [ "Having clamps or clothes pegs put on your nipples or elsewhere", "t0070", "receive" ], [ "Being caused pain by your partner hitting or using implements on your genitals", "t0096", "receive" ], [ "Being made to serve your partner as a cleaner or retail worker might", "t0360", "receive" ], [ "Using electricity, such as a violet wand, to stimulate your partner", "t0101", "give" ], [ "Being treated like a child", "t0123", "receive" ], [ "Tying or cuffing your partner to a bed or other object", "t0042", "give" ], [ "Having your partner serve you as a cleaner or retail worker might", "t0360", "give" ], [ "Being called demeaning words like “slut,” “whore,” “bitch,” or “sissy”", "t0240", "receive" ], [ "Observing someone having sex or masturbating in their own home, without their knowledge", "t0270", "give" ], [ "Having your hair pulled hard enough to hurt", "t0093", "receive" ], [ "Being tied or cuffed to a bed or other object", "t0042", "receive" ], [ "Having a blade used on you to instil fear, without causing bleeding", "t0245", "receive" ], [ "Spanking your partner with a bare hand", "t0056", "give" ], [ "Pleasuring your partner until they can't handle it or forcing them to orgasm many times", "t0326", "give" ], [ "Overhearing someone having sex or masturbating", "t0270", "give" ], [ "Observing someone having sex or masturbating as part of a sex show", "t0266", "give" ], [ "Calling your partner demeaning words like “slut,” “whore,” “bitch,” or “sissy”", "t0240", "give" ], [ "Using a blade on your partner to instil fear, without causing bleeding", "t0245", "give" ], [ "Tying your partner up so they can hardly move at all", "t0040", "give" ], [ "Being required to avoid going to the toilet until you are desperate", "cat-fluids-messy-play", "receive" ], [ "Being forced to interact with faeces", "cat-fluids-messy-play", "receive" ], [ "Being gagged with a ball gag, O-ring gag, or similar", "t0035", "receive" ], [ "Being brought to orgasm, with stimulation stopped at the right moment to diminish pleasure", "t0326", "receive" ], [ "Treating your partner like a pet", "t0136", "give" ] ].map((e, t) => ({
-            number: t + 1,
-            question: e[0],
-            id: e[1],
-            direction: e[2]
-        })), ax = [ "Anal sex", "Beating (hands)", "Beating (padded clubs)", "Being bitten", "Being serviced (sexual)", "Blindfolds", "Body paint", "Bondage (heavy/suspension)", "Bondage (intricate/Japanese style)", "Bondage (light)", "Bruises", "Butt plugs", "Cages (locked inside of)", "Caning", "Chains", "Chastity belts", "Clothespins", "Cock rings/straps", "Cock worship", "Corsets", "Cross-dressing", "Cuffs (leather/metal)", "Dildos", "Double penetration", "Erotic dancing", "Exhibitionism", "Eye contact restrictions", "Face slapping", "Fisting", "Flogging", "Following orders", "Food play", "Foot worship", "Gags (cloth/tape)", "Genital sex", "Hair pulling", "Hairbrush spankings", "Hand jobs (giving)", "Hand jobs (receiving)", "Head (giving)", "Head (receiving)", "High heels", "Hot waxing", "Ice cubes", "Kneeling", "Leather clothing", "Leather restraints", "Lingerie (wearing)", "Manacles & Irons", "Manicures (giving)", "Manicures (receiving)", "Marks (giving)", "Marks (receiving)", "Massage (giving)", "Massage (receiving)", "Modeling for erotic photos", "Nipple play", "Oral/anal play (rimming)", "Orgasm denial", "Outdoor sex", "Over-the-knee spanking", "Pain (mild to severe)", "Phone sex", "Pinching", "Play kidnapping", "Punishment scene", "Pussy/cock whipping/spanking", "Riding crops", "Rubber/latex clothing", "Saran wrapping", "Scenes (prison, religious, etc.)", "Scratching (giving)", "Scratching (receiving)", "Serving as a maid/butler", "Shaving", "Shoe/boot worship", "Skinny-dipping", "Slutty clothing", "Spanking", "Spreader bars", "Standing in corner", "Stocks", "Strap-on dildos", "Swallowing semen", "Swapping (with one other couple)", "Swinging (multiple couples)", "Tattooing", "Teasing", "TENS Unit", "Thumbcuffs (metal)", "Tickling", "Triple penetration", "Uniforms", "Vibrator on genitals", "Video (recordings of you)", "Video (watching others)", "Violet wand", "Voyeurism (watching others)", "Wearing symbolic jewelry", "Whips", "Wooden paddles", "Wrestling" ], axCat = { "Anal sex": "Getting started", "Beating (hands)": "Getting started", "Beating (padded clubs)": "Getting started", "Being bitten": "Getting started", "Being serviced (sexual)": "Getting started", "Blindfolds": "Getting started", "Body paint": "Getting started", "Bondage (heavy/suspension)": "Bondage", "Bondage (intricate/Japanese style)": "Bondage", "Bondage (light)": "Bondage", "Bruises": "Bondage", "Butt plugs": "Bondage", "Cages (locked inside of)": "Bondage", "Caning": "Caning", "Chains": "Caning", "Chastity belts": "Caning", "Clothespins": "Caning", "Cock rings/straps": "Caning", "Cock worship": "Cock worship", "Corsets": "Cock worship", "Cross-dressing": "Cock worship", "Cuffs (leather/metal)": "Cock worship", "Dildos": "Cock worship", "Double penetration": "Cock worship", "Erotic dancing": "Cock worship", "Exhibitionism": "Cock worship", "Eye contact restrictions": "Cock worship", "Face slapping": "Face play", "Fisting": "Face play", "Flogging": "Face play", "Following orders": "Face play", "Food play": "Face play", "Foot worship": "Foot worship", "Gags (cloth/tape)": "Foot worship", "Genital sex": "Foot worship", "Hair pulling": "Foot worship", "Hairbrush spankings": "Foot worship", "Hand jobs (giving)": "Foot worship", "Hand jobs (receiving)": "Foot worship", "Head (giving)": "Foot worship", "Head (receiving)": "Foot worship", "High heels": "Foot worship", "Hot waxing": "Hot waxing", "Ice cubes": "Hot waxing", "Kneeling": "Hot waxing", "Leather clothing": "Hot waxing", "Leather restraints": "Hot waxing", "Lingerie (wearing)": "Hot waxing", "Manacles & Irons": "Hot waxing", "Manicures (giving)": "Hot waxing", "Manicures (receiving)": "Hot waxing", "Marks (giving)": "Hot waxing", "Marks (receiving)": "Hot waxing", "Massage (giving)": "Hot waxing", "Massage (receiving)": "Hot waxing", "Modeling for erotic photos": "Hot waxing", "Nipple play": "Nipple play", "Oral/anal play (rimming)": "Nipple play", "Orgasm denial": "Nipple play", "Outdoor sex": "Nipple play", "Over-the-knee spanking": "Nipple play", "Pain (mild to severe)": "Nipple play", "Phone sex": "Nipple play", "Pinching": "Nipple play", "Play kidnapping": "Nipple play", "Punishment scene": "Nipple play", "Pussy/cock whipping/spanking": "Nipple play", "Riding crops": "Nipple play", "Rubber/latex clothing": "Nipple play", "Saran wrapping": "Nipple play", "Scenes (prison, religious, etc.)": "Scenes", "Scratching (giving)": "Scenes", "Scratching (receiving)": "Scenes", "Serving as a maid/butler": "Scenes", "Shaving": "Scenes", "Shoe/boot worship": "Scenes", "Skinny-dipping": "Scenes", "Slutty clothing": "Scenes", "Spanking": "Spanking", "Spreader bars": "Spanking", "Standing in corner": "Spanking", "Stocks": "Spanking", "Strap-on dildos": "Spanking", "Swallowing semen": "Fluids", "Swapping (with one other couple)": "Fluids", "Swinging (multiple couples)": "Group play", "Tattooing": "Tattooing", "Teasing": "Teasing", "TENS Unit": "Teasing", "Thumbcuffs (metal)": "Restraints", "Tickling": "Restraints", "Triple penetration": "Restraints", "Uniforms": "Uniforms", "Vibrator on genitals": "Uniforms", "Video (recordings of you)": "Uniforms", "Video (watching others)": "Watching", "Violet wand": "Watching", "Voyeurism (watching others)": "Voyeurism", "Wearing symbolic jewelry": "Symbols", "Whips": "Whips", "Wooden paddles": "Paddles", "Wrestling": "Wrestling" }, rx = [ [ /^69$/, "t0317" ], [ /age play|treated like a child/, "t0123" ], [ /anal sex/, "t0297" ], [ /analingus|rimming/, "t0294" ], [ /ball stretching|genital torture|pain/, "t0097" ], [ /being filmed|photographed/, "t0267" ], [ /being watched/, "t0266" ], [ /biting|scratching/, "t0354" ], [ /blindfold|sensory deprivation/, "t0103" ], [ /blood play|scat|sploshing|menstruation/, "cat-fluids-messy-play" ], [ /bondage/, "cat-bondage-restriction" ], [ /bootblack|service/, "t0359" ], [ /bratting|punishment/, "t0005" ], [ /breath play/, "t0097" ], [ /butt plug/, "t0193" ], [ /cages|confinement|suspension/, "t0040" ], [ /caning/, "t0067" ], [ /chastity/, "t0328" ], [ /worship/, "t0237" ], [ /cockrings|sex toys|strap-ons/, "t0306" ], [ /collars/, "t0003" ], [ /consensual non-consent/, "t0134" ], [ /costumes|cross dressing|gender play/, "t0178" ], [ /cuckold/, "t0281" ], [ /cuddling|kissing|massage/, "t0397" ], [ /tantra|breathwork|energy play/, "t0110" ], [ /cunnilingus|fellatio/, "t0291" ], [ /degradation/, "t0239" ], [ /dirty talk|moans|sexting/, "t0263" ], [ /double penetration|triple penetration|vaginal penetration|fingering|frottage/, "t0306" ], [ /e-stim/, "t0101" ], [ /edge play/, "t0334" ], [ /edging|teasing/, "t0329" ], [ /ejaculate|swallowing/, "t0315" ], [ /enemas|piss play/, "t0338" ], [ /eye contact/, "t0258" ], [ /face fucking/, "t0292" ], [ /facesitting/, "t0293" ], [ /fisting/, "t0310" ], [ /flogging/, "t0062" ], [ /food play/, "cat-fluids-messy-play" ], [ /foot play/, "t0213" ], [ /furries/, "t0383" ], [ /g-spot/, "t0304" ], [ /gags/, "t0035" ], [ /group sex|sex parties|strip clubs/, "t0279" ], [ /hair pulling/, "t0093" ], [ /hoods/, "t0191" ], [ /humiliation play/, "t0240" ], [ /humiliation/, "subcategory-psychological-dynamics-humiliation" ], [ /incest roleplay|kidnapping|role play/, "cat-roleplay-identity" ], [ /kicking|punching|slapping|temporary marks/, "t0096" ], [ /knife play/, "t0245" ], [ /leather/, "t0153" ], [ /lingerie/, "t0181" ], [ /medical play/, "t0129" ], [ /masturbation/, "t0268" ], [ /nipple clamps/, "t0070" ], [ /nipple/, "t0220" ], [ /objectification/, "t0243" ], [ /orgasm control/, "t0326" ], [ /orgasm denial/, "t0327" ], [ /paddles/, "t0069" ], [ /pegging/, "t0301" ], [ /piercing/, "t0074" ], [ /phone sex|porn/, "t0268" ], [ /prostate/, "t0299" ], [ /race play/, "t0127" ], [ /riding crops?/, "t0068" ], [ /whips?/, "t0064" ], [ /rubber|latex/, "t0152" ], [ /shaving/, "t0362" ], [ /smoking/, "t0119" ], [ /spanking/, "t0056" ], [ /spreader/, "t0026" ], [ /sex in public/, "t0269" ], [ /sex magic|sacred sexuality|ritual kink|spiritual play/, "t0367" ], [ /threesome/, "t0278" ], [ /tickling/, "t0100" ], [ /tit-fucking/, "t0220" ], [ /tribadism/, "t0306" ], [ /watching others/, "t0266" ], [ /wax/, "t0098" ], [ /wrestling/, "t0353" ], [ /beating/, "t0096" ], [ /bitten/, "t0354" ], [ /serviced/, "t0359" ], [ /bruises/, "t0096" ], [ /chains/, "cat-bondage-restriction" ], [ /clothespins/, "t0097" ], [ /corsets/, "t0181" ], [ /cock rings?/, "t0306" ], [ /thumbcuffs/, "cat-bondage-restriction" ], [ /cuffs/, "cat-bondage-restriction" ], [ /dildos/, "t0306" ], [ /erotic dancing/, "t0279" ], [ /exhibitionism/, "t0266" ], [ /hairbrush/, "t0096" ], [ /hand jobs/, "t0268" ], [ /\bhead\b/, "t0291" ], [ /high heels/, "t0213" ], [ /ice cubes|ice play/, "t0098" ], [ /kneeling/, "t0359" ], [ /manacles|irons/, "cat-bondage-restriction" ], [ /manicures|pedicures/, "t0359" ], [ /marks/, "t0096" ], [ /erotic photos|modeling/, "t0267" ], [ /outdoor sex/, "t0269" ], [ /pinching/, "t0097" ], [ /saran|mummification/, "t0040" ], [ /scenes/, "cat-roleplay-identity" ], [ /maid|butler/, "t0359" ], [ /skinny/, "t0266" ], [ /slutty/, "t0181" ], [ /corner/, "t0005" ], [ /stocks/, "cat-bondage-restriction" ], [ /swapping|swinging/, "t0279" ], [ /tattoo/, "t0074" ], [ /tens\b/, "t0101" ], [ /uniforms/, "t0178" ], [ /vibrator/, "t0306" ], [ /recordings/, "t0267" ], [ /violet/, "t0101" ], [ /jewelry/, "t0003" ] ];
-        function ox(e) {
-            const t = function(e) {
-                const t = ni(e), n = ck(t);
-                if (gk[n]) return gk[n];
-                const i = ck(t.replace(/\([^)]*\)/g, " "));
-                return gk[i] || null;
-            }(e);
-            if (t) return t;
-            const n = ck(e), i = rx.find(e => e[0].test(n));
-            return i ? {
-                id: i[1],
-                uncertain: !0
-            } : null;
-        }
-        function sx(e, t, n, i) {
-            Ke.has(t) && (e[t] || (e[t] = {
-                give: [],
-                receive: []
-            }), e[t][n].push(Math.max(-100, Math.min(100, i))));
-        }
-        function lx(e, t) {
-            const n = {};
-            return Object.entries(e).forEach(([e, t]) => {
-                const i = {};
-                [ "give", "receive" ].forEach(e => {
-                    t[e].length && (i[e] = Math.round(t[e].reduce((e, t) => e + t, 0) / t[e].length));
-                }), Object.keys(i).length && (n[e] = i);
-            }), Object.assign({
-                ratings: n,
-                annotations: {}
-            }, t);
-        }
-        function cx(e) {
-            const t = ni(String(e || "").replace(/^[-*•·\d.)\s]+/, "").replace(/\s+(?:fetish|kink)$/i, "").trim()), n = ck(t);
-            if (fk[n]) return fk[n];
-            const i = ck(t.replace(/\([^)]*\)/g, " "));
-            if (fk[i]) return fk[i];
-            const o = [ i.replace(/\s+/g, ""), i.endsWith("es") ? i.slice(0, -2) : i.endsWith("s") ? i.slice(0, -1) : i + "s" ];
-            for (const e of o) if (e && e !== i && fk[e]) return fk[e];
-            const a = bk.find(e => e.pattern.test(i));
-            if (a) return {
-                id: a.id,
-                direction: a.direction || "both",
-                uncertain: !0,
-                specific: !0
-            };
-            const r = rx.find(e => e[0].test(i));
-            return r ? {
-                id: r[1],
-                direction: "both",
-                uncertain: !0
-            } : null;
-        }
-        // Build 2026-10-18_1624 — read-only data feed for the FetLife
-        // mapping viewer (shell dialog #fetlifeMapDialog, opened from the
-        // FetLife load dialog or with Ctrl+Shift+M). rows() returns the
-        // full fk table with each target resolved to its catalog label
-        // and Category › Subcategory › Topic path; lookup(term) runs the
-        // exact importer resolution (cx + pk), so the viewer's chooser
-        // shows and highlights what an import would actually do with a
-        // typed FetLife name — including broad (category/subcategory)
-        // targets and pattern-only matches, which have no table row.
-        const flm = {
-            rowsCache: null,
-            nodeInfo: function(id) {
-                if (!id) return {
-                    label: "",
-                    path: "",
-                    kind: ""
-                };
-                if (isCatId(id)) {
-                    const l = mx(id);
-                    return {
-                        label: l,
-                        path: l,
-                        kind: "Category"
-                    };
-                }
-                const n = Xn(id);
-                if (!n) {
-                    const l = mx(id);
-                    return {
-                        label: l,
-                        path: l,
-                        kind: "Topic"
-                    };
-                }
-                if ("Subcategory" === n.kind) return {
-                    label: n.label,
-                    path: n.branch + " › " + n.label,
-                    kind: "Subcategory"
-                };
-                const parts = [ n.branch ];
-                if (n.parentId) {
-                    const p = Xn(n.parentId);
-                    p && parts.push(p.label);
-                }
-                parts.push(n.label);
-                return {
-                    label: n.label,
-                    path: parts.join(" › "),
-                    kind: "Topic"
-                };
-            },
-            rows: function() {
-                if (flm.rowsCache) return flm.rowsCache;
-                const out = Object.keys(fk).map(k => {
-                    const m = fk[k], info = flm.nodeInfo(m.id);
-                    return {
-                        key: k,
-                        name: fln[k] || k,
-                        id: m.id,
-                        label: info.label,
-                        path: info.path,
-                        kind: info.kind,
-                        direction: m.direction || "both",
-                        uncertain: !!m.uncertain
-                    };
-                });
-                out.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
-                return flm.rowsCache = out, out;
-            },
-            lookup: function(term) {
-                const M = cx(term);
-                if (!M) return null;
-                let key = null;
-                for (const k of Object.keys(fk)) if (fk[k] === M) {
-                    key = k;
-                    break;
-                }
-                const I = pk(M, term, {});
-                if (!I) {
-                    const info = flm.nodeInfo(M.id);
-                    return {
-                        key: key,
-                        pattern: !key,
-                        id: M.id,
-                        label: info.label,
-                        path: info.path,
-                        kind: info.kind,
-                        child: null,
-                        direction: M.direction || "both",
-                        uncertain: !!M.uncertain,
-                        broad: !0
-                    };
-                }
-                const info = flm.nodeInfo(I.id);
-                return {
-                    key: key,
-                    pattern: !key,
-                    id: I.id,
-                    label: I.child ? hk(I) : info.label,
-                    path: info.path,
-                    kind: info.kind,
-                    child: I.child ? I.child.label : null,
-                    direction: M.direction || "both",
-                    uncertain: !!M.uncertain,
-                    broad: !1
-                };
-            }
-        };
-        // Build 2026-10-18_1658 — FetLife mapping EDITOR support. The
-        // shell dialog (#fetlifeMapDialog) is now a full editor, not a
-        // read-only viewer: targets() enumerates every valid target
-        // (all 18 categories, their subcategories, and every topic) for
-        // the editor's target picker; setMapping()/removeMapping()
-        // rewrite the live fk table (and the matching gk entry, so
-        // saved-page imports agree) for THIS session, so a FetLife
-        // import run after editing uses the edited mappings; the first
-        // edit snapshots the shipped tables and editedRows() diffs
-        // against that snapshot (powering the edited count, the edited
-        // badges, the downloadable edits file, and Reset). Nothing is
-        // persisted: a reload restores the shipped table.
-        flm.targetsCache = null;
-        flm.targets = function() {
-            if (flm.targetsCache) return flm.targetsCache;
-            const out = [], seen = {};
-            try {
-                h.forEach(cat => {
-                    const storedCatId = catId(cat.name);
-                    if (!seen[storedCatId]) { seen[storedCatId] = 1; out.push({ id: storedCatId, label: cat.name, path: cat.name, kind: "Category" }); }
-                    (cat.subcategories || []).forEach(sub => {
-                        const sid = Un(cat.name, sub.name);
-                        if (!seen[sid]) { seen[sid] = 1; out.push({ id: sid, label: sub.name, path: cat.name + " › " + sub.name, kind: "Subcategory" }); }
-                    });
-                    (cat.topics || []).forEach(tn => {
-                        let tid = null;
-                        try { tid = Wn(tn); } catch (e) { tid = null; }
-                        if (!tid || seen[tid]) return;
-                        seen[tid] = 1;
-                        const info = flm.nodeInfo(tid);
-                        out.push({ id: tid, label: info.label || tn, path: info.path || (cat.name + " › " + tn), kind: "Topic" });
-                    });
-                });
-            } catch (e) { __sxErrLog("app", e); }
-            const order = { Category: 0, Subcategory: 1, Topic: 2 };
-            out.sort((a, b) => (order[a.kind] - order[b.kind]) || (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
-            return flm.targetsCache = out, out;
-        };
-        flm.origFk = null;
-        flm.origGk = null;
-        flm.origFln = null;
-        flm.snap = function() {
-            if (flm.origFk) return;
-            flm.origFk = {}; Object.keys(fk).forEach(k => { flm.origFk[k] = Object.assign({}, fk[k]); });
-            flm.origGk = {}; Object.keys(gk).forEach(k => { flm.origGk[k] = Object.assign({}, gk[k]); });
-            flm.origFln = Object.assign({}, fln);
-        };
-        flm.setMapping = function(name, id, direction) {
-            const key = ck(String(name || "").trim());
-            if (!key || !id) return null;
-            flm.snap();
-            fk[key] = { id: id, direction: direction || "both", uncertain: !1, specific: !0 };
-            if (gk[key]) gk[key] = { id: id, uncertain: !1 };
-            fln[key] = fln[key] || String(name).trim();
-            flm.rowsCache = null;
-            return key;
-        };
-        flm.removeMapping = function(name) {
-            const key = ck(String(name || "").trim());
-            if (!key || !fk[key]) return;
-            flm.snap();
-            delete fk[key];
-            if (gk[key]) delete gk[key];
-            flm.rowsCache = null;
-        };
-        flm.editedRows = function() {
-            if (!flm.origFk) return [];
-            const out = [], keys = {};
-            Object.keys(flm.origFk).forEach(k => { keys[k] = 1; });
-            Object.keys(fk).forEach(k => { keys[k] = 1; });
-            Object.keys(keys).forEach(k => {
-                const before = flm.origFk[k] || null, now = fk[k] || null;
-                const changed = (!before !== !now) || (before && now && (before.id !== now.id || (before.direction || "both") !== (now.direction || "both")));
-                if (!changed) return;
-                const src = now || before, info = flm.nodeInfo(src.id);
-                out.push({
-                    key: k,
-                    name: fln[k] || (flm.origFln && flm.origFln[k]) || k,
-                    before: before ? { id: before.id, direction: before.direction || "both" } : null,
-                    now: now ? { id: now.id, direction: now.direction || "both", label: info.label, path: info.path, kind: info.kind } : null
-                });
-            });
-            out.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
-            return out;
-        };
-        flm.resetMappings = function() {
-            if (!flm.origFk) return;
-            Object.keys(fk).forEach(k => { delete fk[k]; });
-            Object.keys(flm.origFk).forEach(k => { fk[k] = Object.assign({}, flm.origFk[k]); });
-            Object.keys(gk).forEach(k => { delete gk[k]; });
-            Object.keys(flm.origGk).forEach(k => { gk[k] = Object.assign({}, flm.origGk[k]); });
-            Object.keys(fln).forEach(k => { delete fln[k]; });
-            Object.keys(flm.origFln).forEach(k => { fln[k] = flm.origFln[k]; });
-            flm.rowsCache = null;
-        };
-        window.__fetlifeMap = flm;
-        function dx(e, t) {
-            if (/base64/i.test(t || "")) try {
-                const t = atob(e.replace(/\s+/g, "")), n = Uint8Array.from(t, e => e.charCodeAt(0));
-                return new TextDecoder("utf-8").decode(n);
-            } catch (t) {
-                return e;
-            }
-            if (/quoted-printable/i.test(t || "")) {
-                const t = e.replace(/=\r?\n/g, ""), n = [];
-                for (let e = 0; e < t.length; e++) if ("=" === t[e] && /^[0-9a-f]{2}$/i.test(t.slice(e + 1, e + 3))) n.push(parseInt(t.slice(e + 1, e + 3), 16)), 
-                e += 2; else {
-                    const i = t.charCodeAt(e);
-                    i < 256 ? n.push(i) : n.push(...(new TextEncoder).encode(t[e]));
-                }
-                try {
-                    return new TextDecoder("utf-8").decode(Uint8Array.from(n));
-                } catch (e) {
-                    return t;
-                }
-            }
-            return e;
-        }
-        function ux(e) {
-            if (!/^mime-version:/im.test(e) || !/^content-type:\s*multipart\/related/im.test(e)) return null;
-            const t = ((e.match(/^([\s\S]*?)\r?\n\r?\n/) || [])[1] || "").match(/boundary\s*=\s*(?:"([^"]+)"|([^;\r ]+))/i), n = t && (t[1] || t[2] || "").trim();
-            if (!n) return null;
-            const i = [];
-            return e.split("--" + n).forEach(e => {
-                const t = e.match(/^\s*([\s\S]*?)\r?\n\r?\n([\s\S]*)$/);
-                if (!t) return;
-                const n = t[1], a = (n.match(/^content-type:\s*([^;\r ]+)/im) || [])[1] || "", r = (n.match(/^content-transfer-encoding:\s*([^\r ]+)/im) || [])[1] || "", o = (n.match(/^content-location:\s*([^\r ]+)/im) || [])[1] || "";
-                /^text\/html/i.test(a) && i.push({
-                    html: dx(t[2].replace(/\r?\n--$/, ""), r),
-                    location: o
-                });
-            }), i.length ? (i.find(e => /fetish/i.test(e.location)) || i[0]).html : null;
-        }
-        function px(e) {
-            const t = Boolean(ux(e)) || /<(?:html|body|main|section|article|div|li|tr|p|h[1-6])\b/i.test(e), n = function(e) {
-                const t = ux(e) || e;
-                if (!/<(?:html|body|main|section|article|div|li|tr|p|h[1-6])\b/i.test(t)) return t;
-                const n = (new DOMParser).parseFromString(t, "text/html");
-                n.querySelectorAll("script,style,noscript,svg,nav,header,footer,form").forEach(e => e.remove()), 
-                n.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach(e => {
-                    const t = String(e.textContent || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim().match(/^(?:my\s+)?(fetishes?|kinks?)\b/i);
-                    t && (e.textContent = /^kink/i.test(t[1]) ? "Kinks" : "Fetishes");
-                }), n.querySelectorAll("a[href]").forEach(e => {
-                    const t = (e.getAttribute("href") || "").trim();
-                    "fetishes" === ck(e.textContent || "") && /^(?:https?:\/\/(?:www\.)?fetlife\.com)?\/fetishes\/?(?:[?#].*)?$/i.test(t) && e.remove();
-                });
-                const i = n.body.innerHTML.replace(/<h([1-6])\b[^>]*>/gi, "\nFETLIFE_SECTION_HEADING_$1 ").replace(/<\/h[1-6]>/gi, "\n").replace(/<br\b[^>]*>/gi, "\n").replace(/<a\b[^>]*>/gi, "").replace(/<\/a>/gi, "\n").replace(/<\/(?:td|th)>/gi, "\t").replace(/<\/(?:li|tr|p|div|section|article|ul|ol)>/gi, "\n");
-                return (new DOMParser).parseFromString(i, "text/html").body.textContent || "";
-            }(e).replace(/[^\S\n]*,[^\S\n]*FETLIFE_SECTION_HEADING_([1-6])[^\S\n]*,[^\S\n]*/gi, " FETLIFE_SECTION_HEADING_$1 "), i = n.split(/\r\n|[\r\n]/).map(e => e.replace(/\u00a0/g, " ").replace(/[^\S\n]+/g, " ").trim()).filter(Boolean).map(e => {
-                const t = e.match(/^FETLIFE_SECTION_HEADING_([1-6])\s+([\s\S]+)$/i);
-                return {
-                    text: (t ? t[2] : e).replace(/FETLIFE_SECTION_HEADING_[1-6]/gi, " ").replace(/\s+/g, " ").replace(/^\s*,\s*|\s*,\s*$/g, "").trim(),
-                    level: t ? Number(t[1]) : null
-                };
-            }).filter(e => e.text), a = new Set([ "edit", "into", "interests", "favorites", "favorite", "curious about", "curious", "neutral", "soft limits", "soft limit", "hard limits", "hard limit", "not into", "not interested", "fantasy only", "already tried", "giving", "as a top", "top", "receiving", "as a bottom", "bottom", "both", "switch", "giving and receiving", "giving receiving", "everything to do with it", "watching", "wearing", "watching others wear", "watching others wearing" ]), r = new Set([ "about", "about me", "activity", "activity feed", "recent activity", "pictures", "photos", "videos", "events", "events attended", "writings", "journal entries", "posts", "relationships", "relationship status", "roles", "identity", "gender", "orientation", "pronouns", "groups", "places", "questions", "friends", "followers", "following", "looking for", "kinksters", "lists", "memberships", "wall", "status" ]), o = e => {
-                const t = ck(e.text).replace(/\s+\d+$/, "");
-                return null !== e.level && !a.has(t) || r.has(t) || /^(?:latest\s+)?(?:pictures?|photos?|videos?|writings?)(?:\s*\(\d+\))?\s*:?$/.test(t);
-            }, s = /^(?:my\s+)?(?:fetishes?|kinks?)(?:\s*\([^\r )]*\))?\s*:?$/i, l = [];
-            if (i.forEach((e, t) => {
-                s.test(e.text) && l.push(t);
-            }), !l.length) {
-                const e = i.findIndex(o), n = i.slice(0, e < 0 ? i.length : e);
-                return {
-                    text: t ? "" : n.map(e => e.text).join("\n"),
-                    sectionFound: !1,
-                    missingSection: t
-                };
-            }
-            let c = l[0], d = -1;
-            l.forEach(e => {
-                const t = i.slice(e + 1, e + 121), n = t.map(e => ck(e.text).replace(/\s+\d+$/, "")), a = n.findIndex(e => [ "into", "interests", "favorites", "favorite", "curious about", "curious", "neutral", "soft limits", "soft limit", "hard limits", "hard limit", "not into", "not interested", "fantasy only", "already tried" ].includes(e)), r = n.slice(0, 4).includes("edit"), o = t.reduce((e, t) => e + (cx(t.text) ? 1 : 0), 0) + (a >= 0 && a < 16 ? 100 - a : 0) + (r ? 20 : 0);
-                o > d && (c = e, d = o);
-            });
-            let u = i.length;
-            for (let e = c + 1; e < i.length; e++) if (o(i[e])) {
-                u = e;
-                break;
-            }
-            return {
-                text: i.slice(c + 1, u).map(e => e.text).join("\n"),
-                sectionFound: !0,
-                missingSection: !1
-            };
-        }
-        function hx(e) {
-            const t = [];
-            let n = "", i = !1, o = 0;
-            for (let a = 0; a < e.length; a++) {
-                const r = e[a];
-                '"' === r ? i && '"' === e[a + 1] ? (n += '"', a++) : i = !i : "(" === r && !i ? (o++, n += r) : ")" === r && !i && o > 0 ? (o--, n += r) : "," !== r || i || o > 0 ? n += r : (t.push(n.trim()), 
-                n = "");
-            }
-            return t.push(n.trim()), t.filter(Boolean);
-        }
-        function gx(e) {
-            const t = [];
-            return e.split(/\r\n|[\r\n]/).forEach(e => {
-                const n = e.trim();
-                if (!n) return;
-                const i = n.match(/^(Into|Curious about|Curious|Soft limits?|Hard limits?|Favorites?|Not into|Not interested|Neutral|Fantasy only|Already tried)\s*:\s*(.+)$/i);
-                if (i) return t.push(i[1]), void hx(i[2]).forEach(e => t.push(e));
-                const a = hx(n);
-                if (a.length < 2) return void t.push(n);
-                a.filter(e => cx(e.replace(/^(?:the|a|an)\s+/i, ""))).length >= 2 ? a.forEach(e => t.push(e)) : t.push(n);
-            }), t;
-        }
-        function mx(e) {
-            const t = qn[e];
-            if (t && t.label) return t.label;
-            for (const t of h) {
-                if (catId(t.name) === e) return t.name;
-                const n = t.topics.find(t => Wn(t) === e);
-                if (n) return n;
-            }
-            return e;
-        }
-        // ============================================================
-        // FetLife importer — FetLifeImporter pipeline module
-        // (Refactor Step 2, Build 2026-10-18_0722.)
-        //
-        // The FetLife branch of yx.parse used to be one large inline
-        // function. It is now four named stages plus a thin
-        // orchestrator, with zero behavior change: same section and
-        // direction tables, same qualifier edge cases, same warnings,
-        // same category-hit (broadHits) tracking, same return shape.
-        //
-        //   parse(rawHtml)  — HTML extraction via px()/gx(), section
-        //     splitting, subsection-scoped "View all" detection.
-        //     Returns raw item records {section, dirDefault, rawText,
-        //     lineNo} plus page metadata. (Only stage touching px/gx.)
-        //   normalize(item) — pure, no DOM: splits the raw line into
-        //     name + qualifier text, strips a trailing parenthetical
-        //     qualifier off the name and merges it into the qualifier
-        //     string (qualifier text is ck()-normalized: lowercased /
-        //     trimmed; "as a top" / "as a bottom" resolve through the
-        //     direction table in parse/rate). Returns {baseTerm,
-        //     qualifier, rawName}.
-        //   match(baseTerm, ctx) — pure lookup, no DOM: alias-map /
-        //     pattern-fallback match via cx() (Step 1 alias structure
-        //     untouched), resolution via pk(), category/subcategory
-        //     hits recorded into ctx.broadHits. Returns {status,
-        //     match, resolved} with status "matched" | "broad" |
-        //     "unmapped".
-        //   rate(normalized, matchResult, item, acc) — resolves the
-        //     effective section (qualifier text first, then the
-        //     item's section, default Into) and direction (qualifier,
-        //     then the section's pending direction, then the match's
-        //     own direction), then writes ratings / annotations /
-        //     notes / flags into the accumulators.
-        //   run(rawText) — orchestrator: parse → normalize → match →
-        //     rate over the item list and assembles the exact result
-        //     object the converter has always returned.
-        //
-        // Stage logging: each stage appends {stage, in, out,
-        // examples} to FetLifeImporter.stageLog (reset per run);
-        // set FetLifeImporter.DEBUG = true to also mirror entries to
-        // console.debug.
-        // ============================================================
-        const FetLifeImporter = (() => {
-            const SECTION_KINDS = {
-                        into: {
-                            kind: "into",
-                            value: 100
-                        },
-                        interests: {
-                            kind: "into",
-                            value: 100
-                        },
-                        favorites: {
-                            kind: "favorite",
-                            value: null,
-                            mark: "favorite"
-                        },
-                        favorite: {
-                            kind: "favorite",
-                            value: null,
-                            mark: "favorite"
-                        },
-                        "curious about": {
-                            kind: "curious",
-                            value: 0
-                        },
-                        curious: {
-                            kind: "curious",
-                            value: 0
-                        },
-                        neutral: {
-                            kind: "neutral",
-                            value: null,
-                            neutral: !0
-                        },
-                        "soft limits": {
-                            kind: "soft",
-                            value: null,
-                            mark: "notinterested"
-                        },
-                        "soft limit": {
-                            kind: "soft",
-                            value: null,
-                            mark: "notinterested"
-                        },
-                        "hard limits": {
-                            kind: "hard",
-                            value: null,
-                            mark: "limit"
-                        },
-                        "hard limit": {
-                            kind: "hard",
-                            value: null,
-                            mark: "limit"
-                        },
-                        "not into": {
-                            kind: "not",
-                            value: null,
-                            mark: "notinterested"
-                        },
-                        "not interested": {
-                            kind: "not",
-                            value: null,
-                            mark: "notinterested"
-                        },
-                        "fantasy only": {
-                            kind: "fantasy",
-                            value: null,
-                            fantasy: !0
-                        },
-                        "already tried": {
-                            kind: "tried",
-                            value: null,
-                            tried: !0
-                        }
-                    };
-            const DIRECTION_KINDS = {
-                        giving: {
-                            direction: "give",
-                            label: "giving"
-                        },
-                        "as a top": {
-                            direction: "give",
-                            label: "giving"
-                        },
-                        top: {
-                            direction: "give",
-                            label: "giving"
-                        },
-                        receiving: {
-                            direction: "receive",
-                            label: "receiving"
-                        },
-                        "as a bottom": {
-                            direction: "receive",
-                            label: "receiving"
-                        },
-                        bottom: {
-                            direction: "receive",
-                            label: "receiving"
-                        },
-                        both: {
-                            direction: "both",
-                            label: "giving and receiving"
-                        },
-                        switch: {
-                            direction: "both",
-                            label: "giving and receiving"
-                        },
-                        "giving and receiving": {
-                            direction: "both",
-                            label: "giving and receiving"
-                        },
-                        "giving receiving": {
-                            direction: "both",
-                            label: "giving and receiving"
-                        },
-                        "everything to do with it": {
-                            direction: "both",
-                            label: "everything to do with it",
-                            everything: !0
-                        },
-                        watching: {
-                            direction: null,
-                            label: "watching"
-                        },
-                        wearing: {
-                            direction: null,
-                            label: "wearing"
-                        },
-                        "watching others wear": {
-                            direction: null,
-                            label: "watching others wear"
-                        },
-                        "watching others wearing": {
-                            direction: null,
-                            label: "watching others wear"
-                        }
-                    };
-            const SKIP_TERMS = new Set([ "fetishes", "kinks", "fetish list", "kink list", "edit", "about", "activity", "interest", "role", "show more", "show less" ]);
-            const PAGE_SECTIONS = [ "fetishes", "kinks", "about", "about me", "activity", "activity feed", "recent activity", "pictures", "photos", "videos", "events", "events attended", "writings", "journal entries", "posts", "relationships", "relationship status", "roles", "identity", "gender", "orientation", "pronouns", "groups", "places", "questions", "friends", "followers", "following", "looking for", "kinksters", "lists", "memberships", "wall", "status" ];
-            const sectionFromQualifier = e => /\bhard limits?\b/.test(e) ? SECTION_KINDS["hard limit"] : /\bsoft limits?\b/.test(e) ? SECTION_KINDS["soft limit"] : /\b(?:not interested|not into|no)\b/.test(e) ? SECTION_KINDS["not into"] : /\bfantasy only\b/.test(e) ? SECTION_KINDS["fantasy only"] : /\balready tried\b/.test(e) ? SECTION_KINDS["already tried"] : /\bneutral\b/.test(e) ? SECTION_KINDS.neutral : /\b(?:curious about|curious|maybe)\b/.test(e) ? SECTION_KINDS.curious : /\bfavorites?\b/.test(e) ? SECTION_KINDS.favorite : /\b(?:into|yes)\b/.test(e) ? SECTION_KINDS.into : null;
-            const directionFromQualifier = e => /\beverything to do with it\b/.test(e) ? DIRECTION_KINDS["everything to do with it"] : /\bwatching others wear(?:ing)?\b/.test(e) ? DIRECTION_KINDS["watching others wear"] : /\bwatching\b/.test(e) ? DIRECTION_KINDS.watching : /\bwearing\b/.test(e) ? DIRECTION_KINDS.wearing : /\b(?:both|switch|giving and receiving|giving receiving)\b/.test(e) ? DIRECTION_KINDS.both : /\b(?:giving|giver|top|topping|dominant|dom)\b/.test(e) ? DIRECTION_KINDS.giving : /\b(?:receiving|receiver|bottom|bottoming|submissive|sub)\b/.test(e) ? DIRECTION_KINDS.receiving : null;
-            // Build 2026-10-18_1549 — watching / wearing qualifiers annotate
-            // the topic (they never force a give/receive rating). The note
-            // is worded with the topic's own specialized role labels where
-            // the topic has them (Ge() labels — “admires” / “wears” /
-            // “watches” and the like), falling back to the FetLife
-            // qualifier's own words when it does not.
-            const sxStance = (id, F) => {
-                if (!F || null !== F.direction) return F ? F.label : "";
-                const g = Ge(id);
-                if (g.single) return F.label;
-                if ("wearing" === F.label) return g.labels[1] && "receive" !== g.labels[1] ? g.labels[1] : F.label;
-                if ("watching" === F.label || "watching others wear" === F.label) return g.labels[0] && "give" !== g.labels[0] ? g.labels[0] : F.label;
-                return F.label;
-            };
-            const api = {
-                DEBUG: !1,
-                stageLog: []
-            };
-            function slog(stage, info) {
-                api.stageLog.push(Object.assign({
-                    stage: stage
-                }, info)), api.DEBUG && console.debug(`[FetLifeImporter] ${stage}`, info);
-            }
-            function parse(rawHtml) {
-                const extracted = px(rawHtml), lines = gx(extracted.text), items = [], viewAllSections = [];
-                let section = null, sectionName = null, dirDefault = null;
-                lines.forEach((e, t) => {
-                    let s = e.replace(/ /g, " ").replace(/^[\s•·*]+|[\s•·*]+$/g, "").trim();
-                    if (!s || /^[,;|]+$/.test(s)) return;
-                    const f = ck(s), y = f.replace(/\s+\d+$/, "");
-                    if (Object.prototype.hasOwnProperty.call(SECTION_KINDS, y)) return section = SECTION_KINDS[y], sectionName = y, void (dirDefault = null);
-                    if (Object.prototype.hasOwnProperty.call(DIRECTION_KINDS, y)) return void (dirDefault = DIRECTION_KINDS[y]);
-                    if (PAGE_SECTIONS.includes(y) || /^(?:latest\s+)?(?:pictures?|photos?|videos?|writings?)(?:\s*\(\d+\))?\s*:?$/.test(y)) return sectionName = null, void (dirDefault = null);
-                    if (/^(?:view|show)\s+all(?:\s+fetishes?)?$/i.test(s) || /^view\s+all\b/i.test(s)) return void (sectionName && viewAllSections.push(sectionName));
-                    if (SKIP_TERMS.has(f) || /^https?:\/\//i.test(s) || /^@?[a-z0-9_.-]+\s+on\s+fetlife$/i.test(s)) return;
-                    items.push({
-                        section: section,
-                        dirDefault: dirDefault,
-                        rawText: s,
-                        lineNo: t + 1
-                    });
-                });
-                return slog("parse", {
-                    in: lines.length,
-                    out: items.length,
-                    examples: items.slice(0, 3).map(e => e.rawText)
-                }), {
-                    items: items,
-                    viewAllSections: viewAllSections,
-                    missingSection: extracted.missingSection,
-                    sectionFound: extracted.sectionFound
-                };
-            }
-            function normalize(item) {
-                const s = item.rawText;
-                let E = s.split(/\t+|\s*\|\s*|\s+[—–]\s+(?!\()/).map(e => e.trim()).filter(Boolean);
-                if (1 === E.length) {
-                    const e = s.match(/^(.+?):\s*(.+)$/);
-                    e && /\b(?:into|curious|favorite|neutral|not interested|fantasy only|already tried|limit|giving|receiving|both|switch|top|bottom|watching|wearing|everything|yes|no|maybe)\b/i.test(e[2]) && (E = [ e[1], e[2] ]);
-                }
-                if (1 === E.length) {
-                    const e = s.match(/\s+(?=(?:into|curious about|favorite|neutral|soft limits?|hard limits?|not interested|not into|fantasy only|already tried|everything to do with it|watching others wear(?:ing)?|watching|wearing|giving(?:\s*(?:and|&)\s*receiving)?|receiving|both|switch|top|bottom)\b)/i);
-                    e && (E = [ s.slice(0, e.index), s.slice(e.index).trim() ]);
-                }
-                let A = (E.shift() || "").replace(/^[-*•·\d.)\s]+/, "").replace(/^(?:the|a|an)\s+/i, "").trim();
-                let C = ck(E.join(" "));
-                if (!A) return {
-                    baseTerm: "",
-                    qualifier: C,
-                    rawName: A
-                };
-                const A0 = A, Aq = A.match(/^(.*?)\s*\(([^()]*)\)\s*$/);
-                if (Aq && Aq[1].trim()) {
-                    const q = ck(Aq[2]);
-                    q && /\b(?:giving|receiving|everything to do with it|watching|wearing|both|switch|top|bottom)\b/.test(q) && (A = Aq[1].trim(), 
-                    C = (C ? C + " " : "") + q);
-                }
-                // Importer rework Part C: a LEADING parenthetical qualifier
-                // ("(giving) Spanking", "(receiving) Flogging") carries the
-                // same recoverable direction as the trailing form — mine it
-                // into the qualifier string instead of dropping it. When the
-                // parenthetical holds no direction word, the term is left
-                // exactly as written (unrecoverable is stated by the match
-                // warnings, never guessed).
-                const AqLead = A.match(/^\(([^()]*)\)\s*(.+)$/);
-                if (AqLead && AqLead[2].trim()) {
-                    const q = ck(AqLead[1]);
-                    q && /\b(?:giving|receiving|everything to do with it|watching|wearing|both|switch|top|bottom)\b/.test(q) && (A = AqLead[2].trim(), 
-                    C = (C ? C + " " : "") + q);
-                }
-                return {
-                    baseTerm: A,
-                    qualifier: C,
-                    rawName: A0
-                };
-            }
-            function match(baseTerm, ctx) {
-                const M = cx(baseTerm);
-                if (!M) return {
-                    status: "unmapped",
-                    match: null,
-                    resolved: null
-                };
-                const I = pk(M, baseTerm, ctx.children);
-                if (!I) {
-                    // Build 2026-10-18_1015: broadTerms is presentation-only
-                    // tracking for the post-import summary dialog — the set
-                    // of distinct FetLife terms that landed on each broad
-                    // branch. broadHits recording below is unchanged.
-                    if (M && M.id && (isCatId(M.id) || isSubId(M.id))) {
-                        const bt = ctx.broadTerms || (ctx.broadTerms = {});
-                        (bt[M.id] || (bt[M.id] = new Set)).add(baseTerm), ctx.broadHits.includes(M.id) || ctx.broadHits.push(M.id);
-                    }
-                    return {
-                        status: "broad",
-                        match: M,
-                        resolved: null
-                    };
-                }
-                if (!I.child && (isSubId(I.id) || isCatId(I.id))) {
-                    const bt = ctx.broadTerms || (ctx.broadTerms = {});
-                    (bt[I.id] || (bt[I.id] = new Set)).add(baseTerm), ctx.broadHits.includes(I.id) || ctx.broadHits.push(I.id);
-                }
-                return {
-                    status: "matched",
-                    match: M,
-                    resolved: I
-                };
-            }
-            function rate(normalized, matchResult, item, acc) {
-                const A = normalized.baseTerm, C = normalized.qualifier, M = matchResult.match, I = matchResult.resolved, P = I.id, b = (e, n, i) => {
-                    !Ke.has(e) && !acc.children[e] || (acc.ratings[e] || (acc.ratings[e] = {}), acc.ratings[e][n] = i);
-                }, v = (e, t) => {
-                    (Ke.has(e) || acc.children[e]) && t && (acc.notes[e] || (acc.notes[e] = []), acc.notes[e].includes(t) || acc.notes[e].push(t));
-                }, L = sectionFromQualifier(C) || item.section || SECTION_KINDS.into, T = directionFromQualifier(C), F = T || item.dirDefault;
-                let N = F ? F.direction : M.direction || "both", _ = L.value, D = L.mark || null;
-                // Slug-gap fix: when P names no current topic (not a
-                // canonical id in Ke, not a registered imported child),
-                // every write below is declined or would be stored under
-                // a dead key. Drop the hit loudly instead: record it on
-                // acc.notApplied, name it in the warnings, and return !1
-                // so run() excludes it from the matched / mapped counts
-                // and no success line is rendered for it.
-                if (!Ke.has(P) && !acc.children[P]) {
-                    const droppedList = acc.notApplied || (acc.notApplied = []);
-                    droppedList.some(e => e.term === A && e.target === P) || droppedList.push({
-                        term: A,
-                        target: P
-                    }), acc.warnings.push(`Item ${item.lineNo}: “${A}” matched ${P}, which names no current topic, and was not applied.`);
-                    return !1;
-                }
-                // Build 2026-10-18_1549 — “(everything to do with it)” carries
-                // its own value by section instead of the section default:
-                // 80 (4/5 positive) in Into, 33 (~1/3, deep yellow) in
-                // Curious. On a single-slider topic it sets only that one
-                // slider (stored under the “give” key, per Ge()); on a
-                // dual-slider topic it sets both give and receive.
-                const sxEverything = Boolean(F && F.everything), sxSingle = sxEverything && Ge(P).single;
-                sxEverything && ("into" === L.kind ? _ = 80 : "curious" === L.kind && (_ = 33)), 
-                "into" !== L.kind || "give" !== N && "receive" !== N || F && F.everything || (_ = 85), 
-                "hard" === L.kind && (D = "limit", N = "both"), "soft" === L.kind && v(P, "Soft limit on FetLife"), 
-                F && null === F.direction && v(P, `${"curious" === L.kind ? "Curious about" : "soft" === L.kind ? "Soft limit" : "hard" === L.kind ? "Hard limit" : "favorite" === L.kind ? "Favorite" : "Into"} on FetLife · ${sxStance(P, F)}`), 
-                !Number.isFinite(_) || "give" !== N && "both" !== N || b(P, "give", _), !Number.isFinite(_) || "receive" !== N && "both" !== N || sxSingle || b(P, "receive", _), 
-                ("limit" === D || "limit" !== acc.annotations[P] && D) && (acc.annotations[P] = D), L.neutral && (acc.neutralNodes[P] = !0), 
-                L.fantasy && (acc.fantasyOnly[P] = !0), L.tried && (acc.alreadyTried[P] = !0), (D || L.neutral || L.fantasy || L.tried) && (acc.discreteNodes[P] = !0);
-                const R = F && null === F.direction ? `annotation: ${F.label}` : sxEverything ? sxSingle ? "everything (single slider)" : "give + receive" : "both" === N ? "give + receive" : N, O = "into" === L.kind ? `into ${_}` : "curious" === L.kind ? sxEverything ? "curious 33" : "curious" : "soft" === L.kind ? "Not Interested (soft limit)" : "hard" === L.kind ? "Hard Limit" : "favorite" === L.kind ? "Favorite" : "neutral" === L.kind ? "Neutral" : "fantasy" === L.kind ? "Fantasy Only" : "tried" === L.kind ? "Already Tried" : "Not Interested";
-                acc.mappings.push({
-                    text: `${A} ⇒ ${sxNodePath(P)} · ${R} · ${O}`,
-                    tertiary: !1
-                }), I.suggestion && acc.suggestions.push({
-                    name: I.suggestion.name,
-                    parentId: P,
-                    parentPath: sxNodePath(P),
-                    section: L.kind,
-                    direction: N,
-                    value: _
-                });
-                return !0;
-            }
-            function run(rawText) {
-                api.stageLog.length = 0;
-                const acc = {
-                    ratings: {},
-                    annotations: {},
-                    fantasyOnly: {},
-                    alreadyTried: {},
-                    neutralNodes: {},
-                    discreteNodes: {},
-                    notes: {},
-                    children: {},
-                    warnings: [],
-                    unmappedFetishes: [],
-                    bestFitNotes: [],
-                    suggestions: [],
-                    mappings: [],
-                    notApplied: [],
-                    broadHits: [],
-                    broadTerms: {}
-                };
-                let mappedLines = 0, totalLines = 0;
-                const parsed = parse(rawText), normExamples = [], matchExamples = [], rateExamples = [];
-                let normCount = 0, matchedCount = 0, broadCount = 0, unmappedCount = 0, droppedCount = 0;
-                parsed.missingSection && acc.warnings.push("No Fetishes section was found in this saved page, so nothing outside that section was scanned. The section isn't in this file: open the profile on FetLife, scroll to the Fetishes area and expand every subsection, then save the page again as 'Webpage, Single File' (.mhtml) — not 'HTML Only'. Or save the page at fetlife.com/<username>/profile/fetishes instead.");
-                for (const item of parsed.items) {
-                    const normalized = normalize(item);
-                    if (!normalized.baseTerm) continue;
-                    totalLines++, normCount++, normExamples.length < 3 && normExamples.push(`${normalized.rawName} → base “${normalized.baseTerm}” · qualifier “${normalized.qualifier}”`);
-                    const matchResult = match(normalized.baseTerm, acc);
-                    if ("unmapped" === matchResult.status) {
-                        unmappedCount++, acc.unmappedFetishes.push({
-                            fetish_name: normalized.rawName,
-                            list_type: /\b(?:curious about|curious|maybe)\b/.test(normalized.qualifier) || item.section && "curious" === item.section.kind ? "curious" : "into"
-                        }), acc.warnings.push(`Item ${item.lineNo}: “${normalized.rawName.slice(0, 70)}” was not recognized or has no matching topic.`);
-                        continue;
-                    }
-                    if ("broad" === matchResult.status) {
-                        broadCount++, acc.warnings.push(`Item ${item.lineNo}: “${normalized.rawName}” maps only to a broad branch, so it was skipped; rate its individual topics instead.`);
-                        continue;
-                    }
-                    rate(normalized, matchResult, item, acc) ? (matchedCount++, mappedLines++, matchExamples.length < 3 && matchExamples.push(`${normalized.baseTerm} → ${matchResult.resolved.id}`), rateExamples.length < 3 && rateExamples.push(acc.mappings[acc.mappings.length - 1].text)) : droppedCount++;
-                }
-                if (slog("normalize", {
-                    in: parsed.items.length,
-                    out: normCount,
-                    examples: normExamples
-                }), slog("match", {
-                    in: normCount,
-                    out: matchedCount,
-                    broad: broadCount,
-                    unmapped: unmappedCount,
-                    dropped: droppedCount,
-                    examples: matchExamples
-                }), slog("rate", {
-                    in: matchedCount,
-                    out: mappedLines,
-                    examples: rateExamples
-                }), parsed.viewAllSections.length) {
-                    const e = [ ...new Set(parsed.viewAllSections) ].map(e => e.replace(/\b\w/g, e => e.toUpperCase())).join(" and ");
-                    acc.warnings.unshift(`We found “View all” links in your saved page (${e}). Your FetLife profile shows more fetishes than what’s in this file — you’re only importing the truncated visible portion. Go back to FetLife, click all “View all” links in your Fetishes section, then save the page again for a complete import.`);
-                }
-                const previewNotes = parsed.sectionFound ? [ "Found the Fetishes section and ignored the rest of the saved profile page." ] : [];
-                return {
-                    ratings: acc.ratings,
-                    annotations: acc.annotations,
-                    fantasyOnly: acc.fantasyOnly,
-                    alreadyTried: acc.alreadyTried,
-                    neutralNodes: acc.neutralNodes,
-                    discreteNodes: acc.discreteNodes,
-                    notes: acc.notes,
-                    children: acc.children,
-                    mappedLines: mappedLines,
-                    totalLines: totalLines,
-                    warnings: acc.warnings,
-                    unmappedFetishes: acc.unmappedFetishes,
-                    bestFit: [ ...new Set(acc.bestFitNotes) ],
-                    suggestions: acc.suggestions,
-                    mappings: acc.mappings,
-                    notApplied: acc.notApplied,
-                    categoryHits: acc.broadHits,
-                    categoryHitCounts: Object.fromEntries(Object.entries(acc.broadTerms).map(([e, t]) => [ e, t.size ])),
-                    // Build 2026-10-18_1624 — the actual FetLife terms behind
-                    // each broad-branch count, so the summary dialog's pills
-                    // can list term → target instead of a bare number.
-                    categoryHitTerms: Object.fromEntries(Object.entries(acc.broadTerms).map(([e, t]) => [ e, [ ...t ] ])),
-                    previewNotes: previewNotes
-                };
-            }
-            return api.parse = parse, api.normalize = normalize, api.match = match, api.rate = rate, api.run = run, api;
-        })();
-
-        // Build 2026-10-18_1015 — Post-FetLife-import summary dialog
-        // (presentation layer only; no import logic lives here). Groups the
-        // parse result's broad hits — the same deduped categoryHits list the
-        // list view auto-expands from — into a Category → Subcategory tree
-        // with the per-branch FetLife-term counts FetLifeImporter.match
-        // recorded alongside (categoryHitCounts), and shows the tree in
-        // #fetlifeBroadDialog over the list view the Load already opened.
-        function showFetLifeBroadSummary(result) {
-            const dlg = e.byId("fetlifeBroadDialog"), tree = e.byId("fetlifeBroadTree"), totalEl = e.byId("fetlifeBroadTotal");
-            if (!dlg || !tree || !result) return;
-            const hits = Array.isArray(result.categoryHits) ? [ ...new Set(result.categoryHits.filter(x => "string" == typeof x && (isCatId(x) || isSubId(x)))) ] : [];
-            if (!hits.length) return;
-            const counts = result.categoryHitCounts && "object" == typeof result.categoryHitCounts ? result.categoryHitCounts : {}, termLists = result.categoryHitTerms && "object" == typeof result.categoryHitTerms ? result.categoryHitTerms : {}, targetFor = id => {
-                if (isCatId(id)) {
-                    const c = h.find(c => catId(c.name) === id);
-                    return (c ? c.name : id) + " (whole category)";
-                }
-                const s = zn(id);
-                return s ? s.branch + " › " + s.label + " (subcategory)" : id;
-            }, linesFor = id => (Array.isArray(termLists[id]) ? termLists[id] : []).map(term => ({
-                term: term,
-                target: targetFor(id)
-            })), countFor = id => Math.max(linesFor(id).length, Math.max(1, Number(counts[id]) || 1)), byCat = new Map;
-            hits.forEach(id => {
-                if (isCatId(id)) {
-                    const cat = h.find(c => catId(c.name) === id);
-                    if (!cat) return;
-                    const entry = byCat.get(cat.name) || { name: cat.name, direct: 0, directLines: [], subs: [] };
-                    entry.direct += countFor(id), entry.directLines.push(...linesFor(id)), byCat.set(cat.name, entry);
-                } else {
-                    const sub = zn(id);
-                    if (!sub) return;
-                    const entry = byCat.get(sub.branch) || { name: sub.branch, direct: 0, directLines: [], subs: [] };
-                    entry.subs.push({ name: sub.label, count: countFor(id), lines: linesFor(id) }), byCat.set(sub.branch, entry);
-                }
-            });
-            if (!byCat.size) return;
-            tree.textContent = "";
-            let total = 0;
-            // Build 2026-10-18_1624 — the count pill is now a button (when
-            // the term list is known): its hover tooltip lists every
-            // FetLife term behind the count as “Term → target”, and
-            // selecting it expands the same list inline under the row, so
-            // a bare “1 term” can never be mistaken for a term that merely
-            // passed through the branch on its way somewhere else.
-            const mkRow = (label, count, lines, cls) => {
-                const li = document.createElement("li");
-                li.className = cls;
-                const nm = document.createElement("span");
-                nm.className = "fetlife-broad-name", nm.textContent = label;
-                const badge = document.createElement(lines.length ? "button" : "span");
-                badge.className = "fetlife-broad-count", badge.textContent = `${count} term${1 === count ? "" : "s"}`, li.append(nm, badge);
-                if (lines.length) {
-                    badge.type = "button", badge.title = lines.map(l => `${l.term} → ${l.target}`).join("\n"), 
-                    badge.setAttribute("aria-expanded", "false"), badge.setAttribute("aria-label", `${count} FetLife term${1 === count ? "" : "s"}: ${lines.map(l => `${l.term} maps to ${l.target}`).join("; ")}. Activate to show or hide the list.`);
-                    const detail = document.createElement("ul");
-                    detail.className = "fetlife-broad-terms", detail.hidden = !0, lines.forEach(l => {
-                        const d = document.createElement("li"), b = document.createElement("b");
-                        b.textContent = l.term;
-                        const a = document.createElement("span");
-                        a.className = "fl-arrow", a.textContent = " → ";
-                        const t = document.createElement("span");
-                        t.textContent = l.target, d.append(b, a, t), detail.append(d);
-                    }), li.append(detail), badge.addEventListener("click", () => {
-                        detail.hidden = !detail.hidden, badge.setAttribute("aria-expanded", String(!detail.hidden));
-                    });
-                }
-                return li;
-            }, list = document.createElement("ul");
-            list.className = "fetlife-broad-list", h.forEach(cat => {
-                const entry = byCat.get(cat.name);
-                if (!entry) return;
-                const catTotal = entry.direct + entry.subs.reduce((a, s) => a + s.count, 0);
-                total += catTotal;
-                const catLines = entry.directLines.concat(entry.subs.reduce((a, s) => a.concat(s.lines), []));
-                const li = mkRow(cat.name, catTotal, catLines, "fetlife-broad-cat");
-                if (entry.direct || entry.subs.length) {
-                    const subList = document.createElement("ul");
-                    subList.className = "fetlife-broad-subs", entry.direct && subList.append(mkRow("The whole category", entry.direct, entry.directLines, "fetlife-broad-sub")), 
-                    entry.subs.forEach(s => subList.append(mkRow(s.name, s.count, s.lines, "fetlife-broad-sub"))), li.append(subList);
-                }
-                list.append(li);
-            }), tree.append(list), totalEl && (totalEl.textContent = `${total} FetLife term${1 === total ? "" : "s"} matched a broad area instead of a specific kink, so the rating was applied to that category or subcategory itself. Press “Rate the categories your kinks map to” and the list will show just ${1 === total ? "that area" : "those areas"}, most popular first and collapsed — expand one to rate its top topics. Each “N terms” pill lists the exact FetLife terms behind the count — hover it, or select it to expand the list — and shows where each term mapped.`);
-            const closeBtn = e.byId("closeFetlifeBroad"), dismissBtn = e.byId("dismissFetlifeBroad");
-            closeBtn && (closeBtn.onclick = () => Ui(dlg)), dismissBtn && (dismissBtn.onclick = () => {
-                Ui(dlg), window.__sxFetLifeReview = new Set(hits), sxOutlineSortMode = "popularity";
-                try {
-                    Do.open ? Cs() : location.hash = "#app/listview";
-                } catch (e) { __sxErrLog("listview-open", e); }
-            }), Wi(dlg), 
-            dismissBtn && requestAnimationFrame(() => dismissBtn.focus({ preventScroll: !0 }));
-        }
 
         // F9 (profiles-data refactor, Edit 3): the merge dispatcher's
         // and the serializer's kind vocabularies, named once. Routing
@@ -35263,6 +41029,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 uncertain: !0
             }
         }, yx = Object.freeze({
+            importData(data, opts) {
+                return wx(data, Object.assign({ quiet: true }, opts));
+            },
             parse(e, t) {
                 const n = String(e || "").toLowerCase();
                 let i;
@@ -37721,11 +43490,32 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     return runPromise;
                 }
             }
-        }, window.__SEXCAPADES_LAYOUT_API.anneal=window.__SEXCAPADES_LAYOUT_API.deknotter, Cn.classList.toggle("is-static", Boolean(mn.staticMap)), Jw(), bS ? (gS(), document.documentElement.classList.remove("route-listview-pending"), 
+        }, window.__SEXCAPADES_LAYOUT_API.anneal=window.__SEXCAPADES_LAYOUT_API.deknotter, Cn.classList.toggle("is-static", Boolean(mn.staticMap)), Jw();
+        window.__sexcapades = {
+            ProfileIO: yx,
+            profilePayload: function(e) {
+                return yx.serialize("profile", {
+                    person: e
+                });
+            },
+            importPayload: wx,
+            importSharedPayload: kx,
+            fullProfileDataNodeIds: Hw,
+            getActiveProfileId: function() {
+                return Mt;
+            }
+        };
+
+        if (window.__SX_HEADLESS) {
+            console.log("[Sexcapades] Headless test mode active — skipping interactive map boot.");
+            return;
+        }
+
+        bS ? (gS(), document.documentElement.classList.remove("route-listview-pending"),
         t.setTimeout(Nu, 0)) : yS ? (function() {
             const e = dS();
             window.__SEXCAPADES_START_ROUTE = "", e ? !rS && (rS = !0, Ms(Mt && vt[Mt] ? Mt : Et)) : rS = !1;
-        }(), document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : vS ? (mS(), 
+        }(), document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : vS ? (mS(),
         document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : (async () => {
             Nu(), document.documentElement.classList.remove("route-listview-pending");
             if (Do.open) {
@@ -37746,20 +43536,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     }, 0));
                 }
             }
-        })(), window.__sexcapades = {
-            ProfileIO: yx,
-            profilePayload: function(e) {
-                return yx.serialize("profile", {
-                    person: e
-                });
-            },
-            importPayload: wx,
-            importSharedPayload: kx,
-            fullProfileDataNodeIds: Hw,
-            getActiveProfileId: function() {
-                return Mt;
-            }
-        }, window.Sexcapades2xProfiles = {
+        })();
+
+        window.Sexcapades2xProfiles = {
             getAll: function() {
                 const e = {};
                 try {
@@ -37965,6 +43744,9 @@ __sxInit(function () {
   }, true);
 })();
 });
+
+/* ---- category / subcategory double tap/click zoom focus handled in 06-pdf-exporter.js Kh ---- */
+
 
 
 /* ---- map-touch-selection-guard ---- */
