@@ -218,8 +218,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 items: [ i, ...a, ...r ]
             };
         }), Yl = Vl.flatMap(e => e.items), Xl = new Map(Yl.map(e => [ e.value, e ]));
+        let sxCommittedFocus = null, sxFocusFrame = 0;
+        function sxStopFocusZoom() {
+            if (sxFocusFrame) cancelAnimationFrame(sxFocusFrame), sxFocusFrame = 0;
+            if (typeof window.__sxStopFocusZoom === "function") window.__sxStopFocusZoom();
+        }
         function Zl(e, t = 0) {
-            In.querySelector(`[data-layout-key="${CSS.escape(e.id)}"]`) ? Th(e.id, e.branch) : t < 3 ? requestAnimationFrame(() => Zl(e, t + 1)) : Lh(e.branch);
+            if (!e || Dt !== e.id) return;
+            In.querySelector(`[data-layout-key="${CSS.escape(e.id)}"]`) ? Th(e.id, e.branch) : t < 3 ? sxFocusFrame = requestAnimationFrame(() => Zl(e, t + 1)) : Lh(e.branch);
         }
         let _previewAddedBranches = new Set, _previewAddedParents = new Set;
         function Ql(e) {
@@ -233,13 +239,23 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (e.parentId && !on.has(e.parentId)) { on.add(e.parentId); _previewAddedParents.add(e.parentId); }
             Dt = e.id; Lt = e.id;
             Mr({ animate: !0 });
-            requestAnimationFrame(() => Zl(e));
+            sxStopFocusZoom();
+            sxFocusFrame = requestAnimationFrame(() => {
+                sxFocusFrame = 0;
+                Zl(e);
+            });
         }
         function Jl() {
-            // Revert preview-only expansions, clear both preview ids, and always re-render
+            // Revert preview-only expansions, clear both preview ids, and always re-render.
+            // Stop a zoom that was already in flight, or Escape fits and the
+            // animation's last frame zooms straight back in.
+            sxCommittedFocus = null;
+            sxStopFocusZoom();
             _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
             Dt = null; Lt = null; Tt = "";
+            const sxSearch = e.byId("searchInput");
+            sxSearch && (sxSearch.value = "");
             Mr();
             if (typeof Ih === "function") Ih();
         }
@@ -265,9 +281,15 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             focusItems: !1,
             renderItem: e => `<span class="match-type">${"category" === e.type ? "Category" : "subcategory" === e.type ? "Subcategory" : "imported" === e.type ? "Imported" : "Topic"}</span><span class="match-label">${Hi(e.displayLabel)}</span>`,
             onPreview: Ql,
-            onClose: Jl,
+            onClose: () => {
+                // Accepting a result closes the menu. That close used to
+                // run the same clear as Escape, so the zoom survived and
+                // the dim state did not.
+                if (sxCommittedFocus && Dt === sxCommittedFocus) return;
+                Jl();
+            },
             onCommit: e => {
-                Bl && (Bl.value = e.displayLabel), Ql(e);
+                sxCommittedFocus = e && e.id, Bl && (Bl.value = e.displayLabel), Ql(e);
             }
         });
         Bl && Bl.addEventListener("input", e => {
@@ -299,15 +321,24 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 return r.filter(e => o(e).includes(n)).filter(e => {
                     // A veiled topic stays off the map, so it stays out of
                     // search too. Selecting one used to pan onto an empty view.
-                    if (typeof Ia !== "function" || !Ia() || typeof Ca !== "function" || typeof Aa !== "function") return true;
-                    const profile = (typeof Vi === "function" && Vi()) || Mt;
-                    if (!profile || !vt[profile]) return true;
-                    if ("category" === e.type && typeof Ma === "function") {
-                        const cat = h.find(c => catId(c.name) === e.id || c.id === e.id);
-                        return Boolean(cat && Ma(cat, profile));
-                    }
-                    const score = Ca(e.id, vt[profile], Qe[profile]);
-                    return null !== score && score >= Aa(vpt[profile]);
+                    // Every selected profile whose veil is on counts, not only
+                    // the active tab: a pair can be showing while the other
+                    // profile is the one with the veil.
+                    if (typeof Ia !== "function" || typeof Ca !== "function" || typeof Aa !== "function") return true;
+                    const ids = [];
+                    const active = (typeof Vi === "function" && Vi()) || Mt;
+                    active && ids.push(active);
+                    if (typeof Yi === "function") Yi().forEach(id => ids.includes(id) || ids.push(id));
+                    const veiled = ids.filter(id => id && vt[id] && Ia(id));
+                    if (!veiled.length) return true;
+                    return veiled.every(profile => {
+                        if ("category" === e.type && typeof Ma === "function") {
+                            const cat = h.find(c => catId(c.name) === e.id || c.id === e.id);
+                            return Boolean(cat && Ma(cat, profile));
+                        }
+                        const score = Ca(e.id, vt[profile], Qe[profile]);
+                        return null !== score && score >= Aa(vpt[profile]);
+                    });
                 }).sort((e, t) => s(e) - s(t) || o(e).localeCompare(o(t)) || String(e.group || "").localeCompare(String(t.group || ""))).slice(0, t);
             }(t, 24);
             ec.render(n), n.length ? ec.open(0, !1) : ec.close();

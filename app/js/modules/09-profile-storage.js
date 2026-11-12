@@ -115,7 +115,7 @@ __sxInit(function () {
     close.focus({ preventScroll: true });
   }
 
-  function writeStoredProfiles(profiles) {
+  function writeStoredProfiles(profiles, duringUnload) {
     try {
       localStorage.setItem(storageKey, JSON.stringify({
         v: 1,
@@ -124,12 +124,12 @@ __sxInit(function () {
       }));
       return true;
     } catch (error) {
-      showSaveError();
+      if (!duringUnload) showSaveError();
       return false;
     }
   }
 
-  function saveNow() {
+  function saveNow(duringUnload) {
     if (!rememberEnabled) return false;
     var api = profilesApi();
     if (!api) return false;
@@ -162,9 +162,9 @@ __sxInit(function () {
         } catch (error) { if (typeof __sxErrLog === "function") __sxErrLog("profile-parse", error); }
       });
 
-      return !changed || writeStoredProfiles(storedProfiles);
+      return !changed || writeStoredProfiles(storedProfiles, duringUnload);
     } catch (error) {
-      showSaveError();
+      if (!duringUnload) showSaveError();
       return false;
     }
   }
@@ -447,11 +447,13 @@ __sxInit(function () {
     });
   }
 
+  var suppressRememberChange = false;
+
   function init() {
     var control = checkbox();
     if (!control) return;
-    control.checked = false;
     control.addEventListener("change", function () {
+      if (suppressRememberChange) return;
       rememberEnabled = control.checked;
       writeRememberFlag(rememberEnabled);
       if (rememberEnabled) {
@@ -465,9 +467,14 @@ __sxInit(function () {
         }
       }
     });
+    suppressRememberChange = true;
+    control.checked = false;
     if (readRememberFlag()) {
       control.checked = true;
       rememberEnabled = true;
+    }
+    suppressRememberChange = false;
+    if (rememberEnabled) {
       var restoreTries = 0;
       var restoreTimer = SexcapadesRuntime.TimerManager.setInterval(function () {
         restoreTries++;
@@ -488,7 +495,7 @@ __sxInit(function () {
         control.checked = false;
       });
     }
-    window.addEventListener("beforeunload", saveNow);
+    window.addEventListener("beforeunload", function () { saveNow(true); });
 
     var previousCount = -1;
     SexcapadesRuntime.TimerManager.setInterval(function () {
@@ -516,11 +523,7 @@ __sxInit(function () {
         load.textContent = count === 1 ? "Restore profile" : "Restore profiles";
         load.style.cssText = "padding:6px 14px;border-radius:6px;border:1px solid var(--line-strong);background:var(--accent,#4a9);color:#fff;cursor:pointer;font-weight:600;";
         load.onclick = function () {
-          var remember = checkbox();
-          if (remember) {
-            remember.checked = true;
-            remember.dispatchEvent(new Event("change"));
-          }
+          loadStoredProfiles();
           prompt.remove();
         };
         var dismiss = document.createElement("button");
