@@ -28617,6 +28617,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 Cc.style.top = r + "px";
             }();
         });
+
         const Oc = e.byId("scribeDialog"), Bc = e.byId("scribeChoiceDialog"), jc = e.byId("novelAiDialog");
         let scribeLeadId = null, scribePartnerId = null, scribeCastIds = [];
         function Uc() {
@@ -32561,6 +32562,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const i = Cu(t), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`, r = "concise" === i.detail ? "Concise: use short phase notes and only essential check-ins." : "detailed" === i.detail ? "High detail: include specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Balanced detail: include enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.";
             e.byId("negotiationPanel").dataset.copy = [ "AI PLAY-GUIDE REQUEST", `Create or randomize a practical play guide targeting approximately ${a}. ${r} Use PLAY GUIDE DATA as inspiration while treating NEGOTIATION CHECKLIST DATA as binding. Keep every hard limit completely out. Treat every red topic as a no for that person. Mention each discuss-first clash only as an explicit negotiation point, never as assumed consent or planned action. Work the agreed safewords and stop signals naturally into the guide, and build the aftercare section from every participant’s stated aftercare needs. If a field is not filled out, leave a clear pre-scene decision point instead of inventing an answer.`, "", Tu(n = precomputed || Iu(t)), "", Lu(n), "", sxRolesBlock(n.ids, n.names), "", sxCastBlock(n.ids, n.names), "", sxTermsBlock(n.ids, n.names), "", sxAgeBlock(n.ids, n.names), "", `HARD-EXCLUDED FROM SCENE GENERATION ${n.excluded.length ? n.excluded.map(e => `- ${e}`).join(" ") : n.mutuals.length ? "- no marked limits; mutual deep-red exclusions follow" : n.terms && n.terms.some(Boolean) ? "- no marked limits or mutual deep-red exclusions; limits named in the Terms above still apply" : "- none marked"}${n.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${n.mutuals.map(e => `- ${e}`).join(" ")}` : ""}` ].join(" "), e.byId("negotiationPanel").dataset.playGuide = e.byId("negotiationPanel").dataset.copy, sxStoreNegotiationGuide(n);
         }
+
         // Share-link door (refactor item 3, ruled 2026-10-29): Nu is
         // called at boot AND from the hashchange handler, so a share
         // link pasted into a running app imports without a reload.
