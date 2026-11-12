@@ -2892,6 +2892,14 @@
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
+            // The topic's own give/receive labels win. A parent id in the
+            // single-slider set must not collapse Edge Play (or any other
+            // give/receive topic) to one "everything" slider.
+            if (We[e] && !Ue.has(e)) return {
+                single: !1,
+                keys: [ "give", "receive" ],
+                labels: We[e]
+            };
             return Ue.has(i) ? {
                 single: !0,
                 keys: [ "give" ],
@@ -10700,8 +10708,9 @@
             // A search focus and a relation-line focus dim the map
             // without a selected spoke, so those are cleared here too.
             // Returns whether anything was selected.
+            if (typeof window.__sxStopFocusZoom === "function") window.__sxStopFocusZoom();
             const search = e.byId("searchInput"), picker = e.byId("topicPicker");
-            const searchDim = Boolean(Dt || Tt || (search && search.value) || (Cn && Cn.querySelector(".is-dim, .is-preview")));
+            const searchDim = Boolean(Dt || Tt || (search && search.value) || (Cn && (Cn.classList.contains("relation-focused") || Cn.querySelector(".is-dim, .is-preview"))));
             const had = Boolean(Lt || Nt || searchDim || (picker && picker.value) || (Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".selected-spoke, .rel-active"))));
             Lt = null, Nt = null, Dt = null, Tt = "", sxSelEditorMirrored = null;
             search && (search.value = "");

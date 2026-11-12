@@ -410,6 +410,17 @@
             };
             Xp = requestAnimationFrame(l);
         }
+        window.__sxStopFocusZoom = () => {
+            if (Xp) cancelAnimationFrame(Xp), Xp = 0;
+            Cn && Cn.classList.remove("is-camera-moving");
+        };
+        window.__sxCancelNodeTap = () => {
+            if (sxPendingNodeTapTimer) {
+                try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                sxPendingNodeTapTimer = null;
+            }
+            sxLastDoubleTime = performance.now();
+        };
         function Lh(e) {
             const cat = h.find(c => c.name === e || c.id === e || catId(c.name) === e || sxName(c.name) === sxName(e));
             if (cat) {
@@ -759,10 +770,11 @@
                 const isKnownNode = isCat || isSub || Boolean(rec);
                 const branch = cat ? cat.name : ((rec && rec.branch) || ci(sid) || "");
 
-                const isDouble = (e.detail >= 2) || (timeDiff < 450 && dist < 60);
+                const isDouble = (e.detail >= 2) || (timeDiff < 520 && dist < 60 && sxLastNodeTapId === sid);
 
-                if (isKnownNode && isDouble) {
-                    // Double tap / double click on category, subcategory, or topic!
+                if ((isKnownNode || sid) && isDouble) {
+                    // A second tap zooms the branch so its names can be read.
+                    // It does not rate the topic and it does not open the sheet.
                     if (sxPendingNodeTapTimer) {
                         try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
                         sxPendingNodeTapTimer = null;
@@ -772,12 +784,6 @@
                     sxLastNodeTapId = null;
                     sxLastDoubleTime = now;
 
-                    if (!isCat && !isSub && rec && "Topic" === rec.kind) {
-                        selectSpokeNode(sid, !0);
-                        if (typeof xo === "function") xo(sid, e.clientX, e.clientY, { focusNote: !0 });
-                        return;
-                    }
-                    // Immediately close any about dialog, mark menu, or open modal
                     try {
                         const mm = document.getElementById("markMenu");
                         if (mm) mm.hidden = true;
@@ -785,24 +791,15 @@
                         dlgs.forEach(d => { try { d.close(); } catch (_) { d.removeAttribute("open"); } });
                     } catch (_) {}
 
-                    if (isCat && branch && !rn.has(branch)) {
+                    const zoomId = !isCat && !isSub && rec && rec.parentId ? rec.parentId : sid;
+                    if (isCat && branch && !rn.has(branch)) rn.add(branch);
+                    if (isSub && zoomId && branch && (!rn.has(branch) || !on.has(zoomId))) {
                         rn.add(branch);
-                        Mr();
-                        const runner = () => Th(sid, branch);
-                        if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
-                        else window.setTimeout(runner, 100);
-                        return;
+                        on.add(zoomId);
                     }
-                    if (isSub && branch && (!rn.has(branch) || !on.has(sid))) {
-                        rn.add(branch);
-                        on.add(sid);
-                        Mr();
-                        const runner = () => Th(sid, branch);
-                        if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
-                        else window.setTimeout(runner, 100);
-                        return;
-                    }
-                    Th(sid, branch);
+                    const runner = () => Th(zoomId, branch);
+                    if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                    else requestAnimationFrame(runner);
                     return;
                 }
 
@@ -811,21 +808,24 @@
                 sxLastNodeTapX = e.clientX;
                 sxLastNodeTapY = e.clientY;
 
-                if (isCat || isSub) {
-                    if (sxPendingNodeTapTimer) {
-                        try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
-                        sxPendingNodeTapTimer = null;
-                    }
-                    sxPendingNodeTapTimer = window.setTimeout(() => {
-                        sxPendingNodeTapTimer = null;
-                        if ("pointerup" === e.type) {
-                            n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
-                        }
-                    }, 270);
-                    return;
+                if (sxPendingNodeTapTimer) {
+                    try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                    sxPendingNodeTapTimer = null;
                 }
-
-                return void ("pointerup" === e.type && (n.curveLine, n.spoke ? selectSpokeNode(n.id, !0) : (selectSpokeNode(n.id, !0), typeof xo === "function" && xo(n.id, e.clientX, e.clientY))));
+                // Wait out the double-click window. Opening the sheet or
+                // rating on the first tap stole the second tap, so a
+                // double-click never reached the branch zoom.
+                sxPendingNodeTapTimer = window.setTimeout(() => {
+                    sxPendingNodeTapTimer = null;
+                    if (sxLastDoubleTime && performance.now() - sxLastDoubleTime < 520) return;
+                    if ("pointerup" !== e.type) return;
+                    if (isCat || isSub) {
+                        n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        return;
+                    }
+                    n.spoke ? selectSpokeNode(n.id, !0) : (selectSpokeNode(n.id, !0), typeof xo === "function" && xo(n.id, e.clientX, e.clientY));
+                }, 280);
+                return;
             }
             if (Ip && Ip.pointerId === e.pointerId) {
                 const t = Ip;
@@ -928,7 +928,7 @@
                 }
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
-            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
+            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
             if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
             void (Lp = {
                 pointerId: e.pointerId,
@@ -966,6 +966,19 @@
                 }, 520));
             }
             if (r && 1 === eh.size) {
+                const sxTapNow = performance.now(), sxTapDist = Math.hypot(e.clientX - sxLastNodeTapX, e.clientY - sxLastNodeTapY);
+                if (e.detail >= 2 || sxLastNodeTapId === r.dataset.id && sxTapNow - sxLastNodeTapTime < 520 && sxTapDist < 60) {
+                    e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                    eo = {
+                        pointerId: e.pointerId,
+                        id: r.dataset.id,
+                        startX: e.clientX,
+                        startY: e.clientY,
+                        spoke: !1,
+                        longPressed: !1
+                    };
+                    return;
+                }
                 e.preventDefault(), e.stopPropagation();
                 const n = r.dataset.id, i = r.dataset.direction;
                 if ("mouse" !== e.pointerType && Uh(__sxClosestAction(r, "directionControl"), !0, Ts(e)), 
@@ -992,7 +1005,7 @@
                 }, 420));
             }
             if (s && 1 === eh.size) {
-                const n = s.dataset.id || s.dataset.topicId || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
+                const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const i = Cn.createSVGPoint();
                 i.x = e.clientX, i.y = e.clientY;
@@ -2720,7 +2733,7 @@
             a && (a.classList.toggle("is-enabled", n), a.style.setProperty("--veil-color", i), 
             a.setAttribute("aria-pressed", String(n)), a.setAttribute("aria-label", `${wt[e] || "Profile"} Veil ${n ? "on" : "off"}, level ${t}. Open Veil settings.`), 
             a.title = `Veil ${n ? "on" : "off"} · ${t}`), r && (r.classList.toggle("has-veil", n), 
-            r.style.setProperty("--veil-color", i), r.setAttribute("aria-label", `${(r.getAttribute("aria-label") || "").replace(/, Veil on at \d+/, "")}${n ? `, Veil on at ${t}` : ""}`));
+            r.style.setProperty("--veil-color", i), r.setAttribute("aria-label", `${(r.getAttribute("aria-label") || "").replace(/,?\s*Veil on at \d+/, "")}${n ? `, Veil on at ${t}` : ""}`.replace(/,\s*,/g, ",").replace(/,\s*$/, "")));
         }
         function xv() {
             if (dv.hidden) return;
@@ -4167,7 +4180,7 @@
             const i = Yi(), r = Boolean(Kd()), o = i.length > 1, s = an && o, l = o || r, c = s || r, d = t.map(e => {
                 sxNormalizePairName(e);
                 if (Xw && Xw.id === e) return sxDupTabLabel(e, wt[e]), Zw(0, wt[e], `Rename ${wt[e]}`);
-                const t = i.includes(e), n = la(e), o = sxDupTabLabel(e, "group" === ft[e]?.kind ? wt[e] : Ji(wt[e])), s = Mt === e, l = Boolean(ft[e]), c = av(vpt[e]), d = Boolean(vht[e]), u = zi(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${Hi(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${Hi(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${Hi(e)}" aria-controls="heatPopover" aria-expanded="false" aria-label="${Hi(wt[e])} ${l ? "Group Heat" : "Heat"} ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}"><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${Hi(sxHeatZone(sxHeatDisplayFor(e)))}</span><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${Hi(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${Hi(wt[e])}" title="Load or import data for ${Hi(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
+                const t = i.includes(e), n = la(e), o = sxDupTabLabel(e, wt[e]), s = Mt === e, l = Boolean(ft[e]), c = av(vpt[e]), d = Boolean(vht[e]), u = zi(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${Hi(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${Hi(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${Hi(e)}" aria-controls="heatPopover" aria-expanded="false" aria-label="${Hi(wt[e])} ${l ? "Group Heat" : "Heat"} ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}"><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${Hi(sxHeatZone(sxHeatDisplayFor(e)))}</span><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${Hi(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${Hi(wt[e])}" title="Load or import data for ${Hi(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
                 return `<span class="profile-tab" style="--profile-color:${n}"><button type="button" class="profile-tab-save" data-save-profile="${Hi(e)}" aria-label="Export ${Hi(wt[e])}" data-ui-tooltip="Export this profile map." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 6.5 10 4h4l1.5 2.5H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></button>${g}${heatBtn}${loadBtn}<button type="button" role="tab" data-view="${Hi(e)}" class="profile-tab-button has-profile-color ${s ? "is-active " : ""}${t ? "is-selected is-multiselected " : ""}${d ? "has-veil" : ""}" style="--profile-color:${n};--veil-color:${u}" aria-selected="${s}" aria-pressed="${s}" data-ui-tooltip="Switch to this profile. Ctrl+click (Cmd+click on Mac) adds it to the group comparison." data-tooltip-name="${Hi(o)}" aria-label="${Hi(o)} profile, ${Hi(Qv(e))}${yt[e] ? ", unsaved changes" : ""}${t ? ", selected for grouping" : ""}${d ? `, Veil on at ${c}` : ""}"><span data-profile-label data-full-label="${Hi(o)}">${Hi(o)}</span>${h}</button><button type="button" class="profile-tab-close" data-close-profile="${Hi(e)}" aria-label="Close ${Hi(wt[e])} profile">×</button></span>`;
             }), u = Xw && null === Xw.id ? Zw(0, "", "Name new profile") : "", p = `<span class="profile-add-stack"><button type="button" class="profile-add" data-add-profile aria-label="Add or import a profile" aria-haspopup="menu" aria-expanded="false" title="Add or import a profile">+</button>${sxMatchIconsHtml()}</span>`, h = d.pop() || "", g = e.byId("profileTabs"); const sxMtHtml = sxMatchTabsHtml();
             g.classList.remove("is-empty"), e.one(".toolbar").classList.toggle("has-no-profiles", !t.length);

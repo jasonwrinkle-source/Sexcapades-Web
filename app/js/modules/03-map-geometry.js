@@ -452,7 +452,8 @@
             if (!In.dataset.dblclickBound) {
                 In.dataset.dblclickBound = "true";
                 In.addEventListener("dblclick", t => {
-                    const hit = t.target.closest && t.target.closest(".category-toggle-hit,.category-icon-hit,.category-label,.map-label,.concept-hit,.topic-stem,.branch-icon,.topic-icon,.node-group");
+                    if (typeof window.__sxCancelNodeTap === "function") window.__sxCancelNodeTap();
+                    const hit = t.target.closest && t.target.closest(".category-toggle-hit,.category-icon-hit,.category-label,.map-label,.concept-hit,.concept-path,.topic-stem,.tapered-stem,.hanky-midline,.spoke-underlay-item,.branch-icon,.topic-icon,.subcategory-node,.node-group");
                     if (!hit) return;
                     t.preventDefault();
                     t.stopPropagation();
@@ -4985,10 +4986,25 @@
                 yl = !1, c !== Mt && Js(c);
             });
         }
-        e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", () => {
-            if (Yi().length < 2) return;
+        e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", ev => {
+            ev.preventDefault(), ev.stopPropagation();
+            const ids = Yi();
+            if (ids.length < 2) return;
+            const hide = Boolean(an);
             sxVaultInvalidate();
-            sxSel(null, an ? "dismiss" : "show"), Jw(), Mr(), Ih();
+            sxSel(ids, "set");
+            sxSel(null, hide ? "dismiss" : "show");
+            const sxKeepOverlayControl = () => {
+                Yi().length < 2 && (sxSel(ids, "set"), sxSel(null, hide ? "dismiss" : "show"));
+                Jw();
+                const k = e.byId("overlayTab");
+                k && (k.hidden = !1, k.textContent = an ? "Hide group overlay" : "Show group overlay", k.title = an ? "Hide the selected profiles’ comparison overlay" : "Show the selected profiles’ comparison overlay", k.setAttribute("aria-pressed", String(Boolean(an))));
+            };
+            sxKeepOverlayControl();
+            const painted = Mr();
+            painted && "function" == typeof painted.then ? painted.then(() => {
+                sxKeepOverlayControl(), Ih();
+            }) : (sxKeepOverlayControl(), Ih());
         });
         e.all("[data-filter]").forEach(t => t.addEventListener("click", () => {
             "true" !== t.getAttribute("aria-disabled") && !Rt && (sxVaultInvalidate(), Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))),

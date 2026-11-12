@@ -11507,6 +11507,14 @@ const TAXONOMY_CATEGORIES = [
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
+            // The topic's own give/receive labels win. A parent id in the
+            // single-slider set must not collapse Edge Play (or any other
+            // give/receive topic) to one "everything" slider.
+            if (We[e] && !Ue.has(e)) return {
+                single: !1,
+                keys: [ "give", "receive" ],
+                labels: We[e]
+            };
             return Ue.has(i) ? {
                 single: !0,
                 keys: [ "give" ],
@@ -19315,8 +19323,9 @@ const TAXONOMY_CATEGORIES = [
             // A search focus and a relation-line focus dim the map
             // without a selected spoke, so those are cleared here too.
             // Returns whether anything was selected.
+            if (typeof window.__sxStopFocusZoom === "function") window.__sxStopFocusZoom();
             const search = e.byId("searchInput"), picker = e.byId("topicPicker");
-            const searchDim = Boolean(Dt || Tt || (search && search.value) || (Cn && Cn.querySelector(".is-dim, .is-preview")));
+            const searchDim = Boolean(Dt || Tt || (search && search.value) || (Cn && (Cn.classList.contains("relation-focused") || Cn.querySelector(".is-dim, .is-preview"))));
             const had = Boolean(Lt || Nt || searchDim || (picker && picker.value) || (Cn && (Cn.classList.contains("has-selection") || Cn.classList.contains("relation-focused") || Cn.querySelector(".selected-spoke, .rel-active"))));
             Lt = null, Nt = null, Dt = null, Tt = "", sxSelEditorMirrored = null;
             search && (search.value = "");
@@ -22768,7 +22777,8 @@ const TAXONOMY_CATEGORIES = [
             if (!In.dataset.dblclickBound) {
                 In.dataset.dblclickBound = "true";
                 In.addEventListener("dblclick", t => {
-                    const hit = t.target.closest && t.target.closest(".category-toggle-hit,.category-icon-hit,.category-label,.map-label,.concept-hit,.topic-stem,.branch-icon,.topic-icon,.node-group");
+                    if (typeof window.__sxCancelNodeTap === "function") window.__sxCancelNodeTap();
+                    const hit = t.target.closest && t.target.closest(".category-toggle-hit,.category-icon-hit,.category-label,.map-label,.concept-hit,.concept-path,.topic-stem,.tapered-stem,.hanky-midline,.spoke-underlay-item,.branch-icon,.topic-icon,.subcategory-node,.node-group");
                     if (!hit) return;
                     t.preventDefault();
                     t.stopPropagation();
@@ -27301,10 +27311,25 @@ const TAXONOMY_CATEGORIES = [
                 yl = !1, c !== Mt && Js(c);
             });
         }
-        e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", () => {
-            if (Yi().length < 2) return;
+        e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", ev => {
+            ev.preventDefault(), ev.stopPropagation();
+            const ids = Yi();
+            if (ids.length < 2) return;
+            const hide = Boolean(an);
             sxVaultInvalidate();
-            sxSel(null, an ? "dismiss" : "show"), Jw(), Mr(), Ih();
+            sxSel(ids, "set");
+            sxSel(null, hide ? "dismiss" : "show");
+            const sxKeepOverlayControl = () => {
+                Yi().length < 2 && (sxSel(ids, "set"), sxSel(null, hide ? "dismiss" : "show"));
+                Jw();
+                const k = e.byId("overlayTab");
+                k && (k.hidden = !1, k.textContent = an ? "Hide group overlay" : "Show group overlay", k.title = an ? "Hide the selected profiles’ comparison overlay" : "Show the selected profiles’ comparison overlay", k.setAttribute("aria-pressed", String(Boolean(an))));
+            };
+            sxKeepOverlayControl();
+            const painted = Mr();
+            painted && "function" == typeof painted.then ? painted.then(() => {
+                sxKeepOverlayControl(), Ih();
+            }) : (sxKeepOverlayControl(), Ih());
         });
         e.all("[data-filter]").forEach(t => t.addEventListener("click", () => {
             "true" !== t.getAttribute("aria-disabled") && !Rt && (sxVaultInvalidate(), Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))),
@@ -27688,8 +27713,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 items: [ i, ...a, ...r ]
             };
         }), Yl = Vl.flatMap(e => e.items), Xl = new Map(Yl.map(e => [ e.value, e ]));
+        let sxCommittedFocus = null, sxFocusFrame = 0;
+        function sxStopFocusZoom() {
+            if (sxFocusFrame) cancelAnimationFrame(sxFocusFrame), sxFocusFrame = 0;
+            if (typeof window.__sxStopFocusZoom === "function") window.__sxStopFocusZoom();
+        }
         function Zl(e, t = 0) {
-            In.querySelector(`[data-layout-key="${CSS.escape(e.id)}"]`) ? Th(e.id, e.branch) : t < 3 ? requestAnimationFrame(() => Zl(e, t + 1)) : Lh(e.branch);
+            if (!e || Dt !== e.id) return;
+            In.querySelector(`[data-layout-key="${CSS.escape(e.id)}"]`) ? Th(e.id, e.branch) : t < 3 ? sxFocusFrame = requestAnimationFrame(() => Zl(e, t + 1)) : Lh(e.branch);
         }
         let _previewAddedBranches = new Set, _previewAddedParents = new Set;
         function Ql(e) {
@@ -27703,13 +27734,23 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (e.parentId && !on.has(e.parentId)) { on.add(e.parentId); _previewAddedParents.add(e.parentId); }
             Dt = e.id; Lt = e.id;
             Mr({ animate: !0 });
-            requestAnimationFrame(() => Zl(e));
+            sxStopFocusZoom();
+            sxFocusFrame = requestAnimationFrame(() => {
+                sxFocusFrame = 0;
+                Zl(e);
+            });
         }
         function Jl() {
-            // Revert preview-only expansions, clear both preview ids, and always re-render
+            // Revert preview-only expansions, clear both preview ids, and always re-render.
+            // Stop a zoom that was already in flight, or Escape fits and the
+            // animation's last frame zooms straight back in.
+            sxCommittedFocus = null;
+            sxStopFocusZoom();
             _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
             Dt = null; Lt = null; Tt = "";
+            const sxSearch = e.byId("searchInput");
+            sxSearch && (sxSearch.value = "");
             Mr();
             if (typeof Ih === "function") Ih();
         }
@@ -27735,9 +27776,15 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             focusItems: !1,
             renderItem: e => `<span class="match-type">${"category" === e.type ? "Category" : "subcategory" === e.type ? "Subcategory" : "imported" === e.type ? "Imported" : "Topic"}</span><span class="match-label">${Hi(e.displayLabel)}</span>`,
             onPreview: Ql,
-            onClose: Jl,
+            onClose: () => {
+                // Accepting a result closes the menu. That close used to
+                // run the same clear as Escape, so the zoom survived and
+                // the dim state did not.
+                if (sxCommittedFocus && Dt === sxCommittedFocus) return;
+                Jl();
+            },
             onCommit: e => {
-                Bl && (Bl.value = e.displayLabel), Ql(e);
+                sxCommittedFocus = e && e.id, Bl && (Bl.value = e.displayLabel), Ql(e);
             }
         });
         Bl && Bl.addEventListener("input", e => {
@@ -27769,15 +27816,24 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 return r.filter(e => o(e).includes(n)).filter(e => {
                     // A veiled topic stays off the map, so it stays out of
                     // search too. Selecting one used to pan onto an empty view.
-                    if (typeof Ia !== "function" || !Ia() || typeof Ca !== "function" || typeof Aa !== "function") return true;
-                    const profile = (typeof Vi === "function" && Vi()) || Mt;
-                    if (!profile || !vt[profile]) return true;
-                    if ("category" === e.type && typeof Ma === "function") {
-                        const cat = h.find(c => catId(c.name) === e.id || c.id === e.id);
-                        return Boolean(cat && Ma(cat, profile));
-                    }
-                    const score = Ca(e.id, vt[profile], Qe[profile]);
-                    return null !== score && score >= Aa(vpt[profile]);
+                    // Every selected profile whose veil is on counts, not only
+                    // the active tab: a pair can be showing while the other
+                    // profile is the one with the veil.
+                    if (typeof Ia !== "function" || typeof Ca !== "function" || typeof Aa !== "function") return true;
+                    const ids = [];
+                    const active = (typeof Vi === "function" && Vi()) || Mt;
+                    active && ids.push(active);
+                    if (typeof Yi === "function") Yi().forEach(id => ids.includes(id) || ids.push(id));
+                    const veiled = ids.filter(id => id && vt[id] && Ia(id));
+                    if (!veiled.length) return true;
+                    return veiled.every(profile => {
+                        if ("category" === e.type && typeof Ma === "function") {
+                            const cat = h.find(c => catId(c.name) === e.id || c.id === e.id);
+                            return Boolean(cat && Ma(cat, profile));
+                        }
+                        const score = Ca(e.id, vt[profile], Qe[profile]);
+                        return null !== score && score >= Aa(vpt[profile]);
+                    });
                 }).sort((e, t) => s(e) - s(t) || o(e).localeCompare(o(t)) || String(e.group || "").localeCompare(String(t.group || ""))).slice(0, t);
             }(t, 24);
             ec.render(n), n.length ? ec.open(0, !1) : ec.close();
@@ -35685,6 +35741,17 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             };
             Xp = requestAnimationFrame(l);
         }
+        window.__sxStopFocusZoom = () => {
+            if (Xp) cancelAnimationFrame(Xp), Xp = 0;
+            Cn && Cn.classList.remove("is-camera-moving");
+        };
+        window.__sxCancelNodeTap = () => {
+            if (sxPendingNodeTapTimer) {
+                try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                sxPendingNodeTapTimer = null;
+            }
+            sxLastDoubleTime = performance.now();
+        };
         function Lh(e) {
             const cat = h.find(c => c.name === e || c.id === e || catId(c.name) === e || sxName(c.name) === sxName(e));
             if (cat) {
@@ -36034,10 +36101,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const isKnownNode = isCat || isSub || Boolean(rec);
                 const branch = cat ? cat.name : ((rec && rec.branch) || ci(sid) || "");
 
-                const isDouble = (e.detail >= 2) || (timeDiff < 450 && dist < 60);
+                const isDouble = (e.detail >= 2) || (timeDiff < 520 && dist < 60 && sxLastNodeTapId === sid);
 
-                if (isKnownNode && isDouble) {
-                    // Double tap / double click on category, subcategory, or topic!
+                if ((isKnownNode || sid) && isDouble) {
+                    // A second tap zooms the branch so its names can be read.
+                    // It does not rate the topic and it does not open the sheet.
                     if (sxPendingNodeTapTimer) {
                         try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
                         sxPendingNodeTapTimer = null;
@@ -36047,12 +36115,6 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     sxLastNodeTapId = null;
                     sxLastDoubleTime = now;
 
-                    if (!isCat && !isSub && rec && "Topic" === rec.kind) {
-                        selectSpokeNode(sid, !0);
-                        if (typeof xo === "function") xo(sid, e.clientX, e.clientY, { focusNote: !0 });
-                        return;
-                    }
-                    // Immediately close any about dialog, mark menu, or open modal
                     try {
                         const mm = document.getElementById("markMenu");
                         if (mm) mm.hidden = true;
@@ -36060,24 +36122,15 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         dlgs.forEach(d => { try { d.close(); } catch (_) { d.removeAttribute("open"); } });
                     } catch (_) {}
 
-                    if (isCat && branch && !rn.has(branch)) {
+                    const zoomId = !isCat && !isSub && rec && rec.parentId ? rec.parentId : sid;
+                    if (isCat && branch && !rn.has(branch)) rn.add(branch);
+                    if (isSub && zoomId && branch && (!rn.has(branch) || !on.has(zoomId))) {
                         rn.add(branch);
-                        Mr();
-                        const runner = () => Th(sid, branch);
-                        if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
-                        else window.setTimeout(runner, 100);
-                        return;
+                        on.add(zoomId);
                     }
-                    if (isSub && branch && (!rn.has(branch) || !on.has(sid))) {
-                        rn.add(branch);
-                        on.add(sid);
-                        Mr();
-                        const runner = () => Th(sid, branch);
-                        if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
-                        else window.setTimeout(runner, 100);
-                        return;
-                    }
-                    Th(sid, branch);
+                    const runner = () => Th(zoomId, branch);
+                    if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                    else requestAnimationFrame(runner);
                     return;
                 }
 
@@ -36086,21 +36139,24 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 sxLastNodeTapX = e.clientX;
                 sxLastNodeTapY = e.clientY;
 
-                if (isCat || isSub) {
-                    if (sxPendingNodeTapTimer) {
-                        try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
-                        sxPendingNodeTapTimer = null;
-                    }
-                    sxPendingNodeTapTimer = window.setTimeout(() => {
-                        sxPendingNodeTapTimer = null;
-                        if ("pointerup" === e.type) {
-                            n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
-                        }
-                    }, 270);
-                    return;
+                if (sxPendingNodeTapTimer) {
+                    try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                    sxPendingNodeTapTimer = null;
                 }
-
-                return void ("pointerup" === e.type && (n.curveLine, n.spoke ? selectSpokeNode(n.id, !0) : (selectSpokeNode(n.id, !0), typeof xo === "function" && xo(n.id, e.clientX, e.clientY))));
+                // Wait out the double-click window. Opening the sheet or
+                // rating on the first tap stole the second tap, so a
+                // double-click never reached the branch zoom.
+                sxPendingNodeTapTimer = window.setTimeout(() => {
+                    sxPendingNodeTapTimer = null;
+                    if (sxLastDoubleTime && performance.now() - sxLastDoubleTime < 520) return;
+                    if ("pointerup" !== e.type) return;
+                    if (isCat || isSub) {
+                        n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        return;
+                    }
+                    n.spoke ? selectSpokeNode(n.id, !0) : (selectSpokeNode(n.id, !0), typeof xo === "function" && xo(n.id, e.clientX, e.clientY));
+                }, 280);
+                return;
             }
             if (Ip && Ip.pointerId === e.pointerId) {
                 const t = Ip;
@@ -36203,7 +36259,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
-            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
+            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
             if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
             void (Lp = {
                 pointerId: e.pointerId,
@@ -36241,6 +36297,19 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }, 520));
             }
             if (r && 1 === eh.size) {
+                const sxTapNow = performance.now(), sxTapDist = Math.hypot(e.clientX - sxLastNodeTapX, e.clientY - sxLastNodeTapY);
+                if (e.detail >= 2 || sxLastNodeTapId === r.dataset.id && sxTapNow - sxLastNodeTapTime < 520 && sxTapDist < 60) {
+                    e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                    eo = {
+                        pointerId: e.pointerId,
+                        id: r.dataset.id,
+                        startX: e.clientX,
+                        startY: e.clientY,
+                        spoke: !1,
+                        longPressed: !1
+                    };
+                    return;
+                }
                 e.preventDefault(), e.stopPropagation();
                 const n = r.dataset.id, i = r.dataset.direction;
                 if ("mouse" !== e.pointerType && Uh(__sxClosestAction(r, "directionControl"), !0, Ts(e)), 
@@ -36267,7 +36336,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }, 420));
             }
             if (s && 1 === eh.size) {
-                const n = s.dataset.id || s.dataset.topicId || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
+                const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const i = Cn.createSVGPoint();
                 i.x = e.clientX, i.y = e.clientY;
@@ -37995,7 +38064,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             a && (a.classList.toggle("is-enabled", n), a.style.setProperty("--veil-color", i), 
             a.setAttribute("aria-pressed", String(n)), a.setAttribute("aria-label", `${wt[e] || "Profile"} Veil ${n ? "on" : "off"}, level ${t}. Open Veil settings.`), 
             a.title = `Veil ${n ? "on" : "off"} · ${t}`), r && (r.classList.toggle("has-veil", n), 
-            r.style.setProperty("--veil-color", i), r.setAttribute("aria-label", `${(r.getAttribute("aria-label") || "").replace(/, Veil on at \d+/, "")}${n ? `, Veil on at ${t}` : ""}`));
+            r.style.setProperty("--veil-color", i), r.setAttribute("aria-label", `${(r.getAttribute("aria-label") || "").replace(/,?\s*Veil on at \d+/, "")}${n ? `, Veil on at ${t}` : ""}`.replace(/,\s*,/g, ",").replace(/,\s*$/, "")));
         }
         function xv() {
             if (dv.hidden) return;
@@ -39442,7 +39511,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const i = Yi(), r = Boolean(Kd()), o = i.length > 1, s = an && o, l = o || r, c = s || r, d = t.map(e => {
                 sxNormalizePairName(e);
                 if (Xw && Xw.id === e) return sxDupTabLabel(e, wt[e]), Zw(0, wt[e], `Rename ${wt[e]}`);
-                const t = i.includes(e), n = la(e), o = sxDupTabLabel(e, "group" === ft[e]?.kind ? wt[e] : Ji(wt[e])), s = Mt === e, l = Boolean(ft[e]), c = av(vpt[e]), d = Boolean(vht[e]), u = zi(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${Hi(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${Hi(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${Hi(e)}" aria-controls="heatPopover" aria-expanded="false" aria-label="${Hi(wt[e])} ${l ? "Group Heat" : "Heat"} ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}"><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${Hi(sxHeatZone(sxHeatDisplayFor(e)))}</span><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${Hi(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${Hi(wt[e])}" title="Load or import data for ${Hi(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
+                const t = i.includes(e), n = la(e), o = sxDupTabLabel(e, wt[e]), s = Mt === e, l = Boolean(ft[e]), c = av(vpt[e]), d = Boolean(vht[e]), u = zi(2 * (c - 50)), h = yt[e] ? '<sup class="profile-tab-dirty" aria-hidden="true">*</sup>' : "", g = `<button type="button" class="profile-tab-veil${d ? " is-enabled" : ""}" data-profile-veil="${Hi(e)}" aria-controls="veilPopover" aria-expanded="false" aria-pressed="${d}" aria-label="${Hi(wt[e])} Veil ${d ? "on" : "off"}, level ${c}. Open Veil settings." title="Veil ${d ? "on" : "off"} · ${c}" style="--veil-color:${u}"><svg viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path class="veil-icon-cloth" d="M12 2.4C9.1 2.4 6.7 2.9 4.9 3.8C5.4 7 5.2 10.2 3.5 13.6C5.4 12.6 7.2 12.3 9 13.4C10 12.6 11 12 12 11.7C13 12 14 12.6 15 13.4C16.8 12.3 18.6 12.6 20.5 13.6C18.8 10.2 18.6 7 19.1 3.8C17.3 2.9 14.9 2.4 12 2.4Z"/><path class="veil-icon-fold" d="M8.2 3.9C8.5 6.8 8.4 9.7 7.5 12.6M15.8 3.9C15.5 6.8 15.6 9.7 16.5 12.6M12 4.2V11.4"/></svg></button>`, heatBtn = `<button type="button" class="profile-tab-heat" data-profile-heat="${Hi(e)}" aria-controls="heatPopover" aria-expanded="false" aria-label="${Hi(wt[e])} ${l ? "Group Heat" : "Heat"} ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}. Open Heat settings." title="${l ? "Group Heat" : "Heat"} · ${Hi(sxHeatZone(sxHeatDisplayFor(e)))}"><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg><span class="sx-heat-zone">${Hi(sxHeatZone(sxHeatDisplayFor(e)))}</span><svg class="sx-heat-flame" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M8 14c-4-2-4-6-1-9 0 3 2 2 2-3 4 4 5 8-1 12Zm0 0c-2-1-2-3 0-5 2 2 2 4 0 5"/></svg></button>`, loadBtn = `<button type="button" class="profile-tab-load" data-profile-load="${Hi(e)}" aria-haspopup="menu" aria-expanded="false" aria-label="Load or import data for ${Hi(wt[e])}" title="Load or import data for ${Hi(wt[e])}" data-ui-tooltip="Take a test or import profile data." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v10"/><path d="m7 9 5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>`;
                 return `<span class="profile-tab" style="--profile-color:${n}"><button type="button" class="profile-tab-save" data-save-profile="${Hi(e)}" aria-label="Export ${Hi(wt[e])}" data-ui-tooltip="Export this profile map." data-tooltip-tap-first><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 6.5 10 4h4l1.5 2.5H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h3.5Z"/><circle cx="12" cy="13" r="3.5"/></svg></button>${g}${heatBtn}${loadBtn}<button type="button" role="tab" data-view="${Hi(e)}" class="profile-tab-button has-profile-color ${s ? "is-active " : ""}${t ? "is-selected is-multiselected " : ""}${d ? "has-veil" : ""}" style="--profile-color:${n};--veil-color:${u}" aria-selected="${s}" aria-pressed="${s}" data-ui-tooltip="Switch to this profile. Ctrl+click (Cmd+click on Mac) adds it to the group comparison." data-tooltip-name="${Hi(o)}" aria-label="${Hi(o)} profile, ${Hi(Qv(e))}${yt[e] ? ", unsaved changes" : ""}${t ? ", selected for grouping" : ""}${d ? `, Veil on at ${c}` : ""}"><span data-profile-label data-full-label="${Hi(o)}">${Hi(o)}</span>${h}</button><button type="button" class="profile-tab-close" data-close-profile="${Hi(e)}" aria-label="Close ${Hi(wt[e])} profile">×</button></span>`;
             }), u = Xw && null === Xw.id ? Zw(0, "", "Name new profile") : "", p = `<span class="profile-add-stack"><button type="button" class="profile-add" data-add-profile aria-label="Add or import a profile" aria-haspopup="menu" aria-expanded="false" title="Add or import a profile">+</button>${sxMatchIconsHtml()}</span>`, h = d.pop() || "", g = e.byId("profileTabs"); const sxMtHtml = sxMatchTabsHtml();
             g.classList.remove("is-empty"), e.one(".toolbar").classList.toggle("has-no-profiles", !t.length);
@@ -43966,7 +44035,7 @@ __sxInit(function () {
     close.focus({ preventScroll: true });
   }
 
-  function writeStoredProfiles(profiles) {
+  function writeStoredProfiles(profiles, duringUnload) {
     try {
       localStorage.setItem(storageKey, JSON.stringify({
         v: 1,
@@ -43975,12 +44044,12 @@ __sxInit(function () {
       }));
       return true;
     } catch (error) {
-      showSaveError();
+      if (!duringUnload) showSaveError();
       return false;
     }
   }
 
-  function saveNow() {
+  function saveNow(duringUnload) {
     if (!rememberEnabled) return false;
     var api = profilesApi();
     if (!api) return false;
@@ -44013,9 +44082,9 @@ __sxInit(function () {
         } catch (error) { if (typeof __sxErrLog === "function") __sxErrLog("profile-parse", error); }
       });
 
-      return !changed || writeStoredProfiles(storedProfiles);
+      return !changed || writeStoredProfiles(storedProfiles, duringUnload);
     } catch (error) {
-      showSaveError();
+      if (!duringUnload) showSaveError();
       return false;
     }
   }
@@ -44298,11 +44367,13 @@ __sxInit(function () {
     });
   }
 
+  var suppressRememberChange = false;
+
   function init() {
     var control = checkbox();
     if (!control) return;
-    control.checked = false;
     control.addEventListener("change", function () {
+      if (suppressRememberChange) return;
       rememberEnabled = control.checked;
       writeRememberFlag(rememberEnabled);
       if (rememberEnabled) {
@@ -44316,9 +44387,14 @@ __sxInit(function () {
         }
       }
     });
+    suppressRememberChange = true;
+    control.checked = false;
     if (readRememberFlag()) {
       control.checked = true;
       rememberEnabled = true;
+    }
+    suppressRememberChange = false;
+    if (rememberEnabled) {
       var restoreTries = 0;
       var restoreTimer = SexcapadesRuntime.TimerManager.setInterval(function () {
         restoreTries++;
@@ -44339,7 +44415,7 @@ __sxInit(function () {
         control.checked = false;
       });
     }
-    window.addEventListener("beforeunload", saveNow);
+    window.addEventListener("beforeunload", function () { saveNow(true); });
 
     var previousCount = -1;
     SexcapadesRuntime.TimerManager.setInterval(function () {
@@ -44367,11 +44443,7 @@ __sxInit(function () {
         load.textContent = count === 1 ? "Restore profile" : "Restore profiles";
         load.style.cssText = "padding:6px 14px;border-radius:6px;border:1px solid var(--line-strong);background:var(--accent,#4a9);color:#fff;cursor:pointer;font-weight:600;";
         load.onclick = function () {
-          var remember = checkbox();
-          if (remember) {
-            remember.checked = true;
-            remember.dispatchEvent(new Event("change"));
-          }
+          loadStoredProfiles();
           prompt.remove();
         };
         var dismiss = document.createElement("button");
