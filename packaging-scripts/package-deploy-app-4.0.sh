@@ -8,7 +8,7 @@
 set -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC="${1:-$DIR/app/sexcapades-4.0.html}"
+SRC="$(realpath "${1:-$DIR/app/sexcapades-4.0.html}")"
 TS="${2:-$(TZ=America/Chicago date +%Y-%m-%d_%H%M)}"
 OPTIMIZER="$DIR/packaging-scripts/sexcapades-3.5-optimize.py"
 OUTDIR="$DIR"
@@ -61,7 +61,7 @@ echo "Service worker cache stamped: sexcapades-v$BUILD_NUM"
 
 echo "Writing version manifest..."
 MANIFEST="$WORK/pkg/sexcapades.io/public_html/hosted/app-assets/version-manifest.json"
-for asset in app.css app.js vendor/qrcode.min.js data-bootstrap.js images/guide-avatar.jpg images/hanky-chart.jpg images/avatar-1.jpg images/avatar-2.jpg images/avatar-3.jpg images/avatar-4.jpg images/avatar-5.jpg images/avatar-anon.webp images/avatar-eve.webp images/avatar-eve-portrait.webp images/img-13.webp images/img-14.webp images/deknotter-icon.webp; do
+for asset in app.css app.js vendor/qrcode.min.js data-bootstrap.js unrated-map-template.js images/guide-avatar.jpg images/hanky-chart.jpg images/avatar-1.jpg images/avatar-2.jpg images/avatar-3.jpg images/avatar-4.jpg images/avatar-5.jpg images/avatar-anon.webp images/avatar-eve.webp images/avatar-eve-portrait.webp images/img-13.webp images/img-14.webp images/deknotter-icon.webp; do
   [ -f "$WORK/pkg/sexcapades.io/public_html/hosted/app-assets/$asset" ] || { echo "ERROR: manifest asset missing from package: $asset"; exit 1; }
 done
 
@@ -72,6 +72,7 @@ cat > "$MANIFEST" <<EOF
     { "url": "/hosted/app-assets/app.css?v=$BUILD_NUM", "as": "style" },
     { "url": "/hosted/app-assets/app.js?v=$BUILD_NUM", "as": "script" },
     { "url": "/hosted/app-assets/vendor/qrcode.min.js?v=$BUILD_NUM", "as": "script" },
+    { "url": "/hosted/app-assets/unrated-map-template.js", "as": "script" },
     { "url": "/hosted/app-assets/data-bootstrap.js?v=$BUILD_NUM", "as": "script" },
     { "url": "/hosted/app-assets/images/guide-avatar.jpg", "as": "image" },
     { "url": "/hosted/app-assets/images/hanky-chart.jpg", "as": "image" },
@@ -103,6 +104,7 @@ echo "Verifying tarball..."
 LISTING=$(tar -tzf "$OUTFILE")
 for req in sexcapades.io/public_html/hosted/app.html \
            sexcapades.io/public_html/hosted/app-assets/app.js \
+           sexcapades.io/public_html/hosted/app-assets/unrated-map-template.js \
            sexcapades.io/public_html/hosted/app-assets/data-bootstrap.js \
            sexcapades.io/public_html/hosted/app-assets/version-manifest.json \
            sexcapades.io/public_html/sw.js; do
@@ -128,8 +130,8 @@ fi
 MANIFEST_JSON=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/app-assets/version-manifest.json 2>/dev/null || true)
 if [ -z "$MANIFEST_JSON" ]; then
   fail "packaged version-manifest.json missing or unreadable"
-elif ! printf '%s' "$MANIFEST_JSON" | python3 -c "import json,sys; m=json.load(sys.stdin); assert m['build']=='$BUILD_NUM'; assert len(m['files'])==17" 2>/dev/null; then
-  fail "packaged version-manifest.json is invalid, names the wrong build, or lists != 17 files"
+elif ! printf '%s' "$MANIFEST_JSON" | python3 -c "import json,sys; m=json.load(sys.stdin); assert m['build']=='$BUILD_NUM'; assert len(m['files'])==18" 2>/dev/null; then
+  fail "packaged version-manifest.json is invalid, names the wrong build, or lists != 18 files"
 fi
 
 SW_CACHE=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/sw.js 2>/dev/null | grep -o 'sexcapades-v[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' | head -1 || true)

@@ -1286,6 +1286,10 @@
                     };
                 };
             }();
+            // Boot slices only. A bare yield is swallowed by an ordinary
+            // paint, and the boot driver keeps stepping until its 50ms
+            // budget is used, so these checks do not add a frame per topic.
+            let sxBootSlice = performance.now();
             for (let t = 0; t < d.branches.length; t++) {
                 const e = d.branches[t];
                 yield;
@@ -1314,11 +1318,13 @@
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || Q.color};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}" y2="${(q + g.uy * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${(sxFontSize(1) * A / 23).toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`, 
-                e.topics.forEach(t => {
+                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || Q.color};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}" y2="${(q + g.uy * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${(sxFontSize(1) * A / 23).toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
+                for (let sxTi = 0; sxTi < e.topics.length; sxTi++) {
+                    const t = e.topics[sxTi];
+                    if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
                     window.__sxNodeTick && window.__sxNodeTick();
                     const n = t.topic, a = n.label, r = n.id, o = Boolean(n.isSubcategory);
-                    if ($n && !$n.has(r)) return;
+                    if ($n && !$n.has(r)) continue;
                     t.angle;
                     const s = t.cloudAngle, c = t.cloudRadius || e.topicCloudRadius, u = Za.topicSpokeEstimate(a, c), p = u.fontSize;
                     let h = u.spokeLength;
@@ -1339,9 +1345,7 @@
                     // finalized; kinkOverrides is keyed by topic id and
                     // defaults to {} so the stock layout is unchanged.
                     if (!o) h = applyLengthOverride(h, r, mn.kinkOverrides);
-                    const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m), b = Math.max(12, Math.min(17, (S = a, 
-                    $ = y.labelWidth, Za.fittedSize(S, $, void 0)))), w = y.labelD, x = o ? "all" : Ra(r);
-                    var S, $;
+                    const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
                     const A = cn[Vi()], C = dn[Vi()];
@@ -1418,7 +1422,7 @@
                         const j = !o && Boolean(si(n.id)) ? ` Tap to adopt it into ${wt[Vi()] || "the active profile"} unrated, then use the normal give and receive controls.` : "", q = `<g class="topic-icon${"noCode" === $.key ? " no-hanky-code-icon" : ""}${L.glyphFallback ? " glyph-fallback" : ""}"${L.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${T}" ${ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 })} aria-hidden="true" style="color:${L.color}" transform="translate(${(N - F).toFixed(2)} ${(_ - F).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${F}" cy="${F}" r="${F - .5}"/><circle class="icon-disc" cx="${F}" cy="${F}" r="${F - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${F}" cy="${F}" r="${F - 3.5}"/><g transform="translate(${(T / 6).toFixed(2)} ${(T / 6).toFixed(2)}) scale(${(T / 24).toFixed(5)})">${L.glyph}${L.accent}</g></g>`, H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = sxPairTapers ? sxPairTapers(n.id) : null, pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, $.lineColor, sxFl ? sxFl.give : Rt || S && S.giveKnown ? M : null, sxFl ? sxFl.receive : Rt || S && S.receiveKnown ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${Ka(n.id, pT, 18, n.label, p.nx, p.ny, V, Y, N, _, !0, pr.topicIcon, P, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(3), 3)}</g>` : Ka(n.id, pT, 6, n.label, p.nx, p.ny, V, Y, l.x, l.y, !0, pr.importedIcon, P, !0, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
                         v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${p.labelOffset}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${sxFontSize(3).toFixed(2)}px" dominant-baseline="middle"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m}"${y}>${Hi(n.label)}</textPath></text></g>`;
                     });
-                });
+                }
             }
             n(In, v);
             window.__sxLoad && window.__sxLoad(90 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — markup injected */);
@@ -1726,42 +1730,53 @@
                             d1 && d1 !== d0 && stem.setAttribute("d", d1), stem.removeAttribute("transform");
                         }
                     };
-                    const sxFinaliseStems = () => {
+                    function* sxFinaliseStems() {
                         const centres = new Map();
-                        In.querySelectorAll("[data-layout-key]").forEach(g => {
+                        const sxCentreGroups = Array.from(In.querySelectorAll("[data-layout-key]"));
+                        for (let sxCi = 0; sxCi < sxCentreGroups.length; sxCi++) {
+                            const g = sxCentreGroups[sxCi];
+                            if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
                             const x = Number.parseFloat(g.dataset.layoutX), y = Number.parseFloat(g.dataset.layoutY);
                             Number.isFinite(x) && Number.isFinite(y) && !centres.has(g.dataset.layoutKey) && centres.set(g.dataset.layoutKey, {
                                 x: x,
                                 y: y
                             });
-                        });
+                        }
                         // Pre-pass: a spoke's own flank arcs record the
                         // render-time parent/child centres; sibling stems
                         // of the same spoke (tapered bands) anchor to
                         // those when their own d carries no tip circle.
                         const spokeOld = new Map();
-                        In.querySelectorAll(".tapered-stem").forEach(stem => {
+                        const sxStemPass = Array.from(In.querySelectorAll(".tapered-stem"));
+                        for (let sxSt = 0; sxSt < sxStemPass.length; sxSt++) {
+                            const stem = sxStemPass[sxSt];
+                            if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
                             const key = sxStemChildKey(stem), d = stem.getAttribute("d");
-                            if (!key || !d || spokeOld.has(key)) return;
+                            if (!key || !d || spokeOld.has(key)) continue;
                             const {arcs} = sxParseStemD(d);
-                            if (arcs.length < 2 || arcs[0].at < 6) return;
+                            if (arcs.length < 2 || arcs[0].at < 6) continue;
                             const tip = sxArcCentre(arcs[0]), base = sxArcCentre(arcs[arcs.length - 1]);
                             tip && base && spokeOld.set(key, {
                                 tip: tip,
                                 base: base
                             });
-                        });
-                        In.querySelectorAll(".tapered-stem").forEach(stem => {
+                        }
+                        for (let sxSt = 0; sxSt < sxStemPass.length; sxSt++) {
+                            const stem = sxStemPass[sxSt];
+                            if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
                             try {
                                 sxReanchorStem(stem, centres, spokeOld);
                             } catch (e) { /* one bad stem never blocks the rest */ }
-                        });
+                        }
+                    }
+                    sxStemFinaliseHook = () => {
+                        const sxStemGen = sxFinaliseStems();
+                        let sxStemStep;
+                        do { sxStemStep = sxStemGen.next(); } while (!sxStemStep.done);
                     };
-                    sxStemFinaliseHook = sxFinaliseStems;
 
 
             try {
-                !function() {
                     const {controlGap: t, iconGap: n, startOffset: i, parentOuterMargin: a} = Za.SETTLE, r = [], o = Za.orientedBox, s = e => Za.isClear(e, r);
                     const sxBypassSearch = sxSettleDone && !scCtx;
                     // Blit session (P3) obstacle continuity: in a
@@ -1773,13 +1788,16 @@
                     // frozen obstacles exactly as in a vector paint.
                     const blitObst = blitSess && blitSess.swapped && scCtx && blitSameFrozen(scCtx.frozenBranches, blitSess.frozen) ? blitSess : null;
                     blitObst && (blitObst.flushIx = 0);
-                    In.querySelectorAll(".node-group").forEach(l => {
+                    const sxSettleGroups = Array.from(In.querySelectorAll(".node-group"));
+                    for (let sxSi = 0; sxSi < sxSettleGroups.length; sxSi++) {
+                        const l = sxSettleGroups[sxSi];
+                        if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
                         blitObst && blitFlushObstacles(blitObst, r, o, l.dataset.layoutKey);
-                        if (l.classList.contains("is-hidden")) return;
+                        if (l.classList.contains("is-hidden")) continue;
                         const c = l.querySelector(".category-label,.map-label"), d = c && c.querySelector("textPath"), u = d && d.getAttribute("href"), p = c && (c.dataset.pathId || u && u.slice(1)), h = p && e.byId(p);
-                        if (!c || !h) return;
+                        if (!c || !h) continue;
                         const g = h.getTotalLength();
-                        if (!g) return;
+                        if (!g) continue;
                         const m = e => {
                             const t = Math.min(g, Math.max(0, e)), n = h.getPointAtLength(t), i = h.getPointAtLength(Math.max(0, t - 1)), a = h.getPointAtLength(Math.min(g, t + 1)), r = Math.hypot(a.x - i.x, a.y - i.y), o = (a.x - i.x) / Math.max(.001, r), s = (a.y - i.y) / Math.max(.001, r);
                             return e > g && (n.x += o * (e - g), n.y += s * (e - g)), {
@@ -1994,7 +2012,10 @@
                             }
                         }
                         w.forEach(e => l.appendChild(e));
-                    }), blitObst && blitFlushObstacles(blitObst, r, o, null), sxFinaliseStems(), function() {
+                    }
+                    blitObst && blitFlushObstacles(blitObst, r, o, null);
+                    yield* sxFinaliseStems();
+                    !function() {
                         const e = new Map, t = new Map;
                         In.querySelectorAll(".node-group:not(.is-hidden)[data-layout-key]").forEach(n => {
                             const i = n.dataset.layoutKey, a = qn[i], r = Number(n.dataset.layoutX), o = Number(n.dataset.layoutY);
@@ -2013,27 +2034,30 @@
                             e.setAttribute("d", br(n, i))) : e.style.display = "none";
                         }), wr();
                     }();
-                }();
             } catch (e) {
                 console.warn("Direction controls kept at their fallback positions.", e);
             }
             try {
-                !function() {
-                    if (In.querySelector(":scope > .spoke-underlay")) return;
+                if (!In.querySelector(":scope > .spoke-underlay")) {
                     const e = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                    e.setAttribute("class", "spoke-underlay"), e.setAttribute("aria-hidden", "true"), 
-                    In.querySelectorAll(".node-group[data-layout-key]").forEach(t => {
+                    e.setAttribute("class", "spoke-underlay"), e.setAttribute("aria-hidden", "true");
+                    const sxUnderGroups = Array.from(In.querySelectorAll(".node-group[data-layout-key]"));
+                    for (let sxUi = 0; sxUi < sxUnderGroups.length; sxUi++) {
+                        const t = sxUnderGroups[sxUi];
+                        if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
                         const n = [];
-                        if (t.querySelectorAll(vr).forEach(e => {
-                            __sxClosestAction(e, "directionControl") || __sxClosestAction(e, "secondGenRatingControls") || e.classList.contains("visual-rail") && e.classList.contains("rating-rail") || n.push(e);
-                        }), !n.length) return;
+                        t.querySelectorAll(vr).forEach(el => {
+                            __sxClosestAction(el, "directionControl") || __sxClosestAction(el, "secondGenRatingControls") || el.classList.contains("visual-rail") && el.classList.contains("rating-rail") || n.push(el);
+                        });
+                        if (!n.length) continue;
                         const i = document.createElementNS("http://www.w3.org/2000/svg", "g");
                         i.setAttribute("class", `${t.getAttribute("class") || ""} spoke-underlay-item`);
                         const a = t.getAttribute("style");
-                        a && i.setAttribute("style", a), i.dataset.spokeFor = t.dataset.layoutKey, n.forEach(e => i.appendChild(e)), 
+                        a && i.setAttribute("style", a), i.dataset.spokeFor = t.dataset.layoutKey, n.forEach(el => i.appendChild(el)),
                         e.appendChild(i);
-                    }), e.childNodes.length && In.insertBefore(e, In.firstChild);
-                }();
+                    }
+                    e.childNodes.length && In.insertBefore(e, In.firstChild);
+                }
             } catch (e) {
                 console.warn("Spoke underlay kept in groups.", e);
             }
@@ -2286,7 +2310,7 @@
                 });
             } catch (_) { __sxErrLog("layout-scoped-paint", _); }
             try {
-                sxFinaliseStems();
+                yield* sxFinaliseStems();
             } catch (_) { __sxErrLog("layout-stem-finalise-restore", _); }
             // Segment paint (P1) phase timings for this scoped paint,
             // recorded only in dkLog (no console output): capture =
@@ -2320,7 +2344,7 @@
             } catch (_) {
                 __sxErrLog("layout-blit-end", _);
             try {
-                sxFinaliseStems();
+                yield* sxFinaliseStems();
             } catch (_) { __sxErrLog("layout-stem-finalise-blit", _); }
             }
             try {
