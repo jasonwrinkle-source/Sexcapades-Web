@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Popularity list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-10_1611" name="sexcapades-build"/>
-<meta content="release-4.0-1110-1611" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-10_1611", "version": "4.0"} -->
+<meta content="2026-11-12_0430" name="sexcapades-build"/>
+<meta content="release-4.0-1112-0430" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-12_0430", "version": "4.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -112,7 +112,7 @@ if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){
       var returnParams = new URLSearchParams(window.location.search || '');
       returnParams.set('verified', '1');
       returnParams.set('gate_attempt', '1');
-      var returnUrl = 'https://sexcapades.io' + window.location.pathname + '?' + returnParams.toString() + (window.location.hash || '');
+      var returnUrl = window.location.origin + window.location.pathname + '?' + returnParams.toString() + (window.location.hash || '');
       window.location.replace('https://sexcapades.io/?return=' + encodeURIComponent(returnUrl));
     })();
   </script>
@@ -326,7 +326,7 @@ if ('serviceWorker' in navigator) {
 <svg aria-hidden="true" class="sx-boot-watch" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.6" viewbox="0 0 48 48"><rect fill="currentColor" height="4.6" rx="1.6" stroke="none" width="6" x="21" y="1.6"></rect><line x1="24" x2="24" y1="6.2" y2="10.5"></line><circle cx="24" cy="27" r="16.5"></circle><circle class="sx-boot-ring" cx="24" cy="27" r="20.5"></circle><line class="sx-boot-hand" stroke="#63c796" x1="24" x2="24" y1="27" y2="17.5"></line><circle cx="24" cy="27" fill="#63c796" r="1.9" stroke="none"></circle></svg>
 <div class="sx-boot-pct" id="sxBootPct">0%</div>
 <div aria-hidden="true" class="sx-boot-bar"><span id="sxBootBarFill"></span></div>
-<div class="sx-boot-label" id="sxBootLabel">Loading Sexcapades…</div>
+<div class="sx-boot-label" id="sxBootLabel">Downloading the page</div>
 </div>
 <script>
 /* F5: ONE progress-widget component paints both progress instances (the
@@ -387,6 +387,18 @@ window.__sxProgressWidget=function(refs){
   var SX_BOOT_DOWNLOAD_END=40;
   function sxBootComposeEngine(p){return SX_BOOT_DOWNLOAD_END+(100-SX_BOOT_DOWNLOAD_END)/100*p;}
   function sxSetBootLabel(text){if(labelEl)labelEl.textContent=text;}
+  // Stage sentences follow the render pipeline's real checkpoints:
+  // 5 topic index, 12-88 topic placement, 90 branches, 93 spokes,
+  // 96 controls and name labels, 98 framing. Download labels name the file in flight.
+  function sxBootStageLabel(p){
+    if(p>=98)return "Opening the hypermap";
+    if(p>=96)return "Framing the map and writing the summary";
+    if(p>=93)return "Installing topic controls and name labels";
+    if(p>=90)return "Drawing the branches and settling the spokes";
+    if(p>=12)return "Placing each topic on the hypermap";
+    return "Reading the topic index";
+  }
+  window.__sxBootStageLabel=sxBootStageLabel;
   // THREAD-2 BOOT CHUNK: arm the bundle's one-shot boot-only chunked
   // paint (sxBootChunk in the bundle's render driver Mr). This
   // controller parses before the deferred bundle executes, so the
@@ -416,7 +428,8 @@ window.__sxProgressWidget=function(refs){
     // download time before this call no longer counts against the
     // render deadline.
     armFailTimer();
-    if(!engineReported){engineReported=true;sxSetBootLabel("Rendering your hypermap");}
+    engineReported=true;
+    sxSetBootLabel(sxBootStageLabel(p));
     raise(sxBootComposeEngine(p));
   };
   function raise(v){
@@ -564,6 +577,18 @@ window.__sxProgressWidget=function(refs){
     }
     return true;
   }
+  function sxBootDownloadLabel(key){
+    if(key==="bootstrap")return "Downloading the topic catalog";
+    if(key==="appjs")return "Downloading the map program";
+    if(key==="css")return "Downloading the styling";
+    if(key==="qrcode")return "Downloading the QR code tool";
+    if(key==="html")return "Downloading the page";
+    return "Downloading the page files";
+  }
+  function sxNoteDownload(key){
+    if(dismissed||finishing||engineReported||!key)return;
+    sxSetBootLabel(sxBootDownloadLabel(key));
+  }
   function sxDlRaise(){
     var bytes=sxDlBytes;
     for(var sxSk in sxStream){
@@ -581,13 +606,14 @@ window.__sxProgressWidget=function(refs){
     // already "interactive". No revert is needed: the html milestone
     // (the download-segment end) and then engine progress take over
     // from here.
-    if(!dismissed&&!finishing&&!engineReported&&labelEl&&document.readyState==="loading"&&sxAllDownloadsDone())sxSetBootLabel("Opening Sexcapades…");
+    if(!dismissed&&!finishing&&!engineReported&&labelEl&&document.readyState==="loading"&&sxAllDownloadsDone())sxSetBootLabel("Opening the page and the verse book");
   }
   function sxMilestone(key){
     if(!key||sxDlFired[key])return;
     if(sxStreamOwned(key))return;
     sxDlFired[key]=true;
     sxDlBytes+=SX_BUNDLE_BYTES[key]||0;
+    sxNoteDownload(key);
     sxDlRaise();
   }
   // Stream channel (Option A): the boot stream loader reports real
@@ -602,6 +628,7 @@ window.__sxProgressWidget=function(refs){
     if(typeof loaded==="number"&&loaded>s.loaded)s.loaded=loaded;
     if(typeof total==="number"&&total>0)s.total=total;
     if(s.total>0&&s.loaded>=s.total)s.done=true;
+    sxNoteDownload(key);
     sxDlRaise();
   };
   window.__sxBootStreamDone=function(key){
@@ -625,7 +652,7 @@ window.__sxProgressWidget=function(refs){
     if(document.querySelector("script[src*=\"app-assets/\"]")){sxMilestone("html");}
     else{for(var sxDk in SX_BUNDLE_BYTES)sxMilestone(sxDk);}
   });
-  sxSetBootLabel("Downloading…");
+  sxSetBootLabel("Downloading the page");
   // BOOTLOAD-FIX (F2): known-benign window error messages that must NOT
   // trip the failsafe below. The ResizeObserver loop notices are layout
   // bookkeeping, and "Script error." is cross-origin noise carrying
@@ -847,14 +874,14 @@ window.__sxProgressWidget=function(refs){
   // agreement with it (the meta tag wins if they ever disagree).
   document.addEventListener('DOMContentLoaded', function () {
     var m = document.querySelector('meta[name="sexcapades-build"]');
+    var t = document.querySelector('meta[name="sexcapades-build-tag"]');
+    var tag = t ? t.getAttribute('content') : '';
     if (m) {
       var build = m.getAttribute('content');
       var span = document.querySelector('.app-about-version');
-      if (build && span) span.textContent = 'Version 4.0 · Build ' + build;
+      if (build && span) span.textContent = 'Version 4.0 · ' + (tag && tag.indexOf('qa-') === 0 ? 'QA Build ' : 'Build ') + build;
     }
-    var t = document.querySelector('meta[name="sexcapades-build-tag"]');
     if (t) {
-      var tag = t.getAttribute('content');
       var tagSpan = document.querySelector('.app-about-buildtag');
       if (tag && tagSpan) tagSpan.textContent = tag;
     }
@@ -871,7 +898,7 @@ window.__sxProgressWidget=function(refs){
 <div class="header-search-row">
 <label class="search"><input aria-controls="searchDropdown" aria-expanded="false" aria-label="Find a topic" autocomplete="off" id="searchInput" placeholder="Find a topic" role="combobox"/><span>⌕</span><div class="topic-dropdown search-dropdown" hidden="" id="searchDropdown" role="listbox"></div></label>
 <div class="topic-picker">
-<select aria-label="Choose a topic" id="topicPicker"><option value="">Choose a topic…</option></select>
+<select aria-label="Choose a topic" autocomplete="off" id="topicPicker"><option value="">Choose a topic…</option></select>
 <button aria-controls="topicPickerMenu" aria-expanded="false" aria-haspopup="listbox" aria-label="Choose a topic" id="topicPickerButton" role="combobox" type="button"><span class="topic-picker-label">Choose a topic…</span></button>
 <div aria-label="Choose a topic" class="topic-dropdown topic-picker-menu" hidden="" id="topicPickerMenu" role="tree"></div>
 </div>
@@ -1038,7 +1065,12 @@ window.__sxProgressWidget=function(refs){
     // the boot dialog; task sessions drive this overlay alone.
     if(sessionBoot&&window.__sxBootProgress)window.__sxBootProgress(v);
   }});
-  function show(p){widget.show(p);}
+  function show(p){
+    widget.show(p);
+    if(finishing||typeof p!=="number"||p<0||p>=100||!labelEl||typeof window.__sxBootStageLabel!=="function")return;
+    var text=window.__sxBootStageLabel(p);
+    if(labelEl.textContent!==text)labelEl.textContent=text;
+  }
   // Q6 map-complete gate (task sessions): pipeline-done (the
   // __sxLoad 100% checkpoint) is not map-complete. A scoped apply
   // starts a blit session whose frozen branches sit in a hidden
@@ -1755,8 +1787,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sexcapades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 4.0 · Build 2026-11-10_1611</span>
-<span class="app-about-version app-about-buildtag">release-4.0-1110-1611</span>
+<span class="app-about-version">Version 4.0 · Build 2026-11-12_0430</span>
+<span class="app-about-version app-about-buildtag">release-4.0-1112-0430</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
@@ -2766,7 +2798,7 @@ window.__sxProgressWidget=function(refs){
     var svg = document.getElementById("mapSvg");
     if (!btn || !svg) return;
     function hasSelection() {
-      return Boolean(svg.querySelector(".selected-spoke") || svg.querySelector(".node-group.is-preview"));
+      return Boolean(svg.querySelector(".selected-spoke") || svg.querySelector(".node-group.is-preview") || svg.querySelector(".node-group.is-dim") || svg.classList.contains("relation-focused"));
     }
     var queued = false;
     function sync() {
@@ -2808,6 +2840,20 @@ window.__sxProgressWidget=function(refs){
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
+  window.addEventListener("pageshow", function (ev) {
+    var input = document.getElementById("searchInput");
+    var picker = document.getElementById("topicPicker");
+    var term = "";
+    try { term = window.SexcapadesEngine && SexcapadesEngine.State && SexcapadesEngine.State.getSearchTerm() || ""; } catch (e) {}
+    if (ev.persisted && window.__SEXCAPADES_LAYOUT_UI && window.__SEXCAPADES_LAYOUT_UI.clearSelection) {
+      window.__SEXCAPADES_LAYOUT_UI.clearSelection();
+      return;
+    }
+    if (!term) {
+      if (input && input.value) input.value = "";
+      if (picker && picker.value) picker.value = "";
+    }
+  });
 })();
 </script>
 <script>
