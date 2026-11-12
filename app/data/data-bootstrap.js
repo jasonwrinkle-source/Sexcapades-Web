@@ -35704,7 +35704,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (fitSettleActive) return;
             fitSettleUserHold = !1, fitSettleSnap = { s: $p, x: Ep, y: Ap }, fitSettleBox = fitSettleBoxSig(), fitSettleChecks = 0, scheduleFitSettleRefit(1200);
         }
-        function Ih() {
+        function sxFitFrame() {
             const e = nh, t = pr.centerX, n = pr.centerY;
             let i = t - pr.centerRadius, a = n - pr.centerRadius, r = t + pr.centerRadius, o = n + pr.centerRadius;
             const s = e => {
@@ -35716,9 +35716,17 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }, l = Qi() ? Xi() : Mt && vt[Mt] ? [ Mt ] : [], c = l.length ? l.every(e => 0 === Object.keys(vt[e] || {}).length) : 0 === Object.keys(At).length;
             (In.querySelectorAll(".node-group:not(.is-hidden)").forEach(s), s(In.querySelector(".center-glance-rings")));
             /* Fit framing (Build 2026-10-17_2026): fit against the REAL visible region — the viewBox is square (3200x3200) but the map card usually is not, so the visible span in world units grows along the card's long axis; the old square assumption fitted wide maps as if the screen were only as wide as it is tall, leaving the map small with the center node dominating. Tighter padding/margin, and one shared scale cap for rated and unrated profiles (the unrated cap of 1 no longer holds the full map back). The Fit button and every opening/profile-change view call this same function, so both frame the full map the same way. Build 2026-10-18_0343: the rated-profile branch (category node groups only, looser padding, .12 scale floor) could open noticeably zoomed-in with outer topics off-screen, so framing now always accumulates every visible node group and uses the tighter padding and a 1e-9 floor for every profile. */
-            const d = Math.max(pr.centerRadius, t - i, r - t) + 20, u = Math.max(pr.centerRadius, n - a, o - n) + 20, p = innerWidth <= 620 ? 90 : 44, sw = Cn && Cn.clientWidth ? Cn.clientWidth : innerWidth, sh = Cn && Cn.clientHeight ? Cn.clientHeight : innerHeight, asp = sw > 0 && sh > 0 ? sw / sh : 1, hw = e.width / 2 * Math.max(1, asp), hh = e.height / 2 * Math.max(1, 1 / asp), g = Math.min((hw - p) / d, (hh - p) / u), m = innerWidth <= 620 ? 2.18 : 2.3;
-            $p = Math.max(1e-9, Math.min(m, g)), Ep = e.x + e.width / 2 - t * $p, 
-            Ap = e.y + e.height / 2 - n * $p, $h(), armFitSettleRefit();
+            const d = Math.max(pr.centerRadius, t - i, r - t) + 20, u = Math.max(pr.centerRadius, n - a, o - n) + 20, p = innerWidth <= 620 ? 90 : 44, sw = Cn && Cn.clientWidth ? Cn.clientWidth : innerWidth, sh = Cn && Cn.clientHeight ? Cn.clientHeight : innerHeight, asp = sw > 0 && sh > 0 ? sw / sh : 1, hw = e.width / 2 * Math.max(1, asp), hh = e.height / 2 * Math.max(1, 1 / asp), g = Math.min((hw - p) / d, (hh - p) / u), m = innerWidth <= 620 ? 2.18 : 2.3, scale = Math.max(1e-9, Math.min(m, g));
+            return {
+                scale: scale,
+                x: e.x + e.width / 2 - t * scale,
+                y: e.y + e.height / 2 - n * scale,
+                empty: c
+            };
+        }
+        function Ih() {
+            const f = sxFitFrame();
+            $p = f.scale, Ep = f.x, Ap = f.y, $h(), armFitSettleRefit();
         }
         function Ph(e, t, n) {
             if (!Number.isFinite(e) || !Number.isFinite(t) || !Number.isFinite(n)) return;
@@ -36555,7 +36563,15 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }), e.byId("mapZoomIn") && (e.byId("mapZoomIn").onclick = () => {
             mn.staticMap || Ah(1.25 * $p);
         }), e.byId("mapFit") && (e.byId("mapFit").onclick = () => {
-            mn.staticMap || Ih();
+            if (mn.staticMap) return;
+            // Fit eases on the same machines that already ease a focus zoom:
+            // reduced-motion, a coarse pointer, and a low-memory/low-core
+            // device keep the instant frame. Opening and profile changes
+            // still call Ih() and land in one step.
+            const sxFitMotion = Bt && !kp && !xp;
+            if (!sxFitMotion) return void Ih();
+            const f = sxFitFrame();
+            Ph(f.scale, f.x, f.y);
         });
         const Zh = e.byId("legendControl"), Qh = e.byId("legendButton"), Jh = e.byId("legendPopup"), eg = e.byId("legendPopupClose"), tg = e.one("[data-open-hanky-chart]"), ng = e.byId("hankyChartLightbox"), ig = e.byId("hankyChartClose"), ag = e.byId("hankyChartViewport"), rg = e.byId("hankyChartStage"), og = e.byId("hankyChartImage");
         let sg = !1, lg = 1, cg = null, dg = null, ug = "";
