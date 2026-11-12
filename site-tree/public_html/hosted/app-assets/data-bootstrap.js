@@ -25654,6 +25654,7 @@ const TAXONOMY_CATEGORIES = [
         }, !0), window.__sxOnKey( e => {
             "Escape" === e.key && ((!Ur || Ur.hidden) ? so() : oo());
         });
+
         const Do = e.byId("outlineDialog"), Ro = e.byId("outlineSections"), Oo = e.byId("outlineProfileName"), Bo = e.byId("outlineHeaderCount"), jo = e.byId("outlineProgressText"), qo = e.byId("outlineProgressBar"), Ho = e.byId("outlineTimerToggle"), Wo = e.byId("outlineTimerReset"), Uo = e.byId("outlineShowRated");
         // P1 refactor (Build 2026-10-18_2227): outline-row DOM helpers.
         // getOutlineRow(el) returns the .outline-row containing an element;
