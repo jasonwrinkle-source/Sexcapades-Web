@@ -4829,15 +4829,15 @@
                 const i = tl.querySelector(".profile-add-stack"), a = Math.max(0, tl.clientWidth - 6), r = i ? Math.ceil(i.getBoundingClientRect().width) : 42, o = 2 * (e.length + 1), s = [ {
                     name: "full",
                     labels: t.map(e => e.dataset.fullLabel || ""),
-                    widths: t.map(e => Math.max(96, Math.min(180, 70 + 7 * (e.dataset.fullLabel || "").length)))
+                    widths: t.map(e => Math.max(168, Math.min(220, 70 + 7 * (e.dataset.fullLabel || "").length)))
                 }, {
                     name: "short",
-                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 3)),
-                    widths: t.map(() => 82)
+                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 12)),
+                    widths: t.map(() => 168)
                 }, {
                     name: "initial",
-                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 1)),
-                    widths: t.map(() => 70)
+                    labels: t.map(e => (e.dataset.fullLabel || "").slice(0, 8)),
+                    widths: t.map(() => 148)
                 } ];
                 let l = s.find(e => e.widths.reduce((e, t) => e + t, r + o) <= a) || s[s.length - 1];
                 l.labels.forEach((e, n) => {
@@ -4955,9 +4955,9 @@
             });
         }
         e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", () => {
-            if (!an) return;
+            if (Yi().length < 2) return;
             sxVaultInvalidate();
-            sxSel(null, "dismiss"), Jw(), Mr(), Ih();
+            sxSel(null, an ? "dismiss" : "show"), Jw(), Mr(), Ih();
         });
         e.all("[data-filter]").forEach(t => t.addEventListener("click", () => {
             "true" !== t.getAttribute("aria-disabled") && !Rt && (sxVaultInvalidate(), Pt = t.dataset.filter, e.all("[data-filter]").forEach(e => e.setAttribute("aria-pressed", String(e === t))),

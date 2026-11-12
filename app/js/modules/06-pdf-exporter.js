@@ -2720,7 +2720,7 @@
             a && (a.classList.toggle("is-enabled", n), a.style.setProperty("--veil-color", i), 
             a.setAttribute("aria-pressed", String(n)), a.setAttribute("aria-label", `${wt[e] || "Profile"} Veil ${n ? "on" : "off"}, level ${t}. Open Veil settings.`), 
             a.title = `Veil ${n ? "on" : "off"} · ${t}`), r && (r.classList.toggle("has-veil", n), 
-            r.style.setProperty("--veil-color", i));
+            r.style.setProperty("--veil-color", i), r.setAttribute("aria-label", `${(r.getAttribute("aria-label") || "").replace(/, Veil on at \d+/, "")}${n ? `, Veil on at ${t}` : ""}`));
         }
         function xv() {
             if (dv.hidden) return;
@@ -4179,7 +4179,7 @@
             const y = e.byId("openOpener"), b = e.byId("openNegotiation");
             y.hidden = _g && _g.open ? !(Hy && vt[Hy] && !ft[Hy]) : !Mt || !vt[Mt] || Boolean(ft[Mt]), b.hidden = !(i.length >= 2 || r && (ft[Mt]?.sourceIds || []).length >= 2);
             const k = e.byId("overlayTab");
-            k.hidden = !s, k.textContent = "Hide group overlay", k.title = "Hide the selected profiles’ comparison overlay", 
+            k.hidden = !o, k.textContent = an ? "Hide group overlay" : "Show group overlay", k.title = an ? "Hide the selected profiles’ comparison overlay" : "Show the selected profiles’ comparison overlay", 
             k.setAttribute("aria-pressed", String(an));
             const x = e.byId("overlayStatus");
             x.textContent = "", x.parentElement.hidden = !0, e.one(".filters").hidden = !t.length,

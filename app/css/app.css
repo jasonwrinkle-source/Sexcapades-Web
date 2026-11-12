@@ -1411,3 +1411,12 @@ textarea{font-size:16px}
 #mapSvg .common-overlap-link.relation-visual{opacity:0!important}
 #mapSvg.relation-focused .common-overlap-link.relation-visual{opacity:.28!important}
 #mapSvg.relation-focused .common-overlap-link.relation-visual.rel-active{opacity:1!important}
+/* The shared range rule rotates every popover slider so its maximum
+   sits at the top. Heat wants that (Horndog is the maximum). Veil does
+   not: 0 is Revealed, drawn at the top, and 100 is Concealed, drawn at
+   the bottom. Clockwise rotation puts the minimum at the top, and the
+   gradient is reversed so that end stays green. */
+#profileTabs .profile-tab:has(.profile-tab-heat){min-width:168px}#profileTabs .profile-tab-button [data-profile-label]{overflow:visible;text-overflow:clip}
+#veilPopover input[type=range]{transform:translate(-50%,-50%) rotate(90deg)}
+#veilPopover input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3fbb79,#f2c94c,#d14f59)}
+#veilPopover input[type=range]::-moz-range-track{background:linear-gradient(90deg,#3fbb79,#f2c94c,#d14f59)}
