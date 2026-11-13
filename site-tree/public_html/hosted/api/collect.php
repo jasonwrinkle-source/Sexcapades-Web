@@ -257,10 +257,16 @@ if ($action === 'survey') {
 
 } elseif ($action === 'get_stats') {
     // Public visitor count for odometer display (no PII, just aggregates)
-    $uniqueVisitors = $db->querySingle('SELECT COUNT(DISTINCT uuid) FROM events');
-    $gatePasses = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'gate_passed'");
-    $qsStarts = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_started'");
-    $qsCompletes = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_completed'");
+    // Fleet traffic is EXCLUDED from the public count: the QA fleet (browser
+    // squads + Playwright) loads the app with ?utm_source=fleet, and those
+    // events are tagged, not counted. Collection itself is unchanged
+    // (analytics law) — only the displayed count excludes them. The 'fleet%'
+    // pattern also covers 'fleet-playwright' / 'fleet-squad' if used later.
+    $notFleet = "utm_source IS NULL OR utm_source NOT LIKE 'fleet%'";
+    $uniqueVisitors = $db->querySingle("SELECT COUNT(DISTINCT uuid) FROM events WHERE $notFleet");
+    $gatePasses = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'gate_passed' AND ($notFleet)");
+    $qsStarts = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_started' AND ($notFleet)");
+    $qsCompletes = $db->querySingle("SELECT COUNT(*) FROM events WHERE event_type = 'quickstart_completed' AND ($notFleet)");
     
     echo json_encode([
         'ok' => true,
