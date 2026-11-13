@@ -423,10 +423,11 @@ window.__sxProgressWidget=function(refs){
     // keeps its own untouched 0-100 scale; only this controller
     // composes the two segments into one cycle.
     if(dismissed||finishing||typeof p!=="number")return;
-    // BOOTLOAD-FIX REMEDY (R1): the first engine sign-of-life starts
-    // the 12 s failsafe clock (armFailTimer at the timer site below);
-    // download time before this call no longer counts against the
-    // render deadline.
+    // BOOTLOAD-FIX REMEDY (R1): every engine progress call re-arms
+    // the 12 s watchdog clock (armFailTimer at the timer site below);
+    // download time before the first call no longer counts against
+    // the render deadline, and a paint that keeps reporting progress
+    // never trips it.
     armFailTimer();
     engineReported=true;
     sxSetBootLabel(sxBootStageLabel(p));
@@ -487,16 +488,20 @@ window.__sxProgressWidget=function(refs){
   }
   // BOOTLOAD-FIX REMEDY (R1): the failsafe clock is armed at the first
   // engine sign-of-life (the first progress call above), not at dialog
-  // parse. F1 made the dialog parse ~8 s earlier in the document, which
-  // moved the old parse-anchored deadline ~8 s earlier in wall-clock
-  // terms and let it misfire on slow links mid-download. The fallback
-  // anchor is DOMContentLoaded: by then every deferred bundle has
-  // executed, so an engine that never reports still fails over 12 s
-  // after the moment it would first have spoken. Length unchanged.
-  var failTimer=null,failArmed=false;
+  // parse, and re-armed on every progress call after that: it is a
+  // watchdog, not a deadline. A healthy-but-slow paint that keeps
+  // reporting progress never trips it; only 12 s with no progress at
+  // all fails over. F1 made the dialog parse ~8 s earlier in the
+  // document, which moved the old parse-anchored deadline ~8 s earlier
+  // in wall-clock terms and let it misfire on slow links mid-download.
+  // The fallback anchor is DOMContentLoaded: by then every deferred
+  // bundle has executed, so an engine that never reports still fails
+  // over 12 s after the moment it would first have spoken. Length
+  // unchanged.
+  var failTimer=null;
   function armFailTimer(){
-    if(failArmed||dismissed||finishing)return;
-    failArmed=true;
+    if(dismissed||finishing)return;
+    clearTimeout(failTimer);
     failTimer=setTimeout(fail,12000);
   }
   document.addEventListener("DOMContentLoaded",armFailTimer);

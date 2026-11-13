@@ -174,7 +174,7 @@
                         parentId: i ? Un(e.name, i.name) : null
                     };
                 });
-            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), !(c || Mt && vt[Mt])) return n(In, `<g>${oa()}${function(e) {
+            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint)) return n(In, `<g>${oa()}${function(e) {
                 const t = 1.75 * ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, t, "center"), i = Za.fitAttr(e, n, "center", t);
                 return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${Hi(e)}</text>`;
             }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`), 
@@ -1687,6 +1687,11 @@
         // split is deliberate and documented at that side too; do not
         // look for the total's owner here.
         // One-shot chunked-paint arm (map-render refactor): the
+        // Boot-stall fix (mechanism 2): set by Mr() for the boot paint
+        // only (see the sxBootArm assignment there); Ar()'s no-profile
+        // early return skips itself while this is true, so the boot
+        // paint always paints the map.
+        let sxBootPaint = !1;
         // boot, route-entry, and list-close triggers each arm one
         // window flag with a budget; this consumes the first armed
         // flag (boot, then route, then close, so an earlier arm
@@ -1810,7 +1815,17 @@
             // refused call can never eat an arm, and THIS paint
             // runs chunked at the armed budget (see
             // sxConsumeChunkArm above).
-            let sxBootChunk = sxConsumeChunkArm("__sxBootChunkPaint") || sxConsumeChunkArm("__sxRouteChunkPaint") || sxConsumeChunkArm("__sxCloseChunkPaint");
+            const sxBootArm = sxConsumeChunkArm("__sxBootChunkPaint");
+            let sxBootChunk = sxBootArm || sxConsumeChunkArm("__sxRouteChunkPaint") || sxConsumeChunkArm("__sxCloseChunkPaint");
+            // Boot-stall fix (mechanism 2): the boot paint always paints
+            // the map. The Remember restore can land before this paint
+            // starts, leaving profiles restored but none selected, and
+            // the no-profile early return in Ar below would then install
+            // the empty map and finish the boot at 100% with 0 nodes.
+            // (A snapshot of c/Mt would not help: Mr, Ar and the check
+            // run in one synchronous task, so it would read the same
+            // state.) Later paints keep the early return.
+            sxBootPaint = sxBootArm;
             Rn = !0;
             const release = () => {
                 if (Rn = !1, On && !jn) {
