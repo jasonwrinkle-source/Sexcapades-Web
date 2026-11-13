@@ -1,0 +1,300 @@
+
+Running 24 tests using 12 workers
+
+  ok 12 [chromium-android-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (56.1s)
+  ok  1 [chrome-stable] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (56.1s)
+  ok  7 [chromium-small-laptop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.0s)
+  ok 10 [chromium-android-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.1s)
+  ok  9 [chromium-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.1s)
+  ok  2 [edge-stable] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.5s)
+  ok  6 [chromium-android-tablet] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (58.7s)
+  x  11 [firefox-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (46.2s)
+  ok 15 [chromium-touch] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (19.3s)
+  ok  5 [firefox-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (1.3m)
+  ok 13 [firefox-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (28.7s)
+  ok 21 [chromium-narrow] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (20.2s)
+  ok 22 [chromium-mid-mobile] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (19.5s)
+  x   3 [chromium-large-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (1.0m)
+  ok 20 [firefox-android-sized] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (30.4s)
+  ok 23 [chromium-wide-mobile] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (24.1s)
+  x   8 [chromium-tablet-landscape] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (1.9m)
+  x   4 [chromium-tablet-portrait] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (2.0m)
+  x  18 [webkit-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (59.3s)
+  ok 24 [chromium-high-dpi] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (20.4s)
+  x  14 [webkit-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (1.7m)
+  x  16 [webkit-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (1.7m)
+  x  17 [webkit-iphone-emulation] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (1.7m)
+  x  19 [webkit-ipad] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (1.7m)
+
+
+  1) [chromium-large-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 20
+    Received:   0
+
+    Call Log:
+    - Timeout 20000ms exceeded while waiting on the predicate
+
+      10 |     await expect.poll(() => viewport.locator("circle, line, path, rect, polygon").count(), {
+      11 |       timeout: 20000
+    > 12 |     }).toBeGreaterThan(20);
+         |        ^
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+      15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+        at X:\tests\20-hypermap.spec.js:12:8
+
+    Test timeout of 45000ms exceeded.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-large-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-large-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-large-desktop\error-context.md
+
+  2) [chromium-tablet-landscape] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Error: Timeout 20000ms exceeded while waiting on the predicate
+
+      10 |     await expect.poll(() => viewport.locator("circle, line, path, rect, polygon").count(), {
+      11 |       timeout: 20000
+    > 12 |     }).toBeGreaterThan(20);
+         |        ^
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+      15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+        at X:\tests\20-hypermap.spec.js:12:8
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium-tablet-portrait] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 20
+    Received:   0
+
+    Call Log:
+    - Timeout 20000ms exceeded while waiting on the predicate
+
+      10 |     await expect.poll(() => viewport.locator("circle, line, path, rect, polygon").count(), {
+      11 |       timeout: 20000
+    > 12 |     }).toBeGreaterThan(20);
+         |        ^
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+      15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+        at X:\tests\20-hypermap.spec.js:12:8
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [firefox-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded while setting up "page".
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-firefox-small\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-firefox-small\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-firefox-small\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [webkit-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for locator('#viewport')
+
+
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+    > 15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+         |                                ^
+      16 |       const read = () => {
+      17 |         const b = el.getBBox();
+      18 |         resolve({
+        at X:\tests\20-hypermap.spec.js:15:32
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [webkit-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for locator('#viewport')
+
+
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+    > 15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+         |                                ^
+      16 |       const read = () => {
+      17 |         const b = el.getBBox();
+      18 |         resolve({
+        at X:\tests\20-hypermap.spec.js:15:32
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [webkit-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Error: Timeout 20000ms exceeded while waiting on the predicate
+
+      10 |     await expect.poll(() => viewport.locator("circle, line, path, rect, polygon").count(), {
+      11 |       timeout: 20000
+    > 12 |     }).toBeGreaterThan(20);
+         |        ^
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+      15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+        at X:\tests\20-hypermap.spec.js:12:8
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [webkit-iphone-emulation] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for locator('#viewport')
+
+
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+    > 15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+         |                                ^
+      16 |       const read = () => {
+      17 |         const b = el.getBBox();
+      18 |         resolve({
+        at X:\tests\20-hypermap.spec.js:15:32
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [webkit-ipad] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for locator('#viewport')
+
+
+      13 |     // SVGRect getters do not survive Playwright's clone. A double frame lets
+      14 |     // Firefox compute a box; reading it once avoids WebKit's repeat hang.
+    > 15 |     const box = await viewport.evaluate(el => new Promise(resolve => {
+         |                                ^
+      16 |       const read = () => {
+      17 |         const b = el.getBBox();
+      18 |         resolve({
+        at X:\tests\20-hypermap.spec.js:15:32
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9 failed
+    [chromium-large-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [chromium-tablet-landscape] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [chromium-tablet-portrait] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [firefox-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-iphone-emulation] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-ipad] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+  15 passed (2.9m)

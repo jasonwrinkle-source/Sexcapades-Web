@@ -1,0 +1,1821 @@
+
+Running 240 tests using 6 workers
+
+  -    1 [chromium-desktop] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings
+  -    5 [chromium-desktop] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile
+  -    8 [chromium-desktop] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline
+  ok   6 [chromium-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (19.9s)
+  ok   4 [chromium-desktop] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (20.6s)
+  ok   7 [chromium-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (19.7s)
+  ok   2 [chromium-desktop] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (27.0s)
+  ok   9 [chromium-desktop] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (9.7s)
+  ok   3 [chromium-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (29.0s)
+  -   12 [chrome-stable] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile
+  ok  10 [chromium-desktop] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (18.0s)
+  ok  11 [chrome-stable] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (13.3s)
+  ok  14 [chrome-stable] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (14.0s)
+  ok  16 [chrome-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (11.9s)
+  ok  15 [chrome-stable] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (20.6s)
+  x   13 [chrome-stable] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (22.2s)
+  ok  18 [chrome-stable] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (16.1s)
+  ok  19 [chrome-stable] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (13.9s)
+  ok  24 [edge-stable] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (7.4s)
+  ok  20 [chrome-stable] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (21.9s)
+  ok  21 [edge-stable] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (17.0s)
+  ok  17 [chrome-stable] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (29.9s)
+  ok  22 [edge-stable] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (26.6s)
+  ok  23 [edge-stable] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (24.2s)
+  ok  30 [edge-stable] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (5.8s)
+  ok  29 [edge-stable] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (9.7s)
+  ok  25 [edge-stable] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (24.9s)
+  ok  26 [edge-stable] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (26.2s)
+  ok  27 [edge-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (26.2s)
+  -   35 [chromium-small-laptop] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite
+  ok  32 [chromium-small-laptop] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (18.6s)
+  ok  31 [chromium-small-laptop] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (19.0s)
+  ok  28 [edge-stable] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (44.4s)
+  ok  36 [chromium-small-laptop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (13.2s)
+  ok  33 [chromium-small-laptop] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (26.1s)
+  x   34 [chromium-small-laptop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (24.2s)
+  ok  40 [chromium-small-laptop] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (6.3s)
+  ok  37 [chromium-small-laptop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (22.9s)
+  ok  41 [chromium-large-desktop] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (13.7s)
+  ok  39 [chromium-small-laptop] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (16.3s)
+  ok  38 [chromium-small-laptop] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (25.7s)
+  ok  42 [chromium-large-desktop] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (11.7s)
+  ok  43 [chromium-large-desktop] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (30.1s)
+  ok  45 [chromium-large-desktop] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (30.8s)
+  ok  44 [chromium-large-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (30.9s)
+  ok  46 [chromium-large-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (31.4s)
+  ok  47 [chromium-large-desktop] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (32.2s)
+  ok  49 [chromium-large-desktop] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (13.3s)
+  ok  48 [chromium-large-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (35.5s)
+  ok  50 [chromium-large-desktop] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (17.9s)
+  ok  51 [chromium-tablet-landscape] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (11.0s)
+  ok  52 [chromium-tablet-landscape] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (13.1s)
+  ok  53 [chromium-tablet-landscape] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (14.7s)
+  ok  59 [chromium-tablet-landscape] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.8s)
+  ok  58 [chromium-tablet-landscape] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (16.1s)
+  ok  61 [chromium-tablet-portrait] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (8.0s)
+  x   54 [chromium-tablet-landscape] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.7s)
+  x   55 [chromium-tablet-landscape] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (57.7s)
+  x   56 [chromium-tablet-landscape] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (57.8s)
+  x   57 [chromium-tablet-landscape] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (57.7s)
+  x   60 [chromium-tablet-landscape] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (58.0s)
+  x   62 [chromium-tablet-portrait] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (57.5s)
+  x   63 [chromium-tablet-portrait] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (57.8s)
+  x   64 [chromium-tablet-portrait] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.8s)
+  ok  69 [chromium-tablet-portrait] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (6.5s)
+  x   65 [chromium-tablet-portrait] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (58.2s)
+  x   66 [chromium-tablet-portrait] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (58.0s)
+  ok  71 [chromium-android-small] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (9.2s)
+  x   67 [chromium-tablet-portrait] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (59.0s)
+  ok  73 [chromium-android-small] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (17.2s)
+  ok  72 [chromium-android-small] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (23.1s)
+  ok  74 [chromium-android-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (17.8s)
+  x   68 [chromium-tablet-portrait] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (1.0m)
+  ok  76 [chromium-android-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (15.6s)
+  ok  78 [chromium-android-small] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (10.3s)
+  ok  75 [chromium-android-small] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (19.4s)
+  ok  79 [chromium-android-small] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (5.3s)
+  ok  77 [chromium-android-small] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (18.1s)
+  ok  82 [chromium-android-large] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (10.3s)
+  ok  81 [chromium-android-large] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (11.8s)
+  x   70 [chromium-tablet-portrait] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (1.0m)
+  ok  80 [chromium-android-small] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (20.3s)
+  ok  83 [chromium-android-large] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (23.4s)
+  ok  84 [chromium-android-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (23.0s)
+  ok  85 [chromium-android-large] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (19.3s)
+  ok  88 [chromium-android-large] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (13.2s)
+  ok  89 [chromium-android-large] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (7.2s)
+  ok  86 [chromium-android-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (23.2s)
+  ok  87 [chromium-android-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (22.7s)
+  ok  91 [chromium-android-tablet] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (14.7s)
+  ok  90 [chromium-android-large] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (21.8s)
+  ok  93 [chromium-android-tablet] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (21.8s)
+  -   96 [chromium-android-tablet] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite
+  ok  95 [chromium-android-tablet] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (12.6s)
+  ok  92 [chromium-android-tablet] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (29.5s)
+  ok  99 [chromium-android-tablet] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.4s)
+  ok  94 [chromium-android-tablet] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (29.4s)
+  ok  97 [chromium-android-tablet] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (12.9s)
+  ok 100 [chromium-android-tablet] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (17.7s)
+  ok  98 [chromium-android-tablet] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (24.0s)
+  ok 103 [firefox-desktop] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (15.5s)
+  ok 101 [firefox-desktop] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (17.8s)
+  ok 102 [firefox-desktop] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (18.3s)
+  ok 108 [firefox-desktop] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (11.6s)
+  ok 109 [firefox-desktop] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (12.1s)
+  ok 104 [firefox-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (28.3s)
+  ok 105 [firefox-desktop] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (21.9s)
+  ok 107 [firefox-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (15.8s)
+  ok 106 [firefox-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (23.5s)
+  ok 110 [firefox-desktop] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (15.1s)
+  ok 111 [firefox-small] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (16.1s)
+  ok 113 [firefox-small] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (22.8s)
+  ok 114 [firefox-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (23.1s)
+  ok 117 [firefox-small] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (9.8s)
+  ok 112 [firefox-small] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (28.5s)
+  ok 115 [firefox-small] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (22.3s)
+  ok 119 [firefox-small] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.5s)
+  ok 120 [firefox-small] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (9.0s)
+  ok 116 [firefox-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (22.7s)
+  ok 118 [firefox-small] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (20.7s)
+  ok 122 [firefox-large] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (16.6s)
+  ok 123 [firefox-large] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (23.3s)
+  ok 125 [firefox-large] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (23.1s)
+  ok 124 [firefox-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (24.8s)
+  ok 121 [firefox-large] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (29.2s)
+  ok 126 [firefox-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (22.1s)
+  ok 127 [firefox-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (20.1s)
+  ok 129 [firefox-large] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (11.0s)
+  ok 128 [firefox-large] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (14.6s)
+  ok 130 [firefox-large] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (14.9s)
+  ok 131 [firefox-android-sized] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (15.3s)
+  ok 132 [firefox-android-sized] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (17.3s)
+  ok 133 [firefox-android-sized] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (16.2s)
+  ok 139 [firefox-android-sized] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (9.9s)
+  ok 134 [firefox-android-sized] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (25.0s)
+  ok 135 [firefox-android-sized] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (22.5s)
+  ok 136 [firefox-android-sized] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (22.1s)
+  ok 137 [firefox-android-sized] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (18.4s)
+  ok 138 [firefox-android-sized] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (18.2s)
+  ok 141 [webkit-desktop] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (11.3s)
+  ok 140 [firefox-android-sized] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (16.4s)
+  ok 144 [webkit-desktop] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (17.3s)
+  x  142 [webkit-desktop] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (58.8s)
+  x  143 [webkit-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.8s)
+  x  145 [webkit-desktop] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (59.6s)
+  ok 150 [webkit-desktop] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (7.9s)
+  ok 149 [webkit-desktop] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.8s)
+  x  146 [webkit-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (58.4s)
+  x  147 [webkit-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (58.6s)
+  ok 153 [webkit-small] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (8.3s)
+  x  148 [webkit-desktop] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (58.5s)
+  ok 151 [webkit-small] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (11.3s)
+  ok 152 [webkit-small] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (12.7s)
+  ok 158 [webkit-small] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (8.2s)
+  ok 159 [webkit-small] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (7.2s)
+  ok 157 [webkit-small] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (17.1s)
+  ok 161 [webkit-large] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (8.6s)
+  x  154 [webkit-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.1s)
+  x  155 [webkit-small] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (57.0s)
+  x  156 [webkit-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (57.7s)
+  x  160 [webkit-small] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (57.7s)
+  x  162 [webkit-large] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (57.2s)
+  x  163 [webkit-large] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (57.6s)
+  ok 169 [webkit-large] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.6s)
+  x  164 [webkit-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.1s)
+  x  165 [webkit-large] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (57.5s)
+  x  166 [webkit-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (57.5s)
+  ok 171 [webkit-iphone-emulation] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (8.4s)
+  x  167 [webkit-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (57.2s)
+  x  168 [webkit-large] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (57.1s)
+  x  170 [webkit-large] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (57.2s)
+  x  172 [webkit-iphone-emulation] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (56.6s)
+  x  173 [webkit-iphone-emulation] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.0s)
+  x  174 [webkit-iphone-emulation] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (57.0s)
+  ok 179 [webkit-iphone-emulation] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (6.8s)
+  x  175 [webkit-iphone-emulation] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (57.1s)
+  ok 181 [webkit-ipad] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (7.9s)
+  x  176 [webkit-iphone-emulation] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (57.1s)
+  x  177 [webkit-iphone-emulation] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (57.4s)
+  ok 183 [webkit-ipad] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (17.4s)
+  x  178 [webkit-iphone-emulation] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (57.5s)
+  x  180 [webkit-iphone-emulation] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (57.0s)
+  x  182 [webkit-ipad] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (58.2s)
+  x  184 [webkit-ipad] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (57.8s)
+  ok 189 [webkit-ipad] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (7.7s)
+  x  185 [webkit-ipad] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (57.5s)
+  ok 191 [chromium-touch] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (11.3s)
+  x  186 [webkit-ipad] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (58.7s)
+  ok 193 [chromium-touch] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (8.7s)
+  ok 192 [chromium-touch] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (16.8s)
+  ok 194 [chromium-touch] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (17.7s)
+  ok 195 [chromium-touch] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (17.8s)
+  x  187 [webkit-ipad] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (1.0m)
+  ok 196 [chromium-touch] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (15.7s)
+  x  188 [webkit-ipad] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (1.0m)
+  ok 199 [chromium-touch] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (7.0s)
+  ok 197 [chromium-touch] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (19.7s)
+  ok 198 [chromium-touch] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (20.4s)
+  ok 200 [chromium-touch] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (15.8s)
+  ok 201 [chromium-narrow] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (13.3s)
+  x  190 [webkit-ipad] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (1.0m)
+  ok 203 [chromium-narrow] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (10.9s)
+  -  207 [chromium-narrow] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range
+  ok 206 [chromium-narrow] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (14.2s)
+  ok 202 [chromium-narrow] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (26.7s)
+  ok 209 [chromium-narrow] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.0s)
+  ok 204 [chromium-narrow] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (16.1s)
+  ok 205 [chromium-narrow] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (21.2s)
+  ok 208 [chromium-narrow] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (20.9s)
+  ok 211 [chromium-mid-mobile] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (12.6s)
+  ok 212 [chromium-mid-mobile] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (12.9s)
+  ok 210 [chromium-narrow] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (16.4s)
+  ok 213 [chromium-mid-mobile] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (19.0s)
+  ok 215 [chromium-mid-mobile] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (11.1s)
+  ok 217 [chromium-mid-mobile] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (13.1s)
+  ok 219 [chromium-mid-mobile] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (7.3s)
+  ok 214 [chromium-mid-mobile] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (21.5s)
+  ok 216 [chromium-mid-mobile] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (20.9s)
+  ok 218 [chromium-mid-mobile] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (19.9s)
+  ok 223 [chromium-wide-mobile] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings (10.9s)
+  ok 221 [chromium-wide-mobile] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (12.9s)
+  ok 220 [chromium-mid-mobile] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (20.0s)
+  ok 222 [chromium-wide-mobile] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (25.1s)
+  ok 227 [chromium-wide-mobile] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (15.0s)
+  ok 229 [chromium-wide-mobile] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.5s)
+  ok 225 [chromium-wide-mobile] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (23.7s)
+  ok 226 [chromium-wide-mobile] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (22.3s)
+  x  224 [chromium-wide-mobile] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (25.1s)
+  ok 228 [chromium-wide-mobile] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (22.3s)
+  -  233 [chromium-high-dpi] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings
+  ok 230 [chromium-wide-mobile] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (21.5s)
+  ok 232 [chromium-high-dpi] › tests\00-harness.spec.js:3:1 › S0-01 mandatory test harness reports ALL TESTS PASSED (17.4s)
+  ok 234 [chromium-high-dpi] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box (28.7s)
+  ok 231 [chromium-high-dpi] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile (30.1s)
+  ok 235 [chromium-high-dpi] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (28.1s)
+  ok 236 [chromium-high-dpi] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite (29.6s)
+  ok 240 [chromium-high-dpi] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries (4.9s)
+  ok 239 [chromium-high-dpi] › tests\40-listview.spec.js:4:1 › S4-01 listview route loads and renders content (8.0s)
+  ok 237 [chromium-high-dpi] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline (22.5s)
+  ok 238 [chromium-high-dpi] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (19.6s)
+
+
+  1) [chrome-stable] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 50
+    Received:   0
+
+      25 |     });
+      26 |     expect(rect.kids).toBeGreaterThan(0);
+    > 27 |     expect(rect.width).toBeGreaterThan(50);
+         |                        ^
+      28 |     expect(rect.height).toBeGreaterThan(50);
+      29 |   });
+      30 |
+        at X:\tests\20-hypermap.spec.js:27:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium-small-laptop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 50
+    Received:   0
+
+      25 |     });
+      26 |     expect(rect.kids).toBeGreaterThan(0);
+    > 27 |     expect(rect.width).toBeGreaterThan(50);
+         |                        ^
+      28 |     expect(rect.height).toBeGreaterThan(50);
+      29 |   });
+      30 |
+        at X:\tests\20-hypermap.spec.js:27:24
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-small-laptop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-small-laptop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-small-laptop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-small-laptop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium-tablet-landscape] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for locator('#viewport')
+
+
+      20 |     }
+      21 |     if (box && box.width > 500 && box.height > 500) return;
+    > 22 |     const rect = await viewport.evaluate(el => {
+         |                                 ^
+      23 |       const r = el.getBoundingClientRect();
+      24 |       return { width: r.width, height: r.height, kids: el.childElementCount };
+      25 |     });
+        at X:\tests\20-hypermap.spec.js:22:33
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium-tablet-landscape] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      31 |   test("S2-02 crossing metric is finite", async ({ page }) => {
+      32 |     await openApp(page);
+    > 33 |     const metric = await page.evaluate(() =>
+         |                               ^
+      34 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
+      35 |     );
+      36 |     test.skip(!metric, "Crossing metric hook is not exposed");
+        at X:\tests\20-hypermap.spec.js:33:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium-tablet-landscape] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.evaluate(() => {
+         |                              ^
+      27 |     const bad = [];
+      28 |     document.querySelectorAll("svg path").forEach(node => {
+      29 |       const d = node.getAttribute("d") || "";
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:30)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chromium-tablet-landscape] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      45 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
+      46 |     await openApp(page);
+    > 47 |     const result = await page.evaluate(() => {
+         |                               ^
+      48 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
+      49 |       window.__sxFocusBranch("Bondage & restriction");
+      50 |       const direct = window.__sxViewportScale ||
+        at X:\tests\20-hypermap.spec.js:47:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [chromium-tablet-landscape] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:18
+
+      16 |
+      17 | async function readRuntimeErrors(page) {
+    > 18 |   return page.evaluate(() => ({
+         |               ^
+      19 |     queue: Array.isArray(window.__sxErrLogQueue) ? window.__sxErrLogQueue : null,
+      20 |     logger: window.__sxErrLog && Array.isArray(window.__sxErrLog.errors)
+      21 |       ? window.__sxErrLog.errors : null
+        at readRuntimeErrors (X:\tests\helpers.js:18:15)
+        at X:\tests\90-cross-browser-health.spec.js:15:26
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [chromium-tablet-portrait] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       5 |   test("S1-01 JSON import accepts a representative profile", async ({ page }) => {
+       6 |     await openApp(page, "#app/map");
+    >  7 |     const result = await page.evaluate(() => {
+         |                               ^
+       8 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+       9 |       if (!api || typeof api.importData !== "function") return { unsupported: true };
+      10 |       const sample = {
+        at X:\tests\10-profile-io.spec.js:7:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [chromium-tablet-portrait] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      24 |   test("S1-02 KinkTest and BDSMtest parsers return ratings", async ({ page }) => {
+      25 |     await openApp(page);
+    > 26 |     const result = await page.evaluate(() => {
+         |                               ^
+      27 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+      28 |       if (!api || typeof api.parse !== "function") return { unsupported: true };
+      29 |       const kink = api.parse("kinktest", "Bondage: 85% dom, 30% sub\n#1: favorite\n#2: hard limit");
+        at X:\tests\10-profile-io.spec.js:26:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [chromium-tablet-portrait] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: expect(locator).toBeAttached() failed
+
+    Locator: locator('#viewport')
+    Expected: attached
+    Error: Test timeout of 45000ms exceeded.
+
+    Call log:
+      - Expect "toBeAttached" locator('#viewport') with timeout 8000ms
+      - waiting for locator('#viewport')
+
+
+       6 |     await openApp(page);
+       7 |     const viewport = page.locator("#viewport");
+    >  8 |     await expect(viewport).toBeAttached();
+         |                            ^
+       9 |     // SVGRect getters do not survive Playwright's clone. getBBox on the full
+      10 |     // tree also fails to return on WebKit, so a timed-out call falls back to
+      11 |     // the on-screen box, which is the collapse signal those engines can give.
+        at X:\tests\20-hypermap.spec.js:8:28
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [chromium-tablet-portrait] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      31 |   test("S2-02 crossing metric is finite", async ({ page }) => {
+      32 |     await openApp(page);
+    > 33 |     const metric = await page.evaluate(() =>
+         |                               ^
+      34 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
+      35 |     );
+      36 |     test.skip(!metric, "Crossing metric hook is not exposed");
+        at X:\tests\20-hypermap.spec.js:33:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [chromium-tablet-portrait] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.evaluate(() => {
+         |                              ^
+      27 |     const bad = [];
+      28 |     document.querySelectorAll("svg path").forEach(node => {
+      29 |       const d = node.getAttribute("d") || "";
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:30)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) [chromium-tablet-portrait] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      45 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
+      46 |     await openApp(page);
+    > 47 |     const result = await page.evaluate(() => {
+         |                               ^
+      48 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
+      49 |       window.__sxFocusBranch("Bondage & restriction");
+      50 |       const direct = window.__sxViewportScale ||
+        at X:\tests\20-hypermap.spec.js:47:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  14) [chromium-tablet-portrait] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      4 | test("S3-01 pairwise compatibility engine returns a positive play headline", async ({ page }) => {
+      5 |   await openApp(page);
+    > 6 |   const result = await page.evaluate(() => {
+        |                             ^
+      7 |     const engine = window.__SEXCAPADES_SYNC_ENGINE;
+      8 |     if (!engine || typeof engine.pair !== "function") return { unsupported: true };
+      9 |     const a = {
+        at X:\tests\30-compatibility.spec.js:6:29
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  15) [chromium-tablet-portrait] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:18
+
+      16 |
+      17 | async function readRuntimeErrors(page) {
+    > 18 |   return page.evaluate(() => ({
+         |               ^
+      19 |     queue: Array.isArray(window.__sxErrLogQueue) ? window.__sxErrLogQueue : null,
+      20 |     logger: window.__sxErrLog && Array.isArray(window.__sxErrLog.errors)
+      21 |       ? window.__sxErrLog.errors : null
+        at readRuntimeErrors (X:\tests\helpers.js:18:15)
+        at X:\tests\90-cross-browser-health.spec.js:15:26
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  16) [webkit-desktop] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       5 |   test("S1-01 JSON import accepts a representative profile", async ({ page }) => {
+       6 |     await openApp(page, "#app/map");
+    >  7 |     const result = await page.evaluate(() => {
+         |                               ^
+       8 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+       9 |       if (!api || typeof api.importData !== "function") return { unsupported: true };
+      10 |       const sample = {
+        at X:\tests\10-profile-io.spec.js:7:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17) [webkit-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: expect(locator).toBeAttached() failed
+
+    Locator: locator('#viewport')
+    Expected: attached
+    Error: Test timeout of 45000ms exceeded.
+
+    Call log:
+      - Expect "toBeAttached" locator('#viewport') with timeout 8000ms
+      - waiting for locator('#viewport')
+
+
+       6 |     await openApp(page);
+       7 |     const viewport = page.locator("#viewport");
+    >  8 |     await expect(viewport).toBeAttached();
+         |                            ^
+       9 |     // SVGRect getters do not survive Playwright's clone. getBBox on the full
+      10 |     // tree also fails to return on WebKit, so a timed-out call falls back to
+      11 |     // the on-screen box, which is the collapse signal those engines can give.
+        at X:\tests\20-hypermap.spec.js:8:28
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  18) [webkit-desktop] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      31 |   test("S2-02 crossing metric is finite", async ({ page }) => {
+      32 |     await openApp(page);
+    > 33 |     const metric = await page.evaluate(() =>
+         |                               ^
+      34 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
+      35 |     );
+      36 |     test.skip(!metric, "Crossing metric hook is not exposed");
+        at X:\tests\20-hypermap.spec.js:33:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  19) [webkit-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.evaluate(() => {
+         |                              ^
+      27 |     const bad = [];
+      28 |     document.querySelectorAll("svg path").forEach(node => {
+      29 |       const d = node.getAttribute("d") || "";
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:30)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  20) [webkit-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      45 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
+      46 |     await openApp(page);
+    > 47 |     const result = await page.evaluate(() => {
+         |                               ^
+      48 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
+      49 |       window.__sxFocusBranch("Bondage & restriction");
+      50 |       const direct = window.__sxViewportScale ||
+        at X:\tests\20-hypermap.spec.js:47:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  21) [webkit-desktop] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      4 | test("S3-01 pairwise compatibility engine returns a positive play headline", async ({ page }) => {
+      5 |   await openApp(page);
+    > 6 |   const result = await page.evaluate(() => {
+        |                             ^
+      7 |     const engine = window.__SEXCAPADES_SYNC_ENGINE;
+      8 |     if (!engine || typeof engine.pair !== "function") return { unsupported: true };
+      9 |     const a = {
+        at X:\tests\30-compatibility.spec.js:6:29
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  22) [webkit-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: expect(locator).toBeAttached() failed
+
+    Locator: locator('#viewport')
+    Expected: attached
+    Error: Test timeout of 45000ms exceeded.
+
+    Call log:
+      - Expect "toBeAttached" locator('#viewport') with timeout 8000ms
+      - waiting for locator('#viewport')
+
+
+       6 |     await openApp(page);
+       7 |     const viewport = page.locator("#viewport");
+    >  8 |     await expect(viewport).toBeAttached();
+         |                            ^
+       9 |     // SVGRect getters do not survive Playwright's clone. getBBox on the full
+      10 |     // tree also fails to return on WebKit, so a timed-out call falls back to
+      11 |     // the on-screen box, which is the collapse signal those engines can give.
+        at X:\tests\20-hypermap.spec.js:8:28
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-small\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  23) [webkit-small] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      31 |   test("S2-02 crossing metric is finite", async ({ page }) => {
+      32 |     await openApp(page);
+    > 33 |     const metric = await page.evaluate(() =>
+         |                               ^
+      34 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
+      35 |     );
+      36 |     test.skip(!metric, "Crossing metric hook is not exposed");
+        at X:\tests\20-hypermap.spec.js:33:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-small\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-small\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-small\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-small\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  24) [webkit-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.evaluate(() => {
+         |                              ^
+      27 |     const bad = [];
+      28 |     document.querySelectorAll("svg path").forEach(node => {
+      29 |       const d = node.getAttribute("d") || "";
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:30)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-small\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-small\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-small\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-small\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  25) [webkit-small] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:18
+
+      16 |
+      17 | async function readRuntimeErrors(page) {
+    > 18 |   return page.evaluate(() => ({
+         |               ^
+      19 |     queue: Array.isArray(window.__sxErrLogQueue) ? window.__sxErrLogQueue : null,
+      20 |     logger: window.__sxErrLog && Array.isArray(window.__sxErrLog.errors)
+      21 |       ? window.__sxErrLog.errors : null
+        at readRuntimeErrors (X:\tests\helpers.js:18:15)
+        at X:\tests\90-cross-browser-health.spec.js:15:26
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-small\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-small\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-small\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-small\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  26) [webkit-large] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       5 |   test("S1-01 JSON import accepts a representative profile", async ({ page }) => {
+       6 |     await openApp(page, "#app/map");
+    >  7 |     const result = await page.evaluate(() => {
+         |                               ^
+       8 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+       9 |       if (!api || typeof api.importData !== "function") return { unsupported: true };
+      10 |       const sample = {
+        at X:\tests\10-profile-io.spec.js:7:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  27) [webkit-large] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      24 |   test("S1-02 KinkTest and BDSMtest parsers return ratings", async ({ page }) => {
+      25 |     await openApp(page);
+    > 26 |     const result = await page.evaluate(() => {
+         |                               ^
+      27 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+      28 |       if (!api || typeof api.parse !== "function") return { unsupported: true };
+      29 |       const kink = api.parse("kinktest", "Bondage: 85% dom, 30% sub\n#1: favorite\n#2: hard limit");
+        at X:\tests\10-profile-io.spec.js:26:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  28) [webkit-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: expect(locator).toBeAttached() failed
+
+    Locator: locator('#viewport')
+    Expected: attached
+    Error: Test timeout of 45000ms exceeded.
+
+    Call log:
+      - Expect "toBeAttached" locator('#viewport') with timeout 8000ms
+      - waiting for locator('#viewport')
+
+
+       6 |     await openApp(page);
+       7 |     const viewport = page.locator("#viewport");
+    >  8 |     await expect(viewport).toBeAttached();
+         |                            ^
+       9 |     // SVGRect getters do not survive Playwright's clone. getBBox on the full
+      10 |     // tree also fails to return on WebKit, so a timed-out call falls back to
+      11 |     // the on-screen box, which is the collapse signal those engines can give.
+        at X:\tests\20-hypermap.spec.js:8:28
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  29) [webkit-large] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      31 |   test("S2-02 crossing metric is finite", async ({ page }) => {
+      32 |     await openApp(page);
+    > 33 |     const metric = await page.evaluate(() =>
+         |                               ^
+      34 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
+      35 |     );
+      36 |     test.skip(!metric, "Crossing metric hook is not exposed");
+        at X:\tests\20-hypermap.spec.js:33:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  30) [webkit-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.evaluate(() => {
+         |                              ^
+      27 |     const bad = [];
+      28 |     document.querySelectorAll("svg path").forEach(node => {
+      29 |       const d = node.getAttribute("d") || "";
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:30)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  31) [webkit-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      45 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
+      46 |     await openApp(page);
+    > 47 |     const result = await page.evaluate(() => {
+         |                               ^
+      48 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
+      49 |       window.__sxFocusBranch("Bondage & restriction");
+      50 |       const direct = window.__sxViewportScale ||
+        at X:\tests\20-hypermap.spec.js:47:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  32) [webkit-large] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      4 | test("S3-01 pairwise compatibility engine returns a positive play headline", async ({ page }) => {
+      5 |   await openApp(page);
+    > 6 |   const result = await page.evaluate(() => {
+        |                             ^
+      7 |     const engine = window.__SEXCAPADES_SYNC_ENGINE;
+      8 |     if (!engine || typeof engine.pair !== "function") return { unsupported: true };
+      9 |     const a = {
+        at X:\tests\30-compatibility.spec.js:6:29
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  33) [webkit-large] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:18
+
+      16 |
+      17 | async function readRuntimeErrors(page) {
+    > 18 |   return page.evaluate(() => ({
+         |               ^
+      19 |     queue: Array.isArray(window.__sxErrLogQueue) ? window.__sxErrLogQueue : null,
+      20 |     logger: window.__sxErrLog && Array.isArray(window.__sxErrLog.errors)
+      21 |       ? window.__sxErrLog.errors : null
+        at readRuntimeErrors (X:\tests\helpers.js:18:15)
+        at X:\tests\90-cross-browser-health.spec.js:15:26
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  34) [webkit-iphone-emulation] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       5 |   test("S1-01 JSON import accepts a representative profile", async ({ page }) => {
+       6 |     await openApp(page, "#app/map");
+    >  7 |     const result = await page.evaluate(() => {
+         |                               ^
+       8 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+       9 |       if (!api || typeof api.importData !== "function") return { unsupported: true };
+      10 |       const sample = {
+        at X:\tests\10-profile-io.spec.js:7:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  35) [webkit-iphone-emulation] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      24 |   test("S1-02 KinkTest and BDSMtest parsers return ratings", async ({ page }) => {
+      25 |     await openApp(page);
+    > 26 |     const result = await page.evaluate(() => {
+         |                               ^
+      27 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+      28 |       if (!api || typeof api.parse !== "function") return { unsupported: true };
+      29 |       const kink = api.parse("kinktest", "Bondage: 85% dom, 30% sub\n#1: favorite\n#2: hard limit");
+        at X:\tests\10-profile-io.spec.js:26:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  36) [webkit-iphone-emulation] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: expect(locator).toBeAttached() failed
+
+    Locator: locator('#viewport')
+    Expected: attached
+    Error: Test timeout of 45000ms exceeded.
+
+    Call log:
+      - Expect "toBeAttached" locator('#viewport') with timeout 8000ms
+      - waiting for locator('#viewport')
+
+
+       6 |     await openApp(page);
+       7 |     const viewport = page.locator("#viewport");
+    >  8 |     await expect(viewport).toBeAttached();
+         |                            ^
+       9 |     // SVGRect getters do not survive Playwright's clone. getBBox on the full
+      10 |     // tree also fails to return on WebKit, so a timed-out call falls back to
+      11 |     // the on-screen box, which is the collapse signal those engines can give.
+        at X:\tests\20-hypermap.spec.js:8:28
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  37) [webkit-iphone-emulation] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      31 |   test("S2-02 crossing metric is finite", async ({ page }) => {
+      32 |     await openApp(page);
+    > 33 |     const metric = await page.evaluate(() =>
+         |                               ^
+      34 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
+      35 |     );
+      36 |     test.skip(!metric, "Crossing metric hook is not exposed");
+        at X:\tests\20-hypermap.spec.js:33:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  38) [webkit-iphone-emulation] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.evaluate(() => {
+         |                              ^
+      27 |     const bad = [];
+      28 |     document.querySelectorAll("svg path").forEach(node => {
+      29 |       const d = node.getAttribute("d") || "";
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:30)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  39) [webkit-iphone-emulation] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      45 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
+      46 |     await openApp(page);
+    > 47 |     const result = await page.evaluate(() => {
+         |                               ^
+      48 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
+      49 |       window.__sxFocusBranch("Bondage & restriction");
+      50 |       const direct = window.__sxViewportScale ||
+        at X:\tests\20-hypermap.spec.js:47:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  40) [webkit-iphone-emulation] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      4 | test("S3-01 pairwise compatibility engine returns a positive play headline", async ({ page }) => {
+      5 |   await openApp(page);
+    > 6 |   const result = await page.evaluate(() => {
+        |                             ^
+      7 |     const engine = window.__SEXCAPADES_SYNC_ENGINE;
+      8 |     if (!engine || typeof engine.pair !== "function") return { unsupported: true };
+      9 |     const a = {
+        at X:\tests\30-compatibility.spec.js:6:29
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  41) [webkit-iphone-emulation] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:18
+
+      16 |
+      17 | async function readRuntimeErrors(page) {
+    > 18 |   return page.evaluate(() => ({
+         |               ^
+      19 |     queue: Array.isArray(window.__sxErrLogQueue) ? window.__sxErrLogQueue : null,
+      20 |     logger: window.__sxErrLog && Array.isArray(window.__sxErrLog.errors)
+      21 |       ? window.__sxErrLog.errors : null
+        at readRuntimeErrors (X:\tests\helpers.js:18:15)
+        at X:\tests\90-cross-browser-health.spec.js:15:26
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-iphone-emulation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-iphone-emulation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-iphone-emulation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-iphone-emulation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  42) [webkit-ipad] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       5 |   test("S1-01 JSON import accepts a representative profile", async ({ page }) => {
+       6 |     await openApp(page, "#app/map");
+    >  7 |     const result = await page.evaluate(() => {
+         |                               ^
+       8 |       const api = window.__sexcapades && window.__sexcapades.ProfileIO;
+       9 |       if (!api || typeof api.importData !== "function") return { unsupported: true };
+      10 |       const sample = {
+        at X:\tests\10-profile-io.spec.js:7:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  43) [webkit-ipad] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: expect(locator).toBeAttached() failed
+
+    Locator: locator('#viewport')
+    Expected: attached
+    Error: Test timeout of 45000ms exceeded.
+
+    Call log:
+      - Expect "toBeAttached" locator('#viewport') with timeout 8000ms
+      - waiting for locator('#viewport')
+
+
+       6 |     await openApp(page);
+       7 |     const viewport = page.locator("#viewport");
+    >  8 |     await expect(viewport).toBeAttached();
+         |                            ^
+       9 |     // SVGRect getters do not survive Playwright's clone. getBBox on the full
+      10 |     // tree also fails to return on WebKit, so a timed-out call falls back to
+      11 |     // the on-screen box, which is the collapse signal those engines can give.
+        at X:\tests\20-hypermap.spec.js:8:28
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  44) [webkit-ipad] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      31 |   test("S2-02 crossing metric is finite", async ({ page }) => {
+      32 |     await openApp(page);
+    > 33 |     const metric = await page.evaluate(() =>
+         |                               ^
+      34 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
+      35 |     );
+      36 |     test.skip(!metric, "Crossing metric hook is not exposed");
+        at X:\tests\20-hypermap.spec.js:33:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  45) [webkit-ipad] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.evaluate(() => {
+         |                              ^
+      27 |     const bad = [];
+      28 |     document.querySelectorAll("svg path").forEach(node => {
+      29 |       const d = node.getAttribute("d") || "";
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:30)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  46) [webkit-ipad] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      45 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
+      46 |     await openApp(page);
+    > 47 |     const result = await page.evaluate(() => {
+         |                               ^
+      48 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
+      49 |       window.__sxFocusBranch("Bondage & restriction");
+      50 |       const direct = window.__sxViewportScale ||
+        at X:\tests\20-hypermap.spec.js:47:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  47) [webkit-ipad] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      4 | test("S3-01 pairwise compatibility engine returns a positive play headline", async ({ page }) => {
+      5 |   await openApp(page);
+    > 6 |   const result = await page.evaluate(() => {
+        |                             ^
+      7 |     const engine = window.__SEXCAPADES_SYNC_ENGINE;
+      8 |     if (!engine || typeof engine.pair !== "function") return { unsupported: true };
+      9 |     const a = {
+        at X:\tests\30-compatibility.spec.js:6:29
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  48) [webkit-ipad] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+       at helpers.js:18
+
+      16 |
+      17 | async function readRuntimeErrors(page) {
+    > 18 |   return page.evaluate(() => ({
+         |               ^
+      19 |     queue: Array.isArray(window.__sxErrLogQueue) ? window.__sxErrLogQueue : null,
+      20 |     logger: window.__sxErrLog && Array.isArray(window.__sxErrLog.errors)
+      21 |       ? window.__sxErrLog.errors : null
+        at readRuntimeErrors (X:\tests\helpers.js:18:15)
+        at X:\tests\90-cross-browser-health.spec.js:15:26
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\90-cross-browser-health-S9-3795e-nal-exception-queue-entries-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  49) [chromium-wide-mobile] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 50
+    Received:   0
+
+      25 |     });
+      26 |     expect(rect.kids).toBeGreaterThan(0);
+    > 27 |     expect(rect.width).toBeGreaterThan(50);
+         |                        ^
+      28 |     expect(rect.height).toBeGreaterThan(50);
+      29 |   });
+      30 |
+        at X:\tests\20-hypermap.spec.js:27:24
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-wide-mobile\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-wide-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-wide-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chromium-wide-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  49 failed
+    [chrome-stable] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [chromium-small-laptop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [chromium-tablet-landscape] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [chromium-tablet-landscape] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+    [chromium-tablet-landscape] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [chromium-tablet-landscape] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [chromium-tablet-landscape] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+    [chromium-tablet-portrait] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+    [chromium-tablet-portrait] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings 
+    [chromium-tablet-portrait] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [chromium-tablet-portrait] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+    [chromium-tablet-portrait] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [chromium-tablet-portrait] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [chromium-tablet-portrait] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+    [chromium-tablet-portrait] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+    [webkit-desktop] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+    [webkit-desktop] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-desktop] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+    [webkit-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [webkit-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [webkit-desktop] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+    [webkit-small] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-small] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+    [webkit-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [webkit-small] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+    [webkit-large] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+    [webkit-large] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings 
+    [webkit-large] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-large] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+    [webkit-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [webkit-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [webkit-large] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+    [webkit-large] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+    [webkit-iphone-emulation] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+    [webkit-iphone-emulation] › tests\10-profile-io.spec.js:24:3 › Squad 1 — profile conversion and persistence › S1-02 KinkTest and BDSMtest parsers return ratings 
+    [webkit-iphone-emulation] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-iphone-emulation] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+    [webkit-iphone-emulation] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [webkit-iphone-emulation] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [webkit-iphone-emulation] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+    [webkit-iphone-emulation] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+    [webkit-ipad] › tests\10-profile-io.spec.js:5:3 › Squad 1 — profile conversion and persistence › S1-01 JSON import accepts a representative profile 
+    [webkit-ipad] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+    [webkit-ipad] › tests\20-hypermap.spec.js:31:3 › Squad 2 — hypermap geometry and interaction › S2-02 crossing metric is finite 
+    [webkit-ipad] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [webkit-ipad] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [webkit-ipad] › tests\30-compatibility.spec.js:4:1 › S3-01 pairwise compatibility engine returns a positive play headline 
+    [webkit-ipad] › tests\90-cross-browser-health.spec.js:4:1 › S9-01 app route produces no uncaught errors or internal exception queue entries 
+    [chromium-wide-mobile] › tests\20-hypermap.spec.js:5:3 › Squad 2 — hypermap geometry and interaction › S2-01 viewport has a non-collapsed bounding box 
+  8 skipped
+  183 passed (17.7m)

@@ -1,0 +1,569 @@
+{
+  "app": "sexcapades",
+  "version": 16,
+  "profileName": "Adam Peasant",
+  "gender": "male",
+  "sexuality": [
+    "queer",
+    "heteroflexible"
+  ],
+  "ratings": {
+    "t0002": 47,
+    "t0003": {
+      "give": -4,
+      "receive": 100
+    },
+    "t0004": {
+      "give": -11,
+      "receive": 79
+    },
+    "t0005": {
+      "give": -28,
+      "receive": 43
+    },
+    "t0006": {
+      "give": 48,
+      "receive": -40
+    },
+    "t0007": 25,
+    "t0008": 72,
+    "t0022": {
+      "give": 29,
+      "receive": 27
+    },
+    "t0025": {
+      "give": 20,
+      "receive": 30
+    },
+    "t0026": {
+      "give": 61,
+      "receive": 72
+    },
+    "t0033": {
+      "give": 22,
+      "receive": 100
+    },
+    "t0035": {
+      "give": -39,
+      "receive": 62
+    },
+    "t0032": {
+      "give": -41,
+      "receive": 12
+    },
+    "t0042": {
+      "give": 34,
+      "receive": 55
+    },
+    "t0034": {
+      "give": 65,
+      "receive": 100
+    },
+    "t0045": {
+      "give": -27,
+      "receive": 52
+    },
+    "t0040": {
+      "give": 30,
+      "receive": 16
+    },
+    "t0056": {
+      "give": 53,
+      "receive": 35
+    },
+    "t0069": {
+      "give": 55,
+      "receive": 38
+    },
+    "t0062": {
+      "give": 86,
+      "receive": 60
+    },
+    "t0067": {
+      "give": 60,
+      "receive": 22
+    },
+    "t0068": {
+      "give": 73,
+      "receive": 42
+    },
+    "t0064": {
+      "give": 38,
+      "receive": 14
+    },
+    "t0070": {
+      "give": 70,
+      "receive": 41
+    },
+    "t0354": {
+      "give": 40,
+      "receive": 52
+    },
+    "t0093": {
+      "give": 43,
+      "receive": 61
+    },
+    "t0074": {
+      "give": -88,
+      "receive": -100
+    },
+    "t0096": {
+      "give": -22,
+      "receive": 77
+    },
+    "t0097": {
+      "give": -50,
+      "receive": -20
+    },
+    "t0098": {
+      "give": 100,
+      "receive": 54
+    },
+    "t0099": {
+      "give": 100,
+      "receive": 59
+    },
+    "t0100": {
+      "give": 21,
+      "receive": -22
+    },
+    "t0101": {
+      "give": 100,
+      "receive": 77
+    },
+    "t0102": 100,
+    "t0103": {
+      "give": 54,
+      "receive": 91
+    },
+    "t0104": {
+      "give": 70,
+      "receive": 89
+    },
+    "t0105": {
+      "give": 28,
+      "receive": 100
+    },
+    "t0106": 56,
+    "t0108": -39,
+    "t0109": {
+      "give": 100,
+      "receive": 48
+    },
+    "t0110": {
+      "give": 100,
+      "receive": 100
+    },
+    "t0127": {
+      "give": -24,
+      "receive": 100
+    },
+    "t0125": {
+      "give": 43,
+      "receive": 38
+    },
+    "t0123": {
+      "give": 11,
+      "receive": 71
+    },
+    "t0136": {
+      "give": 65,
+      "receive": 100
+    },
+    "t0137": {
+      "give": 30,
+      "receive": 98
+    },
+    "t0138": {
+      "give": -61,
+      "receive": -18
+    },
+    "t0131": {
+      "give": 69,
+      "receive": 100
+    },
+    "t0129": {
+      "give": 35,
+      "receive": 59
+    },
+    "t0142": 25,
+    "t0146": 29,
+    "t0140": -17,
+    "t0134": {
+      "give": -43,
+      "receive": 100
+    },
+    "t0133": {
+      "give": -37,
+      "receive": 100
+    },
+    "t0128": {
+      "give": 78,
+      "receive": 36
+    },
+    "t0107": 88,
+    "t0153": {
+      "give": 44,
+      "receive": 46
+    },
+    "t0152": {
+      "give": 74,
+      "receive": 29
+    },
+    "t0181": {
+      "give": -22,
+      "receive": -61
+    },
+    "t0176": {
+      "give": 9,
+      "receive": -27
+    },
+    "t0166": {
+      "give": -54,
+      "receive": -100
+    },
+    "t0191": {
+      "give": 43,
+      "receive": 100
+    },
+    "t0196": {
+      "give": -24,
+      "receive": 73
+    },
+    "t0185": {
+      "give": -37,
+      "receive": -78
+    },
+    "t0162": {
+      "give": 30,
+      "receive": 47
+    },
+    "t0193": {
+      "give": 52,
+      "receive": 52
+    },
+    "t0168": {
+      "give": -28,
+      "receive": 38
+    },
+    "t0178": {
+      "give": 25,
+      "receive": 69
+    },
+    "t0213": {
+      "give": 80,
+      "receive": -28
+    },
+    "t0202": {
+      "give": -16,
+      "receive": -45
+    },
+    "t0203": {
+      "give": 34,
+      "receive": 63
+    },
+    "t0220": {
+      "give": 95,
+      "receive": 35
+    },
+    "t0218": {
+      "give": 78,
+      "receive": 99
+    },
+    "t0237": {
+      "give": 100,
+      "receive": -26
+    },
+    "t0234": {
+      "receive": 19,
+      "give": 19
+    },
+    "t0238": {
+      "give": -70,
+      "receive": -56
+    },
+    "t0222": {
+      "receive": -23,
+      "give": -23
+    },
+    "t0236": {
+      "give": -36,
+      "receive": -31
+    },
+    "t0264": {
+      "give": 65,
+      "receive": 56
+    },
+    "t0240": {
+      "give": 20,
+      "receive": 69
+    },
+    "t0239": {
+      "give": 32,
+      "receive": 100
+    },
+    "t0263": {
+      "give": 28,
+      "receive": 100
+    },
+    "t0243": {
+      "give": -21,
+      "receive": 100
+    },
+    "t0248": {
+      "give": 55,
+      "receive": 100
+    },
+    "t0245": {
+      "give": -72,
+      "receive": -64
+    },
+    "t0246": {
+      "give": 34,
+      "receive": 32
+    },
+    "t0258": 36,
+    "t0262": {
+      "give": 57,
+      "receive": 52
+    },
+    "t0266": {
+      "give": 83,
+      "receive": 100
+    },
+    "t0267": {
+      "give": 100,
+      "receive": 100
+    },
+    "t0268": {
+      "give": 100,
+      "receive": 47
+    },
+    "t0269": 100,
+    "t0270": {
+      "give": 100,
+      "receive": 87
+    },
+    "t0278": 100,
+    "t0279": 100,
+    "t0280": 100,
+    "t0281": {
+      "give": 49,
+      "receive": 82
+    },
+    "t0282": 100,
+    "t0283": {
+      "give": 100,
+      "receive": -42
+    },
+    "t0284": {
+      "give": 85,
+      "receive": 100
+    },
+    "t0299": {
+      "give": -24,
+      "receive": 33
+    },
+    "t0294": {
+      "give": -56,
+      "receive": -36
+    },
+    "t0315": {
+      "give": 100,
+      "receive": 100
+    },
+    "t0292": {
+      "give": 39,
+      "receive": 100
+    },
+    "t0314": {
+      "give": 73,
+      "receive": 57
+    },
+    "t0293": {
+      "give": -38,
+      "receive": 63
+    },
+    "t0295": {
+      "give": 78,
+      "receive": 41
+    },
+    "t0310": {
+      "give": 67,
+      "receive": -100
+    },
+    "t0300": {
+      "give": -85,
+      "receive": -44
+    },
+    "t0302": {
+      "give": 100,
+      "receive": 39
+    },
+    "t0301": {
+      "give": -100,
+      "receive": 41
+    },
+    "t0316": {
+      "give": 100,
+      "receive": -100
+    },
+    "t0304": {
+      "give": 70,
+      "receive": -100
+    },
+    "t0297": {
+      "give": -42,
+      "receive": 100
+    },
+    "t0291": {
+      "give": 46,
+      "receive": 70
+    },
+    "t0306": {
+      "give": 100,
+      "receive": 100
+    },
+    "t0317": -49,
+    "t0318": 56,
+    "t0319": 90,
+    "t0320": 67,
+    "t0321": 90,
+    "t0322": 100,
+    "t0323": 42,
+    "t0326": {
+      "give": 55,
+      "receive": -47
+    },
+    "t0327": {
+      "give": -35,
+      "receive": -77
+    },
+    "t0329": {
+      "give": 100,
+      "receive": 53
+    },
+    "t0330": {
+      "give": 58,
+      "receive": 57
+    },
+    "t0331": {
+      "give": 100,
+      "receive": 100
+    },
+    "t0332": {
+      "give": -100,
+      "receive": -100
+    },
+    "t0338": {
+      "give": 38,
+      "receive": 100
+    },
+    "t0339": {
+      "give": -100,
+      "receive": 35
+    },
+    "t0351": {
+      "give": -65,
+      "receive": 81
+    },
+    "t0352": {
+      "give": -79,
+      "receive": -28
+    },
+    "t0361": 34,
+    "t0359": {
+      "give": 100,
+      "receive": 23
+    },
+    "t0360": {
+      "give": -60,
+      "receive": 82
+    },
+    "t0362": {
+      "give": 25,
+      "receive": 56
+    },
+    "t0363": {
+      "give": -66,
+      "receive": 100
+    },
+    "t0366": 83,
+    "t0365": {
+      "give": -48,
+      "receive": 63
+    },
+    "t0367": {
+      "give": 100,
+      "receive": 100
+    },
+    "t0333": {
+      "give": -43,
+      "receive": -26
+    },
+    "t0353": {
+      "give": -70,
+      "receive": -34
+    },
+    "t0364": {
+      "give": -30,
+      "receive": 66
+    },
+    "t0375": {
+      "give": 53,
+      "receive": 48
+    },
+    "t0376": {
+      "give": 23,
+      "receive": 49
+    },
+    "t0377": 100,
+    "t0378": 100,
+    "t0379": 50,
+    "t0380": 59,
+    "t0381": {
+      "give": -44,
+      "receive": -21
+    },
+    "t0382": 100,
+    "t0383": 100,
+    "t0384": 100,
+    "t0385": {
+      "give": -76,
+      "receive": -22
+    },
+    "t0386": {
+      "give": -71,
+      "receive": 100
+    },
+    "t0396": 61,
+    "t0397": 80,
+    "t0398": {
+      "give": 91,
+      "receive": 89
+    },
+    "t0399": 33,
+    "t0400": {
+      "give": 53,
+      "receive": 76
+    },
+    "t0401": 58,
+    "t0402": 32,
+    "t0403": 74
+  },
+  "annotations": {
+    "t0003": "favorite",
+    "t0034": "favorite",
+    "t0266": "favorite",
+    "t0269": "favorite",
+    "t0270": "favorite",
+    "t0278": "favorite",
+    "t0279": "favorite",
+    "t0280": "favorite",
+    "t0315": "favorite"
+  },
+  "notes": {},
+  "importedChildren": {},
+  "aboutMe": "I'm a submissive. Not a role \u2014 the thing I am. I need to be owned, directed, told what to do. The structure of power exchange is where I'm most myself.\n\nI'm drawn to intensity with boundaries. I want to be pushed, used, put in my place \u2014 and I want it negotiated, named, and held. The trust matters as much as the act. I give up control, but I don't give up my voice.\n\nI'm an exhibitionist. Being seen turns me on \u2014 the vulnerability of it, the being-known. I stream with my partner; being watched isn't a kink I hide.\n\nI'm curious and still discovering. Age play, pet play \u2014 I'm exploring what it means to be small, kept, handled. I don't have it all figured out, and I'm honest about that.\n\nWhat I need from a partner: directness. Tell me what you want. Don't hint, don't dance around it. I respond to clarity and confidence. And after \u2014 I need the landing. The check-in, the holding, the confirmation that what we did mattered.\n\nHard limits: blood, needles, branding, scat, fear play. Anything that causes real harm or doesn't wash off. I want intensity, not injury.",
+  "termsOfService": "TERMS OF SERVICE\n\n1. FUCK TOY STATUS\nBy reading this profile you acknowledge I am a fuck toy with extra functions, not a maid. I exist to be used, not to do your dishes. Nude humiliation-service: yes. Domestic servitude: no.\n\n2. FREE USE POLICY\nFree use is ON with the right person, subject to negotiation and my hard limits (fear play, knife play, piercing, age play). \"Free\" means you don't have to ask twice \u2014 not that limits stop applying. Morgan, my Owner and key-holder, outranks everyone. Her word is final.\n\n3. CANDID CAMERA EXPECTATIONS\nI am the one being recorded \u2014 not you. Take pictures of me whenever you feel like it; you don't need to ask permission. The only time you need to say anything is when you want me to pose. I stream, I film, exhibitionism is core to who I am.\n\n4. CONSENT\nNone of the above overrides actual consent. We negotiate, we agree, then we play. Limits are hard. Safe words are sacred. Aftercare is mandatory.\n\n5. GOVERNING LAW\nWhoever holds the leash. Currently Morgan."
+}

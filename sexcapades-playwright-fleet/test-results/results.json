@@ -1,0 +1,1288 @@
+{
+  "config": {
+    "argv": [
+      "A:\\Program Files\\nodejs\\node.exe",
+      "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chrome-stable",
+      "--project=edge-stable"
+    ],
+    "configFile": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\playwright.config.js",
+    "rootDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 6
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-desktop",
+        "name": "chromium-desktop",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chrome-stable",
+        "name": "chrome-stable",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "edge-stable",
+        "name": "edge-stable",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-small-laptop",
+        "name": "chromium-small-laptop",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-large-desktop",
+        "name": "chromium-large-desktop",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-tablet-landscape",
+        "name": "chromium-tablet-landscape",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-tablet-portrait",
+        "name": "chromium-tablet-portrait",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-android-small",
+        "name": "chromium-android-small",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-android-large",
+        "name": "chromium-android-large",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-android-tablet",
+        "name": "chromium-android-tablet",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "firefox-desktop",
+        "name": "firefox-desktop",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "firefox-small",
+        "name": "firefox-small",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "firefox-large",
+        "name": "firefox-large",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "firefox-android-sized",
+        "name": "firefox-android-sized",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "webkit-desktop",
+        "name": "webkit-desktop",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-touch",
+        "name": "chromium-touch",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-narrow",
+        "name": "chromium-narrow",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-mid-mobile",
+        "name": "chromium-mid-mobile",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-wide-mobile",
+        "name": "chromium-wide-mobile",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "id": "chromium-high-dpi",
+        "name": "chromium-high-dpi",
+        "testDir": "J:/jason/Projects/Playwright/sexcapades-playwright-fleet/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "name": "chrome-stable",
+        "testDir": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests",
+        "snapshotDir": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "https://sexcapades.io",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "video": "retain-on-failure",
+          "ignoreHTTPSErrors": false,
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium",
+          "channel": "chrome"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chrome-stable"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 6
+        },
+        "name": "edge-stable",
+        "testDir": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests",
+        "snapshotDir": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "https://sexcapades.io",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "video": "retain-on-failure",
+          "ignoreHTTPSErrors": false,
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.8127.18 Safari/537.36 Edg/158.0.8127.18",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium",
+          "channel": "msedge"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "edge-stable"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.65.0",
+    "workers": 6,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "00-harness.spec.js",
+      "file": "00-harness.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "S0-01 mandatory test harness reports ALL TESTS PASSED",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome-stable",
+              "projectName": "chrome-stable",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 46688,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:06:06.863Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge-stable",
+              "projectName": "edge-stable",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 5,
+                  "status": "passed",
+                  "duration": 29837,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:07:35.204Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7810684843c3aca2560b-96b8e81ebe35a46c0081",
+          "file": "00-harness.spec.js",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "10-profile-io.spec.js",
+      "file": "10-profile-io.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Squad 1 — profile conversion and persistence",
+          "file": "10-profile-io.spec.js",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "S1-01 JSON import accepts a representative profile",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-stable",
+                  "projectName": "chrome-stable",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "timedOut",
+                      "duration": 87710,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:06:06.868Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chrome-stable\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chrome-stable\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                },
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge-stable",
+                  "projectName": "edge-stable",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 22964,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:07:35.206Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4c2898821358cb9a0daf-aacdfe096381ecbeb6d4",
+              "file": "10-profile-io.spec.js",
+              "line": 6,
+              "column": 3
+            },
+            {
+              "title": "S1-02 KinkTest and BDSMtest parsers return ratings",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-stable",
+                  "projectName": "chrome-stable",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 47477,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:06:06.872Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge-stable",
+                  "projectName": "edge-stable",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 17742,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:07:45.227Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4c2898821358cb9a0daf-535a2d6f9a3c7f10ed2d",
+              "file": "10-profile-io.spec.js",
+              "line": 13,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "20-hypermap.spec.js",
+      "file": "20-hypermap.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Squad 2 — hypermap geometry and interaction",
+          "file": "20-hypermap.spec.js",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "S2-01 viewport has a non-collapsed bounding box",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-stable",
+                  "projectName": "chrome-stable",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "failed",
+                      "duration": 65924,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63",
+                        "location": {
+                          "file": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                          "column": 63,
+                          "line": 16
+                        },
+                        "snippet": " \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                            "column": 63,
+                            "line": 16
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\n \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[2m    at J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63\u001b[22m"
+                        },
+                        {
+                          "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 45000ms.\u001b[39m"
+                        },
+                        {
+                          "message": "Error: browserContext.close: Test ended.\nBrowser logs:\n\n<launching> C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,HttpsUpgrades,HttpsFirstBalancedModeAutoEnable,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,AvoidCorsURLLoaderRestartOnRedirect,TcpPortRandomizationWin,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,PreconnectToSearch,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface,SkipListAccountsWithoutGaiaCookies --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --enable-unsafe-swiftshader --edge-skip-compat-layer-relaunch --disable-stack-profiler --disable-infobars --disable-sync --do-not-de-elevate --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\\Users\\jason\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-I9XtFa --remote-debugging-pipe --no-startup-window\n<launched> pid=39364\n[pid=39364] <gracefully close start>"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:06:06.898Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                        "column": 63,
+                        "line": 16
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                },
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge-stable",
+                  "projectName": "edge-stable",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 28332,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63",
+                        "location": {
+                          "file": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                          "column": 63,
+                          "line": 16
+                        },
+                        "snippet": " \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                            "column": 63,
+                            "line": 16
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\n \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[2m    at J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:07:49.460Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                        "column": 63,
+                        "line": 16
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "cfbe2aa3894228f8d0fc-2fb21ece1fb9dae07a7f",
+              "file": "20-hypermap.spec.js",
+              "line": 5,
+              "column": 3
+            },
+            {
+              "title": "S2-02 crossing metric is finite",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-stable",
+                  "projectName": "chrome-stable",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "timedOut",
+                      "duration": 84240,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:06:06.887Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chrome-stable\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chrome-stable\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chrome-stable\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                },
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge-stable",
+                  "projectName": "edge-stable",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 29405,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:07:53.129Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cfbe2aa3894228f8d0fc-7d1df627fcd56d0ff93f",
+              "file": "20-hypermap.spec.js",
+              "line": 19,
+              "column": 3
+            },
+            {
+              "title": "S2-03 SVG geometry contains no NaN or Infinity",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-stable",
+                  "projectName": "chrome-stable",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "timedOut",
+                      "duration": 83752,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:06:06.897Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Playwright\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                },
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge-stable",
+                  "projectName": "edge-stable",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 18739,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:07:59.512Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cfbe2aa3894228f8d0fc-1100e98c4fbf59a1c1ae",
+              "file": "20-hypermap.spec.js",
+              "line": 28,
+              "column": 3
+            },
+            {
+              "title": "S2-04 branch focus keeps camera scale in expected range",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-stable",
+                  "projectName": "chrome-stable",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 47317,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:06:55.300Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge-stable",
+                  "projectName": "edge-stable",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 17755,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-13T01:08:04.627Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cfbe2aa3894228f8d0fc-6d963d85807bd390a059",
+              "file": "20-hypermap.spec.js",
+              "line": 33,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "30-compatibility.spec.js",
+      "file": "30-compatibility.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "S3-01 pairwise compatibility engine returns a positive play headline",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome-stable",
+              "projectName": "chrome-stable",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 33223,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:06:57.589Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge-stable",
+              "projectName": "edge-stable",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 5,
+                  "status": "passed",
+                  "duration": 19719,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:08:06.478Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "12fcef84d6815f2fdfd6-53ebd738b3d5bec2e948",
+          "file": "30-compatibility.spec.js",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "40-listview.spec.js",
+      "file": "40-listview.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "S4-01 listview route loads and renders content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome-stable",
+              "projectName": "chrome-stable",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 16018,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:07:30.900Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge-stable",
+              "projectName": "edge-stable",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 15841,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:08:21.126Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5767a9ec6a438aab8024-a60c77e269f9cadb2cc7",
+          "file": "40-listview.spec.js",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "90-cross-browser-health.spec.js",
+      "file": "90-cross-browser-health.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "S9-01 app route produces no uncaught errors or internal exception queue entries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome-stable",
+              "projectName": "chrome-stable",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 36187,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:07:33.640Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "console-diagnostics.json",
+                      "contentType": "application/json",
+                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogW10sCiAgImNvbnNvbGVXYXJuaW5ncyI6IFtdCn0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge-stable",
+              "projectName": "edge-stable",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 4,
+                  "status": "passed",
+                  "duration": 18483,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T01:08:18.314Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "console-diagnostics.json",
+                      "contentType": "application/json",
+                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogW10sCiAgImNvbnNvbGVXYXJuaW5ncyI6IFtdCn0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b700ed5a8cdd9d03455a-da2889f3b3ddbfb2c393",
+          "file": "90-cross-browser-health.spec.js",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-13T01:06:06.348Z",
+    "duration": 152657.06,
+    "expected": 15,
+    "skipped": 0,
+    "unexpected": 5,
+    "flaky": 0
+  }
+}

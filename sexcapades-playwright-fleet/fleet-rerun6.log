@@ -1,0 +1,396 @@
+
+Running 48 tests using 12 workers
+
+  ok  5 [chromium-small-laptop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (37.4s)
+  ok  1 [chromium-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (37.9s)
+  ok 11 [chromium-large-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (1.1m)
+  ok  4 [edge-stable] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (1.1m)
+  x   9 [chrome-stable] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (1.2m)
+  x   2 [chrome-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (1.1m)
+  x   8 [chromium-small-laptop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (1.2m)
+  x   3 [edge-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (1.2m)
+  ok 18 [chromium-android-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (13.6s)
+  ok 16 [chromium-android-small] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (16.3s)
+  x  10 [chromium-tablet-landscape] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (1.3m)
+  x  12 [chromium-tablet-landscape] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (1.3m)
+  ok 20 [chromium-android-tablet] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (14.5s)
+  ok 15 [chromium-android-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (22.2s)
+  x   7 [chromium-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (1.2m)
+  x   6 [chromium-large-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (1.2m)
+  ok 14 [chromium-tablet-portrait] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (25.6s)
+  ok 17 [chromium-android-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (23.2s)
+  ok 19 [chromium-android-tablet] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (24.2s)
+  ok 21 [firefox-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (23.9s)
+  ok 22 [firefox-small] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (25.1s)
+  ok 25 [firefox-android-sized] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (27.7s)
+  ok 28 [firefox-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (31.6s)
+  ok 27 [firefox-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (30.7s)
+  ok 30 [webkit-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (33.0s)
+  ok 29 [webkit-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (34.5s)
+  ok 24 [firefox-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (34.7s)
+  ok 23 [firefox-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (36.6s)
+  ok 26 [firefox-android-sized] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (37.5s)
+  ok 32 [webkit-small] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (22.0s)
+  ok 37 [chromium-touch] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (13.8s)
+  ok 31 [webkit-small] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (28.2s)
+  ok 33 [webkit-ipad] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (22.4s)
+  ok 40 [chromium-touch] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (20.3s)
+  ok 36 [webkit-iphone-emulation] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (22.9s)
+  ok 42 [chromium-narrow] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (14.7s)
+  ok 34 [webkit-iphone-emulation] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (31.3s)
+  ok 41 [chromium-narrow] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (21.4s)
+  ok 43 [chromium-mid-mobile] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (12.8s)
+  x  13 [chromium-tablet-portrait] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (1.2m)
+  ok 47 [chromium-mid-mobile] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (15.8s)
+  ok 44 [chromium-wide-mobile] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (23.8s)
+  ok 46 [chromium-high-dpi] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (24.0s)
+  ok 45 [chromium-wide-mobile] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (26.3s)
+  ok 48 [chromium-high-dpi] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (20.9s)
+  x  35 [webkit-ipad] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (58.4s)
+  x  38 [webkit-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range (57.3s)
+  x  39 [webkit-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity (57.4s)
+
+
+  1) [chromium-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0.01
+    Received:   0.002608028213971032
+
+      59 |     test.skip(!result || result.unsupported, "Branch focus hook is not exposed");
+      60 |     expect(Number.isFinite(result)).toBeTruthy();
+    > 61 |     expect(result).toBeGreaterThan(0.01);
+         |                    ^
+      62 |     expect(result).toBeLessThan(2.0);
+      63 |   });
+      64 | });
+        at X:\tests\20-hypermap.spec.js:61:20
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-desktop\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.evaluateAll: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.locator("svg [d]").evaluateAll(nodes =>
+         |                                                 ^
+      27 |     nodes.filter(node => {
+      28 |       const d = node.getAttribute("d") || "";
+      29 |       return /NaN|Infinity/.test(d);
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:49)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chrome-stable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome-stable] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chrome-stable\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chrome-stable\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chrome-stable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chrome-stable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [edge-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium-small-laptop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0.01
+    Received:   0.002608028213971032
+
+      59 |     test.skip(!result || result.unsupported, "Branch focus hook is not exposed");
+      60 |     expect(Number.isFinite(result)).toBeTruthy();
+    > 61 |     expect(result).toBeGreaterThan(0.01);
+         |                    ^
+      62 |     expect(result).toBeLessThan(2.0);
+      63 |   });
+      64 | });
+        at X:\tests\20-hypermap.spec.js:61:20
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-small-laptop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-small-laptop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-small-laptop\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-small-laptop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-small-laptop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chromium-large-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-large-desktop\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-large-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-large-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-large-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [chromium-tablet-landscape] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.waitForTimeout: Test timeout of 45000ms exceeded.
+
+       at helpers.js:14
+
+      12 |     await page.waitForURL(/\/qa\/app\.html/, { timeout: 8000 });
+      13 |   }
+    > 14 |   await page.waitForTimeout(1200);
+         |              ^
+      15 | }
+      16 |
+      17 | async function readRuntimeErrors(page) {
+        at openApp (X:\tests\helpers.js:14:14)
+        at X:\tests\20-hypermap.spec.js:41:5
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [chromium-tablet-landscape] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chromium-tablet-landscape\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [chromium-tablet-portrait] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.evaluateAll: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.locator("svg [d]").evaluateAll(nodes =>
+         |                                                 ^
+      27 |     nodes.filter(node => {
+      28 |       const d = node.getAttribute("d") || "";
+      29 |       return /NaN|Infinity/.test(d);
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:49)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-chromium-tablet-portrait\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [webkit-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.evaluateAll: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.locator("svg [d]").evaluateAll(nodes =>
+         |                                                 ^
+      27 |     nodes.filter(node => {
+      28 |       const d = node.getAttribute("d") || "";
+      29 |       return /NaN|Infinity/.test(d);
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:49)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [webkit-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 45000ms exceeded.
+
+      45 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
+      46 |     await openApp(page);
+    > 47 |     const result = await page.evaluate(() => {
+         |                               ^
+      48 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
+      49 |       window.__sxFocusBranch("Bondage & restriction");
+      50 |       const direct = window.__sxViewportScale ||
+        at X:\tests\20-hypermap.spec.js:47:31
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-webkit-large\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [webkit-ipad] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.evaluateAll: Test timeout of 45000ms exceeded.
+
+       at helpers.js:26
+
+      24 |
+      25 | async function assertNoInvalidSvgGeometry(page) {
+    > 26 |   const invalid = await page.locator("svg [d]").evaluateAll(nodes =>
+         |                                                 ^
+      27 |     nodes.filter(node => {
+      28 |       const d = node.getAttribute("d") || "";
+      29 |       return /NaN|Infinity/.test(d);
+        at assertNoInvalidSvgGeometry (X:\tests\helpers.js:26:49)
+        at X:\tests\20-hypermap.spec.js:42:11
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-webkit-ipad\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12 failed
+    [chromium-desktop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [chrome-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [chrome-stable] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [edge-stable] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [chromium-small-laptop] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [chromium-large-desktop] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [chromium-tablet-landscape] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [chromium-tablet-landscape] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [chromium-tablet-portrait] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [webkit-large] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+    [webkit-large] › tests\20-hypermap.spec.js:45:3 › Squad 2 — hypermap geometry and interaction › S2-04 branch focus keeps camera scale in expected range 
+    [webkit-ipad] › tests\20-hypermap.spec.js:40:3 › Squad 2 — hypermap geometry and interaction › S2-03 SVG geometry contains no NaN or Infinity 
+  36 passed (3.3m)

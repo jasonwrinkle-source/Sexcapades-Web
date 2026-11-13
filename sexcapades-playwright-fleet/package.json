@@ -1,0 +1,16 @@
+{
+  "name": "sexcapades-browser-fleet",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/00-harness.spec.js",
+    "test:chromium": "playwright test --project=chromium-desktop",
+    "test:firefox": "playwright test --project=firefox-desktop",
+    "test:webkit": "playwright test --project=webkit-desktop",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}
