@@ -819,7 +819,12 @@
                         totalLines: u,
                         warnings: s,
                         bestFit: [ ...new Set(l) ],
-                        mappings: c
+                        mappings: c,
+                        // KinkTest fix (1.1): the branch ids this paste
+                        // rated, so the merge records them as categoryHits
+                        // (like FetLife's broadHits) and On Deck can
+                        // propose their topics.
+                        categoryHits: Object.keys(t).filter(e => isCatId(e) || isSubId(e))
                     });
                 }(String(t || "")); else if ("checklist" === n || "yesnomaybe" === n) i = function(e) {
                     const t = {}, n = {}, i = {}, a = {}, r = {}, o = {}, s = {}, sxNotes = {}, l = [], c = [], d = [], sxSug = [];

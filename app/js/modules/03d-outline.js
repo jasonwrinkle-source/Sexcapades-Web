@@ -423,7 +423,7 @@
                 unreviewed: []
             };
             if (!e || e !== Et && !vt[e]) return t;
-            const n = __sxOnDeckIndex(e), i = new Set((gt[e] && gt[e].fetlife && gt[e].fetlife.categoryHits) || []), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
+            const n = __sxOnDeckIndex(e), i = new Set(Object.values(gt[e] || {}).flatMap(f => (f && f.categoryHits) || [])), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
             n.forEach((n, s) => {
                 if ("limit" === a[s]) return;
                 const l = ca(s, e), c = Ge(s, e);
