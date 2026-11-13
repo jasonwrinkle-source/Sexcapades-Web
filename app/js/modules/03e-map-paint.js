@@ -1798,6 +1798,13 @@
         };
         window.SX = window.SexcapadesEngine;
 
+        // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13): the capsule
+        // draw is the visible animation — keep it, but batch it to at
+        // most one draw per animation frame during a run.
+        // sxInterimPaintPending is set while a frame is scheduled;
+        // sxInterimPaintGeo always holds the newest solved geometry,
+        // so a burst of Mr calls inside one frame draws once, latest.
+        let sxInterimPaintPending = !1, sxInterimPaintGeo = null;
         function Mr(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
             if (jn && !e.recovery) return !1;
@@ -1884,7 +1891,27 @@
                     const d = SX_SOLVER_FACADE.build();
                     SX_SOLVER_FACADE.tidy(d);
                     sn.clear(), d.branches.forEach(e2 => sn.set(e2.entry.branch.name, e2.angle));
-                    sxInterimCapsulePaint(d);
+                    // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13):
+                    // the capsule draw is the animation — keep it visible,
+                    // but draw at most once per animation frame. A burst of
+                    // Mr calls inside one frame only replaces the pending
+                    // geometry; the single rAF draws the latest state. The
+                    // solve (build + angle map above) stays synchronous —
+                    // only the DOM draw is deferred. If the run ends (or a
+                    // new run starts) before the frame, the draw is
+                    // skipped; the closing full paint shows the final state.
+                    sxInterimPaintGeo = d;
+                    if (!sxInterimPaintPending) {
+                        sxInterimPaintPending = !0;
+                        const ctx = dkCtx;
+                        requestAnimationFrame(() => {
+                            sxInterimPaintPending = !1;
+                            const g = sxInterimPaintGeo;
+                            sxInterimPaintGeo = null;
+                            if (!g || dkCtx !== ctx) return;
+                            try { sxInterimCapsulePaint(g); } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
+                        });
+                    }
                     return !0;
                 } catch (err) {
                     return Cr(err), !1;

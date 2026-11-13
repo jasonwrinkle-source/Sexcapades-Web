@@ -80,6 +80,14 @@ sed -i 's|src="data/|src="/hosted/app-assets/|g' "$HOSTED/app.html"
 sed -i 's|src="js/|src="/hosted/app-assets/|g' "$HOSTED/app.html"
 sed -i 's|src="images/|src="/hosted/app-assets/images/|g' "$HOSTED/app.html"
 
+# Cache-buster: the source shell carries hand-maintained ?v= values (and
+# several scripts carry none), so browsers served stale JS under a new
+# build number. Rewrite every local .js/.css in the STAGED app.html to
+# ?v=$BUILD_NUM at packaging time; the source keeps its values as
+# fallbacks and the packaged output is always correct.
+echo "Stamping asset versions (?v=$BUILD_NUM)..."
+python3 "$DIR/packaging-scripts/stamp-asset-versions.py" "$BUILD_NUM" "$HOSTED/app.html"
+
 cp "$DIR/app/css/app.css" "$HOSTED/app-assets/app.css"
 cp "$DIR/app/vendor/"* "$HOSTED/app-assets/vendor/"
 cp "$DIR/app/data/"*.js "$HOSTED/app-assets/"
@@ -220,11 +228,11 @@ if [ "$SW_CACHE" != "sexcapades-v$BUILD_NUM" ]; then
   fail "packaged sw.js cache name '${SW_CACHE:-none}' != sexcapades-v$BUILD_NUM"
 fi
 
-SHELL_REFS=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/app.html 2>/dev/null | grep -oE '"app-assets/[^"]+"' || true)
+SHELL_REFS=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/app.html 2>/dev/null | grep -oE '"/hosted/app-assets/[^"]+"' || true)
 for ref in $SHELL_REFS; do
   refpath=${ref//\"/}
   case "$refpath" in
-    *".js?v=$BUILD_NUM"|*".css?v=$BUILD_NUM") ;;
+    *.js\?v=$BUILD_NUM|*.css\?v=$BUILD_NUM) ;;
     *.js|*.css) fail "unstamped app-assets reference in packaged app.html: $ref" ;;
     *.js\?*|*.css\?*) fail "app-assets reference stamped with wrong build in packaged app.html: $ref" ;;
   esac
