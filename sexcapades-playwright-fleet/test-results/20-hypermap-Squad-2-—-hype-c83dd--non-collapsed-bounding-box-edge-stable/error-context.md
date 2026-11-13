@@ -12,67 +12,91 @@
 # Error details
 
 ```
-Error: expect(received).toBeGreaterThan(expected)
+Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map
+Call log:
+  - navigating to "http://localhost:8000/qa/app.html?verified=1#app/map", waiting until "load"
 
-Expected: > 0
-Received:   0
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - heading "Hmmm… can't reach this page" [level=1] [ref=e7]
+      - paragraph [ref=e8]:
+        - strong [ref=e9]: localhost
+        - text: refused to connect.
+      - generic [ref=e10]:
+        - paragraph [ref=e11]: "Try:"
+        - list [ref=e12]:
+          - listitem [ref=e13]: •Checking the connection
+          - listitem [ref=e14]:
+            - text: •
+            - link "Checking the proxy and the firewall" [ref=e15] [cursor=pointer]:
+              - /url: "#buttons"
+      - generic [ref=e16]: ERR_CONNECTION_REFUSED
+    - button "Refresh" [ref=e19] [cursor=pointer]
+  - generic [ref=e20]: Microsoft Edge
 ```
 
 # Test source
 
 ```ts
-  1  | const { test, expect } = require("@playwright/test");
-  2  | const { openApp, assertNoInvalidSvgGeometry } = require("./helpers");
-  3  | 
-  4  | test.describe("Squad 2 — hypermap geometry and interaction", () => {
-  5  |   test("S2-01 viewport has a non-collapsed bounding box", async ({ page }) => {
-  6  |     await openApp(page);
-  7  |     // #viewport is an SVG group. getBBox on that whole tree hangs, and its
-  8  |     // CSS client box is 0 even when the map is painted. The map card is a
-  9  |     // real CSS box, and the topic groups are the paint.
-  10 |     const scene = page.locator(".map-scene");
-  11 |     await expect(scene).toBeVisible();
-  12 |     const box = await scene.boundingBox();
-  13 |     expect(box, "the map card should have a CSS box").toBeTruthy();
-  14 |     expect(box.width).toBeGreaterThan(50);
-  15 |     expect(box.height).toBeGreaterThan(50);
-> 16 |     expect(await page.locator("#mapSvg .node-group").count()).toBeGreaterThan(0);
-     |                                                               ^ Error: expect(received).toBeGreaterThan(expected)
-  17 |   });
-  18 | 
-  19 |   test("S2-02 crossing metric is finite", async ({ page }) => {
-  20 |     await openApp(page);
-  21 |     const metric = await page.evaluate(() =>
-  22 |       typeof window.__sxCrossingMeasure === "function" ? window.__sxCrossingMeasure() : null
-  23 |     );
-  24 |     test.skip(!metric, "Crossing metric hook is not exposed");
-  25 |     expect(Number.isFinite(metric.crossing)).toBeTruthy();
-  26 |   });
-  27 | 
-  28 |   test("S2-03 SVG geometry contains no NaN or Infinity", async ({ page }) => {
-  29 |     await openApp(page);
-  30 |     await assertNoInvalidSvgGeometry(page);
-  31 |   });
+  1  | const { expect } = require("@playwright/test");
+  2  | 
+  3  | async function openApp(page, route = "#app/map") {
+  4  |   const hash = route.startsWith("#") ? route : `#${route}`;
+  5  |   // The live host bounces a fresh context to the age gate. ?verified=1 is the
+  6  |   // gate's own return marker and lets the app stay on the requested route.
+> 7  |   await page.goto(`/qa/app.html?verified=1${hash}`);
+     |              ^ Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map
+  8  |   await page.waitForLoadState("domcontentloaded");
+  9  |   const enter = page.getByRole("button", { name: /I am 18 or older/i });
+  10 |   if (await enter.isVisible().catch(() => false)) {
+  11 |     await enter.click();
+  12 |     await page.waitForURL(/\/qa\/app\.html/, { timeout: 8000 });
+  13 |   }
+  14 |   const boot = page.locator("#sxBootDialog");
+  15 |   // A healthy boot leaves this screen well inside 30s. A hang stays on it
+  16 |   // past 90s, so failing here names the stage instead of dying later inside
+  17 |   // page.evaluate when the main thread never goes idle.
+  18 |   try {
+  19 |     await boot.waitFor({ state: "hidden", timeout: 30_000 });
+  20 |   } catch (err) {
+  21 |     const status = await page.evaluate(() => {
+  22 |       const label = document.getElementById("sxBootLabel");
+  23 |       const pct = document.getElementById("sxBootPct");
+  24 |       return {
+  25 |         label: label ? (label.textContent || "").trim() : "",
+  26 |         pct: pct ? (pct.textContent || "").trim() : ""
+  27 |       };
+  28 |     }).catch(() => ({ label: "", pct: "" }));
+  29 |     throw new Error("Boot screen still up at " + (status.pct || "?") + " - " + (status.label || "no stage text"));
+  30 |   }
+  31 | }
   32 | 
-  33 |   test("S2-04 branch focus keeps camera scale in expected range", async ({ page }) => {
-  34 |     await openApp(page);
-  35 |     const result = await page.evaluate(() => {
-  36 |       if (typeof window.__sxFocusBranch !== "function") return { unsupported: true };
-  37 |       window.__sxFocusBranch("Bondage & restriction");
-  38 |       const direct = window.__sxViewportScale ||
-  39 |         (window.SexcapadesEngine && window.SexcapadesEngine.Camera && window.SexcapadesEngine.Camera.scale);
-  40 |       if (Number.isFinite(direct)) return direct;
-  41 |       const viewport = document.getElementById("viewport");
-  42 |       const transform = viewport ? viewport.getAttribute("transform") || "" : "";
-  43 |       const match = /scale\(\s*([-\d.eE+]+)/.exec(transform);
-  44 |       const scale = match ? Number(match[1]) : NaN;
-  45 |       return Number.isFinite(scale) ? scale : { unsupported: true };
-  46 |     });
-  47 |     test.skip(!result || result.unsupported, "Branch focus hook is not exposed");
-  48 |     expect(Number.isFinite(result)).toBeTruthy();
-  49 |     expect(result).toBeGreaterThan(0);
-  50 |     expect(result).toBeLessThanOrEqual(2.3);
-  51 |   });
-  52 | });
-  53 | 
+  33 | async function readRuntimeErrors(page) {
+  34 |   return page.evaluate(() => ({
+  35 |     queue: Array.isArray(window.__sxErrLogQueue) ? window.__sxErrLogQueue : null,
+  36 |     logger: window.__sxErrLog && Array.isArray(window.__sxErrLog.errors)
+  37 |       ? window.__sxErrLog.errors : null
+  38 |   }));
+  39 | }
+  40 | 
+  41 | async function assertNoInvalidSvgGeometry(page) {
+  42 |   const invalid = await page.evaluate(() => {
+  43 |     const bad = [];
+  44 |     document.querySelectorAll("svg path").forEach(node => {
+  45 |       const d = node.getAttribute("d") || "";
+  46 |       if (/NaN|Infinity/.test(d) && bad.length < 5) bad.push(d.slice(0, 160));
+  47 |     });
+  48 |     return bad;
+  49 |   });
+  50 |   expect(invalid, "SVG paths must have valid path data").toEqual([]);
+  51 | }
+  52 | 
+  53 | module.exports = { openApp, readRuntimeErrors, assertNoInvalidSvgGeometry };
+  54 | 
 ```
