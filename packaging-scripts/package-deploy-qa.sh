@@ -70,6 +70,12 @@ cat << 'EOF' > "$QA_STAGING/index.html"
 </html>
 EOF
 
+echo "3c. Setting permissions (2026-11-12: the VM checkout carries 660/2770 modes; bake 644/755 into the archive so the web server can read the deploy)..."
+find "$QA_STAGING" -type d -exec chmod 755 {} \;
+find "$QA_STAGING" -type f -exec chmod 644 {} \;
+find "$QA_STAGING" -type f -name "*.sh" -exec chmod 755 {} \;
+find "$QA_STAGING" -type f -name "*.php" -exec chmod 644 {} \;
+
 echo "4. Creating tarball..."
 tar -czf "$OUTFILE" -C "$WORK/pkg" sexcapades.io/public_html/qa
 
