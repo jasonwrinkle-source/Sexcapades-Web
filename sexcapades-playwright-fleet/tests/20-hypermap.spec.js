@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./fixtures");
 const { openApp, assertNoInvalidSvgGeometry } = require("./helpers");
 
 test.describe("Squad 2 — hypermap geometry and interaction", () => {
@@ -13,7 +13,15 @@ test.describe("Squad 2 — hypermap geometry and interaction", () => {
     expect(box, "the map card should have a CSS box").toBeTruthy();
     expect(box.width).toBeGreaterThan(50);
     expect(box.height).toBeGreaterThan(50);
-    expect(await page.locator("#mapSvg .node-group").count()).toBeGreaterThan(0);
+    // The node count is a race without this wait: right after the boot
+    // dialog hides the nodes have not painted yet (count is 0), and they
+    // only land later (1336 after ~30s in a standalone load). Wait for the
+    // first node to become visible before counting, so a slow paint passes
+    // and only a real failure (nodes never appear, e.g. the hypermap
+    // pause) fails — and the console-errors attachment then shows why.
+    const nodes = page.locator("#mapSvg .node-group");
+    await expect(nodes.first()).toBeVisible({ timeout: 60000 });
+    expect(await nodes.count()).toBeGreaterThan(0);
   });
 
   test("S2-02 crossing metric is finite", async ({ page }) => {

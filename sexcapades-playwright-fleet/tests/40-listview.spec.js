@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./fixtures");
 const { openApp } = require("./helpers");
 
 test("S4-01 listview route loads and renders content", async ({ page }) => {
