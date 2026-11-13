@@ -372,7 +372,7 @@
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced";
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "1", scribeLengthDisplay = "~1", scribeRequestText = "", scribeLengthUnit = "pages", scribeDetailLevel = "balanced";
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
