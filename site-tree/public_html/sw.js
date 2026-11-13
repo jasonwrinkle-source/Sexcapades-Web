@@ -62,7 +62,9 @@ self.addEventListener('activate', function (event) {
   event.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (key) {
-        if (key !== CACHE && key.indexOf('sexcapades-') === 0) {
+        // Purge only live caches ('sexcapades-v<BUILD>'): the QA worker's
+        // caches are 'sexcapades-qa-v<BUILD>' and must survive a live activation.
+        if (key !== CACHE && key.indexOf('sexcapades-v') === 0) {
           return caches.delete(key);
         }
       }));
