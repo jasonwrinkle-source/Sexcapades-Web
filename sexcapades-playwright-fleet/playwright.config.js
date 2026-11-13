@@ -15,7 +15,12 @@ module.exports = defineConfig({
   retries: process.env.CI ? 1 : 0,
   workers: process.env.WORKERS ? Number(process.env.WORKERS) : undefined,
   reporter: [["list"], ["html", { outputFolder: "playwright-report", open: "never" }], ["json", { outputFile: "test-results/results.json" }]],
-  timeout: 45_000,
+  // 120s: the app boot + anneal alone runs 25–45s per test, and S2-01 waits
+  // up to 60s for the first node to paint after the boot dialog hides.
+  // The old 45s timeout cut slow-but-healthy boots off (run 3: 6 Chrome
+  // timeouts, all with an empty console — the browser was still booting,
+  // not failing). A stuck test still fails, just after 120s instead of 45s.
+  timeout: 120_000,
   expect: { timeout: 8_000 },
   use: {
     baseURL,
