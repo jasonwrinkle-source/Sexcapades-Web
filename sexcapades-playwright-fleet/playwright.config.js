@@ -1,6 +1,11 @@
 const { defineConfig, devices } = require("@playwright/test");
 
-const baseURL = process.env.BASE_URL || "https://sexcapades.io";
+// Local server by default (fast before/after timing, no deploy); override with
+// BASE_URL=http://localhost:<port> (or the live/QA URL) — the fleet tag is always added.
+const rawBaseURL = process.env.BASE_URL || "http://localhost:8000";
+const baseURL = rawBaseURL.includes("?")
+  ? `${rawBaseURL}&utm_source=fleet`
+  : `${rawBaseURL}?utm_source=fleet`;
 const desktop = { viewport: { width: 1440, height: 1000 } };
 
 module.exports = defineConfig({
