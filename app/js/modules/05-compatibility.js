@@ -1201,9 +1201,9 @@
             scribePartnerId = 2 === t.length ? t[1] : null;
             const a = t.filter(e => vt[e]).length > 1, o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit"), d = e.byId("scribePageCountHelp");
             o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
-            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs."),
+            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page."),
             s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story."),
-            l && (l.textContent = (currentScribePrompt() && e.byId("sceneBrief") && !e.byId("sceneBrief").hidden) ? "Regenerate Literotica-style Story prompt" : "Create Literotica-style Story prompt"), kg.open && Ui(kg),
+            l && (l.textContent = "Prompt"), kg.open && Ui(kg),
             Sg.open && Ui(Sg), Oc.open && Ui(Oc), jc.open && Ui(jc), Wi(Bc);
         }
         function Jd(e) {
@@ -1592,14 +1592,14 @@
                         alreadyTried: et[e]
                     })),
                     details: String(e.byId("scribeDetails")?.value || "").trim(),
-                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4)),
+                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 2)),
                     pageCount: String(e.byId("scribePageCount")?.value || "").trim()
                 };
             }();
             t.participantIds.length && t.topicData.length && (scribeRequestText = t.details, function(t, n) {
                 const i = e.byId("scribePageCount"), u = e.byId("scribeLengthUnit"), d = e.byId("scribeDetailLevel"), a = function() {
                     const t = e.byId("scribePageCount"), n = String(t?.value || "").trim().replace(/[–—]/g, "-");
-                    if (!n) return t && t.setCustomValidity(""), "5";
+                    if (!n) return t && t.setCustomValidity(""), "1";
                     const i = n.match(/^(\d{1,5}(?:\.\d)?)(?:\s*-\s*(\d{1,5}(?:\.\d)?))?$/);
                     if (!i) return t && (t.setCustomValidity("Use a number such as 5 or a range such as 5–7."), 
                     t.reportValidity()), null;
@@ -1608,14 +1608,14 @@
                         paragraphs: [ 1, 100 ],
                         pages: [ 1, 50 ],
                         chapters: [ 1, 50 ]
-                    }[String(u?.value || "paragraphs")] || [ 1, 100 ], s = o[0], l = o[1];
+                    }[String(u?.value || "pages")] || [ 1, 100 ], s = o[0], l = o[1];
                     let a = Math.max(s, Math.min(l, Number(i[1]))), r = i[2] ? Math.max(s, Math.min(l, Number(i[2]))) : null;
                     return null !== r && r < a && ([a, r] = [ r, a ]), t && t.setCustomValidity(""), 
                     null === r ? String(a) : `${a}–${r}`;
                 }();
                 if (!a) return;
-                scribeLengthUnit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(u?.value || "")) ? u.value : "paragraphs", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
-                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~5";
+                scribeLengthUnit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(u?.value || "")) ? u.value : "pages", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
+                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~1";
                 const r = `Projected: ${scribeLengthDisplay} ${scribeLengthUnit}`;
                 e.byId("scenePageProjection").textContent = r, e.byId("novelAiPageProjection").textContent = r, 
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));
@@ -1646,14 +1646,14 @@
                 if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castNamesText;
                 if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castNamesText;
                 const genBtn = e.byId("generateScribePrompt");
-                if (genBtn) genBtn.textContent = "Regenerate Literotica-style Story prompt";
+                if (genBtn) genBtn.textContent = "Prompt";
                 const briefEl = e.byId("sceneBrief");
                 if (briefEl) {
                     briefEl.hidden = !1;
                     try { briefEl.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
                 }
             }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit" })[t.explicitness] || "grok"));
-        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
+        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 2)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
         sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);

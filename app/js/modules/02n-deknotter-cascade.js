@@ -1435,29 +1435,6 @@
         }
         let witnessTrippingLabel;
         async function stepShrinkLadders(name, report, dk, fineTuneActive, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, opts, tax, diagCaptureFields, onsetCheck) {
-            // STAGED SCORING SWITCH (ruled 2026-11-02, Jason): this
-            // step IS the whole run's shrink stage — the single
-            // run-level entry point every run passes through after
-            // the throw (or the fine-tune arming), on the normal
-            // path and the skip-throw path alike. Entering it flips
-            // the run's judged score from same-branch-only to
-            // same-plus-adjacent (radial neighbours), and the
-            // per-phase gate's reference is RE-BASED on the current
-            // (last-kept) geometry under the new composition, so
-            // the first shrink phase is judged against the same
-            // composition it is scored under — descent and judge
-            // agree across the switch. Every later judged read in
-            // the run (shrink phases, back-out restored readings,
-            // the final patch's measurement and the final gate)
-            // uses the new composition through measureCloud.
-            if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
-                sxAnnealStageCtx.adjacent = !0, report.stagedScoring.adjacentFromPhase = "fit-subcats-1";
-                dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "shrink-stage-entry" });
-                try {
-                    const rebased = await dk.measureCloud(name);
-                    null != rebased && Number.isFinite(rebased) && (prevPhaseCloud = rebased, report.stagedScoring.rebasedAtShrinkEntry = rebased);
-                } catch (e) {}
-            }
             // (5) RULED SHRINK SEQUENCE (Jason, 2026-10-24
             // adjustment — supersedes the 08:05 order and every
             // earlier ordering; one-at-a-time step-down added
@@ -1879,6 +1856,32 @@
             // branch's own pre-run length instead — the same
             // 3x rule on the only category length available.
             if (!(report.fineTune && report.fineTune.branchFloor) && Number.isFinite(branchTo) && branchTo > 0) branchTo = branchTo * SX_SCORE.SHRINK_FLOOR_FACTOR;
+            // STAGED SCORING SWITCH (moved 2026-11-13, Jason —
+            // SUPERSEDES the 2026-11-02 ruling that flipped it at
+            // shrink-stage entry): the neighbour-inclusive score
+            // (same-plus-adjacent, radial neighbours) belongs ONLY
+            // to the LAST shrink stage — the category/branch shrink
+            // below (fit-branch-*), the zeroth/first-level node.
+            // The subcategory shrink ladder above is judged
+            // same-branch-only (adjacent stays false through
+            // fit-subcats-*). Entering the branch ladder flips the
+            // run's judged score to same-plus-adjacent, and the
+            // per-phase gate's reference is RE-BASED on the current
+            // (last-kept) geometry under the new composition, so
+            // the first branch phase is judged against the same
+            // composition it is scored under — descent and judge
+            // agree across the switch. Every later judged read in
+            // the run (branch phases, back-out restored readings,
+            // the final patch's measurement and the final gate)
+            // uses the new composition through measureCloud.
+            if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
+                sxAnnealStageCtx.adjacent = !0, report.stagedScoring.adjacentFromPhase = "fit-branch-1";
+                dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "branch-shrink-entry" });
+                try {
+                    const rebased = await dk.measureCloud(name);
+                    null != rebased && Number.isFinite(rebased) && (prevPhaseCloud = rebased, report.stagedScoring.rebasedAtShrinkEntry = rebased);
+                } catch (e) {}
+            }
             if (Number.isFinite(branchFrom) && branchFrom > branchTo) {
                 const bStages = Math.min(DK_LADDER_MAX_STAGES, Math.max(1, dkLadderSteps(branchFrom, branchTo)));
                 for (let j = 1; j <= bStages; j++) {
@@ -1925,7 +1928,7 @@
                 // composition baseline captured on the pre-run
                 // geometry for the final gate, and the phase the
                 // switch landed in. Fields added only.
-                stagedScoring: { stageAtStart: "same-branch-only", switchPoint: "shrink-stage-entry", adjacentFromPhase: null, baselineAdjacent: null },
+                stagedScoring: { stageAtStart: "same-branch-only", switchPoint: "branch-shrink-entry", adjacentFromPhase: null, baselineAdjacent: null },
                 growth: null,
                 // SUBCAT SHRINK ATTEMPTS (repair, 2026-11-01): one
                 // record per rendered subcategory of this branch —

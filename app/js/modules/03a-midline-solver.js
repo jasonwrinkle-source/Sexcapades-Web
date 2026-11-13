@@ -910,43 +910,49 @@
                         h = e.drawH(w), P = Za.topicLabelOffset(h, Za.cloudLabel(h, pr.categoryIcon / 2).labelOffset, e.item.cloudIndex);
                     }
                     if (e.C === undefined) e.C = sxLabelLen(isChild ? e.rec.label : "\u00A0" + e.rec.label, e.F);
-                    const ux = Math.cos(ang), uy = Math.sin(ang), Dseat = P + e.C + 1 + iconR, sEnd = Dseat + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2, a2 = pt(hub.x + ux * (P - e.F / 2), hub.y + uy * (P - e.F / 2));
+                    const ux = Math.cos(ang), uy = Math.sin(ang), a2 = pt(hub.x + ux * (P - e.F / 2), hub.y + uy * (P - e.F / 2));
                     // CAPSULE-INVERSION CORRECTION (2026-11-02,
                     // owner's design 2026-10-23 + 2026-10-27): the
                     // capsule S is the PADDLE — its outer end b is
-                    // NOT the label-zone end sEnd. The paddle runs
-                    // from a2 (the label's inward radius P, minus
-                    // half a font size — the capsule half-width,
-                    // since the 2026-11-02 band shrink) all the way
-                    // out PAST THE END
-                    // OF THE LONGEST SLIDER, plus a little: the
-                    // slider end is the paint's own end-of-controls
-                    // geometry — the icon seated at the spoke's full
-                    // drawn length h (for children, h already
-                    // carries the paint's label-clearance extension
-                    // above), plus the icon radius, 6, and half a
-                    // control tag, the same tail sEnd carries past
-                    // its label-estimate seat. The label estimate
-                    // sEnd remains as a floor for the label-dominated
-                    // regime, where it is the longer of the two.
-                    // capEnd is that outer reach; the scored midline
-                    // M (the foreign centre line other capsules are
-                    // priced against, and the centreline the interim
-                    // capsule paint draws) runs from the hub — the
-                    // branching point — out to the same capEnd, so a
-                    // foreign spoke is present everywhere its own
-                    // paddle is; its inner stretch I (hub -> a2) is
-                    // the thin line the inner count prices on the
-                    // run back toward the branching point. The node
-                    // seat stays the paint's icon seat (hub + u*h),
-                    // so the interim paint's dots sit where the full
-                    // paint seats the icons. The divergence fix
-                    // (earlier today) had this exactly reversed —
-                    // midline stretched to the icon, capsule stopping
-                    // at sEnd short of the sliders; that arrangement
-                    // must not be reintroduced under any other name.
-                    const capEnd = Math.max(sEnd, h + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2), b = pt(hub.x + ux * capEnd, hub.y + uy * capEnd), bM = pt(hub.x + ux * capEnd, hub.y + uy * capEnd);
-                    e.hub = hub, e.ang = ang, e.h = h, e.P = P, e.sEnd = sEnd, e.capEnd = capEnd;
+                    // the end of the rating controls when the map
+                    // sliders show, and the icon's extreme end when
+                    // they do not (map-sliders toggle, ruled
+                    // 2026-11-13). The paddle runs from a2 (the
+                    // label's inward radius P, minus half a font
+                    // size — the capsule half-width, since the
+                    // 2026-11-02 band shrink) all the way out to
+                    // capEnd. There is NO sEnd label floor: the icon
+                    // is set relative to the label end (seat = P +
+                    // label length + 1 + icon radius), so the label
+                    // can neither run into the icon nor outrun the
+                    // sliders, which extend past the icon — there is
+                    // no label-dominated regime, and the tag tail
+                    // (+6 + half a tag) belongs only to the slider
+                    // end, never to a label end. The slider end is
+                    // the paint's own end-of-controls geometry —
+                    // the icon seated at the spoke's full drawn
+                    // length h (for children, h already carries the
+                    // paint's label-clearance extension above),
+                    // plus the icon radius, 6, and half a control
+                    // tag. capEnd is that outer reach; the scored
+                    // midline M (the foreign centre line other
+                    // capsules are priced against, and the
+                    // centreline the interim capsule paint draws)
+                    // runs from the hub — the branching point — out
+                    // to the same capEnd, so a foreign spoke is
+                    // present everywhere its own paddle is; its
+                    // inner stretch I (hub -> a2) is the thin line
+                    // the inner count prices on the run back toward
+                    // the branching point. The node seat stays the
+                    // paint's icon seat (hub + u*h), so the interim
+                    // paint's dots sit where the full paint seats
+                    // the icons. The divergence fix (2026-11-02)
+                    // had this exactly reversed — midline stretched
+                    // to the icon, capsule stopping short of the
+                    // sliders; that arrangement must not be
+                    // reintroduced under any other name.
+                    const capEnd = (inn.mn && inn.mn.mapSliders ? h + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2 : h + iconR), b = pt(hub.x + ux * capEnd, hub.y + uy * capEnd), bM = pt(hub.x + ux * capEnd, hub.y + uy * capEnd);
+                    e.hub = hub, e.ang = ang, e.h = h, e.P = P, e.capEnd = capEnd;
                     e.M = [ pt(hub.x, hub.y), bM ], e.S = [ a2, b ], e.I = [ pt(hub.x, hub.y), a2 ];
                     e.bbS = sxBB(e.S[0], e.S[1], 0), e.bbI = sxBB(e.I[0], e.I[1], 0), e.bbM = sxBB(e.M[0], e.M[1], 0);
                     e.node = pt(hub.x + ux * h, hub.y + uy * h);
@@ -1736,7 +1742,7 @@
                 const v = gen1SpokeBaseRadius();
                 if (Number.isFinite(v) && v > 0) rim = v;
             } catch (_) {}
-            const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth };
+            const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth, mapSliders: mn.mapSliders };
             const order = (typeof h !== "undefined" && h || []).map(b => ({ name: b && b.name, n: b && b.topics ? b.topics.length : 0 }));
             const branch = (branches || []).map(br => ({
                 angle: br.angle,
