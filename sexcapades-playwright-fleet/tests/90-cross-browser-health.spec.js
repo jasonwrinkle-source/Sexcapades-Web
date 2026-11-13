@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./fixtures");
 const { openApp, readRuntimeErrors } = require("./helpers");
 
 test("S9-01 app route produces no uncaught errors or internal exception queue entries", async ({ page }) => {

@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./fixtures");
 const { openApp } = require("./helpers");
 
 test("S3-01 pairwise compatibility engine returns a positive play headline", async ({ page }) => {
