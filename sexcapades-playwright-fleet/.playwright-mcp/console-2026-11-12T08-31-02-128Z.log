@@ -1,0 +1,2 @@
+[   22954ms] TypeError: Cannot read properties of null (reading 'focus')
+    at HTMLButtonElement.<anonymous> (https://sexcapades.io/qa/gate.html?return=%2Fqa%2Fapp.html%3Fverified%3D1%26gate_attempt%3D1:2021:61)

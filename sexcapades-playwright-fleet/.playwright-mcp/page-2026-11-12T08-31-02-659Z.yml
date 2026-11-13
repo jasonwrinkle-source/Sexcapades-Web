@@ -1,0 +1,67 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - paragraph [ref=f4e3]: Sexcapades
+    - paragraph [ref=f4e4]:
+      - generic [ref=f4e5]: 18+
+      - generic [ref=f4e6]: Adults only
+  - main [ref=f4e7]:
+    - region "54 taps → see your map come alive." [ref=f4e8]:
+      - generic [ref=f4e9]:
+        - figure "Turn scattered feelings into something you can see. A mind map reveals what matters, where ideas connect, and what is worth talking about." [ref=f4e10]:
+          - text: → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → → →
+          - img "A mind map demonstrating the power of mapping desires Mapping desires branches into clarifying wants, noticing patterns, seeing connections, and guiding conversations, with practical insights grouped beneath each theme." [ref=f4e11]:
+            - generic [ref=f4e18]:
+              - generic [ref=f4e19]:
+                - generic [ref=f4e21]: MAPPING
+                - generic [ref=f4e22]: DESIRES
+              - generic [ref=f4e23]: CLARIFY
+              - generic [ref=f4e26]:
+                - generic [ref=f4e28]: WHAT I WANT
+                - generic [ref=f4e30]: MY LIMITS
+              - generic [ref=f4e31]: NOTICE
+              - generic [ref=f4e34]:
+                - generic [ref=f4e36]: PATTERNS
+                - generic [ref=f4e38]: SURPRISES
+              - generic [ref=f4e39]: CONNECT
+              - generic [ref=f4e42]:
+                - generic [ref=f4e44]: COMMON GROUND
+                - generic [ref=f4e46]: DIFFERENCES
+              - generic [ref=f4e47]: TALK
+              - generic [ref=f4e50]:
+                - generic [ref=f4e52]: ASK CLEARLY
+                - generic [ref=f4e54]: LISTEN BETTER
+          - generic [ref=f4e55]:
+            - strong [ref=f4e56]: Turn scattered feelings into something you can see.
+            - text: A mind map reveals what matters, where ideas connect, and what is worth talking about.
+        - generic [ref=f4e57]:
+          - generic [ref=f4e58]:
+            - generic [ref=f4e59]: 18+
+            - generic [ref=f4e60]: Adults only
+          - heading "54 taps → see your map come alive." [level=1] [ref=f4e61]
+          - paragraph [ref=f4e62]: Start with a private, 10-minute tour of your desires. Your choices take shape as a personal map built for reflection, comparison, and better conversations.
+          - paragraph [ref=f4e63]: Please confirm that you are at least 18 years old to continue.
+          - generic [ref=f4e64]:
+            - button "I am 18 or older — Enter" [ref=f4e65] [cursor=pointer]
+            - link "Exit" [ref=f4e66] [cursor=pointer]:
+              - /url: https://www.google.com
+  - contentinfo "Site map" [ref=f4e67]:
+    - generic [ref=f4e68]:
+      - button "App" [ref=f4e69] [cursor=pointer]
+      - text: → → → → →
+    - generic [ref=f4e70]:
+      - button "Docs" [ref=f4e71] [cursor=pointer]
+      - text: → → → → → → → → → → → → → → → → → → → → → → → → → → →
+    - link "Examples" [ref=f4e72] [cursor=pointer]:
+      - /url: /qa/examples.html
+    - link "Privacy" [ref=f4e73] [cursor=pointer]:
+      - /url: /qa/privacy.html
+    - link "Contact" [ref=f4e74] [cursor=pointer]:
+      - /url: mailto:help@sexcapades.io
+    - link "Sitemap" [ref=f4e75] [cursor=pointer]:
+      - /url: /sitemap.html
+    - paragraph [ref=f4e76]:
+      - link "Support Sexcapades on Patreon" [ref=f4e77] [cursor=pointer]:
+        - /url: https://patreon.com/SexcapadesIO
+      - text: — the site stays up because of patrons.
+    - paragraph [ref=f4e78]: Build 2026-10-18_2143
+  - generic "Unique visitors to Sexcapades" [ref=f4e80]: explorers

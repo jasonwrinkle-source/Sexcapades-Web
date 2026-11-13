@@ -1,0 +1,22 @@
+11. [GET] https://sexcapades.io/qa/app.html => [200] 
+12. [GET] https://sexcapades.io/qa/css/app.css?v=4.3.18 => [FAILED] net::ERR_ABORTED
+13. [GET] https://sexcapades.io/qa/images/img-0.webp => [200] 
+14. [GET] https://sexcapades.io/qa/images/img-1.webp => [200] 
+15. [GET] https://sexcapades.io/qa/images/img-15.webp => [FAILED] net::ERR_ABORTED
+16. [GET] https://sexcapades.io/qa/vendor/qrcode.min.js => [FAILED] net::ERR_ABORTED
+17. [GET] https://sexcapades.io/qa/vendor/ggwave.js => [FAILED] net::ERR_ABORTED
+18. [GET] https://sexcapades.io/qa/data/unrated-map-template.js => [FAILED] net::ERR_ABORTED
+19. [GET] https://sexcapades.io/qa/data/data-bootstrap.js?v=4.3.20 => [FAILED] net::ERR_ABORTED
+20. [GET] https://sexcapades.io/qa/data/pitch-pitcher-bank.js => [FAILED] net::ERR_ABORTED
+21. [GET] https://sexcapades.io/qa/js/pitch-pitcher.js => [FAILED] net::ERR_ABORTED
+22. [GET] https://sexcapades.io/qa/js/layout-editor.js?v=4.3.16 => [FAILED] net::ERR_ABORTED
+23. [GET] https://sexcapades.io/qa/js/patches.js?v=4.0.6 => [FAILED] net::ERR_ABORTED
+24. [GET] https://sexcapades.io/qa/js/view-nav.js => [FAILED] net::ERR_ABORTED
+25. [GET] https://sexcapades.io/qa/js/scene-sentinel.js => [FAILED] net::ERR_ABORTED
+26. [GET] https://sexcapades.io/qa/js/sx-songbook.js => [FAILED] net::ERR_ABORTED
+27. [GET] https://sexcapades.io/qa/js/avatar-music.js => [FAILED] net::ERR_ABORTED
+28. [GET] https://sexcapades.io/qa/gate.html?return=%2Fqa%2Fapp.html%3Fverified%3D1%26gate_attempt%3D1 => [200] 
+29. [GET] https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap => [200] 
+30. [POST] https://sexcapades.io/qa/api/collect.php => [200] 
+31. [GET] https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYY.woff2 => [200] 
+32. [POST] https://sexcapades.io/qa/api/collect.php => [200] 

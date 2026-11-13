@@ -1,0 +1,40 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - paragraph [ref=f4e3]: Sexcapades
+    - paragraph [ref=f4e4]:
+      - generic [ref=f4e5]: 18+
+      - generic [ref=f4e6]: Adults only
+  - main [ref=f4e7]:
+    - region "54 taps → see your map come alive." [ref=f4e8]:
+      - generic [ref=f4e9]:
+        - figure "Turn scattered feelings into something you can see. A mind map reveals what matters, where ideas connect, and what is worth talking about." [ref=f4e10]
+        - generic [ref=f4e57]
+  - contentinfo "Site map" [ref=f4e67]:
+    - generic [ref=f4e68]:
+      - button "App" [ref=f4e69] [cursor=pointer]
+      - text: → → → → →
+    - generic [ref=f4e70]:
+      - button "Docs" [ref=f4e71] [cursor=pointer]
+      - text: → → → → → → → → → → → → → → → → → → → → → → → → → → →
+    - link "Examples" [ref=f4e72] [cursor=pointer]:
+      - /url: /qa/examples.html
+    - link "Privacy" [ref=f4e73] [cursor=pointer]:
+      - /url: /qa/privacy.html
+    - link "Contact" [ref=f4e74] [cursor=pointer]:
+      - /url: mailto:help@sexcapades.io
+    - link "Sitemap" [ref=f4e75] [cursor=pointer]:
+      - /url: /sitemap.html
+    - paragraph [ref=f4e76]:
+      - link "Support Sexcapades on Patreon" [ref=f4e77] [cursor=pointer]:
+        - /url: https://patreon.com/SexcapadesIO
+      - text: — the site stays up because of patrons.
+    - paragraph [ref=f4e78]: Build 2026-10-18_2143
+  - generic "Unique visitors to Sexcapades" [ref=f4e80]:
+    - generic [ref=f4e82]:
+      - generic [ref=f4e83]: "0"
+      - generic [ref=f4e84]: "0"
+      - generic [ref=f4e85]: "0"
+      - generic [ref=f4e86]: "5"
+      - generic [ref=f4e87]: "5"
+      - generic [ref=f4e88]: "1"
+    - generic [ref=f4e81]: explorers

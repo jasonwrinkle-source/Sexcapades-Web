@@ -1,0 +1,31 @@
+[     716ms] [LOG] [Sexcapades] Firebase AI (Gemini) initialized successfully. @ https://sexcapades.io/qa/app.html:2923
+[    4730ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ https://sexcapades.io/qa/app.html#app/map:1
+[    5339ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/the-explainer/e1/verse-hypermap.mp3?sx=1:1
+[    5424ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/the-explainer/e1/verse-popularity-on-deck.mp3?sx=1:1
+[    5537ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/the-explainer/e1/verse-profile-imports-quick-start.mp3?sx=1:1
+[    5703ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/the-explainer/e1/verse-cast-compare.mp3?sx=1:1
+[    6251ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/the-explainer/e1/verse-writers.mp3?sx=1:1
+[    7393ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/the-explainer/e1/verse-sync-cards-fractal.mp3?sx=1:1
+[    7585ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/the-explainer/e1/explainer-fixed-cut.mp3?sx=1:1
+[    7766ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t1-a-cappella-pop/track-tensor-product.mp3?sx=1:1
+[    8256ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t1-a-cappella-pop/track-two-conversations.mp3?sx=1:1
+[    8447ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t1-a-cappella-pop/track-penumbra.mp3?sx=1:1
+[    8450ms] [LOG] [Sexcapades WarmBoot] Saved hypermap to IndexedDB for [__default__] (622 KB gzipped, 5153 KB raw) @ :22955
+[    8547ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t1-a-cappella-pop/track-heat-as-a-phase.mp3?sx=1:1
+[    8676ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t1-a-cappella-pop/track-initiative.mp3?sx=1:1
+[    8778ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t1-a-cappella-pop/track-how-maps-multiply.mp3?sx=1:1
+[    8860ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t1-a-cappella-pop/track-no-joins.mp3?sx=1:1
+[    8940ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t2-close-harmony-duet/track-tensor-product.mp3?sx=1:1
+[    9054ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t2-close-harmony-duet/track-two-conversations.mp3?sx=1:1
+[    9132ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t2-close-harmony-duet/track-penumbra.mp3?sx=1:1
+[    9250ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t2-close-harmony-duet/track-heat-as-a-phase.mp3?sx=1:1
+[    9331ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t2-close-harmony-duet/track-initiative.mp3?sx=1:1
+[    9434ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t2-close-harmony-duet/track-how-maps-multiply.mp3?sx=1:1
+[    9713ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t2-close-harmony-duet/track-no-joins.mp3?sx=1:1
+[    9811ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t3-late-night-jazz-pop/track-tensor-product.mp3?sx=1:1
+[    9913ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t3-late-night-jazz-pop/track-two-conversations.mp3?sx=1:1
+[   10014ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t3-late-night-jazz-pop/track-penumbra.mp3?sx=1:1
+[   10114ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t3-late-night-jazz-pop/track-heat-as-a-phase.mp3?sx=1:1
+[   10229ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t3-late-night-jazz-pop/track-initiative.mp3?sx=1:1
+[   10308ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t3-late-night-jazz-pop/track-how-maps-multiply.mp3?sx=1:1
+[   10389ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://sexcapades.io/qa/assets/audio/book-one/t3-late-night-jazz-pop/track-no-joins.mp3?sx=1:1
