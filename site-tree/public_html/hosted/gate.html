@@ -373,48 +373,6 @@
         font-weight: 800;
       }
 
-      .scan-import-link {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        min-height: 46px;
-        padding: 8px 14px;
-        border-bottom: 1px solid var(--line);
-        background: rgba(25, 29, 33, .9);
-        color: var(--text);
-        text-decoration: none;
-        transition: background-color 160ms ease;
-      }
-
-      .scan-import-link:hover { background: var(--page); }
-
-      .scan-import-copy {
-        display: grid;
-        gap: 1px;
-      }
-
-      .scan-import-copy strong {
-        color: var(--link);
-        font-size: .9rem;
-        line-height: 1.15;
-      }
-
-      .scan-import-copy span {
-        color: var(--muted);
-        font-size: .72rem;
-        font-weight: 500;
-        line-height: 1.25;
-      }
-
-      .scan-import-link::after {
-        content: "→";
-        flex: none;
-        color: var(--link);
-        font-size: 1.05rem;
-        font-weight: 800;
-      }
-
       .guide-link {
         display: flex;
         align-items: center;
@@ -500,6 +458,13 @@
       .destination-trigger:hover { background: var(--surface); }
       .destination-trigger:active { transform: none; }
 
+      /* App button glow: draws the eye to the App entry point. A crisp
+         accent ring plus a soft accent halo; no solid fill, and the
+         button's text, size, position and function are unchanged. */
+      #appViewTrigger {
+        box-shadow: 0 0 0 1px var(--accent), 0 0 18px 2px rgba(255, 77, 100, .55);
+      }
+
       .gate.is-confirmed .gate-body { display: none; }
 
       .gate.is-confirmed {
@@ -515,12 +480,11 @@
 
       .destination-header-actions {
         display: grid;
-        grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1.25fr 1fr;
         gap: 6px;
       }
 
       .destination-header .quick-start-link,
-      .destination-header .scan-import-link,
       .destination-header .guide-link {
         min-height: 38px;
         padding: 7px 10px;
@@ -528,13 +492,11 @@
       }
 
       .destination-header .quick-start-copy span,
-      .destination-header .scan-import-copy span,
       .destination-header .guide-copy span {
         display: none;
       }
 
       .destination-header .quick-start-copy strong,
-      .destination-header .scan-import-copy strong,
       .destination-header .guide-copy strong {
         font-size: .78rem;
       }
@@ -1128,15 +1090,17 @@
       .app-view-menu a:hover { background: var(--surface-raised); }
 
       .app-view-menu a.app-view-menu-primary {
-        background: var(--accent);
-        color: var(--accent-ink);
+        background: transparent;
+        color: var(--text);
+        box-shadow: 0 0 0 1px var(--accent), 0 0 14px 1px rgba(255, 77, 100, .45);
       }
 
-      .app-view-menu a.app-view-menu-primary::after { color: var(--accent-ink); }
+      .app-view-menu a.app-view-menu-primary::after { color: var(--link); }
 
       .app-view-menu a.app-view-menu-primary:hover {
-        background: var(--accent-strong);
-        color: var(--accent-ink);
+        background: var(--surface-raised);
+        color: var(--text);
+        box-shadow: 0 0 0 1px var(--accent), 0 0 18px 2px rgba(255, 77, 100, .55);
       }
 
       @media (max-width: 600px) {
@@ -1497,7 +1461,6 @@
       }
 
       .destination-header .quick-start-link,
-      .destination-header .scan-import-link,
       .destination-header .guide-link,
       .destination-header .destination-link {
         min-height: 34px;
@@ -1529,14 +1492,12 @@
                   <div class="app-view-group">
                     <button class="destination-link destination-trigger" id="appViewTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="appViewMenu">App</button>
                     <ul class="app-view-menu" id="appViewMenu" hidden>
+                      <li><a href="/hosted/app.html#app/import">Scan or Import</a></li>
                       <li><a class="app-view-menu-primary" href="/hosted/app.html#app/list">Popularity List</a></li>
                       <li><a href="/hosted/app.html#app/map">Hypermap</a></li>
                       <li><a href="/hosted/app.html#sentinel">Scene Sentinel</a></li>
                     </ul>
                   </div>
-                  <a class="scan-import-link" href="/hosted/app.html#app/import">
-                    <span class="scan-import-copy"><strong>Scan or Import</strong><span>QR Sheet, Sync Card, or QR image</span></span>
-                  </a>
                   <div class="app-view-group docs-view-group">
                     <button class="destination-link destination-trigger" id="docsViewTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="docsViewMenu">Docs</button>
                     <ul class="app-view-menu docs-dropdown-menu" id="docsViewMenu" hidden>
