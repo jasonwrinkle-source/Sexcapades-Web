@@ -481,12 +481,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 27563,
+                  "duration": 40650,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:29:41.698Z",
+                  "startTime": "2026-11-13T20:14:32.557Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -501,15 +501,15 @@
               "projectName": "edge-stable",
               "results": [
                 {
-                  "workerIndex": 6,
-                  "parallelIndex": 1,
+                  "workerIndex": 7,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 22917,
+                  "duration": 22989,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:30:28.054Z",
+                  "startTime": "2026-11-13T20:16:11.419Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -539,7 +539,7 @@
           "specs": [
             {
               "title": "S1-01 JSON import accepts a representative profile",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -552,18 +552,48 @@
                     {
                       "workerIndex": 1,
                       "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 28033,
-                      "errors": [],
+                      "status": "timedOut",
+                      "duration": 92750,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 45000ms.\u001b[39m"
+                        },
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:29:41.741Z",
+                      "startTime": "2026-11-13T20:14:32.541Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "console-errors.txt",
+                          "contentType": "text/plain",
+                          "body": "KG5vIGNvbnNvbGUgZXJyb3JzIG9yIHBhZ2UgZXJyb3JzIGNhcHR1cmVkKQ=="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-bc080-ts-a-representative-profile-chrome-stable\\video.webm"
+                        }
+                      ]
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 },
                 {
                   "timeout": 45000,
@@ -573,15 +603,15 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 7,
-                      "parallelIndex": 2,
+                      "workerIndex": 8,
+                      "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 20612,
+                      "duration": 23040,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:30:28.474Z",
+                      "startTime": "2026-11-13T20:16:12.311Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -610,12 +640,12 @@
                       "workerIndex": 2,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 18028,
+                      "duration": 23348,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:29:41.723Z",
+                      "startTime": "2026-11-13T20:14:32.570Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -630,15 +660,15 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 8,
-                      "parallelIndex": 5,
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 19383,
+                      "duration": 18434,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:30:28.730Z",
+                      "startTime": "2026-11-13T20:16:12.591Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -670,7 +700,7 @@
           "specs": [
             {
               "title": "S2-01 viewport has a non-collapsed bounding box",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -683,18 +713,48 @@
                     {
                       "workerIndex": 3,
                       "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 45002,
-                      "errors": [],
+                      "status": "timedOut",
+                      "duration": 90218,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 45000ms.\u001b[39m"
+                        },
+                        {
+                          "message": "Error: browserContext.close: Target page, context or browser has been closed"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:29:41.771Z",
+                      "startTime": "2026-11-13T20:14:32.546Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "console-errors.txt",
+                          "contentType": "text/plain",
+                          "body": "KG5vIGNvbnNvbGUgZXJyb3JzIG9yIHBhZ2UgZXJyb3JzIGNhcHR1cmVkKQ=="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-chrome-stable\\trace.zip"
+                        }
+                      ]
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 },
                 {
                   "timeout": 45000,
@@ -704,65 +764,20 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 9,
+                      "workerIndex": 10,
                       "parallelIndex": 3,
-                      "status": "failed",
-                      "duration": 28697,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63",
-                        "location": {
-                          "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
-                          "column": 63,
-                          "line": 16
-                        },
-                        "snippet": " \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
-                            "column": 63,
-                            "line": 16
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\n \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63\u001b[22m"
-                        }
-                      ],
+                      "status": "passed",
+                      "duration": 48758,
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:30:31.570Z",
+                      "startTime": "2026-11-13T20:16:12.957Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-c83dd--non-collapsed-bounding-box-edge-stable\\trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
-                        "column": 63,
-                        "line": 16
-                      }
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "cfbe2aa3894228f8d0fc-2fb21ece1fb9dae07a7f",
@@ -772,7 +787,7 @@
             },
             {
               "title": "S2-02 crossing metric is finite",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -785,18 +800,48 @@
                     {
                       "workerIndex": 4,
                       "parallelIndex": 4,
-                      "status": "passed",
-                      "duration": 20196,
-                      "errors": [],
+                      "status": "timedOut",
+                      "duration": 90117,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 45000ms.\u001b[39m"
+                        },
+                        {
+                          "message": "Error: browserContext.close: Target page, context or browser has been closed"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:29:41.759Z",
+                      "startTime": "2026-11-13T20:14:32.578Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "console-errors.txt",
+                          "contentType": "text/plain",
+                          "body": "KG5vIGNvbnNvbGUgZXJyb3JzIG9yIHBhZ2UgZXJyb3JzIGNhcHR1cmVkKQ=="
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-99239-2-crossing-metric-is-finite-chrome-stable\\trace.zip"
+                        }
+                      ]
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 },
                 {
                   "timeout": 45000,
@@ -807,14 +852,14 @@
                   "results": [
                     {
                       "workerIndex": 11,
-                      "parallelIndex": 4,
+                      "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 37044,
+                      "duration": 26281,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:30:51.982Z",
+                      "startTime": "2026-11-13T20:16:39.257Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -824,7 +869,7 @@
               ],
               "id": "cfbe2aa3894228f8d0fc-7d1df627fcd56d0ff93f",
               "file": "20-hypermap.spec.js",
-              "line": 19,
+              "line": 27,
               "column": 3
             },
             {
@@ -843,12 +888,12 @@
                       "workerIndex": 5,
                       "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 26839,
+                      "duration": 28616,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:29:41.760Z",
+                      "startTime": "2026-11-13T20:14:32.616Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -863,15 +908,15 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 10,
+                      "workerIndex": 9,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 38903,
+                      "duration": 39854,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:30:51.790Z",
+                      "startTime": "2026-11-13T20:16:32.127Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -881,12 +926,12 @@
               ],
               "id": "cfbe2aa3894228f8d0fc-1100e98c4fbf59a1c1ae",
               "file": "20-hypermap.spec.js",
-              "line": 28,
+              "line": 36,
               "column": 3
             },
             {
               "title": "S2-04 branch focus keeps camera scale in expected range",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -899,18 +944,47 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 23073,
-                      "errors": [],
+                      "status": "timedOut",
+                      "duration": 67544,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:30:00.184Z",
+                      "startTime": "2026-11-13T20:14:58.265Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "console-errors.txt",
+                          "contentType": "text/plain",
+                          "body": "KG5vIGNvbnNvbGUgZXJyb3JzIG9yIHBhZ2UgZXJyb3JzIGNhcHR1cmVkKQ=="
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chrome-stable\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chrome-stable\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-69162-era-scale-in-expected-range-chrome-stable\\trace.zip"
+                        }
+                      ]
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 },
                 {
                   "timeout": 45000,
@@ -920,15 +994,15 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 8,
-                      "parallelIndex": 5,
+                      "workerIndex": 7,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 22781,
+                      "duration": 26720,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T17:30:49.029Z",
+                      "startTime": "2026-11-13T20:16:35.070Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -938,7 +1012,7 @@
               ],
               "id": "cfbe2aa3894228f8d0fc-6d963d85807bd390a059",
               "file": "20-hypermap.spec.js",
-              "line": 33,
+              "line": 41,
               "column": 3
             }
           ]
@@ -953,7 +1027,7 @@
       "specs": [
         {
           "title": "S3-01 pairwise compatibility engine returns a positive play headline",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -964,20 +1038,49 @@
               "projectName": "chrome-stable",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 4,
-                  "status": "passed",
-                  "duration": 44062,
-                  "errors": [],
+                  "workerIndex": 5,
+                  "parallelIndex": 5,
+                  "status": "timedOut",
+                  "duration": 64947,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:30:02.523Z",
+                  "startTime": "2026-11-13T20:15:02.348Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "console-errors.txt",
+                      "contentType": "text/plain",
+                      "body": "KG5vIGNvbnNvbGUgZXJyb3JzIG9yIHBhZ2UgZXJyb3JzIGNhcHR1cmVkKQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-chrome-stable\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-chrome-stable\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-chrome-stable\\trace.zip"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             },
             {
               "timeout": 45000,
@@ -987,15 +1090,15 @@
               "projectName": "edge-stable",
               "results": [
                 {
-                  "workerIndex": 7,
-                  "parallelIndex": 2,
+                  "workerIndex": 8,
+                  "parallelIndex": 4,
                   "status": "passed",
-                  "duration": 19225,
+                  "duration": 24947,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:30:50.107Z",
+                  "startTime": "2026-11-13T20:16:36.207Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1018,7 +1121,7 @@
       "specs": [
         {
           "title": "S4-01 listview route loads and renders content",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -1029,20 +1132,62 @@
               "projectName": "chrome-stable",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 5,
-                  "status": "passed",
-                  "duration": 17385,
-                  "errors": [],
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 56711,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
+                        "column": 11,
+                        "line": 30
+                      },
+                      "message": "Error: Boot screen still up at ? - no stage text\n\n\u001b[90m   at \u001b[39mhelpers.js:30\n\n \u001b[90m 28 |\u001b[39m       }\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m     })\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m ({ label\u001b[33m:\u001b[39m \u001b[32m\"\"\u001b[39m\u001b[33m,\u001b[39m pct\u001b[33m:\u001b[39m \u001b[32m\"\"\u001b[39m }))\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 30 |\u001b[39m     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\u001b[32m\"Boot screen still up at \"\u001b[39m \u001b[33m+\u001b[39m (status\u001b[33m.\u001b[39mpct \u001b[33m||\u001b[39m \u001b[32m\"?\"\u001b[39m) \u001b[33m+\u001b[39m \u001b[32m\" - \"\u001b[39m \u001b[33m+\u001b[39m (status\u001b[33m.\u001b[39mlabel \u001b[33m||\u001b[39m \u001b[32m\"no stage text\"\u001b[39m))\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 31 |\u001b[39m   }\n \u001b[90m 32 |\u001b[39m }\n \u001b[90m 33 |\u001b[39m\n\u001b[2m    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:30:11)\u001b[22m\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\40-listview.spec.js:5:3\u001b[22m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:30:09.117Z",
+                  "startTime": "2026-11-13T20:15:13.768Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\40-listview-S4-01-listview-route-loads-and-renders-content-chrome-stable\\test-failed-1.png"
+                    },
+                    {
+                      "name": "console-errors.txt",
+                      "contentType": "text/plain",
+                      "body": "KG5vIGNvbnNvbGUgZXJyb3JzIG9yIHBhZ2UgZXJyb3JzIGNhcHR1cmVkKQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\40-listview-S4-01-listview-route-loads-and-renders-content-chrome-stable\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\40-listview-S4-01-listview-route-loads-and-renders-content-chrome-stable\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\40-listview-S4-01-listview-route-loads-and-renders-content-chrome-stable\\trace.zip"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             },
             {
               "timeout": 45000,
@@ -1052,15 +1197,15 @@
               "projectName": "edge-stable",
               "results": [
                 {
-                  "workerIndex": 6,
+                  "workerIndex": 12,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 18511,
+                  "duration": 15483,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:30:51.615Z",
+                  "startTime": "2026-11-13T20:17:06.090Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1094,21 +1239,21 @@
               "projectName": "chrome-stable",
               "results": [
                 {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
+                  "workerIndex": 6,
+                  "parallelIndex": 5,
                   "status": "passed",
-                  "duration": 37378,
+                  "duration": 16349,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:30:09.679Z",
+                  "startTime": "2026-11-13T20:16:11.294Z",
                   "annotations": [],
                   "attachments": [
                     {
                       "name": "console-diagnostics.json",
                       "contentType": "application/json",
-                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogWwogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIKICBdLAogICJjb25zb2xlV2FybmluZ3MiOiBbXQp9"
+                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogW10sCiAgImNvbnNvbGVXYXJuaW5ncyI6IFtdCn0="
                     }
                   ]
                 }
@@ -1123,21 +1268,21 @@
               "projectName": "edge-stable",
               "results": [
                 {
-                  "workerIndex": 7,
-                  "parallelIndex": 2,
+                  "workerIndex": 8,
+                  "parallelIndex": 4,
                   "status": "passed",
-                  "duration": 24485,
+                  "duration": 22378,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T17:31:09.401Z",
+                  "startTime": "2026-11-13T20:17:02.226Z",
                   "annotations": [],
                   "attachments": [
                     {
                       "name": "console-diagnostics.json",
                       "contentType": "application/json",
-                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogWwogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIgogIF0sCiAgImNvbnNvbGVXYXJuaW5ncyI6IFtdCn0="
+                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogWwogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIsCiAgICAiRmFpbGVkIHRvIGxvYWQgcmVzb3VyY2U6IHRoZSBzZXJ2ZXIgcmVzcG9uZGVkIHdpdGggYSBzdGF0dXMgb2YgNDA0IChGaWxlIG5vdCBmb3VuZCkiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIgogIF0sCiAgImNvbnNvbGVXYXJuaW5ncyI6IFtdCn0="
                     }
                   ]
                 }
@@ -1155,11 +1300,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-13T17:29:41.206Z",
-    "duration": 113010.8,
-    "expected": 19,
+    "startTime": "2026-11-13T20:14:31.847Z",
+    "duration": 173113.007,
+    "expected": 14,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 6,
     "flaky": 0
   }
 }
