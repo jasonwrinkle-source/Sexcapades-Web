@@ -1220,6 +1220,12 @@
             return pa(ga(e, t), t, e => ua(e, t));
         }
         function smSub(e, t, n, i) {
+            // KinkTest fix (1.1): a direct rating on the subcategory
+            // itself wins over the roll-up of its topics, mirroring da().
+            if (i) {
+                const direct = ha(i, t, n);
+                if (null != direct) return direct;
+            }
             const a = (e?.topics || []).map(Wn).concat(i ? ai(i, t) : []);
             return pa(a, t, e => ha(e, t, n));
         }
@@ -1236,6 +1242,14 @@
                 Object.values(at[t] || {}).filter(x => x.branch === e.name && !d.has(x.parentId)).forEach(x => u.push(ha(x.id, t, n)));
             }
             const k = u.filter(v => null != v);
+            // KinkTest fix (1.1): a direct rating on the branch itself
+            // wins over the roll-up of its children, mirroring da().
+            const direct = ha(catId(e.name), t, n);
+            if (null != direct) return {
+                value: direct,
+                rated: 0,
+                total: u.length
+            };
             return {
                 value: k.length ? Math.max(-100, Math.min(100, k.reduce((a, b) => a + b, 0) / k.length)) : null,
                 rated: k.length,
