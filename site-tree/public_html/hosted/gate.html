@@ -20,7 +20,7 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
     <title>Sexcapades — Adults Only</title>
     <style>
       :root {
@@ -458,11 +458,20 @@
       .destination-trigger:hover { background: var(--surface); }
       .destination-trigger:active { transform: none; }
 
-      /* App button glow: draws the eye to the App entry point. A crisp
-         accent ring plus a soft accent halo; no solid fill, and the
-         button's text, size, position and function are unchanged. */
+      /* App button glow: the app's cyan pulsing glow (listViewGlowPulse),
+         not the old pink static halo. Cyan #63c2c8, the app's focus color
+         (the gate's own --focus is pale yellow, so the cyan is literal here).
+         Border + pulsing box-shadow; text, size, position, function unchanged. */
+      @keyframes listViewGlowPulse {
+        0%, 100% { box-shadow: 0 0 4px 1px rgba(99, 194, 200, .30); }
+        50% { box-shadow: 0 0 0 3px rgba(99, 194, 200, .45), 0 0 18px 6px rgba(99, 194, 200, .65); }
+      }
       #appViewTrigger {
-        box-shadow: 0 0 0 1px var(--accent), 0 0 18px 2px rgba(255, 77, 100, .55);
+        border-color: #63c2c8;
+        animation: listViewGlowPulse 1.6s ease-in-out infinite;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #appViewTrigger { animation: none; box-shadow: 0 0 0 1px #63c2c8, 0 0 12px 2px rgba(99, 194, 200, .45); }
       }
 
       .gate.is-confirmed .gate-body { display: none; }
@@ -1474,6 +1483,218 @@
       @media (max-width: 760px) {
         .gate.is-confirmed .concept-graphic { max-height: none; }
       }
+
+      /* Gate redesign (2026-11-13): full-screen gate, mind-map as background.
+         The panel fills the viewport between the site header and the footer;
+         the concept graphic is the background layer behind the hero content;
+         the H1 is a header row at the top, and the dialogue + Enter button
+         sit over the dimmed map. All ids, hrefs and gate JS are untouched. */
+      main { padding: 0; }
+
+      .panel.gate {
+        flex: 1 1 auto;
+        align-self: stretch;
+        width: 100%;
+        max-width: none;
+        min-height: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .gate.is-confirmed { width: 100%; max-width: none; }
+
+      .gate-body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* Background layer: the mind-map SVG fills the whole stage. */
+      .concept-graphic {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: block;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: #0b0e10;
+      }
+
+      .concept-graphic::before {
+        inset: 0;
+        height: auto;
+      }
+
+      .mind-map-art {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        opacity: .5;
+      }
+
+      /* Dimming scrim so the headline, dialogue and button stay crisp. */
+      .concept-graphic::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 50% 42%, rgba(11, 14, 16, .18), rgba(11, 14, 16, .62) 82%),
+          linear-gradient(rgba(11, 14, 16, .42), rgba(11, 14, 16, .58));
+      }
+
+      /* Confirmed (after Enter): no dimming — the map shows at full brightness. */
+      .gate.is-confirmed .mind-map-art { opacity: 1; }
+      .gate.is-confirmed .concept-graphic::after { display: none; }
+
+      /* App header bar (confirmed state only): mirrors the app's .intro
+         header — "Sexcapades.IO" title left, avatar + "?" right. It lives
+         inside #destinationMenu, so it only appears after Enter. */
+      .app-header {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(11, 13, 15, .92);
+      }
+      .app-header-title { margin: 0; }
+      .app-header-title .app-title-button {
+        display: block;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+        font-size: clamp(28px, 3.1vw, 42px);
+        font-weight: 700;
+        line-height: .94;
+        letter-spacing: 0;
+        text-align: left;
+        cursor: pointer;
+      }
+      .app-header-title .app-title-button:hover {
+        text-decoration: underline;
+        text-decoration-color: #63c2c8;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;
+      }
+      .app-header-actions { display: inline-flex; align-items: center; gap: 10px; }
+      .app-header .guide-avatar-wrap { display: inline-flex; }
+      .app-header .avatar-music-btn {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .app-header .avatar-music-btn img { display: block; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+      .app-header .avatar-music-btn.is-playing { border-color: #63c2c8; box-shadow: 0 0 0 2px rgba(99, 194, 200, .45), 0 0 14px 2px rgba(99, 194, 200, .35); }
+      .app-header .review-callout {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-raised);
+        color: var(--text);
+        text-decoration: none;
+      }
+      .app-header .review-callout:hover { border-color: #63c2c8; }
+      .app-header .guide-qmark { font-size: 1.25rem; font-weight: 800; line-height: 1; }
+      /* Gate About dialog (Easter egg): same copy as the app's About. */
+      #gateAboutDialog { max-width: min(620px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: 12px; background: var(--surface-raised); color: var(--text); padding: 0; }
+      #gateAboutDialog::backdrop { background: rgba(0, 0, 0, .6); }
+      #gateAboutDialog .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 20px 0; }
+      #gateAboutDialog .dialog-head h2 { margin: 0; font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif; font-size: 1.7rem; }
+      #gateAboutDialog .close-btn { border: 0; background: transparent; color: var(--text); font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 2px 6px; }
+      #gateAboutDialog .dialog-body { padding: 12px 20px 20px; }
+      #gateAboutDialog .dialog-body p { margin: 0 0 12px; line-height: 1.5; }
+      #gateAboutDialog .app-about-version { color: var(--muted); font-weight: 700; }
+      #gateAboutDialog a { color: var(--link); }
+      @media (max-width: 760px) {
+        .app-header { padding: 8px 12px; }
+        .app-header .avatar-music-btn { width: 42px; height: 42px; }
+        .app-header .avatar-music-btn img { width: 38px; height: 38px; }
+        .app-header .review-callout { width: 36px; height: 36px; }
+      }
+
+      .hero {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 880px;
+        min-height: 0;
+        margin: 0 auto;
+        padding: clamp(26px, 5vh, 56px) clamp(20px, 5vw, 56px) clamp(24px, 4vh, 44px);
+        overflow-y: auto;
+      }
+
+      /* Header row: kicker + H1 across the top of the gate. */
+      .hero .gate-kicker { margin-bottom: 16px; }
+
+      .hero h1 {
+        max-width: none;
+        font-size: clamp(2.5rem, 5.2vw, 4.1rem);
+        line-height: 1.02;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, .65);
+      }
+
+      /* Dialogue + Enter sit over the map, anchored toward the bottom so
+         the graphic reads in the middle of the stage. */
+      .hero .value-prop {
+        max-width: 52ch;
+        margin-top: auto;
+        padding-top: 28px;
+        color: #dfe4e7;
+        text-shadow: 0 1px 10px rgba(0, 0, 0, .7);
+      }
+
+      .hero .age-copy { text-shadow: 0 1px 10px rgba(0, 0, 0, .7); }
+
+      @media (max-width: 760px) {
+        .concept-graphic { display: block; max-height: none; }
+        .mind-map-art { max-height: none; }
+        .hero { max-width: none; padding: 22px 20px 24px; }
+        .hero h1 { font-size: clamp(2.3rem, 10.5vw, 3.2rem); }
+        .hero .value-prop { padding-top: 20px; }
+      }
+
+      @media (max-width: 420px) {
+        .concept-graphic { padding-inline: 0; }
+        .mind-map-art { max-height: none; }
+        .hero { padding: 20px 18px 22px; }
+        .hero h1 { font-size: 2.35rem; }
+      }
     </style>
   </head>
   <body>
@@ -1484,8 +1705,19 @@
     <main>
             <section class="panel gate" id="ageGate" aria-labelledby="gateTitle">
         <div class="gate-body">
-          <figure class="concept-graphic" aria-labelledby="mapConceptCaption">
+          <figure class="concept-graphic" aria-labelledby="mapArtTitle mapArtDescription">
             <nav class="destination-menu" id="destinationMenu" aria-label="Sexcapades destinations" aria-hidden="true">
+              <div class="app-header" id="gateAppHeader">
+                <h1 class="app-header-title"><button type="button" class="app-title-button" id="gateAppAboutBtn" aria-controls="gateAboutDialog" aria-haspopup="dialog">Sexcapades.IO</button></h1>
+                <div class="app-header-actions">
+                  <span class="guide-avatar-wrap">
+                    <button type="button" class="avatar-music-btn" id="gateAvatarMusicBtn" aria-pressed="false" aria-label="Play the verse for the Hypermap">
+                      <img src="images/img-0.webp" alt='Yolanda "Yo" Biche — close-up of her smiling face, one paw raised in a wave' decoding="async">
+                    </button>
+                  </span>
+                  <a class="review-callout" href="gate.html#guide" id="gateReviewLink" target="_blank" rel="noopener noreferrer" aria-label="Open the Syncing Sexcapades Guide" data-ui-tooltip="Learn how to build, compare, save, and share hypermaps."><strong class="guide-qmark" aria-hidden="true">?</strong></a>
+                </div>
+              </div>
               <div class="destination-header">
                 <p class="destination-menu-label">Choose where to go</p>
                 <div class="destination-header-actions">
@@ -1493,7 +1725,7 @@
                     <button class="destination-link destination-trigger" id="appViewTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="appViewMenu">App</button>
                     <ul class="app-view-menu" id="appViewMenu" hidden>
                       <li><a href="/hosted/app.html#app/import">Scan or Import</a></li>
-                      <li><a class="app-view-menu-primary" href="/hosted/app.html#app/list">Popularity List</a></li>
+                      <li><a class="app-view-menu-primary" href="/hosted/app.html#app/list">Hot List</a></li>
                       <li><a href="/hosted/app.html#app/map">Hypermap</a></li>
                       <li><a href="/hosted/app.html#sentinel">Scene Sentinel</a></li>
                     </ul>
@@ -1547,7 +1779,7 @@
                 </div>
               </div>
             </nav>
-            <svg class="mind-map-art" viewBox="0 0 520 430" role="img" aria-labelledby="mapArtTitle mapArtDescription">
+            <svg class="mind-map-art" viewBox="0 0 520 430" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapArtTitle mapArtDescription">
               <title id="mapArtTitle">A mind map demonstrating the power of mapping desires</title>
               <desc id="mapArtDescription">Mapping desires branches into clarifying wants, noticing patterns, seeing connections, and guiding conversations, with practical insights grouped beneath each theme.</desc>
               <defs>
@@ -1617,10 +1849,8 @@
                 </g>
               </g>
             </svg>
-            <figcaption class="graphic-caption" id="mapConceptCaption"><strong>Turn scattered feelings into something you can see.</strong> A mind map reveals what matters, where ideas connect, and what is worth talking about.</figcaption>
           </figure>
           <div class="hero">
-            <div class="gate-kicker"><span class="age-badge">18+</span><span>Adults only</span></div>
             <h1 id="gateTitle">54 taps → see your map come alive.</h1>
             <p class="value-prop">Start with a private, 10-minute tour of your desires. Your choices take shape as a personal map built for reflection, comparison, and better conversations.</p>
             <p class="age-copy">Please confirm that you are at least 18 years old to continue.</p>
@@ -1638,7 +1868,7 @@
       <div class="sitemap-group">
         <button class="sitemap-trigger" id="appMenuTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="appMenu">App</button>
         <ul class="sitemap-menu sitemap-menu-app" id="appMenu" hidden>
-          <li><a class="sitemap-menu-primary" href="/hosted/app.html#app/list">Popularity List</a></li>
+          <li><a class="sitemap-menu-primary" href="/hosted/app.html#app/list">Hot List</a></li>
           <li><a href="/hosted/app.html#app/map">Hypermap</a></li>
           <li><a href="/hosted/app.html">Scribe</a></li>
           <li><a href="/hosted/app.html">Scene Setter</a></li>
@@ -1699,6 +1929,136 @@
       <p class="build-stamp">Build 2026-10-18_2143</p>
     </footer>
 
+    <dialog id="gateAboutDialog" aria-labelledby="gateAboutTitle" aria-describedby="gateAboutDescription">
+      <div class="dialog-head">
+        <h2 id="gateAboutTitle">About Sexcapades.IO</h2>
+        <button type="button" class="close-btn" id="gateCloseAbout" aria-label="Close About Sexcapades.IO">×</button>
+      </div>
+      <div class="dialog-body">
+        <p class="app-about-version">Version 4.0 · Build 2026-11-13_0528</p>
+        <p class="app-about-version">release-4.0-1113-0528</p>
+        <p id="gateAboutDescription">Sexcapades is an interactive hypermap for rating and visualizing adult interests. Build a personal profile, compare where partners align, use Scribe to write stories and scenes, and Scene Setter to plan and negotiate play — all in the same shared vocabulary.</p>
+        <p><a href="https://patreon.com/SexcapadesIO" rel="noopener" target="_blank">Support Sexcapades on Patreon</a></p>
+        <p>Built with Muse. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a>, then redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get <strong>1 billion tokens</strong>.</p>
+        <p>Suno is better with friends: the songs on this site are made with Suno. Sign up with <a href="https://suno.com/invite/@jason_wrinkle_personal" rel="noopener" target="_blank">my invite link</a> and create 10 songs, and we both receive 250 free credits (limit 2,500 credits per person).</p>
+        <p><a href="/hosted/methodology.html" rel="noopener" target="_blank">How we compute community stats</a> · <a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a> · Questions? <a href="mailto:help@sexcapades.io">help@sexcapades.io</a></p>
+        <p>© 2026 Jason Mark Wrinkle. All rights reserved.</p>
+      </div>
+    </dialog>
+
+    <script>
+      /* GATE APP HEADER — About dialog (Easter egg) + avatar music.
+         Self-contained; does not import the app bundle. The verse is the
+         app's hypermap verse (avatar-music.js TABLE "hypermap"). The mp3s
+         are not in the repo yet (Jason adds them from his machine), so a
+         missing file is a quiet no-op: the button returns to idle, no
+         crash, no console error storm. */
+      (function () {
+        "use strict";
+        var VERSE_URL = "/hosted/assets/audio/the-explainer/e1/verse-hypermap.mp3";
+        var VERSE_LABEL = "Hypermap";
+
+        /* ---- About dialog (Easter egg) ---- */
+        var aboutBtn = document.getElementById("gateAppAboutBtn");
+        var aboutDlg = document.getElementById("gateAboutDialog");
+        var aboutClose = document.getElementById("gateCloseAbout");
+        if (aboutBtn && aboutDlg && aboutDlg.showModal) {
+          aboutBtn.addEventListener("click", function () { aboutDlg.showModal(); });
+        }
+        if (aboutClose && aboutDlg) {
+          aboutClose.addEventListener("click", function () { aboutDlg.close(); });
+        }
+        if (aboutDlg) {
+          aboutDlg.addEventListener("click", function (e) {
+            if (e.target === aboutDlg) aboutDlg.close();
+          });
+        }
+
+        /* ---- Avatar music (play/stop) ---- */
+        var btn = document.getElementById("gateAvatarMusicBtn");
+        var audio = null;
+        var seq = 0;
+        var warned = false;
+
+        function setIdle() {
+          if (!btn) return;
+          btn.classList.remove("is-playing");
+          btn.classList.remove("is-loading");
+          btn.setAttribute("aria-pressed", "false");
+          btn.setAttribute("aria-label", "Play the verse for the " + VERSE_LABEL);
+        }
+        function setPlaying() {
+          if (!btn) return;
+          btn.classList.remove("is-loading");
+          btn.classList.add("is-playing");
+          btn.setAttribute("aria-pressed", "true");
+          btn.setAttribute("aria-label", "Stop the verse for the " + VERSE_LABEL);
+        }
+        function ensureAudio() {
+          if (audio) return audio;
+          audio = new Audio();
+          audio.preload = "none";
+          audio.addEventListener("ended", function () { setIdle(); });
+          audio.addEventListener("playing", function () { setPlaying(); });
+          audio.addEventListener("error", function () {
+            /* One quiet warn per attempt at most; never an error storm.
+               Also pause the element so its state matches the idle button. */
+            try { audio.pause(); } catch (e) {}
+            if (!warned) { warned = true; console.warn("Gate music: verse audio could not be loaded (" + VERSE_URL + ")"); }
+            setIdle();
+          });
+          return audio;
+        }
+        function playVerse() {
+          if (!btn) return;
+          if (btn.classList.contains("is-playing") || btn.classList.contains("is-loading")) return;
+          warned = false;
+          var mySeq = ++seq;
+          var a = ensureAudio();
+          btn.classList.add("is-loading");
+          btn.setAttribute("aria-pressed", "true");
+          btn.setAttribute("aria-label", "Stop the verse for the " + VERSE_LABEL);
+          try { a.src = VERSE_URL; } catch (e) { setIdle(); return; }
+          var p = null;
+          try { p = a.play(); } catch (e) { setIdle(); return; }
+          if (p && typeof p.then === "function") {
+            p.then(function () {
+              if (mySeq !== seq) return;
+              setPlaying();
+            }, function () {
+              if (mySeq !== seq) return;
+              setIdle();
+            });
+          } else {
+            setPlaying();
+          }
+        }
+        function stopVerse() {
+          seq++;
+          if (audio) { try { audio.pause(); } catch (e) {} }
+          setIdle();
+        }
+        function toggleVerse() {
+          if (!btn) return;
+          if (btn.classList.contains("is-playing") || btn.classList.contains("is-loading")) stopVerse();
+          else playVerse();
+        }
+        if (btn) btn.addEventListener("click", toggleVerse);
+        setIdle();
+
+        /* Auto-play on Enter: called from the Enter click handler (a user
+           gesture, so autoplay-with-sound is allowed). Only starts when
+           nothing is playing. */
+        window.sxGateMusicAutoPlay = function () { playVerse(); };
+        window.sxGateMusicState = function () {
+          return { playing: !!(btn && btn.classList.contains("is-playing")),
+                   loading: !!(btn && btn.classList.contains("is-loading")),
+                   src: audio ? (audio.getAttribute("src") || null) : null,
+                   paused: audio ? audio.paused : true,
+                   readyState: audio ? audio.readyState : 0 };
+        };
+      })();
+    </script>
 
     <script>
       (function () {
@@ -1981,6 +2341,7 @@
             return;
           }
 
+          if (window.sxGateMusicAutoPlay) window.sxGateMusicAutoPlay();
           revealDestinations();
           var nextStop = destinationMenu.querySelector('#appViewTrigger, a, button');
           if (nextStop) nextStop.focus();
