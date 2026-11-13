@@ -361,7 +361,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 45000,
         "use": {
-          "baseURL": "http://localhost:8000?utm_source=fleet",
+          "baseURL": "http://localhost:8000",
           "trace": "retain-on-failure",
           "screenshot": "only-on-failure",
           "video": "retain-on-failure",
@@ -401,7 +401,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 45000,
         "use": {
-          "baseURL": "http://localhost:8000?utm_source=fleet",
+          "baseURL": "http://localhost:8000",
           "trace": "retain-on-failure",
           "screenshot": "only-on-failure",
           "video": "retain-on-failure",
@@ -467,7 +467,7 @@
       "specs": [
         {
           "title": "S0-01 mandatory test harness reports ALL TESTS PASSED",
-          "ok": false,
+          "ok": true,
           "tags": [],
           "tests": [
             {
@@ -480,63 +480,18 @@
                 {
                   "workerIndex": 0,
                   "parallelIndex": 0,
-                  "status": "failed",
-                  "duration": 38127,
-                  "error": {
-                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#suiteBadge')\nExpected substring: \u001b[32m\"\u001b[7mALL TESTS PASS\u001b[27mED\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m8 FAIL\u001b[27mED\"\u001b[39m\nTimeout: 30000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('#suiteBadge') with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for locator('#suiteBadge')\u001b[22m\n\u001b[2m    15 × locator resolved to <span id=\"suiteBadge\" class=\"badge running\">RUNNING</span>\u001b[22m\n\u001b[2m       - unexpected value \"RUNNING\"\u001b[22m\n\u001b[2m    44 × locator resolved to <span id=\"suiteBadge\" class=\"badge failed\">8 FAILED</span>\u001b[22m\n\u001b[2m       - unexpected value \"8 FAILED\"\u001b[22m\n",
-                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#suiteBadge')\nExpected substring: \u001b[32m\"\u001b[7mALL TESTS PASS\u001b[27mED\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m8 FAIL\u001b[27mED\"\u001b[39m\nTimeout: 30000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('#suiteBadge') with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for locator('#suiteBadge')\u001b[22m\n\u001b[2m    15 × locator resolved to <span id=\"suiteBadge\" class=\"badge running\">RUNNING</span>\u001b[22m\n\u001b[2m       - unexpected value \"RUNNING\"\u001b[22m\n\u001b[2m    44 × locator resolved to <span id=\"suiteBadge\" class=\"badge failed\">8 FAILED</span>\u001b[22m\n\u001b[2m       - unexpected value \"8 FAILED\"\u001b[22m\n\n    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\00-harness.spec.js:7:45",
-                    "location": {
-                      "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\00-harness.spec.js",
-                      "column": 45,
-                      "line": 7
-                    },
-                    "snippet": " \u001b[90m  5 |\u001b[39m   page\u001b[33m.\u001b[39mon(\u001b[32m\"pageerror\"\u001b[39m\u001b[33m,\u001b[39m error \u001b[33m=>\u001b[39m pageErrors\u001b[33m.\u001b[39mpush(error\u001b[33m.\u001b[39mmessage))\u001b[33m;\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/qa/test-runner.html\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#suiteBadge\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"ALL TESTS PASSED\"\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m30_000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m telemetryText \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#rawTelemetry\"\u001b[39m)\u001b[33m.\u001b[39mtextContent()\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mconst\u001b[39m telemetry \u001b[33m=\u001b[39m \u001b[33mJSON\u001b[39m\u001b[33m.\u001b[39mparse(telemetryText \u001b[33m||\u001b[39m \u001b[32m\"{}\"\u001b[39m)\u001b[33m;\u001b[39m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\00-harness.spec.js",
-                        "column": 45,
-                        "line": 7
-                      },
-                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#suiteBadge')\nExpected substring: \u001b[32m\"\u001b[7mALL TESTS PASS\u001b[27mED\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m8 FAIL\u001b[27mED\"\u001b[39m\nTimeout: 30000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('#suiteBadge') with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for locator('#suiteBadge')\u001b[22m\n\u001b[2m    15 × locator resolved to <span id=\"suiteBadge\" class=\"badge running\">RUNNING</span>\u001b[22m\n\u001b[2m       - unexpected value \"RUNNING\"\u001b[22m\n\u001b[2m    44 × locator resolved to <span id=\"suiteBadge\" class=\"badge failed\">8 FAILED</span>\u001b[22m\n\u001b[2m       - unexpected value \"8 FAILED\"\u001b[22m\n\n\n \u001b[90m  5 |\u001b[39m   page\u001b[33m.\u001b[39mon(\u001b[32m\"pageerror\"\u001b[39m\u001b[33m,\u001b[39m error \u001b[33m=>\u001b[39m pageErrors\u001b[33m.\u001b[39mpush(error\u001b[33m.\u001b[39mmessage))\u001b[33m;\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/qa/test-runner.html\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#suiteBadge\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"ALL TESTS PASSED\"\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m30_000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m telemetryText \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#rawTelemetry\"\u001b[39m)\u001b[33m.\u001b[39mtextContent()\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mconst\u001b[39m telemetry \u001b[33m=\u001b[39m \u001b[33mJSON\u001b[39m\u001b[33m.\u001b[39mparse(telemetryText \u001b[33m||\u001b[39m \u001b[32m\"{}\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\00-harness.spec.js:7:45\u001b[22m"
-                    }
-                  ],
+                  "status": "passed",
+                  "duration": 27563,
+                  "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:41:55.810Z",
+                  "startTime": "2026-11-13T17:29:41.698Z",
                   "annotations": [],
-                  "attachments": [
-                    {
-                      "name": "screenshot",
-                      "contentType": "image/png",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\00-harness-S0-01-mandatory-4af48-ss-reports-ALL-TESTS-PASSED-chrome-stable\\test-failed-1.png"
-                    },
-                    {
-                      "name": "video",
-                      "contentType": "video/webm",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\00-harness-S0-01-mandatory-4af48-ss-reports-ALL-TESTS-PASSED-chrome-stable\\video.webm"
-                    },
-                    {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\00-harness-S0-01-mandatory-4af48-ss-reports-ALL-TESTS-PASSED-chrome-stable\\error-context.md"
-                    },
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\00-harness-S0-01-mandatory-4af48-ss-reports-ALL-TESTS-PASSED-chrome-stable\\trace.zip"
-                    }
-                  ],
-                  "errorLocation": {
-                    "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\00-harness.spec.js",
-                    "column": 45,
-                    "line": 7
-                  }
+                  "attachments": []
                 }
               ],
-              "status": "unexpected"
+              "status": "expected"
             },
             {
               "timeout": 45000,
@@ -547,14 +502,14 @@
               "results": [
                 {
                   "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 22837,
+                  "duration": 22917,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:42:34.547Z",
+                  "startTime": "2026-11-13T17:30:28.054Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -598,12 +553,12 @@
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 31459,
+                      "duration": 28033,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:41:55.799Z",
+                      "startTime": "2026-11-13T17:29:41.741Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -621,12 +576,12 @@
                       "workerIndex": 7,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 37427,
+                      "duration": 20612,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:42:42.040Z",
+                      "startTime": "2026-11-13T17:30:28.474Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -655,12 +610,12 @@
                       "workerIndex": 2,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 25589,
+                      "duration": 18028,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:41:55.825Z",
+                      "startTime": "2026-11-13T17:29:41.723Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -675,65 +630,20 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 9,
+                      "workerIndex": 8,
                       "parallelIndex": 5,
-                      "status": "failed",
-                      "duration": 3169,
-                      "error": {
-                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n",
-                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\n    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\10-profile-io.spec.js:14:11",
-                        "location": {
-                          "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                          "column": 14,
-                          "line": 7
-                        },
-                        "snippet": "\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                            "column": 14,
-                            "line": 7
-                          },
-                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n\n\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {\n\u001b[2m    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\u001b[22m\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\10-profile-io.spec.js:14:11\u001b[22m"
-                        }
-                      ],
+                      "status": "passed",
+                      "duration": 19383,
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:42:42.165Z",
+                      "startTime": "2026-11-13T17:30:28.730Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-edge-stable\\test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-edge-stable\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-edge-stable\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\10-profile-io-Squad-1-—-pr-302f5-test-parsers-return-ratings-edge-stable\\trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                        "column": 14,
-                        "line": 7
-                      }
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "4c2898821358cb9a0daf-535a2d6f9a3c7f10ed2d",
@@ -774,12 +684,12 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 31567,
+                      "duration": 45002,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:41:55.849Z",
+                      "startTime": "2026-11-13T17:29:41.771Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -794,34 +704,34 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 8,
-                      "parallelIndex": 0,
+                      "workerIndex": 9,
+                      "parallelIndex": 3,
                       "status": "failed",
-                      "duration": 2911,
+                      "duration": 28697,
                       "error": {
-                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n",
-                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\n    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:6:11",
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63",
                         "location": {
-                          "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                          "column": 14,
-                          "line": 7
+                          "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                          "column": 63,
+                          "line": 16
                         },
-                        "snippet": "\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {"
+                        "snippet": " \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {"
                       },
                       "errors": [
                         {
                           "location": {
-                            "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                            "column": 14,
-                            "line": 7
+                            "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                            "column": 63,
+                            "line": 16
                           },
-                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n\n\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {\n\u001b[2m    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\u001b[22m\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:6:11\u001b[22m"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\n \u001b[90m 14 |\u001b[39m     expect(box\u001b[33m.\u001b[39mwidth)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m     expect(box\u001b[33m.\u001b[39mheight)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m50\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"#mapSvg .node-group\"\u001b[39m)\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   test(\u001b[32m\"S2-02 crossing metric is finite\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:16:63\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:42:42.135Z",
+                      "startTime": "2026-11-13T17:30:31.570Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -846,9 +756,9 @@
                         }
                       ],
                       "errorLocation": {
-                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                        "column": 14,
-                        "line": 7
+                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js",
+                        "column": 63,
+                        "line": 16
                       }
                     }
                   ],
@@ -876,12 +786,12 @@
                       "workerIndex": 4,
                       "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 24936,
+                      "duration": 20196,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:41:55.834Z",
+                      "startTime": "2026-11-13T17:29:41.759Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -896,15 +806,15 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
+                      "workerIndex": 11,
+                      "parallelIndex": 4,
                       "status": "passed",
-                      "duration": 18905,
+                      "duration": 37044,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:42:49.337Z",
+                      "startTime": "2026-11-13T17:30:51.982Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -933,12 +843,12 @@
                       "workerIndex": 5,
                       "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 9808,
+                      "duration": 26839,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:41:55.836Z",
+                      "startTime": "2026-11-13T17:29:41.760Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -953,65 +863,20 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 11,
-                      "parallelIndex": 5,
-                      "status": "failed",
-                      "duration": 5232,
-                      "error": {
-                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n",
-                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\n    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:29:11",
-                        "location": {
-                          "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                          "column": 14,
-                          "line": 7
-                        },
-                        "snippet": "\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                            "column": 14,
-                            "line": 7
-                          },
-                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n\n\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {\n\u001b[2m    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\u001b[22m\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\20-hypermap.spec.js:29:11\u001b[22m"
-                        }
-                      ],
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 38903,
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:42:49.508Z",
+                      "startTime": "2026-11-13T17:30:51.790Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\\test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\20-hypermap-Squad-2-—-hype-03ce1-contains-no-NaN-or-Infinity-edge-stable\\trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                        "column": 14,
-                        "line": 7
-                      }
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "cfbe2aa3894228f8d0fc-1100e98c4fbf59a1c1ae",
@@ -1032,15 +897,15 @@
                   "projectName": "chrome-stable",
                   "results": [
                     {
-                      "workerIndex": 5,
-                      "parallelIndex": 5,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 34136,
+                      "duration": 23073,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:42:05.976Z",
+                      "startTime": "2026-11-13T17:30:00.184Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1055,15 +920,15 @@
                   "projectName": "edge-stable",
                   "results": [
                     {
-                      "workerIndex": 13,
-                      "parallelIndex": 4,
+                      "workerIndex": 8,
+                      "parallelIndex": 5,
                       "status": "passed",
-                      "duration": 17013,
+                      "duration": 22781,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-13T16:42:58.862Z",
+                      "startTime": "2026-11-13T17:30:49.029Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1102,12 +967,12 @@
                   "workerIndex": 4,
                   "parallelIndex": 4,
                   "status": "passed",
-                  "duration": 33959,
+                  "duration": 44062,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:42:21.412Z",
+                  "startTime": "2026-11-13T17:30:02.523Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1122,65 +987,20 @@
               "projectName": "edge-stable",
               "results": [
                 {
-                  "workerIndex": 12,
-                  "parallelIndex": 5,
-                  "status": "failed",
-                  "duration": 8934,
-                  "error": {
-                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n",
-                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\n    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\30-compatibility.spec.js:5:9",
-                    "location": {
-                      "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                      "column": 14,
-                      "line": 7
-                    },
-                    "snippet": "\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                        "column": 14,
-                        "line": 7
-                      },
-                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8000/qa/app.html?verified=1#app/map\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8000/qa/app.html?verified=1#app/map\", waiting until \"load\"\u001b[22m\n\n\n\u001b[90m   at \u001b[39mhelpers.js:7\n\n \u001b[90m  5 |\u001b[39m   \u001b[90m// The live host bounces a fresh context to the age gate. ?verified=1 is the\u001b[39m\n \u001b[90m  6 |\u001b[39m   \u001b[90m// gate's own return marker and lets the app stay on the requested route.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m`/qa/app.html?verified=1${hash}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m enter \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/I am 18 or older/i\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m enter\u001b[33m.\u001b[39misVisible()\u001b[33m.\u001b[39mcatch(() \u001b[33m=>\u001b[39m \u001b[36mfalse\u001b[39m)) {\n\u001b[2m    at openApp (J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js:7:14)\u001b[22m\n\u001b[2m    at J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\30-compatibility.spec.js:5:9\u001b[22m"
-                    }
-                  ],
+                  "workerIndex": 7,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 19225,
+                  "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:42:58.714Z",
+                  "startTime": "2026-11-13T17:30:50.107Z",
                   "annotations": [],
-                  "attachments": [
-                    {
-                      "name": "screenshot",
-                      "contentType": "image/png",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-edge-stable\\test-failed-1.png"
-                    },
-                    {
-                      "name": "video",
-                      "contentType": "video/webm",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-edge-stable\\video.webm"
-                    },
-                    {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-edge-stable\\error-context.md"
-                    },
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\test-results\\30-compatibility-S3-01-pai-ab558-ns-a-positive-play-headline-edge-stable\\trace.zip"
-                    }
-                  ],
-                  "errorLocation": {
-                    "file": "J:\\jason\\Projects\\Sexcapades-Web\\sexcapades-playwright-fleet\\tests\\helpers.js",
-                    "column": 14,
-                    "line": 7
-                  }
+                  "attachments": []
                 }
               ],
-              "status": "unexpected"
+              "status": "expected"
             }
           ],
           "id": "12fcef84d6815f2fdfd6-53ebd738b3d5bec2e948",
@@ -1209,15 +1029,15 @@
               "projectName": "chrome-stable",
               "results": [
                 {
-                  "workerIndex": 2,
-                  "parallelIndex": 2,
+                  "workerIndex": 5,
+                  "parallelIndex": 5,
                   "status": "passed",
-                  "duration": 17930,
+                  "duration": 17385,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:42:22.159Z",
+                  "startTime": "2026-11-13T17:30:09.117Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1233,14 +1053,14 @@
               "results": [
                 {
                   "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 17306,
+                  "duration": 18511,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:42:59.049Z",
+                  "startTime": "2026-11-13T17:30:51.615Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1274,21 +1094,21 @@
               "projectName": "chrome-stable",
               "results": [
                 {
-                  "workerIndex": 1,
-                  "parallelIndex": 1,
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 33722,
+                  "duration": 37378,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:42:27.688Z",
+                  "startTime": "2026-11-13T17:30:09.679Z",
                   "annotations": [],
                   "attachments": [
                     {
                       "name": "console-diagnostics.json",
                       "contentType": "application/json",
-                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogWwogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiLAogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiBuZXQ6OkVSUl9DT05ORUNUSU9OX1JFRlVTRUQiCiAgXSwKICAiY29uc29sZVdhcm5pbmdzIjogW10KfQ=="
+                      "body": "ewogICJjb25zb2xlRXJyb3JzIjogWwogICAgIkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoRmlsZSBub3QgZm91bmQpIiwKICAgICJGYWlsZWQgdG8gbG9hZCByZXNvdXJjZTogdGhlIHNlcnZlciByZXNwb25kZWQgd2l0aCBhIHN0YXR1cyBvZiA0MDQgKEZpbGUgbm90IGZvdW5kKSIKICBdLAogICJjb25zb2xlV2FybmluZ3MiOiBbXQp9"
                     }
                   ]
                 }
@@ -1303,15 +1123,15 @@
               "projectName": "edge-stable",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 1,
+                  "workerIndex": 7,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 15762,
+                  "duration": 24485,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-13T16:43:09.872Z",
+                  "startTime": "2026-11-13T17:31:09.401Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -1335,11 +1155,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-13T16:41:55.246Z",
-    "duration": 91025.116,
-    "expected": 15,
+    "startTime": "2026-11-13T17:29:41.206Z",
+    "duration": 113010.8,
+    "expected": 19,
     "skipped": 0,
-    "unexpected": 5,
+    "unexpected": 1,
     "flaky": 0
   }
 }
