@@ -191,8 +191,9 @@ if (typeof window !== "undefined") {
             spacing: "airy", branchOrder: "landscape-antipodal", propFan: true, subcatOrder: true,
             staggerDensity: false, stagger: true, expandAll: true, crossmin: false, nudge: false,
             showRelations: false, repulsionEnabled: false, staticMap: false, animations: false,
+            mapSliders: false,
             collision: "grow", spokeLen: 2.6, subLen: 1.2, pad: 1.4, repulsion: 0,
-            fontScale: 30, centerRingScale: 10, leafOvergrowth: 200, autoShrinkFactor: 0.76,
+            fontScale: 30, centerRingScale: 10, leafOvergrowth: 100, autoShrinkFactor: 0.76,
             subcatCloudShrinkFactor: 0.76, branchOverrides: {}, subcatOverrides: {}, kinkOverrides: {},
             subcatAngleOffsets: {}, kinkAngleOffsets: {}, branchSpokeAutoShrink: {}, subcatSpokeAutoShrink: {},
             solverMidline: "repulsion"
@@ -15342,29 +15343,6 @@ const TAXONOMY_CATEGORIES = [
         }
         let witnessTrippingLabel;
         async function stepShrinkLadders(name, report, dk, fineTuneActive, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, opts, tax, diagCaptureFields, onsetCheck) {
-            // STAGED SCORING SWITCH (ruled 2026-11-02, Jason): this
-            // step IS the whole run's shrink stage — the single
-            // run-level entry point every run passes through after
-            // the throw (or the fine-tune arming), on the normal
-            // path and the skip-throw path alike. Entering it flips
-            // the run's judged score from same-branch-only to
-            // same-plus-adjacent (radial neighbours), and the
-            // per-phase gate's reference is RE-BASED on the current
-            // (last-kept) geometry under the new composition, so
-            // the first shrink phase is judged against the same
-            // composition it is scored under — descent and judge
-            // agree across the switch. Every later judged read in
-            // the run (shrink phases, back-out restored readings,
-            // the final patch's measurement and the final gate)
-            // uses the new composition through measureCloud.
-            if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
-                sxAnnealStageCtx.adjacent = !0, report.stagedScoring.adjacentFromPhase = "fit-subcats-1";
-                dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "shrink-stage-entry" });
-                try {
-                    const rebased = await dk.measureCloud(name);
-                    null != rebased && Number.isFinite(rebased) && (prevPhaseCloud = rebased, report.stagedScoring.rebasedAtShrinkEntry = rebased);
-                } catch (e) {}
-            }
             // (5) RULED SHRINK SEQUENCE (Jason, 2026-10-24
             // adjustment — supersedes the 08:05 order and every
             // earlier ordering; one-at-a-time step-down added
@@ -15786,6 +15764,32 @@ const TAXONOMY_CATEGORIES = [
             // branch's own pre-run length instead — the same
             // 3x rule on the only category length available.
             if (!(report.fineTune && report.fineTune.branchFloor) && Number.isFinite(branchTo) && branchTo > 0) branchTo = branchTo * SX_SCORE.SHRINK_FLOOR_FACTOR;
+            // STAGED SCORING SWITCH (moved 2026-11-13, Jason —
+            // SUPERSEDES the 2026-11-02 ruling that flipped it at
+            // shrink-stage entry): the neighbour-inclusive score
+            // (same-plus-adjacent, radial neighbours) belongs ONLY
+            // to the LAST shrink stage — the category/branch shrink
+            // below (fit-branch-*), the zeroth/first-level node.
+            // The subcategory shrink ladder above is judged
+            // same-branch-only (adjacent stays false through
+            // fit-subcats-*). Entering the branch ladder flips the
+            // run's judged score to same-plus-adjacent, and the
+            // per-phase gate's reference is RE-BASED on the current
+            // (last-kept) geometry under the new composition, so
+            // the first branch phase is judged against the same
+            // composition it is scored under — descent and judge
+            // agree across the switch. Every later judged read in
+            // the run (branch phases, back-out restored readings,
+            // the final patch's measurement and the final gate)
+            // uses the new composition through measureCloud.
+            if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
+                sxAnnealStageCtx.adjacent = !0, report.stagedScoring.adjacentFromPhase = "fit-branch-1";
+                dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "branch-shrink-entry" });
+                try {
+                    const rebased = await dk.measureCloud(name);
+                    null != rebased && Number.isFinite(rebased) && (prevPhaseCloud = rebased, report.stagedScoring.rebasedAtShrinkEntry = rebased);
+                } catch (e) {}
+            }
             if (Number.isFinite(branchFrom) && branchFrom > branchTo) {
                 const bStages = Math.min(DK_LADDER_MAX_STAGES, Math.max(1, dkLadderSteps(branchFrom, branchTo)));
                 for (let j = 1; j <= bStages; j++) {
@@ -15832,7 +15836,7 @@ const TAXONOMY_CATEGORIES = [
                 // composition baseline captured on the pre-run
                 // geometry for the final gate, and the phase the
                 // switch landed in. Fields added only.
-                stagedScoring: { stageAtStart: "same-branch-only", switchPoint: "shrink-stage-entry", adjacentFromPhase: null, baselineAdjacent: null },
+                stagedScoring: { stageAtStart: "same-branch-only", switchPoint: "branch-shrink-entry", adjacentFromPhase: null, baselineAdjacent: null },
                 growth: null,
                 // SUBCAT SHRINK ATTEMPTS (repair, 2026-11-01): one
                 // record per rendered subcategory of this branch —
@@ -18078,6 +18082,12 @@ const TAXONOMY_CATEGORIES = [
             return pa(ga(e, t), t, e => ua(e, t));
         }
         function smSub(e, t, n, i) {
+            // KinkTest fix (1.1): a direct rating on the subcategory
+            // itself wins over the roll-up of its topics, mirroring da().
+            if (i) {
+                const direct = ha(i, t, n);
+                if (null != direct) return direct;
+            }
             const a = (e?.topics || []).map(Wn).concat(i ? ai(i, t) : []);
             return pa(a, t, e => ha(e, t, n));
         }
@@ -18094,6 +18104,14 @@ const TAXONOMY_CATEGORIES = [
                 Object.values(at[t] || {}).filter(x => x.branch === e.name && !d.has(x.parentId)).forEach(x => u.push(ha(x.id, t, n)));
             }
             const k = u.filter(v => null != v);
+            // KinkTest fix (1.1): a direct rating on the branch itself
+            // wins over the roll-up of its children, mirroring da().
+            const direct = ha(catId(e.name), t, n);
+            if (null != direct) return {
+                value: direct,
+                rated: 0,
+                total: u.length
+            };
             return {
                 value: k.length ? Math.max(-100, Math.min(100, k.reduce((a, b) => a + b, 0) / k.length)) : null,
                 rated: k.length,
@@ -18905,6 +18923,11 @@ const TAXONOMY_CATEGORIES = [
                 kind: C ? "Topic" : "Category"
             }, P = (wa(e, I, M), da(e, M)), L = $a(e, "give", M), T = $a(e, "receive", M), F = Sa(e, I, M), N = ka(i, L, P.giveKnown ? ba(P.give) : "Unrated", { tapFirst: !0 }), _ = ka(i, T, P.receiveKnown ? ba(P.receive) : "Unrated", { tapFirst: !0 });
             let D = "";
+            // MAP-SLIDER TOGGLE (ruled 2026-11-13, Jason): the
+            // give/receive rating sliders and the collapsed
+            // rating rails draw only when mn.mapSliders is on.
+            // Default off — ratings live on the topic sheet.
+            const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
@@ -18928,7 +18951,7 @@ const TAXONOMY_CATEGORIES = [
             }
             if (D += W, D += `<path class="topic-pulse${B}${v ? " hanky-none" : ""}" d="${t}" stroke="${p}" style="stroke-width:${5 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`, 
             D += `<path class="concept-hit" data-id="${e}" data-nx="${a.toFixed(5)}" data-ny="${r.toFixed(5)}"${Sa(e, I, M)} d="${t}" tabindex="0" role="button" aria-label="${Hi(i)} concept line"/>`, 
-            g && x && !d) {
+            g && x && !d && sxShowMapSliders) {
                 const n = da(e, x);
                 ($.single ? [ {
                     key: "give",
@@ -18969,7 +18992,7 @@ const TAXONOMY_CATEGORIES = [
                     return 1 === t.length ? `${Math.round(e.score)}% · ${_d(t[0])}` : `${Math.round(e.score)}% · ${t.length} matched routes`;
                 }(U), d = (U.routes || []).map(e => `${_d(e, !0)}; combined ${Math.round(e.score)}%`).join(" · "), p = Za.controlTagWidth(r, "group") * a, h = 24 * a, g = l, m = c;
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
-            } else if (g && S && d) {
+            } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = $.single ? {
                     give: Za.controlTagWidth(y[0], "single") * m
                 } : {
@@ -21379,43 +21402,49 @@ const TAXONOMY_CATEGORIES = [
                         h = e.drawH(w), P = Za.topicLabelOffset(h, Za.cloudLabel(h, pr.categoryIcon / 2).labelOffset, e.item.cloudIndex);
                     }
                     if (e.C === undefined) e.C = sxLabelLen(isChild ? e.rec.label : "\u00A0" + e.rec.label, e.F);
-                    const ux = Math.cos(ang), uy = Math.sin(ang), Dseat = P + e.C + 1 + iconR, sEnd = Dseat + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2, a2 = pt(hub.x + ux * (P - e.F / 2), hub.y + uy * (P - e.F / 2));
+                    const ux = Math.cos(ang), uy = Math.sin(ang), a2 = pt(hub.x + ux * (P - e.F / 2), hub.y + uy * (P - e.F / 2));
                     // CAPSULE-INVERSION CORRECTION (2026-11-02,
                     // owner's design 2026-10-23 + 2026-10-27): the
                     // capsule S is the PADDLE — its outer end b is
-                    // NOT the label-zone end sEnd. The paddle runs
-                    // from a2 (the label's inward radius P, minus
-                    // half a font size — the capsule half-width,
-                    // since the 2026-11-02 band shrink) all the way
-                    // out PAST THE END
-                    // OF THE LONGEST SLIDER, plus a little: the
-                    // slider end is the paint's own end-of-controls
-                    // geometry — the icon seated at the spoke's full
-                    // drawn length h (for children, h already
-                    // carries the paint's label-clearance extension
-                    // above), plus the icon radius, 6, and half a
-                    // control tag, the same tail sEnd carries past
-                    // its label-estimate seat. The label estimate
-                    // sEnd remains as a floor for the label-dominated
-                    // regime, where it is the longer of the two.
-                    // capEnd is that outer reach; the scored midline
-                    // M (the foreign centre line other capsules are
-                    // priced against, and the centreline the interim
-                    // capsule paint draws) runs from the hub — the
-                    // branching point — out to the same capEnd, so a
-                    // foreign spoke is present everywhere its own
-                    // paddle is; its inner stretch I (hub -> a2) is
-                    // the thin line the inner count prices on the
-                    // run back toward the branching point. The node
-                    // seat stays the paint's icon seat (hub + u*h),
-                    // so the interim paint's dots sit where the full
-                    // paint seats the icons. The divergence fix
-                    // (earlier today) had this exactly reversed —
-                    // midline stretched to the icon, capsule stopping
-                    // at sEnd short of the sliders; that arrangement
-                    // must not be reintroduced under any other name.
-                    const capEnd = Math.max(sEnd, h + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2), b = pt(hub.x + ux * capEnd, hub.y + uy * capEnd), bM = pt(hub.x + ux * capEnd, hub.y + uy * capEnd);
-                    e.hub = hub, e.ang = ang, e.h = h, e.P = P, e.sEnd = sEnd, e.capEnd = capEnd;
+                    // the end of the rating controls when the map
+                    // sliders show, and the icon's extreme end when
+                    // they do not (map-sliders toggle, ruled
+                    // 2026-11-13). The paddle runs from a2 (the
+                    // label's inward radius P, minus half a font
+                    // size — the capsule half-width, since the
+                    // 2026-11-02 band shrink) all the way out to
+                    // capEnd. There is NO sEnd label floor: the icon
+                    // is set relative to the label end (seat = P +
+                    // label length + 1 + icon radius), so the label
+                    // can neither run into the icon nor outrun the
+                    // sliders, which extend past the icon — there is
+                    // no label-dominated regime, and the tag tail
+                    // (+6 + half a tag) belongs only to the slider
+                    // end, never to a label end. The slider end is
+                    // the paint's own end-of-controls geometry —
+                    // the icon seated at the spoke's full drawn
+                    // length h (for children, h already carries the
+                    // paint's label-clearance extension above),
+                    // plus the icon radius, 6, and half a control
+                    // tag. capEnd is that outer reach; the scored
+                    // midline M (the foreign centre line other
+                    // capsules are priced against, and the
+                    // centreline the interim capsule paint draws)
+                    // runs from the hub — the branching point — out
+                    // to the same capEnd, so a foreign spoke is
+                    // present everywhere its own paddle is; its
+                    // inner stretch I (hub -> a2) is the thin line
+                    // the inner count prices on the run back toward
+                    // the branching point. The node seat stays the
+                    // paint's icon seat (hub + u*h), so the interim
+                    // paint's dots sit where the full paint seats
+                    // the icons. The divergence fix (2026-11-02)
+                    // had this exactly reversed — midline stretched
+                    // to the icon, capsule stopping short of the
+                    // sliders; that arrangement must not be
+                    // reintroduced under any other name.
+                    const capEnd = (inn.mn && inn.mn.mapSliders ? h + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2 : h + iconR), b = pt(hub.x + ux * capEnd, hub.y + uy * capEnd), bM = pt(hub.x + ux * capEnd, hub.y + uy * capEnd);
+                    e.hub = hub, e.ang = ang, e.h = h, e.P = P, e.capEnd = capEnd;
                     e.M = [ pt(hub.x, hub.y), bM ], e.S = [ a2, b ], e.I = [ pt(hub.x, hub.y), a2 ];
                     e.bbS = sxBB(e.S[0], e.S[1], 0), e.bbI = sxBB(e.I[0], e.I[1], 0), e.bbM = sxBB(e.M[0], e.M[1], 0);
                     e.node = pt(hub.x + ux * h, hub.y + uy * h);
@@ -22205,7 +22234,7 @@ const TAXONOMY_CATEGORIES = [
                 const v = gen1SpokeBaseRadius();
                 if (Number.isFinite(v) && v > 0) rim = v;
             } catch (_) {}
-            const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth };
+            const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth, mapSliders: mn.mapSliders };
             const order = (typeof h !== "undefined" && h || []).map(b => ({ name: b && b.name, n: b && b.topics ? b.topics.length : 0 }));
             const branch = (branches || []).map(br => ({
                 angle: br.angle,
@@ -23247,7 +23276,7 @@ const TAXONOMY_CATEGORIES = [
                         parentId: i ? Un(e.name, i.name) : null
                     };
                 });
-            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), !(c || Mt && vt[Mt])) return n(In, `<g>${oa()}${function(e) {
+            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint)) return n(In, `<g>${oa()}${function(e) {
                 const t = 1.75 * ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, t, "center"), i = Za.fitAttr(e, n, "center", t);
                 return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${Hi(e)}</text>`;
             }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`), 
@@ -24760,6 +24789,11 @@ const TAXONOMY_CATEGORIES = [
         // split is deliberate and documented at that side too; do not
         // look for the total's owner here.
         // One-shot chunked-paint arm (map-render refactor): the
+        // Boot-stall fix (mechanism 2): set by Mr() for the boot paint
+        // only (see the sxBootArm assignment there); Ar()'s no-profile
+        // early return skips itself while this is true, so the boot
+        // paint always paints the map.
+        let sxBootPaint = !1;
         // boot, route-entry, and list-close triggers each arm one
         // window flag with a budget; this consumes the first armed
         // flag (boot, then route, then close, so an earlier arm
@@ -24866,6 +24900,13 @@ const TAXONOMY_CATEGORIES = [
         };
         window.SX = window.SexcapadesEngine;
 
+        // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13): the capsule
+        // draw is the visible animation — keep it, but batch it to at
+        // most one draw per animation frame during a run.
+        // sxInterimPaintPending is set while a frame is scheduled;
+        // sxInterimPaintGeo always holds the newest solved geometry,
+        // so a burst of Mr calls inside one frame draws once, latest.
+        let sxInterimPaintPending = !1, sxInterimPaintGeo = null;
         function Mr(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
             if (jn && !e.recovery) return !1;
@@ -24883,7 +24924,17 @@ const TAXONOMY_CATEGORIES = [
             // refused call can never eat an arm, and THIS paint
             // runs chunked at the armed budget (see
             // sxConsumeChunkArm above).
-            let sxBootChunk = sxConsumeChunkArm("__sxBootChunkPaint") || sxConsumeChunkArm("__sxRouteChunkPaint") || sxConsumeChunkArm("__sxCloseChunkPaint");
+            const sxBootArm = sxConsumeChunkArm("__sxBootChunkPaint");
+            let sxBootChunk = sxBootArm || sxConsumeChunkArm("__sxRouteChunkPaint") || sxConsumeChunkArm("__sxCloseChunkPaint");
+            // Boot-stall fix (mechanism 2): the boot paint always paints
+            // the map. The Remember restore can land before this paint
+            // starts, leaving profiles restored but none selected, and
+            // the no-profile early return in Ar below would then install
+            // the empty map and finish the boot at 100% with 0 nodes.
+            // (A snapshot of c/Mt would not help: Mr, Ar and the check
+            // run in one synchronous task, so it would read the same
+            // state.) Later paints keep the early return.
+            sxBootPaint = sxBootArm;
             Rn = !0;
             const release = () => {
                 if (Rn = !1, On && !jn) {
@@ -24942,7 +24993,27 @@ const TAXONOMY_CATEGORIES = [
                     const d = SX_SOLVER_FACADE.build();
                     SX_SOLVER_FACADE.tidy(d);
                     sn.clear(), d.branches.forEach(e2 => sn.set(e2.entry.branch.name, e2.angle));
-                    sxInterimCapsulePaint(d);
+                    // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13):
+                    // the capsule draw is the animation — keep it visible,
+                    // but draw at most once per animation frame. A burst of
+                    // Mr calls inside one frame only replaces the pending
+                    // geometry; the single rAF draws the latest state. The
+                    // solve (build + angle map above) stays synchronous —
+                    // only the DOM draw is deferred. If the run ends (or a
+                    // new run starts) before the frame, the draw is
+                    // skipped; the closing full paint shows the final state.
+                    sxInterimPaintGeo = d;
+                    if (!sxInterimPaintPending) {
+                        sxInterimPaintPending = !0;
+                        const ctx = dkCtx;
+                        requestAnimationFrame(() => {
+                            sxInterimPaintPending = !1;
+                            const g = sxInterimPaintGeo;
+                            sxInterimPaintGeo = null;
+                            if (!g || dkCtx !== ctx) return;
+                            try { sxInterimCapsulePaint(g); } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
+                        });
+                    }
                     return !0;
                 } catch (err) {
                     return Cr(err), !1;
@@ -26083,7 +26154,7 @@ const TAXONOMY_CATEGORIES = [
                 unreviewed: []
             };
             if (!e || e !== Et && !vt[e]) return t;
-            const n = __sxOnDeckIndex(e), i = new Set((gt[e] && gt[e].fetlife && gt[e].fetlife.categoryHits) || []), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
+            const n = __sxOnDeckIndex(e), i = new Set(Object.values(gt[e] || {}).flatMap(f => (f && f.categoryHits) || [])), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
             n.forEach((n, s) => {
                 if ("limit" === a[s]) return;
                 const l = ca(s, e), c = Ge(s, e);
@@ -28387,9 +28458,9 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (typeof xS !== "function" || !xS()) return;
             const picked = (typeof Yi === "function" ? Yi() : []).filter(id => vt[id]);
             if (an && picked.length >= 2) return;
+            if (picked.length >= 2) return; // set already populated; flag may be deliberately dismissed — don't re-derive it
             const all = Object.keys(vt || {}).filter(id => id && id !== Et && vt[id]);
-            const ids = picked.length >= 2 ? picked : all;
-            ids.length >= 2 && sxSel(ids, "set");
+            all.length >= 2 && sxSel(all, "set");
         }
         function vc() {
             sxKeepCompareRoute();
@@ -28992,7 +29063,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced";
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "1", scribeLengthDisplay = "~1", scribeRequestText = "", scribeLengthUnit = "pages", scribeDetailLevel = "balanced";
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -31721,9 +31792,9 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             scribePartnerId = 2 === t.length ? t[1] : null;
             const a = t.filter(e => vt[e]).length > 1, o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit"), d = e.byId("scribePageCountHelp");
             o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
-            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs."),
+            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page."),
             s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story."),
-            l && (l.textContent = (currentScribePrompt() && e.byId("sceneBrief") && !e.byId("sceneBrief").hidden) ? "Regenerate Literotica-style Story prompt" : "Create Literotica-style Story prompt"), kg.open && Ui(kg),
+            l && (l.textContent = "Prompt"), kg.open && Ui(kg),
             Sg.open && Ui(Sg), Oc.open && Ui(Oc), jc.open && Ui(jc), Wi(Bc);
         }
         function Jd(e) {
@@ -32112,14 +32183,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         alreadyTried: et[e]
                     })),
                     details: String(e.byId("scribeDetails")?.value || "").trim(),
-                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4)),
+                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 2)),
                     pageCount: String(e.byId("scribePageCount")?.value || "").trim()
                 };
             }();
             t.participantIds.length && t.topicData.length && (scribeRequestText = t.details, function(t, n) {
                 const i = e.byId("scribePageCount"), u = e.byId("scribeLengthUnit"), d = e.byId("scribeDetailLevel"), a = function() {
                     const t = e.byId("scribePageCount"), n = String(t?.value || "").trim().replace(/[–—]/g, "-");
-                    if (!n) return t && t.setCustomValidity(""), "5";
+                    if (!n) return t && t.setCustomValidity(""), "1";
                     const i = n.match(/^(\d{1,5}(?:\.\d)?)(?:\s*-\s*(\d{1,5}(?:\.\d)?))?$/);
                     if (!i) return t && (t.setCustomValidity("Use a number such as 5 or a range such as 5–7."), 
                     t.reportValidity()), null;
@@ -32128,14 +32199,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         paragraphs: [ 1, 100 ],
                         pages: [ 1, 50 ],
                         chapters: [ 1, 50 ]
-                    }[String(u?.value || "paragraphs")] || [ 1, 100 ], s = o[0], l = o[1];
+                    }[String(u?.value || "pages")] || [ 1, 100 ], s = o[0], l = o[1];
                     let a = Math.max(s, Math.min(l, Number(i[1]))), r = i[2] ? Math.max(s, Math.min(l, Number(i[2]))) : null;
                     return null !== r && r < a && ([a, r] = [ r, a ]), t && t.setCustomValidity(""), 
                     null === r ? String(a) : `${a}–${r}`;
                 }();
                 if (!a) return;
-                scribeLengthUnit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(u?.value || "")) ? u.value : "paragraphs", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
-                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~5";
+                scribeLengthUnit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(u?.value || "")) ? u.value : "pages", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
+                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~1";
                 const r = `Projected: ${scribeLengthDisplay} ${scribeLengthUnit}`;
                 e.byId("scenePageProjection").textContent = r, e.byId("novelAiPageProjection").textContent = r, 
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));
@@ -32166,14 +32237,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castNamesText;
                 if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castNamesText;
                 const genBtn = e.byId("generateScribePrompt");
-                if (genBtn) genBtn.textContent = "Regenerate Literotica-style Story prompt";
+                if (genBtn) genBtn.textContent = "Prompt";
                 const briefEl = e.byId("sceneBrief");
                 if (briefEl) {
                     briefEl.hidden = !1;
                     try { briefEl.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
                 }
             }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit" })[t.explicitness] || "grok"));
-        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
+        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 2)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
         sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
@@ -40468,7 +40539,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         totalLines: u,
                         warnings: s,
                         bestFit: [ ...new Set(l) ],
-                        mappings: c
+                        mappings: c,
+                        // KinkTest fix (1.1): the branch ids this paste
+                        // rated, so the merge records them as categoryHits
+                        // (like FetLife's broadHits) and On Deck can
+                        // propose their topics.
+                        categoryHits: Object.keys(t).filter(e => isCatId(e) || isSubId(e))
                     });
                 }(String(t || "")); else if ("checklist" === n || "yesnomaybe" === n) i = function(e) {
                     const t = {}, n = {}, i = {}, a = {}, r = {}, o = {}, s = {}, sxNotes = {}, l = [], c = [], d = [], sxSug = [];
