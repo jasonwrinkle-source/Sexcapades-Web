@@ -1,11 +1,11 @@
 const { defineConfig, devices } = require("@playwright/test");
 
 // Local server by default (fast before/after timing, no deploy); override with
-// BASE_URL=http://localhost:<port> (or the live/QA URL) — the fleet tag is always added.
-const rawBaseURL = process.env.BASE_URL || "http://localhost:8000";
-const baseURL = rawBaseURL.includes("?")
-  ? `${rawBaseURL}&utm_source=fleet`
-  : `${rawBaseURL}?utm_source=fleet`;
+// BASE_URL=http://localhost:<port> (or the live/QA URL).
+// NOTE: the fleet tag lives on the navigation URLs in tests/helpers.js and
+// tests/00-harness.spec.js, NOT here — a query string on baseURL is dropped
+// when Playwright resolves an absolute path against it.
+const baseURL = process.env.BASE_URL || "http://localhost:8000";
 const desktop = { viewport: { width: 1440, height: 1000 } };
 
 module.exports = defineConfig({
