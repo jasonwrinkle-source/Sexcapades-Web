@@ -385,12 +385,12 @@ __sxInit(function () {
   var resultEl = SexcapadesRuntime.DOM.byId("fetlifeMapResult");
   var addRowEl = SexcapadesRuntime.DOM.byId("fetlifeMapAddRow");
   var countEl = SexcapadesRuntime.DOM.byId("fetlifeMapCount");
-  var tableBody = SexcapadesRuntime.DOM.byId("fetlifeMapTableBody");
+  var tableBody = SexcapadesRuntime.DOM.byId("fetlifeMapRows");
 
   function openEditor() { window.__sxDialog.open(dlg); renderTable(); }
   function closeEditor() { window.__sxDialog.close(dlg); }
 
-  var openBtn = SexcapadesRuntime.DOM.byId("openFetlifeMapEditor");
+  var openBtn = SexcapadesRuntime.DOM.byId("openFetlifeMap");
   if (openBtn) openBtn.addEventListener("click", openEditor);
   var closeBtn = SexcapadesRuntime.DOM.byId("closeFetlifeMap");
   if (closeBtn) closeBtn.addEventListener("click", closeEditor);
@@ -402,24 +402,115 @@ __sxInit(function () {
     }
   });
 
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function norm(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+
   function renderTable() {
     if (!window.__fetlifeMap || !tableBody) return;
-    var map = window.__fetlifeMap();
-    var keys = Object.keys(map).sort();
+    var rows = window.__fetlifeMap.rows();
     var q = (searchEl ? searchEl.value : "").trim().toLowerCase();
+    var qn = norm(q);
     var rowsHtml = [];
     var visible = 0;
-    for (var i = 0; i < keys.length; i++) {
-      var k = keys[i], v = map[k];
-      if (q && !k.toLowerCase().includes(q) && !String(v).toLowerCase().includes(q)) continue;
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      if (q) {
+        var hay = (r.name + " " + r.label + " " + r.path + " " + r.key).toLowerCase();
+        if (hay.indexOf(q) === -1 && (!qn || norm(hay).indexOf(qn) === -1)) continue;
+      }
       visible++;
-      rowsHtml.push('<tr><td>' + k + '</td><td>' + v + '</td></tr>');
+      var side = r.direction === "give" ? "give only" : r.direction === "receive" ? "receive only" : "give + receive";
+      rowsHtml.push('<tr data-flkey="' + esc(r.key) + '"><td>' + esc(r.name) + '</td><td>' + esc(r.label) + '<br><small>' + esc(r.path) + '</small></td><td>' + side + '</td><td><button type="button" class="action-btn fetlife-map-edit-btn" data-flkey="' + esc(r.key) + '" data-flname="' + esc(r.name) + '">Edit</button></td></tr>');
     }
     tableBody.innerHTML = rowsHtml.join("");
-    if (countEl) countEl.textContent = visible + " of " + keys.length + " mappings";
+    if (countEl) countEl.textContent = visible + " of " + rows.length + " mappings";
+  }
+
+  var highlightedRow = null;
+  function clearRowHighlight() {
+    if (highlightedRow) { highlightedRow.style.background = ""; highlightedRow = null; }
+  }
+  function highlightRow(key) {
+    if (!tableBody || !key) return;
+    clearRowHighlight();
+    var trs = tableBody.rows;
+    for (var i = 0; i < trs.length; i++) {
+      if (trs[i].getAttribute("data-flkey") === key) {
+        highlightedRow = trs[i];
+        highlightedRow.style.background = "rgba(0, 229, 255, 0.18)";
+        highlightedRow.scrollIntoView({ block: "nearest" });
+        return;
+      }
+    }
   }
 
   if (searchEl) searchEl.addEventListener("input", renderTable);
+
+  // Edit button in a row: put that fetish name in the chooser and run the
+  // lookup, so the result line shows where it lands.
+  if (tableBody) tableBody.addEventListener("click", function (ev) {
+    var btn = ev.target && ev.target.closest ? ev.target.closest(".fetlife-map-edit-btn") : null;
+    if (!btn || !chooseEl) return;
+    chooseEl.value = btn.getAttribute("data-flname") || "";
+    runChooser();
+    chooseEl.focus();
+  });
+
+  // "Find a FetLife fetish" chooser: look the typed name up with the
+  // importer's own resolution and show where it lands, then filter the
+  // table to the matching row(s).
+  function runChooser() {
+    if (!window.__fetlifeMap) return;
+    var term = (chooseEl ? chooseEl.value : "").trim();
+    if (!term) {
+      if (resultEl) resultEl.hidden = true;
+      if (addRowEl) addRowEl.hidden = true;
+      clearRowHighlight();
+      if (searchEl) searchEl.value = "";
+      renderTable();
+      return;
+    }
+    var hit = null;
+    try { hit = window.__fetlifeMap.lookup(term); } catch (e) { hit = null; }
+    if (!hit) {
+      // Fallback: the importer's exact resolution is space-sensitive, so
+      // a spaceless typed name ("bootlicking") does not match the key
+      // "boot licking" even though the row is in the table. Match the
+      // table row by normalized name/key so it still lands.
+      var rows = window.__fetlifeMap.rows();
+      var tn = norm(term);
+      for (var i = 0; i < rows.length; i++) {
+        if (norm(rows[i].name) === tn || norm(rows[i].key) === tn) {
+          hit = { key: rows[i].key, id: rows[i].id, label: rows[i].label, path: rows[i].path, kind: rows[i].kind, child: null, direction: rows[i].direction, uncertain: rows[i].uncertain, broad: false, pattern: false };
+          break;
+        }
+      }
+    }
+    if (!hit) {
+      if (resultEl) {
+        resultEl.hidden = false;
+        resultEl.textContent = 'No mapping for "' + term + '".';
+      }
+      if (addRowEl) addRowEl.hidden = true;
+    } else {
+      if (addRowEl) addRowEl.hidden = true;
+      if (resultEl) {
+        resultEl.hidden = false;
+        var text = '"' + term + '" \u2192 ' + hit.label + ' (' + hit.kind + ')';
+        if (hit.path) text += ' \u2014 ' + hit.path;
+        if (hit.child) text += ' \u00b7 ' + hit.child;
+        if (hit.broad) text += ' (broad match)';
+        if (hit.pattern) text += ' (pattern match)';
+        resultEl.textContent = text;
+      }
+    }
+    if (searchEl) searchEl.value = term;
+    renderTable();
+    if (hit && hit.key) highlightRow(hit.key);
+    else clearRowHighlight();
+  }
+
+  if (chooseEl) chooseEl.addEventListener("input", runChooser);
 
   var row = SexcapadesRuntime.DOM.byId("fetlifeMapRow");
   var guide = SexcapadesRuntime.DOM.byId("fetlifeGuide");
