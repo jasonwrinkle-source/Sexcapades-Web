@@ -3,7 +3,8 @@ const { test, expect } = require("@playwright/test");
 test("S0-01 mandatory test harness reports ALL TESTS PASSED", async ({ page }) => {
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
-  await page.goto("/qa/test-runner.html");
+  // utm_source=fleet tags this load so analytics excludes fleet traffic.
+  await page.goto("/qa/test-runner.html?utm_source=fleet");
   await expect(page.locator("#suiteBadge")).toContainText("ALL TESTS PASSED", { timeout: 30_000 });
 
   const telemetryText = await page.locator("#rawTelemetry").textContent();

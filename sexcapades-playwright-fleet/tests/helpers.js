@@ -4,7 +4,8 @@ async function openApp(page, route = "#app/map") {
   const hash = route.startsWith("#") ? route : `#${route}`;
   // The live host bounces a fresh context to the age gate. ?verified=1 is the
   // gate's own return marker and lets the app stay on the requested route.
-  await page.goto(`/qa/app.html?verified=1${hash}`);
+  // utm_source=fleet tags this load so analytics excludes fleet traffic.
+  await page.goto(`/qa/app.html?verified=1&utm_source=fleet${hash}`);
   await page.waitForLoadState("domcontentloaded");
   const enter = page.getByRole("button", { name: /I am 18 or older/i });
   if (await enter.isVisible().catch(() => false)) {
