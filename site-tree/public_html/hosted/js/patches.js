@@ -1654,6 +1654,128 @@ __sxInit(function initSceneSetterAi() {
   if (providerSelect) providerSelect.addEventListener("change", setterSyncGenerateLabel);
   setterSyncGenerateLabel();
 
+  // --------------------------------------------------------------------------
+  // Play Guide Playback Linking (Scene Setter <-> Scene Sentinel)
+  // --------------------------------------------------------------------------
+  function handleSetterPlayToggle() {
+    var st = typeof window.__sxGetGuidePlayState === "function" ? window.__sxGetGuidePlayState() : null;
+    if (st && st.on) {
+      if (typeof window.__sxToggleGuidePlay === "function") {
+        window.__sxToggleGuidePlay();
+      }
+      return;
+    }
+
+    var text = (guideText ? guideText.value : "").trim();
+    if (!text && st && st.queuedText) {
+      text = st.queuedText.trim();
+      if (guideText) guideText.value = text;
+    }
+    if (!text) {
+      if (!setterAiSetupReady()) {
+        setterOpenAiPanel();
+      }
+      alert("Please generate or paste a play guide first before starting playback.");
+      return;
+    }
+
+    if (guideContainer) guideContainer.hidden = false;
+    if (typeof window.__sxQueueAndPlayGuide === "function") {
+      var ok = window.__sxQueueAndPlayGuide(text, true);
+      if (!ok) {
+        alert("Could not parse timed activities from play guide. Ensure the guide contains timecodes like [00:00-05:00].");
+        return;
+      }
+    }
+  }
+
+  var setterPlayBtn = document.getElementById("setterPlayBtn");
+  var playGuidePlayBtn = document.getElementById("setterPlayGuidePlayBtn");
+  var sentinelPlayBtn = document.getElementById("setterPlaySentinelBtn");
+  var openSentinelBtn = document.getElementById("setterOpenSentinelBtn");
+
+  if (setterPlayBtn) setterPlayBtn.addEventListener("click", handleSetterPlayToggle);
+  if (playGuidePlayBtn) playGuidePlayBtn.addEventListener("click", handleSetterPlayToggle);
+  if (sentinelPlayBtn) sentinelPlayBtn.addEventListener("click", handleSetterPlayToggle);
+
+  if (openSentinelBtn) {
+    openSentinelBtn.addEventListener("click", function() {
+      var diag = document.getElementById("negotiationDialog");
+      if (diag && typeof diag.close === "function") {
+        try { diag.close(); } catch (_) {}
+      }
+      if (typeof window.__sxOpenSentinel === "function") {
+        window.__sxOpenSentinel();
+      }
+    });
+  }
+
+  function syncSentinelPlayStatus() {
+    if (typeof window.__sxGetGuidePlayState !== "function") return;
+    var st = window.__sxGetGuidePlayState();
+    var sPlayBtn = document.getElementById("setterPlayBtn");
+    var pgPlayBtn = document.getElementById("setterPlayGuidePlayBtn");
+    var senPlayBtn = document.getElementById("setterPlaySentinelBtn");
+    var dot = document.getElementById("setterPlayDot");
+    var live = document.getElementById("setterLivePlayStatus");
+
+    var mm = String(Math.floor(st.elapsedSec / 60)).padStart(2, "0");
+    var ss = String(st.elapsedSec % 60).padStart(2, "0");
+    var timeStr = mm + ":" + ss;
+
+    if (st.on && !st.paused) {
+      if (sPlayBtn) sPlayBtn.textContent = "⏸ Pause (" + timeStr + ")";
+      if (pgPlayBtn) pgPlayBtn.textContent = "⏸ Pause Guide";
+      if (senPlayBtn) {
+        senPlayBtn.textContent = "⏸ Pause";
+        senPlayBtn.style.background = "#eab308";
+      }
+      if (dot) {
+        dot.style.background = "#22c55e";
+        dot.style.boxShadow = "0 0 8px #22c55e";
+      }
+      if (live) {
+        var act = st.currentActivity ? (" • " + st.currentActivity) : "";
+        var stepInfo = (st.stepIdx >= 0 && st.steps && st.steps.length) ? (" (Step " + (st.stepIdx + 1) + "/" + st.steps.length + ")") : "";
+        live.textContent = "Playing " + timeStr + act + stepInfo;
+        live.style.color = "#4ade80";
+      }
+    } else if (st.on && st.paused) {
+      if (sPlayBtn) sPlayBtn.textContent = "▶ Resume (" + timeStr + ")";
+      if (pgPlayBtn) pgPlayBtn.textContent = "▶ Resume Guide";
+      if (senPlayBtn) {
+        senPlayBtn.textContent = "▶ Resume";
+        senPlayBtn.style.background = "#059669";
+      }
+      if (dot) {
+        dot.style.background = "#facc15";
+        dot.style.boxShadow = "0 0 6px #facc15";
+      }
+      if (live) {
+        live.textContent = "Paused at " + timeStr + (st.currentActivity ? (" • " + st.currentActivity) : "");
+        live.style.color = "#facc15";
+      }
+    } else {
+      if (sPlayBtn) sPlayBtn.textContent = "▶ Play";
+      if (pgPlayBtn) pgPlayBtn.textContent = "▶ Play in Scene Sentinel";
+      if (senPlayBtn) {
+        senPlayBtn.textContent = "▶ Start Playback";
+        senPlayBtn.style.background = "#059669";
+      }
+      if (dot) {
+        dot.style.background = "#64748b";
+        dot.style.boxShadow = "none";
+      }
+      if (live) {
+        live.textContent = "Scene Sentinel: Ready to play";
+        live.style.color = "#cbd5e1";
+      }
+    }
+  }
+
+  setInterval(syncSentinelPlayStatus, 500);
+  syncSentinelPlayStatus();
+
   // Watch for external storage updates or dialog opens
   window.addEventListener("storage", function() {
     loadSavedKey();

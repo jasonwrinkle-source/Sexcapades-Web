@@ -1564,6 +1564,64 @@ __sxInit(function () {
     bleMaybeReconnect();
   }
   window.__sxSentinelRenderAll = renderAll;
+
+  // Link Play Guide playback between Scene Setter and Scene Sentinel
+  window.__sxQueueAndPlayGuide = function (text, autoStart) {
+    if (text) {
+      if (gwGuideInput) gwGuideInput.value = text;
+      var parsed = parsePlayGuide(text);
+      if (!parsed.steps.length) return false;
+      state.guide.text = text;
+      state.guide.steps = parsed.steps;
+      state.guide.pulseMin = gwGuidePulseSel ? (+gwGuidePulseSel.value || 5) : 5;
+      if (parsed.pulseMin) {
+        var opts = [1, 2, 5, 10, 15], snap = opts[0];
+        opts.forEach(function (o) { if (Math.abs(o - parsed.pulseMin) < Math.abs(snap - parsed.pulseMin)) snap = o; });
+        state.guide.pulseMin = snap;
+        if (gwGuidePulseSel) gwGuidePulseSel.value = String(snap);
+      }
+      state.guide.queuedAt = nowMs();
+      save();
+      renderGuide();
+    }
+    if (autoStart) {
+      if (guidePlay.paused) {
+        guidePlay.pausedAccum += nowMs() - guidePlay.pausedAt;
+        guidePlay.paused = false;
+        guidePlay.nextPulseAt = nowMs() + state.guide.pulseMin * 60000;
+      } else if (!guidePlay.on && state.guide.steps.length) {
+        guidePlay.on = true; guidePlay.startedAt = nowMs(); guidePlay.pausedAccum = 0; guidePlay.stepIdx = -1; guidePlay.pulses = 0;
+        guidePlay.nextPulseAt = nowMs() + state.guide.pulseMin * 60000;
+        guideFirePulse("scene start");
+      }
+      renderGuidePlayback();
+    }
+    return true;
+  };
+
+  window.__sxGetGuidePlayState = function () {
+    var curActivity = guideCurrentSched();
+    return {
+      on: guidePlay.on,
+      paused: guidePlay.paused,
+      stepIdx: guidePlay.stepIdx,
+      steps: state.guide.steps,
+      currentActivity: curActivity,
+      pulses: guidePlay.pulses,
+      elapsedSec: guideElapsedSec(),
+      queuedText: state.guide.text || ""
+    };
+  };
+
+  window.__sxToggleGuidePlay = function () {
+    if (guidePlay.on && !guidePlay.paused) {
+      if (gwPauseBtn) gwPauseBtn.click();
+    } else {
+      if (gwPlayBtn) gwPlayBtn.click();
+    }
+    return guidePlay.on && !guidePlay.paused;
+  };
+
   load();
   hydratePre();
   renderSignals();
