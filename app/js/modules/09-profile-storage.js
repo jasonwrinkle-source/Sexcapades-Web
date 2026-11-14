@@ -224,7 +224,11 @@ __sxInit(function () {
         return;
       }
       try {
-        if (api.has(profileId)) return;
+        if (api.has(profileId)) {
+          var isSample = Boolean(api.isSample && api.isSample(profileId));
+          var isDirty = Boolean(api.isDirty && api.isDirty(profileId));
+          if (!isSample || isDirty) return;
+        }
         if (api.importData(profileId, data)) {
           loaded++;
         } else {

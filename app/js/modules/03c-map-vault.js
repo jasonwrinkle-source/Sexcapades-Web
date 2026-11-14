@@ -96,12 +96,11 @@
                         dlgs.forEach(d => { try { d.close(); } catch (_) { d.removeAttribute("open"); } });
                     } catch (_) {}
                     const cat = h.find(c => c.name === sid || c.id === sid || catId(c.name) === sid || sxName(c.name) === sxName(sid));
-                    const branch = cat ? cat.name : ((qn[sid] && qn[sid].branch) || ci(sid) || "");
-                    if (window.__sxFocusNode) {
-                        window.__sxFocusNode(cat ? cat.id : sid, branch);
-                        return;
+                    const nodeKey = cat ? cat.id : sid;
+                    const box = hit.getBoundingClientRect ? hit.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
+                    if (typeof xo === "function") {
+                        xo(nodeKey, box.left + box.width / 2, box.bottom + 8);
                     }
-                    selectSpokeNode(sid, !0);
                 });
             }
             In.querySelectorAll(".category-label,.map-label,.concept-hit").forEach(e => e.addEventListener("keydown", t => {

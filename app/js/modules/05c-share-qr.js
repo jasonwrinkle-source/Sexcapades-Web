@@ -542,7 +542,7 @@
                 return Object.entries(vt[e] || {}).forEach(([e, a]) => {
                     const k = idk(e);
                     if (t && !t.has(k)) return;
-                    const r = "number" == typeof a ? [ "give", "receive" ] : [ "give", "receive" ].filter(e => a && "object" == typeof a && Object.prototype.hasOwnProperty.call(a, e));
+                    const r = "number" == typeof a ? [ "give", "receive" ] : Object.keys(a || {});
                     r.length && (n[k] = {}, r.forEach(t => {
                         n[k][t] = "string" == typeof i[k]?.[t] ? i[k][t] : "string" == typeof i[e]?.[t] ? i[e][t] : "unknown";
                     }));
@@ -552,7 +552,7 @@
                 if (!(qn[t] || Xn(t) || (at[e] || {})[t])) return;
                 const n = ca(t, e), i = o[t];
                 "favorite" === i && h.push(t), "limit" === i && g.push(t), s[t] && m.push(t), l[t] && f.push(t), 
-                n.giveKnown && n.give > 35 || n.receiveKnown && n.receive > 35 ? u.push(t) : (n.giveKnown && n.give >= 0 || n.receiveKnown && n.receive >= 0) && p.push(t);
+                (typeof ua === "function" ? ua(t, e) : null) !== null ? (ua(t, e) > 35 ? u.push(t) : ua(t, e) >= 0 && p.push(t)) : (n.giveKnown && n.give > 35 || n.receiveKnown && n.receive > 35 ? u.push(t) : (n.giveKnown && n.give >= 0 || n.receiveKnown && n.receive >= 0) && p.push(t));
             }), {
                 app: "sexcapades",
                 version: 17,

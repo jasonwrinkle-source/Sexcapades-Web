@@ -242,9 +242,19 @@
         }
         function Jn(e, t, n = Vi()) {
             const i = Ge(e, n);
-            if (i.single || "give" !== i.labels[0] || "receive" !== i.labels[1]) return i.labels["give" === t ? 0 : 1] || t;
             const a = Qn(e, n);
-            return a ? t + " " + a : t;
+            const idx = i.keys ? i.keys.indexOf(t) : -1;
+            let roleLabel = (idx >= 0 && i.labels && i.labels[idx]) ? i.labels[idx] : ("give" === t ? i.labels[0] : i.labels[1]) || t;
+            if (i.single) {
+                return a ? (roleLabel && roleLabel.toLowerCase() !== a ? `${roleLabel} (${a})` : a) : roleLabel;
+            }
+            if (i.triple) {
+                return a ? `${roleLabel} · ${a}` : roleLabel;
+            }
+            if ("give" === i.labels[0] && "receive" === i.labels[1]) {
+                return a ? `${t} ${a}` : t;
+            }
+            return a ? `${roleLabel} · ${a}` : roleLabel;
         }
         function ei(e, t, n = Vi()) {
             const i = Ge(e, n);
@@ -1121,12 +1131,17 @@
             };
             if (n && "object" == typeof n) {
                 const e = Object.prototype.hasOwnProperty.call(n, "give"), t = Object.prototype.hasOwnProperty.call(n, "receive");
-                return {
+                const res = {
                     give: e && Number(n.give) || 0,
                     receive: t && Number(n.receive) || 0,
                     giveKnown: e,
                     receiveKnown: t
                 };
+                Object.keys(n).forEach(k => {
+                    res[k] = Number(n[k]) || 0;
+                    res[k + "Known"] = !0;
+                });
+                return res;
             }
             return {
                 give: 0,
@@ -1173,9 +1188,9 @@
                 return U(null === g.value ? 0 : g.value, null === r.value ? 0 : r.value, null !== g.value, null !== r.value, !g.direct && null !== g.value, !r.direct && null !== r.value, g.rated, r.rated, ids.length);
             }
             const n = ca(e, t);
-            if (!Xn(e)) return U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0);
+            if (!Xn(e)) return Object.assign(U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0), n);
             const ids = ai(e, t);
-            if (!ids.length) return U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0);
+            if (!ids.length) return Object.assign(U(n.give, n.receive, n.giveKnown, n.receiveKnown, !1, !1, 0, 0, 0), n);
             const ch = ids.map(id => da(id, t)), one = dir => {
                 if (n[dir + "Known"]) return {
                     value: n[dir],
@@ -1196,11 +1211,20 @@
                     known: !1
                 };
             }, g = one("give"), r = one("receive");
-            return U(g.value, r.value, g.known, r.known, g.derived, r.derived, g.rated, r.rated, ids.length);
+            return Object.assign(U(g.value, r.value, g.known, r.known, g.derived, r.derived, g.rated, r.rated, ids.length), n);
         }
         function ua(e, t) {
             const n = ca(e, t), i = [];
-            return n.giveKnown && i.push(n.give), n.receiveKnown && i.push(n.receive), i.length ? i.reduce((e, t) => e + t, 0) / i.length : null;
+            const shape = typeof Ge === "function" ? Ge(e, t) : null;
+            if (shape && shape.keys) {
+                shape.keys.forEach(k => {
+                    if (n[k + "Known"]) i.push(n[k]);
+                });
+            } else {
+                n.giveKnown && i.push(n.give);
+                n.receiveKnown && i.push(n.receive);
+            }
+            return i.length ? i.reduce((e, t) => e + t, 0) / i.length : null;
         }
         function pa(e, t, n) {
             let i = 0, a = 0;
@@ -1211,7 +1235,7 @@
         }
         function ha(e, t, n) {
             const i = ca(e, t);
-            return "give" === n ? i.giveKnown ? i.give : null : i.receiveKnown ? i.receive : null;
+            return i[n + "Known"] ? i[n] : null;
         }
         function ga(e, t) {
             return e.topics.map(e => Wn(e)).concat(Object.values(at[t] || {}).filter(t => t.branch === e.name).map(e => e.id));

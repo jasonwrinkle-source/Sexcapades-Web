@@ -220,12 +220,17 @@
                 if ("number" == typeof cur) return cur;
                 return cur && "object" == typeof cur ? cur[flank] : void 0;
             };
+            const getTopicName = id => {
+                const item = qn[id] || Xn(id) || (at[c] || {})[id];
+                return (item && (item.label || item.name)) || id;
+            };
             Object.entries(ratings).forEach(([id, rating]) => {
                 if (!Ke.has(id) && !isSubId(id)) return;
+                const topicName = getTopicName(id);
                 if (Ge(id, c).single) {
                     const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
                     const found = candidates.find(([, v]) => Number.isFinite(Number(v)));
-                    if (!found) throw new Error(`This profile contains an unreadable rating for ${id}`);
+                    if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}" (${id})`);
                     const value = clamp(found[1]), supplying = found[0];
                     if (guardManualFlip) {
                         const blocked = [ "give", "receive" ].some(flank => "manual" === Ao(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && Ix(Number(existingFlankValue(id, flank))) !== Ix(value));
@@ -238,10 +243,23 @@
                     return;
                 }
                 const incoming = {};
-                if (Number.isFinite(Number(rating))) incoming.give = incoming.receive = clamp(rating); else if (rating && "object" == typeof rating) [ "give", "receive" ].forEach(flank => {
-                    Object.prototype.hasOwnProperty.call(rating, flank) && Number.isFinite(Number(rating[flank])) && (incoming[flank] = clamp(rating[flank]));
-                });
-                if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for ${id}`);
+                const shape = Ge(id, c);
+                const flanks = shape.keys || [ "give", "receive" ];
+                if (Number.isFinite(Number(rating))) flanks.forEach(flank => { incoming[flank] = clamp(rating); });
+                else if (rating && "object" == typeof rating) {
+                    flanks.forEach(flank => {
+                        Object.prototype.hasOwnProperty.call(rating, flank) && Number.isFinite(Number(rating[flank])) && (incoming[flank] = clamp(rating[flank]));
+                    });
+                    // Backwards compatibility migration for legacy dual {give, receive} rated on newly triadic topics
+                    if (!Object.keys(incoming).length && (Object.prototype.hasOwnProperty.call(rating, "give") || Object.prototype.hasOwnProperty.call(rating, "receive"))) {
+                        if (flanks.length === 3) {
+                            if (Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give))) incoming[flanks[0]] = clamp(rating.give);
+                            if (Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive))) incoming[flanks[1]] = clamp(rating.receive);
+                            if (!incoming[flanks[2]]) incoming[flanks[2]] = 0;
+                        }
+                    }
+                }
+                if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}" (${id})`);
                 const applied = {};
                 let anyBlocked = !1;
                 Object.entries(incoming).forEach(([flank, value]) => {
@@ -1227,7 +1245,7 @@
                         fetLifeDisplay: Yk,
                         savedAt: (new Date).toISOString(),
                         categoryHits: sxHits
-                    }, zt(n), sxMergeSaveNow(n), ex(), Ui(vk), qi(n, {
+                    }, sampleProfileFlags[n] = !1, zt(n), sxMergeSaveNow(n), ex(), Ui(vk), qi(n, {
                         ratings: r,
                         annotations: e.annotations,
                         notes: e.notes || {},
@@ -1258,6 +1276,7 @@
                             } else showFetLifeBroadSummary(e);
                         } catch (e) { __sxErrLog("listview-open", e); }
                     }, 450);
+                    return n;
                 }(this.validate("converter", t), n) : "shared" === sxKind ? function(e, sxOpts = {}) {
                     const t = an && Yi().length >= 2, n = t ? Yi() : [];
                     if (e && "sexcapades-share" === e.app && 1 === e.version && Array.isArray(e.profiles) && e.profiles.length) {
@@ -1287,7 +1306,8 @@
             serialize(e, t = {}) {
                 if (!SX_SERIALIZE_KINDS.has(e)) throw new Error(`Unsupported profile export: ${e}`);
                 let n;
-                if ("profile" === e) n = Ww(t.person); else if ("viewport" === e) n = Qu(t.person, t.visibleIds, t.displayName || ""); else if ("export" === e) n = Ju(t.person, t.visibleIds, Boolean(t.includeProfileInfo), t.displayName || "", Boolean(t.blind)); else if ("sync-card" === e) n = serializeSyncCard(t.person, t.visibleIds, t.displayName || "", Boolean(t.includeProfileInfo), Boolean(t.blind)); else {
+                const personId = t.person || Mt || (window.Sexcapades2xProfiles ? window.Sexcapades2xProfiles.getIds()[0] : null);
+                if ("profile" === e) n = Ww(personId); else if ("viewport" === e) n = Qu(personId, t.visibleIds, t.displayName || ""); else if ("export" === e) n = Ju(personId, t.visibleIds, Boolean(t.includeProfileInfo), t.displayName || "", Boolean(t.blind)); else if ("sync-card" === e) n = serializeSyncCard(personId, t.visibleIds, t.displayName || "", Boolean(t.includeProfileInfo), Boolean(t.blind)); else {
                     if ("compact" === e) return this.validate("compact", function(e, t = tu(e), n = !0, i = !1) {
                         const a = e => !t || t.has(e), r = Rv(ut[e]), o = Object.values(at[e] || {}).filter(e => a(e.id)), s = new Map(o.map((e, t) => [ e.id, t ])), l = e => hu.has(e) ? hu.get(e) : cu.length + s.get(e), c = e => Number.isFinite(Number(e)) ? Math.round(Number(e)) : null, d = Object.entries(vt[e] || {}).filter(([e, t]) => !isCatId(e) && a(e) && t && Number.isInteger(l(e)) && (Number.isFinite(Number(t.give)) || Number.isFinite(Number(t.receive)))).map(([e, t]) => [ l(e), c(t.give), c(t.receive) ]), u = Object.entries(Qe[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), "favorite" === t ? 1 : "notinterested" === t ? 3 : 2 ]), p = Object.keys(Je[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), h = Object.keys(et[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), g = n ? Object.entries(tt[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), Array.isArray(t) ? t.join(" ") : String(t || "") ]).filter(e => e[1]) : [], m = o.map(e => [ e.label, hu.get(e.parentId) ]).filter(e => Number.isInteger(e[1])), f = bb(rt[e]), j = String(pz[e] || ""), y = iv(ot[e]), b = Gb(st[e]), v = Xv(lt[e]), w = Zv(ct[e]), k = String(nt[e] || ""), x = String(it[e] || ""), S = {
                             a: "sexcapades",

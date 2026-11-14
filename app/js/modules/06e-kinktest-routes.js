@@ -235,6 +235,7 @@
                 if (Object.assign(mn, e || {}), t) rn.clear(), on.clear(), h.forEach(e => {
                     rn.add(e.name), mn.expandAll && ((e.subcategories || []).forEach(t => on.add(Un(e.name, t.name))), e.topics.forEach(e => on.add(Wn(e))));
                 });
+                if (window.__SEXCAPADES_LAYOUT) Object.assign(window.__SEXCAPADES_LAYOUT, e || {});
                 return Cn.classList.toggle("is-static", Boolean(mn.staticMap)), Mr({
                     animate: !1,
                     forceRepaint: !0
@@ -475,7 +476,7 @@
                 staticMap: Boolean(mn.staticMap),
                  fontScale: Number(mn.fontScale) || 1,
                  centerRingScale: Number(mn.centerRingScale) || 1,
-                 leafOvergrowth: Number(mn.leafOvergrowth) || 300,
+                 leafOvergrowth: Number(mn.leafOvergrowth) || 100,
                 branchOverrides: Object.assign({}, mn.branchOverrides || {}),
                 subcatOverrides: Object.assign({}, mn.subcatOverrides || {}),
                 kinkOverrides: Object.assign({}, mn.kinkOverrides || {}),
@@ -483,7 +484,9 @@
                 kinkAngleOffsets: Object.assign({}, mn.kinkAngleOffsets || {}),
                 branchSpokeAutoShrink: Object.assign({}, mn.branchSpokeAutoShrink || {}),
                 subcatSpokeAutoShrink: Object.assign({}, mn.subcatSpokeAutoShrink || {}),
-                solverMidline: mn.solverMidline
+                solverMidline: mn.solverMidline,
+                mapSliders: Boolean(mn.mapSliders),
+                animations: mn.animations !== false
             }),
             branches: () => h.map(e => e.name),
             topics: () => Object.keys(topicLabelById).map(id => ({ id: id, label: topicLabelById[id] })).sort((a, b) => a.label.localeCompare(b.label)),

@@ -590,7 +590,16 @@
                 "all" === Pt || b === Pt || S || w.push("is-hidden"), !Tt || String(i.name || "").toLowerCase().includes(Tt) || i.topics.some(e => sxName(e).toLowerCase().includes(Tt)) || w.push("is-dim");
                 const $ = null !== Dt && (dCat === Dt || e.topics.some(e => e.topic.id === Dt || e.children.some(e => e.child.id === Dt)));
                 Dt && !$ && w.push("is-dim"), Dt && dCat === Dt && w.push("is-preview");
-                const E = Math.max(140, .48 * (s - ea.lineStartRadius)) + (t % 2 ? 55 : -35), A = Za.categoryFontSize(i.name, g.labelWidth, E, r), C = Vi(), M = Rt ? null : Qe[C]?.[dCat], I = Rt ? null : null !== fa(i, C, "give") || null !== fa(i, C, "receive") ? 1 : null, P = Ne.get(i.name) || Fe(i), L = (O = I, 
+                let E = Math.max(140, .48 * (s - ea.lineStartRadius)) + (t % 2 ? 55 : -35);
+                const A = Za.categoryFontSize(i.name, g.labelWidth, E, r);
+                const catFs = (sxFontSize(1) * A / 23);
+                const catTextW = Za.measure(i.name, catFs, "category");
+                const catGap = Math.max(22, 6 * Za.measure(" ", catFs, "category"));
+                const availSpoke = s - ea.lineStartRadius - (sxIconRadius(1) || 48);
+                const maxE = Math.max(20, availSpoke - catTextW - catGap);
+                if (E > maxE) E = maxE;
+                const catUnderlineW = Math.min(Za.categoryUnderlineLength(i.name, A), Math.max(20, availSpoke - catGap - E));
+                const C = Vi(), M = Rt ? null : Qe[C]?.[dCat], I = Rt ? null : null !== fa(i, C, "give") || null !== fa(i, C, "receive") ? 1 : null, P = Ne.get(i.name) || Fe(i), L = (O = I,
                 B = P, Rt ? "var(--green)" : "noCode" === B.key ? Ga.NO_CODE_COLOR : Te(B.lineColor || B.color) || Ga.FALLBACK_COLOR), T = Rt ? null : fa(i, C, "give"), F = Rt ? null : fa(i, C, "receive"), N = Rt ? "var(--green)" : null === T ? "noCode" === P.key ? Ga.NO_CODE_COLOR : Te(P.lineColor || P.color) : zi(T), _ = Rt ? "var(--green)" : null === F ? "noCode" === P.key ? Ga.NO_CODE_COLOR : Te(P.lineColor || P.color) : zi(F), D = Rt || null !== I ? "" : "noCode" === P.key ? "gen1-hanky-line gen1-no-hanky-line no-hanky-code-line" : "gen1-hanky-line" + (P.mixed ? " mixed-hanky-code-line" : ""), R = Rt || null !== I || "noCode" !== P.key && !P.mixed ? "none" : "noCode" === P.key ? "5 7" : "18 12";
                 var O, B;
                 const sxCatHeatVals = Rt ? [] : [ T, F ].filter(v => null != v && Number.isFinite(+v));
@@ -600,7 +609,7 @@
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || Q.color};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}" y2="${(q + g.uy * Za.categoryUnderlineLength(i.name, A)).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${(sxFontSize(1) * A / 23).toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
+                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || Q.color};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
                 for (let sxTi = 0; sxTi < e.topics.length; sxTi++) {
                     const t = e.topics[sxTi];
                     if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
@@ -627,6 +636,9 @@
                     // finalized; kinkOverrides is keyed by topic id and
                     // defaults to {} so the stock layout is unchanged.
                     if (!o) h = applyLengthOverride(h, r, mn.kinkOverrides);
+                    const fsEst = sxFontSize(2) * 14 / 17;
+                    const minReqSpoke = (pr.categoryIcon / 2) + sxIconRadius(2) + Za.measure(a, fsEst, "topic") + Math.max(18, 6 * Za.measure(" ", fsEst, "topic")) + 16;
+                    if (!o && h < minReqSpoke) h = minReqSpoke;
                     const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
@@ -639,12 +651,43 @@
                     !o && !Rt && Kd() && !sxTopicKnownInOpenGroup(r) && E.push("is-unrated");
                     const I = null !== Dt && (r === Dt || dCat === Dt || t.children.some(e => e.child.id === Dt));
                     Dt && !I && E.push("is-dim"), Dt && r === Dt && E.push("is-preview");
-                    const P = Za.topicLabelOffset(y.routedLength, y.labelOffset, t.cloudIndex), L = Math.cos(s) < 0, T = L ? `pr-${r}` : `p-${r}`, F = L ? y.routedLength - P : P, N = L ? ' text-anchor="end"' : "", _ = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
+                    const P = Za.topicLabelOffset(y.routedLength, y.labelOffset, t.cloudIndex), L = Math.cos(s) < 0, T = L ? `pr-${r}` : `p-${r}`;
+                    const fs2 = (sxFontSize(2) * b / 17);
+                    const textW2 = Za.measure(a, fs2, "topic");
+                    const gap2 = Math.max(18, 6 * Za.measure(" ", fs2, "topic"));
+                    const hubR2 = pr.categoryIcon / 2;
+                    const iconR2 = sxIconRadius(2);
+                    let F, N;
+                    if (L) {
+                        const minF = iconR2 + gap2 + textW2;
+                        const maxF = Math.max(iconR2 + textW2 + 4, y.routedLength - (hubR2 + 8));
+                        const rawF = y.routedLength - P;
+                        let endF;
+                        if (minF <= maxF) {
+                            endF = Math.max(minF, Math.min(rawF, maxF));
+                        } else {
+                            endF = Math.min(maxF, Math.max(iconR2 + textW2 + 4, rawF));
+                        }
+                        F = Math.min(y.routedLength - (hubR2 + 4), Math.max(iconR2 + textW2 + 4, endF));
+                        N = ' text-anchor="end"';
+                    } else {
+                        const minF = hubR2 + 8;
+                        const maxF = Math.max(minF, y.routedLength - (iconR2 + gap2) - textW2);
+                        let startF;
+                        if (minF <= maxF) {
+                            startF = Math.max(minF, Math.min(P, maxF));
+                        } else {
+                            startF = Math.min(minF, Math.max(hubR2 + 4, P));
+                        }
+                        F = Math.max(hubR2 + 4, Math.min(y.routedLength - (iconR2 + 4) - textW2, startF));
+                        N = "";
+                    }
+                    const _ = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
                         return pa((e?.topics || []).map(Wn), t, e => ua(e, t));
                     }(n.group, D) : ua(r, D), O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null, W = j && j.giveKnown ? j.give : q, U = j && j.receiveKnown ? j.receive : H, G = o ? Q.color : Rt ? "var(--green)" : null === R ? Te(B.lineColor) : zi(R), K = Rt ? "var(--green)" : null === W ? Te(B.lineColor) : zi(W), z = Rt ? "var(--green)" : null === U ? Te(B.lineColor) : zi(U), V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = `<g class="topic-icon${o ? " subcategory-icon" : "noCode" === B.hankyKey ? " no-hanky-code-icon" : ""}${B.glyphFallback ? " glyph-fallback" : ""}"${B.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${te}" ${ee} aria-hidden="true" style="color:${B.color}" transform="translate(${(V - ne).toFixed(2)} ${(Y - ne).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${ne}" cy="${ne}" r="${ne - .5}"/><circle class="icon-disc" cx="${ne}" cy="${ne}" r="${ne - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${ne}" cy="${ne}" r="${ne - 3.5}"/><g transform="translate(${ie.toFixed(3)} ${ie.toFixed(3)}) scale(${ae.toFixed(5)})">${B.glyph}${B.accent}</g></g>`, oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = yi(y.icon.x + y.ux * (ne + 20), y.icon.y + y.uy * (ne + 20), se, r), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : j && (j.giveKnown || j.receiveKnown) ? zi(((j.giveKnown ? j.give : 0) + (j.receiveKnown ? j.receive : 0)) / ((j.giveKnown ? 1 : 0) + (j.receiveKnown ? 1 : 0))) : B.lineColor, sxFl ? sxFl.give : Rt || j && j.giveKnown ? K : null, sxFl ? sxFl.receive : Rt || j && j.receiveKnown ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${Ka(r, peT, 18, a, y.nx, y.ny, l.x, l.y, V, Y, !0, pr.topicIcon, G, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
-                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${_}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${P}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${(sxFontSize(2) * b / 17).toFixed(2)}px" dominant-baseline="middle"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F}"${N}>&#160;${Hi(a)}</textPath></text></g>`, 
+                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${_}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${P}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
                         // Per-kink length override for subcategory
@@ -695,14 +738,45 @@
                                 bend: 0,
                                 pointAtDistance: x
                             };
-                        }(V, Y, l.x, l.y, 0, s, hr(3), pr.importedIcon / 2 + 10, e.curve, 270, c.offset, u, c.limit), h = Math.cos(s) < 0, g = h ? `pr-${n.id}` : `p-${n.id}`, m = h ? p.routedLength - p.labelOffset : p.labelOffset, y = h ? ' text-anchor="end"' : "", b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name), E = S && S.giveKnown ? S.give : null, A = S && S.receiveKnown ? S.receive : null, M = Rt ? "var(--green)" : null === E ? Te($.lineColor) : zi(E), I = Rt ? "var(--green)" : null === A ? Te($.lineColor) : zi(A), P = Rt ? "var(--green)" : null === w ? Te($.lineColor) : zi(w), L = Oe(n.label, i.name), T = sxIconDiameter(3), F = T / 2, N = p.icon.x, _ = p.icon.y, R = Boolean(Tt && (String(n.label || "").toLowerCase().includes(Tt) || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt))), O = [ "node-group", o ? "subcategory-topic" : "imported-child" ];
+                        }(V, Y, l.x, l.y, 0, s, hr(3), pr.importedIcon / 2 + 10, e.curve, 270, c.offset, u, c.limit), h = Math.cos(s) < 0, g = h ? `pr-${n.id}` : `p-${n.id}`;
+                        const fs3 = sxFontSize(3);
+                        const textW3 = Za.measure(n.label, fs3, "topic");
+                        const gap3 = Math.max(16, 6 * Za.measure(" ", fs3, "topic"));
+                        const hubR3 = sxIconRadius(2);
+                        const iconR3 = sxIconRadius(3);
+                        let m, y;
+                        if (h) {
+                            const minM = iconR3 + gap3 + textW3;
+                            const maxM = Math.max(iconR3 + textW3 + 4, p.routedLength - (hubR3 + 6));
+                            const rawM = p.routedLength - p.labelOffset;
+                            let endM;
+                            if (minM <= maxM) {
+                                endM = Math.max(minM, Math.min(rawM, maxM));
+                            } else {
+                                endM = Math.min(maxM, Math.max(iconR3 + textW3 + 4, rawM));
+                            }
+                            m = Math.min(p.routedLength - (hubR3 + 4), Math.max(iconR3 + textW3 + 4, endM));
+                            y = ' text-anchor="end"';
+                        } else {
+                            const minM = hubR3 + 6;
+                            const maxM = Math.max(minM, p.routedLength - (iconR3 + gap3) - textW3);
+                            let startM;
+                            if (minM <= maxM) {
+                                startM = Math.max(minM, Math.min(p.labelOffset, maxM));
+                            } else {
+                                startM = Math.min(minM, Math.max(hubR3 + 4, p.labelOffset));
+                            }
+                            m = Math.max(hubR3 + 4, Math.min(p.routedLength - (iconR3 + 4) - textW3, startM));
+                            y = "";
+                        }
+                        const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name), E = S && S.giveKnown ? S.give : null, A = S && S.receiveKnown ? S.receive : null, M = Rt ? "var(--green)" : null === E ? Te($.lineColor) : zi(E), I = Rt ? "var(--green)" : null === A ? Te($.lineColor) : zi(A), P = Rt ? "var(--green)" : null === w ? Te($.lineColor) : zi(w), L = Oe(n.label, i.name), T = sxIconDiameter(3), F = T / 2, N = p.icon.x, _ = p.icon.y, R = Boolean(Tt && (String(n.label || "").toLowerCase().includes(Tt) || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt))), O = [ "node-group", o ? "subcategory-topic" : "imported-child" ];
                         !Rt && (Qi() || Kd()) && qa(n.id, Je) && O.push("is-fantasy-only"), !Rt && (Qi() || Kd()) && qa(n.id, et) && O.push("is-already-tried"), 
                         C && C.has(n.id) && !Eo(Vi(), n.id) && O.push("import-newest"), "all" !== Pt && Ra(n.id) !== Pt && O.push("is-hidden"), 
                         Tt && !R && O.push("is-dim"), Kd() && !sxTopicKnownInOpenGroup(n.id) && O.push("is-unrated");
                         const B = null !== Dt && (n.id === Dt || r === Dt || dCat === Dt);
                         Dt && !B && O.push("is-dim"), Dt && n.id === Dt && O.push("is-preview");
                         const j = !o && Boolean(si(n.id)) ? ` Tap to adopt it into ${wt[Vi()] || "the active profile"} unrated, then use the normal give and receive controls.` : "", q = `<g class="topic-icon${"noCode" === $.key ? " no-hanky-code-icon" : ""}${L.glyphFallback ? " glyph-fallback" : ""}"${L.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${T}" ${ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 })} aria-hidden="true" style="color:${L.color}" transform="translate(${(N - F).toFixed(2)} ${(_ - F).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${F}" cy="${F}" r="${F - .5}"/><circle class="icon-disc" cx="${F}" cy="${F}" r="${F - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${F}" cy="${F}" r="${F - 3.5}"/><g transform="translate(${(T / 6).toFixed(2)} ${(T / 6).toFixed(2)}) scale(${(T / 24).toFixed(5)})">${L.glyph}${L.accent}</g></g>`, H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = sxPairTapers ? sxPairTapers(n.id) : null, pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, $.lineColor, sxFl ? sxFl.give : Rt || S && S.giveKnown ? M : null, sxFl ? sxFl.receive : Rt || S && S.receiveKnown ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${Ka(n.id, pT, 18, n.label, p.nx, p.ny, V, Y, N, _, !0, pr.topicIcon, P, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(3), 3)}</g>` : Ka(n.id, pT, 6, n.label, p.nx, p.ny, V, Y, l.x, l.y, !0, pr.importedIcon, P, !0, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
-                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${p.labelOffset}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${sxFontSize(3).toFixed(2)}px" dominant-baseline="middle"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m}"${y}>${Hi(n.label)}</textPath></text></g>`;
+                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${p.labelOffset}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}>${Hi(n.label)}</textPath></text></g>`;
                     });
                 }
             }
@@ -1204,7 +1278,7 @@
                         l.dataset.layoutX = j.x.toFixed(2), l.dataset.layoutY = j.y.toFixed(2)), O.controlPlacements.forEach(e => {
                             const t = e.px - e.baseCx, n = e.py - e.baseCy;
                             e.control.setAttribute("transform", `translate(${t.toFixed(2)} ${n.toFixed(2)}) rotate(${e.rotation.toFixed(2)} ${e.baseCx.toFixed(2)} ${e.baseCy.toFixed(2)})`);
-                        }), L && w.length) {
+                        }), L) {
                             const e = m(Math.max(0, B - A)).point;
                             l.querySelectorAll(":scope > .hanky-midline-outline, :scope > .hanky-midline").forEach(t => {
                                 "line" === t.tagName.toLowerCase() && (t.setAttribute("x2", e.x.toFixed(2)), t.setAttribute("y2", e.y.toFixed(2)));
@@ -1266,8 +1340,8 @@
                             }
                         }
                         if (r.push(...O.shapes), r.push(o(P.x, P.y, Math.max(24, C), k ? 30 : 22, 180 * Math.atan2(v, b) / Math.PI)), 
-                        w.length && !k) {
-                            const e = Math.min(g, q + 2);
+                        !k) {
+                            const e = Math.min(g, w.length ? q + 2 : B + A);
                             if (e < g - 1) {
                                 const t = h.getAttribute("d"), n = [];
                                 l.querySelectorAll("path").forEach(e => {
@@ -1961,7 +2035,7 @@
                 ...e
             }, !1;
             const t = performance.now();
-            if (Bn = Bn.filter(e => t - e < 2e3), Bn.push(t), Bn.length > 180) return Cr(new Error("Excessive render activity"), "repeated rendering problem"), 
+            if (Bn = Bn.filter(e => t - e < 2e3), Bn.push(t), Bn.length > 250) return Cr(new Error("Excessive render activity"), "repeated rendering problem"),
             !1;
             // Chunked paint arms: boot (armed by the shell boot
             // controller), route entry (armed by sxRouteRender
@@ -2467,30 +2541,358 @@
                 preventScroll: !0
             });
         }
+        let sxTriState = {
+            topicId: null,
+            w0: 1 / 3,
+            w1: 1 / 3,
+            w2: 1 / 3,
+            intensity: 0,
+            isDragging: !1
+        };
+
+        function sxGetTriVertices(width, height) {
+            return {
+                V0: { x: width / 2, y: 22 },
+                V1: { x: 26, y: height - 22 },
+                V2: { x: width - 26, y: height - 22 }
+            };
+        }
+
+        function sxPointToBarycentric(px, py, V0, V1, V2) {
+            const det = (V1.y - V2.y) * (V0.x - V2.x) + (V2.x - V1.x) * (V0.y - V2.y);
+            if (Math.abs(det) < 1e-5) return { w0: 1 / 3, w1: 1 / 3, w2: 1 / 3 };
+            let w0 = ((V1.y - V2.y) * (px - V2.x) + (V2.x - V1.x) * (py - V2.y)) / det;
+            let w1 = ((V2.y - V0.y) * (px - V2.x) + (V0.x - V2.x) * (py - V2.y)) / det;
+            let w2 = 1 - w0 - w1;
+            w0 = Math.max(0, w0);
+            w1 = Math.max(0, w1);
+            w2 = Math.max(0, w2);
+            const sum = w0 + w1 + w2;
+            if (sum > 0) {
+                w0 /= sum;
+                w1 /= sum;
+                w2 /= sum;
+            } else {
+                w0 = 1 / 3; w1 = 1 / 3; w2 = 1 / 3;
+            }
+            return { w0, w1, w2 };
+        }
+
+        function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { V0, V1, V2 } = sxGetTriVertices(width, height);
+
+            // Background subtle fill & border
+            ctx.beginPath();
+            ctx.moveTo(V0.x, V0.y);
+            ctx.lineTo(V1.x, V1.y);
+            ctx.lineTo(V2.x, V2.y);
+            ctx.closePath();
+            ctx.fillStyle = "rgba(255, 255, 255, 0.04)";
+            ctx.fill();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.22)";
+            ctx.stroke();
+
+            // Internal subtle grid lines towards center
+            const cx = (V0.x + V1.x + V2.x) / 3;
+            const cy = (V0.y + V1.y + V2.y) / 3;
+            ctx.beginPath();
+            ctx.moveTo(V0.x, V0.y); ctx.lineTo(cx, cy);
+            ctx.moveTo(V1.x, V1.y); ctx.lineTo(cx, cy);
+            ctx.moveTo(V2.x, V2.y); ctx.lineTo(cx, cy);
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 3]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Vertex labels
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3"];
+            ctx.font = "600 11px system-ui, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+            ctx.fillStyle = "#80d8ff";
+            ctx.fillText(labels[0], V0.x, V0.y - 4);
+
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillStyle = "#ff8a80";
+            ctx.fillText(labels[1], V1.x - 14, V1.y + 4);
+
+            ctx.textAlign = "right";
+            ctx.textBaseline = "top";
+            ctx.fillStyle = "#ffd180";
+            ctx.fillText(labels[2], V2.x + 14, V2.y + 4);
+
+            // Active point position
+            const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
+            const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
+            const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+
+            // Halo glow for point
+            const glowColor = intensity > 0 ? "rgba(79, 195, 247, 0.45)" : intensity < 0 ? "rgba(255, 138, 128, 0.45)" : "rgba(255, 255, 255, 0.25)";
+            const puckColor = intensity > 0 ? "#4fc3f7" : intensity < 0 ? "#ff8a80" : "#ffffff";
+            ctx.beginPath();
+            ctx.arc(px, py, 11, 0, 2 * Math.PI);
+            ctx.fillStyle = glowColor;
+            ctx.fill();
+
+            // Solid puck
+            ctx.beginPath();
+            ctx.arc(px, py, 5.5, 0, 2 * Math.PI);
+            ctx.fillStyle = puckColor;
+            ctx.fill();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "#12141a";
+            ctx.stroke();
+        }
+
+        function sxApplyTriRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 3) return;
+            const { w0, w1, w2, intensity } = sxTriState;
+            const v0 = Math.round(w0 * intensity);
+            const v1 = Math.round(w1 * intensity);
+            const v2 = Math.round(w2 * intensity);
+            To(topicId, shape.keys[0], v0, !1);
+            To(topicId, shape.keys[1], v1, !1);
+            To(topicId, shape.keys[2], v2, !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearTriRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 3) return;
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindTriangleWidget() {
+            const canvas = e.byId("markTriangleCanvas");
+            const slider = e.byId("markTriangleIntensity");
+            const clearBtn = e.byId("markTriangleClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updatePointFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+                const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
+                const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
+                sxTriState.w0 = w0;
+                sxTriState.w1 = w1;
+                sxTriState.w2 = w2;
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                    sxApplyTriRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxTriState.isDragging = !0;
+                canvas.setPointerCapture(evt.pointerId);
+                updatePointFromPointer(evt);
+            });
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxTriState.isDragging) return;
+                updatePointFromPointer(evt);
+            });
+            const stopDrag = (evt) => {
+                if (sxTriState.isDragging) {
+                    sxTriState.isDragging = !1;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    sxTriState.intensity = Number(slider.value);
+                    const out = e.byId("markTriangleIntensityOut");
+                    out && (out.textContent = String(Math.round(sxTriState.intensity)));
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                        sxApplyTriRatings(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearTriRatings(Qr);
+                    }
+                });
+            }
+        }
+
         function sxSyncMarkRatings(id) {
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
+            const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out"), role3Label = e.byId("markRole3Label"), role3Row = e.byId("markRole3Row");
+            const triWrap = e.byId("markTriangleWrap");
+            const triCanvas = e.byId("markTriangleCanvas");
+            const triIntensity = e.byId("markTriangleIntensity");
+            const triIntensityOut = e.byId("markTriangleIntensityOut");
+            const triVal0 = e.byId("markTriVal0"), triVal1 = e.byId("markTriVal1"), triVal2 = e.byId("markTriVal2");
+            const triPole0 = e.byId("markTriPole0"), triPole1 = e.byId("markTriPole1"), triPole2 = e.byId("markTriPole2");
+            const linearRatings = e.byId("markRatings");
+
             if (!give || !id) return;
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
-            recvRow && (recvRow.hidden = single);
-            giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
-            recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
-            give.value = rec.giveKnown ? rec.give : 0;
-            recv && (recv.value = rec.receiveKnown ? rec.receive : 0);
-            giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
-            recvOut && (recvOut.textContent = rec.receiveKnown ? String(Math.round(rec.receive)) : "Unrated");
+            const isTriangleTopic = Boolean(shape.triangle);
+            const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
+
+            if (isTriangleTopic || isTripleTopic) {
+                const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
+                const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
+                const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
+                const r2 = rec[k2 + "Known"] ? rec[k2] : 0;
+                const anyKnown = rec[k0 + "Known"] || rec[k1 + "Known"] || rec[k2 + "Known"];
+
+                if (isTriangleTopic) {
+                    // Option A: 2D Triangle canvas + vertical intensity slider
+                    triWrap && (triWrap.hidden = !1);
+                    linearRatings && (linearRatings.hidden = !0);
+
+                    // Compute weights and intensity from ratings
+                    let intensity = 0;
+                    let w0 = 1 / 3, w1 = 1 / 3, w2 = 1 / 3;
+                    if (anyKnown) {
+                        const abs0 = Math.abs(r0), abs1 = Math.abs(r1), abs2 = Math.abs(r2);
+                        const maxAbs = Math.max(abs0, abs1, abs2);
+                        const sumAbs = abs0 + abs1 + abs2;
+                        const sign = (r0 + r1 + r2 < 0) ? -1 : 1;
+                        intensity = sign * maxAbs;
+                        if (sumAbs > 0) {
+                            w0 = abs0 / sumAbs;
+                            w1 = abs1 / sumAbs;
+                            w2 = abs2 / sumAbs;
+                        }
+                    }
+                    sxTriState.topicId = id;
+                    sxTriState.w0 = w0;
+                    sxTriState.w1 = w1;
+                    sxTriState.w2 = w2;
+                    sxTriState.intensity = intensity;
+
+                    if (triIntensity) triIntensity.value = String(Math.round(intensity));
+                    if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
+
+                    if (triPole0) triPole0.textContent = shape.labels[0] || k0;
+                    if (triPole1) triPole1.textContent = shape.labels[1] || k1;
+                    if (triPole2) triPole2.textContent = shape.labels[2] || k2;
+
+                    if (triVal0) triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—";
+                    if (triVal1) triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—";
+                    if (triVal2) triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—";
+
+                    sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
+                } else {
+                    // Triple role sliders (Bull / Hotwife / Cuckold, etc.)
+                    triWrap && (triWrap.hidden = !0);
+                    linearRatings && (linearRatings.hidden = !1);
+                    recvRow && (recvRow.hidden = !1);
+                    role3Row && (role3Row.hidden = !1);
+                    giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
+                    recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
+                    role3Label && (role3Label.textContent = shape.labels[2] || k2);
+                    give.value = r0;
+                    recv.value = r1;
+                    role3.value = r2;
+                    giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "Unrated");
+                    recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "Unrated");
+                    role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "Unrated");
+                }
+            } else {
+                triWrap && (triWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !1);
+                role3Row && (role3Row.hidden = !0);
+                recvRow && (recvRow.hidden = single);
+                giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
+                recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
+                give.value = rec.giveKnown ? rec.give : 0;
+                recv && (recv.value = rec.receiveKnown ? rec.receive : 0);
+                giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
+                recvOut && (recvOut.textContent = rec.receiveKnown ? String(Math.round(rec.receive)) : "Unrated");
+            }
         }
         function sxBindMarkRatings() {
+            sxBindTriangleWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
+            const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             if (!give || give.dataset.bound) return;
             give.dataset.bound = "1";
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
+            const getKey = (idx, fallback) => {
+                if (!Qr) return fallback;
+                const shape = Ge(Qr);
+                return (shape.keys && shape.keys[idx]) || fallback;
+            };
             give.addEventListener("input", () => show(give, giveOut, !0));
-            give.addEventListener("change", () => { Qr && (To(Qr, "give", Number(give.value), !0), sxSyncMarkRatings(Qr)); });
-            e.byId("markGiveClear") && e.byId("markGiveClear").addEventListener("click", () => { Qr && (Fo(Qr, "give", !0), sxSyncMarkRatings(Qr)); });
-            if (!recv) return;
-            recv.addEventListener("input", () => show(recv, recvOut, !0));
-            recv.addEventListener("change", () => { Qr && (To(Qr, "receive", Number(recv.value), !0), sxSyncMarkRatings(Qr)); });
-            e.byId("markReceiveClear") && e.byId("markReceiveClear").addEventListener("click", () => { Qr && (Fo(Qr, "receive", !0), sxSyncMarkRatings(Qr)); });
+            give.addEventListener("change", () => {
+                if (Qr) {
+                    const k = getKey(0, "give");
+                    To(Qr, k, Number(give.value), !0);
+                    sxSyncMarkRatings(Qr);
+                }
+            });
+            e.byId("markGiveClear") && e.byId("markGiveClear").addEventListener("click", () => {
+                if (Qr) {
+                    const k = getKey(0, "give");
+                    Fo(Qr, k, !0);
+                    sxSyncMarkRatings(Qr);
+                }
+            });
+            if (recv) {
+                recv.addEventListener("input", () => show(recv, recvOut, !0));
+                recv.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(1, "receive");
+                        To(Qr, k, Number(recv.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markReceiveClear") && e.byId("markReceiveClear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(1, "receive");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+            if (role3) {
+                role3.addEventListener("input", () => show(role3, role3Out, !0));
+                role3.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(2, "role3");
+                        To(Qr, k, Number(role3.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markRole3Clear") && e.byId("markRole3Clear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(2, "role3");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
         }
         function xo(e, t, i, a = {}) {
             if (Rt || !qn[e]) return;
@@ -2639,7 +3041,8 @@
                 }
                 if (!n || "object" != typeof n) return;
                 const i = vt[e][t], a = i && "object" == typeof i ? Object.assign({}, i) : {};
-                [ "give", "receive" ].forEach(i => {
+                const flanks = (Ge(t, e).keys) || [ "give", "receive" ];
+                flanks.forEach(i => {
                     Object.prototype.hasOwnProperty.call(n, i) && Number.isFinite(Number(n[i])) && (a[i] = Math.max(-100, Math.min(100, Number(n[i]))), 
                     Co(e, t, i, "manual"));
                 }), Object.keys(a).length && (vt[e][t] = a);
@@ -2691,7 +3094,7 @@
                 };
             } else if (o && "object" == typeof o) {
                 const n = Object.assign({}, o);
-                delete n[t], Object.prototype.hasOwnProperty.call(n, "give") || Object.prototype.hasOwnProperty.call(n, "receive") ? r[e] = n : delete r[e];
+                delete n[t], Object.keys(n).length ? r[e] = n : delete r[e];
             }
             s || Mo(a, e, t), Nt = null, l && (zt(a), $o(e, a)), n && Mr();
         }
