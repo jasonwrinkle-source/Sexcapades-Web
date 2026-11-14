@@ -191,8 +191,9 @@ if (typeof window !== "undefined") {
             spacing: "airy", branchOrder: "landscape-antipodal", propFan: true, subcatOrder: true,
             staggerDensity: false, stagger: true, expandAll: true, crossmin: false, nudge: false,
             showRelations: false, repulsionEnabled: false, staticMap: false, animations: false,
+            mapSliders: false,
             collision: "grow", spokeLen: 2.6, subLen: 1.2, pad: 1.4, repulsion: 0,
-            fontScale: 30, centerRingScale: 10, leafOvergrowth: 200, autoShrinkFactor: 0.76,
+            fontScale: 30, centerRingScale: 10, leafOvergrowth: 100, autoShrinkFactor: 0.76,
             subcatCloudShrinkFactor: 0.76, branchOverrides: {}, subcatOverrides: {}, kinkOverrides: {},
             subcatAngleOffsets: {}, kinkAngleOffsets: {}, branchSpokeAutoShrink: {}, subcatSpokeAutoShrink: {},
             solverMidline: "repulsion"
@@ -6470,7 +6471,7 @@ const TAXONOMY_CATEGORIES = [
                     fontSize: hit.fontSize,
                     spokeLength: hit.spokeLength
                 };
-                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + 30, out = {
+                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + sxIconRadius(dep) + 6 * Za.measure(" ", n, "topic"), out = {
                     fontSize: n,
                     spokeLength: Math.max(t, i)
                 };
@@ -6481,9 +6482,14 @@ const TAXONOMY_CATEGORIES = [
             },
             hubSpokeLength(e, t, n, i, a) {
                 let r = n;
+                // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                // six spaces between the label end and the icon — the
+                // old +3 was ~0.001 spaces at the label font, so
+                // subcategory labels crowded their icons.
+                const gap = 6 * Za.measure(" ", t, "topic");
                 for (let n = 0; n < 3; n++) {
                     const n = Math.min(r - 40, Math.max(i + 44, .2 * r)) + 20;
-                    r = Math.max(r, n + Za.measure(e, t) + 3 + a);
+                    r = Math.max(r, n + Za.measure(e, t) + gap + a);
                 }
                 return Math.max(n, r);
             },
@@ -15342,29 +15348,6 @@ const TAXONOMY_CATEGORIES = [
         }
         let witnessTrippingLabel;
         async function stepShrinkLadders(name, report, dk, fineTuneActive, WITNESS_EPS, WITNESS_ONE_STEP, preDelivered, opts, tax, diagCaptureFields, onsetCheck) {
-            // STAGED SCORING SWITCH (ruled 2026-11-02, Jason): this
-            // step IS the whole run's shrink stage — the single
-            // run-level entry point every run passes through after
-            // the throw (or the fine-tune arming), on the normal
-            // path and the skip-throw path alike. Entering it flips
-            // the run's judged score from same-branch-only to
-            // same-plus-adjacent (radial neighbours), and the
-            // per-phase gate's reference is RE-BASED on the current
-            // (last-kept) geometry under the new composition, so
-            // the first shrink phase is judged against the same
-            // composition it is scored under — descent and judge
-            // agree across the switch. Every later judged read in
-            // the run (shrink phases, back-out restored readings,
-            // the final patch's measurement and the final gate)
-            // uses the new composition through measureCloud.
-            if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
-                sxAnnealStageCtx.adjacent = !0, report.stagedScoring.adjacentFromPhase = "fit-subcats-1";
-                dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "shrink-stage-entry" });
-                try {
-                    const rebased = await dk.measureCloud(name);
-                    null != rebased && Number.isFinite(rebased) && (prevPhaseCloud = rebased, report.stagedScoring.rebasedAtShrinkEntry = rebased);
-                } catch (e) {}
-            }
             // (5) RULED SHRINK SEQUENCE (Jason, 2026-10-24
             // adjustment — supersedes the 08:05 order and every
             // earlier ordering; one-at-a-time step-down added
@@ -15786,6 +15769,32 @@ const TAXONOMY_CATEGORIES = [
             // branch's own pre-run length instead — the same
             // 3x rule on the only category length available.
             if (!(report.fineTune && report.fineTune.branchFloor) && Number.isFinite(branchTo) && branchTo > 0) branchTo = branchTo * SX_SCORE.SHRINK_FLOOR_FACTOR;
+            // STAGED SCORING SWITCH (moved 2026-11-13, Jason —
+            // SUPERSEDES the 2026-11-02 ruling that flipped it at
+            // shrink-stage entry): the neighbour-inclusive score
+            // (same-plus-adjacent, radial neighbours) belongs ONLY
+            // to the LAST shrink stage — the category/branch shrink
+            // below (fit-branch-*), the zeroth/first-level node.
+            // The subcategory shrink ladder above is judged
+            // same-branch-only (adjacent stays false through
+            // fit-subcats-*). Entering the branch ladder flips the
+            // run's judged score to same-plus-adjacent, and the
+            // per-phase gate's reference is RE-BASED on the current
+            // (last-kept) geometry under the new composition, so
+            // the first branch phase is judged against the same
+            // composition it is scored under — descent and judge
+            // agree across the switch. Every later judged read in
+            // the run (branch phases, back-out restored readings,
+            // the final patch's measurement and the final gate)
+            // uses the new composition through measureCloud.
+            if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
+                sxAnnealStageCtx.adjacent = !0, report.stagedScoring.adjacentFromPhase = "fit-branch-1";
+                dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "branch-shrink-entry" });
+                try {
+                    const rebased = await dk.measureCloud(name);
+                    null != rebased && Number.isFinite(rebased) && (prevPhaseCloud = rebased, report.stagedScoring.rebasedAtShrinkEntry = rebased);
+                } catch (e) {}
+            }
             if (Number.isFinite(branchFrom) && branchFrom > branchTo) {
                 const bStages = Math.min(DK_LADDER_MAX_STAGES, Math.max(1, dkLadderSteps(branchFrom, branchTo)));
                 for (let j = 1; j <= bStages; j++) {
@@ -15832,7 +15841,7 @@ const TAXONOMY_CATEGORIES = [
                 // composition baseline captured on the pre-run
                 // geometry for the final gate, and the phase the
                 // switch landed in. Fields added only.
-                stagedScoring: { stageAtStart: "same-branch-only", switchPoint: "shrink-stage-entry", adjacentFromPhase: null, baselineAdjacent: null },
+                stagedScoring: { stageAtStart: "same-branch-only", switchPoint: "branch-shrink-entry", adjacentFromPhase: null, baselineAdjacent: null },
                 growth: null,
                 // SUBCAT SHRINK ATTEMPTS (repair, 2026-11-01): one
                 // record per rendered subcategory of this branch —
@@ -16625,8 +16634,13 @@ const TAXONOMY_CATEGORIES = [
                 try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-anneal-closing-paint-blit-end", e); }
                 if ("freeze-replay" === closingPaintMode) sgHoldBlitStart = !0;
                 try {
+                    // LAYOUT GLIDE (tweening Job B, 2026-11-13): the
+                    // closing paint after a run glides (animate true)
+                    // so nodes ease into their final spots instead of
+                    // snapping. The other cascade paints stay
+                    // animate:false (diagnostic / pre-run / tail).
                     closingPaintResult = Mr({
-                        animate: !1,
+                        animate: !0,
                         forceRepaint: !0
                     });
                 } catch (e) { __sxErrLog("layout-anneal-final-paint", e); } finally {
@@ -18078,6 +18092,12 @@ const TAXONOMY_CATEGORIES = [
             return pa(ga(e, t), t, e => ua(e, t));
         }
         function smSub(e, t, n, i) {
+            // KinkTest fix (1.1): a direct rating on the subcategory
+            // itself wins over the roll-up of its topics, mirroring da().
+            if (i) {
+                const direct = ha(i, t, n);
+                if (null != direct) return direct;
+            }
             const a = (e?.topics || []).map(Wn).concat(i ? ai(i, t) : []);
             return pa(a, t, e => ha(e, t, n));
         }
@@ -18094,6 +18114,14 @@ const TAXONOMY_CATEGORIES = [
                 Object.values(at[t] || {}).filter(x => x.branch === e.name && !d.has(x.parentId)).forEach(x => u.push(ha(x.id, t, n)));
             }
             const k = u.filter(v => null != v);
+            // KinkTest fix (1.1): a direct rating on the branch itself
+            // wins over the roll-up of its children, mirroring da().
+            const direct = ha(catId(e.name), t, n);
+            if (null != direct) return {
+                value: direct,
+                rated: 0,
+                total: u.length
+            };
             return {
                 value: k.length ? Math.max(-100, Math.min(100, k.reduce((a, b) => a + b, 0) / k.length)) : null,
                 rated: k.length,
@@ -18905,6 +18933,11 @@ const TAXONOMY_CATEGORIES = [
                 kind: C ? "Topic" : "Category"
             }, P = (wa(e, I, M), da(e, M)), L = $a(e, "give", M), T = $a(e, "receive", M), F = Sa(e, I, M), N = ka(i, L, P.giveKnown ? ba(P.give) : "Unrated", { tapFirst: !0 }), _ = ka(i, T, P.receiveKnown ? ba(P.receive) : "Unrated", { tapFirst: !0 });
             let D = "";
+            // MAP-SLIDER TOGGLE (ruled 2026-11-13, Jason): the
+            // give/receive rating sliders and the collapsed
+            // rating rails draw only when mn.mapSliders is on.
+            // Default off — ratings live on the topic sheet.
+            const sxShowMapSliders = Boolean(mn && mn.mapSliders);
             const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
@@ -18928,7 +18961,7 @@ const TAXONOMY_CATEGORIES = [
             }
             if (D += W, D += `<path class="topic-pulse${B}${v ? " hanky-none" : ""}" d="${t}" stroke="${p}" style="stroke-width:${5 * mapFontScale() * sxF / 3}" aria-hidden="true"/>`, 
             D += `<path class="concept-hit" data-id="${e}" data-nx="${a.toFixed(5)}" data-ny="${r.toFixed(5)}"${Sa(e, I, M)} d="${t}" tabindex="0" role="button" aria-label="${Hi(i)} concept line"/>`, 
-            g && x && !d) {
+            g && x && !d && sxShowMapSliders) {
                 const n = da(e, x);
                 ($.single ? [ {
                     key: "give",
@@ -18969,7 +19002,7 @@ const TAXONOMY_CATEGORIES = [
                     return 1 === t.length ? `${Math.round(e.score)}% · ${_d(t[0])}` : `${Math.round(e.score)}% · ${t.length} matched routes`;
                 }(U), d = (U.routes || []).map(e => `${_d(e, !0)}; combined ${Math.round(e.score)}%`).join(" · "), p = Za.controlTagWidth(r, "group") * a, h = 24 * a, g = l, m = c;
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
-            } else if (g && S && d) {
+            } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = $.single ? {
                     give: Za.controlTagWidth(y[0], "single") * m
                 } : {
@@ -19283,7 +19316,7 @@ const TAXONOMY_CATEGORIES = [
                     fontSize: hit.fontSize,
                     spokeLength: hit.spokeLength
                 };
-                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + 30, out = {
+                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + sxIconRadius(dep) + 6 * Za.measure(" ", n, "topic"), out = {
                     fontSize: n,
                     spokeLength: Math.max(t, i)
                 };
@@ -19294,9 +19327,14 @@ const TAXONOMY_CATEGORIES = [
             },
             hubSpokeLength(e, t, n, i, a) {
                 let r = n;
+                // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                // six spaces between the label end and the icon — the
+                // old +3 was ~0.001 spaces at the label font, so
+                // subcategory labels crowded their icons.
+                const gap = 6 * Za.measure(" ", t, "topic");
                 for (let n = 0; n < 3; n++) {
                     const n = Math.min(r - 40, Math.max(i + 44, .2 * r)) + 20;
-                    r = Math.max(r, n + Za.measure(e, t) + 3 + a);
+                    r = Math.max(r, n + Za.measure(e, t) + gap + a);
                 }
                 return Math.max(n, r);
             },
@@ -21205,9 +21243,13 @@ const TAXONOMY_CATEGORIES = [
         function sxLabelClearance(radius, label, fontSize, iconR) {
             let r = radius;
             try {
-                const textW = Za.measure(label || "", null == fontSize ? sxFontSize(3) : fontSize), icon = null == iconR ? sxIconRadius(3) : iconR;
+                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = 6 * Za.measure(" ", fs, "topic");
                 for (let pass = 0; pass < 3; pass++) {
-                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + 12;
+                    // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                    // six spaces between the label end and the icon, on
+                    // all nodes — the old +12 was ~0.005 spaces at the
+                    // label font, so labels crowded their icons.
+                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + gap;
                     if (!(Number.isFinite(need) && need > r)) break;
                     r = need;
                 }
@@ -21379,43 +21421,49 @@ const TAXONOMY_CATEGORIES = [
                         h = e.drawH(w), P = Za.topicLabelOffset(h, Za.cloudLabel(h, pr.categoryIcon / 2).labelOffset, e.item.cloudIndex);
                     }
                     if (e.C === undefined) e.C = sxLabelLen(isChild ? e.rec.label : "\u00A0" + e.rec.label, e.F);
-                    const ux = Math.cos(ang), uy = Math.sin(ang), Dseat = P + e.C + 1 + iconR, sEnd = Dseat + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2, a2 = pt(hub.x + ux * (P - e.F / 2), hub.y + uy * (P - e.F / 2));
+                    const ux = Math.cos(ang), uy = Math.sin(ang), a2 = pt(hub.x + ux * (P - e.F / 2), hub.y + uy * (P - e.F / 2));
                     // CAPSULE-INVERSION CORRECTION (2026-11-02,
                     // owner's design 2026-10-23 + 2026-10-27): the
                     // capsule S is the PADDLE — its outer end b is
-                    // NOT the label-zone end sEnd. The paddle runs
-                    // from a2 (the label's inward radius P, minus
-                    // half a font size — the capsule half-width,
-                    // since the 2026-11-02 band shrink) all the way
-                    // out PAST THE END
-                    // OF THE LONGEST SLIDER, plus a little: the
-                    // slider end is the paint's own end-of-controls
-                    // geometry — the icon seated at the spoke's full
-                    // drawn length h (for children, h already
-                    // carries the paint's label-clearance extension
-                    // above), plus the icon radius, 6, and half a
-                    // control tag, the same tail sEnd carries past
-                    // its label-estimate seat. The label estimate
-                    // sEnd remains as a floor for the label-dominated
-                    // regime, where it is the longer of the two.
-                    // capEnd is that outer reach; the scored midline
-                    // M (the foreign centre line other capsules are
-                    // priced against, and the centreline the interim
-                    // capsule paint draws) runs from the hub — the
-                    // branching point — out to the same capEnd, so a
-                    // foreign spoke is present everywhere its own
-                    // paddle is; its inner stretch I (hub -> a2) is
-                    // the thin line the inner count prices on the
-                    // run back toward the branching point. The node
-                    // seat stays the paint's icon seat (hub + u*h),
-                    // so the interim paint's dots sit where the full
-                    // paint seats the icons. The divergence fix
-                    // (earlier today) had this exactly reversed —
-                    // midline stretched to the icon, capsule stopping
-                    // at sEnd short of the sliders; that arrangement
-                    // must not be reintroduced under any other name.
-                    const capEnd = Math.max(sEnd, h + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2), b = pt(hub.x + ux * capEnd, hub.y + uy * capEnd), bM = pt(hub.x + ux * capEnd, hub.y + uy * capEnd);
-                    e.hub = hub, e.ang = ang, e.h = h, e.P = P, e.sEnd = sEnd, e.capEnd = capEnd;
+                    // the end of the rating controls when the map
+                    // sliders show, and the icon's extreme end when
+                    // they do not (map-sliders toggle, ruled
+                    // 2026-11-13). The paddle runs from a2 (the
+                    // label's inward radius P, minus half a font
+                    // size — the capsule half-width, since the
+                    // 2026-11-02 band shrink) all the way out to
+                    // capEnd. There is NO sEnd label floor: the icon
+                    // is set relative to the label end (seat = P +
+                    // label length + 1 + icon radius), so the label
+                    // can neither run into the icon nor outrun the
+                    // sliders, which extend past the icon — there is
+                    // no label-dominated regime, and the tag tail
+                    // (+6 + half a tag) belongs only to the slider
+                    // end, never to a label end. The slider end is
+                    // the paint's own end-of-controls geometry —
+                    // the icon seated at the spoke's full drawn
+                    // length h (for children, h already carries the
+                    // paint's label-clearance extension above),
+                    // plus the icon radius, 6, and half a control
+                    // tag. capEnd is that outer reach; the scored
+                    // midline M (the foreign centre line other
+                    // capsules are priced against, and the
+                    // centreline the interim capsule paint draws)
+                    // runs from the hub — the branching point — out
+                    // to the same capEnd, so a foreign spoke is
+                    // present everywhere its own paddle is; its
+                    // inner stretch I (hub -> a2) is the thin line
+                    // the inner count prices on the run back toward
+                    // the branching point. The node seat stays the
+                    // paint's icon seat (hub + u*h), so the interim
+                    // paint's dots sit where the full paint seats
+                    // the icons. The divergence fix (2026-11-02)
+                    // had this exactly reversed — midline stretched
+                    // to the icon, capsule stopping short of the
+                    // sliders; that arrangement must not be
+                    // reintroduced under any other name.
+                    const capEnd = (inn.mn && inn.mn.mapSliders ? h + iconR + 6 + tagW(e.rec.id, isChild ? 3 : 2) / 2 : h + iconR), b = pt(hub.x + ux * capEnd, hub.y + uy * capEnd), bM = pt(hub.x + ux * capEnd, hub.y + uy * capEnd);
+                    e.hub = hub, e.ang = ang, e.h = h, e.P = P, e.capEnd = capEnd;
                     e.M = [ pt(hub.x, hub.y), bM ], e.S = [ a2, b ], e.I = [ pt(hub.x, hub.y), a2 ];
                     e.bbS = sxBB(e.S[0], e.S[1], 0), e.bbI = sxBB(e.I[0], e.I[1], 0), e.bbM = sxBB(e.M[0], e.M[1], 0);
                     e.node = pt(hub.x + ux * h, hub.y + uy * h);
@@ -22205,7 +22253,7 @@ const TAXONOMY_CATEGORIES = [
                 const v = gen1SpokeBaseRadius();
                 if (Number.isFinite(v) && v > 0) rim = v;
             } catch (_) {}
-            const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth };
+            const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth, mapSliders: mn.mapSliders };
             const order = (typeof h !== "undefined" && h || []).map(b => ({ name: b && b.name, n: b && b.topics ? b.topics.length : 0 }));
             const branch = (branches || []).map(br => ({
                 angle: br.angle,
@@ -23072,6 +23120,20 @@ const TAXONOMY_CATEGORIES = [
 
 
         function* Ar(i = {}) {
+            // JOB B GLIDE FIX — previous-positions capture: read the live
+            // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
+            // moves In's children into a fragment (emptying In) whenever a
+            // vault key is active, so the old r-population below (which ran
+            // after the vault) always read an empty layer and no moved node
+            // was ever detected. Capturing here keeps r (and the exit-clone
+            // source list) populated in both the vaulted and unvaulted case.
+            const r = new Map, sxPrevGroups = [];
+            try {
+                In.querySelectorAll("[data-layout-key]").forEach(e => {
+                    r.set(e.dataset.layoutKey, { x: Number(e.dataset.layoutX), y: Number(e.dataset.layoutY) });
+                    sxPrevGroups.push(e);
+                });
+            } catch (_) {}
             try { sxVaultCaptureCurrent(); } catch (_) {}
             const scT0 = performance.now();
             ki && (t.clear(ki), ki = 0), dh(), uh(), $r(), window.__sxLoad && window.__sxLoad(5 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — render start */);
@@ -23167,6 +23229,11 @@ const TAXONOMY_CATEGORIES = [
                     scSeg.set(key, seg);
                 });
             } catch (_) { __sxErrLog("layout-scoped-paint-segcapture", _), scSeg = null, scSegOrder = null; } scTCap = performance.now() - scTCap0; }
+            // LAYOUT GLIDE (tweening Jobs A+B, 2026-11-13): the end glide
+            // is COUPLED to the global animations toggle — the toggle
+            // is the master switch and governs all map animation
+            // (Jason, 2026-11-13 ~16:57 CST). Glide runs only when
+            // the caller passes animate AND mn.animations is on.
             const a = !1 !== i.animate && !!mn.animations;
             Cn.classList.toggle("curve-editing", !1), function() {
                 const t = e.byId("mapCompareEmpty");
@@ -23185,14 +23252,13 @@ const TAXONOMY_CATEGORIES = [
                     t.hidden = !(n && i >= 2);
                 }();
             }();
-            const r = new Map, o = new Map, s = "lite" === Kp ? 18 : 48;
+            // r (previous positions) and sxPrevGroups were captured at the
+            // top of Ar, before the vault emptied In. The exit-clone source
+            // below reads sxPrevGroups (not In) for the same reason.
+            const o = new Map, s = "lite" === Kp ? 18 : 48;
             let l = 0;
-            In.querySelectorAll("[data-layout-key]").forEach(e => {
-                const t = e.dataset.layoutKey, n = {
-                    x: Number(e.dataset.layoutX),
-                    y: Number(e.dataset.layoutY)
-                };
-                r.set(t, n);
+            sxPrevGroups.forEach(e => {
+                const t = e.dataset.layoutKey;
                 const c = Boolean(i.exitIds && i.exitIds.has(t));
                 a && i.exitIds && c && l < s ? (o.set(t, e.cloneNode(!0)), l++) : a && !i.exitIds && "lite" !== Kp && o.set(t, e.cloneNode(!0));
             }), i.anchorId ? r.get(i.anchorId) : i.anchorPoint;
@@ -23247,7 +23313,7 @@ const TAXONOMY_CATEGORIES = [
                         parentId: i ? Un(e.name, i.name) : null
                     };
                 });
-            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), !(c || Mt && vt[Mt])) return n(In, `<g>${oa()}${function(e) {
+            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint)) return n(In, `<g>${oa()}${function(e) {
                 const t = 1.75 * ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, t, "center"), i = Za.fitAttr(e, n, "center", t);
                 return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${Hi(e)}</text>`;
             }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`), 
@@ -24424,6 +24490,11 @@ const TAXONOMY_CATEGORIES = [
                 if (a) return void n.forEach(e => e.remove());
                 const s = Boolean(Bt && !r && o), l = o ? e : [];
                 if (!l.length && !n.length && !i.length) return;
+                // LAYOUT-GLIDE SIGNAL (tweening Job B): fire only when
+                // moved nodes actually glide (l non-empty) — never on
+                // a paint with no moves. Enter/exit fades alone do
+                // not count as a glide.
+                l.length && sxLayoutGlideSignal(l.length);
                 const c = e => {
                     if (!s) return;
                     e.classList.add("rich-layout"), ((e, t) => {
@@ -24760,6 +24831,11 @@ const TAXONOMY_CATEGORIES = [
         // split is deliberate and documented at that side too; do not
         // look for the total's owner here.
         // One-shot chunked-paint arm (map-render refactor): the
+        // Boot-stall fix (mechanism 2): set by Mr() for the boot paint
+        // only (see the sxBootArm assignment there); Ar()'s no-profile
+        // early return skips itself while this is true, so the boot
+        // paint always paints the map.
+        let sxBootPaint = !1;
         // boot, route-entry, and list-close triggers each arm one
         // window flag with a budget; this consumes the first armed
         // flag (boot, then route, then close, so an earlier arm
@@ -24807,51 +24883,177 @@ const TAXONOMY_CATEGORIES = [
         // window.__sxInterimAnchor (world coordinates) so the shell's
         // live crossing number rides on the approximation being
         // painted, not on the frozen pre-run DOM cloud.
+        // LAYOUT-GLIDE SIGNAL (tweening Job B, 2026-11-13): an
+        // observable signal each time the B glide actually runs —
+        // console entry + a short quiet tone + a brief on-screen
+        // status pill. Fires ONLY when moved nodes glide, never on
+        // a paint with no moves. Tone/status are best-effort: a
+        // blocked AudioContext or missing DOM never throws, and the
+        // console entry always lands.
+        let sxGlideAudioCtx = null, sxGlideStatusEl = null, sxGlideStatusTimer = 0;
+        function sxLayoutGlideSignal(count) {
+            try { console.info("[layout-glide] B glide: " + count + " node(s) gliding to final positions"); } catch (_) {}
+            try {
+                if (!sxGlideAudioCtx) {
+                    const AC = window.AudioContext || window.webkitAudioContext;
+                    if (AC) sxGlideAudioCtx = new AC();
+                }
+                if (sxGlideAudioCtx) {
+                    try { if ("suspended" === sxGlideAudioCtx.state) sxGlideAudioCtx.resume(); } catch (_) {}
+                    const t0 = sxGlideAudioCtx.currentTime, osc = sxGlideAudioCtx.createOscillator(), gain = sxGlideAudioCtx.createGain();
+                    osc.type = "sine", osc.frequency.value = 880, gain.gain.setValueAtTime(0.0001, t0), gain.gain.exponentialRampToValueAtTime(0.04, t0 + 0.01), gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.12);
+                    osc.connect(gain), gain.connect(sxGlideAudioCtx.destination), osc.start(t0), osc.stop(t0 + 0.13);
+                }
+            } catch (_) {}
+            try {
+                if (!sxGlideStatusEl) {
+                    sxGlideStatusEl = document.createElement("div");
+                    sxGlideStatusEl.id = "sxGlideStatus";
+                    sxGlideStatusEl.setAttribute("role", "status");
+                    sxGlideStatusEl.style.cssText = "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;pointer-events:none;background:rgba(15,23,42,.92);color:#a5f3fc;border:1px solid #155e75;border-radius:999px;padding:6px 14px;font:600 12px/1.4 system-ui,sans-serif;opacity:0;transition:opacity .25s ease;white-space:nowrap";
+                    document.body.appendChild(sxGlideStatusEl);
+                }
+                sxGlideStatusEl.textContent = "Layout glide: " + count + " node" + (1 === count ? "" : "s") + " gliding";
+                sxGlideStatusEl.style.opacity = "1";
+                if (sxGlideStatusTimer) clearTimeout(sxGlideStatusTimer);
+                sxGlideStatusTimer = setTimeout(() => { if (sxGlideStatusEl) sxGlideStatusEl.style.opacity = "0"; }, 1500);
+            } catch (_) {}
+        }
+
+        // CAPSULE TWEEN (tweening Job A, 2026-11-13): the interim
+        // capsule glides between solver commits instead of jumping.
+        // COUPLED to the global animations toggle (Jason, 2026-11-13
+        // ~16:57 CST): when the toggle is OFF the capsule draws
+        // instantly (the old jump); when ON it tweens over 0.5s.
+        // The tween only moves the interim capsule layer's painted
+        // coordinates — every decision still reads the solve registry,
+        // never the DOM — so the crossing number and gate are untouched.
+        let sxCapLastSnap = null, sxCapLastBranch = null;
+        const sxCapTween = { from: null, to: null, start: 0, raf: 0, layer: null, branch: null };
+        // Snapshot the capsule's drawn primitives with stable keys so
+        // consecutive commits can be interpolated: lines (centre + sub
+        // spokes, paddle S, midline M) and circles (topic icon dots,
+        // subcategory dots). Presentation floors match the old direct
+        // draw byte-for-byte at t=1.
+        function sxCapSnap(geo, branch) {
+            const F = geo.F, lines = [], circles = [];
+            let anchor = null;
+            geo.spokes.forEach(sp => {
+                if (sp.cloud !== branch || !sp.seg) return;
+                const id = "center" === sp.kind ? sp.cloud : (sp.entry && sp.entry.rec && (sp.entry.rec.id || sp.entry.rec.label)) || sp.cloud;
+                if ("center" === sp.kind) anchor = sp.seg[1];
+                lines.push({ k: ("center" === sp.kind ? "c:" : "sp:") + id, x1: sp.seg[0].x, y1: sp.seg[0].y, x2: sp.seg[1].x, y2: sp.seg[1].y, w: Math.max(14, F * .3), s: "#67e8f9", o: .85 });
+            });
+            geo.topics.forEach(e2 => {
+                if (e2.cloud !== branch) return;
+                const id = (e2.rec && (e2.rec.id || e2.rec.label)) || "";
+                if (e2.S) lines.push({ k: "S:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: e2.F || F, s: "#67e8f9", o: .30 });
+                if (e2.M) {
+                    // Leaf spoke line abuts the icon's inside edge
+                    // (ruled 2026-11-13, Jason): the midline runs out
+                    // to capEnd, so trim its drawn end to the node
+                    // circle instead of past the icon. Solver geometry
+                    // is untouched — only the drawn interim line.
+                    let x2 = e2.M[1].x, y2 = e2.M[1].y;
+                    if (e2.node) {
+                        const dx = e2.node.x - e2.M[0].x, dy = e2.node.y - e2.M[0].y, len = Math.hypot(dx, dy), r = Math.max(26, F * .45);
+                        if (len > r) { x2 = e2.node.x - dx / len * r; y2 = e2.node.y - dy / len * r; }
+                    }
+                    lines.push({ k: "M:" + id, x1: e2.M[0].x, y1: e2.M[0].y, x2: x2, y2: y2, w: Math.max(8, F * .1), s: "#a5f3fc", o: .55 });
+                }
+                if (e2.node) circles.push({ k: "n:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(26, F * .45), f: "#a5f3fc", o: .95 });
+            });
+            geo.spokes.forEach(sp => {
+                if (sp.cloud !== branch || "sub" !== sp.kind || !sp.seg) return;
+                const id = (sp.entry && sp.entry.rec && (sp.entry.rec.id || sp.entry.rec.label)) || sp.cloud;
+                circles.push({ k: "s:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(30, F * .6), f: "#67e8f9", o: .9 });
+            });
+            return { F: F, lines: lines, circles: circles, anchor: anchor };
+        }
+        function sxCapRender(layer, branch, snap) {
+            let html = "";
+            snap.lines.forEach(e => {
+                html += '<line x1="' + e.x1.toFixed(1) + '" y1="' + e.y1.toFixed(1) + '" x2="' + e.x2.toFixed(1) + '" y2="' + e.y2.toFixed(1) + '" stroke="' + e.s + '" stroke-width="' + e.w.toFixed(1) + '" stroke-linecap="round" opacity="' + e.o + '"/>';
+            });
+            snap.circles.forEach(e => {
+                html += '<circle cx="' + e.cx.toFixed(1) + '" cy="' + e.cy.toFixed(1) + '" r="' + e.r.toFixed(1) + '" fill="' + e.f + '" opacity="' + e.o + '"/>';
+            });
+            layer.innerHTML = html;
+            let cx = 0, cy = 0, cn = 0;
+            snap.circles.forEach(e => { if ("n:" === e.k.slice(0, 2)) { cx += e.cx; cy += e.cy; cn++; } });
+            const ctr = cn ? { x: cx / cn, y: cy / cn } : snap.anchor;
+            ctr && (window.__sxInterimAnchor = { branch: branch, x: ctr.x, y: ctr.y });
+        }
+        function sxCapLerp(a, b, t) {
+            if (!a) return b;
+            const ln = (x, y) => x + (y - x) * t;
+            const byKey = arr => { const m = new Map(); arr.forEach(e => m.set(e.k, e)); return m; };
+            const aL = byKey(a.lines), aC = byKey(a.circles);
+            return {
+                F: ln(a.F, b.F),
+                lines: b.lines.map(e => {
+                    const p = aL.get(e.k);
+                    return p ? { k: e.k, x1: ln(p.x1, e.x1), y1: ln(p.y1, e.y1), x2: ln(p.x2, e.x2), y2: ln(p.y2, e.y2), w: ln(p.w, e.w), s: e.s, o: ln(p.o, e.o) } : e;
+                }),
+                circles: b.circles.map(e => {
+                    const p = aC.get(e.k);
+                    return p ? { k: e.k, cx: ln(p.cx, e.cx), cy: ln(p.cy, e.cy), r: ln(p.r, e.r), f: e.f, o: ln(p.o, e.o) } : e;
+                }),
+                anchor: a.anchor && b.anchor ? { x: ln(a.anchor.x, b.anchor.x), y: ln(a.anchor.y, b.anchor.y) } : b.anchor
+            };
+        }
+        function sxCapDraw(layer, branch, snap) {
+            // Toggle OFF: draw instantly, exactly as before (no tween
+            // state left running). Toggle ON: tween from the last
+            // displayed snapshot over 0.5s (ease-out cubic, matching
+            // the node glide's easing). A branch change has no tween
+            // baseline (the old snapshot is another cloud's geometry),
+            // so it draws instantly too.
+            if (!mn || !mn.animations || sxCapLastBranch !== branch) {
+                if (sxCapTween.raf) { try { cancelAnimationFrame(sxCapTween.raf); } catch (_) {} sxCapTween.raf = 0; }
+                sxCapTween.from = null; sxCapTween.to = null;
+                sxCapLastSnap = snap; sxCapLastBranch = branch;
+                sxCapRender(layer, branch, snap);
+                return;
+            }
+            const now = performance.now();
+            let from = sxCapLastSnap;
+            if (sxCapTween.raf && sxCapTween.to) {
+                // A tween is in flight: re-base from the currently
+                // displayed (interpolated) snapshot so the motion
+                // stays continuous when a new commit lands mid-glide.
+                const t = Math.min(1, (now - sxCapTween.start) / 500), e = 1 - Math.pow(1 - t, 3);
+                from = sxCapLerp(sxCapTween.from, sxCapTween.to, e);
+                try { cancelAnimationFrame(sxCapTween.raf); } catch (_) {}
+                sxCapTween.raf = 0;
+            }
+            if (!from) { sxCapLastSnap = snap; sxCapRender(layer, branch, snap); return; }
+            sxCapTween.from = from; sxCapTween.to = snap; sxCapTween.start = now; sxCapTween.layer = layer; sxCapTween.branch = branch;
+            const step = t0 => {
+                sxCapTween.raf = 0;
+                // Stop if the run ended, the layer is gone, or a full
+                // paint replaced it: never draw a stale capsule.
+                if (!dkCtx || !layer.isConnected || sxCapTween.layer !== layer) return;
+                const t = Math.min(1, (t0 - sxCapTween.start) / 500), e = 1 - Math.pow(1 - t, 3);
+                sxCapRender(layer, branch, sxCapLerp(sxCapTween.from, sxCapTween.to, e));
+                if (t < 1) sxCapTween.raf = requestAnimationFrame(step);
+                else { sxCapLastSnap = sxCapTween.to; sxCapTween.from = null; sxCapTween.to = null; }
+            };
+            sxCapTween.raf = requestAnimationFrame(step);
+        }
+
         function sxInterimCapsulePaint(d) {
             try {
                 if (!In || !dkCtx || !dkCtx.branch) return;
-                const geo = sxSccBuild(d), F = geo.F, branch = dkCtx.branch, NS = "http://www.w3.org/2000/svg";
+                const geo = sxSccBuild(d), branch = dkCtx.branch, NS = "http://www.w3.org/2000/svg";
                 let layer = In.querySelector(".sx-interim-capsules");
                 if (!layer) {
                     layer = document.createElementNS(NS, "g"), layer.setAttribute("class", "sx-interim-capsules"), layer.setAttribute("aria-hidden", "true"), layer.setAttribute("pointer-events", "none"), In.appendChild(layer);
                 }
-                let html = "", cx = 0, cy = 0, cn = 0, anchorPt = null;
-                const line = (a, b, w, stroke, opacity) => {
-                    html += '<line x1="' + a.x.toFixed(1) + '" y1="' + a.y.toFixed(1) + '" x2="' + b.x.toFixed(1) + '" y2="' + b.y.toFixed(1) + '" stroke="' + stroke + '" stroke-width="' + w.toFixed(1) + '" stroke-linecap="round" opacity="' + opacity + '"/>';
-                };
-                // Presentation floors (world units, so they scale
-                // with the camera like everything else on the map):
-                // the true capsule band is F wide by definition
-                // (centre line ± F/2 since the 2026-11-02 band shrink) and
-                // is drawn as-is, but at a fitted zoom F can be a
-                // handful of screen pixels — the capsule centrelines
-                // (e.M, hub -> the paddle's outer end), the spokes and the node
-                // dots carry minimum widths so the approximation
-                // reads as a clue to where the algorithm is at any
-                // zoom, without changing the geometry it depicts.
-                geo.spokes.forEach(sp => {
-                    if (sp.cloud !== branch || !sp.seg) return;
-                    "center" === sp.kind && (anchorPt = sp.seg[1]), line(sp.seg[0], sp.seg[1], Math.max(14, F * .3), "#67e8f9", .85);
-                });
-                geo.topics.forEach(e2 => {
-                    if (e2.cloud !== branch || !e2.S) return;
-                    line(e2.S[0], e2.S[1], e2.F || F, "#67e8f9", .30);
-                });
-                geo.topics.forEach(e2 => {
-                    if (e2.cloud !== branch || !e2.M) return;
-                    line(e2.M[0], e2.M[1], Math.max(8, F * .1), "#a5f3fc", .55);
-                });
-                geo.topics.forEach(e2 => {
-                    if (e2.cloud !== branch || !e2.node) return;
-                    cx += e2.node.x, cy += e2.node.y, cn++, html += '<circle cx="' + e2.node.x.toFixed(1) + '" cy="' + e2.node.y.toFixed(1) + '" r="' + Math.max(26, F * .45).toFixed(1) + '" fill="#a5f3fc" opacity="0.95"/>';
-                });
-                geo.spokes.forEach(sp => {
-                    if (sp.cloud !== branch || "sub" !== sp.kind || !sp.seg) return;
-                    html += '<circle cx="' + sp.seg[1].x.toFixed(1) + '" cy="' + sp.seg[1].y.toFixed(1) + '" r="' + Math.max(30, F * .6).toFixed(1) + '" fill="#67e8f9" opacity="0.9"/>';
-                });
-                layer.innerHTML = html;
-                const ctr = cn ? { x: cx / cn, y: cy / cn } : anchorPt;
-                ctr && (window.__sxInterimAnchor = { branch: branch, x: ctr.x, y: ctr.y });
+                // Job A: draw via the snapshot tween (instant when the
+                // animations toggle is off, gliding when it is on).
+                // Presentation floors live in sxCapSnap/sxCapRender.
+                sxCapDraw(layer, branch, sxCapSnap(geo, branch));
             } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
         }
 
@@ -24866,6 +25068,13 @@ const TAXONOMY_CATEGORIES = [
         };
         window.SX = window.SexcapadesEngine;
 
+        // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13): the capsule
+        // draw is the visible animation — keep it, but batch it to at
+        // most one draw per animation frame during a run.
+        // sxInterimPaintPending is set while a frame is scheduled;
+        // sxInterimPaintGeo always holds the newest solved geometry,
+        // so a burst of Mr calls inside one frame draws once, latest.
+        let sxInterimPaintPending = !1, sxInterimPaintGeo = null;
         function Mr(e = {}) {
             sxInvalidatePairs(), layoutAutoSync(), refreshCenterRing(), sxSyncRailPx(), sxSyncMapFontBase();
             if (jn && !e.recovery) return !1;
@@ -24883,7 +25092,17 @@ const TAXONOMY_CATEGORIES = [
             // refused call can never eat an arm, and THIS paint
             // runs chunked at the armed budget (see
             // sxConsumeChunkArm above).
-            let sxBootChunk = sxConsumeChunkArm("__sxBootChunkPaint") || sxConsumeChunkArm("__sxRouteChunkPaint") || sxConsumeChunkArm("__sxCloseChunkPaint");
+            const sxBootArm = sxConsumeChunkArm("__sxBootChunkPaint");
+            let sxBootChunk = sxBootArm || sxConsumeChunkArm("__sxRouteChunkPaint") || sxConsumeChunkArm("__sxCloseChunkPaint");
+            // Boot-stall fix (mechanism 2): the boot paint always paints
+            // the map. The Remember restore can land before this paint
+            // starts, leaving profiles restored but none selected, and
+            // the no-profile early return in Ar below would then install
+            // the empty map and finish the boot at 100% with 0 nodes.
+            // (A snapshot of c/Mt would not help: Mr, Ar and the check
+            // run in one synchronous task, so it would read the same
+            // state.) Later paints keep the early return.
+            sxBootPaint = sxBootArm;
             Rn = !0;
             const release = () => {
                 if (Rn = !1, On && !jn) {
@@ -24942,7 +25161,27 @@ const TAXONOMY_CATEGORIES = [
                     const d = SX_SOLVER_FACADE.build();
                     SX_SOLVER_FACADE.tidy(d);
                     sn.clear(), d.branches.forEach(e2 => sn.set(e2.entry.branch.name, e2.angle));
-                    sxInterimCapsulePaint(d);
+                    // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13):
+                    // the capsule draw is the animation — keep it visible,
+                    // but draw at most once per animation frame. A burst of
+                    // Mr calls inside one frame only replaces the pending
+                    // geometry; the single rAF draws the latest state. The
+                    // solve (build + angle map above) stays synchronous —
+                    // only the DOM draw is deferred. If the run ends (or a
+                    // new run starts) before the frame, the draw is
+                    // skipped; the closing full paint shows the final state.
+                    sxInterimPaintGeo = d;
+                    if (!sxInterimPaintPending) {
+                        sxInterimPaintPending = !0;
+                        const ctx = dkCtx;
+                        requestAnimationFrame(() => {
+                            sxInterimPaintPending = !1;
+                            const g = sxInterimPaintGeo;
+                            sxInterimPaintGeo = null;
+                            if (!g || dkCtx !== ctx) return;
+                            try { sxInterimCapsulePaint(g); } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
+                        });
+                    }
                     return !0;
                 } catch (err) {
                     return Cr(err), !1;
@@ -25003,6 +25242,14 @@ const TAXONOMY_CATEGORIES = [
                 if (ok) try {
                     sxStemFinaliseHook && sxStemFinaliseHook();
                 } catch (_) {}
+                // Boot close-up fix (2026-11-13): the boot opens on a
+                // hard-coded close-up of the centre avatar (the brief
+                // "hello" portrait) because the camera is set before
+                // the map is drawn. Once this boot paint has drawn
+                // the map, pull back to the full map — Ih() also arms
+                // the fit-settle chain, which re-fits again after the
+                // anneal moves the nodes. Non-boot paints are untouched.
+                if (ok && sxBootArm) try { Ih(); } catch (_) {}
             });
             return window.sxPaintPromise = sxPaintPromise = p, p.then(ok => (release(), sxPaintPromise === p && (window.sxPaintPromise = sxPaintPromise = null), ok), () => (release(), window.sxPaintPromise = null, !1));
         }
@@ -26083,7 +26330,7 @@ const TAXONOMY_CATEGORIES = [
                 unreviewed: []
             };
             if (!e || e !== Et && !vt[e]) return t;
-            const n = __sxOnDeckIndex(e), i = new Set((gt[e] && gt[e].fetlife && gt[e].fetlife.categoryHits) || []), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
+            const n = __sxOnDeckIndex(e), i = new Set(Object.values(gt[e] || {}).flatMap(f => (f && f.categoryHits) || [])), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
             n.forEach((n, s) => {
                 if ("limit" === a[s]) return;
                 const l = ca(s, e), c = Ge(s, e);
@@ -28387,9 +28634,9 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (typeof xS !== "function" || !xS()) return;
             const picked = (typeof Yi === "function" ? Yi() : []).filter(id => vt[id]);
             if (an && picked.length >= 2) return;
+            if (picked.length >= 2) return; // set already populated; flag may be deliberately dismissed — don't re-derive it
             const all = Object.keys(vt || {}).filter(id => id && id !== Et && vt[id]);
-            const ids = picked.length >= 2 ? picked : all;
-            ids.length >= 2 && sxSel(ids, "set");
+            all.length >= 2 && sxSel(all, "set");
         }
         function vc() {
             sxKeepCompareRoute();
@@ -28992,7 +29239,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced";
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "1", scribeLengthDisplay = "~1", scribeRequestText = "", scribeLengthUnit = "pages", scribeDetailLevel = "balanced";
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -31721,9 +31968,9 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             scribePartnerId = 2 === t.length ? t[1] : null;
             const a = t.filter(e => vt[e]).length > 1, o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit"), d = e.byId("scribePageCountHelp");
             o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
-            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs."),
+            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page."),
             s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story."),
-            l && (l.textContent = (currentScribePrompt() && e.byId("sceneBrief") && !e.byId("sceneBrief").hidden) ? "Regenerate Literotica-style Story prompt" : "Create Literotica-style Story prompt"), kg.open && Ui(kg),
+            l && (l.textContent = "Prompt"), kg.open && Ui(kg),
             Sg.open && Ui(Sg), Oc.open && Ui(Oc), jc.open && Ui(jc), Wi(Bc);
         }
         function Jd(e) {
@@ -32112,14 +32359,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         alreadyTried: et[e]
                     })),
                     details: String(e.byId("scribeDetails")?.value || "").trim(),
-                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4)),
+                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 2)),
                     pageCount: String(e.byId("scribePageCount")?.value || "").trim()
                 };
             }();
             t.participantIds.length && t.topicData.length && (scribeRequestText = t.details, function(t, n) {
                 const i = e.byId("scribePageCount"), u = e.byId("scribeLengthUnit"), d = e.byId("scribeDetailLevel"), a = function() {
                     const t = e.byId("scribePageCount"), n = String(t?.value || "").trim().replace(/[–—]/g, "-");
-                    if (!n) return t && t.setCustomValidity(""), "5";
+                    if (!n) return t && t.setCustomValidity(""), "1";
                     const i = n.match(/^(\d{1,5}(?:\.\d)?)(?:\s*-\s*(\d{1,5}(?:\.\d)?))?$/);
                     if (!i) return t && (t.setCustomValidity("Use a number such as 5 or a range such as 5–7."), 
                     t.reportValidity()), null;
@@ -32128,14 +32375,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         paragraphs: [ 1, 100 ],
                         pages: [ 1, 50 ],
                         chapters: [ 1, 50 ]
-                    }[String(u?.value || "paragraphs")] || [ 1, 100 ], s = o[0], l = o[1];
+                    }[String(u?.value || "pages")] || [ 1, 100 ], s = o[0], l = o[1];
                     let a = Math.max(s, Math.min(l, Number(i[1]))), r = i[2] ? Math.max(s, Math.min(l, Number(i[2]))) : null;
                     return null !== r && r < a && ([a, r] = [ r, a ]), t && t.setCustomValidity(""), 
                     null === r ? String(a) : `${a}–${r}`;
                 }();
                 if (!a) return;
-                scribeLengthUnit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(u?.value || "")) ? u.value : "paragraphs", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
-                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~5";
+                scribeLengthUnit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(u?.value || "")) ? u.value : "pages", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
+                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~1";
                 const r = `Projected: ${scribeLengthDisplay} ${scribeLengthUnit}`;
                 e.byId("scenePageProjection").textContent = r, e.byId("novelAiPageProjection").textContent = r, 
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));
@@ -32166,14 +32413,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castNamesText;
                 if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castNamesText;
                 const genBtn = e.byId("generateScribePrompt");
-                if (genBtn) genBtn.textContent = "Regenerate Literotica-style Story prompt";
+                if (genBtn) genBtn.textContent = "Prompt";
                 const briefEl = e.byId("sceneBrief");
                 if (briefEl) {
                     briefEl.hidden = !1;
                     try { briefEl.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
                 }
             }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit" })[t.explicitness] || "grok"));
-        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
+        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 2)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
         sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
@@ -35695,12 +35942,18 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
                 return;
             }
-            fitSettleChecks++;
             // Not laid out yet (slow phone open), paint still in
             // flight, or a camera animation still running: re-arm
             // instead of dying — an unlaid-out first check or a
             // mid-animation check must not kill the chain.
+            // Boot close-up fix (2026-11-13): these waits must NOT
+            // consume the 20-check budget — the boot paint + anneal
+            // runs 25-45 s, so counting 400 ms waits as checks
+            // exhausted the chain ~9 s in and the camera stayed
+            // stuck on the centre portrait. Only a genuine re-fit
+            // cycle counts; the cap still bounds those.
             if (!laidOut || painting || animating) return void scheduleFitSettleRefit(400);
+            fitSettleChecks++;
             // Paint finished and either the fitted box moved since
             // the fit or a programmatic camera move (focus,
             // animation end state, restore path) overwrote the fit:
@@ -39285,7 +39538,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             sxOutlineSortMode = "popularity";
         })), e.all("[data-profile-details-converter]").forEach(n => n.addEventListener("click", () => {
             const kind = n.dataset.profileDetailsConverter, mode = n.dataset.converterMode || "auto";
-            jY = ({ outline: "Popularity list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? Ms(id) : Ax(kind, mode, id), vw();
+            jY = ({ outline: "Hot list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? Ms(id) : Ax(kind, mode, id), vw();
         })), Hg.addEventListener("keydown", e => {
             "Enter" === e.key && (e.preventDefault(), vw());
         }), e.byId("closeProfileImport") && (e.byId("closeProfileImport").onclick = () => Ui(Sg)), Sg.addEventListener("click", e => {
@@ -40468,7 +40721,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         totalLines: u,
                         warnings: s,
                         bestFit: [ ...new Set(l) ],
-                        mappings: c
+                        mappings: c,
+                        // KinkTest fix (1.1): the branch ids this paste
+                        // rated, so the merge records them as categoryHits
+                        // (like FetLife's broadHits) and On Deck can
+                        // propose their topics.
+                        categoryHits: Object.keys(t).filter(e => isCatId(e) || isSubId(e))
                     });
                 }(String(t || "")); else if ("checklist" === n || "yesnomaybe" === n) i = function(e) {
                     const t = {}, n = {}, i = {}, a = {}, r = {}, o = {}, s = {}, sxNotes = {}, l = [], c = [], d = [], sxSug = [];
@@ -43751,12 +44009,12 @@ __sxInit(function () {
   var resultEl = SexcapadesRuntime.DOM.byId("fetlifeMapResult");
   var addRowEl = SexcapadesRuntime.DOM.byId("fetlifeMapAddRow");
   var countEl = SexcapadesRuntime.DOM.byId("fetlifeMapCount");
-  var tableBody = SexcapadesRuntime.DOM.byId("fetlifeMapTableBody");
+  var tableBody = SexcapadesRuntime.DOM.byId("fetlifeMapRows");
 
   function openEditor() { window.__sxDialog.open(dlg); renderTable(); }
   function closeEditor() { window.__sxDialog.close(dlg); }
 
-  var openBtn = SexcapadesRuntime.DOM.byId("openFetlifeMapEditor");
+  var openBtn = SexcapadesRuntime.DOM.byId("openFetlifeMap");
   if (openBtn) openBtn.addEventListener("click", openEditor);
   var closeBtn = SexcapadesRuntime.DOM.byId("closeFetlifeMap");
   if (closeBtn) closeBtn.addEventListener("click", closeEditor);
@@ -43768,24 +44026,115 @@ __sxInit(function () {
     }
   });
 
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function norm(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+
   function renderTable() {
     if (!window.__fetlifeMap || !tableBody) return;
-    var map = window.__fetlifeMap();
-    var keys = Object.keys(map).sort();
+    var rows = window.__fetlifeMap.rows();
     var q = (searchEl ? searchEl.value : "").trim().toLowerCase();
+    var qn = norm(q);
     var rowsHtml = [];
     var visible = 0;
-    for (var i = 0; i < keys.length; i++) {
-      var k = keys[i], v = map[k];
-      if (q && !k.toLowerCase().includes(q) && !String(v).toLowerCase().includes(q)) continue;
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      if (q) {
+        var hay = (r.name + " " + r.label + " " + r.path + " " + r.key).toLowerCase();
+        if (hay.indexOf(q) === -1 && (!qn || norm(hay).indexOf(qn) === -1)) continue;
+      }
       visible++;
-      rowsHtml.push('<tr><td>' + k + '</td><td>' + v + '</td></tr>');
+      var side = r.direction === "give" ? "give only" : r.direction === "receive" ? "receive only" : "give + receive";
+      rowsHtml.push('<tr data-flkey="' + esc(r.key) + '"><td>' + esc(r.name) + '</td><td>' + esc(r.label) + '<br><small>' + esc(r.path) + '</small></td><td>' + side + '</td><td><button type="button" class="action-btn fetlife-map-edit-btn" data-flkey="' + esc(r.key) + '" data-flname="' + esc(r.name) + '">Edit</button></td></tr>');
     }
     tableBody.innerHTML = rowsHtml.join("");
-    if (countEl) countEl.textContent = visible + " of " + keys.length + " mappings";
+    if (countEl) countEl.textContent = visible + " of " + rows.length + " mappings";
+  }
+
+  var highlightedRow = null;
+  function clearRowHighlight() {
+    if (highlightedRow) { highlightedRow.style.background = ""; highlightedRow = null; }
+  }
+  function highlightRow(key) {
+    if (!tableBody || !key) return;
+    clearRowHighlight();
+    var trs = tableBody.rows;
+    for (var i = 0; i < trs.length; i++) {
+      if (trs[i].getAttribute("data-flkey") === key) {
+        highlightedRow = trs[i];
+        highlightedRow.style.background = "rgba(0, 229, 255, 0.18)";
+        highlightedRow.scrollIntoView({ block: "nearest" });
+        return;
+      }
+    }
   }
 
   if (searchEl) searchEl.addEventListener("input", renderTable);
+
+  // Edit button in a row: put that fetish name in the chooser and run the
+  // lookup, so the result line shows where it lands.
+  if (tableBody) tableBody.addEventListener("click", function (ev) {
+    var btn = ev.target && ev.target.closest ? ev.target.closest(".fetlife-map-edit-btn") : null;
+    if (!btn || !chooseEl) return;
+    chooseEl.value = btn.getAttribute("data-flname") || "";
+    runChooser();
+    chooseEl.focus();
+  });
+
+  // "Find a FetLife fetish" chooser: look the typed name up with the
+  // importer's own resolution and show where it lands, then filter the
+  // table to the matching row(s).
+  function runChooser() {
+    if (!window.__fetlifeMap) return;
+    var term = (chooseEl ? chooseEl.value : "").trim();
+    if (!term) {
+      if (resultEl) resultEl.hidden = true;
+      if (addRowEl) addRowEl.hidden = true;
+      clearRowHighlight();
+      if (searchEl) searchEl.value = "";
+      renderTable();
+      return;
+    }
+    var hit = null;
+    try { hit = window.__fetlifeMap.lookup(term); } catch (e) { hit = null; }
+    if (!hit) {
+      // Fallback: the importer's exact resolution is space-sensitive, so
+      // a spaceless typed name ("bootlicking") does not match the key
+      // "boot licking" even though the row is in the table. Match the
+      // table row by normalized name/key so it still lands.
+      var rows = window.__fetlifeMap.rows();
+      var tn = norm(term);
+      for (var i = 0; i < rows.length; i++) {
+        if (norm(rows[i].name) === tn || norm(rows[i].key) === tn) {
+          hit = { key: rows[i].key, id: rows[i].id, label: rows[i].label, path: rows[i].path, kind: rows[i].kind, child: null, direction: rows[i].direction, uncertain: rows[i].uncertain, broad: false, pattern: false };
+          break;
+        }
+      }
+    }
+    if (!hit) {
+      if (resultEl) {
+        resultEl.hidden = false;
+        resultEl.textContent = 'No mapping for "' + term + '".';
+      }
+      if (addRowEl) addRowEl.hidden = true;
+    } else {
+      if (addRowEl) addRowEl.hidden = true;
+      if (resultEl) {
+        resultEl.hidden = false;
+        var text = '"' + term + '" \u2192 ' + hit.label + ' (' + hit.kind + ')';
+        if (hit.path) text += ' \u2014 ' + hit.path;
+        if (hit.child) text += ' \u00b7 ' + hit.child;
+        if (hit.broad) text += ' (broad match)';
+        if (hit.pattern) text += ' (pattern match)';
+        resultEl.textContent = text;
+      }
+    }
+    if (searchEl) searchEl.value = term;
+    renderTable();
+    if (hit && hit.key) highlightRow(hit.key);
+    else clearRowHighlight();
+  }
+
+  if (chooseEl) chooseEl.addEventListener("input", runChooser);
 
   var row = SexcapadesRuntime.DOM.byId("fetlifeMapRow");
   var guide = SexcapadesRuntime.DOM.byId("fetlifeGuide");
