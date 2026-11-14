@@ -6471,7 +6471,7 @@ const TAXONOMY_CATEGORIES = [
                     fontSize: hit.fontSize,
                     spokeLength: hit.spokeLength
                 };
-                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + 30, out = {
+                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + sxIconRadius(dep) + 6 * Za.measure(" ", n, "topic"), out = {
                     fontSize: n,
                     spokeLength: Math.max(t, i)
                 };
@@ -6482,9 +6482,14 @@ const TAXONOMY_CATEGORIES = [
             },
             hubSpokeLength(e, t, n, i, a) {
                 let r = n;
+                // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                // six spaces between the label end and the icon — the
+                // old +3 was ~0.001 spaces at the label font, so
+                // subcategory labels crowded their icons.
+                const gap = 6 * Za.measure(" ", t, "topic");
                 for (let n = 0; n < 3; n++) {
                     const n = Math.min(r - 40, Math.max(i + 44, .2 * r)) + 20;
-                    r = Math.max(r, n + Za.measure(e, t) + 3 + a);
+                    r = Math.max(r, n + Za.measure(e, t) + gap + a);
                 }
                 return Math.max(n, r);
             },
@@ -16629,8 +16634,13 @@ const TAXONOMY_CATEGORIES = [
                 try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-anneal-closing-paint-blit-end", e); }
                 if ("freeze-replay" === closingPaintMode) sgHoldBlitStart = !0;
                 try {
+                    // LAYOUT GLIDE (tweening Job B, 2026-11-13): the
+                    // closing paint after a run glides (animate true)
+                    // so nodes ease into their final spots instead of
+                    // snapping. The other cascade paints stay
+                    // animate:false (diagnostic / pre-run / tail).
                     closingPaintResult = Mr({
-                        animate: !1,
+                        animate: !0,
                         forceRepaint: !0
                     });
                 } catch (e) { __sxErrLog("layout-anneal-final-paint", e); } finally {
@@ -19306,7 +19316,7 @@ const TAXONOMY_CATEGORIES = [
                     fontSize: hit.fontSize,
                     spokeLength: hit.spokeLength
                 };
-                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + 30, out = {
+                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + sxIconRadius(dep) + 6 * Za.measure(" ", n, "topic"), out = {
                     fontSize: n,
                     spokeLength: Math.max(t, i)
                 };
@@ -19317,9 +19327,14 @@ const TAXONOMY_CATEGORIES = [
             },
             hubSpokeLength(e, t, n, i, a) {
                 let r = n;
+                // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                // six spaces between the label end and the icon — the
+                // old +3 was ~0.001 spaces at the label font, so
+                // subcategory labels crowded their icons.
+                const gap = 6 * Za.measure(" ", t, "topic");
                 for (let n = 0; n < 3; n++) {
                     const n = Math.min(r - 40, Math.max(i + 44, .2 * r)) + 20;
-                    r = Math.max(r, n + Za.measure(e, t) + 3 + a);
+                    r = Math.max(r, n + Za.measure(e, t) + gap + a);
                 }
                 return Math.max(n, r);
             },
@@ -21228,9 +21243,13 @@ const TAXONOMY_CATEGORIES = [
         function sxLabelClearance(radius, label, fontSize, iconR) {
             let r = radius;
             try {
-                const textW = Za.measure(label || "", null == fontSize ? sxFontSize(3) : fontSize), icon = null == iconR ? sxIconRadius(3) : iconR;
+                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = 6 * Za.measure(" ", fs, "topic");
                 for (let pass = 0; pass < 3; pass++) {
-                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + 12;
+                    // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                    // six spaces between the label end and the icon, on
+                    // all nodes — the old +12 was ~0.005 spaces at the
+                    // label font, so labels crowded their icons.
+                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + gap;
                     if (!(Number.isFinite(need) && need > r)) break;
                     r = need;
                 }
@@ -23101,6 +23120,20 @@ const TAXONOMY_CATEGORIES = [
 
 
         function* Ar(i = {}) {
+            // JOB B GLIDE FIX — previous-positions capture: read the live
+            // node positions BEFORE sxVaultCaptureCurrent() runs. The vault
+            // moves In's children into a fragment (emptying In) whenever a
+            // vault key is active, so the old r-population below (which ran
+            // after the vault) always read an empty layer and no moved node
+            // was ever detected. Capturing here keeps r (and the exit-clone
+            // source list) populated in both the vaulted and unvaulted case.
+            const r = new Map, sxPrevGroups = [];
+            try {
+                In.querySelectorAll("[data-layout-key]").forEach(e => {
+                    r.set(e.dataset.layoutKey, { x: Number(e.dataset.layoutX), y: Number(e.dataset.layoutY) });
+                    sxPrevGroups.push(e);
+                });
+            } catch (_) {}
             try { sxVaultCaptureCurrent(); } catch (_) {}
             const scT0 = performance.now();
             ki && (t.clear(ki), ki = 0), dh(), uh(), $r(), window.__sxLoad && window.__sxLoad(5 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — render start */);
@@ -23196,6 +23229,11 @@ const TAXONOMY_CATEGORIES = [
                     scSeg.set(key, seg);
                 });
             } catch (_) { __sxErrLog("layout-scoped-paint-segcapture", _), scSeg = null, scSegOrder = null; } scTCap = performance.now() - scTCap0; }
+            // LAYOUT GLIDE (tweening Jobs A+B, 2026-11-13): the end glide
+            // is COUPLED to the global animations toggle — the toggle
+            // is the master switch and governs all map animation
+            // (Jason, 2026-11-13 ~16:57 CST). Glide runs only when
+            // the caller passes animate AND mn.animations is on.
             const a = !1 !== i.animate && !!mn.animations;
             Cn.classList.toggle("curve-editing", !1), function() {
                 const t = e.byId("mapCompareEmpty");
@@ -23214,14 +23252,13 @@ const TAXONOMY_CATEGORIES = [
                     t.hidden = !(n && i >= 2);
                 }();
             }();
-            const r = new Map, o = new Map, s = "lite" === Kp ? 18 : 48;
+            // r (previous positions) and sxPrevGroups were captured at the
+            // top of Ar, before the vault emptied In. The exit-clone source
+            // below reads sxPrevGroups (not In) for the same reason.
+            const o = new Map, s = "lite" === Kp ? 18 : 48;
             let l = 0;
-            In.querySelectorAll("[data-layout-key]").forEach(e => {
-                const t = e.dataset.layoutKey, n = {
-                    x: Number(e.dataset.layoutX),
-                    y: Number(e.dataset.layoutY)
-                };
-                r.set(t, n);
+            sxPrevGroups.forEach(e => {
+                const t = e.dataset.layoutKey;
                 const c = Boolean(i.exitIds && i.exitIds.has(t));
                 a && i.exitIds && c && l < s ? (o.set(t, e.cloneNode(!0)), l++) : a && !i.exitIds && "lite" !== Kp && o.set(t, e.cloneNode(!0));
             }), i.anchorId ? r.get(i.anchorId) : i.anchorPoint;
@@ -24453,6 +24490,11 @@ const TAXONOMY_CATEGORIES = [
                 if (a) return void n.forEach(e => e.remove());
                 const s = Boolean(Bt && !r && o), l = o ? e : [];
                 if (!l.length && !n.length && !i.length) return;
+                // LAYOUT-GLIDE SIGNAL (tweening Job B): fire only when
+                // moved nodes actually glide (l non-empty) — never on
+                // a paint with no moves. Enter/exit fades alone do
+                // not count as a glide.
+                l.length && sxLayoutGlideSignal(l.length);
                 const c = e => {
                     if (!s) return;
                     e.classList.add("rich-layout"), ((e, t) => {
@@ -24841,51 +24883,177 @@ const TAXONOMY_CATEGORIES = [
         // window.__sxInterimAnchor (world coordinates) so the shell's
         // live crossing number rides on the approximation being
         // painted, not on the frozen pre-run DOM cloud.
+        // LAYOUT-GLIDE SIGNAL (tweening Job B, 2026-11-13): an
+        // observable signal each time the B glide actually runs —
+        // console entry + a short quiet tone + a brief on-screen
+        // status pill. Fires ONLY when moved nodes glide, never on
+        // a paint with no moves. Tone/status are best-effort: a
+        // blocked AudioContext or missing DOM never throws, and the
+        // console entry always lands.
+        let sxGlideAudioCtx = null, sxGlideStatusEl = null, sxGlideStatusTimer = 0;
+        function sxLayoutGlideSignal(count) {
+            try { console.info("[layout-glide] B glide: " + count + " node(s) gliding to final positions"); } catch (_) {}
+            try {
+                if (!sxGlideAudioCtx) {
+                    const AC = window.AudioContext || window.webkitAudioContext;
+                    if (AC) sxGlideAudioCtx = new AC();
+                }
+                if (sxGlideAudioCtx) {
+                    try { if ("suspended" === sxGlideAudioCtx.state) sxGlideAudioCtx.resume(); } catch (_) {}
+                    const t0 = sxGlideAudioCtx.currentTime, osc = sxGlideAudioCtx.createOscillator(), gain = sxGlideAudioCtx.createGain();
+                    osc.type = "sine", osc.frequency.value = 880, gain.gain.setValueAtTime(0.0001, t0), gain.gain.exponentialRampToValueAtTime(0.04, t0 + 0.01), gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.12);
+                    osc.connect(gain), gain.connect(sxGlideAudioCtx.destination), osc.start(t0), osc.stop(t0 + 0.13);
+                }
+            } catch (_) {}
+            try {
+                if (!sxGlideStatusEl) {
+                    sxGlideStatusEl = document.createElement("div");
+                    sxGlideStatusEl.id = "sxGlideStatus";
+                    sxGlideStatusEl.setAttribute("role", "status");
+                    sxGlideStatusEl.style.cssText = "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;pointer-events:none;background:rgba(15,23,42,.92);color:#a5f3fc;border:1px solid #155e75;border-radius:999px;padding:6px 14px;font:600 12px/1.4 system-ui,sans-serif;opacity:0;transition:opacity .25s ease;white-space:nowrap";
+                    document.body.appendChild(sxGlideStatusEl);
+                }
+                sxGlideStatusEl.textContent = "Layout glide: " + count + " node" + (1 === count ? "" : "s") + " gliding";
+                sxGlideStatusEl.style.opacity = "1";
+                if (sxGlideStatusTimer) clearTimeout(sxGlideStatusTimer);
+                sxGlideStatusTimer = setTimeout(() => { if (sxGlideStatusEl) sxGlideStatusEl.style.opacity = "0"; }, 1500);
+            } catch (_) {}
+        }
+
+        // CAPSULE TWEEN (tweening Job A, 2026-11-13): the interim
+        // capsule glides between solver commits instead of jumping.
+        // COUPLED to the global animations toggle (Jason, 2026-11-13
+        // ~16:57 CST): when the toggle is OFF the capsule draws
+        // instantly (the old jump); when ON it tweens over 0.5s.
+        // The tween only moves the interim capsule layer's painted
+        // coordinates — every decision still reads the solve registry,
+        // never the DOM — so the crossing number and gate are untouched.
+        let sxCapLastSnap = null, sxCapLastBranch = null;
+        const sxCapTween = { from: null, to: null, start: 0, raf: 0, layer: null, branch: null };
+        // Snapshot the capsule's drawn primitives with stable keys so
+        // consecutive commits can be interpolated: lines (centre + sub
+        // spokes, paddle S, midline M) and circles (topic icon dots,
+        // subcategory dots). Presentation floors match the old direct
+        // draw byte-for-byte at t=1.
+        function sxCapSnap(geo, branch) {
+            const F = geo.F, lines = [], circles = [];
+            let anchor = null;
+            geo.spokes.forEach(sp => {
+                if (sp.cloud !== branch || !sp.seg) return;
+                const id = "center" === sp.kind ? sp.cloud : (sp.entry && sp.entry.rec && (sp.entry.rec.id || sp.entry.rec.label)) || sp.cloud;
+                if ("center" === sp.kind) anchor = sp.seg[1];
+                lines.push({ k: ("center" === sp.kind ? "c:" : "sp:") + id, x1: sp.seg[0].x, y1: sp.seg[0].y, x2: sp.seg[1].x, y2: sp.seg[1].y, w: Math.max(14, F * .3), s: "#67e8f9", o: .85 });
+            });
+            geo.topics.forEach(e2 => {
+                if (e2.cloud !== branch) return;
+                const id = (e2.rec && (e2.rec.id || e2.rec.label)) || "";
+                if (e2.S) lines.push({ k: "S:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: e2.F || F, s: "#67e8f9", o: .30 });
+                if (e2.M) {
+                    // Leaf spoke line abuts the icon's inside edge
+                    // (ruled 2026-11-13, Jason): the midline runs out
+                    // to capEnd, so trim its drawn end to the node
+                    // circle instead of past the icon. Solver geometry
+                    // is untouched — only the drawn interim line.
+                    let x2 = e2.M[1].x, y2 = e2.M[1].y;
+                    if (e2.node) {
+                        const dx = e2.node.x - e2.M[0].x, dy = e2.node.y - e2.M[0].y, len = Math.hypot(dx, dy), r = Math.max(26, F * .45);
+                        if (len > r) { x2 = e2.node.x - dx / len * r; y2 = e2.node.y - dy / len * r; }
+                    }
+                    lines.push({ k: "M:" + id, x1: e2.M[0].x, y1: e2.M[0].y, x2: x2, y2: y2, w: Math.max(8, F * .1), s: "#a5f3fc", o: .55 });
+                }
+                if (e2.node) circles.push({ k: "n:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(26, F * .45), f: "#a5f3fc", o: .95 });
+            });
+            geo.spokes.forEach(sp => {
+                if (sp.cloud !== branch || "sub" !== sp.kind || !sp.seg) return;
+                const id = (sp.entry && sp.entry.rec && (sp.entry.rec.id || sp.entry.rec.label)) || sp.cloud;
+                circles.push({ k: "s:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(30, F * .6), f: "#67e8f9", o: .9 });
+            });
+            return { F: F, lines: lines, circles: circles, anchor: anchor };
+        }
+        function sxCapRender(layer, branch, snap) {
+            let html = "";
+            snap.lines.forEach(e => {
+                html += '<line x1="' + e.x1.toFixed(1) + '" y1="' + e.y1.toFixed(1) + '" x2="' + e.x2.toFixed(1) + '" y2="' + e.y2.toFixed(1) + '" stroke="' + e.s + '" stroke-width="' + e.w.toFixed(1) + '" stroke-linecap="round" opacity="' + e.o + '"/>';
+            });
+            snap.circles.forEach(e => {
+                html += '<circle cx="' + e.cx.toFixed(1) + '" cy="' + e.cy.toFixed(1) + '" r="' + e.r.toFixed(1) + '" fill="' + e.f + '" opacity="' + e.o + '"/>';
+            });
+            layer.innerHTML = html;
+            let cx = 0, cy = 0, cn = 0;
+            snap.circles.forEach(e => { if ("n:" === e.k.slice(0, 2)) { cx += e.cx; cy += e.cy; cn++; } });
+            const ctr = cn ? { x: cx / cn, y: cy / cn } : snap.anchor;
+            ctr && (window.__sxInterimAnchor = { branch: branch, x: ctr.x, y: ctr.y });
+        }
+        function sxCapLerp(a, b, t) {
+            if (!a) return b;
+            const ln = (x, y) => x + (y - x) * t;
+            const byKey = arr => { const m = new Map(); arr.forEach(e => m.set(e.k, e)); return m; };
+            const aL = byKey(a.lines), aC = byKey(a.circles);
+            return {
+                F: ln(a.F, b.F),
+                lines: b.lines.map(e => {
+                    const p = aL.get(e.k);
+                    return p ? { k: e.k, x1: ln(p.x1, e.x1), y1: ln(p.y1, e.y1), x2: ln(p.x2, e.x2), y2: ln(p.y2, e.y2), w: ln(p.w, e.w), s: e.s, o: ln(p.o, e.o) } : e;
+                }),
+                circles: b.circles.map(e => {
+                    const p = aC.get(e.k);
+                    return p ? { k: e.k, cx: ln(p.cx, e.cx), cy: ln(p.cy, e.cy), r: ln(p.r, e.r), f: e.f, o: ln(p.o, e.o) } : e;
+                }),
+                anchor: a.anchor && b.anchor ? { x: ln(a.anchor.x, b.anchor.x), y: ln(a.anchor.y, b.anchor.y) } : b.anchor
+            };
+        }
+        function sxCapDraw(layer, branch, snap) {
+            // Toggle OFF: draw instantly, exactly as before (no tween
+            // state left running). Toggle ON: tween from the last
+            // displayed snapshot over 0.5s (ease-out cubic, matching
+            // the node glide's easing). A branch change has no tween
+            // baseline (the old snapshot is another cloud's geometry),
+            // so it draws instantly too.
+            if (!mn || !mn.animations || sxCapLastBranch !== branch) {
+                if (sxCapTween.raf) { try { cancelAnimationFrame(sxCapTween.raf); } catch (_) {} sxCapTween.raf = 0; }
+                sxCapTween.from = null; sxCapTween.to = null;
+                sxCapLastSnap = snap; sxCapLastBranch = branch;
+                sxCapRender(layer, branch, snap);
+                return;
+            }
+            const now = performance.now();
+            let from = sxCapLastSnap;
+            if (sxCapTween.raf && sxCapTween.to) {
+                // A tween is in flight: re-base from the currently
+                // displayed (interpolated) snapshot so the motion
+                // stays continuous when a new commit lands mid-glide.
+                const t = Math.min(1, (now - sxCapTween.start) / 500), e = 1 - Math.pow(1 - t, 3);
+                from = sxCapLerp(sxCapTween.from, sxCapTween.to, e);
+                try { cancelAnimationFrame(sxCapTween.raf); } catch (_) {}
+                sxCapTween.raf = 0;
+            }
+            if (!from) { sxCapLastSnap = snap; sxCapRender(layer, branch, snap); return; }
+            sxCapTween.from = from; sxCapTween.to = snap; sxCapTween.start = now; sxCapTween.layer = layer; sxCapTween.branch = branch;
+            const step = t0 => {
+                sxCapTween.raf = 0;
+                // Stop if the run ended, the layer is gone, or a full
+                // paint replaced it: never draw a stale capsule.
+                if (!dkCtx || !layer.isConnected || sxCapTween.layer !== layer) return;
+                const t = Math.min(1, (t0 - sxCapTween.start) / 500), e = 1 - Math.pow(1 - t, 3);
+                sxCapRender(layer, branch, sxCapLerp(sxCapTween.from, sxCapTween.to, e));
+                if (t < 1) sxCapTween.raf = requestAnimationFrame(step);
+                else { sxCapLastSnap = sxCapTween.to; sxCapTween.from = null; sxCapTween.to = null; }
+            };
+            sxCapTween.raf = requestAnimationFrame(step);
+        }
+
         function sxInterimCapsulePaint(d) {
             try {
                 if (!In || !dkCtx || !dkCtx.branch) return;
-                const geo = sxSccBuild(d), F = geo.F, branch = dkCtx.branch, NS = "http://www.w3.org/2000/svg";
+                const geo = sxSccBuild(d), branch = dkCtx.branch, NS = "http://www.w3.org/2000/svg";
                 let layer = In.querySelector(".sx-interim-capsules");
                 if (!layer) {
                     layer = document.createElementNS(NS, "g"), layer.setAttribute("class", "sx-interim-capsules"), layer.setAttribute("aria-hidden", "true"), layer.setAttribute("pointer-events", "none"), In.appendChild(layer);
                 }
-                let html = "", cx = 0, cy = 0, cn = 0, anchorPt = null;
-                const line = (a, b, w, stroke, opacity) => {
-                    html += '<line x1="' + a.x.toFixed(1) + '" y1="' + a.y.toFixed(1) + '" x2="' + b.x.toFixed(1) + '" y2="' + b.y.toFixed(1) + '" stroke="' + stroke + '" stroke-width="' + w.toFixed(1) + '" stroke-linecap="round" opacity="' + opacity + '"/>';
-                };
-                // Presentation floors (world units, so they scale
-                // with the camera like everything else on the map):
-                // the true capsule band is F wide by definition
-                // (centre line ± F/2 since the 2026-11-02 band shrink) and
-                // is drawn as-is, but at a fitted zoom F can be a
-                // handful of screen pixels — the capsule centrelines
-                // (e.M, hub -> the paddle's outer end), the spokes and the node
-                // dots carry minimum widths so the approximation
-                // reads as a clue to where the algorithm is at any
-                // zoom, without changing the geometry it depicts.
-                geo.spokes.forEach(sp => {
-                    if (sp.cloud !== branch || !sp.seg) return;
-                    "center" === sp.kind && (anchorPt = sp.seg[1]), line(sp.seg[0], sp.seg[1], Math.max(14, F * .3), "#67e8f9", .85);
-                });
-                geo.topics.forEach(e2 => {
-                    if (e2.cloud !== branch || !e2.S) return;
-                    line(e2.S[0], e2.S[1], e2.F || F, "#67e8f9", .30);
-                });
-                geo.topics.forEach(e2 => {
-                    if (e2.cloud !== branch || !e2.M) return;
-                    line(e2.M[0], e2.M[1], Math.max(8, F * .1), "#a5f3fc", .55);
-                });
-                geo.topics.forEach(e2 => {
-                    if (e2.cloud !== branch || !e2.node) return;
-                    cx += e2.node.x, cy += e2.node.y, cn++, html += '<circle cx="' + e2.node.x.toFixed(1) + '" cy="' + e2.node.y.toFixed(1) + '" r="' + Math.max(26, F * .45).toFixed(1) + '" fill="#a5f3fc" opacity="0.95"/>';
-                });
-                geo.spokes.forEach(sp => {
-                    if (sp.cloud !== branch || "sub" !== sp.kind || !sp.seg) return;
-                    html += '<circle cx="' + sp.seg[1].x.toFixed(1) + '" cy="' + sp.seg[1].y.toFixed(1) + '" r="' + Math.max(30, F * .6).toFixed(1) + '" fill="#67e8f9" opacity="0.9"/>';
-                });
-                layer.innerHTML = html;
-                const ctr = cn ? { x: cx / cn, y: cy / cn } : anchorPt;
-                ctr && (window.__sxInterimAnchor = { branch: branch, x: ctr.x, y: ctr.y });
+                // Job A: draw via the snapshot tween (instant when the
+                // animations toggle is off, gliding when it is on).
+                // Presentation floors live in sxCapSnap/sxCapRender.
+                sxCapDraw(layer, branch, sxCapSnap(geo, branch));
             } catch (err) { __sxErrLog("layout-interim-capsule-paint", err); }
         }
 
@@ -25074,6 +25242,14 @@ const TAXONOMY_CATEGORIES = [
                 if (ok) try {
                     sxStemFinaliseHook && sxStemFinaliseHook();
                 } catch (_) {}
+                // Boot close-up fix (2026-11-13): the boot opens on a
+                // hard-coded close-up of the centre avatar (the brief
+                // "hello" portrait) because the camera is set before
+                // the map is drawn. Once this boot paint has drawn
+                // the map, pull back to the full map — Ih() also arms
+                // the fit-settle chain, which re-fits again after the
+                // anneal moves the nodes. Non-boot paints are untouched.
+                if (ok && sxBootArm) try { Ih(); } catch (_) {}
             });
             return window.sxPaintPromise = sxPaintPromise = p, p.then(ok => (release(), sxPaintPromise === p && (window.sxPaintPromise = sxPaintPromise = null), ok), () => (release(), window.sxPaintPromise = null, !1));
         }
@@ -35766,12 +35942,18 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
                 return;
             }
-            fitSettleChecks++;
             // Not laid out yet (slow phone open), paint still in
             // flight, or a camera animation still running: re-arm
             // instead of dying — an unlaid-out first check or a
             // mid-animation check must not kill the chain.
+            // Boot close-up fix (2026-11-13): these waits must NOT
+            // consume the 20-check budget — the boot paint + anneal
+            // runs 25-45 s, so counting 400 ms waits as checks
+            // exhausted the chain ~9 s in and the camera stayed
+            // stuck on the centre portrait. Only a genuine re-fit
+            // cycle counts; the cap still bounds those.
             if (!laidOut || painting || animating) return void scheduleFitSettleRefit(400);
+            fitSettleChecks++;
             // Paint finished and either the fitted box moved since
             // the fit or a programmatic camera move (focus,
             // animation end state, restore path) overwrote the fit:
@@ -39356,7 +39538,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             sxOutlineSortMode = "popularity";
         })), e.all("[data-profile-details-converter]").forEach(n => n.addEventListener("click", () => {
             const kind = n.dataset.profileDetailsConverter, mode = n.dataset.converterMode || "auto";
-            jY = ({ outline: "Popularity list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? Ms(id) : Ax(kind, mode, id), vw();
+            jY = ({ outline: "Hot list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? Ms(id) : Ax(kind, mode, id), vw();
         })), Hg.addEventListener("keydown", e => {
             "Enter" === e.key && (e.preventDefault(), vw());
         }), e.byId("closeProfileImport") && (e.byId("closeProfileImport").onclick = () => Ui(Sg)), Sg.addEventListener("click", e => {
