@@ -1237,7 +1237,6 @@
             }
             const menu = e.byId("searchDropdown");
             menu && (menu.hidden = true);
-            if (searchDim && typeof Ih === "function") Ih();
             return had;
         }
         function stampSelectedSpoke(d, host) {

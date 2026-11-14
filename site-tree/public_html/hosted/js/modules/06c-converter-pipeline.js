@@ -258,12 +258,16 @@
                     });
                     // Backwards compatibility migration for legacy dual {give, receive} rated on newly triadic topics
                     if (!Object.keys(incoming).length && (Object.prototype.hasOwnProperty.call(rating, "give") || Object.prototype.hasOwnProperty.call(rating, "receive"))) {
-                        if (id === "t0281" || id === "topic-cuckold-hotwife") {
+                        if (id === "t0281" || id === "t0288" || id === "topic-cuckold-hotwife" || id === "topic-hotwife" || id === "topic-bull-hotwife-cuckold") {
                             // t0281 legacy: give = outside-partner sex (hotwife / bull), receive = knowledge/view (cuckold)
                             const isFemale = rt[c] && (rt[c].includes("female") || rt[c].includes("woman") || rt[c].includes("f"));
                             const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;
                             const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : 0;
-                            if (isFemale) {
+                            if (id === "t0288" || id === "topic-hotwife") {
+                                incoming.hotwife = Math.max(gVal, rVal);
+                                incoming.bull = 0;
+                                incoming.cuckold = 0;
+                            } else if (isFemale) {
                                 incoming.hotwife = gVal;
                                 incoming.bull = 0;
                                 incoming.cuckold = 0;

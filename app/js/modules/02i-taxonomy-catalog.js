@@ -2716,7 +2716,7 @@
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
-            if (e === "t0281" || e === "topic-cuckold-hotwife" || i === "t0281" || i === "topic-cuckold-hotwife") {
+            if (e === "t0281" || e === "topic-cuckold-hotwife" || e === "topic-bull-hotwife-cuckold" || i === "t0281" || i === "topic-cuckold-hotwife" || i === "topic-bull-hotwife-cuckold") {
                 return {
                     single: !1,
                     triangle: !0,
@@ -2724,7 +2724,7 @@
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
             }
-            if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen") {
+            if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || e === "topic-cuckqueen-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen" || i === "topic-cuckqueen-stag-vixen") {
                 return {
                     single: !1,
                     triangle: !0,

@@ -3892,12 +3892,22 @@
             const linearRatings = e.byId("markRatings");
 
             if (!give || !id) return;
+            const rInfo = qn[id];
+            if (rInfo && (rInfo.kind === "Category" || rInfo.kind === "Subcategory")) {
+                // Categories and Subcategories do not carry ratings on their placard
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !0);
+                return;
+            }
+
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
-            const isTriangleTopic = Boolean(shape.triangle);
+            const isTriangleTopic = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
             const isHexadTopic = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
             const isPentadTopic = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
             const isTetradTopic = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
-            const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
 
             if (isHexadTopic) {
                 // 6-Pole Hexad Radar / Hexagon Deformation Polygon Widget
@@ -3966,6 +3976,7 @@
                 // 4-Pole Tetrad Radar / Diamond Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
 
@@ -3996,72 +4007,54 @@
                 if (tetradVal3) { tetradVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; tetradVal3.style.color = "#3b82f6"; }
 
                 sxDrawTetradWidget(tetradCanvas, shape, sxTetradState);
-            } else if (isTriangleTopic || isTripleTopic) {
+            } else if (isTriangleTopic) {
+                // 3-Pole Triad Barycentric Widget
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
-                role4Row && (role4Row.hidden = !0);
-                role5Row && (role5Row.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !0);
+                triWrap && (triWrap.hidden = !1);
+
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
                 const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
                 const r2 = rec[k2 + "Known"] ? rec[k2] : 0;
                 const anyKnown = rec[k0 + "Known"] || rec[k1 + "Known"] || rec[k2 + "Known"];
 
-                if (isTriangleTopic) {
-                    // Option A: 2D Triangle canvas + vertical intensity slider
-                    triWrap && (triWrap.hidden = !1);
-                    linearRatings && (linearRatings.hidden = !0);
-
-                    // Compute weights and intensity from ratings
-                    let intensity = 0;
-                    let w0 = 1 / 3, w1 = 1 / 3, w2 = 1 / 3;
-                    if (anyKnown) {
-                        const abs0 = Math.abs(r0), abs1 = Math.abs(r1), abs2 = Math.abs(r2);
-                        const maxAbs = Math.max(abs0, abs1, abs2);
-                        const sumAbs = abs0 + abs1 + abs2;
-                        const sign = (r0 + r1 + r2 < 0) ? -1 : 1;
-                        intensity = sign * maxAbs;
-                        if (sumAbs > 0) {
-                            w0 = abs0 / sumAbs;
-                            w1 = abs1 / sumAbs;
-                            w2 = abs2 / sumAbs;
-                        }
+                let intensity = 0;
+                let w0 = 1 / 3, w1 = 1 / 3, w2 = 1 / 3;
+                if (anyKnown) {
+                    const abs0 = Math.abs(r0), abs1 = Math.abs(r1), abs2 = Math.abs(r2);
+                    const maxAbs = Math.max(abs0, abs1, abs2);
+                    const sumAbs = abs0 + abs1 + abs2;
+                    const sign = (r0 + r1 + r2 < 0) ? -1 : 1;
+                    intensity = sign * maxAbs;
+                    if (sumAbs > 0) {
+                        w0 = abs0 / sumAbs;
+                        w1 = abs1 / sumAbs;
+                        w2 = abs2 / sumAbs;
                     }
-                    sxTriState.topicId = id;
-                    sxTriState.w0 = w0;
-                    sxTriState.w1 = w1;
-                    sxTriState.w2 = w2;
-                    sxTriState.intensity = intensity;
-
-                    if (triIntensity) triIntensity.value = String(Math.round(intensity));
-                    if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
-
-                    if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; }
-                    if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; }
-                    if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; }
-
-                    if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
-                    if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
-                    if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
-
-                    sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
-                } else {
-                    // Triple role sliders (Bull / Hotwife / Cuckold, etc.)
-                    triWrap && (triWrap.hidden = !0);
-                    linearRatings && (linearRatings.hidden = !1);
-                    recvRow && (recvRow.hidden = !1);
-                    role3Row && (role3Row.hidden = !1);
-                    giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
-                    recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
-                    role3Label && (role3Label.textContent = shape.labels[2] || k2);
-                    give.value = r0;
-                    recv.value = r1;
-                    role3.value = r2;
-                    giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "Unrated");
-                    recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "Unrated");
-                    role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "Unrated");
                 }
+                sxTriState.topicId = id;
+                sxTriState.w0 = w0;
+                sxTriState.w1 = w1;
+                sxTriState.w2 = w2;
+                sxTriState.intensity = intensity;
+
+                if (triIntensity) triIntensity.value = String(Math.round(intensity));
+                if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
+
+                if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; }
+                if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; }
+                if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; }
+
+                if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
+                if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
+                if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
+
+                sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
             } else {
+                // 1-Pole Monopoles or 2-Pole Dipoles ONLY
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);

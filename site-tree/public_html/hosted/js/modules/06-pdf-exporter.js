@@ -448,24 +448,23 @@
             const migrated = typeof migrateNodeKey === "function" ? migrateNodeKey(rawId) : rawId;
             const slug = rawId.toLowerCase().replace(/^(cat|subcategory)-/, "").replace(/[^a-z0-9]+/g, "-");
 
-            // 1. Resolve Category
+            // 1. Resolve Category - only match if rawId or migrated actually refers to the category, NOT because rawBranch is the parent branch!
             const cat = h.find(c => {
                 if (c.id === rawId || c.id === migrated) return true;
-                if (c.name === rawBranch || c.name === rawId) return true;
-                if (c.name.toLowerCase() === rawBranch.toLowerCase() || c.name.toLowerCase() === rawId.toLowerCase()) return true;
+                if (rawId && (c.name === rawId || c.name.toLowerCase() === rawId.toLowerCase())) return true;
                 const cSlug = c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                return cSlug === slug;
+                return (slug === cSlug || slug === `cat-${cSlug}`) && String(rawId).startsWith("cat-");
             }) || null;
 
-            // 2. Resolve Subcategory
+            // 2. Resolve Subcategory - only match if rawId or migrated refers to the subcategory!
             let sub = null;
             if (!cat) {
                 for (const c of h) {
                     for (const s of (c.subcategories || [])) {
                         if (s.id === rawId || s.id === migrated) { sub = { cat: c, sub: s }; break; }
-                        if (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase()) { sub = { cat: c, sub: s }; break; }
+                        if (rawId && (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase())) { sub = { cat: c, sub: s }; break; }
                         const sSlug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                        if (sSlug === slug || slug.endsWith(sSlug)) { sub = { cat: c, sub: s }; break; }
+                        if (slug === sSlug && (String(rawId).startsWith("subcategory-") || String(rawId).startsWith("subcat-"))) { sub = { cat: c, sub: s }; break; }
                     }
                     if (sub) break;
                 }
@@ -484,23 +483,29 @@
                     const lx = Number(leafEl.dataset.layoutX), ly = Number(leafEl.dataset.layoutY);
                     if (Number.isFinite(lx) && Number.isFinite(ly)) {
                         const vb = Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0 ? Cn.viewBox.baseVal : nh;
-                        const targetScale = Math.max(1e-9, Math.min(2, ($p > 0.8 ? $p : 1.25)));
+                        const targetScale = Math.max(1e-9, Math.min(2.5, ($p > 1.0 ? $p : 1.35)));
                         const tx = (vb.x + vb.width / 2) - lx * targetScale;
                         const ty = (vb.y + vb.height / 2) - ly * targetScale;
                         return void Ph(targetScale, tx, ty);
                     }
                 }
-                if (rec.parentId) {
-                    const pRec = qn[rec.parentId] || Xn(rec.parentId);
-                    if (pRec && (pRec.kind === "Subcategory" || isSubId(rec.parentId))) {
-                        return void Th(rec.parentId, rec.branch);
-                    }
+                // If not currently rendered, expand its branch/parent so it gets painted, then center on it!
+                if (rec.branch && !rn.has(rec.branch)) {
+                    rn.add(rec.branch);
+                    if (rec.parentId && !on.has(rec.parentId)) on.add(rec.parentId);
+                    Mr();
+                    const runner = () => Th(sid, rec.branch);
+                    if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                    else window.setTimeout(runner, 80);
+                    return;
                 }
-                if (rec.branch) {
-                    const cMatch = h.find(c => c.name === rec.branch || sxName(c.name) === sxName(rec.branch));
-                    if (cMatch) {
-                        return void Th(cMatch.id, cMatch.name);
-                    }
+                if (rec.parentId && !on.has(rec.parentId)) {
+                    on.add(rec.parentId);
+                    Mr();
+                    const runner = () => Th(sid, rec.branch);
+                    if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                    else window.setTimeout(runner, 80);
+                    return;
                 }
             }
 
@@ -951,7 +956,8 @@
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
             __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || (e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node,.node-group,.node-circle,.node-icon,.leaf-node,.category-node")), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
-            const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
+            const triHitEl = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck, .map-triad-control"));
+            const triHit = triHitEl ? (triHitEl.classList.contains("map-triangle-hit") ? triHitEl : triHitEl.querySelector(".map-triangle-hit") || triHitEl) : null;
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
             const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
             const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
@@ -985,28 +991,33 @@
             if (triHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = triHit.dataset.id;
-                const v0 = { x: parseFloat(triHit.dataset.v0x), y: parseFloat(triHit.dataset.v0y) };
-                const v1 = { x: parseFloat(triHit.dataset.v1x), y: parseFloat(triHit.dataset.v1y) };
-                const v2 = { x: parseFloat(triHit.dataset.v2x), y: parseFloat(triHit.dataset.v2y) };
-                const pt = Cn.createSVGPoint();
-                pt.x = e.clientX, pt.y = e.clientY;
-                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
-                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
-                const shape = Ge(topicId);
-                if (shape && shape.keys && shape.keys.length === 3) {
-                    const intensity = 80;
-                    const v0r = Math.round(bary.w0 * intensity);
-                    const v1r = Math.round(bary.w1 * intensity);
-                    const v2r = Math.round(bary.w2 * intensity);
-                    To(topicId, shape.keys[0], v0r, !1);
-                    To(topicId, shape.keys[1], v1r, !1);
-                    To(topicId, shape.keys[2], v2r, !1);
+                const v0x = parseFloat(triHit.dataset.v0x), v0y = parseFloat(triHit.dataset.v0y);
+                const v1x = parseFloat(triHit.dataset.v1x), v1y = parseFloat(triHit.dataset.v1y);
+                const v2x = parseFloat(triHit.dataset.v2x), v2y = parseFloat(triHit.dataset.v2y);
+                if (Number.isFinite(v0x) && Number.isFinite(v1x) && Number.isFinite(v2x)) {
+                    const v0 = { x: v0x, y: v0y };
+                    const v1 = { x: v1x, y: v1y };
+                    const v2 = { x: v2x, y: v2y };
+                    const pt = Cn.createSVGPoint();
+                    pt.x = e.clientX, pt.y = e.clientY;
+                    const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                    const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
+                    const shape = Ge(topicId);
+                    if (shape && shape.keys && shape.keys.length === 3) {
+                        const intensity = 80;
+                        const v0r = Math.round(bary.w0 * intensity);
+                        const v1r = Math.round(bary.w1 * intensity);
+                        const v2r = Math.round(bary.w2 * intensity);
+                        To(topicId, shape.keys[0], v0r, !1);
+                        To(topicId, shape.keys[1], v1r, !1);
+                        To(topicId, shape.keys[2], v2r, !1);
+                    }
+                    triDragState = {
+                        pointerId: e.pointerId,
+                        id: topicId,
+                        v0: v0, v1: v1, v2: v2
+                    };
                 }
-                triDragState = {
-                    pointerId: e.pointerId,
-                    id: topicId,
-                    v0: v0, v1: v1, v2: v2
-                };
                 return;
             }
             if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId),

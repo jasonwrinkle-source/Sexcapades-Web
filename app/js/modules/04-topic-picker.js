@@ -314,11 +314,24 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = i.filter(t => t.branch === e.branch);
                     t.forEach(e => a.add(e.id)), r.push(e.category, ...e.subcategories, ...e.topics, ...t);
                 }), r.push(...i.filter(e => !a.has(e.id)));
-                const o = e => [ e.displayLabel, e.giveLabel, e.receiveLabel ].map(v => String(v || "").toLowerCase()).join(" "), s = e => {
-                    const t = o(e), i = t.indexOf(n);
-                    return i < 0 ? 99 : t === n ? 0 : 0 === i ? 1 : t.split(/[^a-z0-9]+/).some(e => e.startsWith(n)) ? 2 : 3;
+                const o = e => {
+                    const shape = typeof Ge === "function" ? Ge(e.id) : null;
+                    const shapeKeys = shape && shape.keys ? shape.keys.join(" ") : "";
+                    const shapeLabels = shape && shape.labels ? shape.labels.join(" ") : "";
+                    const raw = [ e.displayLabel, e.label, e.giveLabel, e.receiveLabel, shapeKeys, shapeLabels ]
+                        .map(v => String(v || "").toLowerCase()).join(" ");
+                    return raw + " " + raw.replace(/cuckquean/g, "cuckqueen");
                 };
-                return r.filter(e => o(e).includes(n)).filter(e => {
+                const normQuery = n.replace(/cuckqueen/g, "cuckquean");
+                const s = e => {
+                    const t = o(e), i = t.indexOf(normQuery), iRaw = t.indexOf(n);
+                    const matchIdx = i >= 0 ? i : iRaw;
+                    return matchIdx < 0 ? 99 : (t === n || t === normQuery) ? 0 : 0 === matchIdx ? 1 : t.split(/[^a-z0-9]+/).some(w => w.startsWith(normQuery) || w.startsWith(n)) ? 2 : 3;
+                };
+                return r.filter(e => {
+                    const text = o(e);
+                    return text.includes(normQuery) || text.includes(n);
+                }).filter(e => {
                     // A veiled topic stays off the map, so it stays out of
                     // search too. Selecting one used to pan onto an empty view.
                     // Every selected profile whose veil is on counts, not only

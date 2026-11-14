@@ -1418,6 +1418,7 @@ textarea{font-size:16px}
     stroke: color-mix(in srgb, currentColor 60%, transparent) !important;
     stroke-width: 14px;
     vector-effect: non-scaling-stroke;
+    pointer-events: none !important;
 }
 .outline-search-wrap{flex:1 1 180px;min-width:140px;max-width:320px}
 .outline-search-input{width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--ink);font-size:16px}

@@ -2829,7 +2829,7 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Cuckold / hotwife",
+                "name": "Bull / Hotwife / Cuckold",
                 "id": "t0281",
                 "risk": false
             },

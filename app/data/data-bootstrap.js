@@ -3132,7 +3132,7 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Cuckold / hotwife",
+                "name": "Bull / Hotwife / Cuckold",
                 "id": "t0281",
                 "risk": false
             },
@@ -12018,7 +12018,7 @@ const TAXONOMY_CATEGORIES = [
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
-            if (e === "t0281" || e === "topic-cuckold-hotwife" || i === "t0281" || i === "topic-cuckold-hotwife") {
+            if (e === "t0281" || e === "topic-cuckold-hotwife" || e === "topic-bull-hotwife-cuckold" || i === "t0281" || i === "topic-cuckold-hotwife" || i === "topic-bull-hotwife-cuckold") {
                 return {
                     single: !1,
                     triangle: !0,
@@ -12026,7 +12026,7 @@ const TAXONOMY_CATEGORIES = [
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
             }
-            if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen") {
+            if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || e === "topic-cuckqueen-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen" || i === "topic-cuckqueen-stag-vixen") {
                 return {
                     single: !1,
                     triangle: !0,
@@ -17774,7 +17774,12 @@ const TAXONOMY_CATEGORIES = [
     "subcategory-sex-acts-anal": "s0041",
     "subcategory-sex-acts-manual": "s0042",
     "subcategory-sex-acts-insertion": "s0043",
-    "subcategory-sex-acts-fluids": "s0044"
+    "subcategory-sex-acts-fluids": "s0044",
+    "t0288": "t0281",
+    "topic-hotwife": "t0281",
+    "topic-cuckold-hotwife": "t0281",
+    "topic-bull-hotwife-cuckold": "t0281",
+    "topic-cuckqueen-stag-vixen": "t0406"
 });
         function migrateNodeKey(id) {
             const s = String(id == null ? "" : id);
@@ -20438,7 +20443,6 @@ const TAXONOMY_CATEGORIES = [
             }
             const menu = e.byId("searchDropdown");
             menu && (menu.hidden = true);
-            if (searchDim && typeof Ih === "function") Ih();
             return had;
         }
         function stampSelectedSpoke(d, host) {
@@ -28086,12 +28090,22 @@ const TAXONOMY_CATEGORIES = [
             const linearRatings = e.byId("markRatings");
 
             if (!give || !id) return;
+            const rInfo = qn[id];
+            if (rInfo && (rInfo.kind === "Category" || rInfo.kind === "Subcategory")) {
+                // Categories and Subcategories do not carry ratings on their placard
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !0);
+                return;
+            }
+
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
-            const isTriangleTopic = Boolean(shape.triangle);
+            const isTriangleTopic = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
             const isHexadTopic = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
             const isPentadTopic = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
             const isTetradTopic = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
-            const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
 
             if (isHexadTopic) {
                 // 6-Pole Hexad Radar / Hexagon Deformation Polygon Widget
@@ -28160,6 +28174,7 @@ const TAXONOMY_CATEGORIES = [
                 // 4-Pole Tetrad Radar / Diamond Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
 
@@ -28190,72 +28205,54 @@ const TAXONOMY_CATEGORIES = [
                 if (tetradVal3) { tetradVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; tetradVal3.style.color = "#3b82f6"; }
 
                 sxDrawTetradWidget(tetradCanvas, shape, sxTetradState);
-            } else if (isTriangleTopic || isTripleTopic) {
+            } else if (isTriangleTopic) {
+                // 3-Pole Triad Barycentric Widget
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
-                role4Row && (role4Row.hidden = !0);
-                role5Row && (role5Row.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !0);
+                triWrap && (triWrap.hidden = !1);
+
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
                 const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
                 const r2 = rec[k2 + "Known"] ? rec[k2] : 0;
                 const anyKnown = rec[k0 + "Known"] || rec[k1 + "Known"] || rec[k2 + "Known"];
 
-                if (isTriangleTopic) {
-                    // Option A: 2D Triangle canvas + vertical intensity slider
-                    triWrap && (triWrap.hidden = !1);
-                    linearRatings && (linearRatings.hidden = !0);
-
-                    // Compute weights and intensity from ratings
-                    let intensity = 0;
-                    let w0 = 1 / 3, w1 = 1 / 3, w2 = 1 / 3;
-                    if (anyKnown) {
-                        const abs0 = Math.abs(r0), abs1 = Math.abs(r1), abs2 = Math.abs(r2);
-                        const maxAbs = Math.max(abs0, abs1, abs2);
-                        const sumAbs = abs0 + abs1 + abs2;
-                        const sign = (r0 + r1 + r2 < 0) ? -1 : 1;
-                        intensity = sign * maxAbs;
-                        if (sumAbs > 0) {
-                            w0 = abs0 / sumAbs;
-                            w1 = abs1 / sumAbs;
-                            w2 = abs2 / sumAbs;
-                        }
+                let intensity = 0;
+                let w0 = 1 / 3, w1 = 1 / 3, w2 = 1 / 3;
+                if (anyKnown) {
+                    const abs0 = Math.abs(r0), abs1 = Math.abs(r1), abs2 = Math.abs(r2);
+                    const maxAbs = Math.max(abs0, abs1, abs2);
+                    const sumAbs = abs0 + abs1 + abs2;
+                    const sign = (r0 + r1 + r2 < 0) ? -1 : 1;
+                    intensity = sign * maxAbs;
+                    if (sumAbs > 0) {
+                        w0 = abs0 / sumAbs;
+                        w1 = abs1 / sumAbs;
+                        w2 = abs2 / sumAbs;
                     }
-                    sxTriState.topicId = id;
-                    sxTriState.w0 = w0;
-                    sxTriState.w1 = w1;
-                    sxTriState.w2 = w2;
-                    sxTriState.intensity = intensity;
-
-                    if (triIntensity) triIntensity.value = String(Math.round(intensity));
-                    if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
-
-                    if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; }
-                    if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; }
-                    if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; }
-
-                    if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
-                    if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
-                    if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
-
-                    sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
-                } else {
-                    // Triple role sliders (Bull / Hotwife / Cuckold, etc.)
-                    triWrap && (triWrap.hidden = !0);
-                    linearRatings && (linearRatings.hidden = !1);
-                    recvRow && (recvRow.hidden = !1);
-                    role3Row && (role3Row.hidden = !1);
-                    giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
-                    recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
-                    role3Label && (role3Label.textContent = shape.labels[2] || k2);
-                    give.value = r0;
-                    recv.value = r1;
-                    role3.value = r2;
-                    giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "Unrated");
-                    recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "Unrated");
-                    role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "Unrated");
                 }
+                sxTriState.topicId = id;
+                sxTriState.w0 = w0;
+                sxTriState.w1 = w1;
+                sxTriState.w2 = w2;
+                sxTriState.intensity = intensity;
+
+                if (triIntensity) triIntensity.value = String(Math.round(intensity));
+                if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
+
+                if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; }
+                if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; }
+                if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; }
+
+                if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
+                if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
+                if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
+
+                sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
             } else {
+                // 1-Pole Monopoles or 2-Pole Dipoles ONLY
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
@@ -30896,11 +30893,24 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = i.filter(t => t.branch === e.branch);
                     t.forEach(e => a.add(e.id)), r.push(e.category, ...e.subcategories, ...e.topics, ...t);
                 }), r.push(...i.filter(e => !a.has(e.id)));
-                const o = e => [ e.displayLabel, e.giveLabel, e.receiveLabel ].map(v => String(v || "").toLowerCase()).join(" "), s = e => {
-                    const t = o(e), i = t.indexOf(n);
-                    return i < 0 ? 99 : t === n ? 0 : 0 === i ? 1 : t.split(/[^a-z0-9]+/).some(e => e.startsWith(n)) ? 2 : 3;
+                const o = e => {
+                    const shape = typeof Ge === "function" ? Ge(e.id) : null;
+                    const shapeKeys = shape && shape.keys ? shape.keys.join(" ") : "";
+                    const shapeLabels = shape && shape.labels ? shape.labels.join(" ") : "";
+                    const raw = [ e.displayLabel, e.label, e.giveLabel, e.receiveLabel, shapeKeys, shapeLabels ]
+                        .map(v => String(v || "").toLowerCase()).join(" ");
+                    return raw + " " + raw.replace(/cuckquean/g, "cuckqueen");
                 };
-                return r.filter(e => o(e).includes(n)).filter(e => {
+                const normQuery = n.replace(/cuckqueen/g, "cuckquean");
+                const s = e => {
+                    const t = o(e), i = t.indexOf(normQuery), iRaw = t.indexOf(n);
+                    const matchIdx = i >= 0 ? i : iRaw;
+                    return matchIdx < 0 ? 99 : (t === n || t === normQuery) ? 0 : 0 === matchIdx ? 1 : t.split(/[^a-z0-9]+/).some(w => w.startsWith(normQuery) || w.startsWith(n)) ? 2 : 3;
+                };
+                return r.filter(e => {
+                    const text = o(e);
+                    return text.includes(normQuery) || text.includes(n);
+                }).filter(e => {
                     // A veiled topic stays off the map, so it stays out of
                     // search too. Selecting one used to pan onto an empty view.
                     // Every selected profile whose veil is on counts, not only
@@ -38870,24 +38880,23 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const migrated = typeof migrateNodeKey === "function" ? migrateNodeKey(rawId) : rawId;
             const slug = rawId.toLowerCase().replace(/^(cat|subcategory)-/, "").replace(/[^a-z0-9]+/g, "-");
 
-            // 1. Resolve Category
+            // 1. Resolve Category - only match if rawId or migrated actually refers to the category, NOT because rawBranch is the parent branch!
             const cat = h.find(c => {
                 if (c.id === rawId || c.id === migrated) return true;
-                if (c.name === rawBranch || c.name === rawId) return true;
-                if (c.name.toLowerCase() === rawBranch.toLowerCase() || c.name.toLowerCase() === rawId.toLowerCase()) return true;
+                if (rawId && (c.name === rawId || c.name.toLowerCase() === rawId.toLowerCase())) return true;
                 const cSlug = c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                return cSlug === slug;
+                return (slug === cSlug || slug === `cat-${cSlug}`) && String(rawId).startsWith("cat-");
             }) || null;
 
-            // 2. Resolve Subcategory
+            // 2. Resolve Subcategory - only match if rawId or migrated refers to the subcategory!
             let sub = null;
             if (!cat) {
                 for (const c of h) {
                     for (const s of (c.subcategories || [])) {
                         if (s.id === rawId || s.id === migrated) { sub = { cat: c, sub: s }; break; }
-                        if (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase()) { sub = { cat: c, sub: s }; break; }
+                        if (rawId && (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase())) { sub = { cat: c, sub: s }; break; }
                         const sSlug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                        if (sSlug === slug || slug.endsWith(sSlug)) { sub = { cat: c, sub: s }; break; }
+                        if (slug === sSlug && (String(rawId).startsWith("subcategory-") || String(rawId).startsWith("subcat-"))) { sub = { cat: c, sub: s }; break; }
                     }
                     if (sub) break;
                 }
@@ -38906,23 +38915,29 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     const lx = Number(leafEl.dataset.layoutX), ly = Number(leafEl.dataset.layoutY);
                     if (Number.isFinite(lx) && Number.isFinite(ly)) {
                         const vb = Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0 ? Cn.viewBox.baseVal : nh;
-                        const targetScale = Math.max(1e-9, Math.min(2, ($p > 0.8 ? $p : 1.25)));
+                        const targetScale = Math.max(1e-9, Math.min(2.5, ($p > 1.0 ? $p : 1.35)));
                         const tx = (vb.x + vb.width / 2) - lx * targetScale;
                         const ty = (vb.y + vb.height / 2) - ly * targetScale;
                         return void Ph(targetScale, tx, ty);
                     }
                 }
-                if (rec.parentId) {
-                    const pRec = qn[rec.parentId] || Xn(rec.parentId);
-                    if (pRec && (pRec.kind === "Subcategory" || isSubId(rec.parentId))) {
-                        return void Th(rec.parentId, rec.branch);
-                    }
+                // If not currently rendered, expand its branch/parent so it gets painted, then center on it!
+                if (rec.branch && !rn.has(rec.branch)) {
+                    rn.add(rec.branch);
+                    if (rec.parentId && !on.has(rec.parentId)) on.add(rec.parentId);
+                    Mr();
+                    const runner = () => Th(sid, rec.branch);
+                    if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                    else window.setTimeout(runner, 80);
+                    return;
                 }
-                if (rec.branch) {
-                    const cMatch = h.find(c => c.name === rec.branch || sxName(c.name) === sxName(rec.branch));
-                    if (cMatch) {
-                        return void Th(cMatch.id, cMatch.name);
-                    }
+                if (rec.parentId && !on.has(rec.parentId)) {
+                    on.add(rec.parentId);
+                    Mr();
+                    const runner = () => Th(sid, rec.branch);
+                    if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
+                    else window.setTimeout(runner, 80);
+                    return;
                 }
             }
 
@@ -39373,7 +39388,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
             __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || (e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node,.node-group,.node-circle,.node-icon,.leaf-node,.category-node")), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
-            const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
+            const triHitEl = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck, .map-triad-control"));
+            const triHit = triHitEl ? (triHitEl.classList.contains("map-triangle-hit") ? triHitEl : triHitEl.querySelector(".map-triangle-hit") || triHitEl) : null;
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
             const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
             const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
@@ -39407,28 +39423,33 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (triHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = triHit.dataset.id;
-                const v0 = { x: parseFloat(triHit.dataset.v0x), y: parseFloat(triHit.dataset.v0y) };
-                const v1 = { x: parseFloat(triHit.dataset.v1x), y: parseFloat(triHit.dataset.v1y) };
-                const v2 = { x: parseFloat(triHit.dataset.v2x), y: parseFloat(triHit.dataset.v2y) };
-                const pt = Cn.createSVGPoint();
-                pt.x = e.clientX, pt.y = e.clientY;
-                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
-                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
-                const shape = Ge(topicId);
-                if (shape && shape.keys && shape.keys.length === 3) {
-                    const intensity = 80;
-                    const v0r = Math.round(bary.w0 * intensity);
-                    const v1r = Math.round(bary.w1 * intensity);
-                    const v2r = Math.round(bary.w2 * intensity);
-                    To(topicId, shape.keys[0], v0r, !1);
-                    To(topicId, shape.keys[1], v1r, !1);
-                    To(topicId, shape.keys[2], v2r, !1);
+                const v0x = parseFloat(triHit.dataset.v0x), v0y = parseFloat(triHit.dataset.v0y);
+                const v1x = parseFloat(triHit.dataset.v1x), v1y = parseFloat(triHit.dataset.v1y);
+                const v2x = parseFloat(triHit.dataset.v2x), v2y = parseFloat(triHit.dataset.v2y);
+                if (Number.isFinite(v0x) && Number.isFinite(v1x) && Number.isFinite(v2x)) {
+                    const v0 = { x: v0x, y: v0y };
+                    const v1 = { x: v1x, y: v1y };
+                    const v2 = { x: v2x, y: v2y };
+                    const pt = Cn.createSVGPoint();
+                    pt.x = e.clientX, pt.y = e.clientY;
+                    const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                    const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
+                    const shape = Ge(topicId);
+                    if (shape && shape.keys && shape.keys.length === 3) {
+                        const intensity = 80;
+                        const v0r = Math.round(bary.w0 * intensity);
+                        const v1r = Math.round(bary.w1 * intensity);
+                        const v2r = Math.round(bary.w2 * intensity);
+                        To(topicId, shape.keys[0], v0r, !1);
+                        To(topicId, shape.keys[1], v1r, !1);
+                        To(topicId, shape.keys[2], v2r, !1);
+                    }
+                    triDragState = {
+                        pointerId: e.pointerId,
+                        id: topicId,
+                        v0: v0, v1: v1, v2: v2
+                    };
                 }
-                triDragState = {
-                    pointerId: e.pointerId,
-                    id: topicId,
-                    v0: v0, v1: v1, v2: v2
-                };
                 return;
             }
             if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId),
@@ -43064,12 +43085,16 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     });
                     // Backwards compatibility migration for legacy dual {give, receive} rated on newly triadic topics
                     if (!Object.keys(incoming).length && (Object.prototype.hasOwnProperty.call(rating, "give") || Object.prototype.hasOwnProperty.call(rating, "receive"))) {
-                        if (id === "t0281" || id === "topic-cuckold-hotwife") {
+                        if (id === "t0281" || id === "t0288" || id === "topic-cuckold-hotwife" || id === "topic-hotwife" || id === "topic-bull-hotwife-cuckold") {
                             // t0281 legacy: give = outside-partner sex (hotwife / bull), receive = knowledge/view (cuckold)
                             const isFemale = rt[c] && (rt[c].includes("female") || rt[c].includes("woman") || rt[c].includes("f"));
                             const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;
                             const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : 0;
-                            if (isFemale) {
+                            if (id === "t0288" || id === "topic-hotwife") {
+                                incoming.hotwife = Math.max(gVal, rVal);
+                                incoming.bull = 0;
+                                incoming.cuckold = 0;
+                            } else if (isFemale) {
                                 incoming.hotwife = gVal;
                                 incoming.bull = 0;
                                 incoming.cuckold = 0;

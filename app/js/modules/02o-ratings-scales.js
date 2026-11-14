@@ -117,7 +117,12 @@
     "subcategory-sex-acts-anal": "s0041",
     "subcategory-sex-acts-manual": "s0042",
     "subcategory-sex-acts-insertion": "s0043",
-    "subcategory-sex-acts-fluids": "s0044"
+    "subcategory-sex-acts-fluids": "s0044",
+    "t0288": "t0281",
+    "topic-hotwife": "t0281",
+    "topic-cuckold-hotwife": "t0281",
+    "topic-bull-hotwife-cuckold": "t0281",
+    "topic-cuckqueen-stag-vixen": "t0406"
 });
         function migrateNodeKey(id) {
             const s = String(id == null ? "" : id);
