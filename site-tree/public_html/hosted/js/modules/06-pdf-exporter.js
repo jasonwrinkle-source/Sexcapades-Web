@@ -784,7 +784,7 @@
                 }
                 sxSingleTapTimeout = window.setTimeout(() => {
                     to = !1;
-                }, 450);
+                }, 120);
                 if (n.longPressed) return;
 
                 const now = performance.now();
@@ -801,7 +801,7 @@
                 const isKnownNode = isCat || isSub || Boolean(rec);
                 const branch = cat ? cat.name : ((rec && rec.branch) || ci(sid) || "");
 
-                const isDouble = (e.detail >= 2) || (timeDiff < 520 && dist < 60 && sxLastNodeTapId === sid);
+                const isDouble = (e.detail >= 2) || (timeDiff < 520 && (dist < 60 || sxLastNodeTapId === sid));
 
                 if ((isKnownNode || sid) && isDouble) {
                     // Double tap / click opens the sheet for ALL nodes (category, subcategory, kink/topic)

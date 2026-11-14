@@ -140,20 +140,32 @@
                 e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
             }), function() {
                 if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap || void 0 === nh) return;
-                const e = nh;
+                const vb = (Cn && Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0) ? Cn.viewBox.baseVal : nh;
+                const pad = 160 * Math.max(1, $p);
                 In.querySelectorAll(".node-group[data-layout-key]").forEach(t => {
-                    t.dataset.layoutKey;
-                    const n = Ep + Number(t.dataset.layoutX) * $p, i = Ap + Number(t.dataset.layoutY) * $p, a = !Number.isFinite(n) || !Number.isFinite(i) || n < e.x - 90 || n > e.x + e.width + 90 || i < e.y - 90 || i > e.y + e.height + 90;
-                    a !== Boolean(t.dataset.cameraOffscreen) && (t.dataset.cameraOffscreen = a ? "true" : "", 
-                    t.querySelectorAll("[role],[tabindex]").forEach(e => {
-                        a ? (e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role")), 
-                        e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex")), 
-                        e.removeAttribute("role"), e.setAttribute("tabindex", "-1"), e.setAttribute("aria-hidden", "true"), 
-                        e.style.pointerEvents = "none") : (void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), 
-                        delete e.dataset.cameraRole), void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), 
-                        delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex"), e.removeAttribute("aria-hidden"), 
-                        e.style.removeProperty("pointer-events"));
-                    }));
+                    const lx = Number(t.dataset.layoutX), ly = Number(t.dataset.layoutY);
+                    if (!Number.isFinite(lx) || !Number.isFinite(ly)) return;
+                    const n = Ep + lx * $p, i = Ap + ly * $p;
+                    const a = n < vb.x - pad || n > vb.x + vb.width + pad || i < vb.y - pad || i > vb.y + vb.height + pad;
+                    if (a !== Boolean(t.dataset.cameraOffscreen)) {
+                        t.dataset.cameraOffscreen = a ? "true" : "";
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => {
+                            if (a) {
+                                e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role"));
+                                e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex"));
+                                e.removeAttribute("role");
+                                e.setAttribute("tabindex", "-1");
+                                e.setAttribute("aria-hidden", "true");
+                            } else {
+                                void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), delete e.dataset.cameraRole);
+                                void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex");
+                                e.removeAttribute("aria-hidden");
+                            }
+                            e.style.removeProperty("pointer-events");
+                        });
+                    } else {
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => e.style.removeProperty("pointer-events"));
+                    }
                 });
             }();
         }

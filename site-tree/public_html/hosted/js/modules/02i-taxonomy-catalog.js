@@ -2719,7 +2719,7 @@
             if (e === "t0281" || e === "topic-cuckold-hotwife" || i === "t0281" || i === "topic-cuckold-hotwife") {
                 return {
                     single: !1,
-                    triple: !0,
+                    triangle: !0,
                     keys: [ "bull", "hotwife", "cuckold" ],
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
@@ -2727,7 +2727,7 @@
             if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen") {
                 return {
                     single: !1,
-                    triple: !0,
+                    triangle: !0,
                     keys: [ "vixen", "stag", "cuckquean" ],
                     labels: [ "Vixen", "Stag", "Cuckquean" ]
                 };
@@ -2735,7 +2735,7 @@
             if (e === "t0407" || e === "topic-top-bottom-side" || i === "t0407" || i === "topic-top-bottom-side") {
                 return {
                     single: !1,
-                    triple: !0,
+                    triangle: !0,
                     keys: [ "top", "side", "bottom" ],
                     labels: [ "Top", "Side", "Bottom" ]
                 };

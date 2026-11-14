@@ -2551,10 +2551,11 @@
         };
 
         function sxGetTriVertices(width, height) {
+            // Pole 0 (Red, bottom-left), Pole 1 (Green, top center / middle position), Pole 2 (Blue, bottom-right)
             return {
-                V0: { x: width / 2, y: 22 },
-                V1: { x: 26, y: height - 22 },
-                V2: { x: width - 26, y: height - 22 }
+                V0: { x: 28, y: height - 24 },
+                V1: { x: width / 2, y: 22 },
+                V2: { x: width - 28, y: height - 24 }
             };
         }
 
@@ -2586,20 +2587,76 @@
             ctx.clearRect(0, 0, width, height);
 
             const { V0, V1, V2 } = sxGetTriVertices(width, height);
+            const det = (V1.y - V2.y) * (V0.x - V2.x) + (V2.x - V1.x) * (V0.y - V2.y);
 
-            // Background subtle fill & border
+            // 1. Barycentric RGB color gradient fill
+            const minX = Math.floor(Math.min(V0.x, V1.x, V2.x));
+            const maxX = Math.ceil(Math.max(V0.x, V1.x, V2.x));
+            const minY = Math.floor(Math.min(V0.y, V1.y, V2.y));
+            const maxY = Math.ceil(Math.max(V0.y, V1.y, V2.y));
+            const bw = maxX - minX, bh = maxY - minY;
+
+            if (bw > 0 && bh > 0 && Math.abs(det) > 1e-5) {
+                const offCanvas = document.createElement("canvas");
+                offCanvas.width = bw;
+                offCanvas.height = bh;
+                const offCtx = offCanvas.getContext("2d");
+                const imgData = offCtx.createImageData(bw, bh);
+                const data = imgData.data;
+
+                // Intensity scales gradient brightness/intensity (clamped -100 to 100)
+                const absInt = Math.abs(typeof intensity === "number" ? intensity : 0);
+                const br = 0.28 + 0.72 * (absInt / 100);
+
+                for (let y = minY; y < maxY; y++) {
+                    for (let x = minX; x < maxX; x++) {
+                        const w0 = ((V1.y - V2.y) * (x - V2.x) + (V2.x - V1.x) * (y - V2.y)) / det;
+                        const w1 = ((V2.y - V0.y) * (x - V2.x) + (V0.x - V2.x) * (y - V2.y)) / det;
+                        const w2 = 1 - w0 - w1;
+                        if (w0 >= -0.01 && w1 >= -0.01 && w2 >= -0.01) {
+                            const cw0 = Math.max(0, w0), cw1 = Math.max(0, w1), cw2 = Math.max(0, w2);
+                            const sum = cw0 + cw1 + cw2;
+                            const nw0 = sum > 0 ? cw0 / sum : 1/3;
+                            const nw1 = sum > 0 ? cw1 / sum : 1/3;
+                            const nw2 = sum > 0 ? cw2 / sum : 1/3;
+                            // Pole 0 = Red (#ef4444: 239, 68, 68)
+                            // Pole 1 = Green (#22c55e: 34, 197, 94) - Middle position
+                            // Pole 2 = Blue (#3b82f6: 59, 130, 246)
+                            const r = (nw0 * 240 + nw1 * 25 + nw2 * 35) * br;
+                            const g = (nw0 * 35 + nw1 * 225 + nw2 * 70) * br;
+                            const b = (nw0 * 45 + nw1 * 70 + nw2 * 245) * br;
+                            const idx = ((y - minY) * bw + (x - minX)) * 4;
+                            data[idx] = Math.round(r);
+                            data[idx + 1] = Math.round(g);
+                            data[idx + 2] = Math.round(b);
+                            data[idx + 3] = 230; // 90% opacity
+                        }
+                    }
+                }
+                offCtx.putImageData(imgData, 0, 0);
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(V0.x, V0.y);
+                ctx.lineTo(V1.x, V1.y);
+                ctx.lineTo(V2.x, V2.y);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(offCanvas, minX, minY);
+                ctx.restore();
+            }
+
+            // 2. Triangle Frame & grid lines
             ctx.beginPath();
             ctx.moveTo(V0.x, V0.y);
             ctx.lineTo(V1.x, V1.y);
             ctx.lineTo(V2.x, V2.y);
             ctx.closePath();
-            ctx.fillStyle = "rgba(255, 255, 255, 0.04)";
-            ctx.fill();
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.22)";
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
             ctx.stroke();
 
-            // Internal subtle grid lines towards center
+            // Centroid grid lines
             const cx = (V0.x + V1.x + V2.x) / 3;
             const cy = (V0.y + V1.y + V2.y) / 3;
             ctx.beginPath();
@@ -2607,49 +2664,79 @@
             ctx.moveTo(V1.x, V1.y); ctx.lineTo(cx, cy);
             ctx.moveTo(V2.x, V2.y); ctx.lineTo(cx, cy);
             ctx.lineWidth = 1;
-            ctx.setLineDash([3, 3]);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Vertex labels
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3"];
-            ctx.font = "600 11px system-ui, sans-serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "bottom";
-            ctx.fillStyle = "#80d8ff";
-            ctx.fillText(labels[0], V0.x, V0.y - 4);
+            // 3. Colored Pole Dots (Red, Green, Blue)
+            // Pole 0: Red
+            ctx.beginPath();
+            ctx.arc(V0.x, V0.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ef4444";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
 
+            // Pole 1: Green (Middle position)
+            ctx.beginPath();
+            ctx.arc(V1.x, V1.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#22c55e";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // Pole 2: Blue
+            ctx.beginPath();
+            ctx.arc(V2.x, V2.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#3b82f6";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole labels (matching RGB colors)
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3"];
+            ctx.font = "bold 10px system-ui, sans-serif";
+
+            // Pole 0 (Red, bottom-left)
             ctx.textAlign = "left";
             ctx.textBaseline = "top";
-            ctx.fillStyle = "#ff8a80";
-            ctx.fillText(labels[1], V1.x - 14, V1.y + 4);
+            ctx.fillStyle = "#ef4444";
+            ctx.fillText(labels[0], V0.x - 14, V0.y + 6);
 
+            // Pole 1 (Green, top middle)
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+            ctx.fillStyle = "#22c55e";
+            ctx.fillText(labels[1], V1.x, V1.y - 5);
+
+            // Pole 2 (Blue, bottom-right)
             ctx.textAlign = "right";
             ctx.textBaseline = "top";
-            ctx.fillStyle = "#ffd180";
-            ctx.fillText(labels[2], V2.x + 14, V2.y + 4);
+            ctx.fillStyle = "#3b82f6";
+            ctx.fillText(labels[2], V2.x + 14, V2.y + 6);
 
-            // Active point position
+            // 5. Active point puck position
             const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
             const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
             const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
 
-            // Halo glow for point
-            const glowColor = intensity > 0 ? "rgba(79, 195, 247, 0.45)" : intensity < 0 ? "rgba(255, 138, 128, 0.45)" : "rgba(255, 255, 255, 0.25)";
-            const puckColor = intensity > 0 ? "#4fc3f7" : intensity < 0 ? "#ff8a80" : "#ffffff";
+            // Halo glow for puck
             ctx.beginPath();
             ctx.arc(px, py, 11, 0, 2 * Math.PI);
-            ctx.fillStyle = glowColor;
+            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
             ctx.fill();
 
             // Solid puck
             ctx.beginPath();
-            ctx.arc(px, py, 5.5, 0, 2 * Math.PI);
-            ctx.fillStyle = puckColor;
+            ctx.arc(px, py, 6, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ffffff";
             ctx.fill();
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "#12141a";
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "#0f172a";
             ctx.stroke();
         }
 
@@ -2719,6 +2806,23 @@
             };
             canvas.addEventListener("pointerup", stopDrag);
             canvas.addEventListener("pointercancel", stopDrag);
+
+            // Mouse wheel adjustments on canvas directly adjust intensity
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
+                sxTriState.intensity = Math.max(-100, Math.min(100, Math.round(current + step)));
+                if (slider) slider.value = String(Math.round(sxTriState.intensity));
+                const out = e.byId("markTriangleIntensityOut");
+                out && (out.textContent = String(Math.round(sxTriState.intensity)));
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                    sxApplyTriRatings(Qr);
+                }
+            }, { passive: false });
 
             if (slider) {
                 slider.addEventListener("input", () => {
@@ -2794,13 +2898,13 @@
                     if (triIntensity) triIntensity.value = String(Math.round(intensity));
                     if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
 
-                    if (triPole0) triPole0.textContent = shape.labels[0] || k0;
-                    if (triPole1) triPole1.textContent = shape.labels[1] || k1;
-                    if (triPole2) triPole2.textContent = shape.labels[2] || k2;
+                    if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; }
+                    if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; }
+                    if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; }
 
-                    if (triVal0) triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—";
-                    if (triVal1) triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—";
-                    if (triVal2) triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—";
+                    if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
+                    if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
+                    if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
 
                     sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
                 } else {

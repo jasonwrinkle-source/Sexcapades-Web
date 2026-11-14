@@ -6364,11 +6364,23 @@ const TAXONOMY_CATEGORIES = [
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
                 if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
-                    const triR = 56 * m;
-                    const cx = l, cy = c;
-                    const V0 = { x: cx, y: cy - triR };
-                    const V1 = { x: cx - triR * 0.866025, y: cy + triR * 0.5 };
-                    const V2 = { x: cx + triR * 0.866025, y: cy + triR * 0.5 };
+                    // Orientation: One side tangent to the node's icon,
+                    // with the 'middle position' pole (index 1) radial in line with the node's midline.
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const baseW = 58 * m;
+                    const triH = baseW * 0.866025; // Equilateral triangle height
+                    const dBase = iconR + 4 * m;
+                    const bx = l + p * dBase, by = c + h * dBase;
+                    const nx = -h, ny = p; // Unit normal vector perpendicular to midline radial (p, h)
+
+                    // Base side: connects Pole 0 (Red) and Pole 2 (Blue), perfectly tangent to the icon circle!
+                    const V0 = { x: bx - nx * (baseW / 2), y: by - ny * (baseW / 2) };
+                    const V2 = { x: bx + nx * (baseW / 2), y: by + ny * (baseW / 2) };
+                    // Apex: Pole 1 (Green, 'middle position' pole), pointing radially along the spoke midline!
+                    const V1 = { x: bx + p * triH, y: by + h * triH };
+
+                    const cx = (V0.x + V1.x + V2.x) / 3, cy = (V0.y + V1.y + V2.y) / 3;
+
                     const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
                     const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
                     const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
@@ -6385,15 +6397,25 @@ const TAXONOMY_CATEGORIES = [
                     const isAct = Boolean(Nt && Nt.id === e);
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
+                    const gradId = `tri-grad-${A}`;
 
                     D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
-                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="rgba(14,18,22,0.85)" stroke="rgba(255,255,255,0.4)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
-                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<text class="map-triangle-label" x="${V0.x.toFixed(1)}" y="${(V0.y - 4 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#80d8ff">${Hi(y[0])}</text>`;
-                    D += `<text class="map-triangle-label" x="${(V1.x - 4 * m).toFixed(1)}" y="${(V1.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ff8a80">${Hi(y[1])}</text>`;
-                    D += `<text class="map-triangle-label" x="${(V2.x + 4 * m).toFixed(1)}" y="${(V2.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ffd180">${Hi(y[2])}</text>`;
+                    D += `<defs><linearGradient id="${gradId}" x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${V1.x.toFixed(1)}" y2="${V1.y.toFixed(1)}" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/><stop offset="50%" stop-color="#ef4444" stop-opacity="0.35"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/></linearGradient></defs>`;
+                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="url(#${gradId})" stroke="rgba(255,255,255,0.45)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
+                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    // RGB Pole dots
+                    D += `<circle cx="${V0.x.toFixed(1)}" cy="${V0.y.toFixed(1)}" r="${3.5 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Labels offset outward from each vertex
+                    const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
+                    const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
+                    const l2x = V2.x + nx * 9 * m, l2y = V2.y + ny * 9 * m;
+                    D += `<text class="map-triangle-label" x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label" x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label" x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
                     D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
                     D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     D += `</g>`;
@@ -6872,20 +6894,32 @@ const TAXONOMY_CATEGORIES = [
                 e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
             }), function() {
                 if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap || void 0 === nh) return;
-                const e = nh;
+                const vb = (Cn && Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0) ? Cn.viewBox.baseVal : nh;
+                const pad = 160 * Math.max(1, $p);
                 In.querySelectorAll(".node-group[data-layout-key]").forEach(t => {
-                    t.dataset.layoutKey;
-                    const n = Ep + Number(t.dataset.layoutX) * $p, i = Ap + Number(t.dataset.layoutY) * $p, a = !Number.isFinite(n) || !Number.isFinite(i) || n < e.x - 90 || n > e.x + e.width + 90 || i < e.y - 90 || i > e.y + e.height + 90;
-                    a !== Boolean(t.dataset.cameraOffscreen) && (t.dataset.cameraOffscreen = a ? "true" : "", 
-                    t.querySelectorAll("[role],[tabindex]").forEach(e => {
-                        a ? (e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role")), 
-                        e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex")), 
-                        e.removeAttribute("role"), e.setAttribute("tabindex", "-1"), e.setAttribute("aria-hidden", "true"), 
-                        e.style.pointerEvents = "none") : (void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), 
-                        delete e.dataset.cameraRole), void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), 
-                        delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex"), e.removeAttribute("aria-hidden"), 
-                        e.style.removeProperty("pointer-events"));
-                    }));
+                    const lx = Number(t.dataset.layoutX), ly = Number(t.dataset.layoutY);
+                    if (!Number.isFinite(lx) || !Number.isFinite(ly)) return;
+                    const n = Ep + lx * $p, i = Ap + ly * $p;
+                    const a = n < vb.x - pad || n > vb.x + vb.width + pad || i < vb.y - pad || i > vb.y + vb.height + pad;
+                    if (a !== Boolean(t.dataset.cameraOffscreen)) {
+                        t.dataset.cameraOffscreen = a ? "true" : "";
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => {
+                            if (a) {
+                                e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role"));
+                                e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex"));
+                                e.removeAttribute("role");
+                                e.setAttribute("tabindex", "-1");
+                                e.setAttribute("aria-hidden", "true");
+                            } else {
+                                void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), delete e.dataset.cameraRole);
+                                void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex");
+                                e.removeAttribute("aria-hidden");
+                            }
+                            e.style.removeProperty("pointer-events");
+                        });
+                    } else {
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => e.style.removeProperty("pointer-events"));
+                    }
                 });
             }();
         }
@@ -11758,7 +11792,7 @@ const TAXONOMY_CATEGORIES = [
             if (e === "t0281" || e === "topic-cuckold-hotwife" || i === "t0281" || i === "topic-cuckold-hotwife") {
                 return {
                     single: !1,
-                    triple: !0,
+                    triangle: !0,
                     keys: [ "bull", "hotwife", "cuckold" ],
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
@@ -11766,7 +11800,7 @@ const TAXONOMY_CATEGORIES = [
             if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen") {
                 return {
                     single: !1,
-                    triple: !0,
+                    triangle: !0,
                     keys: [ "vixen", "stag", "cuckquean" ],
                     labels: [ "Vixen", "Stag", "Cuckquean" ]
                 };
@@ -11774,7 +11808,7 @@ const TAXONOMY_CATEGORIES = [
             if (e === "t0407" || e === "topic-top-bottom-side" || i === "t0407" || i === "topic-top-bottom-side") {
                 return {
                     single: !1,
-                    triple: !0,
+                    triangle: !0,
                     keys: [ "top", "side", "bottom" ],
                     labels: [ "Top", "Side", "Bottom" ]
                 };
@@ -19390,11 +19424,23 @@ const TAXONOMY_CATEGORIES = [
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
                 if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
-                    const triR = 56 * m;
-                    const cx = l, cy = c;
-                    const V0 = { x: cx, y: cy - triR };
-                    const V1 = { x: cx - triR * 0.866025, y: cy + triR * 0.5 };
-                    const V2 = { x: cx + triR * 0.866025, y: cy + triR * 0.5 };
+                    // Orientation: One side tangent to the node's icon,
+                    // with the 'middle position' pole (index 1) radial in line with the node's midline.
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const baseW = 58 * m;
+                    const triH = baseW * 0.866025; // Equilateral triangle height
+                    const dBase = iconR + 4 * m;
+                    const bx = l + p * dBase, by = c + h * dBase;
+                    const nx = -h, ny = p; // Unit normal vector perpendicular to midline radial (p, h)
+
+                    // Base side: connects Pole 0 (Red) and Pole 2 (Blue), perfectly tangent to the icon circle!
+                    const V0 = { x: bx - nx * (baseW / 2), y: by - ny * (baseW / 2) };
+                    const V2 = { x: bx + nx * (baseW / 2), y: by + ny * (baseW / 2) };
+                    // Apex: Pole 1 (Green, 'middle position' pole), pointing radially along the spoke midline!
+                    const V1 = { x: bx + p * triH, y: by + h * triH };
+
+                    const cx = (V0.x + V1.x + V2.x) / 3, cy = (V0.y + V1.y + V2.y) / 3;
+
                     const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
                     const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
                     const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
@@ -19411,15 +19457,25 @@ const TAXONOMY_CATEGORIES = [
                     const isAct = Boolean(Nt && Nt.id === e);
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
+                    const gradId = `tri-grad-${A}`;
 
                     D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
-                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="rgba(14,18,22,0.85)" stroke="rgba(255,255,255,0.4)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
-                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<text class="map-triangle-label" x="${V0.x.toFixed(1)}" y="${(V0.y - 4 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#80d8ff">${Hi(y[0])}</text>`;
-                    D += `<text class="map-triangle-label" x="${(V1.x - 4 * m).toFixed(1)}" y="${(V1.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ff8a80">${Hi(y[1])}</text>`;
-                    D += `<text class="map-triangle-label" x="${(V2.x + 4 * m).toFixed(1)}" y="${(V2.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ffd180">${Hi(y[2])}</text>`;
+                    D += `<defs><linearGradient id="${gradId}" x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${V1.x.toFixed(1)}" y2="${V1.y.toFixed(1)}" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/><stop offset="50%" stop-color="#ef4444" stop-opacity="0.35"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/></linearGradient></defs>`;
+                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="url(#${gradId})" stroke="rgba(255,255,255,0.45)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
+                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    // RGB Pole dots
+                    D += `<circle cx="${V0.x.toFixed(1)}" cy="${V0.y.toFixed(1)}" r="${3.5 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Labels offset outward from each vertex
+                    const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
+                    const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
+                    const l2x = V2.x + nx * 9 * m, l2y = V2.y + ny * 9 * m;
+                    D += `<text class="map-triangle-label" x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label" x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label" x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
                     D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
                     D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     D += `</g>`;
@@ -19908,20 +19964,32 @@ const TAXONOMY_CATEGORIES = [
                 e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
             }), function() {
                 if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap || void 0 === nh) return;
-                const e = nh;
+                const vb = (Cn && Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0) ? Cn.viewBox.baseVal : nh;
+                const pad = 160 * Math.max(1, $p);
                 In.querySelectorAll(".node-group[data-layout-key]").forEach(t => {
-                    t.dataset.layoutKey;
-                    const n = Ep + Number(t.dataset.layoutX) * $p, i = Ap + Number(t.dataset.layoutY) * $p, a = !Number.isFinite(n) || !Number.isFinite(i) || n < e.x - 90 || n > e.x + e.width + 90 || i < e.y - 90 || i > e.y + e.height + 90;
-                    a !== Boolean(t.dataset.cameraOffscreen) && (t.dataset.cameraOffscreen = a ? "true" : "", 
-                    t.querySelectorAll("[role],[tabindex]").forEach(e => {
-                        a ? (e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role")), 
-                        e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex")), 
-                        e.removeAttribute("role"), e.setAttribute("tabindex", "-1"), e.setAttribute("aria-hidden", "true"), 
-                        e.style.pointerEvents = "none") : (void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), 
-                        delete e.dataset.cameraRole), void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), 
-                        delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex"), e.removeAttribute("aria-hidden"), 
-                        e.style.removeProperty("pointer-events"));
-                    }));
+                    const lx = Number(t.dataset.layoutX), ly = Number(t.dataset.layoutY);
+                    if (!Number.isFinite(lx) || !Number.isFinite(ly)) return;
+                    const n = Ep + lx * $p, i = Ap + ly * $p;
+                    const a = n < vb.x - pad || n > vb.x + vb.width + pad || i < vb.y - pad || i > vb.y + vb.height + pad;
+                    if (a !== Boolean(t.dataset.cameraOffscreen)) {
+                        t.dataset.cameraOffscreen = a ? "true" : "";
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => {
+                            if (a) {
+                                e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role"));
+                                e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex"));
+                                e.removeAttribute("role");
+                                e.setAttribute("tabindex", "-1");
+                                e.setAttribute("aria-hidden", "true");
+                            } else {
+                                void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), delete e.dataset.cameraRole);
+                                void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex");
+                                e.removeAttribute("aria-hidden");
+                            }
+                            e.style.removeProperty("pointer-events");
+                        });
+                    } else {
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => e.style.removeProperty("pointer-events"));
+                    }
                 });
             }();
         }
@@ -26080,10 +26148,11 @@ const TAXONOMY_CATEGORIES = [
         };
 
         function sxGetTriVertices(width, height) {
+            // Pole 0 (Red, bottom-left), Pole 1 (Green, top center / middle position), Pole 2 (Blue, bottom-right)
             return {
-                V0: { x: width / 2, y: 22 },
-                V1: { x: 26, y: height - 22 },
-                V2: { x: width - 26, y: height - 22 }
+                V0: { x: 28, y: height - 24 },
+                V1: { x: width / 2, y: 22 },
+                V2: { x: width - 28, y: height - 24 }
             };
         }
 
@@ -26115,20 +26184,76 @@ const TAXONOMY_CATEGORIES = [
             ctx.clearRect(0, 0, width, height);
 
             const { V0, V1, V2 } = sxGetTriVertices(width, height);
+            const det = (V1.y - V2.y) * (V0.x - V2.x) + (V2.x - V1.x) * (V0.y - V2.y);
 
-            // Background subtle fill & border
+            // 1. Barycentric RGB color gradient fill
+            const minX = Math.floor(Math.min(V0.x, V1.x, V2.x));
+            const maxX = Math.ceil(Math.max(V0.x, V1.x, V2.x));
+            const minY = Math.floor(Math.min(V0.y, V1.y, V2.y));
+            const maxY = Math.ceil(Math.max(V0.y, V1.y, V2.y));
+            const bw = maxX - minX, bh = maxY - minY;
+
+            if (bw > 0 && bh > 0 && Math.abs(det) > 1e-5) {
+                const offCanvas = document.createElement("canvas");
+                offCanvas.width = bw;
+                offCanvas.height = bh;
+                const offCtx = offCanvas.getContext("2d");
+                const imgData = offCtx.createImageData(bw, bh);
+                const data = imgData.data;
+
+                // Intensity scales gradient brightness/intensity (clamped -100 to 100)
+                const absInt = Math.abs(typeof intensity === "number" ? intensity : 0);
+                const br = 0.28 + 0.72 * (absInt / 100);
+
+                for (let y = minY; y < maxY; y++) {
+                    for (let x = minX; x < maxX; x++) {
+                        const w0 = ((V1.y - V2.y) * (x - V2.x) + (V2.x - V1.x) * (y - V2.y)) / det;
+                        const w1 = ((V2.y - V0.y) * (x - V2.x) + (V0.x - V2.x) * (y - V2.y)) / det;
+                        const w2 = 1 - w0 - w1;
+                        if (w0 >= -0.01 && w1 >= -0.01 && w2 >= -0.01) {
+                            const cw0 = Math.max(0, w0), cw1 = Math.max(0, w1), cw2 = Math.max(0, w2);
+                            const sum = cw0 + cw1 + cw2;
+                            const nw0 = sum > 0 ? cw0 / sum : 1/3;
+                            const nw1 = sum > 0 ? cw1 / sum : 1/3;
+                            const nw2 = sum > 0 ? cw2 / sum : 1/3;
+                            // Pole 0 = Red (#ef4444: 239, 68, 68)
+                            // Pole 1 = Green (#22c55e: 34, 197, 94) - Middle position
+                            // Pole 2 = Blue (#3b82f6: 59, 130, 246)
+                            const r = (nw0 * 240 + nw1 * 25 + nw2 * 35) * br;
+                            const g = (nw0 * 35 + nw1 * 225 + nw2 * 70) * br;
+                            const b = (nw0 * 45 + nw1 * 70 + nw2 * 245) * br;
+                            const idx = ((y - minY) * bw + (x - minX)) * 4;
+                            data[idx] = Math.round(r);
+                            data[idx + 1] = Math.round(g);
+                            data[idx + 2] = Math.round(b);
+                            data[idx + 3] = 230; // 90% opacity
+                        }
+                    }
+                }
+                offCtx.putImageData(imgData, 0, 0);
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(V0.x, V0.y);
+                ctx.lineTo(V1.x, V1.y);
+                ctx.lineTo(V2.x, V2.y);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(offCanvas, minX, minY);
+                ctx.restore();
+            }
+
+            // 2. Triangle Frame & grid lines
             ctx.beginPath();
             ctx.moveTo(V0.x, V0.y);
             ctx.lineTo(V1.x, V1.y);
             ctx.lineTo(V2.x, V2.y);
             ctx.closePath();
-            ctx.fillStyle = "rgba(255, 255, 255, 0.04)";
-            ctx.fill();
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.22)";
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
             ctx.stroke();
 
-            // Internal subtle grid lines towards center
+            // Centroid grid lines
             const cx = (V0.x + V1.x + V2.x) / 3;
             const cy = (V0.y + V1.y + V2.y) / 3;
             ctx.beginPath();
@@ -26136,49 +26261,79 @@ const TAXONOMY_CATEGORIES = [
             ctx.moveTo(V1.x, V1.y); ctx.lineTo(cx, cy);
             ctx.moveTo(V2.x, V2.y); ctx.lineTo(cx, cy);
             ctx.lineWidth = 1;
-            ctx.setLineDash([3, 3]);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Vertex labels
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3"];
-            ctx.font = "600 11px system-ui, sans-serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "bottom";
-            ctx.fillStyle = "#80d8ff";
-            ctx.fillText(labels[0], V0.x, V0.y - 4);
+            // 3. Colored Pole Dots (Red, Green, Blue)
+            // Pole 0: Red
+            ctx.beginPath();
+            ctx.arc(V0.x, V0.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ef4444";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
 
+            // Pole 1: Green (Middle position)
+            ctx.beginPath();
+            ctx.arc(V1.x, V1.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#22c55e";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // Pole 2: Blue
+            ctx.beginPath();
+            ctx.arc(V2.x, V2.y, 4.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#3b82f6";
+            ctx.fill();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole labels (matching RGB colors)
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3"];
+            ctx.font = "bold 10px system-ui, sans-serif";
+
+            // Pole 0 (Red, bottom-left)
             ctx.textAlign = "left";
             ctx.textBaseline = "top";
-            ctx.fillStyle = "#ff8a80";
-            ctx.fillText(labels[1], V1.x - 14, V1.y + 4);
+            ctx.fillStyle = "#ef4444";
+            ctx.fillText(labels[0], V0.x - 14, V0.y + 6);
 
+            // Pole 1 (Green, top middle)
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+            ctx.fillStyle = "#22c55e";
+            ctx.fillText(labels[1], V1.x, V1.y - 5);
+
+            // Pole 2 (Blue, bottom-right)
             ctx.textAlign = "right";
             ctx.textBaseline = "top";
-            ctx.fillStyle = "#ffd180";
-            ctx.fillText(labels[2], V2.x + 14, V2.y + 4);
+            ctx.fillStyle = "#3b82f6";
+            ctx.fillText(labels[2], V2.x + 14, V2.y + 6);
 
-            // Active point position
+            // 5. Active point puck position
             const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
             const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
             const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
 
-            // Halo glow for point
-            const glowColor = intensity > 0 ? "rgba(79, 195, 247, 0.45)" : intensity < 0 ? "rgba(255, 138, 128, 0.45)" : "rgba(255, 255, 255, 0.25)";
-            const puckColor = intensity > 0 ? "#4fc3f7" : intensity < 0 ? "#ff8a80" : "#ffffff";
+            // Halo glow for puck
             ctx.beginPath();
             ctx.arc(px, py, 11, 0, 2 * Math.PI);
-            ctx.fillStyle = glowColor;
+            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
             ctx.fill();
 
             // Solid puck
             ctx.beginPath();
-            ctx.arc(px, py, 5.5, 0, 2 * Math.PI);
-            ctx.fillStyle = puckColor;
+            ctx.arc(px, py, 6, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ffffff";
             ctx.fill();
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "#12141a";
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "#0f172a";
             ctx.stroke();
         }
 
@@ -26248,6 +26403,23 @@ const TAXONOMY_CATEGORIES = [
             };
             canvas.addEventListener("pointerup", stopDrag);
             canvas.addEventListener("pointercancel", stopDrag);
+
+            // Mouse wheel adjustments on canvas directly adjust intensity
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
+                sxTriState.intensity = Math.max(-100, Math.min(100, Math.round(current + step)));
+                if (slider) slider.value = String(Math.round(sxTriState.intensity));
+                const out = e.byId("markTriangleIntensityOut");
+                out && (out.textContent = String(Math.round(sxTriState.intensity)));
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                    sxApplyTriRatings(Qr);
+                }
+            }, { passive: false });
 
             if (slider) {
                 slider.addEventListener("input", () => {
@@ -26323,13 +26495,13 @@ const TAXONOMY_CATEGORIES = [
                     if (triIntensity) triIntensity.value = String(Math.round(intensity));
                     if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
 
-                    if (triPole0) triPole0.textContent = shape.labels[0] || k0;
-                    if (triPole1) triPole1.textContent = shape.labels[1] || k1;
-                    if (triPole2) triPole2.textContent = shape.labels[2] || k2;
+                    if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; }
+                    if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; }
+                    if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; }
 
-                    if (triVal0) triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—";
-                    if (triVal1) triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—";
-                    if (triVal2) triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—";
+                    if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
+                    if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
+                    if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
 
                     sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
                 } else {
@@ -37214,7 +37386,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
                 sxSingleTapTimeout = window.setTimeout(() => {
                     to = !1;
-                }, 450);
+                }, 120);
                 if (n.longPressed) return;
 
                 const now = performance.now();
@@ -37231,7 +37403,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const isKnownNode = isCat || isSub || Boolean(rec);
                 const branch = cat ? cat.name : ((rec && rec.branch) || ci(sid) || "");
 
-                const isDouble = (e.detail >= 2) || (timeDiff < 520 && dist < 60 && sxLastNodeTapId === sid);
+                const isDouble = (e.detail >= 2) || (timeDiff < 520 && (dist < 60 || sxLastNodeTapId === sid));
 
                 if ((isKnownNode || sid) && isDouble) {
                     // Double tap / click opens the sheet for ALL nodes (category, subcategory, kink/topic)

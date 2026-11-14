@@ -623,11 +623,23 @@
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
                 if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
-                    const triR = 56 * m;
-                    const cx = l, cy = c;
-                    const V0 = { x: cx, y: cy - triR };
-                    const V1 = { x: cx - triR * 0.866025, y: cy + triR * 0.5 };
-                    const V2 = { x: cx + triR * 0.866025, y: cy + triR * 0.5 };
+                    // Orientation: One side tangent to the node's icon,
+                    // with the 'middle position' pole (index 1) radial in line with the node's midline.
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const baseW = 58 * m;
+                    const triH = baseW * 0.866025; // Equilateral triangle height
+                    const dBase = iconR + 4 * m;
+                    const bx = l + p * dBase, by = c + h * dBase;
+                    const nx = -h, ny = p; // Unit normal vector perpendicular to midline radial (p, h)
+
+                    // Base side: connects Pole 0 (Red) and Pole 2 (Blue), perfectly tangent to the icon circle!
+                    const V0 = { x: bx - nx * (baseW / 2), y: by - ny * (baseW / 2) };
+                    const V2 = { x: bx + nx * (baseW / 2), y: by + ny * (baseW / 2) };
+                    // Apex: Pole 1 (Green, 'middle position' pole), pointing radially along the spoke midline!
+                    const V1 = { x: bx + p * triH, y: by + h * triH };
+
+                    const cx = (V0.x + V1.x + V2.x) / 3, cy = (V0.y + V1.y + V2.y) / 3;
+
                     const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
                     const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
                     const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
@@ -644,15 +656,25 @@
                     const isAct = Boolean(Nt && Nt.id === e);
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
+                    const gradId = `tri-grad-${A}`;
 
                     D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
-                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="rgba(14,18,22,0.85)" stroke="rgba(255,255,255,0.4)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
-                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
-                    D += `<text class="map-triangle-label" x="${V0.x.toFixed(1)}" y="${(V0.y - 4 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#80d8ff">${Hi(y[0])}</text>`;
-                    D += `<text class="map-triangle-label" x="${(V1.x - 4 * m).toFixed(1)}" y="${(V1.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ff8a80">${Hi(y[1])}</text>`;
-                    D += `<text class="map-triangle-label" x="${(V2.x + 4 * m).toFixed(1)}" y="${(V2.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ffd180">${Hi(y[2])}</text>`;
+                    D += `<defs><linearGradient id="${gradId}" x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${V1.x.toFixed(1)}" y2="${V1.y.toFixed(1)}" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/><stop offset="50%" stop-color="#ef4444" stop-opacity="0.35"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/></linearGradient></defs>`;
+                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="url(#${gradId})" stroke="rgba(255,255,255,0.45)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
+                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    // RGB Pole dots
+                    D += `<circle cx="${V0.x.toFixed(1)}" cy="${V0.y.toFixed(1)}" r="${3.5 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Labels offset outward from each vertex
+                    const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
+                    const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
+                    const l2x = V2.x + nx * 9 * m, l2y = V2.y + ny * 9 * m;
+                    D += `<text class="map-triangle-label" x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label" x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label" x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
                     D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
                     D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     D += `</g>`;
@@ -1141,20 +1163,32 @@
                 e.classList.toggle("revealed", Boolean(n || rn.has(t.branch)));
             }), function() {
                 if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap || void 0 === nh) return;
-                const e = nh;
+                const vb = (Cn && Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0) ? Cn.viewBox.baseVal : nh;
+                const pad = 160 * Math.max(1, $p);
                 In.querySelectorAll(".node-group[data-layout-key]").forEach(t => {
-                    t.dataset.layoutKey;
-                    const n = Ep + Number(t.dataset.layoutX) * $p, i = Ap + Number(t.dataset.layoutY) * $p, a = !Number.isFinite(n) || !Number.isFinite(i) || n < e.x - 90 || n > e.x + e.width + 90 || i < e.y - 90 || i > e.y + e.height + 90;
-                    a !== Boolean(t.dataset.cameraOffscreen) && (t.dataset.cameraOffscreen = a ? "true" : "", 
-                    t.querySelectorAll("[role],[tabindex]").forEach(e => {
-                        a ? (e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role")), 
-                        e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex")), 
-                        e.removeAttribute("role"), e.setAttribute("tabindex", "-1"), e.setAttribute("aria-hidden", "true"), 
-                        e.style.pointerEvents = "none") : (void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), 
-                        delete e.dataset.cameraRole), void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), 
-                        delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex"), e.removeAttribute("aria-hidden"), 
-                        e.style.removeProperty("pointer-events"));
-                    }));
+                    const lx = Number(t.dataset.layoutX), ly = Number(t.dataset.layoutY);
+                    if (!Number.isFinite(lx) || !Number.isFinite(ly)) return;
+                    const n = Ep + lx * $p, i = Ap + ly * $p;
+                    const a = n < vb.x - pad || n > vb.x + vb.width + pad || i < vb.y - pad || i > vb.y + vb.height + pad;
+                    if (a !== Boolean(t.dataset.cameraOffscreen)) {
+                        t.dataset.cameraOffscreen = a ? "true" : "";
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => {
+                            if (a) {
+                                e.hasAttribute("role") && (e.dataset.cameraRole = e.getAttribute("role"));
+                                e.hasAttribute("tabindex") && (e.dataset.cameraTabindex = e.getAttribute("tabindex"));
+                                e.removeAttribute("role");
+                                e.setAttribute("tabindex", "-1");
+                                e.setAttribute("aria-hidden", "true");
+                            } else {
+                                void 0 !== e.dataset.cameraRole && (e.setAttribute("role", e.dataset.cameraRole), delete e.dataset.cameraRole);
+                                void 0 !== e.dataset.cameraTabindex ? (e.setAttribute("tabindex", e.dataset.cameraTabindex), delete e.dataset.cameraTabindex) : e.removeAttribute("tabindex");
+                                e.removeAttribute("aria-hidden");
+                            }
+                            e.style.removeProperty("pointer-events");
+                        });
+                    } else {
+                        t.querySelectorAll("[role],[tabindex]").forEach(e => e.style.removeProperty("pointer-events"));
+                    }
                 });
             }();
         }
