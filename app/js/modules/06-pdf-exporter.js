@@ -325,12 +325,18 @@
                 }
                 return;
             }
-            fitSettleChecks++;
             // Not laid out yet (slow phone open), paint still in
             // flight, or a camera animation still running: re-arm
             // instead of dying — an unlaid-out first check or a
             // mid-animation check must not kill the chain.
+            // Boot close-up fix (2026-11-13): these waits must NOT
+            // consume the 20-check budget — the boot paint + anneal
+            // runs 25-45 s, so counting 400 ms waits as checks
+            // exhausted the chain ~9 s in and the camera stayed
+            // stuck on the centre portrait. Only a genuine re-fit
+            // cycle counts; the cap still bounds those.
             if (!laidOut || painting || animating) return void scheduleFitSettleRefit(400);
+            fitSettleChecks++;
             // Paint finished and either the fitted box moved since
             // the fit or a programmatic camera move (focus,
             // animation end state, restore path) overwrote the fit:

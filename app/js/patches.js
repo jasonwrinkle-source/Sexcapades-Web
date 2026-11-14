@@ -434,6 +434,8 @@ __sxInit(function initScribeGeminiBYOK() {
         if (genStoryBtn) genStoryBtn.disabled = false;
         if (stopStoryBtn) stopStoryBtn.hidden = true;
         activeAbortController = null;
+        // A finished story renames the compact button to Regenerate.
+        scribeSyncGenerateLabel();
       }
     });
   }
@@ -874,7 +876,11 @@ __sxInit(function initScribeGeminiBYOK() {
 
   function scribeSyncGenerateLabel() {
     if (!scribeGenerateBtn) return;
-    scribeGenerateBtn.textContent = scribeAiSetupReady() ? "✨ Generate" : "Pick your AI";
+    if (!scribeAiSetupReady()) { scribeGenerateBtn.textContent = "Pick your AI"; return; }
+    // Set up: label stays on the compact button only — it just renames to
+    // Regenerate once a story exists, never grows into a full-width control.
+    var hasStory = storyText && storyText.value && storyText.value.trim().length > 0;
+    scribeGenerateBtn.textContent = hasStory ? "↻ Regenerate" : "✨ Generate";
   }
 
   function scribeOpenAiPanel() {
@@ -933,6 +939,7 @@ __sxInit(function initScribeGeminiBYOK() {
 
   // Keep the Generate label in step with the key/provider state.
   if (keyInput) keyInput.addEventListener("input", scribeSyncGenerateLabel);
+  if (storyText) storyText.addEventListener("input", scribeSyncGenerateLabel);
   if (saveKeyBtn) saveKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
   if (clearKeyBtn) clearKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
   if (providerSelect) providerSelect.addEventListener("change", scribeSyncGenerateLabel);

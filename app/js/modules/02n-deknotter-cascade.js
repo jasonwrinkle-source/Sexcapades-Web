@@ -2721,8 +2721,13 @@
                 try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-anneal-closing-paint-blit-end", e); }
                 if ("freeze-replay" === closingPaintMode) sgHoldBlitStart = !0;
                 try {
+                    // LAYOUT GLIDE (tweening Job B, 2026-11-13): the
+                    // closing paint after a run glides (animate true)
+                    // so nodes ease into their final spots instead of
+                    // snapping. The other cascade paints stay
+                    // animate:false (diagnostic / pre-run / tail).
                     closingPaintResult = Mr({
-                        animate: !1,
+                        animate: !0,
                         forceRepaint: !0
                     });
                 } catch (e) { __sxErrLog("layout-anneal-final-paint", e); } finally {

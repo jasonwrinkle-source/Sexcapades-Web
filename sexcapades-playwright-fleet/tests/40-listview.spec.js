@@ -6,7 +6,7 @@ test("S4-01 listview route loads and renders content", async ({ page }) => {
   await expect(page).toHaveURL(/#app\/listview/);
   await expect(page.locator("body")).not.toContainText("NaN");
   await expect(page.locator("body")).not.toContainText("Infinity");
-  const dialog = page.getByRole("dialog", { name: "Popularity List" });
+  const dialog = page.getByRole("dialog", { name: "Hot List" });
   await expect(dialog).toBeVisible();
   // body.innerText is empty on some headless captures even after the dialog
   // is in the accessibility tree. Read the dialog text in the page.

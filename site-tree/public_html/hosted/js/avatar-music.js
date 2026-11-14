@@ -45,7 +45,7 @@
      player's query. */
   var TABLE = {
     "hypermap":        { slug: "the-explainer/e1/verse-hypermap.mp3", label: "Hypermap" },
-    "popularity":      { slug: "the-explainer/e1/verse-popularity-on-deck.mp3", label: "Popularity List" },
+    "popularity":      { slug: "the-explainer/e1/verse-popularity-on-deck.mp3", label: "Hot List" },
     "profile":         { slug: "the-explainer/e1/verse-profile-imports-quick-start.mp3", label: "Profile" },
     "profile-import":  { slug: "the-explainer/e1/verse-profile-imports-quick-start.mp3", label: "Profile and imports" },
     "pair-compare":    { slug: "the-explainer/e1/verse-cast-compare.mp3", label: "Compare" },
