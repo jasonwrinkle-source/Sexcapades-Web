@@ -2732,6 +2732,28 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-tri-stat"><span id="markTriPole2">Pole 3</span>: <b id="markTriVal2">0</b></div>
 </div>
 </div>
+<div class="mark-tetrad-wrap" hidden="" id="markTetradWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markTetradTitle">4-Pole dynamic &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markTetradClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-tetrad-canvas" height="180" id="markTetradCanvas" width="190"></canvas>
+</div>
+<div class="mark-triangle-slider-box">
+<span class="mark-tri-slider-label">Intensity</span>
+<input aria-label="Tetrad intensity" class="mark-tri-intensity" id="markTetradIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markTetradIntensityOut">0</output>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markTetradReadout">
+<div class="mark-tri-stat"><span id="markTetradPole0">Pole 1</span>: <b id="markTetradVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markTetradPole1">Pole 2</span>: <b id="markTetradVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markTetradPole2">Pole 3</span>: <b id="markTetradVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markTetradPole3">Pole 4</span>: <b id="markTetradVal3">0</b></div>
+</div>
+</div>
 <div class="mark-ratings" id="markRatings">
 <label class="mark-rating"><span id="markGiveLabel">Give</span><input id="markGive" max="100" min="-100" step="1" type="range" value="0" aria-label="Give rating"/><output id="markGiveOut">Unrated</output><button id="markGiveClear" type="button">Clear</button></label>
 <label class="mark-rating" id="markReceiveRow"><span id="markReceiveLabel">Receive</span><input id="markReceive" max="100" min="-100" step="1" type="range" value="0" aria-label="Receive rating"/><output id="markReceiveOut">Unrated</output><button id="markReceiveClear" type="button">Clear</button></label>

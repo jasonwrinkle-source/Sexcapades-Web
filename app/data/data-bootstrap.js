@@ -6391,7 +6391,73 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.triangle) {
+                if ($.tetrad) {
+                    // 4-Pole Tetrad Widget on Hypermap:
+                    // If archetype === "diamond" (Type II multi-affinity): Radar / Diamond Deformation Polygon
+                    // If archetype === "quad" or "simplex": 4-Pole Square/Cross Continuum
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 54 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const nx = -h, ny = p; // Tangent normal perpendicular to midline radial (p, h)
+
+                    // 4 Orthogonal Pole Vertices:
+                    // Pole 0 (Radial Outward - Amber): cx + p * (spanW/2), cy + h * (spanW/2)
+                    // Pole 1 (Tangent Right - Emerald): cx + nx * (spanW/2), cy + ny * (spanW/2)
+                    // Pole 2 (Radial Inward - Blue): cx - p * (spanW/2), cy - h * (spanW/2)
+                    // Pole 3 (Tangent Left - Crimson): cx - nx * (spanW/2), cy - ny * (spanW/2)
+                    const P0 = { x: cx + p * (spanW / 2), y: cy + h * (spanW / 2) };
+                    const P1 = { x: cx + nx * (spanW / 2), y: cy + ny * (spanW / 2) };
+                    const P2 = { x: cx - p * (spanW / 2), y: cy - h * (spanW / 2) };
+                    const P3 = { x: cx - nx * (spanW / 2), y: cy - ny * (spanW / 2) };
+
+                    const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
+                    const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
+                    const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
+                    const r3 = t[f[3] + "Known"] ? t[f[3]] : 0;
+                    const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"] || t[f[3] + "Known"]);
+
+                    // Radar diamond deformation: vertex scale 0 to 1
+                    const d0 = Math.max(0, Math.min(100, Math.abs(r0))) / 100;
+                    const d1 = Math.max(0, Math.min(100, Math.abs(r1))) / 100;
+                    const d2 = Math.max(0, Math.min(100, Math.abs(r2))) / 100;
+                    const d3 = Math.max(0, Math.min(100, Math.abs(r3))) / 100;
+
+                    const S0 = { x: cx + (P0.x - cx) * d0, y: cy + (P0.y - cy) * d0 };
+                    const S1 = { x: cx + (P1.x - cx) * d1, y: cy + (P1.y - cy) * d1 };
+                    const S2 = { x: cx + (P2.x - cx) * d2, y: cy + (P2.y - cy) * d2 };
+                    const S3 = { x: cx + (P3.x - cx) * d3, y: cy + (P3.y - cy) * d3 };
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}, ${y[3]}: ${Math.round(r3)}` : "Unrated";
+                    const maxR = Math.max(r0, r1, r2, r3);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Outer Reference Frame (Diamond Outline)
+                    D += `<polygon points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Orthogonal Crosshairs
+                    D += `<line x1="${P0.x.toFixed(1)}" y1="${P0.y.toFixed(1)}" x2="${P2.x.toFixed(1)}" y2="${P2.y.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${2 * m},${2 * m}"/>`;
+                    D += `<line x1="${P1.x.toFixed(1)}" y1="${P1.y.toFixed(1)}" x2="${P3.x.toFixed(1)}" y2="${P3.y.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${2 * m},${2 * m}"/>`;
+                    // Filled deformed diamond polygon
+                    if (isKnown && (d0 > 0 || d1 > 0 || d2 > 0 || d3 > 0)) {
+                        D += `<polygon points="${S0.x.toFixed(1)},${S0.y.toFixed(1)} ${S1.x.toFixed(1)},${S1.y.toFixed(1)} ${S2.x.toFixed(1)},${S2.y.toFixed(1)} ${S3.x.toFixed(1)},${S3.y.toFixed(1)}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
+                    }
+                    // Pole Dots (Amber, Emerald, Blue, Crimson)
+                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#f59e0b" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#10b981" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Labels
+                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#f59e0b">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#10b981">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[3])}</text>`;
+                    // Hit area
+                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `</g>`;
+                } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
                     // Orientation: One side tangent to the node's icon,
                     // with the 'middle position' pole (index 1) radial in line with the node's midline.
@@ -11882,11 +11948,12 @@ const TAXONOMY_CATEGORIES = [
                     labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
                 };
             }
-            // 4-Pole Tetrad Placeholders
+            // 4-Pole Tetrad Topics
             if (e === "t0413" || e === "topic-power-matrix" || i === "t0413" || i === "topic-power-matrix") {
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "simplex", // Type I: Closed Role Allocation
                     keys: [ "master", "mistress", "slave", "pet" ],
                     labels: [ "Master (Authority)", "Mistress (Nurture)", "Slave (Service)", "Pet / Brat (Primal)" ]
                 };
@@ -11895,6 +11962,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "ruined", "edged", "forced", "cathartic" ],
                     labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
                 };
@@ -11903,6 +11971,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
                     labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
                 };
@@ -11911,6 +11980,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "escape", "union", "catharsis", "transgression" ],
                     labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
                 };
@@ -11920,6 +11990,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "quad", // Type III: Orthogonal Continua
                     keys: [ "authleft", "authright", "libleft", "libright" ],
                     labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
                 };
@@ -11928,6 +11999,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "consensus", "democracy", "technocracy", "mandate" ],
                     labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
                 };
@@ -11937,6 +12009,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "materialism", "idealism", "pantheism", "dualism" ],
                     labels: [ "Materialism", "Idealism (Non-Dual)", "Pantheism", "Transcendent Dualism" ]
                 };
@@ -11945,6 +12018,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "inquiry", "devotion", "action", "asceticism" ],
                     labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
                 };
@@ -19527,7 +19601,73 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.triangle) {
+                if ($.tetrad) {
+                    // 4-Pole Tetrad Widget on Hypermap:
+                    // If archetype === "diamond" (Type II multi-affinity): Radar / Diamond Deformation Polygon
+                    // If archetype === "quad" or "simplex": 4-Pole Square/Cross Continuum
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 54 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const nx = -h, ny = p; // Tangent normal perpendicular to midline radial (p, h)
+
+                    // 4 Orthogonal Pole Vertices:
+                    // Pole 0 (Radial Outward - Amber): cx + p * (spanW/2), cy + h * (spanW/2)
+                    // Pole 1 (Tangent Right - Emerald): cx + nx * (spanW/2), cy + ny * (spanW/2)
+                    // Pole 2 (Radial Inward - Blue): cx - p * (spanW/2), cy - h * (spanW/2)
+                    // Pole 3 (Tangent Left - Crimson): cx - nx * (spanW/2), cy - ny * (spanW/2)
+                    const P0 = { x: cx + p * (spanW / 2), y: cy + h * (spanW / 2) };
+                    const P1 = { x: cx + nx * (spanW / 2), y: cy + ny * (spanW / 2) };
+                    const P2 = { x: cx - p * (spanW / 2), y: cy - h * (spanW / 2) };
+                    const P3 = { x: cx - nx * (spanW / 2), y: cy - ny * (spanW / 2) };
+
+                    const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
+                    const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
+                    const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
+                    const r3 = t[f[3] + "Known"] ? t[f[3]] : 0;
+                    const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"] || t[f[3] + "Known"]);
+
+                    // Radar diamond deformation: vertex scale 0 to 1
+                    const d0 = Math.max(0, Math.min(100, Math.abs(r0))) / 100;
+                    const d1 = Math.max(0, Math.min(100, Math.abs(r1))) / 100;
+                    const d2 = Math.max(0, Math.min(100, Math.abs(r2))) / 100;
+                    const d3 = Math.max(0, Math.min(100, Math.abs(r3))) / 100;
+
+                    const S0 = { x: cx + (P0.x - cx) * d0, y: cy + (P0.y - cy) * d0 };
+                    const S1 = { x: cx + (P1.x - cx) * d1, y: cy + (P1.y - cy) * d1 };
+                    const S2 = { x: cx + (P2.x - cx) * d2, y: cy + (P2.y - cy) * d2 };
+                    const S3 = { x: cx + (P3.x - cx) * d3, y: cy + (P3.y - cy) * d3 };
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}, ${y[3]}: ${Math.round(r3)}` : "Unrated";
+                    const maxR = Math.max(r0, r1, r2, r3);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Outer Reference Frame (Diamond Outline)
+                    D += `<polygon points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Orthogonal Crosshairs
+                    D += `<line x1="${P0.x.toFixed(1)}" y1="${P0.y.toFixed(1)}" x2="${P2.x.toFixed(1)}" y2="${P2.y.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${2 * m},${2 * m}"/>`;
+                    D += `<line x1="${P1.x.toFixed(1)}" y1="${P1.y.toFixed(1)}" x2="${P3.x.toFixed(1)}" y2="${P3.y.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${2 * m},${2 * m}"/>`;
+                    // Filled deformed diamond polygon
+                    if (isKnown && (d0 > 0 || d1 > 0 || d2 > 0 || d3 > 0)) {
+                        D += `<polygon points="${S0.x.toFixed(1)},${S0.y.toFixed(1)} ${S1.x.toFixed(1)},${S1.y.toFixed(1)} ${S2.x.toFixed(1)},${S2.y.toFixed(1)} ${S3.x.toFixed(1)},${S3.y.toFixed(1)}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
+                    }
+                    // Pole Dots (Amber, Emerald, Blue, Crimson)
+                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#f59e0b" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#10b981" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Labels
+                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#f59e0b">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#10b981">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[3])}</text>`;
+                    // Hit area
+                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `</g>`;
+                } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
                     // Orientation: One side tangent to the node's icon,
                     // with the 'middle position' pole (index 1) radial in line with the node's midline.
@@ -26505,6 +26645,268 @@ const TAXONOMY_CATEGORIES = [
             sxSyncMarkRatings(topicId);
         }
 
+        // --- 4-Pole Tetrad Radar / Diamond Deformation State & Widget ---
+        let sxTetradState = {
+            topicId: null,
+            p0: 0,
+            p1: 0,
+            p2: 0,
+            p3: 0,
+            activeVertex: null,
+            isDragging: !1
+        };
+
+        function sxGetTetradVertices(width, height) {
+            const cx = width / 2, cy = height / 2;
+            const r = Math.min(width, height) / 2 - 24;
+            // North (Amber), East (Emerald), South (Blue), West (Crimson)
+            return {
+                cx, cy, r,
+                P0: { x: cx, y: cy - r },
+                P1: { x: cx + r, y: cy },
+                P2: { x: cx, y: cy + r },
+                P3: { x: cx - r, y: cy }
+            };
+        }
+
+        function sxDrawTetradWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { cx, cy, r, P0, P1, P2, P3 } = sxGetTetradVertices(width, height);
+
+            // 1. Concentric reference grid rings (25%, 50%, 75%, 100%)
+            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+                ctx.beginPath();
+                ctx.moveTo(cx, cy - r * frac);
+                ctx.lineTo(cx + r * frac, cy);
+                ctx.lineTo(cx, cy + r * frac);
+                ctx.lineTo(cx - r * frac, cy);
+                ctx.closePath();
+                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
+                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+
+            // 2. Crosshair axes
+            ctx.beginPath();
+            ctx.moveTo(P3.x, P3.y); ctx.lineTo(P1.x, P1.y);
+            ctx.moveTo(P0.x, P0.y); ctx.lineTo(P2.x, P2.y);
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Deformed Polygon from active ratings
+            const s0 = Math.max(0, Math.min(100, Math.abs(state.p0))) / 100;
+            const s1 = Math.max(0, Math.min(100, Math.abs(state.p1))) / 100;
+            const s2 = Math.max(0, Math.min(100, Math.abs(state.p2))) / 100;
+            const s3 = Math.max(0, Math.min(100, Math.abs(state.p3))) / 100;
+
+            const V0 = { x: cx, y: cy - r * s0 };
+            const V1 = { x: cx + r * s1, y: cy };
+            const V2 = { x: cx, y: cy + r * s2 };
+            const V3 = { x: cx - r * s3, y: cy };
+
+            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3);
+            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+
+            // Filled shape
+            ctx.beginPath();
+            ctx.moveTo(V0.x, V0.y);
+            ctx.lineTo(V1.x, V1.y);
+            ctx.lineTo(V2.x, V2.y);
+            ctx.lineTo(V3.x, V3.y);
+            ctx.closePath();
+            ctx.fillStyle = polyCol;
+            ctx.globalAlpha = 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole vertex handles
+            const poles = [
+                { pt: V0, col: "#f59e0b", val: state.p0 }, // North
+                { pt: V1, col: "#10b981", val: state.p1 }, // East
+                { pt: V2, col: "#3b82f6", val: state.p2 }, // South
+                { pt: V3, col: "#ef4444", val: state.p3 }  // West
+            ];
+
+            poles.forEach((p, idx) => {
+                ctx.beginPath();
+                ctx.arc(p.pt.x, p.pt.y, 5.5, 0, 2 * Math.PI);
+                ctx.fillStyle = p.col;
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            });
+
+            // 5. Pole Labels
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4"];
+            ctx.font = "bold 9px system-ui, sans-serif";
+
+            // North
+            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+            ctx.fillStyle = "#f59e0b"; ctx.fillText(labels[0], P0.x, P0.y - 4);
+            // East
+            ctx.textAlign = "left"; ctx.textBaseline = "middle";
+            ctx.fillStyle = "#10b981"; ctx.fillText(labels[1], P1.x + 6, P1.y);
+            // South
+            ctx.textAlign = "center"; ctx.textBaseline = "top";
+            ctx.fillStyle = "#3b82f6"; ctx.fillText(labels[2], P2.x, P2.y + 4);
+            // West
+            ctx.textAlign = "right"; ctx.textBaseline = "middle";
+            ctx.fillStyle = "#ef4444"; ctx.fillText(labels[3], P3.x - 6, P3.y);
+        }
+
+        function sxApplyTetradRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 4) return;
+            To(topicId, shape.keys[0], Math.round(sxTetradState.p0), !1);
+            To(topicId, shape.keys[1], Math.round(sxTetradState.p1), !1);
+            To(topicId, shape.keys[2], Math.round(sxTetradState.p2), !1);
+            To(topicId, shape.keys[3], Math.round(sxTetradState.p3), !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearTetradRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 4) return;
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !1);
+            Fo(topicId, shape.keys[3], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindTetradWidget() {
+            const canvas = e.byId("markTetradCanvas");
+            const slider = e.byId("markTetradIntensity");
+            const clearBtn = e.byId("markTetradClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                const { cx, cy, r } = sxGetTetradVertices(canvas.width, canvas.height);
+                const dx = px - cx, dy = py - cy;
+                const angle = Math.atan2(dy, dx); // [-PI, PI]
+
+                // Determine closest axis if none locked yet
+                let v = sxTetradState.activeVertex;
+                if (v === null) {
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        v = dx > 0 ? 1 : 3; // East (1) or West (3)
+                    } else {
+                        v = dy < 0 ? 0 : 2; // North (0) or South (2)
+                    }
+                    sxTetradState.activeVertex = v;
+                }
+
+                // Project distance onto active axis
+                let dist = 0;
+                if (v === 0) dist = Math.max(0, -dy);
+                else if (v === 1) dist = Math.max(0, dx);
+                else if (v === 2) dist = Math.max(0, dy);
+                else if (v === 3) dist = Math.max(0, -dx);
+
+                const val = Math.max(0, Math.min(100, Math.round((dist / r) * 100)));
+                if (v === 0) sxTetradState.p0 = val;
+                else if (v === 1) sxTetradState.p1 = val;
+                else if (v === 2) sxTetradState.p2 = val;
+                else if (v === 3) sxTetradState.p3 = val;
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTetradWidget(canvas, shape, sxTetradState);
+                    sxApplyTetradRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxTetradState.isDragging = !0;
+                sxTetradState.activeVertex = null;
+                canvas.setPointerCapture(evt.pointerId);
+                updateFromPointer(evt);
+            });
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxTetradState.isDragging) return;
+                updateFromPointer(evt);
+            });
+            const stopDrag = (evt) => {
+                if (sxTetradState.isDragging) {
+                    sxTetradState.isDragging = !1;
+                    sxTetradState.activeVertex = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            // Wheel scales all 4 poles proportionally
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const scale = (100 + step) / 100;
+                sxTetradState.p0 = Math.max(0, Math.min(100, Math.round(sxTetradState.p0 * scale)));
+                sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.p1 * scale)));
+                sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.p2 * scale)));
+                sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.p3 * scale)));
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTetradWidget(canvas, shape, sxTetradState);
+                    sxApplyTetradRatings(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    const val = Number(slider.value);
+                    const out = e.byId("markTetradIntensityOut");
+                    out && (out.textContent = String(Math.round(val)));
+                    // Scale existing distribution to match max intensity
+                    const maxCur = Math.max(sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3);
+                    if (maxCur > 0) {
+                        const ratio = val / maxCur;
+                        sxTetradState.p0 = Math.max(0, Math.min(100, Math.round(sxTetradState.p0 * ratio)));
+                        sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.p1 * ratio)));
+                        sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.p2 * ratio)));
+                        sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.p3 * ratio)));
+                    } else {
+                        sxTetradState.p0 = val; sxTetradState.p1 = val; sxTetradState.p2 = val; sxTetradState.p3 = val;
+                    }
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawTetradWidget(canvas, shape, sxTetradState);
+                        sxApplyTetradRatings(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearTetradRatings(Qr);
+                    }
+                });
+            }
+        }
+
         function sxBindTriangleWidget() {
             const canvas = e.byId("markTriangleCanvas");
             const slider = e.byId("markTriangleIntensity");
@@ -26597,6 +26999,14 @@ const TAXONOMY_CATEGORIES = [
             const triIntensityOut = e.byId("markTriangleIntensityOut");
             const triVal0 = e.byId("markTriVal0"), triVal1 = e.byId("markTriVal1"), triVal2 = e.byId("markTriVal2");
             const triPole0 = e.byId("markTriPole0"), triPole1 = e.byId("markTriPole1"), triPole2 = e.byId("markTriPole2");
+
+            const tetradWrap = e.byId("markTetradWrap");
+            const tetradCanvas = e.byId("markTetradCanvas");
+            const tetradIntensity = e.byId("markTetradIntensity");
+            const tetradIntensityOut = e.byId("markTetradIntensityOut");
+            const tetradVal0 = e.byId("markTetradVal0"), tetradVal1 = e.byId("markTetradVal1"), tetradVal2 = e.byId("markTetradVal2"), tetradVal3 = e.byId("markTetradVal3");
+            const tetradPole0 = e.byId("markTetradPole0"), tetradPole1 = e.byId("markTetradPole1"), tetradPole2 = e.byId("markTetradPole2"), tetradPole3 = e.byId("markTetradPole3");
+
             const linearRatings = e.byId("markRatings");
 
             if (!give || !id) return;
@@ -26606,12 +27016,10 @@ const TAXONOMY_CATEGORIES = [
             const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
 
             if (isTetradTopic) {
-                // 4-Pole Tetrad placeholder rating controls (Linear 4-role sliders until specialized 4-pole widget)
+                // 4-Pole Tetrad Radar / Diamond Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
-                linearRatings && (linearRatings.hidden = !1);
-                recvRow && (recvRow.hidden = !1);
-                role3Row && (role3Row.hidden = !1);
-                role4Row && (role4Row.hidden = !1);
+                tetradWrap && (tetradWrap.hidden = !1);
+                linearRatings && (linearRatings.hidden = !0);
 
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2], k3 = shape.keys[3];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
@@ -26619,21 +27027,29 @@ const TAXONOMY_CATEGORIES = [
                 const r2 = rec[k2 + "Known"] ? rec[k2] : 0;
                 const r3 = rec[k3 + "Known"] ? rec[k3] : 0;
 
-                giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
-                recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
-                role3Label && (role3Label.textContent = shape.labels[2] || k2);
-                role4Label && (role4Label.textContent = shape.labels[3] || k3);
+                sxTetradState.topicId = id;
+                sxTetradState.p0 = r0;
+                sxTetradState.p1 = r1;
+                sxTetradState.p2 = r2;
+                sxTetradState.p3 = r3;
 
-                give.value = r0;
-                recv.value = r1;
-                role3.value = r2;
-                if (role4) role4.value = r3;
+                const maxR = Math.max(r0, r1, r2, r3);
+                if (tetradIntensity) tetradIntensity.value = String(Math.round(maxR));
+                if (tetradIntensityOut) tetradIntensityOut.textContent = String(Math.round(maxR));
 
-                giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "Unrated");
-                recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "Unrated");
-                role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "Unrated");
-                role4Out && (role4Out.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "Unrated");
+                if (tetradPole0) { tetradPole0.textContent = shape.labels[0] || k0; tetradPole0.style.color = "#f59e0b"; }
+                if (tetradPole1) { tetradPole1.textContent = shape.labels[1] || k1; tetradPole1.style.color = "#10b981"; }
+                if (tetradPole2) { tetradPole2.textContent = shape.labels[2] || k2; tetradPole2.style.color = "#3b82f6"; }
+                if (tetradPole3) { tetradPole3.textContent = shape.labels[3] || k3; tetradPole3.style.color = "#ef4444"; }
+
+                if (tetradVal0) { tetradVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; tetradVal0.style.color = "#f59e0b"; }
+                if (tetradVal1) { tetradVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; tetradVal1.style.color = "#10b981"; }
+                if (tetradVal2) { tetradVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; tetradVal2.style.color = "#3b82f6"; }
+                if (tetradVal3) { tetradVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; tetradVal3.style.color = "#ef4444"; }
+
+                sxDrawTetradWidget(tetradCanvas, shape, sxTetradState);
             } else if (isTriangleTopic || isTripleTopic) {
+                tetradWrap && (tetradWrap.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
@@ -26697,6 +27113,7 @@ const TAXONOMY_CATEGORIES = [
                 }
             } else {
                 triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !1);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
@@ -26711,6 +27128,7 @@ const TAXONOMY_CATEGORIES = [
         }
         function sxBindMarkRatings() {
             sxBindTriangleWidget();
+            sxBindTetradWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
@@ -37748,6 +38166,16 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
             __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
             const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
+            const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
+            if (tetradHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = tetradHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "tetrad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
             if (triHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = triHit.dataset.id;

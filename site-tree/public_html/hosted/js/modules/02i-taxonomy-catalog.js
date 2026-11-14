@@ -2780,11 +2780,12 @@
                     labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
                 };
             }
-            // 4-Pole Tetrad Placeholders
+            // 4-Pole Tetrad Topics
             if (e === "t0413" || e === "topic-power-matrix" || i === "t0413" || i === "topic-power-matrix") {
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "simplex", // Type I: Closed Role Allocation
                     keys: [ "master", "mistress", "slave", "pet" ],
                     labels: [ "Master (Authority)", "Mistress (Nurture)", "Slave (Service)", "Pet / Brat (Primal)" ]
                 };
@@ -2793,6 +2794,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "ruined", "edged", "forced", "cathartic" ],
                     labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
                 };
@@ -2801,6 +2803,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
                     labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
                 };
@@ -2809,6 +2812,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "escape", "union", "catharsis", "transgression" ],
                     labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
                 };
@@ -2818,6 +2822,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "quad", // Type III: Orthogonal Continua
                     keys: [ "authleft", "authright", "libleft", "libright" ],
                     labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
                 };
@@ -2826,6 +2831,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "consensus", "democracy", "technocracy", "mandate" ],
                     labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
                 };
@@ -2835,6 +2841,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "materialism", "idealism", "pantheism", "dualism" ],
                     labels: [ "Materialism", "Idealism (Non-Dual)", "Pantheism", "Transcendent Dualism" ]
                 };
@@ -2843,6 +2850,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "inquiry", "devotion", "action", "asceticism" ],
                     labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
                 };
