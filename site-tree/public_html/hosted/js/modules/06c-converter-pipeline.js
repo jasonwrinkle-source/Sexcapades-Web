@@ -270,9 +270,21 @@
                             if (Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give))) incoming[flanks[0]] = clamp(rating.give);
                             if (Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive))) incoming[flanks[1]] = clamp(rating.receive);
                             if (incoming[flanks[2]] === undefined) incoming[flanks[2]] = 0;
+                        } else if (flanks.length === 4) {
+                            // Orthogonal projection: give -> poles 0,1; receive -> poles 2,3
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = gVal;
+                            }
+                            if (rVal !== null) {
+                                incoming[flanks[2]] = rVal;
+                                incoming[flanks[3]] = rVal;
+                            }
                         }
                     }
-                    // And backwards compatibility for triadic ratings on dual topics
+                    // And backwards compatibility for triadic/tetradic ratings on dual topics
                     if (!Object.keys(incoming).length && flanks.length === 2) {
                         const vals = Object.values(rating).filter(Number.isFinite);
                         if (vals.length >= 1) incoming[flanks[0]] = clamp(vals[0]);

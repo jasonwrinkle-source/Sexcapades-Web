@@ -2880,6 +2880,7 @@
         function sxSyncMarkRatings(id) {
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out"), role3Label = e.byId("markRole3Label"), role3Row = e.byId("markRole3Row");
+            const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out"), role4Label = e.byId("markRole4Label"), role4Row = e.byId("markRole4Row");
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
             const triIntensity = e.byId("markTriangleIntensity");
@@ -2891,9 +2892,39 @@
             if (!give || !id) return;
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
             const isTriangleTopic = Boolean(shape.triangle);
+            const isTetradTopic = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
 
-            if (isTriangleTopic || isTripleTopic) {
+            if (isTetradTopic) {
+                // 4-Pole Tetrad placeholder rating controls (Linear 4-role sliders until specialized 4-pole widget)
+                triWrap && (triWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !1);
+                recvRow && (recvRow.hidden = !1);
+                role3Row && (role3Row.hidden = !1);
+                role4Row && (role4Row.hidden = !1);
+
+                const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2], k3 = shape.keys[3];
+                const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
+                const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
+                const r2 = rec[k2 + "Known"] ? rec[k2] : 0;
+                const r3 = rec[k3 + "Known"] ? rec[k3] : 0;
+
+                giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
+                recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
+                role3Label && (role3Label.textContent = shape.labels[2] || k2);
+                role4Label && (role4Label.textContent = shape.labels[3] || k3);
+
+                give.value = r0;
+                recv.value = r1;
+                role3.value = r2;
+                if (role4) role4.value = r3;
+
+                giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "Unrated");
+                recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "Unrated");
+                role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "Unrated");
+                role4Out && (role4Out.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "Unrated");
+            } else if (isTriangleTopic || isTripleTopic) {
+                role4Row && (role4Row.hidden = !0);
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
                 const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
@@ -2958,6 +2989,7 @@
                 triWrap && (triWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !1);
                 role3Row && (role3Row.hidden = !0);
+                role4Row && (role4Row.hidden = !0);
                 recvRow && (recvRow.hidden = single);
                 giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
                 recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
@@ -2971,6 +3003,7 @@
             sxBindTriangleWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
+            const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
             if (!give || give.dataset.bound) return;
             give.dataset.bound = "1";
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
@@ -3023,6 +3056,23 @@
                 e.byId("markRole3Clear") && e.byId("markRole3Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(2, "role3");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+            if (role4) {
+                role4.addEventListener("input", () => show(role4, role4Out, !0));
+                role4.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(3, "role4");
+                        To(Qr, k, Number(role4.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markRole4Clear") && e.byId("markRole4Clear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(3, "role4");
                         Fo(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }

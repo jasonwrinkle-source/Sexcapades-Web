@@ -171,28 +171,54 @@ Across the three domains, multiple topics currently compressed into give/receive
 
 ---
 
-## 5. UI / UX Design Guidelines for Future 4-Pole Widgets
+## 5. UI / UX Design Taxonomy & Speculation for Multi-Pole Widgets
 
-When engineering the interactive widget for 4-pole topics (Tetrads), developers should observe the following specifications:
-1. **Interactive Planar Projection**:
-   - Rather than rendering a complex 3D rotating tetrahedron on a 2D canvas, the 4 poles should be mapped as a **Square Quad-Placard** (or 2D circle with 4 orthogonal poles at N, S, E, W), where the interior represents the projection of $\Delta^3$.
-2. **Four Color Quadrants**:
-   - Pole 1: Cyan / Blue ($\#0284c7$)
-   - Pole 2: Emerald / Green ($\#10b981$)
-   - Pole 3: Amber / Yellow ($\#f59e0b$)
-   - Pole 4: Crimson / Red ($\#ef4444$)
-3. **Midline & Radius Indicators**:
-   - A central reticle shows the barycentric centroid $(\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4})$.
-   - The puck's vector offset indicates the primary tilt, while distance from the center reflects polarization versus balance.
-4. **Independent Intensity Slider**:
-   - Just like the Triad widget, an adjacent vertical slider or mouse-wheel controls the total intensity $\mu \in [0, 100]$ (e.g. how much this dynamic matters to the user overall).
+Choosing the appropriate rating widget depends directly on the **mathematical nature** and **psychological semantics** of the topic:
+
+### 5.1 The Three Structural Archetypes of Multi-Pole Topics
+
+| Archetype | Semantics | Sum Constraint | Ideal UI Widget | Candidate Topics |
+| :--- | :--- | :--- | :--- | :--- |
+| **Type I: Closed Role Allocation (Zero-Sum Simplex)** | Pure identity / mutually exclusive role allocation within a single encounter. | $\sum w_i = 1$ (Hard Simplex) | **Barycentric Simplex (Triangle $\Delta^2$ / Isometric Pyramid $\Delta^3$)** | Bull/Hotwife/Cuckold (`t0281`), Top/Bottom/Side (`t0407`), Power Matrix Master/Mistress/Slave/Pet (`t0413`) |
+| **Type II: Multi-Affinity Distribution (Non-Zero-Sum Mass)** | Modalities, sensations, or motives where a user can have independent, bimodal, or concurrent high resonance. | Independent $w_i \in [0, 100]$ (Kite Area) | **Radar / Diamond Deformation Polygon (Concept B-alt2)** | Kink Motivation (`t0416`), Orgasm Dynamics (`t0414`), Intimacy Geometry (`t0415`), Political Compass |
+| **Type III: Geometric / Quadrant Continuum** | Orthogonal 2D axes with continuous spatial polarization (e.g. Left/Right $\times$ Auth/Lib). | Coordinate pair $(x, y) \in [-100, 100]^2$ + overall intensity | **Bounded Planar Quad (Concept A)** | Political Compass Quadrant, Decision Ecology |
+
+### 5.2 Deep Dive into Concept B-alt2: The Radar / Diamond Deformation Polygon
+For both Triads (3-pole) and Tetrads (4-pole), the **Deformation Polygon** provides decisive advantages over single-point pucks:
+1. **Solves the "Fake Neutrality" Fallacy**:
+   - In a barycentric triangle or square, placing a puck at the exact centroid gives coordinates $(\frac{1}{3}, \frac{1}{3}, \frac{1}{3})$ or $(\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4})$.
+   - On a single-point map, this is ambiguous: Does the user *love all poles equally* (omni-enthusiast), or are they *completely indifferent to all of them* (apathetic)?
+   - In **Concept B-alt2**, an indifferent user has a collapsed point at the center (area $\approx 0$). An omni-enthusiast pulls all vertices outward to form a maximal full diamond or equilateral triangle.
+2. **Allows True Bimodal Orientations**:
+   - A user who loves *both* Ruined Orgasms AND Explosive Cathartic Climaxes, but dislikes Edging, can deform the diamond along the North-South axis while keeping East-West retracted to 0. A single 2D interior point cannot express this without sitting on the unwanted middle axes.
+3. **Application to Triads**:
+   - For experiential triads like `t0408` (Sensual / Primal / Humiliation) or `t0412` (Tantric / Frantic / Trance), pulling 3 radial vertices to shape a dynamic 3-sided kite allows users to rate multi-faceted desires without sacrificing intensity resolution.
+
+### 5.3 Deep Dive into Concept C: The Isometric Pyramid (True 3-Simplex $\Delta^3$)
+- **Purity and Precision**:
+  - When 4 roles represent a closed zero-sum dynamic (e.g., in a 4-way scene where one must commit a distribution of their capacity between Master, Mistress, Slave, and Pet), an isometric 3D wireframe pyramid projected into 2D canvas offers geometric fidelity.
+  - The puck is dragged in 3D perspective, or adjusted via a primary base triangle with an elevation/apex slider.
 
 ---
 
-## 6. Integration Checklist for Next Engineering Phase
+## 6. Migration Strategy: Orthogonal Projection for Existing Profiles
+
+When transitioning an existing topic from a legacy 2-pole $(g, r)$ schema to a 4-pole tetrad $(P_1, P_2, P_3, P_4)$, the **Orthogonal Projection Migration** is employed:
+$$\begin{pmatrix} P_1 \\ P_2 \end{pmatrix} = \text{proj}_{\text{give}}(g), \quad \begin{pmatrix} P_3 \\ P_4 \end{pmatrix} = \text{proj}_{\text{receive}}(r)$$
+- **Give Channel Mapping**: The legacy `give` value initializes the proactive/initiatory poles ($P_1, P_2$). For example, in the Power Matrix, `give` populates *Master* and *Mistress*.
+- **Receive Channel Mapping**: The legacy `receive` value initializes the receptive/responsive poles ($P_3, P_4$). In the Power Matrix, `receive` populates *Slave* and *Pet/Brat*.
+- **Integrity Guarantee**: Profiles imported from legacy versions retain their directional intensity without data loss or unrated degradation.
+
+---
+
+## 7. Integration Status
 - [x] Barycentric 2D Triangle Canvas implemented for Triads in `03e-map-paint.js`.
 - [x] Tangent orientation on Hypermap spokes implemented in `02f-spoke-geometry.js`.
 - [x] Scribe narration speed control ($0.75\times$ to $1.5\times$) wired to Web Audio and SpeechSynthesis.
-- [ ] Implement `TetradWidget` class for 4-pole square barycentric projection.
-- [ ] Migrate candidate topics (`Power Matrix`, `Orgasm Dynamic`, `Political Compass`) to 4-pole catalog schema.
+- [x] 4-Pole Tetrad candidate placeholders registered in `02b-taxonomy-data.js` (`t0413`, `t0414`, `t0415`, `t0416`).
+- [x] Tetrad shape definitions registered in `02i-taxonomy-catalog.js`.
+- [x] Orthogonal projection migration added to `06c-converter-pipeline.js`.
+- [x] 4-Role linear slider fallback UI wired in placard mark ratings (`markRole4Row`).
+- [ ] Implement Radar/Diamond Deformation Polygon (Concept B-alt2) widget for Type II multi-affinity topics.
+- [ ] Implement Isometric Pyramid (Concept C) widget for Type I closed-simplex roles.
 - [ ] Extend Krossmatch contraction parser to compute tensor outer products over $\mathbb{R}^4$.

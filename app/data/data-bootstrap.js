@@ -402,6 +402,11 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "Power matrix (Master/Mistress/Slave/Pet)",
+                "id": "t0413",
+                "risk": false
+            },
+            {
                 "name": "Male Authority",
                 "id": "t0015",
                 "risk": false,
@@ -3137,6 +3142,11 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
+                "id": "t0415",
+                "risk": false
+            },
+            {
                 "name": "Group service",
                 "id": "t0283",
                 "risk": false
@@ -3540,6 +3550,11 @@ const TAXONOMY_CATEGORIES = [
             {
                 "name": "Edging / ruined / forced",
                 "id": "t0411",
+                "risk": false
+            },
+            {
+                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
+                "id": "t0414",
                 "risk": false
             },
             {
@@ -4335,6 +4350,11 @@ const TAXONOMY_CATEGORIES = [
                 "kinksters": 310070,
                 "type": "single",
                 "note": "mutual concept"
+            },
+            {
+                "name": "Kink motivation (Escape/Union/Catharsis/Transgression)",
+                "id": "t0416",
+                "risk": false
             }
         ],
         "topicDetails": {
@@ -11860,6 +11880,73 @@ const TAXONOMY_CATEGORIES = [
                     triangle: !0,
                     keys: [ "tantric", "frantic", "trance" ],
                     labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
+                };
+            }
+            // 4-Pole Tetrad Placeholders
+            if (e === "t0413" || e === "topic-power-matrix" || i === "t0413" || i === "topic-power-matrix") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "master", "mistress", "slave", "pet" ],
+                    labels: [ "Master (Authority)", "Mistress (Nurture)", "Slave (Service)", "Pet / Brat (Primal)" ]
+                };
+            }
+            if (e === "t0414" || e === "topic-orgasm-dynamic" || i === "t0414" || i === "topic-orgasm-dynamic") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "ruined", "edged", "forced", "cathartic" ],
+                    labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
+                };
+            }
+            if (e === "t0415" || e === "topic-intimacy-geometry" || i === "t0415" || i === "topic-intimacy-geometry") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
+                    labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
+                };
+            }
+            if (e === "t0416" || e === "topic-kink-motivation" || i === "t0416" || i === "topic-kink-motivation") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "escape", "union", "catharsis", "transgression" ],
+                    labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
+                };
+            }
+            // Poliscapades 4-Pole Placeholders
+            if (e === "topic-political-compass" || i === "topic-political-compass") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "authleft", "authright", "libleft", "libright" ],
+                    labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
+                };
+            }
+            if (e === "topic-decision-ecology" || i === "topic-decision-ecology") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "consensus", "democracy", "technocracy", "mandate" ],
+                    labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
+                };
+            }
+            // Forescapades 4-Pole Placeholders
+            if (e === "topic-metaphysical-reality" || i === "topic-metaphysical-reality") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "materialism", "idealism", "pantheism", "dualism" ],
+                    labels: [ "Materialism", "Idealism (Non-Dual)", "Pantheism", "Transcendent Dualism" ]
+                };
+            }
+            if (e === "topic-spiritual-practice" || i === "topic-spiritual-practice") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "inquiry", "devotion", "action", "asceticism" ],
+                    labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
                 };
             }
             // The topic's own give/receive labels win. A parent id in the
@@ -26503,6 +26590,7 @@ const TAXONOMY_CATEGORIES = [
         function sxSyncMarkRatings(id) {
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out"), role3Label = e.byId("markRole3Label"), role3Row = e.byId("markRole3Row");
+            const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out"), role4Label = e.byId("markRole4Label"), role4Row = e.byId("markRole4Row");
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
             const triIntensity = e.byId("markTriangleIntensity");
@@ -26514,9 +26602,39 @@ const TAXONOMY_CATEGORIES = [
             if (!give || !id) return;
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
             const isTriangleTopic = Boolean(shape.triangle);
+            const isTetradTopic = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
 
-            if (isTriangleTopic || isTripleTopic) {
+            if (isTetradTopic) {
+                // 4-Pole Tetrad placeholder rating controls (Linear 4-role sliders until specialized 4-pole widget)
+                triWrap && (triWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !1);
+                recvRow && (recvRow.hidden = !1);
+                role3Row && (role3Row.hidden = !1);
+                role4Row && (role4Row.hidden = !1);
+
+                const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2], k3 = shape.keys[3];
+                const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
+                const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
+                const r2 = rec[k2 + "Known"] ? rec[k2] : 0;
+                const r3 = rec[k3 + "Known"] ? rec[k3] : 0;
+
+                giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
+                recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
+                role3Label && (role3Label.textContent = shape.labels[2] || k2);
+                role4Label && (role4Label.textContent = shape.labels[3] || k3);
+
+                give.value = r0;
+                recv.value = r1;
+                role3.value = r2;
+                if (role4) role4.value = r3;
+
+                giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "Unrated");
+                recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "Unrated");
+                role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "Unrated");
+                role4Out && (role4Out.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "Unrated");
+            } else if (isTriangleTopic || isTripleTopic) {
+                role4Row && (role4Row.hidden = !0);
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
                 const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
@@ -26581,6 +26699,7 @@ const TAXONOMY_CATEGORIES = [
                 triWrap && (triWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !1);
                 role3Row && (role3Row.hidden = !0);
+                role4Row && (role4Row.hidden = !0);
                 recvRow && (recvRow.hidden = single);
                 giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
                 recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
@@ -26594,6 +26713,7 @@ const TAXONOMY_CATEGORIES = [
             sxBindTriangleWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
+            const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
             if (!give || give.dataset.bound) return;
             give.dataset.bound = "1";
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
@@ -26646,6 +26766,23 @@ const TAXONOMY_CATEGORIES = [
                 e.byId("markRole3Clear") && e.byId("markRole3Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(2, "role3");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+            if (role4) {
+                role4.addEventListener("input", () => show(role4, role4Out, !0));
+                role4.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(3, "role4");
+                        To(Qr, k, Number(role4.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markRole4Clear") && e.byId("markRole4Clear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(3, "role4");
                         Fo(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
@@ -41283,9 +41420,21 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                             if (Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give))) incoming[flanks[0]] = clamp(rating.give);
                             if (Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive))) incoming[flanks[1]] = clamp(rating.receive);
                             if (incoming[flanks[2]] === undefined) incoming[flanks[2]] = 0;
+                        } else if (flanks.length === 4) {
+                            // Orthogonal projection: give -> poles 0,1; receive -> poles 2,3
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = gVal;
+                            }
+                            if (rVal !== null) {
+                                incoming[flanks[2]] = rVal;
+                                incoming[flanks[3]] = rVal;
+                            }
                         }
                     }
-                    // And backwards compatibility for triadic ratings on dual topics
+                    // And backwards compatibility for triadic/tetradic ratings on dual topics
                     if (!Object.keys(incoming).length && flanks.length === 2) {
                         const vals = Object.values(rating).filter(Number.isFinite);
                         if (vals.length >= 1) incoming[flanks[0]] = clamp(vals[0]);

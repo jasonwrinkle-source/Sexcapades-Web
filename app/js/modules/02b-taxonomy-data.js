@@ -99,6 +99,11 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "Power matrix (Master/Mistress/Slave/Pet)",
+                "id": "t0413",
+                "risk": false
+            },
+            {
                 "name": "Male Authority",
                 "id": "t0015",
                 "risk": false,
@@ -2834,6 +2839,11 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
+                "id": "t0415",
+                "risk": false
+            },
+            {
                 "name": "Group service",
                 "id": "t0283",
                 "risk": false
@@ -3237,6 +3247,11 @@ export const TAXONOMY_CATEGORIES = [
             {
                 "name": "Edging / ruined / forced",
                 "id": "t0411",
+                "risk": false
+            },
+            {
+                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
+                "id": "t0414",
                 "risk": false
             },
             {
@@ -4032,6 +4047,11 @@ export const TAXONOMY_CATEGORIES = [
                 "kinksters": 310070,
                 "type": "single",
                 "note": "mutual concept"
+            },
+            {
+                "name": "Kink motivation (Escape/Union/Catharsis/Transgression)",
+                "id": "t0416",
+                "risk": false
             }
         ],
         "topicDetails": {

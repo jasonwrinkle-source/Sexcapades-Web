@@ -2780,6 +2780,73 @@
                     labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
                 };
             }
+            // 4-Pole Tetrad Placeholders
+            if (e === "t0413" || e === "topic-power-matrix" || i === "t0413" || i === "topic-power-matrix") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "master", "mistress", "slave", "pet" ],
+                    labels: [ "Master (Authority)", "Mistress (Nurture)", "Slave (Service)", "Pet / Brat (Primal)" ]
+                };
+            }
+            if (e === "t0414" || e === "topic-orgasm-dynamic" || i === "t0414" || i === "topic-orgasm-dynamic") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "ruined", "edged", "forced", "cathartic" ],
+                    labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
+                };
+            }
+            if (e === "t0415" || e === "topic-intimacy-geometry" || i === "t0415" || i === "topic-intimacy-geometry") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
+                    labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
+                };
+            }
+            if (e === "t0416" || e === "topic-kink-motivation" || i === "t0416" || i === "topic-kink-motivation") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "escape", "union", "catharsis", "transgression" ],
+                    labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
+                };
+            }
+            // Poliscapades 4-Pole Placeholders
+            if (e === "topic-political-compass" || i === "topic-political-compass") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "authleft", "authright", "libleft", "libright" ],
+                    labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
+                };
+            }
+            if (e === "topic-decision-ecology" || i === "topic-decision-ecology") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "consensus", "democracy", "technocracy", "mandate" ],
+                    labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
+                };
+            }
+            // Forescapades 4-Pole Placeholders
+            if (e === "topic-metaphysical-reality" || i === "topic-metaphysical-reality") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "materialism", "idealism", "pantheism", "dualism" ],
+                    labels: [ "Materialism", "Idealism (Non-Dual)", "Pantheism", "Transcendent Dualism" ]
+                };
+            }
+            if (e === "topic-spiritual-practice" || i === "topic-spiritual-practice") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    keys: [ "inquiry", "devotion", "action", "asceticism" ],
+                    labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
+                };
+            }
             // The topic's own give/receive labels win. A parent id in the
             // single-slider set must not collapse Edge Play (or any other
             // give/receive topic) to one "everything" slider.
