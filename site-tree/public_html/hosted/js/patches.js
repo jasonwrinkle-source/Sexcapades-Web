@@ -660,11 +660,37 @@ __sxInit(function initScribeGeminiBYOK() {
   var narrateEngine = document.getElementById("scribeNarrateEngine");
   var geminiVoiceGroup = document.getElementById("scribeGeminiVoiceGroup");
   var geminiVoice = document.getElementById("scribeGeminiVoice");
+  var narrateSpeedSelect = document.getElementById("scribeNarrateSpeed");
   var startNarrateBtn = document.getElementById("scribeStartNarrateBtn");
   var pauseNarrateBtn = document.getElementById("scribePauseNarrateBtn");
   var stopNarrateBtn = document.getElementById("scribeStopNarrateBtn");
   var narrateStatus = document.getElementById("scribeNarrateStatus");
   var audioPlayer = document.getElementById("scribeAudioPlayer");
+
+  function getNarrateSpeed() {
+    var sp = 1.0;
+    if (narrateSpeedSelect) {
+      sp = parseFloat(narrateSpeedSelect.value) || 1.0;
+    }
+    return Math.max(0.5, Math.min(2.5, sp));
+  }
+
+  // Live speed adjustment for active audio player or future buffer sources
+  if (narrateSpeedSelect) {
+    try {
+      var savedSpeed = localStorage.getItem("sx_scribe_narrate_speed");
+      if (savedSpeed && narrateSpeedSelect.querySelector('option[value="' + savedSpeed + '"]')) {
+        narrateSpeedSelect.value = savedSpeed;
+      }
+    } catch (_) {}
+    narrateSpeedSelect.addEventListener("change", function() {
+      var sp = getNarrateSpeed();
+      try { localStorage.setItem("sx_scribe_narrate_speed", String(sp)); } catch (_) {}
+      if (audioPlayer && !audioPlayer.hidden) {
+        audioPlayer.playbackRate = sp;
+      }
+    });
+  }
 
   var browserUtterance = null;
   var audioAbortController = null;
@@ -839,11 +865,13 @@ __sxInit(function initScribeGeminiBYOK() {
       for (var i = 0; i < len; i++) ch[i] = view.getInt16(i * 2, true) / 32768;
       var src = narrateAudioCtx.createBufferSource();
       src.buffer = buf;
+      var speed = getNarrateSpeed();
+      src.playbackRate.value = speed;
       src.connect(narrateAudioCtx.destination);
       var now = narrateAudioCtx.currentTime;
       if (narrateNextStart < now) narrateNextStart = now + 0.05;
       src.start(narrateNextStart);
-      narrateNextStart += buf.duration;
+      narrateNextStart += (buf.duration / speed);
       narrateChunksPlayed++;
       return true;
     } catch (_) { return false; }
@@ -992,6 +1020,7 @@ __sxInit(function initScribeGeminiBYOK() {
     var audioUrl = URL.createObjectURL(audioBlob);
     if (audioPlayer) {
       audioPlayer.src = audioUrl;
+      audioPlayer.playbackRate = getNarrateSpeed();
       audioPlayer.hidden = false;
       await audioPlayer.play();
     }
@@ -1139,7 +1168,7 @@ __sxInit(function initScribeGeminiBYOK() {
         }
         resetNarrationState();
         browserUtterance = new SpeechSynthesisUtterance(text);
-        browserUtterance.rate = 0.95;
+        browserUtterance.rate = getNarrateSpeed() * 0.95;
         browserUtterance.pitch = 1.0;
 
         browserUtterance.onstart = function() {
