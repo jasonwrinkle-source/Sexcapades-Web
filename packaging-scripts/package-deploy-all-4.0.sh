@@ -54,6 +54,7 @@ mkdir -p "$STAGING/sexcapades.io"
 echo "1. Copying static site tree..."
 cp -a "$STATIC" "$STAGING/sexcapades.io/public_html"
 find "$STAGING" -name "*.db" -delete
+rm -rf "$STAGING/sexcapades.io/public_html/qa"
 
 echo "2. Stamping service worker cache name..."
 SW_STAGED="$STAGING/sexcapades.io/public_html/sw.js"
