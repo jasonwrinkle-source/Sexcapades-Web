@@ -476,8 +476,20 @@
             let isCat = Boolean(cat) || isCatId(sid);
             let isSub = Boolean(sub) || isSubId(sid);
 
-            // If a leaf topic node was passed, resolve to its parent subcategory or category
+            // If a leaf topic node was passed, check if it is directly rendered on map; if so, frame/center on it!
             if (!isCat && !isSub && rec) {
+                const leafEl = In.querySelector(`.node-group[data-layout-key="${CSS.escape(sid)}"]`) ||
+                               In.querySelector(`.node-group[data-layout-key="${CSS.escape(rawId)}"]`);
+                if (leafEl) {
+                    const lx = Number(leafEl.dataset.layoutX), ly = Number(leafEl.dataset.layoutY);
+                    if (Number.isFinite(lx) && Number.isFinite(ly)) {
+                        const vb = Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0 ? Cn.viewBox.baseVal : nh;
+                        const targetScale = Math.max(1e-9, Math.min(2, ($p > 0.8 ? $p : 1.25)));
+                        const tx = (vb.x + vb.width / 2) - lx * targetScale;
+                        const ty = (vb.y + vb.height / 2) - ly * targetScale;
+                        return void Ph(targetScale, tx, ty);
+                    }
+                }
                 if (rec.parentId) {
                     const pRec = qn[rec.parentId] || Xn(rec.parentId);
                     if (pRec && (pRec.kind === "Subcategory" || isSubId(rec.parentId))) {

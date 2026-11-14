@@ -4404,33 +4404,120 @@ const TAXONOMY_CATEGORIES = [
                     everything: "Broad Alignment",
                     give: "Propose",
                     receive: "Endorse"
+                },
+                categoryMappings: {
+                    "Clothing, materials & objects": "Resources, Infrastructure & Assets",
+                    "Impact, pain & body modification": "Disruption, Friction & Institutional Reform",
+                    "Sensation & atmosphere": "Climate, Geopolitics & Public Sentiment",
+                    "Sex acts": "Direct Bilateral & Multilateral Engagements",
+                    "Bondage & restriction": "Regulation, Treaties & Legal Frameworks",
+                    "Roleplay & identity": "Political Personas, Coalition Alignment & Civic Identity",
+                    "Service & ritual": "Public Service, Civic Duty & Parliamentary Ritual",
+                    "Partner configurations": "Caucus Configurations & International Coalitions",
+                    "Fantasy & transformation": "Ideological Visions & Societal Transformations",
+                    "Fluids & messy play": "Crisis Management & Turbulent Spillover",
+                    "Primal & pursuit": "Electoral Campaigns & Direct Contestation",
+                    "Orgasm & reproductive play": "Legislative Breakthroughs & Long-Term Policy Legacy",
+                    "Positions": "Stances & Strategic Formations",
+                    "Power exchange": "Executive Authority, Governance & Delegation",
+                    "Psychological dynamics": "Strategic Deterrence & Diplomatic Statecraft",
+                    "Body focus & appearance": "Party Brand, Aesthetics & Institutional Demographics",
+                    "Connection & aftercare": "Reconciliation, Bipartisanship & Coalition Care",
+                    "Watching, exposure & settings": "Transparency, Public Scrutiny & Summit Settings"
                 }
             },
             forescapades: {
                 appName: "Forescapades",
-                mapName: "Foresight Map",
-                topicNounSingular: "driver",
-                topicNounPlural: "drivers",
-                kinkNounSingular: "factor",
-                kinkNounPlural: "factors",
-                categoryNounSingular: "horizon",
-                categoryNounPlural: "horizons",
-                subcategoryNounSingular: "trend",
-                subcategoryNounPlural: "trends",
-                partnerNounSingular: "counterpart",
-                partnerNounPlural: "counterparts",
-                profileNounSingular: "scenario",
-                profileNounPlural: "scenarios",
+                mapName: "Foresight & Intimacy Map",
+                topicNounSingular: "driver / modality",
+                topicNounPlural: "drivers / modalities",
+                kinkNounSingular: "factor / element",
+                kinkNounPlural: "factors / elements",
+                categoryNounSingular: "horizon / domain",
+                categoryNounPlural: "horizons / domains",
+                subcategoryNounSingular: "trend / stream",
+                subcategoryNounPlural: "trends / streams",
+                partnerNounSingular: "partner / counterpart",
+                partnerNounPlural: "partners / counterparts",
+                profileNounSingular: "profile / scenario",
+                profileNounPlural: "profiles / scenarios",
                 ratings: {
-                    hardLimit: "Existential Risk",
-                    notInterested: "Negligible",
-                    favorite: "High Impact",
-                    fantasyOnly: "Speculative",
-                    alreadyTried: "Historical Precedent",
-                    unrated: "Unmonitored",
-                    everything: "Systemic",
-                    give: "Catalyst",
-                    receive: "Vulnerability"
+                    hardLimit: "Red Line / Hard Boundary",
+                    notInterested: "No Interest / Off Horizon",
+                    favorite: "Core Passion / Priority",
+                    fantasyOnly: "Curious Fantasy / Speculative",
+                    alreadyTried: "Experienced / Proven",
+                    unrated: "Unexplored / Unrated",
+                    everything: "Full Spectrum",
+                    give: "Initiate / Catalyst",
+                    receive: "Receive / Attune"
+                },
+                // Explicit 1:1 Domain Mapping between Sexcapades and Forescapades
+                categoryMappings: {
+                    "Clothing, materials & objects": "Sensual Textures, Fabrics & Adornment",
+                    "Impact, pain & body modification": "Sensory Intensity, Acupressure & Edge Play",
+                    "Sensation & atmosphere": "Atmosphere, Ambience, Aromas & Sacred Space",
+                    "Sex acts": "Intimate Touch, Deep Union & Loving Climax",
+                    "Bondage & restriction": "Gentle Surrender, Containment & Trust",
+                    "Roleplay & identity": "Archetypes, Fantasy Personas & Flirtatious Roles",
+                    "Service & ritual": "Sacred Devotion, Pampering & Loving Rituals",
+                    "Partner configurations": "Circles of Intimacy & Sacred Union",
+                    "Fantasy & transformation": "Erotic Imagination, Dreams & Transformation",
+                    "Fluids & messy play": "Warm Oils, Scented Lotions & Sensory Bathing",
+                    "Primal & pursuit": "Playful Chase, Teasing Anticipation & Raw Passion",
+                    "Orgasm & reproductive play": "Full-Body Ecstasy, Tantra & Energy Flow",
+                    "Positions": "Sacred Embraces, Alignments & Tantric Postures",
+                    "Power exchange": "Conscious Surrender, Leadership & Receptivity",
+                    "Psychological dynamics": "Emotional Attunement, Vulnerability & Soul Connection",
+                    "Body focus & appearance": "Sacred Body Adoration, Gaze & Temple Reverence",
+                    "Connection & aftercare": "Soulful Afterglow, Warm Cuddling & Emotional Grounding",
+                    "Watching, exposure & settings": "Eye Gazing, Candlelight Ambiance & Erotic Voyage"
+                },
+                subcategoryMappings: {
+                    "Materials": "Sensory Materials (Silk, Velvet, Leather, Fur)",
+                    "Footwear": "Sensual Footwear & Adornment",
+                    "Uniforms & costumes": "Costumes & Archetypal Personas",
+                    "Lingerie & hosiery": "Lingerie, Lace & Fine Hosiery",
+                    "Undergarments": "Silken Undergarments",
+                    "Masks & headwear": "Blindfolds, Veils & Sensory Masks",
+                    "Objects/toys": "Sensory Enhancers & Pleasure Wands",
+                    "Flexible ties": "Silk Cords & Soft Shitsuke Ribbons",
+                    "Restraints": "Gentle Wrist Wraps & Padded Holds",
+                    "Tape & wrapping": "Body Wraps & Sensory Enclosure",
+                    "Sensory": "Sensory Awakening (Feathers, Ice, Warmth)",
+                    "Confinement": "Cocooning & Safe Enclosure",
+                    "Challenge bondage": "Challenging Surrender & Trust Holds",
+                    "Specialty": "Bespoke & Tantric Modalities",
+                    "Oral": "Sweet Caresses, Kisses & Oral Devotion",
+                    "Anal": "Sacred Back-Gate Sensual Exploration",
+                    "Manual": "Tantric Massage, Strokes & Sacred Touch",
+                    "Insertion": "Sacred Lingam/Yoni Penetration",
+                    "Fluids": "Nectar, Scented Lotions & Natural Warmth",
+                    "Humiliation": "Playful Vulnerability & Teasing",
+                    "Intimidation": "Commanding Presence & Dominant Heat",
+                    "Head hair": "Hair Stroking, Brushing & Caressing",
+                    "Body type": "Full Body Appreciation & Form Adoration",
+                    "Emotional": "Heart Opening & Emotional Catharsis",
+                    "Historical & fantasy": "Mythic & Historical Romantic Archetypes",
+                    "Authority": "Sacred Sovereignty & Revered Guidance",
+                    "Mind control": "Erotic Trance, Hypnosis & Guided Meditation",
+                    "Vulnerability": "Tender Exposure & Total Trust",
+                    "Verbal": "Praise, Erotic Whispers & Loving Words",
+                    "Facial & body hair": "Skin, Beard & Body Touch",
+                    "Lower body": "Hips, Legs & Pelvic Awakening",
+                    "Torso": "Chest, Back & Heart Chakra Stroking",
+                    "Face": "Face Cradling, Eye Gazing & Lip Caresses",
+                    "Worship": "Temple Worship & Divine Partner Adoration",
+                    "Hand spanking": "Rhythmic Warming & Skin Stimulation",
+                    "Flexible implements": "Soft Whips, Floggers & Fur Ticklers",
+                    "Rigid implements": "Paddles & Gentle Resonance",
+                    "Clamps & pinching": "Sensory Clips & Tingling Clamps",
+                    "Cutting & piercing": "Sensory Sensation & Micro-Stims",
+                    "Genital pain": "Intense Genital Stimulation",
+                    "Extreme": "Deep Edge Explorations",
+                    "Captivity": "Sacred Seclusion & Private Retreat",
+                    "Animal": "Playful Primal Creatures & Instinct",
+                    "Caregiver & little roles": "Gentle Nurturing, Pampering & Safety"
                 }
             }
         };
@@ -6316,7 +6403,7 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.triangle || (f && f.length === 3)) {
+                if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
                     const triR = 56 * m;
                     const cx = l, cy = c;
@@ -6356,7 +6443,7 @@ const TAXONOMY_CATEGORIES = [
                         w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
                     });
                     const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
-                    let C = $.single ? [ 0 ] : [ -w[f[0]] / 2, w[f[1]] / 2 ];
+                    let C = $.single ? [ 0 ] : (f.length === 3 ? [ -w[f[0]] - 4 * m, 0, w[f[2]] + 4 * m ] : [ -w[f[0]] / 2, w[f[1]] / 2 ]);
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
@@ -14453,12 +14540,37 @@ const TAXONOMY_CATEGORIES = [
             }), armPatch.branchSpokeAutoShrink[name] = !0, tax.subLabels.forEach(l => {
                 armPatch.subcatSpokeAutoShrink[l] = !0;
             }), await runPhase("fine-tune-arm", armPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP), report.fineTune.armPhase = "fine-tune-arm";
+            await focusThrowedActiveNode(name);
+            }
+        async function focusThrowedActiveNode(name) {
             try {
-                if (typeof window.__sxFocusBranch === "function") {
+                if (window.sxPaintPromise) {
+                    try { await window.sxPaintPromise; } catch (_) {}
+                }
+                await yieldNow();
+                let activeKey = null;
+                if (typeof window.__sxGetActiveNodeKey === "function") {
+                    activeKey = window.__sxGetActiveNodeKey();
+                } else {
+                    const svg = document.getElementById("mapSvg");
+                    if (svg) {
+                        const prev = svg.querySelector(".node-group.is-preview");
+                        if (prev && prev.getAttribute("data-layout-key")) {
+                            activeKey = prev.getAttribute("data-layout-key");
+                        } else {
+                            const sel = svg.querySelector(".node-group .selected-spoke, .spoke-underlay-item .selected-spoke");
+                            const g = sel ? sel.closest(".node-group, .spoke-underlay-item") : null;
+                            if (g) activeKey = g.getAttribute("data-layout-key") || g.getAttribute("data-spoke-for");
+                        }
+                    }
+                }
+                if (activeKey && typeof window.__sxFocusNode === "function") {
+                    window.__sxFocusNode(activeKey, name);
+                } else if (typeof window.__sxFocusBranch === "function") {
                     window.__sxFocusBranch(name);
                 }
             } catch (_) {}
-            }
+        }
         function diagText(snap) {
             const f = v => null == v ? "\u2014" : String(v);
             let t = snap.code + " \u00b7 " + snap.label + " \u00b7 branch " + snap.branch + " \u00b7 phase " + f(snap.phase) + " \u00b7 crossing last-kept " + f(diagRound(snap.crossingBefore)) + " \u2192 tripped " + f(diagRound(snap.crossingAfter)) + " \u00b7 branch delivered radius " + f(snap.storedBranchRadius);
@@ -15350,11 +15462,7 @@ const TAXONOMY_CATEGORIES = [
                 throwPatch.subcatSpokeAutoShrink[l] = !0;
             });
             await runPhase("throw", throwPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
-            try {
-                if (typeof window.__sxFocusBranch === "function") {
-                    window.__sxFocusBranch(name);
-                }
-            } catch (_) {}
+            await focusThrowedActiveNode(name);
             }
         async function stepThrowRepeated(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // THROW REPEAT (ruled 2026-11-06, Jason): the throw
@@ -19321,7 +19429,7 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.triangle || (f && f.length === 3)) {
+                if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
                     const triR = 56 * m;
                     const cx = l, cy = c;
@@ -19361,7 +19469,7 @@ const TAXONOMY_CATEGORIES = [
                         w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
                     });
                     const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
-                    let C = $.single ? [ 0 ] : [ -w[f[0]] / 2, w[f[1]] / 2 ];
+                    let C = $.single ? [ 0 ] : (f.length === 3 ? [ -w[f[0]] - 4 * m, 0, w[f[2]] + 4 * m ] : [ -w[f[0]] / 2, w[f[1]] / 2 ]);
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
@@ -36837,8 +36945,20 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             let isCat = Boolean(cat) || isCatId(sid);
             let isSub = Boolean(sub) || isSubId(sid);
 
-            // If a leaf topic node was passed, resolve to its parent subcategory or category
+            // If a leaf topic node was passed, check if it is directly rendered on map; if so, frame/center on it!
             if (!isCat && !isSub && rec) {
+                const leafEl = In.querySelector(`.node-group[data-layout-key="${CSS.escape(sid)}"]`) ||
+                               In.querySelector(`.node-group[data-layout-key="${CSS.escape(rawId)}"]`);
+                if (leafEl) {
+                    const lx = Number(leafEl.dataset.layoutX), ly = Number(leafEl.dataset.layoutY);
+                    if (Number.isFinite(lx) && Number.isFinite(ly)) {
+                        const vb = Cn.viewBox && Cn.viewBox.baseVal && Cn.viewBox.baseVal.width > 0 ? Cn.viewBox.baseVal : nh;
+                        const targetScale = Math.max(1e-9, Math.min(2, ($p > 0.8 ? $p : 1.25)));
+                        const tx = (vb.x + vb.width / 2) - lx * targetScale;
+                        const ty = (vb.y + vb.height / 2) - ly * targetScale;
+                        return void Ph(targetScale, tx, ty);
+                    }
+                }
                 if (rec.parentId) {
                     const pRec = qn[rec.parentId] || Xn(rec.parentId);
                     if (pRec && (pRec.kind === "Subcategory" || isSubId(rec.parentId))) {

@@ -2301,6 +2301,10 @@
     // so the next editor open lands on the selected branch. Setting
     // the selects on a hidden panel is inert until it opens.
     function selectNode(key){if(!key)return;if(focusEditorOn(key)){lastFocusKey=key;pendingFocusKey=null}else pendingFocusKey=key}
+    window.__sxGetActiveNodeKey=function(){
+      var svg=document.getElementById("mapSvg");
+      return (svg?selectedNodeKey(svg):null)||lastFocusKey||null;
+    };
     // Live scores, computed from the rendered SVG in screen space with the
     // documented methodology: C = label-label overlaps + label-spoke hits
     // (a label's own spoke excluded) + proper spoke-spoke crossings;

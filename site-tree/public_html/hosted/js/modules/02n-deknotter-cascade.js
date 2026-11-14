@@ -281,12 +281,37 @@
             }), armPatch.branchSpokeAutoShrink[name] = !0, tax.subLabels.forEach(l => {
                 armPatch.subcatSpokeAutoShrink[l] = !0;
             }), await runPhase("fine-tune-arm", armPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP), report.fineTune.armPhase = "fine-tune-arm";
+            await focusThrowedActiveNode(name);
+            }
+        async function focusThrowedActiveNode(name) {
             try {
-                if (typeof window.__sxFocusBranch === "function") {
+                if (window.sxPaintPromise) {
+                    try { await window.sxPaintPromise; } catch (_) {}
+                }
+                await yieldNow();
+                let activeKey = null;
+                if (typeof window.__sxGetActiveNodeKey === "function") {
+                    activeKey = window.__sxGetActiveNodeKey();
+                } else {
+                    const svg = document.getElementById("mapSvg");
+                    if (svg) {
+                        const prev = svg.querySelector(".node-group.is-preview");
+                        if (prev && prev.getAttribute("data-layout-key")) {
+                            activeKey = prev.getAttribute("data-layout-key");
+                        } else {
+                            const sel = svg.querySelector(".node-group .selected-spoke, .spoke-underlay-item .selected-spoke");
+                            const g = sel ? sel.closest(".node-group, .spoke-underlay-item") : null;
+                            if (g) activeKey = g.getAttribute("data-layout-key") || g.getAttribute("data-spoke-for");
+                        }
+                    }
+                }
+                if (activeKey && typeof window.__sxFocusNode === "function") {
+                    window.__sxFocusNode(activeKey, name);
+                } else if (typeof window.__sxFocusBranch === "function") {
                     window.__sxFocusBranch(name);
                 }
             } catch (_) {}
-            }
+        }
         function diagText(snap) {
             const f = v => null == v ? "\u2014" : String(v);
             let t = snap.code + " \u00b7 " + snap.label + " \u00b7 branch " + snap.branch + " \u00b7 phase " + f(snap.phase) + " \u00b7 crossing last-kept " + f(diagRound(snap.crossingBefore)) + " \u2192 tripped " + f(diagRound(snap.crossingAfter)) + " \u00b7 branch delivered radius " + f(snap.storedBranchRadius);
@@ -1178,11 +1203,7 @@
                 throwPatch.subcatSpokeAutoShrink[l] = !0;
             });
             await runPhase("throw", throwPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
-            try {
-                if (typeof window.__sxFocusBranch === "function") {
-                    window.__sxFocusBranch(name);
-                }
-            } catch (_) {}
+            await focusThrowedActiveNode(name);
             }
         async function stepThrowRepeated(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // THROW REPEAT (ruled 2026-11-06, Jason): the throw

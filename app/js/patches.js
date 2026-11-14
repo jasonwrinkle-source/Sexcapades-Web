@@ -278,25 +278,59 @@ __sxInit(function initScribeGeminiBYOK() {
         storyContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
       } catch (_) {}
 
+      // Stopwatch Busy Indicator
+      var stopwatchStart = Date.now();
+      var stopwatchTimer = null;
+      var swEl = document.getElementById("scribeStopwatch");
+      var swTime = document.getElementById("scribeStopwatchTime");
+      if (!swEl && storyStatus && storyStatus.parentNode) {
+        swEl = document.createElement("span");
+        swEl.id = "scribeStopwatch";
+        swEl.style.cssText = "display:inline-flex;align-items:center;gap:4px;font-family:monospace;font-size:12px;font-weight:700;color:#facc15;background:rgba(15,23,42,0.85);padding:2px 8px;border-radius:4px;border:1px solid rgba(250,204,21,0.4);margin-left:8px;";
+        swEl.innerHTML = '⏱️ <span id="scribeStopwatchTime">00:00</span>';
+        storyStatus.parentNode.insertBefore(swEl, storyStatus.nextSibling);
+        swTime = document.getElementById("scribeStopwatchTime");
+      }
+      if (swEl) swEl.style.display = "inline-flex";
+      stopwatchTimer = setInterval(function() {
+        var elapsedSec = Math.floor((Date.now() - stopwatchStart) / 1000);
+        var mm = String(Math.floor(elapsedSec / 60)).padStart(2, "0");
+        var ss = String(elapsedSec % 60).padStart(2, "0");
+        if (swTime) swTime.textContent = mm + ":" + ss;
+      }, 200);
+
       activeAbortController = new AbortController();
 
-      // Ensure request has a realistic completion timeout (90 seconds for long creative writing)
+      // Ensure request has a realistic completion timeout (120 seconds for long creative writing)
       var fetchTimer = setTimeout(function() {
         if (activeAbortController) {
           activeAbortController.abort();
-          if (storyStatus) storyStatus.textContent = "Request timed out after 90 seconds.";
+          if (storyStatus) storyStatus.textContent = "Request timed out after 120 seconds.";
         }
-      }, 90000);
+      }, 120000);
 
       var fullPrompt = prompt + "\n\nWrite the complete, immersive narrative scene now, strictly honoring all character roles, boundaries, and pacing detailed above.";
 
       try {
         var totalText = "";
 
+        function onStreamChunk(chunk) {
+          if (!chunk) return;
+          totalText += chunk;
+          if (storyText) {
+            storyText.value = totalText;
+            storyText.scrollTop = storyText.scrollHeight;
+          }
+          var wc = (totalText.trim().match(/\S+/g) || []).length;
+          if (storyStatus) {
+            storyStatus.textContent = "Streaming story (" + wc + " words)…";
+          }
+        }
+
         if (prov === "grok" || prov === "openai") {
-          // Standard OpenAI-compatible Chat Completions API
+          // Standard OpenAI-compatible Chat Completions API with streaming
           var chatEndpoint = prov === "grok" ? "https://api.x.ai/v1/chat/completions" : "https://api.openai.com/v1/chat/completions";
-          console.log("[Scribe " + prov.toUpperCase() + "] Sending request to:", chatEndpoint);
+          console.log("[Scribe " + prov.toUpperCase() + "] Sending streaming request to:", chatEndpoint);
 
           if (storyStatus) storyStatus.textContent = "Writing story with " + prov.toUpperCase() + " (" + model + ")…";
 
@@ -312,23 +346,52 @@ __sxInit(function initScribeGeminiBYOK() {
                 { role: "system", content: "You are an expert creative writer specializing in rich, consensual, descriptive adult fiction and Literotica-style narratives." },
                 { role: "user", content: fullPrompt }
               ],
-              temperature: 0.9
+              temperature: 0.9,
+              stream: true
             }),
             signal: activeAbortController.signal
           });
 
           clearTimeout(fetchTimer);
-          var resJson = await response.json();
+
           if (!response.ok) {
-            var errMsg = resJson.error && resJson.error.message ? resJson.error.message : ("HTTP " + response.status);
+            var errJson = null;
+            try { errJson = await response.json(); } catch (_) {}
+            var errMsg = errJson && errJson.error && errJson.error.message ? errJson.error.message : ("HTTP " + response.status);
             throw new Error(errMsg);
           }
 
-          if (resJson.choices && resJson.choices[0] && resJson.choices[0].message) {
-            totalText = resJson.choices[0].message.content || "";
+          if (response.body && response.body.getReader) {
+            var reader = response.body.getReader();
+            var decoder = new TextDecoder();
+            var sseBuf = "";
+            for (;;) {
+              var step = await reader.read();
+              if (step.done) break;
+              sseBuf += decoder.decode(step.value, { stream: true });
+              var lines = sseBuf.split("\n");
+              sseBuf = lines.pop();
+              for (var i = 0; i < lines.length; i++) {
+                var l = lines[i].trim();
+                if (l.indexOf("data: ") === 0) {
+                  var dataStr = l.slice(6).trim();
+                  if (dataStr === "[DONE]") break;
+                  try {
+                    var parsed = JSON.parse(dataStr);
+                    var delta = parsed && parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content;
+                    if (delta) onStreamChunk(delta);
+                  } catch (_) {}
+                }
+              }
+            }
+          } else {
+            var fallbackJson = await response.json();
+            if (fallbackJson.choices && fallbackJson.choices[0] && fallbackJson.choices[0].message) {
+              totalText = fallbackJson.choices[0].message.content || "";
+            }
           }
         } else {
-          // Google Gemini API with fallback cascade
+          // Google Gemini API with SSE streaming & fallback cascade
           var payload = {
             contents: [
               {
@@ -348,47 +411,88 @@ __sxInit(function initScribeGeminiBYOK() {
             }
           };
 
-          var fallbackModels = [model, "gemini-3.7-flash", "gemini-3.5-flash", "gemini-pro-latest", "gemini-flash-latest"];
+          var effectiveModel = model;
+          if (!effectiveModel || effectiveModel === "gemini-2.0-flash" || effectiveModel === "gemini-flash-latest") {
+            effectiveModel = "gemini-3.8-flash";
+          }
+          var fallbackModels = [effectiveModel, "gemini-3.8-flash", "gemini-2.5-flash", "gemini-pro-latest", "gemini-flash-latest"];
           fallbackModels = fallbackModels.filter(function(item, pos) { return fallbackModels.indexOf(item) === pos; });
 
-          var successfulData = null;
+          var streamedSuccessfully = false;
           var lastErrorMsg = "";
 
           for (var mIdx = 0; mIdx < fallbackModels.length; mIdx++) {
             var currentAttemptModel = fallbackModels[mIdx];
-            var endpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(currentAttemptModel) + ":generateContent?key=" + encodeURIComponent(apiKey);
-            console.log("[Scribe Gemini BYOK] Attempting (" + (mIdx + 1) + "/" + fallbackModels.length + ") with model:", currentAttemptModel);
+            var streamEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(currentAttemptModel) + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
+            console.log("[Scribe Gemini BYOK] Attempting (" + (mIdx + 1) + "/" + fallbackModels.length + ") streaming with model:", currentAttemptModel);
 
             if (storyStatus) {
-              storyStatus.textContent = "Writing story with " + currentAttemptModel + " (takes ~10–20s)…";
+              storyStatus.textContent = "Connecting stream to " + currentAttemptModel + "…";
             }
 
             try {
-              var response = await fetch(endpoint, {
+              var response = await fetch(streamEndpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
                 signal: activeAbortController.signal
               });
 
-              var responseText = await response.text();
               console.log("[Scribe Gemini BYOK] Response status for " + currentAttemptModel + ":", response.status);
 
               if (!response.ok) {
+                var responseText = await response.text();
                 var parsed = null;
                 try { parsed = JSON.parse(responseText); } catch (_) {}
                 var errMsg = parsed && parsed.error && parsed.error.message ? parsed.error.message : ("HTTP " + response.status);
                 lastErrorMsg = errMsg;
 
-                if (response.status === 503 && mIdx < fallbackModels.length - 1) {
-                  console.warn("[Scribe Gemini BYOK] Model " + currentAttemptModel + " busy (503). Retrying with " + fallbackModels[mIdx + 1] + "…");
+                if ((response.status === 503 || response.status === 404) && mIdx < fallbackModels.length - 1) {
+                  console.warn("[Scribe Gemini BYOK] Model " + currentAttemptModel + " unavailable (" + response.status + "). Retrying with " + fallbackModels[mIdx + 1] + "…");
                   continue;
                 }
                 throw new Error(errMsg);
               }
 
-              successfulData = JSON.parse(responseText);
-              break;
+              if (response.body && response.body.getReader) {
+                var reader = response.body.getReader();
+                var decoder = new TextDecoder();
+                var sseBuf = "";
+                for (;;) {
+                  var step = await reader.read();
+                  if (step.done) break;
+                  sseBuf += decoder.decode(step.value, { stream: true });
+                  var lines = sseBuf.split("\n");
+                  sseBuf = lines.pop();
+                  for (var i = 0; i < lines.length; i++) {
+                    var l = lines[i].trim();
+                    if (l.indexOf("data: ") === 0) {
+                      var dataStr = l.slice(6).trim();
+                      if (dataStr === "[DONE]") break;
+                      try {
+                        var chunkJson = JSON.parse(dataStr);
+                        if (chunkJson.candidates && chunkJson.candidates[0] && chunkJson.candidates[0].content && chunkJson.candidates[0].content.parts) {
+                          var partText = chunkJson.candidates[0].content.parts.map(function(p) { return p.text || ""; }).join("");
+                          if (partText) onStreamChunk(partText);
+                        }
+                        if (chunkJson.candidates && chunkJson.candidates[0] && chunkJson.candidates[0].finishReason === "SAFETY") {
+                          if (storyStatus) storyStatus.textContent = "Generation halted: triggered safety filter.";
+                        }
+                      } catch (_) {}
+                    }
+                  }
+                }
+                streamedSuccessfully = true;
+                break;
+              } else {
+                var resText = await response.text();
+                var fullJson = JSON.parse(resText);
+                if (fullJson.candidates && fullJson.candidates[0] && fullJson.candidates[0].content && fullJson.candidates[0].content.parts) {
+                  totalText = fullJson.candidates[0].content.parts.map(function(p) { return p.text || ""; }).join("");
+                }
+                streamedSuccessfully = true;
+                break;
+              }
             } catch (attemptErr) {
               if (attemptErr.name === "AbortError") throw attemptErr;
               if (mIdx < fallbackModels.length - 1) {
@@ -400,30 +504,28 @@ __sxInit(function initScribeGeminiBYOK() {
           }
 
           clearTimeout(fetchTimer);
-          if (!successfulData) throw new Error(lastErrorMsg || "Failed to generate story across available models.");
-
-          var data = successfulData;
-          console.log("[Scribe Gemini BYOK] Success! Data received:", data);
-
-          if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
-            totalText = data.candidates[0].content.parts.map(function(p) { return p.text || ""; }).join("");
-          }
-
-          if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === "SAFETY") {
-            if (storyStatus) storyStatus.textContent = "Generation halted: triggered Gemini safety filter. Try lowering explicitness or switching to Grok.";
+          if (!streamedSuccessfully && !totalText) {
+            throw new Error(lastErrorMsg || "Failed to generate story across available models.");
           }
         }
 
-        if (storyText) {
+        if (storyText && !storyText.value) {
           storyText.value = totalText;
           storyText.scrollTop = storyText.scrollHeight;
         }
 
+        if (stopwatchTimer) { clearInterval(stopwatchTimer); stopwatchTimer = null; }
+        var finalElapsedSec = Math.floor((Date.now() - stopwatchStart) / 1000);
+        var fMm = String(Math.floor(finalElapsedSec / 60)).padStart(2, "0");
+        var fSs = String(finalElapsedSec % 60).padStart(2, "0");
+        if (swTime) swTime.textContent = fMm + ":" + fSs;
+
         var wordCount = (totalText.trim().match(/\S+/g) || []).length;
         if (storyStatus) {
-          storyStatus.textContent = "Complete! (" + wordCount + " words generated via " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + ")";
+          storyStatus.textContent = "Complete! (" + wordCount + " words in " + finalElapsedSec + "s via " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + ")";
         }
       } catch (err) {
+        if (stopwatchTimer) { clearInterval(stopwatchTimer); stopwatchTimer = null; }
         if (err.name === "AbortError") {
           if (storyStatus) storyStatus.textContent = "Generation stopped by user.";
         } else {
@@ -431,10 +533,10 @@ __sxInit(function initScribeGeminiBYOK() {
           if (storyStatus) storyStatus.textContent = "Error: " + err.message;
         }
       } finally {
+        if (stopwatchTimer) { clearInterval(stopwatchTimer); stopwatchTimer = null; }
         if (genStoryBtn) genStoryBtn.disabled = false;
         if (stopStoryBtn) stopStoryBtn.hidden = true;
         activeAbortController = null;
-        // A finished story renames the compact button to Regenerate.
         scribeSyncGenerateLabel();
       }
     });
@@ -779,7 +881,10 @@ __sxInit(function initScribeGeminiBYOK() {
       narrateChunksPlayed = 0;
 
       var rawModelInput = document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "";
-      var audioModel = rawModelInput || "gemini-2.0-flash";
+      var audioModel = rawModelInput || "gemini-3.8-flash";
+      if (audioModel === "gemini-2.0-flash" || audioModel === "gemini-2.0-flash-exp") {
+        audioModel = "gemini-3.8-flash";
+      }
       if (audioModel.indexOf("-tts") !== -1) {
         audioModel = audioModel.replace(/-tts/g, "");
       }

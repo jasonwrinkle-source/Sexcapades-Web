@@ -74,8 +74,10 @@ with open(target_app, "w", encoding="utf-8") as out:
     out.write("\n".join(combined_code))
 
 target_app_assets = os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/data-bootstrap.js")
+target_qa = os.path.join(base_dir, "../../site-tree/public_html/qa/data/data-bootstrap.js")
+target_qa_assets = os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets/data-bootstrap.js")
 
-for th in [target_hosted, target_hosted_alt, target_app_assets]:
+for th in [target_hosted, target_hosted_alt, target_app_assets, target_qa, target_qa_assets]:
     if os.path.exists(os.path.dirname(th)):
         shutil.copyfile(target_app, th)
         print(f"[Bundle] Synced to {th}")
@@ -96,34 +98,68 @@ if os.path.exists(template_app) and os.path.exists(os.path.dirname(template_app_
 patches_src = os.path.join(base_dir, "../js/patches.js")
 patches_hosted = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/patches.js")
 patches_hosted_alt = os.path.join(base_dir, "../../hosted/js/patches.js")
-for ph in [patches_hosted, patches_hosted_alt]:
+patches_qa = os.path.join(base_dir, "../../site-tree/public_html/qa/js/patches.js")
+for ph in [patches_hosted, patches_hosted_alt, patches_qa]:
     if os.path.exists(os.path.dirname(ph)) and os.path.exists(patches_src):
         shutil.copyfile(patches_src, ph)
         print(f"[Bundle] Synced patches.js to {ph}")
 
-# Sync all auxiliary JS files in app/js to site-tree/public_html/hosted/js
+# Sync all auxiliary JS files in app/js to site-tree/public_html/hosted/js and qa/js
 js_src_dir = os.path.join(base_dir, "../js")
 for f in ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "avatar-music.js", "sx-songbook.js"]:
     src_f = os.path.join(js_src_dir, f)
-    dst_f = os.path.join(base_dir, "../../site-tree/public_html/hosted/js", f)
-    if os.path.exists(src_f) and os.path.exists(os.path.dirname(dst_f)):
-        shutil.copyfile(src_f, dst_f)
-        print(f"[Bundle] Synced {f} to hosted/js/")
+    for dst_dir in [os.path.join(base_dir, "../../site-tree/public_html/hosted/js"), os.path.join(base_dir, "../../site-tree/public_html/qa/js")]:
+        dst_f = os.path.join(dst_dir, f)
+        if os.path.exists(src_f) and os.path.exists(dst_dir):
+            shutil.copyfile(src_f, dst_f)
+            print(f"[Bundle] Synced {f} to {dst_dir}/")
 
-# Sync module files to hosted/js/modules/
+# Sync module files to hosted/js/modules/ and qa/js/modules/
 hosted_modules_dir = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/modules")
+qa_modules_dir = os.path.join(base_dir, "../../site-tree/public_html/qa/js/modules")
 os.makedirs(hosted_modules_dir, exist_ok=True)
+if os.path.exists(os.path.dirname(qa_modules_dir)):
+    os.makedirs(qa_modules_dir, exist_ok=True)
 for p in parts:
     src_p = os.path.join(src_dir, p)
-    dst_p = os.path.join(hosted_modules_dir, p)
-    if os.path.exists(src_p):
-        with open(src_p, encoding="utf-8") as f:
-            code = f.read()
-        code = re.sub(r'^\s*import\s+.*?;\s*', '', code, flags=re.MULTILINE)
-        code = re.sub(r'\bexport\s+(const|let|var|function|class)\s+', r'\1 ', code)
-        code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
-        with open(dst_p, "w", encoding="utf-8") as f_dst:
-            f_dst.write(code)
-print(f"[Bundle] Synced {len(parts)} unbundled modules to hosted/js/modules/")
+    for m_dir in [hosted_modules_dir, qa_modules_dir]:
+        if os.path.exists(m_dir):
+            dst_p = os.path.join(m_dir, p)
+            if os.path.exists(src_p):
+                with open(src_p, encoding="utf-8") as f:
+                    code = f.read()
+                code = re.sub(r'^\s*import\s+.*?;\s*', '', code, flags=re.MULTILINE)
+                code = re.sub(r'\bexport\s+(const|let|var|function|class)\s+', r'\1 ', code)
+                code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
+                with open(dst_p, "w", encoding="utf-8") as f_dst:
+                    f_dst.write(code)
+print(f"[Bundle] Synced {len(parts)} unbundled modules to hosted/js/modules/ and qa/js/modules/")
+
+# Sync baked layout defaults into HTML app entrypoints if sexcapades-layout-defaults.json exists
+defaults_json_path = os.path.join(base_dir, "sexcapades-layout-defaults.json")
+if os.path.exists(defaults_json_path):
+    with open(defaults_json_path, "r", encoding="utf-8") as f:
+        new_defaults_str = f.read().strip()
+
+    html_targets = [
+        os.path.join(base_dir, "../sexcapades-4.0.html"),
+        os.path.join(base_dir, "../../site-tree/public_html/hosted/app.html"),
+        os.path.join(base_dir, "../../site-tree/public_html/qa/app.html"),
+        os.path.join(base_dir, "../../hosted/app.html"),
+    ]
+    for ht in html_targets:
+        if os.path.exists(ht):
+            with open(ht, "r", encoding="utf-8") as f_html:
+                html_content = f_html.read()
+            updated_html = re.sub(
+                r'([ \t]*var\s+defaults\s*=\s*)\{.*?\}(\s*;)',
+                r'\g<1>' + new_defaults_str.replace('\\', '\\\\') + r'\g<2>',
+                html_content,
+                count=1
+            )
+            if updated_html != html_content:
+                with open(ht, "w", encoding="utf-8") as f_html:
+                    f_html.write(updated_html)
+                print(f"[Bundle] Baked layout defaults into {ht}")
 
 print(f"[Bundle] Complete! Generated {round(os.path.getsize(target_app)/1024, 1)} KB ES-bundled bundle.")
