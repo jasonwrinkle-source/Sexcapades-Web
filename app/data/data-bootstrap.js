@@ -407,6 +407,11 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "BDSM archetype spectrum (Master/Nurturer/Primal/Brat/Surrender)",
+                "id": "t0419",
+                "risk": false
+            },
+            {
                 "name": "Male Authority",
                 "id": "t0015",
                 "risk": false,
@@ -1351,6 +1356,11 @@ const TAXONOMY_CATEGORIES = [
             {
                 "name": "Texture contrast",
                 "id": "t0102",
+                "risk": false
+            },
+            {
+                "name": "Somatosensory palette (Thermal/Tactile/Vibrational/Olfactory/Auditory)",
+                "id": "t0417",
                 "risk": false
             },
             {
@@ -3144,6 +3154,11 @@ const TAXONOMY_CATEGORIES = [
             {
                 "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
                 "id": "t0415",
+                "risk": false
+            },
+            {
+                "name": "Erotic intimacy languages (Words/Touch/Service/Vulnerability/Autonomy)",
+                "id": "t0418",
                 "risk": false
             },
             {
@@ -6391,7 +6406,65 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.tetrad) {
+                if ($.pentad) {
+                    // 5-Pole Pentad Widget on Hypermap:
+                    // Regular pentagon / star deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 56 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 5 vertices
+                    const P = [];
+                    for (let k = 0; k < 5; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (2 * Math.PI / 5);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference pentagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${2 * m},${2 * m}"/>`;
+                    });
+                    // Deformed polygon
+                    if (isKnown && ratings.some(val => val > 0)) {
+                        const polyDef = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                        D += `<polygon points="${polyDef}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
+                    }
+                    // Pole dots (Purple, Cyan, Amber, Red, Green)
+                    const pentColors = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
+                    P.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3 * m}" fill="${pentColors[k]}" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Pole labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + Math.cos(pt.phi) * 8 * m;
+                        const ly = pt.y + Math.sin(pt.phi) * 8 * m;
+                        D += `<text class="map-pentad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                    });
+                    // Hit polygon
+                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `</g>`;
+                } else if ($.tetrad) {
                     // 4-Pole Tetrad Widget on Hypermap:
                     // If archetype === "diamond" (Type II multi-affinity): Radar / Diamond Deformation Polygon
                     // If archetype === "quad" or "simplex": 4-Pole Square/Cross Continuum
@@ -6402,10 +6475,10 @@ const TAXONOMY_CATEGORIES = [
                     const nx = -h, ny = p; // Tangent normal perpendicular to midline radial (p, h)
 
                     // 4 Orthogonal Pole Vertices:
-                    // Pole 0 (Radial Outward - Amber): cx + p * (spanW/2), cy + h * (spanW/2)
-                    // Pole 1 (Tangent Right - Emerald): cx + nx * (spanW/2), cy + ny * (spanW/2)
-                    // Pole 2 (Radial Inward - Blue): cx - p * (spanW/2), cy - h * (spanW/2)
-                    // Pole 3 (Tangent Left - Crimson): cx - nx * (spanW/2), cy - ny * (spanW/2)
+                    // Pole 0 (Radial Outward - North - Green): cx + p * (spanW/2), cy + h * (spanW/2)
+                    // Pole 1 (Tangent Right - East - Yellow): cx + nx * (spanW/2), cy + ny * (spanW/2)
+                    // Pole 2 (Radial Inward - South - Red): cx - p * (spanW/2), cy - h * (spanW/2)
+                    // Pole 3 (Tangent Left - West - Blue): cx - nx * (spanW/2), cy - ny * (spanW/2)
                     const P0 = { x: cx + p * (spanW / 2), y: cy + h * (spanW / 2) };
                     const P1 = { x: cx + nx * (spanW / 2), y: cy + ny * (spanW / 2) };
                     const P2 = { x: cx - p * (spanW / 2), y: cy - h * (spanW / 2) };
@@ -6444,16 +6517,16 @@ const TAXONOMY_CATEGORIES = [
                     if (isKnown && (d0 > 0 || d1 > 0 || d2 > 0 || d3 > 0)) {
                         D += `<polygon points="${S0.x.toFixed(1)},${S0.y.toFixed(1)} ${S1.x.toFixed(1)},${S1.y.toFixed(1)} ${S2.x.toFixed(1)},${S2.y.toFixed(1)} ${S3.x.toFixed(1)},${S3.y.toFixed(1)}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
                     }
-                    // Pole Dots (Amber, Emerald, Blue, Crimson)
-                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#f59e0b" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#10b981" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Pole Dots (N-Green, E-Yellow, S-Red, W-Blue)
+                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#eab308" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     // Labels
-                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#f59e0b">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#10b981">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[3])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
                     // Hit area
                     D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
                     D += `</g>`;
@@ -12021,6 +12094,54 @@ const TAXONOMY_CATEGORIES = [
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "inquiry", "devotion", "action", "asceticism" ],
                     labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
+                };
+            }
+            // 5-Pole Pentad Topics
+            if (e === "t0417" || e === "topic-somatosensory-palette" || i === "t0417" || i === "topic-somatosensory-palette") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "thermal", "tactile", "vibrational", "olfactory", "auditory" ],
+                    labels: [ "Thermal (Temperature)", "Tactile (Texture/Impact)", "Vibrational / Electro", "Olfactory / Taste", "Auditory / Verbal" ]
+                };
+            }
+            if (e === "t0418" || e === "topic-erotic-languages" || i === "t0418" || i === "topic-erotic-languages") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "words", "touch", "service", "vulnerability", "autonomy" ],
+                    labels: [ "Words of Adoration", "Dedicated Erotic Touch", "Devoted Acts of Service", "Deep Vulnerability", "Autonomous Presence" ]
+                };
+            }
+            if (e === "t0419" || e === "topic-bdsm-archetypes" || i === "t0419" || i === "topic-bdsm-archetypes") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "master", "nurturer", "primal", "brat", "surrender" ],
+                    labels: [ "Sovereign / Master", "Nurturer / Caregiver", "Primal / Hunter", "Brat / Trickster", "Devotee / Surrendered" ]
+                };
+            }
+            // Poliscapades 5-Pole Placeholders
+            if (e === "topic-civic-allocation-pentad" || i === "topic-civic-allocation-pentad") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "welfare", "infrastructure", "education", "defense", "ecology" ],
+                    labels: [ "Healthcare & Welfare", "Infrastructure & Energy", "Education & Science", "Defense & Security", "Ecology & Climate" ]
+                };
+            }
+            // Forescapades 5-Pole Placeholders
+            if (e === "topic-elemental-balance" || i === "topic-elemental-balance") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "earth", "water", "fire", "air", "aether" ],
+                    labels: [ "Earth (Body & Form)", "Water (Flow & Emotion)", "Fire (Will & Energy)", "Air (Mind & Breath)", "Aether (Spirit & Void)" ]
                 };
             }
             // The topic's own give/receive labels win. A parent id in the
@@ -19601,7 +19722,65 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.tetrad) {
+                if ($.pentad) {
+                    // 5-Pole Pentad Widget on Hypermap:
+                    // Regular pentagon / star deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 56 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 5 vertices
+                    const P = [];
+                    for (let k = 0; k < 5; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (2 * Math.PI / 5);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference pentagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${2 * m},${2 * m}"/>`;
+                    });
+                    // Deformed polygon
+                    if (isKnown && ratings.some(val => val > 0)) {
+                        const polyDef = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                        D += `<polygon points="${polyDef}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
+                    }
+                    // Pole dots (Purple, Cyan, Amber, Red, Green)
+                    const pentColors = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
+                    P.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3 * m}" fill="${pentColors[k]}" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Pole labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + Math.cos(pt.phi) * 8 * m;
+                        const ly = pt.y + Math.sin(pt.phi) * 8 * m;
+                        D += `<text class="map-pentad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                    });
+                    // Hit polygon
+                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `</g>`;
+                } else if ($.tetrad) {
                     // 4-Pole Tetrad Widget on Hypermap:
                     // If archetype === "diamond" (Type II multi-affinity): Radar / Diamond Deformation Polygon
                     // If archetype === "quad" or "simplex": 4-Pole Square/Cross Continuum
@@ -19612,10 +19791,10 @@ const TAXONOMY_CATEGORIES = [
                     const nx = -h, ny = p; // Tangent normal perpendicular to midline radial (p, h)
 
                     // 4 Orthogonal Pole Vertices:
-                    // Pole 0 (Radial Outward - Amber): cx + p * (spanW/2), cy + h * (spanW/2)
-                    // Pole 1 (Tangent Right - Emerald): cx + nx * (spanW/2), cy + ny * (spanW/2)
-                    // Pole 2 (Radial Inward - Blue): cx - p * (spanW/2), cy - h * (spanW/2)
-                    // Pole 3 (Tangent Left - Crimson): cx - nx * (spanW/2), cy - ny * (spanW/2)
+                    // Pole 0 (Radial Outward - North - Green): cx + p * (spanW/2), cy + h * (spanW/2)
+                    // Pole 1 (Tangent Right - East - Yellow): cx + nx * (spanW/2), cy + ny * (spanW/2)
+                    // Pole 2 (Radial Inward - South - Red): cx - p * (spanW/2), cy - h * (spanW/2)
+                    // Pole 3 (Tangent Left - West - Blue): cx - nx * (spanW/2), cy - ny * (spanW/2)
                     const P0 = { x: cx + p * (spanW / 2), y: cy + h * (spanW / 2) };
                     const P1 = { x: cx + nx * (spanW / 2), y: cy + ny * (spanW / 2) };
                     const P2 = { x: cx - p * (spanW / 2), y: cy - h * (spanW / 2) };
@@ -19654,16 +19833,16 @@ const TAXONOMY_CATEGORIES = [
                     if (isKnown && (d0 > 0 || d1 > 0 || d2 > 0 || d3 > 0)) {
                         D += `<polygon points="${S0.x.toFixed(1)},${S0.y.toFixed(1)} ${S1.x.toFixed(1)},${S1.y.toFixed(1)} ${S2.x.toFixed(1)},${S2.y.toFixed(1)} ${S3.x.toFixed(1)},${S3.y.toFixed(1)}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
                     }
-                    // Pole Dots (Amber, Emerald, Blue, Crimson)
-                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#f59e0b" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#10b981" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Pole Dots (N-Green, E-Yellow, S-Red, W-Blue)
+                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#eab308" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     // Labels
-                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#f59e0b">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#10b981">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[3])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
                     // Hit area
                     D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
                     D += `</g>`;
@@ -26732,10 +26911,10 @@ const TAXONOMY_CATEGORIES = [
 
             // 4. Pole vertex handles
             const poles = [
-                { pt: V0, col: "#f59e0b", val: state.p0 }, // North
-                { pt: V1, col: "#10b981", val: state.p1 }, // East
-                { pt: V2, col: "#3b82f6", val: state.p2 }, // South
-                { pt: V3, col: "#ef4444", val: state.p3 }  // West
+                { pt: V0, col: "#22c55e", val: state.p0 }, // North (Green)
+                { pt: V1, col: "#eab308", val: state.p1 }, // East (Yellow)
+                { pt: V2, col: "#ef4444", val: state.p2 }, // South (Red)
+                { pt: V3, col: "#3b82f6", val: state.p3 }  // West (Blue)
             ];
 
             poles.forEach((p, idx) => {
@@ -26754,16 +26933,16 @@ const TAXONOMY_CATEGORIES = [
 
             // North
             ctx.textAlign = "center"; ctx.textBaseline = "bottom";
-            ctx.fillStyle = "#f59e0b"; ctx.fillText(labels[0], P0.x, P0.y - 4);
+            ctx.fillStyle = "#22c55e"; ctx.fillText(labels[0], P0.x, P0.y - 4);
             // East
             ctx.textAlign = "left"; ctx.textBaseline = "middle";
-            ctx.fillStyle = "#10b981"; ctx.fillText(labels[1], P1.x + 6, P1.y);
+            ctx.fillStyle = "#eab308"; ctx.fillText(labels[1], P1.x + 6, P1.y);
             // South
             ctx.textAlign = "center"; ctx.textBaseline = "top";
-            ctx.fillStyle = "#3b82f6"; ctx.fillText(labels[2], P2.x, P2.y + 4);
+            ctx.fillStyle = "#ef4444"; ctx.fillText(labels[2], P2.x, P2.y + 4);
             // West
             ctx.textAlign = "right"; ctx.textBaseline = "middle";
-            ctx.fillStyle = "#ef4444"; ctx.fillText(labels[3], P3.x - 6, P3.y);
+            ctx.fillStyle = "#3b82f6"; ctx.fillText(labels[3], P3.x - 6, P3.y);
         }
 
         function sxApplyTetradRatings(topicId) {
@@ -26804,7 +26983,6 @@ const TAXONOMY_CATEGORIES = [
 
                 const { cx, cy, r } = sxGetTetradVertices(canvas.width, canvas.height);
                 const dx = px - cx, dy = py - cy;
-                const angle = Math.atan2(dy, dx); // [-PI, PI]
 
                 // Determine closest axis if none locked yet
                 let v = sxTetradState.activeVertex;
@@ -26907,6 +27085,264 @@ const TAXONOMY_CATEGORIES = [
             }
         }
 
+        // --- 5-Pole Pentad Radar / Star Deformation State & Widget ---
+        let sxPentadState = {
+            topicId: null,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
+            activeVertex: null,
+            isDragging: !1
+        };
+
+        const SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
+
+        function sxGetPentadVertices(width, height) {
+            const cx = width / 2, cy = height / 2;
+            const r = Math.min(width, height) / 2 - 24;
+            const vertices = [];
+            for (let k = 0; k < 5; k++) {
+                const angle = -Math.PI / 2 + k * (2 * Math.PI / 5);
+                vertices.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle });
+            }
+            return { cx, cy, r, vertices };
+        }
+
+        function sxDrawPentadWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { cx, cy, r, vertices } = sxGetPentadVertices(width, height);
+
+            // 1. Concentric reference pentagon rings (25%, 50%, 75%, 100%)
+            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+                ctx.beginPath();
+                for (let k = 0; k < 5; k++) {
+                    const angle = vertices[k].angle;
+                    const x = cx + r * frac * Math.cos(angle);
+                    const y = cy + r * frac * Math.sin(angle);
+                    if (k === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
+                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+
+            // 2. Radial spoke axes from center to each vertex
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            for (let k = 0; k < 5; k++) {
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(vertices[k].x, vertices[k].y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Deformed Polygon from active ratings
+            const s = [
+                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100
+            ];
+
+            const polyPts = vertices.map((v, k) => ({
+                x: cx + (v.x - cx) * s[k],
+                y: cy + (v.y - cy) * s[k]
+            }));
+
+            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4);
+            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+
+            // Filled shape
+            ctx.beginPath();
+            polyPts.forEach((pt, k) => {
+                if (k === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            });
+            ctx.closePath();
+            ctx.fillStyle = polyCol;
+            ctx.globalAlpha = 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole vertex handles
+            polyPts.forEach((pt, idx) => {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                ctx.fillStyle = SX_PENTAD_COLORS[idx];
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            });
+
+            // 5. Pole Labels
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5"];
+            ctx.font = "bold 9px system-ui, sans-serif";
+
+            const alignments = [
+                { align: "center", baseline: "bottom", dx: 0, dy: -4 },
+                { align: "left", baseline: "middle", dx: 6, dy: 0 },
+                { align: "left", baseline: "top", dx: 6, dy: 4 },
+                { align: "right", baseline: "top", dx: -6, dy: 4 },
+                { align: "right", baseline: "middle", dx: -6, dy: 0 }
+            ];
+
+            vertices.forEach((v, idx) => {
+                const a = alignments[idx];
+                ctx.textAlign = a.align;
+                ctx.textBaseline = a.baseline;
+                ctx.fillStyle = SX_PENTAD_COLORS[idx];
+                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + a.dx, v.y + a.dy);
+            });
+        }
+
+        function sxApplyPentadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 5) return;
+            To(topicId, shape.keys[0], Math.round(sxPentadState.p0), !1);
+            To(topicId, shape.keys[1], Math.round(sxPentadState.p1), !1);
+            To(topicId, shape.keys[2], Math.round(sxPentadState.p2), !1);
+            To(topicId, shape.keys[3], Math.round(sxPentadState.p3), !1);
+            To(topicId, shape.keys[4], Math.round(sxPentadState.p4), !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearPentadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 5) return;
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !1);
+            Fo(topicId, shape.keys[3], !1);
+            Fo(topicId, shape.keys[4], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindPentadWidget() {
+            const canvas = e.byId("markPentadCanvas");
+            const slider = e.byId("markPentadIntensity");
+            const clearBtn = e.byId("markPentadClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                const { cx, cy, r, vertices } = sxGetPentadVertices(canvas.width, canvas.height);
+
+                if (sxPentadState.activeVertex === null) {
+                    let bestIdx = null, bestDist = 22;
+                    vertices.forEach((v, idx) => {
+                        const s = (sxPentadState[`p${idx}`] || 0) / 100;
+                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
+                        const d = Math.hypot(px - vx, py - vy);
+                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
+                    });
+                    sxPentadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                }
+
+                const v = sxPentadState.activeVertex;
+                const angle = vertices[v].angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const dot = (px - cx) * cosA + (py - cy) * sinA;
+                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+
+                sxPentadState[`p${v}`] = val;
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawPentadWidget(canvas, shape, sxPentadState);
+                    sxApplyPentadRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxPentadState.isDragging = !0;
+                sxPentadState.activeVertex = null;
+                canvas.setPointerCapture(evt.pointerId);
+                updateFromPointer(evt);
+            });
+
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxPentadState.isDragging) return;
+                updateFromPointer(evt);
+            });
+
+            const stopDrag = (evt) => {
+                if (sxPentadState.isDragging) {
+                    sxPentadState.isDragging = !1;
+                    sxPentadState.activeVertex = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const scale = (100 + step) / 100;
+                for (let k = 0; k < 5; k++) {
+                    sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState[`p${k}`] * scale)));
+                }
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawPentadWidget(canvas, shape, sxPentadState);
+                    sxApplyPentadRatings(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    const val = Number(slider.value);
+                    const out = e.byId("markPentadIntensityOut");
+                    out && (out.textContent = String(Math.round(val)));
+                    const maxCur = Math.max(sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4);
+                    if (maxCur > 0) {
+                        const ratio = val / maxCur;
+                        for (let k = 0; k < 5; k++) {
+                            sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState[`p${k}`] * ratio)));
+                        }
+                    } else {
+                        for (let k = 0; k < 5; k++) {
+                            sxPentadState[`p${k}`] = val;
+                        }
+                    }
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawPentadWidget(canvas, shape, sxPentadState);
+                        sxApplyPentadRatings(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearPentadRatings(Qr);
+                    }
+                });
+            }
+        }
+
         function sxBindTriangleWidget() {
             const canvas = e.byId("markTriangleCanvas");
             const slider = e.byId("markTriangleIntensity");
@@ -26993,6 +27429,8 @@ const TAXONOMY_CATEGORIES = [
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out"), role3Label = e.byId("markRole3Label"), role3Row = e.byId("markRole3Row");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out"), role4Label = e.byId("markRole4Label"), role4Row = e.byId("markRole4Row");
+            const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out"), role5Label = e.byId("markRole5Label"), role5Row = e.byId("markRole5Row");
+
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
             const triIntensity = e.byId("markTriangleIntensity");
@@ -27007,17 +27445,56 @@ const TAXONOMY_CATEGORIES = [
             const tetradVal0 = e.byId("markTetradVal0"), tetradVal1 = e.byId("markTetradVal1"), tetradVal2 = e.byId("markTetradVal2"), tetradVal3 = e.byId("markTetradVal3");
             const tetradPole0 = e.byId("markTetradPole0"), tetradPole1 = e.byId("markTetradPole1"), tetradPole2 = e.byId("markTetradPole2"), tetradPole3 = e.byId("markTetradPole3");
 
+            const pentadWrap = e.byId("markPentadWrap");
+            const pentadCanvas = e.byId("markPentadCanvas");
+            const pentadIntensity = e.byId("markPentadIntensity");
+            const pentadIntensityOut = e.byId("markPentadIntensityOut");
+            const pentadVal0 = e.byId("markPentadVal0"), pentadVal1 = e.byId("markPentadVal1"), pentadVal2 = e.byId("markPentadVal2"), pentadVal3 = e.byId("markPentadVal3"), pentadVal4 = e.byId("markPentadVal4");
+            const pentadPole0 = e.byId("markPentadPole0"), pentadPole1 = e.byId("markPentadPole1"), pentadPole2 = e.byId("markPentadPole2"), pentadPole3 = e.byId("markPentadPole3"), pentadPole4 = e.byId("markPentadPole4");
+
             const linearRatings = e.byId("markRatings");
 
             if (!give || !id) return;
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
             const isTriangleTopic = Boolean(shape.triangle);
+            const isPentadTopic = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
             const isTetradTopic = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
 
-            if (isTetradTopic) {
+            if (isPentadTopic) {
+                // 5-Pole Pentad Radar / Star Deformation Polygon Widget
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !1);
+                linearRatings && (linearRatings.hidden = !0);
+
+                const keys = shape.keys;
+                const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
+                sxPentadState.topicId = id;
+                sxPentadState.p0 = ratings[0];
+                sxPentadState.p1 = ratings[1];
+                sxPentadState.p2 = ratings[2];
+                sxPentadState.p3 = ratings[3];
+                sxPentadState.p4 = ratings[4];
+
+                const maxR = Math.max(...ratings);
+                if (pentadIntensity) pentadIntensity.value = String(Math.round(maxR));
+                if (pentadIntensityOut) pentadIntensityOut.textContent = String(Math.round(maxR));
+
+                const poleEls = [pentadPole0, pentadPole1, pentadPole2, pentadPole3, pentadPole4];
+                const valEls = [pentadVal0, pentadVal1, pentadVal2, pentadVal3, pentadVal4];
+
+                for (let k = 0; k < 5; k++) {
+                    const col = SX_PENTAD_COLORS[k];
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                }
+
+                sxDrawPentadWidget(pentadCanvas, shape, sxPentadState);
+            } else if (isTetradTopic) {
                 // 4-Pole Tetrad Radar / Diamond Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
 
@@ -27037,20 +27514,22 @@ const TAXONOMY_CATEGORIES = [
                 if (tetradIntensity) tetradIntensity.value = String(Math.round(maxR));
                 if (tetradIntensityOut) tetradIntensityOut.textContent = String(Math.round(maxR));
 
-                if (tetradPole0) { tetradPole0.textContent = shape.labels[0] || k0; tetradPole0.style.color = "#f59e0b"; }
-                if (tetradPole1) { tetradPole1.textContent = shape.labels[1] || k1; tetradPole1.style.color = "#10b981"; }
-                if (tetradPole2) { tetradPole2.textContent = shape.labels[2] || k2; tetradPole2.style.color = "#3b82f6"; }
-                if (tetradPole3) { tetradPole3.textContent = shape.labels[3] || k3; tetradPole3.style.color = "#ef4444"; }
+                if (tetradPole0) { tetradPole0.textContent = shape.labels[0] || k0; tetradPole0.style.color = "#22c55e"; }
+                if (tetradPole1) { tetradPole1.textContent = shape.labels[1] || k1; tetradPole1.style.color = "#eab308"; }
+                if (tetradPole2) { tetradPole2.textContent = shape.labels[2] || k2; tetradPole2.style.color = "#ef4444"; }
+                if (tetradPole3) { tetradPole3.textContent = shape.labels[3] || k3; tetradPole3.style.color = "#3b82f6"; }
 
-                if (tetradVal0) { tetradVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; tetradVal0.style.color = "#f59e0b"; }
-                if (tetradVal1) { tetradVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; tetradVal1.style.color = "#10b981"; }
-                if (tetradVal2) { tetradVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; tetradVal2.style.color = "#3b82f6"; }
-                if (tetradVal3) { tetradVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; tetradVal3.style.color = "#ef4444"; }
+                if (tetradVal0) { tetradVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; tetradVal0.style.color = "#22c55e"; }
+                if (tetradVal1) { tetradVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; tetradVal1.style.color = "#eab308"; }
+                if (tetradVal2) { tetradVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; tetradVal2.style.color = "#ef4444"; }
+                if (tetradVal3) { tetradVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; tetradVal3.style.color = "#3b82f6"; }
 
                 sxDrawTetradWidget(tetradCanvas, shape, sxTetradState);
             } else if (isTriangleTopic || isTripleTopic) {
                 tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
+                role5Row && (role5Row.hidden = !0);
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
                 const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
@@ -27114,9 +27593,11 @@ const TAXONOMY_CATEGORIES = [
             } else {
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !1);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
+                role5Row && (role5Row.hidden = !0);
                 recvRow && (recvRow.hidden = single);
                 giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
                 recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
@@ -27129,9 +27610,11 @@ const TAXONOMY_CATEGORIES = [
         function sxBindMarkRatings() {
             sxBindTriangleWidget();
             sxBindTetradWidget();
+            sxBindPentadWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
+            const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out");
             if (!give || give.dataset.bound) return;
             give.dataset.bound = "1";
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
@@ -27206,6 +27689,24 @@ const TAXONOMY_CATEGORIES = [
                     }
                 });
             }
+            if (role5) {
+                role5.addEventListener("input", () => show(role5, role5Out, !0));
+                role5.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(4, "role5");
+                        To(Qr, k, Number(role5.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markRole5Clear") && e.byId("markRole5Clear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(4, "role5");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+        }
         }
         function xo(e, t, i, a = {}) {
             if (Rt || !qn[e]) return;
@@ -38164,9 +38665,19 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
-            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
+            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || (e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node,.node-group,.node-circle,.node-icon,.leaf-node,.category-node")), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
             const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
+            const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
+            if (pentadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = pentadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "pentad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
             if (tetradHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = tetradHit.dataset.id;
@@ -38281,7 +38792,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }, 420));
             }
             if (s && 1 === eh.size) {
-                const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
+                const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || s.closest?.(".node-group")?.dataset.layoutKey || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const i = Cn.createSVGPoint();
                 i.x = e.clientX, i.y = e.clientY;
@@ -41860,13 +42371,29 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                                 incoming[flanks[2]] = rVal;
                                 incoming[flanks[3]] = rVal;
                             }
+                        } else if (flanks.length === 5) {
+                            // Orthogonal projection: give -> active/assertive poles (0,1); neutral -> (2); receive -> receptive/intimacy poles (3,4)
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null && rVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = gVal;
+                                incoming[flanks[2]] = Math.round((gVal + rVal) / 2);
+                                incoming[flanks[3]] = rVal;
+                                incoming[flanks[4]] = rVal;
+                            } else if (gVal !== null) {
+                                for (let k = 0; k < 5; k++) incoming[flanks[k]] = gVal;
+                            } else if (rVal !== null) {
+                                for (let k = 0; k < 5; k++) incoming[flanks[k]] = rVal;
+                            }
                         }
                     }
-                    // And backwards compatibility for triadic/tetradic ratings on dual topics
-                    if (!Object.keys(incoming).length && flanks.length === 2) {
+                    // And backwards compatibility for triadic/tetradic/pentadic ratings on dual topics
+                    if (!Object.keys(incoming).length && flanks.length >= 2) {
                         const vals = Object.values(rating).filter(Number.isFinite);
-                        if (vals.length >= 1) incoming[flanks[0]] = clamp(vals[0]);
-                        if (vals.length >= 2) incoming[flanks[1]] = clamp(vals[1]);
+                        for (let k = 0; k < Math.min(flanks.length, vals.length); k++) {
+                            incoming[flanks[k]] = clamp(vals[k]);
+                        }
                     }
                 }
                 if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);

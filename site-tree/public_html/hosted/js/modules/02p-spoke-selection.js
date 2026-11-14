@@ -630,7 +630,65 @@
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.tetrad) {
+                if ($.pentad) {
+                    // 5-Pole Pentad Widget on Hypermap:
+                    // Regular pentagon / star deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 56 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 5 vertices
+                    const P = [];
+                    for (let k = 0; k < 5; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (2 * Math.PI / 5);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference pentagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${2 * m},${2 * m}"/>`;
+                    });
+                    // Deformed polygon
+                    if (isKnown && ratings.some(val => val > 0)) {
+                        const polyDef = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                        D += `<polygon points="${polyDef}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
+                    }
+                    // Pole dots (Purple, Cyan, Amber, Red, Green)
+                    const pentColors = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
+                    P.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3 * m}" fill="${pentColors[k]}" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Pole labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + Math.cos(pt.phi) * 8 * m;
+                        const ly = pt.y + Math.sin(pt.phi) * 8 * m;
+                        D += `<text class="map-pentad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                    });
+                    // Hit polygon
+                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `</g>`;
+                } else if ($.tetrad) {
                     // 4-Pole Tetrad Widget on Hypermap:
                     // If archetype === "diamond" (Type II multi-affinity): Radar / Diamond Deformation Polygon
                     // If archetype === "quad" or "simplex": 4-Pole Square/Cross Continuum
@@ -641,10 +699,10 @@
                     const nx = -h, ny = p; // Tangent normal perpendicular to midline radial (p, h)
 
                     // 4 Orthogonal Pole Vertices:
-                    // Pole 0 (Radial Outward - Amber): cx + p * (spanW/2), cy + h * (spanW/2)
-                    // Pole 1 (Tangent Right - Emerald): cx + nx * (spanW/2), cy + ny * (spanW/2)
-                    // Pole 2 (Radial Inward - Blue): cx - p * (spanW/2), cy - h * (spanW/2)
-                    // Pole 3 (Tangent Left - Crimson): cx - nx * (spanW/2), cy - ny * (spanW/2)
+                    // Pole 0 (Radial Outward - North - Green): cx + p * (spanW/2), cy + h * (spanW/2)
+                    // Pole 1 (Tangent Right - East - Yellow): cx + nx * (spanW/2), cy + ny * (spanW/2)
+                    // Pole 2 (Radial Inward - South - Red): cx - p * (spanW/2), cy - h * (spanW/2)
+                    // Pole 3 (Tangent Left - West - Blue): cx - nx * (spanW/2), cy - ny * (spanW/2)
                     const P0 = { x: cx + p * (spanW / 2), y: cy + h * (spanW / 2) };
                     const P1 = { x: cx + nx * (spanW / 2), y: cy + ny * (spanW / 2) };
                     const P2 = { x: cx - p * (spanW / 2), y: cy - h * (spanW / 2) };
@@ -683,16 +741,16 @@
                     if (isKnown && (d0 > 0 || d1 > 0 || d2 > 0 || d3 > 0)) {
                         D += `<polygon points="${S0.x.toFixed(1)},${S0.y.toFixed(1)} ${S1.x.toFixed(1)},${S1.y.toFixed(1)} ${S2.x.toFixed(1)},${S2.y.toFixed(1)} ${S3.x.toFixed(1)},${S3.y.toFixed(1)}" fill="${fillCol}" fill-opacity="0.55" stroke="#ffffff" stroke-width="${1.4 * m}"/>`;
                     }
-                    // Pole Dots (Amber, Emerald, Blue, Crimson)
-                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#f59e0b" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#10b981" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Pole Dots (N-Green, E-Yellow, S-Red, W-Blue)
+                    D += `<circle cx="${P0.x.toFixed(1)}" cy="${P0.y.toFixed(1)}" r="${3 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#eab308" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     // Labels
-                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#f59e0b">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#10b981">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[3])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
                     // Hit area
                     D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
                     D += `</g>`;

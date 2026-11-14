@@ -950,9 +950,19 @@
                 }
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
-            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
+            __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || (e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node,.node-group,.node-circle,.node-icon,.leaf-node,.category-node")), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
             const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
+            const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
+            if (pentadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = pentadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "pentad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
             if (tetradHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = tetradHit.dataset.id;
@@ -1067,7 +1077,7 @@
                 }, 420));
             }
             if (s && 1 === eh.size) {
-                const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
+                const n = s.dataset.id || s.dataset.topicId || s.dataset.spokeFor || s.closest?.(".node-group")?.dataset.layoutKey || __sxClosestAction(s, "nodeGroup")?.dataset.layoutKey;
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const i = Cn.createSVGPoint();
                 i.x = e.clientX, i.y = e.clientY;

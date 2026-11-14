@@ -104,6 +104,11 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "BDSM archetype spectrum (Master/Nurturer/Primal/Brat/Surrender)",
+                "id": "t0419",
+                "risk": false
+            },
+            {
                 "name": "Male Authority",
                 "id": "t0015",
                 "risk": false,
@@ -1048,6 +1053,11 @@ export const TAXONOMY_CATEGORIES = [
             {
                 "name": "Texture contrast",
                 "id": "t0102",
+                "risk": false
+            },
+            {
+                "name": "Somatosensory palette (Thermal/Tactile/Vibrational/Olfactory/Auditory)",
+                "id": "t0417",
                 "risk": false
             },
             {
@@ -2841,6 +2851,11 @@ export const TAXONOMY_CATEGORIES = [
             {
                 "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
                 "id": "t0415",
+                "risk": false
+            },
+            {
+                "name": "Erotic intimacy languages (Words/Touch/Service/Vulnerability/Autonomy)",
+                "id": "t0418",
                 "risk": false
             },
             {

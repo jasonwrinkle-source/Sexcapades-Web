@@ -2855,6 +2855,54 @@
                     labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
                 };
             }
+            // 5-Pole Pentad Topics
+            if (e === "t0417" || e === "topic-somatosensory-palette" || i === "t0417" || i === "topic-somatosensory-palette") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "thermal", "tactile", "vibrational", "olfactory", "auditory" ],
+                    labels: [ "Thermal (Temperature)", "Tactile (Texture/Impact)", "Vibrational / Electro", "Olfactory / Taste", "Auditory / Verbal" ]
+                };
+            }
+            if (e === "t0418" || e === "topic-erotic-languages" || i === "t0418" || i === "topic-erotic-languages") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "words", "touch", "service", "vulnerability", "autonomy" ],
+                    labels: [ "Words of Adoration", "Dedicated Erotic Touch", "Devoted Acts of Service", "Deep Vulnerability", "Autonomous Presence" ]
+                };
+            }
+            if (e === "t0419" || e === "topic-bdsm-archetypes" || i === "t0419" || i === "topic-bdsm-archetypes") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "master", "nurturer", "primal", "brat", "surrender" ],
+                    labels: [ "Sovereign / Master", "Nurturer / Caregiver", "Primal / Hunter", "Brat / Trickster", "Devotee / Surrendered" ]
+                };
+            }
+            // Poliscapades 5-Pole Placeholders
+            if (e === "topic-civic-allocation-pentad" || i === "topic-civic-allocation-pentad") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "welfare", "infrastructure", "education", "defense", "ecology" ],
+                    labels: [ "Healthcare & Welfare", "Infrastructure & Energy", "Education & Science", "Defense & Security", "Ecology & Climate" ]
+                };
+            }
+            // Forescapades 5-Pole Placeholders
+            if (e === "topic-elemental-balance" || i === "topic-elemental-balance") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    archetype: "star", // Type II: Multi-Affinity Distribution
+                    keys: [ "earth", "water", "fire", "air", "aether" ],
+                    labels: [ "Earth (Body & Form)", "Water (Flow & Emotion)", "Fire (Will & Energy)", "Air (Mind & Breath)", "Aether (Spirit & Void)" ]
+                };
+            }
             // The topic's own give/receive labels win. A parent id in the
             // single-slider set must not collapse Edge Play (or any other
             // give/receive topic) to one "everything" slider.

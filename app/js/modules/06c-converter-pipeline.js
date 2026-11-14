@@ -282,13 +282,29 @@
                                 incoming[flanks[2]] = rVal;
                                 incoming[flanks[3]] = rVal;
                             }
+                        } else if (flanks.length === 5) {
+                            // Orthogonal projection: give -> active/assertive poles (0,1); neutral -> (2); receive -> receptive/intimacy poles (3,4)
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null && rVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = gVal;
+                                incoming[flanks[2]] = Math.round((gVal + rVal) / 2);
+                                incoming[flanks[3]] = rVal;
+                                incoming[flanks[4]] = rVal;
+                            } else if (gVal !== null) {
+                                for (let k = 0; k < 5; k++) incoming[flanks[k]] = gVal;
+                            } else if (rVal !== null) {
+                                for (let k = 0; k < 5; k++) incoming[flanks[k]] = rVal;
+                            }
                         }
                     }
-                    // And backwards compatibility for triadic/tetradic ratings on dual topics
-                    if (!Object.keys(incoming).length && flanks.length === 2) {
+                    // And backwards compatibility for triadic/tetradic/pentadic ratings on dual topics
+                    if (!Object.keys(incoming).length && flanks.length >= 2) {
                         const vals = Object.values(rating).filter(Number.isFinite);
-                        if (vals.length >= 1) incoming[flanks[0]] = clamp(vals[0]);
-                        if (vals.length >= 2) incoming[flanks[1]] = clamp(vals[1]);
+                        for (let k = 0; k < Math.min(flanks.length, vals.length); k++) {
+                            incoming[flanks[k]] = clamp(vals[k]);
+                        }
                     }
                 }
                 if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);

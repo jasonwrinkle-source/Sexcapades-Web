@@ -218,7 +218,190 @@ $$\begin{pmatrix} P_1 \\ P_2 \end{pmatrix} = \text{proj}_{\text{give}}(g), \quad
 - [x] 4-Pole Tetrad candidate placeholders registered in `02b-taxonomy-data.js` (`t0413`, `t0414`, `t0415`, `t0416`).
 - [x] Tetrad shape definitions registered in `02i-taxonomy-catalog.js`.
 - [x] Orthogonal projection migration added to `06c-converter-pipeline.js`.
-- [x] 4-Role linear slider fallback UI wired in placard mark ratings (`markRole4Row`).
-- [ ] Implement Radar/Diamond Deformation Polygon (Concept B-alt2) widget for Type II multi-affinity topics.
-- [ ] Implement Isometric Pyramid (Concept C) widget for Type I closed-simplex roles.
-- [ ] Extend Krossmatch contraction parser to compute tensor outer products over $\mathbb{R}^4$.
+- [x] Radar/Diamond Deformation Polygon (Concept B-alt2) widget implemented for Tetrads with user-specified orthogonal vertex palette:
+  - **North**: Emerald Green (`#22c55e`)
+  - **East**: Amber Yellow (`#eab308`)
+  - **South**: Crimson Red (`#ef4444`)
+  - **West**: Cobalt Blue (`#3b82f6`)
+- [x] 4-Pole Hypermap spoke geometry rendering deformed diamond SVG with color-coded vertices and labels.
+- [x] 5-Pole Pentad star deformation widget implemented with 5 radial axes, mouse-wheel intensity scaling, and dynamic dragging.
+- [x] 5-Pole Hypermap spoke geometry rendering deformed pentagon/star SVG on the hypermap.
+- [x] Placard and hypermap interaction bindings unified with touch and pointer event normalization.
+- [x] Zoomed node selection bug resolved in `06-pdf-exporter.js` (preventing clicks from falling through to canvas pan).
+- [x] Comprehensive guide documentation updated in `guide.html` across all environments (`app/`, `hosted/`, `qa/`).
+
+---
+
+## 8. 5-Pole Pentad Topics ($\Delta^4$ Simplex & 5-Axis Star Matrix)
+
+### 8.1 Geometric & Interaction Architecture
+The Pentad models a 4-simplex $\Delta^4$ projected into a 2D regular 5-star / pentagon space. The five radial axes emanate from the centroid $(x_0, y_0)$ at equiangular intervals:
+$$\theta_k = \frac{2\pi k}{5} - \frac{\pi}{2}, \quad k \in \{0, 1, 2, 3, 4\}$$
+Each vertex position is defined by:
+$$V_k = \left( x_0 + \frac{r_k}{100} R \cos\theta_k, \; y_0 + \frac{r_k}{100} R \sin\theta_k \right), \quad r_k \in [0, 100]$$
+
+#### Canonical 5-Pole Chromatic Palette:
+- **Pole 0 (Apex / Top)**: Purple (`#a855f7`)
+- **Pole 1 (Top-Right)**: Cyan (`#06b6d4`)
+- **Pole 2 (Bottom-Right)**: Amber (`#f59e0b`)
+- **Pole 3 (Bottom-Left)**: Red (`#ef4444`)
+- **Pole 4 (Top-Left)**: Emerald (`#22c55e`)
+
+### 8.2 Taxonomic Discovery & Grounding
+
+#### 1. Sexcapades
+1. **`t0417` Somatosensory Palette (5 Sensory Receptors)**:
+   - *Thermal* (ice, fire, wax, liquid temperature shock).
+   - *Vibro-Tactile* (sonic waves, low-frequency rumble, motorized oscillation).
+   - *Deep Pressure* (weighted blankets, compression, heavy bondage, joint holds).
+   - *Sharp / Cutaneous* (pinwheels, claws, cane edge, flogger tips).
+   - *Ischemic / Clamp* (clothespins, suction cups, tourniquets, breast clamps).
+2. **`t0418` Erotic Intimacy Languages (5 Channels of Connection)**:
+   - *Physical Touch & Somatic Attunement* (skin hunger, breath synchronization).
+   - *Verbal Worship & Erotic Affirmation* (dirty talk, praise, commands, whispering).
+   - *Devotional Service & Protocols* (serving tea, massage, foot washing, obedience).
+   - *Playful Chaos & Game Playing* (teasing, bratting, laughter, wrestling).
+   - *Sacramental Presence & Eye Gazing* (unbroken eye contact, tantric stillness).
+3. **`t0419` BDSM Archetype Spectrum**:
+   - *The Primal* (instinct, growling, biting, raw biological drive).
+   - *The Sadomasochist* (endorphin processing, pain transformation, physical edge play).
+   - *The Rope Artist / Rigger* (aesthetic suspension, geometric entanglement, tactile craft).
+   - *The Caregiver / Daddy-Mommy Dom* (hyper-nurturance, rules for emotional safety).
+   - *The Protocol Master / High Dom* (etiquette, formal obedience, linguistic precision).
+
+#### 2. Poliscapades
+- **Five Pillars of Civic Allocation**:
+  - *Infrastructure & Transit* (roads, rail, energy grid, water security).
+  - *Social Welfare & Universal Healthcare* (safety nets, housing, public health).
+  - *Public Safety & Rule of Law* (courts, civil defense, restorative justice).
+  - *Ecological Restoration & Climate Transition* (rewilding, decarbonization).
+  - *Culture, Education & Research* (universities, scientific exploration, arts).
+
+#### 3. Forescapades
+- **The Five Elemental Currents (Tattva / Classical Pentad)**:
+  - *Prithvi (Earth)*: Stability, bodily ground, physical manifest form.
+  - *Apas (Water)*: Emotional flow, fluidity, subconscious depth.
+  - *Agni (Fire)*: Will, illumination, metabolic transformation, kundalini heat.
+  - *Vayu (Air)*: Intellect, prana/breath, movement, abstract ideation.
+  - *Akasha (Aether / Space)*: Pure vacuum, non-local awareness, primordial field.
+
+---
+
+## 9. 6-Pole Hexad Topics ($\Delta^5$ Simplex & Hexagonal Ring Deformation)
+
+### 9.1 Geometric & Structural Foundation
+The Hexad represents the 5-simplex $\Delta^5$ or an equilateral hexagonal ring. The 6 poles emanate from the center at $60^\circ$ offsets:
+$$\theta_k = \frac{k\pi}{3} - \frac{\pi}{2}, \quad k \in \{0, 1, 2, 3, 4, 5\}$$
+Hexagonal topology is unique because it supports **three pairs of opposed dualities** as well as **two interlocking triads** (e.g. Star of David / Hexagram configuration).
+
+```
+          [Pole 0: North]
+             /       \
+[Pole 5: NW]           [Pole 1: NE]
+     |                      |
+[Pole 4: SW]           [Pole 2: SE]
+             \       /
+          [Pole 3: South]
+```
+
+### 9.2 In-Depth Taxonomic Audit: Latent 6-Pole Topics
+
+Across all three taxonomies, specific archetypes and clinical frameworks naturally resolve into 6-pole hexads:
+
+#### 1. Sexcapades (Erotics & Relationship Typology)
+1. **Lee’s Six Erotic Love Styles (The Hexagon of Eros)**:
+   - Grounded in John Alan Lee's canonical socio-psychological framework (*Colours of Love*), love orientations are composed of three primary styles and three secondary compounds:
+     - **Pole 0: Eros (Sensual / Passionate)**: Romantic, immediate physical chemistry, aesthetic intoxication.
+     - **Pole 1: Ludus (Playful / Game-Playing)**: Uncommitted flirtation, autonomous conquest, zero expectation of permanence.
+     - **Pole 2: Storge (Companionate / Friendship-First)**: Slow-growing, stable, enduring affection built on deep mutual trust.
+     - **Pole 3: Pragma (Practical / Realistic)**: Rational matchmaking, shared life goals, financial and logistical alignment.
+     - **Pole 4: Mania (Obsessive / Volatile)**: Rollercoaster emotional intensity, possessiveness, deep craving for reassurance.
+     - **Pole 5: Agape (Altruistic / Unconditional)**: Selfless, devotional love focused entirely on the partner's thriving.
+   - *Why 6-pole is optimal*: Traditional 1- or 2-pole scales flatten these distinct vectors; a hexad polygon lets a user see their multi-modal love signature at a glance.
+
+2. **Somatosensory Impact Modalities**:
+   - In sensation and impact play, users do not just rate "spanking give/receive"; they respond to six distinct biological and tissue-depth stimuli:
+     - **Pole 0: Sting (Surface Cutaneous)**: Sharp, burning skin sensation (canes, thin leather, riding crops).
+     - **Pole 1: Thud (Deep Muscle / Skeletal)**: Heavy, reverberating blunt pressure (paddles, thick suede, flat hands).
+     - **Pole 2: Thermal (Thermoreceptive)**: Hot wax, ice melting, warm stones, alternating hot/cold sensations.
+     - **Pole 3: Clamp & Crush (Ischemic Nociception)**: Sustained focal pressure, blood-flow restriction, clothespins.
+     - **Pole 4: Sensory Deprivation (Extinction)**: Blindfolds, earplugs, hoods, total sensory isolation.
+     - **Pole 5: Sensory Overload (Saturation)**: Multi-flogger rhythms, loud music, strobe, continuous overwhelming input.
+
+3. **Orgasm & Climax Topography**:
+   - The neurological and somatic pathways of human climax form six distinct operational modes:
+     - **Pole 0: External Cutaneous (Clitoral / Penile Glans)**: High-speed, intense localized neural firing.
+     - **Pole 1: Deep Internal Pelvic (G-Spot, A-Spot, Prostate)**: Radiating, muscular contractions, diffuse warmth.
+     - **Pole 2: Cervical / Uterine / Base Trance**: Deep, dropping, parasympathetic trance states and emotional release.
+     - **Pole 3: Anal / Sphincteric Pulse**: Involuntary rhythmic pelvic-floor waves and neurological surges.
+     - **Pole 4: Whole-Body Somatic Wave**: Generalized shaking, shivering, non-genital muscular orgasmic ripples.
+     - **Pole 5: Psychic / Cognitive Tantric Climax**: Breathwork and mental-energy orgasm without physical contact.
+
+#### 2. Poliscapades (Political Economy & Ideology)
+1. **The Hexagonal Political Matrix**:
+   - Transcends the simplistic 2D Nolan Chart by incorporating communitarian and technocratic axes:
+     - **Pole 0: Free-Market Capitalism**: Deregulation, price discovery, capital accumulation, private property.
+     - **Pole 1: Democratic Socialism**: Public ownership of commons, worker cooperatives, universal healthcare.
+     - **Pole 2: Technocratic Meritocracy**: Governance by scientific evidence, specialized civil service, optimization.
+     - **Pole 3: Communitarian Localism**: Decentralized direct democracy, regional autonomy, mutual aid leagues.
+     - **Pole 4: Authoritarian State Order**: Strong centralized executive, national cohesion, civic discipline.
+     - **Pole 5: Libertarian Voluntaryism**: Absolute individual sovereignty, non-aggression principle, contract law.
+
+2. **Six Pillars of Planetary Stewardship**:
+   - Energy Sovereignty, Biodiversity & Rewilding, Food/Agrarian Commons, Freshwater Security, Atmosphere & Carbon Balance, Oceanic Integrity.
+
+#### 3. Forescapades (Metaphysics, Mysticism & Yoga)
+1. **The Six Classical Pathways of Mystical Practice (Six Yogas)**:
+   - **Pole 0: Bhakti Yoga (Heart / Devotion)**: Chanting, worship, surrender, intense emotional dissolution in the divine.
+   - **Pole 1: Jnana Yoga (Mind / Self-Inquiry)**: Neti-neti ("not this, not that"), philosophical deconstruction of the ego.
+   - **Pole 2: Karma Yoga (Right Action / Sacred Service)**: Action without attachment to fruits, seva, moral duty in the world.
+   - **Pole 3: Raja Yoga (Meditation / Ashtanga)**: Patanjali's eight limbs, dhyana, samadhi, stillness of the mind-stuff (*citta-vritti*).
+   - **Pole 4: Kundalini & Laya Yoga (Prana & Energy Body)**: Breathwork, kriya, chakra activation, energetic mobilization.
+   - **Pole 5: Tantra & Deity Yoga (Sacred Matter Integration)**: Non-rejection of the world, ritual embodiment, divinization of all phenomena.
+
+2. **The Six Spheres of Afterlife & Eschatology**:
+   - Annihilationism/Material Extinction, Eternal Heavenly Union, Reincarnation/Samsara, Ancestral Spirit World, Universal Restoration (Apocatastasis), Purgative Evolution.
+
+---
+
+## 10. Unified Mathematical Scoring & Tensor Contractions across $N$-Pole Spaces ($1 \le N \le 6$)
+
+### 10.1 Generalized Vector Formulation
+Let any topic mark in an $N$-pole space be represented as an $N$-dimensional vector:
+$$\mathbf{r} = (r_0, r_1, \dots, r_{N-1})^T \in [0, 100]^N$$
+- **Scalar Affinity / Intensity ($\mu$)**:
+  $$\mu = \max_{0 \le k < N} r_k \in [0, 100]$$
+- **Normalized Directional Weight Vector ($\mathbf{w}$)**:
+  $$\mathbf{w} = \begin{cases} \frac{\mathbf{r}}{\sum_{k=0}^{N-1} r_k}, & \text{if } \sum r_k > 0 \\ \left(\frac{1}{N}, \dots, \frac{1}{N}\right)^T, & \text{if } \sum r_k = 0 \end{cases}$$
+
+### 10.2 Peer Resemblance Metric (Straight Talk $\odot$)
+Measures the alignment of two individuals $\mathbf{u}, \mathbf{v} \in [0, 100]^N$:
+$$\text{Resemblance}(\mathbf{u}, \mathbf{v}) = \cos(\mathbf{u}, \mathbf{v}) \cdot \left( 1 - \frac{\|\mathbf{u} - \mathbf{v}\|_1}{N \cdot 100} \right) \cdot \frac{\mu_u \cdot \mu_v}{10^4}$$
+Where:
+- $\cos(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2}$ evaluates angular directional parity.
+- $\frac{\|\mathbf{u} - \mathbf{v}\|_1}{N \cdot 100} = \frac{1}{N \cdot 100} \sum_{k=0}^{N-1} |u_k - v_k|$ penalizes per-pole absolute difference.
+- $\frac{\mu_u \cdot \mu_v}{10^4}$ scales by mutual intensity.
+
+### 10.3 Complementary Play Fit Metric (Krossmatch $\bowtie$)
+In role-based topics (where pole $i$ desires counterpart pole $j$), compatibility is given by a tensor contraction against a topological coupling matrix $\mathbf{C} \in [-1, 1]^{N \times N}$:
+$$\text{Krossmatch}(\mathbf{u}, \mathbf{v}) = \frac{1}{100} \sum_{i=0}^{N-1} \sum_{j=0}^{N-1} u_i \cdot C_{ij} \cdot v_j$$
+
+#### Coupling Matrix Topologies:
+1. **Self-Complementary (Resemblance Dominant, e.g. Experiential Topics)**:
+   $$C_{ij} = \delta_{ij} = \begin{cases} 1, & i = j \\ 0, & i \ne j \end{cases}$$
+2. **Opposed Pairs (Diametric Duality in 4-Pole and 6-Pole spaces)**:
+   $$C_{i, (i + N/2) \bmod N} = 1, \quad C_{ii} = 0$$
+3. **Cyclic Directed Coupling (e.g. Bull $\to$ Hotwife $\to$ Cuckold)**:
+   $$C_{i, (i+1) \bmod N} = 1, \quad C_{(i+1) \bmod N, i} = \gamma$$
+
+### 10.4 Comparative Dimensionality Matrix ($1 \le N \le 6$)
+
+| Poles ($N$) | Geometric Simplex | UI Control Surface | Degrees of Freedom | Primary Semantic Domain |
+| :---: | :---: | :---: | :---: | :---: |
+| **1 (Monopole)** | $\mathbb{R}^1$ Interval $[0, 100]$ | Single Slider / Dial | 1 | Universal Affinity, Solo Practice, Aesthetic |
+| **2 (Dipole)** | $\mathbb{R}^2$ Directed $[0, 100]^2$ | Dual Give/Receive Sliders | 2 | Asymmetric Physical Interaction (Give vs. Receive) |
+| **3 (Triad)** | $\Delta^2 \times I$ | Barycentric Triangle / Radial Trine | 3 | Tripartite Roles, Three-Tone Experiential Modalities |
+| **4 (Tetrad)** | $\Delta^3 \times I$ | Radar Diamond Polygon (Concept B-alt2) | 4 | Two Intersecting Binary Axes, Power Matrix, Orgasm Modes |
+| **5 (Pentad)** | $\Delta^4 \times I$ | 5-Axis Star Matrix / Pentagon | 5 | Sensory Receptor Palette, Intimacy Languages, Elemental |
+| **6 (Hexad)** | $\Delta^5 \times I$ | Hexagonal Ring Deformation Polygon | 6 | Love Styles (Eros), Impact Depth Spectrum, 6 Yogas |
+
