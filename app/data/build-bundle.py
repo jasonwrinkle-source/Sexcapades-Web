@@ -104,6 +104,16 @@ for ph in [patches_hosted, patches_hosted_alt, patches_qa]:
         shutil.copyfile(patches_src, ph)
         print(f"[Bundle] Synced patches.js to {ph}")
 
+# Sync app.css to hosted/css/app.css and qa/css/app.css
+css_src = os.path.join(base_dir, "../css/app.css")
+for ch in [
+    os.path.join(base_dir, "../../site-tree/public_html/hosted/css/app.css"),
+    os.path.join(base_dir, "../../site-tree/public_html/qa/css/app.css")
+]:
+    if os.path.exists(os.path.dirname(ch)) and os.path.exists(css_src):
+        shutil.copyfile(css_src, ch)
+        print(f"[Bundle] Synced app.css to {ch}")
+
 # Sync all auxiliary JS files in app/js to site-tree/public_html/hosted/js and qa/js
 js_src_dir = os.path.join(base_dir, "../js")
 for f in ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "avatar-music.js", "sx-songbook.js"]:

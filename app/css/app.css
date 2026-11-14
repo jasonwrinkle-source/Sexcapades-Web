@@ -492,8 +492,8 @@ html{background:#151816}body{background:#151816}/* Interest-color stops: --red-d
 
 /* sentinel-density-1108-1545: compact Scene Sentinel — tighter cards, buttons and
    logs so the dialog fits without scrolling; logs scroll internally instead of
-   growing the layout; overflow-anchor off so appends never shift the view. */
-#safetyDialog .sx-titlebar{min-height:46px;padding:5px 10px}
+   growing the layout; overflow-anchor off so appends never shift the view.
+   Header height matches all view headers via .sx-titlebar single source. */
 #safetyDialog .safety-sections{padding:8px 10px 10px;gap:8px;overflow-anchor:none}
 #safetyDialog .safety-card{padding:8px 10px;gap:6px;border-radius:10px}
 #safetyDialog .safety-card h3{font-size:15px}
@@ -930,17 +930,25 @@ html.shrink-busy,html.shrink-busy *{cursor:progress!important}
    five views: leave a view through the selector (Escape and backdrop clicks
    also still close the dialogs). All five views fill the whole viewport on
    the same page background. */
-.sx-titlebar{display:flex;align-items:center;gap:10px;min-height:64px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+/* All five views (Hypermap, Hot List, Scene Sentinel, Scene Setter, Scribe) share
+   the identical 104px header height so switching views has zero vertical jump. */
+:root{--sx-view-header-height:104px}
+main.shell>header.intro{grid-template-columns:minmax(105px,max-content) auto minmax(0,1fr) max-content;grid-template-areas:"title switch center review";min-height:var(--sx-view-header-height);box-sizing:border-box}
+main.shell>header.intro h1{font-size:clamp(21px,2vw,29px)}
+.sx-titlebar{display:flex;align-items:center;gap:10px;min-height:var(--sx-view-header-height);height:var(--sx-view-header-height);max-height:var(--sx-view-header-height);padding:0 14px;box-sizing:border-box;border-bottom:1px solid var(--line);background:var(--paper-2)}
 .sx-titlebar .view-nav-btn{flex:0 0 auto;margin:0}
 .sx-brand{font-family:"Barlow Condensed",sans-serif;font-size:clamp(21px,2vw,29px);font-weight:700;line-height:.94;white-space:nowrap}
 .sx-guide-slot{margin-left:auto;flex:0 0 auto}
-main.shell>header.intro{grid-template-columns:minmax(105px,max-content) auto minmax(0,1fr) max-content;grid-template-areas:"title switch center review"}
-main.shell>header.intro h1{font-size:clamp(21px,2vw,29px)}
+.sx-titlebar .guide-avatar-wrap,
+.sx-titlebar .sx-slot-wrap{width:50px;height:50px;flex:0 0 50px;margin:0}
+.sx-titlebar .avatar-music-btn{width:50px;height:50px}
+.sx-titlebar .avatar-music-btn img{width:40px;height:40px}
 #outlineDialog,#safetyDialog,#negotiationDialog{width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;border:0;border-radius:0}
 #negotiationDialog,#scribeDialog,#scribeChoiceDialog{background:var(--paper)}
-.outline-shell,.safety-shell{grid-template-rows:auto auto minmax(0,1fr)!important;background:var(--paper)}
+.outline-shell{grid-template-rows:auto auto minmax(0,1fr)!important;background:var(--paper)}
+.safety-shell{grid-template-rows:auto minmax(0,1fr)!important;background:var(--paper)}
 #negotiationDialog[open],#scribeDialog[open],#scribeChoiceDialog[open]{grid-template-rows:auto auto minmax(0,1fr)}
-@media(max-width:620px){main.shell>header.intro{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title switch review" "center center center"}.sx-titlebar{padding:8px 10px;gap:8px}.sx-brand{font-size:20px}}
+@media(max-width:620px){main.shell>header.intro{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title switch review" "center center center"}.sx-titlebar{min-height:64px;height:auto;max-height:none;padding:8px 10px;gap:8px}.sx-brand{font-size:20px}}
 @media(max-width:430px){main.shell>header.intro{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title switch review" "center center center"}}
 
 
