@@ -716,6 +716,29 @@ __sxInit(function initScribeGeminiBYOK() {
     narrateNextStart = 0;
   }
 
+  function narrateEnsureAudioCtxRunning() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      if (!narrateAudioCtx || narrateAudioCtx.state === "closed") {
+        narrateAudioCtx = new AC();
+      }
+      if (narrateAudioCtx.state === "suspended") {
+        narrateAudioCtx.resume();
+      }
+      try {
+        var unlock = narrateAudioCtx.createBuffer(1, 1, 24000);
+        var src = narrateAudioCtx.createBufferSource();
+        src.buffer = unlock;
+        src.connect(narrateAudioCtx.destination);
+        src.start(0);
+      } catch (_) {}
+      return narrateAudioCtx;
+    } catch (_) {
+      return null;
+    }
+  }
+
   // Helper to generate proper audio payload based on model type
   function getAudioPayload(modelName, textToRead, voiceName) {
     var isTts = modelName.indexOf("-tts") !== -1;
@@ -769,14 +792,17 @@ __sxInit(function initScribeGeminiBYOK() {
         var sentence = sentenceQueue.shift();
         if (!sentence || !sentence.trim()) continue;
 
+        // Dynamic voice update: read current live selection from dropdown if changed mid-stream
+        var currentVoice = (geminiVoice ? geminiVoice.value : voiceName) || voiceName || "Aoede";
+
         var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(modelName);
         var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
         var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
-        var payload = getAudioPayload(modelName, sentence.trim(), voiceName);
+        var payload = getAudioPayload(modelName, sentence.trim(), currentVoice);
 
         try {
           if (narrateStatus) {
-            narrateStatus.textContent = "Narrating live (" + modelName + ")…";
+            narrateStatus.textContent = "Narrating live (" + modelName + " · " + currentVoice + ")…";
             narrateStatus.style.color = "#4ade80";
           }
           await narrateStreamGeminiAudio(streamEndpoint, payload, audioAbortController ? audioAbortController.signal : null, token);
@@ -1085,7 +1111,7 @@ __sxInit(function initScribeGeminiBYOK() {
     return new Blob([header, pcmData], { type: "audio/wav" });
   }
 
-  function resetNarrationState() {
+  function resetNarrationState(keepCtx) {
     if (liveNarrator) {
       try { liveNarrator.finish(); } catch (_) {}
       liveNarrator = null;
@@ -1100,7 +1126,12 @@ __sxInit(function initScribeGeminiBYOK() {
       audioAbortController = null;
     }
     narrateGenToken++;
-    narrateCloseAudioCtx();
+    if (!keepCtx) {
+      narrateCloseAudioCtx();
+    } else {
+      narrateNextStart = 0;
+      narrateChunksPlayed = 0;
+    }
     narratePlaybackMode = null;
     if (startNarrateBtn) {
       startNarrateBtn.textContent = "▶ Play Narration";
@@ -1202,7 +1233,8 @@ __sxInit(function initScribeGeminiBYOK() {
       }
 
       var chosenVoice = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
-      resetNarrationState();
+      resetNarrationState(true);
+      narrateEnsureAudioCtxRunning();
 
       if (narrateStatus) {
         narrateStatus.textContent = "Generating voice with Gemini (" + chosenVoice + ")…";
@@ -1216,38 +1248,27 @@ __sxInit(function initScribeGeminiBYOK() {
       narrateChunksPlayed = 0;
 
       var narrateModelSelect = document.getElementById("scribeNarrateModel");
-      var chosenAudioModel = (narrateModelSelect && narrateModelSelect.value) ? narrateModelSelect.value : "gemini-2.5-pro-preview-tts";
-      var currentPayload = getAudioPayload(chosenAudioModel, text, chosenVoice);
-      var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(chosenAudioModel);
-      var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
-      var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
-
-      console.log("[Scribe Audio Narration] Selected TTS model:", chosenAudioModel, "voice:", chosenVoice);
-      if (narrateStatus) narrateStatus.textContent = "Connecting voice to " + chosenAudioModel + " (" + chosenVoice + ")…";
+      var preferredModel = (narrateModelSelect && narrateModelSelect.value) ? narrateModelSelect.value : "gemini-2.5-pro-preview-tts";
+      var ttsFallbackModels = [preferredModel, "gemini-2.5-flash-preview-tts", "gemini-2.5-flash-tts", "gemini-3.8-flash-tts"];
+      ttsFallbackModels = ttsFallbackModels.filter(function(m, idx) { return ttsFallbackModels.indexOf(m) === idx; });
 
       var narrationSucceeded = false;
       var lastAudioErr = null;
 
-      try {
-        // 1. Try streaming audio first
-        await narrateStreamGeminiAudio(streamEndpoint, currentPayload, audioAbortController.signal, myToken);
-        if (myToken !== narrateGenToken) return;
-        narratePlaybackMode = "webaudio";
-        if (narrateStatus) {
-          narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ", streaming)…";
-          narrateStatus.style.color = "#4ade80";
-        }
-        if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
-        if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
-        narrationSucceeded = true;
-      } catch (streamErr) {
-        if (streamErr.name === "AbortError" || myToken !== narrateGenToken) {
-          if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
-          if (startNarrateBtn) startNarrateBtn.disabled = false;
-          return;
-        }
-        if (narrateChunksPlayed > 0) {
-          console.warn("[Scribe Audio Narration] Stream ended after " + narrateChunksPlayed + " chunks:", streamErr);
+      for (var tmIdx = 0; tmIdx < ttsFallbackModels.length; tmIdx++) {
+        var chosenAudioModel = ttsFallbackModels[tmIdx];
+        var currentPayload = getAudioPayload(chosenAudioModel, text, chosenVoice);
+        var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(chosenAudioModel);
+        var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
+        var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
+
+        console.log("[Scribe Audio Narration] Selected TTS model (" + (tmIdx + 1) + "/" + ttsFallbackModels.length + "):", chosenAudioModel, "voice:", chosenVoice);
+        if (narrateStatus) narrateStatus.textContent = "Connecting voice to " + chosenAudioModel + " (" + chosenVoice + ")…";
+
+        try {
+          // 1. Try streaming audio first
+          await narrateStreamGeminiAudio(streamEndpoint, currentPayload, audioAbortController.signal, myToken);
+          if (myToken !== narrateGenToken) return;
           narratePlaybackMode = "webaudio";
           if (narrateStatus) {
             narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ", streaming)…";
@@ -1256,22 +1277,52 @@ __sxInit(function initScribeGeminiBYOK() {
           if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
           if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
           narrationSucceeded = true;
-        } else {
-          console.warn("[Scribe Audio Narration] Streaming failed with " + chosenAudioModel + " (" + streamErr.message + "), trying unary whole clip…");
-
-          // 2. Try unary generateContent with the user's chosen model
-          try {
-            if (narrateStatus) narrateStatus.textContent = "Generating voice with " + chosenAudioModel + " (" + chosenVoice + ")…";
-            await narratePlayGeminiUnary(audioEndpoint, currentPayload, audioAbortController.signal, chosenAudioModel);
-            if (myToken !== narrateGenToken) return;
+          break;
+        } catch (streamErr) {
+          if (streamErr.name === "AbortError" || myToken !== narrateGenToken) {
+            if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
+            if (startNarrateBtn) startNarrateBtn.disabled = false;
+            return;
+          }
+          if (narrateChunksPlayed > 0) {
+            console.warn("[Scribe Audio Narration] Stream ended after " + narrateChunksPlayed + " chunks:", streamErr);
+            narratePlaybackMode = "webaudio";
             if (narrateStatus) {
-              narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ")…";
+              narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ", streaming)…";
               narrateStatus.style.color = "#4ade80";
             }
             if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
             if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
             narrationSucceeded = true;
-          } catch (unaryErr) {
+            break;
+          } else {
+            console.warn("[Scribe Audio Narration] Streaming failed with " + chosenAudioModel + " (" + streamErr.message + "), trying unary whole clip…");
+
+            // 2. Try unary generateContent with the user's chosen model
+            try {
+              if (narrateStatus) narrateStatus.textContent = "Generating voice with " + chosenAudioModel + " (" + chosenVoice + ")…";
+              await narratePlayGeminiUnary(audioEndpoint, currentPayload, audioAbortController.signal, chosenAudioModel);
+              if (myToken !== narrateGenToken) return;
+              if (narrateStatus) {
+                narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ")…";
+                narrateStatus.style.color = "#4ade80";
+              }
+              if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
+              if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
+              narrationSucceeded = true;
+              break;
+            } catch (unaryErr) {
+              if (unaryErr.name === "AbortError") {
+                if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
+                if (startNarrateBtn) startNarrateBtn.disabled = false;
+                return;
+              }
+              console.warn("[Scribe Audio Narration] Unary failed with " + chosenAudioModel + ":", unaryErr.message);
+              lastAudioErr = unaryErr;
+            }
+          }
+        }
+      }
             if (unaryErr.name === "AbortError") {
               if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
               if (startNarrateBtn) startNarrateBtn.disabled = false;
@@ -1368,6 +1419,9 @@ __sxInit(function initScribeGeminiBYOK() {
 
   if (scribePlayBtn) {
     scribePlayBtn.addEventListener("click", function() {
+      // Ensure audio context is running synchronously on user click
+      narrateEnsureAudioCtxRunning();
+
       // 1. If currently speaking/narrating, toggle pause/resume
       var isSpeaking = false;
       var isPaused = false;
@@ -1472,6 +1526,16 @@ __sxInit(function initScribeGeminiBYOK() {
   if (saveKeyBtn) saveKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
   if (clearKeyBtn) clearKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
   if (providerSelect) providerSelect.addEventListener("change", scribeSyncGenerateLabel);
+  if (geminiVoice) {
+    geminiVoice.addEventListener("change", function() {
+      var newV = geminiVoice.value;
+      console.log("[Scribe Audio Narration] Selected voice switched to:", newV);
+      if (narrateStatus && (narratePlaybackMode === "webaudio" || liveNarrator)) {
+        narrateStatus.textContent = "Voice switched to " + newV + " (active next sentence)…";
+        narrateStatus.style.color = "#38bdf8";
+      }
+    });
+  }
   scribeSyncGenerateLabel();
 
 });

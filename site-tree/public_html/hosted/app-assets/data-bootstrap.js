@@ -5878,16 +5878,18 @@ const TAXONOMY_CATEGORIES = [
                 return t ? segment(parseFloat(t[1]), parseFloat(t[2]), parseFloat(t[3]), parseFloat(t[4])) : null;
             }
             /**
-             * Flank width at a fractional position along the spoke. The width
-             * starts at the base width and decays exponentially toward the
-             * tip width, so flanks flare wide at the base and settle fast.
+             * Flank width at a fractional position along the spoke.
+             * Bulbous shoulder: width emerges perpendicular/convex at the base
+             * (fat bulb) and smoothly decays to the slender tip width without overcrowding
+             * surrounding icons and spokes in the fan.
              * @param {number} u - Fraction along the spoke: 0 at base, 1 at tip (unitless).
              * @param {number} baseWidth - Full width at the base, map units.
              * @param {number} tipWidth - Full width approached at the tip, map units.
              * @returns {number} Full width at u, map units.
              */
             function flareAt(u, baseWidth, tipWidth) {
-                return tipWidth + (baseWidth - tipWidth) * Math.exp(-FLARE_DECAY * u);
+                const shape = Math.exp(-Math.pow(u / 0.72, 2));
+                return tipWidth + (baseWidth - tipWidth) * shape;
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -6264,7 +6266,7 @@ const TAXONOMY_CATEGORIES = [
                 };
             },
             categoryBaseWidth: (e, t, n) => Za.categoryTaperBaseWidth(e, t, n),
-            spokeBaseWidth: e => 5 * e,
+            spokeBaseWidth: e => 8.5 * e,
             railsBaseWidth: (e, t, n, i, depth) => (isCatId(e) ? Ga.categoryBaseWidth(t, n, i) : Ga.spokeBaseWidth(t)) * (mapFontScale() * (null == depth ? 1 : sxFontFactor(depth)) / 3),
             cloudBaseWidth(e, t) {
                 const n = Math.max(1, Number(t) || 1), i = e / 2 * er.spread;
@@ -6851,23 +6853,10 @@ const TAXONOMY_CATEGORIES = [
                     return p += n, r;
                 });
             },
-            TAPER_BASE_FRACTION: .78,
-            // TAPER-BASE RE-ANCHOR (2026-11-02, owner-approved): the
-            // category taper base no longer grows with the radius R.
-            // TAPER_BASE_CAP is the tuned-era base — TAPER_BASE_FRACTION
-            // of the chord across one of 18 slots at R = 300, about
-            // 81.26 units, the base this rule produced when it was
-            // tuned — and categoryTaperBaseWidth now returns
-            //   max(seed, min(0.78 * chord(R, count), TAPER_BASE_CAP))
-            // so at any larger radius the base holds at the tuned value
-            // and Ga.railsBaseWidth's fontScale / 3 carries that fixed
-            // proportion forward (the painted base is about 1.23x the
-            // 22 * fontScale band at every font size). The min() keeps
-            // the Oct 13 neighbour-margin property at every radius:
-            // the base never exceeds 0.78 of one slot chord, so
-            // adjacent bases always keep their margin. flareAt and
-            // FLARE_DECAY are untouched.
-            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .78,
+            TAPER_BASE_FRACTION: .92,
+            // TAPER-BASE RE-ANCHOR: category taper base fatter at the root
+            // with bulbous falloff. TAPER_BASE_CAP sets the maximum base chord.
+            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .92,
             categoryTaperBaseWidth(e, t, n) {
                 const i = 2 * t * Math.sin(Math.PI / Math.max(1, Number(n) || 1));
                 return Math.max(e, Math.min(i * Za.TAPER_BASE_FRACTION, Za.TAPER_BASE_CAP));
@@ -19299,16 +19288,18 @@ const TAXONOMY_CATEGORIES = [
                 return t ? segment(parseFloat(t[1]), parseFloat(t[2]), parseFloat(t[3]), parseFloat(t[4])) : null;
             }
             /**
-             * Flank width at a fractional position along the spoke. The width
-             * starts at the base width and decays exponentially toward the
-             * tip width, so flanks flare wide at the base and settle fast.
+             * Flank width at a fractional position along the spoke.
+             * Bulbous shoulder: width emerges perpendicular/convex at the base
+             * (fat bulb) and smoothly decays to the slender tip width without overcrowding
+             * surrounding icons and spokes in the fan.
              * @param {number} u - Fraction along the spoke: 0 at base, 1 at tip (unitless).
              * @param {number} baseWidth - Full width at the base, map units.
              * @param {number} tipWidth - Full width approached at the tip, map units.
              * @returns {number} Full width at u, map units.
              */
             function flareAt(u, baseWidth, tipWidth) {
-                return tipWidth + (baseWidth - tipWidth) * Math.exp(-FLARE_DECAY * u);
+                const shape = Math.exp(-Math.pow(u / 0.72, 2));
+                return tipWidth + (baseWidth - tipWidth) * shape;
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -19685,7 +19676,7 @@ const TAXONOMY_CATEGORIES = [
                 };
             },
             categoryBaseWidth: (e, t, n) => Za.categoryTaperBaseWidth(e, t, n),
-            spokeBaseWidth: e => 5 * e,
+            spokeBaseWidth: e => 8.5 * e,
             railsBaseWidth: (e, t, n, i, depth) => (isCatId(e) ? Ga.categoryBaseWidth(t, n, i) : Ga.spokeBaseWidth(t)) * (mapFontScale() * (null == depth ? 1 : sxFontFactor(depth)) / 3),
             cloudBaseWidth(e, t) {
                 const n = Math.max(1, Number(t) || 1), i = e / 2 * er.spread;
@@ -20276,23 +20267,10 @@ const TAXONOMY_CATEGORIES = [
                     return p += n, r;
                 });
             },
-            TAPER_BASE_FRACTION: .78,
-            // TAPER-BASE RE-ANCHOR (2026-11-02, owner-approved): the
-            // category taper base no longer grows with the radius R.
-            // TAPER_BASE_CAP is the tuned-era base — TAPER_BASE_FRACTION
-            // of the chord across one of 18 slots at R = 300, about
-            // 81.26 units, the base this rule produced when it was
-            // tuned — and categoryTaperBaseWidth now returns
-            //   max(seed, min(0.78 * chord(R, count), TAPER_BASE_CAP))
-            // so at any larger radius the base holds at the tuned value
-            // and Ga.railsBaseWidth's fontScale / 3 carries that fixed
-            // proportion forward (the painted base is about 1.23x the
-            // 22 * fontScale band at every font size). The min() keeps
-            // the Oct 13 neighbour-margin property at every radius:
-            // the base never exceeds 0.78 of one slot chord, so
-            // adjacent bases always keep their margin. flareAt and
-            // FLARE_DECAY are untouched.
-            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .78,
+            TAPER_BASE_FRACTION: .92,
+            // TAPER-BASE RE-ANCHOR: category taper base fatter at the root
+            // with bulbous falloff. TAPER_BASE_CAP sets the maximum base chord.
+            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .92,
             categoryTaperBaseWidth(e, t, n) {
                 const i = 2 * t * Math.sin(Math.PI / Math.max(1, Number(n) || 1));
                 return Math.max(e, Math.min(i * Za.TAPER_BASE_FRACTION, Za.TAPER_BASE_CAP));
@@ -25265,15 +25243,16 @@ const TAXONOMY_CATEGORIES = [
                             // |span| > 1, and a near-zero span falls back
                             // to the max-offset widths below. Never skip. 
                             // Least-squares flare fit: |offset| - ih =
+                            // Least-squares flare fit: |offset| - ih =
                             // flare(f)/2, flare(f) = tipW + (baseW -
-                            // tipW) * exp(-f), linear in (baseW, tipW).
+                            // tipW) * shape(f), linear in (baseW, tipW).
                             let sEE = 0, sET = 0, sTT = 0, sEf = 0, sTf = 0, nFit = 0;
                             Math.abs(span) > 1 && linePts.forEach(p => {
                                 const f = (along(p) - sAlong) / span;
                                 if (f <= .02 || f >= .98) return;
                                 const ao = Math.abs(off(p));
                                 if (ao < ih + 1.5) return;
-                                const E = Math.exp(-f), T = 1 - E, fl = 2 * (ao - ih);
+                                const E = Math.exp(-Math.pow(f / 0.72, 2)), T = 1 - E, fl = 2 * (ao - ih);
                                 sEE += E * E, sET += E * T, sTT += T * T, sEf += E * fl, sTf += T * fl, nFit++;
                             });
                             let baseW, tipW;
@@ -30825,18 +30804,23 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             });
         }
         function Jl() {
-            // Revert preview-only expansions, clear both preview ids, and always re-render.
+            // Revert preview-only expansions, clear both preview ids, and re-render only if preview changed anything.
             // Stop a zoom that was already in flight, or Escape fits and the
             // animation's last frame zooms straight back in.
             sxCommittedFocus = null;
             sxStopFocusZoom();
+            const hadExpansions = Boolean(_previewAddedBranches.size || _previewAddedParents.size || Dt || Lt);
             _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
             Dt = null; Lt = null; Tt = "";
             const sxSearch = e.byId("searchInput");
             sxSearch && (sxSearch.value = "");
-            Mr();
-            if (typeof Ih === "function") Ih();
+            if (hadExpansions) {
+                Mr();
+                if (typeof Ih === "function") Ih();
+            } else if (Cn) {
+                Cn.querySelectorAll(".is-dim").forEach(el => el.classList.remove("is-dim"));
+            }
         }
         // Safety net: Escape clears a search preview, and a leftover
         // search dim, even when focus is outside the dropdown menu.
@@ -30873,9 +30857,20 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         });
         Bl && Bl.addEventListener("input", e => {
             const t = e.target.value.trim().toLowerCase();
-            if (!t) return Tt = "", Lt = null, ec.render([]), ec.close(), Mr({
-                animate: !1
-            }), void Ih();
+            if (!t) {
+                const hadPreview = Boolean(Dt || Lt || _previewAddedBranches.size || _previewAddedParents.size);
+                Tt = "";
+                Lt = null;
+                ec.render([]);
+                ec.close();
+                if (hadPreview) {
+                    Mr({ animate: !1 });
+                    if (typeof Ih === "function") Ih();
+                } else if (Cn) {
+                    Cn.querySelectorAll(".is-dim").forEach(el => el.classList.remove("is-dim"));
+                }
+                return;
+            }
             Tt = t;
             const n = function(e, t = 24) {
                 if (!e) return [];
@@ -30893,13 +30888,18 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = i.filter(t => t.branch === e.branch);
                     t.forEach(e => a.add(e.id)), r.push(e.category, ...e.subcategories, ...e.topics, ...t);
                 }), r.push(...i.filter(e => !a.has(e.id)));
+                const textCache = new Map;
                 const o = e => {
+                    let cached = textCache.get(e.id);
+                    if (cached !== undefined) return cached;
                     const shape = typeof Ge === "function" ? Ge(e.id) : null;
                     const shapeKeys = shape && shape.keys ? shape.keys.join(" ") : "";
                     const shapeLabels = shape && shape.labels ? shape.labels.join(" ") : "";
                     const raw = [ e.displayLabel, e.label, e.giveLabel, e.receiveLabel, shapeKeys, shapeLabels ]
                         .map(v => String(v || "").toLowerCase()).join(" ");
-                    return raw + " " + raw.replace(/cuckquean/g, "cuckqueen");
+                    cached = raw + " " + raw.replace(/cuckquean/g, "cuckqueen");
+                    textCache.set(e.id, cached);
+                    return cached;
                 };
                 const normQuery = n.replace(/cuckqueen/g, "cuckquean");
                 const s = e => {

@@ -93,16 +93,18 @@
                 return t ? segment(parseFloat(t[1]), parseFloat(t[2]), parseFloat(t[3]), parseFloat(t[4])) : null;
             }
             /**
-             * Flank width at a fractional position along the spoke. The width
-             * starts at the base width and decays exponentially toward the
-             * tip width, so flanks flare wide at the base and settle fast.
+             * Flank width at a fractional position along the spoke.
+             * Bulbous shoulder: width emerges perpendicular/convex at the base
+             * (fat bulb) and smoothly decays to the slender tip width without overcrowding
+             * surrounding icons and spokes in the fan.
              * @param {number} u - Fraction along the spoke: 0 at base, 1 at tip (unitless).
              * @param {number} baseWidth - Full width at the base, map units.
              * @param {number} tipWidth - Full width approached at the tip, map units.
              * @returns {number} Full width at u, map units.
              */
             function flareAt(u, baseWidth, tipWidth) {
-                return tipWidth + (baseWidth - tipWidth) * Math.exp(-FLARE_DECAY * u);
+                const shape = Math.exp(-Math.pow(u / 0.72, 2));
+                return tipWidth + (baseWidth - tipWidth) * shape;
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -479,7 +481,7 @@
                 };
             },
             categoryBaseWidth: (e, t, n) => Za.categoryTaperBaseWidth(e, t, n),
-            spokeBaseWidth: e => 5 * e,
+            spokeBaseWidth: e => 8.5 * e,
             railsBaseWidth: (e, t, n, i, depth) => (isCatId(e) ? Ga.categoryBaseWidth(t, n, i) : Ga.spokeBaseWidth(t)) * (mapFontScale() * (null == depth ? 1 : sxFontFactor(depth)) / 3),
             cloudBaseWidth(e, t) {
                 const n = Math.max(1, Number(t) || 1), i = e / 2 * er.spread;
@@ -1070,23 +1072,10 @@
                     return p += n, r;
                 });
             },
-            TAPER_BASE_FRACTION: .78,
-            // TAPER-BASE RE-ANCHOR (2026-11-02, owner-approved): the
-            // category taper base no longer grows with the radius R.
-            // TAPER_BASE_CAP is the tuned-era base — TAPER_BASE_FRACTION
-            // of the chord across one of 18 slots at R = 300, about
-            // 81.26 units, the base this rule produced when it was
-            // tuned — and categoryTaperBaseWidth now returns
-            //   max(seed, min(0.78 * chord(R, count), TAPER_BASE_CAP))
-            // so at any larger radius the base holds at the tuned value
-            // and Ga.railsBaseWidth's fontScale / 3 carries that fixed
-            // proportion forward (the painted base is about 1.23x the
-            // 22 * fontScale band at every font size). The min() keeps
-            // the Oct 13 neighbour-margin property at every radius:
-            // the base never exceeds 0.78 of one slot chord, so
-            // adjacent bases always keep their margin. flareAt and
-            // FLARE_DECAY are untouched.
-            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .78,
+            TAPER_BASE_FRACTION: .92,
+            // TAPER-BASE RE-ANCHOR: category taper base fatter at the root
+            // with bulbous falloff. TAPER_BASE_CAP sets the maximum base chord.
+            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .92,
             categoryTaperBaseWidth(e, t, n) {
                 const i = 2 * t * Math.sin(Math.PI / Math.max(1, Number(n) || 1));
                 return Math.max(e, Math.min(i * Za.TAPER_BASE_FRACTION, Za.TAPER_BASE_CAP));

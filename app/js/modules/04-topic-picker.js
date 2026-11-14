@@ -246,18 +246,23 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             });
         }
         function Jl() {
-            // Revert preview-only expansions, clear both preview ids, and always re-render.
+            // Revert preview-only expansions, clear both preview ids, and re-render only if preview changed anything.
             // Stop a zoom that was already in flight, or Escape fits and the
             // animation's last frame zooms straight back in.
             sxCommittedFocus = null;
             sxStopFocusZoom();
+            const hadExpansions = Boolean(_previewAddedBranches.size || _previewAddedParents.size || Dt || Lt);
             _previewAddedBranches.forEach(b => rn.delete(b)); _previewAddedBranches.clear();
             _previewAddedParents.forEach(p => on.delete(p)); _previewAddedParents.clear();
             Dt = null; Lt = null; Tt = "";
             const sxSearch = e.byId("searchInput");
             sxSearch && (sxSearch.value = "");
-            Mr();
-            if (typeof Ih === "function") Ih();
+            if (hadExpansions) {
+                Mr();
+                if (typeof Ih === "function") Ih();
+            } else if (Cn) {
+                Cn.querySelectorAll(".is-dim").forEach(el => el.classList.remove("is-dim"));
+            }
         }
         // Safety net: Escape clears a search preview, and a leftover
         // search dim, even when focus is outside the dropdown menu.
@@ -294,9 +299,20 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         });
         Bl && Bl.addEventListener("input", e => {
             const t = e.target.value.trim().toLowerCase();
-            if (!t) return Tt = "", Lt = null, ec.render([]), ec.close(), Mr({
-                animate: !1
-            }), void Ih();
+            if (!t) {
+                const hadPreview = Boolean(Dt || Lt || _previewAddedBranches.size || _previewAddedParents.size);
+                Tt = "";
+                Lt = null;
+                ec.render([]);
+                ec.close();
+                if (hadPreview) {
+                    Mr({ animate: !1 });
+                    if (typeof Ih === "function") Ih();
+                } else if (Cn) {
+                    Cn.querySelectorAll(".is-dim").forEach(el => el.classList.remove("is-dim"));
+                }
+                return;
+            }
             Tt = t;
             const n = function(e, t = 24) {
                 if (!e) return [];
@@ -314,13 +330,18 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const t = i.filter(t => t.branch === e.branch);
                     t.forEach(e => a.add(e.id)), r.push(e.category, ...e.subcategories, ...e.topics, ...t);
                 }), r.push(...i.filter(e => !a.has(e.id)));
+                const textCache = new Map;
                 const o = e => {
+                    let cached = textCache.get(e.id);
+                    if (cached !== undefined) return cached;
                     const shape = typeof Ge === "function" ? Ge(e.id) : null;
                     const shapeKeys = shape && shape.keys ? shape.keys.join(" ") : "";
                     const shapeLabels = shape && shape.labels ? shape.labels.join(" ") : "";
                     const raw = [ e.displayLabel, e.label, e.giveLabel, e.receiveLabel, shapeKeys, shapeLabels ]
                         .map(v => String(v || "").toLowerCase()).join(" ");
-                    return raw + " " + raw.replace(/cuckquean/g, "cuckqueen");
+                    cached = raw + " " + raw.replace(/cuckquean/g, "cuckqueen");
+                    textCache.set(e.id, cached);
+                    return cached;
                 };
                 const normQuery = n.replace(/cuckqueen/g, "cuckquean");
                 const s = e => {

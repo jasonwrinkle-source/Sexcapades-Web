@@ -1067,15 +1067,16 @@
                             // |span| > 1, and a near-zero span falls back
                             // to the max-offset widths below. Never skip. 
                             // Least-squares flare fit: |offset| - ih =
+                            // Least-squares flare fit: |offset| - ih =
                             // flare(f)/2, flare(f) = tipW + (baseW -
-                            // tipW) * exp(-f), linear in (baseW, tipW).
+                            // tipW) * shape(f), linear in (baseW, tipW).
                             let sEE = 0, sET = 0, sTT = 0, sEf = 0, sTf = 0, nFit = 0;
                             Math.abs(span) > 1 && linePts.forEach(p => {
                                 const f = (along(p) - sAlong) / span;
                                 if (f <= .02 || f >= .98) return;
                                 const ao = Math.abs(off(p));
                                 if (ao < ih + 1.5) return;
-                                const E = Math.exp(-f), T = 1 - E, fl = 2 * (ao - ih);
+                                const E = Math.exp(-Math.pow(f / 0.72, 2)), T = 1 - E, fl = 2 * (ao - ih);
                                 sEE += E * E, sET += E * T, sTT += T * T, sEf += E * fl, sTf += T * fl, nFit++;
                             });
                             let baseW, tipW;
