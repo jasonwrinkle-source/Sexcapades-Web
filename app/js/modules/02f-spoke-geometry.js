@@ -919,7 +919,7 @@
                     fontSize: hit.fontSize,
                     spokeLength: hit.spokeLength
                 };
-                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + 30, out = {
+                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + sxIconRadius(dep) + 6 * Za.measure(" ", n, "topic"), out = {
                     fontSize: n,
                     spokeLength: Math.max(t, i)
                 };
@@ -930,9 +930,14 @@
             },
             hubSpokeLength(e, t, n, i, a) {
                 let r = n;
+                // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                // six spaces between the label end and the icon — the
+                // old +3 was ~0.001 spaces at the label font, so
+                // subcategory labels crowded their icons.
+                const gap = 6 * Za.measure(" ", t, "topic");
                 for (let n = 0; n < 3; n++) {
                     const n = Math.min(r - 40, Math.max(i + 44, .2 * r)) + 20;
-                    r = Math.max(r, n + Za.measure(e, t) + 3 + a);
+                    r = Math.max(r, n + Za.measure(e, t) + gap + a);
                 }
                 return Math.max(n, r);
             },

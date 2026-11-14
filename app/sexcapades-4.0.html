@@ -4,11 +4,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Popularity list, compare profiles with a partner, and generate stories and play guides." name="description"/>
+<meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-13_0528" name="sexcapades-build"/>
-<meta content="release-4.0-1113-0528" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-13_0528", "version": "4.0", "channel": "release"} -->
+<meta content="2026-11-13_1830" name="sexcapades-build"/>
+<meta content="release-4.0-1113-1830" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-13_1830", "version": "4.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -894,11 +894,11 @@ window.__sxProgressWidget=function(refs){
 </script>
 <a class="skip-link" href="#profileTabs">Skip to profiles</a>
 <a class="skip-link" href="#mapContainer">Skip to map</a>
-<a class="skip-link" href="#listViewDialog">Skip to Popularity list</a>
+<a class="skip-link" href="#listViewDialog">Skip to Hot list</a>
 <main aria-busy="true" class="shell">
 <header class="intro">
 <h1><button aria-controls="appAboutDialog" aria-haspopup="dialog" class="app-title-button" id="openAppAbout" type="button">Sexcapades.IO</button></h1>
-<button aria-expanded="false" aria-haspopup="menu" class="action-btn map-view-switch view-nav-btn" data-ui-tooltip="Switch views: Hypermap for the visual hypermap, Popularity List for rating topic by topic, Scene Setter for agreements and play guides, Scene Sentinel for safe signals, check-in timers, and emergency contacts, or Scribe for Literotica-style stories." id="mapListViewButton" type="button">Hypermap ▾</button>
+<button aria-expanded="false" aria-haspopup="menu" class="action-btn map-view-switch view-nav-btn" data-ui-tooltip="Switch views: Hypermap for the visual hypermap, Hot List for rating topic by topic, Scene Setter for agreements and play guides, Scene Sentinel for safe signals, check-in timers, and emergency contacts, or Scribe for Literotica-style stories." id="mapListViewButton" type="button">Hypermap ▾</button>
 <div class="header-center">
 <div class="header-search-row">
 <label class="search"><input aria-controls="searchDropdown" aria-expanded="false" aria-label="Find a topic" autocomplete="off" id="searchInput" placeholder="Find a topic" role="combobox"/><span>⌕</span><div class="topic-dropdown search-dropdown" hidden="" id="searchDropdown" role="listbox"></div></label>
@@ -1429,7 +1429,7 @@ window.__sxProgressWidget=function(refs){
 <div class="legend-row"><span><b>Heat on sync</b> — Syncing a profile to its watch from the Heat popover also copies the profile's existing Heat to the watch (HEAT:&lt;key&gt;:&lt;value&gt;, −100 to +100) right after the setup, so the watch starts at the heat the profile already has.</span></div>
 <div class="legend-row"><span><b>Bluetooth (BLE)</b> — GibberLink's Bluetooth service is 0000FFF0-0000-1000-8000-00805F9B34FB, plain Just Works GATT, no pairing ceremony. Connect from the Sentinel; where Bluetooth is unavailable the ultrasound chirps carry the same messages automatically.</span></div>
 <div class="legend-row"><span><b>GibberLink log</b> — The Sentinel's OUT / IN log records every payload sent to and heard from a watch, with its transport (Bluetooth or ultrasound). Watch taps and readings arrive as &lt;key&gt;:TAP / DBL / HLD and &lt;key&gt;:E / H / N values.</span></div>
-<div class="legend-row"><span><b>Popularity List paths</b> — Every topic in the Popularity List and On Deck shows its full path (category code › subcategory › topic, e.g. CLOTHNG›Materials›Latex &amp; rubber) under its name and in its hovertip.</span></div>
+<div class="legend-row"><span><b>Hot List paths</b> — Every topic in the Hot List and On Deck shows its full path (category code › subcategory › topic, e.g. CLOTHNG›Materials›Latex &amp; rubber) under its name and in its hovertip.</span></div>
 <div class="legend-row"><span><b>Scan or Import</b> — Import a profile from PNG, sync card, or test results.</span></div>
 <div class="legend-row"><span><b>Sync Card</b> — Business-card QR code for sharing your profile.</span></div>
 <div class="legend-row"><span><b>QR Sheet</b> — Printable 10-up sheet of sync cards.</span></div>
@@ -1489,11 +1489,11 @@ window.__sxProgressWidget=function(refs){
 <div class="status" id="testResultLoaderStatus"></div>
 </div>
 </dialog>
-<dialog aria-label="Popularity List" id="outlineDialog">
+<dialog aria-label="Hot List" id="outlineDialog">
 <div class="outline-shell">
 <div class="sx-titlebar">
 <button class="app-title-button sx-brand" data-open-about="" type="button">Sexcapades.IO</button>
-<button aria-expanded="false" aria-haspopup="menu" class="action-btn map-view-switch view-nav-btn" id="outlineMapViewButton" type="button">Popularity List ▾</button>
+<button aria-expanded="false" aria-haspopup="menu" class="action-btn map-view-switch view-nav-btn" id="outlineMapViewButton" type="button">Hot List ▾</button>
 <span class="outline-profile-name sx-titlebar-profile" id="outlineProfileName">New Profile</span>
 <div class="sx-titlebar-actions">
 <button class="action-btn primary" id="doneOutlineButton" type="button">Submit what you’ve got</button>
@@ -1792,8 +1792,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sexcapades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 4.0 · Build 2026-11-13_0528</span>
-<span class="app-about-version app-about-buildtag">release-4.0-1113-0528</span>
+<span class="app-about-version">Version 4.0 · Build 2026-11-13_1830</span>
+<span class="app-about-version app-about-buildtag">release-4.0-1113-1830</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
@@ -1961,9 +1961,9 @@ window.__sxProgressWidget=function(refs){
 <div class="dialog-head">
 <div><h2 id="profileDetailsTitle">New profile</h2><p>Name the profile and choose the identity language used by the scene builder.</p></div>
 <div class="profile-head-actions"><span class="sr-only" id="profileDetailsLoadersLabel">Tests and imports</span><div class="take-test-dropdown" id="takeTestDropdown">
-<button aria-expanded="false" aria-haspopup="menu" class="action-btn primary take-test-toggle" id="takeTestToggle" type="button"><strong>Get ratings</strong><small>Popularity list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife</small></button>
+<button aria-expanded="false" aria-haspopup="menu" class="action-btn primary take-test-toggle" id="takeTestToggle" type="button"><strong>Get ratings</strong><small>Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife</small></button>
 <div class="take-test-menu" hidden="" id="takeTestMenu" role="menu">
-<button class="get-ratings-list" data-get-ratings-list="popularity" data-profile-details-converter="outline" role="menuitem" type="button">Popularity list</button>
+<button class="get-ratings-list" data-get-ratings-list="popularity" data-profile-details-converter="outline" role="menuitem" type="button">Hot list</button>
 <button data-converter-mode="paste" data-profile-details-converter="kinktest" data-source-name="Take KinkTest" data-source-note="A guided questionnaire based on KinkTest — you answer right here in Sexcapades; nothing is sent to the site." data-source-url="https://kinktest.co.uk" data-tooltip-tap-first="" role="menuitem" type="button">Take KinkTest</button>
 <button data-profile-details-converter="bdsmtest" data-source-name="Import BDSM test" data-source-note="A real import: paste your BDSMtest.org role scores (e.g. 100% Dominant) and they become ratings here. Nothing is sent to BDSMtest.org." data-source-url="https://bdsmtest.org" data-tooltip-tap-first="" role="menuitem" type="button">Import BDSM test</button>
 <button data-converter-mode="paste" data-profile-details-converter="checklist" data-source-name="Take Yes/No/Maybe" data-source-note="Based on thatotherpaper.com/austin/yes_no_maybe — the classic Yes / No / Maybe checklist, answered right here in Sexcapades." data-tooltip-tap-first="" role="menuitem" type="button">Take Yes/No/Maybe</button>
@@ -2358,7 +2358,8 @@ window.__sxProgressWidget=function(refs){
       <button type="button" class="action-btn" id="scribeDownloadStoryBtn" style="padding: 6px 12px; font-size: 12px;">Download .txt</button>
     </div>
   </div>
-  <textarea id="scribeStoryText" readonly rows="14" placeholder="Your generated story will stream here in real time…" style="width: 100%; box-sizing: border-box; padding: 14px; background: #0b1120; border: 1px solid #1e293b; border-radius: 6px; color: #e2e8f0; font-family: Georgia, Cambria, serif; font-size: 14px; line-height: 1.6; resize: vertical;"></textarea>
+  <textarea id="scribeStoryText" rows="14" placeholder="Your generated story will stream here in real time…" style="width: 100%; box-sizing: border-box; padding: 14px; background: #0b1120; border: 1px solid #1e293b; border-radius: 6px; color: #e2e8f0; font-family: Georgia, Cambria, serif; font-size: 14px; line-height: 1.6; resize: vertical;"></textarea>
+  <p style="font-size: 11px; color: #94a3b8; margin: 6px 0 0 0;">You can edit the story here before narrating, copying, or downloading — handy if a passage trips the narration safety filter.</p>
 
   <!-- Narration Player & Voice Controls -->
   <div class="scribe-narration-bar" style="margin-top: 12px; padding: 12px; background: rgba(30, 41, 59, 0.7); border: 1px solid #334155; border-radius: 6px; display: flex; flex-direction: column; gap: 10px;">
@@ -2431,14 +2432,14 @@ window.__sxProgressWidget=function(refs){
 <dialog aria-labelledby="scribeTitle" id="scribeDialog" hidden="" style="display:none;"></dialog>
 <dialog aria-labelledby="testChooserTitle" id="testChooserDialog">
 <div class="dialog-head">
-<div><h2 id="testChooserTitle">Take a test</h2><p>Choose a question set or rate directly in the Popularity list.</p></div>
+<div><h2 id="testChooserTitle">Take a test</h2><p>Choose a question set or rate directly in the Hot list.</p></div>
 <button aria-label="Close test chooser" class="close-btn" id="closeTestChooser" type="button">×</button>
 </div>
 <div class="dialog-body">
 <div class="test-choice-list">
 <button class="action-btn" data-test-choice="kinktest" type="button"><strong>KinkTest.co.uk</strong><span>71 activities · four-point preference scale</span></button>
 <button class="action-btn" data-test-choice="checklist" type="button"><strong>Yes / No / Maybe</strong><span>Full activity checklist · answers apply to give and receive</span></button>
-<button class="action-btn" id="rateInListViewChoice" type="button"><strong>Rate in Popularity list</strong><span>All topics · separate give and receive scales</span><span class="list-rate-estimate-headline" data-list-rate-estimate-headline="">Most people finish in less than an hour. Pause anytime — partial profiles still make a functional hypermap.</span><span class="list-rate-estimate-detail" data-list-rate-estimate-detail="" hidden=""></span></button>
+<button class="action-btn" id="rateInListViewChoice" type="button"><strong>Rate in Hot list</strong><span>All topics · separate give and receive scales</span><span class="list-rate-estimate-headline" data-list-rate-estimate-headline="">Most people finish in less than an hour. Pause anytime — partial profiles still make a functional hypermap.</span><span class="list-rate-estimate-detail" data-list-rate-estimate-detail="" hidden=""></span></button>
 </div>
 </div>
 </dialog>
@@ -2630,7 +2631,7 @@ window.__sxProgressWidget=function(refs){
 </div>
 <div aria-label="Add profile" class="profile-add-menu" hidden="" id="profileAddMenu" role="menu">
 <button id="newBlankProfile" role="menuitem" type="button">New profile</button>
-<button id="newListProfile" role="menuitem" type="button">New profile in Popularity list</button>
+<button id="newListProfile" role="menuitem" type="button">New profile in Hot list</button>
 <button id="importProfileChoice" role="menuitem" type="button">Scan or Import</button>
 <button aria-expanded="false" aria-haspopup="menu" id="loadSampleProfileChoice" role="menuitem" type="button">Load sample profile…</button>
 <button aria-expanded="false" aria-haspopup="menu" id="loadSavedProfileChoice" role="menuitem" type="button">Load saved profile…</button>
@@ -2913,8 +2914,9 @@ window.__sxProgressWidget=function(refs){
 <script defer="" src="js/view-nav.js"></script>
 <script defer="" src="js/scene-sentinel.js"></script>
 <div aria-label="Switch view" class="view-nav-menu" hidden="" id="viewNavMenu" role="menu">
+<button class="view-nav-item" data-tooltip-name="Scan or Import" data-ui-tooltip="Import a profile from PNG, sync card, or test results." data-view-target="import" role="menuitem" type="button">Scan or Import</button>
 <button aria-checked="false" class="view-nav-item" data-tooltip-name="Hypermap" data-ui-tooltip="The visual hypermap — an interactive map for rating and visualizing your interests, branch by branch." data-view-target="map" role="menuitemradio" type="button">Hypermap</button>
-<button aria-checked="false" class="view-nav-item" data-tooltip-name="Popularity List" data-ui-tooltip="Rate topic by topic: all 400+ topics sorted by popularity, with separate give and receive ratings." data-view-target="list" role="menuitemradio" type="button">Popularity List</button>
+<button aria-checked="false" class="view-nav-item" data-tooltip-name="Hot List" data-ui-tooltip="Rate topic by topic: all 400+ topics sorted by popularity, with separate give and receive ratings." data-view-target="list" role="menuitemradio" type="button">Hot List</button>
 <button aria-checked="false" class="view-nav-item" data-tooltip-name="Scene Setter" data-ui-tooltip="Build a binding negotiation checklist and practical play guide for 2 or more partners." data-view-target="setter" role="menuitemradio" type="button">Scene Setter</button>
 <button aria-checked="false" class="view-nav-item" data-tooltip-name="Scene Sentinel" data-ui-tooltip="For during and after a scene: signal your partner, keep check-ins on schedule, and have help one tap away. Everything here is stored only in this browser." data-view-target="safety" role="menuitemradio" type="button">Scene Sentinel</button>
 <button aria-checked="false" class="view-nav-item" data-tooltip-name="Scribe" data-ui-tooltip="Generate an immersive Literotica-style erotic story based on selected partner profiles." data-view-target="scribe" role="menuitemradio" type="button">Scribe</button>

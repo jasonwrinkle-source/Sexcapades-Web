@@ -163,6 +163,24 @@ __sxInit(function () {
     syncBtn();
   }
 
+  /* Scan or Import is an ACTION, not a view: it opens the import flow
+     through the same entry point the Add menu's Scan or Import button
+     uses (#importProfileChoice → ww() in 06d-profile-sheet.js), so the
+     origin handling (ordinary create-a-profile import, no pair origin)
+     is identical. It must never become the "current view": currentView()
+     never returns "import", so no checkmark lands on it and
+     currentLabel() never renames the button to it. */
+  function goImport() {
+    closeMenu();
+    if (safetyDlg && safetyDlg.open) closeDialog(safetyDlg);
+    closeScribe();
+    closeSetter();
+    closeListViaRoute();
+    var btn = SexcapadesRuntime.DOM.byId("importProfileChoice");
+    if (btn) btn.click();
+    syncBtn();
+  }
+
   function getMultiSelectCount() {
     try {
       if (window.SexcapadesEngine && window.SexcapadesEngine.State) {
@@ -192,7 +210,10 @@ __sxInit(function () {
     var count = getMultiSelectCount();
     menuItems().forEach(function (it) {
       var v = it.getAttribute("data-view-target");
-      it.setAttribute("aria-checked", v === cur ? "true" : "false");
+      /* "import" is an action, not a view: it never carries a checkmark
+         (the ✓ comes from aria-checked="true"), and aria-checked is
+         invalid on role="menuitem", so leave the attribute off it. */
+      if (v !== "import") it.setAttribute("aria-checked", v === cur ? "true" : "false");
       var disabled = false;
       var reason = "";
       if (v === "setter" || v === "safety") {
@@ -270,6 +291,7 @@ __sxInit(function () {
     else if (v === "setter") goSetter();
     else if (v === "safety") goSafety();
     else if (v === "scribe") goScribe();
+    else if (v === "import") goImport();
     if (btn && document.contains(btn)) {
       var host = btn.closest("dialog");
       if (!host || !host.open) { try { btn.focus({ preventScroll: true }); } catch (e) { __sxErrLog("focus", e); } }
@@ -348,7 +370,7 @@ __sxInit(function () {
         if (pid && window.__sxOnDeckTotal(pid) > 0) return "On Deck";
       }
     } catch (e) { if (window.__sxErrLog) __sxErrLog("list-label", e); }
-    return "Popularity List";
+    return "Hot List";
   }
   function currentLabel() {
     if (setterDlg && setterDlg.open) return "Scene Setter";
@@ -395,7 +417,7 @@ __sxInit(function () {
   if (item) {
     var queued = false;
     function refreshListLabel() {
-      var label = (typeof window.__sxListLabel === "function") ? window.__sxListLabel() : "Popularity List";
+      var label = (typeof window.__sxListLabel === "function") ? window.__sxListLabel() : "Hot List";
       if (item.textContent !== label) item.textContent = label;
       if (item.getAttribute("data-tooltip-name") !== label) item.setAttribute("data-tooltip-name", label);
     }

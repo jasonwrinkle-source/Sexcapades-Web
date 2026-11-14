@@ -249,7 +249,7 @@ __sxInit(function initScribeGeminiBYOK() {
       var promptEl = document.getElementById("scenePromptText");
       var prompt = (promptEl ? promptEl.value : "").trim();
       if (!prompt) {
-        alert("Please generate a Scribe prompt first by clicking 'Create / Regenerate Story prompt' above.");
+        alert("Please generate a Scribe prompt first by clicking 'Prompt' above.");
         return;
       }
 
@@ -434,6 +434,8 @@ __sxInit(function initScribeGeminiBYOK() {
         if (genStoryBtn) genStoryBtn.disabled = false;
         if (stopStoryBtn) stopStoryBtn.hidden = true;
         activeAbortController = null;
+        // A finished story renames the compact button to Regenerate.
+        scribeSyncGenerateLabel();
       }
     });
   }
@@ -452,6 +454,169 @@ __sxInit(function initScribeGeminiBYOK() {
 
   var browserUtterance = null;
   var audioAbortController = null;
+
+  // --- Streaming Gemini narration (Web Audio queue) ---
+  // Gemini TTS can stream audio as it is synthesized (streamGenerateContent
+  // returns raw 16-bit PCM chunks, 24 kHz mono). Each chunk is scheduled
+  // into a Web Audio queue as it arrives, so playback starts almost
+  // immediately instead of waiting for the whole clip. The unary
+  // generateContent whole-file path is kept as the fallback.
+  var narrateAudioCtx = null;
+  var narrateNextStart = 0;
+  var narrateChunksPlayed = 0;
+  var narratePlaybackMode = null; // "webaudio" | "audioel" | "browser"
+  var narrateGenToken = 0;
+
+  function narrateCloseAudioCtx() {
+    if (narrateAudioCtx) {
+      try { narrateAudioCtx.close(); } catch (_) {}
+      narrateAudioCtx = null;
+    }
+    narrateNextStart = 0;
+  }
+
+  function narrateQueuePcmChunk(pcmBytes) {
+    if (!pcmBytes || pcmBytes.length < 2) return false;
+    try {
+      if (!narrateAudioCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return false;
+        narrateAudioCtx = new AC();
+      }
+      if (narrateAudioCtx.state === "suspended") narrateAudioCtx.resume();
+      var len = Math.floor(pcmBytes.length / 2);
+      if (len < 1) return false;
+      var buf = narrateAudioCtx.createBuffer(1, len, 24000);
+      var ch = buf.getChannelData(0);
+      var view = new DataView(pcmBytes.buffer, pcmBytes.byteOffset, pcmBytes.byteLength);
+      for (var i = 0; i < len; i++) ch[i] = view.getInt16(i * 2, true) / 32768;
+      var src = narrateAudioCtx.createBufferSource();
+      src.buffer = buf;
+      src.connect(narrateAudioCtx.destination);
+      var now = narrateAudioCtx.currentTime;
+      if (narrateNextStart < now) narrateNextStart = now + 0.05;
+      src.start(narrateNextStart);
+      narrateNextStart += buf.duration;
+      narrateChunksPlayed++;
+      return true;
+    } catch (_) { return false; }
+  }
+
+  function narrateBase64ToBytes(b64) {
+    var bin = atob(b64);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+
+  // Reads a streamGenerateContent response and plays each audio chunk as it
+  // arrives. Returns the number of chunks queued. Throws if the stream
+  // carries no audio at all (caller falls back to the unary whole-clip path).
+  async function narrateStreamGeminiAudio(streamEndpoint, payload, signal, myToken) {
+    var resp = await fetch(streamEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: signal
+    });
+    if (!resp.ok) {
+      var errObj = null;
+      try { errObj = await resp.json(); } catch (_) {}
+      var msg = errObj && errObj.error && errObj.error.message ? errObj.error.message : ("HTTP " + resp.status);
+      throw new Error(msg);
+    }
+    if (!resp.body || !resp.body.getReader) throw new Error("Streaming response not supported in this browser.");
+    var reader = resp.body.getReader();
+    var decoder = new TextDecoder();
+    var textBuf = "";
+    var consumed = 0;
+    var played = 0;
+    var pairRe = /"mimeType"\s*:\s*"[^"]*"\s*,\s*"data"\s*:\s*"([A-Za-z0-9+/=]+)"/g;
+    var dataRe = /"data"\s*:\s*"([A-Za-z0-9+/=]{200,})"/g;
+    for (;;) {
+      var step = await reader.read();
+      if (step.done) break;
+      if (myToken !== narrateGenToken) { try { reader.cancel(); } catch (_) {} return played; }
+      textBuf += decoder.decode(step.value, { stream: true });
+      var found = false;
+      pairRe.lastIndex = consumed;
+      var m;
+      while ((m = pairRe.exec(textBuf)) !== null) {
+        if (myToken !== narrateGenToken) return played;
+        if (narrateQueuePcmChunk(narrateBase64ToBytes(m[1]))) played++;
+        consumed = pairRe.lastIndex;
+        found = true;
+      }
+      if (!found) {
+        dataRe.lastIndex = consumed;
+        while ((m = dataRe.exec(textBuf)) !== null) {
+          if (myToken !== narrateGenToken) return played;
+          if (narrateQueuePcmChunk(narrateBase64ToBytes(m[1]))) played++;
+          consumed = dataRe.lastIndex;
+        }
+      }
+      // Keep the buffer bounded on long narrations: drop already-played text.
+      if (consumed > 0 && textBuf.length > 131072) { textBuf = textBuf.slice(consumed); consumed = 0; }
+    }
+    textBuf += decoder.decode();
+    pairRe.lastIndex = consumed;
+    var tail;
+    while ((tail = pairRe.exec(textBuf)) !== null) {
+      if (narrateQueuePcmChunk(narrateBase64ToBytes(tail[1]))) played++;
+      consumed = pairRe.lastIndex;
+    }
+    if (played === 0) throw new Error("Stream returned no audio.");
+    return played;
+  }
+
+  // Unary whole-clip fallback: the previous behaviour (one generateContent
+  // call, full JSON, base64 PCM wrapped in a WAV, played via <audio>).
+  async function narratePlayGeminiUnary(audioEndpoint, payload, signal) {
+    var resp = await fetch(audioEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: signal
+    });
+    if (!resp.ok) {
+      var errObj = null;
+      try { errObj = await resp.json(); } catch (_) {}
+      var msg = errObj && errObj.error && errObj.error.message ? errObj.error.message : ("HTTP " + resp.status);
+      throw new Error(msg);
+    }
+    var resultData = await resp.json();
+    var audioPart = null;
+    if (resultData.candidates && resultData.candidates[0] && resultData.candidates[0].content && resultData.candidates[0].content.parts) {
+      for (var pIdx = 0; pIdx < resultData.candidates[0].content.parts.length; pIdx++) {
+        var part = resultData.candidates[0].content.parts[pIdx];
+        if (part.inlineData && part.inlineData.data) { audioPart = part.inlineData; break; }
+      }
+    }
+    if (!audioPart || !audioPart.data) throw new Error("No audio stream returned. The text may have triggered safety filtering or model capacity limit.");
+    var bytes = narrateBase64ToBytes(audioPart.data);
+    var mimeType = audioPart.mimeType || "audio/pcm";
+    var audioBlob;
+    if (mimeType.indexOf("pcm") !== -1 || mimeType.indexOf("audio/L16") !== -1 || mimeType.indexOf("audio/wav") === -1) {
+      audioBlob = pcmToWavBlob(bytes, 24000);
+    } else {
+      audioBlob = new Blob([bytes], { type: mimeType });
+    }
+    var audioUrl = URL.createObjectURL(audioBlob);
+    if (audioPlayer) {
+      audioPlayer.src = audioUrl;
+      audioPlayer.hidden = false;
+      await audioPlayer.play();
+    }
+    narratePlaybackMode = "audioel";
+    return true;
+  }
+
+  // Small read-only handle for live verification / diagnostics.
+  window.__sxScribeNarrate = {
+    chunksPlayed: function() { return narrateChunksPlayed; },
+    mode: function() { return narratePlaybackMode; },
+    audioState: function() { return narrateAudioCtx ? narrateAudioCtx.state : "none"; }
+  };
 
   function updateNarrateEngineUI() {
     var isGemini = !narrateEngine || narrateEngine.value === "gemini";
@@ -500,6 +665,9 @@ __sxInit(function initScribeGeminiBYOK() {
       audioAbortController.abort();
       audioAbortController = null;
     }
+    narrateGenToken++;
+    narrateCloseAudioCtx();
+    narratePlaybackMode = null;
     if (startNarrateBtn) {
       startNarrateBtn.textContent = "▶ Play Narration";
       startNarrateBtn.disabled = false;
@@ -524,6 +692,16 @@ __sxInit(function initScribeGeminiBYOK() {
             pauseNarrateBtn.textContent = "Resume";
             if (narrateStatus) narrateStatus.textContent = "Paused";
           }
+        }
+      } else if (narratePlaybackMode === "webaudio" && narrateAudioCtx) {
+        if (narrateAudioCtx.state === "suspended") {
+          narrateAudioCtx.resume();
+          pauseNarrateBtn.textContent = "Pause";
+          if (narrateStatus) narrateStatus.textContent = "Playing Gemini voice…";
+        } else {
+          narrateAudioCtx.suspend();
+          pauseNarrateBtn.textContent = "Resume";
+          if (narrateStatus) narrateStatus.textContent = "Paused";
         }
       } else if (audioPlayer) {
         if (audioPlayer.paused) {
@@ -578,10 +756,10 @@ __sxInit(function initScribeGeminiBYOK() {
         return;
       }
 
-      // Gemini AI Studio Voice Output
+      // Gemini AI Studio Voice Output — streaming first, whole-clip fallback.
       var apiKey = (keyInput ? keyInput.value : "").trim();
       if (!apiKey) {
-        try { apiKey = localStorage.getItem(STORAGE_KEY) || ""; } catch (_) {}
+        try { apiKey = localStorage.getItem(getStorageKey("gemini")) || ""; } catch (_) {}
       }
       if (!apiKey) {
         alert("Please enter and save your Gemini API key above to use Gemini voice narration.");
@@ -597,9 +775,13 @@ __sxInit(function initScribeGeminiBYOK() {
       if (stopNarrateBtn) stopNarrateBtn.hidden = false;
 
       audioAbortController = new AbortController();
+      var myToken = ++narrateGenToken;
+      narrateChunksPlayed = 0;
 
       var audioModel = (document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "") || "gemini-3.8-flash";
-      var audioEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(audioModel) + ":generateContent?key=" + encodeURIComponent(apiKey);
+      var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(audioModel);
+      var streamEndpoint = audioBase + ":streamGenerateContent?key=" + encodeURIComponent(apiKey);
+      var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
 
       var audioPayload = {
         contents: [
@@ -631,71 +813,136 @@ __sxInit(function initScribeGeminiBYOK() {
       };
 
       try {
-        var resp = await fetch(audioEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(audioPayload),
-          signal: audioAbortController.signal
-        });
-
-        if (!resp.ok) {
-          var errObj = null;
-          try { errObj = await resp.json(); } catch (_) {}
-          var msg = errObj && errObj.error && errObj.error.message ? errObj.error.message : ("HTTP " + resp.status);
-          throw new Error(msg);
-        }
-
-        var resultData = await resp.json();
-        var audioPart = null;
-        if (resultData.candidates && resultData.candidates[0] && resultData.candidates[0].content && resultData.candidates[0].content.parts) {
-          for (var pIdx = 0; pIdx < resultData.candidates[0].content.parts.length; pIdx++) {
-            var part = resultData.candidates[0].content.parts[pIdx];
-            if (part.inlineData && part.inlineData.data) {
-              audioPart = part.inlineData;
-              break;
-            }
-          }
-        }
-
-        if (!audioPart || !audioPart.data) {
-          throw new Error("No audio stream returned. The text may have triggered safety filtering or model capacity limit.");
-        }
-
-        var rawBase64 = audioPart.data;
-        var mimeType = audioPart.mimeType || "audio/pcm";
-        var binaryStr = atob(rawBase64);
-        var bytes = new Uint8Array(binaryStr.length);
-        for (var b = 0; b < binaryStr.length; b++) bytes[b] = binaryStr.charCodeAt(b);
-
-        var audioBlob;
-        if (mimeType.indexOf("pcm") !== -1 || mimeType.indexOf("audio/L16") !== -1 || mimeType.indexOf("audio/wav") === -1) {
-          // Wrap raw 24kHz 16-bit mono PCM into standard WAV
-          audioBlob = pcmToWavBlob(bytes, 24000);
-        } else {
-          audioBlob = new Blob([bytes], { type: mimeType });
-        }
-
-        var audioUrl = URL.createObjectURL(audioBlob);
-        if (audioPlayer) {
-          audioPlayer.src = audioUrl;
-          audioPlayer.hidden = false;
-          audioPlayer.play();
-        }
-
-        if (narrateStatus) narrateStatus.textContent = "Playing Gemini voice (" + chosenVoice + ")…";
+        // Streaming first: audio starts playing as it is synthesized.
+        if (narrateStatus) narrateStatus.textContent = "Streaming Gemini voice (" + chosenVoice + ")…";
+        await narrateStreamGeminiAudio(streamEndpoint, audioPayload, audioAbortController.signal, myToken);
+        if (myToken !== narrateGenToken) return;
+        narratePlaybackMode = "webaudio";
+        if (narrateStatus) narrateStatus.textContent = "Playing Gemini voice (" + chosenVoice + ", streaming)…";
         if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
         if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
-      } catch (audioErr) {
-        if (audioErr.name === "AbortError") {
+      } catch (streamErr) {
+        if (streamErr.name === "AbortError" || myToken !== narrateGenToken) {
           if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
-        } else {
-          console.error("[Scribe Audio Narration Error]", audioErr);
-          if (narrateStatus) narrateStatus.textContent = "Narration error: " + audioErr.message;
+          if (startNarrateBtn) startNarrateBtn.disabled = false;
+          return;
         }
-        if (startNarrateBtn) startNarrateBtn.disabled = false;
+        if (narrateChunksPlayed > 0) {
+          // Some audio already streamed and is playing; keep it, don't
+          // restart from scratch with the whole-clip path.
+          console.warn("[Scribe Audio Narration] Stream stopped after " + narrateChunksPlayed + " chunks:", streamErr);
+          narratePlaybackMode = "webaudio";
+          if (narrateStatus) narrateStatus.textContent = "Playing Gemini voice (" + chosenVoice + ", streaming)…";
+          if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
+          if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
+          return;
+        }
+        // Nothing streamed yet — fall back to the whole-clip path.
+        console.warn("[Scribe Audio Narration] Streaming failed, falling back to whole-clip:", streamErr);
+        try {
+          if (narrateStatus) narrateStatus.textContent = "Generating voice with Gemini (" + chosenVoice + ")…";
+          await narratePlayGeminiUnary(audioEndpoint, audioPayload, audioAbortController.signal);
+          if (myToken !== narrateGenToken) return;
+          if (narrateStatus) narrateStatus.textContent = "Playing Gemini voice (" + chosenVoice + ")…";
+          if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
+          if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
+        } catch (audioErr) {
+          if (audioErr.name === "AbortError") {
+            if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
+          } else {
+            console.error("[Scribe Audio Narration Error]", audioErr);
+            if (narrateStatus) narrateStatus.textContent = "Narration error: " + audioErr.message;
+          }
+          if (startNarrateBtn) startNarrateBtn.disabled = false;
+        }
       }
     });
   }
+  // --------------------------------------------------------------------------
+  // Scribe compact three-button row (Prompt / Generate / Play).
+  // The Prompt button keeps the existing #generateScribePrompt id (new label),
+  // so its wiring in 05-compatibility.js is untouched.
+  // --------------------------------------------------------------------------
+  var scribeGenerateBtn = document.getElementById("scribeGenerateBtn");
+  var scribePlayBtn = document.getElementById("scribePlayBtn");
+  var scribeAiPanel = document.getElementById("scribeAiPanel");
+
+  function scribeAiSetupReady() {
+    var prov = getActiveProvider();
+    var key = "";
+    try { key = (keyInput ? keyInput.value : "").trim() || localStorage.getItem(getStorageKey(prov)) || ""; } catch (_) {}
+    return Boolean(key);
+  }
+
+  function scribeSyncGenerateLabel() {
+    if (!scribeGenerateBtn) return;
+    if (!scribeAiSetupReady()) { scribeGenerateBtn.textContent = "Pick your AI"; return; }
+    // Set up: label stays on the compact button only — it just renames to
+    // Regenerate once a story exists, never grows into a full-width control.
+    var hasStory = storyText && storyText.value && storyText.value.trim().length > 0;
+    scribeGenerateBtn.textContent = hasStory ? "↻ Regenerate" : "✨ Generate";
+  }
+
+  function scribeOpenAiPanel() {
+    if (scribeAiPanel) {
+      try { scribeAiPanel.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
+    }
+    if (keyInput) keyInput.focus();
+    scribeSyncGenerateLabel();
+  }
+
+  if (scribeGenerateBtn) {
+    scribeGenerateBtn.addEventListener("click", function() {
+      if (!scribeAiSetupReady()) {
+        // Not set up yet: first click opens the AI menu so the user picks
+        // a provider and saves a key. The AI panel lives inside
+        // #sceneBrief, which is hidden until a prompt exists — so generate
+        // the prompt first to reveal the panel, then open it and focus
+        // the key field.
+        var promptEl0 = document.getElementById("scenePromptText");
+        var briefEl0 = document.getElementById("sceneBrief");
+        if ((!promptEl0 || !promptEl0.value.trim()) && briefEl0 && briefEl0.hidden) {
+          var promptBtn0 = document.getElementById("generateScribePrompt");
+          if (promptBtn0) promptBtn0.click();
+        }
+        scribeOpenAiPanel();
+        return;
+      }
+      // Set up: make sure a prompt exists, then generate through the
+      // existing one-click path.
+      var promptEl = document.getElementById("scenePromptText");
+      if (promptEl && !promptEl.value.trim()) {
+        var promptBtn = document.getElementById("generateScribePrompt");
+        if (promptBtn) promptBtn.click();
+      }
+      if (genStoryBtn) genStoryBtn.click();
+    });
+    // Double-click also generates: when set up, the first click already
+    // starts it and the button disables itself, so the second is a no-op.
+    scribeGenerateBtn.addEventListener("dblclick", function() {
+      if (scribeAiSetupReady() && genStoryBtn && !genStoryBtn.disabled) genStoryBtn.click();
+    });
+  }
+
+  if (scribePlayBtn) {
+    scribePlayBtn.addEventListener("click", function() {
+      var text = (storyText ? storyText.value : "").trim();
+      if (!text) {
+        alert("Please generate a story first, then press Play to hear it.");
+        return;
+      }
+      // Reuse the narration path (streaming Gemini voice, or the engine
+      // selected in the narration bar).
+      if (startNarrateBtn) startNarrateBtn.click();
+    });
+  }
+
+  // Keep the Generate label in step with the key/provider state.
+  if (keyInput) keyInput.addEventListener("input", scribeSyncGenerateLabel);
+  if (storyText) storyText.addEventListener("input", scribeSyncGenerateLabel);
+  if (saveKeyBtn) saveKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
+  if (clearKeyBtn) clearKeyBtn.addEventListener("click", function() { setTimeout(scribeSyncGenerateLabel, 0); });
+  if (providerSelect) providerSelect.addEventListener("change", scribeSyncGenerateLabel);
+  scribeSyncGenerateLabel();
+
 });
-
-

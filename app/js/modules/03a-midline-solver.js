@@ -736,9 +736,13 @@
         function sxLabelClearance(radius, label, fontSize, iconR) {
             let r = radius;
             try {
-                const textW = Za.measure(label || "", null == fontSize ? sxFontSize(3) : fontSize), icon = null == iconR ? sxIconRadius(3) : iconR;
+                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = 6 * Za.measure(" ", fs, "topic");
                 for (let pass = 0; pass < 3; pass++) {
-                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + 12;
+                    // Label-to-icon gap (ruled 2026-11-13, Jason): about
+                    // six spaces between the label end and the icon, on
+                    // all nodes — the old +12 was ~0.005 spaces at the
+                    // label font, so labels crowded their icons.
+                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + gap;
                     if (!(Number.isFinite(need) && need > r)) break;
                     r = need;
                 }

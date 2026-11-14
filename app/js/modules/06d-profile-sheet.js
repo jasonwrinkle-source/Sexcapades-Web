@@ -2554,7 +2554,7 @@
             sxOutlineSortMode = "popularity";
         })), e.all("[data-profile-details-converter]").forEach(n => n.addEventListener("click", () => {
             const kind = n.dataset.profileDetailsConverter, mode = n.dataset.converterMode || "auto";
-            jY = ({ outline: "Popularity list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? Ms(id) : Ax(kind, mode, id), vw();
+            jY = ({ outline: "Hot list", kinktest: "KinkTest import", bdsmtest: "BDSMtest import", checklist: "Yes/No/Maybe checklist", fetlife: "FetLife import" })[kind] || "import", Vy = id => "outline" === kind ? Ms(id) : Ax(kind, mode, id), vw();
         })), Hg.addEventListener("keydown", e => {
             "Enter" === e.key && (e.preventDefault(), vw());
         }), e.byId("closeProfileImport") && (e.byId("closeProfileImport").onclick = () => Ui(Sg)), Sg.addEventListener("click", e => {
