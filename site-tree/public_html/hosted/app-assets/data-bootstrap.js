@@ -33645,12 +33645,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const t = e.byId("negotiationPanel"), x = [ setterPhaseSection(), setterDetailsSection() ].filter(Boolean).join("\n");
             return (t?.dataset.copy || "") + (x ? "\n" + x : "") + "\n\n" + SX_PLAY_GUIDE_FORMAT;
         }
+        window.__sxPlayGuidePromptText = playGuidePromptText;
         const SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene Sentinel Way B standard, guide-1106-0847)", "End your answer with a timed play guide in EXACTLY this format, so Scene Sentinel can read it back and run its timers. One step per line, every line in this shape:", "[MM:SS-MM:SS] Activity name — what happens in this step, in one or two sentences.", "Rules: (1) Time codes are elapsed time from the start of the scene, zero-based: the first step starts at 00:00, steps run back to back with no gaps or overlaps, and the last step ends at the planned scene length. Use MM:SS under an hour, H:MM:SS over an hour. (2) The activity name MUST be one of this fixed set, spelled exactly: Warm-up; Negotiation check; Bondage; Impact play; Sensation play; Teasing & denial; Oral; Manual stimulation; Penetrative sex; Orgasm control; Roleplay; Service; Worship; Free play; Aftercare; Other. Put anything else in the guidance after the dash, never in the activity name. (3) End with an Aftercare step. (4) After the timed steps, add one line: CHECK-IN EVERY: N MINUTES, with N between 1 and 15, so the app knows how often to pulse the watch for a check-in. (5) Keep the timed guide as plain lines — no tables, no bullet markers, no extra time formats anywhere else in the guide.", "Example:", "[00:00-05:00] Warm-up — Slow massage and teasing, building touch gradually.", "[05:00-20:00] Impact play — Flogging, starting light and checking in before building.", "[20:00-25:00] Aftercare — Water, blanket, quiet cuddling.", "CHECK-IN EVERY: 5 MINUTES" ].join("\n");
 
         function setterParticipantIds() {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
             return ids.length >= 2 && Fu(ids), ids;
         }
+        window.__sxSetterParticipantIds = setterParticipantIds;
         // Draft data computed once per open (writers refactor): the
         // open handler hands Fu the Iu() result it already computed
         // for the on-screen panel, instead of Fu recomputing the
