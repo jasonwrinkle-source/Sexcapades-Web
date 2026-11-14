@@ -252,7 +252,21 @@
                     });
                     // Backwards compatibility migration for legacy dual {give, receive} rated on newly triadic topics
                     if (!Object.keys(incoming).length && (Object.prototype.hasOwnProperty.call(rating, "give") || Object.prototype.hasOwnProperty.call(rating, "receive"))) {
-                        if (flanks.length === 3) {
+                        if (id === "t0281" || id === "topic-cuckold-hotwife") {
+                            // t0281 legacy: give = outside-partner sex (hotwife / bull), receive = knowledge/view (cuckold)
+                            const isFemale = rt[c] && (rt[c].includes("female") || rt[c].includes("woman") || rt[c].includes("f"));
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : 0;
+                            if (isFemale) {
+                                incoming.hotwife = gVal;
+                                incoming.bull = 0;
+                                incoming.cuckold = 0;
+                            } else {
+                                incoming.bull = gVal;
+                                incoming.cuckold = rVal;
+                                incoming.hotwife = 0;
+                            }
+                        } else if (flanks.length === 3) {
                             if (Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give))) incoming[flanks[0]] = clamp(rating.give);
                             if (Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive))) incoming[flanks[1]] = clamp(rating.receive);
                             if (incoming[flanks[2]] === undefined) incoming[flanks[2]] = 0;
