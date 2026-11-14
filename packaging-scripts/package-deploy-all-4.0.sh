@@ -162,10 +162,10 @@ cp "$DIR/packaging-scripts/package-deploy-app-4.0.sh" "$PIPELINE_DIR/" 2>/dev/nu
 cp "$DIR/sexcapades-site-handover.md" "$PIPELINE_DIR/" 2>/dev/null || true
 
 echo "9. Setting permissions..."
-find "$STAGING" -type d -exec chmod 755 {} \;
-find "$STAGING" -type f -exec chmod 644 {} \;
-find "$STAGING" -type f -name "*.sh" -exec chmod 755 {} \;
-find "$STAGING" -type f -name "*.php" -exec chmod 644 {} \;
+find "$STAGING" -type d -exec chmod 755 {} +
+find "$STAGING" -type f -exec chmod 644 {} +
+find "$STAGING" -type f -name "*.sh" -exec chmod 755 {} +
+find "$STAGING" -type f -name "*.php" -exec chmod 644 {} +
 
 echo "10. Creating tarball..."
 cd "$STAGING"

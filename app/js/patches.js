@@ -905,7 +905,10 @@ __sxInit(function initScribeGeminiBYOK() {
       var chosenVoice = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
       resetNarrationState();
 
-      if (narrateStatus) narrateStatus.textContent = "Generating voice with Gemini (" + chosenVoice + ")…";
+      if (narrateStatus) {
+        narrateStatus.textContent = "Generating voice with Gemini (" + chosenVoice + ")…";
+        narrateStatus.style.color = "#38bdf8";
+      }
       if (startNarrateBtn) startNarrateBtn.disabled = true;
       if (stopNarrateBtn) stopNarrateBtn.hidden = false;
 
@@ -915,23 +918,21 @@ __sxInit(function initScribeGeminiBYOK() {
 
       // Helper to generate proper audio payload based on model type
       function getAudioPayload(modelName, textToRead, voiceName) {
-        var isTts = modelName.indexOf("-tts") !== -1;
-        var textPart = isTts
-          ? { text: textToRead.slice(0, 4000), speech_metadata: { style: "warm, expressive narration" } }
-          : { text: "Read the following text aloud with natural, engaging expressive narration. Do not add introductory or commentary remarks, speak only the exact text provided:\n\n" + textToRead.slice(0, 4000) };
-
         return {
           contents: [
             {
               role: "user",
-              parts: [textPart]
+              parts: [
+                {
+                  text: "Read the following text aloud with natural, engaging expressive narration. Do not add introductory or commentary remarks, speak only the exact text provided:\n\n" + textToRead.slice(0, 4000)
+                }
+              ]
             }
           ],
           generationConfig: {
             responseModalities: ["AUDIO"],
             speechConfig: {
               voiceConfig: {
-                voice: voiceName,
                 prebuiltVoiceConfig: {
                   voiceName: voiceName
                 }
@@ -947,32 +948,20 @@ __sxInit(function initScribeGeminiBYOK() {
         };
       }
 
-      var chosenVoice = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
-      resetNarrationState();
-
-      if (narrateStatus) {
-        narrateStatus.textContent = "Generating voice with Gemini (" + chosenVoice + ")…";
-        narrateStatus.style.color = "#38bdf8";
-      }
-      if (startNarrateBtn) startNarrateBtn.disabled = true;
-      if (stopNarrateBtn) stopNarrateBtn.hidden = false;
-
-      audioAbortController = new AbortController();
-      var myToken = ++narrateGenToken;
-      narrateChunksPlayed = 0;
-
-      var rawModelInput = document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "";
+      var modelSelect = document.getElementById("scribeGeminiModel");
+      var rawModelInput = (modelSelect ? modelSelect.value : "") || (document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "");
       var candidateAudioModels = [
-        "gemini-3.8-flash-tts",
-        "gemini-3.8-flash-lite-tts",
         "gemini-2.5-flash",
-        "gemini-2.0-flash",
+        "gemini-2.0-flash-exp",
         "gemini-2.5-flash-native-audio",
-        "gemini-2.0-flash-exp"
+        "gemini-3.8-flash",
+        "gemini-flash-latest",
+        "gemini-2.0-flash"
       ];
       if (rawModelInput) {
         candidateAudioModels.unshift(rawModelInput);
       }
+      candidateAudioModels = candidateAudioModels.filter(function(m, i) { return candidateAudioModels.indexOf(m) === i; });
       candidateAudioModels = candidateAudioModels.filter(function(m, i) { return candidateAudioModels.indexOf(m) === i; });
 
       var narrationSucceeded = false;
