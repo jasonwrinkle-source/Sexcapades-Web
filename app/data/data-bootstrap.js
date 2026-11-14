@@ -33170,7 +33170,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         alreadyTried: et[e]
                     })),
                     details: String(e.byId("scribeDetails")?.value || "").trim(),
-                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 2)),
+                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4)),
                     pageCount: String(e.byId("scribePageCount")?.value || "").trim()
                 };
             }();

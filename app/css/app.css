@@ -1444,3 +1444,36 @@ textarea{font-size:16px}
 #veilPopover input[type=range]{transform:translate(-50%,-50%) rotate(90deg)}
 #veilPopover input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3fbb79,#f2c94c,#d14f59)}
 #veilPopover input[type=range]::-moz-range-track{background:linear-gradient(90deg,#3fbb79,#f2c94c,#d14f59)}
+
+/* Scribe Story Ingredients disclosure triangles */
+details.scene-phase {
+  margin: 6px 0;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 4px 10px;
+}
+details.scene-phase summary {
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 0;
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 700;
+  list-style-position: inside;
+}
+details.scene-phase summary h4 {
+  display: inline-block;
+  margin: 0 0 0 4px;
+  font-size: 13px;
+  color: inherit;
+  vertical-align: middle;
+}
+details.scene-phase[open] {
+  padding-bottom: 8px;
+  background: rgba(15, 23, 42, 0.6);
+}
+details.scene-phase ul {
+  margin: 6px 0 4px 18px;
+  padding: 0;
+}

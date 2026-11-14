@@ -315,6 +315,32 @@ __sxInit(function initScribeGeminiBYOK() {
       try {
         var totalText = "";
 
+        // If auto-narrate is engaged on "▶ Play" and Gemini audio is selected, spin up live streaming narration
+        if (autoNarrateAfterStoryGen) {
+          var narrateEng = (narrateEngine ? narrateEngine.value : "gemini") || "gemini";
+          var gemKey = (keyInput ? keyInput.value : "").trim();
+          if (!gemKey) {
+            try { gemKey = localStorage.getItem(getStorageKey("gemini")) || ""; } catch (_) {}
+          }
+          if (narrateEng === "gemini" && gemKey) {
+            resetNarrationState();
+            var chosenV = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
+            var narrModelEl = document.getElementById("scribeNarrateModel");
+            var chosenNarrModel = (narrModelEl && narrModelEl.value) ? narrModelEl.value : "gemini-2.5-flash-preview-tts";
+            audioAbortController = new AbortController();
+            var myToken = ++narrateGenToken;
+            narrateChunksPlayed = 0;
+            liveNarrator = createLiveStoryNarrator(gemKey, chosenV, chosenNarrModel, myToken);
+            if (narrateStatus) {
+              narrateStatus.textContent = "Live narration started (" + chosenNarrModel + ")…";
+              narrateStatus.style.color = "#38bdf8";
+            }
+            if (startNarrateBtn) startNarrateBtn.disabled = true;
+            if (stopNarrateBtn) stopNarrateBtn.hidden = false;
+            if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
+          }
+        }
+
         function onStreamChunk(chunk) {
           if (!chunk) return;
           totalText += chunk;
@@ -325,6 +351,9 @@ __sxInit(function initScribeGeminiBYOK() {
           var wc = (totalText.trim().match(/\S+/g) || []).length;
           if (storyStatus) {
             storyStatus.textContent = "Streaming story (" + wc + " words)…";
+          }
+          if (liveNarrator) {
+            liveNarrator.feed(chunk);
           }
         }
 
@@ -526,15 +555,25 @@ __sxInit(function initScribeGeminiBYOK() {
           storyStatus.textContent = "Complete! (" + wordCount + " words in " + finalElapsedSec + "s via " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + ")";
         }
 
+        if (liveNarrator) {
+          liveNarrator.finish();
+          liveNarrator = null;
+        }
+
         if (autoNarrateAfterStoryGen) {
           autoNarrateAfterStoryGen = false;
-          if (startNarrateBtn) {
+          // If live narration was already started, let it finish naturally; otherwise trigger startNarrateBtn
+          if (!narratePlaybackMode && startNarrateBtn) {
             setTimeout(function() {
               startNarrateBtn.click();
             }, 300);
           }
         }
       } catch (err) {
+        if (liveNarrator) {
+          try { liveNarrator.finish(); } catch (_) {}
+          liveNarrator = null;
+        }
         autoNarrateAfterStoryGen = false;
         if (stopwatchTimer) { clearInterval(stopwatchTimer); stopwatchTimer = null; }
         if (err.name === "AbortError") {
@@ -579,6 +618,7 @@ __sxInit(function initScribeGeminiBYOK() {
   var narrateChunksPlayed = 0;
   var narratePlaybackMode = null; // "webaudio" | "audioel" | "browser"
   var narrateGenToken = 0;
+  var liveNarrator = null;
 
   function narrateCloseAudioCtx() {
     if (narrateAudioCtx) {
@@ -586,6 +626,129 @@ __sxInit(function initScribeGeminiBYOK() {
       narrateAudioCtx = null;
     }
     narrateNextStart = 0;
+  }
+
+  // Helper to generate proper audio payload based on model type
+  function getAudioPayload(modelName, textToRead, voiceName) {
+    var isTts = modelName.indexOf("-tts") !== -1;
+    var textContent = isTts
+      ? textToRead.slice(0, 4000)
+      : ("Read the following text aloud with natural, engaging expressive narration. Do not add introductory or commentary remarks, speak only the exact text provided:\n\n" + textToRead.slice(0, 4000));
+    return {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text: textContent
+            }
+          ]
+        }
+      ],
+      generationConfig: {
+        responseModalities: ["AUDIO"],
+        speechConfig: {
+          voiceConfig: {
+            prebuiltVoiceConfig: {
+              voiceName: voiceName
+            }
+          }
+        }
+      },
+      safetySettings: [
+        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+      ]
+    };
+  }
+
+  // Live sentence-by-sentence streaming narrator:
+  // As story text streams in, buffers complete sentences, sends each to Gemini TTS
+  // sequentially, and feeds audio chunks directly into Web Audio without gap.
+  function createLiveStoryNarrator(apiKey, voiceName, modelName, token) {
+    var buffer = "";
+    var sentenceQueue = [];
+    var isProcessing = false;
+    var isFinished = false;
+
+    async function processQueue() {
+      if (isProcessing) return;
+      isProcessing = true;
+      while (sentenceQueue.length > 0) {
+        if (token !== narrateGenToken) { isProcessing = false; return; }
+        var sentence = sentenceQueue.shift();
+        if (!sentence || !sentence.trim()) continue;
+
+        var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(modelName);
+        var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
+        var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
+        var payload = getAudioPayload(modelName, sentence.trim(), voiceName);
+
+        try {
+          if (narrateStatus) {
+            narrateStatus.textContent = "Narrating live (" + modelName + ")…";
+            narrateStatus.style.color = "#4ade80";
+          }
+          await narrateStreamGeminiAudio(streamEndpoint, payload, audioAbortController ? audioAbortController.signal : null, token);
+          narratePlaybackMode = "webaudio";
+        } catch (streamErr) {
+          if (token !== narrateGenToken) { isProcessing = false; return; }
+          console.warn("[Live Story Narrator] Streaming chunk failed, attempting unary:", streamErr.message);
+          try {
+            await narratePlayGeminiUnary(audioEndpoint, payload, audioAbortController ? audioAbortController.signal : null, modelName);
+          } catch (uErr) {
+            console.warn("[Live Story Narrator] Unary failed:", uErr.message);
+          }
+        }
+      }
+      isProcessing = false;
+      if (isFinished && sentenceQueue.length === 0) {
+        if (narrateStatus) narrateStatus.textContent = "Finished live narration.";
+        if (startNarrateBtn) startNarrateBtn.disabled = false;
+      }
+    }
+
+    return {
+      feed: function(chunkText) {
+        if (token !== narrateGenToken) return;
+        buffer += chunkText;
+        // Split on sentence boundaries: (. ! ? \n\n) followed by whitespace, minimum 60 chars
+        var parts = buffer.split(/([.!?]+(?:\s+|\n+)|(?:\r?\n){2,})/);
+        if (parts.length > 2) {
+          var assembled = "";
+          for (var p = 0; p < parts.length - 1; p += 2) {
+            var sent = (parts[p] + (parts[p + 1] || "")).trim();
+            if (sent) {
+              if (assembled.length < 80) {
+                assembled += (assembled ? " " : "") + sent;
+              } else {
+                sentenceQueue.push(assembled);
+                assembled = sent;
+              }
+            }
+          }
+          if (assembled) {
+            if (assembled.length >= 80) {
+              sentenceQueue.push(assembled);
+              assembled = "";
+            }
+          }
+          buffer = (assembled ? assembled + " " : "") + (parts[parts.length - 1] || "");
+          processQueue();
+        }
+      },
+      finish: function() {
+        if (token !== narrateGenToken) return;
+        isFinished = true;
+        if (buffer.trim()) {
+          sentenceQueue.push(buffer.trim());
+          buffer = "";
+        }
+        processQueue();
+      }
+    };
   }
 
   function narrateQueuePcmChunk(pcmBytes) {
@@ -819,6 +982,10 @@ __sxInit(function initScribeGeminiBYOK() {
   }
 
   function resetNarrationState() {
+    if (liveNarrator) {
+      try { liveNarrator.finish(); } catch (_) {}
+      liveNarrator = null;
+    }
     if (window.speechSynthesis) window.speechSynthesis.cancel();
     if (audioPlayer) {
       audioPlayer.pause();
@@ -945,52 +1112,16 @@ __sxInit(function initScribeGeminiBYOK() {
       narrateChunksPlayed = 0;
 
       // Helper to generate proper audio payload based on model type
-      function getAudioPayload(modelName, textToRead, voiceName) {
-        var isTts = modelName.indexOf("-tts") !== -1;
-        var textContent = isTts
-          ? textToRead.slice(0, 4000)
-          : ("Read the following text aloud with natural, engaging expressive narration. Do not add introductory or commentary remarks, speak only the exact text provided:\n\n" + textToRead.slice(0, 4000));
-        return {
-          contents: [
-            {
-              role: "user",
-              parts: [
-                {
-                  text: textContent
-                }
-              ]
-            }
-          ],
-          generationConfig: {
-            responseModalities: ["AUDIO"],
-            speechConfig: {
-              voiceConfig: {
-                prebuiltVoiceConfig: {
-                  voiceName: voiceName
-                }
-              }
-            }
-          },
-          safetySettings: [
-            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-          ]
-        };
-      }
-
-      var modelSelect = document.getElementById("scribeGeminiModel");
-      var rawModelInput = (modelSelect ? modelSelect.value : "") || (document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "");
+      var narrateModelSelect = document.getElementById("scribeNarrateModel");
       var candidateAudioModels = [
+        "gemini-2.5-flash-preview-tts",
+        "gemini-2.5-pro-preview-tts",
         "gemini-3.8-flash-tts",
         "gemini-3.8-flash-lite-tts",
-        "gemini-2.5-flash-tts",
-        "gemini-2.0-flash-exp",
-        "gemini-2.5-flash"
+        "gemini-2.5-flash-tts"
       ];
-      if (rawModelInput) {
-        candidateAudioModels.unshift(rawModelInput);
+      if (narrateModelSelect && narrateModelSelect.value) {
+        candidateAudioModels.unshift(narrateModelSelect.value);
       }
 
       // Query ListModels to find any enabled TTS or audio-capable models on this API key
@@ -1004,12 +1135,12 @@ __sxInit(function initScribeGeminiBYOK() {
               var mName = (m.name || "").replace(/^models\//, "");
               var isGen = m.supportedGenerationMethods && m.supportedGenerationMethods.indexOf("generateContent") !== -1;
               if (isGen) {
-                if (mName.indexOf("-tts") !== -1 || mName.indexOf("audio") !== -1 || mName.indexOf("live") !== -1) {
+                if (mName.indexOf("-tts") !== -1) {
                   discovered.push(mName);
                 }
               }
             });
-            console.log("[Scribe Audio Narration] Discovered audio-capable models for API key:", discovered);
+            console.log("[Scribe Audio Narration] Discovered TTS models for API key:", discovered);
             if (discovered.length > 0) {
               candidateAudioModels = discovered.concat(candidateAudioModels);
             }
@@ -1019,6 +1150,36 @@ __sxInit(function initScribeGeminiBYOK() {
         console.warn("[Scribe Audio Narration] ListModels discovery error:", lmErr);
       }
       candidateAudioModels = candidateAudioModels.filter(function(m, i) { return candidateAudioModels.indexOf(m) === i; });
+
+      // Function to synthesize and play a piece of text (either full text or streaming fragment)
+      async function synthesizeAndPlayGeminiAudio(textToSynthesize, isSentenceChunk) {
+        var chosenModel = narrateModelSelect && narrateModelSelect.value ? narrateModelSelect.value : "gemini-2.5-flash-preview-tts";
+        var payload = getAudioPayload(chosenModel, textToSynthesize, chosenVoice);
+        var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(chosenModel);
+        var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
+        var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
+
+        try {
+          await narrateStreamGeminiAudio(streamEndpoint, payload, audioAbortController.signal, myToken);
+          narratePlaybackMode = "webaudio";
+          return true;
+        } catch (streamErr) {
+          if (streamErr.name === "AbortError" || myToken !== narrateGenToken) return false;
+          if (narrateChunksPlayed > 0) {
+            narratePlaybackMode = "webaudio";
+            return true;
+          }
+          console.warn("[Scribe Audio Narration] Stream failed with " + chosenModel + " (" + streamErr.message + "), trying unary…");
+          try {
+            await narratePlayGeminiUnary(audioEndpoint, payload, audioAbortController.signal, chosenModel);
+            return true;
+          } catch (unaryErr) {
+            if (unaryErr.name === "AbortError" || myToken !== narrateGenToken) return false;
+            console.warn("[Scribe Audio Narration] Unary failed with " + chosenModel + ":", unaryErr.message);
+            throw unaryErr;
+          }
+        }
+      }
 
       var narrationSucceeded = false;
       var lastAudioErr = null;
