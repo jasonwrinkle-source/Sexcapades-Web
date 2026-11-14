@@ -1268,17 +1268,6 @@ __sxInit(function initScribeGeminiBYOK() {
         if (stopNarrateBtn) stopNarrateBtn.hidden = true;
         if (pauseNarrateBtn) pauseNarrateBtn.hidden = true;
       }
-        if (narrateStatus) {
-          narrateStatus.textContent = "Voice narration failed: " + errText;
-          narrateStatus.style.color = "#f87171";
-        }
-        if (startNarrateBtn) {
-          startNarrateBtn.textContent = "▶ Start Narration";
-          startNarrateBtn.disabled = false;
-        }
-        if (stopNarrateBtn) stopNarrateBtn.hidden = true;
-        if (pauseNarrateBtn) pauseNarrateBtn.hidden = true;
-      }
     });
   }
 

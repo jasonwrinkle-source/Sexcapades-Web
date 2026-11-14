@@ -1592,7 +1592,7 @@
                         alreadyTried: et[e]
                     })),
                     details: String(e.byId("scribeDetails")?.value || "").trim(),
-                    explicitness: Math.min(4, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4)),
+                    explicitness: Math.min(5, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4)),
                     pageCount: String(e.byId("scribePageCount")?.value || "").trim()
                 };
             }();
@@ -1652,8 +1652,8 @@
                     briefEl.hidden = !1;
                     try { briefEl.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
                 }
-            }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit" })[t.explicitness] || "grok"));
-        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(4, Math.max(1, Number(t.currentTarget.value) || 2)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
+            }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit", 4: "uninhibited", 5: "extreme" })[t.explicitness] || "grok"));
+        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(5, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited", "Extreme" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
         sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
