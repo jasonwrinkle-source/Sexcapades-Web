@@ -102,9 +102,71 @@ __sxInit(function initScribeGeminiBYOK() {
     return PROVIDER_CONFIG[provider]?.defaultModels || [];
   }
 
+  async function populateTtsModelOptions(apiKey) {
+    var select = document.getElementById("scribeNarrateModel");
+    if (!select) return;
+    var models = [
+      "gemini-2.5-pro-preview-tts",
+      "gemini-2.5-flash-preview-tts",
+      "gemini-3.8-flash-tts",
+      "gemini-3.8-flash-lite-tts",
+      "gemini-2.5-flash-tts"
+    ];
+    if (apiKey) {
+      try {
+        var lmResp = await fetch("https://generativelanguage.googleapis.com/v1beta/models?key=" + encodeURIComponent(apiKey));
+        if (lmResp.ok) {
+          var lmData = await lmResp.json();
+          if (lmData && lmData.models && Array.isArray(lmData.models)) {
+            lmData.models.forEach(function(m) {
+              var mName = (m.name || "").replace(/^models\//, "");
+              var isGen = m.supportedGenerationMethods && m.supportedGenerationMethods.indexOf("generateContent") !== -1;
+              if (isGen && mName.indexOf("-tts") !== -1) {
+                if (models.indexOf(mName) === -1) models.push(mName);
+              }
+            });
+          }
+        }
+      } catch (_) {}
+    }
+    models.sort(function(a, b) {
+      var order = {
+        "gemini-2.5-pro-preview-tts": 1,
+        "gemini-2.5-flash-preview-tts": 2,
+        "gemini-3.8-flash-tts": 3,
+        "gemini-2.5-flash-tts": 4,
+        "gemini-3.8-flash-lite-tts": 5
+      };
+      var oa = order[a] || 10, ob = order[b] || 10;
+      return oa - ob;
+    });
+    var savedChoice = "";
+    try { savedChoice = localStorage.getItem("sx_scribe_narrate_model") || ""; } catch (_) {}
+    select.innerHTML = "";
+    models.forEach(function(m) {
+      var opt = document.createElement("option");
+      opt.value = m;
+      var label = m;
+      if (m === "gemini-2.5-pro-preview-tts") label = "Gemini 2.5 Pro TTS (Studio Quality)";
+      else if (m === "gemini-2.5-flash-preview-tts") label = "Gemini 2.5 Flash TTS (Latest / Clean)";
+      else if (m === "gemini-3.8-flash-tts") label = "Gemini 3.8 Flash TTS";
+      else if (m === "gemini-3.8-flash-lite-tts") label = "Gemini 3.8 Flash Lite TTS (Fast / Crackles)";
+      opt.textContent = label;
+      select.appendChild(opt);
+    });
+    if (savedChoice && models.indexOf(savedChoice) !== -1) {
+      select.value = savedChoice;
+    } else {
+      select.value = "gemini-2.5-pro-preview-tts";
+    }
+  }
+
   async function populateModelOptions(apiKey, provider) {
     var select = document.getElementById("scribeGeminiModel");
     if (!select) return;
+    if (provider === "gemini") {
+      populateTtsModelOptions(apiKey);
+    }
     var models = await queryAvailableModels(apiKey, provider);
     if (!models || models.length === 0) {
       models = PROVIDER_CONFIG[provider]?.defaultModels || [];
@@ -326,7 +388,7 @@ __sxInit(function initScribeGeminiBYOK() {
             resetNarrationState();
             var chosenV = (geminiVoice ? geminiVoice.value : "Aoede") || "Aoede";
             var narrModelEl = document.getElementById("scribeNarrateModel");
-            var chosenNarrModel = (narrModelEl && narrModelEl.value) ? narrModelEl.value : "gemini-2.5-flash-preview-tts";
+            var chosenNarrModel = (narrModelEl && narrModelEl.value) ? narrModelEl.value : "gemini-2.5-pro-preview-tts";
             audioAbortController = new AbortController();
             var myToken = ++narrateGenToken;
             narrateChunksPlayed = 0;
@@ -947,9 +1009,22 @@ __sxInit(function initScribeGeminiBYOK() {
   function updateNarrateEngineUI() {
     var isGemini = !narrateEngine || narrateEngine.value === "gemini";
     if (geminiVoiceGroup) geminiVoiceGroup.style.display = isGemini ? "flex" : "none";
+    var modelGroup = document.getElementById("scribeNarrateModelGroup");
+    if (modelGroup) modelGroup.style.display = isGemini ? "flex" : "none";
   }
   if (narrateEngine) narrateEngine.addEventListener("change", updateNarrateEngineUI);
   updateNarrateEngineUI();
+
+  var narrateModelSelect = document.getElementById("scribeNarrateModel");
+  if (narrateModelSelect) {
+    narrateModelSelect.addEventListener("change", function() {
+      try { localStorage.setItem("sx_scribe_narrate_model", narrateModelSelect.value); } catch (_) {}
+    });
+    try {
+      var savedInit = localStorage.getItem("sx_scribe_narrate_model") || "";
+      if (savedInit) narrateModelSelect.value = savedInit;
+    } catch (_) {}
+  }
 
   function pcmToWavBlob(pcmData, sampleRate) {
     var numChannels = 1;
@@ -1111,143 +1186,69 @@ __sxInit(function initScribeGeminiBYOK() {
       var myToken = ++narrateGenToken;
       narrateChunksPlayed = 0;
 
-      // Helper to generate proper audio payload based on model type
       var narrateModelSelect = document.getElementById("scribeNarrateModel");
-      var candidateAudioModels = [
-        "gemini-2.5-flash-preview-tts",
-        "gemini-2.5-pro-preview-tts",
-        "gemini-3.8-flash-tts",
-        "gemini-3.8-flash-lite-tts",
-        "gemini-2.5-flash-tts"
-      ];
-      if (narrateModelSelect && narrateModelSelect.value) {
-        candidateAudioModels.unshift(narrateModelSelect.value);
-      }
+      var chosenAudioModel = (narrateModelSelect && narrateModelSelect.value) ? narrateModelSelect.value : "gemini-2.5-pro-preview-tts";
+      var currentPayload = getAudioPayload(chosenAudioModel, text, chosenVoice);
+      var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(chosenAudioModel);
+      var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
+      var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
 
-      // Query ListModels to find any enabled TTS or audio-capable models on this API key
-      try {
-        var lmResp = await fetch("https://generativelanguage.googleapis.com/v1beta/models?key=" + encodeURIComponent(apiKey));
-        if (lmResp.ok) {
-          var lmData = await lmResp.json();
-          if (lmData && lmData.models && Array.isArray(lmData.models)) {
-            var discovered = [];
-            lmData.models.forEach(function(m) {
-              var mName = (m.name || "").replace(/^models\//, "");
-              var isGen = m.supportedGenerationMethods && m.supportedGenerationMethods.indexOf("generateContent") !== -1;
-              if (isGen) {
-                if (mName.indexOf("-tts") !== -1) {
-                  discovered.push(mName);
-                }
-              }
-            });
-            console.log("[Scribe Audio Narration] Discovered TTS models for API key:", discovered);
-            if (discovered.length > 0) {
-              candidateAudioModels = discovered.concat(candidateAudioModels);
-            }
-          }
-        }
-      } catch (lmErr) {
-        console.warn("[Scribe Audio Narration] ListModels discovery error:", lmErr);
-      }
-      candidateAudioModels = candidateAudioModels.filter(function(m, i) { return candidateAudioModels.indexOf(m) === i; });
-
-      // Function to synthesize and play a piece of text (either full text or streaming fragment)
-      async function synthesizeAndPlayGeminiAudio(textToSynthesize, isSentenceChunk) {
-        var chosenModel = narrateModelSelect && narrateModelSelect.value ? narrateModelSelect.value : "gemini-2.5-flash-preview-tts";
-        var payload = getAudioPayload(chosenModel, textToSynthesize, chosenVoice);
-        var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(chosenModel);
-        var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
-        var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
-
-        try {
-          await narrateStreamGeminiAudio(streamEndpoint, payload, audioAbortController.signal, myToken);
-          narratePlaybackMode = "webaudio";
-          return true;
-        } catch (streamErr) {
-          if (streamErr.name === "AbortError" || myToken !== narrateGenToken) return false;
-          if (narrateChunksPlayed > 0) {
-            narratePlaybackMode = "webaudio";
-            return true;
-          }
-          console.warn("[Scribe Audio Narration] Stream failed with " + chosenModel + " (" + streamErr.message + "), trying unary…");
-          try {
-            await narratePlayGeminiUnary(audioEndpoint, payload, audioAbortController.signal, chosenModel);
-            return true;
-          } catch (unaryErr) {
-            if (unaryErr.name === "AbortError" || myToken !== narrateGenToken) return false;
-            console.warn("[Scribe Audio Narration] Unary failed with " + chosenModel + ":", unaryErr.message);
-            throw unaryErr;
-          }
-        }
-      }
+      console.log("[Scribe Audio Narration] Selected TTS model:", chosenAudioModel, "voice:", chosenVoice);
+      if (narrateStatus) narrateStatus.textContent = "Connecting voice to " + chosenAudioModel + " (" + chosenVoice + ")…";
 
       var narrationSucceeded = false;
       var lastAudioErr = null;
 
-      for (var aIdx = 0; aIdx < candidateAudioModels.length; aIdx++) {
-        var currentAudioModel = candidateAudioModels[aIdx];
-        var currentPayload = getAudioPayload(currentAudioModel, text, chosenVoice);
-        var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(currentAudioModel);
-        var streamEndpoint = audioBase + ":streamGenerateContent?alt=sse&key=" + encodeURIComponent(apiKey);
-        var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
-
-        console.log("[Scribe Audio Narration] Attempting model (" + (aIdx + 1) + "/" + candidateAudioModels.length + "):", currentAudioModel);
-        if (narrateStatus) narrateStatus.textContent = "Connecting voice to " + currentAudioModel + " (" + chosenVoice + ")…";
-
-        try {
-          // 1. Try streaming audio first
-          await narrateStreamGeminiAudio(streamEndpoint, currentPayload, audioAbortController.signal, myToken);
-          if (myToken !== narrateGenToken) return;
+      try {
+        // 1. Try streaming audio first
+        await narrateStreamGeminiAudio(streamEndpoint, currentPayload, audioAbortController.signal, myToken);
+        if (myToken !== narrateGenToken) return;
+        narratePlaybackMode = "webaudio";
+        if (narrateStatus) {
+          narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ", streaming)…";
+          narrateStatus.style.color = "#4ade80";
+        }
+        if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
+        if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
+        narrationSucceeded = true;
+      } catch (streamErr) {
+        if (streamErr.name === "AbortError" || myToken !== narrateGenToken) {
+          if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
+          if (startNarrateBtn) startNarrateBtn.disabled = false;
+          return;
+        }
+        if (narrateChunksPlayed > 0) {
+          console.warn("[Scribe Audio Narration] Stream ended after " + narrateChunksPlayed + " chunks:", streamErr);
           narratePlaybackMode = "webaudio";
           if (narrateStatus) {
-            narrateStatus.textContent = "Playing " + currentAudioModel + " voice (" + chosenVoice + ", streaming)…";
+            narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ", streaming)…";
             narrateStatus.style.color = "#4ade80";
           }
           if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
           if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
           narrationSucceeded = true;
-          break;
-        } catch (streamErr) {
-          if (streamErr.name === "AbortError" || myToken !== narrateGenToken) {
-            if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
-            if (startNarrateBtn) startNarrateBtn.disabled = false;
-            return;
-          }
-          if (narrateChunksPlayed > 0) {
-            console.warn("[Scribe Audio Narration] Stream ended after " + narrateChunksPlayed + " chunks:", streamErr);
-            narratePlaybackMode = "webaudio";
-            if (narrateStatus) {
-              narrateStatus.textContent = "Playing " + currentAudioModel + " voice (" + chosenVoice + ", streaming)…";
-              narrateStatus.style.color = "#4ade80";
-            }
-            if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
-            if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
-            narrationSucceeded = true;
-            break;
-          }
+        } else {
+          console.warn("[Scribe Audio Narration] Streaming failed with " + chosenAudioModel + " (" + streamErr.message + "), trying unary whole clip…");
 
-          console.warn("[Scribe Audio Narration] Streaming failed with " + currentAudioModel + " (" + streamErr.message + "), trying unary whole clip…");
-
-          // 2. Try unary generateContent
+          // 2. Try unary generateContent with the user's chosen model
           try {
-            if (narrateStatus) narrateStatus.textContent = "Generating voice with " + currentAudioModel + " (" + chosenVoice + ")…";
-            await narratePlayGeminiUnary(audioEndpoint, currentPayload, audioAbortController.signal, currentAudioModel);
+            if (narrateStatus) narrateStatus.textContent = "Generating voice with " + chosenAudioModel + " (" + chosenVoice + ")…";
+            await narratePlayGeminiUnary(audioEndpoint, currentPayload, audioAbortController.signal, chosenAudioModel);
             if (myToken !== narrateGenToken) return;
             if (narrateStatus) {
-              narrateStatus.textContent = "Playing " + currentAudioModel + " voice (" + chosenVoice + ")…";
+              narrateStatus.textContent = "Playing " + chosenAudioModel + " voice (" + chosenVoice + ")…";
               narrateStatus.style.color = "#4ade80";
             }
             if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
             if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
             narrationSucceeded = true;
-            break;
           } catch (unaryErr) {
             if (unaryErr.name === "AbortError") {
               if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
               if (startNarrateBtn) startNarrateBtn.disabled = false;
               return;
             }
-            console.warn("[Scribe Audio Narration] Unary failed with " + currentAudioModel + ":", unaryErr.message);
+            console.warn("[Scribe Audio Narration] Unary failed with " + chosenAudioModel + ":", unaryErr.message);
             lastAudioErr = unaryErr;
           }
         }
@@ -1255,7 +1256,18 @@ __sxInit(function initScribeGeminiBYOK() {
 
       if (!narrationSucceeded) {
         var errText = lastAudioErr ? lastAudioErr.message : "Failed to generate audio stream.";
-        console.error("[Scribe Audio Narration All Models Failed]", errText);
+        console.error("[Scribe Audio Narration Failed]", errText);
+        if (narrateStatus) {
+          narrateStatus.textContent = "Voice narration failed: " + errText;
+          narrateStatus.style.color = "#f87171";
+        }
+        if (startNarrateBtn) {
+          startNarrateBtn.textContent = "▶ Start Narration";
+          startNarrateBtn.disabled = false;
+        }
+        if (stopNarrateBtn) stopNarrateBtn.hidden = true;
+        if (pauseNarrateBtn) pauseNarrateBtn.hidden = true;
+      }
         if (narrateStatus) {
           narrateStatus.textContent = "Voice narration failed: " + errText;
           narrateStatus.style.color = "#f87171";

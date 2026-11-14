@@ -461,6 +461,51 @@
 </dialog>
 <p><span aria-hidden="true" class="risk"></span>Topics carrying a small orange asterisk are higher-risk practices. They need specialized knowledge and explicit negotiation before they go anywhere near a scene—the asterisk is there so nobody blunders in blind.</p>
 <p>If neighboring concept lines crowd one another, use the curved-line control beside the zoom buttons, then drag a concept line to bend and separate it. Tap a line while curve editing is on to reveal its drag handle; turn the control off when the layout reads cleanly.</p>
+
+<section aria-labelledby="triad-topics-guide-title" class="feature-callout" id="triad-topics-guide">
+<h3 id="triad-topics-guide-title">Triad Topics &amp; 2D Barycentric Rating</h3>
+<p>While most topics on the hypermap are two-role directional pairs (like give/receive or dom/sub) or single interest sliders, certain sexual practices, interpersonal dynamics, and relationship structures exist as three-way systems. Sexcapades models these as <strong>Triad Topics</strong>.</p>
+
+<h4>The Three Types of Triad Topics</h4>
+<p>Triad topics in the taxonomy fall into three distinct structural types, each with its own conceptual meaning:</p>
+<ol>
+<li><strong>Relational Identity &amp; Dynamic Balance Triads</strong> (e.g., <em>Bull / Hotwife / Cuckold</em>, <em>Vixen / Stag / Cuckquean</em>, <em>Top / Side / Bottom</em>, <em>Monogamy / Polyamory / Relationship Anarchy</em>).
+<p>These topics define core relationship roles or sexual orientations where an individual or dynamic sits within a 3-pole spectrum. Rather than three independent yes/no toggles, the roles form a coupled identity space where your orientation is defined by your balance among the three vertices. For these identity nodes, Sexcapades provides the <strong>2D Barycentric Triangle Widget</strong>. The triangle vertices represent the relative weights of the three poles (such that \(w_0 + w_1 + w_2 = 1.0\)), while an adjacent intensity slider (or mouse wheel) adjusts overall desire or salience (\(-100\) to \(+100\)).</p></li>
+<li><strong>Experiential &amp; Sensational Triads</strong> (e.g., <em>Sensual / Primal / Humiliation</em>, <em>Sensation / Power / Intimacy</em>, <em>Edging / Ruined / Forced Orgasms</em>).
+<p>These describe the psychological and sensory flavors that drive arousal in a practice. A scene or fantasy rarely relies on just one dimension; this triad captures how these three sensory pillars balance and color your experience.</p></li>
+<li><strong>Independent Multi-Role Triples</strong> (practices with three discrete unconstrained roles or skills).
+<p>Here, the three poles represent distinct capabilities or activities that can be pursued independently without trade-offs. You might be interested in one, two, or all three equally without shifting a shared balance point.</p></li>
+</ol>
+
+<h4>How Barycentric Coordinates &amp; Similarity Scoring Work</h4>
+<p>When rating with the 2D triangle widget, your position inside the triangle determines your barycentric coordinate \((w_0, w_1, w_2)\) across the three colored poles (Red, Green, and Blue). Dragging the puck toward a corner increases that pole's relative weight, while positioning it in the center represents an equal balance (\(33.3\%\) each). The intensity slider sets the magnitude of your desire (positive for interest, negative for aversion or limits).</p>
+
+<p>When comparing profiles or generating scenes, Sexcapades evaluates similarity and compatibility through three mathematical layers:</p>
+<ul>
+<li><strong>2D Barycentric Distance:</strong> Measures how closely two profiles share the same internal role balance. In Euclidean space, the distance \(d = \sqrt{(x_a - x_b)^2 + (y_a - y_b)^2}\) quantifies identity alignment.</li>
+<li><strong>Complementary Role Matching:</strong> In dynamics that rely on interlocking roles (such as a <em>Bull</em> partnering with a <em>Hotwife</em> and a <em>Cuckold</em>, or a <em>Top</em> connecting with a <em>Bottom</em>), compatibility is scored by pairing complementary poles. A person whose coordinates favor the Bull role matches positively with partners who seek a Bull to complete their dynamic.</li>
+<li><strong>Intensity &amp; Salience Scaling:</strong> The composite match strength is scaled by both participants' intensity ratings (\(I_a \times I_b / 100\)). Two people who both passionately want a dynamic score high mutual heat; disinterest or hard limits from either party will dampen the score or exclude the dynamic.</li>
+</ul>
+
+<h4>Hypermap Visualization: Midline Middle Pole</h4>
+<p>On the radial hypermap, triple topics utilize the spoke's geometry to display all three poles simultaneously:</p>
+<ul>
+<li>The <strong>top tapered flank</strong> displays the rating and color of <strong>Pole 0</strong> (e.g., Bull, Top, or Vixen).</li>
+<li>The <strong>bottom tapered flank</strong> displays the rating and color of <strong>Pole 2</strong> (e.g., Cuckold, Bottom, or Cuckquean).</li>
+<li>The <strong>spoke midline</strong> displays the value and color of the <strong>middle pole</strong> (Pole 1: e.g., Hotwife, Side, or Stag).</li>
+</ul>
+<p>When the hypermap triangle widget is toggled on, the triangle widget anchors with one side tangent to the node icon circle and its middle pole extending radially outward along the spoke midline, creating an intuitive visual continuity between the spoke and the 2D widget.</p>
+
+<h4>A Note on the Taxonomy ID System</h4>
+<p>Behind the scenes, every element on the hypermap has a unique taxonomy identifier with a standardized prefix convention:</p>
+<ul>
+<li><code>t####</code> denotes <strong>Topics</strong> — the individual leaf nodes on the map (e.g., <code>t0101</code>, <code>t0420</code>).</li>
+<li><code>c####</code> denotes <strong>Categories</strong> — the 24 first-generation branches radiating from the center (e.g., <code>c0100</code>).</li>
+<li><code>s####</code> denotes <strong>Subcategories</strong> — second-generation clustering hubs grouping related topics (e.g., <code>s0101</code>).</li>
+</ul>
+<p>In some legacy documentation and test exports, topic and category IDs were occasionally conflated. The modern engine strictly follows this prefix system, ensuring clean indexing across sync cards, profiles, and export bundles.</p>
+</section>
+
 <h3>Read the center rings</h3>
 <p>On a <strong>single-profile tab</strong>, three at-a-glance percentage rings wrap around the hypermap’s <strong>center node</strong>: green on the outside for <strong>Want to do</strong>, yellow in the middle for <strong>Curious about</strong>, and red inside for <strong>No</strong>. Together they summarize that person’s rating mix across the complete profile. They stay visible even on an unrated profile and grow or shrink with the hypermap instead of holding a fixed screen size. Each ring is its own tappable doorway. Open one for the percentage, count details, and matching topic list; choose a topic from that list and the hypermap centers it for you. These rings belong to the center node—not the header avatar.</p>
 <section aria-labelledby="combined-rings-title" class="feature-callout">
