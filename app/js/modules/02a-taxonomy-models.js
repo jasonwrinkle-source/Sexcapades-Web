@@ -1,21 +1,30 @@
     !function() {
         "use strict";
         const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
-        /* Internationalization & Domain Skinning Dictionary (Sexcapades / Poliscapades / Forescapades) */
+        /* Domain Terms Table for Skins & Internationalization (Flexcapades Engine)
+           Defines terminology ABOUT each domain's taxonomy without conflating taxonomies.
+           Each domain (Sexcapades = kink, Poliscapades = politics, Forescapades = religion)
+           maintains its own independent taxonomy structure. */
         const SX_DOMAIN_DICTIONARIES = {
             sexcapades: {
                 appName: "Sexcapades",
+                domain: "Kink & Sexuality",
                 mapName: "Hypermap",
-                topicNounSingular: "topic",
-                topicNounPlural: "topics",
-                kinkNounSingular: "kink",
-                kinkNounPlural: "kinks",
+                heatNoun: "Heat",
                 categoryNounSingular: "category",
                 categoryNounPlural: "categories",
                 subcategoryNounSingular: "subcategory",
                 subcategoryNounPlural: "subcategories",
+                topicNounSingular: "topic",
+                topicNounPlural: "topics",
+                itemNounSingular: "kink",
+                itemNounPlural: "kinks",
+                kinkNounSingular: "kink",
+                kinkNounPlural: "kinks",
                 partnerNounSingular: "partner",
                 partnerNounPlural: "partners",
+                participantNounSingular: "partner",
+                participantNounPlural: "partners",
                 profileNounSingular: "profile",
                 profileNounPlural: "profiles",
                 ratings: {
@@ -27,148 +36,76 @@
                     unrated: "Unrated",
                     everything: "Everything",
                     give: "Give",
-                    receive: "Receive"
+                    receive: "Receive",
+                    mutual: "Mutual"
                 }
             },
             poliscapades: {
                 appName: "Poliscapades",
-                mapName: "Policy Map",
-                topicNounSingular: "policy",
-                topicNounPlural: "policies",
+                domain: "Politics & Governance",
+                mapName: "Hypermap",
+                heatNoun: "Engagement",
+                categoryNounSingular: "category",
+                categoryNounPlural: "categories",
+                subcategoryNounSingular: "subcategory",
+                subcategoryNounPlural: "subcategories",
+                topicNounSingular: "topic",
+                topicNounPlural: "topics",
+                itemNounSingular: "stance",
+                itemNounPlural: "stances",
                 kinkNounSingular: "stance",
                 kinkNounPlural: "stances",
-                categoryNounSingular: "domain",
-                categoryNounPlural: "domains",
-                subcategoryNounSingular: "subdomain",
-                subcategoryNounPlural: "subdomains",
-                partnerNounSingular: "coalition",
-                partnerNounPlural: "coalitions",
-                profileNounSingular: "platform",
-                profileNounPlural: "platforms",
+                partnerNounSingular: "participant",
+                partnerNounPlural: "participants",
+                participantNounSingular: "participant",
+                participantNounPlural: "participants",
+                profileNounSingular: "profile",
+                profileNounPlural: "profiles",
                 ratings: {
-                    hardLimit: "Red Line",
-                    notInterested: "Oppose",
-                    favorite: "Priority",
-                    fantasyOnly: "Aspirational",
-                    alreadyTried: "Enacted",
-                    unrated: "Unexamined",
-                    everything: "Broad Alignment",
-                    give: "Propose",
-                    receive: "Endorse"
-                },
-                categoryMappings: {
-                    "Clothing, materials & objects": "Resources, Infrastructure & Assets",
-                    "Impact, pain & body modification": "Disruption, Friction & Institutional Reform",
-                    "Sensation & atmosphere": "Climate, Geopolitics & Public Sentiment",
-                    "Sex acts": "Direct Bilateral & Multilateral Engagements",
-                    "Bondage & restriction": "Regulation, Treaties & Legal Frameworks",
-                    "Roleplay & identity": "Political Personas, Coalition Alignment & Civic Identity",
-                    "Service & ritual": "Public Service, Civic Duty & Parliamentary Ritual",
-                    "Partner configurations": "Caucus Configurations & International Coalitions",
-                    "Fantasy & transformation": "Ideological Visions & Societal Transformations",
-                    "Fluids & messy play": "Crisis Management & Turbulent Spillover",
-                    "Primal & pursuit": "Electoral Campaigns & Direct Contestation",
-                    "Orgasm & reproductive play": "Legislative Breakthroughs & Long-Term Policy Legacy",
-                    "Positions": "Stances & Strategic Formations",
-                    "Power exchange": "Executive Authority, Governance & Delegation",
-                    "Psychological dynamics": "Strategic Deterrence & Diplomatic Statecraft",
-                    "Body focus & appearance": "Party Brand, Aesthetics & Institutional Demographics",
-                    "Connection & aftercare": "Reconciliation, Bipartisanship & Coalition Care",
-                    "Watching, exposure & settings": "Transparency, Public Scrutiny & Summit Settings"
+                    hardLimit: "Red Line / Dealbreaker",
+                    notInterested: "Opposed",
+                    favorite: "Core Priority",
+                    fantasyOnly: "Aspirational Ideal",
+                    alreadyTried: "Supported / Enacted",
+                    unrated: "Unstated",
+                    everything: "All Topics",
+                    give: "Champion / Propose",
+                    receive: "Adopt / Support",
+                    mutual: "Consensus"
                 }
             },
             forescapades: {
                 appName: "Forescapades",
-                mapName: "Foresight & Intimacy Map",
-                topicNounSingular: "driver / modality",
-                topicNounPlural: "drivers / modalities",
-                kinkNounSingular: "factor / element",
-                kinkNounPlural: "factors / elements",
-                categoryNounSingular: "horizon / domain",
-                categoryNounPlural: "horizons / domains",
-                subcategoryNounSingular: "trend / stream",
-                subcategoryNounPlural: "trends / streams",
-                partnerNounSingular: "partner / counterpart",
-                partnerNounPlural: "partners / counterparts",
-                profileNounSingular: "profile / scenario",
-                profileNounPlural: "profiles / scenarios",
+                domain: "Religion & Belief",
+                mapName: "Hypermap",
+                heatNoun: "Devotion",
+                categoryNounSingular: "tradition",
+                categoryNounPlural: "traditions",
+                subcategoryNounSingular: "denomination",
+                subcategoryNounPlural: "denominations",
+                topicNounSingular: "topic",
+                topicNounPlural: "topics",
+                itemNounSingular: "belief / practice",
+                itemNounPlural: "beliefs / practices",
+                kinkNounSingular: "belief / practice",
+                kinkNounPlural: "beliefs / practices",
+                partnerNounSingular: "participant",
+                partnerNounPlural: "participants",
+                participantNounSingular: "participant",
+                participantNounPlural: "participants",
+                profileNounSingular: "profile",
+                profileNounPlural: "profiles",
                 ratings: {
-                    hardLimit: "Red Line / Hard Boundary",
-                    notInterested: "No Interest / Off Horizon",
-                    favorite: "Core Passion / Priority",
-                    fantasyOnly: "Curious Fantasy / Speculative",
-                    alreadyTried: "Experienced / Proven",
-                    unrated: "Unexplored / Unrated",
-                    everything: "Full Spectrum",
-                    give: "Initiate / Catalyst",
-                    receive: "Receive / Attune"
-                },
-                // Explicit 1:1 Domain Mapping between Sexcapades and Forescapades
-                categoryMappings: {
-                    "Clothing, materials & objects": "Sensual Textures, Fabrics & Adornment",
-                    "Impact, pain & body modification": "Sensory Intensity, Acupressure & Edge Play",
-                    "Sensation & atmosphere": "Atmosphere, Ambience, Aromas & Sacred Space",
-                    "Sex acts": "Intimate Touch, Deep Union & Loving Climax",
-                    "Bondage & restriction": "Gentle Surrender, Containment & Trust",
-                    "Roleplay & identity": "Archetypes, Fantasy Personas & Flirtatious Roles",
-                    "Service & ritual": "Sacred Devotion, Pampering & Loving Rituals",
-                    "Partner configurations": "Circles of Intimacy & Sacred Union",
-                    "Fantasy & transformation": "Erotic Imagination, Dreams & Transformation",
-                    "Fluids & messy play": "Warm Oils, Scented Lotions & Sensory Bathing",
-                    "Primal & pursuit": "Playful Chase, Teasing Anticipation & Raw Passion",
-                    "Orgasm & reproductive play": "Full-Body Ecstasy, Tantra & Energy Flow",
-                    "Positions": "Sacred Embraces, Alignments & Tantric Postures",
-                    "Power exchange": "Conscious Surrender, Leadership & Receptivity",
-                    "Psychological dynamics": "Emotional Attunement, Vulnerability & Soul Connection",
-                    "Body focus & appearance": "Sacred Body Adoration, Gaze & Temple Reverence",
-                    "Connection & aftercare": "Soulful Afterglow, Warm Cuddling & Emotional Grounding",
-                    "Watching, exposure & settings": "Eye Gazing, Candlelight Ambiance & Erotic Voyage"
-                },
-                subcategoryMappings: {
-                    "Materials": "Sensory Materials (Silk, Velvet, Leather, Fur)",
-                    "Footwear": "Sensual Footwear & Adornment",
-                    "Uniforms & costumes": "Costumes & Archetypal Personas",
-                    "Lingerie & hosiery": "Lingerie, Lace & Fine Hosiery",
-                    "Undergarments": "Silken Undergarments",
-                    "Masks & headwear": "Blindfolds, Veils & Sensory Masks",
-                    "Objects/toys": "Sensory Enhancers & Pleasure Wands",
-                    "Flexible ties": "Silk Cords & Soft Shitsuke Ribbons",
-                    "Restraints": "Gentle Wrist Wraps & Padded Holds",
-                    "Tape & wrapping": "Body Wraps & Sensory Enclosure",
-                    "Sensory": "Sensory Awakening (Feathers, Ice, Warmth)",
-                    "Confinement": "Cocooning & Safe Enclosure",
-                    "Challenge bondage": "Challenging Surrender & Trust Holds",
-                    "Specialty": "Bespoke & Tantric Modalities",
-                    "Oral": "Sweet Caresses, Kisses & Oral Devotion",
-                    "Anal": "Sacred Back-Gate Sensual Exploration",
-                    "Manual": "Tantric Massage, Strokes & Sacred Touch",
-                    "Insertion": "Sacred Lingam/Yoni Penetration",
-                    "Fluids": "Nectar, Scented Lotions & Natural Warmth",
-                    "Humiliation": "Playful Vulnerability & Teasing",
-                    "Intimidation": "Commanding Presence & Dominant Heat",
-                    "Head hair": "Hair Stroking, Brushing & Caressing",
-                    "Body type": "Full Body Appreciation & Form Adoration",
-                    "Emotional": "Heart Opening & Emotional Catharsis",
-                    "Historical & fantasy": "Mythic & Historical Romantic Archetypes",
-                    "Authority": "Sacred Sovereignty & Revered Guidance",
-                    "Mind control": "Erotic Trance, Hypnosis & Guided Meditation",
-                    "Vulnerability": "Tender Exposure & Total Trust",
-                    "Verbal": "Praise, Erotic Whispers & Loving Words",
-                    "Facial & body hair": "Skin, Beard & Body Touch",
-                    "Lower body": "Hips, Legs & Pelvic Awakening",
-                    "Torso": "Chest, Back & Heart Chakra Stroking",
-                    "Face": "Face Cradling, Eye Gazing & Lip Caresses",
-                    "Worship": "Temple Worship & Divine Partner Adoration",
-                    "Hand spanking": "Rhythmic Warming & Skin Stimulation",
-                    "Flexible implements": "Soft Whips, Floggers & Fur Ticklers",
-                    "Rigid implements": "Paddles & Gentle Resonance",
-                    "Clamps & pinching": "Sensory Clips & Tingling Clamps",
-                    "Cutting & piercing": "Sensory Sensation & Micro-Stims",
-                    "Genital pain": "Intense Genital Stimulation",
-                    "Extreme": "Deep Edge Explorations",
-                    "Captivity": "Sacred Seclusion & Private Retreat",
-                    "Animal": "Playful Primal Creatures & Instinct",
-                    "Caregiver & little roles": "Gentle Nurturing, Pampering & Safety"
+                    hardLimit: "Taboo / Forbidden",
+                    notInterested: "Do Not Practice",
+                    favorite: "Core Tenet",
+                    fantasyOnly: "Theological / Contemplative",
+                    alreadyTried: "Observed / Practiced",
+                    unrated: "Unrated",
+                    everything: "All Topics",
+                    give: "Lead / Guide",
+                    receive: "Participate / Receive",
+                    mutual: "Communal"
                 }
             }
         };
@@ -184,7 +121,29 @@
         }
         function sxTerm(key, fallback) {
             const dict = SX_DOMAIN_DICTIONARIES[currentSkin] || SX_DOMAIN_DICTIONARIES.sexcapades;
-            return dict[key] || fallback || key;
+            if (!key) return fallback || "";
+            if (dict[key] !== undefined) return dict[key];
+            if (key.includes(".")) {
+                const parts = key.split(".");
+                let cur = dict;
+                for (const p of parts) {
+                    if (cur && cur[p] !== undefined) cur = cur[p];
+                    else { cur = undefined; break; }
+                }
+                if (cur !== undefined) return cur;
+            }
+            const defDict = SX_DOMAIN_DICTIONARIES.sexcapades;
+            if (defDict[key] !== undefined) return defDict[key];
+            if (key.includes(".")) {
+                const parts = key.split(".");
+                let cur = defDict;
+                for (const p of parts) {
+                    if (cur && cur[p] !== undefined) cur = cur[p];
+                    else { cur = undefined; break; }
+                }
+                if (cur !== undefined) return cur;
+            }
+            return fallback !== undefined ? fallback : key;
         }
         window.SX_DOMAIN_DICTIONARIES = SX_DOMAIN_DICTIONARIES;
         window.sxGetDomainSkin = sxGetDomainSkin;
