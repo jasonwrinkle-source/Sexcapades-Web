@@ -230,7 +230,7 @@
                 if (Ge(id, c).single) {
                     const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
                     const found = candidates.find(([, v]) => Number.isFinite(Number(v)));
-                    if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}" (${id})`);
+                    if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
                     const value = clamp(found[1]), supplying = found[0];
                     if (guardManualFlip) {
                         const blocked = [ "give", "receive" ].some(flank => "manual" === Ao(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && Ix(Number(existingFlankValue(id, flank))) !== Ix(value));
@@ -255,11 +255,17 @@
                         if (flanks.length === 3) {
                             if (Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give))) incoming[flanks[0]] = clamp(rating.give);
                             if (Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive))) incoming[flanks[1]] = clamp(rating.receive);
-                            if (!incoming[flanks[2]]) incoming[flanks[2]] = 0;
+                            if (incoming[flanks[2]] === undefined) incoming[flanks[2]] = 0;
                         }
                     }
+                    // And backwards compatibility for triadic ratings on dual topics
+                    if (!Object.keys(incoming).length && flanks.length === 2) {
+                        const vals = Object.values(rating).filter(Number.isFinite);
+                        if (vals.length >= 1) incoming[flanks[0]] = clamp(vals[0]);
+                        if (vals.length >= 2) incoming[flanks[1]] = clamp(vals[1]);
+                    }
                 }
-                if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}" (${id})`);
+                if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
                 const applied = {};
                 let anyBlocked = !1;
                 Object.entries(incoming).forEach(([flank, value]) => {

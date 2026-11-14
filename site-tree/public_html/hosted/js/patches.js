@@ -779,9 +779,9 @@ __sxInit(function initScribeGeminiBYOK() {
       narrateChunksPlayed = 0;
 
       var rawModelInput = document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "";
-      var audioModel = rawModelInput || "gemini-3.8-flash-tts";
-      if (audioModel.indexOf("-tts") === -1 && audioModel.indexOf("flash") !== -1) {
-        audioModel = audioModel + "-tts";
+      var audioModel = rawModelInput || "gemini-2.0-flash";
+      if (audioModel.indexOf("-tts") !== -1) {
+        audioModel = audioModel.replace(/-tts/g, "");
       }
       var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(audioModel);
       var streamEndpoint = audioBase + ":streamGenerateContent?key=" + encodeURIComponent(apiKey);
@@ -793,7 +793,7 @@ __sxInit(function initScribeGeminiBYOK() {
             role: "user",
             parts: [
               {
-                text: "Read the following erotic story aloud with rich emotional pacing, sensual warmth, and expressive drama. Do not add introductory or commentary remarks, only speak the story:\n\n" + text.slice(0, 3500)
+                text: "Read the following text aloud with natural, engaging expressive narration. Do not add introductory or commentary remarks, speak only the exact text provided:\n\n" + text.slice(0, 3500)
               }
             ]
           }

@@ -4350,6 +4350,109 @@ const TAXONOMY_CATEGORIES = [
     !function() {
         "use strict";
         const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
+        /* Internationalization & Domain Skinning Dictionary (Sexcapades / Poliscapades / Forescapades) */
+        const SX_DOMAIN_DICTIONARIES = {
+            sexcapades: {
+                appName: "Sexcapades",
+                mapName: "Hypermap",
+                topicNounSingular: "topic",
+                topicNounPlural: "topics",
+                kinkNounSingular: "kink",
+                kinkNounPlural: "kinks",
+                categoryNounSingular: "category",
+                categoryNounPlural: "categories",
+                subcategoryNounSingular: "subcategory",
+                subcategoryNounPlural: "subcategories",
+                partnerNounSingular: "partner",
+                partnerNounPlural: "partners",
+                profileNounSingular: "profile",
+                profileNounPlural: "profiles",
+                ratings: {
+                    hardLimit: "Hard Limit",
+                    notInterested: "Not Interested",
+                    favorite: "Favorite",
+                    fantasyOnly: "Fantasy-only",
+                    alreadyTried: "Already Tried",
+                    unrated: "Unrated",
+                    everything: "Everything",
+                    give: "Give",
+                    receive: "Receive"
+                }
+            },
+            poliscapades: {
+                appName: "Poliscapades",
+                mapName: "Policy Map",
+                topicNounSingular: "policy",
+                topicNounPlural: "policies",
+                kinkNounSingular: "stance",
+                kinkNounPlural: "stances",
+                categoryNounSingular: "domain",
+                categoryNounPlural: "domains",
+                subcategoryNounSingular: "subdomain",
+                subcategoryNounPlural: "subdomains",
+                partnerNounSingular: "coalition",
+                partnerNounPlural: "coalitions",
+                profileNounSingular: "platform",
+                profileNounPlural: "platforms",
+                ratings: {
+                    hardLimit: "Red Line",
+                    notInterested: "Oppose",
+                    favorite: "Priority",
+                    fantasyOnly: "Aspirational",
+                    alreadyTried: "Enacted",
+                    unrated: "Unexamined",
+                    everything: "Broad Alignment",
+                    give: "Propose",
+                    receive: "Endorse"
+                }
+            },
+            forescapades: {
+                appName: "Forescapades",
+                mapName: "Foresight Map",
+                topicNounSingular: "driver",
+                topicNounPlural: "drivers",
+                kinkNounSingular: "factor",
+                kinkNounPlural: "factors",
+                categoryNounSingular: "horizon",
+                categoryNounPlural: "horizons",
+                subcategoryNounSingular: "trend",
+                subcategoryNounPlural: "trends",
+                partnerNounSingular: "counterpart",
+                partnerNounPlural: "counterparts",
+                profileNounSingular: "scenario",
+                profileNounPlural: "scenarios",
+                ratings: {
+                    hardLimit: "Existential Risk",
+                    notInterested: "Negligible",
+                    favorite: "High Impact",
+                    fantasyOnly: "Speculative",
+                    alreadyTried: "Historical Precedent",
+                    unrated: "Unmonitored",
+                    everything: "Systemic",
+                    give: "Catalyst",
+                    receive: "Vulnerability"
+                }
+            }
+        };
+        let currentSkin = "sexcapades";
+        function sxGetDomainSkin() { return currentSkin; }
+        function sxSetDomainSkin(skinName, customOverrides) {
+            if (SX_DOMAIN_DICTIONARIES[skinName]) currentSkin = skinName;
+            if (customOverrides && typeof customOverrides === "object") {
+                Object.assign(SX_DOMAIN_DICTIONARIES[currentSkin], customOverrides);
+            }
+            window.__SEXCAPADES_CURRENT_SKIN = currentSkin;
+            return SX_DOMAIN_DICTIONARIES[currentSkin];
+        }
+        function sxTerm(key, fallback) {
+            const dict = SX_DOMAIN_DICTIONARIES[currentSkin] || SX_DOMAIN_DICTIONARIES.sexcapades;
+            return dict[key] || fallback || key;
+        }
+        window.SX_DOMAIN_DICTIONARIES = SX_DOMAIN_DICTIONARIES;
+        window.sxGetDomainSkin = sxGetDomainSkin;
+        window.sxSetDomainSkin = sxSetDomainSkin;
+        window.sxTerm = sxTerm;
+
         /* P2 refactor (Build 2026-10-18_2252): unified closest() dispatch (P2-3).
            Every ancestor lookup in this bundle now routes through the single
            __sxClosestAction(el, action) handler below; the selector strings
@@ -6213,19 +6316,47 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                f.forEach((k, idx) => {
-                    w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
-                });
-                const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
-                let C;
-                if ($.single) {
-                    C = [ 0 ];
-                } else if (f.length === 3) {
-                    const w0 = w[f[0]], w1 = w[f[1]], w2 = w[f[2]];
-                    C = [ -(w1 / 2 + w0 / 2), 0, (w1 / 2 + w2 / 2) ];
+                if ($.triangle || (f && f.length === 3)) {
+                    // 2D Barycentric Triangle on Hypermap for Triad Topics
+                    const triR = 56 * m;
+                    const cx = l, cy = c;
+                    const V0 = { x: cx, y: cy - triR };
+                    const V1 = { x: cx - triR * 0.866025, y: cy + triR * 0.5 };
+                    const V2 = { x: cx + triR * 0.866025, y: cy + triR * 0.5 };
+                    const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
+                    const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
+                    const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
+                    const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"]);
+                    const m0 = Math.max(0, r0), m1 = Math.max(0, r1), m2 = Math.max(0, r2);
+                    const tot = m0 + m1 + m2;
+                    const w0 = tot > 0 ? m0 / tot : 1/3;
+                    const w1 = tot > 0 ? m1 / tot : 1/3;
+                    const w2 = tot > 0 ? m2 / tot : 1/3;
+                    const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
+                    const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+                    const maxR = Math.max(r0, r1, r2);
+                    const puckColor = isKnown ? zi(maxR) : Ga.FALLBACK_COLOR;
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
+
+                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="rgba(14,18,22,0.85)" stroke="rgba(255,255,255,0.4)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
+                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<text class="map-triangle-label" x="${V0.x.toFixed(1)}" y="${(V0.y - 4 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#80d8ff">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label" x="${(V1.x - 4 * m).toFixed(1)}" y="${(V1.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ff8a80">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label" x="${(V2.x + 4 * m).toFixed(1)}" y="${(V2.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ffd180">${Hi(y[2])}</text>`;
+                    D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
+                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
+                    D += `</g>`;
                 } else {
-                    C = [ -w[f[0]] / 2, w[f[1]] / 2 ];
-                }
+                    f.forEach((k, idx) => {
+                        w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
+                    });
+                    const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
+                    let C = $.single ? [ 0 ] : [ -w[f[0]] / 2, w[f[1]] / 2 ];
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
@@ -6251,6 +6382,7 @@ const TAXONOMY_CATEGORIES = [
                     const te = $.single ? y[i] : b ? "give" === n ? "G" : "R" : y[i], ne = k;
                     D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${Hi(te)}</text></g>`;
                 });
+                }
             }
             if (g && !Rt && !x) {
                 const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
@@ -19189,19 +19321,47 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                f.forEach((k, idx) => {
-                    w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
-                });
-                const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
-                let C;
-                if ($.single) {
-                    C = [ 0 ];
-                } else if (f.length === 3) {
-                    const w0 = w[f[0]], w1 = w[f[1]], w2 = w[f[2]];
-                    C = [ -(w1 / 2 + w0 / 2), 0, (w1 / 2 + w2 / 2) ];
+                if ($.triangle || (f && f.length === 3)) {
+                    // 2D Barycentric Triangle on Hypermap for Triad Topics
+                    const triR = 56 * m;
+                    const cx = l, cy = c;
+                    const V0 = { x: cx, y: cy - triR };
+                    const V1 = { x: cx - triR * 0.866025, y: cy + triR * 0.5 };
+                    const V2 = { x: cx + triR * 0.866025, y: cy + triR * 0.5 };
+                    const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
+                    const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
+                    const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
+                    const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"]);
+                    const m0 = Math.max(0, r0), m1 = Math.max(0, r1), m2 = Math.max(0, r2);
+                    const tot = m0 + m1 + m2;
+                    const w0 = tot > 0 ? m0 / tot : 1/3;
+                    const w1 = tot > 0 ? m1 / tot : 1/3;
+                    const w2 = tot > 0 ? m2 / tot : 1/3;
+                    const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
+                    const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+                    const maxR = Math.max(r0, r1, r2);
+                    const puckColor = isKnown ? zi(maxR) : Ga.FALLBACK_COLOR;
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
+
+                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="rgba(14,18,22,0.85)" stroke="rgba(255,255,255,0.4)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
+                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<text class="map-triangle-label" x="${V0.x.toFixed(1)}" y="${(V0.y - 4 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#80d8ff">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label" x="${(V1.x - 4 * m).toFixed(1)}" y="${(V1.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ff8a80">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label" x="${(V2.x + 4 * m).toFixed(1)}" y="${(V2.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ffd180">${Hi(y[2])}</text>`;
+                    D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
+                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
+                    D += `</g>`;
                 } else {
-                    C = [ -w[f[0]] / 2, w[f[1]] / 2 ];
-                }
+                    f.forEach((k, idx) => {
+                        w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
+                    });
+                    const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
+                    let C = $.single ? [ 0 ] : [ -w[f[0]] / 2, w[f[1]] / 2 ];
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
@@ -19227,6 +19387,7 @@ const TAXONOMY_CATEGORIES = [
                     const te = $.single ? y[i] : b ? "give" === n ? "G" : "R" : y[i], ne = k;
                     D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${Hi(te)}</text></g>`;
                 });
+                }
             }
             if (g && !Rt && !x) {
                 const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
@@ -36211,7 +36372,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
         const xp = Boolean((navigator.maxTouchPoints || 0) > 0 && window.matchMedia && window.matchMedia("(pointer: coarse)").matches), Sp = !Object.keys(wt).length || kp || xp;
-        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
+        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
             x: 0,
             y: 0
         }, qp = null, Hp = 0, Wp = 0, Up = 0, Gp = !1, Kp = Sp ? "lite" : "gpu", zp = Sp, Vp = null, Yp = null, Xp = 0, Zp = 0, Qp = 0;
@@ -36914,7 +37075,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }
         let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
-            if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), Pp && Pp.pointerId === e.pointerId) {
+            if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), triDragState && triDragState.pointerId === e.pointerId) {
+                triDragState = null;
+                Mr();
+                return;
+            }
+            if (Pp && Pp.pointerId === e.pointerId) {
                 const t = Pp;
                 return Pp = null, void ("pointerup" === e.type && Fo(t.id, t.direction));
             }
@@ -37078,6 +37244,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }), Cn.addEventListener("wheel", e => {
             e.preventDefault();
             if (mn.staticMap) return;
+            if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
+            Cn && Cn.classList.remove("is-camera-moving");
             const t = performance.now(), n = t - Nh, i = 1 === e.deltaMode ? 16 : 2 === e.deltaMode ? 320 : 1, a = e.deltaY * i, r = Math.sign(a), o = Math.abs(a);
             if (!r) return;
             const s = !Fh || n > 180;
@@ -37112,6 +37280,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             passive: !1
         }), Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
+            if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
+            Cn && Cn.classList.remove("is-camera-moving");
             __sxInvalidateCtm(), Gp && xh(), eh.set(e.pointerId, {
                 x: e.clientX,
                 y: e.clientY
@@ -37130,15 +37300,45 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
             __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
-            if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
+            const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
+            if (triHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = triHit.dataset.id;
+                const v0 = { x: parseFloat(triHit.dataset.v0x), y: parseFloat(triHit.dataset.v0y) };
+                const v1 = { x: parseFloat(triHit.dataset.v1x), y: parseFloat(triHit.dataset.v1y) };
+                const v2 = { x: parseFloat(triHit.dataset.v2x), y: parseFloat(triHit.dataset.v2y) };
+                const pt = Cn.createSVGPoint();
+                pt.x = e.clientX, pt.y = e.clientY;
+                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
+                const shape = Ge(topicId);
+                if (shape && shape.keys && shape.keys.length === 3) {
+                    const intensity = 80;
+                    const v0r = Math.round(bary.w0 * intensity);
+                    const v1r = Math.round(bary.w1 * intensity);
+                    const v2r = Math.round(bary.w2 * intensity);
+                    To(topicId, shape.keys[0], v0r, !1);
+                    To(topicId, shape.keys[1], v1r, !1);
+                    To(topicId, shape.keys[2], v2r, !1);
+                }
+                triDragState = {
+                    pointerId: e.pointerId,
+                    id: topicId,
+                    v0: v0, v1: v1, v2: v2
+                };
+                return;
+            }
+            if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId),
             void (Lp = {
                 pointerId: e.pointerId,
                 id: a.dataset.id,
                 startX: e.clientX,
                 startY: e.clientY
             });
-            if (Nt && !d(r) && !d(l) && !d(c)) return e.preventDefault(), e.stopPropagation(), 
-            eh.delete(e.pointerId), Nt = null, void Mr();
+            if (Nt && !d(r) && !d(l) && !d(c) && !triHit) {
+                Nt = null;
+                In.querySelectorAll(".active-rating").forEach(e => e.classList.remove("active-rating"));
+            }
             if (i && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
             void (Tp = {
                 pointerId: e.pointerId,
@@ -37292,13 +37492,44 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 x: e.clientX,
                 y: e.clientY
             }));
+            if (triDragState && triDragState.pointerId === e.pointerId) {
+                const pt = Cn.createSVGPoint();
+                pt.x = e.clientX, pt.y = e.clientY;
+                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, triDragState.v0, triDragState.v1, triDragState.v2);
+                const shape = Ge(triDragState.id);
+                if (shape && shape.keys && shape.keys.length === 3) {
+                    const intensity = 80;
+                    const v0r = Math.round(bary.w0 * intensity);
+                    const v1r = Math.round(bary.w1 * intensity);
+                    const v2r = Math.round(bary.w2 * intensity);
+                    To(triDragState.id, shape.keys[0], v0r, !1);
+                    To(triDragState.id, shape.keys[1], v1r, !1);
+                    To(triDragState.id, shape.keys[2], v2r, !1);
+                    const puck = In.querySelector(`.map-triangle-puck[data-id="${CSS.escape(triDragState.id)}"]`);
+                    if (puck) {
+                        const px = bary.w0 * triDragState.v0.x + bary.w1 * triDragState.v1.x + bary.w2 * triDragState.v2.x;
+                        const py = bary.w0 * triDragState.v0.y + bary.w1 * triDragState.v1.y + bary.w2 * triDragState.v2.y;
+                        puck.setAttribute("cx", px.toFixed(1));
+                        puck.setAttribute("cy", py.toFixed(1));
+                        puck.setAttribute("fill", zi(Math.max(v0r, v1r, v2r)));
+                    }
+                }
+                return;
+            }
             if (eo && eo.pointerId === e.pointerId) {
                 if (eo.longPressed) return;
-                return void (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10 && (io(), 
-                eo = null, Cp = !0, jp = {
-                    x: e.clientX,
-                    y: e.clientY
-                }));
+                if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10) {
+                    io();
+                    eo = null;
+                    Cp = !0;
+                    jp = {
+                        x: e.clientX,
+                        y: e.clientY
+                    };
+                } else {
+                    return;
+                }
             }
             if (Mp && Mp.pointerId === e.pointerId) return void (Mp.value = _o(Mp.el, No(Mp.el, e.clientX, e.clientY)));
             if (!Cp) return;
@@ -37311,11 +37542,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }), Cn.addEventListener("pointerup", Kh), Cn.addEventListener("pointercancel", Kh), 
         /* Build 2026-10-18_1305: viewport lockup fix. Kh was only registered on the map SVG, so a pointerup/pointercancel delivered anywhere else never cleaned up the gesture state — the pointer stayed in the active-pointer map (eh) forever, every later press read as a phantom extra finger (all tap branches require exactly one active pointer, and pan is unreachable in the multi-pointer path), and only wheel zoom, which never consults eh, kept working. The exposed path: a touch long-press on the center node opens the modal About dialog (sh via Wi/showModal) while the finger is still down — the touch branch takes no pointer capture — so the release lands on the dialog, not the SVG. Rescue: window-level capture listeners run the same Kh cleanup whenever the map owns the pointer (tracked in eh or any gesture state) but the release lands outside the map; lostpointercapture on the SVG cleans up the same way if capture is lost mid-gesture. In-map releases are untouched (Cn.contains guard) and Kh is idempotent, so normal gestures behave exactly as before. */
         window.addEventListener("pointerup", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), window.addEventListener("pointercancel", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), Cn.addEventListener("lostpointercapture", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
         }), Cn.addEventListener("touchstart", e => {
             if (mn.staticMap || 1 !== e.touches.length || !e.target.closest || !__sxClosestAction(e.target, "centerHit")) return;
             const n = e.touches[0];
@@ -40702,7 +40933,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 if (Ge(id, c).single) {
                     const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
                     const found = candidates.find(([, v]) => Number.isFinite(Number(v)));
-                    if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}" (${id})`);
+                    if (!found) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
                     const value = clamp(found[1]), supplying = found[0];
                     if (guardManualFlip) {
                         const blocked = [ "give", "receive" ].some(flank => "manual" === Ao(c, id, flank) && Number.isFinite(Number(existingFlankValue(id, flank))) && Ix(Number(existingFlankValue(id, flank))) !== Ix(value));
@@ -40727,11 +40958,17 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         if (flanks.length === 3) {
                             if (Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give))) incoming[flanks[0]] = clamp(rating.give);
                             if (Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive))) incoming[flanks[1]] = clamp(rating.receive);
-                            if (!incoming[flanks[2]]) incoming[flanks[2]] = 0;
+                            if (incoming[flanks[2]] === undefined) incoming[flanks[2]] = 0;
                         }
                     }
+                    // And backwards compatibility for triadic ratings on dual topics
+                    if (!Object.keys(incoming).length && flanks.length === 2) {
+                        const vals = Object.values(rating).filter(Number.isFinite);
+                        if (vals.length >= 1) incoming[flanks[0]] = clamp(vals[0]);
+                        if (vals.length >= 2) incoming[flanks[1]] = clamp(vals[1]);
+                    }
                 }
-                if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}" (${id})`);
+                if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
                 const applied = {};
                 let anyBlocked = !1;
                 Object.entries(incoming).forEach(([flank, value]) => {

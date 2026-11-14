@@ -8289,20 +8289,35 @@ function profileContactDraft(){return {fullName:profileEditorTarget&&profileCont
         if(id.startsWith('cat-'))throw new Error(`This profile contains an unsupported category rating: ${id}`);
         if(!knownNodeIds.has(id))throw new Error(`This profile uses an unknown topic ID: ${id}`);
         const spec=directionSpecFor(id,target);
+        const topicName=(typeof nodeIndex!=='undefined'&&nodeIndex[id]&&(nodeIndex[id].name||nodeIndex[id].label))||(typeof staticTaxonomy!=='undefined'&&staticTaxonomy[id]&&(staticTaxonomy[id].name||staticTaxonomy[id].label))||id;
         if(spec.single){
           const candidates=typeof value==='number'?[value]:value&&typeof value==='object'?[value.give,value.receive]:[];
-          const rating=candidates.map(Number).find(Number.isFinite);if(rating===undefined)throw new Error(`This profile contains an unreadable rating for ${id}`);
+          const rating=candidates.map(Number).find(Number.isFinite);if(rating===undefined)throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
           profiles[target][id]=Math.max(-100,Math.min(100,rating));
           const sourceDirection=value&&typeof value==='object'&&!Number.isFinite(Number(value.give))?'receive':'give';
           const source=payloadRatingSource(id,sourceDirection);setRatingSource(target,id,'give',source);setRatingSource(target,id,'receive',source);return;
         }
         const pair={};
-        if(Number.isFinite(Number(value))){pair.give=pair.receive=Math.max(-100,Math.min(100,Number(value)));setRatingSource(target,id,'give',payloadRatingSource(id,'give'));setRatingSource(target,id,'receive',payloadRatingSource(id,'receive'))}
-        else if(value&&typeof value==='object')['give','receive'].forEach(direction=>{
-          if(!Object.prototype.hasOwnProperty.call(value,direction)||!Number.isFinite(Number(value[direction])))return;
-          pair[direction]=Math.max(-100,Math.min(100,Number(value[direction])));setRatingSource(target,id,direction,payloadRatingSource(id,direction));
-        });
-        if(!Object.keys(pair).length)throw new Error(`This profile contains an unreadable rating for ${id}`);
+        const flanks=(spec&&spec.keys)||['give','receive'];
+        if(Number.isFinite(Number(value))){flanks.forEach(direction=>{pair[direction]=Math.max(-100,Math.min(100,Number(value)));setRatingSource(target,id,direction,payloadRatingSource(id,direction))});}
+        else if(value&&typeof value==='object'){
+          flanks.forEach(direction=>{
+            if(!Object.prototype.hasOwnProperty.call(value,direction)||!Number.isFinite(Number(value[direction])))return;
+            pair[direction]=Math.max(-100,Math.min(100,Number(value[direction])));setRatingSource(target,id,direction,payloadRatingSource(id,direction));
+          });
+          if(!Object.keys(pair).length){
+            if(flanks.length===3&&(Object.prototype.hasOwnProperty.call(value,'give')||Object.prototype.hasOwnProperty.call(value,'receive'))){
+              if(Object.prototype.hasOwnProperty.call(value,'give')&&Number.isFinite(Number(value.give)))pair[flanks[0]]=Math.max(-100,Math.min(100,Number(value.give)));
+              if(Object.prototype.hasOwnProperty.call(value,'receive')&&Number.isFinite(Number(value.receive)))pair[flanks[1]]=Math.max(-100,Math.min(100,Number(value.receive)));
+              if(pair[flanks[2]]===undefined)pair[flanks[2]]=0;
+            }else if(flanks.length===2){
+              const vals=Object.values(value).filter(Number.isFinite);
+              if(vals.length>=1)pair[flanks[0]]=Math.max(-100,Math.min(100,Number(vals[0])));
+              if(vals.length>=2)pair[flanks[1]]=Math.max(-100,Math.min(100,Number(vals[1])));
+            }
+          }
+        }
+        if(!Object.keys(pair).length)throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
         profiles[target][id]=pair;
       });
       annotations[target]={};fantasyOnly[target]={};alreadyTried[target]={};profileNotes[target]={};

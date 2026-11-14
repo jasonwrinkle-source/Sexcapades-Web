@@ -1,6 +1,109 @@
     !function() {
         "use strict";
         const {DOM: e, TimerManager: t, setHTML: n} = window.SexcapadesRuntime, i = [ "Hard Limit (×): HARD EXCLUDE the topic. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Not Interested (⊘): HARD EXCLUDE the topic exactly like a Hard Limit. Never mention it—not as action, dialogue, a tease, suggestion, fantasy, setup, backstory, or background detail.", "Favorite (★): PRIORITIZE the topic prominently over unmarked topics while obeying ratings, give/receive roles, shared-ground limits, and consent." ], a = [ "Fantasy-only (☁): INCLUDE only as a clearly imagined fantasy, dream, or internal thought; make clear it is imagined, not real-world play or willingness.", "Already Tried (✓): REFERENCE as past experience (for example, “they’d done this before”) without inventing details or assuming current consent." ], r = [ "Fantasy-only (☁): EXCLUDE entirely from practical play guides; never schedule, suggest, tease, or describe it as real-world play.", "Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details." ], o = new Set;
+        /* Internationalization & Domain Skinning Dictionary (Sexcapades / Poliscapades / Forescapades) */
+        const SX_DOMAIN_DICTIONARIES = {
+            sexcapades: {
+                appName: "Sexcapades",
+                mapName: "Hypermap",
+                topicNounSingular: "topic",
+                topicNounPlural: "topics",
+                kinkNounSingular: "kink",
+                kinkNounPlural: "kinks",
+                categoryNounSingular: "category",
+                categoryNounPlural: "categories",
+                subcategoryNounSingular: "subcategory",
+                subcategoryNounPlural: "subcategories",
+                partnerNounSingular: "partner",
+                partnerNounPlural: "partners",
+                profileNounSingular: "profile",
+                profileNounPlural: "profiles",
+                ratings: {
+                    hardLimit: "Hard Limit",
+                    notInterested: "Not Interested",
+                    favorite: "Favorite",
+                    fantasyOnly: "Fantasy-only",
+                    alreadyTried: "Already Tried",
+                    unrated: "Unrated",
+                    everything: "Everything",
+                    give: "Give",
+                    receive: "Receive"
+                }
+            },
+            poliscapades: {
+                appName: "Poliscapades",
+                mapName: "Policy Map",
+                topicNounSingular: "policy",
+                topicNounPlural: "policies",
+                kinkNounSingular: "stance",
+                kinkNounPlural: "stances",
+                categoryNounSingular: "domain",
+                categoryNounPlural: "domains",
+                subcategoryNounSingular: "subdomain",
+                subcategoryNounPlural: "subdomains",
+                partnerNounSingular: "coalition",
+                partnerNounPlural: "coalitions",
+                profileNounSingular: "platform",
+                profileNounPlural: "platforms",
+                ratings: {
+                    hardLimit: "Red Line",
+                    notInterested: "Oppose",
+                    favorite: "Priority",
+                    fantasyOnly: "Aspirational",
+                    alreadyTried: "Enacted",
+                    unrated: "Unexamined",
+                    everything: "Broad Alignment",
+                    give: "Propose",
+                    receive: "Endorse"
+                }
+            },
+            forescapades: {
+                appName: "Forescapades",
+                mapName: "Foresight Map",
+                topicNounSingular: "driver",
+                topicNounPlural: "drivers",
+                kinkNounSingular: "factor",
+                kinkNounPlural: "factors",
+                categoryNounSingular: "horizon",
+                categoryNounPlural: "horizons",
+                subcategoryNounSingular: "trend",
+                subcategoryNounPlural: "trends",
+                partnerNounSingular: "counterpart",
+                partnerNounPlural: "counterparts",
+                profileNounSingular: "scenario",
+                profileNounPlural: "scenarios",
+                ratings: {
+                    hardLimit: "Existential Risk",
+                    notInterested: "Negligible",
+                    favorite: "High Impact",
+                    fantasyOnly: "Speculative",
+                    alreadyTried: "Historical Precedent",
+                    unrated: "Unmonitored",
+                    everything: "Systemic",
+                    give: "Catalyst",
+                    receive: "Vulnerability"
+                }
+            }
+        };
+        let currentSkin = "sexcapades";
+        function sxGetDomainSkin() { return currentSkin; }
+        function sxSetDomainSkin(skinName, customOverrides) {
+            if (SX_DOMAIN_DICTIONARIES[skinName]) currentSkin = skinName;
+            if (customOverrides && typeof customOverrides === "object") {
+                Object.assign(SX_DOMAIN_DICTIONARIES[currentSkin], customOverrides);
+            }
+            window.__SEXCAPADES_CURRENT_SKIN = currentSkin;
+            return SX_DOMAIN_DICTIONARIES[currentSkin];
+        }
+        function sxTerm(key, fallback) {
+            const dict = SX_DOMAIN_DICTIONARIES[currentSkin] || SX_DOMAIN_DICTIONARIES.sexcapades;
+            return dict[key] || fallback || key;
+        }
+        window.SX_DOMAIN_DICTIONARIES = SX_DOMAIN_DICTIONARIES;
+        window.sxGetDomainSkin = sxGetDomainSkin;
+        window.sxSetDomainSkin = sxSetDomainSkin;
+        window.sxTerm = sxTerm;
+
         /* P2 refactor (Build 2026-10-18_2252): unified closest() dispatch (P2-3).
            Every ancestor lookup in this bundle now routes through the single
            __sxClosestAction(el, action) handler below; the selector strings

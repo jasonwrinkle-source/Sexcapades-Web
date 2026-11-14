@@ -11,7 +11,7 @@
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
         const xp = Boolean((navigator.maxTouchPoints || 0) > 0 && window.matchMedia && window.matchMedia("(pointer: coarse)").matches), Sp = !Object.keys(wt).length || kp || xp;
-        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
+        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
             x: 0,
             y: 0
         }, qp = null, Hp = 0, Wp = 0, Up = 0, Gp = !1, Kp = Sp ? "lite" : "gpu", zp = Sp, Vp = null, Yp = null, Xp = 0, Zp = 0, Qp = 0;
@@ -714,7 +714,12 @@
         }
         let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
-            if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), Pp && Pp.pointerId === e.pointerId) {
+            if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), triDragState && triDragState.pointerId === e.pointerId) {
+                triDragState = null;
+                Mr();
+                return;
+            }
+            if (Pp && Pp.pointerId === e.pointerId) {
                 const t = Pp;
                 return Pp = null, void ("pointerup" === e.type && Fo(t.id, t.direction));
             }
@@ -878,6 +883,8 @@
         }), Cn.addEventListener("wheel", e => {
             e.preventDefault();
             if (mn.staticMap) return;
+            if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
+            Cn && Cn.classList.remove("is-camera-moving");
             const t = performance.now(), n = t - Nh, i = 1 === e.deltaMode ? 16 : 2 === e.deltaMode ? 320 : 1, a = e.deltaY * i, r = Math.sign(a), o = Math.abs(a);
             if (!r) return;
             const s = !Fh || n > 180;
@@ -912,6 +919,8 @@
             passive: !1
         }), Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
+            if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
+            Cn && Cn.classList.remove("is-camera-moving");
             __sxInvalidateCtm(), Gp && xh(), eh.set(e.pointerId, {
                 x: e.clientX,
                 y: e.clientY
@@ -930,15 +939,45 @@
                 return null;
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
             __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node"), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
-            if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
+            const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
+            if (triHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = triHit.dataset.id;
+                const v0 = { x: parseFloat(triHit.dataset.v0x), y: parseFloat(triHit.dataset.v0y) };
+                const v1 = { x: parseFloat(triHit.dataset.v1x), y: parseFloat(triHit.dataset.v1y) };
+                const v2 = { x: parseFloat(triHit.dataset.v2x), y: parseFloat(triHit.dataset.v2y) };
+                const pt = Cn.createSVGPoint();
+                pt.x = e.clientX, pt.y = e.clientY;
+                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
+                const shape = Ge(topicId);
+                if (shape && shape.keys && shape.keys.length === 3) {
+                    const intensity = 80;
+                    const v0r = Math.round(bary.w0 * intensity);
+                    const v1r = Math.round(bary.w1 * intensity);
+                    const v2r = Math.round(bary.w2 * intensity);
+                    To(topicId, shape.keys[0], v0r, !1);
+                    To(topicId, shape.keys[1], v1r, !1);
+                    To(topicId, shape.keys[2], v2r, !1);
+                }
+                triDragState = {
+                    pointerId: e.pointerId,
+                    id: topicId,
+                    v0: v0, v1: v1, v2: v2
+                };
+                return;
+            }
+            if (a && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId),
             void (Lp = {
                 pointerId: e.pointerId,
                 id: a.dataset.id,
                 startX: e.clientX,
                 startY: e.clientY
             });
-            if (Nt && !d(r) && !d(l) && !d(c)) return e.preventDefault(), e.stopPropagation(), 
-            eh.delete(e.pointerId), Nt = null, void Mr();
+            if (Nt && !d(r) && !d(l) && !d(c) && !triHit) {
+                Nt = null;
+                In.querySelectorAll(".active-rating").forEach(e => e.classList.remove("active-rating"));
+            }
             if (i && 1 === eh.size) return e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
             void (Tp = {
                 pointerId: e.pointerId,
@@ -1092,13 +1131,44 @@
                 x: e.clientX,
                 y: e.clientY
             }));
+            if (triDragState && triDragState.pointerId === e.pointerId) {
+                const pt = Cn.createSVGPoint();
+                pt.x = e.clientX, pt.y = e.clientY;
+                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, triDragState.v0, triDragState.v1, triDragState.v2);
+                const shape = Ge(triDragState.id);
+                if (shape && shape.keys && shape.keys.length === 3) {
+                    const intensity = 80;
+                    const v0r = Math.round(bary.w0 * intensity);
+                    const v1r = Math.round(bary.w1 * intensity);
+                    const v2r = Math.round(bary.w2 * intensity);
+                    To(triDragState.id, shape.keys[0], v0r, !1);
+                    To(triDragState.id, shape.keys[1], v1r, !1);
+                    To(triDragState.id, shape.keys[2], v2r, !1);
+                    const puck = In.querySelector(`.map-triangle-puck[data-id="${CSS.escape(triDragState.id)}"]`);
+                    if (puck) {
+                        const px = bary.w0 * triDragState.v0.x + bary.w1 * triDragState.v1.x + bary.w2 * triDragState.v2.x;
+                        const py = bary.w0 * triDragState.v0.y + bary.w1 * triDragState.v1.y + bary.w2 * triDragState.v2.y;
+                        puck.setAttribute("cx", px.toFixed(1));
+                        puck.setAttribute("cy", py.toFixed(1));
+                        puck.setAttribute("fill", zi(Math.max(v0r, v1r, v2r)));
+                    }
+                }
+                return;
+            }
             if (eo && eo.pointerId === e.pointerId) {
                 if (eo.longPressed) return;
-                return void (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10 && (io(), 
-                eo = null, Cp = !0, jp = {
-                    x: e.clientX,
-                    y: e.clientY
-                }));
+                if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10) {
+                    io();
+                    eo = null;
+                    Cp = !0;
+                    jp = {
+                        x: e.clientX,
+                        y: e.clientY
+                    };
+                } else {
+                    return;
+                }
             }
             if (Mp && Mp.pointerId === e.pointerId) return void (Mp.value = _o(Mp.el, No(Mp.el, e.clientX, e.clientY)));
             if (!Cp) return;
@@ -1111,11 +1181,11 @@
         }), Cn.addEventListener("pointerup", Kh), Cn.addEventListener("pointercancel", Kh), 
         /* Build 2026-10-18_1305: viewport lockup fix. Kh was only registered on the map SVG, so a pointerup/pointercancel delivered anywhere else never cleaned up the gesture state — the pointer stayed in the active-pointer map (eh) forever, every later press read as a phantom extra finger (all tap branches require exactly one active pointer, and pan is unreachable in the multi-pointer path), and only wheel zoom, which never consults eh, kept working. The exposed path: a touch long-press on the center node opens the modal About dialog (sh via Wi/showModal) while the finger is still down — the touch branch takes no pointer capture — so the release lands on the dialog, not the SVG. Rescue: window-level capture listeners run the same Kh cleanup whenever the map owns the pointer (tracked in eh or any gesture state) but the release lands outside the map; lostpointercapture on the SVG cleans up the same way if capture is lost mid-gesture. In-map releases are untouched (Cn.contains guard) and Kh is idempotent, so normal gestures behave exactly as before. */
         window.addEventListener("pointerup", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), window.addEventListener("pointercancel", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), Cn.addEventListener("lostpointercapture", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
         }), Cn.addEventListener("touchstart", e => {
             if (mn.staticMap || 1 !== e.touches.length || !e.target.closest || !__sxClosestAction(e.target, "centerHit")) return;
             const n = e.touches[0];

@@ -621,19 +621,47 @@
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                f.forEach((k, idx) => {
-                    w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
-                });
-                const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
-                let C;
-                if ($.single) {
-                    C = [ 0 ];
-                } else if (f.length === 3) {
-                    const w0 = w[f[0]], w1 = w[f[1]], w2 = w[f[2]];
-                    C = [ -(w1 / 2 + w0 / 2), 0, (w1 / 2 + w2 / 2) ];
+                if ($.triangle || (f && f.length === 3)) {
+                    // 2D Barycentric Triangle on Hypermap for Triad Topics
+                    const triR = 56 * m;
+                    const cx = l, cy = c;
+                    const V0 = { x: cx, y: cy - triR };
+                    const V1 = { x: cx - triR * 0.866025, y: cy + triR * 0.5 };
+                    const V2 = { x: cx + triR * 0.866025, y: cy + triR * 0.5 };
+                    const r0 = t[f[0] + "Known"] ? t[f[0]] : 0;
+                    const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
+                    const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
+                    const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"]);
+                    const m0 = Math.max(0, r0), m1 = Math.max(0, r1), m2 = Math.max(0, r2);
+                    const tot = m0 + m1 + m2;
+                    const w0 = tot > 0 ? m0 / tot : 1/3;
+                    const w1 = tot > 0 ? m1 / tot : 1/3;
+                    const w2 = tot > 0 ? m2 / tot : 1/3;
+                    const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
+                    const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+                    const maxR = Math.max(r0, r1, r2);
+                    const puckColor = isKnown ? zi(maxR) : Ga.FALLBACK_COLOR;
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
+
+                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="rgba(14,18,22,0.85)" stroke="rgba(255,255,255,0.4)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
+                    D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V1.x.toFixed(1)}" y1="${V1.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<line x1="${V2.x.toFixed(1)}" y1="${V2.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
+                    D += `<text class="map-triangle-label" x="${V0.x.toFixed(1)}" y="${(V0.y - 4 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#80d8ff">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label" x="${(V1.x - 4 * m).toFixed(1)}" y="${(V1.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ff8a80">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label" x="${(V2.x + 4 * m).toFixed(1)}" y="${(V2.y + 10 * m).toFixed(1)}" text-anchor="middle" font-size="${8.5 * m}px" font-weight="600" fill="#ffd180">${Hi(y[2])}</text>`;
+                    D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
+                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
+                    D += `</g>`;
                 } else {
-                    C = [ -w[f[0]] / 2, w[f[1]] / 2 ];
-                }
+                    f.forEach((k, idx) => {
+                        w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
+                    });
+                    const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
+                    let C = $.single ? [ 0 ] : [ -w[f[0]] / 2, w[f[1]] / 2 ];
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
@@ -659,6 +687,7 @@
                     const te = $.single ? y[i] : b ? "give" === n ? "G" : "R" : y[i], ne = k;
                     D += `<text class="direction-tag" data-id="${e}" data-direction="${n}" x="${u.toFixed(2)}" y="${f.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${g.toFixed(2)} ${u.toFixed(2)} ${f.toFixed(2)})" style="font-size:${ne}px">${Hi(te)}</text></g>`;
                 });
+                }
             }
             if (g && !Rt && !x) {
                 const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
