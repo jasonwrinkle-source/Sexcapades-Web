@@ -787,8 +787,7 @@
                 const isDouble = (e.detail >= 2) || (timeDiff < 520 && dist < 60 && sxLastNodeTapId === sid);
 
                 if ((isKnownNode || sid) && isDouble) {
-                    // A second tap zooms the branch so its names can be read.
-                    // It does not rate the topic and it does not open the sheet.
+                    // Double tap / click opens the sheet for ALL nodes (category, subcategory, kink/topic)
                     if (sxPendingNodeTapTimer) {
                         try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
                         sxPendingNodeTapTimer = null;
@@ -798,22 +797,10 @@
                     sxLastNodeTapId = null;
                     sxLastDoubleTime = now;
 
-                    try {
-                        const mm = document.getElementById("markMenu");
-                        if (mm) mm.hidden = true;
-                        const dlgs = document.querySelectorAll("dialog[open]");
-                        dlgs.forEach(d => { try { d.close(); } catch (_) { d.removeAttribute("open"); } });
-                    } catch (_) {}
-
-                    const zoomId = !isCat && !isSub && rec && rec.parentId ? rec.parentId : sid;
-                    if (isCat && branch && !rn.has(branch)) rn.add(branch);
-                    if (isSub && zoomId && branch && (!rn.has(branch) || !on.has(zoomId))) {
-                        rn.add(branch);
-                        on.add(zoomId);
+                    const targetNodeId = cat ? cat.id : sid;
+                    if (typeof xo === "function") {
+                        xo(targetNodeId, e.clientX, e.clientY);
                     }
-                    const runner = () => Th(zoomId, branch);
-                    if (window.sxPaintPromise) window.sxPaintPromise.then(() => requestAnimationFrame(runner));
-                    else requestAnimationFrame(runner);
                     return;
                 }
 
@@ -826,18 +813,18 @@
                     try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
                     sxPendingNodeTapTimer = null;
                 }
-                // Wait out the double-click window. Opening the sheet or
-                // rating on the first tap stole the second tap, so a
-                // double-click never reached the branch zoom.
+                // Single tap navigates / selects and animates camera focus
                 sxPendingNodeTapTimer = window.setTimeout(() => {
                     sxPendingNodeTapTimer = null;
                     if (sxLastDoubleTime && performance.now() - sxLastDoubleTime < 520) return;
                     if ("pointerup" !== e.type) return;
                     if (isCat || isSub) {
                         n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        if (typeof Th === "function") Th(sid, branch);
                         return;
                     }
-                    n.spoke ? selectSpokeNode(n.id, !0) : (selectSpokeNode(n.id, !0), typeof xo === "function" && xo(n.id, e.clientX, e.clientY));
+                    selectSpokeNode(n.id, !0);
+                    if (typeof Th === "function") Th(sid, branch);
                 }, 280);
                 return;
             }

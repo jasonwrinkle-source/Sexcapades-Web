@@ -94,6 +94,11 @@ export const TAXONOMY_CATEGORIES = [
                 "note": "role-versatility identity; no direction"
             },
             {
+                "name": "Sensation / power / intimacy",
+                "id": "t0409",
+                "risk": false
+            },
+            {
                 "name": "Male Authority",
                 "id": "t0015",
                 "risk": false,
@@ -1006,6 +1011,11 @@ export const TAXONOMY_CATEGORIES = [
         "id": "c0004",
         "name": "Sensation & atmosphere",
         "topics": [
+            {
+                "name": "Tantric / frantic / trance",
+                "id": "t0412",
+                "risk": false
+            },
             {
                 "name": "Wax & temperature",
                 "id": "t0098",
@@ -2383,7 +2393,13 @@ export const TAXONOMY_CATEGORIES = [
     {
         "id": "c0008",
         "name": "Psychological dynamics",
-        "parentTopics": [],
+        "parentTopics": [
+            {
+                "name": "Sensual / primal / humiliation",
+                "id": "t0408",
+                "risk": false
+            }
+        ],
         "subcategories": [
             {
                 "id": "s0034",
@@ -2798,8 +2814,23 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "Cuckquean / stag / vixen",
+                "id": "t0406",
+                "risk": false
+            },
+            {
+                "name": "Top / bottom / side",
+                "id": "t0407",
+                "risk": false
+            },
+            {
                 "name": "Polyamory with kink",
                 "id": "t0282",
+                "risk": false
+            },
+            {
+                "name": "Monogamy / polyamory / anarchy",
+                "id": "t0410",
                 "risk": false
             },
             {
@@ -3202,6 +3233,11 @@ export const TAXONOMY_CATEGORIES = [
                 "type": "give_receive",
                 "give_label": "edge (bring to near-orgasm)",
                 "receive_label": "be edged (be brought to near-orgasm)"
+            },
+            {
+                "name": "Edging / ruined / forced",
+                "id": "t0411",
+                "risk": false
             },
             {
                 "name": "Teasing",

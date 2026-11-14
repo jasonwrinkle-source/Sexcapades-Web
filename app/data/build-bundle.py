@@ -110,4 +110,20 @@ for f in ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher
         shutil.copyfile(src_f, dst_f)
         print(f"[Bundle] Synced {f} to hosted/js/")
 
+# Sync module files to hosted/js/modules/
+hosted_modules_dir = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/modules")
+os.makedirs(hosted_modules_dir, exist_ok=True)
+for p in parts:
+    src_p = os.path.join(src_dir, p)
+    dst_p = os.path.join(hosted_modules_dir, p)
+    if os.path.exists(src_p):
+        with open(src_p, encoding="utf-8") as f:
+            code = f.read()
+        code = re.sub(r'^\s*import\s+.*?;\s*', '', code, flags=re.MULTILINE)
+        code = re.sub(r'\bexport\s+(const|let|var|function|class)\s+', r'\1 ', code)
+        code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
+        with open(dst_p, "w", encoding="utf-8") as f_dst:
+            f_dst.write(code)
+print(f"[Bundle] Synced {len(parts)} unbundled modules to hosted/js/modules/")
+
 print(f"[Bundle] Complete! Generated {round(os.path.getsize(target_app)/1024, 1)} KB ES-bundled bundle.")

@@ -574,6 +574,15 @@
                 ($.single ? [ {
                     key: "give",
                     offset: 0
+                } ] : $.keys && $.keys.length === 3 ? [ {
+                    key: $.keys[0],
+                    offset: -6
+                }, {
+                    key: $.keys[1],
+                    offset: 0
+                }, {
+                    key: $.keys[2],
+                    offset: 6
                 } ] : [ {
                     key: "give",
                     offset: -5
@@ -611,12 +620,20 @@
                 }(U), d = (U.routes || []).map(e => `${_d(e, !0)}; combined ${Math.round(e.score)}%`).join(" · "), p = Za.controlTagWidth(r, "group") * a, h = 24 * a, g = l, m = c;
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
-                const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = $.single ? {
-                    give: Za.controlTagWidth(y[0], "single") * m
-                } : {
-                    give: v(y[0]),
-                    receive: v(y[1])
-                }, k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m), C = $.single ? [ 0 ] : [ -w.give / 2, w.receive / 2 ];
+                const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
+                f.forEach((k, idx) => {
+                    w[k] = ($.single ? Za.controlTagWidth(y[idx], "single") : v(y[idx])) || 30 * m;
+                });
+                const k = ($.single ? 20 : 24) * m, x = 320 * m, E = sxRailPx(m);
+                let C;
+                if ($.single) {
+                    C = [ 0 ];
+                } else if (f.length === 3) {
+                    const w0 = w[f[0]], w1 = w[f[1]], w2 = w[f[2]];
+                    C = [ -(w1 / 2 + w0 / 2), 0, (w1 / 2 + w2 / 2) ];
+                } else {
+                    C = [ -w[f[0]] / 2, w[f[1]] / 2 ];
+                }
                 // Slider blow-up repair (2026-11-01): E (the rating rail's stroke-width) was 44 * mapFontScale() — unbounded and font-derived, so at the baked fontScale 40 the rail rendered 1760 screen px thick (non-scaling-stroke) and one inadvertently picked slider filled the viewport at high zoom-out. It is now the fixed 44 of the 44px spec at every font scale and zoom, matching the .rating-rail CSS rule. Track length (x = 320 * m, map units, camera-scaled) is unchanged.
                 // Slider size repair #2 (2026-11-01): E now comes from sxRailPx(m) — 14% of the track's delivered screen length at the current camera, capped at the same fixed 44 — so the attribute, the .rating-rail CSS variable, and the hit strokes all agree at every zoom instead of the fixed 44px thickness dwarfing the shrunken track at Full zoom-out.
                 f.forEach((n, i) => {
@@ -644,7 +661,7 @@
                 });
             }
             if (g && !Rt && !x) {
-                const i = Xi(), a = $.single ? [ "give" ] : [ "give", "receive" ], r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
+                const i = Xi(), a = $.keys || ($.single ? [ "give" ] : [ "give", "receive" ]), r = i.length * a.length, o = (n > 7 ? Math.min(18, 4 + 1.6 * r) : Math.min(14, 3 + 1.4 * r)) * (mapFontScale() * sxF / 3), s = Math.max(1.35, n / Math.min(r, 6)) * (mapFontScale() * sxF / 3);
                 i.forEach((n, i) => {
                     const l = da(e, n);
                     a.forEach((c, d) => {
@@ -757,18 +774,11 @@
                 };
             },
             cloudLabel(e, t) {
-                const n = Math.min(e - 40, Math.max(t + 44, .2 * e));
+                const n = Math.min(e - 44, Math.max(t + 44, .2 * e));
                 return {
                     labelOffset: n,
-                    // LABEL CLEARANCE (repair, 2026-11-01): the
-                    // width offered to the fitted-size computation
-                    // is the space actually left on the spoke —
-                    // the old floor of 80 forced a label wider
-                    // than a short spoke, so its text ran past
-                    // the end of the spoke and impinged on the
-                    // icon seated there. A short spoke now gets a
-                    // smaller fitted label instead.
-                    labelWidth: Math.max(30, e - n - 30)
+                    // LABEL CLEARANCE: reserve icon radius (24px) + 20px gap
+                    labelWidth: Math.max(30, e - n - 44)
                 };
             },
             adaptivePlacement(e, t, n = 0) {
@@ -939,9 +949,9 @@
                 // six spaces between the label end and the icon — the
                 // old +3 was ~0.001 spaces at the label font, so
                 // subcategory labels crowded their icons.
-                const gap = 6 * Za.measure(" ", t, "topic");
+                const gap = Math.max(20, 6 * Za.measure(" ", t, "topic"));
                 for (let n = 0; n < 3; n++) {
-                    const n = Math.min(r - 40, Math.max(i + 44, .2 * r)) + 20;
+                    const n = Math.min(r - 44, Math.max(i + 44, .2 * r)) + 20;
                     r = Math.max(r, n + Za.measure(e, t) + gap + a);
                 }
                 return Math.max(n, r);
@@ -953,14 +963,9 @@
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            // Build 2026-10-19_1535: expand/collapse on label/icon click COMMENTED OUT per Jason — click is selection only (highlight + dim), no expand/contract. Restore by uncommenting the $i(n) line.
-            // n && $i(n);
+            // Click ruling (2026-11-14): single click is navigation / selection only for all nodes.
+            // Double click opens the sheet.
             n && selectSpokeNode(n, !0);
-            const rec = n && (qn[n] || Xn(n));
-            if (rec && "Topic" === rec.kind && typeof xo === "function") {
-                const box = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
-                xo(n, box.left + box.width / 2, box.bottom + 8);
-            }
         }
         function clearSelectionMarking() {
             if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());

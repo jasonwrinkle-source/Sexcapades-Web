@@ -20,7 +20,7 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
     <title>Sexcapades — Adults Only</title>
     <style>
       :root {
@@ -373,48 +373,6 @@
         font-weight: 800;
       }
 
-      .scan-import-link {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        min-height: 46px;
-        padding: 8px 14px;
-        border-bottom: 1px solid var(--line);
-        background: rgba(25, 29, 33, .9);
-        color: var(--text);
-        text-decoration: none;
-        transition: background-color 160ms ease;
-      }
-
-      .scan-import-link:hover { background: var(--page); }
-
-      .scan-import-copy {
-        display: grid;
-        gap: 1px;
-      }
-
-      .scan-import-copy strong {
-        color: var(--link);
-        font-size: .9rem;
-        line-height: 1.15;
-      }
-
-      .scan-import-copy span {
-        color: var(--muted);
-        font-size: .72rem;
-        font-weight: 500;
-        line-height: 1.25;
-      }
-
-      .scan-import-link::after {
-        content: "→";
-        flex: none;
-        color: var(--link);
-        font-size: 1.05rem;
-        font-weight: 800;
-      }
-
       .guide-link {
         display: flex;
         align-items: center;
@@ -500,6 +458,22 @@
       .destination-trigger:hover { background: var(--surface); }
       .destination-trigger:active { transform: none; }
 
+      /* App button glow: the app's cyan pulsing glow (listViewGlowPulse),
+         not the old pink static halo. Cyan #63c2c8, the app's focus color
+         (the gate's own --focus is pale yellow, so the cyan is literal here).
+         Border + pulsing box-shadow; text, size, position, function unchanged. */
+      @keyframes listViewGlowPulse {
+        0%, 100% { box-shadow: 0 0 4px 1px rgba(99, 194, 200, .30); }
+        50% { box-shadow: 0 0 0 3px rgba(99, 194, 200, .45), 0 0 18px 6px rgba(99, 194, 200, .65); }
+      }
+      #appViewTrigger {
+        border-color: #63c2c8;
+        animation: listViewGlowPulse 1.6s ease-in-out infinite;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #appViewTrigger { animation: none; box-shadow: 0 0 0 1px #63c2c8, 0 0 12px 2px rgba(99, 194, 200, .45); }
+      }
+
       .gate.is-confirmed .gate-body { display: none; }
 
       .gate.is-confirmed {
@@ -515,12 +489,11 @@
 
       .destination-header-actions {
         display: grid;
-        grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1.25fr 1fr;
         gap: 6px;
       }
 
       .destination-header .quick-start-link,
-      .destination-header .scan-import-link,
       .destination-header .guide-link {
         min-height: 38px;
         padding: 7px 10px;
@@ -528,13 +501,11 @@
       }
 
       .destination-header .quick-start-copy span,
-      .destination-header .scan-import-copy span,
       .destination-header .guide-copy span {
         display: none;
       }
 
       .destination-header .quick-start-copy strong,
-      .destination-header .scan-import-copy strong,
       .destination-header .guide-copy strong {
         font-size: .78rem;
       }
@@ -581,39 +552,6 @@
 
       .privacy-group p + p { margin-top: 7px; }
       .privacy-group strong { color: var(--text); }
-
-      .site-footer {
-        display: none;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px 14px;
-        padding: 9px 14px;
-        border-top: 1px solid var(--line);
-        background: rgba(11, 13, 15, .96);
-        color: var(--muted);
-        font-size: .72rem;
-      }
-
-      .gate.is-confirmed .site-footer { display: flex; }
-
-      .site-footer a {
-        color: var(--muted);
-        text-decoration-color: var(--line);
-        text-underline-offset: 4px;
-      }
-
-      .site-footer a:hover { color: var(--link); }
-
-      .patreon-support {
-        flex-basis: 100%;
-        margin: 0;
-        text-align: center;
-        font-size: .68rem;
-      }
-
-      @media (max-width: 600px) {
-        .patreon-support { text-align: left; }
-      }
 
       :focus-visible {
         outline: 3px solid var(--focus);
@@ -669,11 +607,6 @@
 
         .privacy-model { padding: 22px 24px 24px; }
         .privacy-groups { grid-template-columns: 1fr; gap: 16px; }
-
-        .site-footer {
-          justify-content: center;
-          padding: 8px 10px;
-        }
       }
 
 
@@ -867,19 +800,6 @@
         padding-inline: 20px;
       }
 
-      .site-footer {
-        display: flex;
-        justify-content: center;
-        gap: 6px 16px;
-        padding: 14px 22px 13px;
-        background: #0f1214;
-        font-size: .68rem;
-      }
-
-      .patreon-support {
-        margin-top: 2px;
-      }
-
       .gate.is-confirmed {
         width: min(960px, 100%);
       }
@@ -949,14 +869,6 @@
         .value-prop { margin-top: 17px; }
         .age-copy { margin-top: 19px; }
         .actions { margin-top: 17px; }
-
-        .site-footer {
-          justify-content: center;
-          padding: 12px 14px;
-          text-align: center;
-        }
-
-        .patreon-support { text-align: center; }
       }
 
       @media (max-width: 420px) {
@@ -982,109 +894,10 @@
         background: rgba(13, 16, 18, .88);
       }
 
-      /* Footer sitemap: pull-up dropdown menus */
-      .site-footer { align-items: center; }
-
-      .sitemap-group { position: relative; }
-
-      .sitemap-trigger {
-        min-height: 0;
-        padding: 2px 0;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        color: var(--muted);
-        font-size: .72rem;
-        font-weight: 500;
-        text-decoration: underline;
-        text-decoration-color: var(--line);
-        text-underline-offset: 4px;
-        cursor: pointer;
-      }
-
-      .sitemap-trigger:hover {
-        background: transparent;
-        color: var(--link);
-      }
-
-      .sitemap-trigger:active { transform: none; }
-
-      .sitemap-menu {
-        position: absolute;
-        bottom: calc(100% + 10px);
-        left: 50%;
-        z-index: 30;
-        min-width: 216px;
-        max-height: 62vh;
-        margin: 0;
-        padding: 6px;
-        overflow: auto;
-        transform: translateX(-50%);
-        list-style: none;
-        text-align: left;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        box-shadow: 0 18px 50px var(--shadow);
-      }
-
-      .sitemap-menu[hidden] { display: none; }
-
-      .site-footer .sitemap-menu a {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 8px 10px;
-        color: var(--text);
-        font-size: .8rem;
-        font-weight: 600;
-        line-height: 1.25;
-        text-decoration: none;
-      }
-
-      .site-footer .sitemap-menu a::after {
-        content: "→";
-        flex: none;
-        color: var(--link);
-      }
-
-      .site-footer .sitemap-menu a:hover {
-        background: var(--surface-raised);
-        color: var(--text);
-      }
-
-      .site-footer .sitemap-menu a.sitemap-menu-primary {
-        background: var(--accent);
-        color: var(--accent-ink);
-      }
-
-      .site-footer .sitemap-menu a.sitemap-menu-primary::after { color: var(--accent-ink); }
-
-      .site-footer .sitemap-menu a.sitemap-menu-primary:hover {
-        background: var(--accent-strong);
-        color: var(--accent-ink);
-      }
-
-      .sitemap-menu-wide {
-        width: min(440px, 88vw);
-        columns: 2;
-        column-gap: 8px;
-      }
-
-      .sitemap-menu-wide li { break-inside: avoid; }
-
-      /* App menu: same pull-up menu as Guide/FAQ, about half the width —
-         just wide enough for its longest label plus the arrow. */
-      .sitemap-menu-app {
-        width: 152px;
-        min-width: 0;
-      }
-
-      .sitemap-menu-app a { white-space: nowrap; }
 
       /* App view pull-down: anchored to the "App" button in the
-         destination banner, drops down from it (same menu styling as the
-         footer sitemap menus, opening downward instead of up). */
+         destination banner, drops down from it (same menu styling,
+         opening downward instead of up). */
       .app-view-group { position: relative; }
 
       .app-view-menu {
@@ -1127,30 +940,34 @@
 
       .app-view-menu a:hover { background: var(--surface-raised); }
 
-      .app-view-menu a.app-view-menu-primary {
-        background: var(--accent);
-        color: var(--accent-ink);
+      /* Divider between the view links and the footer links (Examples,
+         Privacy, Contact, Sitemap) folded in from the removed footer. */
+      .app-view-menu-divider {
+        margin: 6px 4px;
+        border-top: 1px solid var(--line);
       }
 
-      .app-view-menu a.app-view-menu-primary::after { color: var(--accent-ink); }
+      /* Hot List: teal glowing pulsing (ruled 2026-11-13, Jason) — the
+         old red outline (var(--accent) ring + rgba(255,77,100) glow) is
+         gone; same cyan pulse as the App button (#63c2c8, 1.6s). */
+      .app-view-menu a.app-view-menu-primary {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid #63c2c8;
+        box-shadow: 0 0 14px 1px rgba(99, 194, 200, .45);
+        animation: listViewGlowPulse 1.6s ease-in-out infinite;
+      }
+
+      .app-view-menu a.app-view-menu-primary::after { color: var(--link); }
 
       .app-view-menu a.app-view-menu-primary:hover {
-        background: var(--accent-strong);
-        color: var(--accent-ink);
+        background: var(--surface-raised);
+        color: var(--text);
+        box-shadow: 0 0 0 1px #63c2c8, 0 0 18px 2px rgba(99, 194, 200, .55);
       }
 
-      @media (max-width: 600px) {
-        .sitemap-menu {
-          position: fixed;
-          right: 12px;
-          bottom: 72px;
-          left: 12px;
-          width: auto;
-          max-height: 58vh;
-          transform: none;
-        }
-
-        .sitemap-menu-wide { columns: 1; }
+      @media (prefers-reduced-motion: reduce) {
+        .app-view-menu a.app-view-menu-primary { animation: none; box-shadow: 0 0 0 1px #63c2c8, 0 0 12px 2px rgba(99, 194, 200, .45); }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -1186,21 +1003,11 @@
         pointer-events: none;
       }
 
-      .build-stamp {
-        flex-basis: 100%;
-        margin: 2px 0 0;
-        text-align: center;
-        color: var(--muted);
-        font-size: .66rem;
-        opacity: .75;
-      }
-
       /* Full-screen gate layout: a title bar across the top, the unrated
-         sample map fully contained in the stage between the header and
-         the footer, and the footer across the bottom. Header, stage, and
-         footer sit in normal flow and never overlap; the map uses
-         `contain`, so the whole image stays visible inside the stage at
-         any viewport size. The gate panel floats centered in the stage. */
+         sample map fully contained in the stage below the header.
+         Header and stage sit in normal flow and never overlap; the map
+         uses `contain`, so the whole image stays visible inside the stage
+         at any viewport size. The gate panel floats centered in the stage. */
       body {
         display: flex;
         flex-direction: column;
@@ -1314,14 +1121,6 @@
         justify-content: center;
       }
 
-      .site-footer {
-        flex: 0 0 auto;
-        position: relative;
-        z-index: 2;
-        display: flex;
-        width: 100%;
-      }
-
       @media (max-width: 760px) {
         .site-header { padding: 8px 14px; }
         .site-title { font-size: 1.12rem; }
@@ -1352,9 +1151,8 @@
         margin: auto;
       }
 
-      /* Docs dropdown & sitemap menus */
-      .docs-dropdown-menu,
-      .sitemap-menu-docs {
+      /* Docs dropdown menus */
+      .docs-dropdown-menu {
         min-width: 260px;
         max-height: 70vh;
         overflow-y: auto;
@@ -1393,14 +1191,12 @@
         padding: 4px 0 4px 12px;
         border-left: 2px solid var(--line);
       }
-      .site-footer .docs-sub-list a,
       .app-view-menu .docs-sub-list a {
         font-size: .78rem !important;
         font-weight: 500 !important;
         padding: 5px 8px !important;
         opacity: .9;
       }
-      .site-footer .docs-sub-list a.docs-main-link,
       .app-view-menu .docs-sub-list a.docs-main-link {
         font-weight: 700 !important;
         color: var(--link) !important;
@@ -1497,7 +1293,6 @@
       }
 
       .destination-header .quick-start-link,
-      .destination-header .scan-import-link,
       .destination-header .guide-link,
       .destination-header .destination-link {
         min-height: 34px;
@@ -1511,6 +1306,336 @@
       @media (max-width: 760px) {
         .gate.is-confirmed .concept-graphic { max-height: none; }
       }
+
+      /* Gate redesign (2026-11-13): full-screen gate, mind-map as background.
+         The panel fills the viewport below the site header;
+         the concept graphic is the background layer behind the hero content;
+         the H1 is a header row at the top, and the dialogue + Enter button
+         sit over the dimmed map. All ids, hrefs and gate JS are untouched. */
+      main { padding: 0; }
+
+      .panel.gate {
+        flex: 1 1 auto;
+        align-self: stretch;
+        width: 100%;
+        max-width: none;
+        min-height: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .gate.is-confirmed { width: 100%; max-width: none; }
+
+      .gate-body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* Background layer: the mind-map SVG fills the whole stage. */
+      .concept-graphic {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: block;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: #0b0e10;
+      }
+
+      .concept-graphic::before {
+        inset: 0;
+        height: auto;
+      }
+
+      .mind-map-art {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        opacity: .5;
+      }
+
+      /* Confirmed (after Enter): the destination menu is a banner at the
+         top of the figure — the mind-map must fill the space BELOW it,
+         not run behind it, or the top of the picture is cut off by the
+         header where App and Docs are listed. The figure becomes a
+         column: menu on top in flow, the SVG filling the rest;
+         preserveAspectRatio="meet" keeps the whole picture visible,
+         letterboxed, nothing cropped. Pre-Enter layout untouched. */
+      .gate.is-confirmed .concept-graphic { display: flex; flex-direction: column; }
+      .gate.is-confirmed .destination-menu.is-visible { position: relative; top: auto; right: auto; left: auto; flex: 0 0 auto; }
+      .gate.is-confirmed .mind-map-art { position: relative; flex: 1 1 auto; min-height: 0; height: auto; }
+
+      /* Dimming scrim so the headline, dialogue and button stay crisp. */
+      .concept-graphic::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 50% 42%, rgba(11, 14, 16, .18), rgba(11, 14, 16, .62) 82%),
+          linear-gradient(rgba(11, 14, 16, .42), rgba(11, 14, 16, .58));
+      }
+
+      /* Confirmed (after Enter): no dimming — the map shows at full brightness. */
+      .gate.is-confirmed .mind-map-art { opacity: 1; }
+      .gate.is-confirmed .concept-graphic::after { display: none; }
+
+      /* App header bar (confirmed state only): mirrors the app's .intro
+         header — "Sexcapades.IO" title left, avatar + "?" right. It lives
+         inside #destinationMenu, so it only appears after Enter. */
+      .app-header {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(11, 13, 15, .92);
+      }
+      .app-header-title { margin: 0; }
+      .app-header-title .app-title-button {
+        display: block;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+        font-size: clamp(28px, 3.1vw, 42px);
+        font-weight: 700;
+        line-height: .94;
+        letter-spacing: 0;
+        text-align: left;
+        cursor: pointer;
+      }
+      .app-header-title .app-title-button:hover {
+        text-decoration: underline;
+        text-decoration-color: #63c2c8;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;
+      }
+      .app-header-nav {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: 12px;
+        margin-right: auto;
+      }
+      .view-nav-btn,
+      .docs-nav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        height: 38px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(20, 24, 27, .9);
+        color: var(--text);
+        font-family: inherit;
+        font-size: .88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 160ms ease, border-color 160ms ease;
+      }
+      .view-nav-btn:hover,
+      .docs-nav-btn:hover {
+        background: var(--surface-raised, #23292e);
+      }
+      .view-nav-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        z-index: 100;
+        min-width: 300px;
+        max-width: min(90vw, 360px);
+        margin: 0;
+        padding: 8px;
+        list-style: none;
+        text-align: left;
+        background: var(--surface-raised, #1b2024);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, .6);
+      }
+      .view-nav-menu[hidden] { display: none; }
+      .view-nav-item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        color: var(--text);
+        text-decoration: none;
+        transition: background 120ms ease;
+      }
+      .view-nav-item:hover,
+      .view-nav-item:focus {
+        background: rgba(255, 255, 255, .08);
+        outline: none;
+      }
+      .view-nav-item.is-current {
+        background: rgba(99, 194, 200, .12);
+        border-left: 3px solid #63c2c8;
+      }
+      .view-nav-text strong {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: .9rem;
+        color: #fff;
+        font-weight: 600;
+      }
+      .view-nav-text small {
+        display: block;
+        font-size: .75rem;
+        color: var(--muted, #9aa0a6);
+        line-height: 1.3;
+        font-weight: 400;
+      }
+      .view-nav-divider {
+        height: 1px;
+        margin: 8px 4px;
+        background: var(--line, rgba(255, 255, 255, .12));
+      }
+      .view-nav-aux-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 6px 12px;
+      }
+      .view-nav-aux-link {
+        font-size: .78rem;
+        color: var(--muted, #9aa0a6);
+        text-decoration: none;
+      }
+      .view-nav-aux-link:hover {
+        color: var(--text);
+        text-decoration: underline;
+      }
+      @media (max-width: 760px) {
+        .app-header-nav { gap: 6px; margin-left: 6px; }
+        .view-nav-btn, .docs-nav-btn { min-height: 34px; height: 34px; padding: 0 10px; font-size: .8rem; }
+      }
+      @media (max-width: 520px) {
+        .view-nav-menu { min-width: 260px; }
+      }
+      .app-header-actions { display: inline-flex; align-items: center; gap: 10px; }
+      .app-header .guide-avatar-wrap { display: inline-flex; }
+      .app-header .avatar-music-btn {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .app-header .avatar-music-btn img { display: block; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+      .app-header .avatar-music-btn.is-playing { border-color: #63c2c8; box-shadow: 0 0 0 2px rgba(99, 194, 200, .45), 0 0 14px 2px rgba(99, 194, 200, .35); }
+      .app-header .review-callout {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-raised);
+        color: var(--text);
+        text-decoration: none;
+      }
+      .app-header .review-callout:hover { border-color: #63c2c8; }
+      .app-header .guide-qmark { font-size: 1.25rem; font-weight: 800; line-height: 1; }
+      /* Gate About dialog (Easter egg): same copy as the app's About. */
+      #gateAboutDialog { max-width: min(620px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: 12px; background: var(--surface-raised); color: var(--text); padding: 0; }
+      #gateAboutDialog::backdrop { background: rgba(0, 0, 0, .6); }
+      #gateAboutDialog .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 20px 0; }
+      #gateAboutDialog .dialog-head h2 { margin: 0; font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif; font-size: 1.7rem; }
+      #gateAboutDialog .close-btn { border: 0; background: transparent; color: var(--text); font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 2px 6px; }
+      #gateAboutDialog .dialog-body { padding: 12px 20px 20px; }
+      #gateAboutDialog .dialog-body p { margin: 0 0 12px; line-height: 1.5; }
+      #gateAboutDialog .app-about-version { color: var(--muted); font-weight: 700; }
+      #gateAboutDialog a { color: var(--link); }
+      @media (max-width: 760px) {
+        .app-header { padding: 8px 12px; }
+        .app-header .avatar-music-btn { width: 42px; height: 42px; }
+        .app-header .avatar-music-btn img { width: 38px; height: 38px; }
+        .app-header .review-callout { width: 36px; height: 36px; }
+      }
+
+      .hero {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 880px;
+        min-height: 0;
+        margin: 0 auto;
+        padding: clamp(26px, 5vh, 56px) clamp(20px, 5vw, 56px) clamp(24px, 4vh, 44px);
+        overflow-y: auto;
+      }
+
+      /* Header row: kicker + H1 across the top of the gate. */
+      .hero .gate-kicker { margin-bottom: 16px; }
+
+      .hero h1 {
+        max-width: none;
+        font-size: clamp(2.5rem, 5.2vw, 4.1rem);
+        line-height: 1.02;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, .65);
+      }
+
+      /* Dialogue + Enter sit over the map, anchored toward the bottom so
+         the graphic reads in the middle of the stage. */
+      .hero .value-prop {
+        max-width: 52ch;
+        margin-top: auto;
+        padding-top: 28px;
+        color: #dfe4e7;
+        text-shadow: 0 1px 10px rgba(0, 0, 0, .7);
+      }
+
+      .hero .age-copy { text-shadow: 0 1px 10px rgba(0, 0, 0, .7); }
+
+      @media (max-width: 760px) {
+        .concept-graphic { display: block; max-height: none; }
+        .mind-map-art { max-height: none; }
+        .hero { max-width: none; padding: 22px 20px 24px; }
+        .hero h1 { font-size: clamp(2.3rem, 10.5vw, 3.2rem); }
+        .hero .value-prop { padding-top: 20px; }
+      }
+
+      @media (max-width: 420px) {
+        .concept-graphic { padding-inline: 0; }
+        .mind-map-art { max-height: none; }
+        .hero { padding: 20px 18px 22px; }
+        .hero h1 { font-size: 2.35rem; }
+      }
     </style>
   </head>
   <body>
@@ -1521,24 +1646,43 @@
     <main>
             <section class="panel gate" id="ageGate" aria-labelledby="gateTitle">
         <div class="gate-body">
-          <figure class="concept-graphic" aria-labelledby="mapConceptCaption">
+          <figure class="concept-graphic" aria-labelledby="mapArtTitle mapArtDescription">
             <nav class="destination-menu" id="destinationMenu" aria-label="Sexcapades destinations" aria-hidden="true">
-              <div class="destination-header">
-                <p class="destination-menu-label">Choose where to go</p>
-                <div class="destination-header-actions">
+              <div class="app-header" id="gateAppHeader">
+                <h1 class="app-header-title"><button type="button" class="app-title-button" id="gateAppAboutBtn" aria-controls="gateAboutDialog" aria-haspopup="dialog">Sexcapades.IO</button></h1>
+                <div class="app-header-nav">
                   <div class="app-view-group">
-                    <button class="destination-link destination-trigger" id="appViewTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="appViewMenu">App</button>
-                    <ul class="app-view-menu" id="appViewMenu" hidden>
-                      <li><a class="app-view-menu-primary" href="/hosted/app.html#app/list">Popularity List</a></li>
-                      <li><a href="/hosted/app.html#app/map">Hypermap</a></li>
-                      <li><a href="/hosted/app.html#sentinel">Scene Sentinel</a></li>
-                    </ul>
+                    <button class="action-btn map-view-switch view-nav-btn" id="appViewTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="appViewMenu">Hypermap ▾</button>
+                    <div class="view-nav-menu" id="appViewMenu" role="menu" hidden>
+                      <a class="view-nav-item" href="/hosted/app.html#app/import" role="menuitem">
+                        <span class="view-nav-text"><strong>Scan or Import</strong><small>Import a profile from PNG, sync card, or test results.</small></span>
+                      </a>
+                      <a class="view-nav-item is-current" aria-checked="true" href="/hosted/app.html#app/map" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Hypermap</strong><small>The visual hypermap — rate and visualize interests branch by branch.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#app/list" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Hot List</strong><small>Rate topic by topic: all 400+ topics sorted by popularity.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#setter" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Scene Setter</strong><small>Build a binding negotiation checklist and practical play guide.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#sentinel" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Scene Sentinel</strong><small>Safety signals, check-in timers, and emergency contacts.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#scribe" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Scribe</strong><small>Generate immersive erotic stories from partner profiles.</small></span>
+                      </a>
+                      <div class="view-nav-divider" aria-hidden="true"></div>
+                      <div class="view-nav-aux-row">
+                        <a class="view-nav-aux-link" href="/hosted/examples.html">Examples</a>
+                        <a class="view-nav-aux-link" href="/hosted/privacy.html">Privacy</a>
+                        <a class="view-nav-aux-link" href="mailto:help@sexcapades.io">Contact</a>
+                        <a class="view-nav-aux-link" href="/sitemap.html">Sitemap</a>
+                      </div>
+                    </div>
                   </div>
-                  <a class="scan-import-link" href="/hosted/app.html#app/import">
-                    <span class="scan-import-copy"><strong>Scan or Import</strong><span>QR Sheet, Sync Card, or QR image</span></span>
-                  </a>
                   <div class="app-view-group docs-view-group">
-                    <button class="destination-link destination-trigger" id="docsViewTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="docsViewMenu">Docs</button>
+                    <button class="action-btn docs-nav-btn" id="docsViewTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="docsViewMenu">Docs ▾</button>
                     <ul class="app-view-menu docs-dropdown-menu" id="docsViewMenu" hidden>
                       <li><a href="/hosted/how-it-works.html">How it works</a></li>
                       <li><a href="/hosted/quickstart.html">Quick Start</a></li>
@@ -1584,9 +1728,17 @@
                     </ul>
                   </div>
                 </div>
+                <div class="app-header-actions">
+                  <span class="guide-avatar-wrap">
+                    <button type="button" class="avatar-music-btn" id="gateAvatarMusicBtn" aria-pressed="false" aria-label="Play the verse for the Hypermap">
+                      <img src="images/img-0.webp" alt='Yolanda "Yo" Biche — close-up of her smiling face, one paw raised in a wave' decoding="async">
+                    </button>
+                  </span>
+                  <a class="review-callout" href="gate.html#guide" id="gateReviewLink" target="_blank" rel="noopener noreferrer" aria-label="Open the Syncing Sexcapades Guide" data-ui-tooltip="Learn how to build, compare, save, and share hypermaps."><strong class="guide-qmark" aria-hidden="true">?</strong></a>
+                </div>
               </div>
             </nav>
-            <svg class="mind-map-art" viewBox="0 0 520 430" role="img" aria-labelledby="mapArtTitle mapArtDescription">
+            <svg class="mind-map-art" viewBox="0 0 520 430" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapArtTitle mapArtDescription">
               <title id="mapArtTitle">A mind map demonstrating the power of mapping desires</title>
               <desc id="mapArtDescription">Mapping desires branches into clarifying wants, noticing patterns, seeing connections, and guiding conversations, with practical insights grouped beneath each theme.</desc>
               <defs>
@@ -1656,10 +1808,8 @@
                 </g>
               </g>
             </svg>
-            <figcaption class="graphic-caption" id="mapConceptCaption"><strong>Turn scattered feelings into something you can see.</strong> A mind map reveals what matters, where ideas connect, and what is worth talking about.</figcaption>
           </figure>
           <div class="hero">
-            <div class="gate-kicker"><span class="age-badge">18+</span><span>Adults only</span></div>
             <h1 id="gateTitle">54 taps → see your map come alive.</h1>
             <p class="value-prop">Start with a private, 10-minute tour of your desires. Your choices take shape as a personal map built for reflection, comparison, and better conversations.</p>
             <p class="age-copy">Please confirm that you are at least 18 years old to continue.</p>
@@ -1673,71 +1823,136 @@
       </section>
     </main>
 
-    <footer class="site-footer" aria-label="Site map">
-      <div class="sitemap-group">
-        <button class="sitemap-trigger" id="appMenuTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="appMenu">App</button>
-        <ul class="sitemap-menu sitemap-menu-app" id="appMenu" hidden>
-          <li><a class="sitemap-menu-primary" href="/hosted/app.html#app/list">Popularity List</a></li>
-          <li><a href="/hosted/app.html#app/map">Hypermap</a></li>
-          <li><a href="/hosted/app.html">Scribe</a></li>
-          <li><a href="/hosted/app.html">Scene Setter</a></li>
-          <li><a href="/hosted/app.html#sentinel">Scene Sentinel</a></li>
-        </ul>
+    <dialog id="gateAboutDialog" aria-labelledby="gateAboutTitle" aria-describedby="gateAboutDescription">
+      <div class="dialog-head">
+        <h2 id="gateAboutTitle">About Sexcapades.IO</h2>
+        <button type="button" class="close-btn" id="gateCloseAbout" aria-label="Close About Sexcapades.IO">×</button>
       </div>
-      <div class="sitemap-group">
-        <button class="sitemap-trigger" id="docsMenuTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="docsMenu">Docs</button>
-        <ul class="sitemap-menu sitemap-menu-docs" id="docsMenu" hidden>
-          <li><a href="/hosted/how-it-works.html">How it works</a></li>
-          <li><a href="/hosted/quickstart.html">Quick Start</a></li>
-          <li><a href="/hosted/guide.html">Guide</a></li>
-          <li><a href="/compare">Compare</a></li>
-          <li class="docs-submenu-item">
-            <details class="docs-details">
-              <summary class="docs-summary"><span>Glossary</span><span class="docs-arrow">▾</span></summary>
-              <ul class="docs-sub-list">
-                <li><a class="docs-main-link" href="/hosted/glossary.html">All Glossary Terms</a></li>
-                <li><a href="/hosted/glossary.html#sync-map">Hypermap</a></li>
-                <li><a href="/hosted/glossary.html#quick-start">Quick Start</a></li>
-                <li><a href="/hosted/glossary.html#net">Net</a></li>
-                <li><a href="/hosted/glossary.html#cast">Cast</a></li>
-                <li><a href="/hosted/glossary.html#scribe">Scribe</a></li>
-                <li><a href="/hosted/glossary.html#scene-setter">Scene Setter</a></li>
-                <li><a href="/hosted/glossary.html#scan-or-import">Scan or Import</a></li>
-                <li><a href="/hosted/glossary.html#sync-card">Sync Card</a></li>
-                <li><a href="/hosted/glossary.html#qr-sheet">QR Sheet</a></li>
-                <li><a href="/hosted/glossary.html#compare-sync-maps">Compare hypermaps?</a></li>
-                <li><a href="/hosted/glossary.html#kink-categories">Kink categories</a></li>
-                <li><a href="/hosted/glossary.html#kink-lines">Kink lines</a></li>
-              </ul>
-            </details>
-          </li>
-          <li class="docs-submenu-item">
-            <details class="docs-details">
-              <summary class="docs-summary"><span>FAQ</span><span class="docs-arrow">▾</span></summary>
-              <ul class="docs-sub-list">
-                <li><a class="docs-main-link" href="/hosted/faq.html">All FAQ Questions</a></li>
-                <li><a href="/hosted/faq.html#loading">The site won’t load, or I see an old version</a></li>
-                <li><a href="/hosted/faq.html#profile">My profile disappeared after refresh</a></li>
-                <li><a href="/hosted/faq.html#compare">How do I compare with a partner?</a></li>
-                <li><a href="/hosted/faq.html#privacy">Is my data private?</a></li>
-                <li><a href="/hosted/faq.html#import">Import isn’t working</a></li>
-                <li><a href="/hosted/faq.html#views">What’s the difference between list view and map view?</a></li>
-                <li><a href="/hosted/faq.html#sharing">How do I share my profile?</a></li>
-                <li><a href="/hosted/faq.html#colors">What do the colors mean?</a></li>
-              </ul>
-            </details>
-          </li>
-          <li><a href="/hosted/flyer.html">Flyer</a></li>
-        </ul>
+      <div class="dialog-body">
+        <p class="app-about-version">Version 4.0 · Build 2026-11-13_0528</p>
+        <p class="app-about-version">release-4.0-1113-0528</p>
+        <p id="gateAboutDescription">Sexcapades is an interactive hypermap for rating and visualizing adult interests. Build a personal profile, compare where partners align, use Scribe to write stories and scenes, and Scene Setter to plan and negotiate play — all in the same shared vocabulary.</p>
+        <p><a href="https://patreon.com/SexcapadesIO" rel="noopener" target="_blank">Support Sexcapades on Patreon</a></p>
+        <p>Built with Muse. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a>, then redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get <strong>1 billion tokens</strong>.</p>
+        <p>Suno is better with friends: the songs on this site are made with Suno. Sign up with <a href="https://suno.com/invite/@jason_wrinkle_personal" rel="noopener" target="_blank">my invite link</a> and create 10 songs, and we both receive 250 free credits (limit 2,500 credits per person).</p>
+        <p><a href="/hosted/methodology.html" rel="noopener" target="_blank">How we compute community stats</a> · <a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a> · Questions? <a href="mailto:help@sexcapades.io">help@sexcapades.io</a></p>
+        <p>© 2026 Jason Mark Wrinkle. All rights reserved.</p>
       </div>
-      <a href="/hosted/examples.html">Examples</a>
-      <a href="/hosted/privacy.html">Privacy</a>
-      <a href="mailto:help@sexcapades.io">Contact</a>
-      <a href="/sitemap.html">Sitemap</a>
-      <p class="patreon-support"><a href="https://patreon.com/SexcapadesIO">Support Sexcapades on Patreon</a> — the site stays up because of patrons.</p>
-      <p class="build-stamp">Build 2026-10-18_2143</p>
-    </footer>
+    </dialog>
 
+    <script>
+      /* GATE APP HEADER — About dialog (Easter egg) + avatar music.
+         Self-contained; does not import the app bundle. The verse is the
+         app's hypermap verse (avatar-music.js TABLE "hypermap"). The mp3s
+         are not in the repo yet (Jason adds them from his machine), so a
+         missing file is a quiet no-op: the button returns to idle, no
+         crash, no console error storm. */
+      (function () {
+        "use strict";
+        var VERSE_URL = "/hosted/assets/audio/the-explainer/e1/verse-hypermap.mp3";
+        var VERSE_LABEL = "Hypermap";
+
+        /* ---- About dialog (Easter egg) ---- */
+        var aboutBtn = document.getElementById("gateAppAboutBtn");
+        var aboutDlg = document.getElementById("gateAboutDialog");
+        var aboutClose = document.getElementById("gateCloseAbout");
+        if (aboutBtn && aboutDlg && aboutDlg.showModal) {
+          aboutBtn.addEventListener("click", function () { aboutDlg.showModal(); });
+        }
+        if (aboutClose && aboutDlg) {
+          aboutClose.addEventListener("click", function () { aboutDlg.close(); });
+        }
+        if (aboutDlg) {
+          aboutDlg.addEventListener("click", function (e) {
+            if (e.target === aboutDlg) aboutDlg.close();
+          });
+        }
+
+        /* ---- Avatar music (play/stop) ---- */
+        var btn = document.getElementById("gateAvatarMusicBtn");
+        var audio = null;
+        var seq = 0;
+        var warned = false;
+
+        function setIdle() {
+          if (!btn) return;
+          btn.classList.remove("is-playing");
+          btn.classList.remove("is-loading");
+          btn.setAttribute("aria-pressed", "false");
+          btn.setAttribute("aria-label", "Play the verse for the " + VERSE_LABEL);
+        }
+        function setPlaying() {
+          if (!btn) return;
+          btn.classList.remove("is-loading");
+          btn.classList.add("is-playing");
+          btn.setAttribute("aria-pressed", "true");
+          btn.setAttribute("aria-label", "Stop the verse for the " + VERSE_LABEL);
+        }
+        function ensureAudio() {
+          if (audio) return audio;
+          audio = new Audio();
+          audio.preload = "none";
+          audio.addEventListener("ended", function () { setIdle(); });
+          audio.addEventListener("playing", function () { setPlaying(); });
+          audio.addEventListener("error", function () {
+            /* One quiet warn per attempt at most; never an error storm.
+               Also pause the element so its state matches the idle button. */
+            try { audio.pause(); } catch (e) {}
+            if (!warned) { warned = true; console.warn("Gate music: verse audio could not be loaded (" + VERSE_URL + ")"); }
+            setIdle();
+          });
+          return audio;
+        }
+        function playVerse() {
+          if (!btn) return;
+          if (btn.classList.contains("is-playing") || btn.classList.contains("is-loading")) return;
+          warned = false;
+          var mySeq = ++seq;
+          var a = ensureAudio();
+          btn.classList.add("is-loading");
+          btn.setAttribute("aria-pressed", "true");
+          btn.setAttribute("aria-label", "Stop the verse for the " + VERSE_LABEL);
+          try { a.src = VERSE_URL; } catch (e) { setIdle(); return; }
+          var p = null;
+          try { p = a.play(); } catch (e) { setIdle(); return; }
+          if (p && typeof p.then === "function") {
+            p.then(function () {
+              if (mySeq !== seq) return;
+              setPlaying();
+            }, function () {
+              if (mySeq !== seq) return;
+              setIdle();
+            });
+          } else {
+            setPlaying();
+          }
+        }
+        function stopVerse() {
+          seq++;
+          if (audio) { try { audio.pause(); } catch (e) {} }
+          setIdle();
+        }
+        function toggleVerse() {
+          if (!btn) return;
+          if (btn.classList.contains("is-playing") || btn.classList.contains("is-loading")) stopVerse();
+          else playVerse();
+        }
+        if (btn) btn.addEventListener("click", toggleVerse);
+        setIdle();
+
+        /* Auto-play on Enter: called from the Enter click handler (a user
+           gesture, so autoplay-with-sound is allowed). Only starts when
+           nothing is playing. */
+        window.sxGateMusicAutoPlay = function () { playVerse(); };
+        window.sxGateMusicState = function () {
+          return { playing: !!(btn && btn.classList.contains("is-playing")),
+                   loading: !!(btn && btn.classList.contains("is-loading")),
+                   src: audio ? (audio.getAttribute("src") || null) : null,
+                   paused: audio ? audio.paused : true,
+                   readyState: audio ? audio.readyState : 0 };
+        };
+      })();
+    </script>
 
     <script>
       (function () {
@@ -2020,6 +2235,7 @@
             return;
           }
 
+          if (window.sxGateMusicAutoPlay) window.sxGateMusicAutoPlay();
           revealDestinations();
           var nextStop = destinationMenu.querySelector('#appViewTrigger, a, button');
           if (nextStop) nextStop.focus();
@@ -2090,71 +2306,6 @@
           });
         }
 
-        // Footer sitemap: pull-up dropdown menus (App, Guide, FAQ, Glossary).
-        // Everything here is looked up defensively and wired independently, so a
-        // missing element can never break the gate itself.
-        var openSitemapMenu = null;
-        var openSitemapTrigger = null;
-
-        function closeSitemapMenu() {
-          if (openSitemapMenu) openSitemapMenu.hidden = true;
-          if (openSitemapTrigger) openSitemapTrigger.setAttribute('aria-expanded', 'false');
-          openSitemapMenu = null;
-          openSitemapTrigger = null;
-        }
-
-        function wireSitemapMenu(triggerId, menuId) {
-          var trigger = document.getElementById(triggerId);
-          var menu = document.getElementById(menuId);
-          if (!trigger || !menu) return;
-
-          var items = Array.prototype.slice.call(menu.querySelectorAll('a'));
-
-          function openMenu() {
-            closeSitemapMenu();
-            menu.hidden = false;
-            trigger.setAttribute('aria-expanded', 'true');
-            openSitemapMenu = menu;
-            openSitemapTrigger = trigger;
-          }
-
-          trigger.addEventListener('click', function () {
-            if (menu.hidden) openMenu();
-            else closeSitemapMenu();
-          });
-
-          // Keyboard: ArrowDown/ArrowUp on the trigger opens the menu and
-          // moves focus into it; arrows then move between items (wrapping),
-          // Enter follows the focused link natively, and Escape closes the
-          // menu and returns focus to the trigger.
-          trigger.addEventListener('keydown', function (event) {
-            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-            event.preventDefault();
-            if (menu.hidden) openMenu();
-            var item = event.key === 'ArrowDown' ? items[0] : items[items.length - 1];
-            if (item) item.focus();
-          });
-
-          menu.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-              closeSitemapMenu();
-              trigger.focus();
-              return;
-            }
-            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-            event.preventDefault();
-            var index = items.indexOf(document.activeElement);
-            if (event.key === 'ArrowDown') {
-              index = index < 0 ? 0 : (index + 1) % items.length;
-            } else {
-              index = index < 0 ? items.length - 1 : (index - 1 + items.length) % items.length;
-            }
-            if (items[index]) items[index].focus();
-          });
-        }
-
-        wireSitemapMenu('appMenuTrigger', 'appMenu');
-        wireSitemapMenu('docsMenuTrigger', 'docsMenu');
 
         // Also wire docsViewMenu in destination header
         (function() {
@@ -2194,17 +2345,6 @@
             }
           });
         })();
-
-        document.addEventListener('click', function (event) {
-          if (openSitemapMenu && !openSitemapMenu.contains(event.target) &&
-              openSitemapTrigger && !openSitemapTrigger.contains(event.target)) {
-            closeSitemapMenu();
-          }
-        });
-
-        document.addEventListener('keydown', function (event) {
-          if (event.key === 'Escape') closeSitemapMenu();
-        });
 
       }());
     </script>

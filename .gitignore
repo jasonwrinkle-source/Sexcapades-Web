@@ -6,3 +6,5 @@ __pycache__/
 *.pyc
 DEPLOY_QA_COMMAND.txt
 DEPLOY_ALL_COMMAND.txt
+deploy-output/
+site-tree/public_html/qa

@@ -610,6 +610,22 @@ html{background:#151816}body{background:#151816}/* Interest-color stops: --red-d
 .le-menu-opt:hover{color:var(--ink)}
 .le-menu-opt:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 .le-menu-opt[aria-pressed="true"]{background:var(--focus);color:#0d2224}
+/* Hierarchical Node Tree with Disclosure Triangles */
+.le-tree-menu{width:min(340px,calc(100vw - 16px));max-height:420px;overflow-y:auto;overflow-x:hidden}
+.le-tree-branch-row{display:flex;align-items:center;gap:4px;width:100%;border-radius:8px}
+.le-tree-branch-row:hover{background:color-mix(in srgb,var(--paper) 60%,transparent)}
+.le-tree-toggle{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-size:10px;padding:0;flex-shrink:0}
+.le-tree-toggle:hover{color:var(--ink);background:color-mix(in srgb,var(--focus) 20%,transparent)}
+.le-tree-toggle:focus-visible{outline:2px solid var(--focus);outline-offset:-1px}
+.le-tree-node-btn{flex:1 1 auto;display:flex;align-items:center;gap:6px;min-height:36px;padding:6px 10px;border:0;border-radius:6px;background:transparent;color:var(--ink);font-family:inherit;font-size:13px;font-weight:600;text-align:left;cursor:pointer;min-width:0}
+.le-tree-node-btn:hover{color:var(--focus)}
+.le-tree-node-btn:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.le-tree-node-btn[aria-selected="true"]{background:var(--focus);color:#0d2224;font-weight:800}
+.le-tree-children{display:flex;flex-direction:column;gap:2px;padding-left:14px;border-left:1px dashed var(--line);margin-left:14px;margin-bottom:4px}
+.le-tree-children[hidden]{display:none}
+.le-tree-child-btn{min-height:30px;font-size:12.5px;padding:4px 8px;color:var(--muted);font-weight:500}
+.le-tree-child-btn:hover{color:var(--ink)}
+.le-tree-child-btn[aria-selected="true"]{background:var(--focus);color:#0d2224;font-weight:700}
 /* LR-G1.1: .le-ms-opt{display:none} (specificity 0,1,0) lost to .layout-editor-field label{display:block} (0,1,1), so non-current options were never hidden and both radio groups rendered as full segmented rows -> ancestor-scoped .le-ms .le-ms-opt selectors (0,2,0 / 0,3,0) restore the designed collapse: non-current options display:none at rest, .is-current and .is-open options inline-flex. */
 .le-ms .le-ms-opt{display:none;position:relative;margin:0;min-height:44px;align-items:center;padding:8px 14px;border-radius:999px;color:var(--muted);font-size:13.5px;font-weight:700;cursor:pointer}
 .le-ms-opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}

@@ -77,7 +77,7 @@
     // the next line exists for legacy callers that boot without
     // the API object - documented here (F8); do not remove the
     // fallback without retiring those callers.
-    function config(){var c=window.__SEXCAPADES_LAYOUT_API?window.__SEXCAPADES_LAYOUT_API.get():Object.assign({},window.__SEXCAPADES_LAYOUT);if(c.animations===undefined)c.animations=!!(window.__SEXCAPADES_LAYOUT&&window.__SEXCAPADES_LAYOUT.animations);return c}
+    function config(){var c=window.__SEXCAPADES_LAYOUT_API?window.__SEXCAPADES_LAYOUT_API.get():Object.assign({},window.__SEXCAPADES_LAYOUT);if(c.animations===undefined)c.animations=!!(window.__SEXCAPADES_LAYOUT&&window.__SEXCAPADES_LAYOUT.animations);if(c.mapSliders===undefined)c.mapSliders=!!(window.__SEXCAPADES_LAYOUT&&window.__SEXCAPADES_LAYOUT.mapSliders);return c}
     function copyOverrides(value){var out={};Object.keys(value||{}).forEach(function(key){out[key]=Object.assign({},value[key])});return out}
     // Override-entry shapes (Rank 8): ONE definition per store, shared by
     // all three apply-entry paths — the single-item actuators (LR_ACT),
@@ -104,7 +104,125 @@
     var customSpacing=null;
     function spacingValuesOf(s){if(!s)return null;var v={spokeLen:Number(s.spokeLen),subLen:Number(s.subLen),pad:Number(s.pad),repulsion:Number(s.repulsion)};return (isFinite(v.spokeLen)&&isFinite(v.subLen)&&isFinite(v.pad)&&isFinite(v.repulsion))?v:null}
     function spacingNameFor(v){if(!v)return "custom";var names=Object.keys(bundles);for(var i=0;i<names.length;i++){var b=bundles[names[i]];if(b&&Math.abs(v.spokeLen-b.spokeLen)<1e-9&&Math.abs(v.subLen-b.subLen)<1e-9&&Math.abs(v.pad-b.pad)<1e-9&&Math.abs(v.repulsion-b.repulsion)<1e-9)return names[i]}return "custom"}
-    function populateBranches(){var select=document.getElementById("layoutBranch");if(select.options.length>1||!window.__SEXCAPADES_LAYOUT_API||!window.__SEXCAPADES_LAYOUT_API.branches)return;window.__SEXCAPADES_LAYOUT_API.branches().forEach(function(name){var option=document.createElement("option");option.value=name;option.textContent=name;select.appendChild(option)})}function populateKinks(){var select=document.getElementById("layoutKink");if(select.options.length>1||!window.__SEXCAPADES_LAYOUT_API||!window.__SEXCAPADES_LAYOUT_API.topics)return;window.__SEXCAPADES_LAYOUT_API.topics().forEach(function(t){var option=document.createElement("option");option.value=t.id;option.textContent=t.label;select.appendChild(option)})}
+    function populateBranches(){var select=document.getElementById("layoutBranch");if(!select||select.options.length>1||!window.__SEXCAPADES_LAYOUT_API||!window.__SEXCAPADES_LAYOUT_API.branches)return;window.__SEXCAPADES_LAYOUT_API.branches().forEach(function(name){var option=document.createElement("option");option.value=name;option.textContent=name;select.appendChild(option)})}
+    function populateTargetNodes(){
+      var select=document.getElementById("layoutTargetNode");
+      var treeMenu=document.getElementById("layoutTargetNodeMenu");
+      var tax=taxonomy();
+      if(!tax||!tax.categories)return;
+      if(select&&select.options.length<=1){
+        tax.categories.forEach(function(cat){
+          var hasChildren=(cat.topics&&cat.topics.length>0)||(cat.subcategories&&cat.subcategories.length>0);
+          if(!hasChildren)return;
+          var optgroup=document.createElement("optgroup");
+          optgroup.label="Category: "+cat.name;
+          var bOpt=document.createElement("option");
+          bOpt.value="branch:"+cat.name;
+          bOpt.textContent=cat.name+" (Branch)";
+          optgroup.appendChild(bOpt);
+          (cat.subcategories||[]).forEach(function(sub){
+            if(sub.topics&&sub.topics.length>0){
+              var sOpt=document.createElement("option");
+              sOpt.value="subcat:"+sub.name;
+              sOpt.textContent="  └── "+sub.name+" (Sub-group)";
+              optgroup.appendChild(sOpt);
+            }
+          });
+          select.appendChild(optgroup);
+        });
+      }
+      if(treeMenu&&!treeMenu.children.length){
+        var noneRow=document.createElement("div");
+        noneRow.className="le-tree-branch-row";
+        var noneBtn=document.createElement("button");
+        noneBtn.type="button";
+        noneBtn.className="le-tree-node-btn";
+        noneBtn.setAttribute("data-node-val","");
+        noneBtn.textContent="None (whole map)";
+        noneRow.appendChild(noneBtn);
+        treeMenu.appendChild(noneRow);
+
+        tax.categories.forEach(function(cat){
+          var subs=(cat.subcategories||[]).filter(function(s){return s.topics&&s.topics.length>0});
+          var hasChildren=(cat.topics&&cat.topics.length>0)||subs.length>0;
+          if(!hasChildren)return;
+
+          var bRow=document.createElement("div");
+          bRow.className="le-tree-branch-row";
+
+          if(subs.length>0){
+            var tog=document.createElement("button");
+            tog.type="button";
+            tog.className="le-tree-toggle";
+            tog.setAttribute("aria-label","Toggle "+cat.name+" subcategories");
+            tog.setAttribute("aria-expanded","false");
+            tog.innerHTML='<span class="le-tree-triangle">▶</span>';
+            bRow.appendChild(tog);
+          } else {
+            var sp=document.createElement("span");
+            sp.style.cssText="width:28px;flex-shrink:0;";
+            bRow.appendChild(sp);
+          }
+
+          var bBtn=document.createElement("button");
+          bBtn.type="button";
+          bBtn.className="le-tree-node-btn";
+          bBtn.setAttribute("data-node-val","branch:"+cat.name);
+          bBtn.textContent=cat.name;
+          bRow.appendChild(bBtn);
+          treeMenu.appendChild(bRow);
+
+          if(subs.length>0){
+            var cWrap=document.createElement("div");
+            cWrap.className="le-tree-children";
+            cWrap.hidden=true;
+            subs.forEach(function(sub){
+              var sRow=document.createElement("div");
+              sRow.className="le-tree-branch-row";
+              var sBtn=document.createElement("button");
+              sBtn.type="button";
+              sBtn.className="le-tree-node-btn le-tree-child-btn";
+              sBtn.setAttribute("data-node-val","subcat:"+sub.name);
+              sBtn.innerHTML='<span style="opacity:0.5;margin-right:2px;">└──</span> '+sub.name;
+              sRow.appendChild(sBtn);
+              cWrap.appendChild(sRow);
+            });
+            treeMenu.appendChild(cWrap);
+
+            if(tog){
+              tog.addEventListener("click",function(ev){
+                ev.stopPropagation();
+                var isOpen=!cWrap.hidden;
+                cWrap.hidden=isOpen;
+                tog.setAttribute("aria-expanded",String(!isOpen));
+                var tri=tog.querySelector(".le-tree-triangle");
+                if(tri)tri.textContent=isOpen?"▶":"▼";
+              });
+            }
+          }
+        });
+
+        treeMenu.addEventListener("click",function(ev){
+          var btn=ev.target.closest(".le-tree-node-btn");
+          if(!btn)return;
+          var val=btn.getAttribute("data-node-val")||"";
+          var select=document.getElementById("layoutTargetNode");
+          if(select){
+            select.value=val;
+            select.dispatchEvent(new Event("change"));
+          }
+          if(typeof closeTargetNodeMenu==="function")closeTargetNodeMenu();
+          if(val.indexOf("branch:")===0){
+            var bName=val.slice(7);
+            if(window.__sxFocusBranch)window.__sxFocusBranch(bName);
+          } else if(val.indexOf("subcat:")===0){
+            var sName=val.slice(7);
+            if(window.__sxFocusNode)window.__sxFocusNode(sName, "");
+          }
+        });
+      }
+    }
+    function populateKinks(){var select=document.getElementById("layoutKink");if(select.options.length>1||!window.__SEXCAPADES_LAYOUT_API||!window.__SEXCAPADES_LAYOUT_API.topics)return;window.__SEXCAPADES_LAYOUT_API.topics().forEach(function(t){var option=document.createElement("option");option.value=t.id;option.textContent=t.label;select.appendChild(option)})}
     // Spoke angle offsets (Build 2026-10-17_1450): one slider + numeric input
     // per category branch (18). The value is the branch's angular deviation
     // in degrees from its default equispaced position (360/18 = 20 degrees
@@ -890,10 +1008,204 @@
       deknotterCancelEl.disabled=true;
       deknotterCancelEl.textContent="Cancelling…";
     });
-    function syncBranch(c){var select=document.getElementById("layoutBranch"),name=select.value,entry=name&&c.branchOverrides?c.branchOverrides[name]:null,len=document.getElementById("layoutBranchLen"),angle=document.getElementById("layoutBranchAngle");len.disabled=angle.disabled=!name;var curBranchLen=(entry&&Number(entry.length))||bakedBranchBase(name);if(len!==document.activeElement)len.value=String(relClamp(curBranchLen/bakedBranchBase(name)));if(angle!==document.activeElement)angle.value=String(entry&&Number(entry.angle)||0);document.getElementById("layoutBranchLenValue").textContent=fmtLen(curBranchLen);document.getElementById("layoutBranchAngleValue").textContent=Number(angle.value).toFixed(0)+"°";var subLenEl=document.getElementById("layoutBranchSubLen"),kinkLenEl=document.getElementById("layoutBranchKinkLen"),members=name?branchMembers(name):{subs:[],kinks:[]};subLenEl.disabled=!name||!members.subs.length;kinkLenEl.disabled=!name||!members.kinks.length;if(subLenEl!==document.activeElement)subLenEl.value=String(entry&&Number(entry.subScale)||1);if(kinkLenEl!==document.activeElement)kinkLenEl.value=String(entry&&Number(entry.kinkScale)||1);document.getElementById("layoutBranchSubLenValue").textContent=Number(subLenEl.value).toFixed(2)+"×";document.getElementById("layoutBranchKinkLenValue").textContent=Number(kinkLenEl.value).toFixed(2)+"×";/* AUTOFIT (Group 3d): the branch kink-lines control is now the one-shot Autofit button — it has no checked/disabled state to sync and is never disabled for lack of a selection (no selection = whole map). */var branchSpoke=document.getElementById("layoutBranchSpokeAutoShrink");branchSpoke.disabled=!name;branchSpoke.checked=!!(c.branchSpokeAutoShrink&&c.branchSpokeAutoShrink[name]===true);var bph=document.getElementById("layoutBranchPickHint");if(bph)bph.hidden=!!name;var bph2=document.getElementById("layoutBranchPickHint2");if(bph2)bph2.hidden=!!name;var nsh=document.getElementById("layoutBranchNoSubcatsHint");if(nsh)nsh.hidden=!name||!!members.subs.length;syncBranchHonesty(c);syncDeknotterBtn()}function syncKink(c){var select=document.getElementById("layoutKink"),id=select.value,entry=id&&c.kinkOverrides?c.kinkOverrides[id]:null,aentry=id&&c.kinkAngleOffsets?c.kinkAngleOffsets[id]:null,len=document.getElementById("layoutKinkLen"),ang=document.getElementById("layoutKinkAngle");len.disabled=!id;ang.disabled=!id;var curKinkLen=(entry&&Number(entry.length))||bakedKinkBase(id);if(len!==document.activeElement)len.value=String(relClamp(curKinkLen/bakedKinkBase(id)));document.getElementById("layoutKinkLenValue").textContent=fmtLen(curKinkLen);if(ang!==document.activeElement)ang.value=String(aentry&&Number(aentry.angle)||0);document.getElementById("layoutKinkAngleValue").textContent=Number(ang.value).toFixed(1)+"°";var kph=document.getElementById("layoutKinkPickHint");if(kph)kph.hidden=!!id}
+    function syncBranch(c){var select=document.getElementById("layoutBranch"),name=select.value,entry=name&&c.branchOverrides?c.branchOverrides[name]:null,len=document.getElementById("layoutBranchLen"),angle=document.getElementById("layoutBranchAngle");len.disabled=angle.disabled=!name;var curBranchLen=(entry&&Number(entry.length))||bakedBranchBase(name);if(len!==document.activeElement)len.value=String(relClamp(curBranchLen/bakedBranchBase(name)));if(angle!==document.activeElement)angle.value=String(entry&&Number(entry.angle)||0);document.getElementById("layoutBranchLenValue").textContent=fmtLen(curBranchLen);document.getElementById("layoutBranchAngleValue").textContent=Number(angle.value).toFixed(0)+"°";var subLenEl=document.getElementById("layoutBranchSubLen"),kinkLenEl=document.getElementById("layoutBranchKinkLen"),members=name?branchMembers(name):{subs:[],kinks:[]};subLenEl.disabled=!name||!members.subs.length;kinkLenEl.disabled=!name||!members.kinks.length;if(subLenEl!==document.activeElement)subLenEl.value=String(entry&&Number(entry.subScale)||1);if(kinkLenEl!==document.activeElement)kinkLenEl.value=String(entry&&Number(entry.kinkScale)||1);document.getElementById("layoutBranchSubLenValue").textContent=Number(subLenEl.value).toFixed(2)+"×";document.getElementById("layoutBranchKinkLenValue").textContent=Number(kinkLenEl.value).toFixed(2)+"×";/* AUTOFIT (Group 3d): the branch kink-lines control is now the one-shot Autofit button — it has no checked/disabled state to sync and is never disabled for lack of a selection (no selection = whole map). */var branchSpoke=document.getElementById("layoutBranchSpokeAutoShrink");branchSpoke.disabled=!name;branchSpoke.checked=!!(c.branchSpokeAutoShrink&&c.branchSpokeAutoShrink[name]===true);var bph=document.getElementById("layoutBranchPickHint");if(bph)bph.hidden=!!name;var bph2=document.getElementById("layoutBranchPickHint2");if(bph2)bph2.hidden=!!name;var nsh=document.getElementById("layoutBranchNoSubcatsHint");if(nsh)nsh.hidden=!name||!!members.subs.length;syncBranchHonesty(c);syncDeknotterBtn();syncTargetNode(c)}function syncKink(c){var select=document.getElementById("layoutKink"),id=select.value,entry=id&&c.kinkOverrides?c.kinkOverrides[id]:null,aentry=id&&c.kinkAngleOffsets?c.kinkAngleOffsets[id]:null,len=document.getElementById("layoutKinkLen"),ang=document.getElementById("layoutKinkAngle");len.disabled=!id;ang.disabled=!id;var curKinkLen=(entry&&Number(entry.length))||bakedKinkBase(id);if(len!==document.activeElement)len.value=String(relClamp(curKinkLen/bakedKinkBase(id)));document.getElementById("layoutKinkLenValue").textContent=fmtLen(curKinkLen);if(ang!==document.activeElement)ang.value=String(aentry&&Number(aentry.angle)||0);document.getElementById("layoutKinkAngleValue").textContent=Number(ang.value).toFixed(1)+"°";var kph=document.getElementById("layoutKinkPickHint");if(kph)kph.hidden=!!id}
     function populateSubcats(){var select=document.getElementById("layoutSubcat");if(!select||select.options.length>1||!window.__SEXCAPADES_LAYOUT_API||!window.__SEXCAPADES_LAYOUT_API.subcategories)return;try{window.__SEXCAPADES_LAYOUT_API.subcategories().forEach(function(name){var option=document.createElement("option");option.value=name;option.textContent=name;select.appendChild(option)})}catch (e) { __sxErrLog("taxonomy-select", e); }}
-    function syncSubcatAngle(c){var select=document.getElementById("layoutSubcat"),name=select.value,lentry=name&&c.subcatOverrides?c.subcatOverrides[name]:null,slen=document.getElementById("layoutSubcatLen");slen.disabled=!name;var curSubLen=(lentry&&Number(lentry.length))||bakedSubBase(name,"length");if(slen!==document.activeElement)slen.value=String(relClamp(curSubLen/bakedSubBase(name,"length")));document.getElementById("layoutSubcatLenValue").textContent=fmtLen(curSubLen);var entry=name&&c.subcatAngleOffsets?c.subcatAngleOffsets[name]:null,ang=document.getElementById("layoutSubcatAngle");ang.disabled=!name;if(ang!==document.activeElement)ang.value=String(entry&&Number(entry.angle)||0);document.getElementById("layoutSubcatAngleValue").textContent=Number(ang.value).toFixed(1)+"°";/* AUTOFIT (Group 3d, Q2): the sub-group kink-lines checkbox is removed — its function is covered by the Autofit button, which runs the selected sub-group's owning branch. */var subcatSpoke=document.getElementById("layoutSubcatSpokeAutoShrink");subcatSpoke.disabled=!name;subcatSpoke.checked=!!(c.subcatSpokeAutoShrink&&c.subcatSpokeAutoShrink[name]===true);var armHint=document.getElementById("layoutSubcatShrinkHint");if(armHint)armHint.hidden=!!name}
-    function sync(){var c=config();populateBranches();populateKinks();populateSubcats();syncSubcatAngle(c);["stagger","expandAll","crossmin","nudge","showRelations","propFan","subcatOrder","staggerDensity","repulsionEnabled","staticMap","animations","mapSliders"].forEach(function(key){document.getElementById(ids[key]).checked=c[key]===undefined?false:Boolean(c[key])});if(c.collision&&c.collision!=="off")lastCollision=c.collision;document.getElementById(ids.collisionEnabled).checked=c.collision!=="off";/* LR-G5: no hidden collision select to write — the aria-pressed group write that follows IS the mode state now */document.querySelectorAll("[data-collision-mode]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.collisionMode===(c.collision||"grow")))});syncCollisionAnchor();setSolverMode(c.solverMidline);["subLen","pad","repulsion"].forEach(function(key){var input=document.getElementById(ids[key]),value=Number(c[key]);if(input!==document.activeElement)input.value=String(value);document.getElementById(ids[key]+"Value").textContent=value.toFixed(1)+"×"});var spokeInput=document.getElementById(ids.spokeLen),spokeAbs=Number(c.spokeLen);if(!Number.isFinite(spokeAbs)||spokeAbs<=0)spokeAbs=bakedSpokeBase();if(spokeInput!==document.activeElement)spokeInput.value=String(relClamp(spokeAbs/bakedSpokeBase()));document.getElementById(ids.spokeLen+"Value").textContent=fmtLen(spokeAbs);var fontScaleInput=document.getElementById(ids.fontScale),fontScaleValue=Number(c.fontScale);if(fontScaleInput!==document.activeElement)fontScaleInput.value=String(Number.isFinite(fontScaleValue)?fontScaleValue:1);var fontScaleNumSync=document.getElementById("layoutFontScaleNum");if(fontScaleNumSync&&document.activeElement!==fontScaleNumSync)fontScaleNumSync.value=String(Number.isFinite(fontScaleValue)?fontScaleValue:1);document.getElementById(ids.fontScale+"Value").textContent=(Number.isFinite(fontScaleValue)?fontScaleValue:1).toFixed(2)+"×";var centerRingScaleInput=document.getElementById(ids.centerRingScale),centerRingScaleValue=Number(c.centerRingScale);if(centerRingScaleInput!==document.activeElement)centerRingScaleInput.value=String(Number.isFinite(centerRingScaleValue)?centerRingScaleValue:1);var centerRingScaleNumSync=document.getElementById("layoutCenterRingScaleNum");if(centerRingScaleNumSync&&document.activeElement!==centerRingScaleNumSync)centerRingScaleNumSync.value=String(Number.isFinite(centerRingScaleValue)?centerRingScaleValue:1);document.getElementById(ids.centerRingScale+"Value").textContent=(Number.isFinite(centerRingScaleValue)?centerRingScaleValue:1).toFixed(2)+"×";var leafOvergrowthInput=document.getElementById(ids.leafOvergrowth),leafOvergrowthValue=Number(c.leafOvergrowth);if(!Number.isFinite(leafOvergrowthValue)||leafOvergrowthValue<=0)leafOvergrowthValue=300;if(leafOvergrowthInput&&leafOvergrowthInput!==document.activeElement)leafOvergrowthInput.value=String(leafOvergrowthValue);var leafOvergrowthNumSync=document.getElementById("layoutLeafOvergrowthNum");if(leafOvergrowthNumSync&&document.activeElement!==leafOvergrowthNumSync)leafOvergrowthNumSync.value=String(leafOvergrowthValue);var leafOvergrowthOut=document.getElementById(ids.leafOvergrowth+"Value");if(leafOvergrowthOut)leafOvergrowthOut.textContent=String(Math.round(leafOvergrowthValue))+"%";["autoShrinkFactor","subcatCloudShrinkFactor"].forEach(function(key){var input=document.getElementById(ids[key]),value=Number(c[key]);if(!Number.isFinite(value)||value<=0||value>1)value=.76;if(input&&input!==document.activeElement)input.value=String(value);var out=document.getElementById(ids[key]+"Value");if(out)out.textContent=value.toFixed(2)+"×"});var syncSpacingName=spacingNameFor(spacingValuesOf(c));document.querySelectorAll("[data-layout-spacing]").forEach(function(input){input.checked=input.dataset.layoutSpacing===syncSpacingName});/* LR-G5: the rating used to be read from the hidden mirror button's textContent; it is now read from the checked layoutRating radio itself (same value domain) */var ratingChecked=document.querySelector("[data-layout-rating]:checked"),rating=(ratingChecked&&(ratingChecked.dataset.layoutRating==="rated"||ratingChecked.dataset.layoutRating==="unrated"||ratingChecked.dataset.layoutRating==="all"))?ratingChecked.dataset.layoutRating:"all";document.querySelectorAll("[data-layout-rating]").forEach(function(input){input.checked=input.dataset.layoutRating===rating});document.querySelectorAll("[data-branch-order]").forEach(function(btn){btn.setAttribute("aria-pressed",String(btn.dataset.branchOrder===(c.branchOrder||"landscape-antipodal")))});syncBranchOrderAnchor();document.querySelectorAll(".le-ms-radio").forEach(function(box){Array.prototype.forEach.call(box.querySelectorAll(".le-ms-opt"),function(l){var i=l.querySelector("input");l.classList.toggle("is-current",!!(i&&i.checked))})});document.documentElement.classList.toggle("le-anim-off",!c.animations);syncBranch(c);syncKink(c);syncSpokeAngles(c)}
+    function syncTargetNode(c){
+      populateTargetNodes();
+      var bSel=document.getElementById("layoutBranch"),sSel=document.getElementById("layoutSubcat"),tn=document.getElementById("layoutTargetNode");
+      if(!tn)return;
+      var bVal=bSel?bSel.value:"",sVal=sSel?sSel.value:"";
+      var pickHint=document.getElementById("layoutNodePickHint");
+      var tiltRow=document.getElementById("layoutNodeTiltRow");
+      var linesRow=document.getElementById("layoutLinesToChildrenRow");
+      var lenLabel=document.getElementById("layoutNodeLenLabel");
+      var shrinkLabel=document.getElementById("layoutNodeSpokeAutoShrinkLabel");
+      var factorLabel=document.getElementById("layoutNodeShrinkFactorLabel");
+      var armSubsLabel=document.getElementById("layoutArmSubsLabel");
+      var nodeLen=document.getElementById("layoutNodeLen"),nodeLenNum=document.getElementById("layoutNodeLenNum");
+      var nodeSpoke=document.getElementById("layoutNodeSpokeAutoShrink");
+      var nodeFactor=document.getElementById("layoutNodeShrinkFactor"),nodeFactorNum=document.getElementById("layoutNodeShrinkFactorNum");
+      var targetNodeCurrent=document.getElementById("layoutTargetNodeCurrent");
+
+      if(bVal){
+        if(tn!==document.activeElement)tn.value="branch:"+bVal;
+        if(targetNodeCurrent)targetNodeCurrent.textContent=bVal;
+        if(pickHint)pickHint.hidden=true;
+        if(tiltRow)tiltRow.hidden=true;
+        if(linesRow)linesRow.hidden=false;
+        if(lenLabel)lenLabel.textContent="This branch's line length";
+        if(shrinkLabel)shrinkLabel.textContent="Auto-shrink branch spoke";
+        if(factorLabel)factorLabel.textContent="Auto-shrink factor — branch spokes";
+        if(armSubsLabel)armSubsLabel.textContent="For all subcategories";
+        var bLen=document.getElementById("layoutBranchLen");
+        if(nodeLen&&bLen&&nodeLen!==document.activeElement){nodeLen.value=bLen.value;nodeLen.disabled=false;}
+        if(nodeLenNum&&bLen&&nodeLenNum!==document.activeElement){nodeLenNum.value=bLen.value;nodeLenNum.disabled=false;}
+        var bSpoke=document.getElementById("layoutBranchSpokeAutoShrink");
+        if(nodeSpoke&&bSpoke){nodeSpoke.checked=bSpoke.checked;nodeSpoke.disabled=false;}
+        var bFac=document.getElementById("layoutAutoShrinkFactor");
+        if(nodeFactor&&bFac&&nodeFactor!==document.activeElement){nodeFactor.value=bFac.value;}
+        if(nodeFactorNum&&bFac&&nodeFactorNum!==document.activeElement){nodeFactorNum.value=bFac.value;}
+      }else if(sVal){
+        if(tn!==document.activeElement)tn.value="subcat:"+sVal;
+        var tax=taxonomy(),pName="";
+        if(tax&&tax.categories){
+          for(var i=0;i<tax.categories.length;i++){
+            var cat=tax.categories[i];
+            if(cat.subcategories&&cat.subcategories.some(function(s){return s.name===sVal})){pName=cat.name;break}
+          }
+        }
+        if(targetNodeCurrent)targetNodeCurrent.textContent=pName?(pName+" > "+sVal):sVal;
+        if(pickHint)pickHint.hidden=true;
+        if(tiltRow)tiltRow.hidden=false;
+        if(linesRow)linesRow.hidden=true;
+        if(lenLabel)lenLabel.textContent="This sub-group's line length";
+        if(shrinkLabel)shrinkLabel.textContent="Auto-shrink sub-group line";
+        if(factorLabel)factorLabel.textContent="Sub-group cloud shrink factor";
+        if(armSubsLabel)armSubsLabel.textContent="For all subcategories";
+        var sLen=document.getElementById("layoutSubcatLen");
+        if(nodeLen&&sLen&&nodeLen!==document.activeElement){nodeLen.value=sLen.value;nodeLen.disabled=false;}
+        if(nodeLenNum&&sLen&&nodeLenNum!==document.activeElement){nodeLenNum.value=sLen.value;nodeLenNum.disabled=false;}
+        var sSpoke=document.getElementById("layoutSubcatSpokeAutoShrink");
+        if(nodeSpoke&&sSpoke){nodeSpoke.checked=sSpoke.checked;nodeSpoke.disabled=false;}
+        var sFac=document.getElementById("layoutSubcatCloudShrinkFactor");
+        if(nodeFactor&&sFac&&nodeFactor!==document.activeElement){nodeFactor.value=sFac.value;}
+        if(nodeFactorNum&&sFac&&nodeFactorNum!==document.activeElement){nodeFactorNum.value=sFac.value;}
+      }else{
+        if(tn!==document.activeElement)tn.value="";
+        if(targetNodeCurrent)targetNodeCurrent.textContent="Select a node";
+        if(pickHint)pickHint.hidden=false;
+        if(nodeLen)nodeLen.disabled=true;
+        if(nodeLenNum)nodeLenNum.disabled=true;
+        if(nodeSpoke)nodeSpoke.disabled=true;
+      }
+      var activeVal=tn.value||"";
+      var treeMenu=document.getElementById("layoutTargetNodeMenu");
+      if(treeMenu){
+        treeMenu.querySelectorAll(".le-tree-node-btn").forEach(function(b){
+          var isSel=(b.getAttribute("data-node-val")||"")===activeVal;
+          b.setAttribute("aria-selected",String(isSel));
+          if(isSel&&activeVal.indexOf("subcat:")===0){
+            var parentWrap=b.closest(".le-tree-children");
+            if(parentWrap){
+              parentWrap.hidden=false;
+              var row=parentWrap.previousElementSibling;
+              if(row){
+                var tog=row.querySelector(".le-tree-toggle");
+                if(tog){
+                  tog.setAttribute("aria-expanded","true");
+                  var tri=tog.querySelector(".le-tree-triangle");
+                  if(tri)tri.textContent="▼";
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+    function bindTargetNode(){
+      var tn=document.getElementById("layoutTargetNode");
+      if(tn&&!tn.dataset.bound){
+        tn.dataset.bound="1";
+        tn.addEventListener("change",function(){
+          var val=this.value;
+          var bSel=document.getElementById("layoutBranch"),sSel=document.getElementById("layoutSubcat");
+          if(val.indexOf("branch:")===0){
+            var bName=val.slice(7);
+            if(bSel)bSel.value=bName;
+            if(sSel)sSel.value="";
+            syncBranch(config());
+            syncSubcatAngle(config());
+            setFocusKey("branch:"+bName);
+            if(window.__sxFocusBranch)window.__sxFocusBranch(bName);
+          }else if(val.indexOf("subcat:")===0){
+            var sName=val.slice(7);
+            if(sSel)sSel.value=sName;
+            if(bSel)bSel.value="";
+            syncSubcatAngle(config());
+            syncBranch(config());
+            setFocusKey("subcat:"+sName);
+            if(window.__sxFocusNode)window.__sxFocusNode(sName, "");
+          }else{
+            if(bSel)bSel.value="";
+            if(sSel)sSel.value="";
+            syncBranch(config());
+            syncSubcatAngle(config());
+            clearSelectionUI();
+          }
+        });
+      }
+      var targetNodeBtn=document.getElementById("layoutTargetNodeBtn");
+      var targetNodeMenu=document.getElementById("layoutTargetNodeMenu");
+      if(targetNodeBtn&&targetNodeMenu&&!targetNodeBtn.dataset.bound){
+        targetNodeBtn.dataset.bound="1";
+        targetNodeBtn.addEventListener("click",function(){
+          if(targetNodeMenu.hidden){
+            openLeMenu(targetNodeBtn,targetNodeMenu,function(){
+              closeBranchOrderMenu();
+              closeCollisionMenu();
+              closeSolverModeMenu();
+            });
+          }else{
+            closeTargetNodeMenu();
+          }
+        });
+        document.addEventListener("pointerdown",function(event){
+          if(!targetNodeMenu.hidden&&!targetNodeMenu.contains(event.target)&&event.target!==targetNodeBtn&&!targetNodeBtn.contains(event.target)){
+            closeTargetNodeMenu();
+          }
+        });
+        document.addEventListener("keydown",function(event){
+          if(event.key==="Escape"&&!targetNodeMenu.hidden){
+            closeTargetNodeMenu();
+            targetNodeBtn.focus();
+          }
+        });
+      }
+      var nodeLen=document.getElementById("layoutNodeLen");
+      if(nodeLen&&!nodeLen.dataset.bound){
+        nodeLen.dataset.bound="1";
+        nodeLen.addEventListener("input",function(){
+          var tnVal=document.getElementById("layoutTargetNode")?document.getElementById("layoutTargetNode").value:"";
+          if(tnVal.indexOf("branch:")===0){
+            var bLen=document.getElementById("layoutBranchLen");
+            if(bLen){bLen.value=this.value;applyBranchLen();}
+          }else if(tnVal.indexOf("subcat:")===0){
+            var sLen=document.getElementById("layoutSubcatLen");
+            if(sLen){sLen.value=this.value;applySubcatLen();}
+          }
+        });
+      }
+      var nodeSpoke=document.getElementById("layoutNodeSpokeAutoShrink");
+      if(nodeSpoke&&!nodeSpoke.dataset.bound){
+        nodeSpoke.dataset.bound="1";
+        nodeSpoke.addEventListener("change",function(){
+          var tnVal=document.getElementById("layoutTargetNode")?document.getElementById("layoutTargetNode").value:"";
+          if(tnVal.indexOf("branch:")===0){
+            var bSp=document.getElementById("layoutBranchSpokeAutoShrink");
+            if(bSp){bSp.checked=this.checked;bSp.dispatchEvent(new Event("change"));}
+          }else if(tnVal.indexOf("subcat:")===0){
+            var sSp=document.getElementById("layoutSubcatSpokeAutoShrink");
+            if(sSp){sSp.checked=this.checked;sSp.dispatchEvent(new Event("change"));}
+          }
+        });
+      }
+      var nodeFactor=document.getElementById("layoutNodeShrinkFactor");
+      if(nodeFactor&&!nodeFactor.dataset.bound){
+        nodeFactor.dataset.bound="1";
+        nodeFactor.addEventListener("input",function(){
+          var tnVal=document.getElementById("layoutTargetNode")?document.getElementById("layoutTargetNode").value:"";
+          if(tnVal.indexOf("branch:")===0){
+            var bFac=document.getElementById("layoutAutoShrinkFactor");
+            if(bFac){bFac.value=this.value;bFac.dispatchEvent(new Event("input"));bFac.dispatchEvent(new Event("change"));}
+          }else if(tnVal.indexOf("subcat:")===0){
+            var sFac=document.getElementById("layoutSubcatCloudShrinkFactor");
+            if(sFac){sFac.value=this.value;sFac.dispatchEvent(new Event("input"));sFac.dispatchEvent(new Event("change"));}
+          }
+        });
+      }
+    }
+    function syncSubcatAngle(c){var select=document.getElementById("layoutSubcat"),name=select.value,lentry=name&&c.subcatOverrides?c.subcatOverrides[name]:null,slen=document.getElementById("layoutSubcatLen");slen.disabled=!name;var curSubLen=(lentry&&Number(lentry.length))||bakedSubBase(name,"length");if(slen!==document.activeElement)slen.value=String(relClamp(curSubLen/bakedSubBase(name,"length")));document.getElementById("layoutSubcatLenValue").textContent=fmtLen(curSubLen);var entry=name&&c.subcatAngleOffsets?c.subcatAngleOffsets[name]:null,ang=document.getElementById("layoutSubcatAngle");ang.disabled=!name;if(ang!==document.activeElement)ang.value=String(entry&&Number(entry.angle)||0);document.getElementById("layoutSubcatAngleValue").textContent=Number(ang.value).toFixed(1)+"°";/* AUTOFIT (Group 3d, Q2): the sub-group kink-lines checkbox is removed — its function is covered by the Autofit button, which runs the selected sub-group's owning branch. */var subcatSpoke=document.getElementById("layoutSubcatSpokeAutoShrink");subcatSpoke.disabled=!name;subcatSpoke.checked=!!(c.subcatSpokeAutoShrink&&c.subcatSpokeAutoShrink[name]===true);var armHint=document.getElementById("layoutSubcatShrinkHint");if(armHint)armHint.hidden=!!name;syncTargetNode(c)}
+    function sync(){var c=config();populateBranches();populateKinks();populateSubcats();populateTargetNodes();bindTargetNode();syncSubcatAngle(c);["stagger","expandAll","crossmin","nudge","showRelations","propFan","subcatOrder","staggerDensity","repulsionEnabled","staticMap","animations","mapSliders"].forEach(function(key){var el=document.getElementById(ids[key]);if(el)el.checked=c[key]===undefined?false:Boolean(c[key])});if(c.collision&&c.collision!=="off")lastCollision=c.collision;document.getElementById(ids.collisionEnabled).checked=c.collision!=="off";/* LR-G5: no hidden collision select to write — the aria-pressed group write that follows IS the mode state now */document.querySelectorAll("[data-collision-mode]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.collisionMode===(c.collision||"grow")))});syncCollisionAnchor();setSolverMode(c.solverMidline);["subLen","pad","repulsion"].forEach(function(key){var input=document.getElementById(ids[key]),value=Number(c[key]);if(input!==document.activeElement)input.value=String(value);document.getElementById(ids[key]+"Value").textContent=value.toFixed(1)+"×"});var spokeInput=document.getElementById(ids.spokeLen),spokeAbs=Number(c.spokeLen);if(!Number.isFinite(spokeAbs)||spokeAbs<=0)spokeAbs=bakedSpokeBase();if(spokeInput!==document.activeElement)spokeInput.value=String(relClamp(spokeAbs/bakedSpokeBase()));document.getElementById(ids.spokeLen+"Value").textContent=fmtLen(spokeAbs);var fontScaleInput=document.getElementById(ids.fontScale),fontScaleValue=Number(c.fontScale);if(fontScaleInput!==document.activeElement)fontScaleInput.value=String(Number.isFinite(fontScaleValue)?fontScaleValue:1);var fontScaleNumSync=document.getElementById("layoutFontScaleNum");if(fontScaleNumSync&&document.activeElement!==fontScaleNumSync)fontScaleNumSync.value=String(Number.isFinite(fontScaleValue)?fontScaleValue:1);document.getElementById(ids.fontScale+"Value").textContent=(Number.isFinite(fontScaleValue)?fontScaleValue:1).toFixed(2)+"×";var centerRingScaleInput=document.getElementById(ids.centerRingScale),centerRingScaleValue=Number(c.centerRingScale);if(centerRingScaleInput!==document.activeElement)centerRingScaleInput.value=String(Number.isFinite(centerRingScaleValue)?centerRingScaleValue:1);var centerRingScaleNumSync=document.getElementById("layoutCenterRingScaleNum");if(centerRingScaleNumSync&&document.activeElement!==centerRingScaleNumSync)centerRingScaleNumSync.value=String(Number.isFinite(centerRingScaleValue)?centerRingScaleValue:1);document.getElementById(ids.centerRingScale+"Value").textContent=(Number.isFinite(centerRingScaleValue)?centerRingScaleValue:1).toFixed(2)+"×";var leafOvergrowthInput=document.getElementById(ids.leafOvergrowth),leafOvergrowthValue=Number(c.leafOvergrowth);if(!Number.isFinite(leafOvergrowthValue)||leafOvergrowthValue<=0)leafOvergrowthValue=100;if(leafOvergrowthInput&&leafOvergrowthInput!==document.activeElement)leafOvergrowthInput.value=String(leafOvergrowthValue);var leafOvergrowthNumSync=document.getElementById("layoutLeafOvergrowthNum");if(leafOvergrowthNumSync&&document.activeElement!==leafOvergrowthNumSync)leafOvergrowthNumSync.value=String(leafOvergrowthValue);var leafOvergrowthOut=document.getElementById(ids.leafOvergrowth+"Value");if(leafOvergrowthOut)leafOvergrowthOut.textContent=String(Math.round(leafOvergrowthValue))+"%";["autoShrinkFactor","subcatCloudShrinkFactor"].forEach(function(key){var input=document.getElementById(ids[key]),value=Number(c[key]);if(!Number.isFinite(value)||value<=0||value>1)value=.76;if(input&&input!==document.activeElement)input.value=String(value);var out=document.getElementById(ids[key]+"Value");if(out)out.textContent=value.toFixed(2)+"×"});var syncSpacingName=spacingNameFor(spacingValuesOf(c));document.querySelectorAll("[data-layout-spacing]").forEach(function(input){input.checked=input.dataset.layoutSpacing===syncSpacingName});/* LR-G5: the rating used to be read from the hidden mirror button's textContent; it is now read from the checked layoutRating radio itself (same value domain) */var ratingChecked=document.querySelector("[data-layout-rating]:checked"),rating=(ratingChecked&&(ratingChecked.dataset.layoutRating==="rated"||ratingChecked.dataset.layoutRating==="unrated"||ratingChecked.dataset.layoutRating==="all"))?ratingChecked.dataset.layoutRating:"all";document.querySelectorAll("[data-layout-rating]").forEach(function(input){input.checked=input.dataset.layoutRating===rating});document.querySelectorAll("[data-branch-order]").forEach(function(btn){btn.setAttribute("aria-pressed",String(btn.dataset.branchOrder===(c.branchOrder||"landscape-antipodal")))});syncBranchOrderAnchor();document.querySelectorAll(".le-ms-radio").forEach(function(box){Array.prototype.forEach.call(box.querySelectorAll(".le-ms-opt"),function(l){var i=l.querySelector("input");l.classList.toggle("is-current",!!(i&&i.checked))})});document.documentElement.classList.toggle("le-anim-off",!c.animations);syncBranch(c);syncKink(c);syncSpokeAngles(c)}
     function branchOrderSelection(){var pressed=document.querySelector("[data-branch-order][aria-pressed='true']");return pressed?pressed.dataset.branchOrder:(config().branchOrder||"landscape-antipodal")}
     /* LR-G5: collision mode state used to live in a hidden select (former id layoutCollisionMode); it now lives in the visible #layoutCollisionMs button group — the pressed button is the mode. collisionModeValue reads it, setCollisionMode presses a mode, and applyCollisionMode carries the former select change handler's effects verbatim (lastCollision bookkeeping, master-switch sync, apply path). */
     function collisionModeValue(){var b=document.querySelector("[data-collision-mode][aria-pressed='true']");return b?b.dataset.collisionMode:"grow"}
@@ -903,7 +1215,7 @@
     function setSolverMode(v){var norm=v==="repulsion"?"repulsion":(v==="settle"||v==="full"||v==="legacy")?"settle":null;document.querySelectorAll("[data-solver-mode]").forEach(function(b){b.setAttribute("aria-pressed",String(norm!==null&&b.dataset.solverMode===norm))});var cur=document.getElementById("layoutSolverModeCurrent");if(!cur)return;if(norm){var opt=document.querySelector("[data-solver-mode='"+norm+"']");cur.textContent=opt?opt.textContent:norm}else cur.textContent=String(v==null?"":v)+" (hash only)"}
     function writeSolverModeHash(v){try{var hash=window.location.hash||"",body=hash.charAt(0)==="#"?hash.slice(1):hash,tokens=body?body.split("&"):[],found=false;tokens=tokens.map(function(t){if(t.indexOf("layout-solverMidline=")===0){found=true;return "layout-solverMidline="+v}return t});if(!found)tokens.push("layout-solverMidline="+v);history.replaceState(null,"","#"+tokens.join("&"))}catch (error) { __sxErrLog("layout-solver-mode-hash", error); }}
     function applySolverMode(v){var next=collect();next.solverMidline=v;apply(next);writeSolverModeHash(v)}
-    function collect(){var c=config(),enabled=document.getElementById(ids.collisionEnabled).checked,mode=collisionModeValue();return{spacing:spacingNameFor({spokeLen:(Number(document.getElementById(ids.spokeLen).value)||1)*bakedSpokeBase(),subLen:Number(document.getElementById(ids.subLen).value),pad:Number(document.getElementById(ids.pad).value),repulsion:Number(document.getElementById(ids.repulsion).value)}),branchOrder:branchOrderSelection(),propFan:document.getElementById(ids.propFan).checked,subcatOrder:document.getElementById(ids.subcatOrder).checked,staggerDensity:document.getElementById(ids.staggerDensity).checked,stagger:document.getElementById(ids.stagger).checked,expandAll:document.getElementById(ids.expandAll).checked,crossmin:document.getElementById(ids.crossmin).checked,nudge:document.getElementById(ids.nudge).checked,showRelations:document.getElementById(ids.showRelations).checked,repulsionEnabled:document.getElementById(ids.repulsionEnabled).checked,staticMap:document.getElementById(ids.staticMap).checked,animations:document.getElementById(ids.animations).checked,mapSliders:document.getElementById(ids.mapSliders).checked,collision:enabled?(mode==="off"?lastCollision:mode):"off",spokeLen:(Number(document.getElementById(ids.spokeLen).value)||1)*bakedSpokeBase(),subLen:Number(document.getElementById(ids.subLen).value),pad:Number(document.getElementById(ids.pad).value),repulsion:Number(document.getElementById(ids.repulsion).value),fontScale:Number(document.getElementById(ids.fontScale).value),centerRingScale:Number(document.getElementById(ids.centerRingScale).value),leafOvergrowth:Number(document.getElementById(ids.leafOvergrowth).value),autoShrinkFactor:Number(document.getElementById(ids.autoShrinkFactor).value),subcatCloudShrinkFactor:Number(document.getElementById(ids.subcatCloudShrinkFactor).value),branchOverrides:copyOverrides(c.branchOverrides),subcatOverrides:copyOverrides(c.subcatOverrides||{}),kinkOverrides:copyOverrides(c.kinkOverrides||{}),subcatAngleOffsets:copyOverrides(c.subcatAngleOffsets||{}),kinkAngleOffsets:copyOverrides(c.kinkAngleOffsets||{}),branchSpokeAutoShrink:Object.assign({},c.branchSpokeAutoShrink||{}),subcatSpokeAutoShrink:Object.assign({},c.subcatSpokeAutoShrink||{}),solverMidline:c.solverMidline||(window.__SEXCAPADES_LAYOUT&&window.__SEXCAPADES_LAYOUT.solverMidline)||"off"}}
+    function collect(){var c=config(),enabled=document.getElementById(ids.collisionEnabled).checked,mode=collisionModeValue();return{spacing:spacingNameFor({spokeLen:(Number(document.getElementById(ids.spokeLen).value)||1)*bakedSpokeBase(),subLen:Number(document.getElementById(ids.subLen).value),pad:Number(document.getElementById(ids.pad).value),repulsion:Number(document.getElementById(ids.repulsion).value)}),branchOrder:branchOrderSelection(),propFan:document.getElementById(ids.propFan).checked,subcatOrder:document.getElementById(ids.subcatOrder).checked,staggerDensity:document.getElementById(ids.staggerDensity).checked,stagger:document.getElementById(ids.stagger).checked,expandAll:document.getElementById(ids.expandAll).checked,crossmin:document.getElementById(ids.crossmin).checked,nudge:document.getElementById(ids.nudge).checked,showRelations:document.getElementById(ids.showRelations).checked,repulsionEnabled:document.getElementById(ids.repulsionEnabled).checked,staticMap:document.getElementById(ids.staticMap).checked,animations:document.getElementById(ids.animations).checked,mapSliders:Boolean(document.getElementById(ids.mapSliders)&&document.getElementById(ids.mapSliders).checked),collision:enabled?(mode==="off"?lastCollision:mode):"off",spokeLen:(Number(document.getElementById(ids.spokeLen).value)||1)*bakedSpokeBase(),subLen:Number(document.getElementById(ids.subLen).value),pad:Number(document.getElementById(ids.pad).value),repulsion:Number(document.getElementById(ids.repulsion).value),fontScale:Number(document.getElementById(ids.fontScale).value),centerRingScale:Number(document.getElementById(ids.centerRingScale).value),leafOvergrowth:Number(document.getElementById(ids.leafOvergrowth).value),autoShrinkFactor:Number(document.getElementById(ids.autoShrinkFactor).value),subcatCloudShrinkFactor:Number(document.getElementById(ids.subcatCloudShrinkFactor).value),branchOverrides:copyOverrides(c.branchOverrides),subcatOverrides:copyOverrides(c.subcatOverrides||{}),kinkOverrides:copyOverrides(c.kinkOverrides||{}),subcatAngleOffsets:copyOverrides(c.subcatAngleOffsets||{}),kinkAngleOffsets:copyOverrides(c.kinkAngleOffsets||{}),branchSpokeAutoShrink:Object.assign({},c.branchSpokeAutoShrink||{}),subcatSpokeAutoShrink:Object.assign({},c.subcatSpokeAutoShrink||{}),solverMidline:c.solverMidline||(window.__SEXCAPADES_LAYOUT&&window.__SEXCAPADES_LAYOUT.solverMidline)||"off"}}
     // Cross-tab live sync (Build 2026-10-19_1742): every change made in
     // this editor is written (debounced, ~300ms) to localStorage, where
     // other open tabs/windows pick it up via the storage event and
@@ -2082,7 +2394,7 @@
     document.addEventListener("keydown",function(event){if(event.key==="Escape")dismissUiTooltip()});
     try{var uiTipEl=document.getElementById("uiTooltip");if(uiTipEl){var uiTipTimer=null;new MutationObserver(function(){if(uiTipTimer){clearTimeout(uiTipTimer);uiTipTimer=null}if(!uiTipEl.hidden&&!panel.hidden)uiTipTimer=setTimeout(dismissUiTooltip,3400)}).observe(uiTipEl,{attributes:true,attributeFilter:["hidden","class","style"]})}}catch (e) { __sxErrLog("ui-tooltip-dismiss", e); }
     window.__SEXCAPADES_LAYOUT_UI={open:open,close:shut,selectNode:selectNode,clearSelection:clearSelectionUI,applyEditorState:applyEditorState,sync:sync};close.addEventListener("click",shut);
-    document.addEventListener("keydown",function(event){if(event.ctrlKey&&event.shiftKey&&event.key.toLowerCase()==="l"){event.preventDefault();panel.hidden?open():shut()}else if(event.ctrlKey&&event.shiftKey&&event.key.toLowerCase()==="s"){var t=event.target;if(t){var tg=t.tagName;if(tg==="TEXTAREA"||tg==="SELECT"||t.isContentEditable)return;if(tg==="INPUT"){var ty=(t.type||"text").toLowerCase();if(ty==="text"||ty==="search"||ty==="url"||ty==="email"||ty==="password"||ty==="number"||ty==="tel"||ty==="date"||ty==="time"||ty==="datetime-local"||ty==="month"||ty==="week")return}}event.preventDefault();var ms=document.getElementById(ids.mapSliders);if(!ms)return;ms.click()}else if(event.key==="Escape"&&!panel.hidden){event.preventDefault();if(!clearSelectionUI())shut()}});
+    document.addEventListener("keydown",function(event){var k=(event.key||"").toLowerCase();if(event.ctrlKey&&event.shiftKey&&(k==="l"||(event.code&&event.code==="KeyL"))){event.preventDefault();panel.hidden?open():shut()}else if(event.ctrlKey&&event.shiftKey&&(k==="s"||(event.code&&event.code==="KeyS"))){var t=event.target;if(t){var tg=t.tagName;if(tg==="TEXTAREA"||tg==="SELECT"||t.isContentEditable)return;if(tg==="INPUT"){var ty=(t.type||"text").toLowerCase();if(ty==="text"||ty==="search"||ty==="url"||ty==="email"||ty==="password"||ty==="number"||ty==="tel"||ty==="date"||ty==="time"||ty==="datetime-local"||ty==="month"||ty==="week")return}}event.preventDefault();var ms=document.getElementById(ids.mapSliders);if(!ms)return;ms.click()}else if(event.key==="Escape"&&!panel.hidden){event.preventDefault();if(!clearSelectionUI())shut()}});
     document.querySelectorAll("[data-layout-spacing]").forEach(function(input){input.addEventListener("change",function(){if(!input.checked)return;var name=input.dataset.layoutSpacing,next=collect();if(name==="custom"){if(customSpacing)Object.assign(next,customSpacing);next.spacing="custom"}else{if(spacingNameFor(spacingValuesOf(config()))==="custom")customSpacing=spacingValuesOf(config());Object.assign(next,bundles[name],{spacing:name})}apply(next)})});
     document.querySelectorAll("[data-layout-rating]").forEach(function(input){input.addEventListener("change",function(){if(!input.checked)return;/* LR-G5: this handler used to click the hidden mirror button (former id layoutRatedToggle) in a loop until its text matched the chosen value; the bundle now drives global visibility from the radios' own change events and the checked radio IS the rating state — nothing is clicked or read here beyond the editor sync */sync()})});
     // Layout groups Phase 2 (Q8/Q10): selector-button + pop-up menu
@@ -2108,8 +2420,10 @@
     function closeBranchOrderMenu(){var menu=document.getElementById("layoutBranchOrderMenu"),btn=document.getElementById("layoutBranchOrderBtn");if(menu){menu.hidden=true;menu.style.left="";menu.style.top=""}if(btn)btn.setAttribute("aria-expanded","false")}
     function closeCollisionMenu(){var menu=document.getElementById("layoutCollisionMs"),btn=document.getElementById("layoutCollisionBtn");if(menu){menu.hidden=true;menu.style.left="";menu.style.top=""}if(btn)btn.setAttribute("aria-expanded","false")}
     function closeSolverModeMenu(){var menu=document.getElementById("layoutSolverModeMenu"),btn=document.getElementById("layoutSolverModeBtn");if(menu){menu.hidden=true;menu.style.left="";menu.style.top=""}if(btn)btn.setAttribute("aria-expanded","false")}
+    function closeTargetNodeMenu(){var menu=document.getElementById("layoutTargetNodeMenu"),btn=document.getElementById("layoutTargetNodeBtn");if(menu){menu.hidden=true;menu.style.left="";menu.style.top=""}if(btn)btn.setAttribute("aria-expanded","false")}
     function openLeMenu(anchor,menu,closeOther){
-      closeOther();
+      if(typeof closeOther==="function")closeOther();
+      closeTargetNodeMenu();
       if(typeof closeLePopups==="function")closeLePopups(null);
       menu.hidden=false;
       anchor.setAttribute("aria-expanded","true");
@@ -2138,7 +2452,7 @@
       }
       sync();scheduleScores();scheduleMetric();scheduleLiveSync();
     }
-    ["stagger","expandAll","crossmin","nudge","showRelations","propFan","subcatOrder","staggerDensity","repulsionEnabled","staticMap","animations","mapSliders"].forEach(function(key){document.getElementById(ids[key]).addEventListener("change",function(){if(key==="showRelations"||key==="staticMap")applyDisplayToggle(collect(),key);else apply(collect())})});
+    ["stagger","expandAll","crossmin","nudge","showRelations","propFan","subcatOrder","staggerDensity","repulsionEnabled","staticMap","animations","mapSliders"].forEach(function(key){var el=document.getElementById(ids[key]);if(el)el.addEventListener("change",function(){if(key==="showRelations"||key==="staticMap")applyDisplayToggle(collect(),key);else apply(collect())})});
     document.getElementById(ids.collisionEnabled).addEventListener("change",function(){var next=collect();if(this.checked&&next.collision==="off")next.collision=lastCollision;apply(next)});
     /* LR-G5: the hidden collision select's change handler (lastCollision bookkeeping, master-switch sync, apply) now lives in applyCollisionMode() beside collect(); the visible mode buttons call it directly — see the #layoutCollisionMs wiring below. */
     // Drag coalescing (Refactor Batch 4): a range slider's input
@@ -2307,7 +2621,7 @@
     // the share hash / export / saved defaults like every other dial,
     // and is part of the bundle's crossing-score fingerprint, so scores
     // recompute the moment it moves.
-    coalesceSlider(document.getElementById(ids.leafOvergrowth),function(){var v=Number(this.value)||300,out=document.getElementById("layoutLeafOvergrowthValue");if(out)out.textContent=Math.round(v)+"%";var num=document.getElementById("layoutLeafOvergrowthNum");if(num&&document.activeElement!==num)num.value=String(v);apply(collect());this.value=String(v);if(out)out.textContent=Math.round(v)+"%";scheduleMetric()});
+    coalesceSlider(document.getElementById(ids.leafOvergrowth),function(){var v=Number(this.value)||100,out=document.getElementById("layoutLeafOvergrowthValue");if(out)out.textContent=Math.round(v)+"%";var num=document.getElementById("layoutLeafOvergrowthNum");if(num&&document.activeElement!==num)num.value=String(v);apply(collect());this.value=String(v);if(out)out.textContent=Math.round(v)+"%";scheduleMetric()});
     var layoutLeafOvergrowthNumEl=document.getElementById("layoutLeafOvergrowthNum");if(layoutLeafOvergrowthNumEl){var commitLeafOvergrowthNum=function(){var range=document.getElementById(ids.leafOvergrowth);if(!range)return;var v=Number(layoutLeafOvergrowthNumEl.value);if(!Number.isFinite(v)){layoutLeafOvergrowthNumEl.value=range.value;return}v=Math.min(Number(range.max)||500,Math.max(Number(range.min)||100,v));range.value=String(v);layoutLeafOvergrowthNumEl.value=String(v);range.dispatchEvent(new Event("input",{bubbles:true}));range.dispatchEvent(new Event("change",{bubbles:true}))};layoutLeafOvergrowthNumEl.addEventListener("change",commitLeafOvergrowthNum);layoutLeafOvergrowthNumEl.addEventListener("keydown",function(event){if(event.key==="Enter"){event.preventDefault();commitLeafOvergrowthNum()}})}
     // Bidirectional selection sync (Build 2026-10-18_1401): picking a
     // branch, subcategory, or kink in the Advanced selects also selects

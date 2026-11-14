@@ -161,11 +161,20 @@
         function dkBranchTaxonomy(branchName) {
             const entry = h.find(b => b.name === branchName);
             if (!entry) return null;
-            const subLabels = (entry.subcategories || []).map(s => s.name), kinkIds = [];
-            return (entry.topics || []).forEach(l => {
-                const id = topicIdByLabel[sxName(l)] || (l && l.id);
-                null != id && kinkIds.push(id);
-            }), { entry: entry, subLabels: subLabels, kinkIds: kinkIds, total: (entry.topics || []).length + subLabels.length };
+            const subLabels = (entry.subcategories || []).map(s => s.name);
+            const kinkIds = [];
+            const addTopicId = (t) => {
+                if (!t) return;
+                const name = typeof t === "object" ? (t.name || t.label || "") : String(t);
+                const id = (typeof t === "object" && t.id) || topicIdByLabel[name] || topicIdByLabel[sxName(t)] || null;
+                if (id && !kinkIds.includes(id)) kinkIds.push(id);
+            };
+            (entry.topics || []).forEach(addTopicId);
+            (entry.parentTopics || []).forEach(addTopicId);
+            (entry.subcategories || []).forEach(s => {
+                (s.topics || []).forEach(addTopicId);
+            });
+            return { entry: entry, subLabels: subLabels, kinkIds: kinkIds, total: kinkIds.length + subLabels.length };
         }
         // SOLVER-METRICS REFACTOR (F4): dkRunCascade is a thin
         // orchestrator over named phase steps — stepLabelCheck,
@@ -272,6 +281,11 @@
             }), armPatch.branchSpokeAutoShrink[name] = !0, tax.subLabels.forEach(l => {
                 armPatch.subcatSpokeAutoShrink[l] = !0;
             }), await runPhase("fine-tune-arm", armPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP), report.fineTune.armPhase = "fine-tune-arm";
+            try {
+                if (typeof window.__sxFocusBranch === "function") {
+                    window.__sxFocusBranch(name);
+                }
+            } catch (_) {}
             }
         function diagText(snap) {
             const f = v => null == v ? "\u2014" : String(v);
@@ -1053,7 +1067,7 @@
                     if (null == id) return;
                     const target = dkComputeFitTarget(info.key), delivered = dkDeliveredItemRadius(w), cur = snapshot.kinkOverrides ? snapshot.kinkOverrides[id] : null, curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
                     if (null == target || !(target > 0) || !Number.isFinite(delivered) || !(delivered > 0)) return;
-                    const capLen = curLen * target * sxLeafOvergrowthFactor() / delivered;
+                    const capLen = curLen * target / delivered;
                     Number.isFinite(capLen) && capLen > 0 && (null == throwFitCap[id] || capLen < throwFitCap[id]) && (throwFitCap[id] = capLen);
                 });
             } catch (e) {}
@@ -1153,19 +1167,22 @@
                         throwPatch.subcatOverrides[l], { length: throwSubcatLens[l] });
             });
             tax.kinkIds.forEach(id => {
-                // Kink leaves autofit to 3x the kink length
-                // (2026-11-02 16:59 CST re-ruling): the fit cap IS the
-                // thrown length; the THROW_KINK multiple of
-                // the baked base (also 3) is only the fallback
-                // for a kink with no computable fit target.
+                // THROW TOPIC AUTOFIT (re-ruled 2026-11-14, Jason):
+                // kink leaves auto-fit to 1x their fit target directly
+                // at throw onset, eliminating the 3x overgrowth spike.
                 const fitCapLen = throwFitCap[id];
-                throwPatch.kinkOverrides[id] = Object.assign({}, throwPatch.kinkOverrides[id], { length: null != fitCapLen && Number.isFinite(fitCapLen) ? fitCapLen : dkBakedKinkBase(id) * sxLeafOvergrowthFactor() });
+                throwPatch.kinkOverrides[id] = Object.assign({}, throwPatch.kinkOverrides[id], { length: null != fitCapLen && Number.isFinite(fitCapLen) ? fitCapLen : dkBakedKinkBase(id) });
             });
             throwPatch.branchSpokeAutoShrink[name] = !0;
             tax.subLabels.forEach(l => {
                 throwPatch.subcatSpokeAutoShrink[l] = !0;
             });
             await runPhase("throw", throwPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP);
+            try {
+                if (typeof window.__sxFocusBranch === "function") {
+                    window.__sxFocusBranch(name);
+                }
+            } catch (_) {}
             }
         async function stepThrowRepeated(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
             // THROW REPEAT (ruled 2026-11-06, Jason): the throw
@@ -2374,9 +2391,17 @@
                 // On the skip path there is no thrown baseline.
                 // The fine-tune margin is deleted; FINE_TUNE_BELOW
                 // only chooses skip-throw versus throw.
-                const fineTuneActive = Number.isFinite(report.baseline.first) && report.baseline.first < SX_SCORE.FINE_TUNE_BELOW;
-                report.fineTune = { active: fineTuneActive, baseline: report.baseline.first, below: SX_SCORE.FINE_TUNE_BELOW, margin: null, armPhase: null, holds: [], branchFloor: null };
-                fineTuneActive && dkLog.push({ type: "fine-tune-skip-throw", branch: name, baseline: report.baseline.first, below: SX_SCORE.FINE_TUNE_BELOW });
+                // SIBLING/NEIGHBOR AWARENESS (ruled 2026-11-14, Jason):
+                // Baseline evaluation must consider the staged/adjacent
+                // crossing number with sibling nodes (adjacentFirst) if present,
+                // otherwise starburst clouds with low self-crossing are never thrown
+                // even when heavily overlapping sibling branches.
+                const baselineForThrow = (report.baseline.adjacentFirst != null && Number.isFinite(report.baseline.adjacentFirst))
+                    ? Math.max(Number(report.baseline.first), Number(report.baseline.adjacentFirst))
+                    : Number(report.baseline.first);
+                const fineTuneActive = Number.isFinite(baselineForThrow) && baselineForThrow < SX_SCORE.FINE_TUNE_BELOW;
+                report.fineTune = { active: fineTuneActive, baseline: baselineForThrow, selfBaseline: report.baseline.first, below: SX_SCORE.FINE_TUNE_BELOW, margin: null, armPhase: null, holds: [], branchFloor: null };
+                fineTuneActive && dkLog.push({ type: "fine-tune-skip-throw", branch: name, baseline: baselineForThrow, below: SX_SCORE.FINE_TUNE_BELOW });
                 // FINE-TUNE STAGING-AND-ARMING COMMIT (skip path,
                 // ruling 6 — full arming mirroring the throw minus
                 // length changes): the throw commit is what normally

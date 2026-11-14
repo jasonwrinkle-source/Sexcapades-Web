@@ -759,16 +759,24 @@
             "t0401": "topic-post-scene-review",
             "t0402": "topic-space-solitude",
             "t0403": "topic-next-day-check-in",
-            "t0404": "topic-affection"
+            "t0404": "topic-affection",
+            "t0405": "topic-forniphilia",
+            "t0406": "topic-cuckquean-stag-vixen",
+            "t0407": "topic-top-bottom-side",
+            "t0408": "topic-sensual-primal-humiliation",
+            "t0409": "topic-sensation-power-intimacy",
+            "t0410": "topic-monogamy-polyamory-anarchy",
+            "t0411": "topic-edging-ruined-forced",
+            "t0412": "topic-tantric-frantic-trance"
 });
         // TAXONOMY_VERSION (E4a, slug-gap design-away, 2026-10-22): the
-        // version identifier of the topic catalog above (403 topics, IDs
-        // t0001-t0404). Every exported profile file carries it as its
+        // version identifier of the topic catalog above (404 topics, IDs
+        // t0001-t0405). Every exported profile file carries it as its
         // top-level "taxonomyVersion", so a future reader knows which
         // catalog the file's topic ids and "topicNames" labels were
         // written against. Bump it whenever the catalog's topic set or a
         // topic's meaning changes.
-        const TAXONOMY_VERSION = "2026-10-22";
+        const TAXONOMY_VERSION = "2026-11-14";
         h.forEach(e => {
             e.topicDetails = e.topicDetails || {};
             e.topics.forEach(t => {
@@ -780,7 +788,7 @@
         });
         window.__SEXCAPADES_TOPIC_CATALOG = Object.freeze({
             count: Object.keys(topicRecords).length,
-            maxId: "t0404",
+            maxId: "t0412",
             idForLabel: e => topicIdByLabel[String(e || "")] || null,
             labelForId: e => topicLabelById[String(e || "")] || null
         });
@@ -2708,6 +2716,70 @@
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
+            if (e === "t0281" || e === "topic-cuckold-hotwife" || i === "t0281" || i === "topic-cuckold-hotwife") {
+                return {
+                    single: !1,
+                    triple: !0,
+                    keys: [ "bull", "hotwife", "cuckold" ],
+                    labels: [ "Bull", "Hotwife", "Cuckold" ]
+                };
+            }
+            if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen") {
+                return {
+                    single: !1,
+                    triple: !0,
+                    keys: [ "vixen", "stag", "cuckquean" ],
+                    labels: [ "Vixen", "Stag", "Cuckquean" ]
+                };
+            }
+            if (e === "t0407" || e === "topic-top-bottom-side" || i === "t0407" || i === "topic-top-bottom-side") {
+                return {
+                    single: !1,
+                    triple: !0,
+                    keys: [ "top", "side", "bottom" ],
+                    labels: [ "Top", "Side", "Bottom" ]
+                };
+            }
+            if (e === "t0408" || e === "topic-sensual-primal-humiliation" || i === "t0408" || i === "topic-sensual-primal-humiliation") {
+                return {
+                    single: !1,
+                    triangle: !0,
+                    keys: [ "primal", "sensual", "humiliation" ],
+                    labels: [ "Primal", "Sensual", "Humiliation" ]
+                };
+            }
+            if (e === "t0409" || e === "topic-sensation-power-intimacy" || i === "t0409" || i === "topic-sensation-power-intimacy") {
+                return {
+                    single: !1,
+                    triangle: !0,
+                    keys: [ "sensation", "power", "intimacy" ],
+                    labels: [ "Sensation", "Power", "Intimacy" ]
+                };
+            }
+            if (e === "t0410" || e === "topic-monogamy-polyamory-anarchy" || i === "t0410" || i === "topic-monogamy-polyamory-anarchy") {
+                return {
+                    single: !1,
+                    triangle: !0,
+                    keys: [ "monogamy", "polyamory", "anarchy" ],
+                    labels: [ "Monogamy", "Polyamory", "Relationship Anarchy" ]
+                };
+            }
+            if (e === "t0411" || e === "topic-edging-ruined-forced" || i === "t0411" || i === "topic-edging-ruined-forced") {
+                return {
+                    single: !1,
+                    triangle: !0,
+                    keys: [ "edging", "ruined", "forced" ],
+                    labels: [ "Edging & Denial", "Ruined Orgasm", "Forced / Overstim" ]
+                };
+            }
+            if (e === "t0412" || e === "topic-tantric-frantic-trance" || i === "t0412" || i === "topic-tantric-frantic-trance") {
+                return {
+                    single: !1,
+                    triangle: !0,
+                    keys: [ "tantric", "frantic", "trance" ],
+                    labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
+                };
+            }
             // The topic's own give/receive labels win. A parent id in the
             // single-slider set must not collapse Edge Play (or any other
             // give/receive topic) to one "everything" slider.

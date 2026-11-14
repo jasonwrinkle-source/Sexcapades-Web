@@ -11,7 +11,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$(realpath "${1:-$DIR/app/sexcapades-4.0.html}")"
 TS="${2:-$(TZ=America/Chicago date +%Y-%m-%d_%H%M)}"
 OPTIMIZER="$DIR/packaging-scripts/sexcapades-3.5-optimize.py"
-OUTDIR="$DIR"
+OUTDIR="$DIR/deploy-output"
+mkdir -p "$OUTDIR"
 OUTFILE="$OUTDIR/deploy-app-v4.0-${TS}-optimized.tar.gz"
 
 [ -f "$SRC" ] || { echo "ERROR: source export not found: $SRC"; exit 1; }
@@ -80,7 +81,7 @@ cat > "$MANIFEST" <<EOF
     { "url": "/hosted/app-assets/app.css?v=$BUILD_NUM", "as": "style" },
     { "url": "/hosted/app-assets/app.js?v=$BUILD_NUM", "as": "script" },
     { "url": "/hosted/app-assets/vendor/qrcode.min.js?v=$BUILD_NUM", "as": "script" },
-    { "url": "/hosted/app-assets/unrated-map-template.js", "as": "script" },
+    { "url": "/hosted/app-assets/unrated-map-template.js?v=$BUILD_NUM", "as": "script" },
     { "url": "/hosted/app-assets/data-bootstrap.js?v=$BUILD_NUM", "as": "script" },
     { "url": "/hosted/app-assets/images/guide-avatar.jpg", "as": "image" },
     { "url": "/hosted/app-assets/images/hanky-chart.jpg", "as": "image" },

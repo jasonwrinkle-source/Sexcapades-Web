@@ -233,11 +233,11 @@
                frozen data tables, for existing readers.
            ================================================================ */
         const TaxonomyLoader = (() => {
-            /** Expected taxonomy size: 18 categories, 44 subcategories, 403 topics. */
+            /** Expected taxonomy size: 18 categories, 44 subcategories, 411 topics. */
             const EXPECTED_COUNTS = Object.freeze({
                 categories: 18,
                 subcategories: 44,
-                topics: 403
+                topics: 411
             });
             /**
              * The 18 top-level categories: topic name lists plus
@@ -945,16 +945,24 @@
             "t0401": "topic-post-scene-review",
             "t0402": "topic-space-solitude",
             "t0403": "topic-next-day-check-in",
-            "t0404": "topic-affection"
+            "t0404": "topic-affection",
+            "t0405": "topic-forniphilia",
+            "t0406": "topic-cuckquean-stag-vixen",
+            "t0407": "topic-top-bottom-side",
+            "t0408": "topic-sensual-primal-humiliation",
+            "t0409": "topic-sensation-power-intimacy",
+            "t0410": "topic-monogamy-polyamory-anarchy",
+            "t0411": "topic-edging-ruined-forced",
+            "t0412": "topic-tantric-frantic-trance"
 });
         // TAXONOMY_VERSION (E4a, slug-gap design-away, 2026-10-22): the
-        // version identifier of the topic catalog above (403 topics, IDs
-        // t0001-t0404). Every exported profile file carries it as its
+        // version identifier of the topic catalog above (404 topics, IDs
+        // t0001-t0405). Every exported profile file carries it as its
         // top-level "taxonomyVersion", so a future reader knows which
         // catalog the file's topic ids and "topicNames" labels were
         // written against. Bump it whenever the catalog's topic set or a
         // topic's meaning changes.
-        const TAXONOMY_VERSION = "2026-10-22";
+        const TAXONOMY_VERSION = "2026-11-14";
         // sxName's other copy lives inside the map IIFE in 02-taxonomy-core.js.
         // This catalog pass runs in the outer boot function, before that IIFE,
         // so it needs its own copy. Function declarations do not cross that boundary.
@@ -972,7 +980,7 @@
         });
         window.__SEXCAPADES_TOPIC_CATALOG = Object.freeze({
             count: Object.keys(topicRecords).length,
-            maxId: "t0404",
+            maxId: "t0412",
             idForLabel: e => topicIdByLabel[String(e || "")] || null,
             labelForId: e => topicLabelById[String(e || "")] || null
         });

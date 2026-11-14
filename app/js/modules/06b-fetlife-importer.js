@@ -60,7 +60,7 @@
         // materials & objects CATEGORY — a category-only target, so it is
         // reported as a broad hit and never silently rated.
         mk([ "Edge Play" ], "t0334"), mk([ "Morning Sex" ], "t0290"), mk([ "Bellydancing" ], "t0277"), 
-        mk([ "Formiphilia", "Forniphilia" ], "t0120"), mk([ "Graphoerotica" ], "t0265"), mk([ "Toy Making" ], "cat-clothing-materials-objects"), 
+        mk([ "Formiphilia", "Formicophilia" ], "t0120"), mk([ "Forniphilia" ], "t0405"), mk([ "Graphoerotica" ], "t0265"), mk([ "Toy Making" ], "cat-clothing-materials-objects"),
         // Importer fix package (2026-11-05): "Humiliation language" is its
         // own topic (t0240, PS Humiliation subcategory) — it must land
         // there, not fall through to the broad Humiliation subcategory

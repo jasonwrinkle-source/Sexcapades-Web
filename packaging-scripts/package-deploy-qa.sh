@@ -9,7 +9,8 @@ set -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TS="${1:-$(TZ=America/Chicago date +%Y-%m-%d_%H%M)}"
-OUTDIR="$DIR"
+OUTDIR="$DIR/deploy-output"
+mkdir -p "$OUTDIR"
 OUTFILE="$OUTDIR/deploy-qa-v4.0-${TS}.tar.gz"
 
 HOSTED_SRC="$DIR/site-tree/public_html/hosted"
@@ -51,7 +52,7 @@ find "$QA_STAGING" -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \)
 # a QA drop gets its own qa-4.0-MMDD-HHMM tag for this package timestamp.
 echo "3b. Stamping QA build ${TS}..."
 QA_STAMP_FILES=()
-for page in app.html app-modular.html; do
+for page in app.html; do
   if [ -f "$QA_STAGING/$page" ]; then
     QA_STAMP_FILES+=("$QA_STAGING/$page")
   fi
@@ -107,7 +108,6 @@ cat << 'EOF' > "$QA_STAGING/index.html"
   <ul>
     <li><a style="color:#58a6ff;" href="test-runner.html">Automated Test Harness (test-runner.html)</a></li>
     <li><a style="color:#58a6ff;" href="app.html#app/map">Interactive Hypermap (app.html)</a></li>
-    <li><a style="color:#58a6ff;" href="app-modular.html#app/map">Modular Hypermap (app-modular.html)</a></li>
   </ul>
 </body>
 </html>
@@ -139,7 +139,7 @@ tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/data/data-bootstrap.j
 # Cache-buster gate: every .js/.css the QA app pages load must carry ?v=$TS.
 # A stale or missing ?v= means a browser can serve old JavaScript under a
 # new build number (the 1738/2047 stale-cache catch).
-for qapage in sexcapades.io/public_html/qa/app.html sexcapades.io/public_html/qa/app-modular.html; do
+for qapage in sexcapades.io/public_html/qa/app.html; do
   QAPAGE_CONTENT=$(tar -xzOf "$OUTFILE" "$qapage" 2>/dev/null || true)
   if [ -z "$QAPAGE_CONTENT" ]; then
     echo "ERROR: $qapage missing or unreadable in package!"
@@ -180,10 +180,10 @@ echo "$QA_MF" | grep -q '"start_url":"/qa/app.html"' || { echo "ERROR: qa/manife
 echo "$QA_MF" | grep -q 'icon-qa-192-badge.png' || { echo "ERROR: qa/manifest.json does not reference the QA 192 badge icon"; exit 1; }
 echo "$QA_MF" | grep -q 'icon-qa-512-badge.png' || { echo "ERROR: qa/manifest.json does not reference the QA 512 badge icon"; exit 1; }
 echo "$QA_MF" | grep -q 'superimposed' && { echo "ERROR: qa/manifest.json still references the superimposed icons"; exit 1; }
-for qaicon in icon-qa-192-superimposed.png icon-qa-192-badge.png icon-qa-512-superimposed.png icon-qa-512-badge.png; do
+for qaicon in icon-qa-192-badge.png icon-qa-512-badge.png; do
   tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/icons/$qaicon" || { echo "ERROR: qa/icons/$qaicon missing from package!"; exit 1; }
 done
-for qapage in sexcapades.io/public_html/qa/app.html sexcapades.io/public_html/qa/app-modular.html; do
+for qapage in sexcapades.io/public_html/qa/app.html; do
   QAPAGE_CONTENT=$(tar -xzOf "$OUTFILE" "$qapage" 2>/dev/null || true)
   echo "$QAPAGE_CONTENT" | grep -q "register('/qa/sw.js')" || { echo "ERROR: $qapage does not register /qa/sw.js"; exit 1; }
   echo "$QAPAGE_CONTENT" | grep -q 'href="/qa/manifest.json"' || { echo "ERROR: $qapage does not link /qa/manifest.json"; exit 1; }
@@ -201,29 +201,29 @@ echo "Size: $SIZE"
 echo "MD5:  $MD5"
 echo "======================================================================"
 
-echo "6. Uploading to temporary cloud storage..."
-UPLOAD_URL=$(curl -s -F "file=@$OUTFILE" https://temp.sh/upload || true)
+echo "6. Uploading to temporary cloud storage (Litterbox 72h)..."
+UPLOAD_URL=$(curl -4 -s -F "reqtype=fileupload" -F "time=72h" -F "fileToUpload=@$OUTFILE" https://litterbox.catbox.moe/resources/internals/api.php || true)
 DEPLOY_CMD=""
 
-if [[ "$UPLOAD_URL" =~ ^https://temp\.sh/ ]]; then
-  echo "Uploaded to temp.sh: $UPLOAD_URL"
-  DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
+if [[ "$UPLOAD_URL" =~ ^https?:// ]]; then
+  echo "Uploaded to Litterbox: $UPLOAD_URL"
+  DEPLOY_CMD="cd ~/domains && curl -L -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
 else
-  echo "Trying Litterbox fallback..."
-  UPLOAD_URL=$(curl -4 -s -F "reqtype=fileupload" -F "time=1h" -F "fileToUpload=@$OUTFILE" https://litterbox.catbox.moe/resources/internals/api.php || true)
-  if [[ "$UPLOAD_URL" =~ ^https?:// ]]; then
-    echo "Uploaded to Litterbox: $UPLOAD_URL"
-    DEPLOY_CMD="cd ~/domains && curl -L -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
+  echo "Trying temp.sh fallback..."
+  UPLOAD_URL=$(curl -s -F "file=@$OUTFILE" https://temp.sh/upload || true)
+  if [[ "$UPLOAD_URL" =~ ^https://temp\.sh/ ]]; then
+    echo "Uploaded to temp.sh: $UPLOAD_URL"
+    DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
   fi
 fi
 
 if [ -n "$DEPLOY_CMD" ]; then
-  echo "$DEPLOY_CMD" > "$DIR/DEPLOY_QA_COMMAND.txt"
+  echo "$DEPLOY_CMD" > "$OUTDIR/DEPLOY_QA_COMMAND.txt"
   echo ""
   echo "=== Hostinger SSH One-Step Deployment Command ==="
   echo "$DEPLOY_CMD"
   echo ""
-  echo "Saved to: DEPLOY_QA_COMMAND.txt"
+  echo "Saved to: deploy-output/DEPLOY_QA_COMMAND.txt"
 fi
 
 echo ""

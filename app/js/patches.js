@@ -778,7 +778,11 @@ __sxInit(function initScribeGeminiBYOK() {
       var myToken = ++narrateGenToken;
       narrateChunksPlayed = 0;
 
-      var audioModel = (document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "") || "gemini-3.8-flash";
+      var rawModelInput = document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "";
+      var audioModel = rawModelInput || "gemini-3.8-flash-tts";
+      if (audioModel.indexOf("-tts") === -1 && audioModel.indexOf("flash") !== -1) {
+        audioModel = audioModel + "-tts";
+      }
       var audioBase = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(audioModel);
       var streamEndpoint = audioBase + ":streamGenerateContent?key=" + encodeURIComponent(apiKey);
       var audioEndpoint = audioBase + ":generateContent?key=" + encodeURIComponent(apiKey);
@@ -850,7 +854,34 @@ __sxInit(function initScribeGeminiBYOK() {
           if (audioErr.name === "AbortError") {
             if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
           } else {
-            console.error("[Scribe Audio Narration Error]", audioErr);
+            console.warn("[Scribe Audio Narration Gemini Failed]", audioErr);
+            // Fall back to browser SpeechSynthesis so speech is never completely blocked
+            if (window.speechSynthesis) {
+              if (narrateStatus) narrateStatus.textContent = "Gemini audio unavailable (" + audioErr.message + "). Falling back to browser voice…";
+              try {
+                window.speechSynthesis.cancel();
+                browserUtterance = new SpeechSynthesisUtterance(text);
+                browserUtterance.rate = 1.0;
+                browserUtterance.pitch = 1.0;
+                browserUtterance.onend = function() {
+                  if (narrateStatus) narrateStatus.textContent = "Finished speaking.";
+                  if (startNarrateBtn) { startNarrateBtn.textContent = "Start Narration"; startNarrateBtn.disabled = false; }
+                  if (pauseNarrateBtn) pauseNarrateBtn.hidden = true;
+                  if (stopNarrateBtn) stopNarrateBtn.hidden = true;
+                };
+                browserUtterance.onerror = function(ev) {
+                  if (narrateStatus) narrateStatus.textContent = "Narration error: " + (ev.error || "playback failed");
+                  if (startNarrateBtn) startNarrateBtn.disabled = false;
+                };
+                window.speechSynthesis.speak(browserUtterance);
+                narratePlaybackMode = "browser";
+                if (startNarrateBtn) { startNarrateBtn.textContent = "Restart Narration"; startNarrateBtn.disabled = false; }
+                if (pauseNarrateBtn) { pauseNarrateBtn.hidden = false; pauseNarrateBtn.textContent = "Pause"; }
+                return;
+              } catch (synthErr) {
+                console.error("[Scribe SpeechSynthesis fallback failed]", synthErr);
+              }
+            }
             if (narrateStatus) narrateStatus.textContent = "Narration error: " + audioErr.message;
           }
           if (startNarrateBtn) startNarrateBtn.disabled = false;
