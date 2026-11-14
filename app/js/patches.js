@@ -310,7 +310,7 @@ __sxInit(function initScribeGeminiBYOK() {
         }
       }, 120000);
 
-      var fullPrompt = prompt + "\n\nWrite the complete, immersive narrative scene now, strictly honoring all character roles, boundaries, and pacing detailed above.";
+      var fullPrompt = prompt + "\n\nWrite the complete, immersive narrative scene now as plain text, strictly honoring all character roles, boundaries, and pacing detailed above. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or PDF/file outputs.";
 
       try {
         var totalText = "";
