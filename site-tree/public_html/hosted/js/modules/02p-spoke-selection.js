@@ -630,7 +630,63 @@
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.pentad) {
+                if ($.hexad) {
+                    // 6-Pole Hexad Widget on Hypermap:
+                    // Regular hexagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 60 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 6 vertices
+                    const P = [];
+                    for (let k = 0; k < 6; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (Math.PI / 3);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference hexagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const hexCols = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${hexCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-hexad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.pentad) {
                     // 5-Pole Pentad Widget on Hypermap:
                     // Regular pentagon / star deformation polygon
                     const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;

@@ -1061,6 +1061,11 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "Somatosensory impact modalities (Sting/Thud/Thermal/Clamp/Deprivation/Overload)",
+                "id": "t0421",
+                "risk": false
+            },
+            {
                 "name": "Sensory deprivation",
                 "id": "t0103",
                 "risk": false
@@ -2844,11 +2849,6 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Monogamy / polyamory / anarchy",
-                "id": "t0410",
-                "risk": false
-            },
-            {
                 "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
                 "id": "t0415",
                 "risk": false
@@ -2856,6 +2856,11 @@ export const TAXONOMY_CATEGORIES = [
             {
                 "name": "Erotic intimacy languages (Words/Touch/Service/Vulnerability/Autonomy)",
                 "id": "t0418",
+                "risk": false
+            },
+            {
+                "name": "Lee's six erotic love styles (Hexagon of Eros)",
+                "id": "t0420",
                 "risk": false
             },
             {
@@ -3260,13 +3265,13 @@ export const TAXONOMY_CATEGORIES = [
                 "receive_label": "be edged (be brought to near-orgasm)"
             },
             {
-                "name": "Edging / ruined / forced",
-                "id": "t0411",
+                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
+                "id": "t0414",
                 "risk": false
             },
             {
-                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
-                "id": "t0414",
+                "name": "Orgasm sensation topography (Clitoral/Pelvic/Cervical/Anal/Somatic/Psychic)",
+                "id": "t0422",
                 "risk": false
             },
             {

@@ -954,6 +954,16 @@
             const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
             const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
+            const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
+            if (hexadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = hexadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "hexad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
             if (pentadHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = pentadHit.dataset.id;

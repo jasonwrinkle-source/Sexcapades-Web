@@ -2903,6 +2903,54 @@
                     labels: [ "Earth (Body & Form)", "Water (Flow & Emotion)", "Fire (Will & Energy)", "Air (Mind & Breath)", "Aether (Spirit & Void)" ]
                 };
             }
+            // 6-Pole Hexad Topics
+            if (e === "t0420" || e === "topic-eros-hexagon" || i === "t0420" || i === "topic-eros-hexagon") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad", // Type II: Multi-Affinity Distribution / Diametric Pairs
+                    keys: [ "eros", "ludus", "storge", "pragma", "mania", "agape" ],
+                    labels: [ "Eros (Passionate)", "Ludus (Playful)", "Storge (Companionate)", "Pragma (Practical)", "Mania (Obsessive)", "Agape (Altruistic)" ]
+                };
+            }
+            if (e === "t0421" || e === "topic-impact-modalities" || i === "t0421" || i === "topic-impact-modalities") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "sting", "thud", "thermal", "clamp", "deprivation", "overload" ],
+                    labels: [ "Sting (Cutaneous)", "Thud (Deep Muscle)", "Thermal (Temperature)", "Clamp (Ischemic)", "Deprivation (Starve)", "Overload (Saturation)" ]
+                };
+            }
+            if (e === "t0422" || e === "topic-orgasm-topography" || i === "t0422" || i === "topic-orgasm-topography") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "clitoral", "pelvic", "cervical", "anal", "somatic", "psychic" ],
+                    labels: [ "External Cutaneous", "Internal Pelvic (G/P)", "Cervical / Trance", "Anal / Sphincter Wave", "Whole-Body Somatic", "Psychic / Tantric" ]
+                };
+            }
+            // Poliscapades 6-Pole Placeholders
+            if (e === "topic-political-matrix-hexad" || e === "topic-hexagonal-matrix" || i === "topic-political-matrix-hexad" || i === "topic-hexagonal-matrix") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "capitalism", "socialism", "technocracy", "communitarian", "authoritarian", "libertarian" ],
+                    labels: [ "Free-Market Capitalism", "Democratic Socialism", "Technocratic Meritocracy", "Communitarian Localism", "Authoritarian Order", "Libertarian Voluntaryism" ]
+                };
+            }
+            // Forescapades 6-Pole Placeholders
+            if (e === "topic-six-yogas" || i === "topic-six-yogas") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "bhakti", "jnana", "karma", "raja", "kundalini", "tantra" ],
+                    labels: [ "Bhakti (Devotion)", "Jnana (Self-Inquiry)", "Karma (Sacred Action)", "Raja (Meditation)", "Kundalini (Prana)", "Tantra (Matter Integration)" ]
+                };
+            }
             // The topic's own give/receive labels win. A parent id in the
             // single-slider set must not collapse Edge Play (or any other
             // give/receive topic) to one "everything" slider.

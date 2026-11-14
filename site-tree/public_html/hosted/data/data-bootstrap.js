@@ -1364,6 +1364,11 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
+                "name": "Somatosensory impact modalities (Sting/Thud/Thermal/Clamp/Deprivation/Overload)",
+                "id": "t0421",
+                "risk": false
+            },
+            {
                 "name": "Sensory deprivation",
                 "id": "t0103",
                 "risk": false
@@ -3147,11 +3152,6 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Monogamy / polyamory / anarchy",
-                "id": "t0410",
-                "risk": false
-            },
-            {
                 "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
                 "id": "t0415",
                 "risk": false
@@ -3159,6 +3159,11 @@ const TAXONOMY_CATEGORIES = [
             {
                 "name": "Erotic intimacy languages (Words/Touch/Service/Vulnerability/Autonomy)",
                 "id": "t0418",
+                "risk": false
+            },
+            {
+                "name": "Lee's six erotic love styles (Hexagon of Eros)",
+                "id": "t0420",
                 "risk": false
             },
             {
@@ -3563,13 +3568,13 @@ const TAXONOMY_CATEGORIES = [
                 "receive_label": "be edged (be brought to near-orgasm)"
             },
             {
-                "name": "Edging / ruined / forced",
-                "id": "t0411",
+                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
+                "id": "t0414",
                 "risk": false
             },
             {
-                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
-                "id": "t0414",
+                "name": "Orgasm sensation topography (Clitoral/Pelvic/Cervical/Anal/Somatic/Psychic)",
+                "id": "t0422",
                 "risk": false
             },
             {
@@ -6406,7 +6411,63 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.pentad) {
+                if ($.hexad) {
+                    // 6-Pole Hexad Widget on Hypermap:
+                    // Regular hexagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 60 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 6 vertices
+                    const P = [];
+                    for (let k = 0; k < 6; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (Math.PI / 3);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference hexagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const hexCols = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${hexCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-hexad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.pentad) {
                     // 5-Pole Pentad Widget on Hypermap:
                     // Regular pentagon / star deformation polygon
                     const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
@@ -12142,6 +12203,54 @@ const TAXONOMY_CATEGORIES = [
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "earth", "water", "fire", "air", "aether" ],
                     labels: [ "Earth (Body & Form)", "Water (Flow & Emotion)", "Fire (Will & Energy)", "Air (Mind & Breath)", "Aether (Spirit & Void)" ]
+                };
+            }
+            // 6-Pole Hexad Topics
+            if (e === "t0420" || e === "topic-eros-hexagon" || i === "t0420" || i === "topic-eros-hexagon") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad", // Type II: Multi-Affinity Distribution / Diametric Pairs
+                    keys: [ "eros", "ludus", "storge", "pragma", "mania", "agape" ],
+                    labels: [ "Eros (Passionate)", "Ludus (Playful)", "Storge (Companionate)", "Pragma (Practical)", "Mania (Obsessive)", "Agape (Altruistic)" ]
+                };
+            }
+            if (e === "t0421" || e === "topic-impact-modalities" || i === "t0421" || i === "topic-impact-modalities") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "sting", "thud", "thermal", "clamp", "deprivation", "overload" ],
+                    labels: [ "Sting (Cutaneous)", "Thud (Deep Muscle)", "Thermal (Temperature)", "Clamp (Ischemic)", "Deprivation (Starve)", "Overload (Saturation)" ]
+                };
+            }
+            if (e === "t0422" || e === "topic-orgasm-topography" || i === "t0422" || i === "topic-orgasm-topography") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "clitoral", "pelvic", "cervical", "anal", "somatic", "psychic" ],
+                    labels: [ "External Cutaneous", "Internal Pelvic (G/P)", "Cervical / Trance", "Anal / Sphincter Wave", "Whole-Body Somatic", "Psychic / Tantric" ]
+                };
+            }
+            // Poliscapades 6-Pole Placeholders
+            if (e === "topic-political-matrix-hexad" || e === "topic-hexagonal-matrix" || i === "topic-political-matrix-hexad" || i === "topic-hexagonal-matrix") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "capitalism", "socialism", "technocracy", "communitarian", "authoritarian", "libertarian" ],
+                    labels: [ "Free-Market Capitalism", "Democratic Socialism", "Technocratic Meritocracy", "Communitarian Localism", "Authoritarian Order", "Libertarian Voluntaryism" ]
+                };
+            }
+            // Forescapades 6-Pole Placeholders
+            if (e === "topic-six-yogas" || i === "topic-six-yogas") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    archetype: "hexad",
+                    keys: [ "bhakti", "jnana", "karma", "raja", "kundalini", "tantra" ],
+                    labels: [ "Bhakti (Devotion)", "Jnana (Self-Inquiry)", "Karma (Sacred Action)", "Raja (Meditation)", "Kundalini (Prana)", "Tantra (Matter Integration)" ]
                 };
             }
             // The topic's own give/receive labels win. A parent id in the
@@ -19722,7 +19831,63 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.pentad) {
+                if ($.hexad) {
+                    // 6-Pole Hexad Widget on Hypermap:
+                    // Regular hexagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 60 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 6 vertices
+                    const P = [];
+                    for (let k = 0; k < 6; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (Math.PI / 3);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference hexagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const hexCols = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${hexCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-hexad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.pentad) {
                     // 5-Pole Pentad Widget on Hypermap:
                     // Regular pentagon / star deformation polygon
                     const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
@@ -27343,6 +27508,464 @@ const TAXONOMY_CATEGORIES = [
             }
         }
 
+        let sxHexadState = {
+            topicId: null,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
+            activeVertex: null,
+            isDragging: !1
+        };
+
+        const SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
+
+        function sxGetHexadVertices(width, height) {
+            const cx = width / 2, cy = height / 2;
+            const r = Math.min(width, height) / 2 - 24;
+            const vertices = [];
+            for (let k = 0; k < 6; k++) {
+                const angle = -Math.PI / 2 + k * (Math.PI / 3);
+                vertices.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle });
+            }
+            return { cx, cy, r, vertices };
+        }
+
+        function sxDrawHexadWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { cx, cy, r, vertices } = sxGetHexadVertices(width, height);
+
+            // 1. Concentric reference hexagon rings (25%, 50%, 75%, 100%)
+            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+                ctx.beginPath();
+                for (let k = 0; k < 6; k++) {
+                    const angle = vertices[k].angle;
+                    const x = cx + r * frac * Math.cos(angle);
+                    const y = cy + r * frac * Math.sin(angle);
+                    if (k === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
+                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+
+            // 2. Radial spoke axes from center to each vertex
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            for (let k = 0; k < 6; k++) {
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(vertices[k].x, vertices[k].y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Deformed Polygon from active ratings
+            const s = [
+                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p5))) / 100
+            ];
+
+            const polyPts = vertices.map((v, k) => ({
+                x: cx + (v.x - cx) * s[k],
+                y: cy + (v.y - cy) * s[k]
+            }));
+
+            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4, state.p5);
+            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+
+            // Filled shape
+            ctx.beginPath();
+            polyPts.forEach((pt, k) => {
+                if (k === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            });
+            ctx.closePath();
+            ctx.fillStyle = polyCol;
+            ctx.globalAlpha = 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole vertex handles
+            polyPts.forEach((pt, idx) => {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                ctx.fillStyle = SX_HEXAD_COLORS[idx];
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            });
+
+            // 5. Pole Labels
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5", "Pole 6"];
+            ctx.font = "bold 9px system-ui, sans-serif";
+
+            const alignments = [
+                { align: "center", baseline: "bottom", dx: 0, dy: -4 },
+                { align: "left", baseline: "middle", dx: 6, dy: -2 },
+                { align: "left", baseline: "middle", dx: 6, dy: 2 },
+                { align: "center", baseline: "top", dx: 0, dy: 4 },
+                { align: "right", baseline: "middle", dx: -6, dy: 2 },
+                { align: "right", baseline: "middle", dx: -6, dy: -2 }
+            ];
+
+            vertices.forEach((v, idx) => {
+                const a = alignments[idx];
+                ctx.textAlign = a.align;
+                ctx.textBaseline = a.baseline;
+                ctx.fillStyle = SX_HEXAD_COLORS[idx];
+                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + a.dx, v.y + a.dy);
+            });
+        }
+
+        function sxApplyHexadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 6) return;
+            To(topicId, shape.keys[0], Math.round(sxHexadState.p0), !1);
+            To(topicId, shape.keys[1], Math.round(sxHexadState.p1), !1);
+            To(topicId, shape.keys[2], Math.round(sxHexadState.p2), !1);
+            To(topicId, shape.keys[3], Math.round(sxHexadState.p3), !1);
+            To(topicId, shape.keys[4], Math.round(sxHexadState.p4), !1);
+            To(topicId, shape.keys[5], Math.round(sxHexadState.p5), !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearHexadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 6) return;
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !1);
+            Fo(topicId, shape.keys[3], !1);
+            Fo(topicId, shape.keys[4], !1);
+            Fo(topicId, shape.keys[5], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindHexadWidget() {
+            const canvas = e.byId("markHexadCanvas");
+            const slider = e.byId("markHexadIntensity");
+            const clearBtn = e.byId("markHexadClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                const { cx, cy, r, vertices } = sxGetHexadVertices(canvas.width, canvas.height);
+
+                if (sxHexadState.activeVertex === null) {
+                    let bestIdx = null, bestDist = 22;
+                    vertices.forEach((v, idx) => {
+                        const s = (sxHexadState[`p${idx}`] || 0) / 100;
+                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
+                        const d = Math.hypot(px - vx, py - vy);
+                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
+                    });
+                    sxHexadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                }
+
+                const v = sxHexadState.activeVertex;
+                const angle = vertices[v].angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const dot = (px - cx) * cosA + (py - cy) * sinA;
+                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+
+                sxHexadState[`p${v}`] = val;
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawHexadWidget(canvas, shape, sxHexadState);
+                    sxApplyHexadRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxHexadState.isDragging = !0;
+                sxHexadState.activeVertex = null;
+                canvas.setPointerCapture(evt.pointerId);
+                updateFromPointer(evt);
+            });
+
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxHexadState.isDragging) return;
+                updateFromPointer(evt);
+            });
+
+            const stopDrag = (evt) => {
+                if (sxHexadState.isDragging) {
+                    sxHexadState.isDragging = !1;
+                    sxHexadState.activeVertex = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const scale = (100 + step) / 100;
+                for (let k = 0; k < 6; k++) {
+                    sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState[`p${k}`] * scale)));
+                }
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawHexadWidget(canvas, shape, sxHexadState);
+                    sxApplyHexadRatings(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    const val = Number(slider.value);
+                    const out = e.byId("markHexadIntensityOut");
+                    out && (out.textContent = String(Math.round(val)));
+                    const maxCur = Math.max(sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5);
+                    if (maxCur > 0) {
+                        const ratio = val / maxCur;
+                        for (let k = 0; k < 6; k++) {
+                            sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState[`p${k}`] * ratio)));
+                        }
+                    } else {
+                        for (let k = 0; k < 6; k++) {
+                            sxHexadState[`p${k}`] = val;
+                        }
+                    }
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawHexadWidget(canvas, shape, sxHexadState);
+                        sxApplyHexadRatings(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearHexadRatings(Qr);
+                    }
+                });
+            }
+        }
+
+        window.sxOpenHotListWidgetPopup = function(topicId, profileId) {
+            const dlg = e.byId("hotListWidgetDialog");
+            if (!dlg || !topicId) return;
+            const pId = profileId || Vi();
+            const shape = Ge(topicId, pId);
+            const item = qn[topicId] || Xn(topicId) || (at[pId] || {})[topicId] || {};
+            const titleEl = e.byId("hotListWidgetTitle");
+            const badgeEl = e.byId("hotListWidgetBadge");
+            const descEl = e.byId("hotListWidgetDesc");
+            const canvas = e.byId("hotListWidgetCanvas");
+            const slider = e.byId("hotListWidgetIntensity");
+            const sliderOut = e.byId("hotListWidgetIntensityOut");
+            const readoutEl = e.byId("hotListWidgetReadout");
+            const clearBtn = e.byId("hotListWidgetClear");
+            const closeBtn = e.byId("closeHotListWidgetBtn");
+            const doneBtn = e.byId("doneHotListWidgetBtn");
+
+            const label = item.label || item.name || topicId;
+            titleEl && (titleEl.textContent = label);
+            descEl && (descEl.textContent = lo(item));
+
+            const isHexad = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
+            const isPentad = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
+            const isTetrad = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
+            const isTriad = Boolean(shape.triangle || shape.triple || (shape.keys && shape.keys.length === 3));
+
+            badgeEl && (badgeEl.textContent = isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : "3-Pole Triad");
+
+            const keys = shape.keys || [];
+            readoutEl && (readoutEl.innerHTML = "");
+            const valSpans = [];
+            keys.forEach((k, idx) => {
+                const statBox = document.createElement("div");
+                statBox.className = "mark-tri-stat";
+                const pName = shape.labels[idx] || k;
+                const pCol = isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : ["#ef4444", "#22c55e", "#3b82f6"][idx];
+                statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
+                readoutEl && readoutEl.append(statBox);
+                valSpans.push(statBox.querySelector("b"));
+            });
+
+            const syncReadouts = () => {
+                const curRec = ca(topicId, pId);
+                keys.forEach((k, idx) => {
+                    const isK = curRec[k + "Known"];
+                    const v = isK ? Math.round(curRec[k]) : "—";
+                    if (valSpans[idx]) valSpans[idx].textContent = String(v);
+                });
+            };
+
+            const redraw = () => {
+                const curRec = ca(topicId, pId);
+                const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                const maxVal = Math.max(...vals, 0);
+                slider && (slider.value = String(Math.round(maxVal)));
+                sliderOut && (sliderOut.textContent = String(Math.round(maxVal)));
+                syncReadouts();
+
+                if (isHexad) {
+                    sxDrawHexadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5]
+                    });
+                } else if (isPentad) {
+                    sxDrawPentadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4]
+                    });
+                } else if (isTetrad) {
+                    sxDrawTetradWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3]
+                    });
+                } else {
+                    sxDrawTriangleWidget(canvas, shape, {
+                        x: 0, y: 0, w0: vals[0]/100, w1: vals[1]/100, w2: vals[2]/100, intensity: maxVal
+                    });
+                }
+            };
+
+            redraw();
+
+            let activeIdx = null, isDragging = false;
+            const onPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                if (isHexad || isPentad || isTetrad) {
+                    const getVerts = isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : (w, h) => {
+                        const cx = w / 2, cy = h / 2, r = Math.min(w, h) / 2 - 24;
+                        return { cx, cy, r, vertices: [
+                            { x: cx, y: cy - r, angle: -Math.PI / 2 },
+                            { x: cx + r, y: cy, angle: 0 },
+                            { x: cx, y: cy + r, angle: Math.PI / 2 },
+                            { x: cx - r, y: cy, angle: Math.PI }
+                        ]};
+                    };
+                    const { cx, cy, r, vertices } = getVerts(canvas.width, canvas.height);
+                    if (activeIdx === null) {
+                        let bestDist = 30, best = 0;
+                        vertices.forEach((v, idx) => {
+                            const d = Math.hypot(px - v.x, py - v.y);
+                            if (d < bestDist) { bestDist = d; best = idx; }
+                        });
+                        activeIdx = best;
+                    }
+                    const v = vertices[activeIdx];
+                    const angle = v.angle;
+                    const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
+                    const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+                    To(topicId, keys[activeIdx], val, !0, pId);
+                    redraw();
+                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                    row && Ss(row);
+                }
+            };
+
+            const onDown = (evt) => {
+                isDragging = true;
+                activeIdx = null;
+                try { canvas.setPointerCapture(evt.pointerId); } catch(e) {}
+                onPointer(evt);
+            };
+            const onMove = (evt) => { if (isDragging) onPointer(evt); };
+            const onUp = (evt) => {
+                if (isDragging) {
+                    isDragging = false;
+                    activeIdx = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch(e) {}
+                }
+            };
+
+            canvas.onpointerdown = onDown;
+            canvas.onpointermove = onMove;
+            canvas.onpointerup = onUp;
+            canvas.onpointercancel = onUp;
+
+            canvas.onwheel = (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const scale = (100 + step) / 100;
+                const curRec = ca(topicId, pId);
+                keys.forEach(k => {
+                    const oldV = curRec[k + "Known"] ? curRec[k] : 0;
+                    To(topicId, k, Math.max(0, Math.min(100, Math.round(oldV * scale))), !0, pId);
+                });
+                redraw();
+                const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                row && Ss(row);
+            };
+
+            if (slider) {
+                slider.oninput = () => {
+                    const targetVal = Number(slider.value);
+                    const curRec = ca(topicId, pId);
+                    const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                    const maxCur = Math.max(...vals, 0);
+                    if (maxCur > 0) {
+                        const ratio = targetVal / maxCur;
+                        keys.forEach((k, idx) => {
+                            To(topicId, k, Math.max(0, Math.min(100, Math.round(vals[idx] * ratio))), !0, pId);
+                        });
+                    } else {
+                        keys.forEach(k => {
+                            To(topicId, k, targetVal, !0, pId);
+                        });
+                    }
+                    redraw();
+                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                    row && Ss(row);
+                };
+            }
+
+            if (clearBtn) {
+                clearBtn.onclick = () => {
+                    keys.forEach(k => Fo(topicId, k, !0, pId));
+                    redraw();
+                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                    row && Ss(row);
+                };
+            }
+
+            const closeDialog = () => {
+                try { dlg.close(); } catch (e) { dlg.hidden = true; }
+            };
+            closeBtn && (closeBtn.onclick = closeDialog);
+            doneBtn && (doneBtn.onclick = closeDialog);
+
+            try {
+                if (typeof dlg.showModal === "function") dlg.showModal();
+                else dlg.hidden = false;
+            } catch (err) {
+                dlg.hidden = false;
+            }
+        };
+
         function sxBindTriangleWidget() {
             const canvas = e.byId("markTriangleCanvas");
             const slider = e.byId("markTriangleIntensity");
@@ -27452,19 +28075,61 @@ const TAXONOMY_CATEGORIES = [
             const pentadVal0 = e.byId("markPentadVal0"), pentadVal1 = e.byId("markPentadVal1"), pentadVal2 = e.byId("markPentadVal2"), pentadVal3 = e.byId("markPentadVal3"), pentadVal4 = e.byId("markPentadVal4");
             const pentadPole0 = e.byId("markPentadPole0"), pentadPole1 = e.byId("markPentadPole1"), pentadPole2 = e.byId("markPentadPole2"), pentadPole3 = e.byId("markPentadPole3"), pentadPole4 = e.byId("markPentadPole4");
 
+            const hexadWrap = e.byId("markHexadWrap");
+            const hexadCanvas = e.byId("markHexadCanvas");
+            const hexadIntensity = e.byId("markHexadIntensity");
+            const hexadIntensityOut = e.byId("markHexadIntensityOut");
+            const hexadVal0 = e.byId("markHexadVal0"), hexadVal1 = e.byId("markHexadVal1"), hexadVal2 = e.byId("markHexadVal2"), hexadVal3 = e.byId("markHexadVal3"), hexadVal4 = e.byId("markHexadVal4"), hexadVal5 = e.byId("markHexadVal5");
+            const hexadPole0 = e.byId("markHexadPole0"), hexadPole1 = e.byId("markHexadPole1"), hexadPole2 = e.byId("markHexadPole2"), hexadPole3 = e.byId("markHexadPole3"), hexadPole4 = e.byId("markHexadPole4"), hexadPole5 = e.byId("markHexadPole5");
+            const role6Row = e.byId("markRole6Row"), role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out"), role6Label = e.byId("markRole6Label");
+
             const linearRatings = e.byId("markRatings");
 
             if (!give || !id) return;
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
             const isTriangleTopic = Boolean(shape.triangle);
+            const isHexadTopic = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
             const isPentadTopic = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
             const isTetradTopic = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTripleTopic = Boolean(shape.triple || (shape.keys && shape.keys.length === 3));
 
-            if (isPentadTopic) {
+            if (isHexadTopic) {
+                // 6-Pole Hexad Radar / Hexagon Deformation Polygon Widget
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !1);
+                linearRatings && (linearRatings.hidden = !0);
+
+                const keys = shape.keys;
+                const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
+                sxHexadState.topicId = id;
+                sxHexadState.p0 = ratings[0];
+                sxHexadState.p1 = ratings[1];
+                sxHexadState.p2 = ratings[2];
+                sxHexadState.p3 = ratings[3];
+                sxHexadState.p4 = ratings[4];
+                sxHexadState.p5 = ratings[5];
+
+                const maxR = Math.max(...ratings);
+                if (hexadIntensity) hexadIntensity.value = String(Math.round(maxR));
+                if (hexadIntensityOut) hexadIntensityOut.textContent = String(Math.round(maxR));
+
+                const poleEls = [hexadPole0, hexadPole1, hexadPole2, hexadPole3, hexadPole4, hexadPole5];
+                const valEls = [hexadVal0, hexadVal1, hexadVal2, hexadVal3, hexadVal4, hexadVal5];
+
+                for (let k = 0; k < 6; k++) {
+                    const col = SX_HEXAD_COLORS[k];
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                }
+
+                sxDrawHexadWidget(hexadCanvas, shape, sxHexadState);
+            } else if (isPentadTopic) {
                 // 5-Pole Pentad Radar / Star Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
 
@@ -27594,10 +28259,12 @@ const TAXONOMY_CATEGORIES = [
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !1);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
+                role6Row && (role6Row.hidden = !0);
                 recvRow && (recvRow.hidden = single);
                 giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
                 recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
@@ -27611,10 +28278,12 @@ const TAXONOMY_CATEGORIES = [
             sxBindTriangleWidget();
             sxBindTetradWidget();
             sxBindPentadWidget();
+            sxBindHexadWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
             const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out");
+            const role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out");
             if (!give || give.dataset.bound) return;
             give.dataset.bound = "1";
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
@@ -27701,6 +28370,23 @@ const TAXONOMY_CATEGORIES = [
                 e.byId("markRole5Clear") && e.byId("markRole5Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(4, "role5");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+            if (role6) {
+                role6.addEventListener("input", () => show(role6, role6Out, !0));
+                role6.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(5, "role6");
+                        To(Qr, k, Number(role6.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markRole6Clear") && e.byId("markRole6Clear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(5, "role6");
                         Fo(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
@@ -28340,7 +29026,19 @@ const TAXONOMY_CATEGORIES = [
             p.textContent = "📝", p.title = "Add or edit note", p.setAttribute("aria-label", `Add or edit note: ${e.label}`), 
             p.setAttribute("aria-expanded", "false"), u.append(p), r.append(u), n.append(r);
             const h = document.createElement("div");
-            h.className = "outline-rating-group", (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
+            h.className = "outline-rating-group";
+            if (i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
+                const wBtn = document.createElement("button");
+                wBtn.type = "button";
+                wBtn.className = "outline-widget-btn";
+                wBtn.dataset.outlineWidgetLaunch = e.id;
+                const sym = i.hexad ? "⬡ 6-Pole Hexad" : i.pentad ? "★ 5-Pole Pentad" : i.tetrad ? "◆ 4-Pole Tetrad" : "▲ 3-Pole Triad";
+                wBtn.innerHTML = `<span class="outline-widget-glyph">${sym}</span>`;
+                wBtn.title = `Open interactive ${sym} widget pop-up for ${e.label}`;
+                wBtn.setAttribute("aria-label", `Open interactive ${sym} widget pop-up for ${e.label}`);
+                h.append(wBtn);
+            }
+            (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
                 const r = document.createElement("label"), o = !i.single && "give" === i.labels[0] && "receive" === i.labels[1];
                 r.className = "outline-rating";
                 const s = document.createElement("span");
@@ -29281,6 +29979,16 @@ const TAXONOMY_CATEGORIES = [
             const n = Number(t.dataset.milestoneStartRated);
             delete t.dataset.milestoneStartRated, os.add(getOutlineRow(t).dataset.outlineId), checkMilestoneTransition(Go, n);
         }), Ro.addEventListener("click", e => {
+            const wBtn = e.target.closest && e.target.closest(".outline-widget-btn");
+            if (wBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const topicId = wBtn.dataset.outlineWidgetLaunch;
+                if (topicId && typeof window.sxOpenHotListWidgetPopup === "function") {
+                    window.sxOpenHotListWidgetPopup(topicId, Go);
+                }
+                return;
+            }
             const t = __sxClosestAction(e.target, "outlineNote");
             if (t && Go) {
                 const e = getOutlineRow(t), n = e.querySelector(".outline-note-editor"), i = n.hidden;
@@ -38669,6 +39377,16 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const triHit = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck"));
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
             const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
+            const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
+            if (hexadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = hexadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "hexad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
             if (pentadHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = pentadHit.dataset.id;
@@ -42313,7 +43031,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const item = qn[id] || Xn(id) || (at[c] || {})[id];
                 return (item && (item.label || item.name)) || id;
             };
-            Object.entries(ratings).forEach(([id, rating]) => {
+            Object.entries(ratings).forEach(([origId, rating]) => {
+                let id = origId;
+                if (id === "t0410" || id === "topic-monogamy-poly-anarchy") {
+                    id = "t0415"; // Remap obsolete triad to 4-pole intimacy geometry
+                } else if (id === "t0411" || id === "topic-edging-ruined-forced") {
+                    id = "t0414"; // Remap obsolete triad to 4-pole orgasm dynamic
+                }
                 if (!Ke.has(id) && !isSubId(id)) return;
                 const topicName = getTopicName(id);
                 if (Ge(id, c).single) {
@@ -42385,6 +43109,26 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                                 for (let k = 0; k < 5; k++) incoming[flanks[k]] = gVal;
                             } else if (rVal !== null) {
                                 for (let k = 0; k < 5; k++) incoming[flanks[k]] = rVal;
+                            }
+                        } else if (flanks.length === 6) {
+                            // Orthogonal projection to 6-pole hexad:
+                            // Poles 0, 1: Active / Give / Initiator
+                            // Pole 2: Middle / Shared
+                            // Poles 3, 4: Receptive / Receive / Introverted
+                            // Pole 5: Synthesis / Relational
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null && rVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = gVal;
+                                incoming[flanks[2]] = Math.round((2 * gVal + rVal) / 3);
+                                incoming[flanks[3]] = rVal;
+                                incoming[flanks[4]] = rVal;
+                                incoming[flanks[5]] = Math.round((gVal + 2 * rVal) / 3);
+                            } else if (gVal !== null) {
+                                for (let k = 0; k < 6; k++) incoming[flanks[k]] = gVal;
+                            } else if (rVal !== null) {
+                                for (let k = 0; k < 6; k++) incoming[flanks[k]] = rVal;
                             }
                         }
                     }

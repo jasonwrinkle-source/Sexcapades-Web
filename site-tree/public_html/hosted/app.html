@@ -322,20 +322,28 @@ if ('serviceWorker' in navigator) {
 </script>
 <link href="css/app.css?v=2026-11-14_1408" rel="stylesheet"/>
 <style>
-.mark-triangle-wrap, .mark-tetrad-wrap, .mark-pentad-wrap{margin:10px 0 6px 0;padding:10px 12px;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.3);border-radius:8px;display:flex;flex-direction:column;gap:8px;}
+.mark-triangle-wrap, .mark-tetrad-wrap, .mark-pentad-wrap, .mark-hexad-wrap{margin:10px 0 6px 0;padding:10px 12px;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.3);border-radius:8px;display:flex;flex-direction:column;gap:8px;}
 .mark-triangle-header{display:flex;justify-content:space-between;align-items:center;}
 .mark-triangle-title{font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:#94a3b8;font-weight:600;}
 .mark-tri-clear-btn{background:transparent;border:1px solid #475569;color:#94a3b8;font-size:10px;padding:2px 8px;border-radius:4px;cursor:pointer;}
 .mark-tri-clear-btn:hover{border-color:#ef4444;color:#ef4444;}
 .mark-triangle-stage{display:flex;align-items:center;justify-content:space-around;gap:12px;}
 .mark-triangle-canvas-box{position:relative;display:flex;align-items:center;justify-content:center;}
-.mark-triangle-canvas, .mark-tetrad-canvas, .mark-pentad-canvas{touch-action:none;cursor:crosshair;background:radial-gradient(circle at center,rgba(30,41,59,0.6) 0%,rgba(15,23,42,0.9) 100%);border-radius:6px;box-shadow:inset 0 0 12px rgba(0,0,0,0.5);}
+.mark-triangle-canvas, .mark-tetrad-canvas, .mark-pentad-canvas, .mark-hexad-canvas{touch-action:none;cursor:crosshair;background:radial-gradient(circle at center,rgba(30,41,59,0.6) 0%,rgba(15,23,42,0.9) 100%);border-radius:6px;box-shadow:inset 0 0 12px rgba(0,0,0,0.5);}
 .mark-triangle-slider-box{display:flex;flex-direction:column;align-items:center;gap:4px;}
 .mark-tri-slider-label{font-size:9px;text-transform:uppercase;color:#64748b;font-weight:600;}
 .mark-tri-intensity{writing-mode:vertical-lr;direction:rtl;width:16px;height:120px;cursor:pointer;accent-color:#38bdf8;}
 .mark-tri-intensity-out{font-size:11px;font-weight:700;color:#38bdf8;}
 .mark-triangle-readout{display:flex;justify-content:space-around;background:rgba(0,0,0,0.3);padding:4px 6px;border-radius:4px;font-size:11px;color:#cbd5e1;flex-wrap:wrap;gap:4px;}
 .mark-tri-stat b{color:#38bdf8;}
+.outline-widget-btn{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;margin:2px 0;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.4);border-radius:4px;color:#38bdf8;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s ease;}
+.outline-widget-btn:hover{background:rgba(56,189,248,0.25);border-color:#38bdf8;color:#fff;box-shadow:0 0 8px rgba(56,189,248,0.3);}
+.outline-widget-glyph{font-size:12px;}
+#hotListWidgetDialog{width:min(440px,calc(100vw - 24px));max-width:460px;background:#0f172a;color:#f8fafc;border:1px solid rgba(56,189,248,0.4);border-radius:12px;box-shadow:0 16px 40px rgba(0,0,0,0.85), 0 0 24px rgba(56,189,248,0.25);padding:16px;z-index:99999;}
+#hotListWidgetDialog::backdrop{background:rgba(0,0,0,0.75);backdrop-filter:blur(3px);}
+.hot-list-widget-stage{display:flex;flex-direction:column;align-items:center;gap:12px;margin:12px 0;}
+.hot-list-widget-desc{font-size:12px;color:#94a3b8;line-height:1.4;margin:4px 0 8px 0;}
+.hot-list-widget-footer{display:flex;justify-content:flex-end;margin-top:12px;}
 </style>
 </head>
 <body>
@@ -2777,12 +2785,37 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-tri-stat"><span id="markPentadPole4">Pole 5</span>: <b id="markPentadVal4">0</b></div>
 </div>
 </div>
+<div class="mark-hexad-wrap" hidden="" id="markHexadWrap">
+<div class="mark-triangle-header">
+<span class="mark-triangle-title" id="markHexadTitle">6-Pole dynamic &amp; intensity</span>
+<button class="mark-tri-clear-btn" id="markHexadClear" type="button">Clear</button>
+</div>
+<div class="mark-triangle-stage">
+<div class="mark-triangle-canvas-box">
+<canvas class="mark-hexad-canvas" height="190" id="markHexadCanvas" width="200"></canvas>
+</div>
+<div class="mark-triangle-slider-box">
+<span class="mark-tri-slider-label">Intensity</span>
+<input aria-label="Hexad intensity" class="mark-tri-intensity" id="markHexadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markHexadIntensityOut">0</output>
+</div>
+</div>
+<div class="mark-triangle-readout" id="markHexadReadout">
+<div class="mark-tri-stat"><span id="markHexadPole0">Pole 1</span>: <b id="markHexadVal0">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole1">Pole 2</span>: <b id="markHexadVal1">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole2">Pole 3</span>: <b id="markHexadVal2">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole3">Pole 4</span>: <b id="markHexadVal3">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole4">Pole 5</span>: <b id="markHexadVal4">0</b></div>
+<div class="mark-tri-stat"><span id="markHexadPole5">Pole 6</span>: <b id="markHexadVal5">0</b></div>
+</div>
+</div>
 <div class="mark-ratings" id="markRatings">
 <label class="mark-rating"><span id="markGiveLabel">Give</span><input id="markGive" max="100" min="-100" step="1" type="range" value="0" aria-label="Give rating"/><output id="markGiveOut">Unrated</output><button id="markGiveClear" type="button">Clear</button></label>
 <label class="mark-rating" id="markReceiveRow"><span id="markReceiveLabel">Receive</span><input id="markReceive" max="100" min="-100" step="1" type="range" value="0" aria-label="Receive rating"/><output id="markReceiveOut">Unrated</output><button id="markReceiveClear" type="button">Clear</button></label>
 <label class="mark-rating" hidden="" id="markRole3Row"><span id="markRole3Label">Role 3</span><input id="markRole3" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 3 rating"/><output id="markRole3Out">Unrated</output><button id="markRole3Clear" type="button">Clear</button></label>
 <label class="mark-rating" hidden="" id="markRole4Row"><span id="markRole4Label">Role 4</span><input id="markRole4" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 4 rating"/><output id="markRole4Out">Unrated</output><button id="markRole4Clear" type="button">Clear</button></label>
 <label class="mark-rating" hidden="" id="markRole5Row"><span id="markRole5Label">Role 5</span><input id="markRole5" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 5 rating"/><output id="markRole5Out">Unrated</output><button id="markRole5Clear" type="button">Clear</button></label>
+<label class="mark-rating" hidden="" id="markRole6Row"><span id="markRole6Label">Role 6</span><input id="markRole6" max="100" min="-100" step="1" type="range" value="0" aria-label="Role 6 rating"/><output id="markRole6Out">Unrated</output><button id="markRole6Clear" type="button">Clear</button></label>
 </div>
 <label class="mark-note-field"><span>Your note</span><textarea id="markNoteInput" maxlength="800" placeholder="Add a note for this topic…"></textarea></label>
 </div>
@@ -3149,6 +3182,29 @@ window.__sxProgressWidget=function(refs){
     console.error("[Sexcapades] Failed to initialize Firebase AI:", err);
   }
 </script>
+<dialog aria-label="Interactive Topic Rating Widget" class="hot-list-widget-dialog" id="hotListWidgetDialog">
+<div class="sx-titlebar">
+<div class="sx-titlebar-title"><span id="hotListWidgetTitle">Interactive Topic Widget</span> <small class="sx-badge" id="hotListWidgetBadge"></small></div>
+<button aria-label="Close widget" class="close-btn action-btn" id="closeHotListWidgetBtn" type="button">×</button>
+</div>
+<div class="hot-list-widget-body">
+<p class="hot-list-widget-desc" id="hotListWidgetDesc"></p>
+<div class="hot-list-widget-stage" id="hotListWidgetStage">
+<!-- Dynamic interactive widget will be rendered here -->
+<canvas height="240" id="hotListWidgetCanvas" width="240"></canvas>
+<div class="mark-triangle-slider-box" style="margin-top:8px;">
+<span class="mark-tri-slider-label">Intensity</span>
+<input aria-label="Widget intensity" class="mark-tri-intensity" id="hotListWidgetIntensity" max="100" min="-100" step="1" style="width:160px;height:24px;writing-mode:horizontal-tb;" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="hotListWidgetIntensityOut">0</output>
+</div>
+<div class="mark-triangle-readout" id="hotListWidgetReadout" style="width:100%;margin-top:8px;"></div>
+</div>
+</div>
+<div class="hot-list-widget-footer">
+<button class="mark-tri-clear-btn" id="hotListWidgetClear" style="margin-right:auto;" type="button">Clear</button>
+<button class="action-btn primary" id="doneHotListWidgetBtn" type="button">Done</button>
+</div>
+</dialog>
 <div aria-label="Working" hidden="" id="sxPill" role="status">
 <svg aria-hidden="true" class="sx-pill-art" height="28" viewbox="0 0 96 28" width="96"><g class="sx-pill-wave"><path class="sx-pill-wavepath" d="M0 17 C8 6,16 6,24 17 C32 28,40 28,48 17 C56 6,64 6,72 17 C80 28,88 28,96 17 C104 6,112 6,120 17 C128 28,136 28,144 17 C152 6,160 6,168 17 C176 28,184 28,192 17"></path></g><g class="sx-pill-brush"><g transform="rotate(28 78 14)"><rect class="sx-pill-handle" height="11" rx="2.4" width="5" x="75.5" y="0"></rect><rect class="sx-pill-ferrule" height="3" width="5" x="75.5" y="10.5"></rect><path class="sx-pill-bristle" d="M75.5 13.5 h5 l-1.1 5.2 c-.3 1.4-2.5 1.4-2.8 0 z"></path><circle class="sx-pill-tip" cx="78" cy="19.6" r="1.3"></circle></g></g></svg>
 <span class="sx-pill-label">Working…</span>

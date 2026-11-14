@@ -229,6 +229,16 @@ $$\begin{pmatrix} P_1 \\ P_2 \end{pmatrix} = \text{proj}_{\text{give}}(g), \quad
 - [x] Placard and hypermap interaction bindings unified with touch and pointer event normalization.
 - [x] Zoomed node selection bug resolved in `06-pdf-exporter.js` (preventing clicks from falling through to canvas pan).
 - [x] Comprehensive guide documentation updated in `guide.html` across all environments (`app/`, `hosted/`, `qa/`).
+- [x] 6-Pole Hexad radar deformation polygon widget implemented with 6-color diametric complementary palette:
+  - **Pole 0 (North)**: Emerald Green (`#22c55e`)
+  - **Pole 1 (North-East)**: Cyan Sky (`#06b6d4`)
+  - **Pole 2 (South-East)**: Indigo Blue (`#6366f1`)
+  - **Pole 3 (South)**: Crimson Red (`#ef4444`)
+  - **Pole 4 (South-West)**: Amber Orange (`#f97316`)
+  - **Pole 5 (North-West)**: Canary Yellow (`#eab308`)
+- [x] 6-Pole Hypermap spoke geometry rendering deformed regular hexagon SVG with radial guide spokes, vertex circles, and labels.
+- [x] Hot List interactive widget pop-up window (`hotListWidgetDialog`) implemented across all multi-pole topics (Triads, Tetrads, Pentads, Hexads) with live profile synchronization.
+- [x] Elimination & migration of superseded lower-pole approximations (`t0410` $\to$ `t0415`, `t0411` $\to$ `t0414` / `t0422`).
 
 ---
 
