@@ -597,11 +597,20 @@ __sxInit(function initScribeGeminiBYOK() {
         narrateAudioCtx = new AC();
       }
       if (narrateAudioCtx.state === "suspended") narrateAudioCtx.resume();
-      var len = Math.floor(pcmBytes.length / 2);
+
+      // If the incoming chunk has a 44-byte WAV header, strip it to feed raw PCM
+      var offset = 0;
+      if (pcmBytes.length > 44 &&
+          pcmBytes[0] === 0x52 && pcmBytes[1] === 0x49 && pcmBytes[2] === 0x46 && pcmBytes[3] === 0x46 && // RIFF
+          pcmBytes[8] === 0x57 && pcmBytes[9] === 0x41 && pcmBytes[10] === 0x56 && pcmBytes[11] === 0x45) { // WAVE
+        offset = 44;
+      }
+      var pcmData = offset > 0 ? pcmBytes.subarray(offset) : pcmBytes;
+      var len = Math.floor(pcmData.length / 2);
       if (len < 1) return false;
       var buf = narrateAudioCtx.createBuffer(1, len, 24000);
       var ch = buf.getChannelData(0);
-      var view = new DataView(pcmBytes.buffer, pcmBytes.byteOffset, pcmBytes.byteLength);
+      var view = new DataView(pcmData.buffer, pcmData.byteOffset, pcmData.byteLength);
       for (var i = 0; i < len; i++) ch[i] = view.getInt16(i * 2, true) / 32768;
       var src = narrateAudioCtx.createBufferSource();
       src.buffer = buf;
@@ -645,6 +654,7 @@ __sxInit(function initScribeGeminiBYOK() {
     var consumed = 0;
     var played = 0;
     var pairRe = /"mimeType"\s*:\s*"[^"]*"\s*,\s*"data"\s*:\s*"([A-Za-z0-9+/=]+)"/g;
+    var pairRe2 = /"data"\s*:\s*"([A-Za-z0-9+/=]+)"\s*,\s*"mimeType"\s*:\s*"[^"]*"/g;
     var dataRe = /"data"\s*:\s*"([A-Za-z0-9+/=]{200,})"/g;
     for (;;) {
       var step = await reader.read();
@@ -661,6 +671,15 @@ __sxInit(function initScribeGeminiBYOK() {
         found = true;
       }
       if (!found) {
+        pairRe2.lastIndex = consumed;
+        while ((m = pairRe2.exec(textBuf)) !== null) {
+          if (myToken !== narrateGenToken) return played;
+          if (narrateQueuePcmChunk(narrateBase64ToBytes(m[1]))) played++;
+          consumed = pairRe2.lastIndex;
+          found = true;
+        }
+      }
+      if (!found) {
         dataRe.lastIndex = consumed;
         while ((m = dataRe.exec(textBuf)) !== null) {
           if (myToken !== narrateGenToken) return played;
@@ -674,9 +693,18 @@ __sxInit(function initScribeGeminiBYOK() {
     textBuf += decoder.decode();
     pairRe.lastIndex = consumed;
     var tail;
+    var tailFound = false;
     while ((tail = pairRe.exec(textBuf)) !== null) {
       if (narrateQueuePcmChunk(narrateBase64ToBytes(tail[1]))) played++;
       consumed = pairRe.lastIndex;
+      tailFound = true;
+    }
+    if (!tailFound) {
+      pairRe2.lastIndex = consumed;
+      while ((tail = pairRe2.exec(textBuf)) !== null) {
+        if (narrateQueuePcmChunk(narrateBase64ToBytes(tail[1]))) played++;
+        consumed = pairRe2.lastIndex;
+      }
     }
     if (played === 0) throw new Error("Stream returned no audio.");
     return played;
@@ -918,13 +946,17 @@ __sxInit(function initScribeGeminiBYOK() {
 
       // Helper to generate proper audio payload based on model type
       function getAudioPayload(modelName, textToRead, voiceName) {
+        var isTts = modelName.indexOf("-tts") !== -1;
+        var textContent = isTts
+          ? textToRead.slice(0, 4000)
+          : ("Read the following text aloud with natural, engaging expressive narration. Do not add introductory or commentary remarks, speak only the exact text provided:\n\n" + textToRead.slice(0, 4000));
         return {
           contents: [
             {
               role: "user",
               parts: [
                 {
-                  text: "Read the following text aloud with natural, engaging expressive narration. Do not add introductory or commentary remarks, speak only the exact text provided:\n\n" + textToRead.slice(0, 4000)
+                  text: textContent
                 }
               ]
             }
@@ -951,17 +983,41 @@ __sxInit(function initScribeGeminiBYOK() {
       var modelSelect = document.getElementById("scribeGeminiModel");
       var rawModelInput = (modelSelect ? modelSelect.value : "") || (document.getElementById("scribeGeminiModelInput") ? document.getElementById("scribeGeminiModelInput").value.trim() : "");
       var candidateAudioModels = [
-        "gemini-2.5-flash",
+        "gemini-3.8-flash-tts",
+        "gemini-3.8-flash-lite-tts",
+        "gemini-2.5-flash-tts",
         "gemini-2.0-flash-exp",
-        "gemini-2.5-flash-native-audio",
-        "gemini-3.8-flash",
-        "gemini-flash-latest",
-        "gemini-2.0-flash"
+        "gemini-2.5-flash"
       ];
       if (rawModelInput) {
         candidateAudioModels.unshift(rawModelInput);
       }
-      candidateAudioModels = candidateAudioModels.filter(function(m, i) { return candidateAudioModels.indexOf(m) === i; });
+
+      // Query ListModels to find any enabled TTS or audio-capable models on this API key
+      try {
+        var lmResp = await fetch("https://generativelanguage.googleapis.com/v1beta/models?key=" + encodeURIComponent(apiKey));
+        if (lmResp.ok) {
+          var lmData = await lmResp.json();
+          if (lmData && lmData.models && Array.isArray(lmData.models)) {
+            var discovered = [];
+            lmData.models.forEach(function(m) {
+              var mName = (m.name || "").replace(/^models\//, "");
+              var isGen = m.supportedGenerationMethods && m.supportedGenerationMethods.indexOf("generateContent") !== -1;
+              if (isGen) {
+                if (mName.indexOf("-tts") !== -1 || mName.indexOf("audio") !== -1 || mName.indexOf("live") !== -1) {
+                  discovered.push(mName);
+                }
+              }
+            });
+            console.log("[Scribe Audio Narration] Discovered audio-capable models for API key:", discovered);
+            if (discovered.length > 0) {
+              candidateAudioModels = discovered.concat(candidateAudioModels);
+            }
+          }
+        }
+      } catch (lmErr) {
+        console.warn("[Scribe Audio Narration] ListModels discovery error:", lmErr);
+      }
       candidateAudioModels = candidateAudioModels.filter(function(m, i) { return candidateAudioModels.indexOf(m) === i; });
 
       var narrationSucceeded = false;
