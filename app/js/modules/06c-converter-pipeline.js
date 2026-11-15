@@ -230,8 +230,10 @@
                     id = "t0415"; // Remap obsolete triad to 4-pole intimacy geometry
                 } else if (id === "t0411" || id === "topic-edging-ruined-forced") {
                     id = "t0414"; // Remap obsolete triad to 4-pole orgasm dynamic
-                } else if (id === "t0009" || id === "t0010" || id === "t0012" || id === "t0014" || id === "t0015" || id === "topic-d-s" || id === "topic-femdom") {
-                    id = "t0423"; // Subsumed base BDSM roles/authority remapped to 7-pole BDSM archetypes heptad
+                } else if (id === "t0009" || id === "t0010" || id === "t0012" || id === "t0014" || id === "t0015" || id === "t0413" || id === "t0419" || id === "topic-d-s" || id === "topic-femdom" || id === "topic-power-matrix" || id === "topic-bdsm-archetypes") {
+                    id = "t0423"; // Subsumed base BDSM roles/authority + phantom BDSM archetype topics remapped to 7-pole BDSM archetypes heptad
+                } else if (id === "t0417" || id === "t0421" || id === "topic-somatosensory-palette" || id === "topic-impact-modalities") {
+                    id = "t0424"; // Subsumed phantom sensory topics remapped to 7-pole somatosensory heptad
                 } else if (id === "t0008" || id === "t0013" || id === "t0375" || id === "topic-ongoing-dynamics" || id === "topic-24-7" || id === "topic-romantic-surrender") {
                     id = "t0425"; // Subsumed relational dynamics remapped to 7-pole Sternberg relational heptad
                 } else if (id === "t0288" || id === "topic-hotwife") {
@@ -268,6 +270,50 @@
                     flanks.forEach(flank => {
                         Object.prototype.hasOwnProperty.call(rating, flank) && Number.isFinite(Number(rating[flank])) && (incoming[flank] = clamp(rating[flank]));
                     });
+                    // Pole-key migration for subsumed phantom multi-pole topics:
+                    // the old pole keys do not match the target's keys, so the
+                    // copy above leaves incoming empty (or partial) and the
+                    // generic positional fallback below would scramble them.
+                    // Map the clear correspondences 1:1 (max when two old poles
+                    // share one target pole); ambiguous poles are NOT invented —
+                    // a rating with nothing mappable and no give/receive falls
+                    // through to the whole-rating fallback (strongest pole
+                    // value, all flanks), the same as a scalar rating.
+                    if (origId === "t0413" || origId === "topic-power-matrix" || origId === "t0419" || origId === "topic-bdsm-archetypes" || origId === "t0417" || origId === "topic-somatosensory-palette" || origId === "t0421" || origId === "topic-impact-modalities") {
+                        const pv = k => Number.isFinite(Number(rating[k])) ? clamp(rating[k]) : void 0;
+                        const put = (k, v) => { if (v !== void 0) incoming[k] = incoming[k] === void 0 ? v : Math.max(incoming[k], v); };
+                        if (origId === "t0413" || origId === "topic-power-matrix") {
+                            put("sovereign", pv("master"));
+                            put("caregiver", pv("mistress"));
+                            // "slave" already exact-matches the target key via the copy above.
+                            // "pet" is ambiguous (brat vs primal) — not pole-targeted.
+                        } else if (origId === "t0419" || origId === "topic-bdsm-archetypes") {
+                            put("sovereign", pv("master"));
+                            put("caregiver", pv("nurturer"));
+                            put("slave", pv("surrender"));
+                            // "primal" and "brat" already exact-match the target keys.
+                        } else if (origId === "t0417" || origId === "topic-somatosensory-palette") {
+                            put("electric", pv("vibrational"));
+                            put("scent", pv("olfactory"));
+                            put("sound", pv("auditory"));
+                            // "thermal" and "tactile" already exact-match the target keys.
+                        } else if (origId === "t0421" || origId === "topic-impact-modalities") {
+                            put("impact", pv("sting"));
+                            put("impact", pv("thud"));
+                            // "thermal" already exact-matches the target key.
+                            // "clamp", "deprivation", "overload" have no target pole — not mapped.
+                        }
+                        if (!Object.keys(incoming).length) {
+                            const hasDual = Number.isFinite(Number(rating.give)) || Number.isFinite(Number(rating.receive));
+                            if (!hasDual) {
+                                const vals = Object.values(rating).filter(Number.isFinite);
+                                if (vals.length) {
+                                    const m = clamp(Math.max.apply(null, vals));
+                                    flanks.forEach(f => { incoming[f] = m; });
+                                }
+                            }
+                        }
+                    }
                     // Backwards compatibility migration for legacy dual {give, receive} rated on newly triadic topics
                     if (!Object.keys(incoming).length && (Object.prototype.hasOwnProperty.call(rating, "give") || Object.prototype.hasOwnProperty.call(rating, "receive"))) {
                         const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;

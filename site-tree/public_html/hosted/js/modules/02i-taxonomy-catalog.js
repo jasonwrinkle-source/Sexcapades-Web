@@ -2713,7 +2713,7 @@
             const n = Wn(topic);
             We[n] = [ topic.give_label, topic.receive_label ];
         }));
-        const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269" ]);
+        const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
             if (e === "t0281" || e === "topic-cuckold-hotwife" || e === "topic-bull-hotwife-cuckold" || i === "t0281" || i === "topic-cuckold-hotwife" || i === "topic-bull-hotwife-cuckold") {
@@ -2766,26 +2766,6 @@
                     labels: [ "Sensation", "Power", "Intimacy" ]
                 };
             }
-            if (e === "t0410" || e === "topic-monogamy-polyamory-anarchy" || i === "t0410" || i === "topic-monogamy-polyamory-anarchy") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
-                    keys: [ "monogamy", "polyamory", "anarchy" ],
-                    labels: [ "Monogamy", "Polyamory", "Relationship Anarchy" ]
-                };
-            }
-            if (e === "t0411" || e === "topic-edging-ruined-forced" || i === "t0411" || i === "topic-edging-ruined-forced") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "edging", "ruined", "forced" ],
-                    labels: [ "Edging & Denial", "Ruined Orgasm", "Forced / Overstim" ]
-                };
-            }
             if (e === "t0412" || e === "topic-tantric-frantic-trance" || i === "t0412" || i === "topic-tantric-frantic-trance") {
                 return {
                     single: !1,
@@ -2797,16 +2777,6 @@
                 };
             }
             // 4-Pole Tetrad Topics
-            if (e === "t0413" || e === "topic-power-matrix" || i === "t0413" || i === "topic-power-matrix") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "quad-sliders",
-                    archetype: "simplex", // Type I: Closed Role Allocation
-                    keys: [ "master", "mistress", "slave", "pet" ],
-                    labels: [ "Master (Authority)", "Mistress (Nurture)", "Slave (Service)", "Pet / Brat (Primal)" ]
-                };
-            }
             if (e === "t0414" || e === "topic-orgasm-dynamic" || i === "t0414" || i === "topic-orgasm-dynamic") {
                 return {
                     single: !1,
@@ -2880,16 +2850,6 @@
                 };
             }
             // 5-Pole Pentad Topics
-            if (e === "t0417" || e === "topic-somatosensory-palette" || i === "t0417" || i === "topic-somatosensory-palette") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star", // Type II: Multi-Affinity Distribution
-                    keys: [ "thermal", "tactile", "vibrational", "olfactory", "auditory" ],
-                    labels: [ "Thermal (Temperature)", "Tactile (Texture/Impact)", "Vibrational / Electro", "Olfactory / Taste", "Auditory / Verbal" ]
-                };
-            }
             if (e === "t0418" || e === "topic-erotic-languages" || i === "t0418" || i === "topic-erotic-languages") {
                 return {
                     single: !1,
@@ -2898,16 +2858,6 @@
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "words", "touch", "service", "vulnerability", "autonomy" ],
                     labels: [ "Words of Adoration", "Dedicated Erotic Touch", "Devoted Acts of Service", "Deep Vulnerability", "Autonomous Presence" ]
-                };
-            }
-            if (e === "t0419" || e === "topic-bdsm-archetypes" || i === "t0419" || i === "topic-bdsm-archetypes") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star", // Type II: Multi-Affinity Distribution
-                    keys: [ "master", "nurturer", "primal", "brat", "surrender" ],
-                    labels: [ "Sovereign / Master", "Nurturer / Caregiver", "Primal / Hunter", "Brat / Trickster", "Devotee / Surrendered" ]
                 };
             }
             // Poliscapades 5-Pole Placeholders
@@ -2941,16 +2891,6 @@
                     archetype: "hexad", // Type II: Multi-Affinity Distribution / Diametric Pairs
                     keys: [ "eros", "ludus", "storge", "pragma", "mania", "agape" ],
                     labels: [ "Eros (Passionate)", "Ludus (Playful)", "Storge (Companionate)", "Pragma (Practical)", "Mania (Obsessive)", "Agape (Altruistic)" ]
-                };
-            }
-            if (e === "t0421" || e === "topic-impact-modalities" || i === "t0421" || i === "topic-impact-modalities") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "sting", "thud", "thermal", "clamp", "deprivation", "overload" ],
-                    labels: [ "Sting (Cutaneous)", "Thud (Deep Muscle)", "Thermal (Temperature)", "Clamp (Ischemic)", "Deprivation (Starve)", "Overload (Saturation)" ]
                 };
             }
             if (e === "t0422" || e === "topic-orgasm-topography" || i === "t0422" || i === "topic-orgasm-topography") {
