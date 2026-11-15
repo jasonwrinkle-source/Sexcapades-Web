@@ -620,8 +620,13 @@ __sxInit(function () {
      document click listener swallows it first. Clicks starting on an
      interactive control reset the count (they are not part of a header
      triple-click burst). Opens at the last click's point, with no
-     click-swallow armed — the press that triggered it is long gone. */
-  var TRIPLE_SETTLE_MS = 400;
+     click-swallow armed — the press that triggered it is long gone.
+     Settle is 800ms, not 400ms: 400 was too short for a deliberate
+     triple-tap at Jason's pace — his taps land slower than 400ms apart,
+     so each settled as a single before the next arrived. 800ms covers
+     gaps up to 0.8s while the menu still appears under a second after
+     the third tap. */
+  var TRIPLE_SETTLE_MS = 800;
   var clickCount = 0;
   var clickX = 0, clickY = 0;
   var clickTimer = null;
