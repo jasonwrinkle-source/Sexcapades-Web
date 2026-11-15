@@ -446,7 +446,177 @@ __sxInit(function () {
 });
 
 
-/* ---- module: list-path-display (folded from patches) ---- */
+/* ---- module: skin-menu (Flexcapades prototype) ---- */
+/* Long-press on the app header opens a menu listing the 15 skins, so the
+   Flexcapades engine can be tried on without a subdomain or a new domain.
+   All 15 skins load for real via window.FlexcapadesSkins
+   (app/js/skin-loader.js) — picking a skin swaps its taxonomy in and
+   re-renders the map; picking Sexcapades restores the kink map.
+   Trigger: pointer hold (~600ms) on the header bar, touch or mouse.
+   It never fires on a normal tap/click, never on a press that starts on
+   an interactive control (buttons, links, inputs — every header control
+   keeps working), and the hold timer clears on any real movement or
+   scroll so it cannot break scrolling. No visible button, hint, or icon.
+   The click that ends the long-press is swallowed (capture phase), so
+   the menu opening under the pointer can never instantly select an item
+   or close itself. Menu closes on item select, outside tap, or Escape. */
+__sxInit(function () {
+(function () {
+  function boot() {
+  var LONG_PRESS_MS = 600;
+  var MOVE_CANCEL_PX = 12;
+  var header = document.querySelector("header.intro");
+  var menu = document.getElementById("skinMenu");
+  var note = document.getElementById("skinNote");
+  if (!header || !menu) return;
+
+  var holdTimer = null;
+  var holdPointerId = null;
+  var holdX = 0, holdY = 0;
+  var holdFired = false;
+  var swallowClick = false;
+  var noteTimer = null;
+
+  function isInteractive(t) {
+    return !!t && !!t.closest && !!t.closest("button, a, input, select, textarea, label, summary, [role='button'], [contenteditable]");
+  }
+  function menuOpen() { return !menu.hidden; }
+
+  function showNote(text) {
+    if (!note) return;
+    note.textContent = text;
+    note.hidden = false;
+    if (noteTimer) clearTimeout(noteTimer);
+    noteTimer = setTimeout(function () { note.hidden = true; noteTimer = null; }, 5000);
+  }
+  if (note) note.addEventListener("click", function () {
+    note.hidden = true;
+    if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
+  });
+
+  function positionMenu(x, y) {
+    menu.style.visibility = "hidden";
+    menu.hidden = false;
+    var mw = menu.offsetWidth, mh = menu.offsetHeight;
+    var left = Math.max(8, Math.min(x, window.innerWidth - mw - 8));
+    var top = y + 8;
+    if (top + mh > window.innerHeight - 8) top = Math.max(8, y - mh - 8);
+    menu.style.left = left + "px";
+    menu.style.top = top + "px";
+    menu.style.visibility = "";
+  }
+  function openMenu(x, y) {
+    positionMenu(x, y);
+    /* Swallow the click that ends this very press: it lands on the menu
+       (or outside it) a beat after pointerup, and must neither select
+       an item nor close the menu. The flag clears on a zero-delay timer
+       scheduled from pointerup, which runs after the click event. */
+    swallowClick = true;
+    var clearOnce = function () { setTimeout(function () { swallowClick = false; }, 0); };
+    document.addEventListener("pointerup", clearOnce, { once: true });
+    document.addEventListener("pointercancel", clearOnce, { once: true });
+    var activeSkin = window.FlexcapadesSkins ? window.FlexcapadesSkins.active() : "sexcapades";
+    var cur = menu.querySelector('[data-skin="' + activeSkin + '"]') || menu.querySelector('[data-skin="sexcapades"]');
+    if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) { cur.focus(); } }
+  }
+  function closeMenu() {
+    if (!menuOpen()) return;
+    menu.hidden = true;
+  }
+  function skinName(item) {
+    var n = item.querySelector(".skin-name");
+    return n ? n.textContent.trim() : (item.getAttribute("data-skin") || "That skin");
+  }
+  function markCurrent(skin) {
+    menu.querySelectorAll("[data-skin]").forEach(function (it) {
+      it.setAttribute("aria-checked", it.getAttribute("data-skin") === skin ? "true" : "false");
+    });
+  }
+  function choose(item) {
+    if (!item) return;
+    var skin = item.getAttribute("data-skin");
+    closeMenu();
+    var loader = window.FlexcapadesSkins;
+    if (skin === "sexcapades") {
+      if (loader && loader.active() !== "sexcapades") {
+        loader.load("sexcapades").then(function () {
+          markCurrent("sexcapades");
+          showNote("Back to Sexcapades.");
+        }, function (err) {
+          showNote("Couldn't restore Sexcapades: " + (err && err.message || err));
+        });
+      }
+      return;
+    }
+    if (loader) {
+      loader.load(skin, skinName(item)).then(function () {
+        markCurrent(skin);
+        var n = window.__SX_SKIN_TOPIC_COUNT || 0;
+        var cats = 0;
+        try { cats = window.TaxonomyLoader.loadTaxonomy().categories.length; } catch (e) { cats = 0; }
+        showNote(skinName(item) + " loaded — " + n + " topics across " + cats + " categories.");
+      }, function (err) {
+        showNote("Couldn't load " + skinName(item) + ": " + (err && err.message || err));
+      });
+      return;
+    }
+    showNote(skinName(item) + " isn't loaded yet — its taxonomy lives in a briefing document, not in the app. Only Sexcapades is live today.");
+  }
+  menu.addEventListener("click", function (ev) {
+    var it = ev.target && ev.target.closest ? ev.target.closest("[data-skin]") : null;
+    if (it && menu.contains(it)) choose(it);
+  });
+
+  function cancelHold() {
+    if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+    holdPointerId = null;
+    holdFired = false;
+  }
+  header.addEventListener("pointerdown", function (ev) {
+    if (holdPointerId !== null) { cancelHold(); return; }
+    if (isInteractive(ev.target)) return;
+    if (ev.button !== undefined && ev.button !== 0) return;
+    holdPointerId = ev.pointerId;
+    holdX = ev.clientX; holdY = ev.clientY;
+    holdFired = false;
+    holdTimer = setTimeout(function () {
+      holdTimer = null;
+      holdFired = true;
+      openMenu(holdX, holdY);
+    }, LONG_PRESS_MS);
+  });
+  header.addEventListener("pointermove", function (ev) {
+    if (holdPointerId === null || ev.pointerId !== holdPointerId) return;
+    if (Math.abs(ev.clientX - holdX) > MOVE_CANCEL_PX || Math.abs(ev.clientY - holdY) > MOVE_CANCEL_PX) cancelHold();
+  });
+  header.addEventListener("pointerup", function (ev) {
+    if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
+  });
+  header.addEventListener("pointercancel", function (ev) {
+    if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
+  });
+  header.addEventListener("contextmenu", function (ev) {
+    /* A touch long-press raises contextmenu while the menu is open —
+       suppress the browser's own callout so the skin menu owns the
+       gesture. Never suppressed when the skin menu is closed. */
+    if (menuOpen() || holdFired) ev.preventDefault();
+  });
+  window.addEventListener("scroll", function () { cancelHold(); if (menuOpen()) closeMenu(); }, true);
+  window.addEventListener("blur", cancelHold);
+  document.addEventListener("click", function (ev) {
+    if (swallowClick) { swallowClick = false; ev.stopPropagation(); return; }
+    if (!menuOpen()) return;
+    var t = ev.target;
+    if (t && t.closest && !t.closest("#skinMenu")) closeMenu();
+  }, true);
+  document.addEventListener("keydown", function (ev) {
+    if (menuOpen() && ev.key === "Escape") { ev.preventDefault(); closeMenu(); }
+  }, true);
+  window.addEventListener("resize", function () { if (menuOpen()) closeMenu(); });
+  }
+  boot();
+})();
+});
 __sxInit(function () {
 (function () {
   var CODES = { "Power exchange": "POWEREX", "Bondage & restriction": "BONDAGE", "Impact, pain & body modification": "IMPACT", "Sensation & atmosphere": "SENSATN", "Roleplay & identity": "ROLEPLY", "Clothing, materials & objects": "CLOTHNG", "Body focus & appearance": "BODYFOCS", "Psychological dynamics": "PSYCHOL", "Watching, exposure & settings": "WATCHNG", "Partner configurations": "PARTNER", "Sex acts": "SEXACTS", "Positions": "POSITION", "Orgasm & reproductive play": "ORGASM", "Fluids & messy play": "FLUIDS", "Primal & pursuit": "PRIMAL", "Service & ritual": "SERVICE", "Fantasy & transformation": "FANTASY", "Connection & aftercare": "CONNECT" };

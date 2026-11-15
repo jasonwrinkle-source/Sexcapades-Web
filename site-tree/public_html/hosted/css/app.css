@@ -906,6 +906,19 @@ html.shrink-busy,html.shrink-busy *{cursor:progress!important}
 .view-nav-item:hover,.view-nav-item:focus-visible,.view-nav-item.is-active{background:var(--paper-2);outline:2px solid var(--focus);outline-offset:-2px}
 .view-nav-item.is-disabled{opacity:.45;cursor:not-allowed;pointer-events:auto}
 .view-nav-item.is-disabled:hover,.view-nav-item.is-disabled.is-active{background:none;outline:none}
+/* SKIN MENU (Flexcapades prototype, 2026-11-15): long-press on the app
+   header opens this menu to choose a skin. Same panel as the view-nav
+   menu; each row is a skin name over a one-line descriptor. The checkmark
+   comes from the shared .view-nav-item[aria-checked="true"] rule. The
+   note is a small toast for the honest "not loaded yet" message when a
+   skin with no app catalog data is picked. */
+.skin-menu{max-width:min(340px,calc(100vw - 16px))}
+.skin-menu .view-nav-item{white-space:normal}
+.skin-label{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0}
+.skin-name{font-size:15.5px;font-weight:600;line-height:1.2}
+.skin-desc{font-size:12.5px;font-weight:400;line-height:1.25;color:var(--muted);white-space:normal}
+.skin-note{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:4100;max-width:min(480px,calc(100vw - 32px));padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font-size:14.5px;line-height:1.4;box-shadow:0 18px 40px rgba(0,0,0,.5);cursor:pointer}
+.skin-note[hidden]{display:none}
 /* Every view's selector button: fixed width sized for "Scene Sentinel ▾",
    so it never changes width between views, in dialog heads as in the title row. */
 .view-nav-btn{width:176px;flex:0 0 auto;text-align:center;justify-content:center}

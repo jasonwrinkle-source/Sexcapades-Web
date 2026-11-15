@@ -157,6 +157,18 @@
 
         const SX_WARM_BOOT_VER = "4.0.0-w3";
         const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v3";
+        // Warm-boot cache is keyed by skin (ruled 2026-11-15): each skin has
+        // its own cached markup, and a restore only matches its own skin.
+        // A native Sexcapades boot has no active skin yet, so it normalizes
+        // to "sexcapades" — consistently on save AND restore, or the
+        // Sexcapades cache would never match.
+        function sxWarmBootSkin() {
+            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+            return String(s);
+        }
+        function sxWarmBootStorageKey(skin) {
+            return SX_WARM_BOOT_STORAGE_KEY + ":" + (skin || sxWarmBootSkin());
+        }
         const SX_IDB_NAME = "sx_hypermap_db";
         const SX_IDB_STORE = "hypermap_cache";
         const SX_IDB_VERSION = 1;
@@ -245,10 +257,13 @@
                     localStorage.removeItem("sx_hypermap_warm_boot_v1");
                     sessionStorage.removeItem("sx_hypermap_warm_boot_v1");
                 } catch (_) {}
-                sxWarmBootPromise = sxIdbGet(SX_WARM_BOOT_STORAGE_KEY).then(res => {
+                sxWarmBootPromise = sxIdbGet(sxWarmBootStorageKey()).then(res => {
                     sxWarmBootCachedObj = res;
                     return res;
                 }).catch(() => null);
+                // One-time cleanup: the pre-fix record lived under the bare
+                // key with no skin in it — never read again, safe to drop.
+                sxIdbDelete(SX_WARM_BOOT_STORAGE_KEY).catch(() => {});
             } catch (_) {}
         }
         sxWarmBootInit();
@@ -267,6 +282,7 @@
             if (!In || In.childNodes.length === 0) return;
             if ((typeof dkCtx !== "undefined" && dkCtx) || window.__sxAnnealActive || window.__sxAnnealRunning || (typeof deknotterRunning !== "undefined" && deknotterRunning)) return;
             const profId = profileId || "__default__";
+            const skin = sxWarmBootSkin();
             try {
                 const key = sxGetMapVaultKey(profId);
                 const markupStr = In.innerHTML;
@@ -276,13 +292,14 @@
                     time: Date.now(),
                     key: key,
                     profileId: profId,
+                    skin: skin,
                     compressed: compressed
                 };
                 sxWarmBootCachedObj = payload;
-                sxIdbSet(SX_WARM_BOOT_STORAGE_KEY, payload).then(() => {
+                sxIdbSet(sxWarmBootStorageKey(skin), payload).then(() => {
                     const originalKb = Math.round(markupStr.length / 1024);
                     const storedKb = compressed.raw ? originalKb : Math.round(compressed.data.byteLength / 1024);
-                    console.log("[Sexcapades WarmBoot] Saved hypermap to IndexedDB for [" + profId + "] (" + storedKb + " KB gzipped, " + originalKb + " KB raw)");
+                    console.log("[Sexcapades WarmBoot] Saved hypermap to IndexedDB for [" + profId + "] skin [" + skin + "] (" + storedKb + " KB gzipped, " + originalKb + " KB raw)");
                 }).catch(err => {
                     console.warn("[Sexcapades WarmBoot] IndexedDB save failed:", err);
                 });
@@ -298,15 +315,16 @@
                 if (!cached && sxWarmBootPromise) {
                     cached = await sxWarmBootPromise;
                 }
+                const currentSkin = sxWarmBootSkin();
                 if (!cached) {
-                    cached = await sxIdbGet(SX_WARM_BOOT_STORAGE_KEY).catch(() => null);
+                    cached = await sxIdbGet(sxWarmBootStorageKey(currentSkin)).catch(() => null);
                 }
 
                 const currentTargetId = Mt && vt[Mt] ? Mt : "__default__";
                 const currentKey = sxGetMapVaultKey(currentTargetId);
 
-                // Priority 1: If warm boot cache exists in IndexedDB and matches current profile & vault key
-                if (cached && cached.v === SX_WARM_BOOT_VER && cached.profileId === currentTargetId && cached.key === currentKey) {
+                // Priority 1: If warm boot cache exists in IndexedDB and matches current profile, vault key AND skin
+                if (cached && cached.v === SX_WARM_BOOT_VER && cached.profileId === currentTargetId && cached.key === currentKey && cached.skin === currentSkin) {
                     const isDirty = Boolean(typeof yt !== "undefined" && yt[currentTargetId]);
                     if (!isDirty) {
                         const markup = cached.compressed ? await sxDecompressSvg(cached.compressed) : cached.markup;
@@ -315,13 +333,32 @@
                             sxWireMapListeners();
                             sxActiveVaultKey = currentKey;
                             sxActiveVaultProfileId = currentTargetId;
+                            // Restore parity (2026-11-15): a restored boot
+                            // skips the solver, so the solver's per-page
+                            // caches would stay empty until the next solve
+                            // — and a skin switch after a restored boot
+                            // would then compute them fresh from the NEW
+                            // skin, while after a fresh boot it reuses the
+                            // BOOT skin's cached values. That split is what
+                            // landed Chem at 142.514 after a reload instead
+                            // of pristine 124.840. Warm both caches from
+                            // the restored skin here (branch order +
+                            // stagger density range), so a restored boot
+                            // carries exactly the solver state a fresh boot
+                            // builds. Cheap (a sort + a min/max scan),
+                            // synchronous, and it never touches the
+                            // painted markup.
+                            try {
+                                if (typeof branchOrderRankMap === "function") branchOrderRankMap();
+                                if (typeof yr === "function" && typeof h !== "undefined" && h && h.length) yr(h[0]);
+                            } catch (_) {}
                             window.__sxBootChunkPaint = 0;
                             if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
                             if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
                             if (typeof window.__sxLoad === "function") window.__sxLoad(100);
                             try { vc(); } catch (_) {}
                             try { Ih(); } catch (_) {}
-                            console.log("[Sexcapades WarmBoot] Restored warm boot cache for [" + currentTargetId + "] in < 15ms!");
+                            console.log("[Sexcapades WarmBoot] Restored warm boot cache for [" + currentTargetId + "] skin [" + currentSkin + "] in < 15ms!");
                             return true;
                         }
                     }
@@ -338,7 +375,7 @@
         function sxInvalidateWarmBootCache(id) {
             try {
                 sxWarmBootCachedObj = null;
-                sxIdbDelete(SX_WARM_BOOT_STORAGE_KEY).catch(() => {});
+                sxIdbDelete(sxWarmBootStorageKey()).catch(() => {});
             } catch (_) {}
         }
 

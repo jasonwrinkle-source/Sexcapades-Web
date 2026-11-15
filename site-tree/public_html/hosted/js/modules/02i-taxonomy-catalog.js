@@ -1451,7 +1451,382 @@
             "Connection & aftercare": {
                 color: "#ea7f8b",
                 glyph: '<path class="icon-glyph" d="M12 20S4 15 4 9a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3c0 6-8 11-8 11Z M8 13h2l1-3 2 6 1-3h2"/>'
-            }
+            },
+            /* Flexcapades skin categories: Chemcapades (8). Star glyph shared;
+               distinct colors carry the category identity on the map. */
+            "Ontology & Metaphysics of the Chemical World": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Periodic System & Classification": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Epistemology, Explanation & Modeling": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Disciplinary Identity & Sub-Disciplinary Cultures": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics, Sustainability & Lab Safety": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Kinetics, Thermodynamics & Emergent Complexity": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Codification, Pedagogy & the Chemical Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials, Energy & the Molecular Frontier": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Aesthcapades (7). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Visual Art": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Music & Sound": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Story & Word": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Adornment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Space & Place": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Taste & Judgment": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Food & Flavor": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Dharmacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Dharma & The Way": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Liberation & Enlightenment": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Practice & Discipline": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Deity & The Divine": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics & Conduct": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Lineage": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Expericapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Mission & Discovery Strategy": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Detectors & Instruments": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Noise & Standards of Discovery": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Environment & Extremes": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Analysis & Openness": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Experimental Life & Lab Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Forescapades (7, real v2.4 categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "God": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scripture & Authority": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Leadership": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Salvation & Grace": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ritual & Worship": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life & Morality": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Last Things": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Mattercapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Applied Physics Philosophy & Strategy": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Scale": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Technology & Hardware": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Energy, Power & Clean Technology": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials & Fabrication": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life, Medicine & the Applied Life": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Philoscapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Epistemology & Theory of Truth": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Metaphysics & Ontology": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Axiology & Normative Ethics": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Philosophy of Mind & Consciousness": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Existentialism & The Human Condition": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Political Philosophy & Justice": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Poliscapades (8, real draft categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Economy": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Health & Care": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Climate, Energy & Environment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Immigration & Borders": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Democracy & Government": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rights & Freedoms": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Education & Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Foreign Policy & Defense": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Praxicapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Art of Modeling": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Computation & Method": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Arenas": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Uncertainty & Data": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rigor & Validation": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Applied Life": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Quantacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Interpretation": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Gravity & Spacetime": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Cosmology & the Universe": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Emergence & Information": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Symmetry & Fine-Tuning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Life of a Theorist": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Simulcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Epistemology of Simulation": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Methods": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scale, Discretization & Time": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine & The Code": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Trust, Error & Reproducibility": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Computational Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Techcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "AI & Intelligence": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Privacy & Surveillance": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Screens & Attention": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Connection & Social Media": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Digital Identity & Self": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine Future": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Theoricapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Ontology": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Method & Style": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Branches & Territory": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Proof & Verification": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Reality": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Mathematical Life": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Vocapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Purpose & Meaning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Effort & Ambition": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Place & Mode": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Structure & Authority": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Reward & Security": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Identity & Boundaries": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
         }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
             compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
             checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
@@ -2716,118 +3091,13 @@
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
-            if (e === "t0281" || e === "topic-cuckold-hotwife" || e === "topic-bull-hotwife-cuckold" || i === "t0281" || i === "topic-cuckold-hotwife" || i === "topic-bull-hotwife-cuckold") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "bull", "hotwife", "cuckold" ],
-                    labels: [ "Bull", "Hotwife", "Cuckold" ]
-                };
-            }
-            if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || e === "topic-cuckqueen-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen" || i === "topic-cuckqueen-stag-vixen") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "vixen", "stag", "cuckquean" ],
-                    labels: [ "Vixen", "Stag", "Cuckquean" ]
-                };
-            }
-            if (e === "t0407" || e === "topic-top-bottom-side" || i === "t0407" || i === "topic-top-bottom-side") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
-                    keys: [ "top", "side", "bottom" ],
-                    labels: [ "Top", "Side", "Bottom" ]
-                };
-            }
-            if (e === "t0408" || e === "topic-sensual-primal-humiliation" || i === "t0408" || i === "topic-sensual-primal-humiliation") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "primal", "sensual", "humiliation" ],
-                    labels: [ "Primal", "Sensual", "Humiliation" ]
-                };
-            }
-            if (e === "t0409" || e === "topic-sensation-power-intimacy" || i === "t0409" || i === "topic-sensation-power-intimacy") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "sensation", "power", "intimacy" ],
-                    labels: [ "Sensation", "Power", "Intimacy" ]
-                };
-            }
-            if (e === "t0412" || e === "topic-tantric-frantic-trance" || i === "t0412" || i === "topic-tantric-frantic-trance") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
-                    keys: [ "tantric", "frantic", "trance" ],
-                    labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
-                };
-            }
+            /* Flexcapades skin registry: a loaded skin supplies widget configs
+               for its own topic ids — including sexcapades.json, which the
+               loader registers at boot for the 17 higher-pole Sexcapades
+               topics (formerly hardcoded branches here). Consulted first. */
+            const sw = window.__SX_SKIN_WIDGETS;
+            if (sw) { const w = sw[e] || sw[i]; if (w) return w; }
             // 4-Pole Tetrad Topics
-            if (e === "t0414" || e === "topic-orgasm-dynamic" || i === "t0414" || i === "topic-orgasm-dynamic") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "ruined", "edged", "forced", "cathartic" ],
-                    labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
-                };
-            }
-            if (e === "t0415" || e === "topic-intimacy-geometry" || i === "t0415" || i === "topic-intimacy-geometry") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
-                    labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
-                };
-            }
-            if (e === "t0416" || e === "topic-kink-motivation" || i === "t0416" || i === "topic-kink-motivation") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "escape", "union", "catharsis", "transgression" ],
-                    labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
-                };
-            }
-            // Poliscapades 4-Pole Placeholders
-            if (e === "topic-political-compass" || i === "topic-political-compass") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "quad-compass",
-                    archetype: "quad", // Type III: Orthogonal Continua
-                    keys: [ "authleft", "authright", "libleft", "libright" ],
-                    labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
-                };
-            }
-            if (e === "topic-decision-ecology" || i === "topic-decision-ecology") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "quad-sliders",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "consensus", "democracy", "technocracy", "mandate" ],
-                    labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
-                };
-            }
             // Forescapades 4-Pole Placeholders
             if (e === "topic-metaphysical-reality" || i === "topic-metaphysical-reality") {
                 return {
@@ -2850,27 +3120,6 @@
                 };
             }
             // 5-Pole Pentad Topics
-            if (e === "t0418" || e === "topic-erotic-languages" || i === "t0418" || i === "topic-erotic-languages") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star", // Type II: Multi-Affinity Distribution
-                    keys: [ "words", "touch", "service", "vulnerability", "autonomy" ],
-                    labels: [ "Words of Adoration", "Dedicated Erotic Touch", "Devoted Acts of Service", "Deep Vulnerability", "Autonomous Presence" ]
-                };
-            }
-            // Poliscapades 5-Pole Placeholders
-            if (e === "topic-civic-allocation-pentad" || i === "topic-civic-allocation-pentad") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star", // Type II: Multi-Affinity Distribution
-                    keys: [ "welfare", "infrastructure", "education", "defense", "ecology" ],
-                    labels: [ "Healthcare & Welfare", "Infrastructure & Energy", "Education & Science", "Defense & Security", "Ecology & Climate" ]
-                };
-            }
             // Forescapades 5-Pole Placeholders
             if (e === "topic-elemental-balance" || i === "topic-elemental-balance") {
                 return {
@@ -2883,37 +3132,6 @@
                 };
             }
             // 6-Pole Hexad Topics
-            if (e === "t0420" || e === "topic-eros-hexagon" || i === "t0420" || i === "topic-eros-hexagon") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad", // Type II: Multi-Affinity Distribution / Diametric Pairs
-                    keys: [ "eros", "ludus", "storge", "pragma", "mania", "agape" ],
-                    labels: [ "Eros (Passionate)", "Ludus (Playful)", "Storge (Companionate)", "Pragma (Practical)", "Mania (Obsessive)", "Agape (Altruistic)" ]
-                };
-            }
-            if (e === "t0422" || e === "topic-orgasm-topography" || i === "t0422" || i === "topic-orgasm-topography") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "clitoral", "pelvic", "cervical", "anal", "somatic", "psychic" ],
-                    labels: [ "External Cutaneous", "Internal Pelvic (G/P)", "Cervical / Trance", "Anal / Sphincter Wave", "Whole-Body Somatic", "Psychic / Tantric" ]
-                };
-            }
-            // Poliscapades 6-Pole Placeholders
-            if (e === "topic-political-matrix-hexad" || e === "topic-hexagonal-matrix" || i === "topic-political-matrix-hexad" || i === "topic-hexagonal-matrix") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "capitalism", "socialism", "technocracy", "communitarian", "authoritarian", "libertarian" ],
-                    labels: [ "Free-Market Capitalism", "Democratic Socialism", "Technocratic Meritocracy", "Communitarian Localism", "Authoritarian Order", "Libertarian Voluntaryism" ]
-                };
-            }
             // Forescapades 6-Pole Placeholders
             if (e === "topic-six-yogas" || i === "topic-six-yogas") {
                 return {
@@ -2926,36 +3144,6 @@
                 };
             }
             // 7-Pole Heptad Topics
-            if (e === "t0423" || e === "topic-bdsm-archetype-heptad" || i === "t0423" || i === "topic-bdsm-archetype-heptad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad", // Type II: Multi-Affinity Distribution / Heptagonal Polygon
-                    keys: [ "sovereign", "caregiver", "primal", "sadist", "brat", "switch", "slave" ],
-                    labels: [ "Sovereign (Dominant / Master)", "Caregiver (Nurturer / Daddy)", "Primal (Hunter / Instinct)", "Sadist (Tormentor / Sensual)", "Brat (Rebel / Provoker)", "Switch (Fluid / Versatile)", "Submissive (Slave / Devotee)" ]
-                };
-            }
-            if (e === "t0424" || e === "topic-somatosensory-modalities-heptad" || i === "t0424" || i === "topic-somatosensory-modalities-heptad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "tactile", "thermal", "impact", "electric", "scent", "sound", "vestibular" ],
-                    labels: [ "Tactile (Texture / Soft)", "Thermal (Hot / Ice)", "Impact (Sting / Thud)", "Electric (Tens / Wand)", "Olfactory (Scent / Odor)", "Acoustic (Whisper / ASMR)", "Vestibular (Balance / Suspension)" ]
-                };
-            }
-            if (e === "t0425" || e === "topic-relational-heptad" || i === "t0425" || i === "topic-relational-heptad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "liking", "infatuation", "empty", "romantic", "companionate", "fatuous", "consummate" ],
-                    labels: [ "Liking (Intimacy Alone)", "Infatuation (Passion Alone)", "Empty (Duty / Contract)", "Romantic (Intimacy + Passion)", "Companionate (Intimacy + Duty)", "Fatuous (Passion + Duty)", "Consummate (Total Matrix)" ]
-                };
-            }
             // Philoscapades 7-Pole Heptad
             if (e === "topic-seven-branches-philosophy" || i === "topic-seven-branches-philosophy") {
                 return {
@@ -2978,95 +3166,9 @@
                     labels: [ "Sovereign Authority", "Rule of Law", "Economic Equality", "Civil Liberties", "Social Welfare Safety", "Ecological Stewardship", "Geopolitical Autonomy" ]
                 };
             }
-            // Forescapades 7-Pole Heptad (Seven Classical Planetary Spheres / Hermetic Rays)
-            if (e === "topic-seven-planetary-spheres" || e === "topic-seven-chakras" || i === "topic-seven-planetary-spheres" || i === "topic-seven-chakras") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "sol", "venus", "mars", "jupiter", "saturn", "luna", "mercury" ],
-                    labels: [ "Sol (Illumination)", "Venus (Beauty / Love)", "Mars (Strength / Will)", "Jupiter (Wisdom / Grace)", "Saturn (Boundaries / Silence)", "Luna (Intuition / Mystery)", "Mercury (Intellect / Word)" ]
-                };
-            }
             // 8-Pole Octad Topics
             // Sexcapades 8-Pole Physical Restraint & Containment Octad
-            if (e === "t0426" || e === "topic-restraint-containment-octad" || i === "t0426" || i === "topic-restraint-containment-octad") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "rope", "shibari", "cuffs", "tape", "mummification", "blindfold", "caging", "suspension" ],
-                    labels: [ "Rope Bondage", "Shibari (Art / Tie)", "Cuffs & Straps", "Tape & Wrapping", "Mummification / Sack", "Blindfold / Sensory Hood", "Caging / Encasement", "Suspension Bondage" ]
-                };
-            }
             // Sexcapades 8-Pole Somatosensory & Anatomical Worship Octad
-            if (e === "t0427" || e === "topic-anatomical-worship-octad" || i === "t0427" || i === "topic-anatomical-worship-octad") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "feet", "hands", "breasts", "glutes", "muscles", "hair", "bodyhair", "pregnancy" ],
-                    labels: [ "Feet & Footwear", "Hands & Gloves", "Breasts / Chest", "Buttocks / Glutes", "Muscles / Physique", "Hair / Long Hair", "Body & Facial Hair", "Pregnancy / Lactation" ]
-                };
-            }
-            // Philoscapades 8-Pole Epistemological Octad
-            if (e === "topic-eight-epistemologies" || i === "topic-eight-epistemologies") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "empiricism", "rationalism", "pragmatism", "phenomenology", "hermeneutics", "skepticism", "mysticism", "dialectics" ],
-                    labels: [ "Empiricism", "Rationalism", "Pragmatism", "Phenomenology", "Hermeneutics", "Skepticism", "Mysticism", "Dialectics" ]
-                };
-            }
-            // Poliscapades 8-Pole Civilizational Octad
-            if (e === "topic-eight-civilizations" || i === "topic-eight-civilizations") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "western", "sinic", "islamic", "hindu", "orthodox", "latin", "african", "buddhist" ],
-                    labels: [ "Western Democratic", "Sinic / Confucian", "Islamic", "Hindu", "Orthodox Slavic", "Latin American", "Sub-Saharan African", "Buddhist / Dharmic" ]
-                };
-            }
-            // Forescapades 8-Pole Abrahamic Covenantal & Theological Octad
-            if (e === "topic-eight-covenants-abrahamic" || i === "topic-eight-covenants-abrahamic") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "britmilah", "halakha", "kabbalah", "gospel", "eucharist", "orthodoxy", "tawhid", "sufism" ],
-                    labels: [ "Brit Milah (The Flesh Covenant)", "Halakha (Law & Mitzvot)", "Kabbalah (Merkavah / Mysticism)", "Gospel (Pauline Grace / Faith)", "Sacrament (Eucharist / Liturgy)", "Christology (Logos Incarnate)", "Tawhid (Absolute Divine Unity)", "Tasawwuf (Sufi Fana / Ecstasy)" ]
-                };
-            }
-            // Dharmacapades 8-Pole Noble Eightfold Path Octad
-            if (e === "t0428" || e === "topic-noble-eightfold-path" || e === "topic-eightfold-path" || i === "t0428" || i === "topic-noble-eightfold-path" || i === "topic-eightfold-path") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "view", "intention", "speech", "action", "livelihood", "effort", "mindfulness", "concentration" ],
-                    labels: [ "Right View (Wisdom)", "Right Intention (Resolve)", "Right Speech (Ethics)", "Right Action (Ethics)", "Right Livelihood (Ethics)", "Right Effort (Meditation)", "Right Mindfulness (Presence)", "Right Concentration (Jhana)" ]
-                };
-            }
-            // Dharmacapades / Taoic 8-Pole Trigrams / Bagua Octad
-            if (e === "topic-eight-trigrams-bagua" || e === "topic-bagua" || i === "topic-eight-trigrams-bagua" || i === "topic-bagua") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "qian", "dui", "li", "zhen", "xun", "kan", "gen", "kun" ],
-                    labels: [ "Qian (Heaven / Creative)", "Dui (Lake / Joyous)", "Li (Fire / Clinging)", "Zhen (Thunder / Arousing)", "Xun (Wind / Gentle)", "Kan (Water / Abyssal)", "Gen (Mountain / Stillness)", "Kun (Earth / Receptive)" ]
-                };
-            }
             // Poliscapades 8-Pole Governance Regimes Octad
             if (e === "topic-eight-governance-regimes" || e === "topic-governance-octad" || i === "topic-eight-governance-regimes" || i === "topic-governance-octad") {
                 return {
@@ -3100,17 +3202,6 @@
                     labels: [ "Te (Extraverted Thinking)", "Ti (Introverted Thinking)", "Fe (Extraverted Feeling)", "Fi (Introverted Feeling)", "Se (Extraverted Sensing)", "Si (Introverted Sensing)", "Ne (Extraverted Intuition)", "Ni (Introverted Intuition)" ]
                 };
             }
-            // Aesthcapades 7-Pole Dietary Identity Heptad (Canonical Heptad — Subsumes 6-Pole Hexad)
-            if (e === "topic-dietary-identity" || e === "topic-dietary-identity-heptad" || e === "topic-dietary-identity-hexad" || i === "topic-dietary-identity" || i === "topic-dietary-identity-heptad" || i === "topic-dietary-identity-hexad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "carnivore", "omnivore", "pescatarian", "ovoveg", "vegetarian", "vegan", "fruitarian" ],
-                    labels: [ "Carnivore", "Omnivore", "Pescatarian", "Ovo-Vegetarian", "Lacto-Ovo Vegetarian", "Vegan", "Fruitarian" ]
-                };
-            }
             // Aesthcapades 6-Pole Music Genres Hexad
             if (e === "topic-music-genres-hexad" || i === "topic-music-genres-hexad") {
                 return {
@@ -3133,28 +3224,6 @@
                     labels: [ "Technology & Engineering", "Healthcare & Caregiving", "Creative Arts & Media", "Skilled Trades & Labor", "Public Service & Education", "Finance & Commerce" ]
                 };
             }
-            // Dharmacapades 6-Pole Classical Yogas Hexad
-            if (e === "topic-six-classical-yogas" || i === "topic-six-classical-yogas") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "raja", "jnana", "bhakti", "karma", "hatha", "tantra" ],
-                    labels: [ "Raja (Royal / Meditation)", "Jnana (Wisdom / Discernment)", "Bhakti (Devotion / Love)", "Karma (Selfless Action)", "Hatha (Physical / Breath)", "Tantra (Energy / Integration)" ]
-                };
-            }
-            // Aesthcapades 5-Pole Five Basic Tastes Pentad
-            if (e === "topic-five-tastes" || e === "topic-five-basic-tastes" || i === "topic-five-tastes" || i === "topic-five-basic-tastes") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "sweet", "salty", "sour", "bitter", "umami" ],
-                    labels: [ "Sweet", "Salty", "Sour", "Bitter", "Umami" ]
-                };
-            }
             // Aesthcapades 5-Pole Art Movements Pentad
             if (e === "topic-art-movements-pentad" || i === "topic-art-movements-pentad") {
                 return {
@@ -3164,72 +3233,6 @@
                     archetype: "star",
                     keys: [ "realism", "impressionism", "modernism", "postmodernism", "conceptual" ],
                     labels: [ "Realism / Figurative", "Impressionism", "Modernism / Avant-Garde", "Postmodernism", "Conceptual Art" ]
-                };
-            }
-            // Vocapades 5-Pole Work Models Pentad
-            if (e === "topic-work-models-pentad" || e === "topic-work-models" || i === "topic-work-models-pentad" || i === "topic-work-models") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "fulltime", "freelance", "founder", "portfolio", "public" ],
-                    labels: [ "Full-Time Employee", "Freelancer / Independent", "Founder / Entrepreneur", "Portfolio / Part-Time", "Public Service / Nonprofit" ]
-                };
-            }
-            // Techcapades 5-Pole AI Risk & Benefit Allocation Pentad
-            if (e === "topic-ai-risk-benefit-pentad" || e === "topic-ai-futures-pentad" || i === "topic-ai-risk-benefit-pentad" || i === "topic-ai-futures-pentad") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "abundance", "feudalism", "displacement", "misalignment", "epistemic" ],
-                    labels: [ "Post-Scarcity Abundance", "Corporate Feudalism", "Labor & Skill Atrophy", "Existential Misalignment", "Epistemic Collapse" ]
-                };
-            }
-            // Dharmacapades 5-Pole Five Mahabhutas Pentad
-            if (e === "topic-five-mahabhutas" || i === "topic-five-mahabhutas") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "earth", "water", "fire", "air", "ether" ],
-                    labels: [ "Prithvi (Earth)", "Apas (Water)", "Agni (Fire)", "Vayu (Air)", "Akasha (Ether / Space)" ]
-                };
-            }
-            // Aesthcapades 4-Pole Theories of Beauty Tetrad
-            if (e === "topic-theories-of-beauty" || i === "topic-theories-of-beauty") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond",
-                    keys: [ "harmony", "sublime", "picturesque", "grotesque" ],
-                    labels: [ "Classical Harmony (Symmetry)", "Sublime (Vastness / Awe)", "Picturesque (Organic Variety)", "Grotesque (Transgressive / Ugly)" ]
-                };
-            }
-            // Dharmacapades 4-Pole Four Purusharthas Tetrad
-            if (e === "topic-four-purusharthas" || i === "topic-four-purusharthas") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond",
-                    keys: [ "dharma", "artha", "kama", "moksha" ],
-                    labels: [ "Dharma (Righteous Duty)", "Artha (Material Prosperity)", "Kama (Sensory Pleasure)", "Moksha (Spiritual Liberation)" ]
-                };
-            }
-            // Vocapades 4-Pole Career Anchors / Ikigai Tetrad (Schein)
-            if (e === "topic-career-anchors-tetrad" || e === "topic-career-anchors" || i === "topic-career-anchors-tetrad" || i === "topic-career-anchors") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond",
-                    keys: [ "craft", "leadership", "autonomy", "stability" ],
-                    labels: [ "Technical / Craft Mastery", "Executive / Leadership", "Autonomy / Freedom", "Security / Stability" ]
                 };
             }
             // Vocapades 4-Pole Leadership Styles Tetrad
@@ -3252,39 +3255,6 @@
                     archetype: "diamond",
                     keys: [ "utilitarian", "deontological", "virtue", "care" ],
                     labels: [ "Utilitarian (Net Flourishing)", "Deontological (Duty & Rights)", "Virtue Ethics (Character & Craft)", "Care Ethics (Relational Attunement)" ]
-                };
-            }
-            // Dharmacapades 3-Pole Three Teachings / San Jiao Triad
-            if (e === "topic-three-teachings-sanjiao" || e === "topic-three-teachings" || i === "topic-three-teachings-sanjiao" || i === "topic-three-teachings") {
-                return {
-                    single: !1,
-                    triad: !0,
-                    widget: "triangle",
-                    archetype: "triangle",
-                    keys: [ "confucianism", "taoism", "buddhism" ],
-                    labels: [ "Confucianism (Duty / Li)", "Taoism (Nature / Wu Wei)", "Buddhism (Detachment / Sunyata)" ]
-                };
-            }
-            // Vocapades 3-Pole Vocation Triad (Wrzesniewski)
-            if (e === "topic-vocation-triad" || i === "topic-vocation-triad") {
-                return {
-                    single: !1,
-                    triad: !0,
-                    widget: "triangle",
-                    archetype: "triangle",
-                    keys: [ "calling", "career", "job" ],
-                    labels: [ "Calling (Purpose / Identity)", "Career (Advancement / Status)", "Job (Means / Paycheck)" ]
-                };
-            }
-            // Dharmacapades 3-Pole Three Gunas Triad
-            if (e === "topic-three-gunas" || i === "topic-three-gunas") {
-                return {
-                    single: !1,
-                    triad: !0,
-                    widget: "triangle",
-                    archetype: "triangle",
-                    keys: [ "sattva", "rajas", "tamas" ],
-                    labels: [ "Sattva (Purity / Harmony)", "Rajas (Passion / Motion)", "Tamas (Inertia / Darkness)" ]
                 };
             }
             // The topic's own give/receive labels win. A parent id in the
