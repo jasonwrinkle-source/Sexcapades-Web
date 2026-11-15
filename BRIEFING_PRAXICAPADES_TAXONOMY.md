@@ -35,25 +35,51 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Question:** Which vertex of the modeling trilemma do you prioritize when building a model?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 
+- **Hovertip:** **Levins' Grand Model Trilemma** [TRIANGLE]
+  - Issue: Which vertex of the modeling trilemma do you prioritize when building a model?
+  - Generality — Captures universal behavior of a whole class of systems; sacrifices precision.
+  - Realism — Faithfully incorporates every known mechanism; sacrifices simplicity.
+  - Precision — Exact quantitative fit to specific data; sacrifices generalizability.
+
 #### 1.2 Deterministic vs Stochastic (2-Pole Dipole)
 - **Poles:** Deterministic (the world is predictable; given the inputs, the outputs follow) ↔ Stochastic (the world is random; you model distributions, not certainties)
 - **Question:** Is the world predictable or random?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Deterministic vs Stochastic**
+  - Issue: Is the world predictable or random?
+  - Deterministic — Given the inputs, the outputs follow.
+  - Stochastic — You model distributions, not certainties.
 
 #### 1.3 Continuous vs Discrete Models (2-Pole Dipole)
 - **Poles:** Continuous (differential equations, flows, fields) ↔ Discrete (difference equations, networks, agents)
 - **Question:** Do you model with continuous flows or discrete systems?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Continuous vs Discrete Models**
+  - Issue: Do you model with continuous flows or discrete systems?
+  - Continuous — Differential equations, flows, fields.
+  - Discrete — Difference equations, networks, agents.
+
 #### 1.4 Modeling Philosophy: First-Principles Physics vs. Data-Driven Empirical Surrogates (2-Pole Dipole)
 - **Poles:** **Deductive First Principles** (Conservation of mass, momentum, energy; physical conservation laws; white-box equations) ↔ **Inductive Data-Driven Surrogates** (Physics-informed neural networks, Fourier neural operators, polynomial chaos expansions, black-box empirical fits)
 - **Question:** Should models be derived from conservation laws or learned from data?
 - **Optimal Widget:** Dipole Slider.
 
+- **Hovertip:** **Modeling Philosophy: First-Principles Physics vs. Data-Driven Empirical Surrogates**
+  - Issue: Should models be derived from conservation laws or learned from data?
+  - Deductive First Principles — Conservation laws; white-box equations.
+  - Inductive Data-Driven Surrogates — Neural networks, empirical fits; black-box.
+
 #### 1.5 Linearity Stance: Linearized Tractability vs. Nonlinear Realism (2-Pole Dipole)
 - **Poles:** **Linear Approximations** (Superposition, eigenvalue spectra, Fourier modes, closed-form perturbation expansions) ↔ **Nonlinear Reality** (Bifurcations, strange attractors, solitons, chaos, limit cycles)
 - **Question:** Do you trust linear approximations or insist on full nonlinear dynamics?
 - **Optimal Widget:** Dipole Slider.
+
+- **Hovertip:** **Linearity Stance: Linearized Tractability vs. Nonlinear Realism**
+  - Issue: Do you trust linear approximations or insist on full nonlinear dynamics?
+  - Linear Approximations — Superposition, eigenvalue spectra, closed-form perturbation.
+  - Nonlinear Reality — Bifurcations, strange attractors, solitons, chaos.
 
 ### Category 2: Computation & Method
 
@@ -67,20 +93,42 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Question:** Which computational architecture is your native weapon?
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 
+- **Hovertip:** **The Computational Architecture Quartet** [TETRAD — simplex]
+  - Issue: Which computational architecture is your native weapon?
+  - Grid & Mesh PDE Solvers — FEM, FVM, adaptive mesh refinement, spectral methods.
+  - Particle & Monte Carlo Methods — Molecular dynamics, SPH, MCMC, stochastic simulation.
+  - Discrete Networks & Agent Simulators — Complex networks, kinetic Monte Carlo, agent-based frameworks.
+  - Neural Operators & AI Surrogates — DeepONets, Fourier Neural Operators, PDE emulators.
+
 #### 2.2 Analytic vs Numerical (2-Pole Dipole)
 - **Poles:** Analytic (solve exactly; closed form, pen and paper) ↔ Numerical (approximate; algorithms, computers, floating point)
 - **Question:** Do you solve exactly or approximate?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Analytic vs Numerical**
+  - Issue: Do you solve exactly or approximate?
+  - Analytic — Solve exactly; closed form, pen and paper.
+  - Numerical — Approximate; algorithms, computers, floating point.
 
 #### 2.3 Simulation vs Theory (2-Pole Dipole)
 - **Poles:** Simulation (run it and see; Monte Carlo, agent-based, computational experiments) ↔ Theory (prove it; the math tells you what happens)
 - **Question:** Do you trust simulations or theory?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Simulation vs Theory**
+  - Issue: Do you trust simulations or theory?
+  - Simulation — Run it and see; computational experiments.
+  - Theory — Prove it; the math tells you what happens.
+
 #### 2.4 Optimization: Exact vs Heuristic (2-Pole Dipole)
 - **Poles:** Exact (find the true optimum; global, guaranteed) ↔ Heuristic (find a good-enough solution; fast, practical, approximate)
 - **Question:** Do you find the optimum or a good-enough answer?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Optimization: Exact vs Heuristic**
+  - Issue: Do you find the optimum or a good-enough answer?
+  - Exact — The true optimum; global, guaranteed.
+  - Heuristic — Good-enough; fast, practical, approximate.
 
 ### Category 3: Domains & Arenas
 
@@ -95,15 +143,33 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Question:** Which domain calls for your mathematical application?
 - **Optimal Widget:** Pentad Radial Star Widget (`"star-radar"`).
 
+- **Hovertip:** **The Applied Domain Star** [PENTAD — simplex]
+  - Issue: Which domain calls for your mathematical application?
+  - Physical Continua & Geophysical Fluids — Navier-Stokes, turbulence, geophysics, plasma.
+  - Biological, Ecological & Epidemic Dynamics — Morphogenesis, SIR models, neuroscience.
+  - Economic, Financial & Game Theoretic Flows — Stochastic calculus, Black-Scholes, systemic risk.
+  - Engineering, Control & Cybernetics — Optimal control, Kalman filtering, robotics, MPC.
+  - Information, Tensors & Machine Intelligence — Compressed sensing, tensor decomposition, graph algorithms.
+
 #### 3.2 Pure vs Applied (2-Pole Dipole)
 - **Poles:** Pure (math for its own sake) ↔ Applied (math for what it does)
 - **Question:** The skin-defining divide — where do you stand, from the applied side?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Pure vs Applied**
+  - Issue: The skin-defining divide — where do you stand, from the applied side?
+  - Pure — Math for its own sake.
+  - Applied — Math for what it does.
+
 #### 3.3 Interdisciplinary vs Domain-Specific (2-Pole Dipole)
 - **Poles:** Interdisciplinary (work across fields; borrow methods, cross boundaries) ↔ Domain-Specific (deep in one field; master its methods, its literature, its problems)
 - **Question:** Do you work across fields or deep in one?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Interdisciplinary vs Domain-Specific**
+  - Issue: Do you work across fields or deep in one?
+  - Interdisciplinary — Borrow methods, cross boundaries.
+  - Domain-Specific — Deep in one field; master its methods and literature.
 
 ### Category 4: Uncertainty & Data
 
@@ -117,6 +183,13 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Question:** What is the primary source of uncertainty in your models?
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 
+- **Hovertip:** **The Epistemic Uncertainty Quartet** [TETRAD — simplex]
+  - Issue: What is the primary source of uncertainty in your models?
+  - Aleatoric Uncertainty — Inherent, irreducible randomness (thermal noise, quantum fluctuations).
+  - Epistemic Parameter Uncertainty — Inexact coefficients; reducible with more sensors.
+  - Structural Model Misspecification — The equations themselves are wrong; unmodeled physics.
+  - Knightian Ambiguity — Fat-tailed black swans, regime shifts, unquantifiable surprises.
+
 #### 4.2 The Inverse Problem & Data Assimilation Spectrum (3-Pole Triad $\Delta^2$)
 *The directionality of information flow between equations and observations.*
 - **Poles:**
@@ -126,15 +199,31 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Question:** Where does your work live on the simulation-inversion spectrum?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 
+- **Hovertip:** **The Inverse Problem & Data Assimilation Spectrum** [LINE]
+  - Issue: Where does your work live on the simulation-inversion spectrum?
+  - Forward Simulation — Given equations and initial conditions, calculate the future.
+  - Real-Time Data Assimilation — Continuous Bayesian updating; blending sensor data with simulation.
+  - Inverse Problem & Parameter Identification — Infer hidden physics from sparse, noisy measurements.
+
 #### 4.3 Statistical Philosophy: Bayesian vs. Frequentist in Applied Modeling (2-Pole Dipole)
 - **Poles:** **Bayesian Updating** (Priors, posterior distributions, MCMC, belief propagation; quantifying subjective parameter confidence) ↔ **Frequentist / Objective Likelihood** (Confidence intervals, hypothesis testing, asymptotic sampling distributions; objective physical frequencies)
 - **Question:** How do you formulate probabilities in your models?
 - **Optimal Widget:** Dipole Slider.
 
+- **Hovertip:** **Statistical Philosophy: Bayesian vs. Frequentist in Applied Modeling**
+  - Issue: How do you formulate probabilities in your models?
+  - Bayesian Updating — Priors, posteriors, MCMC; quantifying subjective confidence.
+  - Frequentist / Objective Likelihood — Confidence intervals, hypothesis testing, objective frequencies.
+
 #### 4.4 Big Data vs Small Data (2-Pole Dipole)
 - **Poles:** Big Data (more data; let the data speak; machine learning, scale) ↔ Small Data (better models; careful design; insight over volume)
 - **Question:** More data or better models?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Big Data vs Small Data**
+  - Issue: More data or better models?
+  - Big Data — More data; let the data speak; machine learning, scale.
+  - Small Data — Better models; careful design; insight over volume.
 
 ### Category 5: Rigor & Validation
 
@@ -144,25 +233,50 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Question:** Does applied math require rigorous mathematical proofs or working solutions?
 - **Optimal Widget:** Dipole Slider.
 
+- **Hovertip:** **Rigorous Proof vs. Pragmatic Utility**
+  - Issue: Does applied math require rigorous proofs or working solutions?
+  - Pure Rigor — Sobolev spaces, existence, uniqueness, well-posedness.
+  - Pragmatic Engineering Utility — If the plane flies and the bridge stands, the model is valid.
+
 #### 5.2 Elegance vs Effectiveness (2-Pole Dipole)
 - **Poles:** Elegance (a beautiful model; clean, spare, insightful) ↔ Effectiveness (an effective model; it predicts, it controls, it delivers)
 - **Question:** Do you value a beautiful model or an effective one?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Elegance vs Effectiveness**
+  - Issue: Do you value a beautiful model or an effective one?
+  - Elegance — A beautiful model; clean, spare, insightful.
+  - Effectiveness — An effective model; it predicts, it controls, it delivers.
 
 #### 5.3 General vs Specific (2-Pole Dipole)
 - **Poles:** General (a theory that covers many problems; reusable, abstract) ↔ Specific (a solution tailored to one problem; bespoke, concrete)
 - **Question:** Do you build general theories or problem-specific solutions?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **General vs Specific**
+  - Issue: Do you build general theories or problem-specific solutions?
+  - General — A theory covering many problems; reusable, abstract.
+  - Specific — A solution tailored to one problem; bespoke, concrete.
+
 #### 5.4 Model Complexity: Occam's Parsimony vs. Multi-Physics Maximalism (2-Pole Dipole)
 - **Poles:** **Occam's Minimalist Toy Model** (A 2-variable ODE that reveals the essential qualitative bifurcation mechanism; minimal assumptions) ↔ **Multi-Physics High-Fidelity Ensemble** (A 50-million variable coupled simulation incorporating chemistry, thermal transfer, and mechanics)
 - **Question:** Do you prefer illuminating toy models or high-fidelity simulation ensembles?
 - **Optimal Widget:** Dipole Slider.
 
+- **Hovertip:** **Model Complexity: Occam's Parsimony vs. Multi-Physics Maximalism**
+  - Issue: Do you prefer illuminating toy models or high-fidelity simulation ensembles?
+  - Occam's Minimalist Toy Model — A 2-variable ODE revealing the essential mechanism.
+  - Multi-Physics High-Fidelity Ensemble — A 50-million variable coupled simulation.
+
 #### 5.5 Goal: Mechanistic Explanation vs. Predictive Accuracy (2-Pole Dipole)
 - **Poles:** **Mechanistic Understanding** (Explain *why* the phenomenon occurs; uncover causality, feedback loops, and structural dynamics) ↔ **Predictive Supremacy** (Accurately forecast what will happen next; the mechanism matters less than minimizing mean squared error)
 - **Question:** Do you model to understand mechanisms or to forecast outcomes?
 - **Optimal Widget:** Dipole Slider.
+
+- **Hovertip:** **Goal: Mechanistic Explanation vs. Predictive Accuracy**
+  - Issue: Do you model to understand mechanisms or to forecast outcomes?
+  - Mechanistic Understanding — Explain why; uncover causality and feedback loops.
+  - Predictive Supremacy — Forecast what happens next; minimize error.
 
 ### Category 6: The Applied Life
 
@@ -171,20 +285,40 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Question:** Where do you deploy your applied mathematics?
 - **Optimal Widget:** Dipole Slider.
 
+- **Hovertip:** **Habitat: Industrial Supercomputing vs. Academic Freedom**
+  - Issue: Where do you deploy your applied mathematics?
+  - Industry, National Labs & Tech Giants — Massive compute, real deadlines, concrete impact.
+  - University Academia — Curiosity-driven research, teaching, open publishing.
+
 #### 6.2 Collaboration vs Solitude (2-Pole Dipole)
 - **Poles:** Collaboration (work with domain experts; the team solves it) ↔ Solitude (work alone; the math is yours)
 - **Question:** Do you work with domain experts or alone?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Collaboration vs Solitude**
+  - Issue: Do you work with domain experts or alone?
+  - Collaboration — Work with domain experts; the team solves it.
+  - Solitude — Work alone; the math is yours.
 
 #### 6.3 The Computational Craft: Low-Level Performance vs. Rapid Prototyping (2-Pole Dipole)
 - **Poles:** **High-Performance Systems Craft** (C++, Fortran, Rust, CUDA kernels, memory alignment, MPI parallel clusters) ↔ **Rapid High-Level Prototyping** (Python, Julia, MATLAB, NumPy, interactive Jupyter notebooks)
 - **Question:** How do you write your numerical code?
 - **Optimal Widget:** Dipole Slider.
 
+- **Hovertip:** **The Computational Craft: Low-Level Performance vs. Rapid Prototyping**
+  - Issue: How do you write your numerical code?
+  - High-Performance Systems Craft — C++, Fortran, CUDA, MPI clusters.
+  - Rapid High-Level Prototyping — Python, Julia, MATLAB, Jupyter notebooks.
+
 #### 6.4 Interdisciplinary Role: Domain Bridge-Builder vs. Methodological Core (2-Pole Dipole)
 - **Poles:** **The Interdisciplinary Bridge** (Immersed in biology, climate, or finance; learning domain jargon, translating domain questions into math) ↔ **Methodological Core** (Staying purely in applied math; inventing general algorithms, numerical schemes, and solvers for others to apply)
 - **Question:** Are you an interdisciplinary bridge or a pure algorithm specialist?
 - **Optimal Widget:** Dipole Slider.
+
+- **Hovertip:** **Interdisciplinary Role: Domain Bridge-Builder vs. Methodological Core**
+  - Issue: Are you an interdisciplinary bridge or a pure algorithm specialist?
+  - The Interdisciplinary Bridge — Immersed in a domain; translating questions into math.
+  - Methodological Core — Inventing general algorithms and solvers for others to apply.
 
 #### 6.5 Impact vs Publication (2-Pole Dipole)
 - **Poles:** Impact (real-world change; the model ships, the system improves) ↔ Publication (academic papers; the literature, the citations, the record)
@@ -192,6 +326,11 @@ Under the **Taxopolemics** engine, applied-mathematical positions are mapped to 
 - **Optimal Widget:** Dipole slider.
 
 ---
+
+- **Hovertip:** **Impact vs Publication**
+  - Issue: Do you value real-world impact or academic publication?
+  - Impact — Real-world change; the model ships, the system improves.
+  - Publication — Academic papers; the literature, the citations, the record.
 
 ## 3. Pole-Count Summary
 

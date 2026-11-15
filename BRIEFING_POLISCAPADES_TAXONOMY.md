@@ -38,6 +38,7 @@ Poliscapades arranges civic topics across 6 core macro-domains:
   - `Base Right`: **The Market (Capital & Price Discovery)** — Private ownership, free enterprise, decentralized pricing, competitive capital allocation.
   - `Base Left`: **The Commons (Civil Society & Mutual Aid)** — Peer-to-peer open resource pools, worker cooperatives, community land trusts, decentralized autonomous organizations.
 - **Optimal Widget**: **Barycentric Equilateral Triangle Widget** with center barycentric coordinate display and civic budget intensity slider.
+- **Hovertip:** **Macro-Economic Structural Triad: State / Market / Commons** [TRIANGLE] — Issue: How should the economy be organized — by the state, the market, or the commons? | The State — Centralized public planning, taxation, and regulation. | The Market — Private ownership, free enterprise, and price discovery. | The Commons — Peer-to-peer resource pools, cooperatives, and mutual aid.
 
 #### 3.1.2 Rodrik's Political Trilemma of the World Economy
 - **Poles**:
@@ -46,6 +47,7 @@ Poliscapades arranges civic topics across 6 core macro-domains:
   - `Base Left`: **Democratic Politics** — National electorate accountability, domestic labor protections, social welfare consensus.
 - *Epistemic Note*: As established by Dani Rodrik, any society can choose at most two of the three simultaneously.
 - **Optimal Widget**: Barycentric Triangle with trilemma perimeter constraint.
+- **Hovertip:** **Rodrik's Political Trilemma of the World Economy** [TRIANGLE] — Issue: Can a society have hyperglobalization, national sovereignty, and democratic politics all at once? | Hyperglobalization — Frictionless trade, capital mobility, uniform regulation. | National Sovereignty — Self-determination, border integrity, domestic industrial policy. | Democratic Politics — Electorate accountability, labor protections, social welfare.
 
 #### 3.1.3 Theories of Distributive Justice Triad
 - **Poles**:
@@ -53,6 +55,7 @@ Poliscapades arranges civic topics across 6 core macro-domains:
   - `Base Right`: **Merit / Contribution (Productivist)** — Rewards scaled strictly to output, effort, talent, and market value.
   - `Base Left`: **Strict Equality (Egalitarian)** — Identical baseline per capita endowment regardless of contribution or condition.
 - **Optimal Widget**: Barycentric Triangle.
+- **Hovertip:** **Theories of Distributive Justice Triad** [TRIANGLE] — Issue: What makes a distribution of resources just? | Need — Resources allocated according to human vulnerability and necessity. | Merit — Rewards scaled to output, effort, talent, and market value. | Strict Equality — Identical baseline endowment regardless of contribution or condition.
 
 ---
 
@@ -65,6 +68,7 @@ Poliscapades arranges civic topics across 6 core macro-domains:
   - `South (Red #ef4444)`: **Libertarian Right (Anarcho-Capitalism / Minarchism)** — Absolute private property, unregulated laissez-faire markets, abolition of state intrusion.
   - `West (Blue #3b82f6)`: **Libertarian Left (Democratic Confederalism / Anarcho-Syndicalism)** — Voluntary collectivism, direct democracy, worker-owned production, abolition of coercive hierarchy.
 - **Optimal Widget**: **Orthogonal Diamond Deformation Polygon** (Concept B-alt2).
+- **Hovertip:** **The Classic Political Compass Tetrad** [TETRAD — simplex] — Issue: Where do you stand on the two axes of political orientation — economic and authority? | Authoritarian Left — Public command economy, heavy state apparatus, collective discipline. | Authoritarian Right — Private enterprise subordinated to national glory, strict hierarchy, militarism. | Libertarian Right — Absolute private property, unregulated markets, abolition of state intrusion. | Libertarian Left — Voluntary collectivism, direct democracy, worker-owned production.
 
 #### 3.2.2 Decision Ecology & Governance Modalities (`topic-decision-ecology`)
 - **Poles**:
@@ -73,6 +77,7 @@ Poliscapades arranges civic topics across 6 core macro-domains:
   - `South (Red)`: **Direct Deliberative Democracy (Assembly)** — Citizens' assemblies, sortition, continuous referendum voting, participatory budgeting.
   - `West (Blue)`: **Consensus Federation (Veto / Unanimity)** — Strict consensus-seeking, minority veto power, decentralized local autonomy.
 - **Optimal Widget**: Orthogonal Diamond Deformation Polygon.
+- **Hovertip:** **Decision Ecology & Governance Modalities** [TETRAD — simplex] — Issue: Who should decide, and how — executive, experts, assembly, or consensus? | Executive Mandate — Unitary executive leadership, rapid decisions in crises. | Technocratic Meritocracy — Bureaucratic expertise, evidence-based policy insulated from populism. | Direct Deliberative Democracy — Citizens' assemblies, sortition, participatory budgeting. | Consensus Federation — Strict consensus-seeking, minority veto, local autonomy.
 
 #### 3.2.3 Fiscal & Monetary Policy Tetrad
 - **Poles**:
@@ -81,6 +86,7 @@ Poliscapades arranges civic topics across 6 core macro-domains:
   - `South (Red)`: **Sound Money / Monetarism** — Fixed supply or hard-money standards (Gold, Bitcoin, strict Taylor rule), private central bank independence.
   - `West (Blue)`: **Fiscal Austerity / Balanced Budget** — Constitutionally mandated debt ceilings, public expenditure reduction, minimal state borrowing.
 - **Optimal Widget**: Orthogonal Diamond Deformation Polygon.
+- **Hovertip:** **Fiscal & Monetary Policy Tetrad** [TETRAD — simplex] — Issue: How should the state manage money and debt? | Modern Monetary Theory — Sovereign currency issuance to fund full employment. | Keynesian Intervention — Deficit spending in recessions, tightening in expansions. | Sound Money / Monetarism — Fixed supply or hard-money standards, central bank independence. | Fiscal Austerity — Debt ceilings, expenditure reduction, minimal state borrowing.
 
 ---
 
@@ -95,6 +101,7 @@ A fundamental problem in public finance: how a society allocates its finite disc
   - `Pole 3 ($234^\circ$, Lower Left)`: **Defense, Border Security & Resilience** — Standing armed forces, intelligence, strategic deterrents, cybersecurity.
   - `Pole 4 ($162^\circ$, Upper Left)`: **Ecology, Climate & Biodiversity** — Rewilding, carbon capture, ocean restoration, regenerative agricultural transition.
 - **Optimal Widget**: **Regular Pentagram Multi-Affinity Widget** with simplex sum constraint ($\sum_{i=0}^4 w_i = 100\%$) and total budget intensity slider.
+- **Hovertip:** **Civic Resource Allocation Pentad** [PENTAD — simplex] — Issue: How should society divide its finite budget across five vital priorities? | Healthcare & Social Welfare — Universal health, pensions, disability support, homelessness prevention. | Infrastructure & Clean Energy — High-speed rail, smart grid, nuclear and solar, water networks. | Education, Science & Frontier R&D — Free higher education, fundamental physics, fusion, space. | Defense, Border Security & Resilience — Armed forces, intelligence, deterrents, cybersecurity. | Ecology, Climate & Biodiversity — Rewilding, carbon capture, ocean restoration, regenerative agriculture.
 
 #### 3.3.2 Theories of Property & Ownership Pentad
 - **Poles**:
@@ -104,6 +111,7 @@ A fundamental problem in public finance: how a society allocates its finite disc
   - `Pole 3`: **Usufruct (Possession by Use)** — Property rights exist only so long as land or capital is actively utilized.
   - `Pole 4`: **Open-Access / Copyleft (Digital Commons)** — Non-rivalrous commons where information and technology cannot be locked by patents.
 - **Optimal Widget**: Regular Pentagram.
+- **Hovertip:** **Theories of Property & Ownership Pentad** [PENTAD — simplex] — Issue: Who can own what, and on what terms? | Private Absolute — Alienable individual title with unlimited accumulation rights. | State Owned — Managed by government ministries for the public interest. | Common Pool Resource — Self-governed by community user groups under nested rules. | Usufruct — Property rights exist only while land or capital is actively used. | Open-Access / Copyleft — Non-rivalrous commons where information cannot be locked by patents.
 
 ---
 
@@ -122,6 +130,7 @@ Six distinct civilizational operating systems paired along 3 diametric tension a
   - `Vertex 4 ($210^\circ$, Lower Left)`: **Communitarian Localism** — Small-scale bioregionalism, agrarian self-sufficiency, decentralized direct democracy.
   - `Vertex 5 ($150^\circ$, Upper Left)`: **Libertarian Voluntaryism** — Radical individual autonomy, non-aggression principle, contract-based society.
 - **Optimal Widget**: Hexagonal Circumplex Slider with Diametric Tension Lines.
+- **Hovertip:** **Macro Political Matrix Hexad** [HEXAD — simplex] — Issue: Which civilizational operating system should govern society? | Free-Market Capitalism — Price system, private enterprise, shareholder returns, market discipline. | Technocratic Meritocracy — Algorithmic optimization, cognitive elites, institutional competence. | Authoritarian Order — Strong state, cultural cohesion, hierarchy, strict enforcement of law. | Democratic Socialism — Social ownership of key heights, economic democracy, workplace parity. | Communitarian Localism — Small-scale bioregionalism, agrarian self-sufficiency, direct democracy. | Libertarian Voluntaryism — Radical individual autonomy, non-aggression principle, contract-based society.
 
 #### 3.4.2 Foreign Policy & Geopolitical Grand Strategy Hexad
 - **Poles**:
@@ -132,6 +141,7 @@ Six distinct civilizational operating systems paired along 3 diametric tension a
   - `Vertex 4 ($210^\circ$)`: **Strategic Neo-Isolationism** — Military retrenchment, non-interventionism, focus on domestic fortress integrity.
   - `Vertex 5 ($150^\circ$)`: **Cosmopolitan Borderless Globalism** — Abolition of national borders, universal human rights citizenship.
 - **Optimal Widget**: Hexagonal Circumplex.
+- **Hovertip:** **Foreign Policy & Geopolitical Grand Strategy Hexad** [HEXAD — simplex] — Issue: How should a nation act in the world? | Realpolitik / Hegemony — National interest defined by military and economic dominance. | Liberal Internationalism — Rule-based order, multilateral treaties, UN, WTO, NATO. | Civilizational Realignment — Multipolar alliance with cultural civilizational spheres. | Anti-Imperialist Solidarity — Global South non-alignment, resistance to Western hegemony. | Strategic Neo-Isolationism — Military retrenchment, non-intervention, domestic fortress. | Cosmopolitan Borderless Globalism — Abolition of national borders, universal human rights citizenship.
 
 ---
 
@@ -148,6 +158,7 @@ Where does the moral authority to govern originate?
   - `Pole 5 ($192.86^\circ$)`: **Revolutionary Vanguard** — Authority justified by leading historical transformation toward human liberation.
   - `Pole 6 ($141.43^\circ$)`: **Anarchist Voluntaryism** — No government is legitimate; only unanimous, uncoerced individual consent creates binding obligation.
 - **Optimal Widget**: **Heptagonal Legitimacy Wheel** with 7 radial sliders and central barycenter.
+- **Hovertip:** **Seven Theories of Political Legitimacy** [HEPTAD — simplex] — Issue: Where does the moral authority to govern originate? | Divine Right / Cosmic Order — Government authorized by sacred decree or cosmic mandate. | Social Contract — Citizens rationally delegate authority to protect life and property. | Democratic Majoritarianism — Legitimacy from periodic transparent elections reflecting majority will. | Institutional Functionalism — Government is legitimate if it delivers peace, prosperity, clean water. | Technocratic Epistocracy — Authority belongs to those with demonstrated competence. | Revolutionary Vanguard — Authority justified by leading transformation toward liberation. | Anarchist Voluntaryism — No government is legitimate; only unanimous uncoerced consent binds.
 
 #### 3.5.2 Seven Pillars of Civilizational Resilience
 - **Poles**:
@@ -159,3 +170,4 @@ Where does the moral authority to govern originate?
   - `Pole 5`: **Social Trust & Civic Cohesion**
   - `Pole 6`: **Strategic Deterrence & Institutional Defense**
 - **Optimal Widget**: Heptagonal Radar Chart.
+- **Hovertip:** **Seven Pillars of Civilizational Resilience** [HEPTAD — simplex] — Issue: What makes a civilization resilient? | Energy Density & Grid Security | Food & Water Sovereignty | Demographic Vitality & Family Support | Technological Innovation & Industrial Capacity | Ecological Stability & Planetary Boundaries | Social Trust & Civic Cohesion | Strategic Deterrence & Institutional Defense.

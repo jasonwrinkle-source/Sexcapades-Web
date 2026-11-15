@@ -31,24 +31,40 @@ Under the **Taxopolemics** engine, applied-physics positions are mapped to their
 #### 1.1 Microscopic Understanding vs Device Performance (2-Pole Dipole)
 - **Poles:** **Fundamental Physical Mechanism First** (You do not truly understand a device until you can explain its microscopic electronic, magnetic, or optical mechanism; performance follows understanding) ↔ **Device Figure of Merit First** (Optimize the metric that matters: $Q$-factor, power conversion efficiency, electron mobility, ON/OFF ratio, noise figure; the exact microscopic physics is secondary to beating the record)
 - **Question:** Is the goal of applied physics microscopic understanding or record-breaking device performance?
+- **Hovertip:** **Microscopic Understanding vs Device Performance**
+  Issue: Is the goal of applied physics microscopic understanding or record-breaking device performance?
+  - Fundamental Physical Mechanism First — You do not truly understand a device until you can explain its microscopic electronic, magnetic, or optical mechanism; performance follows understanding.
+  - Device Figure of Merit First — Optimize the metric that matters: $Q$-factor, power conversion efficiency, electron mobility, ON/OFF ratio, noise figure; the exact microscopic physics is secondary to beating the record.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — Antigravity 1.1 + YoBiche (same topic in both versions; Antigravity's framing kept).
 
 #### 1.2 Materials Discovery: Rational Design vs Edisonian Synthesis (2-Pole Dipole)
 - **Poles:** **Rational Computational Design** (Predict crystal structures, calculate DFT bandgaps, screen materials databases, and design novel heterostructures before touching a chemical precursor) ↔ **Edisonian Empirical Synthesis** (Mix precursors in the furnace, explore high-throughput combinatorial libraries, follow intuitive lab bench chemistry; nature always surprises computational models)
 - **Question:** Do you discover new materials on a supercomputer or by mixing chemicals in the lab?
+- **Hovertip:** **Materials Discovery: Rational Design vs Edisonian Synthesis**
+  Issue: Do you discover new materials on a supercomputer or by mixing chemicals in the lab?
+  - Rational Computational Design — Predict crystal structures, calculate DFT bandgaps, screen materials databases, and design novel heterostructures before touching a chemical precursor.
+  - Edisonian Empirical Synthesis — Mix precursors in the furnace, explore high-throughput combinatorial libraries, follow intuitive lab bench chemistry; nature always surprises computational models.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — Antigravity 1.2 + YoBiche (same topic in both versions; Antigravity's framing kept).
 
 #### 1.3 Technology Readiness Level (TRL) Horizon: Deep Discovery vs Scalable Deployment (2-Pole Dipole)
 - **Poles:** **Low-TRL Deep Physics Discovery** (Proof-of-principle demonstrations in millikelvin dilution fridges under 14-Tesla magnetic fields; celebrate the exotic physical phenomenon regardless of manufacturing hurdles) ↔ **High-TRL Industrial Scalability** (Focus on room-temperature operation, earth-abundant non-toxic elements, CMOS foundry compatibility, and wafer-scale yield)
 - **Question:** Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?
+- **Hovertip:** **Technology Readiness Level (TRL) Horizon: Deep Discovery vs Scalable Deployment**
+  Issue: Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?
+  - Low-TRL Deep Physics Discovery — Proof-of-principle demonstrations in millikelvin dilution fridges under 14-Tesla magnetic fields; celebrate the exotic physical phenomenon regardless of manufacturing hurdles.
+  - High-TRL Industrial Scalability — Focus on room-temperature operation, earth-abundant non-toxic elements, CMOS foundry compatibility, and wafer-scale yield.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 1.3.
 
 #### 1.4 Fundamental vs Applied — Within Applied Physics (2-Pole Dipole)
 - **Poles:** Fundamental (the physics itself is the point — understanding how the world works, even inside an applied context; the device is a way of learning) ↔ Applied (the application is the point — solving a real problem, building something useful; the physics is a means to an end)
 - **Question:** Even inside applied physics, do you lean toward the fundamental or the applied?
+- **Hovertip:** **Fundamental vs Applied — Within Applied Physics**
+  Issue: Even inside applied physics, do you lean toward the fundamental or the applied?
+  - Fundamental — the physics itself is the point — understanding how the world works, even inside an applied context; the device is a way of learning.
+  - Applied — the application is the point — solving a real problem, building something useful; the physics is a means to an end.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
@@ -62,18 +78,32 @@ Under the **Taxopolemics** engine, applied-physics positions are mapped to their
   - `South (Purple #8b5cf6)`: **Plasmas & High-Energy-Density Physics** — Tokamak magnetic confinement, laser wakefield acceleration, cold atmospheric plasmas for semiconductor etching and medicine.
   - `West (Emerald #10b981)`: **Biological & Soft Condensed Matter Physics** — Active matter, lipid membranes, microfluidics, biomolecular mechanics, polymer rheology, bio-interfaces.
 - **Question:** Where does your primary applied physics heart reside?
+- **Hovertip:** **The Four Sovereign Domains of Applied Physics** [TETRAD — simplex]
+  Issue: Where does your primary applied physics heart reside?
+  - Condensed Matter & Quantum Materials — Superconductors, topological insulators, 2D graphene/transition metal dichalcogenides, spintronics, multiferroics.
+  - Optics, Photonics & Lasers — Metamaterials, nanophotonics, ultrafast femtosecond lasers, integrated photonic circuits, non-linear optical crystals.
+  - Plasmas & High-Energy-Density Physics — Tokamak magnetic confinement, laser wakefield acceleration, cold atmospheric plasmas for semiconductor etching and medicine.
+  - Biological & Soft Condensed Matter Physics — Active matter, lipid membranes, microfluidics, biomolecular mechanics, polymer rheology, bio-interfaces.
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 - **Source:** Merged — Antigravity 2.1 + YoBiche (same topic in both versions; Antigravity's four domains kept).
 
 #### 2.2 Miniaturization: Continue vs Plateau (2-Pole Dipole)
 - **Poles:** Continue (miniaturization keeps going — smaller, denser, more capable; the trend continues down to the atomic limit) ↔ Plateau (we have hit the wall — atomic limits, quantum tunneling, heat dissipation; miniaturization is over and the future is elsewhere)
 - **Question:** Does miniaturization keep going, or have we hit the wall?
+- **Hovertip:** **Miniaturization: Continue vs Plateau**
+  Issue: Does miniaturization keep going, or have we hit the wall?
+  - Continue — miniaturization keeps going — smaller, denser, more capable; the trend continues down to the atomic limit.
+  - Plateau — we have hit the wall — atomic limits, quantum tunneling, heat dissipation; miniaturization is over and the future is elsewhere.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 2.3 Reliability vs Performance (2-Pole Dipole)
 - **Poles:** Reliability (it has to work every time, for years, in the field — robustness beats peak numbers) ↔ Performance (peak numbers are what matter — the fastest, the most efficient, the record-breaking, even if it is fragile)
 - **Question:** Do you optimize for reliability or for peak performance?
+- **Hovertip:** **Reliability vs Performance**
+  Issue: Do you optimize for reliability or for peak performance?
+  - Reliability — it has to work every time, for years, in the field — robustness beats peak numbers.
+  - Performance — peak numbers are what matter — the fastest, the most efficient, the record-breaking, even if it is fragile.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
@@ -87,24 +117,42 @@ Under the **Taxopolemics** engine, applied-physics positions are mapped to their
   - `South (Amber #f59e0b)`: **Photonic Quantum Information** — Flying optical photons through silicon waveguide interferometers (PsiQuantum, Xanadu); room-temperature operation, native telecommunications compatibility.
   - `West (Purple #8b5cf6)`: **Topological Qubits** — Majorana zero modes in semiconductor-superconductor nanowires (Microsoft); topological hardware protection against local decoherence.
 - **Question:** Which physical platform will win the quantum computing race?
+- **Hovertip:** **Quantum Computing Architecture Quartet** [TETRAD — simplex]
+  Issue: Which physical platform will win the quantum computing race?
+  - Superconducting Transmons — Microwave planar circuits, Josephson junctions (IBM, Google); lithographic scalability, fast gate operations.
+  - Trapped Ions & Neutral Atom Arrays — Laser-trapped individual atoms in optical tweezers (Quantinuum, QuEra); identical natural qubits, long coherence times, all-to-all connectivity.
+  - Photonic Quantum Information — Flying optical photons through silicon waveguide interferometers (PsiQuantum, Xanadu); room-temperature operation, native telecommunications compatibility.
+  - Topological Qubits — Majorana zero modes in semiconductor-superconductor nanowires (Microsoft); topological hardware protection against local decoherence.
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 - **Source:** Antigravity 3.1.
 
 #### 3.2 NISQ vs Fault-Tolerant (2-Pole Dipole)
 - **Poles:** **Near-Term NISQ Optimism** (Noisy Intermediate-Scale Quantum hardware will demonstrate real, commercial advantage in quantum chemistry, materials discovery, or optimization before full error correction) ↔ **Fault-Tolerant Error-Correction Purism** (NISQ is an over-hyped dead end; without millions of physical qubits executing surface codes for fault tolerance, quantum computing cannot deliver economic value)
 - **Question:** Can noisy quantum computers provide real value, or is error correction essential?
+- **Hovertip:** **NISQ vs Fault-Tolerant**
+  Issue: Can noisy quantum computers provide real value, or is error correction essential?
+  - Near-Term NISQ Optimism — Noisy Intermediate-Scale Quantum hardware will demonstrate real, commercial advantage in quantum chemistry, materials discovery, or optimization before full error correction.
+  - Fault-Tolerant Error-Correction Purism — NISQ is an over-hyped dead end; without millions of physical qubits executing surface codes for fault tolerance, quantum computing cannot deliver economic value.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 3.2.
 
 #### 3.3 Quantum Computing vs Quantum Sensing (2-Pole Dipole)
 - **Poles:** **Quantum Sensing & Metrology Priority** (Quantum computing is speculative and decades away; the real immediate triumph of applied quantum physics is ultra-precise sensing: NV-centers in diamond, SQUIDs, atomic gravimeters, optical clocks) ↔ **Quantum Computing Supremacy** (Quantum computation is the singular civilizational transformation; sensing is an incremental improvement to existing metrology)
 - **Question:** Which will change the world more: quantum computation or quantum sensing?
+- **Hovertip:** **Quantum Computing vs Quantum Sensing**
+  Issue: Which will change the world more: quantum computation or quantum sensing?
+  - Quantum Sensing & Metrology Priority — Quantum computing is speculative and decades away; the real immediate triumph of applied quantum physics is ultra-precise sensing: NV-centers in diamond, SQUIDs, atomic gravimeters, optical clocks.
+  - Quantum Computing Supremacy — Quantum computation is the singular civilizational transformation; sensing is an incremental improvement to existing metrology.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 3.3.
 
 #### 3.4 Quantum Hype vs Reality (2-Pole Dipole)
 - **Poles:** Hype (quantum is the next revolution — the breakthroughs are real, the timeline is short, the investment is justified) ↔ Reality (quantum is oversold — the timelines are fantasy, the breakthroughs are incremental, the money is chasing a mirage)
 - **Question:** Is quantum technology a revolution or a bubble?
+- **Hovertip:** **Quantum Hype vs Reality**
+  Issue: Is quantum technology a revolution or a bubble?
+  - Hype — quantum is the next revolution — the breakthroughs are real, the timeline is short, the investment is justified.
+  - Reality — quantum is oversold — the timelines are fantasy, the breakthroughs are incremental, the money is chasing a mirage.
 - **Optimal Widget:** Dipole slider.
 - **Source:** Merged — both versions covered quantum computing as a topic; merged here as the hype-vs-reality frame.
 
@@ -116,30 +164,51 @@ Under the **Taxopolemics** engine, applied-physics positions are mapped to their
   - `Pole 1 (Base Right)`: **Fission** — Proven, dense, baseload — but the waste and the fear.
   - `Pole 2 (Base Left)`: **Renewables** — Solar, wind, distributed — but intermittent and land-hungry.
 - **Question:** Which energy source powers the future?
+- **Hovertip:** **Energy: Fusion vs Fission vs Renewables** [TRIANGLE]
+  Issue: Which energy source powers the future?
+  - Fusion — The sun's power: clean, limitless, always twenty years away.
+  - Fission — Proven, dense, baseload — but the waste and the fear.
+  - Renewables — Solar, wind, distributed — but intermittent and land-hungry.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** YoBiche (Antigravity covered fusion and baseload separately; this triad is YoBiche's).
 
 #### 4.2 Fusion Energy: Magnetic vs Inertial Confinement (2-Pole Dipole)
 - **Poles:** **Magnetic Confinement Fusion (MCF)** (Tokamaks, Stellarators, SPARC, ITER; continuous, steady-state burning plasma confined by powerful superconducting magnetic fields) ↔ **Inertial Confinement Fusion (ICF)** (Laser target compression, NIF, pulsed power; rapid microexplosions compressing deuterium-tritium capsules to extreme densities)
 - **Question:** Will fusion energy be commercialized via magnetic confinement or inertial laser compression?
+- **Hovertip:** **Fusion Energy: Magnetic vs Inertial Confinement**
+  Issue: Will fusion energy be commercialized via magnetic confinement or inertial laser compression?
+  - Magnetic Confinement Fusion (MCF) — Tokamaks, Stellarators, SPARC, ITER; continuous, steady-state burning plasma confined by powerful superconducting magnetic fields.
+  - Inertial Confinement Fusion (ICF) — Laser target compression, NIF, pulsed power; rapid microexplosions compressing deuterium-tritium capsules to extreme densities.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 4.1.
 
 #### 4.3 Baseload Clean Energy: Advanced Nuclear/Fusion vs Solid-State Renewables (2-Pole Dipole)
 - **Poles:** **High-Density Advanced Nuclear & Fusion** (Small Modular Fission Reactors [SMR], molten salt, and fusion power plants providing dense, 24/7 baseload power with minimal land footprint) ↔ **Solid-State Photovoltaics & Advanced Storage** (Perovskite-silicon tandem solar cells, flow batteries, and solid-state lithium-metal batteries distributed across the grid)
 - **Question:** Should clean energy rely on centralized high-density nuclear/fusion or distributed solid-state solar/storage?
+- **Hovertip:** **Baseload Clean Energy: Advanced Nuclear/Fusion vs Solid-State Renewables**
+  Issue: Should clean energy rely on centralized high-density nuclear/fusion or distributed solid-state solar/storage?
+  - High-Density Advanced Nuclear & Fusion — Small Modular Fission Reactors [SMR], molten salt, and fusion power plants providing dense, 24/7 baseload power with minimal land footprint.
+  - Solid-State Photovoltaics & Advanced Storage — Perovskite-silicon tandem solar cells, flow batteries, and solid-state lithium-metal batteries distributed across the grid.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 4.2.
 
 #### 4.4 Energy Storage: Short-Duration vs Long-Duration (2-Pole Dipole)
 - **Poles:** **Short-Duration** (Batteries — lithium, solid-state, flow; hours of storage, the workhorse of daily cycling) ↔ **Long-Duration** (Hydrogen, pumped hydro, compressed air, thermal; days to seasons, the backbone of a renewable grid)
 - **Question:** Do you store energy for hours or for seasons?
+- **Hovertip:** **Energy Storage: Short-Duration vs Long-Duration**
+  Issue: Do you store energy for hours or for seasons?
+  - Short-Duration — Batteries — lithium, solid-state, flow; hours of storage, the workhorse of daily cycling.
+  - Long-Duration — Hydrogen, pumped hydro, compressed air, thermal; days to seasons, the backbone of a renewable grid.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 4.5 Efficiency vs Cost (2-Pole Dipole)
 - **Poles:** Efficiency (the most efficient device wins — squeeze every percent, the physics is the point) ↔ Cost (the cheapest device wins — cost per watt, cost per unit; economics beats efficiency)
 - **Question:** Do you optimize for efficiency or for cost?
+- **Hovertip:** **Efficiency vs Cost**
+  Issue: Do you optimize for efficiency or for cost?
+  - Efficiency — the most efficient device wins — squeeze every percent, the physics is the point.
+  - Cost — the cheapest device wins — cost per watt, cost per unit; economics beats efficiency.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
@@ -148,36 +217,60 @@ Under the **Taxopolemics** engine, applied-physics positions are mapped to their
 #### 5.1 Materials: Natural vs Engineered (2-Pole Dipole)
 - **Poles:** Natural (nature's materials — wood, silk, bone, the materials evolution built; work with what exists) ↔ Engineered (designed materials — metamaterials, composites, alloys; build what nature never made)
 - **Question:** Do you work with nature's materials or build your own?
+- **Hovertip:** **Materials: Natural vs Engineered**
+  Issue: Do you work with nature's materials or build your own?
+  - Natural — nature's materials — wood, silk, bone, the materials evolution built; work with what exists.
+  - Engineered — designed materials — metamaterials, composites, alloys; build what nature never made.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 5.2 2D Materials: Revolution vs Hype (2-Pole Dipole)
 - **Poles:** Revolution (graphene and 2D materials change everything — the thinnest, strongest, most conductive materials ever made; a new era) ↔ Hype (graphene is oversold — a decade of promises, no killer app; the Nobel was for the physics, not the product)
 - **Question:** Are 2D materials a revolution or a hype cycle?
+- **Hovertip:** **2D Materials: Revolution vs Hype**
+  Issue: Are 2D materials a revolution or a hype cycle?
+  - Revolution — graphene and 2D materials change everything — the thinnest, strongest, most conductive materials ever made; a new era.
+  - Hype — graphene is oversold — a decade of promises, no killer app; the Nobel was for the physics, not the product.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity mentioned 2D materials inside her 2.1 domains tetrad but did not give them a standalone topic).
 
 #### 5.3 Superconductors: Room-Temperature Pursuit vs Pragmatic High-$T_c$ Engineering (2-Pole Dipole)
 - **Poles:** **The Holy Grail of Room-Temperature Superconductors** (Chasing hydrides under megabar diamond-anvil pressures and hunting ambient superconductors; the ultimate prize in condensed matter) ↔ **Pragmatic High-$T_c$ Engineering** (Stop chasing unverified ambient miracles; master REBCO coated conductors, reduce manufacturing costs, and deploy 77-Kelvin liquid nitrogen systems today)
 - **Question:** Should we pursue room-temperature superconductors or deploy high-$T_c$ liquid nitrogen systems?
+- **Hovertip:** **Superconductors: Room-Temperature Pursuit vs Pragmatic High-$T_c$ Engineering**
+  Issue: Should we pursue room-temperature superconductors or deploy high-$T_c$ liquid nitrogen systems?
+  - The Holy Grail of Room-Temperature Superconductors — Chasing hydrides under megabar diamond-anvil pressures and hunting ambient superconductors; the ultimate prize in condensed matter.
+  - Pragmatic High-$T_c$ Engineering — Stop chasing unverified ambient miracles; master REBCO coated conductors, reduce manufacturing costs, and deploy 77-Kelvin liquid nitrogen systems today.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — Antigravity 4.3 + YoBiche (same topic in both versions; Antigravity's framing kept).
 
 #### 5.4 Metamaterials & Wave Engineering (2-Pole Dipole)
 - **Poles:** **Active Electronic Circuits** (Solid-state amplifiers, transistors, digital signal processing chips) ↔ **Passive Geometric Metasurfaces** (Sub-wavelength patterned metal/dielectric resonators that manipulate light, phase, and acoustic waves purely through geometry)
 - **Question:** Do you control waves with active electronic chips or passive geometric metamaterials?
+- **Hovertip:** **Metamaterials & Wave Engineering**
+  Issue: Do you control waves with active electronic chips or passive geometric metamaterials?
+  - Active Electronic Circuits — Solid-state amplifiers, transistors, digital signal processing chips.
+  - Passive Geometric Metasurfaces — Sub-wavelength patterned metal/dielectric resonators that manipulate light, phase, and acoustic waves purely through geometry.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — Antigravity 5.3 + YoBiche (same topic in both versions; Antigravity's framing kept).
 
 #### 5.5 Nanofabrication: Top-Down vs Bottom-Up (2-Pole Dipole)
 - **Poles:** **Top-Down Extreme Lithography** (Extreme Ultraviolet [EUV] steppers, focused ion beam etching, carving nanostructures from solid crystalline bulk with sub-nanometer precision) ↔ **Bottom-Up Supramolecular Self-Assembly** (DNA origami, block copolymer phase separation, chemical vapor epitaxial growth; letting thermodynamic free energy assemble the nanostructure)
 - **Question:** Do you build nanostructures by carving top-down or assembling bottom-up?
+- **Hovertip:** **Nanofabrication: Top-Down vs Bottom-Up**
+  Issue: Do you build nanostructures by carving top-down or assembling bottom-up?
+  - Top-Down Extreme Lithography — Extreme Ultraviolet [EUV] steppers, focused ion beam etching, carving nanostructures from solid crystalline bulk with sub-nanometer precision.
+  - Bottom-Up Supramolecular Self-Assembly — DNA origami, block copolymer phase separation, chemical vapor epitaxial growth; letting thermodynamic free energy assemble the nanostructure.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 5.1.
 
 #### 5.6 Semiconductor Architecture: Moore's Law vs Beyond-Silicon (2-Pole Dipole)
 - **Poles:** **Dimensional Silicon Scaling (Moore's Law)** (Gate-all-around nanosheets, complementary FETs, atomic layer deposition; pushing silicon down to the 1-nanometer node) ↔ **Beyond-Silicon Heterogeneous Integration** (Silicon is exhausted; integrate carbon nanotubes, 2D transition metal dichalcogenides, and optical chiplets on chip)
 - **Question:** Does the future of computing belong to silicon scaling or beyond-silicon materials?
+- **Hovertip:** **Semiconductor Architecture: Moore's Law vs Beyond-Silicon**
+  Issue: Does the future of computing belong to silicon scaling or beyond-silicon materials?
+  - Dimensional Silicon Scaling (Moore's Law) — Gate-all-around nanosheets, complementary FETs, atomic layer deposition; pushing silicon down to the 1-nanometer node.
+  - Beyond-Silicon Heterogeneous Integration — Silicon is exhausted; integrate carbon nanotubes, 2D transition metal dichalcogenides, and optical chiplets on chip.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 5.2.
 
@@ -186,36 +279,60 @@ Under the **Taxopolemics** engine, applied-physics positions are mapped to their
 #### 6.1 Biophysics: Physics of Life vs Life as Physics (2-Pole Dipole)
 - **Poles:** Physics of Life (physics applied to biology — use physical tools to understand living systems; biology is the subject, physics is the method) ↔ Life as Physics (living systems ARE physical systems — the laws of physics explain life itself; biology reduces to physics)
 - **Question:** Is biophysics physics applied to life, or life explained by physics?
+- **Hovertip:** **Biophysics: Physics of Life vs Life as Physics**
+  Issue: Is biophysics physics applied to life, or life explained by physics?
+  - Physics of Life — physics applied to biology — use physical tools to understand living systems; biology is the subject, physics is the method.
+  - Life as Physics — living systems ARE physical systems — the laws of physics explain life itself; biology reduces to physics.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity's 2.1 mentions biological physics as a domain, but this framing is YoBiche's).
 
 #### 6.2 Medical Physics: Therapy vs Diagnostics (2-Pole Dipole)
 - **Poles:** Therapy (treat the patient — radiation therapy, proton beams, focused ultrasound; physics that heals) ↔ Diagnostics (see inside the patient — MRI, PET, CT, imaging; physics that reveals)
 - **Question:** Does medical physics treat or diagnose?
+- **Hovertip:** **Medical Physics: Therapy vs Diagnostics**
+  Issue: Does medical physics treat or diagnose?
+  - Therapy — treat the patient — radiation therapy, proton beams, focused ultrasound; physics that heals.
+  - Diagnostics — see inside the patient — MRI, PET, CT, imaging; physics that reveals.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 6.3 Imaging: Resolution vs Dose (2-Pole Dipole)
 - **Poles:** Resolution (see more clearly — sharper images, finer detail, the physics of seeing) ↔ Dose (do less harm — lower radiation, safer scans; the patient comes first)
 - **Question:** Do you push for sharper images or lower doses?
+- **Hovertip:** **Imaging: Resolution vs Dose**
+  Issue: Do you push for sharper images or lower doses?
+  - Resolution — see more clearly — sharper images, finer detail, the physics of seeing.
+  - Dose — do less harm — lower radiation, safer scans; the patient comes first.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 6.4 Industry vs Academia (2-Pole Dipole)
 - **Poles:** Industry (build products, ship them, make money — the applied physicist in the company) ↔ Academia (publish papers, teach students, chase knowledge — the applied physicist in the university)
 - **Question:** Do you do applied physics in industry or in academia?
+- **Hovertip:** **Industry vs Academia**
+  Issue: Do you do applied physics in industry or in academia?
+  - Industry — build products, ship them, make money — the applied physicist in the company.
+  - Academia — publish papers, teach students, chase knowledge — the applied physicist in the university.
 - **Optimal Widget:** Dipole slider.
 - **Source:** Merged — both versions covered this (Antigravity's Category 6 brushes it; YoBiche's version is the standalone topic).
 
 #### 6.5 Identity: Applied Physicist vs Specialized Engineer (2-Pole Dipole)
 - **Poles:** **Proud Applied Physicist** (Grounding in Maxwell, Schrödinger, thermodynamics, and quantum mechanics provides a deeper, first-principles insight that specialized engineers lack) ↔ **Pragmatic Specialized Engineer** (Leave philosophical baggage behind; adopt rigorous design rules, standards, yield economics, and project management)
 - **Question:** Do you view yourself as a physicist solving practical problems or as a high-level engineer?
+- **Hovertip:** **Identity: Applied Physicist vs Specialized Engineer**
+  Issue: Do you view yourself as a physicist solving practical problems or as a high-level engineer?
+  - Proud Applied Physicist — Grounding in Maxwell, Schrödinger, thermodynamics, and quantum mechanics provides a deeper, first-principles insight that specialized engineers lack.
+  - Pragmatic Specialized Engineer — Leave philosophical baggage behind; adopt rigorous design rules, standards, yield economics, and project management.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 6.1.
 
 #### 6.6 Intellectual Property: Patent vs Publish (2-Pole Dipole)
 - **Poles:** **Commercial Patents & Spin-Out Startups** (File provisional patents immediately, keep secret sauce proprietary, raise venture capital, and build commercial enterprise) ↔ **Open Academic Publishing** (Publish methods openly on arXiv, contribute to public scientific literature, and reject patent restrictions on physical knowledge)
 - **Question:** Should breakthrough applied physics be patented for commercial spin-outs or published openly?
+- **Hovertip:** **Intellectual Property: Patent vs Publish**
+  Issue: Should breakthrough applied physics be patented for commercial spin-outs or published openly?
+  - Commercial Patents & Spin-Out Startups — File provisional patents immediately, keep secret sauce proprietary, raise venture capital, and build commercial enterprise.
+  - Open Academic Publishing — Publish methods openly on arXiv, contribute to public scientific literature, and reject patent restrictions on physical knowledge.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — Antigravity 6.2 + YoBiche (same topic in both versions; Antigravity's framing kept).
 
@@ -226,6 +343,11 @@ Under the **Taxopolemics** engine, applied-physics positions are mapped to their
   - `Pole 1 (Base Right)`: **Prototype** — A working physical device: manufactured, functioning, performing reliably in the field.
   - `Pole 2 (Base Left)`: **Paper** — A high-impact publication: *Nature*, *Science*, *Physical Review Letters*; citation impact and prestige within the scientific community.
 - **Question:** What is the ultimate triumph of applied physics — a product, a prototype, or a paper?
+- **Hovertip:** **The Triumph: Product vs Prototype vs Paper** [LINE]
+  Issue: What is the ultimate triumph of applied physics — a product, a prototype, or a paper?
+  - Product — A shipped commercial product: in customers' hands, making money, changing the world.
+  - Prototype — A working physical device: manufactured, functioning, performing reliably in the field.
+  - Paper — A high-impact publication: *Nature*, *Science*, *Physical Review Letters*; citation impact and prestige within the scientific community.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Merged — YoBiche's Product vs Prototype + Antigravity 6.3 (Prototype vs Paper) collapsed into one triad with Prototype in the middle, on the Principal Investigator's instruction. The two dipoles were the same question asked twice; the triad asks it once.
 

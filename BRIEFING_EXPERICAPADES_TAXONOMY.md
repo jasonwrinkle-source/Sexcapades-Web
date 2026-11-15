@@ -31,12 +31,20 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
 #### 1.1 Theory-Driven vs Discovery-Driven (2-Pole Dipole)
 - **Poles:** **Theory-Driven Testing** (Construct an experiment specifically targeted at testing an existing theoretical model, e.g. hunting the Higgs or axions) ↔ **Discovery-Driven Exploration** (Open up new unprobed parameter spaces, wavelengths, or energy regimes without theoretical prejudice; "see what nature does")
 - **Question:** Do you design experiments to test theories or to explore the unknown?
+- **Hovertip:** **Theory-Driven vs Discovery-Driven**
+  Issue: Do you design experiments to test theories or to explore the unknown?
+  - Theory-Driven Testing — Construct an experiment specifically targeted at testing an existing theoretical model, e.g. hunting the Higgs or axions.
+  - Discovery-Driven Exploration — Open up new unprobed parameter spaces, wavelengths, or energy regimes without theoretical prejudice; "see what nature does".
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — both versions covered this; Antigravity's framing kept.
 
 #### 1.2 Precision vs Exploration (2-Pole Dipole)
 - **Poles:** Precision (measure one thing exquisitely well — the tenth decimal place, the single clean number) ↔ Exploration (cover new ground — new energies, new regimes, new phenomena, even if the numbers are rough)
 - **Question:** Do you measure one thing perfectly, or find new things roughly?
+- **Hovertip:** **Precision vs Exploration**
+  Issue: Do you measure one thing perfectly, or find new things roughly?
+  - Precision — measure one thing exquisitely well — the tenth decimal place, the single clean number.
+  - Exploration — cover new ground — new energies, new regimes, new phenomena, even if the numbers are rough.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
@@ -46,6 +54,11 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
   - `Pole 1 (Base Right)`: **Medium-Scale** — The middle ground: dedicated facilities and mid-size collaborations (tens to hundreds of people), big enough for serious hardware, small enough that you know everyone's name.
   - `Pole 2 (Base Left)`: **Tabletop Precision** — Small artisan groups, optical tables, atomic fountain clocks, microkelvin cryostats, rapid experimental agility.
 - **Question:** Does fundamental discovery come from giant colliders, mid-size facilities, or tabletop lasers?
+- **Hovertip:** **Scale: Big Science vs Medium-Scale vs Tabletop** [LINE]
+  Issue: Does fundamental discovery come from giant colliders, mid-size facilities, or tabletop lasers?
+  - Big Science — Megaprojects: CERN LHC, LIGO, James Webb, DUNE — 3,000-person collaborations, billion-dollar budgets, decadal timelines.
+  - Medium-Scale — The middle ground: dedicated facilities and mid-size collaborations (tens to hundreds of people), big enough for serious hardware, small enough that you know everyone's name.
+  - Tabletop Precision — Small artisan groups, optical tables, atomic fountain clocks, microkelvin cryostats, rapid experimental agility.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Source:** Merged — Antigravity's dipole (Big Science vs Tabletop) with YoBiche's Medium-Scale pole added.
 
@@ -56,12 +69,21 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
   - `Pole 1 (Base Right - Green #22c55e)`: **The Intensity & Precision Frontier** — Probe trillions of rare particle decays, electric dipole moments (EDM), and $(g-2)$ deviations with extreme statistical power (Muon g-2, Belle II).
   - `Pole 2 (Base Left - Blue #3b82f6)`: **The Cosmic & Astrophysical Frontier** — Use the universe as a free particle accelerator and detector: cosmic rays, astrophysical neutrinos (IceCube), dark matter detectors, gravitational wave observatories.
 - **Question:** Which frontier offers the greatest promise for new physics?
+- **Hovertip:** **The Three Frontiers of Empirical Physics** [TRIANGLE]
+  Issue: Which frontier offers the greatest promise for new physics?
+  - The Energy Frontier — Smash particles at higher center-of-mass energy ($\sqrt{s}$) to directly create heavy new states.
+  - The Intensity & Precision Frontier — Probe trillions of rare particle decays, electric dipole moments (EDM), and $(g-2)$ deviations with extreme statistical power.
+  - The Cosmic & Astrophysical Frontier — Use the universe as a free particle accelerator and detector: cosmic rays, astrophysical neutrinos (IceCube), dark matter detectors, gravitational wave observatories.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Antigravity 1.3.
 
 #### 1.5 Reproducibility: Crisis vs Confidence (2-Pole Dipole)
 - **Poles:** Crisis (reproducibility is in trouble — too many results don't replicate, too much depends on one lab, one setup, one person) ↔ Confidence (the system works — independent replication is the norm, and the failures get caught)
 - **Question:** Is experimental physics in a reproducibility crisis, or is the system working?
+- **Hovertip:** **Reproducibility: Crisis vs Confidence**
+  Issue: Is experimental physics in a reproducibility crisis, or is the system working?
+  - Crisis — reproducibility is in trouble — too many results don't replicate, too much depends on one lab, one setup, one person.
+  - Confidence — the system works — independent replication is the norm, and the failures get caught.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
@@ -70,12 +92,20 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
 #### 2.1 Bespoke vs Turnkey Instruments (2-Pole Dipole)
 - **Poles:** **Bespoke Artisan Engineering** (Machining custom vacuum chambers, hand-wrapping superconducting coils, soldering RF amplifiers, writing custom FPGA firmware) ↔ **Turnkey Commercial Integration** (Off-the-shelf Ti:sapphire lasers, commercial closed-cycle dilution refrigerators, standardized data acquisition suites)
 - **Question:** Should physicists build their own instruments from raw metal or integrate commercial hardware?
+- **Hovertip:** **Bespoke vs Turnkey Instruments**
+  Issue: Should physicists build their own instruments from raw metal or integrate commercial hardware?
+  - Bespoke Artisan Engineering — Machining custom vacuum chambers, hand-wrapping superconducting coils, soldering RF amplifiers, writing custom FPGA firmware.
+  - Turnkey Commercial Integration — Off-the-shelf Ti:sapphire lasers, commercial closed-cycle dilution refrigerators, standardized data acquisition suites.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 2.1.
 
 #### 2.2 Active vs Passive Probing (2-Pole Dipole)
 - **Poles:** **Active Interrogation / Drive** (Bombard the target with femtosecond laser pulses, synchrotron X-rays, neutron beams, or extreme RF pulses; drive the system far from equilibrium) ↔ **Passive / Quiet Sensing** (Go thousands of feet underground into silent mines, shield against every thermal and cosmic photon, listen for the rare quiet recoil)
 - **Question:** Do you actively smash the system or passively listen for rare signals?
+- **Hovertip:** **Active vs Passive Probing**
+  Issue: Do you actively smash the system or passively listen for rare signals?
+  - Active Interrogation / Drive — Bombard the target with femtosecond laser pulses, synchrotron X-rays, neutron beams, or extreme RF pulses; drive the system far from equilibrium.
+  - Passive / Quiet Sensing — Go thousands of feet underground into silent mines, shield against every thermal and cosmic photon, listen for the rare quiet recoil.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 2.2.
 
@@ -87,6 +117,12 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
   - `South (Red #ef4444)`: **Ionization & Particle Tracking** — Silicon pixel trackers, liquid argon time-projection chambers (LArTPC), drift chambers, scintillating calorimeters.
   - `West (Emerald #10b981)`: **Quantum Resonances & Scattering** — Nuclear Magnetic Resonance (NMR), electron spin resonance, neutron scattering, cold atom interferometry.
 - **Question:** Which detector modality do you trust most?
+- **Hovertip:** **The Four Detection Modalities** [TETRAD — simplex]
+  Issue: Which detector modality do you trust most?
+  - Photonics & Optical Interferometry — Laser frequency combs, Fabry-Pérot cavities, single-photon avalanche detectors, spectroscopy.
+  - Superconducting & Cryogenic Sensors — SQUIDs, Transition-Edge Sensors (TES), Kinetic Inductance Detectors (MKIDs), cryogenic bolometers.
+  - Ionization & Particle Tracking — Silicon pixel trackers, liquid argon time-projection chambers (LArTPC), drift chambers, scintillating calorimeters.
+  - Quantum Resonances & Scattering — Nuclear Magnetic Resonance (NMR), electron spin resonance, neutron scattering, cold atom interferometry.
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 - **Source:** Antigravity 2.3.
 
@@ -96,24 +132,41 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
   - `Pole 1 (Base Right)`: **Specialized** — One detector built for one measurement: optimized to the hilt for a single signal, and useless for anything else.
   - `Pole 2 (Base Left)`: **Hybrid** — A general frame with specialized modules: broad coverage where it is cheap, precision where it matters.
 - **Question:** Do you build one detector for everything, one for a single measurement, or a hybrid?
+- **Hovertip:** **Detector Design: General vs Specialized vs Hybrid** [LINE]
+  Issue: Do you build one detector for everything, one for a single measurement, or a hybrid?
+  - General — One detector that does everything: broad acceptance, many channels, built to catch whatever nature throws at it.
+  - Specialized — One detector built for one measurement: optimized to the hilt for a single signal, and useless for anything else.
+  - Hybrid — A general frame with specialized modules: broad coverage where it is cheap, precision where it matters.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Source:** YoBiche.
 
 #### 2.5 Sensitivity vs Background (2-Pole Dipole)
 - **Poles:** Sensitivity (push the detector to see fainter signals — lower thresholds, better resolution, more gain) ↔ Background (push the shielding to kill the noise — cleaner materials, deeper underground, better vetoes)
 - **Question:** Do you chase fainter signals, or quieter backgrounds?
+- **Hovertip:** **Sensitivity vs Background**
+  Issue: Do you chase fainter signals, or quieter backgrounds?
+  - Sensitivity — push the detector to see fainter signals — lower thresholds, better resolution, more gain.
+  - Background — push the shielding to kill the noise — cleaner materials, deeper underground, better vetoes.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 2.6 Calibration: In Situ vs Test Beam (2-Pole Dipole)
 - **Poles:** In situ (calibrate in place, in the real detector, with the real beam and the real conditions — messy but honest) ↔ Test beam (calibrate on a dedicated beamline, controlled and clean — precise but not quite the real thing)
 - **Question:** Do you calibrate where the detector lives, or on a clean test beam?
+- **Hovertip:** **Calibration: In Situ vs Test Beam**
+  Issue: Do you calibrate where the detector lives, or on a clean test beam?
+  - In situ — calibrate in place, in the real detector, with the real beam and the real conditions — messy but honest.
+  - Test beam — calibrate on a dedicated beamline, controlled and clean — precise but not quite the real thing.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 2.7 Upgrade vs New Build (2-Pole Dipole)
 - **Poles:** Upgrade (keep the detector you have and make it better — new electronics, new sensors, incremental improvement) ↔ New build (tear it down and start over — the old design has hit its limit, only a fresh instrument will do)
 - **Question:** Do you upgrade the detector you have, or build a new one?
+- **Hovertip:** **Upgrade vs New Build**
+  Issue: Do you upgrade the detector you have, or build a new one?
+  - Upgrade — keep the detector you have and make it better — new electronics, new sensors, incremental improvement.
+  - New build — tear it down and start over — the old design has hit its limit, only a fresh instrument will do.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
@@ -122,36 +175,60 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
 #### 3.1 5σ vs Bayesian (2-Pole Dipole)
 - **Poles:** **Strict 5-Sigma Dogma** ($p < 3 \times 10^{-7}$, $5\sigma$ frequentist threshold; zero tolerance for announcing discoveries without absolute statistical certainty to avoid false alarms) ↔ **Bayesian Evidential Weight** (5-sigma is an arbitrary historical relic; physical consistency, independent cross-checks, and prior plausibility matter more than mechanical $p$-values)
 - **Question:** Does a physical discovery require 5-sigma, or is Bayesian evidence sufficient?
+- **Hovertip:** **5σ vs Bayesian**
+  Issue: Does a physical discovery require 5-sigma, or is Bayesian evidence sufficient?
+  - Strict 5-Sigma Dogma — $p < 3 \times 10^{-7}$, $5\sigma$ frequentist threshold; zero tolerance for announcing discoveries without absolute statistical certainty to avoid false alarms.
+  - Bayesian Evidential Weight — 5-sigma is an arbitrary historical relic; physical consistency, independent cross-checks, and prior plausibility matter more than mechanical $p$-values.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — both versions covered this; Antigravity's framing kept.
 
 #### 3.2 Null Results (2-Pole Dipole)
 - **Poles:** **Null as Scientific Triumph** (Ruling out huge swathes of parameter space, WIMP masses, or dark forces is a vital, heroic service to physics) ↔ **Null as Frustrating Stagnation** (Decades of searching without a positive signal is deeply demoralizing; experiments must find real positive detections)
 - **Question:** Are null results a triumph of exclusion or a disappointment?
+- **Hovertip:** **Null Results**
+  Issue: Are null results a triumph of exclusion or a disappointment?
+  - Null as Scientific Triumph — Ruling out huge swathes of parameter space, WIMP masses, or dark forces is a vital, heroic service to physics.
+  - Null as Frustrating Stagnation — Decades of searching without a positive signal is deeply demoralizing; experiments must find real positive detections.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — both versions covered this; Antigravity's framing kept.
 
 #### 3.3 Blind Analysis (2-Pole Dipole)
 - **Poles:** **Strict Double-Blind Analysis** (Data is encrypted/salted with hidden injected signals; cuts and pipelines are frozen before "unblinding" the data box) ↔ **Interactive Visual Exploration** (Physicists must look at raw detector event displays in real-time to catch unexpected hardware glitches and novel patterns)
 - **Question:** Should experimental data be strictly blinded or openly examined?
+- **Hovertip:** **Blind Analysis**
+  Issue: Should experimental data be strictly blinded or openly examined?
+  - Strict Double-Blind Analysis — Data is encrypted/salted with hidden injected signals; cuts and pipelines are frozen before "unblinding" the data box.
+  - Interactive Visual Exploration — Physicists must look at raw detector event displays in real-time to catch unexpected hardware glitches and novel patterns.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — both versions covered this; Antigravity's framing kept.
 
 #### 3.4 Systematics vs Statistics (2-Pole Dipole)
 - **Poles:** **Systematics-Obsessed** (Statistical noise is trivial; the true danger is subtle temperature drifts, beam background leakage, cable impedance mismatches, and detector aging) ↔ **Statistics-Driven** (Just collect more integrated luminosity, integrate for 1,000 more hours, and beat down the $1/\sqrt{N}$ Poisson error)
 - **Question:** In the laboratory, is your greatest foe systematic bias or statistical noise?
+- **Hovertip:** **Systematics vs Statistics**
+  Issue: In the laboratory, is your greatest foe systematic bias or statistical noise?
+  - Systematics-Obsessed — Statistical noise is trivial; the true danger is subtle temperature drifts, beam background leakage, cable impedance mismatches, and detector aging.
+  - Statistics-Driven — Just collect more integrated luminosity, integrate for 1,000 more hours, and beat down the $1/\sqrt{N}$ Poisson error.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — both versions covered this; Antigravity's framing kept.
 
 #### 3.5 Anomaly Signal vs Systematics (2-Pole Dipole)
 - **Poles:** Signal (it's real — the anomaly is a genuine physical effect, and the systematics have been checked) ↔ Systematics (it's an artifact — a loose cable, a calibration drift, a background you haven't modelled yet)
 - **Question:** When something unexpected shows up, is it a signal or a systematic?
+- **Hovertip:** **Anomaly Signal vs Systematics**
+  Issue: When something unexpected shows up, is it a signal or a systematic?
+  - Signal — it's real — the anomaly is a genuine physical effect, and the systematics have been checked.
+  - Systematics — it's an artifact — a loose cable, a calibration drift, a background you haven't modelled yet.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 3.6 Anomaly Reaction: Fast Follower vs Skeptical Anchor (2-Pole Dipole)
 - **Poles:** **Fast-Follower Opportunist** (Immediately jump on a $3\sigma$ collider bump, anomalous magnetic resistance, or unusual recoil; pivot the lab quickly to chase the glory of a breakthrough) ↔ **Skeptical Anchor** (Assume every anomaly is a loose BNC cable, faulty grounding, or statistical fluke until independently verified by three labs)
 - **Question:** When an experimental anomaly appears, do you chase it or doubt it?
+- **Hovertip:** **Anomaly Reaction: Fast Follower vs Skeptical Anchor**
+  Issue: When an experimental anomaly appears, do you chase it or doubt it?
+  - Fast-Follower Opportunist — Immediately jump on a $3\sigma$ collider bump, anomalous magnetic resistance, or unusual recoil; pivot the lab quickly to chase the glory of a breakthrough.
+  - Skeptical Anchor — Assume every anomaly is a loose BNC cable, faulty grounding, or statistical fluke until independently verified by three labs.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 5.1.
 
@@ -165,12 +242,22 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
   - `South (Red #ef4444)`: **Ultra-High Magnetic & Electric Fields** — 45-Tesla hybrid magnets, pulsed magnetic coils, gigavolt/meter laser wakefields.
   - `West (Slate #64748b)`: **Ultra-Deep Underground & Cosmic Shielding** — 2 kilometers under rock (Gran Sasso, SNOLAB), passive water shielding, cleanroom cosmic silence.
 - **Question:** Which extreme environment defines your laboratory home?
+- **Hovertip:** **The Four Laboratory Extremes** [TETRAD — simplex]
+  Issue: Which extreme environment defines your laboratory home?
+  - Ultra-Low Temperatures — Sub-millikelvin dilution refrigerators, nuclear demagnetization, Bose-Einstein condensates, suppressing thermal phonon noise.
+  - Ultra-High Vacuum (UHV) — Pressures below $10^{-11}$ Torr, ion pumps, non-evaporable getters, clean atomic beams without background gas collision.
+  - Ultra-High Magnetic & Electric Fields — 45-Tesla hybrid magnets, pulsed magnetic coils, gigavolt/meter laser wakefields.
+  - Ultra-Deep Underground & Cosmic Shielding — 2 kilometers under rock (Gran Sasso, SNOLAB), passive water shielding, cleanroom cosmic silence.
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 - **Source:** Antigravity 4.1.
 
 #### 4.2 Hermetic vs Field Deployment (2-Pole Dipole)
 - **Poles:** **Hermetic Cleanroom Isolation** (Active air-bearing vibration tables, acoustic damping baffles, mu-metal magnetic shielding, Class-1 cleanrooms) ↔ **Harsh Field Deployability** (Instruments designed to survive harsh reality: Antarctic ice cores, stratospheric balloon flights, sounding rockets, ocean depths)
 - **Question:** Does your experiment belong in a vibration-free basement or the wild elements?
+- **Hovertip:** **Hermetic vs Field Deployment**
+  Issue: Does your experiment belong in a vibration-free basement or the wild elements?
+  - Hermetic Cleanroom Isolation — Active air-bearing vibration tables, acoustic damping baffles, mu-metal magnetic shielding, Class-1 cleanrooms.
+  - Harsh Field Deployability — Instruments designed to survive harsh reality: Antarctic ice cores, stratospheric balloon flights, sounding rockets, ocean depths.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 4.2.
 
@@ -179,24 +266,40 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
 #### 5.1 Open Data (2-Pole Dipole)
 - **Poles:** **Immediate Open Data & Calibration Release** (Publicly release raw detector logs, calibration matrices, and firmware pipelines immediately for community scrutiny) ↔ **Protected Collaboration Priority** (The team that spent 10 years building the detector has the exclusive right to harvest and publish the data)
 - **Question:** Should raw experimental data be open to the world immediately?
+- **Hovertip:** **Open Data**
+  Issue: Should raw experimental data be open to the world immediately?
+  - Immediate Open Data & Calibration Release — Publicly release raw detector logs, calibration matrices, and firmware pipelines immediately for community scrutiny.
+  - Protected Collaboration Priority — The team that spent 10 years building the detector has the exclusive right to harvest and publish the data.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — both versions covered this; Antigravity's framing kept.
 
 #### 5.2 Analysis: Model-Dependent vs Model-Independent (2-Pole Dipole)
 - **Poles:** Model-dependent (analyse the data through a specific theoretical model — you know what you're looking for, and the analysis is tuned to find it) ↔ Model-independent (analyse the data without assuming a model — let the data speak, and see what falls out)
 - **Question:** Do you analyse through a model, or let the data speak for itself?
+- **Hovertip:** **Analysis: Model-Dependent vs Model-Independent**
+  Issue: Do you analyse through a model, or let the data speak for itself?
+  - Model-dependent — analyse the data through a specific theoretical model — you know what you're looking for, and the analysis is tuned to find it.
+  - Model-independent — analyse the data without assuming a model — let the data speak, and see what falls out.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 5.3 Machine Learning: Trust vs Verify (2-Pole Dipole)
 - **Poles:** Trust (machine learning finds patterns humans miss — let the classifier do its work, and trust the result) ↔ Verify (a black box is not an answer — check every ML result against physics, against simulation, against a cut-based analysis)
 - **Question:** Do you trust the machine learning, or verify everything it says?
+- **Hovertip:** **Machine Learning: Trust vs Verify**
+  Issue: Do you trust the machine learning, or verify everything it says?
+  - Trust — machine learning finds patterns humans miss — let the classifier do its work, and trust the result.
+  - Verify — a black box is not an answer — check every ML result against physics, against simulation, against a cut-based analysis.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 5.4 Authorship (2-Pole Dipole)
 - **Poles:** **Megacollaboration Authorship** (Thousands of physicists listed alphabetically on papers; institutionalized peer review, task force committees, distributed glory) ↔ **Small-Team Authorship** (A professor and two graduate students in a basement; absolute personal ownership of every screw and every data point)
 - **Question:** Do you prefer the power of massive collaborations or small-lab independence?
+- **Hovertip:** **Authorship**
+  Issue: Do you prefer the power of massive collaborations or small-lab independence?
+  - Megacollaboration Authorship — Thousands of physicists listed alphabetically on papers; institutionalized peer review, task force committees, distributed glory.
+  - Small-Team Authorship — A professor and two graduate students in a basement; absolute personal ownership of every screw and every data point.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged — both versions covered this; Antigravity's framing kept (her 6.1).
 
@@ -206,6 +309,11 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
   - `Pole 1 (Base Right)`: **Collaboration** — Join forces: share the detector, share the data, share the credit, and do together what no lab could do alone.
   - `Pole 2 (Base Left)`: **Coopetition** — Compete and cooperate at once: rival groups that share infrastructure, cross-check each other's results, and push each other while keeping their own analyses independent.
 - **Question:** Do you race the other labs, join them, or do both at once?
+- **Hovertip:** **Collaboration: Competition vs Collaboration vs Coopetition** [LINE]
+  Issue: Do you race the other labs, join them, or do both at once?
+  - Competition — Race the other lab: first to publish wins, and the rivalry drives everyone faster.
+  - Collaboration — Join forces: share the detector, share the data, share the credit, and do together what no lab could do alone.
+  - Coopetition — Compete and cooperate at once: rival groups that share infrastructure, cross-check each other's results, and push each other while keeping their own analyses independent.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Source:** YoBiche.
 
@@ -214,36 +322,60 @@ Under the **Taxopolemics** engine, experimental positions are mapped to their na
 #### 6.1 Credit: First vs Team (2-Pole Dipole)
 - **Poles:** First (being first matters — the discovery belongs to whoever publishes first, and the race is the point) ↔ Team (the team matters — the discovery belongs to everyone who built the detector, ran the shifts, and wrote the code)
 - **Question:** Does the credit go to whoever is first, or to the whole team?
+- **Hovertip:** **Credit: First vs Team**
+  Issue: Does the credit go to whoever is first, or to the whole team?
+  - First — being first matters — the discovery belongs to whoever publishes first, and the race is the point.
+  - Team — the team matters — the discovery belongs to everyone who built the detector, ran the shifts, and wrote the code.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 6.2 Hardware Monkey vs Data Wizard (2-Pole Dipole)
 - **Poles:** **Hardware Artisan ("Hardware Monkey")** (Turning wrenches, tightening copper flanges, aligning mirrors with an infrared card, soldering circuit boards, smelling ozone and flux) ↔ **Offline Data Wizard** (Living in Python, ROOT, machine learning event classifiers, unfolding algorithms, Monte Carlo detector simulations)
 - **Question:** Are you at your best turning a wrench on the beamline or analyzing data at a desk?
+- **Hovertip:** **Hardware Monkey vs Data Wizard**
+  Issue: Are you at your best turning a wrench on the beamline or analyzing data at a desk?
+  - Hardware Artisan ("Hardware Monkey") — Turning wrenches, tightening copper flanges, aligning mirrors with an infrared card, soldering circuit boards, smelling ozone and flux.
+  - Offline Data Wizard — Living in Python, ROOT, machine learning event classifiers, unfolding algorithms, Monte Carlo detector simulations.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 6.2.
 
 #### 6.3 Theorist Relationship: Symbiotic Guide vs Theoretical Antagonist (2-Pole Dipole)
 - **Poles:** **Theorist-Guided Symbiosis** (Working closely with theorists to design experiments that pinpoint exact theoretical parameter models) ↔ **Theoretical Antagonism** ("Theorists are cheap, detectors are expensive"; our job is to present raw stubborn facts that tear theorists' elegant models to shreds)
 - **Question:** Do you work to confirm theorists' models or to humiliate them with data?
+- **Hovertip:** **Theorist Relationship: Symbiotic Guide vs Theoretical Antagonist**
+  Issue: Do you work to confirm theorists' models or to humiliate them with data?
+  - Theorist-Guided Symbiosis — Working closely with theorists to design experiments that pinpoint exact theoretical parameter models.
+  - Theoretical Antagonism — "Theorists are cheap, detectors are expensive"; our job is to present raw stubborn facts that tear theorists' elegant models to shreds.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 6.3.
 
 #### 6.4 Lab vs Field (2-Pole Dipole)
 - **Poles:** Lab (the controlled environment — the bench, the cleanroom, the beamline, everything under your control) ↔ Field (the real world — the mountaintop, the ice sheet, the balloon, the ocean, where nature sets the conditions)
 - **Question:** Do you work in the lab, or out in the field?
+- **Hovertip:** **Lab vs Field**
+  Issue: Do you work in the lab, or out in the field?
+  - Lab — the controlled environment — the bench, the cleanroom, the beamline, everything under your control.
+  - Field — the real world — the mountaintop, the ice sheet, the balloon, the ocean, where nature sets the conditions.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 6.5 Hands-On vs Remote (2-Pole Dipole)
 - **Poles:** Hands-on (you are there — you touch the detector, you turn the knobs, you hear the pump) ↔ Remote (you run it from a desk — the shift is a screen, the detector is a thousand miles away, and the data comes to you)
 - **Question:** Do you work hands-on at the detector, or run it remotely?
+- **Hovertip:** **Hands-On vs Remote**
+  Issue: Do you work hands-on at the detector, or run it remotely?
+  - Hands-on — you are there — you touch the detector, you turn the knobs, you hear the pump.
+  - Remote — you run it from a desk — the shift is a screen, the detector is a thousand miles away, and the data comes to you.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 
 #### 6.6 Shift Work (2-Pole Dipole)
 - **Poles:** Love it (the night shift is the best part — the lab at 3 a.m., just you and the detector, the data coming in live) ↔ Hate it (the night shift is the price you pay — sleep-deprived, cold coffee, waiting for a beam that may not come)
 - **Question:** Do you love the night shift, or endure it?
+- **Hovertip:** **Shift Work**
+  Issue: Do you love the night shift, or endure it?
+  - Love it — the night shift is the best part — the lab at 3 a.m., just you and the detector, the data coming in live.
+  - Hate it — the night shift is the price you pay — sleep-deprived, cold coffee, waiting for a beam that may not come.
 - **Optimal Widget:** Dipole slider.
 - **Source:** YoBiche.
 

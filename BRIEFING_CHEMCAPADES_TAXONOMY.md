@@ -73,6 +73,9 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
 - **Poles:**
   - **Unconditional Mass/Atom Conservation:** In all non-nuclear chemical transformations, atoms are neither created nor destroyed; stoichiometry is the inviolable accounting law of matter.
 - **Question:** How strongly do you anchor chemical reasoning in strict stoichiometric conservation versus approximate, open-system, or non-stoichiometric defect regimes?
+- **Hovertip:** **Conservation of Matter & Stoichiometric Integrity**
+  Issue: How strongly do you anchor chemical reasoning in strict stoichiometric conservation versus approximate, open-system, or non-stoichiometric defect regimes?
+  - Unconditional Mass/Atom Conservation — In all non-nuclear chemical transformations, atoms are neither created nor destroyed; stoichiometry is the inviolable accounting law of matter.
 - **Optimal Widget:** `"monopole-slider"` (single linear amplitude slider [-100, +100], measuring commitment to strict stoichiometry vs. tolerance for non-stoichiometric/defect-driven frameworks).
 - **Source:** Gemini revised (new topic — the calibrated monopole baseline; answers the v1 Open Question on monopole calibration in part — see Open Question 2).
 
@@ -82,12 +85,21 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Midline)`: **Pattern-Realist / Emergentist** — Bonds are neither discrete physical strings nor mere fictions; they are real emergent relational patterns with causal stability.
   - `Pole 2 (Right)`: **Pure Instrumentalist** — Bonds are convenient bookkeeping lines drawn between nuclei; only nuclei, electrons, and electrostatic forces actually exist.
 - **Question:** When a chemist draws a line between two atoms, are they depicting a physical feature of the universe, an emergent structural pattern, or a pedagogical shorthand?
+- **Hovertip:** **The Reality of the Chemical Bond** [LINE]
+  Issue: When a chemist draws a line between two atoms, are they depicting a physical feature of the universe, an emergent structural pattern, or a pedagogical shorthand?
+  - Strict Physical Realist — Bonds are localized physical entities (e.g., QTAIM bond paths or shared electron density) that exist independently of human models.
+  - Pattern-Realist / Emergentist — Bonds are neither discrete physical strings nor mere fictions; they are real emergent relational patterns with causal stability.
+  - Pure Instrumentalist — Bonds are convenient bookkeeping lines drawn between nuclei; only nuclei, electrons, and electrostatic forces actually exist.
 - **Optimal Widget:** [SCHEMA GAP: 3-POLE LINE WIDGET] (Pattern-Realism sits linearly on a single ontological axis between Strict Physical Realism and Pure Instrumentalism; `"triangle"` is inappropriate).
 - **Source:** Merged — Gemini 1 (triad) + YoBiche 1.2 (dipole). Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Pattern-Realism as the explicit middle pole.
 
 #### 1.2 Orbitals: Real vs Mathematical Artifact (2-Pole Dipole)
 - **Poles:** **Mathematical Constructs (Unobservable)** — Orbitals are one-electron wavefunctions (ψ), artifacts of the Hartree-Fock approximation that cannot be observed in multi-electron systems ↔ **Quasi-Physical / Experiential Entities** — Scanning tunneling microscopy (STM), photoelectron spectroscopy, and frontier orbital reactivity prove that orbitals capture real spatial and energetic realities.
 - **Question:** Are orbitals real, or just math?
+- **Hovertip:** **Orbitals: Real vs Mathematical Artifact**
+  Issue: Are orbitals real, or just math?
+  - Mathematical Constructs (Unobservable) — Orbitals are one-electron wavefunctions (ψ), artifacts of the Hartree-Fock approximation that cannot be observed in multi-electron systems.
+  - Quasi-Physical / Experiential Entities — Scanning tunneling microscopy (STM), photoelectron spectroscopy, and frontier orbital reactivity prove that orbitals capture real spatial and energetic realities.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER] (conceptual binary opposition, not a give/receive role pair; `"xy-switchbox"` does not apply).
 - **Source:** Merged — Gemini 2 + YoBiche 1.3. Same topic; Gemini's detail (STM, the cuprite d-orbital claim) kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to the gap flag.
 
@@ -99,12 +111,23 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 3`: **Downward Causation / Contextuality** — The macro-environment (solvent, temperature, crystal lattice, observer measurement) actively constrains and determines quantum states at the molecular level.
   - `Pole 4`: **Pluralism** — Both, depending on the question. Reduction works sometimes and emergence others; the right level of explanation is the one that answers the question at hand.
 - **Question:** Is chemistry fundamentally just applied physics, or does it possess autonomous laws and irreducible entities of its own?
+- **Hovertip:** **Reductionism vs Chemical Autonomy** [PENTAD — simplex]
+  Issue: Is chemistry fundamentally just applied physics, or does it possess autonomous laws and irreducible entities of its own?
+  - Strong Reductionism (Dirac's Dictum) — Chemistry is wholly reducible in principle to quantum mechanics; any apparent autonomy is merely due to computational intractability.
+  - Epistemological Anti-Reductionism — Even if ontology is physical, chemical explanations (e.g., steric hindrance, nucleophilicity) cannot be replaced by wavefunctions without losing explanatory power.
+  - Ontological Emergence — Novel properties (such as molecular shape, chirality, and phase transitions) genuinely emerge at higher levels of complexity and are absent in the underlying physics.
+  - Downward Causation / Contextuality — The macro-environment (solvent, temperature, crystal lattice, observer measurement) actively constrains and determines quantum states at the molecular level.
+  - Pluralism — Both, depending on the question.
 - **Optimal Widget:** `"star-radar"` (pentad radar).
 - **Source:** Merged — Gemini 3 (tetrad) + YoBiche 1.1 (triad). Gemini's tetrad is richer; YoBiche's Pluralism added as a fifth pole. Gemini revised (v2): drops Pluralism, returning the topic to a tetrad on `"quad-compass"` — v2 does NOT follow her there; the pentad is kept. Her `"quad-compass"` assignment does not fit a 5-pole topic. See Open Question 8 — Jason to rule.
 
 #### 1.4 Molecular Structure & the Born-Oppenheimer Problem (2-Pole Dipole)
 - **Poles:** **Classical-Geometric Primacy** — A molecule is defined by its 3D nuclear scaffold; shape is the primary determinant of chemical identity and function ↔ **Quantum-Holistic Indeterminacy** — In an exact, non-clamped quantum state, isolated molecules have no intrinsic shape (e.g., enantiomers exist as superposition states until environmental decoherence occurs).
 - **Question:** Does a molecule possess an inherent three-dimensional shape in isolation, or is molecular geometry an artifact of environmental interaction?
+- **Hovertip:** **Molecular Structure & the Born-Oppenheimer Problem**
+  Issue: Does a molecule possess an inherent three-dimensional shape in isolation, or is molecular geometry an artifact of environmental interaction?
+  - Classical-Geometric Primacy — A molecule is defined by its 3D nuclear scaffold; shape is the primary determinant of chemical identity and function.
+  - Quantum-Holistic Indeterminacy — In an exact, non-clamped quantum state, isolated molecules have no intrinsic shape.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER] (non-role theoretical polarity).
 - **Source:** Gemini 4. Gemini revised (v2): widget canonicalized to the gap flag.
 - **Related question (from YoBiche 5.3):** which direction does chemical explanation run — **Structure → Properties** (know the structure and you can predict the properties; the structure is the explanation) or **Properties → Structure** (measure the properties and you can infer the structure; the properties are the evidence)?
@@ -115,6 +138,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Useful Model** — A molecule is a convenient label for a pattern of atoms. The label is ours; the atoms are real, the "molecule" is a bookkeeping device.
   - `Pole 2 (Base Left)`: **Emergent Pattern** — A molecule is a stable pattern that emerges from quantum interactions. It is neither a bare thing nor a mere label — it is what the interactions settle into.
 - **Question:** What is a molecule, really?
+- **Hovertip:** **What Is a Molecule?** [TRIANGLE]
+  Issue: What is a molecule, really?
+  - Real Entity — A molecule is a discrete thing with an identity.
+  - Useful Model — A molecule is a convenient label for a pattern of atoms.
+  - Emergent Pattern — A molecule is a stable pattern that emerges from quantum interactions.
 - **Optimal Widget:** `"triangle"` (barycentric equilateral triangle — three independent answers to what a molecule is, blended as weights summing to 1).
 - **Source:** YoBiche 1.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 
@@ -130,6 +158,13 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 3`: **Three-Dimensional / Spiral / Helical** — Continuous topologies (e.g., Benfey's snail, Alexander's 3D arrangement) that preserve the continuity of atomic number (Z) without artificial line breaks.
   - `Pole 4`: **Property-Cluster / Data-Driven** — Non-geometric networks or topological maps organized by empirical chemical similarity, oxidation states, and compound formation rather than electron shells.
 - **Question:** Which periodic table is the right one?
+- **Hovertip:** **The Optimal Architecture of the Periodic Table** [PENTAD — simplex]
+  Issue: Which periodic table is the right one?
+  - Medium-Long Form (18-Column Standard) — The IUPAC-preferred compromise balancing electron configuration visibility with printable aspect ratios.
+  - Left-Step Table (Janet / Scerri) — Places Helium above Beryllium and orders strictly by n + l Madelung rule, prioritizing quantum-mechanical symmetry over chemical reactivity.
+  - Long Form (32-Column) — Integrates the lanthanides and actinides directly into the main body, eliminating the artificial "footnote" block.
+  - Three-Dimensional / Spiral / Helical — Continuous topologies (e.g., Benfey's snail, Alexander's 3D arrangement) that preserve the continuity of atomic number (Z) without artificial line breaks.
+  - Property-Cluster / Data-Driven — Non-geometric networks or topological maps organized by empirical chemical similarity, oxidation states, and compound formation rather than electron shells.
 - **Optimal Widget:** `"star-radar"` (regular pentagon, vertices 72° apart, 5-color palette comparing five competing topologies).
 - **Source:** Merged — Gemini 5 (pentad) + YoBiche 5.1 (triad). Gemini's pentad is richer; YoBiche's triad (Traditional Mendeleev / Left-Step / Alternative Forms) is subsumed — her Traditional is Gemini's Medium-Long Form, her Left-Step is Gemini's Left-Step, her Alternative Forms are Gemini's 3D/Spiral and Property-Cluster poles. Gemini revised (v2): widget canonicalized to `"star-radar"`.
 - **Related question (from YoBiche 5.2):** what IS an element — **Atomic Number** (an element is defined by its proton count, the modern definition, clean and exact) or **Chemical Identity** (an element is defined by its properties and behaviour; the protons are a means, not the meaning)?
@@ -140,6 +175,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1`: **Sc–Y–Lu–Lr** — Aligns with d-block electronic configurations (d¹) and periodic trends in atomic radii and melting points.
   - `Pole 2`: **Bifurcated / Indeterminate (15-Element f-Block)** — Leaves the Group 3 lower slots open or split, treating all 15 lanthanides/actinides as a collective transition series.
 - **Question:** Which elements truly belong beneath Scandium and Yttrium in Group 3 of the Periodic Table?
+- **Hovertip:** **Group 3 Membership** [NON-BLEND]
+  Issue: Which elements truly belong beneath Scandium and Yttrium in Group 3 of the Periodic Table?
+  - Sc–Y–La–Ac — Preserves historical continuity and treats the 14 f-block elements as Ce–Lu and Th–Lr.
+  - Sc–Y–Lu–Lr — Aligns with d-block electronic configurations (d¹) and periodic trends in atomic radii and melting points.
+  - Bifurcated / Indeterminate (15-Element f-Block) — Leaves the Group 3 lower slots open or split, treating all 15 lanthanides/actinides as a collective transition series.
 - **Optimal Widget:** [SCHEMA GAP: 3-POLE DISCRETE SELECTOR] (mutually exclusive taxonomic commitment; cannot be rated as a zero-sum `"triangle"` blend).
 - **Source:** Gemini 6. Gemini revised (v2): widget canonicalized to the gap flag.
 
@@ -149,6 +189,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1`: **Superheavy Island of Stability (Viable Frontier Window)** — Nuclear shell closures ("Islands of Stability") will permit long-lived superheavy elements with novel, discoverable chemistry.
   - `Pole 2`: **Relativistic Breakdown (Z ≈ 137–173)** — Extreme spin-orbit coupling and 1s orbital collapse destroy periodicity, rendering chemical behavior unrecognizable.
 - **Question:** Where and why does the Periodic Table come to an end — at the limits of nuclear stability or the breakdown of atomic electron shells?
+- **Hovertip:** **The End of the Periodic Table** [NON-BLEND]
+  Issue: Where and why does the Periodic Table come to an end — at the limits of nuclear stability or the breakdown of atomic electron shells?
+  - Nuclear-Limit Termination — Synthesis halts around Z ≈ 120–126 due to spontaneous fission and vanishing nuclear half-lives before chemistry can even occur.
+  - Superheavy Island of Stability (Viable Frontier Window) — Nuclear shell closures ("Islands of Stability") will permit long-lived superheavy elements with novel, discoverable chemistry.
+  - Relativistic Breakdown (Z ≈ 137–173) — Extreme spin-orbit coupling and 1s orbital collapse destroy periodicity, rendering chemical behavior unrecognizable.
 - **Optimal Widget:** [SCHEMA GAP: 3-POLE TWO-LIMIT GAUGE] (a viable chemical frontier window bounded between nuclear instability on the low end and relativistic breakdown on the high end).
 - **Source:** Gemini 7. Gemini revised (v2): poles reordered with the Island of Stability as the explicit middle (the viable window between the two failure limits), matching the gauge semantics; widget canonicalized to the gap flag.
 
@@ -162,6 +207,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Mnemonic & Predictive Pragmatism** — Arrow pushing is a formalized grammar for predicting products — whether electrons "actually" move that way is secondary to its predictive success.
   - `Pole 2 (Base Left)`: **Kinetic & Spectroscopic Skepticism** — Mechanisms can never be proven, only falsified; true understanding requires rigorous rate laws, kinetic isotope effects (KIE), and trapped intermediates.
 - **Question:** Are curved-arrow reaction mechanisms literal depictions of molecular events or merely a syntactic grammar for predicting products?
+- **Hovertip:** **Mechanism Inference vs "Arrow Pushing" Formalism** [TRIANGLE]
+  Issue: Are curved-arrow reaction mechanisms literal depictions of molecular events or merely a syntactic grammar for predicting products?
+  - Mechanistic Realism — Curved-arrow mechanisms track actual, physical electron-pair rearrangements along a true minimum-energy reaction coordinate.
+  - Mnemonic & Predictive Pragmatism — Arrow pushing is a formalized grammar for predicting products — whether electrons "actually" move that way is secondary to its predictive success.
+  - Kinetic & Spectroscopic Skepticism — Mechanisms can never be proven, only falsified; true understanding requires rigorous rate laws, kinetic isotope effects (KIE), and trapped intermediates.
 - **Optimal Widget:** `"trilinear-sliders"` (multi-affinity — a chemist can simultaneously hold high affinity for predictive arrow-pushing and rigorous KIE falsificationism, or reject one independently; the three stances do not trade off against each other, so a zero-sum `"triangle"` is the wrong widget).
 - **Source:** Gemini 8. Gemini revised (v2): widget corrected from `"triangle"` to `"trilinear-sliders"` — the triad is multi-affinity, not a closed blend.
 
@@ -172,6 +222,12 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `South`: **Synergistic Co-Equal Loop** — Neither is complete alone; experiment anchors theory against parameterization errors, while theory reveals transient transition states inaccessible to instruments.
   - `West`: **Autonomous Self-Driving Labs (Closed-Loop AI + Robotics)** — The distinction is obsolete; automated synthesis platforms guided by Bayesian optimization represent the future paradigm.
 - **Question:** Does theory lead the bench, or the bench lead theory?
+- **Hovertip:** **Computational Chemistry vs Wet-Bench Experimentation** [TETRAD — multi-affinity]
+  Issue: Does theory lead the bench, or the bench lead theory?
+  - Bench Supremacy ("In Silico Is Not Real") — Only physical synthesis, isolation, and characterization in the lab constitute real chemical discovery; calculations merely rationalize after the fact.
+  - Computational Vanguard — Modern DFT, ab initio, and machine learning methods can screen reaction space and predict structures faster and more accurately than human hands.
+  - Synergistic Co-Equal Loop — Neither is complete alone; experiment anchors theory against parameterization errors, while theory reveals transient transition states inaccessible to instruments.
+  - Autonomous Self-Driving Labs (Closed-Loop AI + Robotics) — The distinction is obsolete; automated synthesis platforms guided by Bayesian optimization represent the future paradigm.
 - **Optimal Widget:** `"quad-sliders"` (four independent [-100, +100] sliders — the four paradigms can be endorsed or opposed independently, without geometric opposition).
 - **Source:** Merged — Gemini 9 (tetrad) + YoBiche 3.1 (triad). Gemini's tetrad is richer; YoBiche's Symbiotic third pole is preserved as the Synergistic Loop, and Gemini adds Self-Driving Labs as a fourth pole. Gemini revised (v2): widget corrected from `"diamond"` to `"quad-sliders"`.
 
@@ -181,6 +237,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Solution-State Spectroscopic Realism** — Crystals are static packing artifacts; multinuclear NMR, IR, and Mass Spec reveal how molecules actually behave and flex in solution.
   - `Pole 2 (Base Left)`: **Total Synthesis Verification** — A natural product's structure is only truly proven when synthesized from scratch and matched against the natural isolate.
 - **Question:** Which form of evidence provides the gold standard of proof for a molecule's identity and structure?
+- **Hovertip:** **Structural Elucidation: Crystallography vs Spectroscopy vs Chemical Proof** [TRIANGLE]
+  Issue: Which form of evidence provides the gold standard of proof for a molecule's identity and structure?
+  - Diffraction Absoluteness ("Seeing Is Believing") — Single-crystal X-ray or MicroED diffraction provides the definitive, unambiguous 3D atomic coordinates of a compound.
+  - Solution-State Spectroscopic Realism — Crystals are static packing artifacts; multinuclear NMR, IR, and Mass Spec reveal how molecules actually behave and flex in solution.
+  - Total Synthesis Verification — A natural product's structure is only truly proven when synthesized from scratch and matched against the natural isolate.
 - **Optimal Widget:** `"triangle"` (barycentric equilateral triangle weighting the three evidentiary pillars to sum to 1, scaled by overall confidence intensity *I* — a zero-sum allocation of evidentiary weight).
 - **Source:** Gemini 10. Gemini revised (v2): widget canonicalized to `"triangle"`.
 - **Related question (from YoBiche 3.4):** do you analyse to know what it IS — **Structure** (identify the molecule, solve the structure, name it) — or what it DOES — **Function** (measure the activity, the property, the effect; the structure matters only insofar as it explains the function)?
@@ -191,12 +252,21 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Midline)`: **Explainable Cheminformatics** — Machine learning should be harnessed specifically to extract new, human-readable physical-organic rules rather than acting as a black box.
   - `Pole 2 (Right)`: **Black-Box High-Throughput Empiricism** — Human "intuition" is riddled with survivorship bias; high-throughput experimentation (HTE) and deep neural networks uncover non-intuitive optima without human rules.
 - **Question:** Is "chemical intuition" a vital form of tacit expertise or a romanticized form of cognitive bias that data science should replace?
+- **Hovertip:** **Chemical Intuition vs Data-Driven / Algorithmic Discovery** [LINE]
+  Issue: Is "chemical intuition" a vital form of tacit expertise or a romanticized form of cognitive bias that data science should replace?
+  - Artisanal Chemical Intuition — Great chemists develop an irreplaceable, tacit "feel" for reactivity, sterics, and electronics honed through years at the bench.
+  - Explainable Cheminformatics — Machine learning should be harnessed specifically to extract new, human-readable physical-organic rules rather than acting as a black box.
+  - Black-Box High-Throughput Empiricism — Human "intuition" is riddled with survivorship bias; high-throughput experimentation (HTE) and deep neural networks uncover non-intuitive optima without human rules.
 - **Optimal Widget:** [SCHEMA GAP: 3-POLE LINE WIDGET] (Explainable Cheminformatics is a true linear midpoint between Artisanal Intuition and Black-Box Empiricism).
 - **Source:** Gemini 11. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Explainable Cheminformatics as the explicit middle pole.
 
 #### 3.5 Serendipity vs Design (2-Pole Dipole)
 - **Poles:** **Serendipity** — Discoveries come from accidents (penicillin, Teflon, mauveine, the sticky note); the prepared mind meeting the unexpected ↔ **Design** — Discoveries come from planning (target a molecule, design the route, build it).
 - **Question:** Do discoveries come from accidents or from plans?
+- **Hovertip:** **Serendipity vs Design**
+  Issue: Do discoveries come from accidents or from plans?
+  - Serendipity — Discoveries come from accidents (penicillin, Teflon, mauveine, the sticky note); the prepared mind meeting the unexpected.
+  - Design — Discoveries come from planning: target a molecule, design the route, build it.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER].
 - **Source:** YoBiche 3.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 
@@ -211,6 +281,12 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `South`: **A Service / Enabling Discipline** — In modern academia and industry, chemistry risks being reduced to a reagent-supplying utility for biologists, device engineers, and clinicians.
   - `West`: **Dissolving Boundaries (Molecular Science)** — Traditional disciplinary walls are outdated; chemistry should merge seamlessly into broader "Molecular Science & Engineering."
 - **Question:** Is chemistry an autonomous creative powerhouse, the central hub of all sciences, or increasingly a service provider to neighboring fields?
+- **Hovertip:** **Chemistry's External Identity: Central Science vs Service Science** [TETRAD]
+  Issue: Is chemistry an autonomous creative powerhouse, the central hub of all sciences, or increasingly a service provider to neighboring fields?
+  - The Central Science (Bridging Hub) — Chemistry is the indispensable intellectual linchpin connecting physics to biology, materials science, geology, and medicine.
+  - The Creative / Inventive Science — Unlike physics or biology (which study what already exists), chemistry is uniquely defined by creating novel matter that never existed in nature.
+  - A Service / Enabling Discipline — In modern academia and industry, chemistry risks being reduced to a reagent-supplying utility for biologists, device engineers, and clinicians.
+  - Dissolving Boundaries (Molecular Science) — Traditional disciplinary walls are outdated; chemistry should merge seamlessly into broader "Molecular Science & Engineering.".
 - **Optimal Widget:** `"quad-compass"` (2D pad contrasting Autonomous vs. Integrative identity on X against Creative Discovery vs. Enabling Utility on Y).
 - **Source:** Merged — Gemini 12 (tetrad) + YoBiche 2.2 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Central vs Service) is subsumed into its first and third poles. Gemini revised (v2): widget corrected from `"diamond"` to `"quad-compass"` — the tetrad is genuinely two crossed axes.
 
@@ -222,6 +298,13 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 3`: **Analytical Chemistry** — Measurement, detection, separation; precision, metrology, instrumentation, trace detection, validation, and ruthless skepticism toward dirty samples.
   - `Pole 4`: **Biochemistry / Chemical Biology** — The chemistry of living things; complexity, aqueous media, enzymes, cellular context, and probing living systems with molecular tools.
 - **Question:** Which branch is home?
+- **Hovertip:** **The Five Branches** [PENTAD — simplex]
+  Issue: Which branch is home?
+  - Organic Chemistry — Carbon, synthesis, the molecules of life; artistry, total synthesis, reaction discovery, high-throughput bench endurance, and "molecule-making" machismo.
+  - Inorganic Chemistry — Metals, minerals, salts, the rest of the table; symmetry, group theory, color, air-free Schlenk-line virtuosity, catalysis, and the whole Periodic Table playground.
+  - Physical Chemistry — Thermodynamics, kinetics, quantum chemistry, spectroscopy; lasers, vacuum chambers, statistical mechanics, and mathematical rigor.
+  - Analytical Chemistry — Measurement, detection, separation; precision, metrology, instrumentation, trace detection, validation, and ruthless skepticism toward dirty samples.
+  - Biochemistry / Chemical Biology — The chemistry of living things; complexity, aqueous media, enzymes, cellular context, and probing living systems with molecular tools.
 - **Optimal Widget:** `"star-radar"` (regular pentagon, vertices 72° apart, 5-color palette).
 - **Source:** Merged — Gemini 13 (pentad) + YoBiche 2.1 (pentad). The same five branches; Gemini's culture descriptions kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to `"star-radar"`.
 
@@ -232,6 +315,12 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `South`: **Function-Oriented Synthesis (FOS)** — Making a natural product just to say you made it is outdated; the goal should be designing simpler analogues with superior biological or material function.
   - `West`: **Biosynthetic / Biocatalytic Shift** — Complex molecules should be produced via engineered enzymes and metabolic pathways rather than harsh synthetic reagents.
 - **Question:** Does multi-step natural product total synthesis remain the pinnacle of chemical achievement, or is it an inefficient relic of 20th-century hero-worship?
+- **Hovertip:** **Total Synthesis: Peak Art Form vs Obsolete Heroism** [TETRAD — multi-affinity]
+  Issue: Does multi-step natural product total synthesis remain the pinnacle of chemical achievement, or is it an inefficient relic of 20th-century hero-worship?
+  - The Mount Everest of Chemistry — Complex natural product total synthesis is the ultimate crucible for testing synthetic methods and training master chemists.
+  - Step-Economy & Ideality — Synthesis should be judged by brevity, redox economy, and atom economy (Wender/Baran ideal synthesis), not brute-force 40-step marathons.
+  - Function-Oriented Synthesis (FOS) — Making a natural product just to say you made it is outdated; the goal should be designing simpler analogues with superior biological or material function.
+  - Biosynthetic / Biocatalytic Shift — Complex molecules should be produced via engineered enzymes and metabolic pathways rather than harsh synthetic reagents.
 - **Optimal Widget:** `"quad-sliders"` (allows independent positive or negative ratings for each synthetic philosophy).
 - **Source:** Gemini 14. Gemini revised (v2): widget corrected from `"diamond"` to `"quad-sliders"`.
 - **Related question (from YoBiche 3.2):** is synthesis an **ART** (a craft — intuition, feel, the hands know; the great synthetic chemists are artists) or a **SCIENCE** (systematic — retrosynthesis, rules, planning; a good synthesis is designed, not felt)? The tetrad's first pole (Mount Everest) is the art pole; its second (Step-Economy) is the science pole.
@@ -239,12 +328,20 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
 #### 4.4 Discovery Chemistry vs Process / Industrial Chemistry (2-Pole Dipole)
 - **Poles:** **Academic Discovery Ethos** — Prioritize novel reactivity, structural elegance, and publishable scope, even if reactions use toxic solvents, expensive ligands, or column chromatography ↔ **Process & Scale-Up Realism** — A reaction only truly works when it runs safely at metric-ton scale, crystallizes cleanly without chromatography, and minimizes cost and waste.
 - **Question:** What counts as a "good" chemical reaction — one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?
+- **Hovertip:** **Discovery Chemistry vs Process / Industrial Chemistry**
+  Issue: What counts as a "good" chemical reaction — one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?
+  - Academic Discovery Ethos — Prioritize novel reactivity, structural elegance, and publishable scope, even if reactions use toxic solvents, expensive ligands, or column chromatography.
+  - Process & Scale-Up Realism — A reaction only truly works when it runs safely at metric-ton scale, crystallizes cleanly without chromatography, and minimizes cost and waste.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER] (conceptual/cultural dichotomy, not a give/receive role exchange).
 - **Source:** Gemini 15. Gemini revised (v2): widget canonicalized to the gap flag.
 
 #### 4.5 Pure vs Applied Chemistry (2-Pole Dipole)
 - **Poles:** **Pure** — Chemistry for its own sake: understanding, the beauty of a new reaction, knowledge as its own reward ↔ **Applied** — Chemistry for what it does: products, drugs, materials, solutions to real problems.
 - **Question:** Do you do chemistry to understand, or to make?
+- **Hovertip:** **Pure vs Applied Chemistry**
+  Issue: Do you do chemistry to understand, or to make?
+  - Pure — Chemistry for its own sake: understanding, the beauty of a new reaction, knowledge as its own reward.
+  - Applied — Chemistry for what it does: products, drugs, materials, solutions to real problems.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER].
 - **Source:** YoBiche 2.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 
@@ -259,6 +356,12 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `South`: **Techno-Optimist Remediation** — Chemistry shouldn't restrict its toolkit; instead, it should invent better catalysts to capture carbon, degrade PFAS, and recycle plastics.
   - `West`: **Unfettered Fundamental Inquiry** — Imposing environmental or utility metrics on basic exploratory research stifles serendipity and slows foundational progress.
 - **Question:** Should environmental sustainability constrain fundamental reaction discovery from day one, or be addressed downstream during industrial optimization?
+- **Hovertip:** **Green Chemistry vs Unconstrained Synthetic Freedom** [TETRAD]
+  Issue: Should environmental sustainability constrain fundamental reaction discovery from day one, or be addressed downstream during industrial optimization?
+  - Strict Green-By-Design — Atom economy, benign solvents, renewable feedstocks, and non-toxic reagents must be mandatory constraints from the earliest discovery stage.
+  - Pragmatic Sustainability — Use whatever hazardous or precious-metal reagents are needed to discover a breakthrough, then optimize the greenness during process scale-up.
+  - Techno-Optimist Remediation — Chemistry shouldn't restrict its toolkit; instead, it should invent better catalysts to capture carbon, degrade PFAS, and recycle plastics.
+  - Unfettered Fundamental Inquiry — Imposing environmental or utility metrics on basic exploratory research stifles serendipity and slows foundational progress.
 - **Optimal Widget:** `"quad-compass"` (2D pad mapping Upstream Constraint vs. Downstream Fix against Ecological Precaution vs. Exploratory Freedom).
 - **Source:** Merged — Gemini 16 (tetrad) + YoBiche 4.1 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Synthetic vs Green) is subsumed — her Synthetic is Gemini's Pragmatic Sustainability and Unfettered Inquiry poles, her Green is Gemini's Strict Green-By-Design. Gemini revised (v2): widget corrected from `"diamond"` to `"quad-compass"` — the tetrad is genuinely two crossed axes.
 
@@ -268,6 +371,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Midline)`: **Competence-Based Risk Management** — Over-bureaucratized safety theater breeds cynicism; true safety comes from deep chemical understanding and mentorship.
   - `Pole 2 (Right)`: **Frontier Risk Acceptance** — Working with pyrophorics, high-energy materials, fluorine, or unstable intermediates carries inherent danger that cannot be regulated away.
 - **Question:** Where is the healthy boundary between institutional safety compliance, competence-based mentorship, and frontier hazard tolerance?
+- **Hovertip:** **Lab Safety Culture vs Exploratory Risk-Taking** [LINE]
+  Issue: Where is the healthy boundary between institutional safety compliance, competence-based mentorship, and frontier hazard tolerance?
+  - Zero-Harm Institutional Compliance — Exhaustive SOPs, strict PPE enforcement, and EHS oversight must always supersede experimental speed or boldness.
+  - Competence-Based Risk Management — Over-bureaucratized safety theater breeds cynicism; true safety comes from deep chemical understanding and mentorship.
+  - Frontier Risk Acceptance — Working with pyrophorics, high-energy materials, fluorine, or unstable intermediates carries inherent danger that cannot be regulated away.
 - **Optimal Widget:** [SCHEMA GAP: 3-POLE LINE WIDGET] (Competence-Based Risk Management sits squarely between Zero-Harm Bureaucracy and Frontier Risk Acceptance).
 - **Source:** Merged — Gemini 17 (triad) + YoBiche 4.2 (dipole). Gemini's triad is richer; YoBiche's dipole (Safety vs Discovery) is subsumed — her Safety is Gemini's Zero-Harm, her Discovery is Gemini's Frontier Risk, and Gemini adds Competence-Based as the third pole. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Competence-Based as the explicit middle pole. This answers the flag v1 left open — if Jason reads it as a LINE, flip it; her revision flips it.
 
@@ -277,6 +385,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Useful** — The public sees medicine, materials, clean water, fertiliser. Chemistry is the science that makes modern life work.
   - `Pole 2 (Base Left)`: **Invisible** — The public does not see chemistry at all. It is taken for granted, hidden inside everything, and nobody thinks about it.
 - **Question:** How does the public see chemistry?
+- **Hovertip:** **Chemistry in the Public Eye** [TRIANGLE]
+  Issue: How does the public see chemistry?
+  - Dangerous — The public sees pollution, weapons, poison, "chemicals" as a dirty word.
+  - Useful — The public sees medicine, materials, clean water, fertiliser.
+  - Invisible — The public does not see chemistry at all.
 - **Optimal Widget:** `"triangle"` (barycentric equilateral triangle — three independent views of how the public sees chemistry, blended as weights summing to 1).
 - **Source:** YoBiche 4.3. (Distinct from 5.4: this topic is how the public SEES chemistry; 5.4 is what chemists should DO about it.) Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 
@@ -286,12 +399,21 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Industrial Accountability First** — Public distrust of chemistry is rooted in real historical harms (Bhopal, Love Canal, PFAS, lead); trust requires strict regulation and corporate accountability, not just PR.
   - `Pole 2 (Base Left)`: **Focus on the Science** — Public misconceptions are inevitable; chemists are best served focusing on rigorous research rather than endless social-media debates over chemophobia.
 - **Question:** How should the chemical community respond to widespread public "chemophobia" and the legacy of environmental contamination?
+- **Hovertip:** **Chemophobia & Public Engagement** [TRIANGLE]
+  Issue: How should the chemical community respond to widespread public "chemophobia" and the legacy of environmental contamination?
+  - Empathetic Public Literacy — Chemists must actively counter "chemical-free" marketing myths by communicating risk, dosage, and molecular benefits with humility and transparency.
+  - Industrial Accountability First — Public distrust of chemistry is rooted in real historical harms (Bhopal, Love Canal, PFAS, lead); trust requires strict regulation and corporate accountability, not just PR.
+  - Focus on the Science — Public misconceptions are inevitable; chemists are best served focusing on rigorous research rather than endless social-media debates over chemophobia.
 - **Optimal Widget:** `"triangle"` (zero-sum allocation of community effort across public communication, regulatory reform, and pure research focus).
 - **Source:** Gemini 18. Gemini revised (v2): widget canonicalized to `"triangle"`.
 
 #### 5.5 Dual-Use Responsibility & Chemical Weapons Vigilance (2-Pole Dipole)
 - **Poles:** **Preemptive Publication & AI Guardrails** — Synthesis routes for toxins, nerve agents, and precursors — as well as generative AI molecular design tools — must be actively screened and restricted ↔ **Open Science & Defensive Transparency** — Suppressing chemical knowledge harms legitimate defensive and medical research while failing to stop determined bad actors.
 - **Question:** Should chemical synthesis data and AI-driven molecular generators be restricted to prevent dual-use weapons proliferation, or kept open for scientific progress?
+- **Hovertip:** **Dual-Use Responsibility & Chemical Weapons Vigilance**
+  Issue: Should chemical synthesis data and AI-driven molecular generators be restricted to prevent dual-use weapons proliferation, or kept open for scientific progress?
+  - Preemptive Publication & AI Guardrails — Synthesis routes for toxins, nerve agents, and precursors — as well as generative AI molecular design tools — must be actively screened and restricted.
+  - Open Science & Defensive Transparency — Suppressing chemical knowledge harms legitimate defensive and medical research while failing to stop determined bad actors.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER] (policy/ethical polarity, not a give/receive role topic).
 - **Source:** Gemini 19. Gemini revised (v2): widget canonicalized to the gap flag.
 
@@ -302,6 +424,10 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
 #### 6.1 Thermodynamic Control vs Kinetic Control as Guiding Worldviews (2-Pole Dipole)
 - **Poles:** **Thermodynamic / Equilibrium Primacy** — Matter inevitably seeks its lowest free-energy basin (ΔG); understanding stability, phase diagrams, and equilibrium governs the long-term fate of systems ↔ **Kinetic / Metastable Primacy** — Almost everything interesting in chemistry and life exists in kinetically trapped, metastable states; barrier heights (ΔG‡) and catalysts rule reality.
 - **Question:** Is the chemical universe better understood through the lens of ultimate thermodynamic stability or the transient pathways of kinetic trapping?
+- **Hovertip:** **Thermodynamic Control vs Kinetic Control as Guiding Worldviews**
+  Issue: Is the chemical universe better understood through the lens of ultimate thermodynamic stability or the transient pathways of kinetic trapping?
+  - Thermodynamic / Equilibrium Primacy — Matter inevitably seeks its lowest free-energy basin (ΔG); understanding stability, phase diagrams, and equilibrium governs the long-term fate of systems.
+  - Kinetic / Metastable Primacy — Almost everything interesting in chemistry and life exists in kinetically trapped, metastable states; barrier heights (ΔG‡) and catalysts rule reality.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER] (foundational physical-chemical polarity).
 - **Source:** Gemini 20. Gemini revised (v2): widget canonicalized to the gap flag.
 
@@ -310,6 +436,10 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - **X-Axis (Give / Electron-Pair Donor):** Nucleophilic / Lewis Basic / Reducing behavior (donating electron density).
   - **Y-Axis (Receive / Electron-Pair Acceptor):** Electrophilic / Lewis Acidic / Oxidizing behavior (accepting electron density).
 - **Question:** In your preferred reaction design and mechanistic intuition, do you gravitate toward electron-rich donor chemistry, electron-deficient acceptor activation, amphoteric/ambiphilic "switch" reagents, or inert/non-coordinating regimes?
+- **Hovertip:** **Donor–Acceptor Reactivity Roles (Nucleophile/Base vs Electrophile/Acid)**
+  Issue: In your preferred reaction design and mechanistic intuition, do you gravitate toward electron-rich donor chemistry, electron-deficient acceptor activation, amphoteric/ambiphilic "switch" reagents, or inert/non-coordinating regimes?
+  - X-Axis (Give / Electron-Pair Donor) — Nucleophilic / Lewis Basic / Reducing behavior.
+  - Y-Axis (Receive / Electron-Pair Acceptor) — Electrophilic / Lewis Acidic / Oxidizing behavior.
 - **Optimal Widget:** `"xy-switchbox"` (canonical 2D give/receive switchbox: X = Donor/Give, Y = Acceptor/Receive; quadrants map Amphoteric/Ambiphilic Switch, Dedicated Electrophile/Acceptor, Inert/Non-Coordinating Limit, and Dedicated Nucleophile/Donor, with Y = X amphoteric diagonal).
 - **Source:** Gemini revised (new topic — the donor/acceptor dyad; the `"xy-switchbox"` donor/acceptor mapping is RULED fine by Jason, 2026-11-15: the switchbox covers donor/acceptor role pairs, not just give/receive).
 
@@ -319,6 +449,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Midline)`: **Dynamic Combinatorial & Systems Chemistry** — True emergent behaviors (oscillation, self-replication, homeostasis) only appear in messy, coupled networks of interacting reactions.
   - `Pole 2 (Right)`: **Prebiotic Geochemical Realism** — Understanding the origin of life requires abandoning idealized lab conditions in favor of dirty, mineral-rich, wet-dry cycling planetary environments.
 - **Question:** Can complex chemical emergence and the origins of life be understood by studying purified reactions in isolation, or only through messy, coupled reaction networks?
+- **Hovertip:** **Systems Chemistry & Prebiotic Emergence** [LINE]
+  Issue: Can complex chemical emergence and the origins of life be understood by studying purified reactions in isolation, or only through messy, coupled reaction networks?
+  - Pure-Compound Isolationism — Traditional chemistry demands isolating, purifying, and characterizing single discrete molecules in clean flasks.
+  - Dynamic Combinatorial & Systems Chemistry — True emergent behaviors (oscillation, self-replication, homeostasis) only appear in messy, coupled networks of interacting reactions.
+  - Prebiotic Geochemical Realism — Understanding the origin of life requires abandoning idealized lab conditions in favor of dirty, mineral-rich, wet-dry cycling planetary environments.
 - **Optimal Widget:** [SCHEMA GAP: 3-POLE LINE WIDGET] (Systems Chemistry sits linearly between Pure-Compound Isolationism and Dirty Geochemical Realism).
 - **Source:** Gemini 21. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Systems Chemistry as the explicit middle pole.
 
@@ -328,12 +463,21 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Heterogeneous Surface Catalysis** — Solid-state catalysts drive global civilization (Haber-Bosch, petrochemical cracking) through thermal durability and effortless product separation.
   - `Pole 2 (Base Left)`: **Enzymatic / Biocatalysis** — Evolved or directed-evolution protein scaffolds achieve exquisite selectivity under mild aqueous conditions that synthetic catalysts still struggle to match.
 - **Question:** Which catalytic paradigm holds the greatest promise for the future of sustainable chemical manufacturing and molecular control?
+- **Hovertip:** **Catalysis: Homogeneous Precision vs Heterogeneous Robustness vs Biocatalysis** [TRIANGLE]
+  Issue: Which catalytic paradigm holds the greatest promise for the future of sustainable chemical manufacturing and molecular control?
+  - Homogeneous Molecular Catalysis — Tunable ligand environments offer unmatched mechanistic clarity, enantioselectivity, and atomic-level design.
+  - Heterogeneous Surface Catalysis — Solid-state catalysts drive global civilization (Haber-Bosch, petrochemical cracking) through thermal durability and effortless product separation.
+  - Enzymatic / Biocatalysis — Evolved or directed-evolution protein scaffolds achieve exquisite selectivity under mild aqueous conditions that synthetic catalysts still struggle to match.
 - **Optimal Widget:** `"trilinear-sliders"` (multi-affinity — allows independent positive or negative affinity ratings for each catalytic modality; the three paradigms do not trade off against each other).
 - **Source:** Gemini 22. Gemini revised (v2): widget corrected from `"triangle"` to `"trilinear-sliders"` — the triad is multi-affinity, not a closed blend.
 
 #### 6.5 Supramolecular & Non-Covalent Chemistry vs Covalent Bond-Making (2-Pole Dipole)
 - **Poles:** **Covalent Architecture** — Robust, permanent molecular frameworks forged via strong covalent bonds remain the bedrock of durable materials and pharmaceuticals ↔ **Non-Covalent Self-Assembly** — Hydrogen bonding, π-stacking, host-guest chemistry, and mechanical bonds (rotaxanes/catenanes) unlock adaptive, reversible, "smart" matter.
 - **Question:** Does the frontier of molecular design lie in forging stronger, more complex covalent frameworks or choreographing reversible non-covalent assemblies?
+- **Hovertip:** **Supramolecular & Non-Covalent Chemistry vs Covalent Bond-Making**
+  Issue: Does the frontier of molecular design lie in forging stronger, more complex covalent frameworks or choreographing reversible non-covalent assemblies?
+  - Covalent Architecture — Robust, permanent molecular frameworks forged via strong covalent bonds remain the bedrock of durable materials and pharmaceuticals.
+  - Non-Covalent Self-Assembly — Hydrogen bonding, π-stacking, host-guest chemistry, and mechanical bonds (rotaxanes/catenanes) unlock adaptive, reversible, "smart" matter.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER] (architectural polarity, not a give/receive role dyad).
 - **Source:** Gemini 23. Gemini revised (v2): widget canonicalized to the gap flag.
 
@@ -347,6 +491,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Pragmatic Trivial / Common Usage** — Nobody calls water "oxidane" or caffeine by its 40-character systematic name; historical trivial names carry vital contextual and cultural meaning.
   - `Pole 2 (Base Left)`: **Machine-Readable Identifiers (InChI / SMILES)** — Human-readable names are obsolete for indexing; chemical identity should be anchored by canonical string/graph representations.
 - **Question:** Should chemists prioritize strict IUPAC systematic nomenclature, intuitive historical names, or machine-readable graph identifiers?
+- **Hovertip:** **IUPAC Systematic Nomenclature vs Trivial & Common Names** [TRIANGLE]
+  Issue: Should chemists prioritize strict IUPAC systematic nomenclature, intuitive historical names, or machine-readable graph identifiers?
+  - Strict IUPAC Standardization — Unambiguous, algorithmically parsable systematic names are essential for global databases, patents, and error-free communication.
+  - Pragmatic Trivial / Common Usage — Nobody calls water "oxidane" or caffeine by its 40-character systematic name; historical trivial names carry vital contextual and cultural meaning.
+  - Machine-Readable Identifiers (InChI / SMILES) — Human-readable names are obsolete for indexing; chemical identity should be anchored by canonical string/graph representations.
 - **Optimal Widget:** `"triangle"` (barycentric blend of daily naming/indexing usage summing to 1, scaled by nomenclature rigor intensity *I* — a zero-sum allocation of naming usage).
 - **Source:** Gemini 24. Gemini revised (v2): widget canonicalized to `"triangle"`.
 
@@ -357,6 +506,12 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `South`: **Conceptual / Qualitative Reasoning** — Prioritize visual molecular representations, electronegativity, and acid-base intuition over plug-and-chug algebra.
   - `West`: **Context / Problem-Based Learning** — Teach core chemical principles entirely through real-world challenges (climate change, pharmacology, energy storage).
 - **Question:** What is the most effective pedagogical sequence for introducing students to the molecular world without overwhelming them?
+- **Hovertip:** **General Chemistry Pedagogy: Concepts-First vs Math-First vs Atoms-First** [TETRAD]
+  Issue: What is the most effective pedagogical sequence for introducing students to the molecular world without overwhelming them?
+  - Traditional Macroscopic-First — Start with stoichiometry, gas laws, and solutions before introducing quantum mechanics and bonding.
+  - Atoms-First Approach — Build bottom-up from quantum numbers, atomic orbitals, and periodic trends before tackling macroscopic reactions.
+  - Conceptual / Qualitative Reasoning — Prioritize visual molecular representations, electronegativity, and acid-base intuition over plug-and-chug algebra.
+  - Context / Problem-Based Learning — Teach core chemical principles entirely through real-world challenges.
 - **Optimal Widget:** `"quad-compass"` (2D pad mapping Bottom-Up vs. Top-Down sequencing against Quantitative/Formal vs. Conceptual/Contextual emphasis).
 - **Source:** Gemini 25. Gemini revised (v2): widget corrected from `"diamond"` to `"quad-compass"` — the tetrad is genuinely two crossed axes.
 
@@ -366,6 +521,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Deep Physical-Organic Mechanistic Rigor** — Fewer, longer papers featuring thorough kinetics, isotope effects, and failed-substrate honesty advance genuine understanding.
   - `Pole 2 (Base Left)`: **Open Preprints, Raw Data & Reproducibility** — Reform must focus on mandatory raw FID/crystallographic data deposition, negative-result sharing, and independent replication.
 - **Question:** Does modern chemical publishing reward superficial substrate-scope proliferation at the expense of deep mechanistic understanding and reproducibility?
+- **Hovertip:** **Publication Culture: Salami-Slicing & Scope Tables vs Deep Mechanistic Studies** [TRIANGLE]
+  Issue: Does modern chemical publishing reward superficial substrate-scope proliferation at the expense of deep mechanistic understanding and reproducibility?
+  - High-Throughput Methodology & Substrate Scope — Rapidly publishing new synthetic transformations with 30-substrate tolerance tables accelerates community adoption.
+  - Deep Physical-Organic Mechanistic Rigor — Fewer, longer papers featuring thorough kinetics, isotope effects, and failed-substrate honesty advance genuine understanding.
+  - Open Preprints, Raw Data & Reproducibility — Reform must focus on mandatory raw FID/crystallographic data deposition, negative-result sharing, and independent replication.
 - **Optimal Widget:** `"trilinear-sliders"` (multi-affinity — independent ratings for methodology speed, mechanistic depth, and open-data reproducibility; a chemist can value all three at once).
 - **Source:** Gemini 26. Gemini revised (v2): widget corrected from `"triangle"` to `"trilinear-sliders"` — the triad is multi-affinity, not a closed blend.
 
@@ -375,6 +535,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Midline)`: **Teacher-Scholar** — Both equally. Teaching and research feed each other; the best teachers are active researchers and the best researchers are teachers.
   - `Pole 2 (Right)`: **Research-First** — Pushing it forward is the point. New knowledge is the job; teaching is what you do on the side.
 - **Question:** Do you value teaching, research, or both equally?
+- **Hovertip:** **Teaching vs Research vs Teacher-Scholar** [LINE]
+  Issue: Do you value teaching, research, or both equally?
+  - Teaching-First — Passing it on is the point.
+  - Teacher-Scholar — Both equally: teaching and research feed each other; the best teachers are active researchers and the best researchers are teachers.
+  - Research-First — Pushing it forward is the point.
 - **Optimal Widget:** [SCHEMA GAP: 3-POLE LINE WIDGET] (Teacher-Scholar is the midpoint of the teaching–research axis; the widget is a slider with the middle on the midline, not a triangle).
 - **Source:** YoBiche 6.1. Gemini revised (v2): dropped this topic; v2 restores it with its LINE tag — a remap must not silently delete taxonomy.
 - **Note on the tag:** Teacher-Scholar IS the midpoint of the teaching–research axis — "both equally" is literally the middle position between two extremes. This is the skin's clearest LINE triad: the middle pole sits between the two extremes on a single axis, and the widget is a slider with the middle on the midline, not a triangle.
@@ -382,18 +547,30 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
 #### 7.5 Solitude vs Collaboration (2-Pole Dipole)
 - **Poles:** **Solitude** — The lone chemist: deep focus, your own bench, your own problem, nobody else's hands on it ↔ **Collaboration** — The team: shared instruments, co-authors, the group meeting, the problem solved together.
 - **Question:** Do you work alone or together?
+- **Hovertip:** **Solitude vs Collaboration**
+  Issue: Do you work alone or together?
+  - Solitude — The lone chemist: deep focus, your own bench, your own problem, nobody else's hands on it.
+  - Collaboration — The team: shared instruments, co-authors, the group meeting, the problem solved together.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER].
 - **Source:** YoBiche 6.2. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 
 #### 7.6 Publish vs Patent (2-Pole Dipole)
 - **Poles:** **Publish** — Share openly: knowledge belongs to everyone; the paper is the point ↔ **Patent** — Protect it: the work has commercial value; the patent is the point.
 - **Question:** Do you publish openly, or patent and protect?
+- **Hovertip:** **Publish vs Patent**
+  Issue: Do you publish openly, or patent and protect?
+  - Publish — Share openly: knowledge belongs to everyone; the paper is the point.
+  - Patent — Protect it: the work has commercial value; the patent is the point.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER].
 - **Source:** YoBiche 6.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 
 #### 7.7 Hands-On vs Automated (2-Pole Dipole)
 - **Poles:** **Hands-On** — The bench, glassware, your own hands on the reaction: the feel of it, the smell of it, the craft ↔ **Automated** — Robots, flow chemistry, high-throughput screening: the machine does the work, you design the experiment.
 - **Question:** Do you work with your hands, or let machines do it?
+- **Hovertip:** **Hands-On vs Automated**
+  Issue: Do you work with your hands, or let machines do it?
+  - Hands-On — The bench, glassware, your own hands on the reaction: the feel of it, the smell of it, the craft.
+  - Automated — Robots, flow chemistry, high-throughput screening: the machine does the work, you design the experiment.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER].
 - **Source:** YoBiche 6.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 
@@ -408,6 +585,12 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `South`: **Electrosynthesis & Photoredox Revolution** — Replacing stoichiometric chemical oxidants/reductants with electrons and photons will fundamentally decarbonize chemical manufacturing.
   - `West`: **Artificial Photosynthesis / Solar Fuels** — Direct catalytic reduction of CO₂ and H₂O into liquid hydrocarbons is the ultimate closed-loop chemical goal.
 - **Question:** Which chemical energy paradigm will prove most transformative in decarbonizing global industry and energy infrastructure?
+- **Hovertip:** **Chemical Energy Storage & the Hydrogen/Electrosynthesis Economy** [TETRAD — simplex]
+  Issue: Which chemical energy paradigm will prove most transformative in decarbonizing global industry and energy infrastructure?
+  - Electrochemical Battery Dominance — Solid-state, lithium-sulfur, and sodium-ion battery chemistry will electrify nearly all energy storage without needing chemical fuels.
+  - Green Hydrogen & Ammonia Carriers — High-density chemical bonds (H₂, NH₃) are indispensable for heavy transport, steelmaking, and seasonal grid storage.
+  - Electrosynthesis & Photoredox Revolution — Replacing stoichiometric chemical oxidants/reductants with electrons and photons will fundamentally decarbonize chemical manufacturing.
+  - Artificial Photosynthesis / Solar Fuels — Direct catalytic reduction of CO₂ and H₂O into liquid hydrocarbons is the ultimate closed-loop chemical goal.
 - **Optimal Widget:** `"diamond"` (4-pole deformation polygon with orthogonal vertices comparing relative transformative impact s_i = |R_i|/100 across the four energy pillars).
 - **Source:** Gemini 27. Gemini revised (v2): widget canonicalized to `"diamond"`.
 
@@ -417,6 +600,11 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `Pole 1 (Base Right)`: **Classical Polymers & Composites** — Scalable, processable macromolecules remain far more practical, durable, and cost-effective than fragile crystalline frameworks.
   - `Pole 2 (Base Left)`: **Hybrid / Soft-Matter & Biomimetic Materials** — Self-healing polymers, hydrogels, and vitrimers represent the true frontier of adaptive material performance.
 - **Question:** Are reticular crystalline frameworks (MOFs/COFs) the future of tailored materials, or do scalable polymers and adaptive soft matter hold the real-world edge?
+- **Hovertip:** **Reticular Chemistry (MOFs/COFs) vs Classical Solid-State & Polymer Materials** [TRIANGLE]
+  Issue: Are reticular crystalline frameworks (MOFs/COFs) the future of tailored materials, or do scalable polymers and adaptive soft matter hold the real-world edge?
+  - Reticular Design (MOFs & COFs) — Modular, crystalline porous frameworks offer unprecedented control over pore geometry for carbon capture, water harvesting, and gas storage.
+  - Classical Polymers & Composites — Scalable, processable macromolecules remain far more practical, durable, and cost-effective than fragile crystalline frameworks.
+  - Hybrid / Soft-Matter & Biomimetic Materials — Self-healing polymers, hydrogels, and vitrimers represent the true frontier of adaptive material performance.
 - **Optimal Widget:** `"trilinear-sliders"` (multi-affinity — independent affinity sliders for reticular frameworks, classical polymers, and adaptive soft matter; the three material classes do not trade off against each other, so a zero-sum `"triangle"` is the wrong widget).
 - **Source:** Gemini 28. Gemini revised (v2): widget corrected from `"triangle"` to `"trilinear-sliders"` — the three material classes are independent affinities, not a zero-sum blend. The TRIANGLE tag is kept (three independent corners); the correction is to the widget, not the tag.
 
@@ -427,12 +615,22 @@ All Optimal Widget fields in this briefing use the canonical identifiers from `B
   - `South`: **DNA-Encoded Libraries (DELs) & Ultra-Large Virtual Screening** — Brute-force exploration of billion-compound chemical space outperforms boutique medicinal chemistry intuition.
   - `West`: **New Modalities (PROTACs, Molecular Glues, Oligonucleotides)** — Traditional Lipinski "Rule of 5" small molecules are giving way to targeted protein degradation and programmable biologics.
 - **Question:** Which strategic paradigm is most effective for navigating astronomical chemical space to discover transformative medicines?
+- **Hovertip:** **Drug Discovery: Rational Structure-Based Design vs Phenotypic & AI Screening** [TETRAD — simplex]
+  Issue: Which strategic paradigm is most effective for navigating astronomical chemical space to discover transformative medicines?
+  - Structure-Based Medicinal Chemistry — Co-crystal structures, SAR optimization, and physical-organic lipophilicity tuning remain the gold standard of drug design.
+  - Phenotypic & Chemical-Genetic Screening — Biological systems are too complex for single-target reductionism; screen molecules directly in living cells and organisms first.
+  - DNA-Encoded Libraries (DELs) & Ultra-Large Virtual Screening — Brute-force exploration of billion-compound chemical space outperforms boutique medicinal chemistry intuition.
+  - New Modalities (PROTACs, Molecular Glues, Oligonucleotides) — Traditional Lipinski "Rule of 5" small molecules are giving way to targeted protein degradation and programmable biologics.
 - **Optimal Widget:** `"diamond"` (4-pole orthogonal deformation polygon comparing relative efficacy s_i = |R_i|/100).
 - **Source:** Gemini 29. Gemini revised (v2): widget canonicalized to `"diamond"`.
 
 #### 8.4 Astrochemistry & Origins: Bottom-Up Cosmic Synthesis vs Terrestrial Exceptionalism (2-Pole Dipole)
 - **Poles:** **Cosmic Chemical Continuity** — Complex prebiotic organics (amino acids, nucleobases, PAHs) form abundantly in interstellar clouds and meteorites, seeding habitable worlds universally ↔ **Planetary-Specific Geochemical Bottlenecks** — Interstellar organics are too dilute and racemic; only highly specific terrestrial planetary environments can concentrate and homochirally select life's chemistry.
 - **Question:** Is the chemical toolkit of life assembled abundantly in interstellar space, or does it require rare, specialized planetary geochemistry?
+- **Hovertip:** **Astrochemistry & Origins: Bottom-Up Cosmic Synthesis vs Terrestrial Exceptionalism**
+  Issue: Is the chemical toolkit of life assembled abundantly in interstellar space, or does it require rare, specialized planetary geochemistry?
+  - Cosmic Chemical Continuity — Complex prebiotic organics (amino acids, nucleobases, PAHs) form abundantly in interstellar clouds and meteorites, seeding habitable worlds universally.
+  - Planetary-Specific Geochemical Bottlenecks — Interstellar organics are too dilute and racemic; only highly specific terrestrial planetary environments can concentrate and homochirally select life's chemistry.
 - **Optimal Widget:** [SCHEMA GAP: 2-POLE NON-ROLE BIPOLAR SLIDER].
 - **Source:** Gemini 30. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.
 

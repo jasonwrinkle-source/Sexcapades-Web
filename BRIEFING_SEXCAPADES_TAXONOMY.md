@@ -49,12 +49,13 @@ Sexcapades organizes over 400 topics across 14 primary macro-categories:
 
 The barycentric widget maps 3 mutually constraining or dialectically competing modes. The user positions an interior cursor with barycentric coordinates $(\lambda_1, \lambda_2, \lambda_3)$ where $\sum \lambda_i = 1$, modulated by an overall scalar intensity slider $I \in [0, 100]$.
 
-#### Topic `t0281`: Sensation / Power / Intimacy Triad
+#### Topic `t0409`: Sensation / Power / Intimacy Triad
 - **Poles**:
   - `Apex (Top)`: **Sensation** — Physical intensity, nervous system arousal, visceral endorphin rush.
   - `Base Right`: **Power** — Psychological dynamics, dominance, surrender, control exchange.
   - `Base Left`: **Intimacy** — Vulnerability, emotional connection, heart-centered merging.
 - **Widget**: Equilateral triangle with colored vertex halos (Violet / Gold / Cyan).
+- **Hovertip:** **Sensation / Power / Intimacy Triad** [TRIANGLE] — What drives the scene for you: physical sensation, power exchange, or emotional intimacy. Rate Give and Receive separately.
 
 #### Topic `t0407`: Relational Switch Modality
 - **Poles**:
@@ -62,20 +63,7 @@ The barycentric widget maps 3 mutually constraining or dialectically competing m
   - `Base Right`: **Bottom / Receptive** — Holding the space, surrender, deep somatic reception.
   - `Base Left`: **Side / Parallel** — Non-penetrative mutual eroticism, side-by-side resonance without hierarchy.
 - **Widget**: Barycentric Triangle.
-
-#### Topic `t0410`: Relational Structure Geometry
-- **Poles**:
-  - `Top`: **Monogamy** — Closed dyadic exclusivity, centralized emotional focus.
-  - `Base Right`: **Polyamory** — Multiple committed romantic networks, kitchen-table intimacy.
-  - `Base Left`: **Relationship Anarchy (RA)** — Non-hierarchical, custom-negotiated decentralized bonds without institutional scripts.
-- **Widget**: Barycentric Triangle.
-
-#### Topic `t0411`: Ejaculatory Modulation Dynamic
-- **Poles**:
-  - `Top`: **Edging & Extended Denial** — Prolonged arousal plateaus, withholding release to build psychic charge.
-  - `Base Right`: **Ruined Orgasm** — Involuntary contraction with deliberate dissipation of tactile gratification.
-  - `Base Left`: **Forced Orgasm / Overstimulation** — Involuntary release sustained through hypersensitivity.
-- **Widget**: Barycentric Triangle.
+- **Hovertip:** **Relational Switch Modality** [TRIANGLE] — Which role you take in the moment: Top, Bottom, or Side. Rate Give and Receive separately.
 
 #### Topic `t0412`: Pacing & Temporality Spectrum
 - **Poles**:
@@ -83,6 +71,7 @@ The barycentric widget maps 3 mutually constraining or dialectically competing m
   - `Base Right`: **Fast & Frantic** — High kinetic energy, breathless urgency, primal frenzy.
   - `Base Left`: **Still & Trance** — Motionless eye-gazing, frozen tableau, sensory absorption.
 - **Widget**: Barycentric Triangle.
+- **Hovertip:** **Pacing & Temporality Spectrum** [LINE] — The tempo of play: slow and tantric, fast and frantic, or still and trance-like. Rate Give and Receive separately.
 
 ---
 
@@ -96,14 +85,6 @@ The barycentric widget maps 3 mutually constraining or dialectically competing m
 
 Interactions support dragging vertices outward or sliding internal barycentric weights with real-time polygon morphing.
 
-#### Topic `t0413`: BDSM Authority & Archetype Matrix
-- **Poles**:
-  - `North (Green)`: **Master / Sovereign** — Formal protocol, stoic discipline, institutional authority.
-  - `East (Yellow)`: **Mistress / Nurturer** — Sensual guidance, maternal or seductive caregiving, velvet glove.
-  - `South (Red)`: **Slave / Devotee** — Total existential submission, selfless service, surrendering agency.
-  - `West (Blue)`: **Pet / Brat** — Playful rebellion, feral instinct, non-human/primal embodiment.
-- **Archetype**: Simplex Role Allocation ($\Delta^3$).
-
 #### Topic `t0414`: Climax Topography & Orgasm Dynamics
 - **Poles**:
   - `North (Green)`: **Extended Edging** — Mastery over the precipice; sustained plateau state.
@@ -111,6 +92,7 @@ Interactions support dragging vertices outward or sliding internal barycentric w
   - `South (Red)`: **Ruined / Denied** — Deliberate deprivation at the apex; psychological submission.
   - `West (Blue)`: **Forced / Overstimulation** — Release compelled beyond volitional control.
 - **Archetype**: Diamond Multi-Affinity Distribution.
+- **Hovertip:** **Climax Topography & Orgasm Dynamics** [TETRAD — multi-affinity] — How climax lands: extended edging, cathartic release, ruined or denied, or forced overstimulation. Rate Give and Receive separately.
 
 #### Topic `t0415`: Non-Monogamous Intimacy Geometries
 - **Poles**:
@@ -119,6 +101,7 @@ Interactions support dragging vertices outward or sliding internal barycentric w
   - `South (Red)`: **Recreational Swinging** — Compartmentalized sexual novelty within a committed emotional dyad.
   - `West (Blue)`: **Cuckoldry / Hotwifing / Compersion** — Eroticized voyeurism, third-party pleasure integration.
 - **Archetype**: Diamond Distribution.
+- **Hovertip:** **Non-Monogamous Intimacy Geometries** [TETRAD — multi-affinity] — Which non-monogamous shape fits: hierarchical polyamory, relationship anarchy, swinging, or cuckoldry and compersion. Rate Give and Receive separately.
 
 #### Topic `t0416`: Core Kink Motivational Drivers
 - **Poles**:
@@ -127,21 +110,13 @@ Interactions support dragging vertices outward or sliding internal barycentric w
   - `South (Red)`: **Somatic Catharsis** — Emotional purging through intense physical stimuli (pain-to-endorphin conversion).
   - `West (Blue)`: **Taboo Transgression** — Psychological charge derived from crossing normative social boundaries.
 - **Archetype**: Diamond Distribution.
+- **Hovertip:** **Core Kink Motivational Drivers** [TETRAD — multi-affinity] — What kink is for: escape, deep intimacy, somatic catharsis, or taboo transgression. Rate Give and Receive separately.
 
 ---
 
 ### 3.3 5-Pole Pentads ($\Delta^4$) — Regular Pentagram Multi-Affinity Widget
 
 5-Pole topics represent holistic multi-channel sensory or relational matrices. The interactive widget renders a regular pentagon with 5 radial axes radiating at $72^\circ$ increments, supporting independent radial vertex extension or central center-of-gravity displacement.
-
-#### Topic `t0417`: Somatosensory Receptor Palette
-- **Poles**:
-  - `Apex 0 ($90^\circ$, Top)`: **Thermal** — Temperature differential, hot wax, ice, radiant heat.
-  - `Pole 1 ($18^\circ$, Upper Right)`: **Tactile & Impact** — Cutaneous vibration, sting, thud, heavy pressure.
-  - `Pole 2 ($306^\circ$, Lower Right)`: **Vibrational & Electro** — E-stim frequencies, pulse waves, mechanical oscillations.
-  - `Pole 3 ($234^\circ$, Lower Left)`: **Olfactory & Gustatory** — Pheromones, leather scent, natural sweat, bodily elixirs.
-  - `Pole 4 ($162^\circ$, Upper Left)`: **Auditory & Verbal** — Filthy whispered commands, breathless gasps, soundscapes.
-- **Widget**: Regular Pentagram Radial Slider Space.
 
 #### Topic `t0418`: Erotic Love Languages & Attunement Channels
 - **Poles**:
@@ -151,15 +126,7 @@ Interactions support dragging vertices outward or sliding internal barycentric w
   - `Pole 3`: **Radical Vulnerability** — Tearful confession, emotional unmasking, unguarded somatic exposure.
   - `Pole 4`: **Autonomous Sacred Presence** — Undivided attention, intense unbroken eye contact, sovereign holding.
 - **Widget**: Regular Pentagram.
-
-#### Topic `t0419`: BDSM Archetypal Pentad
-- **Poles**:
-  - `Apex 0`: **Sovereign / Master** — Order, structure, law, absolute responsibility.
-  - `Pole 1`: **Nurturer / Caregiver** — Safety, gentle containment, emotional aftercare, tender holding.
-  - `Pole 2`: **Primal / Hunter** — Animalistic wrestling, growling, instinctual chasing, biting.
-  - `Pole 3`: **Brat / Trickster** — Playful provocation, testing boundaries, humorous defiance.
-  - `Pole 4`: **Devotee / Surrendered** — Pure receptive surrender, egoless service, somatic offering.
-- **Widget**: Regular Pentagram.
+- **Hovertip:** **Erotic Love Languages & Attunement Channels** [PENTAD — multi-affinity] — How love and attunement are expressed: words, touch, acts of service, vulnerability, or sacred presence. Rate Give and Receive separately.
 
 ---
 
@@ -179,16 +146,7 @@ Interactions support dragging vertices outward or sliding internal barycentric w
   - `Vertex 4 ($210^\circ$, Lower Left)`: **Mania** — Obsessive, jealous, turbulent emotional rollercoaster.
   - `Vertex 5 ($150^\circ$, Upper Left)`: **Agape** — Altruistic, unconditional, self-sacrificing erotic devotion.
 - **Widget**: Hexagonal Circumplex Slider with Diametric Tension Lines.
-
-#### Topic `t0421`: Impact & Somatic Strike Modalities
-- **Poles**:
-  - `Vertex 0 ($90^\circ$)`: **Sting** — High-frequency surface nerve stimulation (single-tail crop, bamboo).
-  - `Vertex 1 ($30^\circ$)`: **Thud** — Low-frequency deep tissue resonance (heavy paddle, dense leather flogger).
-  - `Vertex 2 ($330^\circ$)`: **Thermal Shock** — Rapid hot-cold alternating contact (boiling wax / ice melt).
-  - `Vertex 3 ($270^\circ$)`: **Ischemic Clamping** — Steady vascular compression (clothespins, nipple clamps).
-  - `Vertex 4 ($210^\circ$)`: **Sensory Deprivation** — Blindfolds, hooding, white noise isolation.
-  - `Vertex 5 ($150^\circ$)`: **Sensory Saturation** — Simultaneous multi-point sensory bombardment.
-- **Widget**: Hexagonal Polygon.
+- **Hovertip:** **The Classical Eros Hexagon (Lee's Love Styles)** [HEXAD] — Six love styles: Eros, Ludus, Storge, Pragma, Mania, or Agape. Rate Give and Receive separately.
 
 #### Topic `t0422`: Orgasm Neuro-Somatic Topography
 - **Poles**:
@@ -199,6 +157,7 @@ Interactions support dragging vertices outward or sliding internal barycentric w
   - `Vertex 4 ($210^\circ$)`: **Whole-Body Somatic** — Trembling non-genital fascial release / energetic orgasms.
   - `Vertex 5 ($150^\circ$)`: **Psychic / Tantric Energy** — Climax achieved purely through breath, visual trance, or touchless entrainment.
 - **Widget**: Hexagonal Circumplex.
+- **Hovertip:** **Orgasm Neuro-Somatic Topography** [HEXAD] — Where orgasm lives in the body: external, deep pelvic, cervical, anal, whole-body, or psychic and tantric. Rate Give and Receive separately.
 
 ---
 
@@ -217,6 +176,7 @@ Subsumes and replaces: `t0009` (FemDom), `t0010` (D/s), `t0012` (Brats), `t0014`
   - `Pole 5 ($192.86^\circ$)`: **Switch (Fluid / Versatile)** — Dynamic role-reversal, intuitive polarity swapping.
   - `Pole 6 ($141.43^\circ$)`: **Submissive (Slave / Devotee)** — Complete somatic surrender, service, egoless offering.
 - **Widget**: Heptagonal Radar (`"heptad-radar"`).
+- **Hovertip:** **BDSM Archetype Spectrum (The Sovereign Heptad)** [HEPTAD] — The seven archetypes: Sovereign, Caregiver, Primal, Sadist, Brat, Switch, or Submissive. Rate Give and Receive separately.
 
 #### Topic `t0424`: Somatosensory Sensory Modalities
 Subsumes and replaces: `t0102` (Texture Contrast), `t0103` (Sensory Deprivation), `t0104` (Sensory Overload), `t0105` (ASMR & Whispering), `t0109` (Scent), `t0417` (Sensory Palette), and `t0421` (Impact Modalities).
@@ -229,9 +189,10 @@ Subsumes and replaces: `t0102` (Texture Contrast), `t0103` (Sensory Deprivation)
   - `Pole 5`: **Acoustic (Whisper / ASMR)** — Breathy commands, binaural whispering, auditory triggers.
   - `Pole 6`: **Vestibular (Balance / Suspension)** — Swing bondage, sensory deprivation spinning, disorientation.
 - **Widget**: Heptagonal Radar (`"heptad-radar"`).
+- **Hovertip:** **Somatosensory Sensory Modalities** [HEPTAD] — Which sensory channel: tactile, thermal, impact, electric, olfactory, acoustic, or vestibular. Rate Give and Receive separately.
 
 #### Topic `t0425`: Relational Dynamic Spectrum (Sternberg's Matrix)
-Subsumes and replaces: `t0008` (Ongoing Dynamics), `t0011` (Romantic Surrender), and `t0013` (24/7 Lifestyle).
+Subsumes and replaces: `t0008` (Ongoing Dynamics), `t0375` (Romantic Surrender), and `t0013` (24/7 Lifestyle).
 - **Poles**:
   - `Pole 0`: **Liking (Intimacy Alone)** — Deep confessional closeness, soul-connection without pressure.
   - `Pole 1`: **Infatuation (Passion Alone)** — Obsessive sexual charge, raw attraction, erotic whirlwind.
@@ -241,6 +202,7 @@ Subsumes and replaces: `t0008` (Ongoing Dynamics), `t0011` (Romantic Surrender),
   - `Pole 5`: **Fatuous (Passion + Duty)** — High-intensity storm bond anchored by rigid dynamic rules.
   - `Pole 6`: **Consummate (Total Matrix)** — Complete integration of passion, emotional depth, and contractual devotion.
 - **Widget**: Heptagonal Radar (`"heptad-radar"`).
+- **Hovertip:** **Relational Dynamic Spectrum (Sternberg's Matrix)** [HEPTAD] — Sternberg's seven forms of love, from liking and infatuation to consummate love. Rate Give and Receive separately.
 
 ---
 
@@ -270,6 +232,7 @@ The hypermap taxonomy formalizes 8-pole octads ($\Delta^7 \times I$) rendered vi
   - `Pole 6` (`caging`): **Caging / Encasement** — Kennels, cages, boxes, furniture restraints, and stocks.
   - `Pole 7` (`suspension`): **Suspension Bondage** — Full and partial static and dynamic suspension rigging.
 - **Widget**: Octagonal Radar (`"octad-radar"`).
+- **Hovertip:** **Physical Restraint & Containment Octad** [OCTAD — multi-affinity] — How restraint is done: rope, shibari, cuffs, tape, mummification, blindfold, caging, or suspension. Rate Give and Receive separately.
 
 ### 5.2 Topic `t0427`: Somatosensory & Anatomical Worship Octad
 - **Domain**: Attraction & Fetish (`cat-attraction-fetish`)
@@ -283,6 +246,7 @@ The hypermap taxonomy formalizes 8-pole octads ($\Delta^7 \times I$) rendered vi
   - `Pole 6` (`bodyhair`): **Body & Facial Hair** — Beards, body hair, chest hair, pubic hair aesthetic appreciation.
   - `Pole 7` (`pregnancy`): **Pregnancy / Lactation** — Erotic maternal fertility, rounded bellies, lactation kink.
 - **Widget**: Octagonal Radar (`"octad-radar"`).
+- **Hovertip:** **Somatosensory & Anatomical Worship Octad** [OCTAD — multi-affinity] — What part of the body is worshipped: feet, hands, breasts, glutes, muscles, hair, body hair, or pregnancy. Rate Give and Receive separately.
 
 ### 5.3 Extended 8-Pole Systems Across Taxonomies
 Looking ahead to cross-domain skins:

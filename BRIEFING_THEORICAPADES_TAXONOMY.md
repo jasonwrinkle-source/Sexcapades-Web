@@ -39,6 +39,14 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Pentad radial star.
 - **Source:** Abstracapades 1.1 (the pentad is more complete than Axiomcapades' triad, which drops Logicism and Structuralism).
 
+- **Hovertip:** **Foundations of Mathematics** [PENTAD — simplex]
+  - Issue: What is mathematics, at bottom?
+  - Platonism — Mathematical objects exist independently; we discover them.
+  - Formalism — Math is symbols and rules; meaning is irrelevant.
+  - Intuitionism — Math is a construction of the mind; only what can be built is real.
+  - Logicism — Math reduces to logic; all truths are logical truths.
+  - Structuralism — Math is about structures and patterns, not objects.
+
 #### 1.2 Foundational Bedrock: Sets vs. Categories vs. Types (3-Pole Triad $\Delta^2$)
 *The structural foundation upon which all mathematics should be erected.*
 - **Poles:**
@@ -49,11 +57,22 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Axiomcapades 1.2 (Abstracapades did not cover this).
 
+- **Hovertip:** **Foundational Bedrock: Sets vs. Categories vs. Types** [NON-BLEND]
+  - Issue: Where does mathematical structure ultimately reside?
+  - ZFC Set Theory — Classical cumulative hierarchy of sets; the universal standard.
+  - Category Theory / Topoi — Arrows, functors, universal properties; relations over elements.
+  - Homotopy Type Theory (HoTT) — Constructive type theory; identity is homotopy equivalence.
+
 #### 1.3 The Law of Excluded Middle: Classical vs. Constructive Logic (2-Pole Dipole)
 - **Poles:** **Classical Logic** (LEM holds: $P \lor \neg P$; double negation elimination; proof by contradiction is fully valid) ↔ **Constructive Logic** (LEM rejected; proof of $\exists x\, P(x)$ requires an explicit witness; contradiction only proves negation)
 - **Question:** Is proof by contradiction genuine knowledge?
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 1.3 (the LEM detail; Abstracapades 2.1 is the same topic in plainer form).
+
+- **Hovertip:** **The Law of Excluded Middle: Classical vs. Constructive Logic**
+  - Issue: Is proof by contradiction genuine knowledge?
+  - Classical Logic — LEM holds; proof by contradiction is fully valid.
+  - Constructive Logic — LEM rejected; existence requires an explicit witness.
 
 #### 1.4 Discovered vs Invented (2-Pole Dipole)
 - **Poles:** Discovered (math is out there, we find it) ↔ Invented (math is made up by humans)
@@ -61,17 +80,32 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Abstracapades 1.2.
 
+- **Hovertip:** **Discovered vs Invented**
+  - Issue: Is math discovered or invented?
+  - Discovered — Math is out there; we find it.
+  - Invented — Math is made up by humans.
+
 #### 1.5 Mathematical Universe Hypothesis: Realist Ontology (2-Pole Dipole)
 - **Poles:** **Radical Mathematical Realism** (Tegmark: our physical universe literally *is* a mathematical structure) ↔ **Epistemic Anti-Realism** (Mathematics is a human cognitive language and mapping tool)
 - **Question:** Is reality made of mathematics, or is mathematics made by human minds?
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 1.4.
 
+- **Hovertip:** **Mathematical Universe Hypothesis: Realist Ontology**
+  - Issue: Is reality made of mathematics, or is mathematics made by human minds?
+  - Radical Mathematical Realism — Our universe literally is a mathematical structure.
+  - Epistemic Anti-Realism — Mathematics is a human cognitive language and mapping tool.
+
 #### 1.6 Infinity: Actual vs Potential (2-Pole Dipole)
 - **Poles:** Actual infinity (a completed thing, Cantor) ↔ Potential infinity (a process, never finished, Aristotle)
 - **Question:** Is infinity a thing, or just a direction?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 1.3.
+
+- **Hovertip:** **Infinity: Actual vs Potential**
+  - Issue: Is infinity a thing, or just a direction?
+  - Actual infinity — A completed thing (Cantor).
+  - Potential infinity — A process, never finished (Aristotle).
 
 ### Category 2: Method & Style
 
@@ -82,17 +116,32 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 2.1.
 
+- **Hovertip:** **The Rising Sea vs. The Hammer & Chisel**
+  - Issue: Do you submerge problems in abstract machinery or crack them with direct ingenuity?
+  - The Rising Sea — Build vast conceptual machinery until the theorem becomes obvious.
+  - The Hammer & Chisel — Direct assault: hard combinatorics, brutal inequalities, ad-hoc ingenuity.
+
 #### 2.2 Abstraction: Deep Generalization vs. Concrete Jewels (2-Pole Dipole)
 - **Poles:** **Extreme Structural Abstraction** ($\infty$-categories, higher stacks, motives, universal properties; the search for the absolute meta-pattern) ↔ **Exceptional Concrete Jewels** (The Monster group, the Leech lattice, $E_8$, modular forms, special curves; deep love for unique idiosyncratic structures)
 - **Question:** Are you captivated by universal abstractions or exceptional concrete gems?
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 2.2.
 
+- **Hovertip:** **Abstraction: Deep Generalization vs. Concrete Jewels**
+  - Issue: Are you captivated by universal abstractions or exceptional concrete gems?
+  - Extreme Structural Abstraction — Infinity-categories, motives, universal properties; the meta-pattern.
+  - Exceptional Concrete Jewels — The Monster group, the Leech lattice, E8; unique idiosyncratic structures.
+
 #### 2.3 Abstraction: High vs Low (2-Pole Dipole)
 - **Poles:** High abstraction (category theory, the general) ↔ Low abstraction (concrete computation, the particular)
 - **Question:** How abstract should math be?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 5.1.
+
+- **Hovertip:** **Abstraction: High vs Low**
+  - Issue: How abstract should math be?
+  - High abstraction — Category theory, the general.
+  - Low abstraction — Concrete computation, the particular.
 
 #### 2.4 Erdős's "The Book": Proof Aesthetics (3-Pole Triad $\Delta^2$)
 *What makes a mathematical proof truly supreme?*
@@ -104,17 +153,33 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Axiomcapades 2.3.
 
+- **Hovertip:** **Erdős's "The Book": Proof Aesthetics** [TRIANGLE]
+  - Issue: What is the highest form of mathematical beauty in a proof?
+  - Luminous Simplicity ("The Book") — Two lines of breathtaking, unexpected ingenuity.
+  - Architectural Monumentality — A 1,000-page cathedral of structural logic.
+  - Constructive Computational Revelation — An illuminating algorithm that calculates the inner mechanics.
+
 #### 2.5 Visual vs Symbolic (2-Pole Dipole)
 - **Poles:** Visual (pictures, diagrams, geometry) ↔ Symbolic (formulas, algebra, symbols)
 - **Question:** Do you think in pictures or in symbols?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 5.2.
 
+- **Hovertip:** **Visual vs Symbolic**
+  - Issue: Do you think in pictures or in symbols?
+  - Visual — Pictures, diagrams, geometry.
+  - Symbolic — Formulas, algebra, symbols.
+
 #### 2.6 Intuition: Trust vs Distrust (2-Pole Dipole)
 - **Poles:** Trust (intuition guides you right) ↔ Distrust (intuition misleads; only proof counts)
 - **Question:** Do you trust mathematical intuition?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 5.3.
+
+- **Hovertip:** **Intuition: Trust vs Distrust**
+  - Issue: Do you trust mathematical intuition?
+  - Trust — Intuition guides you right.
+  - Distrust — Intuition misleads; only proof counts.
 
 ### Category 3: Branches & Territory
 
@@ -129,11 +194,22 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 - **Source:** Axiomcapades 3.1 (the tetrad adds Number Theory, which Abstracapades' triad omitted).
 
+- **Hovertip:** **The Quadrivium of Pure Mathematics** [TETRAD — simplex]
+  - Issue: Where does your primary mathematical heart dwell?
+  - Algebra & Symmetry — Groups, rings, fields, Galois theory; symmetry and transformation.
+  - Geometry & Topology — Manifolds, knot theory, shape and invariants under deformation.
+  - Analysis & Continua — Limits, measures, continuous variation; real and complex analysis.
+  - Number Theory & Arithmetic — Primes, modular forms, elliptic curves; the Queen of Mathematics.
+
 #### 3.2 Combinatorics & Discrete Structures (1-Pole Monopole)
 - **Pole:** Affinity for Discrete Mathematics & Combinatorics (graphs, posets, extremal combinatorics, partition theory), 0–100.
 - **Question:** How strong is your passion for the finite and discrete?
 - **Optimal Widget:** Monopole Slider.
 - **Source:** Axiomcapades 3.2.
+
+- **Hovertip:** **Combinatorics & Discrete Structures**
+  - Issue: How strong is your passion for the finite and discrete?
+  - Affinity — Graphs, posets, extremal combinatorics, partition theory (rate 0–100).
 
 #### 3.3 Discrete vs Continuous (2-Pole Dipole)
 - **Poles:** Discrete (combinatorics, number theory, graphs) ↔ Continuous (analysis, topology, geometry)
@@ -141,11 +217,21 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 4.2.
 
+- **Hovertip:** **Discrete vs Continuous**
+  - Issue: Do you live in the discrete world or the continuous one?
+  - Discrete — Combinatorics, number theory, graphs.
+  - Continuous — Analysis, topology, geometry.
+
 #### 3.4 Pure vs Applied (2-Pole Dipole)
 - **Poles:** Pure (math for its own sake) ↔ Applied (math for what it does)
 - **Question:** The skin-defining divide — where do you stand?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 4.3.
+
+- **Hovertip:** **Pure vs Applied**
+  - Issue: The skin-defining divide — where do you stand?
+  - Pure — Math for its own sake.
+  - Applied — Math for what it does.
 
 ### Category 4: Proof & Verification
 
@@ -155,12 +241,22 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 2.2.
 
+- **Hovertip:** **Computer Proof**
+  - Issue: Is the Four Color Theorem proved?
+  - Accept — A computer-assisted proof is a real proof.
+  - Reject — If a human can't check it, it isn't a proof.
+
 #### 4.2 Proof Verification: Computer Proof Assistants vs. Human Social Consensus (2-Pole Dipole)
 *The modern revolution in the philosophy of mathematical certainty.*
 - **Poles:** **Machine-Checked Formalization** (Lean, Coq, Isabelle; a theorem is not truly verified until type-checked to foundational kernel primitives) ↔ **Human Social Consensus** (Mathematical understanding is an ongoing dialogue among human minds; machine proofs miss semantic comprehension)
 - **Question:** Does absolute certainty require interactive proof assistants?
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 4.1.
+
+- **Hovertip:** **Proof Verification: Computer Proof Assistants vs. Human Social Consensus**
+  - Issue: Does absolute certainty require interactive proof assistants?
+  - Machine-Checked Formalization — Lean, Coq, Isabelle; verified to the kernel.
+  - Human Social Consensus — Math is a dialogue among human minds; machine proofs miss comprehension.
 
 #### 4.3 Axiom of Choice (AC) Stance (3-Pole Triad $\Delta^2$)
 *The most controversial postulate in mathematical history.*
@@ -172,17 +268,33 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Axiomcapades 4.2.
 
+- **Hovertip:** **Axiom of Choice (AC) Stance** [LINE]
+  - Issue: How do you relate to the Axiom of Choice?
+  - Unconditional Acceptance (ZFC) — Indispensable; without AC, functional analysis collapses.
+  - Skeptical Restriction (ZF + Dependent Choice) — Accept weak choice; reject non-measurable sets.
+  - Defiant Rejection (ZF + AD) — Every set of reals is Lebesgue measurable.
+
 #### 4.4 Conjecture Orientation: Conjecture-Solver vs. Theory-Builder (2-Pole Dipole)
 - **Poles:** **Conjecture Solver** (Hunts famous white whales: Riemann Hypothesis, BSD, Goldbach; fame comes from conquering open problems) ↔ **Theory Builder** (Develops deep new conceptual languages, frameworks, and theories where old problems dissolve)
 - **Question:** Do you slay famous open problems or build new mathematical worlds?
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 4.3.
 
+- **Hovertip:** **Conjecture Orientation: Conjecture-Solver vs. Theory-Builder**
+  - Issue: Do you slay famous open problems or build new mathematical worlds?
+  - Conjecture Solver — Hunts white whales: Riemann, BSD, Goldbach.
+  - Theory Builder — Develops new conceptual languages where old problems dissolve.
+
 #### 4.5 Rigor vs Intuition (2-Pole Dipole)
 - **Poles:** Rigor (formal proof, no gaps) ↔ Intuition (insight, the feel of it)
 - **Question:** Do you trust formal rigor, or mathematical intuition?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 2.3.
+
+- **Hovertip:** **Rigor vs Intuition**
+  - Issue: Do you trust formal rigor, or mathematical intuition?
+  - Rigor — Formal proof, no gaps.
+  - Intuition — Insight, the feel of it.
 
 ### Category 5: Beauty & Reality
 
@@ -192,17 +304,32 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 3.1.
 
+- **Hovertip:** **Elegance vs Power**
+  - Issue: What makes good math — a beautiful proof, or a powerful theorem?
+  - Elegance — A beautiful proof.
+  - Power — A powerful result.
+
 #### 5.2 Simplicity vs Depth (2-Pole Dipole)
 - **Poles:** Simplicity (clean, spare results) ↔ Depth (rich, complex structures)
 - **Question:** Do you value simple results or deep ones?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 3.2.
 
+- **Hovertip:** **Simplicity vs Depth**
+  - Issue: Do you value simple results or deep ones?
+  - Simplicity — Clean, spare results.
+  - Depth — Rich, complex structures.
+
 #### 5.3 Beauty: Essential vs Incidental (2-Pole Dipole)
 - **Poles:** Essential (beauty is a sign of truth) ↔ Incidental (beauty is a nice bonus)
 - **Question:** Is beauty in math a guide to truth, or just a pleasure?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 3.3.
+
+- **Hovertip:** **Beauty: Essential vs Incidental**
+  - Issue: Is beauty in math a guide to truth, or just a pleasure?
+  - Essential — Beauty is a sign of truth.
+  - Incidental — Beauty is a nice bonus.
 
 #### 5.4 G.H. Hardy's Stance: Proud Inutility vs. Unreasonable Effectiveness (2-Pole Dipole)
 *The pure mathematician's relationship to physical reality.*
@@ -211,11 +338,21 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 5.1.
 
+- **Hovertip:** **G.H. Hardy's Stance: Proud Inutility vs. Unreasonable Effectiveness**
+  - Issue: Is pure math untainted because it has no application, or miraculous because it secretly mirrors physics?
+  - Proud Inutility — Pure math is noble precisely because it has no base applications.
+  - Unreasonable Effectiveness — Esoteric pure math mysteriously anticipates the laws of nature.
+
 #### 5.5 Pure Mathematics vs. Physics Boundary (2-Pole Dipole)
 - **Poles:** **Autonomous Self-Reference** (Mathematics answers only to its own internal logic and aesthetic consistency) ↔ **Physical Symbiosis** (Deep mathematical breakthroughs are fertilized by quantum field theory, string theory, and general relativity)
 - **Question:** Should pure math be guided by internal consistency or physical insight?
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 5.2.
+
+- **Hovertip:** **Pure Mathematics vs. Physics Boundary**
+  - Issue: Should pure math be guided by internal consistency or physical insight?
+  - Autonomous Self-Reference — Math answers only to its own internal logic.
+  - Physical Symbiosis — Breakthroughs are fertilized by quantum field theory and relativity.
 
 ### Category 6: The Mathematical Life
 
@@ -225,11 +362,21 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 6.1 (the vivid Erdős/Perelman framing of Abstracapades 6.1's Collaboration vs Solitude).
 
+- **Hovertip:** **The Social Mode: The Wandering Erdős vs. The Monastic Perelman**
+  - Issue: How do you pursue the mathematical life?
+  - Hyper-Collaborative / Itinerant (Erdős) — Hundreds of coauthors, constant dialogue, math in coffee houses.
+  - Ascetic Monastic Solitude (Perelman) — Years alone, zero distractions, indifferent to prizes.
+
 #### 6.2 The Instrument: Chalk & Slate vs. Digital Computation (2-Pole Dipole)
 - **Poles:** **Traditional Chalkboard** (The sound of dust on slate, raw hand gestures, live seminars, pure mental calculation) ↔ **Digital & Computational Experimentation** (Sage, Mathematica, experimental math, algorithmic visualization)
 - **Question:** How do you explore mathematics?
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 6.2.
+
+- **Hovertip:** **The Instrument: Chalk & Slate vs. Digital Computation**
+  - Issue: How do you explore mathematics?
+  - Traditional Chalkboard — Dust on slate, live seminars, pure mental calculation.
+  - Digital & Computational — Sage, Mathematica, experimental math, algorithmic visualization.
 
 #### 6.3 The Reward: Aesthetic Epiphany vs. Institutional Immortality (2-Pole Dipole)
 - **Poles:** **Private Aesthetic Epiphany** (The sublime, silent ecstasy of understanding an eternal truth) ↔ **Institutional Immortality** (Fields Medal, Abel Prize, named theorems, legacy in the permanent literature)
@@ -237,11 +384,21 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Axiomcapades 6.3.
 
+- **Hovertip:** **The Reward: Aesthetic Epiphany vs. Institutional Immortality**
+  - Issue: What is the ultimate reward of pure mathematics?
+  - Private Aesthetic Epiphany — The silent ecstasy of understanding an eternal truth.
+  - Institutional Immortality — Fields Medal, Abel Prize, named theorems, legacy in the literature.
+
 #### 6.4 Publication vs Perfection (2-Pole Dipole)
 - **Poles:** Publish quickly ↔ Polish forever
 - **Question:** Do you publish fast, or perfect first?
 - **Optimal Widget:** Dipole slider.
 - **Source:** Abstracapades 6.2.
+
+- **Hovertip:** **Publication vs Perfection**
+  - Issue: Do you publish fast, or perfect first?
+  - Publish quickly — Get it out.
+  - Polish forever — Perfect it first.
 
 #### 6.5 Teaching vs Research (2-Pole Dipole)
 - **Poles:** Teaching (passing it on) ↔ Research (pushing it forward)
@@ -250,6 +407,11 @@ Under the **Taxopolemics** engine, mathematical positions are mapped to their na
 - **Source:** Abstracapades 6.3.
 
 ---
+
+- **Hovertip:** **Teaching vs Research**
+  - Issue: Do you value teaching or research more?
+  - Teaching — Passing it on.
+  - Research — Pushing it forward.
 
 ## 3. Pole-Count Summary
 

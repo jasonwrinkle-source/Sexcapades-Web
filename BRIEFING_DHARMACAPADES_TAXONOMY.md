@@ -37,6 +37,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** Triad on the Principal Investigator's ruling (2026-11-15) — the "no karma" position is real and deserves a pole.
 
+- **Hovertip:** **Karma: Literal vs Psychological vs No Karma** [LINE]
+  - Issue: How do you understand karma?
+  - Literal — Karma is a real mechanism of rebirth; actions literally determine your next life.
+  - Psychological — Karma is an ethical principle; actions shape character and consequences in this life.
+  - No Karma — Karma isn't real; actions carry no metaphysical weight.
+
 #### 1.2 Samsara: Escape vs Engage vs Accept (3-Pole Triad $\Delta^2$)
 - **Poles:**
   - `Pole 0 (Apex)`: **Escape** — Samsara is suffering; the point is to get out (moksha, nirvana).
@@ -44,6 +50,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
   - `Pole 2 (Base Left)`: **Accept** — Samsara is fine; live well within it.
 - **Question:** What do you do about the cycle of rebirth?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+
+- **Hovertip:** **Samsara: Escape vs Engage vs Accept** [TRIANGLE]
+  - Issue: What do you do about the cycle of rebirth?
+  - Escape — Samsara is suffering; the point is to get out.
+  - Engage — Stay in the cycle to help others (the bodhisattva vow).
+  - Accept — Samsara is fine; live well within it.
 
 #### 1.3 Buddhism: Religion vs Philosophy vs Way of Life (3-Pole Triad $\Delta^2$)
 - **Poles:**
@@ -53,6 +65,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** What is Buddhism to you?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** This topic exists because the question has no settled answer. It records the rater's frame rather than forcing one.
+
+- **Hovertip:** **Buddhism: Religion vs Philosophy vs Way of Life** [NON-BLEND]
+  - Issue: What is Buddhism to you?
+  - Religion — Devotion, ritual, sangha, rebirth; Buddhism is a religion.
+  - Philosophy — Reason, analysis, ethics; no god needed.
+  - Way of Life — Practice, meditation, living well; neither religion nor philosophy.
 
 #### 1.4 The Four Purusharthas (4-Pole Tetrad $\Delta^3$)
 - **Poles:**
@@ -64,6 +82,13 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
 - **Note:** Subsumes primitive 2-pole "Dharma vs Moksha" or "Ascetic vs Worldly" binaries into the classical comprehensive life-aim quartet.
 
+- **Hovertip:** **The Four Purusharthas** [TETRAD — simplex]
+  - Issue: How do you balance duty, wealth, pleasure, and liberation?
+  - Dharma — Moral order, righteousness, spiritual duty.
+  - Artha — Material prosperity, wealth, security.
+  - Kama — Sensual pleasure, erotic desire, love.
+  - Moksha — Spiritual liberation, release from samsara.
+
 #### 1.5 The Three Teachings / San Jiao (3-Pole Triad $\Delta^2$)
 - **Poles:**
   - `Pole 0 (Apex)`: **Confucianism** — Social harmony, filial piety, moral duty, ritual propriety.
@@ -72,6 +97,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** How do you balance social duty, natural spontaneity, and spiritual detachment?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** Subsumes the crude 2-pole "Dharma vs Dao" dipole into the historically authentic East Asian triadic synthesis.
+
+- **Hovertip:** **The Three Teachings / San Jiao** [TRIANGLE]
+  - Issue: How do you balance social duty, natural spontaneity, and spiritual detachment?
+  - Confucianism — Social harmony, filial piety, moral duty, ritual propriety.
+  - Taoism — Natural flow, spontaneity, simplicity, harmony with the Dao.
+  - Buddhism — Emptiness, compassion, liberation from suffering.
 
 #### 1.6 The Eight Trigrams / Bagua (8-Pole Octad $\Delta^7$)
 - **Poles (in the traditional order):**
@@ -87,6 +118,17 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Octad / 8-axis radial wheel. The fifth canonical octad in the Flexcapades family.
 - **Note:** The Bagua is the archetypal energy balance of the I Ching. Eight trigrams, exactly the engine cap.
 
+- **Hovertip:** **The Eight Trigrams / Bagua** [OCTAD — simplex]
+  - Issue: Which archetypal energies do you balance?
+  - Heaven (Qian) — Creative, strong, initiating.
+  - Lake (Dui) — Joyful, open, receptive.
+  - Fire (Li) — Clinging, bright, illuminating.
+  - Thunder (Zhen) — Arousing, moving, shocking.
+  - Wind (Xun) — Gentle, penetrating, dispersing.
+  - Water (Kan) — Abysmal, dangerous, flowing.
+  - Mountain (Gen) — Still, keeping, resting.
+  - Earth (Kun) — Receptive, yielding, nourishing.
+
 #### 1.7 The Three Gunas (3-Pole Triad $\Delta^2$)
 *The three fundamental qualities of prakriti (nature) in Samkhya and Hindu philosophy — they shape temperament, behavior, and spiritual progress.*
 - **Poles:**
@@ -96,6 +138,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** Which guna dominates your temperament and practice?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** Promoted from Higher-Pole Candidates 2026-11-15 — this topic lives here in Dharmacapades, not in Forescapades (which is Abrahamic-only and never covered it).
+
+- **Hovertip:** **The Three Gunas** [TRIANGLE]
+  - Issue: Which guna dominates your temperament and practice?
+  - Sattva — Purity, clarity, harmony, wisdom.
+  - Rajas — Passion, activity, restlessness, drive.
+  - Tamas — Inertia, darkness, ignorance, heaviness.
 
 #### 1.8 The Five Mahabhutas (5-Pole Pentad $\Delta^4$)
 *The five great elements — the building blocks of the physical world in Hindu cosmology, mapping to the senses, the chakras, and the stages of practice.*
@@ -109,6 +157,14 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Pentad wheel.
 - **Note:** Promoted from Higher-Pole Candidates 2026-11-15 — this topic lives here in Dharmacapades, not in Forescapades (which is Abrahamic-only and never covered it).
 
+- **Hovertip:** **The Five Mahabhutas** [PENTAD — simplex]
+  - Issue: Which element do you work with most — in your body, your practice, your cosmology?
+  - Earth (Prithvi) — Solidity, stability, form; the sense of smell.
+  - Water (Apas) — Fluidity, cohesion, adaptability; the sense of taste.
+  - Fire (Tejas) — Transformation, energy, digestion; the sense of sight.
+  - Air (Vayu) — Movement, breath, circulation; the sense of touch.
+  - Ether (Akasha) — Space, the medium of all; the sense of hearing.
+
 ### Category 2: Liberation & Enlightenment
 
 #### 2.1 Moksha vs Nirvana vs Union with the Dao (3-Pole Triad $\Delta^2$)
@@ -119,15 +175,31 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** What is liberation?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 
+- **Hovertip:** **Moksha vs Nirvana vs Union with the Dao** [NON-BLEND]
+  - Issue: What is liberation?
+  - Moksha — Hindu liberation; union with Brahman, the self realized.
+  - Nirvana — Buddhist cessation; extinction of craving, the end of suffering.
+  - Union with the Dao — Taoist return; becoming one with the Way.
+
 #### 2.2 Sudden vs Gradual Enlightenment (2-Pole Dipole)
 - **Poles:** Sudden (instant awakening, Zen satori) ↔ Gradual (slow cultivation, step by step)
 - **Question:** Does awakening come all at once, or piece by piece?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Sudden vs Gradual Enlightenment**
+  - Issue: Does awakening come all at once, or piece by piece?
+  - Sudden — Instant awakening, Zen satori.
+  - Gradual — Slow cultivation, step by step.
+
 #### 2.3 Self vs No-Self (2-Pole Dipole)
 - **Poles:** Atman (eternal self, Hindu) ↔ Anatta (no-self, Buddhist)
 - **Question:** Is there a self, or isn't there? The core metaphysical divide.
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Self vs No-Self**
+  - Issue: Is there a self, or isn't there?
+  - Atman — Eternal self, Hindu.
+  - Anatta — No-self, Buddhist.
 
 ### Category 3: Practice & Discipline
 
@@ -142,21 +214,44 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Pentad wheel.
 - **Note:** Pentad on the Principal Investigator's ruling (2026-11-15) — yoga is more than physical vs spiritual; the five dimensions are distinct ways of practicing.
 
+- **Hovertip:** **Yoga: Five Dimensions** [PENTAD — simplex]
+  - Issue: Which dimension of yoga do you practice?
+  - Physical — Asana, the body, posture and exercise.
+  - Breath — Pranayama, the life-force, breathing practice.
+  - Meditative — Dhyana, stillness, concentration of the mind.
+  - Devotional — Bhakti, surrender, the heart.
+  - Philosophical — Jnana, study, understanding the teachings.
+
 #### 3.2 Meditation: Concentration vs Insight (2-Pole Dipole)
 - **Poles:** Samatha (concentration, calm) ↔ Vipassana (insight, seeing clearly)
 - **Question:** Do you meditate to calm the mind, or to see through it?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Meditation: Concentration vs Insight**
+  - Issue: Do you meditate to calm the mind, or to see through it?
+  - Samatha — Concentration, calm.
+  - Vipassana — Insight, seeing clearly.
 
 #### 3.3 Tantra: Left-hand vs Right-hand (2-Pole Dipole)
 - **Poles:** Left-hand (transgressive, embraces the forbidden) ↔ Right-hand (orthodox, symbolic)
 - **Question:** Which tantra — the one that breaks the rules, or the one that works within them?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Tantra: Left-hand vs Right-hand**
+  - Issue: Which tantra — the one that breaks the rules, or the one that works within them?
+  - Left-hand — Transgressive, embraces the forbidden.
+  - Right-hand — Orthodox, symbolic.
+
 #### 3.4 Kundalini: Awakening vs Danger (2-Pole Dipole)
 - **Poles:** Awakening (kundalini as the goal — central, transformative, the coiled energy rising to liberation) ↔ Danger (kundalini as destabilizing — risky, psychosis, "kundalini syndrome", something to approach with caution or avoid)
 - **Question:** Is kundalini awakening or danger — or both?
 - **Optimal Widget:** Dipole slider.
 - **Note:** Dipole on the Principal Investigator's ruling (2026-11-15) — the danger aspect is a real position that deserves a pole, not just a negative number on a centrality slider. The two poles are the two attitudes toward kundalini: embrace it as awakening, or fear it as destabilizing.
+
+- **Hovertip:** **Kundalini: Awakening vs Danger**
+  - Issue: Is kundalini awakening or danger — or both?
+  - Awakening — The coiled energy rising to liberation; central, transformative.
+  - Danger — Destabilizing, risky; something to approach with caution or avoid.
 
 #### 3.5 The Noble Eightfold Path (8-Pole Octad $\Delta^7$)
 - **Poles (in the traditional order, grouped by the three sections):**
@@ -172,10 +267,26 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Octad / 8-axis radial wheel. The fourth canonical octad in the Flexcapades family and the foundational anchor for Dharmacapades. (Correction, 2026-11-15: this was first described as "the first octad in any skin" — in fact the engine already has three production octads wired into the taxonomy catalog: t0426 Physical Restraint & Containment, t0427 Anatomical Focus & Somatosensory Worship, and the Epistemological Octad in Philoscapades. The Eightfold Path is the fourth.)
 - **Note:** The three sections (Wisdom: View + Intention; Ethics: Speech + Action + Livelihood; Meditation: Effort + Mindfulness + Concentration) structure the ring — adjacent poles within a section are closest.
 
+- **Hovertip:** **The Noble Eightfold Path** [OCTAD — simplex]
+  - Issue: How much do you emphasize each limb of the Path?
+  - Right View — Seeing things as they are (Wisdom).
+  - Right Intention — Resolve, renunciation, goodwill (Wisdom).
+  - Right Speech — Truthful, kind, useful speech (Ethics).
+  - Right Action — Acting without harm (Ethics).
+  - Right Livelihood — Earning a living without harm (Ethics).
+  - Right Effort — Cultivating wholesome states, abandoning unwholesome ones (Meditation).
+  - Right Mindfulness — Clear awareness of body, feeling, mind (Meditation).
+  - Right Concentration — Deep absorption, jhana (Meditation).
+
 #### 3.6 Wu Wei vs You Wei (2-Pole Dipole)
 - **Poles:** Wu Wei (Effortless action, natural alignment, non-forcing) ↔ You Wei (Deliberate striving, active intervention, intentional control)
 - **Question:** Do you act by effortless alignment or deliberate striving?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Wu Wei vs You Wei**
+  - Issue: Do you act by effortless alignment or deliberate striving?
+  - Wu Wei — Effortless action, natural alignment, non-forcing.
+  - You Wei — Deliberate striving, active intervention, intentional control.
 
 #### 3.7 The Six Classical Yogas (6-Pole Hexad $\Delta^5$)
 *The six classical paths — not just concepts, but commitments. Each is a complete way of life with its own practices, texts, and lineage.*
@@ -190,6 +301,15 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Hexad wheel.
 - **Note:** Promoted from Higher-Pole Candidates 2026-11-15 — this topic lives here in Dharmacapades, not in Forescapades (which is Abrahamic-only and never covered it). The six yogas are treated here as paths you commit to, not just concepts you know about.
 
+- **Hovertip:** **The Six Classical Yogas** [HEXAD — simplex]
+  - Issue: Which yoga is your path?
+  - Raja Yoga — The royal path: meditation, the eight limbs of Patanjali.
+  - Jnana Yoga — The path of knowledge: wisdom, self-inquiry.
+  - Bhakti Yoga — The path of devotion: love, surrender, worship.
+  - Karma Yoga — The path of action: selfless service without attachment to results.
+  - Hatha Yoga — The path of force: postures, breath, physical discipline.
+  - Tantra Yoga — The path of weaving: energy, ritual, mantra, transgression.
+
 ### Category 4: Deity & The Divine
 
 #### 4.1 The Divine: Four Quadrants (4-Pole Tetrad $\Delta^3$)
@@ -203,10 +323,22 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
 - **Note:** Tetrad on the Principal Investigator's ruling (2026-11-15) — theism in the Eastern traditions is not a clean binary; the four canonical quadrants capture the real positions.
 
+- **Hovertip:** **The Divine: Four Quadrants** [TETRAD — simplex]
+  - Issue: What is the divine — or is there one?
+  - Personal Theism — Gods exist and are personal; devotional Hinduism, bhakti, prayer.
+  - Impersonal Theism — The divine exists but is impersonal; Brahman as principle.
+  - Non-theistic Spirituality — No gods, but spiritual reality; Buddhism, Jainism.
+  - Atheism / Materialism — No gods, no spiritual reality; Carvaka, secular materialism.
+
 #### 4.2 Brahman: Personal vs Impersonal (2-Pole Dipole)
 - **Poles:** Saguna (personal, with attributes) ↔ Nirguna (impersonal, without attributes)
 - **Question:** How do you conceive the ultimate — as a person, or as a principle?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Brahman: Personal vs Impersonal**
+  - Issue: How do you conceive the ultimate — as a person, or as a principle?
+  - Saguna — Personal, with attributes.
+  - Nirguna — Impersonal, without attributes.
 
 #### 4.3 Buddha: Historical vs Cosmic vs Buddha-nature (3-Pole Triad $\Delta^2$)
 - **Poles:**
@@ -215,6 +347,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
   - `Pole 2 (Base Left)`: **Buddha-nature** — Everyone is Buddha already; awakening is remembering.
 - **Question:** Who — or what — is the Buddha?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+
+- **Hovertip:** **Buddha: Historical vs Cosmic vs Buddha-nature** [NON-BLEND]
+  - Issue: Who — or what — is the Buddha?
+  - Historical Buddha — Siddhartha, a man who woke up.
+  - Cosmic Buddha — Eternal, universal, always present.
+  - Buddha-nature — Everyone is Buddha already; awakening is remembering.
 
 ### Category 5: Ethics & Conduct
 
@@ -227,15 +365,31 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** Triad on the Principal Investigator's ruling (2026-11-15) — the three schools are genuinely different positions. Flexibility is indicated by intensity: a weak rating means flexible, a strong rating means strict.
 
+- **Hovertip:** **Ahimsa: Three Schools** [NON-BLEND]
+  - Issue: Which school's non-violence do you hold?
+  - Jain — Absolute non-violence; no harm to any living being.
+  - Buddhist — Contextual non-violence; intention matters, with practical exceptions.
+  - Hindu — Dharma-based; non-violence as a virtue with exceptions for duty.
+
 #### 5.2 Precepts: Rules vs Guidelines (2-Pole Dipole)
 - **Poles:** Strict rules ↔ Flexible guidelines
 - **Question:** Are the ethical precepts commandments, or compass points?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Precepts: Rules vs Guidelines**
+  - Issue: Are the ethical precepts commandments, or compass points?
+  - Strict rules — The precepts are commandments to follow.
+  - Flexible guidelines — The precepts are compass points to steer by.
+
 #### 5.3 Compassion vs Wisdom (2-Pole Dipole)
 - **Poles:** Karuna (compassion) ↔ Prajna (wisdom)
 - **Question:** The two wings of the bodhisattva path — which do you emphasize?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Compassion vs Wisdom**
+  - Issue: The two wings of the bodhisattva path — which do you emphasize?
+  - Karuna — Compassion.
+  - Prajna — Wisdom.
 
 ### Category 6: Community & Lineage
 
@@ -244,15 +398,30 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** Do you need a guru?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Guru: Essential vs Optional**
+  - Issue: Do you need a guru?
+  - Essential — You need a teacher.
+  - Optional — You can find the way alone.
+
 #### 6.2 Sangha: Monastic vs Lay (2-Pole Dipole)
 - **Poles:** Monastic (renounce, join the sangha) ↔ Lay (practice in the world)
 - **Question:** Where do you practice — in the monastery, or in the marketplace?
 - **Optimal Widget:** Dipole slider.
 
+- **Hovertip:** **Sangha: Monastic vs Lay**
+  - Issue: Where do you practice — in the monastery, or in the marketplace?
+  - Monastic — Renounce, join the sangha.
+  - Lay — Practice in the world.
+
 #### 6.3 Tradition: Orthodox vs Eclectic (2-Pole Dipole)
 - **Poles:** Follow one lineage strictly ↔ Mix traditions freely
 - **Question:** Do you stay in one school, or borrow across them?
 - **Optimal Widget:** Dipole slider.
+
+- **Hovertip:** **Tradition: Orthodox vs Eclectic**
+  - Issue: Do you stay in one school, or borrow across them?
+  - Orthodox — Follow one lineage strictly.
+  - Eclectic — Mix traditions freely.
 
 #### 6.4 Grasthi vs Sannyasa (2-Pole Dipole)
 - **Poles:** Grasthi (The active householder; family, honest labor, social responsibility) ↔ Sannyasa (The ascetic renouncer; monastic isolation, world-denial)
@@ -261,6 +430,11 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Note:** Guru Nanak explicitly rejected monastic withdrawal in favor of righteous engagement in the world. This is Sikhism's sharpest dialectical stance.
 
 ---
+
+- **Hovertip:** **Grasthi vs Sannyasa**
+  - Issue: Do you live as a householder or a renouncer?
+  - Grasthi — The active householder; family, honest labor, social responsibility.
+  - Sannyasa — The ascetic renouncer; monastic isolation, world-denial.
 
 ## 3. Pole-Count Summary
 

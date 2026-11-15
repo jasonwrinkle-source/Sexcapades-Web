@@ -32,6 +32,11 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Question:** Is your work a calling, a career, or a job?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** Based on Amy Wrzesniewski's canonical research (Yale) — work orientation is fundamentally an irreducible triad, not two separate dipoles. Replaces the earlier 1.1 (Purpose vs Paycheck) and 1.2 (Craft vs Career).
+- **Hovertip:** **Vocation: Calling vs Career vs Job** [TRIANGLE]
+  - Issue: Is your work a calling, a career, or a job?
+  - Calling — Work is an expression of moral purpose and mission.
+  - Career — A ladder of advancement, status, and mastery.
+  - Job — A pragmatic transaction; real life happens off the clock.
 
 #### 1.2 Service: Others vs Self vs The Work (3-Pole Triad $\Delta^2$)
 - **Poles:**
@@ -40,6 +45,11 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
   - `Pole 2 (Base Left)`: **Serve The Work** — The work matters in itself; the craft is the point.
 - **Question:** Who is the work for?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Hovertip:** **Service: Others vs Self vs The Work** [TRIANGLE]
+  - Issue: Who is the work for?
+  - Serve Others — The work matters because it helps people.
+  - Serve Yourself — The work matters because it fulfills you.
+  - Serve The Work — The work matters in itself; the craft is the point.
 
 ### Category 2: Effort & Ambition
 
@@ -47,21 +57,37 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Poles:** Hustle / Grind ↔ Balance / Rest
 - **Question:** Do you push, or do you pace yourself? The big one.
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Hustle vs Balance**
+  - Issue: Do you push, or do you pace yourself?
+  - Hustle — Push, grind.
+  - Balance — Pace yourself, rest.
 
 #### 2.2 Content vs Ambitious (2-Pole Dipole)
 - **Poles:** Contentment (enough is enough) ↔ Ambition (always more)
 - **Question:** Are you satisfied where you are, or always reaching?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Content vs Ambitious**
+  - Issue: Are you satisfied where you are, or always reaching?
+  - Contentment — Enough is enough.
+  - Ambition — Always more.
 
 #### 2.3 Risk Tolerance (2-Pole Dipole)
 - **Poles:** Safe / Stable ↔ Risky / Entrepreneurial
 - **Question:** Do you want a steady job, or a bet?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Risk Tolerance**
+  - Issue: Do you want a steady job, or a bet?
+  - Safe — Stable.
+  - Risky — Entrepreneurial.
 
 #### 2.4 Generalist vs Specialist (2-Pole Dipole)
 - **Poles:** Polymath / Generalist (Wide breadth, multidisciplinary synthesis, connecting dots across fields) ↔ Deep Specialist (Vertical mastery, single-domain depth, world-class technical precision)
 - **Question:** Are you a generalist or a specialist?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Generalist vs Specialist**
+  - Issue: Are you a generalist or a specialist?
+  - Generalist — Wide breadth, connecting dots across fields.
+  - Specialist — Vertical mastery, single-domain depth.
 
 ### Category 3: Place & Mode
 
@@ -72,16 +98,29 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
   - `Pole 2 (Base Left)`: **Office** — Show up, be present, the room matters.
 - **Question:** Where do you do your best work?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Hovertip:** **Remote vs Hybrid vs Office** [LINE]
+  - Issue: Where do you do your best work?
+  - Remote — Work from anywhere, async by default.
+  - Hybrid — Some days in, some days out.
+  - Office — Show up, be present, the room matters.
 
 #### 3.2 Solo vs Team (2-Pole Dipole)
 - **Poles:** Solo / Independent ↔ Team / Collaborative
 - **Question:** Do you work best alone, or with others?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Solo vs Team**
+  - Issue: Do you work best alone, or with others?
+  - Solo — Independent.
+  - Team — Collaborative.
 
 #### 3.3 Structured vs Flexible Hours (2-Pole Dipole)
 - **Poles:** Fixed schedule ↔ Flexible / Async
 - **Question:** When do you work — on the clock, or on your own rhythm?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Structured vs Flexible Hours**
+  - Issue: When do you work — on the clock, or on your own rhythm?
+  - Fixed schedule — On the clock.
+  - Flexible — Async, your own rhythm.
 
 ### Category 4: Structure & Authority
 
@@ -89,11 +128,19 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Poles:** Hierarchical (clear chain of command) ↔ Flat (egalitarian, no bosses)
 - **Question:** How should work be organized?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Hierarchy vs Flat**
+  - Issue: How should work be organized?
+  - Hierarchical — Clear chain of command.
+  - Flat — Egalitarian, no bosses.
 
 #### 4.2 Autonomy vs Direction (2-Pole Dipole)
 - **Poles:** Autonomy (decide for yourself) ↔ Direction (be told what to do)
 - **Question:** How much freedom do you want in how you work?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Autonomy vs Direction**
+  - Issue: How much freedom do you want in how you work?
+  - Autonomy — Decide for yourself.
+  - Direction — Be told what to do.
 
 #### 4.3 Management Philosophy (3-Pole Triad $\Delta^2$)
 - **Poles:**
@@ -102,11 +149,20 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
   - `Pole 2 (Base Left)`: **Laissez-faire** — Hands-off, get out of the way, trust the people.
 - **Question:** How should a manager manage?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Hovertip:** **Management Philosophy** [LINE]
+  - Issue: How should a manager manage?
+  - Command — Top-down, clear orders, the boss decides.
+  - Coach — Supportive, developmental, grows the team.
+  - Laissez-faire — Hands-off, get out of the way.
 
 #### 4.4 Workplace Governance & Ownership (2-Pole Dipole)
 - **Poles:** Corporate / Capital Hierarchy (Investor-owned, executive command, market efficiency) ↔ Worker Cooperative / Collective (Employee ownership, profit-sharing, democratic workplace decisions)
 - **Question:** Who should own the workplace?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Workplace Governance & Ownership**
+  - Issue: Who should own the workplace?
+  - Corporate — Investor-owned, executive command.
+  - Worker Cooperative — Employee ownership, democratic decisions.
 
 #### 4.5 Work Models (5-Pole Pentad $\Delta^4$)
 - **Poles:**
@@ -117,6 +173,13 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
   - `Pole 4 (Green #22c55e)`: **Public Service / Nonprofit** — Mission over market.
 - **Question:** What shape does your working life take?
 - **Optimal Widget:** Pentad radial star.
+- **Hovertip:** **Work Models** [PENTAD — simplex]
+  - Issue: What shape does your working life take?
+  - Full-time Employee — One employer, steady role.
+  - Freelancer — Clients, not bosses.
+  - Founder — Build it yourself.
+  - Part-time — Multiple roles, a patchwork.
+  - Public Service — Mission over market.
 
 ### Category 5: Reward & Security
 
@@ -124,16 +187,28 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Poles:** High pay ↔ Good perks / benefits
 - **Question:** What matters more — the number, or the package?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Pay vs Perks**
+  - Issue: What matters more — the number, or the package?
+  - High pay — The number.
+  - Good perks — The package, benefits.
 
 #### 5.2 Security vs Upside (2-Pole Dipole)
 - **Poles:** Security (stable, predictable) ↔ Upside (equity, bonus, growth)
 - **Question:** Do you want safety, or potential?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Security vs Upside**
+  - Issue: Do you want safety, or potential?
+  - Security — Stable, predictable.
+  - Upside — Equity, bonus, growth.
 
 #### 5.3 Recognition (2-Pole Dipole)
 - **Poles:** Quiet contribution (the work speaks) ↔ Public recognition (need the credit)
 - **Question:** How much do you need to be seen for what you do?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Recognition**
+  - Issue: How much do you need to be seen for what you do?
+  - Quiet contribution — The work speaks.
+  - Public recognition — Need the credit.
 
 #### 5.4 The Four Career Anchors (4-Pole Tetrad $\Delta^3$)
 - **Poles:**
@@ -144,6 +219,12 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Question:** What anchors your career?
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
 - **Note:** Derived from Edgar Schein's career anchor research.
+- **Hovertip:** **The Four Career Anchors** [TETRAD — simplex]
+  - Issue: What anchors your career?
+  - Technical Mastery — Deep competence in the work itself.
+  - Executive Authority — Steering organizations, accountability, power.
+  - Autonomy — Self-direction, working on your own terms.
+  - Security — Predictability, safety, reliable foundation.
 
 ### Category 6: Identity & Boundaries
 
@@ -151,16 +232,28 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Poles:** Job is who I am ↔ Job is what I do
 - **Question:** Is your work your identity, or just something you do?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Work as Identity**
+  - Issue: Is your work your identity, or just something you do?
+  - Job is who I am — Identity.
+  - Job is what I do — Just something you do.
 
 #### 6.2 Boundaries (2-Pole Dipole)
 - **Poles:** Permeable (work bleeds into life) ↔ Firm (clear separation)
 - **Question:** How separate is work from life — and should it be?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Boundaries**
+  - Issue: How separate is work from life — and should it be?
+  - Permeable — Work bleeds into life.
+  - Firm — Clear separation.
 
 #### 6.3 Retirement (2-Pole Dipole)
 - **Poles:** Retire (stop when you can) ↔ Work for life (never stop)
 - **Question:** Do you work to retire, or do you work because the work is the point?
 - **Optimal Widget:** Dipole slider.
+- **Hovertip:** **Retirement**
+  - Issue: Do you work to retire, or do you work because the work is the point?
+  - Retire — Stop when you can.
+  - Work for life — Never stop.
 
 ---
 

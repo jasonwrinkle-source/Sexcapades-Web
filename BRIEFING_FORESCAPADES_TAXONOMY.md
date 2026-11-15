@@ -38,12 +38,14 @@ Forescapades structures the Abrahamic theological space across 6 macro-categorie
   - `Base Right`: **Christianity (Christology / Incarnate Logos)** — Universal redemption, Pauline grace, incarnation, sacramental mystery.
   - `Base Left`: **Islam (Tawhid / Final Prophethood)** — Primordial submission, absolute transcendence of Allah, Quranic recitation.
 - **Optimal Widget**: **Barycentric Equilateral Triangle Widget** with central luminous focal point.
+- **Hovertip:** **The Abrahamic Trinity of Faiths** [TRIANGLE] — Issue: Which Abrahamic faith carries the true covenant — Judaism, Christianity, or Islam? | Judaism — Particular covenant, Halakhic observance, holy bloodline, collective destiny. | Christianity — Universal redemption, Pauline grace, incarnation, sacramental mystery. | Islam — Primordial submission, absolute transcendence of Allah, Quranic recitation.
 
 #### 3.1.2 The Christian Trilemma of Justification
 - **Poles**:
   - `Apex`: **Sola Fide (Faith Alone)** — Lutheran / Reformed forensic justification.
   - `Base Right`: **Sacramental Synergy (Works & Sacraments)** — Catholic / Orthodox cooperative grace.
   - `Base Left`: **Theosis (Deification by Grace)** — Eastern Orthodox uncreated energies.
+- **Hovertip:** **The Christian Trilemma of Justification** [TRIANGLE] — Issue: How is a person made right with God? | Sola Fide — Lutheran/Reformed forensic justification by faith alone. | Sacramental Synergy — Catholic/Orthodox cooperative grace through works and sacraments. | Theosis — Eastern Orthodox deification by grace through uncreated energies.
 
 ---
 
@@ -56,6 +58,7 @@ Forescapades structures the Abrahamic theological space across 6 macro-categorie
   - `South (Red #ef4444)`: **Derash / Moral (Tropological)** — Practical ethical and legal instruction.
   - `West (Blue #3b82f6)`: **Sod / Anagogical (Mystical)** — Esoteric secrets, heavenly ascent, divine chariot.
 - **Optimal Widget**: Orthogonal Diamond Deformation Polygon.
+- **Hovertip:** **The Four Quadrants of Biblical Hermeneutics (PaRDeS / Quadriga)** [TETRAD — simplex] — Issue: How should scripture be read? | Peshat / Literal — Historical-grammatical plain reading. | Remez / Allegorical — Typological and Christological shadow-meaning. | Derash / Moral — Practical ethical and legal instruction. | Sod / Anagogical — Esoteric secrets, heavenly ascent, divine chariot.
 
 ---
 
@@ -66,6 +69,7 @@ Three antipodal axes ($180^\circ$ oppositions):
 - **Axis 1 (The Transcendent vs. The Historic)**: Belief in Allah (Tawhid) vs. Belief in the Last Day (Qiyamah).
 - **Axis 2 (The Heavenly vs. The Earthly Messenger)**: Belief in the Angels (Malaikah) vs. Belief in the Prophets (Anbiya).
 - **Axis 3 (The Written Word vs. Divine Will)**: Belief in the Holy Books (Kutub) vs. Belief in Divine Predestination (Qadar).
+- **Hovertip:** **The Six Pillars of Iman (Islamic Faith Hexad)** [HEXAD — simplex] — Issue: What are the six articles of Islamic faith? | Belief in Allah (Tawhid) — The transcendent One, absolute oneness. | Belief in the Angels (Malaikah) — Heavenly messengers. | Belief in the Holy Books (Kutub) — The written word, revealed scripture. | Belief in the Prophets (Anbiya) — Earthly messengers. | Belief in the Last Day (Qiyamah) — Resurrection and judgment. | Belief in Divine Predestination (Qadar) — God's will and decree.
 
 ---
 
@@ -81,6 +85,7 @@ Three antipodal axes ($180^\circ$ oppositions):
   - `Pole 5 (Silver)`: **Gabriel (Moon / Luna)** — Annunciation, prophetic dreams, messenger of revelation.
   - `Pole 6 (Quicksilver)`: **Raphael (Mercury)** — Healing of God, divine physician, psychopomp.
 - **Optimal Widget**: Regular Heptagon Radar Widget with spectral 7-color palette.
+- **Hovertip:** **The Seven Classical Planetary Spheres / Archangels of Heaven** [HEPTAD — simplex] — Issue: Which of the seven archangels and planetary spheres governs your spiritual life? | Michael (Sun) — Prince of the Heavenly Host, warrior of light. | Haniel (Venus) — Angel of grace, sacred beauty, divine harmony. | Camael (Mars) — Severity, divine justice, righteous wrath. | Zadkiel (Jupiter) — Boundless mercy, righteousness, celestial benevolence. | Cassiel / Zaphkiel (Saturn) — Solitude, contemplative tears, holy silence, time. | Gabriel (Moon) — Annunciation, prophetic dreams, messenger of revelation. | Raphael (Mercury) — Healing of God, divine physician, psychopomp.
 
 ---
 
@@ -98,3 +103,4 @@ The comprehensive 8-pole matrix uniting the covenantal manifestations of Abraham
   - `Pole 6 (West, 180°)`: **Tawhid (Absolute Uncompromising Monotheism)** — No partners, no offspring, uncreated Word of the Quran.
   - `Pole 7 (North-West, 135°)`: **Tasawwuf (Sufi Mystic Fana)** — Extinction of the ego in the infinite beloved divine sea.
 - **Optimal Widget**: **Regular Octagon Deformation Polygon Widget** with 8 radial tracks, diametric antipodal lines, and 8-color palette.
+- **Hovertip:** **The Abrahamic Covenantal & Theological Octad** [OCTAD — simplex] — Issue: Which covenantal manifestation of Abraham anchors your faith? | Brit Milah — The irreversible bodily seal binding generations to the Creator. | Halakha — Sanctification of everyday life through the 613 commandments. | Kabbalah — Jewish esoteric mysticism, Sefirot emanations, Tikkun Olam. | Gospel of Grace — The circumcised heart, justification by trust in the Cross. | Eucharistic Mystery — Communion in the body and blood of the new covenant. | Orthodox Christology — True God and True Man, unconfused and undivided. | Tawhid — Absolute uncompromising monotheism, no partners, no offspring. | Tasawwuf — Extinction of the ego in the infinite beloved divine sea.

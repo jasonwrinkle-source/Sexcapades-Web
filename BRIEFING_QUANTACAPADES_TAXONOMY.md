@@ -36,12 +36,22 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
   - `South (Amber #f59e0b)`: **De Broglie-Bohm / Pilot Wave** — Deterministic non-local hidden variables; particles have definite trajectories guided by an objective physical wave (Bohm, Bell).
   - `West (Purple #8b5cf6)`: **QBism & Relational Quantum Mechanics (RQM)** — Quantum states are personal subjective Bayesian credences (QBism) or relational correlations between systems (Rovelli); no observer-independent state of reality.
 - **Question:** What is the true nature of the quantum state?
+- **Hovertip:** **The Great Quantum Interpretations Quartet** [TETRAD — simplex]
+  Issue: What is the true nature of the quantum state?
+  - Copenhagen / Epistemic (Orthodox) — Wavefunction represents observer knowledge / probabilities; measurement causes collapse; don't ask what happens between observations.
+  - Many-Worlds / Everettian — Unitary evolution ($\hat{U}$) is absolute and never collapses; universe continuously branches into a vast multiverse of decohering branches.
+  - De Broglie-Bohm / Pilot Wave — Deterministic non-local hidden variables; particles have definite trajectories guided by an objective physical wave.
+  - QBism & Relational Quantum Mechanics (RQM) — Quantum states are personal subjective Bayesian credences (QBism) or relational correlations between systems (Rovelli); no observer-independent state of reality.
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 - **Source:** Both versions (Antigravity 1.1; YoBiche's tetrad) — Antigravity's framing kept.
 
 #### 1.2 Wavefunction Ontology: $\psi$-Ontic vs. $\psi$-Epistemic (2-Pole Dipole)
 - **Poles:** **$\psi$-Ontic** (The quantum wavefunction is an objective, physically real entity existing in the world) ↔ **$\psi$-Epistemic** (The wavefunction is merely a mathematical tool representing incomplete human knowledge or belief)
 - **Question:** Is the wavefunction physical reality or human ignorance?
+- **Hovertip:** **Wavefunction Ontology: $\psi$-Ontic vs. $\psi$-Epistemic**
+  Issue: Is the wavefunction physical reality or human ignorance?
+  - $\psi$-Ontic — The quantum wavefunction is an objective, physically real entity existing in the world.
+  - $\psi$-Epistemic — The wavefunction is merely a mathematical tool representing incomplete human knowledge or belief.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 1.2 (YoBiche did not cover this).
 
@@ -52,18 +62,31 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
   - `Pole 1 (Base Right)`: **Decoherence** — No collapse; the Schrödinger equation never breaks; entanglement with the environment creates the appearance of collapse.
   - `Pole 2 (Base Left)`: **No-Collapse** — The measurement problem is dissolved; all branches are real (many-worlds) or the problem itself is a pseudo-problem.
 - **Question:** What happens when you measure?
+- **Hovertip:** **The Measurement Problem: Collapse vs. Decoherence vs. No-Collapse** [TRIANGLE]
+  Issue: What happens when you measure?
+  - Collapse — The wavefunction physically collapses on measurement; objective dynamical collapse theories (GRW, Penrose-Diósi) where gravity or non-linear terms collapse the state at a critical mass/threshold.
+  - Decoherence — No collapse; the Schrödinger equation never breaks; entanglement with the environment creates the appearance of collapse.
+  - No-Collapse — The measurement problem is dissolved; all branches are real (many-worlds) or the problem itself is a pseudo-problem.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** YoBiche (Antigravity 1.3 covered the same ground as a dipole — Objective Collapse vs. Pure Unitary Decoherence — folded into this triad).
 
 #### 1.4 Determinism: Laplacian Clockwork vs. Irreducible Stochasticity (2-Pole Dipole)
 - **Poles:** **Strict Determinism** (The total state of the cosmos evolves with absolute determinism; probabilities reflect only coarse-graining or branching perspective) ↔ **Irreducible Randomness** (Nature is fundamentally indeterminate; quantum events are uncaused objective dice-rolls)
 - **Question:** Is the universe deterministic or intrinsically random?
+- **Hovertip:** **Determinism: Laplacian Clockwork vs. Irreducible Stochasticity**
+  Issue: Is the universe deterministic or intrinsically random?
+  - Strict Determinism — The total state of the cosmos evolves with absolute determinism; probabilities reflect only coarse-graining or branching perspective.
+  - Irreducible Randomness — Nature is fundamentally indeterminate; quantum events are uncaused objective dice-rolls.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Both versions (Antigravity 5.2; YoBiche's dipole) — Antigravity's framing kept.
 
 #### 1.5 Locality vs. Realism: Bell's Theorem Stance (2-Pole Dipole)
 - **Poles:** **Non-Local Realism** (Retain objective particles with definite trajectories at the expense of Einsteinian locality; superluminal quantum potential) ↔ **Local Anti-Realism** (Preserve relativistic locality at the cost of counterfactual definiteness; unperformed experiments have no results)
 - **Question:** Faced with Bell's inequality, do you abandon locality or counterfactual realism?
+- **Hovertip:** **Locality vs. Realism: Bell's Theorem Stance**
+  Issue: Faced with Bell's inequality, do you abandon locality or counterfactual realism?
+  - Non-Local Realism — Retain objective particles with definite trajectories at the expense of Einsteinian locality; superluminal quantum potential.
+  - Local Anti-Realism — Preserve relativistic locality at the cost of counterfactual definiteness; unperformed experiments have no results.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Both versions (Antigravity 1.4; YoBiche's dipole) — Antigravity's framing kept.
 
@@ -77,36 +100,62 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
   - `South (Red #ef4444)`: **Asymptotic Safety & Causal Dynamical Triangulations (CDT)** — Gravity is fundamentally a non-perturbatively renormalizable continuous quantum field theory or path integral over triangulated causal geometries.
   - `West (Amber #f59e0b)`: **Emergent / Thermodynamic Gravity** — Spacetime and Einstein's equations are macroscopic hydrodynamic limits of underlying quantum entanglement ("It from Qubit", Verlinde entropic gravity).
 - **Question:** How will quantum gravity be solved?
+- **Hovertip:** **The Quantum Gravity Crossroads** [TETRAD — simplex]
+  Issue: How will quantum gravity be solved?
+  - String / M-Theory — 1D vibrating strings in 10/11 dimensions, supersymmetry, Calabi-Yau compactifications, AdS/CFT holographic duality.
+  - Loop Quantum Gravity (LQG) — Non-perturbative, background-independent quantization of geometry; spin networks, discretized quanta of area and volume.
+  - Asymptotic Safety & Causal Dynamical Triangulations (CDT) — Gravity is fundamentally a non-perturbatively renormalizable continuous quantum field theory or path integral over triangulated causal geometries.
+  - Emergent / Thermodynamic Gravity — Spacetime and Einstein's equations are macroscopic hydrodynamic limits of underlying quantum entanglement.
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon (`"diamond"`).
 - **Source:** Antigravity 2.1 (YoBiche had this as a dipole; the tetrad is richer).
 
 #### 2.2 Spacetime Primacy: Fundamental vs. Emergent Spacetime (2-Pole Dipole)
 - **Poles:** **Fundamental Spacetime** (Spacetime manifold is the bedrock arena in which physics takes place) ↔ **Emergent Spacetime** (Spacetime is an illusion; geometry is stitched together from quantum entanglement like threads in a tapestry)
 - **Question:** Is spacetime fundamental or an emergent collective phenomenon?
+- **Hovertip:** **Spacetime Primacy: Fundamental vs. Emergent Spacetime**
+  Issue: Is spacetime fundamental or an emergent collective phenomenon?
+  - Fundamental Spacetime — Spacetime manifold is the bedrock arena in which physics takes place.
+  - Emergent Spacetime — Spacetime is an illusion; geometry is stitched together from quantum entanglement like threads in a tapestry.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Both versions (Antigravity 2.2; YoBiche's dipole).
 
 #### 2.3 Supersymmetry (SUSY) Stance (2-Pole Dipole)
 - **Poles:** **SUSY Believer** (Supersymmetry is mathematically necessary, solves the hierarchy problem, and will emerge at higher energy scales) ↔ **SUSY Skeptic** (LHC failed to find low-energy superpartners; naturalness was a mirage and SUSY is an intellectual trap)
 - **Question:** Do superpartners exist in nature?
+- **Hovertip:** **Supersymmetry (SUSY) Stance**
+  Issue: Do superpartners exist in nature?
+  - SUSY Believer — Supersymmetry is mathematically necessary, solves the hierarchy problem, and will emerge at higher energy scales.
+  - SUSY Skeptic — LHC failed to find low-energy superpartners; naturalness was a mirage and SUSY is an intellectual trap.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 2.3 (YoBiche did not cover this).
 
 #### 2.4 Singularity Resolution: Quantum Bounce vs. Physical Singularity (2-Pole Dipole)
 - **Poles:** **Quantum Bounce / Invariant Cutoff** (Planckian density limits eliminate singularities; big bounce replaces big bang, black holes have quantum cores) ↔ **Physical Singularity & Spacetime Breakdown** (General relativistic singularities indicate a true edge to spacetime where classical laws irreversibly end)
 - **Question:** Do quantum effects prevent gravitational singularities?
+- **Hovertip:** **Singularity Resolution: Quantum Bounce vs. Physical Singularity**
+  Issue: Do quantum effects prevent gravitational singularities?
+  - Quantum Bounce / Invariant Cutoff — Planckian density limits eliminate singularities; big bounce replaces big bang, black holes have quantum cores.
+  - Physical Singularity & Spacetime Breakdown — General relativistic singularities indicate a true edge to spacetime where classical laws irreversibly end.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 2.4 (YoBiche did not cover this).
 
 #### 2.5 Grand Unification vs. Effective Field Theory (2-Pole Dipole)
 - **Poles:** **GUT** (Pursue grand unification — the strong, weak, and electromagnetic forces unify at high energy; find the single gauge group) ↔ **EFT** (Work with effective field theories — each energy scale has its own theory, and that is fine; unification is a mirage)
 - **Question:** Do you chase unification, or work scale by scale?
+- **Hovertip:** **Grand Unification vs. Effective Field Theory**
+  Issue: Do you chase unification, or work scale by scale?
+  - GUT — Pursue grand unification — the strong, weak, and electromagnetic forces unify at high energy; find the single gauge group.
+  - EFT — Work with effective field theories — each energy scale has its own theory, and that is fine; unification is a mirage.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this as a separate topic; her 6.2 is the companion TOE vs. EFT topic).
 
 #### 2.6 The Scale of Ambition: The Grand Theory of Everything vs. Effective Field Theories (2-Pole Dipole)
 - **Poles:** **Grand Unified Ambition (TOE)** (The sacred quest to write down the single master equation that unifies all four fundamental forces at the Planck scale) ↔ **Pragmatic Effective Field Theory (EFT)** (All physical theories are Wilsonian low-energy approximations with finite cutoffs; a final TOE is a chimera)
 - **Question:** Is a final Theory of Everything achievable?
+- **Hovertip:** **The Scale of Ambition: The Grand Theory of Everything vs. Effective Field Theories**
+  Issue: Is a final Theory of Everything achievable?
+  - Grand Unified Ambition (TOE) — The sacred quest to write down the single master equation that unifies all four fundamental forces at the Planck scale.
+  - Pragmatic Effective Field Theory (EFT) — All physical theories are Wilsonian low-energy approximations with finite cutoffs; a final TOE is a chimera.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 6.2 (YoBiche's 2.5 is the companion GUT vs. EFT topic — GUT unifies three forces, TOE unifies all four; a person can believe in one and not the other).
 
@@ -119,18 +168,31 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
   - `Pole 1 (Base Right)`: **Cyclic** — The universe goes through endless cycles of expansion and contraction (ekpyrotic, conformal cyclic cosmology); the bang was a bounce.
   - `Pole 2 (Base Left)`: **Steady State** — The universe has no beginning; it has always existed in roughly the same state (Hoyle, continuous creation).
 - **Question:** How did the universe begin — or did it?
+- **Hovertip:** **Cosmic Origin: Big Bang vs. Cyclic vs. Steady State** [NON-BLEND]
+  Issue: How did the universe begin — or did it?
+  - Big Bang — The universe began in a hot dense state ~13.8 billion years ago; there was a beginning.
+  - Cyclic — The universe goes through endless cycles of expansion and contraction (ekpyrotic, conformal cyclic cosmology); the bang was a bounce.
+  - Steady State — The universe has no beginning; it has always existed in roughly the same state.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 3.2 Dark Matter Identity: Particle vs. Modified Dynamics (2-Pole Dipole)
 - **Poles:** **Particle Dark Matter** (New cold/warm fundamental matter particles: WIMPs, axions, sterile neutrinos, dark photons) ↔ **Modified Gravity / MOND** (Gravity is non-Newtonian at low accelerations ($a < a_0$); Milgrom's MOND or scale-invariant gravity)
 - **Question:** Is dark matter missing mass or missing gravity?
+- **Hovertip:** **Dark Matter Identity: Particle vs. Modified Dynamics**
+  Issue: Is dark matter missing mass or missing gravity?
+  - Particle Dark Matter — New cold/warm fundamental matter particles: WIMPs, axions, sterile neutrinos, dark photons.
+  - Modified Gravity / MOND — Gravity is non-Newtonian at low accelerations ($a < a_0$); Milgrom's MOND or scale-invariant gravity.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Both versions (Antigravity 3.4; YoBiche's dipole).
 
 #### 3.3 Dark Energy: Constant vs. Dynamical (2-Pole Dipole)
 - **Poles:** **Constant** (Dark energy is the cosmological constant $\Lambda$ — a fixed energy density of empty space, unchanging through cosmic time) ↔ **Dynamical** (Dark energy is a dynamical field, e.g. quintessence, that evolves over time; its value today is an accident of cosmic history)
 - **Question:** Is dark energy a constant of nature or a changing field?
+- **Hovertip:** **Dark Energy: Constant vs. Dynamical**
+  Issue: Is dark energy a constant of nature or a changing field?
+  - Constant — Dark energy is the cosmological constant $\Lambda$ — a fixed energy density of empty space, unchanging through cosmic time.
+  - Dynamical — Dark energy is a dynamical field, e.g. quintessence, that evolves over time; its value today is an accident of cosmic history.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this; her 3.3 is the companion question of why $\Lambda$ has its value).
 
@@ -141,24 +203,41 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
   - `Pole 1 (Base Right - Emerald #10b981)`: **Undiscovered Symmetry** — An exact, yet-unknown dynamical symmetry or quantum cancellation mechanism drives $\Lambda$ toward near-zero.
   - `Pole 2 (Base Left - Amber #f59e0b)`: **Modified Cosmic Gravity** — General relativity fails at cosmological horizons; dark energy is an artifact of modified infrared gravitational dynamics (e.g. $f(R)$ gravity).
 - **Question:** What explains the cosmological constant?
+- **Hovertip:** **The Cosmological Constant Trilemma** [TRIANGLE]
+  Issue: What explains the cosmological constant?
+  - Anthropic Multiverse — String theory landscape ($\sim 10^{500}$ vacua) combined with eternal inflation; we observe a tiny positive $\Lambda$ because larger values prevent galaxy and life formation.
+  - Undiscovered Symmetry — An exact, yet-unknown dynamical symmetry or quantum cancellation mechanism drives $\Lambda$ toward near-zero.
+  - Modified Cosmic Gravity — General relativity fails at cosmological horizons; dark energy is an artifact of modified infrared gravitational dynamics (e.g. $f(R)$ gravity).
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Antigravity 3.3 (YoBiche did not cover this).
 
 #### 3.5 The Multiverse: Many Worlds vs. One Universe (2-Pole Dipole)
 - **Poles:** **Multiverse** (Other universes exist — eternal inflation, string landscape, many-worlds; our universe is one of many) ↔ **One Universe** (This universe is all there is; the multiverse is untestable metaphysics, not physics)
 - **Question:** Are there other universes?
+- **Hovertip:** **The Multiverse: Many Worlds vs. One Universe**
+  Issue: Are there other universes?
+  - Multiverse — Other universes exist — eternal inflation, string landscape, many-worlds; our universe is one of many.
+  - One Universe — This universe is all there is; the multiverse is untestable metaphysics, not physics.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this as a separate topic; the multiverse appears as a pole in her 3.3).
 
 #### 3.6 The Arrow of Time: Past Hypothesis vs. Fundamental Asymmetry (2-Pole Dipole)
 - **Poles:** **Past Hypothesis (Statistical Fluke)** (The arrow of time is purely statistical thermodynamic increase from an extraordinarily low-entropy initial cosmological boundary) ↔ **Fundamental Dynamical Irreversibility** (The fundamental microscopic laws of physics possess an intrinsic directionality of time)
 - **Question:** Why does time have a direction?
+- **Hovertip:** **The Arrow of Time: Past Hypothesis vs. Fundamental Asymmetry**
+  Issue: Why does time have a direction?
+  - Past Hypothesis (Statistical Fluke) — The arrow of time is purely statistical thermodynamic increase from an extraordinarily low-entropy initial cosmological boundary.
+  - Fundamental Dynamical Irreversibility — The fundamental microscopic laws of physics possess an intrinsic directionality of time.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 3.2 (YoBiche did not cover this).
 
 #### 3.7 The Ontology of Time: Block Universe vs. Heraclitean Flow (2-Pole Dipole)
 - **Poles:** **Block Universe / Eternalism** (Past, present, and future all exist simultaneously in 4D spacetime; the passage of time is a subjective human illusion) ↔ **Presentism / Dynamic Time** (Only the present moment is physically real; time truly passes and the future is genuinely open)
 - **Question:** Does time flow, or is reality an unchanging 4D block?
+- **Hovertip:** **The Ontology of Time: Block Universe vs. Heraclitean Flow**
+  Issue: Does time flow, or is reality an unchanging 4D block?
+  - Block Universe / Eternalism — Past, present, and future all exist simultaneously in 4D spacetime; the passage of time is a subjective human illusion.
+  - Presentism / Dynamic Time — Only the present moment is physically real; time truly passes and the future is genuinely open.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Both versions (Antigravity 3.1; YoBiche's dipole).
 
@@ -171,18 +250,31 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
   - `Pole 1 (Base Right - Green #22c55e)`: **Autonomous Emergence** — Macro phases possess universal, topologically protected laws completely decoupled from microscopic details; "more is different."
   - `Pole 2 (Base Left - Blue #3b82f6)`: **Duality Equivalence** — Micro and macro, strong and weak coupling, gravity and field theory are dual descriptions of the same reality; neither is more fundamental (AdS/CFT, S-duality).
 - **Question:** Where does fundamental physical reality live?
+- **Hovertip:** **The Micro-Macro Spectrum: Reductionism vs. Emergence vs. Duality** [TRIANGLE]
+  Issue: Where does fundamental physical reality live?
+  - Fundamental Reductionism — The ultimate truth resides at the smallest scale; macro phenomena are strictly derivable from the fundamental Lagrangian.
+  - Autonomous Emergence — Macro phases possess universal, topologically protected laws completely decoupled from microscopic details; "more is different.".
+  - Duality Equivalence — Micro and macro, strong and weak coupling, gravity and field theory are dual descriptions of the same reality; neither is more fundamental.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Antigravity 4.3 (YoBiche had this as a dipole — Reductionism vs. Emergence; the triad adds Duality).
 
 #### 4.2 Information: Fundamental vs. Derived (2-Pole Dipole)
 - **Poles:** **Fundamental ("It from Bit")** (Information is the basic stuff of reality; matter and spacetime emerge from it — Wheeler) ↔ **Derived** (Information is a description, not a substance; matter and energy are fundamental, information is bookkeeping)
 - **Question:** Is information the stuff of reality, or just a way of describing it?
+- **Hovertip:** **Information: Fundamental vs. Derived**
+  Issue: Is information the stuff of reality, or just a way of describing it?
+  - Fundamental ("It from Bit") — Information is the basic stuff of reality; matter and spacetime emerge from it — Wheeler.
+  - Derived — Information is a description, not a substance; matter and energy are fundamental, information is bookkeeping.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 4.3 Realism vs. Instrumentalism (2-Pole Dipole)
 - **Poles:** **Realism** (Physical theories describe a real world that exists independently of us; electrons are real) ↔ **Instrumentalism** (Theories are tools for prediction; what matters is what they predict, not whether their entities are "real")
 - **Question:** Do physical theories describe reality, or just predict observations?
+- **Hovertip:** **Realism vs. Instrumentalism**
+  Issue: Do physical theories describe reality, or just predict observations?
+  - Realism — Physical theories describe a real world that exists independently of us; electrons are real.
+  - Instrumentalism — Theories are tools for prediction; what matters is what they predict, not whether their entities are "real".
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
@@ -191,18 +283,30 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
 #### 5.1 Symmetry: Fundamental vs. Broken (2-Pole Dipole)
 - **Poles:** **Fundamental** (Symmetry is the deep principle; the laws are symmetric and beauty lies in the symmetry) ↔ **Broken** (Symmetry breaking is where the physics lives; the interesting phenomena come from symmetries being broken — Higgs, spontaneous symmetry breaking)
 - **Question:** Is symmetry the foundation, or is its breaking where the action is?
+- **Hovertip:** **Symmetry: Fundamental vs. Broken**
+  Issue: Is symmetry the foundation, or is its breaking where the action is?
+  - Fundamental — Symmetry is the deep principle; the laws are symmetric and beauty lies in the symmetry.
+  - Broken — Symmetry breaking is where the physics lives; the interesting phenomena come from symmetries being broken — Higgs, spontaneous symmetry breaking.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 5.2 Fine-Tuning & Naturalness (2-Pole Dipole)
 - **Poles:** **Naturalness Dogma** (Dimensionless ratios must be $O(1)$; fine-tuning of parameters is an acute pathology demanding new physical mechanisms) ↔ **Acceptance of Fine-Tuning** (Naturalness is an aesthetic prejudice; parameters are contingent selections from a cosmological landscape)
 - **Question:** Is fine-tuning a crisis or a fact of nature?
+- **Hovertip:** **Fine-Tuning & Naturalness**
+  Issue: Is fine-tuning a crisis or a fact of nature?
+  - Naturalness Dogma — Dimensionless ratios must be $O(1)$; fine-tuning of parameters is an acute pathology demanding new physical mechanisms.
+  - Acceptance of Fine-Tuning — Naturalness is an aesthetic prejudice; parameters are contingent selections from a cosmological landscape.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Both versions (Antigravity 4.2; YoBiche's dipole).
 
 #### 5.3 The Anthropic Principle: Accept vs. Reject (2-Pole Dipole)
 - **Poles:** **Accept** (Anthropic reasoning is legitimate — we observe a universe compatible with our existence, and that constrains the parameters) ↔ **Reject** (Anthropic reasoning is a cop-out — it explains nothing and can't be tested; it is giving up on finding the real mechanism)
 - **Question:** Is anthropic reasoning legitimate physics?
+- **Hovertip:** **The Anthropic Principle: Accept vs. Reject**
+  Issue: Is anthropic reasoning legitimate physics?
+  - Accept — Anthropic reasoning is legitimate — we observe a universe compatible with our existence, and that constrains the parameters.
+  - Reject — Anthropic reasoning is a cop-out — it explains nothing and can't be tested; it is giving up on finding the real mechanism.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this as a separate topic; the anthropic multiverse appears as a pole in her 3.4).
 
@@ -210,6 +314,10 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
 *Paul Dirac's dictum vs. Karl Popper's criterion — merged framing.*
 - **Poles:** **Aesthetic & Structural Beauty (Dirac)** (It is more important to have beauty in one's equations than to fit experimental data prematurely; internal mathematical consistency guides truth; trust beauty) ↔ **Strict Falsifiability (Popper)** (A theory that cannot be tested by contemporary or near-future experiment is philosophy or mathematics, not physics; distrust beauty unless it can be tested)
 - **Question:** Should beauty or falsifiability guide theoretical physics?
+- **Hovertip:** **Beauty as Guide: Trust vs. Distrust**
+  Issue: Should beauty or falsifiability guide theoretical physics?
+  - Aesthetic & Structural Beauty (Dirac) — It is more important to have beauty in one's equations than to fit experimental data prematurely; internal mathematical consistency guides truth; trust beauty.
+  - Strict Falsifiability (Popper) — A theory that cannot be tested by contemporary or near-future experiment is philosophy or mathematics, not physics; distrust beauty unless it can be tested.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Merged (Antigravity 4.1 framed it as Beauty vs. Falsifiability; YoBiche as Trust vs. Distrust of beauty — the same axis, both framings kept).
 
@@ -220,6 +328,11 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
   - `Pole 1 (Base Right - Red #ef4444)`: **True Information Loss** — Black hole evaporation violates unitarity; pure quantum states evolve into mixed states (Hawking's original position).
   - `Pole 2 (Base Left - Amber #f59e0b)`: **Remnants / Firewalls** — The equivalence principle breaks down at the horizon (AMPS firewall) or evaporation ceases at a Planck-scale remnant containing the information.
 - **Question:** What is the fate of black hole information?
+- **Hovertip:** **Black Hole Information Paradox: Unitary Recovery vs. Information Loss vs. Remnants** [NON-BLEND]
+  Issue: What is the fate of black hole information?
+  - Unitary Hawking Radiation — Information is preserved and encoded in subtle quantum entanglements of Hawking radiation via quantum extremal islands and Page curves.
+  - True Information Loss — Black hole evaporation violates unitarity; pure quantum states evolve into mixed states.
+  - Remnants / Firewalls — The equivalence principle breaks down at the horizon (AMPS firewall) or evaporation ceases at a Planck-scale remnant containing the information.
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget (`"triangle"`).
 - **Source:** Antigravity 5.1 (YoBiche did not cover this).
 
@@ -228,24 +341,40 @@ Under the **Taxopolemics** engine, theoretical physical positions are mapped to 
 #### 6.1 The Theorist's Method: Pen & Blackboard vs. Symbolic Computing (2-Pole Dipole)
 - **Poles:** **Analytic Pen & Chalk** (Chalk on slate, long analytical derivations, Feynman diagrams sketched by hand, pure mental models) ↔ **Automated Symbolic Computation** (Mathematica, SageMath, numerical tensor packages, automated multi-loop amplitude engines)
 - **Question:** How do you derive physical truth?
+- **Hovertip:** **The Theorist's Method: Pen & Blackboard vs. Symbolic Computing**
+  Issue: How do you derive physical truth?
+  - Analytic Pen & Chalk — Chalk on slate, long analytical derivations, Feynman diagrams sketched by hand, pure mental models.
+  - Automated Symbolic Computation — Mathematica, SageMath, numerical tensor packages, automated multi-loop amplitude engines.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** Antigravity 6.1 (YoBiche did not cover this).
 
 #### 6.2 Mathematics: Discovered vs. Invented (2-Pole Dipole)
 - **Poles:** **Discovered** (Mathematics is out there, we find it — the laws of physics are written in the language of mathematics because math is real) ↔ **Invented** (Mathematics is a human construction — a tool we built, and its fit to physics is something we engineered)
 - **Question:** Is mathematics discovered or invented?
+- **Hovertip:** **Mathematics: Discovered vs. Invented**
+  Issue: Is mathematics discovered or invented?
+  - Discovered — Mathematics is out there, we find it — the laws of physics are written in the language of mathematics because math is real.
+  - Invented — Mathematics is a human construction — a tool we built, and its fit to physics is something we engineered.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 6.3 Theory vs. Phenomenology (2-Pole Dipole)
 - **Poles:** **Theory** (Work on the deep structure — the fundamental laws, the mathematical framework) ↔ **Phenomenology** (Work on the phenomena — fit the data, build models that predict what experiments will see)
 - **Question:** Do you work on the theory or the phenomena?
+- **Hovertip:** **Theory vs. Phenomenology**
+  Issue: Do you work on the theory or the phenomena?
+  - Theory — Work on the deep structure — the fundamental laws, the mathematical framework.
+  - Phenomenology — Work on the phenomena — fit the data, build models that predict what experiments will see.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 
 #### 6.4 Solitude vs. Collaboration (2-Pole Dipole)
 - **Poles:** **Solitude** (The lone theorist — pen, blackboard, long walks, thinking alone) ↔ **Collaboration** (The seminar, the co-author, the group — physics is done together)
 - **Question:** Do you think alone or together?
+- **Hovertip:** **Solitude vs. Collaboration**
+  Issue: Do you think alone or together?
+  - Solitude — The lone theorist — pen, blackboard, long walks, thinking alone.
+  - Collaboration — The seminar, the co-author, the group — physics is done together.
 - **Optimal Widget:** Dipole Slider.
 - **Source:** YoBiche (Antigravity did not cover this).
 

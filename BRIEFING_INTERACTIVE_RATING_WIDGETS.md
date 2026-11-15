@@ -49,6 +49,7 @@ Interactive, relational, or role-differentiated activities where Giving and Rece
 - **Bijective Transition Mapping**:
   $$\text{Give} = X, \quad \text{Receive} = Y$$
   Zero transformation distortion, preserving 100% data fidelity with existing profile stores.
+- **Donor / Acceptor Role Pairs (ruled 2026-11-15):** the switch-box is not limited to give/receive orientations. It also covers donor/acceptor role pairs — Lewis acid / Lewis base, nucleophile / electrophile, oxidising agent / reducing agent — where a reagent or chemist can act exclusively as one, act as an amphoteric "switch" (the $Y = X$ diagonal), or avoid both (the Hard Red Limit quadrant). Jason ruled Gemini's donor/acceptor reinterpretation is fine (2026-11-15); no existing Chemcapades topic is a donor/acceptor dyad yet, so this applies to future topics.
 
 ---
 
@@ -71,6 +72,22 @@ Used for **Type I: Closed Role Allocations** where three roles form a closed tri
 Used for **Type II: Multi-Affinity Triads** where the three poles are independent psychological drives that can simultaneously be maxed or zeroed (e.g. *Primal / Sensual / Humiliation*, *Sensation / Power / Intimacy*, *Edging / Ruined / Forced*).
 - Three independent sliders for Pole 1, Pole 2, and Pole 3, each with range $[-100, +100]$.
 
+### 3. Linear 3-Pole Spectrum (`"trilinear-line"`) — CANONICAL (2026-11-15)
+Used for **LINE triads**, where the middle pole sits *between* two extremes on a single axis and a triangle gives two degrees of freedom the user does not need (e.g. Health insurance system — keep and fix the ACA in the middle; Teaching vs Research vs Teacher-Scholar; the Chemical Bond — Pattern-Realism between Strict Realism and Instrumentalism).
+- **Geometry:** one horizontal linear track $V \in [-100, +100]$; three labelled stops (left extreme $-100$, middle pole at $0$ with a distinct notch, right extreme $+100$); gradient blending the two extreme pole colours through the middle pole's colour at $0$.
+- **Interaction:** drag a thumb or tap a stop; **snap to $0$ within ~6px** (the same deadband as the switch-box) so the middle pole is easy to hit exactly.
+- **Storage:** ONE scalar $V \in [-100, +100]$. Derived weights: $w_{mid} = 1 - |V|/100$, $w_{plus} = \max(V,0)/100$, $w_{minus} = \max(-V,0)/100$ — always sum to $1$, interconvertible with triangle storage.
+- **Cannot express (by design):** "I like all three" or "I hate the middle but like both extremes" — those need `"triangle"` or `"trilinear-sliders"`.
+- **Conviction as a per-topic option:** the plain single scalar suffices for most LINE triads. On topics where $0$ must distinguish a committed middle from indifference (Chemcapades 1.1 Chemical Bond, 5.2 Lab Safety; Expericapades Detector Design, Collaboration), a second vertical Conviction/Engagement slider may be added per-topic — it is an option, not a default second axis.
+- **Canonicalisation basis (2026-11-15 cross-skin fit review):** 37 existing LINE topics across 9 skins currently forced into `"triangle"` are misrepresented by it — Forescapades' 16 line triads, Chemcapades' 5, plus fits in Sexcapades, Philoscapades, Theoricapades, Praxicapades, Vocapades, Techcapades, Expericapades, and Mattercapades. **Do not assign `"triangle"` to a line triad.** Tag LINE / TRIANGLE / NON-BLEND first, then assign the widget.
+
+### 4. Discrete Selector with Conviction (`"triad-commit"`) — CANONICAL (2026-11-15)
+Used for **NON-BLEND triads that are mutually exclusive commitments**, where blending is incoherent — a discrete pick, not a mixture (e.g. Group 3 Periodic Table membership — Sc–Y–La–Ac vs Sc–Y–Lu–Lr vs split; confessional affiliation; which scripture / holy day / path; Cosmic Origin — Big Bang vs Cyclic vs Steady State; a relationship's structure — Monogamy vs Polyamory vs Relationship Anarchy).
+- **Geometry:** three discrete pill/card nodes; selecting one locks out the others (zero blending), paired with a $[-100, +100]$ conviction/rejection bar so a user can also mark "Hard Rejection" of a specific camp.
+- **Storage:** the chosen pole plus a conviction scalar $C \in [-100, +100]$ ($+100$ = committed, $-100$ = hard rejection of the unchosen camps).
+- **Cannot express (by design):** blends or partial allocations — a 40/60 monogamy–polyamory blend is incoherent as a structure, and a 33/33/33 bedrock blend erects mathematics on no foundation at all.
+- **Canonicalisation basis (2026-11-15 cross-skin fit review):** 16 existing discrete-commitment topics across 6 skins currently on `"triangle"` are misrepresented by blending. **Do not use `"triangle"` or `"trilinear-sliders"` for a pick-one triad.** Near-miss guard: Rodrik's Trilemma explicitly permits choosing *two* of three, and foundherentism is a real blend — those stay on `"triangle"` / `"trilinear-sliders"`.
+
 ---
 
 ## 5. The 4-Pole Tetrad Widgets
@@ -90,6 +107,13 @@ Cartesian 2D pad with two orthogonal bipolar axes (e.g. Authoritarian $\leftrigh
 
 ### 3. Quad Sliders (`"quad-sliders"`)
 Four independent linear sliders for multi-role power distributions (e.g. *Master, Mistress, Slave, Pet*).
+
+### 4. 3D Tetrahedron / Barycentric Simplex (`"tetrahedron"`) — CANONICAL (2026-11-15)
+Used for **4-pole zero-sum blends**, where four options compete for a fixed budget that must sum to $1$ (e.g. the BDSM Authority & Archetype Matrix — allocating role-identity across Master / Mistress / Slave / Pet; the Great Quantum Interpretations Quartet — credence across four mutually exclusive accounts of reality; the Four Purusharthas — dividing a finite life among four aims; which quantum-computing platform will win — win-probability sums to $1$).
+- **Geometry:** the true 3D generalisation of `"triangle"`. Four vertices with weights $(w_0, w_1, w_2, w_3)$ summing to $1$, rendered as a rotatable isometric/perspective tetrahedron with a 2D shadow projection, plus an accompanying intensity slider $I \in [-100, +100]$: $R_i = \text{round}(w_i \cdot I)$.
+- **Why it matters:** `"diamond"`, `"quad-compass"`, and `"quad-sliders"` cannot enforce a closed zero-sum budget across four competing options — the diamond wrongly allows all four poles at 100% at once.
+- **Near-miss guard:** not every 4-pole topic on `"diamond"` is a budget. Sector niches endorsable all at once (Chemcapades Energy Storage — batteries for grid *and* hydrogen for steelmaking), independent affinities (Schein's Career Anchors are ordinal, not a budget), and methods that combine (ab initio MD) stay on `"diamond"` / `"quad-sliders"` / `"ranked-stack"`. Forcing weights to sum to $1$ manufactures trade-offs the topic does not contain.
+- **Canonicalisation basis (2026-11-15 cross-skin fit review):** 6 genuine closed-budget allocations across 4 skins.
 
 ---
 
@@ -193,5 +217,38 @@ When 8-pole octads are activated, legacy 1-pole and 2-pole topics are subsumed a
 | 6-Pole | Hexad | $\Delta^5$ | Diametric Regular Hexagon Circumplex | 3 Antipodal axes $(\Delta\theta = 60^\circ)$ |
 | 7-Pole | Heptad | $\Delta^6$ | Regular Heptagon Radar | Irreducible 7-ray cyclic $(\Delta\theta \approx 51.43^\circ)$ |
 | 8-Pole | Octad | $\Delta^7$ | Regular Octagon Deformation Polygon | 4 Antipodal pairs, 3-bit hypercube $(\Delta\theta = 45^\circ)$ |
+| 3-Pole (LINE) | Line Triad | $\Delta^2$ | Linear Track (`"trilinear-line"`) | Single scalar $V \in [-100, +100]$, middle pole at $0$ |
+| 3-Pole (Discrete) | Discrete Triad | $\Delta^2$ | Exclusive Cards (`"triad-commit"`) | Pick-one + conviction $C \in [-100, +100]$ |
+| 4-Pole (Zero-sum) | Tetrad | $\Delta^3$ | Tetrahedron (`"tetrahedron"`) | Weights sum to $1$, 3D simplex |
+| Beyond $N$-Pole | Conditional | — | Decision Tree (`"decision-tree"`) | Root split gating child sub-poles |
+| Beyond $N$-Pole | Parameter | — | Phase Diagram (`"phase-diagram"`) | 2D parameter space, boundaries + triple point |
+
+---
+
+## 11. Beyond-$N$-Pole Widgets — CANONICAL (2026-11-15)
+
+Standard $N$-pole widgets assume a debate consists of $N$ static, co-equal vertices around a center. Some topics violate that assumption. Two Beyond-$N$-Pole widgets earned canonical status in the 2026-11-15 cross-skin fit review; the rest are deferred (see §11.3).
+
+### 11.1 Hierarchical Tree / Nested Conditional (`"decision-tree"`)
+Used where **a root split gates child sub-poles** — rating a child without answering the root is incoherent (e.g. Free Will — root binary "is determinism true?" then the compatibility question, yielding exactly the four leaves; Mind-Body — "one substance or two?" unlocks monist children vs the dualist leaf; the Divine's Four Quadrants — "do gods exist?" unlocks Personal/Impersonal Theism only if yes; Lee's Love Styles — the 3 secondaries are pairwise combos of the 3 primaries, so rating a secondary without its two primaries is incoherent; Sternberg's Matrix — all 7 poles are the 7 non-empty subsets of three binary components, and a three-question binary tree generates exactly these poles).
+- **Geometry:** a primary binary split at the root that unlocks secondary sub-poles only on the chosen branch.
+- **Caveat (Chemcapades Reductionism):** the Roadmap's child labels do not map 1:1 onto the actual poles, and Pluralism is a meta-stance that refuses the root split — it needs a third root option. Child labels must be derived from the topic's actual poles, not invented.
+- **Near-miss guard:** a linear ladder is not a tree (Forescapades PaRDeS — Peshat→Sod is a ladder, not a branching tree); parallel alternatives are not children (Philoscapades Seven Theories of Truth — six substantive theories are parallel, not children of one branch).
+- **Canonicalisation basis:** 9 fits across 4 skins.
+
+### 11.2 2D Continuous Phase Diagram (`"phase-diagram"`)
+Used where **a stance depends on a parameter** — the disagreement is literally a boundary in that parameter's space (e.g. Thermodynamic vs Kinetic Control — textbook temperature-dependent: high $T$ → thermodynamic product, low $T$ → kinetic product; Dark Matter Identity — the MOND pole applies only below the acceleration threshold $a_0$; Grand Unification vs EFT — the right theory depends on energy scale; Fiscal & Monetary Policy — the correct regime depends on macro conditions, unemployment × inflation).
+- **Geometry:** borrowed from physical chemistry ($P$–$T$ or composition–temperature diagrams). The user draws or drags phase boundaries (coexistence curves) and a triple point across a 2D parameter space, shading which regions belong to which paradigm — capturing conditional truth ("I am a thermodynamicist at high $T$, a kineticist at low $T$").
+- **Storage:** the boundary positions and the triple point in the parameter space, plus the region-to-pole assignment.
+- **Generalises beyond triads:** several fits are dipoles — a single global slider forces a false stance where the truth is regime-conditional.
+- **Near-miss guard:** complementary toolkits with no parameter threshold are not phase diagrams (Chemcapades Supramolecular — no threshold or triple point); a pursue-vs-deploy strategy is not a boundary map (Mattercapades Superconductors); one parameter with no second axis or triple point is not a diagram (Simulcapades Continuum vs Discrete).
+- **Canonicalisation basis:** 8 fits across 3 skins.
+
+### 11.3 Deferred — NOT canonical (2026-11-15 fit review)
+These were proposed in the Chemcapades Roadmap but do not earn canonical status yet. Do not assign them to topics until a fit is established.
+- **`"window-gauge"` / `"bandpass-slider"` (Two-Limit Range / Window Gauge):** exactly 1 fit in all 15 skins — Chemcapades 2.3 The End of the Periodic Table (Island of Stability bounded between nuclear instability and relativistic breakdown). The fit is exact and it closes a real gap, but it is a single-topic widget today. Build only if the schema's goal is zero unquoted gaps, or when a second two-limit topic appears. Near-miss: Techcapades Transhumanism — its extremes are legitimate stances, not failure thresholds; it is a LINE, not a window.
+- **`"ranked-stack"` (Ranked-Order / Tier-List Stack):** 2 genuine fits — Vocapades Four Career Anchors (Schein's model is ordinal by definition) and Expericapades Three Frontiers of Empirical Physics (an ordinal funding priority, with the Red Line ruling a frontier out as a dead end). Deferrable — build only if more priority topics appear. Near-misses: Chemcapades Green Chemistry (genuinely 2D — ranking flattens it) and Publication Culture (multi-affinity — forced ranking contradicts it).
+- **`"causal-loop"` / `"cycle-flow"` (Directed Causal / Cycle Graph):** 1 fit — Chemcapades 3.2 Computational vs Wet-Bench (the question is literally directional: "Does theory lead the bench, or the bench lead theory?"), with a node-mapping caveat (Theory has no separate pole; the Loop pole *is* the structure). Defer — build only if more loop topics are specified.
+- **`"constellation-graph"` (Force-Directed Network / Constellation Canvas):** 0 fits anywhere in the 15 skins. Do not build for current topics; keep as a speculative future widget only if a genuinely relational topic is ever specified. The Roadmap's claimed use case (Origins of Life / RNA World / Metabolism-First / etc.) names poles that belong to no topic in any briefing.
 
 
