@@ -116,13 +116,26 @@ for ch in [
 
 # Sync all auxiliary JS files in app/js to site-tree/public_html/hosted/js and qa/js
 js_src_dir = os.path.join(base_dir, "../js")
-for f in ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "avatar-music.js", "sx-songbook.js"]:
+for f in ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js"]:
     src_f = os.path.join(js_src_dir, f)
     for dst_dir in [os.path.join(base_dir, "../../site-tree/public_html/hosted/js"), os.path.join(base_dir, "../../site-tree/public_html/qa/js")]:
         dst_f = os.path.join(dst_dir, f)
         if os.path.exists(src_f) and os.path.exists(dst_dir):
             shutil.copyfile(src_f, dst_f)
             print(f"[Bundle] Synced {f} to {dst_dir}/")
+
+# Sync skin data files (app/data/skins/*.json) to hosted/data/skins/ and qa/data/skins/
+# so a runtime-fetched skin loads in the hosted and QA trees, not just source.
+skins_src_dir = os.path.join(base_dir, "skins")
+for skins_dst in [os.path.join(base_dir, "../../site-tree/public_html/hosted/data/skins"),
+                  os.path.join(base_dir, "../../site-tree/public_html/qa/data/skins")]:
+    if os.path.exists(skins_src_dir) and os.path.exists(os.path.dirname(skins_dst)):
+        os.makedirs(skins_dst, exist_ok=True)
+        for sf in os.listdir(skins_src_dir):
+            if not sf.endswith(".json"):
+                continue
+            shutil.copyfile(os.path.join(skins_src_dir, sf), os.path.join(skins_dst, sf))
+            print(f"[Bundle] Synced skins/{sf} to {skins_dst}/")
 
 # Sync module files to hosted/js/modules/ and qa/js/modules/
 hosted_modules_dir = os.path.join(base_dir, "../../site-tree/public_html/hosted/js/modules")

@@ -251,11 +251,13 @@
             var i;
             if (e.rated && us(i = Go).every(e => e.topics.filter(t => (e.outlineTopicRanks?.get(Wn(t)) ?? Number.POSITIVE_INFINITY) < 3).every(e => ls(Wn(e), i))) && p("quickstart_completed"), 
             Jo = t, n && !Zo) return ks(!0), void vs();
-            const a = Math.min(100, e.rated / 403 * 100), r = xt(ps()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
-            Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of 403 topics rated`, jo.textContent = o, qo.style.width = a + "%", 
-            qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(403)), 
-            qo.parentElement.setAttribute("aria-valuenow", String(Math.min(403, e.rated))), 
-            qo.parentElement.setAttribute("aria-label", `${e.rated} of 403 topics rated; tick marks every 54 topics (3 per category across 18 categories), up to 403 for Full map`), 
+            /* Flexcapades: topic total follows the active skin (403 = Sexcapades
+               copy, unchanged; a loaded skin sets window.__SX_SKIN_TOPIC_COUNT). */
+            const T = window.__SX_SKIN_TOPIC_COUNT || 403, a = Math.min(100, e.rated / T * 100), r = xt(ps()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
+            Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of ${T} topics rated`, jo.textContent = o, qo.style.width = a + "%",
+            qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(T)),
+            qo.parentElement.setAttribute("aria-valuenow", String(Math.min(T, e.rated))),
+            qo.parentElement.setAttribute("aria-label", 403 === T ? `${e.rated} of 403 topics rated; tick marks every 54 topics (3 per category across 18 categories), up to 403 for Full map` : `${e.rated} of ${T} topics rated`),
             n && vs();
         }
         function ks(e) {
