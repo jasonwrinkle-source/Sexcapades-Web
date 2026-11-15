@@ -4,7 +4,7 @@
 **Engine:** Taxopolemics (Multi-Pole Dialectical Hypermap Engine)  
 **Skin:** Dharmacapades (Eastern Religions — Dharmic & Taoic Traditions)  
 **Author:** YoBiche (Yolanda Biche) & Principal Investigator Jason Mark Wrinkle  
-**Status:** Draft — Name approved by the Principal Investigator (2026-11-15). Awaiting further feedback. Not canonical.  
+**Status:** Draft — Name approved, scope confirmed, Buddhism triad approved, pole assignments ruled (Principal Investigator, 2026-11-15). Awaiting further feedback. Not canonical.  
 
 ---
 
@@ -28,10 +28,14 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 ### Category 1: Dharma & The Way
 
-#### 1.1 Karma: Literal vs Psychological (2-Pole Dipole)
-- **Poles:** Literal (karma as a real mechanism of rebirth) ↔ Psychological (karma as an ethical principle — actions shape character)
+#### 1.1 Karma: Literal vs Psychological vs No Karma (3-Pole Triad $\Delta^2$)
+- **Poles:**
+  - `Pole 0 (Apex)`: **Literal** — Karma as a real mechanism of rebirth; actions literally determine your next life.
+  - `Pole 1 (Base Right)`: **Psychological** — Karma as an ethical principle; actions shape character and consequences in this life.
+  - `Pole 2 (Base Left)`: **No Karma** — Karma isn't real; actions don't carry metaphysical weight, or the concept is rejected.
 - **Question:** How do you understand karma?
-- **Optimal Widget:** Dipole slider.
+- **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Note:** Triad on the Principal Investigator's ruling (2026-11-15) — the "no karma" position is real and deserves a pole.
 
 #### 1.2 Samsara: Escape vs Engage vs Accept (3-Pole Triad $\Delta^2$)
 - **Poles:**
@@ -127,10 +131,16 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 ### Category 3: Practice & Discipline
 
-#### 3.1 Yoga: Physical vs Spiritual (2-Pole Dipole)
-- **Poles:** Physical exercise ↔ Spiritual discipline
-- **Question:** How do you practice yoga — as a workout, or as a path?
-- **Optimal Widget:** Dipole slider.
+#### 3.1 Yoga: Five Dimensions (5-Pole Pentad $\Delta^4$)
+- **Poles:**
+  - `Pole 0`: **Physical** — Asana, the body, posture and exercise.
+  - `Pole 1`: **Breath** — Pranayama, the life-force, breathing practice.
+  - `Pole 2`: **Meditative** — Dhyana, stillness, concentration of the mind.
+  - `Pole 3`: **Devotional** — Bhakti, surrender, the heart.
+  - `Pole 4`: **Philosophical** — Jnana, study, understanding the teachings.
+- **Question:** Which dimension of yoga do you practice?
+- **Optimal Widget:** Pentad wheel.
+- **Note:** Pentad on the Principal Investigator's ruling (2026-11-15) — yoga is more than physical vs spiritual; the five dimensions are distinct ways of practicing.
 
 #### 3.2 Meditation: Concentration vs Insight (2-Pole Dipole)
 - **Poles:** Samatha (concentration, calm) ↔ Vipassana (insight, seeing clearly)
@@ -142,10 +152,11 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** Which tantra — the one that breaks the rules, or the one that works within them?
 - **Optimal Widget:** Dipole slider.
 
-#### 3.4 Kundalini (1-Pole Monopole)
-- **Pole:** Kundalini engagement, 0–100.
-- **Question:** How central is kundalini — the coiled energy, the awakening — to your practice?
-- **Optimal Widget:** Monopole slider.
+#### 3.4 Kundalini: Awakening vs Danger (2-Pole Dipole)
+- **Poles:** Awakening (kundalini as the goal — central, transformative, the coiled energy rising to liberation) ↔ Danger (kundalini as destabilizing — risky, psychosis, "kundalini syndrome", something to approach with caution or avoid)
+- **Question:** Is kundalini awakening or danger — or both?
+- **Optimal Widget:** Dipole slider.
+- **Note:** Dipole on the Principal Investigator's ruling (2026-11-15) — the danger aspect is a real position that deserves a pole, not just a negative number on a centrality slider. The two poles are the two attitudes toward kundalini: embrace it as awakening, or fear it as destabilizing.
 
 #### 3.5 The Noble Eightfold Path (8-Pole Octad $\Delta^7$)
 - **Poles (in the traditional order, grouped by the three sections):**
@@ -181,10 +192,16 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 ### Category 4: Deity & The Divine
 
-#### 4.1 Theism vs Non-theism (2-Pole Dipole)
-- **Poles:** Personal gods (Hindu devas, devotional theism) ↔ Non-theistic (Buddhist, no creator god)
-- **Question:** Are there gods, or isn't there anyone up there?
-- **Optimal Widget:** Dipole slider.
+#### 4.1 The Divine: Four Quadrants (4-Pole Tetrad $\Delta^3$)
+*Two axes: gods exist vs no gods × personal/involved vs impersonal/distant.*
+- **Poles:**
+  - `North (Green #22c55e)`: **Personal Theism** — Gods exist and are personal; devotional Hinduism, bhakti, prayer to deities.
+  - `East (Yellow #eab308)`: **Impersonal Theism** — The divine exists but is impersonal; Brahman as principle, Advaita Vedanta.
+  - `South (Red #ef4444)`: **Non-theistic Spirituality** — No gods, but spiritual reality; Buddhism, Jainism — liberation without a creator.
+  - `West (Blue #3b82f6)`: **Atheism / Materialism** — No gods, no spiritual reality; Carvaka / Lokayata, secular materialism.
+- **Question:** What is the divine — or is there one?
+- **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
+- **Note:** Tetrad on the Principal Investigator's ruling (2026-11-15) — theism in the Eastern traditions is not a clean binary; the four canonical quadrants capture the real positions.
 
 #### 4.2 Brahman: Personal vs Impersonal (2-Pole Dipole)
 - **Poles:** Saguna (personal, with attributes) ↔ Nirguna (impersonal, without attributes)
@@ -201,10 +218,14 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 ### Category 5: Ethics & Conduct
 
-#### 5.1 Ahimsa (2-Pole Dipole)
-- **Poles:** Strict ahimsa (absolute non-violence) ↔ Flexible ahimsa (pragmatic, contextual)
-- **Question:** How strictly do you hold non-violence?
-- **Optimal Widget:** Dipole slider.
+#### 5.1 Ahimsa: Three Schools (3-Pole Triad $\Delta^2$)
+- **Poles:**
+  - `Pole 0 (Apex)`: **Jain** — Absolute non-violence; no harm to any living being, even insects, even plants in the strictest readings.
+  - `Pole 1 (Base Right)`: **Buddhist** — Contextual non-violence; intention matters, non-harm as a precept with practical exceptions.
+  - `Pole 2 (Base Left)`: **Hindu** — Dharma-based; non-violence as a virtue but with exceptions for duty (a soldier's dharma, self-defense).
+- **Question:** Which school's non-violence do you hold?
+- **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Note:** Triad on the Principal Investigator's ruling (2026-11-15) — the three schools are genuinely different positions. Flexibility is indicated by intensity: a weak rating means flexible, a strong rating means strict.
 
 #### 5.2 Precepts: Rules vs Guidelines (2-Pole Dipole)
 - **Poles:** Strict rules ↔ Flexible guidelines
@@ -245,11 +266,11 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 | Poles | Count | Topics |
 |-------|-------|--------|
-| 1-pole (monopole) | 1 | 3.4 |
-| 2-pole (dipole) | 16 | 1.1, 2.2, 2.3, 3.1, 3.2, 3.3, 3.6, 4.1, 4.2, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4 |
-| 3-pole (triad) | 6 | 1.2, 1.3, 1.5, 1.7, 2.1, 4.3 |
-| 4-pole (tetrad) | 1 | 1.4 |
-| 5-pole (pentad) | 1 | 1.8 |
+| 1-pole (monopole) | 0 | — |
+| 2-pole (dipole) | 13 | 2.2, 2.3, 3.2, 3.3, 3.4, 3.6, 4.2, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4 |
+| 3-pole (triad) | 8 | 1.1, 1.2, 1.3, 1.5, 1.7, 2.1, 4.3, 5.1 |
+| 4-pole (tetrad) | 2 | 1.4, 4.1 |
+| 5-pole (pentad) | 2 | 1.8, 3.1 |
 | 6-pole (hexad) | 1 | 3.7 |
 | 7-pole (heptad) | 0 | — |
 | 8-pole (octad) | 2 | 1.6, 3.5 |
@@ -258,4 +279,4 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 ## 4. Open Questions for the Principal Investigator
 
-1. Are the dipole/triad assignments right? The Principal Investigator notes he does not know Eastern religions well enough to judge — assignments stand on the drafter's judgment unless reviewed by someone who does.
+None — all open questions resolved by the Principal Investigator's rulings (2026-11-15): name approved, scope confirmed, Buddhism triad approved, pole assignments ruled (1.1 triad, 3.1 pentad, 3.4 dipole, 4.1 tetrad, 5.1 triad).
