@@ -1774,27 +1774,27 @@
             const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth, mapSliders: mn.mapSliders };
             const order = (typeof h !== "undefined" && h || []).map(b => ({ name: b && b.name, n: b && b.topics ? b.topics.length : 0 }));
             const branch = (branches || []).map(br => ({
-                angle: br.angle,
-                topicCloudRadius: br.topicCloudRadius,
-                name: br.entry.branch.name,
-                spokeAdjust: Number(br.entry.branch._spokeAdjust20) || 0,
-                anchor: rr.branchAnchor(br),
-                topics: (br.topics || []).map(item => {
-                    const rec = item.topic;
+                angle: br && br.angle || 0,
+                topicCloudRadius: br && br.topicCloudRadius || 0,
+                name: br && br.entry && br.entry.branch ? br.entry.branch.name : (br && br.name || ""),
+                spokeAdjust: Number(br && br.entry && br.entry.branch && br.entry.branch._spokeAdjust20) || 0,
+                anchor: typeof rr !== "undefined" && rr && rr.branchAnchor ? rr.branchAnchor(br) : { x: 0, y: 0 },
+                topics: (br && br.topics || []).map(item => {
+                    const rec = item && item.topic ? item.topic : { id: "unknown", label: "", isSubcategory: false };
                     return {
-                        cloudRadius: item.cloudRadius,
-                        cloudAngle: item.cloudAngle,
-                        cloudIndex: item.cloudIndex,
-                        childCloudRadius: item.childCloudRadius,
-                        cloudCount: item.cloudCount,
-                        radialFit: item._radialFit20,
+                        cloudRadius: item && item.cloudRadius || 0,
+                        cloudAngle: item && item.cloudAngle || 0,
+                        cloudIndex: item && item.cloudIndex || 0,
+                        childCloudRadius: item && item.childCloudRadius || 0,
+                        cloudCount: item && item.cloudCount || 0,
+                        radialFit: item && item._radialFit20,
                         id: rec.id,
                         label: rec.label,
                         isSub: rec.isSubcategory ? 1 : 0,
-                        children: (item.children || []).map(wrap => {
-                            const crec = wrap.child;
+                        children: (item && item.children || []).map(wrap => {
+                            const crec = wrap && wrap.child ? wrap.child : null;
                             return crec ? { cloudRadius: wrap.cloudRadius, cloudAngle: wrap.cloudAngle, radialFit: wrap._radialFit20, id: crec.id, label: crec.label, isStatic: crec.isStaticTopic ? 1 : 0 } : null;
-                        })
+                        }).filter(Boolean)
                     };
                 })
             }));
@@ -1812,19 +1812,24 @@
                 const hit = sxEvalCache[slot];
                 if (hit && hit.sig === sig) return hit;
             }
-            const geo = sxSccBuild({ branches: dkLastBranches }), maps = sxNewMaps();
-            // Growth dominance readout (ruled 2026-10-28): with excl
-            // set, the SAME evaluation runs under the existing
-            // geo.sxRepExcl flag (same-branch pairs blind, exactly as
-            // the repulsion descent sets it), so a cloud's excluded
-            // value is its standing value minus its same-branch
-            // contribution. The default call is unchanged.
-            excl && (geo.sxRepExcl = !0);
-            const tot = sxFullEval(geo, maps);
-            const entry = { sig: sig, geo: geo, maps: maps, tot: tot };
-            if (null !== sig) sxEvalCache[slot] = entry;
-            else sxEvalCache = { standing: null, excluded: null };
-            return entry;
+            try {
+                const geo = sxSccBuild({ branches: dkLastBranches }), maps = sxNewMaps();
+                // Growth dominance readout (ruled 2026-10-28): with excl
+                // set, the SAME evaluation runs under the existing
+                // geo.sxRepExcl flag (same-branch pairs blind, exactly as
+                // the repulsion descent sets it), so a cloud's excluded
+                // value is its standing value minus its same-branch
+                // contribution. The default call is unchanged.
+                excl && (geo.sxRepExcl = !0);
+                const tot = sxFullEval(geo, maps);
+                const entry = { sig: sig, geo: geo, maps: maps, tot: tot };
+                if (null !== sig) sxEvalCache[slot] = entry;
+                else sxEvalCache = { standing: null, excluded: null };
+                return entry;
+            } catch (err) {
+                if (window.console && typeof window.console.warn === "function") window.console.warn("[sxGetEval] Error calculating crossing:", err);
+                return null;
+            }
         }
         function sxCrossingMeasure(excl) {
             const ev = sxGetEval(excl);

@@ -104,17 +104,11 @@
              * @returns {number} Full width at u, map units.
              */
             function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
-                const uName = Math.max(0.15, Math.min(0.65, Number(nameFrac) || 0.35));
-                // Pronounced bulbous flare towards parent circle at u = 0
-                const bulbousSwell = 1.0 + 0.45 * Math.exp(-Math.pow(u / 0.18, 2));
-                const effBase = baseWidth * bulbousSwell;
-                if (u <= uName) {
-                    const shape = Math.exp(-Math.pow(u / 0.72, 2));
-                    return tipWidth + (effBase - tipWidth) * shape;
-                }
-                const wAtName = tipWidth + (effBase - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
-                const uPost = (u - uName) / (1 - uName);
-                return tipWidth + (wAtName - tipWidth) * Math.exp(-2.4 * uPost);
+                const stemBase = Math.min(baseWidth, 18);
+                // Pronounced bulbous trumpet flare strictly localized to parent circle (u -> 0)
+                const bulbousFlare = Math.max(0, baseWidth - stemBase) * Math.exp(-Math.pow(u / 0.08, 2));
+                const stemWidth = tipWidth + (stemBase - tipWidth) * Math.exp(-1.8 * u);
+                return stemWidth + bulbousFlare;
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -312,11 +306,11 @@
                 const p = SAMPLES;
                 const spokeLen = Math.hypot(dx, dy) || 1;
                 const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
-                const innerFlare = 10.0;
+                const innerFlare = 2.5;
                 const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
                     const frac = si / p;
-                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.08, 2));
                     const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
                     const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
                     const b = baseX + dx * frac, v = baseY + dy * frac;
@@ -327,7 +321,7 @@
                 }
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
                 const curInner0 = innerHalf + innerFlare;
-                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.72, 2));
+                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.08, 2));
                 const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
                 const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {

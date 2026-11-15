@@ -643,7 +643,7 @@
                     const textWEst = Za.measure(a, fsEst, "topic") + tabWEst;
                     const gapEst = Math.max(20, 6 * Za.measure(" ", fsEst, "topic"));
                     const minReqSpoke = hubRadius1 + leafRadius2 + textWEst + gapEst + 48;
-                    if (!o && h < minReqSpoke) h = minReqSpoke;
+                    if (h < minReqSpoke) h = minReqSpoke;
                     const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m, hubRadius1), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
@@ -666,20 +666,19 @@
                     const iconR2 = sxIconRadius(2);
                     let F, N;
                     if (L) {
-                        const minAllowedEnd = iconR2 + textW2 + 16;
-                        const safeHubEnd = y.routedLength - (hubR2 + 24);
+                        const minAllowedEnd = iconR2 + textW2 + 20;
+                        const safeHubEnd = y.routedLength - (hubR2 + 32);
                         F = Math.max(minAllowedEnd, Math.min(y.routedLength - P, safeHubEnd));
                         if (F < minAllowedEnd) F = minAllowedEnd;
-                        if (F > y.routedLength - (hubR2 + 10)) F = y.routedLength - (hubR2 + 10);
                         N = ' text-anchor="end"';
                     } else {
-                        const maxAllowedStart = y.routedLength - iconR2 - textW2 - 16;
-                        F = Math.max(hubR2 + 24, Math.min(P, maxAllowedStart));
+                        const safeHubStart = hubR2 + 32;
+                        const maxAllowedStart = y.routedLength - iconR2 - textW2 - 20;
+                        F = Math.max(safeHubStart, Math.min(P, maxAllowedStart));
                         if (F > maxAllowedStart) F = maxAllowedStart;
-                        if (F < hubR2 + 10) F = hubR2 + 10;
                         N = "";
                     }
-                    const _ = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
+                    const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
                         return pa((e?.topics || []).map(Wn), t, e => ua(e, t));
                     }(n.group, D) : ua(r, D), O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null;
                     const shape2 = Ge(r, D);
@@ -700,7 +699,7 @@
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = `<g class="topic-icon${o ? " subcategory-icon" : "noCode" === B.hankyKey ? " no-hanky-code-icon" : ""}${B.glyphFallback ? " glyph-fallback" : ""}"${B.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${te}" ${ee} aria-hidden="true" style="color:${B.color}" transform="translate(${(V - ne).toFixed(2)} ${(Y - ne).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${ne}" cy="${ne}" r="${ne - .5}"/><circle class="icon-disc" cx="${ne}" cy="${ne}" r="${ne - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${ne}" cy="${ne}" r="${ne - 3.5}"/><g transform="translate(${ie.toFixed(3)} ${ie.toFixed(3)}) scale(${ae.toFixed(5)})">${B.glyph}${B.accent}</g></g>`, oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = yi(y.icon.x + y.ux * (ne + 20), y.icon.y + y.uy * (ne + 20), se, r), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : midColor2, sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${Ka(r, peT, 18, a, y.nx, y.ny, l.x, l.y, V, Y, !0, pr.topicIcon, G, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
-                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${_}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${L ? tab5 : ""}${Hi(a)}</textPath></text></g>`,
+                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${L ? tab5 : ""}${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
                         // Per-kink length override for subcategory
@@ -761,17 +760,16 @@
                         const iconR3 = sxIconRadius(3);
                         let m, y;
                         if (h) {
-                            const minAllowedEnd = iconR3 + textW3 + 14;
-                            const safeHubEnd = p.routedLength - (hubR3 + 20);
+                            const minAllowedEnd = iconR3 + textW3 + 20;
+                            const safeHubEnd = p.routedLength - (hubR3 + 28);
                             m = Math.max(minAllowedEnd, Math.min(p.routedLength - p.labelOffset, safeHubEnd));
                             if (m < minAllowedEnd) m = minAllowedEnd;
-                            if (m > p.routedLength - (hubR3 + 10)) m = p.routedLength - (hubR3 + 10);
                             y = ' text-anchor="end"';
                         } else {
-                            const maxAllowedStart = p.routedLength - iconR3 - textW3 - 14;
-                            m = Math.max(hubR3 + 20, Math.min(p.labelOffset, maxAllowedStart));
+                            const safeHubStart = hubR3 + 28;
+                            const maxAllowedStart = p.routedLength - iconR3 - textW3 - 20;
+                            m = Math.max(safeHubStart, Math.min(p.labelOffset, maxAllowedStart));
                             if (m > maxAllowedStart) m = maxAllowedStart;
-                            if (m < hubR3 + 10) m = hubR3 + 10;
                             y = "";
                         }
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);

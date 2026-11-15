@@ -1947,7 +1947,7 @@
       btn.classList.remove("is-busy");btn.removeAttribute("aria-busy");
       if(metricBusyLabel!==null){btn.textContent=metricBusyLabel;metricBusyLabel=null}
     }
-    function calculateGlobal(){var def=selectedMetricDef();if(!def||!metricOn)return;var run=++metricGlobalRun,cancelled=function(){return run!==metricGlobalRun||!metricOn||metricId==='off'};startMetricBusy();try{def.compute({svg:document.getElementById("mapSvg")},function(res){if(cancelled())return;stopMetricBusy();showMetricGlobal(res&&res.text!=null?res.text:"–")},cancelled)}catch(e){stopMetricBusy()}}
+    function calculateGlobal(){var def=selectedMetricDef();if(!def||!metricOn)return;var run=++metricGlobalRun,cancelled=function(){return run!==metricGlobalRun||!metricOn||metricId==='off'};startMetricBusy();if(metricOverlayOn)measureLocals();try{def.compute({svg:document.getElementById("mapSvg")},function(res){if(cancelled())return;stopMetricBusy();showMetricGlobal(res&&res.text!=null?res.text:"–")},cancelled)}catch(e){stopMetricBusy()}}
     var metricSelect=document.getElementById("layoutMetricSelect"),metricButton=document.getElementById("layoutMetricMeasure");
     if(metricSelect)metricSelect.addEventListener("change",function(){metricId=metricSelect.value;metricOn=metricId!=='off';if(metricButton)metricButton.disabled=!metricOn;stopMetricBusy();clearMetricGlobal();if(metricOn){scheduleMetric();if(metricOverlayOn)calculateGlobal()}else{metricRun++;metricGlobalRun++;if(metricTimer)clearTimeout(metricTimer);clearMetricOverlay()}scheduleLiveSync()});
     if(metricButton)metricButton.addEventListener("click",function(){if(!metricOn)return;calculateGlobal()});
@@ -1998,7 +1998,8 @@
       cacheClouds:null,cacheId:null,
       layer:function(){
         var scene=document.getElementById("mapScene");if(!scene)return null;
-        if(!MetricNumbersView.layerEl||!MetricNumbersView.layerEl.isConnected){MetricNumbersView.layerEl=document.createElement("div");MetricNumbersView.layerEl.className="metric-map-overlay";MetricNumbersView.layerEl.id="metricMapOverlay";MetricNumbersView.layerEl.setAttribute("aria-hidden","true");scene.appendChild(MetricNumbersView.layerEl);MetricNumbersView.labels={};MetricNumbersView.anchors={}}
+        var parent=scene.parentElement||scene;
+        if(!MetricNumbersView.layerEl||!MetricNumbersView.layerEl.isConnected){MetricNumbersView.layerEl=document.createElement("div");MetricNumbersView.layerEl.className="metric-map-overlay";MetricNumbersView.layerEl.id="metricMapOverlay";MetricNumbersView.layerEl.setAttribute("aria-hidden","true");parent.appendChild(MetricNumbersView.layerEl);MetricNumbersView.labels={};MetricNumbersView.anchors={}}
         return MetricNumbersView.layerEl;
       },
       cloudCenters:function(){

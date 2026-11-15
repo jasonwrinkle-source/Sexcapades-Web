@@ -5579,17 +5579,11 @@ const TAXONOMY_CATEGORIES = [
              * @returns {number} Full width at u, map units.
              */
             function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
-                const uName = Math.max(0.15, Math.min(0.65, Number(nameFrac) || 0.35));
-                // Pronounced bulbous flare towards parent circle at u = 0
-                const bulbousSwell = 1.0 + 0.45 * Math.exp(-Math.pow(u / 0.18, 2));
-                const effBase = baseWidth * bulbousSwell;
-                if (u <= uName) {
-                    const shape = Math.exp(-Math.pow(u / 0.72, 2));
-                    return tipWidth + (effBase - tipWidth) * shape;
-                }
-                const wAtName = tipWidth + (effBase - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
-                const uPost = (u - uName) / (1 - uName);
-                return tipWidth + (wAtName - tipWidth) * Math.exp(-2.4 * uPost);
+                const stemBase = Math.min(baseWidth, 18);
+                // Pronounced bulbous trumpet flare strictly localized to parent circle (u -> 0)
+                const bulbousFlare = Math.max(0, baseWidth - stemBase) * Math.exp(-Math.pow(u / 0.08, 2));
+                const stemWidth = tipWidth + (stemBase - tipWidth) * Math.exp(-1.8 * u);
+                return stemWidth + bulbousFlare;
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -5787,11 +5781,11 @@ const TAXONOMY_CATEGORIES = [
                 const p = SAMPLES;
                 const spokeLen = Math.hypot(dx, dy) || 1;
                 const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
-                const innerFlare = 10.0;
+                const innerFlare = 2.5;
                 const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
                     const frac = si / p;
-                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.08, 2));
                     const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
                     const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
                     const b = baseX + dx * frac, v = baseY + dy * frac;
@@ -5802,7 +5796,7 @@ const TAXONOMY_CATEGORIES = [
                 }
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
                 const curInner0 = innerHalf + innerFlare;
-                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.72, 2));
+                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.08, 2));
                 const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
                 const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {
@@ -23905,27 +23899,27 @@ const TAXONOMY_CATEGORIES = [
             const mnSnap = { branchOverrides: mn.branchOverrides, kinkOverrides: mn.kinkOverrides, subcatOverrides: mn.subcatOverrides, stagger: mn.stagger, staggerDensity: mn.staggerDensity, collision: mn.collision, spokeLen: mn.spokeLen, subLen: mn.subLen, pad: mn.pad, repulsion: mn.repulsion, repulsionEnabled: mn.repulsionEnabled, branchSpokeAutoShrink: mn.branchSpokeAutoShrink, subcatSpokeAutoShrink: mn.subcatSpokeAutoShrink, autoShrinkFactor: mn.autoShrinkFactor, solverMidline: mn.solverMidline, fontScale: mn.fontScale, centerRingScale: mn.centerRingScale, leafOvergrowth: mn.leafOvergrowth, mapSliders: mn.mapSliders };
             const order = (typeof h !== "undefined" && h || []).map(b => ({ name: b && b.name, n: b && b.topics ? b.topics.length : 0 }));
             const branch = (branches || []).map(br => ({
-                angle: br.angle,
-                topicCloudRadius: br.topicCloudRadius,
-                name: br.entry.branch.name,
-                spokeAdjust: Number(br.entry.branch._spokeAdjust20) || 0,
-                anchor: rr.branchAnchor(br),
-                topics: (br.topics || []).map(item => {
-                    const rec = item.topic;
+                angle: br && br.angle || 0,
+                topicCloudRadius: br && br.topicCloudRadius || 0,
+                name: br && br.entry && br.entry.branch ? br.entry.branch.name : (br && br.name || ""),
+                spokeAdjust: Number(br && br.entry && br.entry.branch && br.entry.branch._spokeAdjust20) || 0,
+                anchor: typeof rr !== "undefined" && rr && rr.branchAnchor ? rr.branchAnchor(br) : { x: 0, y: 0 },
+                topics: (br && br.topics || []).map(item => {
+                    const rec = item && item.topic ? item.topic : { id: "unknown", label: "", isSubcategory: false };
                     return {
-                        cloudRadius: item.cloudRadius,
-                        cloudAngle: item.cloudAngle,
-                        cloudIndex: item.cloudIndex,
-                        childCloudRadius: item.childCloudRadius,
-                        cloudCount: item.cloudCount,
-                        radialFit: item._radialFit20,
+                        cloudRadius: item && item.cloudRadius || 0,
+                        cloudAngle: item && item.cloudAngle || 0,
+                        cloudIndex: item && item.cloudIndex || 0,
+                        childCloudRadius: item && item.childCloudRadius || 0,
+                        cloudCount: item && item.cloudCount || 0,
+                        radialFit: item && item._radialFit20,
                         id: rec.id,
                         label: rec.label,
                         isSub: rec.isSubcategory ? 1 : 0,
-                        children: (item.children || []).map(wrap => {
-                            const crec = wrap.child;
+                        children: (item && item.children || []).map(wrap => {
+                            const crec = wrap && wrap.child ? wrap.child : null;
                             return crec ? { cloudRadius: wrap.cloudRadius, cloudAngle: wrap.cloudAngle, radialFit: wrap._radialFit20, id: crec.id, label: crec.label, isStatic: crec.isStaticTopic ? 1 : 0 } : null;
-                        })
+                        }).filter(Boolean)
                     };
                 })
             }));
@@ -23943,19 +23937,24 @@ const TAXONOMY_CATEGORIES = [
                 const hit = sxEvalCache[slot];
                 if (hit && hit.sig === sig) return hit;
             }
-            const geo = sxSccBuild({ branches: dkLastBranches }), maps = sxNewMaps();
-            // Growth dominance readout (ruled 2026-10-28): with excl
-            // set, the SAME evaluation runs under the existing
-            // geo.sxRepExcl flag (same-branch pairs blind, exactly as
-            // the repulsion descent sets it), so a cloud's excluded
-            // value is its standing value minus its same-branch
-            // contribution. The default call is unchanged.
-            excl && (geo.sxRepExcl = !0);
-            const tot = sxFullEval(geo, maps);
-            const entry = { sig: sig, geo: geo, maps: maps, tot: tot };
-            if (null !== sig) sxEvalCache[slot] = entry;
-            else sxEvalCache = { standing: null, excluded: null };
-            return entry;
+            try {
+                const geo = sxSccBuild({ branches: dkLastBranches }), maps = sxNewMaps();
+                // Growth dominance readout (ruled 2026-10-28): with excl
+                // set, the SAME evaluation runs under the existing
+                // geo.sxRepExcl flag (same-branch pairs blind, exactly as
+                // the repulsion descent sets it), so a cloud's excluded
+                // value is its standing value minus its same-branch
+                // contribution. The default call is unchanged.
+                excl && (geo.sxRepExcl = !0);
+                const tot = sxFullEval(geo, maps);
+                const entry = { sig: sig, geo: geo, maps: maps, tot: tot };
+                if (null !== sig) sxEvalCache[slot] = entry;
+                else sxEvalCache = { standing: null, excluded: null };
+                return entry;
+            } catch (err) {
+                if (window.console && typeof window.console.warn === "function") window.console.warn("[sxGetEval] Error calculating crossing:", err);
+                return null;
+            }
         }
         function sxCrossingMeasure(excl) {
             const ev = sxGetEval(excl);
@@ -25438,7 +25437,7 @@ const TAXONOMY_CATEGORIES = [
                     const textWEst = Za.measure(a, fsEst, "topic") + tabWEst;
                     const gapEst = Math.max(20, 6 * Za.measure(" ", fsEst, "topic"));
                     const minReqSpoke = hubRadius1 + leafRadius2 + textWEst + gapEst + 48;
-                    if (!o && h < minReqSpoke) h = minReqSpoke;
+                    if (h < minReqSpoke) h = minReqSpoke;
                     const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m, hubRadius1), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
@@ -25461,20 +25460,19 @@ const TAXONOMY_CATEGORIES = [
                     const iconR2 = sxIconRadius(2);
                     let F, N;
                     if (L) {
-                        const minAllowedEnd = iconR2 + textW2 + 16;
-                        const safeHubEnd = y.routedLength - (hubR2 + 24);
+                        const minAllowedEnd = iconR2 + textW2 + 20;
+                        const safeHubEnd = y.routedLength - (hubR2 + 32);
                         F = Math.max(minAllowedEnd, Math.min(y.routedLength - P, safeHubEnd));
                         if (F < minAllowedEnd) F = minAllowedEnd;
-                        if (F > y.routedLength - (hubR2 + 10)) F = y.routedLength - (hubR2 + 10);
                         N = ' text-anchor="end"';
                     } else {
-                        const maxAllowedStart = y.routedLength - iconR2 - textW2 - 16;
-                        F = Math.max(hubR2 + 24, Math.min(P, maxAllowedStart));
+                        const safeHubStart = hubR2 + 32;
+                        const maxAllowedStart = y.routedLength - iconR2 - textW2 - 20;
+                        F = Math.max(safeHubStart, Math.min(P, maxAllowedStart));
                         if (F > maxAllowedStart) F = maxAllowedStart;
-                        if (F < hubR2 + 10) F = hubR2 + 10;
                         N = "";
                     }
-                    const _ = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
+                    const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
                         return pa((e?.topics || []).map(Wn), t, e => ua(e, t));
                     }(n.group, D) : ua(r, D), O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null;
                     const shape2 = Ge(r, D);
@@ -25495,7 +25493,7 @@ const TAXONOMY_CATEGORIES = [
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = `<g class="topic-icon${o ? " subcategory-icon" : "noCode" === B.hankyKey ? " no-hanky-code-icon" : ""}${B.glyphFallback ? " glyph-fallback" : ""}"${B.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${te}" ${ee} aria-hidden="true" style="color:${B.color}" transform="translate(${(V - ne).toFixed(2)} ${(Y - ne).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${ne}" cy="${ne}" r="${ne - .5}"/><circle class="icon-disc" cx="${ne}" cy="${ne}" r="${ne - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${ne}" cy="${ne}" r="${ne - 3.5}"/><g transform="translate(${ie.toFixed(3)} ${ie.toFixed(3)}) scale(${ae.toFixed(5)})">${B.glyph}${B.accent}</g></g>`, oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = yi(y.icon.x + y.ux * (ne + 20), y.icon.y + y.uy * (ne + 20), se, r), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : midColor2, sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${Ka(r, peT, 18, a, y.nx, y.ny, l.x, l.y, V, Y, !0, pr.topicIcon, G, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
-                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${_}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${L ? tab5 : ""}${Hi(a)}</textPath></text></g>`,
+                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${L ? tab5 : ""}${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
                         // Per-kink length override for subcategory
@@ -25556,17 +25554,16 @@ const TAXONOMY_CATEGORIES = [
                         const iconR3 = sxIconRadius(3);
                         let m, y;
                         if (h) {
-                            const minAllowedEnd = iconR3 + textW3 + 14;
-                            const safeHubEnd = p.routedLength - (hubR3 + 20);
+                            const minAllowedEnd = iconR3 + textW3 + 20;
+                            const safeHubEnd = p.routedLength - (hubR3 + 28);
                             m = Math.max(minAllowedEnd, Math.min(p.routedLength - p.labelOffset, safeHubEnd));
                             if (m < minAllowedEnd) m = minAllowedEnd;
-                            if (m > p.routedLength - (hubR3 + 10)) m = p.routedLength - (hubR3 + 10);
                             y = ' text-anchor="end"';
                         } else {
-                            const maxAllowedStart = p.routedLength - iconR3 - textW3 - 14;
-                            m = Math.max(hubR3 + 20, Math.min(p.labelOffset, maxAllowedStart));
+                            const safeHubStart = hubR3 + 28;
+                            const maxAllowedStart = p.routedLength - iconR3 - textW3 - 20;
+                            m = Math.max(safeHubStart, Math.min(p.labelOffset, maxAllowedStart));
                             if (m > maxAllowedStart) m = maxAllowedStart;
-                            if (m < hubR3 + 10) m = hubR3 + 10;
                             y = "";
                         }
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);
