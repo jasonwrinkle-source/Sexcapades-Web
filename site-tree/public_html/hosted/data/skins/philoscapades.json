@@ -1,0 +1,423 @@
+{
+  "skin": "philoscapades",
+  "name": "Philoscapades",
+  "domain": "Philosophy — Human Intellectual Commitments, Metaphysical Worldviews & Normative Frameworks",
+  "categories": [
+    {
+      "id": "xphc01",
+      "name": "Epistemology & Theory of Truth",
+      "about": "How beliefs are justified, what counts as grounds for knowing, and what makes a statement true.",
+      "topics": [
+        {
+          "id": "xph0001",
+          "name": "The Agrippan Trilemma / Justification Triad",
+          "risk": false,
+          "poles": [
+            {"key": "foundationalism", "label": "Foundationalism"},
+            {"key": "coherentism", "label": "Coherentism"},
+            {"key": "infinitism", "label": "Infinitism"}
+          ],
+          "widget": "triangle",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "How is a belief justified — what stops the regress?",
+            "poles": [
+              {"label": "Foundationalism", "text": "Basic self-evident beliefs justify all derived beliefs."},
+              {"label": "Coherentism", "text": "Beliefs justify one another in a mutually reinforcing web."},
+              {"label": "Infinitism", "text": "Justification is an open-ended, infinite chain of warrants."}
+            ]
+          },
+          "question": "How is a belief justified — what stops the regress?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §1.1"
+        },
+        {
+          "id": "xph0002",
+          "name": "Epistemic Grounds & Justification Matrix",
+          "risk": false,
+          "poles": [
+            {"key": "pure-rationalism", "label": "Pure Rationalism"},
+            {"key": "radical-empiricism", "label": "Radical Empiricism"},
+            {"key": "pragmatism", "label": "Pragmatism"},
+            {"key": "skepticism", "label": "Skepticism"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What counts as grounds for knowing?",
+            "poles": [
+              {"label": "Pure Rationalism", "text": "A priori deduction, innate ideas, intellectual intuition."},
+              {"label": "Radical Empiricism", "text": "A posteriori sensory verification, induction, tabula rasa."},
+              {"label": "Pragmatism", "text": "Truth is actionable utility and problem-solving efficacy."},
+              {"label": "Skepticism", "text": "Certainty is impossible; all knowledge is provisional."}
+            ]
+          },
+          "question": "What counts as grounds for knowing?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §1.2"
+        },
+        {
+          "id": "xph0003",
+          "name": "Theories of Truth",
+          "risk": false,
+          "poles": [
+            {"key": "correspondence", "label": "Correspondence"},
+            {"key": "coherence", "label": "Coherence"},
+            {"key": "pragmatic", "label": "Pragmatic"},
+            {"key": "deflationism", "label": "Deflationism"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What makes a statement true?",
+            "poles": [
+              {"label": "Correspondence", "text": "Truth is correspondence with objective mind-independent facts."},
+              {"label": "Coherence", "text": "Truth is internal consistency within an epistemic system."},
+              {"label": "Pragmatic", "text": "Truth is that which proves fertile in historical praxis."},
+              {"label": "Deflationism", "text": "'Truth' is a linguistic device, not a robust metaphysical property."}
+            ]
+          },
+          "question": "What makes a statement true?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §1.3"
+        },
+        {
+          "id": "xph0015",
+          "name": "The Epistemological Octad",
+          "risk": false,
+          "poles": [
+            {"key": "empiricism", "label": "Empiricism"},
+            {"key": "rationalism", "label": "Rationalism"},
+            {"key": "pragmatism", "label": "Pragmatism"},
+            {"key": "phenomenology", "label": "Phenomenology"},
+            {"key": "hermeneutics", "label": "Hermeneutics"},
+            {"key": "skepticism", "label": "Skepticism"},
+            {"key": "mysticism", "label": "Mysticism"},
+            {"key": "dialectics", "label": "Dialectics"}
+          ],
+          "widget": "octad-radar",
+          "archetype": "octad",
+          "hovertip": {
+            "issue": "The Epistemological Octad",
+            "poles": [
+              {"label": "Empiricism", "text": ""},
+              {"label": "Rationalism", "text": ""},
+              {"label": "Pragmatism", "text": ""},
+              {"label": "Phenomenology", "text": ""},
+              {"label": "Hermeneutics", "text": ""},
+              {"label": "Skepticism", "text": ""},
+              {"label": "Mysticism", "text": ""},
+              {"label": "Dialectics", "text": ""}
+            ]
+          },
+          "question": "The Epistemological Octad",
+          "source": "02i-taxonomy-catalog.js Ge() entry 'topic-eight-epistemologies' — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged"
+        }
+      ]
+    },
+    {
+      "id": "xphc02",
+      "name": "Metaphysics & Ontology",
+      "about": "What the mind is and how it relates to the body, whether we are free, whether universals exist, and what exists in time.",
+      "topics": [
+        {
+          "id": "xph0004",
+          "name": "The Mind-Body Ontology Matrix",
+          "risk": false,
+          "poles": [
+            {"key": "substance-dualism", "label": "Substance Dualism"},
+            {"key": "physicalism", "label": "Physicalism"},
+            {"key": "objective-idealism", "label": "Objective Idealism"},
+            {"key": "neutral-monism", "label": "Neutral Monism"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What is the mind, and how does it relate to the body?",
+            "poles": [
+              {"label": "Substance Dualism", "text": "Mind and physical matter are distinct, mutually irreducible ontologies."},
+              {"label": "Physicalism", "text": "All reality is physical; mental phenomena reduce to brain states."},
+              {"label": "Objective Idealism", "text": "Consciousness is primary; the physical world is a cognitive manifestation."},
+              {"label": "Neutral Monism", "text": "Mind and matter are two aspects of one neutral substance."}
+            ]
+          },
+          "question": "What is the mind, and how does it relate to the body?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.1"
+        },
+        {
+          "id": "xph0005",
+          "name": "Free Will, Agency & Determinism",
+          "risk": false,
+          "poles": [
+            {"key": "hard-determinism", "label": "Hard Determinism"},
+            {"key": "libertarian-agency", "label": "Libertarian Agency"},
+            {"key": "classical-compatibilism", "label": "Classical Compatibilism"},
+            {"key": "hard-incompatibilism", "label": "Hard Incompatibilism"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Are we free, or is everything determined?",
+            "poles": [
+              {"label": "Hard Determinism", "text": "Causal closure renders free will an illusion."},
+              {"label": "Libertarian Agency", "text": "Conscious agents possess genuine causal origination."},
+              {"label": "Classical Compatibilism", "text": "Freedom is acting according to internal motives, even if determined."},
+              {"label": "Hard Incompatibilism", "text": "Free will is impossible under determinism and indeterminism alike."}
+            ]
+          },
+          "question": "Are we free, or is everything determined?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.2"
+        },
+        {
+          "id": "xph0006",
+          "name": "The Ontology of Universals",
+          "risk": false,
+          "poles": [
+            {"key": "platonic-realism", "label": "Platonic Realism"},
+            {"key": "conceptualism", "label": "Conceptualism"},
+            {"key": "nominalism", "label": "Nominalism"}
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Do universals — redness, justice, triangularity — really exist?",
+            "poles": [
+              {"label": "Platonic Realism", "text": "Universals exist ante rem in an objective non-physical realm."},
+              {"label": "Conceptualism", "text": "Universals exist solely as conceptual frameworks within minds."},
+              {"label": "Nominalism", "text": "Only individual particulars exist; universals are mere names."}
+            ]
+          },
+          "question": "Do universals — redness, justice, triangularity — really exist?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.3"
+        },
+        {
+          "id": "xph0007",
+          "name": "The Metaphysics of Time",
+          "risk": false,
+          "poles": [
+            {"key": "presentism", "label": "Presentism"},
+            {"key": "growing-block", "label": "Growing Block"},
+            {"key": "eternalism", "label": "Eternalism"}
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "What exists in time — only now, or past and future too?",
+            "poles": [
+              {"label": "Presentism", "text": "Only the present moment exists; past is gone, future unformed."},
+              {"label": "Growing Block", "text": "Past and present exist; the future is actively becoming."},
+              {"label": "Eternalism", "text": "Past, present, and future exist simultaneously in 4D spacetime."}
+            ]
+          },
+          "question": "What exists in time — only now, or past and future too?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.4"
+        }
+      ]
+    },
+    {
+      "id": "xphc03",
+      "name": "Axiology & Normative Ethics",
+      "about": "What makes an act right, what kind of thing a moral claim is, and what has intrinsic value.",
+      "topics": [
+        {
+          "id": "xph0008",
+          "name": "The Grand Normative Ethical Quartet",
+          "risk": false,
+          "poles": [
+            {"key": "deontology", "label": "Deontology"},
+            {"key": "consequentialism", "label": "Consequentialism"},
+            {"key": "virtue-ethics", "label": "Virtue Ethics"},
+            {"key": "care-ethics", "label": "Care Ethics"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What makes an act right?",
+            "poles": [
+              {"label": "Deontology", "text": "Categorical imperatives, rights, moral rules independent of outcome."},
+              {"label": "Consequentialism", "text": "Maximizing net flourishing, welfare, or utility."},
+              {"label": "Virtue Ethics", "text": "Cultivating character, phronesis, and eudaimonia."},
+              {"label": "Care Ethics", "text": "Interdependence, contextual compassion, vulnerability."}
+            ]
+          },
+          "question": "What makes an act right?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §3.1"
+        },
+        {
+          "id": "xph0009",
+          "name": "Meta-Ethics Compass",
+          "risk": false,
+          "poles": [
+            {"key": "moral-realism", "label": "Moral Realism"},
+            {"key": "moral-relativism", "label": "Moral Relativism"},
+            {"key": "error-theory", "label": "Error Theory"},
+            {"key": "expressivism", "label": "Expressivism"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What kind of thing is a moral claim?",
+            "poles": [
+              {"label": "Moral Realism", "text": "Objective moral facts exist independently of human attitudes."},
+              {"label": "Moral Relativism", "text": "Moral claims are true relative to cultural or individual standards."},
+              {"label": "Error Theory", "text": "All moral propositions are cognitive but systematically false."},
+              {"label": "Expressivism", "text": "Moral claims express non-truth-apt emotions or commands."}
+            ]
+          },
+          "question": "What kind of thing is a moral claim?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §3.2"
+        },
+        {
+          "id": "xph0010",
+          "name": "Axiological Goods / What Has Intrinsic Value",
+          "risk": false,
+          "poles": [
+            {"key": "hedonism", "label": "Hedonism"},
+            {"key": "eudaimonism", "label": "Eudaimonism"},
+            {"key": "desire-satisfaction", "label": "Desire-Satisfaction"},
+            {"key": "objective-list", "label": "Objective List"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What has intrinsic value?",
+            "poles": [
+              {"label": "Hedonism", "text": "Conscious pleasure and absence of pain are the sole intrinsic goods."},
+              {"label": "Eudaimonism", "text": "Human flourishing, virtue, realization of rational potential."},
+              {"label": "Desire-Satisfaction", "text": "Fulfillment of individual subjective preferences and projects."},
+              {"label": "Objective List", "text": "A plurality of goods: knowledge, beauty, friendship, autonomy."}
+            ]
+          },
+          "question": "What has intrinsic value?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §3.3"
+        }
+      ]
+    },
+    {
+      "id": "xphc04",
+      "name": "Philosophy of Mind & Consciousness",
+      "about": "What consciousness is, and where it comes from.",
+      "topics": [
+        {
+          "id": "xph0011",
+          "name": "The Consciousness Spectrum",
+          "risk": false,
+          "poles": [
+            {"key": "illusionism", "label": "Illusionism"},
+            {"key": "computational-functionalism", "label": "Computational Functionalism"},
+            {"key": "biological-emergence", "label": "Biological Emergence"},
+            {"key": "panpsychism", "label": "Panpsychism"},
+            {"key": "cosmopsychism", "label": "Cosmopsychism"}
+          ],
+          "widget": "star-radar",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What is consciousness, and where does it come from?",
+            "poles": [
+              {"label": "Illusionism", "text": "Phenomenal consciousness and qualia do not exist."},
+              {"label": "Computational Functionalism", "text": "Mind is software; multiple realizability."},
+              {"label": "Biological Emergence", "text": "Consciousness is an emergent biological feature."},
+              {"label": "Panpsychism", "text": "Consciousness is fundamental to all matter."},
+              {"label": "Cosmopsychism", "text": "One universal consciousness dissociates into minds."}
+            ]
+          },
+          "question": "What is consciousness, and where does it come from?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §4.1"
+        }
+      ]
+    },
+    {
+      "id": "xphc05",
+      "name": "Existentialism & The Human Condition",
+      "about": "Life has no built-in meaning — what do you do about it?",
+      "topics": [
+        {
+          "id": "xph0012",
+          "name": "Responses to the Absurd",
+          "risk": false,
+          "poles": [
+            {"key": "camusian-revolt", "label": "Camusian Revolt"},
+            {"key": "kierkegaardian-leap", "label": "Kierkegaardian Leap"},
+            {"key": "sartrean-freedom", "label": "Sartrean Freedom"},
+            {"key": "nietzschean-overcoming", "label": "Nietzschean Overcoming"},
+            {"key": "stoic-acceptance", "label": "Stoic Acceptance"},
+            {"key": "transhumanist-overcoming", "label": "Transhumanist Overcoming"}
+          ],
+          "widget": "hexad-radar",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Life has no built-in meaning — what do you do about it?",
+            "poles": [
+              {"label": "Camusian Revolt", "text": "Live defiantly in the face of meaninglessness, without illusion."},
+              {"label": "Kierkegaardian Leap", "text": "Transcend the absurd through religious surrender."},
+              {"label": "Sartrean Freedom", "text": "Existence precedes essence; author your own meaning."},
+              {"label": "Nietzschean Overcoming", "text": "Transvalue old dogmas; forge the Übermensch."},
+              {"label": "Stoic Acceptance", "text": "Harmonize with cosmic necessity; amor fati."},
+              {"label": "Transhumanist Overcoming", "text": "Engineer the biological vehicle."}
+            ]
+          },
+          "question": "Life has no built-in meaning — what do you do about it?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §5.1"
+        }
+      ]
+    },
+    {
+      "id": "xphc06",
+      "name": "Political Philosophy & Justice",
+      "about": "What justice is, and where truth resides.",
+      "topics": [
+        {
+          "id": "xph0013",
+          "name": "The Four Theories of Justice",
+          "risk": false,
+          "poles": [
+            {"key": "distributive", "label": "Distributive"},
+            {"key": "retributive", "label": "Retributive"},
+            {"key": "restorative", "label": "Restorative"},
+            {"key": "procedural", "label": "Procedural"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What is justice?",
+            "poles": [
+              {"label": "Distributive", "text": "Fair economic allocation; the difference principle."},
+              {"label": "Retributive", "text": "Proportional desert and retribution for moral wrongs."},
+              {"label": "Restorative", "text": "Rehabilitation, healing relationships, reconciliation."},
+              {"label": "Procedural", "text": "Strict adherence to voluntary acquisition and transfer."}
+            ]
+          },
+          "question": "What is justice?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §6.1"
+        },
+        {
+          "id": "xph0014",
+          "name": "Seven Theories of Truth",
+          "risk": false,
+          "poles": [
+            {"key": "correspondence", "label": "Correspondence"},
+            {"key": "coherence", "label": "Coherence"},
+            {"key": "pragmatic", "label": "Pragmatic"},
+            {"key": "deflationary", "label": "Deflationary"},
+            {"key": "semantic", "label": "Semantic"},
+            {"key": "epistemic", "label": "Epistemic"},
+            {"key": "phenomenological", "label": "Phenomenological"}
+          ],
+          "widget": "heptad-radar",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Where does truth reside?",
+            "poles": [
+              {"label": "Correspondence", "text": "Structural isomorphism between proposition and mind-independent reality."},
+              {"label": "Coherence", "text": "Systemic consistency within an interconnected web of propositions."},
+              {"label": "Pragmatic", "text": "What works in experiential practice and fruitful inquiry."},
+              {"label": "Deflationary", "text": "Asserting truth adds no semantic content beyond the sentence itself."},
+              {"label": "Semantic", "text": "Truth defined across meta-language satisfaction criteria, without paradox."},
+              {"label": "Epistemic", "text": "Ideal rational assertibility under conditions of unforced consensus."},
+              {"label": "Phenomenological", "text": "Truth as unhiddenness, unconcealment, primordial clearing (aletheia)."}
+            ]
+          },
+          "question": "Where does truth reside?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §6.2"
+        }
+      ]
+    }
+  ]
+}

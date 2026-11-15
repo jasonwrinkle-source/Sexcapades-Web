@@ -1,0 +1,1098 @@
+{
+  "skin": "theoricapades",
+  "name": "Theoricapades",
+  "domain": "Pure & Theoretical Mathematics — what math is, what makes it true, and how you live as a mathematician",
+  "categories": [
+    {
+      "id": "xthc01",
+      "name": "Foundations & Ontology",
+      "about": "What mathematics is at bottom, where its structure resides, and whether infinity and mathematical reality are discovered or made.",
+      "topics": [
+        {
+          "id": "xth0001",
+          "name": "Foundations of Mathematics",
+          "risk": false,
+          "poles": [
+            {
+              "key": "platonism",
+              "label": "Platonism"
+            },
+            {
+              "key": "formalism",
+              "label": "Formalism"
+            },
+            {
+              "key": "intuitionism",
+              "label": "Intuitionism"
+            },
+            {
+              "key": "logicism",
+              "label": "Logicism"
+            },
+            {
+              "key": "structuralism",
+              "label": "Structuralism"
+            }
+          ],
+          "widget": "star-radar",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What is mathematics, at bottom?",
+            "poles": [
+              {
+                "label": "Platonism",
+                "text": "Mathematical objects exist independently; we discover them."
+              },
+              {
+                "label": "Formalism",
+                "text": "Math is symbols and rules; meaning is irrelevant."
+              },
+              {
+                "label": "Intuitionism",
+                "text": "Math is a construction of the mind; only what can be built is real."
+              },
+              {
+                "label": "Logicism",
+                "text": "Math reduces to logic; all truths are logical truths."
+              },
+              {
+                "label": "Structuralism",
+                "text": "Math is about structures and patterns, not objects."
+              }
+            ]
+          },
+          "question": "What is mathematics, at bottom?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.1 — Abstracapades 1.1 (the pentad is more complete than Axiomcapades' triad, which drops Logicism and Structuralism)."
+        },
+        {
+          "id": "xth0002",
+          "name": "Foundational Bedrock: Sets vs. Categories vs. Types",
+          "risk": false,
+          "poles": [
+            {
+              "key": "zfc-set-theory",
+              "label": "ZFC Set Theory"
+            },
+            {
+              "key": "category-theory-topoi",
+              "label": "Category Theory / Topoi"
+            },
+            {
+              "key": "homotopy-type-theory-hott",
+              "label": "Homotopy Type Theory (HoTT)"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Where does mathematical structure ultimately reside?",
+            "poles": [
+              {
+                "label": "ZFC Set Theory",
+                "text": "Classical cumulative hierarchy of sets; the universal standard."
+              },
+              {
+                "label": "Category Theory / Topoi",
+                "text": "Arrows, functors, universal properties; relations over elements."
+              },
+              {
+                "label": "Homotopy Type Theory (HoTT)",
+                "text": "Constructive type theory; identity is homotopy equivalence."
+              }
+            ]
+          },
+          "question": "Where does mathematical structure ultimately reside?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.2 — Axiomcapades 1.2 (Abstracapades did not cover this)."
+        },
+        {
+          "id": "xth0003",
+          "name": "The Law of Excluded Middle: Classical vs. Constructive Logic",
+          "risk": false,
+          "poles": [
+            {
+              "key": "classical-logic",
+              "label": "Classical Logic"
+            },
+            {
+              "key": "constructive-logic",
+              "label": "Constructive Logic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is proof by contradiction genuine knowledge?",
+            "poles": [
+              {
+                "label": "Classical Logic",
+                "text": "LEM holds; proof by contradiction is fully valid."
+              },
+              {
+                "label": "Constructive Logic",
+                "text": "LEM rejected; existence requires an explicit witness."
+              }
+            ]
+          },
+          "question": "Is proof by contradiction genuine knowledge?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.3 — Axiomcapades 1.3 (the LEM detail; Abstracapades 2.1 is the same topic in plainer form)."
+        },
+        {
+          "id": "xth0004",
+          "name": "Discovered vs Invented",
+          "risk": false,
+          "poles": [
+            {
+              "key": "discovered",
+              "label": "Discovered"
+            },
+            {
+              "key": "invented",
+              "label": "Invented"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is math discovered or invented?",
+            "poles": [
+              {
+                "label": "Discovered",
+                "text": "Math is out there; we find it."
+              },
+              {
+                "label": "Invented",
+                "text": "Math is made up by humans."
+              }
+            ]
+          },
+          "question": "Is math discovered or invented?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.4 — Abstracapades 1.2."
+        },
+        {
+          "id": "xth0005",
+          "name": "Mathematical Universe Hypothesis: Realist Ontology",
+          "risk": false,
+          "poles": [
+            {
+              "key": "radical-mathematical-realism",
+              "label": "Radical Mathematical Realism"
+            },
+            {
+              "key": "epistemic-anti-realism",
+              "label": "Epistemic Anti-Realism"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is reality made of mathematics, or is mathematics made by human minds?",
+            "poles": [
+              {
+                "label": "Radical Mathematical Realism",
+                "text": "Our universe literally is a mathematical structure."
+              },
+              {
+                "label": "Epistemic Anti-Realism",
+                "text": "Mathematics is a human cognitive language and mapping tool."
+              }
+            ]
+          },
+          "question": "Is reality made of mathematics, or is mathematics made by human minds?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.5 — Axiomcapades 1.4."
+        },
+        {
+          "id": "xth0006",
+          "name": "Infinity: Actual vs Potential",
+          "risk": false,
+          "poles": [
+            {
+              "key": "actual-infinity",
+              "label": "Actual infinity"
+            },
+            {
+              "key": "potential-infinity",
+              "label": "Potential infinity"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is infinity a thing, or just a direction?",
+            "poles": [
+              {
+                "label": "Actual infinity",
+                "text": "A completed thing (Cantor)."
+              },
+              {
+                "label": "Potential infinity",
+                "text": "A process, never finished (Aristotle)."
+              }
+            ]
+          },
+          "question": "Is infinity a thing, or just a direction?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.6 — Abstracapades 1.3."
+        }
+      ]
+    },
+    {
+      "id": "xthc02",
+      "name": "Method & Style",
+      "about": "How mathematicians attack problems, how abstract they go, and whether they think in pictures or symbols.",
+      "topics": [
+        {
+          "id": "xth0007",
+          "name": "The Rising Sea vs. The Hammer & Chisel",
+          "risk": false,
+          "poles": [
+            {
+              "key": "the-rising-sea",
+              "label": "The Rising Sea"
+            },
+            {
+              "key": "the-hammer-chisel",
+              "label": "The Hammer & Chisel"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you submerge problems in abstract machinery or crack them with direct ingenuity?",
+            "poles": [
+              {
+                "label": "The Rising Sea",
+                "text": "Build vast conceptual machinery until the theorem becomes obvious."
+              },
+              {
+                "label": "The Hammer & Chisel",
+                "text": "Direct assault: hard combinatorics, brutal inequalities, ad-hoc ingenuity."
+              }
+            ]
+          },
+          "question": "Do you submerge problems in abstract machinery or crack them with direct ingenuity?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.1 — Axiomcapades 2.1."
+        },
+        {
+          "id": "xth0008",
+          "name": "Abstraction: Deep Generalization vs. Concrete Jewels",
+          "risk": false,
+          "poles": [
+            {
+              "key": "extreme-structural-abstraction",
+              "label": "Extreme Structural Abstraction"
+            },
+            {
+              "key": "exceptional-concrete-jewels",
+              "label": "Exceptional Concrete Jewels"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are you captivated by universal abstractions or exceptional concrete gems?",
+            "poles": [
+              {
+                "label": "Extreme Structural Abstraction",
+                "text": "Infinity-categories, motives, universal properties; the meta-pattern."
+              },
+              {
+                "label": "Exceptional Concrete Jewels",
+                "text": "The Monster group, the Leech lattice, E8; unique idiosyncratic structures."
+              }
+            ]
+          },
+          "question": "Are you captivated by universal abstractions or exceptional concrete gems?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.2 — Axiomcapades 2.2."
+        },
+        {
+          "id": "xth0009",
+          "name": "Abstraction: High vs Low",
+          "risk": false,
+          "poles": [
+            {
+              "key": "high-abstraction",
+              "label": "High abstraction"
+            },
+            {
+              "key": "low-abstraction",
+              "label": "Low abstraction"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How abstract should math be?",
+            "poles": [
+              {
+                "label": "High abstraction",
+                "text": "Category theory, the general."
+              },
+              {
+                "label": "Low abstraction",
+                "text": "Concrete computation, the particular."
+              }
+            ]
+          },
+          "question": "How abstract should math be?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.3 — Abstracapades 5.1."
+        },
+        {
+          "id": "xth0010",
+          "name": "Erdős's \"The Book\": Proof Aesthetics",
+          "risk": false,
+          "poles": [
+            {
+              "key": "luminous-simplicity-the-book",
+              "label": "Luminous Simplicity (\"The Book\")"
+            },
+            {
+              "key": "architectural-monumentality",
+              "label": "Architectural Monumentality"
+            },
+            {
+              "key": "constructive-computational-revelation",
+              "label": "Constructive Computational Revelation"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What is the highest form of mathematical beauty in a proof?",
+            "poles": [
+              {
+                "label": "Luminous Simplicity (\"The Book\")",
+                "text": "Two lines of breathtaking, unexpected ingenuity."
+              },
+              {
+                "label": "Architectural Monumentality",
+                "text": "A 1,000-page cathedral of structural logic."
+              },
+              {
+                "label": "Constructive Computational Revelation",
+                "text": "An illuminating algorithm that calculates the inner mechanics."
+              }
+            ]
+          },
+          "question": "What is the highest form of mathematical beauty in a proof?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.4 — Axiomcapades 2.3."
+        },
+        {
+          "id": "xth0011",
+          "name": "Visual vs Symbolic",
+          "risk": false,
+          "poles": [
+            {
+              "key": "visual",
+              "label": "Visual"
+            },
+            {
+              "key": "symbolic",
+              "label": "Symbolic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you think in pictures or in symbols?",
+            "poles": [
+              {
+                "label": "Visual",
+                "text": "Pictures, diagrams, geometry."
+              },
+              {
+                "label": "Symbolic",
+                "text": "Formulas, algebra, symbols."
+              }
+            ]
+          },
+          "question": "Do you think in pictures or in symbols?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.5 — Abstracapades 5.2."
+        },
+        {
+          "id": "xth0012",
+          "name": "Intuition: Trust vs Distrust",
+          "risk": false,
+          "poles": [
+            {
+              "key": "trust",
+              "label": "Trust"
+            },
+            {
+              "key": "distrust",
+              "label": "Distrust"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust mathematical intuition?",
+            "poles": [
+              {
+                "label": "Trust",
+                "text": "Intuition guides you right."
+              },
+              {
+                "label": "Distrust",
+                "text": "Intuition misleads; only proof counts."
+              }
+            ]
+          },
+          "question": "Do you trust mathematical intuition?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.6 — Abstracapades 5.3."
+        }
+      ]
+    },
+    {
+      "id": "xthc03",
+      "name": "Branches & Territory",
+      "about": "Which branch of pure mathematics is home, and where you stand on the pure/applied divide.",
+      "topics": [
+        {
+          "id": "xth0013",
+          "name": "The Quadrivium of Pure Mathematics",
+          "risk": false,
+          "poles": [
+            {
+              "key": "algebra-symmetry",
+              "label": "Algebra & Symmetry"
+            },
+            {
+              "key": "geometry-topology",
+              "label": "Geometry & Topology"
+            },
+            {
+              "key": "analysis-continua",
+              "label": "Analysis & Continua"
+            },
+            {
+              "key": "number-theory-arithmetic",
+              "label": "Number Theory & Arithmetic"
+            }
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Where does your primary mathematical heart dwell?",
+            "poles": [
+              {
+                "label": "Algebra & Symmetry",
+                "text": "Groups, rings, fields, Galois theory; symmetry and transformation."
+              },
+              {
+                "label": "Geometry & Topology",
+                "text": "Manifolds, knot theory, shape and invariants under deformation."
+              },
+              {
+                "label": "Analysis & Continua",
+                "text": "Limits, measures, continuous variation; real and complex analysis."
+              },
+              {
+                "label": "Number Theory & Arithmetic",
+                "text": "Primes, modular forms, elliptic curves; the Queen of Mathematics."
+              }
+            ]
+          },
+          "question": "Where does your primary mathematical heart dwell?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.1 — Axiomcapades 3.1 (the tetrad adds Number Theory, which Abstracapades' triad omitted)."
+        },
+        {
+          "id": "xth0014",
+          "name": "Combinatorics & Discrete Structures",
+          "type": "single",
+          "risk": false,
+          "poles": [
+            {
+              "key": "affinity-for-discrete-mathematics-combinatorics",
+              "label": "Affinity for Discrete Mathematics & Combinatorics"
+            }
+          ],
+          "widget": "monopole-slider",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How strong is your passion for the finite and discrete?",
+            "poles": [
+              {
+                "label": "Affinity",
+                "text": "Graphs, posets, extremal combinatorics, partition theory (rate 0–100)."
+              }
+            ]
+          },
+          "question": "How strong is your passion for the finite and discrete?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.2 — Axiomcapades 3.2."
+        },
+        {
+          "id": "xth0015",
+          "name": "Discrete vs Continuous",
+          "risk": false,
+          "poles": [
+            {
+              "key": "discrete",
+              "label": "Discrete"
+            },
+            {
+              "key": "continuous",
+              "label": "Continuous"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you live in the discrete world or the continuous one?",
+            "poles": [
+              {
+                "label": "Discrete",
+                "text": "Combinatorics, number theory, graphs."
+              },
+              {
+                "label": "Continuous",
+                "text": "Analysis, topology, geometry."
+              }
+            ]
+          },
+          "question": "Do you live in the discrete world or the continuous one?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.3 — Abstracapades 4.2."
+        },
+        {
+          "id": "xth0016",
+          "name": "Pure vs Applied",
+          "risk": false,
+          "poles": [
+            {
+              "key": "pure",
+              "label": "Pure"
+            },
+            {
+              "key": "applied",
+              "label": "Applied"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "The skin-defining divide — where do you stand?",
+            "poles": [
+              {
+                "label": "Pure",
+                "text": "Math for its own sake."
+              },
+              {
+                "label": "Applied",
+                "text": "Math for what it does."
+              }
+            ]
+          },
+          "question": "The skin-defining divide — where do you stand?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.4 — Abstracapades 4.3."
+        }
+      ]
+    },
+    {
+      "id": "xthc04",
+      "name": "Proof & Verification",
+      "about": "What counts as a proof — computer-checked, human-consented, or rigorously closed.",
+      "topics": [
+        {
+          "id": "xth0017",
+          "name": "Computer Proof",
+          "risk": false,
+          "poles": [
+            {
+              "key": "accept",
+              "label": "Accept"
+            },
+            {
+              "key": "reject",
+              "label": "Reject"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is the Four Color Theorem proved?",
+            "poles": [
+              {
+                "label": "Accept",
+                "text": "A computer-assisted proof is a real proof."
+              },
+              {
+                "label": "Reject",
+                "text": "If a human can't check it, it isn't a proof."
+              }
+            ]
+          },
+          "question": "Is the Four Color Theorem proved?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.1 — Abstracapades 2.2."
+        },
+        {
+          "id": "xth0018",
+          "name": "Proof Verification: Computer Proof Assistants vs. Human Social Consensus",
+          "risk": false,
+          "poles": [
+            {
+              "key": "machine-checked-formalization",
+              "label": "Machine-Checked Formalization"
+            },
+            {
+              "key": "human-social-consensus",
+              "label": "Human Social Consensus"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does absolute certainty require interactive proof assistants?",
+            "poles": [
+              {
+                "label": "Machine-Checked Formalization",
+                "text": "Lean, Coq, Isabelle; verified to the kernel."
+              },
+              {
+                "label": "Human Social Consensus",
+                "text": "Math is a dialogue among human minds; machine proofs miss comprehension."
+              }
+            ]
+          },
+          "question": "Does absolute certainty require interactive proof assistants?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.2 — Axiomcapades 4.1."
+        },
+        {
+          "id": "xth0019",
+          "name": "Axiom of Choice (AC) Stance",
+          "risk": false,
+          "poles": [
+            {
+              "key": "unconditional-acceptance-zfc",
+              "label": "Unconditional Acceptance (ZFC)"
+            },
+            {
+              "key": "skeptical-restriction-zf-dependent-choice",
+              "label": "Skeptical Restriction (ZF + Dependent Choice)"
+            },
+            {
+              "key": "defiant-rejection-constructive-determinacy",
+              "label": "Defiant Rejection (Constructive / Determinacy)"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "How do you relate to the Axiom of Choice?",
+            "poles": [
+              {
+                "label": "Unconditional Acceptance (ZFC)",
+                "text": "Indispensable; without AC, functional analysis collapses."
+              },
+              {
+                "label": "Skeptical Restriction (ZF + Dependent Choice)",
+                "text": "Accept weak choice; reject non-measurable sets."
+              },
+              {
+                "label": "Defiant Rejection (ZF + AD)",
+                "text": "Every set of reals is Lebesgue measurable."
+              }
+            ]
+          },
+          "question": "How do you relate to the Axiom of Choice?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.3 — Axiomcapades 4.2."
+        },
+        {
+          "id": "xth0020",
+          "name": "Conjecture Orientation: Conjecture-Solver vs. Theory-Builder",
+          "risk": false,
+          "poles": [
+            {
+              "key": "conjecture-solver",
+              "label": "Conjecture Solver"
+            },
+            {
+              "key": "theory-builder",
+              "label": "Theory Builder"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you slay famous open problems or build new mathematical worlds?",
+            "poles": [
+              {
+                "label": "Conjecture Solver",
+                "text": "Hunts white whales: Riemann, BSD, Goldbach."
+              },
+              {
+                "label": "Theory Builder",
+                "text": "Develops new conceptual languages where old problems dissolve."
+              }
+            ]
+          },
+          "question": "Do you slay famous open problems or build new mathematical worlds?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.4 — Axiomcapades 4.3."
+        },
+        {
+          "id": "xth0021",
+          "name": "Rigor vs Intuition",
+          "risk": false,
+          "poles": [
+            {
+              "key": "rigor",
+              "label": "Rigor"
+            },
+            {
+              "key": "intuition",
+              "label": "Intuition"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust formal rigor, or mathematical intuition?",
+            "poles": [
+              {
+                "label": "Rigor",
+                "text": "Formal proof, no gaps."
+              },
+              {
+                "label": "Intuition",
+                "text": "Insight, the feel of it."
+              }
+            ]
+          },
+          "question": "Do you trust formal rigor, or mathematical intuition?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.5 — Abstracapades 2.3."
+        }
+      ]
+    },
+    {
+      "id": "xthc05",
+      "name": "Beauty & Reality",
+      "about": "What makes mathematics beautiful, and how pure mathematics relates to physical reality.",
+      "topics": [
+        {
+          "id": "xth0022",
+          "name": "Elegance vs Power",
+          "risk": false,
+          "poles": [
+            {
+              "key": "elegance",
+              "label": "Elegance"
+            },
+            {
+              "key": "power",
+              "label": "Power"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "What makes good math — a beautiful proof, or a powerful theorem?",
+            "poles": [
+              {
+                "label": "Elegance",
+                "text": "A beautiful proof."
+              },
+              {
+                "label": "Power",
+                "text": "A powerful result."
+              }
+            ]
+          },
+          "question": "What makes good math — a beautiful proof, or a powerful theorem?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.1 — Abstracapades 3.1."
+        },
+        {
+          "id": "xth0023",
+          "name": "Simplicity vs Depth",
+          "risk": false,
+          "poles": [
+            {
+              "key": "simplicity",
+              "label": "Simplicity"
+            },
+            {
+              "key": "depth",
+              "label": "Depth"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you value simple results or deep ones?",
+            "poles": [
+              {
+                "label": "Simplicity",
+                "text": "Clean, spare results."
+              },
+              {
+                "label": "Depth",
+                "text": "Rich, complex structures."
+              }
+            ]
+          },
+          "question": "Do you value simple results or deep ones?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.2 — Abstracapades 3.2."
+        },
+        {
+          "id": "xth0024",
+          "name": "Beauty: Essential vs Incidental",
+          "risk": false,
+          "poles": [
+            {
+              "key": "essential",
+              "label": "Essential"
+            },
+            {
+              "key": "incidental",
+              "label": "Incidental"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is beauty in math a guide to truth, or just a pleasure?",
+            "poles": [
+              {
+                "label": "Essential",
+                "text": "Beauty is a sign of truth."
+              },
+              {
+                "label": "Incidental",
+                "text": "Beauty is a nice bonus."
+              }
+            ]
+          },
+          "question": "Is beauty in math a guide to truth, or just a pleasure?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.3 — Abstracapades 3.3."
+        },
+        {
+          "id": "xth0025",
+          "name": "G.H. Hardy's Stance: Proud Inutility vs. Unreasonable Effectiveness",
+          "risk": false,
+          "poles": [
+            {
+              "key": "proud-inutility-hardy-s-apology",
+              "label": "Proud Inutility (Hardy's Apology)"
+            },
+            {
+              "key": "unreasonable-effectiveness-wigner",
+              "label": "Unreasonable Effectiveness (Wigner)"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is pure math untainted because it has no application, or miraculous because it secretly mirrors physics?",
+            "poles": [
+              {
+                "label": "Proud Inutility",
+                "text": "Pure math is noble precisely because it has no base applications."
+              },
+              {
+                "label": "Unreasonable Effectiveness",
+                "text": "Esoteric pure math mysteriously anticipates the laws of nature."
+              }
+            ]
+          },
+          "question": "Is pure math untainted because it has no application, or miraculous because it secretly mirrors physics?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.4 — Axiomcapades 5.1."
+        },
+        {
+          "id": "xth0026",
+          "name": "Pure Mathematics vs. Physics Boundary",
+          "risk": false,
+          "poles": [
+            {
+              "key": "autonomous-self-reference",
+              "label": "Autonomous Self-Reference"
+            },
+            {
+              "key": "physical-symbiosis",
+              "label": "Physical Symbiosis"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should pure math be guided by internal consistency or physical insight?",
+            "poles": [
+              {
+                "label": "Autonomous Self-Reference",
+                "text": "Math answers only to its own internal logic."
+              },
+              {
+                "label": "Physical Symbiosis",
+                "text": "Breakthroughs are fertilized by quantum field theory and relativity."
+              }
+            ]
+          },
+          "question": "Should pure math be guided by internal consistency or physical insight?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.5 — Axiomcapades 5.2."
+        }
+      ]
+    },
+    {
+      "id": "xthc06",
+      "name": "The Mathematical Life",
+      "about": "How you live as a mathematician — alone or together, chalk or computer, teaching or research.",
+      "topics": [
+        {
+          "id": "xth0027",
+          "name": "The Social Mode: The Wandering Erdős vs. The Monastic Perelman",
+          "risk": false,
+          "poles": [
+            {
+              "key": "hyper-collaborative-itinerant-erdos-mode",
+              "label": "Hyper-Collaborative / Itinerant (Erdős Mode)"
+            },
+            {
+              "key": "ascetic-monastic-solitude-perelman-grothendieck-mode",
+              "label": "Ascetic Monastic Solitude (Perelman / Grothendieck Mode)"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How do you pursue the mathematical life?",
+            "poles": [
+              {
+                "label": "Hyper-Collaborative / Itinerant (Erdős)",
+                "text": "Hundreds of coauthors, constant dialogue, math in coffee houses."
+              },
+              {
+                "label": "Ascetic Monastic Solitude (Perelman)",
+                "text": "Years alone, zero distractions, indifferent to prizes."
+              }
+            ]
+          },
+          "question": "How do you pursue the mathematical life?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.1 — Axiomcapades 6.1 (the vivid Erdős/Perelman framing of Abstracapades 6.1's Collaboration vs Solitude)."
+        },
+        {
+          "id": "xth0028",
+          "name": "The Instrument: Chalk & Slate vs. Digital Computation",
+          "risk": false,
+          "poles": [
+            {
+              "key": "traditional-chalkboard",
+              "label": "Traditional Chalkboard"
+            },
+            {
+              "key": "digital-computational-experimentation",
+              "label": "Digital & Computational Experimentation"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How do you explore mathematics?",
+            "poles": [
+              {
+                "label": "Traditional Chalkboard",
+                "text": "Dust on slate, live seminars, pure mental calculation."
+              },
+              {
+                "label": "Digital & Computational",
+                "text": "Sage, Mathematica, experimental math, algorithmic visualization."
+              }
+            ]
+          },
+          "question": "How do you explore mathematics?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.2 — Axiomcapades 6.2."
+        },
+        {
+          "id": "xth0029",
+          "name": "The Reward: Aesthetic Epiphany vs. Institutional Immortality",
+          "risk": false,
+          "poles": [
+            {
+              "key": "private-aesthetic-epiphany",
+              "label": "Private Aesthetic Epiphany"
+            },
+            {
+              "key": "institutional-immortality",
+              "label": "Institutional Immortality"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "What is the ultimate reward of pure mathematics?",
+            "poles": [
+              {
+                "label": "Private Aesthetic Epiphany",
+                "text": "The silent ecstasy of understanding an eternal truth."
+              },
+              {
+                "label": "Institutional Immortality",
+                "text": "Fields Medal, Abel Prize, named theorems, legacy in the literature."
+              }
+            ]
+          },
+          "question": "What is the ultimate reward of pure mathematics?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.3 — Axiomcapades 6.3."
+        },
+        {
+          "id": "xth0030",
+          "name": "Publication vs Perfection",
+          "risk": false,
+          "poles": [
+            {
+              "key": "publish-quickly",
+              "label": "Publish quickly"
+            },
+            {
+              "key": "polish-forever",
+              "label": "Polish forever"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you publish fast, or perfect first?",
+            "poles": [
+              {
+                "label": "Publish quickly",
+                "text": "Get it out."
+              },
+              {
+                "label": "Polish forever",
+                "text": "Perfect it first."
+              }
+            ]
+          },
+          "question": "Do you publish fast, or perfect first?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.4 — Abstracapades 6.2."
+        },
+        {
+          "id": "xth0031",
+          "name": "Teaching vs Research",
+          "risk": false,
+          "poles": [
+            {
+              "key": "teaching",
+              "label": "Teaching"
+            },
+            {
+              "key": "research",
+              "label": "Research"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you value teaching or research more?",
+            "poles": [
+              {
+                "label": "Teaching",
+                "text": "Passing it on."
+              },
+              {
+                "label": "Research",
+                "text": "Pushing it forward."
+              }
+            ]
+          },
+          "question": "Do you value teaching or research more?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.5 — Abstracapades 6.3."
+        }
+      ]
+    }
+  ]
+}

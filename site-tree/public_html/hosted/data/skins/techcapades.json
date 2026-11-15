@@ -1,0 +1,737 @@
+{
+  "skin": "techcapades",
+  "name": "Techcapades",
+  "domain": "Technology & Digital Life — AI, Privacy & Living with the Machines",
+  "categories": [
+    {
+      "id": "xtec01",
+      "name": "AI & Intelligence",
+      "about": "What you think of AI — its impact, its autonomy, and whether its weights should be open.",
+      "topics": [
+        {
+          "id": "xte0001",
+          "name": "AI Risk & Benefit Allocation",
+          "risk": false,
+          "poles": [
+            {
+              "key": "post-scarcity-flourishing",
+              "label": "Post-Scarcity Flourishing"
+            },
+            {
+              "key": "corporate-algorithmic-feudalism",
+              "label": "Corporate / Algorithmic Feudalism"
+            },
+            {
+              "key": "labor-cognitive-atrophy",
+              "label": "Labor & Cognitive Atrophy"
+            },
+            {
+              "key": "existential-misalignment",
+              "label": "Existential Misalignment"
+            },
+            {
+              "key": "epistemic-fragmentation",
+              "label": "Epistemic Fragmentation"
+            }
+          ],
+          "widget": "star-radar",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Where do you see AI's impact landing?",
+            "poles": [
+              {
+                "label": "Post-Scarcity Flourishing",
+                "text": "Radical abundance, medicine, automation dividends."
+              },
+              {
+                "label": "Corporate Feudalism",
+                "text": "Concentration of capital, surveillance, platform monopoly."
+              },
+              {
+                "label": "Labor Atrophy",
+                "text": "Erosion of skills, mass displacement."
+              },
+              {
+                "label": "Existential Misalignment",
+                "text": "Loss of agency, superintelligent runaway."
+              },
+              {
+                "label": "Epistemic Fragmentation",
+                "text": "Deepfakes, death of objective consensus."
+              }
+            ]
+          },
+          "question": "Where do you see AI's impact landing?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.1"
+        },
+        {
+          "id": "xte0002",
+          "name": "AI as Tool vs Agent",
+          "risk": false,
+          "poles": [
+            {
+              "key": "tool",
+              "label": "Tool"
+            },
+            {
+              "key": "agent",
+              "label": "Agent"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How much autonomy should AI have?",
+            "poles": [
+              {
+                "label": "Tool",
+                "text": "AI does what you tell it."
+              },
+              {
+                "label": "Agent",
+                "text": "AI acts on its own."
+              }
+            ]
+          },
+          "question": "How much autonomy should AI have?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.2"
+        },
+        {
+          "id": "xte0003",
+          "name": "Open Weights vs Closed Moats",
+          "risk": false,
+          "poles": [
+            {
+              "key": "open-source-decentralized",
+              "label": "Open Source / Decentralized"
+            },
+            {
+              "key": "guarded-moats-frontier-containment",
+              "label": "Guarded Moats / Frontier Containment"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should AI weights be open or guarded?",
+            "poles": [
+              {
+                "label": "Open Source",
+                "text": "Democratized weights, public inspection."
+              },
+              {
+                "label": "Guarded Moats",
+                "text": "Closed APIs, centralized safety oversight."
+              }
+            ]
+          },
+          "question": "Should AI weights be open or guarded?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.3"
+        }
+      ]
+    },
+    {
+      "id": "xtec02",
+      "name": "Privacy & Surveillance",
+      "about": "How you guard your data, whom you trust with it, and what you trade for safety.",
+      "topics": [
+        {
+          "id": "xte0004",
+          "name": "Privacy vs Convenience",
+          "risk": false,
+          "poles": [
+            {
+              "key": "privacy",
+              "label": "Privacy"
+            },
+            {
+              "key": "convenience",
+              "label": "Convenience"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "What do you give up, and what do you get?",
+            "poles": [
+              {
+                "label": "Privacy",
+                "text": "Protect my data."
+              },
+              {
+                "label": "Convenience",
+                "text": "Use my data to make things easy."
+              }
+            ]
+          },
+          "question": "The classic tradeoff — what do you give up, and what do you get?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.1"
+        },
+        {
+          "id": "xte0005",
+          "name": "Trust vs Distrust Big Tech",
+          "risk": false,
+          "poles": [
+            {
+              "key": "trust",
+              "label": "Trust"
+            },
+            {
+              "key": "distrust",
+              "label": "Distrust"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust the companies that hold your data?",
+            "poles": [
+              {
+                "label": "Trust",
+                "text": "They mostly mean well."
+              },
+              {
+                "label": "Distrust",
+                "text": "They mostly extract."
+              }
+            ]
+          },
+          "question": "Do you trust the companies that hold your data?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.2"
+        },
+        {
+          "id": "xte0006",
+          "name": "Safety vs Freedom",
+          "risk": false,
+          "poles": [
+            {
+              "key": "safety",
+              "label": "Safety"
+            },
+            {
+              "key": "freedom",
+              "label": "Freedom"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "When safety and freedom conflict, which wins?",
+            "poles": [
+              {
+                "label": "Safety",
+                "text": "Surveillance keeps us safe."
+              },
+              {
+                "label": "Freedom",
+                "text": "Surveillance threatens liberty."
+              }
+            ]
+          },
+          "question": "When safety and freedom conflict, which wins?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.3"
+        },
+        {
+          "id": "xte0007",
+          "name": "Computing Sovereignty",
+          "risk": false,
+          "poles": [
+            {
+              "key": "sovereign-computing",
+              "label": "Sovereign Computing"
+            },
+            {
+              "key": "managed-cloud",
+              "label": "Managed Cloud"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you own your computing or rent it?",
+            "poles": [
+              {
+                "label": "Sovereign",
+                "text": "Self-hosting, local hardware, data ownership."
+              },
+              {
+                "label": "Managed Cloud",
+                "text": "Apple/Google ecosystem, seamless convenience."
+              }
+            ]
+          },
+          "question": "Do you own your computing or rent it?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.4"
+        }
+      ]
+    },
+    {
+      "id": "xtec03",
+      "name": "Screens & Attention",
+      "about": "How much of your day lives behind a screen, and whether you step away.",
+      "topics": [
+        {
+          "id": "xte0008",
+          "name": "Screen-light vs Screen-heavy",
+          "risk": false,
+          "poles": [
+            {
+              "key": "screen-light",
+              "label": "Screen-light"
+            },
+            {
+              "key": "screen-heavy",
+              "label": "Screen-heavy"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How much of your day lives behind a screen?",
+            "poles": [
+              {
+                "label": "Screen-light",
+                "text": "Minimal, deliberate."
+              },
+              {
+                "label": "Screen-heavy",
+                "text": "Always connected."
+              }
+            ]
+          },
+          "question": "How much of your day lives behind a screen?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.1"
+        },
+        {
+          "id": "xte0009",
+          "name": "Notifications On vs Off",
+          "risk": false,
+          "poles": [
+            {
+              "key": "all-on",
+              "label": "All on"
+            },
+            {
+              "key": "all-off",
+              "label": "All off"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How interruptible are you?",
+            "poles": [
+              {
+                "label": "All on",
+                "text": "Interrupt me."
+              },
+              {
+                "label": "All off",
+                "text": "Silent, check on my terms."
+              }
+            ]
+          },
+          "question": "How interruptible are you?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.2"
+        },
+        {
+          "id": "xte0010",
+          "name": "Digital Detox",
+          "risk": false,
+          "poles": [
+            {
+              "key": "detox-regularly",
+              "label": "Detox regularly"
+            },
+            {
+              "key": "detox-occasionally",
+              "label": "Detox occasionally"
+            },
+            {
+              "key": "never-detox",
+              "label": "Never detox"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Do you step away from the screen, and how often?",
+            "poles": [
+              {
+                "label": "Detox regularly",
+                "text": "Scheduled breaks, digital sabbaths."
+              },
+              {
+                "label": "Detox occasionally",
+                "text": "When it gets bad, step back."
+              },
+              {
+                "label": "Never detox",
+                "text": "No need; the screen is fine."
+              }
+            ]
+          },
+          "question": "Do you step away from the screen, and how often?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.3"
+        }
+      ]
+    },
+    {
+      "id": "xtec04",
+      "name": "Connection & Social Media",
+      "about": "How you connect online, what you think of social media, and who you bond with.",
+      "topics": [
+        {
+          "id": "xte0011",
+          "name": "Social Media",
+          "risk": false,
+          "poles": [
+            {
+              "key": "love",
+              "label": "Love"
+            },
+            {
+              "key": "tolerate",
+              "label": "Tolerate"
+            },
+            {
+              "key": "hate",
+              "label": "Hate"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "What do you think of social media?",
+            "poles": [
+              {
+                "label": "Love",
+                "text": "It connects us; it is where people are."
+              },
+              {
+                "label": "Tolerate",
+                "text": "Useful and awful at the same time."
+              },
+              {
+                "label": "Hate",
+                "text": "It poisons us; delete it all."
+              }
+            ]
+          },
+          "question": "What do you think of social media?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.1"
+        },
+        {
+          "id": "xte0012",
+          "name": "Online vs In-person",
+          "risk": false,
+          "poles": [
+            {
+              "key": "online-connection",
+              "label": "Online connection"
+            },
+            {
+              "key": "in-person-connection",
+              "label": "In-person connection"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Where do your real relationships live?",
+            "poles": [
+              {
+                "label": "Online",
+                "text": "Connection online."
+              },
+              {
+                "label": "In-person",
+                "text": "Connection in person."
+              }
+            ]
+          },
+          "question": "Where do your real relationships live?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.2"
+        },
+        {
+          "id": "xte0013",
+          "name": "Posting vs Lurking",
+          "risk": false,
+          "poles": [
+            {
+              "key": "poster",
+              "label": "Poster"
+            },
+            {
+              "key": "lurker",
+              "label": "Lurker"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How do you participate online?",
+            "poles": [
+              {
+                "label": "Poster",
+                "text": "Share, create, speak."
+              },
+              {
+                "label": "Lurker",
+                "text": "Consume, observe, stay quiet."
+              }
+            ]
+          },
+          "question": "How do you participate online?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.3"
+        },
+        {
+          "id": "xte0014",
+          "name": "Synthetic Intimacy & AI Companionship",
+          "risk": false,
+          "poles": [
+            {
+              "key": "embrace-synthetic-bonds",
+              "label": "Embrace Synthetic Bonds"
+            },
+            {
+              "key": "human-exclusivity",
+              "label": "Human Exclusivity"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are you open to emotional or intimate connections with synthetic agents?",
+            "poles": [
+              {
+                "label": "Embrace Synthetic Bonds",
+                "text": "AI partners, parasocial companions, digital confidants."
+              },
+              {
+                "label": "Human Exclusivity",
+                "text": "Intimacy reserved for biological humans."
+              }
+            ]
+          },
+          "question": "Are you open to emotional or intimate connections with synthetic agents?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.4"
+        }
+      ]
+    },
+    {
+      "id": "xtec05",
+      "name": "Digital Identity & Self",
+      "about": "Who you are when you are digital — your name, your face, and your archive.",
+      "topics": [
+        {
+          "id": "xte0015",
+          "name": "Anonymity vs Real Name",
+          "risk": false,
+          "poles": [
+            {
+              "key": "anonymous",
+              "label": "Anonymous"
+            },
+            {
+              "key": "real-identity",
+              "label": "Real identity"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you use your real name online?",
+            "poles": [
+              {
+                "label": "Anonymous",
+                "text": "Pseudonym, no real name."
+              },
+              {
+                "label": "Real identity",
+                "text": "Your name, your face."
+              }
+            ]
+          },
+          "question": "Do you use your real name online?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.1"
+        },
+        {
+          "id": "xte0016",
+          "name": "Curated vs Authentic Self",
+          "risk": false,
+          "poles": [
+            {
+              "key": "curated",
+              "label": "Curated"
+            },
+            {
+              "key": "authentic",
+              "label": "Authentic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How do you present yourself online?",
+            "poles": [
+              {
+                "label": "Curated",
+                "text": "Polished, managed, the highlight reel."
+              },
+              {
+                "label": "Authentic",
+                "text": "Raw, unfiltered, the real thing."
+              }
+            ]
+          },
+          "question": "How do you present yourself online?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.2"
+        },
+        {
+          "id": "xte0017",
+          "name": "Erase vs Archive",
+          "risk": false,
+          "poles": [
+            {
+              "key": "erase",
+              "label": "Erase"
+            },
+            {
+              "key": "archive",
+              "label": "Archive"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "What happens to your data when you die?",
+            "poles": [
+              {
+                "label": "Erase",
+                "text": "Delete it all when you go."
+              },
+              {
+                "label": "Archive",
+                "text": "Preserve it, let it stand."
+              }
+            ]
+          },
+          "question": "What happens to your data when you die?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.3"
+        }
+      ]
+    },
+    {
+      "id": "xtec06",
+      "name": "The Machine Future",
+      "about": "What the machines are doing to work, to the body, and to the pace of change.",
+      "topics": [
+        {
+          "id": "xte0018",
+          "name": "Automation: Job Loss vs Liberation",
+          "risk": false,
+          "poles": [
+            {
+              "key": "job-loss",
+              "label": "Job loss"
+            },
+            {
+              "key": "liberation",
+              "label": "Liberation"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does automation take your job, or give you your life back?",
+            "poles": [
+              {
+                "label": "Job loss",
+                "text": "Automation destroys work."
+              },
+              {
+                "label": "Liberation",
+                "text": "Automation frees us from work."
+              }
+            ]
+          },
+          "question": "Does automation take your job, or give you your life back?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.1"
+        },
+        {
+          "id": "xte0019",
+          "name": "Transhumanism",
+          "risk": false,
+          "poles": [
+            {
+              "key": "embrace-enhancement",
+              "label": "Embrace enhancement"
+            },
+            {
+              "key": "cautious-augmentation",
+              "label": "Cautious augmentation"
+            },
+            {
+              "key": "reject-enhancement",
+              "label": "Reject enhancement"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Would you enhance yourself with technology?",
+            "poles": [
+              {
+                "label": "Embrace enhancement",
+                "text": "Merge with the machines; upgrade the body."
+              },
+              {
+                "label": "Cautious augmentation",
+                "text": "Some enhancement, carefully, with limits."
+              },
+              {
+                "label": "Reject enhancement",
+                "text": "Stay human; the body is enough."
+              }
+            ]
+          },
+          "question": "Would you enhance yourself with technology?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.2"
+        },
+        {
+          "id": "xte0020",
+          "name": "Accelerate vs Decelerate",
+          "risk": false,
+          "poles": [
+            {
+              "key": "accelerate",
+              "label": "Accelerate"
+            },
+            {
+              "key": "decelerate",
+              "label": "Decelerate"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should we build faster, or pump the brakes?",
+            "poles": [
+              {
+                "label": "Accelerate",
+                "text": "Move fast, build more."
+              },
+              {
+                "label": "Decelerate",
+                "text": "Slow down, be careful."
+              }
+            ]
+          },
+          "question": "Should we build faster, or pump the brakes?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.3"
+        }
+      ]
+    }
+  ]
+}

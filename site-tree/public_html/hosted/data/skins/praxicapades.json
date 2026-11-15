@@ -1,0 +1,953 @@
+{
+  "skin": "praxicapades",
+  "name": "Praxicapades",
+  "domain": "Applied Mathematics — how you model the world, how you compute, and what you value in applied work",
+  "categories": [
+    {
+      "id": "xprc01",
+      "name": "The Art of Modeling",
+      "about": "How you build models of the world — what you prioritize, and whether the world is predictable, continuous, linear, and derivable from first principles.",
+      "topics": [
+        {
+          "id": "xpr0001",
+          "name": "Levins' Grand Model Trilemma",
+          "risk": false,
+          "poles": [
+            {
+              "key": "generality",
+              "label": "Generality"
+            },
+            {
+              "key": "realism",
+              "label": "Realism"
+            },
+            {
+              "key": "precision",
+              "label": "Precision"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which vertex of the modeling trilemma do you prioritize when building a model?",
+            "poles": [
+              {
+                "label": "Generality",
+                "text": "Captures universal behavior of a whole class of systems; sacrifices precision."
+              },
+              {
+                "label": "Realism",
+                "text": "Faithfully incorporates every known mechanism; sacrifices simplicity."
+              },
+              {
+                "label": "Precision",
+                "text": "Exact quantitative fit to specific data; sacrifices generalizability."
+              }
+            ]
+          },
+          "question": "Which vertex of the modeling trilemma do you prioritize when building a model?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.1 — Richard Levins' canonical 1966 trilemma (briefing carries no per-topic Source line for this topic)."
+        },
+        {
+          "id": "xpr0002",
+          "name": "Deterministic vs Stochastic",
+          "risk": false,
+          "poles": [
+            {
+              "key": "deterministic",
+              "label": "Deterministic"
+            },
+            {
+              "key": "stochastic",
+              "label": "Stochastic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is the world predictable or random?",
+            "poles": [
+              {
+                "label": "Deterministic",
+                "text": "Given the inputs, the outputs follow."
+              },
+              {
+                "label": "Stochastic",
+                "text": "You model distributions, not certainties."
+              }
+            ]
+          },
+          "question": "Is the world predictable or random?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.2."
+        },
+        {
+          "id": "xpr0003",
+          "name": "Continuous vs Discrete Models",
+          "risk": false,
+          "poles": [
+            {
+              "key": "continuous",
+              "label": "Continuous"
+            },
+            {
+              "key": "discrete",
+              "label": "Discrete"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you model with continuous flows or discrete systems?",
+            "poles": [
+              {
+                "label": "Continuous",
+                "text": "Differential equations, flows, fields."
+              },
+              {
+                "label": "Discrete",
+                "text": "Difference equations, networks, agents."
+              }
+            ]
+          },
+          "question": "Do you model with continuous flows or discrete systems?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.3."
+        },
+        {
+          "id": "xpr0004",
+          "name": "Modeling Philosophy: First-Principles Physics vs. Data-Driven Empirical Surrogates",
+          "risk": false,
+          "poles": [
+            {
+              "key": "deductive-first-principles",
+              "label": "Deductive First Principles"
+            },
+            {
+              "key": "inductive-data-driven-surrogates",
+              "label": "Inductive Data-Driven Surrogates"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should models be derived from conservation laws or learned from data?",
+            "poles": [
+              {
+                "label": "Deductive First Principles",
+                "text": "Conservation laws; white-box equations."
+              },
+              {
+                "label": "Inductive Data-Driven Surrogates",
+                "text": "Neural networks, empirical fits; black-box."
+              }
+            ]
+          },
+          "question": "Should models be derived from conservation laws or learned from data?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.4."
+        },
+        {
+          "id": "xpr0005",
+          "name": "Linearity Stance: Linearized Tractability vs. Nonlinear Realism",
+          "risk": false,
+          "poles": [
+            {
+              "key": "linear-approximations",
+              "label": "Linear Approximations"
+            },
+            {
+              "key": "nonlinear-reality",
+              "label": "Nonlinear Reality"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust linear approximations or insist on full nonlinear dynamics?",
+            "poles": [
+              {
+                "label": "Linear Approximations",
+                "text": "Superposition, eigenvalue spectra, closed-form perturbation."
+              },
+              {
+                "label": "Nonlinear Reality",
+                "text": "Bifurcations, strange attractors, solitons, chaos."
+              }
+            ]
+          },
+          "question": "Do you trust linear approximations or insist on full nonlinear dynamics?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.5."
+        }
+      ]
+    },
+    {
+      "id": "xprc02",
+      "name": "Computation & Method",
+      "about": "How you compute — which architecture, exact or approximate, simulation or theory, optimum or good-enough.",
+      "topics": [
+        {
+          "id": "xpr0006",
+          "name": "The Computational Architecture Quartet",
+          "risk": false,
+          "poles": [
+            {
+              "key": "grid-mesh-pde-solvers",
+              "label": "Grid & Mesh PDE Solvers"
+            },
+            {
+              "key": "particle-monte-carlo-methods",
+              "label": "Particle & Monte Carlo Methods"
+            },
+            {
+              "key": "discrete-networks-agent-simulators",
+              "label": "Discrete Networks & Agent Simulators"
+            },
+            {
+              "key": "neural-operators-ai-surrogates",
+              "label": "Neural Operators & AI Surrogates"
+            }
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which computational architecture is your native weapon?",
+            "poles": [
+              {
+                "label": "Grid & Mesh PDE Solvers",
+                "text": "FEM, FVM, adaptive mesh refinement, spectral methods."
+              },
+              {
+                "label": "Particle & Monte Carlo Methods",
+                "text": "Molecular dynamics, SPH, MCMC, stochastic simulation."
+              },
+              {
+                "label": "Discrete Networks & Agent Simulators",
+                "text": "Complex networks, kinetic Monte Carlo, agent-based frameworks."
+              },
+              {
+                "label": "Neural Operators & AI Surrogates",
+                "text": "DeepONets, Fourier Neural Operators, PDE emulators."
+              }
+            ]
+          },
+          "question": "Which computational architecture is your native weapon?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.1."
+        },
+        {
+          "id": "xpr0007",
+          "name": "Analytic vs Numerical",
+          "risk": false,
+          "poles": [
+            {
+              "key": "analytic",
+              "label": "Analytic"
+            },
+            {
+              "key": "numerical",
+              "label": "Numerical"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you solve exactly or approximate?",
+            "poles": [
+              {
+                "label": "Analytic",
+                "text": "Solve exactly; closed form, pen and paper."
+              },
+              {
+                "label": "Numerical",
+                "text": "Approximate; algorithms, computers, floating point."
+              }
+            ]
+          },
+          "question": "Do you solve exactly or approximate?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.2."
+        },
+        {
+          "id": "xpr0008",
+          "name": "Simulation vs Theory",
+          "risk": false,
+          "poles": [
+            {
+              "key": "simulation",
+              "label": "Simulation"
+            },
+            {
+              "key": "theory",
+              "label": "Theory"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust simulations or theory?",
+            "poles": [
+              {
+                "label": "Simulation",
+                "text": "Run it and see; computational experiments."
+              },
+              {
+                "label": "Theory",
+                "text": "Prove it; the math tells you what happens."
+              }
+            ]
+          },
+          "question": "Do you trust simulations or theory?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.3."
+        },
+        {
+          "id": "xpr0009",
+          "name": "Optimization: Exact vs Heuristic",
+          "risk": false,
+          "poles": [
+            {
+              "key": "exact",
+              "label": "Exact"
+            },
+            {
+              "key": "heuristic",
+              "label": "Heuristic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you find the optimum or a good-enough answer?",
+            "poles": [
+              {
+                "label": "Exact",
+                "text": "The true optimum; global, guaranteed."
+              },
+              {
+                "label": "Heuristic",
+                "text": "Good-enough; fast, practical, approximate."
+              }
+            ]
+          },
+          "question": "Do you find the optimum or a good-enough answer?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.4."
+        }
+      ]
+    },
+    {
+      "id": "xprc03",
+      "name": "Domains & Arenas",
+      "about": "Where you apply mathematics, and whether you work across fields or deep in one.",
+      "topics": [
+        {
+          "id": "xpr0010",
+          "name": "The Applied Domain Star",
+          "risk": false,
+          "poles": [
+            {
+              "key": "physical-continua-geophysical-fluids",
+              "label": "Physical Continua & Geophysical Fluids"
+            },
+            {
+              "key": "biological-ecological-epidemic-dynamics",
+              "label": "Biological, Ecological & Epidemic Dynamics"
+            },
+            {
+              "key": "economic-financial-game-theoretic-flows",
+              "label": "Economic, Financial & Game Theoretic Flows"
+            },
+            {
+              "key": "engineering-control-cybernetics",
+              "label": "Engineering, Control & Cybernetics"
+            },
+            {
+              "key": "information-tensors-machine-intelligence",
+              "label": "Information, Tensors & Machine Intelligence"
+            }
+          ],
+          "widget": "star-radar",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which domain calls for your mathematical application?",
+            "poles": [
+              {
+                "label": "Physical Continua & Geophysical Fluids",
+                "text": "Navier-Stokes, turbulence, geophysics, plasma."
+              },
+              {
+                "label": "Biological, Ecological & Epidemic Dynamics",
+                "text": "Morphogenesis, SIR models, neuroscience."
+              },
+              {
+                "label": "Economic, Financial & Game Theoretic Flows",
+                "text": "Stochastic calculus, Black-Scholes, systemic risk."
+              },
+              {
+                "label": "Engineering, Control & Cybernetics",
+                "text": "Optimal control, Kalman filtering, robotics, MPC."
+              },
+              {
+                "label": "Information, Tensors & Machine Intelligence",
+                "text": "Compressed sensing, tensor decomposition, graph algorithms."
+              }
+            ]
+          },
+          "question": "Which domain calls for your mathematical application?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 3.1."
+        },
+        {
+          "id": "xpr0011",
+          "name": "Pure vs Applied",
+          "risk": false,
+          "poles": [
+            {
+              "key": "pure",
+              "label": "Pure"
+            },
+            {
+              "key": "applied",
+              "label": "Applied"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "The skin-defining divide — where do you stand, from the applied side?",
+            "poles": [
+              {
+                "label": "Pure",
+                "text": "Math for its own sake."
+              },
+              {
+                "label": "Applied",
+                "text": "Math for what it does."
+              }
+            ]
+          },
+          "question": "The skin-defining divide — where do you stand, from the applied side?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 3.2."
+        },
+        {
+          "id": "xpr0012",
+          "name": "Interdisciplinary vs Domain-Specific",
+          "risk": false,
+          "poles": [
+            {
+              "key": "interdisciplinary",
+              "label": "Interdisciplinary"
+            },
+            {
+              "key": "domain-specific",
+              "label": "Domain-Specific"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work across fields or deep in one?",
+            "poles": [
+              {
+                "label": "Interdisciplinary",
+                "text": "Borrow methods, cross boundaries."
+              },
+              {
+                "label": "Domain-Specific",
+                "text": "Deep in one field; master its methods and literature."
+              }
+            ]
+          },
+          "question": "Do you work across fields or deep in one?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 3.3."
+        }
+      ]
+    },
+    {
+      "id": "xprc04",
+      "name": "Uncertainty & Data",
+      "about": "What you don't know, how you learn from data, and whether more data or better models win.",
+      "topics": [
+        {
+          "id": "xpr0013",
+          "name": "The Epistemic Uncertainty Quartet",
+          "risk": false,
+          "poles": [
+            {
+              "key": "aleatoric-uncertainty",
+              "label": "Aleatoric Uncertainty"
+            },
+            {
+              "key": "epistemic-parameter-uncertainty",
+              "label": "Epistemic Parameter Uncertainty"
+            },
+            {
+              "key": "structural-model-misspecification",
+              "label": "Structural Model Misspecification"
+            },
+            {
+              "key": "knightian-ambiguity-extreme-regimes",
+              "label": "Knightian Ambiguity / Extreme Regimes"
+            }
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What is the primary source of uncertainty in your models?",
+            "poles": [
+              {
+                "label": "Aleatoric Uncertainty",
+                "text": "Inherent, irreducible randomness (thermal noise, quantum fluctuations)."
+              },
+              {
+                "label": "Epistemic Parameter Uncertainty",
+                "text": "Inexact coefficients; reducible with more sensors."
+              },
+              {
+                "label": "Structural Model Misspecification",
+                "text": "The equations themselves are wrong; unmodeled physics."
+              },
+              {
+                "label": "Knightian Ambiguity",
+                "text": "Fat-tailed black swans, regime shifts, unquantifiable surprises."
+              }
+            ]
+          },
+          "question": "What is the primary source of uncertainty in your models?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.1."
+        },
+        {
+          "id": "xpr0014",
+          "name": "The Inverse Problem & Data Assimilation Spectrum",
+          "risk": false,
+          "poles": [
+            {
+              "key": "forward-simulation",
+              "label": "Forward Simulation"
+            },
+            {
+              "key": "real-time-data-assimilation",
+              "label": "Real-Time Data Assimilation"
+            },
+            {
+              "key": "inverse-problem-parameter-identification",
+              "label": "Inverse Problem & Parameter Identification"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Where does your work live on the simulation-inversion spectrum?",
+            "poles": [
+              {
+                "label": "Forward Simulation",
+                "text": "Given equations and initial conditions, calculate the future."
+              },
+              {
+                "label": "Real-Time Data Assimilation",
+                "text": "Continuous Bayesian updating; blending sensor data with simulation."
+              },
+              {
+                "label": "Inverse Problem & Parameter Identification",
+                "text": "Infer hidden physics from sparse, noisy measurements."
+              }
+            ]
+          },
+          "question": "Where does your work live on the simulation-inversion spectrum?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.2."
+        },
+        {
+          "id": "xpr0015",
+          "name": "Statistical Philosophy: Bayesian vs. Frequentist in Applied Modeling",
+          "risk": false,
+          "poles": [
+            {
+              "key": "bayesian-updating",
+              "label": "Bayesian Updating"
+            },
+            {
+              "key": "frequentist-objective-likelihood",
+              "label": "Frequentist / Objective Likelihood"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How do you formulate probabilities in your models?",
+            "poles": [
+              {
+                "label": "Bayesian Updating",
+                "text": "Priors, posteriors, MCMC; quantifying subjective confidence."
+              },
+              {
+                "label": "Frequentist / Objective Likelihood",
+                "text": "Confidence intervals, hypothesis testing, objective frequencies."
+              }
+            ]
+          },
+          "question": "How do you formulate probabilities in your models?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.3."
+        },
+        {
+          "id": "xpr0016",
+          "name": "Big Data vs Small Data",
+          "risk": false,
+          "poles": [
+            {
+              "key": "big-data",
+              "label": "Big Data"
+            },
+            {
+              "key": "small-data",
+              "label": "Small Data"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "More data or better models?",
+            "poles": [
+              {
+                "label": "Big Data",
+                "text": "More data; let the data speak; machine learning, scale."
+              },
+              {
+                "label": "Small Data",
+                "text": "Better models; careful design; insight over volume."
+              }
+            ]
+          },
+          "question": "More data or better models?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.4."
+        }
+      ]
+    },
+    {
+      "id": "xprc05",
+      "name": "Rigor & Validation",
+      "about": "Whether applied math needs proof or just working solutions, and whether you model to explain or to predict.",
+      "topics": [
+        {
+          "id": "xpr0017",
+          "name": "Rigorous Proof vs. Pragmatic Utility",
+          "risk": false,
+          "poles": [
+            {
+              "key": "pure-rigor-analysis-of-pdes",
+              "label": "Pure Rigor (Analysis of PDEs)"
+            },
+            {
+              "key": "pragmatic-engineering-utility",
+              "label": "Pragmatic Engineering Utility"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does applied math require rigorous proofs or working solutions?",
+            "poles": [
+              {
+                "label": "Pure Rigor",
+                "text": "Sobolev spaces, existence, uniqueness, well-posedness."
+              },
+              {
+                "label": "Pragmatic Engineering Utility",
+                "text": "If the plane flies and the bridge stands, the model is valid."
+              }
+            ]
+          },
+          "question": "Does applied math require rigorous mathematical proofs or working solutions?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.1."
+        },
+        {
+          "id": "xpr0018",
+          "name": "Elegance vs Effectiveness",
+          "risk": false,
+          "poles": [
+            {
+              "key": "elegance",
+              "label": "Elegance"
+            },
+            {
+              "key": "effectiveness",
+              "label": "Effectiveness"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you value a beautiful model or an effective one?",
+            "poles": [
+              {
+                "label": "Elegance",
+                "text": "A beautiful model; clean, spare, insightful."
+              },
+              {
+                "label": "Effectiveness",
+                "text": "An effective model; it predicts, it controls, it delivers."
+              }
+            ]
+          },
+          "question": "Do you value a beautiful model or an effective one?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.2."
+        },
+        {
+          "id": "xpr0019",
+          "name": "General vs Specific",
+          "risk": false,
+          "poles": [
+            {
+              "key": "general",
+              "label": "General"
+            },
+            {
+              "key": "specific",
+              "label": "Specific"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you build general theories or problem-specific solutions?",
+            "poles": [
+              {
+                "label": "General",
+                "text": "A theory covering many problems; reusable, abstract."
+              },
+              {
+                "label": "Specific",
+                "text": "A solution tailored to one problem; bespoke, concrete."
+              }
+            ]
+          },
+          "question": "Do you build general theories or problem-specific solutions?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.3."
+        },
+        {
+          "id": "xpr0020",
+          "name": "Model Complexity: Occam's Parsimony vs. Multi-Physics Maximalism",
+          "risk": false,
+          "poles": [
+            {
+              "key": "occam-s-minimalist-toy-model",
+              "label": "Occam's Minimalist Toy Model"
+            },
+            {
+              "key": "multi-physics-high-fidelity-ensemble",
+              "label": "Multi-Physics High-Fidelity Ensemble"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you prefer illuminating toy models or high-fidelity simulation ensembles?",
+            "poles": [
+              {
+                "label": "Occam's Minimalist Toy Model",
+                "text": "A 2-variable ODE revealing the essential mechanism."
+              },
+              {
+                "label": "Multi-Physics High-Fidelity Ensemble",
+                "text": "A 50-million variable coupled simulation."
+              }
+            ]
+          },
+          "question": "Do you prefer illuminating toy models or high-fidelity simulation ensembles?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.4."
+        },
+        {
+          "id": "xpr0021",
+          "name": "Goal: Mechanistic Explanation vs. Predictive Accuracy",
+          "risk": false,
+          "poles": [
+            {
+              "key": "mechanistic-understanding",
+              "label": "Mechanistic Understanding"
+            },
+            {
+              "key": "predictive-supremacy",
+              "label": "Predictive Supremacy"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you model to understand mechanisms or to forecast outcomes?",
+            "poles": [
+              {
+                "label": "Mechanistic Understanding",
+                "text": "Explain why; uncover causality and feedback loops."
+              },
+              {
+                "label": "Predictive Supremacy",
+                "text": "Forecast what happens next; minimize error."
+              }
+            ]
+          },
+          "question": "Do you model to understand mechanisms or to forecast outcomes?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.5."
+        }
+      ]
+    },
+    {
+      "id": "xprc06",
+      "name": "The Applied Life",
+      "about": "Where you deploy applied mathematics, and how you work — with whom, in what language, for impact or publication.",
+      "topics": [
+        {
+          "id": "xpr0022",
+          "name": "Habitat: Industrial Supercomputing vs. Academic Freedom",
+          "risk": false,
+          "poles": [
+            {
+              "key": "industry-national-labs-tech-giants",
+              "label": "Industry, National Labs & Tech Giants"
+            },
+            {
+              "key": "university-academia",
+              "label": "University Academia"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Where do you deploy your applied mathematics?",
+            "poles": [
+              {
+                "label": "Industry, National Labs & Tech Giants",
+                "text": "Massive compute, real deadlines, concrete impact."
+              },
+              {
+                "label": "University Academia",
+                "text": "Curiosity-driven research, teaching, open publishing."
+              }
+            ]
+          },
+          "question": "Where do you deploy your applied mathematics?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.1."
+        },
+        {
+          "id": "xpr0023",
+          "name": "Collaboration vs Solitude",
+          "risk": false,
+          "poles": [
+            {
+              "key": "collaboration",
+              "label": "Collaboration"
+            },
+            {
+              "key": "solitude",
+              "label": "Solitude"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work with domain experts or alone?",
+            "poles": [
+              {
+                "label": "Collaboration",
+                "text": "Work with domain experts; the team solves it."
+              },
+              {
+                "label": "Solitude",
+                "text": "Work alone; the math is yours."
+              }
+            ]
+          },
+          "question": "Do you work with domain experts or alone?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.2."
+        },
+        {
+          "id": "xpr0024",
+          "name": "The Computational Craft: Low-Level Performance vs. Rapid Prototyping",
+          "risk": false,
+          "poles": [
+            {
+              "key": "high-performance-systems-craft",
+              "label": "High-Performance Systems Craft"
+            },
+            {
+              "key": "rapid-high-level-prototyping",
+              "label": "Rapid High-Level Prototyping"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How do you write your numerical code?",
+            "poles": [
+              {
+                "label": "High-Performance Systems Craft",
+                "text": "C++, Fortran, CUDA, MPI clusters."
+              },
+              {
+                "label": "Rapid High-Level Prototyping",
+                "text": "Python, Julia, MATLAB, Jupyter notebooks."
+              }
+            ]
+          },
+          "question": "How do you write your numerical code?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.3."
+        },
+        {
+          "id": "xpr0025",
+          "name": "Interdisciplinary Role: Domain Bridge-Builder vs. Methodological Core",
+          "risk": false,
+          "poles": [
+            {
+              "key": "the-interdisciplinary-bridge",
+              "label": "The Interdisciplinary Bridge"
+            },
+            {
+              "key": "methodological-core",
+              "label": "Methodological Core"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are you an interdisciplinary bridge or a pure algorithm specialist?",
+            "poles": [
+              {
+                "label": "The Interdisciplinary Bridge",
+                "text": "Immersed in a domain; translating questions into math."
+              },
+              {
+                "label": "Methodological Core",
+                "text": "Inventing general algorithms and solvers for others to apply."
+              }
+            ]
+          },
+          "question": "Are you an interdisciplinary bridge or a pure algorithm specialist?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.4."
+        },
+        {
+          "id": "xpr0026",
+          "name": "Impact vs Publication",
+          "risk": false,
+          "poles": [
+            {
+              "key": "impact",
+              "label": "Impact"
+            },
+            {
+              "key": "publication",
+              "label": "Publication"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you value real-world impact or academic publication?",
+            "poles": [
+              {
+                "label": "Impact",
+                "text": "Real-world change; the model ships, the system improves."
+              },
+              {
+                "label": "Publication",
+                "text": "Academic papers; the literature, the citations, the record."
+              }
+            ]
+          },
+          "question": "Do you value real-world impact or academic publication?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.5."
+        }
+      ]
+    }
+  ]
+}

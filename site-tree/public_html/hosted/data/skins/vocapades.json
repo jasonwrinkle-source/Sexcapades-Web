@@ -1,0 +1,793 @@
+{
+  "skin": "vocapades",
+  "name": "Vocapades",
+  "domain": "Work & Vocation — Career, Calling & the Meaning of Work",
+  "categories": [
+    {
+      "id": "xvoc01",
+      "name": "Purpose & Meaning",
+      "about": "Why you work — calling, career, or job — and who the work is for.",
+      "topics": [
+        {
+          "id": "xvo0001",
+          "name": "Vocation: Calling vs Career vs Job",
+          "risk": false,
+          "poles": [
+            {
+              "key": "calling",
+              "label": "Calling"
+            },
+            {
+              "key": "career",
+              "label": "Career"
+            },
+            {
+              "key": "job",
+              "label": "Job"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is your work a calling, a career, or a job?",
+            "poles": [
+              {
+                "label": "Calling",
+                "text": "Work is an expression of moral purpose and mission."
+              },
+              {
+                "label": "Career",
+                "text": "A ladder of advancement, status, and mastery."
+              },
+              {
+                "label": "Job",
+                "text": "A pragmatic transaction; real life happens off the clock."
+              }
+            ]
+          },
+          "question": "Is your work a calling, a career, or a job?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 1.1"
+        },
+        {
+          "id": "xvo0002",
+          "name": "Service: Others vs Self vs The Work",
+          "risk": false,
+          "poles": [
+            {
+              "key": "serve-others",
+              "label": "Serve Others"
+            },
+            {
+              "key": "serve-yourself",
+              "label": "Serve Yourself"
+            },
+            {
+              "key": "serve-the-work",
+              "label": "Serve The Work"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Who is the work for?",
+            "poles": [
+              {
+                "label": "Serve Others",
+                "text": "The work matters because it helps people."
+              },
+              {
+                "label": "Serve Yourself",
+                "text": "The work matters because it fulfills you."
+              },
+              {
+                "label": "Serve The Work",
+                "text": "The work matters in itself; the craft is the point."
+              }
+            ]
+          },
+          "question": "Who is the work for?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 1.2"
+        }
+      ]
+    },
+    {
+      "id": "xvoc02",
+      "name": "Effort & Ambition",
+      "about": "How hard you push, how much you want, and how much risk you take.",
+      "topics": [
+        {
+          "id": "xvo0003",
+          "name": "Hustle vs Balance",
+          "risk": false,
+          "poles": [
+            {
+              "key": "hustle-grind",
+              "label": "Hustle / Grind"
+            },
+            {
+              "key": "balance-rest",
+              "label": "Balance / Rest"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you push, or do you pace yourself?",
+            "poles": [
+              {
+                "label": "Hustle",
+                "text": "Push, grind."
+              },
+              {
+                "label": "Balance",
+                "text": "Pace yourself, rest."
+              }
+            ]
+          },
+          "question": "Do you push, or do you pace yourself? The big one.",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.1"
+        },
+        {
+          "id": "xvo0004",
+          "name": "Content vs Ambitious",
+          "risk": false,
+          "poles": [
+            {
+              "key": "contentment",
+              "label": "Contentment"
+            },
+            {
+              "key": "ambition",
+              "label": "Ambition"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are you satisfied where you are, or always reaching?",
+            "poles": [
+              {
+                "label": "Contentment",
+                "text": "Enough is enough."
+              },
+              {
+                "label": "Ambition",
+                "text": "Always more."
+              }
+            ]
+          },
+          "question": "Are you satisfied where you are, or always reaching?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.2"
+        },
+        {
+          "id": "xvo0005",
+          "name": "Risk Tolerance",
+          "risk": false,
+          "poles": [
+            {
+              "key": "safe-stable",
+              "label": "Safe / Stable"
+            },
+            {
+              "key": "risky-entrepreneurial",
+              "label": "Risky / Entrepreneurial"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you want a steady job, or a bet?",
+            "poles": [
+              {
+                "label": "Safe",
+                "text": "Stable."
+              },
+              {
+                "label": "Risky",
+                "text": "Entrepreneurial."
+              }
+            ]
+          },
+          "question": "Do you want a steady job, or a bet?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.3"
+        },
+        {
+          "id": "xvo0006",
+          "name": "Generalist vs Specialist",
+          "risk": false,
+          "poles": [
+            {
+              "key": "polymath-generalist",
+              "label": "Polymath / Generalist"
+            },
+            {
+              "key": "deep-specialist",
+              "label": "Deep Specialist"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are you a generalist or a specialist?",
+            "poles": [
+              {
+                "label": "Generalist",
+                "text": "Wide breadth, connecting dots across fields."
+              },
+              {
+                "label": "Specialist",
+                "text": "Vertical mastery, single-domain depth."
+              }
+            ]
+          },
+          "question": "Are you a generalist or a specialist?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.4"
+        }
+      ]
+    },
+    {
+      "id": "xvoc03",
+      "name": "Place & Mode",
+      "about": "Where and when you work, and whether you work alone or with others.",
+      "topics": [
+        {
+          "id": "xvo0007",
+          "name": "Remote vs Hybrid vs Office",
+          "risk": false,
+          "poles": [
+            {
+              "key": "remote",
+              "label": "Remote"
+            },
+            {
+              "key": "hybrid",
+              "label": "Hybrid"
+            },
+            {
+              "key": "office",
+              "label": "Office"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Where do you do your best work?",
+            "poles": [
+              {
+                "label": "Remote",
+                "text": "Work from anywhere, async by default."
+              },
+              {
+                "label": "Hybrid",
+                "text": "Some days in, some days out."
+              },
+              {
+                "label": "Office",
+                "text": "Show up, be present, the room matters."
+              }
+            ]
+          },
+          "question": "Where do you do your best work?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.1"
+        },
+        {
+          "id": "xvo0008",
+          "name": "Solo vs Team",
+          "risk": false,
+          "poles": [
+            {
+              "key": "solo-independent",
+              "label": "Solo / Independent"
+            },
+            {
+              "key": "team-collaborative",
+              "label": "Team / Collaborative"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work best alone, or with others?",
+            "poles": [
+              {
+                "label": "Solo",
+                "text": "Independent."
+              },
+              {
+                "label": "Team",
+                "text": "Collaborative."
+              }
+            ]
+          },
+          "question": "Do you work best alone, or with others?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.2"
+        },
+        {
+          "id": "xvo0009",
+          "name": "Structured vs Flexible Hours",
+          "risk": false,
+          "poles": [
+            {
+              "key": "fixed-schedule",
+              "label": "Fixed schedule"
+            },
+            {
+              "key": "flexible-async",
+              "label": "Flexible / Async"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "When do you work — on the clock, or on your own rhythm?",
+            "poles": [
+              {
+                "label": "Fixed schedule",
+                "text": "On the clock."
+              },
+              {
+                "label": "Flexible",
+                "text": "Async, your own rhythm."
+              }
+            ]
+          },
+          "question": "When do you work — on the clock, or on your own rhythm?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.3"
+        }
+      ]
+    },
+    {
+      "id": "xvoc04",
+      "name": "Structure & Authority",
+      "about": "How work is organized, managed, owned, and what shape a working life takes.",
+      "topics": [
+        {
+          "id": "xvo0010",
+          "name": "Hierarchy vs Flat",
+          "risk": false,
+          "poles": [
+            {
+              "key": "hierarchical",
+              "label": "Hierarchical"
+            },
+            {
+              "key": "flat",
+              "label": "Flat"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How should work be organized?",
+            "poles": [
+              {
+                "label": "Hierarchical",
+                "text": "Clear chain of command."
+              },
+              {
+                "label": "Flat",
+                "text": "Egalitarian, no bosses."
+              }
+            ]
+          },
+          "question": "How should work be organized?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.1"
+        },
+        {
+          "id": "xvo0011",
+          "name": "Autonomy vs Direction",
+          "risk": false,
+          "poles": [
+            {
+              "key": "autonomy",
+              "label": "Autonomy"
+            },
+            {
+              "key": "direction",
+              "label": "Direction"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How much freedom do you want in how you work?",
+            "poles": [
+              {
+                "label": "Autonomy",
+                "text": "Decide for yourself."
+              },
+              {
+                "label": "Direction",
+                "text": "Be told what to do."
+              }
+            ]
+          },
+          "question": "How much freedom do you want in how you work?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.2"
+        },
+        {
+          "id": "xvo0012",
+          "name": "Management Philosophy",
+          "risk": false,
+          "poles": [
+            {
+              "key": "command",
+              "label": "Command"
+            },
+            {
+              "key": "coach",
+              "label": "Coach"
+            },
+            {
+              "key": "laissez-faire",
+              "label": "Laissez-faire"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "How should a manager manage?",
+            "poles": [
+              {
+                "label": "Command",
+                "text": "Top-down, clear orders, the boss decides."
+              },
+              {
+                "label": "Coach",
+                "text": "Supportive, developmental, grows the team."
+              },
+              {
+                "label": "Laissez-faire",
+                "text": "Hands-off, get out of the way."
+              }
+            ]
+          },
+          "question": "How should a manager manage?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.3"
+        },
+        {
+          "id": "xvo0013",
+          "name": "Workplace Governance & Ownership",
+          "risk": false,
+          "poles": [
+            {
+              "key": "corporate-capital-hierarchy",
+              "label": "Corporate / Capital Hierarchy"
+            },
+            {
+              "key": "worker-cooperative-collective",
+              "label": "Worker Cooperative / Collective"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Who should own the workplace?",
+            "poles": [
+              {
+                "label": "Corporate",
+                "text": "Investor-owned, executive command."
+              },
+              {
+                "label": "Worker Cooperative",
+                "text": "Employee ownership, democratic decisions."
+              }
+            ]
+          },
+          "question": "Who should own the workplace?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.4"
+        },
+        {
+          "id": "xvo0014",
+          "name": "Work Models",
+          "risk": false,
+          "poles": [
+            {
+              "key": "full-time-employee",
+              "label": "Full-time Employee"
+            },
+            {
+              "key": "freelancer-independent",
+              "label": "Freelancer / Independent"
+            },
+            {
+              "key": "founder-entrepreneur",
+              "label": "Founder / Entrepreneur"
+            },
+            {
+              "key": "part-time-portfolio",
+              "label": "Part-time / Portfolio"
+            },
+            {
+              "key": "public-service-nonprofit",
+              "label": "Public Service / Nonprofit"
+            }
+          ],
+          "widget": "star-radar",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What shape does your working life take?",
+            "poles": [
+              {
+                "label": "Full-time Employee",
+                "text": "One employer, steady role."
+              },
+              {
+                "label": "Freelancer",
+                "text": "Clients, not bosses."
+              },
+              {
+                "label": "Founder",
+                "text": "Build it yourself."
+              },
+              {
+                "label": "Part-time",
+                "text": "Multiple roles, a patchwork."
+              },
+              {
+                "label": "Public Service",
+                "text": "Mission over market."
+              }
+            ]
+          },
+          "question": "What shape does your working life take?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.5"
+        }
+      ]
+    },
+    {
+      "id": "xvoc05",
+      "name": "Reward & Security",
+      "about": "What you get for your work — pay, security, recognition, and what anchors your career.",
+      "topics": [
+        {
+          "id": "xvo0015",
+          "name": "Pay vs Perks",
+          "risk": false,
+          "poles": [
+            {
+              "key": "high-pay",
+              "label": "High pay"
+            },
+            {
+              "key": "good-perks-benefits",
+              "label": "Good perks / benefits"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "What matters more — the number, or the package?",
+            "poles": [
+              {
+                "label": "High pay",
+                "text": "The number."
+              },
+              {
+                "label": "Good perks",
+                "text": "The package, benefits."
+              }
+            ]
+          },
+          "question": "What matters more — the number, or the package?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.1"
+        },
+        {
+          "id": "xvo0016",
+          "name": "Security vs Upside",
+          "risk": false,
+          "poles": [
+            {
+              "key": "security",
+              "label": "Security"
+            },
+            {
+              "key": "upside",
+              "label": "Upside"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you want safety, or potential?",
+            "poles": [
+              {
+                "label": "Security",
+                "text": "Stable, predictable."
+              },
+              {
+                "label": "Upside",
+                "text": "Equity, bonus, growth."
+              }
+            ]
+          },
+          "question": "Do you want safety, or potential?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.2"
+        },
+        {
+          "id": "xvo0017",
+          "name": "Recognition",
+          "risk": false,
+          "poles": [
+            {
+              "key": "quiet-contribution",
+              "label": "Quiet contribution"
+            },
+            {
+              "key": "public-recognition",
+              "label": "Public recognition"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How much do you need to be seen for what you do?",
+            "poles": [
+              {
+                "label": "Quiet contribution",
+                "text": "The work speaks."
+              },
+              {
+                "label": "Public recognition",
+                "text": "Need the credit."
+              }
+            ]
+          },
+          "question": "How much do you need to be seen for what you do?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.3"
+        },
+        {
+          "id": "xvo0018",
+          "name": "The Four Career Anchors",
+          "risk": false,
+          "poles": [
+            {
+              "key": "technical-craft-mastery",
+              "label": "Technical / Craft Mastery"
+            },
+            {
+              "key": "executive-managerial-authority",
+              "label": "Executive / Managerial Authority"
+            },
+            {
+              "key": "autonomy-creative-freedom",
+              "label": "Autonomy / Creative Freedom"
+            },
+            {
+              "key": "security-institutional-stability",
+              "label": "Security / Institutional Stability"
+            }
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What anchors your career?",
+            "poles": [
+              {
+                "label": "Technical Mastery",
+                "text": "Deep competence in the work itself."
+              },
+              {
+                "label": "Executive Authority",
+                "text": "Steering organizations, accountability, power."
+              },
+              {
+                "label": "Autonomy",
+                "text": "Self-direction, working on your own terms."
+              },
+              {
+                "label": "Security",
+                "text": "Predictability, safety, reliable foundation."
+              }
+            ]
+          },
+          "question": "What anchors your career?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.4"
+        }
+      ]
+    },
+    {
+      "id": "xvoc06",
+      "name": "Identity & Boundaries",
+      "about": "What work means to who you are, and where work ends and life begins.",
+      "topics": [
+        {
+          "id": "xvo0019",
+          "name": "Work as Identity",
+          "risk": false,
+          "poles": [
+            {
+              "key": "job-is-who-i-am",
+              "label": "Job is who I am"
+            },
+            {
+              "key": "job-is-what-i-do",
+              "label": "Job is what I do"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is your work your identity, or just something you do?",
+            "poles": [
+              {
+                "label": "Job is who I am",
+                "text": "Identity."
+              },
+              {
+                "label": "Job is what I do",
+                "text": "Just something you do."
+              }
+            ]
+          },
+          "question": "Is your work your identity, or just something you do?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.1"
+        },
+        {
+          "id": "xvo0020",
+          "name": "Boundaries",
+          "risk": false,
+          "poles": [
+            {
+              "key": "permeable",
+              "label": "Permeable"
+            },
+            {
+              "key": "firm",
+              "label": "Firm"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How separate is work from life — and should it be?",
+            "poles": [
+              {
+                "label": "Permeable",
+                "text": "Work bleeds into life."
+              },
+              {
+                "label": "Firm",
+                "text": "Clear separation."
+              }
+            ]
+          },
+          "question": "How separate is work from life — and should it be?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.2"
+        },
+        {
+          "id": "xvo0021",
+          "name": "Retirement",
+          "risk": false,
+          "poles": [
+            {
+              "key": "retire",
+              "label": "Retire"
+            },
+            {
+              "key": "work-for-life",
+              "label": "Work for life"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work to retire, or do you work because the work is the point?",
+            "poles": [
+              {
+                "label": "Retire",
+                "text": "Stop when you can."
+              },
+              {
+                "label": "Work for life",
+                "text": "Never stop."
+              }
+            ]
+          },
+          "question": "Do you work to retire, or do you work because the work is the point?",
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.3"
+        }
+      ]
+    }
+  ]
+}

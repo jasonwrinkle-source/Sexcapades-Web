@@ -1,0 +1,3268 @@
+{
+    "categories": [
+        {
+            "id": "xfoc01",
+            "name": "God",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is God one being in three persons, and what does that mean for how we know God?",
+                        "poles": [
+                            {
+                                "label": "One God, indivisible",
+                                "text": "One God, indivisible \u2014 the Trinity is rejected"
+                            },
+                            {
+                                "label": "One God in three persons",
+                                "text": "One God in three persons, one essence"
+                            }
+                        ]
+                    },
+                    "id": "xfo0007",
+                    "name": "The Trinity",
+                    "poles": [
+                        {
+                            "key": "one-god-indivisible",
+                            "label": "One God, indivisible"
+                        },
+                        {
+                            "key": "one-god-in-three-persons",
+                            "label": "One God in three persons"
+                        }
+                    ],
+                    "question": "Is God one being in three persons, and what does that mean for how we know God?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0001)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Does the Holy Spirit proceed from the Father alone, or from the Father and the Son?",
+                        "poles": [
+                            {
+                                "label": "Filioque (Father and Son)",
+                                "text": "The Spirit proceeds from the Father and the Son (*filioque*)"
+                            },
+                            {
+                                "label": "Father alone",
+                                "text": "The Spirit proceeds from the Father alone"
+                            }
+                        ]
+                    },
+                    "id": "xfo0008",
+                    "name": "The Holy Spirit and the filioque",
+                    "poles": [
+                        {
+                            "key": "filioque-father-and-son",
+                            "label": "Filioque (Father and Son)"
+                        },
+                        {
+                            "key": "father-alone",
+                            "label": "Father alone"
+                        }
+                    ],
+                    "question": "Does the Holy Spirit proceed from the Father alone, or from the Father and the Son?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0002)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How does God make Himself known, and is natural knowledge sufficient for salvation?",
+                        "poles": [
+                            {
+                                "label": "Knowledge of God and revelation",
+                                "text": "Natural knowledge insufficient; special revelation required"
+                            }
+                        ]
+                    },
+                    "id": "xfo0064",
+                    "name": "Knowledge of God and revelation",
+                    "poles": [
+                        {
+                            "key": "knowledge-of-god-and-revelation",
+                            "label": "Knowledge of God and revelation"
+                        }
+                    ],
+                    "question": "How does God make Himself known, and is natural knowledge sufficient for salvation?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0058)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
+                        "poles": [
+                            {
+                                "label": "Purely allegorical",
+                                "text": "Purely allegorical / metaphorical"
+                            },
+                            {
+                                "label": "Real attributes, meaning deferred",
+                                "text": "Real attributes of God, their meaning consigned to God or interpreted allegorically"
+                            },
+                            {
+                                "label": "Affirmed literally (Bila Kayfa)",
+                                "text": "Affirmed literally as stated, without asking how (Bila Kayfa)"
+                            }
+                        ]
+                    },
+                    "id": "xfo0083",
+                    "name": "Anthropomorphism and divine attributes",
+                    "poles": [
+                        {
+                            "key": "purely-allegorical",
+                            "label": "Purely allegorical"
+                        },
+                        {
+                            "key": "real-attributes-meaning-deferred",
+                            "label": "Real attributes, meaning deferred"
+                        },
+                        {
+                            "key": "affirmed-literally-bila-kayfa",
+                            "label": "Affirmed literally (Bila Kayfa)"
+                        }
+                    ],
+                    "question": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0077)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Who is Jesus Christ \u2014 truly God, truly man, or both \u2014 and how do the two natures relate?",
+                        "poles": [
+                            {
+                                "label": "True God and true man",
+                                "text": "Jesus is truly God and truly man, one Person with two natures"
+                            },
+                            {
+                                "label": "Prophet and Messiah, not divine",
+                                "text": "Jesus is a prophet and the Messiah, not divine"
+                            },
+                            {
+                                "label": "Jewish teacher, not Messiah",
+                                "text": "Jesus was a Jewish teacher, not the Messiah and not divine"
+                            }
+                        ]
+                    },
+                    "id": "xfo0009",
+                    "name": "The person of Christ",
+                    "poles": [
+                        {
+                            "key": "true-god-and-true-man",
+                            "label": "True God and true man"
+                        },
+                        {
+                            "key": "prophet-and-messiah-not-divine",
+                            "label": "Prophet and Messiah, not divine"
+                        },
+                        {
+                            "key": "jewish-teacher-not-messiah",
+                            "label": "Jewish teacher, not Messiah"
+                        }
+                    ],
+                    "question": "Who is Jesus Christ \u2014 truly God, truly man, or both \u2014 and how do the two natures relate?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0003)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Was Jesus conceived by the Holy Spirit and born of the Virgin Mary?",
+                        "poles": [
+                            {
+                                "label": "Conceived by the Holy Spirit",
+                                "text": "Conceived by the Holy Spirit, born of the Virgin Mary"
+                            },
+                            {
+                                "label": "Not born of a virgin",
+                                "text": "Not born of a virgin; an ordinary human birth"
+                            }
+                        ]
+                    },
+                    "id": "xfo0010",
+                    "name": "The virgin birth",
+                    "poles": [
+                        {
+                            "key": "conceived-by-the-holy-spirit",
+                            "label": "Conceived by the Holy Spirit"
+                        },
+                        {
+                            "key": "not-born-of-a-virgin",
+                            "label": "Not born of a virgin"
+                        }
+                    ],
+                    "question": "Was Jesus conceived by the Holy Spirit and born of the Virgin Mary?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0004)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Did Christ truly rise bodily from the dead, and what does his resurrection mean for ours?",
+                        "poles": [
+                            {
+                                "label": "Christ truly rose bodily",
+                                "text": "Christ truly rose bodily from the dead"
+                            },
+                            {
+                                "label": "Jesus did not rise",
+                                "text": "Jesus did not rise from the dead"
+                            }
+                        ]
+                    },
+                    "id": "xfo0011",
+                    "name": "The resurrection of Christ",
+                    "poles": [
+                        {
+                            "key": "christ-truly-rose-bodily",
+                            "label": "Christ truly rose bodily"
+                        },
+                        {
+                            "key": "jesus-did-not-rise",
+                            "label": "Jesus did not rise"
+                        }
+                    ],
+                    "question": "Did Christ truly rise bodily from the dead, and what does his resurrection mean for ours?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0005)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How did God make the world \u2014 in six days, over ages, or is the manner not defined?",
+                        "poles": [
+                            {
+                                "label": "Created in six days",
+                                "text": "God created in six days"
+                            },
+                            {
+                                "label": "God creates; manner not defined",
+                                "text": "God creates; the manner and timescale are not dogmatically defined"
+                            }
+                        ]
+                    },
+                    "id": "xfo0012",
+                    "name": "Creation",
+                    "poles": [
+                        {
+                            "key": "created-in-six-days",
+                            "label": "Created in six days"
+                        },
+                        {
+                            "key": "god-creates-manner-not-defined",
+                            "label": "God creates; manner not defined"
+                        }
+                    ],
+                    "question": "How did God make the world \u2014 in six days, over ages, or is the manner not defined?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0006)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "If God governs all things, why does he allow suffering and evil?",
+                        "poles": [
+                            {
+                                "label": "Providence and evil",
+                                "text": "God governs all things and permits evil, but is not its author"
+                            }
+                        ]
+                    },
+                    "id": "xfo0013",
+                    "name": "Providence and evil",
+                    "poles": [
+                        {
+                            "key": "providence-and-evil",
+                            "label": "Providence and evil"
+                        }
+                    ],
+                    "question": "If God governs all things, why does he allow suffering and evil?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0007)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What happened to human nature in the Fall \u2014 is Adam's guilt inherited, or only its effects?",
+                        "poles": [
+                            {
+                                "label": "Original sin inherited",
+                                "text": "Original sin inherited, with guilt, removed by Baptism"
+                            },
+                            {
+                                "label": "Ancestral sin inherited",
+                                "text": "Ancestral sin inherited as corruption and inclination, without inherited personal guilt"
+                            },
+                            {
+                                "label": "No inherited sin",
+                                "text": "No inherited sin; humans are born pure, with free will and inclinations"
+                            }
+                        ]
+                    },
+                    "id": "xfo0014",
+                    "name": "Human nature and the Fall",
+                    "poles": [
+                        {
+                            "key": "original-sin-inherited",
+                            "label": "Original sin inherited"
+                        },
+                        {
+                            "key": "ancestral-sin-inherited",
+                            "label": "Ancestral sin inherited"
+                        },
+                        {
+                            "key": "no-inherited-sin",
+                            "label": "No inherited sin"
+                        }
+                    ],
+                    "question": "What happened to human nature in the Fall \u2014 is Adam's guilt inherited, or only its effects?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0008)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Has the Messiah come, or is he still to come \u2014 and who is he?",
+                        "poles": [
+                            {
+                                "label": "Messiah not yet come",
+                                "text": "The Messiah has not yet come"
+                            },
+                            {
+                                "label": "Jesus the Messiah, prophet",
+                                "text": "Jesus is the Messiah, a prophet, not divine, to return at the end"
+                            },
+                            {
+                                "label": "Jesus the Messiah, God incarnate",
+                                "text": "Jesus is the Messiah, God incarnate, come and to return"
+                            }
+                        ]
+                    },
+                    "id": "xfo0066",
+                    "name": "The Messiah",
+                    "poles": [
+                        {
+                            "key": "messiah-not-yet-come",
+                            "label": "Messiah not yet come"
+                        },
+                        {
+                            "key": "jesus-the-messiah-prophet",
+                            "label": "Jesus the Messiah, prophet"
+                        },
+                        {
+                            "key": "jesus-the-messiah-god-incarnate",
+                            "label": "Jesus the Messiah, God incarnate"
+                        }
+                    ],
+                    "question": "Has the Messiah come, or is he still to come \u2014 and who is he?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0060)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "What is God's covenant \u2014 with Israel, with all who believe, or with humanity?",
+                        "poles": [
+                            {
+                                "label": "Covenant with Israel eternal",
+                                "text": "The covenant with Israel is eternal and unbroken"
+                            },
+                            {
+                                "label": "Fulfilled in the new covenant",
+                                "text": "The old covenant is fulfilled in the new covenant in Christ"
+                            },
+                            {
+                                "label": "Covenant renewed in Islam",
+                                "text": "The covenant is with Abraham and is renewed in Islam"
+                            }
+                        ]
+                    },
+                    "id": "xfo0067",
+                    "name": "The covenant",
+                    "poles": [
+                        {
+                            "key": "covenant-with-israel-eternal",
+                            "label": "Covenant with Israel eternal"
+                        },
+                        {
+                            "key": "fulfilled-in-the-new-covenant",
+                            "label": "Fulfilled in the new covenant"
+                        },
+                        {
+                            "key": "covenant-renewed-in-islam",
+                            "label": "Covenant renewed in Islam"
+                        }
+                    ],
+                    "question": "What is God's covenant \u2014 with Israel, with all who believe, or with humanity?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0061)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is circumcision a required sign of the covenant?",
+                        "poles": [
+                            {
+                                "label": "Required covenant sign",
+                                "text": "Circumcision is a required covenant sign"
+                            },
+                            {
+                                "label": "Required or recommended practice",
+                                "text": "Circumcision is a required or recommended practice, but not the sign of the covenant"
+                            },
+                            {
+                                "label": "Not required",
+                                "text": "Circumcision is not required"
+                            }
+                        ]
+                    },
+                    "id": "xfo0078",
+                    "name": "Circumcision",
+                    "poles": [
+                        {
+                            "key": "required-covenant-sign",
+                            "label": "Required covenant sign"
+                        },
+                        {
+                            "key": "required-or-recommended-practice",
+                            "label": "Required or recommended practice"
+                        },
+                        {
+                            "key": "not-required",
+                            "label": "Not required"
+                        }
+                    ],
+                    "question": "Is circumcision a required sign of the covenant?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0072)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is divine covenantal election restricted to an ethnic/ancestral lineage, or open universally to all humanity?",
+                        "poles": [
+                            {
+                                "label": "Particular hereditary covenant",
+                                "text": "Particular hereditary covenant with a chosen people"
+                            },
+                            {
+                                "label": "Universal covenant accessible to all",
+                                "text": "Universal covenant accessible to all humanity equally"
+                            }
+                        ]
+                    },
+                    "id": "xfo0087",
+                    "name": "Covenantal chosenness: particular or universal",
+                    "poles": [
+                        {
+                            "key": "particular-hereditary-covenant",
+                            "label": "Particular hereditary covenant"
+                        },
+                        {
+                            "key": "universal-covenant-accessible-to-all",
+                            "label": "Universal covenant accessible to all"
+                        }
+                    ],
+                    "question": "Is divine covenantal election restricted to an ethnic/ancestral lineage, or open universally to all humanity?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0081)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Have later divine covenants replaced, abrogated, or fulfilled prior covenants made with earlier communities?",
+                        "poles": [
+                            {
+                                "label": "Prior covenants remain perpetually valid",
+                                "text": "Prior covenants remain perpetually valid and unrevoked"
+                            },
+                            {
+                                "label": "New revelation completely supersedes",
+                                "text": "New revelation completely supersedes and abrogates previous dispensations"
+                            }
+                        ]
+                    },
+                    "id": "xfo0088",
+                    "name": "Supersession of prior covenants",
+                    "poles": [
+                        {
+                            "key": "prior-covenants-remain-perpetually-valid",
+                            "label": "Prior covenants remain perpetually valid"
+                        },
+                        {
+                            "key": "new-revelation-completely-supersedes",
+                            "label": "New revelation completely supersedes"
+                        }
+                    ],
+                    "question": "Have later divine covenants replaced, abrogated, or fulfilled prior covenants made with earlier communities?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0082)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Does the physical territory of the Holy Land / Jerusalem possess an enduring, unique divine holiness and covenantal status?",
+                        "poles": [
+                            {
+                                "label": "Eternal theological sanctity",
+                                "text": "Eternal theological sanctity and covenantal entitlement"
+                            },
+                            {
+                                "label": "Universal spiritualization",
+                                "text": "Universal spiritualization; no physical land carries unique divine ownership"
+                            }
+                        ]
+                    },
+                    "id": "xfo0091",
+                    "name": "Sacred land of Israel / Jerusalem",
+                    "poles": [
+                        {
+                            "key": "eternal-theological-sanctity",
+                            "label": "Eternal theological sanctity"
+                        },
+                        {
+                            "key": "universal-spiritualization",
+                            "label": "Universal spiritualization"
+                        }
+                    ],
+                    "question": "Does the physical territory of the Holy Land / Jerusalem possess an enduring, unique divine holiness and covenantal status?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0085)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Which Abrahamic faith carries the true covenant \u2014 Judaism, Christianity, or Islam?",
+                        "poles": [
+                            {
+                                "label": "Judaism",
+                                "text": "Particular covenant, Halakhic observance, holy bloodline, collective destiny."
+                            },
+                            {
+                                "label": "Christianity",
+                                "text": "Universal redemption, Pauline grace, incarnation, sacramental mystery."
+                            },
+                            {
+                                "label": "Islam",
+                                "text": "Primordial submission, absolute transcendence of Allah, Quranic recitation."
+                            }
+                        ]
+                    },
+                    "id": "xfo0001",
+                    "name": "The Abrahamic Trinity of Faiths",
+                    "poles": [
+                        {
+                            "key": "judaism-yahwism-covenant-of-the-torah",
+                            "label": "Judaism (Yahwism / Covenant of the Torah)"
+                        },
+                        {
+                            "key": "christianity-christology-incarnate-logos",
+                            "label": "Christianity (Christology / Incarnate Logos)"
+                        },
+                        {
+                            "key": "islam-tawhid-final-prophethood",
+                            "label": "Islam (Tawhid / Final Prophethood)"
+                        }
+                    ],
+                    "question": "Which Abrahamic faith carries the true covenant \u2014 Judaism, Christianity, or Islam?",
+                    "risk": false,
+                    "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.1.1",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "What are the six articles of Islamic faith?",
+                        "poles": [
+                            {
+                                "label": "Belief in Allah (Tawhid)",
+                                "text": "The transcendent One, absolute oneness."
+                            },
+                            {
+                                "label": "Belief in the Angels (Malaikah)",
+                                "text": "Heavenly messengers."
+                            },
+                            {
+                                "label": "Belief in the Holy Books (Kutub)",
+                                "text": "The written word, revealed scripture."
+                            },
+                            {
+                                "label": "Belief in the Prophets (Anbiya)",
+                                "text": "Earthly messengers."
+                            },
+                            {
+                                "label": "Belief in the Last Day (Qiyamah)",
+                                "text": "Resurrection and judgment."
+                            },
+                            {
+                                "label": "Belief in Divine Predestination (Qadar)",
+                                "text": "God's will and decree."
+                            }
+                        ]
+                    },
+                    "id": "xfo0004",
+                    "name": "The Six Pillars of Iman (Islamic Faith Hexad)",
+                    "poles": [
+                        {
+                            "key": "belief-in-allah-tawhid",
+                            "label": "Belief in Allah (Tawhid)"
+                        },
+                        {
+                            "key": "belief-in-the-angels-malaikah",
+                            "label": "Belief in the Angels (Malaikah)"
+                        },
+                        {
+                            "key": "belief-in-the-holy-books-kutub",
+                            "label": "Belief in the Holy Books (Kutub)"
+                        },
+                        {
+                            "key": "belief-in-the-prophets-anbiya",
+                            "label": "Belief in the Prophets (Anbiya)"
+                        },
+                        {
+                            "key": "belief-in-the-last-day-qiyamah",
+                            "label": "Belief in the Last Day (Qiyamah)"
+                        },
+                        {
+                            "key": "belief-in-divine-predestination-qadar",
+                            "label": "Belief in Divine Predestination (Qadar)"
+                        }
+                    ],
+                    "question": "What are the six articles of Islamic faith?",
+                    "risk": false,
+                    "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.3.1",
+                    "widget": "hexad-radar"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Which of the seven archangels and planetary spheres governs your spiritual life?",
+                        "poles": [
+                            {
+                                "label": "Michael (Sun)",
+                                "text": "Prince of the Heavenly Host, warrior of light."
+                            },
+                            {
+                                "label": "Haniel (Venus)",
+                                "text": "Angel of grace, sacred beauty, divine harmony."
+                            },
+                            {
+                                "label": "Camael (Mars)",
+                                "text": "Severity, divine justice, righteous wrath."
+                            },
+                            {
+                                "label": "Zadkiel (Jupiter)",
+                                "text": "Boundless mercy, righteousness, celestial benevolence."
+                            },
+                            {
+                                "label": "Cassiel / Zaphkiel (Saturn)",
+                                "text": "Solitude, contemplative tears, holy silence, time."
+                            },
+                            {
+                                "label": "Gabriel (Moon)",
+                                "text": "Annunciation, prophetic dreams, messenger of revelation."
+                            },
+                            {
+                                "label": "Raphael (Mercury)",
+                                "text": "Healing of God, divine physician, psychopomp."
+                            }
+                        ]
+                    },
+                    "id": "xfo0005",
+                    "name": "The Seven Classical Planetary Spheres / Archangels of Heaven",
+                    "poles": [
+                        {
+                            "key": "michael-sun-sol",
+                            "label": "Michael (Sun / Sol)"
+                        },
+                        {
+                            "key": "haniel-venus",
+                            "label": "Haniel (Venus)"
+                        },
+                        {
+                            "key": "camael-mars",
+                            "label": "Camael (Mars)"
+                        },
+                        {
+                            "key": "zadkiel-jupiter",
+                            "label": "Zadkiel (Jupiter)"
+                        },
+                        {
+                            "key": "cassiel-zaphkiel-saturn",
+                            "label": "Cassiel / Zaphkiel (Saturn)"
+                        },
+                        {
+                            "key": "gabriel-moon-luna",
+                            "label": "Gabriel (Moon / Luna)"
+                        },
+                        {
+                            "key": "raphael-mercury",
+                            "label": "Raphael (Mercury)"
+                        }
+                    ],
+                    "question": "Which of the seven archangels and planetary spheres governs your spiritual life?",
+                    "risk": false,
+                    "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.4.1",
+                    "widget": "heptad-radar"
+                },
+                {
+                    "approx": "regular octagon deformation polygon rendered as octad-radar; real octagon-deformation renderer is follow-up work",
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Which covenantal manifestation of Abraham anchors your faith?",
+                        "poles": [
+                            {
+                                "label": "Brit Milah",
+                                "text": "The irreversible bodily seal binding generations to the Creator."
+                            },
+                            {
+                                "label": "Halakha",
+                                "text": "Sanctification of everyday life through the 613 commandments."
+                            },
+                            {
+                                "label": "Kabbalah",
+                                "text": "Jewish esoteric mysticism, Sefirot emanations, Tikkun Olam."
+                            },
+                            {
+                                "label": "Gospel of Grace",
+                                "text": "The circumcised heart, justification by trust in the Cross."
+                            },
+                            {
+                                "label": "Eucharistic Mystery",
+                                "text": "Communion in the body and blood of the new covenant."
+                            },
+                            {
+                                "label": "Orthodox Christology",
+                                "text": "True God and True Man, unconfused and undivided."
+                            },
+                            {
+                                "label": "Tawhid",
+                                "text": "Absolute uncompromising monotheism, no partners, no offspring."
+                            },
+                            {
+                                "label": "Tasawwuf",
+                                "text": "Extinction of the ego in the infinite beloved divine sea."
+                            }
+                        ]
+                    },
+                    "id": "xfo0006",
+                    "name": "The Abrahamic Covenantal & Theological Octad",
+                    "poles": [
+                        {
+                            "key": "brit-milah-the-flesh-covenant-foreskin",
+                            "label": "Brit Milah (The Flesh Covenant / Foreskin)"
+                        },
+                        {
+                            "key": "halakha-the-way-mitzvot",
+                            "label": "Halakha (The Way / Mitzvot)"
+                        },
+                        {
+                            "key": "kabbalah-the-secret-chariot-ein-sof",
+                            "label": "Kabbalah (The Secret Chariot / Ein Sof)"
+                        },
+                        {
+                            "key": "gospel-of-grace-pauline-faith",
+                            "label": "Gospel of Grace (Pauline Faith)"
+                        },
+                        {
+                            "key": "eucharistic-mystery-sacramental-real-presence",
+                            "label": "Eucharistic Mystery (Sacramental Real Presence)"
+                        },
+                        {
+                            "key": "orthodox-christology-the-incarnate-word",
+                            "label": "Orthodox Christology (The Incarnate Word)"
+                        },
+                        {
+                            "key": "tawhid-absolute-uncompromising-monotheism",
+                            "label": "Tawhid (Absolute Uncompromising Monotheism)"
+                        },
+                        {
+                            "key": "tasawwuf-sufi-mystic-fana",
+                            "label": "Tasawwuf (Sufi Mystic Fana)"
+                        }
+                    ],
+                    "question": "Which covenantal manifestation of Abraham anchors your faith?",
+                    "risk": false,
+                    "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.5.1",
+                    "widget": "octad-radar"
+                }
+            ]
+        },
+        {
+            "id": "xfoc02",
+            "name": "Scripture & Authority",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is Scripture alone the rule of faith, or Scripture together with Tradition?",
+                        "poles": [
+                            {
+                                "label": "Text with authoritative tradition",
+                                "text": "The text together with its authoritative tradition (Tradition / Oral Torah / Sunnah)"
+                            },
+                            {
+                                "label": "Written text alone",
+                                "text": "The written text alone is the supreme rule of faith"
+                            }
+                        ]
+                    },
+                    "id": "xfo0015",
+                    "name": "The authority of Scripture",
+                    "poles": [
+                        {
+                            "key": "text-with-authoritative-tradition",
+                            "label": "Text with authoritative tradition"
+                        },
+                        {
+                            "key": "written-text-alone",
+                            "label": "Written text alone"
+                        }
+                    ],
+                    "question": "Is Scripture alone the rule of faith, or Scripture together with Tradition?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0009)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Which books count as Scripture \u2014 the Tanakh, the Christian Bible, or the Qur'an?",
+                        "poles": [
+                            {
+                                "label": "The canon is the Tanakh",
+                                "text": "The canon is the Tanakh (the Hebrew Bible), 24 books"
+                            },
+                            {
+                                "label": "The canon is the Christian Bible",
+                                "text": "The canon is the Christian Bible (Old and New Testaments)"
+                            },
+                            {
+                                "label": "The canon is the Qur'an",
+                                "text": "The canon is the Qur'an"
+                            }
+                        ]
+                    },
+                    "id": "xfo0016",
+                    "name": "The canon",
+                    "poles": [
+                        {
+                            "key": "the-canon-is-the-tanakh",
+                            "label": "The canon is the Tanakh"
+                        },
+                        {
+                            "key": "the-canon-is-the-christian-bible",
+                            "label": "The canon is the Christian Bible"
+                        },
+                        {
+                            "key": "the-canon-is-the-quran",
+                            "label": "The canon is the Qur'an"
+                        }
+                    ],
+                    "question": "Which books count as Scripture \u2014 the Tanakh, the Christian Bible, or the Qur'an?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0010)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is Scripture without error in everything it affirms, or only in what God intended to teach for salvation?",
+                        "poles": [
+                            {
+                                "label": "Scripture is without error",
+                                "text": "Scripture is without error in all that it affirms"
+                            },
+                            {
+                                "label": "Scripture is authoritative for salvation",
+                                "text": "Scripture is authoritative for salvation, not errorless in every historical or scientific affirmation"
+                            }
+                        ]
+                    },
+                    "id": "xfo0017",
+                    "name": "Scriptural inerrancy",
+                    "poles": [
+                        {
+                            "key": "scripture-is-without-error",
+                            "label": "Scripture is without error"
+                        },
+                        {
+                            "key": "scripture-is-authoritative-for-salvation",
+                            "label": "Scripture is authoritative for salvation"
+                        }
+                    ],
+                    "question": "Is Scripture without error in everything it affirms, or only in what God intended to teach for salvation?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0011)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who interprets Scripture rightly \u2014 the Church's Magisterium, the Church as a whole, or Scripture itself?",
+                        "poles": [
+                            {
+                                "label": "The authoritative teachers interpret",
+                                "text": "The authoritative teachers interpret the text (Magisterium / rabbis / scholars)"
+                            },
+                            {
+                                "label": "The text interprets itself",
+                                "text": "The text interprets itself, the individual believer illumined"
+                            }
+                        ]
+                    },
+                    "id": "xfo0018",
+                    "name": "Interpreting Scripture",
+                    "poles": [
+                        {
+                            "key": "the-authoritative-teachers-interpret",
+                            "label": "The authoritative teachers interpret"
+                        },
+                        {
+                            "key": "the-text-interprets-itself",
+                            "label": "The text interprets itself"
+                        }
+                    ],
+                    "question": "Who interprets Scripture rightly \u2014 the Church's Magisterium, the Church as a whole, or Scripture itself?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0012)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is Tradition a second, co-equal source of revelation alongside Scripture, or only a subordinate witness?",
+                        "poles": [
+                            {
+                                "label": "Sacred Tradition is equally authoritative",
+                                "text": "Sacred Tradition is equally authoritative with Scripture"
+                            },
+                            {
+                                "label": "Tradition is a subordinate witness",
+                                "text": "Tradition is a subordinate witness, never a co-equal rule"
+                            }
+                        ]
+                    },
+                    "id": "xfo0019",
+                    "name": "Tradition as authority",
+                    "poles": [
+                        {
+                            "key": "sacred-tradition-is-equally-authoritative",
+                            "label": "Sacred Tradition is equally authoritative"
+                        },
+                        {
+                            "key": "tradition-is-a-subordinate-witness",
+                            "label": "Tradition is a subordinate witness"
+                        }
+                    ],
+                    "question": "Is Tradition a second, co-equal source of revelation alongside Scripture, or only a subordinate witness?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0013)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "What is the Torah \u2014 God's revealed law, given at Sinai, written and oral?",
+                        "poles": [
+                            {
+                                "label": "Written and Oral Torah eternal",
+                                "text": "The Written and Oral Torah are God's eternal law"
+                            },
+                            {
+                                "label": "Torah fulfilled in Christ",
+                                "text": "The Torah is God's law, fulfilled in Christ"
+                            },
+                            {
+                                "label": "Torah altered; Qur'an supersedes",
+                                "text": "The Torah was revealed but has been altered; the Qur'an supersedes it"
+                            }
+                        ]
+                    },
+                    "id": "xfo0068",
+                    "name": "The Torah",
+                    "poles": [
+                        {
+                            "key": "written-and-oral-torah-eternal",
+                            "label": "Written and Oral Torah eternal"
+                        },
+                        {
+                            "key": "torah-fulfilled-in-christ",
+                            "label": "Torah fulfilled in Christ"
+                        },
+                        {
+                            "key": "torah-altered-quran-supersedes",
+                            "label": "Torah altered; Qur'an supersedes"
+                        }
+                    ],
+                    "question": "What is the Torah \u2014 God's revealed law, given at Sinai, written and oral?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0062)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What is the Qur'an \u2014 God's literal word, revealed to Muhammad?",
+                        "poles": [
+                            {
+                                "label": "God's literal word",
+                                "text": "The Qur'an is God's literal word (Sunni: uncreated and eternal; Shia: created)"
+                            },
+                            {
+                                "label": "Not divine revelation",
+                                "text": "The Qur'an is not divine revelation"
+                            }
+                        ]
+                    },
+                    "id": "xfo0069",
+                    "name": "The Qur'an",
+                    "poles": [
+                        {
+                            "key": "gods-literal-word",
+                            "label": "God's literal word"
+                        },
+                        {
+                            "key": "not-divine-revelation",
+                            "label": "Not divine revelation"
+                        }
+                    ],
+                    "question": "What is the Qur'an \u2014 God's literal word, revealed to Muhammad?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0063)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
+                        "poles": [
+                            {
+                                "label": "Papal primacy of jurisdiction",
+                                "text": "Papal primacy of jurisdiction, infallible when defining ex cathedra"
+                            },
+                            {
+                                "label": "No papal jurisdiction",
+                                "text": "No papal jurisdiction; the Bishop of Rome is first among equals at most"
+                            }
+                        ]
+                    },
+                    "id": "xfo0020",
+                    "name": "The papacy",
+                    "poles": [
+                        {
+                            "key": "papal-primacy-of-jurisdiction",
+                            "label": "Papal primacy of jurisdiction"
+                        },
+                        {
+                            "key": "no-papal-jurisdiction",
+                            "label": "No papal jurisdiction"
+                        }
+                    ],
+                    "question": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0014)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Which councils are authoritative \u2014 all twenty-one, only the seven, or none as a rule over Scripture?",
+                        "poles": [
+                            {
+                                "label": "Twenty-one councils",
+                                "text": "Twenty-one councils, confirmed by the Pope, teach authoritatively"
+                            },
+                            {
+                                "label": "Seven councils only",
+                                "text": "Only the Seven Ecumenical Councils are received"
+                            },
+                            {
+                                "label": "Councils may err",
+                                "text": "General councils may err and are subordinate to Scripture"
+                            }
+                        ]
+                    },
+                    "id": "xfo0021",
+                    "name": "Ecumenical councils",
+                    "poles": [
+                        {
+                            "key": "twenty-one-councils",
+                            "label": "Twenty-one councils"
+                        },
+                        {
+                            "key": "seven-councils-only",
+                            "label": "Seven councils only"
+                        },
+                        {
+                            "key": "councils-may-err",
+                            "label": "Councils may err"
+                        }
+                    ],
+                    "question": "Which councils are authoritative \u2014 all twenty-one, only the seven, or none as a rule over Scripture?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0015)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Must bishops stand in unbroken succession from the apostles, or is succession doctrinal fidelity?",
+                        "poles": [
+                            {
+                                "label": "Unbroken chain of ordination",
+                                "text": "Unbroken chain of ordination and transmission (laying on of hands / semikhah / isnad)"
+                            },
+                            {
+                                "label": "Succession is fidelity to doctrine",
+                                "text": "Succession is fidelity to doctrine"
+                            }
+                        ]
+                    },
+                    "id": "xfo0022",
+                    "name": "Apostolic succession",
+                    "poles": [
+                        {
+                            "key": "unbroken-chain-of-ordination",
+                            "label": "Unbroken chain of ordination"
+                        },
+                        {
+                            "key": "succession-is-fidelity-to-doctrine",
+                            "label": "Succession is fidelity to doctrine"
+                        }
+                    ],
+                    "question": "Must bishops stand in unbroken succession from the apostles, or is succession doctrinal fidelity?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0016)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who may be ordained, in what orders, and must priests be celibate?",
+                        "poles": [
+                            {
+                                "label": "Sacramental priesthood",
+                                "text": "A sacramental priesthood in three orders, conferred by laying on of hands"
+                            },
+                            {
+                                "label": "Ordained ministry of Word",
+                                "text": "An ordained ministry of Word and sacrament, called by the church"
+                            },
+                            {
+                                "label": "No priesthood",
+                                "text": "No priesthood or ordination; teachers and prayer leaders only"
+                            }
+                        ]
+                    },
+                    "id": "xfo0023",
+                    "name": "Ordination and the priesthood",
+                    "poles": [
+                        {
+                            "key": "sacramental-priesthood",
+                            "label": "Sacramental priesthood"
+                        },
+                        {
+                            "key": "ordained-ministry-of-word",
+                            "label": "Ordained ministry of Word"
+                        },
+                        {
+                            "key": "no-priesthood",
+                            "label": "No priesthood"
+                        }
+                    ],
+                    "question": "Who may be ordained, in what orders, and must priests be celibate?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0017)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
+                        "poles": [
+                            {
+                                "label": "Imamate is a principle of faith",
+                                "text": "Imamate is a principle of faith; Twelve Imams are divinely designated and infallible"
+                            },
+                            {
+                                "label": "No Imamate",
+                                "text": "No Imamate; leadership by consensus or election"
+                            }
+                        ]
+                    },
+                    "id": "xfo0080",
+                    "name": "Imamate (Shia)",
+                    "poles": [
+                        {
+                            "key": "imamate-is-a-principle-of-faith",
+                            "label": "Imamate is a principle of faith"
+                        },
+                        {
+                            "key": "no-imamate",
+                            "label": "No Imamate"
+                        }
+                    ],
+                    "question": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0074)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Has prophecy ended, and is there a final prophet after Jesus?",
+                        "poles": [
+                            {
+                                "label": "Prophecy ended with Hebrew prophets",
+                                "text": "Prophecy ended with the Hebrew prophets"
+                            },
+                            {
+                                "label": "Jesus the final revelation",
+                                "text": "Jesus is the final revelation; no prophet after him"
+                            },
+                            {
+                                "label": "Muhammad the final prophet",
+                                "text": "Muhammad is the final prophet, the Seal of the Prophets"
+                            }
+                        ]
+                    },
+                    "id": "xfo0070",
+                    "name": "Prophecy and the final prophet",
+                    "poles": [
+                        {
+                            "key": "prophecy-ended-with-hebrew-prophets",
+                            "label": "Prophecy ended with Hebrew prophets"
+                        },
+                        {
+                            "key": "jesus-the-final-revelation",
+                            "label": "Jesus the final revelation"
+                        },
+                        {
+                            "key": "muhammad-the-final-prophet",
+                            "label": "Muhammad the final prophet"
+                        }
+                    ],
+                    "question": "Has prophecy ended, and is there a final prophet after Jesus?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0064)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Are divine prophets protected by God from committing major sins, errors, or moral failure (Ismah)?",
+                        "poles": [
+                            {
+                                "label": "Complete sinlessness and infallibility",
+                                "text": "Complete sinlessness and infallibility (Ismah)"
+                            },
+                            {
+                                "label": "Prophets are righteous human beings",
+                                "text": "Prophets are righteous human beings capable of moral error and sin"
+                            }
+                        ]
+                    },
+                    "id": "xfo0084",
+                    "name": "Infallibility and sinlessness of prophets (Ismah)",
+                    "poles": [
+                        {
+                            "key": "complete-sinlessness-and-infallibility",
+                            "label": "Complete sinlessness and infallibility"
+                        },
+                        {
+                            "key": "prophets-are-righteous-human-beings",
+                            "label": "Prophets are righteous human beings"
+                        }
+                    ],
+                    "question": "Are divine prophets protected by God from committing major sins, errors, or moral failure (Ismah)?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0078)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is halakha \u2014 Jewish law from Torah and rabbinic tradition \u2014 binding?",
+                        "poles": [
+                            {
+                                "label": "Binding law",
+                                "text": "Halakha is God's binding law, interpreted by the rabbis"
+                            },
+                            {
+                                "label": "Binding but evolves",
+                                "text": "Halakha is binding but evolves through rabbinic interpretation"
+                            },
+                            {
+                                "label": "Guide, interpreted by conscience",
+                                "text": "Halakha is a guide, interpreted by conscience and reason"
+                            }
+                        ]
+                    },
+                    "id": "xfo0071",
+                    "name": "Halakha (Jewish law)",
+                    "poles": [
+                        {
+                            "key": "binding-law",
+                            "label": "Binding law"
+                        },
+                        {
+                            "key": "binding-but-evolves",
+                            "label": "Binding but evolves"
+                        },
+                        {
+                            "key": "guide-interpreted-by-conscience",
+                            "label": "Guide, interpreted by conscience"
+                        }
+                    ],
+                    "question": "Is halakha \u2014 Jewish law from Torah and rabbinic tradition \u2014 binding?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0065)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is sharia \u2014 Islamic law from Qur'an, Sunnah, and scholarship \u2014 binding?",
+                        "poles": [
+                            {
+                                "label": "Sharia (Islamic law)",
+                                "text": "Sharia is God's binding law, from Qur'an, Sunnah, and scholarship"
+                            }
+                        ]
+                    },
+                    "id": "xfo0072",
+                    "name": "Sharia (Islamic law)",
+                    "poles": [
+                        {
+                            "key": "sharia-islamic-law",
+                            "label": "Sharia (Islamic law)"
+                        }
+                    ],
+                    "question": "Is sharia \u2014 Islamic law from Qur'an, Sunnah, and scholarship \u2014 binding?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0066)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "How should scripture be read?",
+                        "poles": [
+                            {
+                                "label": "Peshat / Literal",
+                                "text": "Historical-grammatical plain reading."
+                            },
+                            {
+                                "label": "Remez / Allegorical",
+                                "text": "Typological and Christological shadow-meaning."
+                            },
+                            {
+                                "label": "Derash / Moral",
+                                "text": "Practical ethical and legal instruction."
+                            },
+                            {
+                                "label": "Sod / Anagogical",
+                                "text": "Esoteric secrets, heavenly ascent, divine chariot."
+                            }
+                        ]
+                    },
+                    "id": "xfo0003",
+                    "name": "The Four Quadrants of Biblical Hermeneutics (PaRDeS / Quadriga)",
+                    "poles": [
+                        {
+                            "key": "peshat-literal",
+                            "label": "Peshat / Literal"
+                        },
+                        {
+                            "key": "remez-allegorical",
+                            "label": "Remez / Allegorical"
+                        },
+                        {
+                            "key": "derash-moral-tropological",
+                            "label": "Derash / Moral (Tropological)"
+                        },
+                        {
+                            "key": "sod-anagogical-mystical",
+                            "label": "Sod / Anagogical (Mystical)"
+                        }
+                    ],
+                    "question": "How should scripture be read?",
+                    "risk": false,
+                    "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.2.1",
+                    "widget": "diamond"
+                }
+            ]
+        },
+        {
+            "id": "xfoc03",
+            "name": "Community & Leadership",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What is the religious community \u2014 one visible communion, or the people of God wherever they gather?",
+                        "poles": [
+                            {
+                                "label": "One visible communion",
+                                "text": "One visible communion, identified with a specific body"
+                            },
+                            {
+                                "label": "People of God in congregations",
+                                "text": "The community is the people of God, gathered in local congregations"
+                            }
+                        ]
+                    },
+                    "id": "xfo0031",
+                    "name": "The nature of the religious community",
+                    "poles": [
+                        {
+                            "key": "one-visible-communion",
+                            "label": "One visible communion"
+                        },
+                        {
+                            "key": "people-of-god-in-congregations",
+                            "label": "People of God in congregations"
+                        }
+                    ],
+                    "question": "What is the religious community \u2014 one visible communion, or the people of God wherever they gather?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0025)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Who governs the Church \u2014 bishops, presbyteries of elders, or the congregation itself?",
+                        "poles": [
+                            {
+                                "label": "Episcopal",
+                                "text": "Episcopal \u2014 bishops govern"
+                            },
+                            {
+                                "label": "Presbyterian",
+                                "text": "Presbyterian \u2014 elders in graded assemblies govern"
+                            },
+                            {
+                                "label": "Congregational",
+                                "text": "Congregational / decentralised \u2014 each community governs itself, led by its teachers"
+                            }
+                        ]
+                    },
+                    "id": "xfo0032",
+                    "name": "Religious governance",
+                    "poles": [
+                        {
+                            "key": "episcopal",
+                            "label": "Episcopal"
+                        },
+                        {
+                            "key": "presbyterian",
+                            "label": "Presbyterian"
+                        },
+                        {
+                            "key": "congregational",
+                            "label": "Congregational"
+                        }
+                    ],
+                    "question": "Who governs the Church \u2014 bishops, presbyteries of elders, or the congregation itself?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0026)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How should members relate to practitioners of other Abrahamic faiths?",
+                        "poles": [
+                            {
+                                "label": "Other religions are valid paths",
+                                "text": "Other religions are valid paths or partners"
+                            },
+                            {
+                                "label": "Other religions are incomplete",
+                                "text": "Other religions are incomplete or in error"
+                            },
+                            {
+                                "label": "Strict exclusivity",
+                                "text": "Strict exclusivity"
+                            }
+                        ]
+                    },
+                    "id": "xfo0082",
+                    "name": "Interfaith relations / other religions",
+                    "poles": [
+                        {
+                            "key": "other-religions-are-valid-paths",
+                            "label": "Other religions are valid paths"
+                        },
+                        {
+                            "key": "other-religions-are-incomplete",
+                            "label": "Other religions are incomplete"
+                        },
+                        {
+                            "key": "strict-exclusivity",
+                            "label": "Strict exclusivity"
+                        }
+                    ],
+                    "question": "How should members relate to practitioners of other Abrahamic faiths?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0076)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May women be ordained to the priesthood and pastorate, or is ordination reserved to men?",
+                        "poles": [
+                            {
+                                "label": "Women lead and are ordained",
+                                "text": "Women lead and are ordained at all levels"
+                            },
+                            {
+                                "label": "Leadership reserved to men",
+                                "text": "Religious leadership is reserved to men alone"
+                            }
+                        ]
+                    },
+                    "id": "xfo0033",
+                    "name": "Women in religious leadership",
+                    "poles": [
+                        {
+                            "key": "women-lead-and-are-ordained",
+                            "label": "Women lead and are ordained"
+                        },
+                        {
+                            "key": "leadership-reserved-to-men",
+                            "label": "Leadership reserved to men"
+                        }
+                    ],
+                    "question": "May women be ordained to the priesthood and pastorate, or is ordination reserved to men?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0027)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How does the Church discipline its members, and who counts as a member?",
+                        "poles": [
+                            {
+                                "label": "Discipline and membership",
+                                "text": "Discipline by ordained clergy and courts, as medicine for healing"
+                            }
+                        ]
+                    },
+                    "id": "xfo0034",
+                    "name": "Discipline and membership",
+                    "poles": [
+                        {
+                            "key": "discipline-and-membership",
+                            "label": "Discipline and membership"
+                        }
+                    ],
+                    "question": "How does the Church discipline its members, and who counts as a member?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0028)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What happens to one who leaves the faith \u2014 are they still a member?",
+                        "poles": [
+                            {
+                                "label": "Still a member",
+                                "text": "One who leaves is still a member; the remedy is return"
+                            },
+                            {
+                                "label": "Excluded, not punished civilly",
+                                "text": "One who leaves is excluded from communion, not punished civilly"
+                            },
+                            {
+                                "label": "Excluded, penalty severe",
+                                "text": "One who leaves is excluded; the penalty is severe (up to death in classical law)"
+                            }
+                        ]
+                    },
+                    "id": "xfo0079",
+                    "name": "Apostasy and leaving the faith",
+                    "poles": [
+                        {
+                            "key": "still-a-member",
+                            "label": "Still a member"
+                        },
+                        {
+                            "key": "excluded-not-punished-civilly",
+                            "label": "Excluded, not punished civilly"
+                        },
+                        {
+                            "key": "excluded-penalty-severe",
+                            "label": "Excluded, penalty severe"
+                        }
+                    ],
+                    "question": "What happens to one who leaves the faith \u2014 are they still a member?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0073)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "How does one join the community, and is identity matrilineal, by faith, or by confession?",
+                        "poles": [
+                            {
+                                "label": "Matrilineal descent or formal conversion",
+                                "text": "Matrilineal descent or formal conversion under halakha"
+                            },
+                            {
+                                "label": "Baptism / faith in Christ",
+                                "text": "Baptism / faith in Christ"
+                            },
+                            {
+                                "label": "Shahada and practice",
+                                "text": "Shahada and practice"
+                            }
+                        ]
+                    },
+                    "id": "xfo0081",
+                    "name": "Conversion and religious identity",
+                    "poles": [
+                        {
+                            "key": "matrilineal-descent-or-formal-conversion",
+                            "label": "Matrilineal descent or formal conversion"
+                        },
+                        {
+                            "key": "baptism-faith-in-christ",
+                            "label": "Baptism / faith in Christ"
+                        },
+                        {
+                            "key": "shahada-and-practice",
+                            "label": "Shahada and practice"
+                        }
+                    ],
+                    "question": "How does one join the community, and is identity matrilineal, by faith, or by confession?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0075)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Should religious leadership be chosen by communal consultation or by divine designation?",
+                        "poles": [
+                            {
+                                "label": "Divine appointment through explicit designation",
+                                "text": "Divine appointment through explicit designation (Nass)"
+                            },
+                            {
+                                "label": "Communal consensus and consultation",
+                                "text": "Communal consensus and consultation (Shura)"
+                            }
+                        ]
+                    },
+                    "id": "xfo0085",
+                    "name": "The election of successors (Shura vs. Nass)",
+                    "poles": [
+                        {
+                            "key": "divine-appointment-through-explicit-designation",
+                            "label": "Divine appointment through explicit designation"
+                        },
+                        {
+                            "key": "communal-consensus-and-consultation",
+                            "label": "Communal consensus and consultation"
+                        }
+                    ],
+                    "question": "Should religious leadership be chosen by communal consultation or by divine designation?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0079)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xfoc04",
+            "name": "Salvation & Grace",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Are we justified by faith alone, or by faith and works together in grace?",
+                        "poles": [
+                            {
+                                "label": "Made right by faith alone",
+                                "text": "Made right by faith alone, works following but not meriting"
+                            },
+                            {
+                                "label": "Made right by faith and works",
+                                "text": "Made right by faith and works, in God's grace and mercy"
+                            }
+                        ]
+                    },
+                    "id": "xfo0024",
+                    "name": "Righteousness before God",
+                    "poles": [
+                        {
+                            "key": "made-right-by-faith-alone",
+                            "label": "Made right by faith alone"
+                        },
+                        {
+                            "key": "made-right-by-faith-and-works",
+                            "label": "Made right by faith and works"
+                        }
+                    ],
+                    "question": "Are we justified by faith alone, or by faith and works together in grace?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0018)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Does grace compel, enable, or cooperate with the human will \u2014 and can it be resisted?",
+                        "poles": [
+                            {
+                                "label": "Irresistible grace",
+                                "text": "Irresistible, effectual grace for the elect"
+                            },
+                            {
+                                "label": "Resistible grace",
+                                "text": "Grace alone converts, but it can be resisted"
+                            },
+                            {
+                                "label": "Prevenient grace",
+                                "text": "Prevenient grace enables a free response; man cooperates"
+                            }
+                        ]
+                    },
+                    "id": "xfo0025",
+                    "name": "Grace",
+                    "poles": [
+                        {
+                            "key": "irresistible-grace",
+                            "label": "Irresistible grace"
+                        },
+                        {
+                            "key": "resistible-grace",
+                            "label": "Resistible grace"
+                        },
+                        {
+                            "key": "prevenient-grace",
+                            "label": "Prevenient grace"
+                        }
+                    ],
+                    "question": "Does grace compel, enable, or cooperate with the human will \u2014 and can it be resisted?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0019)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Does God elect unconditionally, elect to salvation only, or elect on the basis of foreseen faith?",
+                        "poles": [
+                            {
+                                "label": "Unconditional election and reprobation",
+                                "text": "Unconditional election and reprobation"
+                            },
+                            {
+                                "label": "Election to salvation in Christ",
+                                "text": "Election to salvation in Christ; no one predestined to hell"
+                            },
+                            {
+                                "label": "Election conditioned on foreknowledge",
+                                "text": "Election conditioned on foreknowledge and faith"
+                            }
+                        ]
+                    },
+                    "id": "xfo0026",
+                    "name": "Predestination and election",
+                    "poles": [
+                        {
+                            "key": "unconditional-election-and-reprobation",
+                            "label": "Unconditional election and reprobation"
+                        },
+                        {
+                            "key": "election-to-salvation-in-christ",
+                            "label": "Election to salvation in Christ"
+                        },
+                        {
+                            "key": "election-conditioned-on-foreknowledge",
+                            "label": "Election conditioned on foreknowledge"
+                        }
+                    ],
+                    "question": "Does God elect unconditionally, elect to salvation only, or elect on the basis of foreseen faith?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0020)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "How does Christ's death save \u2014 by satisfying divine justice, by ransom and victory, or both?",
+                        "poles": [
+                            {
+                                "label": "Satisfaction (vicarious atonement)",
+                                "text": "Christ's death satisfies divine justice, bearing our sins"
+                            },
+                            {
+                                "label": "Ransom (Christus Victor)",
+                                "text": "Christ's death ransoms us and destroys death, restoring human nature"
+                            },
+                            {
+                                "label": "Repentance and good deeds",
+                                "text": "Repentance, prayer, and good deeds atone; no vicarious atonement"
+                            }
+                        ]
+                    },
+                    "id": "xfo0027",
+                    "name": "The atonement",
+                    "poles": [
+                        {
+                            "key": "satisfaction-vicarious-atonement",
+                            "label": "Satisfaction (vicarious atonement)"
+                        },
+                        {
+                            "key": "ransom-christus-victor",
+                            "label": "Ransom (Christus Victor)"
+                        },
+                        {
+                            "key": "repentance-and-good-deeds",
+                            "label": "Repentance and good deeds"
+                        }
+                    ],
+                    "question": "How does Christ's death save \u2014 by satisfying divine justice, by ransom and victory, or both?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0021)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Can salvation be lost once received, or do true believers persevere to the end?",
+                        "poles": [
+                            {
+                                "label": "True believers cannot finally fall",
+                                "text": "True believers cannot finally fall away"
+                            },
+                            {
+                                "label": "Salvation can be lost",
+                                "text": "Salvation can be lost by turning away, and regained by repentance"
+                            }
+                        ]
+                    },
+                    "id": "xfo0028",
+                    "name": "Assurance and perseverance",
+                    "poles": [
+                        {
+                            "key": "true-believers-cannot-finally-fall",
+                            "label": "True believers cannot finally fall"
+                        },
+                        {
+                            "key": "salvation-can-be-lost",
+                            "label": "Salvation can be lost"
+                        }
+                    ],
+                    "question": "Can salvation be lost once received, or do true believers persevere to the end?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0022)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How is a person forgiven \u2014 by repentance, prayer, and good deeds?",
+                        "poles": [
+                            {
+                                "label": "Repentance, prayer, good deeds",
+                                "text": "Forgiven by repentance, prayer, and good deeds (and God's mercy)"
+                            },
+                            {
+                                "label": "Repentance and faith in Christ",
+                                "text": "Forgiven by repentance and faith in Christ's atoning death"
+                            }
+                        ]
+                    },
+                    "id": "xfo0075",
+                    "name": "Repentance",
+                    "poles": [
+                        {
+                            "key": "repentance-prayer-good-deeds",
+                            "label": "Repentance, prayer, good deeds"
+                        },
+                        {
+                            "key": "repentance-and-faith-in-christ",
+                            "label": "Repentance and faith in Christ"
+                        }
+                    ],
+                    "question": "How is a person forgiven \u2014 by repentance, prayer, and good deeds?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0069)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is there a purification after death for those who die in God's grace but imperfectly purified?",
+                        "poles": [
+                            {
+                                "label": "Purgatory",
+                                "text": "Purgatory \u2014 a final purification after death"
+                            },
+                            {
+                                "label": "No purgatory",
+                                "text": "No purgatory; the dead go to heaven or hell"
+                            }
+                        ]
+                    },
+                    "id": "xfo0029",
+                    "name": "Purgatory",
+                    "poles": [
+                        {
+                            "key": "purgatory",
+                            "label": "Purgatory"
+                        },
+                        {
+                            "key": "no-purgatory",
+                            "label": "No purgatory"
+                        }
+                    ],
+                    "question": "Is there a purification after death for those who die in God's grace but imperfectly purified?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0023)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Should Mary and the saints be venerated and asked for intercession, or is Christ alone the mediator?",
+                        "poles": [
+                            {
+                                "label": "Venerated and invoked",
+                                "text": "Mary and the saints are venerated and invoked for intercession"
+                            },
+                            {
+                                "label": "Honoured, not invoked",
+                                "text": "Mary is honoured but not invoked, and there are no Marian dogmas"
+                            },
+                            {
+                                "label": "Christ alone Mediator",
+                                "text": "Christ alone is Mediator; no invocation of saints"
+                            }
+                        ]
+                    },
+                    "id": "xfo0030",
+                    "name": "Mary and the saints",
+                    "poles": [
+                        {
+                            "key": "venerated-and-invoked",
+                            "label": "Venerated and invoked"
+                        },
+                        {
+                            "key": "honoured-not-invoked",
+                            "label": "Honoured, not invoked"
+                        },
+                        {
+                            "key": "christ-alone-mediator",
+                            "label": "Christ alone Mediator"
+                        }
+                    ],
+                    "question": "Should Mary and the saints be venerated and asked for intercession, or is Christ alone the mediator?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0024)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How is a person made right with God?",
+                        "poles": [
+                            {
+                                "label": "Sola Fide",
+                                "text": "Lutheran/Reformed forensic justification by faith alone."
+                            },
+                            {
+                                "label": "Sacramental Synergy",
+                                "text": "Catholic/Orthodox cooperative grace through works and sacraments."
+                            },
+                            {
+                                "label": "Theosis",
+                                "text": "Eastern Orthodox deification by grace through uncreated energies."
+                            }
+                        ]
+                    },
+                    "id": "xfo0002",
+                    "name": "The Christian Trilemma of Justification",
+                    "poles": [
+                        {
+                            "key": "sola-fide-faith-alone",
+                            "label": "Sola Fide (Faith Alone)"
+                        },
+                        {
+                            "key": "sacramental-synergy-works-sacraments",
+                            "label": "Sacramental Synergy (Works & Sacraments)"
+                        },
+                        {
+                            "key": "theosis-deification-by-grace",
+                            "label": "Theosis (Deification by Grace)"
+                        }
+                    ],
+                    "question": "How is a person made right with God?",
+                    "risk": false,
+                    "source": "BRIEFING_FORESCAPADES_TAXONOMY.md \u00a73.1.2",
+                    "widget": "triangle"
+                }
+            ]
+        },
+        {
+            "id": "xfoc05",
+            "name": "Ritual & Worship",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How many sacraments did Christ institute \u2014 seven, or two?",
+                        "poles": [
+                            {
+                                "label": "Seven sacraments",
+                                "text": "Seven sacraments, instituted by Christ"
+                            },
+                            {
+                                "label": "Two sacraments (or ordinances)",
+                                "text": "Two sacraments (or ordinances): Baptism and the Lord's Supper"
+                            }
+                        ]
+                    },
+                    "id": "xfo0035",
+                    "name": "The number of sacraments",
+                    "poles": [
+                        {
+                            "key": "seven-sacraments",
+                            "label": "Seven sacraments"
+                        },
+                        {
+                            "key": "two-sacraments-or-ordinances",
+                            "label": "Two sacraments (or ordinances)"
+                        }
+                    ],
+                    "question": "How many sacraments did Christ institute \u2014 seven, or two?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0029)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who should be baptized, how, and what does Baptism do \u2014 regenerate, seal, or symbolize?",
+                        "poles": [
+                            {
+                                "label": "Infant baptism regenerates",
+                                "text": "Infants baptised; Baptism regenerates"
+                            },
+                            {
+                                "label": "Infant baptism, sign and seal",
+                                "text": "Infants baptised; Baptism is a sign and seal of the covenant"
+                            },
+                            {
+                                "label": "Believers' baptism by immersion",
+                                "text": "Believers only, by immersion, as a symbolic testimony"
+                            }
+                        ]
+                    },
+                    "id": "xfo0036",
+                    "name": "Baptism",
+                    "poles": [
+                        {
+                            "key": "infant-baptism-regenerates",
+                            "label": "Infant baptism regenerates"
+                        },
+                        {
+                            "key": "infant-baptism-sign-and-seal",
+                            "label": "Infant baptism, sign and seal"
+                        },
+                        {
+                            "key": "believers-baptism-by-immersion",
+                            "label": "Believers' baptism by immersion"
+                        }
+                    ],
+                    "question": "Who should be baptized, how, and what does Baptism do \u2014 regenerate, seal, or symbolize?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0030)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is Christ truly present in the bread and wine, spiritually present to faith, or is the meal a memorial only?",
+                        "poles": [
+                            {
+                                "label": "Truly present, body and blood",
+                                "text": "Christ truly present, body and blood (transubstantiation / change)"
+                            },
+                            {
+                                "label": "Spiritually present to faith",
+                                "text": "Christ spiritually present to faith"
+                            },
+                            {
+                                "label": "Memorial and symbol only",
+                                "text": "Memorial and symbol only"
+                            }
+                        ]
+                    },
+                    "id": "xfo0037",
+                    "name": "The Lord's Supper",
+                    "poles": [
+                        {
+                            "key": "truly-present-body-and-blood",
+                            "label": "Truly present, body and blood"
+                        },
+                        {
+                            "key": "spiritually-present-to-faith",
+                            "label": "Spiritually present to faith"
+                        },
+                        {
+                            "key": "memorial-and-symbol-only",
+                            "label": "Memorial and symbol only"
+                        }
+                    ],
+                    "question": "Is Christ truly present in the bread and wine, spiritually present to faith, or is the meal a memorial only?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0031)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Must sins be confessed to a priest who absolves, or is confession made to God directly?",
+                        "poles": [
+                            {
+                                "label": "Sacramental confession to a priest",
+                                "text": "Sacramental confession to a priest, who absolves in Christ's name"
+                            },
+                            {
+                                "label": "Confession to God directly",
+                                "text": "Confession to God directly (and to one another); no priestly absolution"
+                            }
+                        ]
+                    },
+                    "id": "xfo0038",
+                    "name": "Confession and absolution",
+                    "poles": [
+                        {
+                            "key": "sacramental-confession-to-a-priest",
+                            "label": "Sacramental confession to a priest"
+                        },
+                        {
+                            "key": "confession-to-god-directly",
+                            "label": "Confession to God directly"
+                        }
+                    ],
+                    "question": "Must sins be confessed to a priest who absolves, or is confession made to God directly?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0032)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How often should the Eucharist be celebrated, and who may administer it?",
+                        "poles": [
+                            {
+                                "label": "Frequency and administration of the Eucharist",
+                                "text": "Frequent / weekly celebration by ordained clergy"
+                            }
+                        ]
+                    },
+                    "id": "xfo0065",
+                    "name": "Frequency and administration of the Eucharist",
+                    "poles": [
+                        {
+                            "key": "frequency-and-administration-of-the-eucharist",
+                            "label": "Frequency and administration of the Eucharist"
+                        }
+                    ],
+                    "question": "How often should the Eucharist be celebrated, and who may administer it?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0059)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Should worship follow a set liturgy, or be free and extemporaneous?",
+                        "poles": [
+                            {
+                                "label": "Set, ordered liturgy is normative",
+                                "text": "Set, ordered liturgy is normative"
+                            },
+                            {
+                                "label": "Worship is free and extemporaneous",
+                                "text": "Worship is free and extemporaneous, ordered by the congregation"
+                            }
+                        ]
+                    },
+                    "id": "xfo0052",
+                    "name": "Liturgy vs free worship",
+                    "poles": [
+                        {
+                            "key": "set-ordered-liturgy-is-normative",
+                            "label": "Set, ordered liturgy is normative"
+                        },
+                        {
+                            "key": "worship-is-free-and-extemporaneous",
+                            "label": "Worship is free and extemporaneous"
+                        }
+                    ],
+                    "question": "Should worship follow a set liturgy, or be free and extemporaneous?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0046)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May images of Christ and the saints be set up and venerated in worship?",
+                        "poles": [
+                            {
+                                "label": "Venerated images",
+                                "text": "Sacred images are venerated; honour paid to the image passes to the prototype"
+                            },
+                            {
+                                "label": "Images permitted, not venerated",
+                                "text": "Images are permitted but not worshipped or venerated"
+                            },
+                            {
+                                "label": "Aniconism (no images)",
+                                "text": "No images of God (or the Prophet) at all; aniconism"
+                            }
+                        ]
+                    },
+                    "id": "xfo0053",
+                    "name": "Icons and images in worship",
+                    "poles": [
+                        {
+                            "key": "venerated-images",
+                            "label": "Venerated images"
+                        },
+                        {
+                            "key": "images-permitted-not-venerated",
+                            "label": "Images permitted, not venerated"
+                        },
+                        {
+                            "key": "aniconism-no-images",
+                            "label": "Aniconism (no images)"
+                        }
+                    ],
+                    "question": "May images of Christ and the saints be set up and venerated in worship?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0047)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What music belongs in worship \u2014 chant, hymns, or contemporary song?",
+                        "poles": [
+                            {
+                                "label": "Music is part of worship",
+                                "text": "Music is part of worship; the form varies (chant, hymns, contemporary song, with or without instruments)"
+                            },
+                            {
+                                "label": "Music is prohibited in worship",
+                                "text": "Music is prohibited in worship"
+                            }
+                        ]
+                    },
+                    "id": "xfo0054",
+                    "name": "Music in worship",
+                    "poles": [
+                        {
+                            "key": "music-is-part-of-worship",
+                            "label": "Music is part of worship"
+                        },
+                        {
+                            "key": "music-is-prohibited-in-worship",
+                            "label": "Music is prohibited in worship"
+                        }
+                    ],
+                    "question": "What music belongs in worship \u2014 chant, hymns, or contemporary song?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0048)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Must daily communication with God follow standardized, obligatory daily prayer liturgies?",
+                        "poles": [
+                            {
+                                "label": "Prescribed formal prayers",
+                                "text": "Standardized mandatory daily ritual prayers (Salat / Tefillah)"
+                            },
+                            {
+                                "label": "Spontaneous supplication",
+                                "text": "Spontaneous, extemporaneous personal prayer exclusively"
+                            }
+                        ]
+                    },
+                    "id": "xfo0055",
+                    "name": "Prescribed Formal Prayers (Salat / Tefillah) vs. Spontaneous Supplication",
+                    "poles": [
+                        {
+                            "key": "prescribed-formal-prayers",
+                            "label": "Prescribed formal prayers"
+                        },
+                        {
+                            "key": "spontaneous-supplication",
+                            "label": "Spontaneous supplication"
+                        }
+                    ],
+                    "question": "Must daily communication with God follow standardized, obligatory daily prayer liturgies?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0049)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Have the miraculous gifts of the Spirit ceased, or do they continue today?",
+                        "poles": [
+                            {
+                                "label": "The miraculous gifts have ceased",
+                                "text": "The miraculous gifts have ceased"
+                            },
+                            {
+                                "label": "The miraculous gifts continue today",
+                                "text": "The miraculous gifts continue today"
+                            }
+                        ]
+                    },
+                    "id": "xfo0056",
+                    "name": "Spiritual gifts and tongues",
+                    "poles": [
+                        {
+                            "key": "the-miraculous-gifts-have-ceased",
+                            "label": "The miraculous gifts have ceased"
+                        },
+                        {
+                            "key": "the-miraculous-gifts-continue-today",
+                            "label": "The miraculous gifts continue today"
+                        }
+                    ],
+                    "question": "Have the miraculous gifts of the Spirit ceased, or do they continue today?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0050)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How are Christmas and Easter kept \u2014 as great feasts of the Church, or as simple commemorations?",
+                        "poles": [
+                            {
+                                "label": "Christmas and Easter observance",
+                                "text": "Christmas and Easter are the great feasts of the year"
+                            }
+                        ]
+                    },
+                    "id": "xfo0057",
+                    "name": "Christmas and Easter observance",
+                    "poles": [
+                        {
+                            "key": "christmas-and-easter-observance",
+                            "label": "Christmas and Easter observance"
+                        }
+                    ],
+                    "question": "How are Christmas and Easter kept \u2014 as great feasts of the Church, or as simple commemorations?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0051)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Are there prescribed communal fasts, or is fasting a voluntary private discipline?",
+                        "poles": [
+                            {
+                                "label": "Prescribed communal fasts",
+                                "text": "Prescribed communal fasts (Lent / Yom Kippur / Ramadan)"
+                            },
+                            {
+                                "label": "Fasting is voluntary and private",
+                                "text": "Fasting is voluntary and private"
+                            }
+                        ]
+                    },
+                    "id": "xfo0058",
+                    "name": "Fasting",
+                    "poles": [
+                        {
+                            "key": "prescribed-communal-fasts",
+                            "label": "Prescribed communal fasts"
+                        },
+                        {
+                            "key": "fasting-is-voluntary-and-private",
+                            "label": "Fasting is voluntary and private"
+                        }
+                    ],
+                    "question": "Are there prescribed communal fasts, or is fasting a voluntary private discipline?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0052)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Which day is holy \u2014 Shabbat, Sunday, or Friday?",
+                        "poles": [
+                            {
+                                "label": "Shabbat",
+                                "text": "Shabbat (Friday sunset to Saturday sunset) is the holy day"
+                            },
+                            {
+                                "label": "Sunday",
+                                "text": "Sunday is the Lord's Day"
+                            },
+                            {
+                                "label": "Friday",
+                                "text": "Friday is the day of congregational prayer (Jumu'ah)"
+                            }
+                        ]
+                    },
+                    "id": "xfo0074",
+                    "name": "The holy day",
+                    "poles": [
+                        {
+                            "key": "shabbat",
+                            "label": "Shabbat"
+                        },
+                        {
+                            "key": "sunday",
+                            "label": "Sunday"
+                        },
+                        {
+                            "key": "friday",
+                            "label": "Friday"
+                        }
+                    ],
+                    "question": "Which day is holy \u2014 Shabbat, Sunday, or Friday?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0068)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is physical journeying to a specific geographical holy sanctuary mandatory for every able believer?",
+                        "poles": [
+                            {
+                                "label": "Mandatory once-in-a-lifetime pilgrimage",
+                                "text": "Mandatory once-in-a-lifetime pilgrimage to a central sanctuary"
+                            },
+                            {
+                                "label": "Commendable spiritual devotion",
+                                "text": "Commendable spiritual devotion, but not a mandatory commandment"
+                            }
+                        ]
+                    },
+                    "id": "xfo0090",
+                    "name": "Pilgrimage (Hajj / Aliyah)",
+                    "poles": [
+                        {
+                            "key": "mandatory-once-in-a-lifetime-pilgrimage",
+                            "label": "Mandatory once-in-a-lifetime pilgrimage"
+                        },
+                        {
+                            "key": "commendable-spiritual-devotion",
+                            "label": "Commendable spiritual devotion"
+                        }
+                    ],
+                    "question": "Is physical journeying to a specific geographical holy sanctuary mandatory for every able believer?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0084)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xfoc06",
+            "name": "Life & Morality",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What is marriage \u2014 a covenant of one man and one woman, or of two people?",
+                        "poles": [
+                            {
+                                "label": "One man and one woman",
+                                "text": "Marriage is one man and one woman, for life"
+                            },
+                            {
+                                "label": "Two people",
+                                "text": "Marriage is two people, for life"
+                            }
+                        ]
+                    },
+                    "id": "xfo0039",
+                    "name": "Marriage",
+                    "poles": [
+                        {
+                            "key": "one-man-and-one-woman",
+                            "label": "One man and one woman"
+                        },
+                        {
+                            "key": "two-people",
+                            "label": "Two people"
+                        }
+                    ],
+                    "question": "What is marriage \u2014 a covenant of one man and one woman, or of two people?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0033)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May a marriage be dissolved, and may a divorced person remarry?",
+                        "poles": [
+                            {
+                                "label": "No divorce or remarriage",
+                                "text": "No divorce or remarriage; a valid marriage cannot be dissolved"
+                            },
+                            {
+                                "label": "Divorce and remarriage permitted",
+                                "text": "Divorce and remarriage permitted in defined cases"
+                            }
+                        ]
+                    },
+                    "id": "xfo0040",
+                    "name": "Divorce and remarriage",
+                    "poles": [
+                        {
+                            "key": "no-divorce-or-remarriage",
+                            "label": "No divorce or remarriage"
+                        },
+                        {
+                            "key": "divorce-and-remarriage-permitted",
+                            "label": "Divorce and remarriage permitted"
+                        }
+                    ],
+                    "question": "May a marriage be dissolved, and may a divorced person remarry?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0034)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is artificial contraception permitted within marriage, or must every marital act remain open to life?",
+                        "poles": [
+                            {
+                                "label": "Every act open to life",
+                                "text": "Every marital act must remain open to life; artificial contraception is forbidden"
+                            },
+                            {
+                                "label": "Contraception permitted",
+                                "text": "Contraception is permitted for spacing or limiting children"
+                            }
+                        ]
+                    },
+                    "id": "xfo0041",
+                    "name": "Contraception",
+                    "poles": [
+                        {
+                            "key": "every-act-open-to-life",
+                            "label": "Every act open to life"
+                        },
+                        {
+                            "key": "contraception-permitted",
+                            "label": "Contraception permitted"
+                        }
+                    ],
+                    "question": "Is artificial contraception permitted within marriage, or must every marital act remain open to life?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0035)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May a man have more than one wife?",
+                        "poles": [
+                            {
+                                "label": "Polygamy is permitted",
+                                "text": "Polygamy is permitted (up to four wives, with conditions)"
+                            },
+                            {
+                                "label": "Polygamy is forbidden",
+                                "text": "Polygamy is forbidden; marriage is one man and one woman"
+                            }
+                        ]
+                    },
+                    "id": "xfo0073",
+                    "name": "Polygamy",
+                    "poles": [
+                        {
+                            "key": "polygamy-is-permitted",
+                            "label": "Polygamy is permitted"
+                        },
+                        {
+                            "key": "polygamy-is-forbidden",
+                            "label": "Polygamy is forbidden"
+                        }
+                    ],
+                    "question": "May a man have more than one wife?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0067)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is abortion ever permitted, and if so, in what circumstances?",
+                        "poles": [
+                            {
+                                "label": "Opposed except to save life",
+                                "text": "Abortion is the taking of unborn life and is opposed, except to save the mother's life"
+                            },
+                            {
+                                "label": "Permitted as last resort",
+                                "text": "Abortion is permitted only as a last resort, in dire circumstances"
+                            }
+                        ]
+                    },
+                    "id": "xfo0042",
+                    "name": "Abortion",
+                    "poles": [
+                        {
+                            "key": "opposed-except-to-save-life",
+                            "label": "Opposed except to save life"
+                        },
+                        {
+                            "key": "permitted-as-last-resort",
+                            "label": "Permitted as last resort"
+                        }
+                    ],
+                    "question": "Is abortion ever permitted, and if so, in what circumstances?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0036)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is sexual expression reserved to marriage between a man and a woman, or can same-sex relationships be affirmed?",
+                        "poles": [
+                            {
+                                "label": "Sex only in marriage",
+                                "text": "Sex belongs only in marriage between a man and a woman"
+                            },
+                            {
+                                "label": "Same-sex relationships affirmed",
+                                "text": "Same-sex relationships and marriage can be affirmed"
+                            }
+                        ]
+                    },
+                    "id": "xfo0043",
+                    "name": "Sexuality",
+                    "poles": [
+                        {
+                            "key": "sex-only-in-marriage",
+                            "label": "Sex only in marriage"
+                        },
+                        {
+                            "key": "same-sex-relationships-affirmed",
+                            "label": "Same-sex relationships affirmed"
+                        }
+                    ],
+                    "question": "Is sexual expression reserved to marriage between a man and a woman, or can same-sex relationships be affirmed?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0037)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May a person's life be intentionally ended to relieve suffering, or is life God's from conception to natural death?",
+                        "poles": [
+                            {
+                                "label": "Euthanasia and assisted dying",
+                                "text": "Life is God's from conception to natural death; intentional ending is opposed"
+                            }
+                        ]
+                    },
+                    "id": "xfo0044",
+                    "name": "Euthanasia and assisted dying",
+                    "poles": [
+                        {
+                            "key": "euthanasia-and-assisted-dying",
+                            "label": "Euthanasia and assisted dying"
+                        }
+                    ],
+                    "question": "May a person's life be intentionally ended to relieve suffering, or is life God's from conception to natural death?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0038)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May the state put a person to death as punishment?",
+                        "poles": [
+                            {
+                                "label": "The death penalty is inadmissible",
+                                "text": "The death penalty is inadmissible; the Church works for its abolition"
+                            },
+                            {
+                                "label": "The magistrate may lawfully use",
+                                "text": "The magistrate may lawfully use the sword, including capital punishment"
+                            }
+                        ]
+                    },
+                    "id": "xfo0045",
+                    "name": "Capital punishment",
+                    "poles": [
+                        {
+                            "key": "the-death-penalty-is-inadmissible",
+                            "label": "The death penalty is inadmissible"
+                        },
+                        {
+                            "key": "the-magistrate-may-lawfully-use",
+                            "label": "The magistrate may lawfully use"
+                        }
+                    ],
+                    "question": "May the state put a person to death as punishment?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0039)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May Christians bear arms and wage war in a just cause, or is war always evil?",
+                        "poles": [
+                            {
+                                "label": "Military force is permitted",
+                                "text": "Military force is permitted in just defence, on strict conditions"
+                            },
+                            {
+                                "label": "War is evil in itself",
+                                "text": "War is evil in itself, never justified as good"
+                            }
+                        ]
+                    },
+                    "id": "xfo0046",
+                    "name": "War and peace",
+                    "poles": [
+                        {
+                            "key": "military-force-is-permitted",
+                            "label": "Military force is permitted"
+                        },
+                        {
+                            "key": "war-is-evil-in-itself",
+                            "label": "War is evil in itself"
+                        }
+                    ],
+                    "question": "May Christians bear arms and wage war in a just cause, or is war always evil?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0040)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is drinking alcohol forbidden, or is moderation the rule?",
+                        "poles": [
+                            {
+                                "label": "Total abstinence is the norm",
+                                "text": "Total abstinence is the norm"
+                            },
+                            {
+                                "label": "Alcohol is permitted in moderation",
+                                "text": "Alcohol is permitted in moderation; excess is the sin"
+                            }
+                        ]
+                    },
+                    "id": "xfo0047",
+                    "name": "Alcohol and substance use",
+                    "poles": [
+                        {
+                            "key": "total-abstinence-is-the-norm",
+                            "label": "Total abstinence is the norm"
+                        },
+                        {
+                            "key": "alcohol-is-permitted-in-moderation",
+                            "label": "Alcohol is permitted in moderation"
+                        }
+                    ],
+                    "question": "Is drinking alcohol forbidden, or is moderation the rule?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0041)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How strictly must Sunday be kept \u2014 a day of worship and rest, or a day of worship only?",
+                        "poles": [
+                            {
+                                "label": "Sunday is kept holy",
+                                "text": "Sunday is kept holy, with rest from servile work"
+                            },
+                            {
+                                "label": "Sunday is for worship",
+                                "text": "Sunday is for worship; rest from work is not binding"
+                            }
+                        ]
+                    },
+                    "id": "xfo0048",
+                    "name": "The Lord's Day",
+                    "poles": [
+                        {
+                            "key": "sunday-is-kept-holy",
+                            "label": "Sunday is kept holy"
+                        },
+                        {
+                            "key": "sunday-is-for-worship",
+                            "label": "Sunday is for worship"
+                        }
+                    ],
+                    "question": "How strictly must Sunday be kept \u2014 a day of worship and rest, or a day of worship only?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0042)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Must Christians give a tenth of their income, or give proportionately as they are able?",
+                        "poles": [
+                            {
+                                "label": "A fixed portion is obligatory",
+                                "text": "A fixed portion is obligatory (tithe / zakat)"
+                            },
+                            {
+                                "label": "Giving is voluntary",
+                                "text": "Giving is voluntary, cheerful, and proportionate to means"
+                            }
+                        ]
+                    },
+                    "id": "xfo0049",
+                    "name": "Tithing and giving",
+                    "poles": [
+                        {
+                            "key": "a-fixed-portion-is-obligatory",
+                            "label": "A fixed portion is obligatory"
+                        },
+                        {
+                            "key": "giving-is-voluntary",
+                            "label": "Giving is voluntary"
+                        }
+                    ],
+                    "question": "Must Christians give a tenth of their income, or give proportionately as they are able?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0043)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is gambling morally acceptable in moderation, or opposed as destructive stewardship?",
+                        "poles": [
+                            {
+                                "label": "Games of chance",
+                                "text": "Games of chance are not in themselves contrary to justice"
+                            },
+                            {
+                                "label": "Gambling is opposed as irresponsible",
+                                "text": "Gambling is opposed as irresponsible and destructive stewardship"
+                            }
+                        ]
+                    },
+                    "id": "xfo0050",
+                    "name": "Gambling",
+                    "poles": [
+                        {
+                            "key": "games-of-chance",
+                            "label": "Games of chance"
+                        },
+                        {
+                            "key": "gambling-is-opposed-as-irresponsible",
+                            "label": "Gambling is opposed as irresponsible"
+                        }
+                    ],
+                    "question": "Is gambling morally acceptable in moderation, or opposed as destructive stewardship?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0044)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "May a Christian swear a lawful oath calling on God as witness?",
+                        "poles": [
+                            {
+                                "label": "Oaths and swearing",
+                                "text": "A lawful oath, in truth and justice, is permitted"
+                            }
+                        ]
+                    },
+                    "id": "xfo0051",
+                    "name": "Oaths and swearing",
+                    "poles": [
+                        {
+                            "key": "oaths-and-swearing",
+                            "label": "Oaths and swearing"
+                        }
+                    ],
+                    "question": "May a Christian swear a lawful oath calling on God as witness?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0045)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How should one dress modestly \u2014 and is covering the head required?",
+                        "poles": [
+                            {
+                                "label": "Modesty and head covering required",
+                                "text": "Modesty and head covering are required"
+                            },
+                            {
+                                "label": "Modesty required, no covering",
+                                "text": "Modesty is required; no head covering is prescribed"
+                            },
+                            {
+                                "label": "No dress code prescribed",
+                                "text": "No dress code is prescribed"
+                            }
+                        ]
+                    },
+                    "id": "xfo0076",
+                    "name": "Modesty and dress",
+                    "poles": [
+                        {
+                            "key": "modesty-and-head-covering-required",
+                            "label": "Modesty and head covering required"
+                        },
+                        {
+                            "key": "modesty-required-no-covering",
+                            "label": "Modesty required, no covering"
+                        },
+                        {
+                            "key": "no-dress-code-prescribed",
+                            "label": "No dress code prescribed"
+                        }
+                    ],
+                    "question": "How should one dress modestly \u2014 and is covering the head required?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0070)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is the charging or paying of financial interest on loans strictly prohibited as usury, or ethically permitted?",
+                        "poles": [
+                            {
+                                "label": "Absolute prohibition on interest",
+                                "text": "Absolute prohibition on charging interest (Riba / Usury)"
+                            },
+                            {
+                                "label": "Interest permitted, ethically regulated",
+                                "text": "Commercial interest permitted under ethical regulations"
+                            }
+                        ]
+                    },
+                    "id": "xfo0089",
+                    "name": "Usury and interest (riba)",
+                    "poles": [
+                        {
+                            "key": "absolute-prohibition-on-interest",
+                            "label": "Absolute prohibition on interest"
+                        },
+                        {
+                            "key": "interest-permitted-ethically-regulated",
+                            "label": "Interest permitted, ethically regulated"
+                        }
+                    ],
+                    "question": "Is the charging or paying of financial interest on loans strictly prohibited as usury, or ethically permitted?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0083)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What may be eaten \u2014 are kosher and halal dietary laws binding?",
+                        "poles": [
+                            {
+                                "label": "Dietary law is binding",
+                                "text": "Dietary law is binding (kosher / halal)"
+                            },
+                            {
+                                "label": "No dietary law",
+                                "text": "No dietary law; all food is permitted"
+                            }
+                        ]
+                    },
+                    "id": "xfo0077",
+                    "name": "Dietary law (kosher and halal)",
+                    "poles": [
+                        {
+                            "key": "dietary-law-is-binding",
+                            "label": "Dietary law is binding"
+                        },
+                        {
+                            "key": "no-dietary-law",
+                            "label": "No dietary law"
+                        }
+                    ],
+                    "question": "What may be eaten \u2014 are kosher and halal dietary laws binding?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0071)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xfoc07",
+            "name": "Last Things",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Will Christ return openly in glory to judge the living and the dead?",
+                        "poles": [
+                            {
+                                "label": "Jesus will return in glory",
+                                "text": "Jesus will return in glory to judge the living and the dead"
+                            },
+                            {
+                                "label": "Jesus will not return",
+                                "text": "Jesus will not return; the Messiah's coming is still future"
+                            }
+                        ]
+                    },
+                    "id": "xfo0059",
+                    "name": "The return of Christ",
+                    "poles": [
+                        {
+                            "key": "jesus-will-return-in-glory",
+                            "label": "Jesus will return in glory"
+                        },
+                        {
+                            "key": "jesus-will-not-return",
+                            "label": "Jesus will not return"
+                        }
+                    ],
+                    "question": "Will Christ return openly in glory to judge the living and the dead?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0053)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is there a literal thousand-year earthly reign of Christ before the Last Judgment?",
+                        "poles": [
+                            {
+                                "label": "No literal millennium",
+                                "text": "No literal millennium; the kingdom is already present and fulfilled beyond history"
+                            },
+                            {
+                                "label": "A literal thousand-year reign",
+                                "text": "A literal thousand-year reign of Christ on earth"
+                            }
+                        ]
+                    },
+                    "id": "xfo0060",
+                    "name": "The millennium",
+                    "poles": [
+                        {
+                            "key": "no-literal-millennium",
+                            "label": "No literal millennium"
+                        },
+                        {
+                            "key": "a-literal-thousand-year-reign",
+                            "label": "A literal thousand-year reign"
+                        }
+                    ],
+                    "question": "Is there a literal thousand-year earthly reign of Christ before the Last Judgment?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0054)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
+                        "poles": [
+                            {
+                                "label": "12th Imam from Occultation",
+                                "text": "Specific historical 12th Imam emerging from Occultation"
+                            },
+                            {
+                                "label": "Future descendant of Muhammad",
+                                "text": "Future descendant of Muhammad born in end times"
+                            },
+                            {
+                                "label": "Rejection of the Mahdi",
+                                "text": "Rejection of Mahdi concept"
+                            }
+                        ]
+                    },
+                    "id": "xfo0086",
+                    "name": "The coming of the Mahdi",
+                    "poles": [
+                        {
+                            "key": "12th-imam-from-occultation",
+                            "label": "12th Imam from Occultation"
+                        },
+                        {
+                            "key": "future-descendant-of-muhammad",
+                            "label": "Future descendant of Muhammad"
+                        },
+                        {
+                            "key": "rejection-of-the-mahdi",
+                            "label": "Rejection of the Mahdi"
+                        }
+                    ],
+                    "question": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0080)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Is hell an eternal state of separation from God, freely chosen by persisting in sin?",
+                        "poles": [
+                            {
+                                "label": "Hell is eternal",
+                                "text": "Hell is eternal, for all the condemned"
+                            },
+                            {
+                                "label": "Hell is a temporary purification",
+                                "text": "Hell is a temporary purification for most; eternal only for the utterly wicked / disbelievers"
+                            }
+                        ]
+                    },
+                    "id": "xfo0061",
+                    "name": "Hell",
+                    "poles": [
+                        {
+                            "key": "hell-is-eternal",
+                            "label": "Hell is eternal"
+                        },
+                        {
+                            "key": "hell-is-a-temporary-purification",
+                            "label": "Hell is a temporary purification"
+                        }
+                    ],
+                    "question": "Is hell an eternal state of separation from God, freely chosen by persisting in sin?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0055)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What is heaven \u2014 perfect life with God, and will there be a new heaven and a new earth?",
+                        "poles": [
+                            {
+                                "label": "Heaven and the new creation",
+                                "text": "Heaven is perfect life with God, ending in a new heaven and a new earth"
+                            }
+                        ]
+                    },
+                    "id": "xfo0062",
+                    "name": "Heaven and the new creation",
+                    "poles": [
+                        {
+                            "key": "heaven-and-the-new-creation",
+                            "label": "Heaven and the new creation"
+                        }
+                    ],
+                    "question": "What is heaven \u2014 perfect life with God, and will there be a new heaven and a new earth?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0056)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What happens to the soul between death and the resurrection \u2014 purification, a foretaste, or heaven and hell at once?",
+                        "poles": [
+                            {
+                                "label": "Purification before heaven",
+                                "text": "Purification before heaven (Purgatory)"
+                            },
+                            {
+                                "label": "Foretaste awaiting resurrection",
+                                "text": "Foretaste of heaven or hell, awaiting the resurrection"
+                            },
+                            {
+                                "label": "Heaven or hell immediately",
+                                "text": "Heaven or hell immediately at death"
+                            }
+                        ]
+                    },
+                    "id": "xfo0063",
+                    "name": "The intermediate state",
+                    "poles": [
+                        {
+                            "key": "purification-before-heaven",
+                            "label": "Purification before heaven"
+                        },
+                        {
+                            "key": "foretaste-awaiting-resurrection",
+                            "label": "Foretaste awaiting resurrection"
+                        },
+                        {
+                            "key": "heaven-or-hell-immediately",
+                            "label": "Heaven or hell immediately"
+                        }
+                    ],
+                    "question": "What happens to the soul between death and the resurrection \u2014 purification, a foretaste, or heaven and hell at once?",
+                    "risk": false,
+                    "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0057)",
+                    "widget": "trilinear-line"
+                }
+            ]
+        }
+    ],
+    "domain": "The Abrahamic Faiths \u2014 Judaism, Christianity, and Islam",
+    "name": "Forescapades",
+    "skin": "forescapades"
+}
