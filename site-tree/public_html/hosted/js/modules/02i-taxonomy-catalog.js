@@ -2985,6 +2985,126 @@
                     labels: [ "Bhakti (Devotion)", "Jnana (Self-Inquiry)", "Karma (Sacred Action)", "Raja (Meditation)", "Kundalini (Prana)", "Tantra (Matter Integration)" ]
                 };
             }
+            // 7-Pole Heptad Topics
+            if (e === "t0423" || e === "topic-bdsm-archetype-heptad" || i === "t0423" || i === "topic-bdsm-archetype-heptad") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad", // Type II: Multi-Affinity Distribution / Heptagonal Polygon
+                    keys: [ "sovereign", "caregiver", "primal", "sadist", "brat", "switch", "slave" ],
+                    labels: [ "Sovereign (Dominant / Master)", "Caregiver (Nurturer / Daddy)", "Primal (Hunter / Instinct)", "Sadist (Tormentor / Sensual)", "Brat (Rebel / Provoker)", "Switch (Fluid / Versatile)", "Submissive (Slave / Devotee)" ]
+                };
+            }
+            if (e === "t0424" || e === "topic-somatosensory-modalities-heptad" || i === "t0424" || i === "topic-somatosensory-modalities-heptad") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "tactile", "thermal", "impact", "electric", "scent", "sound", "vestibular" ],
+                    labels: [ "Tactile (Texture / Soft)", "Thermal (Hot / Ice)", "Impact (Sting / Thud)", "Electric (Tens / Wand)", "Olfactory (Scent / Odor)", "Acoustic (Whisper / ASMR)", "Vestibular (Balance / Suspension)" ]
+                };
+            }
+            if (e === "t0425" || e === "topic-relational-heptad" || i === "t0425" || i === "topic-relational-heptad") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "liking", "infatuation", "empty", "romantic", "companionate", "fatuous", "consummate" ],
+                    labels: [ "Liking (Intimacy Alone)", "Infatuation (Passion Alone)", "Empty (Duty / Contract)", "Romantic (Intimacy + Passion)", "Companionate (Intimacy + Duty)", "Fatuous (Passion + Duty)", "Consummate (Total Matrix)" ]
+                };
+            }
+            // Philoscapades 7-Pole Heptad
+            if (e === "topic-seven-branches-philosophy" || i === "topic-seven-branches-philosophy") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "metaphysics", "epistemology", "ethics", "political", "aesthetics", "logic", "mind" ],
+                    labels: [ "Metaphysics (Reality)", "Epistemology (Truth)", "Ethics (Value & Good)", "Political (Power & Justice)", "Aesthetics (Beauty & Art)", "Logic (Validity & Reason)", "Mind (Consciousness & Soul)" ]
+                };
+            }
+            // Poliscapades 7-Pole Heptad
+            if (e === "topic-seven-pillars-governance" || i === "topic-seven-pillars-governance") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "sovereignty", "ruleoflaw", "distribution", "civilrights", "welfare", "environment", "foreign" ],
+                    labels: [ "Sovereign Authority", "Rule of Law", "Economic Equality", "Civil Liberties", "Social Welfare Safety", "Ecological Stewardship", "Geopolitical Autonomy" ]
+                };
+            }
+            // Forescapades 7-Pole Heptad (Seven Classical Planetary Spheres / Hermetic Rays)
+            if (e === "topic-seven-planetary-spheres" || e === "topic-seven-chakras" || i === "topic-seven-planetary-spheres" || i === "topic-seven-chakras") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "sol", "venus", "mars", "jupiter", "saturn", "luna", "mercury" ],
+                    labels: [ "Sol (Illumination)", "Venus (Beauty / Love)", "Mars (Strength / Will)", "Jupiter (Wisdom / Grace)", "Saturn (Boundaries / Silence)", "Luna (Intuition / Mystery)", "Mercury (Intellect / Word)" ]
+                };
+            }
+            // 8-Pole Octad Topics
+            // Sexcapades 8-Pole Physical Restraint & Containment Octad
+            if (e === "t0426" || e === "topic-restraint-containment-octad" || i === "t0426" || i === "topic-restraint-containment-octad") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "rope", "shibari", "cuffs", "tape", "mummification", "blindfold", "caging", "suspension" ],
+                    labels: [ "Rope Bondage", "Shibari (Art / Tie)", "Cuffs & Straps", "Tape & Wrapping", "Mummification / Sack", "Blindfold / Sensory Hood", "Caging / Encasement", "Suspension Bondage" ]
+                };
+            }
+            // Sexcapades 8-Pole Somatosensory & Anatomical Worship Octad
+            if (e === "t0427" || e === "topic-anatomical-worship-octad" || i === "t0427" || i === "topic-anatomical-worship-octad") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "feet", "hands", "breasts", "glutes", "muscles", "hair", "bodyhair", "pregnancy" ],
+                    labels: [ "Feet & Footwear", "Hands & Gloves", "Breasts / Chest", "Buttocks / Glutes", "Muscles / Physique", "Hair / Long Hair", "Body & Facial Hair", "Pregnancy / Lactation" ]
+                };
+            }
+            // Philoscapades 8-Pole Epistemological Octad
+            if (e === "topic-eight-epistemologies" || i === "topic-eight-epistemologies") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "empiricism", "rationalism", "pragmatism", "phenomenology", "hermeneutics", "skepticism", "mysticism", "dialectics" ],
+                    labels: [ "Empiricism", "Rationalism", "Pragmatism", "Phenomenology", "Hermeneutics", "Skepticism", "Mysticism", "Dialectics" ]
+                };
+            }
+            // Poliscapades 8-Pole Civilizational Octad
+            if (e === "topic-eight-civilizations" || i === "topic-eight-civilizations") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "western", "sinic", "islamic", "hindu", "orthodox", "latin", "african", "buddhist" ],
+                    labels: [ "Western Democratic", "Sinic / Confucian", "Islamic", "Hindu", "Orthodox Slavic", "Latin American", "Sub-Saharan African", "Buddhist / Dharmic" ]
+                };
+            }
+            // Forescapades 8-Pole Abrahamic Covenantal & Theological Octad
+            if (e === "topic-eight-covenants-abrahamic" || i === "topic-eight-covenants-abrahamic") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "britmilah", "halakha", "kabbalah", "gospel", "eucharist", "orthodoxy", "tawhid", "sufism" ],
+                    labels: [ "Brit Milah (The Flesh Covenant)", "Halakha (Law & Mitzvot)", "Kabbalah (Merkavah / Mysticism)", "Gospel (Pauline Grace / Faith)", "Sacrament (Eucharist / Liturgy)", "Christology (Logos Incarnate)", "Tawhid (Absolute Divine Unity)", "Tasawwuf (Sufi Fana / Ecstasy)" ]
+                };
+            }
             // The topic's own give/receive labels win. A parent id in the
             // single-slider set must not collapse Edge Play (or any other
             // give/receive topic) to one "everything" slider.
@@ -3006,6 +3126,11 @@
                 labels: We[i] || [ "give", "receive" ]
             };
         }
-        h.forEach(e => Object.entries(e.topicDetails || {}).forEach(([e, t]) => {
-            "single" === t.type && Ue.add(Wn(e));
+        h.forEach(e => Object.entries(e.topicDetails || {}).forEach(([name, t]) => {
+            if ("single" === t.type) {
+                try {
+                    const tid = Wn(name);
+                    if (tid) Ue.add(tid);
+                } catch (_) {}
+            }
         }));

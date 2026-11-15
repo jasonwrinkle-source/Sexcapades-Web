@@ -879,8 +879,11 @@
                             if ("topic" !== kind && "child" !== kind) return;
                             const id = "child" === kind ? (w.child ? w.child.id : null) : (w.topic ? w.topic.id : null);
                             if (null == id) return;
-                            const label = "child" === kind ? (w.child ? w.child.label : w.label) : (w.topic ? w.topic.label : w.label), delivered = dkDeliveredItemRadius(w), target = dkComputeFitTarget(key), cur = (mn.kinkOverrides || {})[id], curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
-                            items.push({ branch: name, key: key, id: String(id), label: label || null, delivered: Number.isFinite(delivered) ? delivered : null, target: null != target && Number.isFinite(target) ? target : null, curLen: curLen });
+                            const isChild = "child" === kind;
+                            const label = isChild ? (w.child ? w.child.label : w.label) : (w.topic ? w.topic.label : w.label), delivered = dkDeliveredItemRadius(w);
+                            const target = typeof dkNodeNameTarget === "function" ? dkNodeNameTarget(label, isChild, mn.leafOvergrowth) : (null != dkComputeFitTarget(key) ? dkComputeFitTarget(key) : null);
+                            const cur = (mn.kinkOverrides || {})[id], curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
+                            items.push({ branch: name, key: key, id: String(id), label: label || null, delivered: Number.isFinite(delivered) ? delivered : null, target: null != target && Number.isFinite(target) ? target : null, curLen: curLen, isChild: isChild });
                         });
                     });
                     return { ok: !0, reason: null, items: items, branchesSeen: Object.keys(seen) };
@@ -894,25 +897,13 @@
                         next[id] = Object.assign({}, mn.kinkOverrides[id]);
                     });
                     measured.items.forEach(m => {
-                        // OVERGROWN FIT (ruled 2026-11-03, Jason,
-                        // superseding the hard 3x of 2026-11-02 17:09):
-                        // this driver — the Autofit button's alone —
-                        // delivers each kink spoke at the "% kink leaf
-                        // overgrowth" percent of its fit target (the
-                        // same percent the Anneal throw uses, via
-                        // sxLeafOvergrowthFactor). dkComputeFitTarget
-                        // itself is NOT changed; the multiple lives
-                        // only here, in the delivered-length
-                        // computation, so the shrink floors and the
-                        // scoring keep reading the unscaled target.
-                        // The hold epsilon and the shortened /
-                        // lengthened split are judged against the
-                        // delivered target, so a spoke already at the
-                        // chosen percent holds and a spoke sitting at
-                        // 1x lengthens.
-                        const deliveredTarget = null != m.target && m.target > 0 ? sxLeafOvergrowthFactor() * m.target : m.target;
+                        // FIT TO NODE NAME LENGTH (ruled 2026-11-14, Jason):
+                        // Autofit delivers each kink spoke at the "node length % of
+                        // node name" (leafOvergrowth) percentage of its name length,
+                        // with 100% framing the name cleanly with hub and icon room.
+                        const deliveredTarget = m.target;
                         const item = { branch: m.branch, key: m.key, id: m.id, label: m.label, beforeLength: m.curLen, afterLength: m.curLen, beforeDelivered: m.delivered, target: m.target, deliveredTarget: deliveredTarget, held: !0 };
-                        if (null == m.delivered || !(m.delivered > 0) || null == m.target || !(m.target > 0)) out.skipped++;
+                        if (null == m.delivered || !(m.delivered > 0) || null == deliveredTarget || !(deliveredTarget > 0)) out.skipped++;
                         else if (Math.abs(m.delivered - deliveredTarget) / deliveredTarget <= EPS) out.held++;
                         else {
                             item.afterLength = m.curLen * deliveredTarget / m.delivered, item.held = !1, next[m.id] = Object.assign({}, next[m.id], { length: item.afterLength }), out.changed++, m.delivered > deliveredTarget ? out.shortened++ : out.lengthened++;

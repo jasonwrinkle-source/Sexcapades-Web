@@ -961,6 +961,26 @@
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
             const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
             const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
+            const heptadHit = __sxClosestAction(e.target, "heptadHit") || (e.target.closest && e.target.closest(".map-heptad-hit, .map-heptad-control"));
+            const octadHit = __sxClosestAction(e.target, "octadHit") || (e.target.closest && e.target.closest(".map-octad-hit, .map-octad-control"));
+            if (octadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = octadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "octad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
+            if (heptadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = heptadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "heptad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
             if (hexadHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = hexadHit.dataset.id;

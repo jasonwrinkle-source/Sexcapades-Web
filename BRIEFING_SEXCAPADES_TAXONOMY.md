@@ -204,47 +204,64 @@ Interactions support dragging vertices outward or sliding internal barycentric w
 
 ### 3.5 7-Pole Heptads ($\Delta^6$) — Heptagram & Radial Wheel Widget
 
-7-Pole topics model classical 7-fold somatic, psychological, and dynamic escalations. The widget features a 7-pointed star with angles at increments of $360^\circ / 7 \approx 51.43^\circ$, with an intensity wheel and radial deformation controls.
+7-Pole topics model classical 7-fold somatic, psychological, and dynamic spectra. The widget features a 7-pointed regular heptagon with angles at increments of $360^\circ / 7 \approx 51.43^\circ$, featuring real-time vertex dragging along radial rays, concentric reference rings (25%, 50%, 75%, 100%), and a master intensity slider.
 
-#### Topic `t0423` (Candidate): Seven Somatic Chakras of Tantric Bodywork
+#### Topic `t0423`: BDSM Archetype Spectrum (The Sovereign Heptad)
+Subsumes and replaces: `t0009` (FemDom), `t0010` (D/s), `t0012` (Brats), `t0014` (Switching), `t0015` (Male Authority), `t0413` (Power Matrix), and `t0419` (BDSM Archetype Pentad).
 - **Poles**:
-  - `Pole 0 ($90^\circ$)`: **Root (Muladhara)** — Safety, containment, survival, primal physical grounding.
-  - `Pole 1 ($38.57^\circ$)`: **Sacral (Svadhisthana)** — Raw sexual desire, fluidity, creative and genital juices.
-  - `Pole 2 ($347.14^\circ$)`: **Solar Plexus (Manipura)** — Willpower, dominance, fire, sadomasochistic assertion.
-  - `Pole 3 ($295.71^\circ$)`: **Heart (Anahata)** — Love, emotional vulnerability, deep compassion, tenderness.
-  - `Pole 4 ($244.29^\circ$)`: **Throat (Vishuddha)** — Explicit verbal expression, throat constriction, breathless moaning.
-  - `Pole 5 ($192.86^\circ$)`: **Third Eye (Ajna)** — Hypnotic visual trance, eye-gazing, mental mindfuck.
-  - `Pole 6 ($141.43^\circ$)`: **Crown (Sahasrara)** — Transcendent surrender, ego dissolution, spiritual ecstasy.
-- **Widget**: Heptagonal Chakra Column / 7-Axis Heptagram.
+  - `Pole 0 ($90^\circ$, Top)`: **Sovereign (Dominant / Master)** — Order, authority, structure, law, absolute responsibility.
+  - `Pole 1 ($38.57^\circ$)`: **Caregiver (Nurturer / Daddy / Mommy)** — Safety, containment, emotional holding, loving guidance.
+  - `Pole 2 ($347.14^\circ$)`: **Primal (Hunter / Instinct)** — Raw animalistic chase, wrestling, growling, uninhibited drive.
+  - `Pole 3 ($295.71^\circ$)`: **Sadist (Tormentor / Sensual)** — Endorphin generation, aesthetic pain infliction, erotic torment.
+  - `Pole 4 ($244.29^\circ$)`: **Brat (Rebel / Provoker)** — Playful boundary-testing, sassy pushback, earning punishment.
+  - `Pole 5 ($192.86^\circ$)`: **Switch (Fluid / Versatile)** — Dynamic role-reversal, intuitive polarity swapping.
+  - `Pole 6 ($141.43^\circ$)`: **Submissive (Slave / Devotee)** — Complete somatic surrender, service, egoless offering.
+- **Widget**: Heptagonal Radar (`"heptad-radar"`).
 
-#### Topic `t0424` (Candidate): Seven Transgressive Kink Drivers (The Kink Deadly Sins)
+#### Topic `t0424`: Somatosensory Sensory Modalities
+Subsumes and replaces: `t0102` (Texture Contrast), `t0103` (Sensory Deprivation), `t0104` (Sensory Overload), `t0105` (ASMR & Whispering), `t0109` (Scent), `t0417` (Sensory Palette), and `t0421` (Impact Modalities).
 - **Poles**:
-  - `Pole 0`: **Lust** — Uninhibited carnal appetite, raw thirst, insatiability.
-  - `Pole 1`: **Pride** — Exhibitionism, peacocking, being adored as an erotic idol.
-  - `Pole 2`: **Wrath** — Aggressive primal dominance, heavy impact, fierce marking.
-  - `Pole 3`: **Greed** — Possessiveness, objectification, collection of submissives/collars.
-  - `Pole 4`: **Sloth** — Total somatic surrender, immobilized helpless submission, vegetative bliss.
-  - `Pole 5`: **Gluttony** — Sensual overindulgence, marathon scenes, endless orgasms.
-  - `Pole 6`: **Envy** — Voyeuristic yearning, cuckoldry jealousy dynamics, cuckquean compersion.
-- **Widget**: Heptagonal Transgression Wheel.
+  - `Pole 0`: **Tactile (Texture / Soft)** — Velvet, silk, fur, fingernails, feather-light strokes.
+  - `Pole 1`: **Thermal (Hot / Ice)** — Molten candle wax, ice cubes, cold metal, ambient heat.
+  - `Pole 2`: **Impact (Sting / Thud)** — Crops, floggers, paddles, canes, open-hand slapping.
+  - `Pole 3`: **Electric (Tens / Violet Wand)** — High-frequency spark arcs, pulsed muscle stimulation.
+  - `Pole 4`: **Olfactory (Scent / Odor)** — Pheromones, worn leather, perfumes, natural musk.
+  - `Pole 5`: **Acoustic (Whisper / ASMR)** — Breathy commands, binaural whispering, auditory triggers.
+  - `Pole 6`: **Vestibular (Balance / Suspension)** — Swing bondage, sensory deprivation spinning, disorientation.
+- **Widget**: Heptagonal Radar (`"heptad-radar"`).
 
-#### Topic `t0425` (Candidate): Seven Stages of Scene Escalation
+#### Topic `t0425`: Relational Dynamic Spectrum (Sternberg's Matrix)
+Subsumes and replaces: `t0008` (Ongoing Dynamics), `t0011` (Romantic Surrender), and `t0013` (24/7 Lifestyle).
 - **Poles**:
-  - `Pole 0`: **The Gaze** — Prolonged eye-contact, sizing up, erotic tension across the room.
-  - `Pole 1`: **The Banter** — Verbal teasing, verbal framing, establishing protocols and stakes.
-  - `Pole 2`: **Proximity & Ingress** — Physical closing of space, cornering, smelling each other.
-  - `Pole 3`: **First Contact** — Initial touch, feather-light caresses, establishing somatic skin readiness.
-  - `Pole 4`: **Impact & Restraint** — The active ordeal, binding, striking, building endorphins.
-  - `Pole 5`: **Climax & Ecstatic Release** — The peak plateau, catharsis, involuntary nervous release.
-  - `Pole 6`: **Aftercare & Reintegration** — Blankets, hydration, praise, somatic co-regulation.
-- **Widget**: Heptagonal Escalation Continuum.
+  - `Pole 0`: **Liking (Intimacy Alone)** — Deep confessional closeness, soul-connection without pressure.
+  - `Pole 1`: **Infatuation (Passion Alone)** — Obsessive sexual charge, raw attraction, erotic whirlwind.
+  - `Pole 2`: **Empty (Duty / Contract)** — Pure protocol, explicit ownership contract, formal commitment.
+  - `Pole 3`: **Romantic (Intimacy + Passion)** — Sweet courtship, deep sexual-emotional union.
+  - `Pole 4`: **Companionate (Intimacy + Duty)** — Long-term cohabitation, stable life-partnership with kink.
+  - `Pole 5`: **Fatuous (Passion + Duty)** — High-intensity storm bond anchored by rigid dynamic rules.
+  - `Pole 6`: **Consummate (Total Matrix)** — Complete integration of passion, emotional depth, and contractual devotion.
+- **Widget**: Heptagonal Radar (`"heptad-radar"`).
 
 ---
 
 ## 4. Profile Migration Protocol for Lower-Pole Approximations
 
-When migrating historical 2-pole profiles (e.g., legacy `t0010 D/s` ratings) to higher $n$-pole topics:
+When migrating historical profiles to higher $n$-pole topics:
 1. **Embedding**: The historical 2D box $(G, R) \in [0, 100]^2$ is orthogonally projected into the sub-simplex of the target $n$-pole topic.
 2. **Canonical Mapping**:
    $$\mathbf{u}_{\text{new}} = \mathbf{M}_{\text{proj}} \cdot \begin{bmatrix} G \\ R \end{bmatrix} + \mathbf{b}_0$$
 3. **Purity Conservation**: The $L_1$ norm of total intent is preserved, ensuring no artificial inflation of desire vectors occurs during schema migration.
+
+---
+
+## 5. Potential 8-Pole Systems (The Octad / Ogdoad)
+
+Looking ahead to 8-pole topologies, four distinct psychological and cultural systems naturally emerge:
+1. **Leary & Wilson’s 8 Circuits of Consciousness**:
+   Oral Bio-survival, Anal Territorial, Semantic Symbolic, Socio-Sexual, Neurosomatic, Metaprogramming, Morphogenetic, Non-Local Quantum.
+2. **Jungian 8 Cognitive Function-Attitudes**:
+   $Te, Ti, Fe, Fi, Se, Si, Ne, Ni$ — mapping psychological dominance and submission phenotypes.
+3. **The 8 Trigrams (Bagua) of Taoist Bedchamber Arts**:
+   Heaven, Earth, Water, Fire, Thunder, Wind, Mountain, Lake — ancient multi-directional energetic friction.
+4. **The 8 Seasonal Libido Rhythms (Wheel of the Year)**:
+   Yule, Imbolc, Ostara, Beltane, Litha, Lughnasadh, Mabon, Samhain.

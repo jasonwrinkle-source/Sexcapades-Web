@@ -219,7 +219,7 @@
                         x: h - tipCircle.x,
                         y: g - tipCircle.y
                     }, sm2 = Math.hypot(sv.x, sv.y) || 1, em2 = Math.hypot(ev.x, ev.y) || 1, spx = tipCircle.x + tipCircle.r * sv.x / sm2, spy = tipCircle.y + tipCircle.r * sv.y / sm2, epx = tipCircle.x + tipCircle.r * ev.x / em2, epy = tipCircle.y + tipCircle.r * ev.y / em2, crx = sv.x * ev.y - sv.y * ev.x, swp = crx >= 0 ? 1 : 0;
-                    return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${spx.toFixed(2)} ${spy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${swp} ${epx.toFixed(2)} ${epy.toFixed(2)}${bTail}`;
+                    return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${spx.toFixed(2)} ${spy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${swp} ${epx.toFixed(2)} ${epy.toFixed(2)}${bTail}`;
                 }
                 return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${h.toFixed(2)} ${g.toFixed(2)}${bTail}`;
             }
@@ -337,6 +337,16 @@
                     m[0] = pj(baseX + nx * y0, baseY + ny * y0);
                     f[0] = pj(baseX + nx * curInner0, baseY + ny * curInner0);
                 }
+                if (tipCircle && tipCircle.r > 0) {
+                    const pjTip = (e2, t2) => {
+                        const n2 = e2 - tipCircle.x, i2 = t2 - tipCircle.y, a2 = Math.hypot(n2, i2) || 1;
+                        return `${(tipCircle.x + tipCircle.r * n2 / a2).toFixed(2)} ${(tipCircle.y + tipCircle.r * i2 / a2).toFixed(2)}`;
+                    };
+                    h[p] = pjTip(baseX + dx - nx * yE, baseY + dy - ny * yE);
+                    g[p] = pjTip(baseX + dx - nx * curInner1, baseY + dy - ny * curInner1);
+                    m[p] = pjTip(baseX + dx + nx * yE, baseY + dy + ny * yE);
+                    f[p] = pjTip(baseX + dx + nx * curInner1, baseY + dy + ny * curInner1);
+                }
                 const b = (side, startOff, endOff) => {
                     if (!baseCircle || !(baseCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
                     const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y};
@@ -352,10 +362,9 @@
                     const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y};
                     const end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y};
                     const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
-                    const sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm;
                     const ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em;
                     const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
-                    return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
+                    return ` A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
                 if ("innerFirst" === mode) return {
                     top: `M ${g.join(" L ")}${bE(-1, curInner1, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y0, curInner0)} Z`,
@@ -370,6 +379,7 @@
                     w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && (v[v.length - 1] = g[0], w[w.length - 1] = f[0]);
+                tipCircle && tipCircle.r > 0 && (v[0] = g[p], w[0] = f[p]);
                 return {
                     top: `M ${h.join(" L ")}${bE(-1, yE, curInner1)} L ${v.join(" L ")}${b(-1, curInner0, y0)} Z`,
                     bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${w.join(" L ")}${b(1, curInner0, y0)} Z`
@@ -511,6 +521,18 @@
             },
             trimToIcons(e, t, n, i, a, r) {
                 const o = Ga.segment(e, t, n, i);
+                if (o.len <= a + r) {
+                    const mid = o.len / 2;
+                    const aClamped = Math.min(a, mid * 0.95);
+                    const rClamped = Math.min(r, mid * 0.95);
+                    return {
+                        seg: o,
+                        sx0: e + o.ux * aClamped,
+                        sy0: t + o.uy * aClamped,
+                        sx1: n - o.ux * rClamped,
+                        sy1: i - o.uy * rClamped
+                    };
+                }
                 return {
                     seg: o,
                     sx0: e + o.ux * a,
@@ -682,7 +704,119 @@
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.hexad) {
+                if ($.octad) {
+                    // 8-Pole Octad Widget on Hypermap:
+                    // Regular octagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 68 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 8 vertices (45 deg = PI / 4 step)
+                    const P = [];
+                    for (let k = 0; k < 8; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (Math.PI / 4);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference octagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const octCols = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${octCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-octad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.heptad) {
+                    // 7-Pole Heptad Widget on Hypermap:
+                    // Regular heptagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 64 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 7 vertices
+                    const P = [];
+                    for (let k = 0; k < 7; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (2 * Math.PI / 7);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference heptagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const heptCols = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${heptCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-heptad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.hexad) {
                     // 6-Pole Hexad Widget on Hypermap:
                     // Regular hexagon deformation polygon
                     const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
@@ -989,7 +1123,7 @@
                 };
             };
         }
-        function Ya(e, t, n, i, a = pr.categoryIcon / 2) {
+        function Ya(e, t, n, i, a = (typeof sxIconRadius === "function" ? sxIconRadius(1) : 130)) {
             const r = Math.max(1, Math.hypot(n - e, i - t)), o = (n - e) / r, s = (i - t) / r, l = -s, c = o, d = `M ${e.toFixed(2)} ${t.toFixed(2)} L ${n.toFixed(2)} ${i.toFixed(2)}`, u = `M ${n.toFixed(2)} ${i.toFixed(2)} L ${e.toFixed(2)} ${t.toFixed(2)}`, p = r, h = Va(e, t, o, s, p), g = a, m = Za.cloudLabel(p, g), f = m.labelOffset;
             return {
                 d: d,

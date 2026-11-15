@@ -2617,15 +2617,12 @@
     })();
     var layoutFontScaleNumEl=document.getElementById("layoutFontScaleNum");if(layoutFontScaleNumEl){var commitFontScaleNum=function(){var range=document.getElementById(ids.fontScale);if(!range)return;var v=Number(layoutFontScaleNumEl.value);if(!Number.isFinite(v)){layoutFontScaleNumEl.value=range.value;return}v=Math.min(Number(range.max)||3,Math.max(Number(range.min)||.5,v));range.value=String(v);layoutFontScaleNumEl.value=String(v);range.dispatchEvent(new Event("input",{bubbles:true}));range.dispatchEvent(new Event("change",{bubbles:true}))};layoutFontScaleNumEl.addEventListener("change",commitFontScaleNum);layoutFontScaleNumEl.addEventListener("keydown",function(event){if(event.key==="Enter"){event.preventDefault();commitFontScaleNum()}})}
     coalesceSlider(document.getElementById(ids.centerRingScale),function(){var v=Number(this.value)||1,out=document.getElementById("layoutCenterRingScaleValue");if(out)out.textContent=v.toFixed(2)+"×";apply(collect());this.value=String(v);if(out)out.textContent=v.toFixed(2)+"×";scheduleMetric()});
-    // % kink leaf overgrowth (ruled 2026-11-03, Jason): one percent of
-    // the full fit target drives BOTH the Anneal throw's leaf length
-    // (which is also the leaf minimum — leaves have no shrink ladder of
-    // their own) and what Autofit delivers. The value applies live into
-    // the layout settings on every slider move (apply(collect())), rides
-    // the share hash / export / saved defaults like every other dial,
-    // and is part of the bundle's crossing-score fingerprint, so scores
-    // recompute the moment it moves.
-    coalesceSlider(document.getElementById(ids.leafOvergrowth),function(){var v=Number(this.value)||100,out=document.getElementById("layoutLeafOvergrowthValue");if(out)out.textContent=Math.round(v)+"%";var num=document.getElementById("layoutLeafOvergrowthNum");if(num&&document.activeElement!==num)num.value=String(v);apply(collect());this.value=String(v);if(out)out.textContent=Math.round(v)+"%";scheduleMetric()});
+    // % spoke length of node name (was % kink leaf overgrowth):
+    // one percent of the node name's length drives BOTH the Anneal
+    // throw's leaf length and what Autofit delivers. 100% is the minimum
+    // and default, framing the node label cleanly with standard hub and
+    // leaf badge clearance.
+    coalesceSlider(document.getElementById(ids.leafOvergrowth),function(){var v=Math.max(100,Number(this.value)||100),out=document.getElementById("layoutLeafOvergrowthValue");if(out)out.textContent=Math.round(v)+"%";var num=document.getElementById("layoutLeafOvergrowthNum");if(num&&document.activeElement!==num)num.value=String(v);apply(collect());this.value=String(v);if(out)out.textContent=Math.round(v)+"%";scheduleMetric()});
     var layoutLeafOvergrowthNumEl=document.getElementById("layoutLeafOvergrowthNum");if(layoutLeafOvergrowthNumEl){var commitLeafOvergrowthNum=function(){var range=document.getElementById(ids.leafOvergrowth);if(!range)return;var v=Number(layoutLeafOvergrowthNumEl.value);if(!Number.isFinite(v)){layoutLeafOvergrowthNumEl.value=range.value;return}v=Math.min(Number(range.max)||500,Math.max(Number(range.min)||100,v));range.value=String(v);layoutLeafOvergrowthNumEl.value=String(v);range.dispatchEvent(new Event("input",{bubbles:true}));range.dispatchEvent(new Event("change",{bubbles:true}))};layoutLeafOvergrowthNumEl.addEventListener("change",commitLeafOvergrowthNum);layoutLeafOvergrowthNumEl.addEventListener("keydown",function(event){if(event.key==="Enter"){event.preventDefault();commitLeafOvergrowthNum()}})}
     // Bidirectional selection sync (Build 2026-10-18_1401): picking a
     // branch, subcategory, or kink in the Advanced selects also selects

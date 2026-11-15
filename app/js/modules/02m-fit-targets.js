@@ -188,6 +188,18 @@
             const E = dkFitElementRadius(label, isSubcat, isChild), hubR = sxIconRadius(isChild ? 2 : 1), target = hubR + E;
             return Number.isFinite(target) && target > 0 ? target : null;
         }
+        function dkNodeNameTarget(label, isChild, overgrowthPct) {
+            if (!label) return null;
+            const pct = Math.max(100, Number(overgrowthPct) || (typeof mn !== "undefined" && Number(mn.leafOvergrowth)) || 100) / 100;
+            const isCh = Boolean(isChild);
+            const fs = isCh ? (typeof sxFontSize === "function" ? sxFontSize(3) : 14) : (typeof sxFontSize === "function" ? (sxFontSize(2) * 14 / 17) : 16);
+            const textW = typeof Za !== "undefined" && Za.measure ? Za.measure(label, fs, "topic") : (label.length * 8);
+            const gap = isCh ? Math.max(16, (typeof Za !== "undefined" && Za.measure ? 6 * Za.measure(" ", fs, "topic") : 20)) : Math.max(18, (typeof Za !== "undefined" && Za.measure ? 6 * Za.measure(" ", fs, "topic") : 24));
+            const hubR = typeof sxIconRadius === "function" ? sxIconRadius(isCh ? 2 : 1) : (isCh ? 88 : 132);
+            const leafR = typeof sxIconRadius === "function" ? sxIconRadius(isCh ? 3 : 2) : (isCh ? 44 : 88);
+            const target = hubR + leafR + gap + 28 + (textW * pct);
+            return Number.isFinite(target) && target > 0 ? target : null;
+        }
         function dkNameFitTargetForKey(key) {
             const rendered = dkFitFindRendered(key);
             if (rendered) {

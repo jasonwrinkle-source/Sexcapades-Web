@@ -5,10 +5,9 @@
             if (!n) return;
             selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
-            if (rec && "Topic" === rec.kind && typeof xo === "function") {
-                const rect = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
-                xo(n, rect.left + rect.width / 2, rect.bottom + 8);
-            }
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function clearSelectionMarking() {
             if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());
@@ -115,22 +114,16 @@
             } catch (err) { __sxErrLog("layout-select-node", err); }
         }
         function Qsel(e) {
-            // Spoke tap = select ONLY (Build 2026-10-18_1401, deprecating
-            // the tap-to-expand/collapse toggle on spokes): tapping a
-            // spoke — the hit line, the stem, the taper, or the midline —
-            // selects that branch and never expands or collapses it, not
-            // even when the tapped spoke's branch is already selected
-            // (Build 1314's fall-through to Qa in that case is removed).
-            // Expand/collapse lives on the label and icon taps (Qa).
+            // Spoke tap = select and focus/fit viewport
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            n && selectSpokeNode(n, !0);
+            if (!n) return;
+            selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
-            if (rec && "Topic" === rec.kind && typeof xo === "function") {
-                const rect = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
-                xo(n, rect.left + rect.width / 2, rect.bottom + 8);
-            }
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function Ja() {
             In.querySelectorAll(".map-label").forEach(e => {

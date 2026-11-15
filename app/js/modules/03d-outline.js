@@ -338,12 +338,12 @@
             p.setAttribute("aria-expanded", "false"), u.append(p), r.append(u), n.append(r);
             const h = document.createElement("div");
             h.className = "outline-rating-group";
-            if (i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
+            if (i.octad || i.heptad || i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
                 const wBtn = document.createElement("button");
                 wBtn.type = "button";
                 wBtn.className = "outline-widget-btn";
                 wBtn.dataset.outlineWidgetLaunch = e.id;
-                const sym = i.hexad ? "⬡ 6-Pole Hexad" : i.pentad ? "★ 5-Pole Pentad" : i.tetrad ? "◆ 4-Pole Tetrad" : "▲ 3-Pole Triad";
+                const sym = i.octad ? "✵ 8-Pole Octad" : i.heptad ? "⯁ 7-Pole Heptad" : i.hexad ? "⬡ 6-Pole Hexad" : i.pentad ? "★ 5-Pole Pentad" : i.tetrad ? "◆ 4-Pole Tetrad" : "▲ 3-Pole Triad";
                 wBtn.innerHTML = `<span class="outline-widget-glyph">${sym}</span>`;
                 wBtn.title = `Open interactive ${sym} widget pop-up for ${e.label}`;
                 wBtn.setAttribute("aria-label", `Open interactive ${sym} widget pop-up for ${e.label}`);

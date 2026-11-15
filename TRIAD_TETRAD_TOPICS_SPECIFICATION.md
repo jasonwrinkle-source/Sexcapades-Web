@@ -30,6 +30,10 @@ However, certain real-world dynamics, relational arrangements, and multi-faceted
 | **2-Pole (Dipole)** | 2D Product: $(g, r) \in [-100, +100]^2$ | 2 | $g$ (give), $r$ (receive) | Spanking, Oral Sex, Collar / Leash |
 | **3-Pole (Triad)** | 2-Simplex $\Delta^2 \times I$: $(w_1, w_2, w_3, \mu)$ | $2 + 1 = 3$ | Barycentric $(w_1, w_2, w_3)$ + Intensity $\mu$ | Bull / Hotwife / Cuckold; Top / Side / Bottom |
 | **4-Pole (Tetrad)** | 3-Simplex $\Delta^3 \times I$: $(w_1, w_2, w_3, w_4, \mu)$ | $3 + 1 = 4$ | Barycentric $(w_1, w_2, w_3, w_4)$ + Intensity $\mu$ | D/s + M/s Matrix; Political Compass + Praxis |
+| **5-Pole (Pentad)** | 4-Simplex $\Delta^4 \times I$: $(\mathbf{w}, \mu)$ | $4 + 1 = 5$ | Pentagram / Star Radial Distribution | Intimacy Languages; 5 Classical Elements |
+| **6-Pole (Hexad)** | 5-Simplex $\Delta^5 \times I$: $(\mathbf{w}, \mu)$ | $5 + 1 = 6$ | Hexagonal Circumplex / Diametric Pairs | Lee's 6 Love Styles; Orgasm Topography |
+| **7-Pole (Heptad)** | 6-Simplex $\Delta^6 \times I$: $(\mathbf{w}, \mu)$ | $6 + 1 = 7$ | Heptagonal Polygon / Somatosensory Wheel | Sovereign BDSM Archetypes; Somatosensory Modalities |
+| **8-Pole (Octad)** | 7-Simplex $\Delta^7 \times I$: $(\mathbf{w}, \mu)$ | $7 + 1 = 8$ | Regular Octagon / 4 Diametric Antipodal Pairs | Restraint & Containment; Anatomical Focus; Abrahamic Covenants |
 
 ### 2.1 The Monopole (1-Pole / Scalar)
 - **Geometry**: Line segment $[-100, +100]$ or $[0, 100]$.

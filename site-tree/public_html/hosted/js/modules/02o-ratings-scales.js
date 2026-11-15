@@ -176,11 +176,26 @@
             return patch;
         }
 
+        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+            "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
+            "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
+            "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
+            "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
+            "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
+            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222"
+        };
         function Wn(e) {
             if (e && "object" == typeof e && e.id) return e.id;
             const t = sxName(e);
-            for (const cat of h) for (const topic of cat.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
-            const n = topicRecords[t] && topicRecords[t].id;
+            for (const cat of h) {
+                for (const topic of cat.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                for (const topic of cat.parentTopics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                for (const sub of cat.subcategories || []) {
+                    for (const topic of sub.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                    for (const topic of sub.parentTopics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                }
+            }
+            const n = (topicRecords[t] && topicRecords[t].id) || SX_SUBSUMED_BASE_TOPIC_IDS[t];
             if (!n) throw new Error(`Missing stored topic ID for "${t}". Assign max(existing ID) + 1 on the topic object.`);
             return n;
         }

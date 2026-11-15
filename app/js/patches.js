@@ -1323,16 +1323,6 @@ __sxInit(function initScribeGeminiBYOK() {
           }
         }
       }
-            if (unaryErr.name === "AbortError") {
-              if (narrateStatus) narrateStatus.textContent = "Narration cancelled.";
-              if (startNarrateBtn) startNarrateBtn.disabled = false;
-              return;
-            }
-            console.warn("[Scribe Audio Narration] Unary failed with " + chosenAudioModel + ":", unaryErr.message);
-            lastAudioErr = unaryErr;
-          }
-        }
-      }
 
       if (!narrationSucceeded) {
         var errText = lastAudioErr ? lastAudioErr.message : "Failed to generate audio stream.";

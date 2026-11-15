@@ -686,7 +686,119 @@
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.hexad) {
+                if ($.octad) {
+                    // 8-Pole Octad Widget on Hypermap:
+                    // Regular octagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 68 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 8 vertices (45 deg = PI / 4 step)
+                    const P = [];
+                    for (let k = 0; k < 8; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (Math.PI / 4);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference octagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const octCols = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${octCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-octad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.heptad) {
+                    // 7-Pole Heptad Widget on Hypermap:
+                    // Regular heptagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 64 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 7 vertices
+                    const P = [];
+                    for (let k = 0; k < 7; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (2 * Math.PI / 7);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference heptagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const heptCols = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${heptCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-heptad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.hexad) {
                     // 6-Pole Hexad Widget on Hypermap:
                     // Regular hexagon deformation polygon
                     const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
@@ -993,7 +1105,7 @@
                 };
             };
         }
-        function Ya(e, t, n, i, a = pr.categoryIcon / 2) {
+        function Ya(e, t, n, i, a = (typeof sxIconRadius === "function" ? sxIconRadius(1) : 130)) {
             const r = Math.max(1, Math.hypot(n - e, i - t)), o = (n - e) / r, s = (i - t) / r, l = -s, c = o, d = `M ${e.toFixed(2)} ${t.toFixed(2)} L ${n.toFixed(2)} ${i.toFixed(2)}`, u = `M ${n.toFixed(2)} ${i.toFixed(2)} L ${e.toFixed(2)} ${t.toFixed(2)}`, p = r, h = Va(e, t, o, s, p), g = a, m = Za.cloudLabel(p, g), f = m.labelOffset;
             return {
                 d: d,
@@ -1246,9 +1358,12 @@
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            // Click ruling (2026-11-14): single click is navigation / selection only for all nodes.
-            // Double click opens the sheet.
-            n && selectSpokeNode(n, !0);
+            if (!n) return;
+            selectSpokeNode(n, !0);
+            const rec = qn[n] || Xn(n);
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function clearSelectionMarking() {
             if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());
@@ -1369,17 +1484,16 @@
             } catch (err) { __sxErrLog("layout-select-node", err); }
         }
         function Qsel(e) {
-            // Spoke tap = select ONLY (Build 2026-10-18_1401, deprecating
-            // the tap-to-expand/collapse toggle on spokes): tapping a
-            // spoke — the hit line, the stem, the taper, or the midline —
-            // selects that branch and never expands or collapses it, not
-            // even when the tapped spoke's branch is already selected
-            // (Build 1314's fall-through to Qa in that case is removed).
-            // Expand/collapse lives on the label and icon taps (Qa).
+            // Spoke tap = select and focus/fit viewport
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            n && selectSpokeNode(n, !0);
+            if (!n) return;
+            selectSpokeNode(n, !0);
+            const rec = qn[n] || Xn(n);
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function Ja() {
             // A rating-details pass can clear the expanded-branch set

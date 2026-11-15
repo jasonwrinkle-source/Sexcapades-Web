@@ -152,13 +152,14 @@ Under the **Taxopolemics** engine, philosophical concepts are mapped to their na
   - `West`: **Procedural / Entitlement Justice** (Strict adherence to voluntary acquisition and transfer; Nozick).
 - **Optimal Widget**: **Orthogonal Diamond Polygon**.
 
-#### 6.2 Seven Theories of State Legitimacy (7-Pole Heptad $\Delta^6$)
+#### 6.2 Seven Theories of Truth (7-Pole Heptad $\Delta^6$)
+Where does ontological and propositional truth reside? Distinct from Poliscapades' *Seven Theories of Political Legitimacy*, Philoscapades grounds its epistemological heptad in the canonical theories of truth:
 - **Poles**:
-  - `Pole 0 (Red)`: **Divine Mandate** (Ruler anointed by sacred cosmic order).
-  - `Pole 1 (Orange)`: **Social Contract Theory** (Legitimacy from mutual consent to escape state of nature; Hobbes, Locke).
-  - `Pole 2 (Yellow)`: **Democratic Majoritarianism** (Will of the people through voting and deliberative assemblies).
-  - `Pole 3 (Green)`: **Institutional Functionalism** (Legitimacy through delivering public goods and stability).
-  - `Pole 4 (Cyan)`: **Technocratic / Epistocratic Merit** (Legitimacy through expert knowledge and optimization).
-  - `Pole 5 (Indigo)`: **Revolutionary Vanguard** (Legitimacy from historical necessity and overthrow of oppression).
-  - `Pole 6 (Violet)`: **Anarchist Voluntaryism** (Rejection of state coercion; only voluntary contracts are legitimate).
-- **Optimal Widget**: **7-Axis Heptagram / Regular Heptagon Polygon**.
+  - `Pole 0 (Red)`: **Correspondence Theory** (Truth is structural isomorphism between proposition and mind-independent reality; Aristotle, Russell).
+  - `Pole 1 (Orange)`: **Coherence Theory** (Truth is systemic consistency within an interconnected web of propositions; Spinoza, Bradley, Blanshard).
+  - `Pole 2 (Yellow)`: **Pragmatic Theory** (Truth is what works in experiential practice and fruitful inquiry; Peirce, James, Dewey).
+  - `Pole 3 (Green)`: **Deflationary / Redundancy Theory** (Asserting truth adds no semantic content beyond asserting the sentence itself; Ramsey, Ayer).
+  - `Pole 4 (Cyan)`: **Semantic Theory** (Truth defined across meta-language satisfaction criteria without paradox; Tarski).
+  - `Pole 5 (Indigo)`: **Epistemic / Constructivist Theory** (Truth is ideal rational assertibility under conditions of unforced consensus; Dummett, Putnam, Habermas).
+  - `Pole 6 (Violet)`: **Phenomenological / Disclosive Truth** (Aletheia — truth as unhiddenness, unconcealment, and primordial clearing; Heidegger).
+- **Optimal Widget**: **7-Axis Heptagram / Regular Heptagon Polygon** (`"heptad-radar"`).

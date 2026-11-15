@@ -39,22 +39,10 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "FemDom",
-                "id": "t0009",
+                "name": "BDSM archetypes",
+                "id": "t0423",
                 "risk": false,
-                "give_label": "be the domme",
-                "kinksters": 565811,
-                "receive_label": "submit to a domme",
-                "type": "give_receive"
-            },
-            {
-                "name": "D/s",
-                "id": "t0010",
-                "risk": false,
-                "give_label": "dominate",
-                "kinksters": 431691,
-                "receive_label": "submit",
-                "type": "give_receive"
+                "note": "Sovereign, Caregiver, Primal, Sadist, Brat, Switch, Slave"
             },
             {
                 "name": "Ordered To Masturbate",
@@ -64,16 +52,6 @@ export const TAXONOMY_CATEGORIES = [
                 "kinksters": 408109,
                 "receive_label": "obey",
                 "type": "give_receive"
-            },
-            {
-                "name": "Brats",
-                "id": "t0012",
-                "risk": false,
-                "kinksters": 283969,
-                "type": "give_receive",
-                "give_label": "tame the brat",
-                "receive_label": "be the brat",
-                "note": "role labels like Sadism/FemDom"
             },
             {
                 "name": "24/7",
@@ -86,37 +64,9 @@ export const TAXONOMY_CATEGORIES = [
                 "note": "24/7 power-exchange lifestyle; parallel to D/s labels"
             },
             {
-                "name": "Switching",
-                "id": "t0014",
-                "risk": false,
-                "kinksters": 223141,
-                "type": "single",
-                "note": "role-versatility identity; no direction"
-            },
-            {
                 "name": "Sensation / power / intimacy",
                 "id": "t0409",
                 "risk": false
-            },
-            {
-                "name": "Power matrix (Master/Mistress/Slave/Pet)",
-                "id": "t0413",
-                "risk": false
-            },
-            {
-                "name": "BDSM archetype spectrum (Master/Nurturer/Primal/Brat/Surrender)",
-                "id": "t0419",
-                "risk": false
-            },
-            {
-                "name": "Male Authority",
-                "id": "t0015",
-                "risk": false,
-                "kinksters": 197539,
-                "type": "give_receive",
-                "give_label": "be the authority",
-                "receive_label": "submit to male authority",
-                "note": "role labels parallel to FemDom"
             },
             {
                 "name": "Behavior Modification",
@@ -178,30 +128,11 @@ export const TAXONOMY_CATEGORIES = [
             }
         ],
         "topicDetails": {
-            "FemDom": {
-                "give_label": "be the domme",
-                "kinksters": 565811,
-                "receive_label": "submit to a domme",
-                "type": "give_receive"
-            },
-            "D/s": {
-                "give_label": "dominate",
-                "kinksters": 431691,
-                "receive_label": "submit",
-                "type": "give_receive"
-            },
             "Ordered To Masturbate": {
                 "give_label": "order",
                 "kinksters": 408109,
                 "receive_label": "obey",
                 "type": "give_receive"
-            },
-            "Brats": {
-                "kinksters": 283969,
-                "type": "give_receive",
-                "give_label": "tame the brat",
-                "receive_label": "be the brat",
-                "note": "role labels like Sadism/FemDom"
             },
             "24/7": {
                 "kinksters": 244418,
@@ -209,18 +140,6 @@ export const TAXONOMY_CATEGORIES = [
                 "give_label": "dominate",
                 "receive_label": "submit",
                 "note": "24/7 power-exchange lifestyle; parallel to D/s labels"
-            },
-            "Switching": {
-                "kinksters": 223141,
-                "type": "single",
-                "note": "role-versatility identity; no direction"
-            },
-            "Male Authority": {
-                "kinksters": 197539,
-                "type": "give_receive",
-                "give_label": "be the authority",
-                "receive_label": "submit to male authority",
-                "note": "role labels parallel to FemDom"
             },
             "Behavior Modification": {
                 "kinksters": 186953,
@@ -267,17 +186,19 @@ export const TAXONOMY_CATEGORIES = [
     {
         "id": "c0002",
         "name": "Bondage & restriction",
-        "parentTopics": [],
+        "parentTopics": [
+            {
+                "name": "Restraint & containment",
+                "id": "t0426",
+                "risk": false,
+                "note": "Rope, Shibari, Cuffs, Tape, Mummification, Blindfold, Caging, Suspension"
+            }
+        ],
         "subcategories": [
             {
                 "id": "s0001",
                 "name": "Flexible ties",
                 "topics": [
-                    {
-                        "name": "Rope bondage",
-                        "id": "t0022",
-                        "risk": false
-                    },
                     {
                         "name": "Scarf bondage",
                         "id": "t0023",
@@ -304,11 +225,6 @@ export const TAXONOMY_CATEGORIES = [
                 "id": "s0002",
                 "name": "Restraints",
                 "topics": [
-                    {
-                        "name": "Cuffs",
-                        "id": "t0025",
-                        "risk": false
-                    },
                     {
                         "name": "Spreaders",
                         "id": "t0026",
@@ -341,16 +257,6 @@ export const TAXONOMY_CATEGORIES = [
                 "name": "Tape & wrapping",
                 "topics": [
                     {
-                        "name": "Bondage tape",
-                        "id": "t0029",
-                        "risk": false,
-                        "kinksters": 144824,
-                        "type": "give_receive",
-                        "give_label": "tape up",
-                        "receive_label": "be taped up",
-                        "note": "near-overlap with app 'Tape & wrapping'"
-                    },
-                    {
                         "name": "Duct tape",
                         "id": "t0030",
                         "risk": false,
@@ -369,21 +275,6 @@ export const TAXONOMY_CATEGORIES = [
                         "type": "give_receive",
                         "give_label": "wrap",
                         "receive_label": "be wrapped"
-                    },
-                    {
-                        "name": "Mummification",
-                        "id": "t0032",
-                        "risk": false,
-                        "rank": 228,
-                        "kinksters": 57988,
-                        "type": "give_receive",
-                        "give_label": "mummify",
-                        "receive_label": "be mummified"
-                    },
-                    {
-                        "name": "Tape",
-                        "id": "t0033",
-                        "risk": false
                     }
                 ]
             },
@@ -391,11 +282,6 @@ export const TAXONOMY_CATEGORIES = [
                 "id": "s0004",
                 "name": "Sensory",
                 "topics": [
-                    {
-                        "name": "Blindfold",
-                        "id": "t0034",
-                        "risk": false
-                    },
                     {
                         "name": "Gags",
                         "id": "t0035",
@@ -418,40 +304,6 @@ export const TAXONOMY_CATEGORIES = [
                 "name": "Confinement",
                 "topics": [
                     {
-                        "name": "Caging",
-                        "id": "t0037",
-                        "risk": false,
-                        "give_label": "cage",
-                        "kinksters": 441065,
-                        "receive_label": "be caged",
-                        "type": "give_receive"
-                    },
-                    {
-                        "name": "Encasement",
-                        "id": "t0038",
-                        "risk": false,
-                        "rank": 287,
-                        "kinksters": 28442,
-                        "type": "give_receive",
-                        "give_label": "encase",
-                        "receive_label": "be encased"
-                    },
-                    {
-                        "name": "Sleepsacks",
-                        "id": "t0039",
-                        "risk": false,
-                        "rank": 310,
-                        "kinksters": 17422,
-                        "type": "give_receive",
-                        "give_label": "encase in",
-                        "receive_label": "be encased in"
-                    },
-                    {
-                        "name": "Immobilization",
-                        "id": "t0040",
-                        "risk": false
-                    },
-                    {
                         "name": "Crucifixion",
                         "id": "t0041",
                         "risk": false,
@@ -472,16 +324,6 @@ export const TAXONOMY_CATEGORIES = [
                 "id": "s0006",
                 "name": "Challenge bondage",
                 "topics": [
-                    {
-                        "name": "Suspension Bondage",
-                        "id": "t0043",
-                        "risk": false,
-                        "kinksters": 194864,
-                        "type": "give_receive",
-                        "give_label": "suspend",
-                        "receive_label": "be suspended",
-                        "note": "near-duplicate with Suspension (lower rank); keep Suspension Bondage per duplicates report"
-                    },
                     {
                         "name": "Predicament Bondage",
                         "id": "t0044",
@@ -539,14 +381,6 @@ export const TAXONOMY_CATEGORIES = [
                         "type": "give_receive",
                         "give_label": "restrain (water)",
                         "receive_label": "be restrained (water)"
-                    },
-                    {
-                        "name": "Bondage art",
-                        "id": "t0050",
-                        "risk": false,
-                        "kinksters": 145804,
-                        "type": "single",
-                        "note": "aesthetic appreciation of rope/shibari as art"
                     }
                 ]
             }
@@ -1051,34 +885,10 @@ export const TAXONOMY_CATEGORIES = [
                 "receive_label": "be shocked"
             },
             {
-                "name": "Texture contrast",
-                "id": "t0102",
-                "risk": false
-            },
-            {
-                "name": "Somatosensory palette (Thermal/Tactile/Vibrational/Olfactory/Auditory)",
-                "id": "t0417",
-                "risk": false
-            },
-            {
-                "name": "Somatosensory impact modalities (Sting/Thud/Thermal/Clamp/Deprivation/Overload)",
-                "id": "t0421",
-                "risk": false
-            },
-            {
-                "name": "Sensory deprivation",
-                "id": "t0103",
-                "risk": false
-            },
-            {
-                "name": "Sensory overload",
-                "id": "t0104",
-                "risk": false
-            },
-            {
-                "name": "ASMR & whispering",
-                "id": "t0105",
-                "risk": false
+                "name": "Sensory modalities",
+                "id": "t0424",
+                "risk": false,
+                "note": "Tactile, Thermal, Impact, Electric, Scent, Sound, Vestibular"
             },
             {
                 "name": "Music & sound",
@@ -1093,11 +903,6 @@ export const TAXONOMY_CATEGORIES = [
             {
                 "name": "Low light",
                 "id": "t0108",
-                "risk": false
-            },
-            {
-                "name": "Scent",
-                "id": "t0109",
                 "risk": false
             },
             {
@@ -2036,19 +1841,10 @@ export const TAXONOMY_CATEGORIES = [
         "name": "Body focus & appearance",
         "parentTopics": [
             {
-                "name": "Hands",
-                "id": "t0201",
+                "name": "Anatomical focus & worship",
+                "id": "t0427",
                 "risk": false,
-                "rank": 237,
-                "kinksters": 51068,
-                "type": "give_receive",
-                "give_label": "have",
-                "receive_label": "admire"
-            },
-            {
-                "name": "Hands & gloves",
-                "id": "t0202",
-                "risk": false
+                "note": "Feet, Hands, Breasts, Glutes, Muscles, Hair, BodyHair, Pregnancy"
             }
         ],
         "subcategories": [
@@ -2168,11 +1964,6 @@ export const TAXONOMY_CATEGORIES = [
                 "name": "Lower body",
                 "topics": [
                     {
-                        "name": "Feet",
-                        "id": "t0213",
-                        "risk": false
-                    },
-                    {
                         "name": "Toes",
                         "id": "t0214",
                         "risk": false,
@@ -2208,11 +1999,6 @@ export const TAXONOMY_CATEGORIES = [
                         "kinksters": 127843,
                         "type": "single",
                         "note": "body-part attraction, consistent with Feet/Big Tits"
-                    },
-                    {
-                        "name": "Buttocks",
-                        "id": "t0218",
-                        "risk": false
                     }
                 ]
             },
@@ -2228,11 +2014,6 @@ export const TAXONOMY_CATEGORIES = [
                         "type": "single"
                     },
                     {
-                        "name": "Breasts",
-                        "id": "t0220",
-                        "risk": false
-                    },
-                    {
                         "name": "Large Labia",
                         "id": "t0221",
                         "risk": false,
@@ -2241,11 +2022,6 @@ export const TAXONOMY_CATEGORIES = [
                         "type": "give_receive",
                         "give_label": "have",
                         "receive_label": "admire"
-                    },
-                    {
-                        "name": "Pregnancy focus",
-                        "id": "t0222",
-                        "risk": false
                     }
                 ]
             },
@@ -2849,19 +2625,28 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
+                "name": "Intimacy geometry",
                 "id": "t0415",
-                "risk": false
+                "risk": false,
+                "note": "Voyeur, Swinging, Hierarchical, Anarchy"
             },
             {
-                "name": "Erotic intimacy languages (Words/Touch/Service/Vulnerability/Autonomy)",
+                "name": "Erotic intimacy languages",
                 "id": "t0418",
-                "risk": false
+                "risk": false,
+                "note": "Words, Touch, Service, Vulnerability, Autonomy"
             },
             {
-                "name": "Lee's six erotic love styles (Hexagon of Eros)",
+                "name": "Erotic love styles",
                 "id": "t0420",
-                "risk": false
+                "risk": false,
+                "note": "Lee's six styles: Eros, Ludus, Storge, Pragma, Mania, Agape"
+            },
+            {
+                "name": "Relational dynamics",
+                "id": "t0425",
+                "risk": false,
+                "note": "Liking, Infatuation, Empty, Romantic, Companionate, Fatuous, Consummate"
             },
             {
                 "name": "Group service",
@@ -3265,14 +3050,16 @@ export const TAXONOMY_CATEGORIES = [
                 "receive_label": "be edged (be brought to near-orgasm)"
             },
             {
-                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
+                "name": "Orgasm dynamics",
                 "id": "t0414",
-                "risk": false
+                "risk": false,
+                "note": "Ruined, Edged, Forced, Cathartic"
             },
             {
-                "name": "Orgasm sensation topography (Clitoral/Pelvic/Cervical/Anal/Somatic/Psychic)",
+                "name": "Orgasm topography",
                 "id": "t0422",
-                "risk": false
+                "risk": false,
+                "note": "Clitoral, Pelvic, Cervical, Anal, Somatic, Psychic"
             },
             {
                 "name": "Teasing",
@@ -4069,9 +3856,10 @@ export const TAXONOMY_CATEGORIES = [
                 "note": "mutual concept"
             },
             {
-                "name": "Kink motivation (Escape/Union/Catharsis/Transgression)",
+                "name": "Kink motivations",
                 "id": "t0416",
-                "risk": false
+                "risk": false,
+                "note": "Escape, Union, Catharsis, Transgression"
             }
         ],
         "topicDetails": {

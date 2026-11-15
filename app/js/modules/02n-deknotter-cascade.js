@@ -139,7 +139,12 @@
                 return h * (so && Number(so.length) > 0 ? Number(so.length) : 1);
             }
             const ko = mn.kinkOverrides && t.id ? mn.kinkOverrides[t.id] : null;
-            return h * (ko && Number(ko.length) > 0 ? Number(ko.length) : 1);
+            h = h * (ko && Number(ko.length) > 0 ? Number(ko.length) : 1);
+            const hubRadius1 = sxIconRadius(1), leafRadius2 = sxIconRadius(2);
+            const fsEst = sxFontSize(2) * 14 / 17;
+            const minReqSpoke = hubRadius1 + leafRadius2 + Za.measure(t.label || "", fsEst, "topic") + Math.max(18, 6 * Za.measure(" ", fsEst, "topic")) + 28;
+            if (h < minReqSpoke) h = minReqSpoke;
+            return h;
         }
         // Delivered radii for every currently rendered item of one
         // branch, keyed by stable identity, plus the branch's own
@@ -1090,7 +1095,10 @@
                     if ("topic" !== kind && "child" !== kind) return;
                     const id = "child" === kind ? (w.child ? w.child.id : null) : (w.topic ? w.topic.id : null);
                     if (null == id) return;
-                    const target = dkComputeFitTarget(info.key), delivered = dkDeliveredItemRadius(w), cur = snapshot.kinkOverrides ? snapshot.kinkOverrides[id] : null, curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
+                    const isChild = "child" === kind;
+                    const label = isChild ? (w.child ? w.child.label : w.label) : (w.topic ? w.topic.label : w.label);
+                    const target = typeof dkNodeNameTarget === "function" ? dkNodeNameTarget(label, isChild, mn.leafOvergrowth) : dkComputeFitTarget(info.key);
+                    const delivered = dkDeliveredItemRadius(w), cur = snapshot.kinkOverrides ? snapshot.kinkOverrides[id] : null, curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
                     if (null == target || !(target > 0) || !Number.isFinite(delivered) || !(delivered > 0)) return;
                     const capLen = curLen * target / delivered;
                     Number.isFinite(capLen) && capLen > 0 && (null == throwFitCap[id] || capLen < throwFitCap[id]) && (throwFitCap[id] = capLen);

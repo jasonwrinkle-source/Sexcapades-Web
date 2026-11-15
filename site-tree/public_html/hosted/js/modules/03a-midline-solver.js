@@ -736,13 +736,10 @@
         function sxLabelClearance(radius, label, fontSize, iconR) {
             let r = radius;
             try {
-                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = 6 * Za.measure(" ", fs, "topic");
+                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = Math.max(18, 6 * Za.measure(" ", fs, "topic"));
+                const hub = typeof sxIconRadius === "function" ? sxIconRadius(2) : 88;
                 for (let pass = 0; pass < 3; pass++) {
-                    // Label-to-icon gap (ruled 2026-11-13, Jason): about
-                    // six spaces between the label end and the icon, on
-                    // all nodes — the old +12 was ~0.005 spaces at the
-                    // label font, so labels crowded their icons.
-                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + gap;
+                    const need = hub + textW + icon + gap + 28;
                     if (!(Number.isFinite(need) && need > r)) break;
                     r = need;
                 }
@@ -1722,12 +1719,10 @@
         // which was 3 for the same reason). Category/subcategory
         // 50x/20x throws and 1x floors, the shrinkKinksToLabel
         // driver's 1x, and the settle drift check's 1x comparison are
-        // untouched. An absent or invalid setting falls back to 3
-        // (300%), the long-standing size, so an untouched map renders
-        // exactly as before.
+        // untouched. 100% is the minimum and default size.
         function sxLeafOvergrowthFactor() {
             const pct = Number(mn && mn.leafOvergrowth);
-            return Number.isFinite(pct) && pct > 0 ? pct / 100 : 3;
+            return Number.isFinite(pct) && pct >= 100 ? pct / 100 : 1;
         }
         function sxSccInputs(branches) {
             const fontScale = mapFontScale();

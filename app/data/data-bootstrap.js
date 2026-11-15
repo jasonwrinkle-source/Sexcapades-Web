@@ -342,22 +342,10 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "FemDom",
-                "id": "t0009",
+                "name": "BDSM archetypes",
+                "id": "t0423",
                 "risk": false,
-                "give_label": "be the domme",
-                "kinksters": 565811,
-                "receive_label": "submit to a domme",
-                "type": "give_receive"
-            },
-            {
-                "name": "D/s",
-                "id": "t0010",
-                "risk": false,
-                "give_label": "dominate",
-                "kinksters": 431691,
-                "receive_label": "submit",
-                "type": "give_receive"
+                "note": "Sovereign, Caregiver, Primal, Sadist, Brat, Switch, Slave"
             },
             {
                 "name": "Ordered To Masturbate",
@@ -367,16 +355,6 @@ const TAXONOMY_CATEGORIES = [
                 "kinksters": 408109,
                 "receive_label": "obey",
                 "type": "give_receive"
-            },
-            {
-                "name": "Brats",
-                "id": "t0012",
-                "risk": false,
-                "kinksters": 283969,
-                "type": "give_receive",
-                "give_label": "tame the brat",
-                "receive_label": "be the brat",
-                "note": "role labels like Sadism/FemDom"
             },
             {
                 "name": "24/7",
@@ -389,37 +367,9 @@ const TAXONOMY_CATEGORIES = [
                 "note": "24/7 power-exchange lifestyle; parallel to D/s labels"
             },
             {
-                "name": "Switching",
-                "id": "t0014",
-                "risk": false,
-                "kinksters": 223141,
-                "type": "single",
-                "note": "role-versatility identity; no direction"
-            },
-            {
                 "name": "Sensation / power / intimacy",
                 "id": "t0409",
                 "risk": false
-            },
-            {
-                "name": "Power matrix (Master/Mistress/Slave/Pet)",
-                "id": "t0413",
-                "risk": false
-            },
-            {
-                "name": "BDSM archetype spectrum (Master/Nurturer/Primal/Brat/Surrender)",
-                "id": "t0419",
-                "risk": false
-            },
-            {
-                "name": "Male Authority",
-                "id": "t0015",
-                "risk": false,
-                "kinksters": 197539,
-                "type": "give_receive",
-                "give_label": "be the authority",
-                "receive_label": "submit to male authority",
-                "note": "role labels parallel to FemDom"
             },
             {
                 "name": "Behavior Modification",
@@ -481,30 +431,11 @@ const TAXONOMY_CATEGORIES = [
             }
         ],
         "topicDetails": {
-            "FemDom": {
-                "give_label": "be the domme",
-                "kinksters": 565811,
-                "receive_label": "submit to a domme",
-                "type": "give_receive"
-            },
-            "D/s": {
-                "give_label": "dominate",
-                "kinksters": 431691,
-                "receive_label": "submit",
-                "type": "give_receive"
-            },
             "Ordered To Masturbate": {
                 "give_label": "order",
                 "kinksters": 408109,
                 "receive_label": "obey",
                 "type": "give_receive"
-            },
-            "Brats": {
-                "kinksters": 283969,
-                "type": "give_receive",
-                "give_label": "tame the brat",
-                "receive_label": "be the brat",
-                "note": "role labels like Sadism/FemDom"
             },
             "24/7": {
                 "kinksters": 244418,
@@ -512,18 +443,6 @@ const TAXONOMY_CATEGORIES = [
                 "give_label": "dominate",
                 "receive_label": "submit",
                 "note": "24/7 power-exchange lifestyle; parallel to D/s labels"
-            },
-            "Switching": {
-                "kinksters": 223141,
-                "type": "single",
-                "note": "role-versatility identity; no direction"
-            },
-            "Male Authority": {
-                "kinksters": 197539,
-                "type": "give_receive",
-                "give_label": "be the authority",
-                "receive_label": "submit to male authority",
-                "note": "role labels parallel to FemDom"
             },
             "Behavior Modification": {
                 "kinksters": 186953,
@@ -570,17 +489,19 @@ const TAXONOMY_CATEGORIES = [
     {
         "id": "c0002",
         "name": "Bondage & restriction",
-        "parentTopics": [],
+        "parentTopics": [
+            {
+                "name": "Restraint & containment",
+                "id": "t0426",
+                "risk": false,
+                "note": "Rope, Shibari, Cuffs, Tape, Mummification, Blindfold, Caging, Suspension"
+            }
+        ],
         "subcategories": [
             {
                 "id": "s0001",
                 "name": "Flexible ties",
                 "topics": [
-                    {
-                        "name": "Rope bondage",
-                        "id": "t0022",
-                        "risk": false
-                    },
                     {
                         "name": "Scarf bondage",
                         "id": "t0023",
@@ -607,11 +528,6 @@ const TAXONOMY_CATEGORIES = [
                 "id": "s0002",
                 "name": "Restraints",
                 "topics": [
-                    {
-                        "name": "Cuffs",
-                        "id": "t0025",
-                        "risk": false
-                    },
                     {
                         "name": "Spreaders",
                         "id": "t0026",
@@ -644,16 +560,6 @@ const TAXONOMY_CATEGORIES = [
                 "name": "Tape & wrapping",
                 "topics": [
                     {
-                        "name": "Bondage tape",
-                        "id": "t0029",
-                        "risk": false,
-                        "kinksters": 144824,
-                        "type": "give_receive",
-                        "give_label": "tape up",
-                        "receive_label": "be taped up",
-                        "note": "near-overlap with app 'Tape & wrapping'"
-                    },
-                    {
                         "name": "Duct tape",
                         "id": "t0030",
                         "risk": false,
@@ -672,21 +578,6 @@ const TAXONOMY_CATEGORIES = [
                         "type": "give_receive",
                         "give_label": "wrap",
                         "receive_label": "be wrapped"
-                    },
-                    {
-                        "name": "Mummification",
-                        "id": "t0032",
-                        "risk": false,
-                        "rank": 228,
-                        "kinksters": 57988,
-                        "type": "give_receive",
-                        "give_label": "mummify",
-                        "receive_label": "be mummified"
-                    },
-                    {
-                        "name": "Tape",
-                        "id": "t0033",
-                        "risk": false
                     }
                 ]
             },
@@ -694,11 +585,6 @@ const TAXONOMY_CATEGORIES = [
                 "id": "s0004",
                 "name": "Sensory",
                 "topics": [
-                    {
-                        "name": "Blindfold",
-                        "id": "t0034",
-                        "risk": false
-                    },
                     {
                         "name": "Gags",
                         "id": "t0035",
@@ -721,40 +607,6 @@ const TAXONOMY_CATEGORIES = [
                 "name": "Confinement",
                 "topics": [
                     {
-                        "name": "Caging",
-                        "id": "t0037",
-                        "risk": false,
-                        "give_label": "cage",
-                        "kinksters": 441065,
-                        "receive_label": "be caged",
-                        "type": "give_receive"
-                    },
-                    {
-                        "name": "Encasement",
-                        "id": "t0038",
-                        "risk": false,
-                        "rank": 287,
-                        "kinksters": 28442,
-                        "type": "give_receive",
-                        "give_label": "encase",
-                        "receive_label": "be encased"
-                    },
-                    {
-                        "name": "Sleepsacks",
-                        "id": "t0039",
-                        "risk": false,
-                        "rank": 310,
-                        "kinksters": 17422,
-                        "type": "give_receive",
-                        "give_label": "encase in",
-                        "receive_label": "be encased in"
-                    },
-                    {
-                        "name": "Immobilization",
-                        "id": "t0040",
-                        "risk": false
-                    },
-                    {
                         "name": "Crucifixion",
                         "id": "t0041",
                         "risk": false,
@@ -775,16 +627,6 @@ const TAXONOMY_CATEGORIES = [
                 "id": "s0006",
                 "name": "Challenge bondage",
                 "topics": [
-                    {
-                        "name": "Suspension Bondage",
-                        "id": "t0043",
-                        "risk": false,
-                        "kinksters": 194864,
-                        "type": "give_receive",
-                        "give_label": "suspend",
-                        "receive_label": "be suspended",
-                        "note": "near-duplicate with Suspension (lower rank); keep Suspension Bondage per duplicates report"
-                    },
                     {
                         "name": "Predicament Bondage",
                         "id": "t0044",
@@ -842,14 +684,6 @@ const TAXONOMY_CATEGORIES = [
                         "type": "give_receive",
                         "give_label": "restrain (water)",
                         "receive_label": "be restrained (water)"
-                    },
-                    {
-                        "name": "Bondage art",
-                        "id": "t0050",
-                        "risk": false,
-                        "kinksters": 145804,
-                        "type": "single",
-                        "note": "aesthetic appreciation of rope/shibari as art"
                     }
                 ]
             }
@@ -1354,34 +1188,10 @@ const TAXONOMY_CATEGORIES = [
                 "receive_label": "be shocked"
             },
             {
-                "name": "Texture contrast",
-                "id": "t0102",
-                "risk": false
-            },
-            {
-                "name": "Somatosensory palette (Thermal/Tactile/Vibrational/Olfactory/Auditory)",
-                "id": "t0417",
-                "risk": false
-            },
-            {
-                "name": "Somatosensory impact modalities (Sting/Thud/Thermal/Clamp/Deprivation/Overload)",
-                "id": "t0421",
-                "risk": false
-            },
-            {
-                "name": "Sensory deprivation",
-                "id": "t0103",
-                "risk": false
-            },
-            {
-                "name": "Sensory overload",
-                "id": "t0104",
-                "risk": false
-            },
-            {
-                "name": "ASMR & whispering",
-                "id": "t0105",
-                "risk": false
+                "name": "Sensory modalities",
+                "id": "t0424",
+                "risk": false,
+                "note": "Tactile, Thermal, Impact, Electric, Scent, Sound, Vestibular"
             },
             {
                 "name": "Music & sound",
@@ -1396,11 +1206,6 @@ const TAXONOMY_CATEGORIES = [
             {
                 "name": "Low light",
                 "id": "t0108",
-                "risk": false
-            },
-            {
-                "name": "Scent",
-                "id": "t0109",
                 "risk": false
             },
             {
@@ -2339,19 +2144,10 @@ const TAXONOMY_CATEGORIES = [
         "name": "Body focus & appearance",
         "parentTopics": [
             {
-                "name": "Hands",
-                "id": "t0201",
+                "name": "Anatomical focus & worship",
+                "id": "t0427",
                 "risk": false,
-                "rank": 237,
-                "kinksters": 51068,
-                "type": "give_receive",
-                "give_label": "have",
-                "receive_label": "admire"
-            },
-            {
-                "name": "Hands & gloves",
-                "id": "t0202",
-                "risk": false
+                "note": "Feet, Hands, Breasts, Glutes, Muscles, Hair, BodyHair, Pregnancy"
             }
         ],
         "subcategories": [
@@ -2471,11 +2267,6 @@ const TAXONOMY_CATEGORIES = [
                 "name": "Lower body",
                 "topics": [
                     {
-                        "name": "Feet",
-                        "id": "t0213",
-                        "risk": false
-                    },
-                    {
                         "name": "Toes",
                         "id": "t0214",
                         "risk": false,
@@ -2511,11 +2302,6 @@ const TAXONOMY_CATEGORIES = [
                         "kinksters": 127843,
                         "type": "single",
                         "note": "body-part attraction, consistent with Feet/Big Tits"
-                    },
-                    {
-                        "name": "Buttocks",
-                        "id": "t0218",
-                        "risk": false
                     }
                 ]
             },
@@ -2531,11 +2317,6 @@ const TAXONOMY_CATEGORIES = [
                         "type": "single"
                     },
                     {
-                        "name": "Breasts",
-                        "id": "t0220",
-                        "risk": false
-                    },
-                    {
                         "name": "Large Labia",
                         "id": "t0221",
                         "risk": false,
@@ -2544,11 +2325,6 @@ const TAXONOMY_CATEGORIES = [
                         "type": "give_receive",
                         "give_label": "have",
                         "receive_label": "admire"
-                    },
-                    {
-                        "name": "Pregnancy focus",
-                        "id": "t0222",
-                        "risk": false
                     }
                 ]
             },
@@ -3152,19 +2928,28 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Intimacy geometry (Voyeur/Swinging/Hierarchical/Anarchy)",
+                "name": "Intimacy geometry",
                 "id": "t0415",
-                "risk": false
+                "risk": false,
+                "note": "Voyeur, Swinging, Hierarchical, Anarchy"
             },
             {
-                "name": "Erotic intimacy languages (Words/Touch/Service/Vulnerability/Autonomy)",
+                "name": "Erotic intimacy languages",
                 "id": "t0418",
-                "risk": false
+                "risk": false,
+                "note": "Words, Touch, Service, Vulnerability, Autonomy"
             },
             {
-                "name": "Lee's six erotic love styles (Hexagon of Eros)",
+                "name": "Erotic love styles",
                 "id": "t0420",
-                "risk": false
+                "risk": false,
+                "note": "Lee's six styles: Eros, Ludus, Storge, Pragma, Mania, Agape"
+            },
+            {
+                "name": "Relational dynamics",
+                "id": "t0425",
+                "risk": false,
+                "note": "Liking, Infatuation, Empty, Romantic, Companionate, Fatuous, Consummate"
             },
             {
                 "name": "Group service",
@@ -3568,14 +3353,16 @@ const TAXONOMY_CATEGORIES = [
                 "receive_label": "be edged (be brought to near-orgasm)"
             },
             {
-                "name": "Orgasm dynamic (Ruined/Edged/Forced/Cathartic)",
+                "name": "Orgasm dynamics",
                 "id": "t0414",
-                "risk": false
+                "risk": false,
+                "note": "Ruined, Edged, Forced, Cathartic"
             },
             {
-                "name": "Orgasm sensation topography (Clitoral/Pelvic/Cervical/Anal/Somatic/Psychic)",
+                "name": "Orgasm topography",
                 "id": "t0422",
-                "risk": false
+                "risk": false,
+                "note": "Clitoral, Pelvic, Cervical, Anal, Somatic, Psychic"
             },
             {
                 "name": "Teasing",
@@ -4372,9 +4159,10 @@ const TAXONOMY_CATEGORIES = [
                 "note": "mutual concept"
             },
             {
-                "name": "Kink motivation (Escape/Union/Catharsis/Transgression)",
+                "name": "Kink motivations",
                 "id": "t0416",
-                "risk": false
+                "risk": false,
+                "note": "Escape, Union, Catharsis, Transgression"
             }
         ],
         "topicDetails": {
@@ -6004,7 +5792,7 @@ const TAXONOMY_CATEGORIES = [
                         x: h - tipCircle.x,
                         y: g - tipCircle.y
                     }, sm2 = Math.hypot(sv.x, sv.y) || 1, em2 = Math.hypot(ev.x, ev.y) || 1, spx = tipCircle.x + tipCircle.r * sv.x / sm2, spy = tipCircle.y + tipCircle.r * sv.y / sm2, epx = tipCircle.x + tipCircle.r * ev.x / em2, epy = tipCircle.y + tipCircle.r * ev.y / em2, crx = sv.x * ev.y - sv.y * ev.x, swp = crx >= 0 ? 1 : 0;
-                    return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${spx.toFixed(2)} ${spy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${swp} ${epx.toFixed(2)} ${epy.toFixed(2)}${bTail}`;
+                    return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${spx.toFixed(2)} ${spy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${swp} ${epx.toFixed(2)} ${epy.toFixed(2)}${bTail}`;
                 }
                 return `M ${bSX.toFixed(2)} ${bSY.toFixed(2)} L ${m.toFixed(2)} ${f.toFixed(2)} L ${h.toFixed(2)} ${g.toFixed(2)}${bTail}`;
             }
@@ -6122,6 +5910,16 @@ const TAXONOMY_CATEGORIES = [
                     m[0] = pj(baseX + nx * y0, baseY + ny * y0);
                     f[0] = pj(baseX + nx * curInner0, baseY + ny * curInner0);
                 }
+                if (tipCircle && tipCircle.r > 0) {
+                    const pjTip = (e2, t2) => {
+                        const n2 = e2 - tipCircle.x, i2 = t2 - tipCircle.y, a2 = Math.hypot(n2, i2) || 1;
+                        return `${(tipCircle.x + tipCircle.r * n2 / a2).toFixed(2)} ${(tipCircle.y + tipCircle.r * i2 / a2).toFixed(2)}`;
+                    };
+                    h[p] = pjTip(baseX + dx - nx * yE, baseY + dy - ny * yE);
+                    g[p] = pjTip(baseX + dx - nx * curInner1, baseY + dy - ny * curInner1);
+                    m[p] = pjTip(baseX + dx + nx * yE, baseY + dy + ny * yE);
+                    f[p] = pjTip(baseX + dx + nx * curInner1, baseY + dy + ny * curInner1);
+                }
                 const b = (side, startOff, endOff) => {
                     if (!baseCircle || !(baseCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
                     const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y};
@@ -6137,10 +5935,9 @@ const TAXONOMY_CATEGORIES = [
                     const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y};
                     const end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y};
                     const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
-                    const sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm;
                     const ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em;
                     const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
-                    return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
+                    return ` A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
                 if ("innerFirst" === mode) return {
                     top: `M ${g.join(" L ")}${bE(-1, curInner1, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y0, curInner0)} Z`,
@@ -6155,6 +5952,7 @@ const TAXONOMY_CATEGORIES = [
                     w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && (v[v.length - 1] = g[0], w[w.length - 1] = f[0]);
+                tipCircle && tipCircle.r > 0 && (v[0] = g[p], w[0] = f[p]);
                 return {
                     top: `M ${h.join(" L ")}${bE(-1, yE, curInner1)} L ${v.join(" L ")}${b(-1, curInner0, y0)} Z`,
                     bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${w.join(" L ")}${b(1, curInner0, y0)} Z`
@@ -6296,6 +6094,18 @@ const TAXONOMY_CATEGORIES = [
             },
             trimToIcons(e, t, n, i, a, r) {
                 const o = Ga.segment(e, t, n, i);
+                if (o.len <= a + r) {
+                    const mid = o.len / 2;
+                    const aClamped = Math.min(a, mid * 0.95);
+                    const rClamped = Math.min(r, mid * 0.95);
+                    return {
+                        seg: o,
+                        sx0: e + o.ux * aClamped,
+                        sy0: t + o.uy * aClamped,
+                        sx1: n - o.ux * rClamped,
+                        sy1: i - o.uy * rClamped
+                    };
+                }
                 return {
                     seg: o,
                     sx0: e + o.ux * a,
@@ -6467,7 +6277,119 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.hexad) {
+                if ($.octad) {
+                    // 8-Pole Octad Widget on Hypermap:
+                    // Regular octagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 68 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 8 vertices (45 deg = PI / 4 step)
+                    const P = [];
+                    for (let k = 0; k < 8; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (Math.PI / 4);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference octagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const octCols = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${octCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-octad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.heptad) {
+                    // 7-Pole Heptad Widget on Hypermap:
+                    // Regular heptagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 64 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 7 vertices
+                    const P = [];
+                    for (let k = 0; k < 7; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (2 * Math.PI / 7);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference heptagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const heptCols = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${heptCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-heptad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.hexad) {
                     // 6-Pole Hexad Widget on Hypermap:
                     // Regular hexagon deformation polygon
                     const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
@@ -6774,7 +6696,7 @@ const TAXONOMY_CATEGORIES = [
                 };
             };
         }
-        function Ya(e, t, n, i, a = pr.categoryIcon / 2) {
+        function Ya(e, t, n, i, a = (typeof sxIconRadius === "function" ? sxIconRadius(1) : 130)) {
             const r = Math.max(1, Math.hypot(n - e, i - t)), o = (n - e) / r, s = (i - t) / r, l = -s, c = o, d = `M ${e.toFixed(2)} ${t.toFixed(2)} L ${n.toFixed(2)} ${i.toFixed(2)}`, u = `M ${n.toFixed(2)} ${i.toFixed(2)} L ${e.toFixed(2)} ${t.toFixed(2)}`, p = r, h = Va(e, t, o, s, p), g = a, m = Za.cloudLabel(p, g), f = m.labelOffset;
             return {
                 d: d,
@@ -7031,10 +6953,9 @@ const TAXONOMY_CATEGORIES = [
             if (!n) return;
             selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
-            if (rec && "Topic" === rec.kind && typeof xo === "function") {
-                const rect = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
-                xo(n, rect.left + rect.width / 2, rect.bottom + 8);
-            }
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function clearSelectionMarking() {
             if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());
@@ -7141,22 +7062,16 @@ const TAXONOMY_CATEGORIES = [
             } catch (err) { __sxErrLog("layout-select-node", err); }
         }
         function Qsel(e) {
-            // Spoke tap = select ONLY (Build 2026-10-18_1401, deprecating
-            // the tap-to-expand/collapse toggle on spokes): tapping a
-            // spoke — the hit line, the stem, the taper, or the midline —
-            // selects that branch and never expands or collapses it, not
-            // even when the tapped spoke's branch is already selected
-            // (Build 1314's fall-through to Qa in that case is removed).
-            // Expand/collapse lives on the label and icon taps (Qa).
+            // Spoke tap = select and focus/fit viewport
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            n && selectSpokeNode(n, !0);
+            if (!n) return;
+            selectSpokeNode(n, !0);
             const rec = qn[n] || Xn(n);
-            if (rec && "Topic" === rec.kind && typeof xo === "function") {
-                const rect = t.getBoundingClientRect ? t.getBoundingClientRect() : { left: innerWidth / 2, width: 0, bottom: innerHeight / 2 };
-                xo(n, rect.left + rect.width / 2, rect.bottom + 8);
-            }
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function Ja() {
             In.querySelectorAll(".map-label").forEach(e => {
@@ -9143,11 +9058,26 @@ const TAXONOMY_CATEGORIES = [
             "t0385": [ "wears", "admires" ],
             "t0375": [ "accepts", "surrenders" ]
         };
+        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+            "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
+            "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
+            "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
+            "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
+            "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
+            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222"
+        };
         function Wn(e) {
             if (e && "object" == typeof e && e.id) return e.id;
             const t = sxName(e);
-            for (const cat of h) for (const topic of cat.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
-            const n = topicRecords[t] && topicRecords[t].id;
+            for (const cat of h) {
+                for (const topic of cat.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                for (const topic of cat.parentTopics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                for (const sub of cat.subcategories || []) {
+                    for (const topic of sub.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                    for (const topic of sub.parentTopics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                }
+            }
+            const n = (topicRecords[t] && topicRecords[t].id) || SX_SUBSUMED_BASE_TOPIC_IDS[t];
             if (!n) throw new Error(`Missing stored topic ID for "${t}". Assign max(existing ID) + 1 on the topic object.`);
             return n;
         }
@@ -12330,6 +12260,126 @@ const TAXONOMY_CATEGORIES = [
                     labels: [ "Bhakti (Devotion)", "Jnana (Self-Inquiry)", "Karma (Sacred Action)", "Raja (Meditation)", "Kundalini (Prana)", "Tantra (Matter Integration)" ]
                 };
             }
+            // 7-Pole Heptad Topics
+            if (e === "t0423" || e === "topic-bdsm-archetype-heptad" || i === "t0423" || i === "topic-bdsm-archetype-heptad") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad", // Type II: Multi-Affinity Distribution / Heptagonal Polygon
+                    keys: [ "sovereign", "caregiver", "primal", "sadist", "brat", "switch", "slave" ],
+                    labels: [ "Sovereign (Dominant / Master)", "Caregiver (Nurturer / Daddy)", "Primal (Hunter / Instinct)", "Sadist (Tormentor / Sensual)", "Brat (Rebel / Provoker)", "Switch (Fluid / Versatile)", "Submissive (Slave / Devotee)" ]
+                };
+            }
+            if (e === "t0424" || e === "topic-somatosensory-modalities-heptad" || i === "t0424" || i === "topic-somatosensory-modalities-heptad") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "tactile", "thermal", "impact", "electric", "scent", "sound", "vestibular" ],
+                    labels: [ "Tactile (Texture / Soft)", "Thermal (Hot / Ice)", "Impact (Sting / Thud)", "Electric (Tens / Wand)", "Olfactory (Scent / Odor)", "Acoustic (Whisper / ASMR)", "Vestibular (Balance / Suspension)" ]
+                };
+            }
+            if (e === "t0425" || e === "topic-relational-heptad" || i === "t0425" || i === "topic-relational-heptad") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "liking", "infatuation", "empty", "romantic", "companionate", "fatuous", "consummate" ],
+                    labels: [ "Liking (Intimacy Alone)", "Infatuation (Passion Alone)", "Empty (Duty / Contract)", "Romantic (Intimacy + Passion)", "Companionate (Intimacy + Duty)", "Fatuous (Passion + Duty)", "Consummate (Total Matrix)" ]
+                };
+            }
+            // Philoscapades 7-Pole Heptad
+            if (e === "topic-seven-branches-philosophy" || i === "topic-seven-branches-philosophy") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "metaphysics", "epistemology", "ethics", "political", "aesthetics", "logic", "mind" ],
+                    labels: [ "Metaphysics (Reality)", "Epistemology (Truth)", "Ethics (Value & Good)", "Political (Power & Justice)", "Aesthetics (Beauty & Art)", "Logic (Validity & Reason)", "Mind (Consciousness & Soul)" ]
+                };
+            }
+            // Poliscapades 7-Pole Heptad
+            if (e === "topic-seven-pillars-governance" || i === "topic-seven-pillars-governance") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "sovereignty", "ruleoflaw", "distribution", "civilrights", "welfare", "environment", "foreign" ],
+                    labels: [ "Sovereign Authority", "Rule of Law", "Economic Equality", "Civil Liberties", "Social Welfare Safety", "Ecological Stewardship", "Geopolitical Autonomy" ]
+                };
+            }
+            // Forescapades 7-Pole Heptad (Seven Classical Planetary Spheres / Hermetic Rays)
+            if (e === "topic-seven-planetary-spheres" || e === "topic-seven-chakras" || i === "topic-seven-planetary-spheres" || i === "topic-seven-chakras") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "sol", "venus", "mars", "jupiter", "saturn", "luna", "mercury" ],
+                    labels: [ "Sol (Illumination)", "Venus (Beauty / Love)", "Mars (Strength / Will)", "Jupiter (Wisdom / Grace)", "Saturn (Boundaries / Silence)", "Luna (Intuition / Mystery)", "Mercury (Intellect / Word)" ]
+                };
+            }
+            // 8-Pole Octad Topics
+            // Sexcapades 8-Pole Physical Restraint & Containment Octad
+            if (e === "t0426" || e === "topic-restraint-containment-octad" || i === "t0426" || i === "topic-restraint-containment-octad") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "rope", "shibari", "cuffs", "tape", "mummification", "blindfold", "caging", "suspension" ],
+                    labels: [ "Rope Bondage", "Shibari (Art / Tie)", "Cuffs & Straps", "Tape & Wrapping", "Mummification / Sack", "Blindfold / Sensory Hood", "Caging / Encasement", "Suspension Bondage" ]
+                };
+            }
+            // Sexcapades 8-Pole Somatosensory & Anatomical Worship Octad
+            if (e === "t0427" || e === "topic-anatomical-worship-octad" || i === "t0427" || i === "topic-anatomical-worship-octad") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "feet", "hands", "breasts", "glutes", "muscles", "hair", "bodyhair", "pregnancy" ],
+                    labels: [ "Feet & Footwear", "Hands & Gloves", "Breasts / Chest", "Buttocks / Glutes", "Muscles / Physique", "Hair / Long Hair", "Body & Facial Hair", "Pregnancy / Lactation" ]
+                };
+            }
+            // Philoscapades 8-Pole Epistemological Octad
+            if (e === "topic-eight-epistemologies" || i === "topic-eight-epistemologies") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "empiricism", "rationalism", "pragmatism", "phenomenology", "hermeneutics", "skepticism", "mysticism", "dialectics" ],
+                    labels: [ "Empiricism", "Rationalism", "Pragmatism", "Phenomenology", "Hermeneutics", "Skepticism", "Mysticism", "Dialectics" ]
+                };
+            }
+            // Poliscapades 8-Pole Civilizational Octad
+            if (e === "topic-eight-civilizations" || i === "topic-eight-civilizations") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "western", "sinic", "islamic", "hindu", "orthodox", "latin", "african", "buddhist" ],
+                    labels: [ "Western Democratic", "Sinic / Confucian", "Islamic", "Hindu", "Orthodox Slavic", "Latin American", "Sub-Saharan African", "Buddhist / Dharmic" ]
+                };
+            }
+            // Forescapades 8-Pole Abrahamic Covenantal & Theological Octad
+            if (e === "topic-eight-covenants-abrahamic" || i === "topic-eight-covenants-abrahamic") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "britmilah", "halakha", "kabbalah", "gospel", "eucharist", "orthodoxy", "tawhid", "sufism" ],
+                    labels: [ "Brit Milah (The Flesh Covenant)", "Halakha (Law & Mitzvot)", "Kabbalah (Merkavah / Mysticism)", "Gospel (Pauline Grace / Faith)", "Sacrament (Eucharist / Liturgy)", "Christology (Logos Incarnate)", "Tawhid (Absolute Divine Unity)", "Tasawwuf (Sufi Fana / Ecstasy)" ]
+                };
+            }
             // The topic's own give/receive labels win. A parent id in the
             // single-slider set must not collapse Edge Play (or any other
             // give/receive topic) to one "everything" slider.
@@ -12351,8 +12401,13 @@ const TAXONOMY_CATEGORIES = [
                 labels: We[i] || [ "give", "receive" ]
             };
         }
-        h.forEach(e => Object.entries(e.topicDetails || {}).forEach(([e, t]) => {
-            "single" === t.type && Ue.add(Wn(e));
+        h.forEach(e => Object.entries(e.topicDetails || {}).forEach(([name, t]) => {
+            if ("single" === t.type) {
+                try {
+                    const tid = Wn(name);
+                    if (tid) Ue.add(tid);
+                } catch (_) {}
+            }
         }));
 
         const Ke = new Set;
@@ -14368,6 +14423,18 @@ const TAXONOMY_CATEGORIES = [
             const E = dkFitElementRadius(label, isSubcat, isChild), hubR = sxIconRadius(isChild ? 2 : 1), target = hubR + E;
             return Number.isFinite(target) && target > 0 ? target : null;
         }
+        function dkNodeNameTarget(label, isChild, overgrowthPct) {
+            if (!label) return null;
+            const pct = Math.max(100, Number(overgrowthPct) || (typeof mn !== "undefined" && Number(mn.leafOvergrowth)) || 100) / 100;
+            const isCh = Boolean(isChild);
+            const fs = isCh ? (typeof sxFontSize === "function" ? sxFontSize(3) : 14) : (typeof sxFontSize === "function" ? (sxFontSize(2) * 14 / 17) : 16);
+            const textW = typeof Za !== "undefined" && Za.measure ? Za.measure(label, fs, "topic") : (label.length * 8);
+            const gap = isCh ? Math.max(16, (typeof Za !== "undefined" && Za.measure ? 6 * Za.measure(" ", fs, "topic") : 20)) : Math.max(18, (typeof Za !== "undefined" && Za.measure ? 6 * Za.measure(" ", fs, "topic") : 24));
+            const hubR = typeof sxIconRadius === "function" ? sxIconRadius(isCh ? 2 : 1) : (isCh ? 88 : 132);
+            const leafR = typeof sxIconRadius === "function" ? sxIconRadius(isCh ? 3 : 2) : (isCh ? 44 : 88);
+            const target = hubR + leafR + gap + 28 + (textW * pct);
+            return Number.isFinite(target) && target > 0 ? target : null;
+        }
         function dkNameFitTargetForKey(key) {
             const rendered = dkFitFindRendered(key);
             if (rendered) {
@@ -14871,7 +14938,12 @@ const TAXONOMY_CATEGORIES = [
                 return h * (so && Number(so.length) > 0 ? Number(so.length) : 1);
             }
             const ko = mn.kinkOverrides && t.id ? mn.kinkOverrides[t.id] : null;
-            return h * (ko && Number(ko.length) > 0 ? Number(ko.length) : 1);
+            h = h * (ko && Number(ko.length) > 0 ? Number(ko.length) : 1);
+            const hubRadius1 = sxIconRadius(1), leafRadius2 = sxIconRadius(2);
+            const fsEst = sxFontSize(2) * 14 / 17;
+            const minReqSpoke = hubRadius1 + leafRadius2 + Za.measure(t.label || "", fsEst, "topic") + Math.max(18, 6 * Za.measure(" ", fsEst, "topic")) + 28;
+            if (h < minReqSpoke) h = minReqSpoke;
+            return h;
         }
         // Delivered radii for every currently rendered item of one
         // branch, keyed by stable identity, plus the branch's own
@@ -15822,7 +15894,10 @@ const TAXONOMY_CATEGORIES = [
                     if ("topic" !== kind && "child" !== kind) return;
                     const id = "child" === kind ? (w.child ? w.child.id : null) : (w.topic ? w.topic.id : null);
                     if (null == id) return;
-                    const target = dkComputeFitTarget(info.key), delivered = dkDeliveredItemRadius(w), cur = snapshot.kinkOverrides ? snapshot.kinkOverrides[id] : null, curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
+                    const isChild = "child" === kind;
+                    const label = isChild ? (w.child ? w.child.label : w.label) : (w.topic ? w.topic.label : w.label);
+                    const target = typeof dkNodeNameTarget === "function" ? dkNodeNameTarget(label, isChild, mn.leafOvergrowth) : dkComputeFitTarget(info.key);
+                    const delivered = dkDeliveredItemRadius(w), cur = snapshot.kinkOverrides ? snapshot.kinkOverrides[id] : null, curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
                     if (null == target || !(target > 0) || !Number.isFinite(delivered) || !(delivered > 0)) return;
                     const capLen = curLen * target / delivered;
                     Number.isFinite(capLen) && capLen > 0 && (null == throwFitCap[id] || capLen < throwFitCap[id]) && (throwFitCap[id] = capLen);
@@ -17913,11 +17988,26 @@ const TAXONOMY_CATEGORIES = [
             return patch;
         }
 
+        const SX_SUBSUMED_BASE_TOPIC_IDS = {
+            "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
+            "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
+            "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
+            "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
+            "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
+            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222"
+        };
         function Wn(e) {
             if (e && "object" == typeof e && e.id) return e.id;
             const t = sxName(e);
-            for (const cat of h) for (const topic of cat.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
-            const n = topicRecords[t] && topicRecords[t].id;
+            for (const cat of h) {
+                for (const topic of cat.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                for (const topic of cat.parentTopics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                for (const sub of cat.subcategories || []) {
+                    for (const topic of sub.topics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                    for (const topic of sub.parentTopics || []) if (sxName(topic) === t && topic && topic.id) return topic.id;
+                }
+            }
+            const n = (topicRecords[t] && topicRecords[t].id) || SX_SUBSUMED_BASE_TOPIC_IDS[t];
             if (!n) throw new Error(`Missing stored topic ID for "${t}". Assign max(existing ID) + 1 on the topic object.`);
             return n;
         }
@@ -19972,7 +20062,119 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
-                if ($.hexad) {
+                if ($.octad) {
+                    // 8-Pole Octad Widget on Hypermap:
+                    // Regular octagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 68 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 8 vertices (45 deg = PI / 4 step)
+                    const P = [];
+                    for (let k = 0; k < 8; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (Math.PI / 4);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference octagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const octCols = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${octCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-octad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.heptad) {
+                    // 7-Pole Heptad Widget on Hypermap:
+                    // Regular heptagon deformation polygon
+                    const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
+                    const spanW = 64 * m;
+                    const dCenter = iconR + spanW / 2 + 4 * m;
+                    const cx = l + p * dCenter, cy = c + h * dCenter;
+                    const r = spanW / 2;
+                    const baseAngle = Math.atan2(h, p); // Top pole points outward radially along spoke
+
+                    // 7 vertices
+                    const P = [];
+                    for (let k = 0; k < 7; k++) {
+                        const phi = baseAngle - Math.PI / 2 + k * (2 * Math.PI / 7);
+                        P.push({ x: cx + r * Math.cos(phi), y: cy + r * Math.sin(phi), phi });
+                    }
+
+                    const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
+                    const isKnown = f.some(k => Boolean(t[k + "Known"]));
+                    const maxR = Math.max(...ratings);
+                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+
+                    const S = P.map((pt, k) => {
+                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
+                    });
+
+                    const isAct = Boolean(Nt && Nt.id === e);
+                    const actCls = isAct ? " active-rating" : "";
+                    const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
+
+                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    // Reference heptagon outline
+                    const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
+                    // Radial axes
+                    P.forEach(pt => {
+                        D += `<line x1="${cx.toFixed(1)}" y1="${cy.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${pt.y.toFixed(1)}" stroke="rgba(255,255,255,0.25)" stroke-dasharray="2,2" stroke-width="${0.8 * m}"/>`;
+                    });
+                    // Deformed Polygon
+                    const polyPts = S.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
+                    D += `<polygon points="${polyPts}" fill="${fillCol}" fill-opacity="0.45" stroke="#ffffff" stroke-width="${1.8 * m}"/>`;
+                    // Vertex dots
+                    const heptCols = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+                    S.forEach((pt, k) => {
+                        D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${heptCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
+                    });
+                    // Labels
+                    P.forEach((pt, k) => {
+                        const lx = pt.x + (pt.x - cx) * 0.28;
+                        const ly = pt.y + (pt.y - cy) * 0.28;
+                        D += `<text class="map-heptad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                    });
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
+                    D += `</g>`;
+                } else if ($.hexad) {
                     // 6-Pole Hexad Widget on Hypermap:
                     // Regular hexagon deformation polygon
                     const iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2;
@@ -20279,7 +20481,7 @@ const TAXONOMY_CATEGORIES = [
                 };
             };
         }
-        function Ya(e, t, n, i, a = pr.categoryIcon / 2) {
+        function Ya(e, t, n, i, a = (typeof sxIconRadius === "function" ? sxIconRadius(1) : 130)) {
             const r = Math.max(1, Math.hypot(n - e, i - t)), o = (n - e) / r, s = (i - t) / r, l = -s, c = o, d = `M ${e.toFixed(2)} ${t.toFixed(2)} L ${n.toFixed(2)} ${i.toFixed(2)}`, u = `M ${n.toFixed(2)} ${i.toFixed(2)} L ${e.toFixed(2)} ${t.toFixed(2)}`, p = r, h = Va(e, t, o, s, p), g = a, m = Za.cloudLabel(p, g), f = m.labelOffset;
             return {
                 d: d,
@@ -20532,9 +20734,12 @@ const TAXONOMY_CATEGORIES = [
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            // Click ruling (2026-11-14): single click is navigation / selection only for all nodes.
-            // Double click opens the sheet.
-            n && selectSpokeNode(n, !0);
+            if (!n) return;
+            selectSpokeNode(n, !0);
+            const rec = qn[n] || Xn(n);
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function clearSelectionMarking() {
             if (Cn) Cn.querySelectorAll(".selected-spoke").forEach(el => el.remove());
@@ -20655,17 +20860,16 @@ const TAXONOMY_CATEGORIES = [
             } catch (err) { __sxErrLog("layout-select-node", err); }
         }
         function Qsel(e) {
-            // Spoke tap = select ONLY (Build 2026-10-18_1401, deprecating
-            // the tap-to-expand/collapse toggle on spokes): tapping a
-            // spoke — the hit line, the stem, the taper, or the midline —
-            // selects that branch and never expands or collapses it, not
-            // even when the tapped spoke's branch is already selected
-            // (Build 1314's fall-through to Qa in that case is removed).
-            // Expand/collapse lives on the label and icon taps (Qa).
+            // Spoke tap = select and focus/fit viewport
             if (mn.staticMap) return;
             if (e.preventDefault(), e.stopPropagation(), to) return void (to = !1);
             const t = e.currentTarget, n = t.dataset.id || t.dataset.topicId || __sxClosestAction(t, "nodeGroup")?.dataset.layoutKey;
-            n && selectSpokeNode(n, !0);
+            if (!n) return;
+            selectSpokeNode(n, !0);
+            const rec = qn[n] || Xn(n);
+            const branch = rec ? rec.branch : (typeof ci === "function" ? ci(n) : "") || "";
+            if (typeof Th === "function") Th(n, branch);
+            else if (typeof window.__sxFocusNode === "function") window.__sxFocusNode(n, branch);
         }
         function Ja() {
             // A rating-details pass can clear the expanded-branch set
@@ -22436,13 +22640,10 @@ const TAXONOMY_CATEGORIES = [
         function sxLabelClearance(radius, label, fontSize, iconR) {
             let r = radius;
             try {
-                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = 6 * Za.measure(" ", fs, "topic");
+                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = Math.max(18, 6 * Za.measure(" ", fs, "topic"));
+                const hub = typeof sxIconRadius === "function" ? sxIconRadius(2) : 88;
                 for (let pass = 0; pass < 3; pass++) {
-                    // Label-to-icon gap (ruled 2026-11-13, Jason): about
-                    // six spaces between the label end and the icon, on
-                    // all nodes — the old +12 was ~0.005 spaces at the
-                    // label font, so labels crowded their icons.
-                    const need = Za.cloudLabel(r, pr.subcategoryIcon / 2).labelOffset + textW + icon + gap;
+                    const need = hub + textW + icon + gap + 28;
                     if (!(Number.isFinite(need) && need > r)) break;
                     r = need;
                 }
@@ -23422,12 +23623,10 @@ const TAXONOMY_CATEGORIES = [
         // which was 3 for the same reason). Category/subcategory
         // 50x/20x throws and 1x floors, the shrinkKinksToLabel
         // driver's 1x, and the settle drift check's 1x comparison are
-        // untouched. An absent or invalid setting falls back to 3
-        // (300%), the long-standing size, so an untouched map renders
-        // exactly as before.
+        // untouched. 100% is the minimum and default size.
         function sxLeafOvergrowthFactor() {
             const pct = Number(mn && mn.leafOvergrowth);
-            return Number.isFinite(pct) && pct > 0 ? pct / 100 : 3;
+            return Number.isFinite(pct) && pct >= 100 ? pct / 100 : 1;
         }
         function sxSccInputs(branches) {
             const fontScale = mapFontScale();
@@ -23767,7 +23966,7 @@ const TAXONOMY_CATEGORIES = [
             if (isTriple && x && x[shape.keys[1] + "Known"]) {
                 y = zi(x[shape.keys[1]]);
             }
-            const S = Sa(d, v, p), $ = ka(u, w, x.giveKnown ? ba(x.give) : "Unrated", { tapFirst: !0 }), E = ka(u, k, x.receiveKnown ? ba(x.receive) : "Unrated", { tapFirst: !0 }), A = null != hubD ? hubD / 2 : h * mapFontScale() / 2 + (h === pr.subcategoryIcon ? 6 : 0), C = null != leafD ? Math.max(12 * mapFontScale(), leafD / 2) : Math.max(12, (Number(g) || 51) * mapFontScale() / 2 + ("Subcategory" === v.kind ? 6 : 0)), {sx0: M, sy0: I, sx1: P, sy1: L} = Ga.trimToIcons(e, t, n, i, A, C), T = (m ? "" : `<line class="hanky-midline-outline" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.CLOUD_OUTLINE_WIDTH(f, sxD)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`) + `<line class="hanky-midline${m ? " hanky-none" : ""}" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${y}" stroke-width="${sxSW}"${b} opacity="1" stroke-linecap="butt"${S}/>`, F = Boolean(o), N = Boolean(s);
+            const S = Sa(d, v, p), $ = ka(u, w, x.giveKnown ? ba(x.give) : "Unrated", { tapFirst: !0 }), E = ka(u, k, x.receiveKnown ? ba(x.receive) : "Unrated", { tapFirst: !0 }), A = null != hubD ? hubD / 2 : sxIconRadius(sxD > 1 ? sxD - 1 : 1), C = null != leafD ? leafD / 2 : sxIconRadius(sxD), {sx0: M, sy0: I, sx1: P, sy1: L} = Ga.trimToIcons(e, t, n, i, A, C), T = (m ? "" : `<line class="hanky-midline-outline" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.CLOUD_OUTLINE_WIDTH(f, sxD)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`) + `<line class="hanky-midline${m ? " hanky-none" : ""}" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${y}" stroke-width="${sxSW}"${b} opacity="1" stroke-linecap="butt"${S}/>`, F = Boolean(o), N = Boolean(s);
             if (!l || !F && !N) return T;
             const _ = F ? o : s, D = N ? s : o, R = Ga.tipWidth(f), O = Ga.cloudBaseWidth(h, c) * (mapFontScale() * sxF / 3), B = Ga.segment(M, I, P, L), j = P - M, q = L - I, H = f / 2, W = Ga.splitInnerHalf(f, sxD);
             const fs = typeof sxFontSize === "function" ? sxFontSize(sxD) : 14;
@@ -24947,9 +25146,11 @@ const TAXONOMY_CATEGORIES = [
                     t.angle;
                     const s = t.cloudAngle, c = t.cloudRadius || e.topicCloudRadius, u = Za.topicSpokeEstimate(a, c), p = u.fontSize;
                     let h = u.spokeLength;
+                    const hubRadius1 = sxIconRadius(1);
+                    const leafRadius2 = sxIconRadius(2);
                     if (o) {
-                        const e = pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96;
-                        h = Math.max(h, e, sxSpokeBase(t.cloudCount)), h = Za.hubSpokeLength(a, p, h, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                        const e = hubRadius1 + leafRadius2 + 96;
+                        h = Math.max(h, e, sxSpokeBase(t.cloudCount)), h = Za.hubSpokeLength(a, p, h, hubRadius1, leafRadius2);
                     }
                     // Per-subcategory length override (Build
                     // 2026-10-20_0023): the multiplier is applied to the
@@ -24965,9 +25166,9 @@ const TAXONOMY_CATEGORIES = [
                     // defaults to {} so the stock layout is unchanged.
                     if (!o) h = applyLengthOverride(h, r, mn.kinkOverrides);
                     const fsEst = sxFontSize(2) * 14 / 17;
-                    const minReqSpoke = (pr.categoryIcon / 2) + sxIconRadius(2) + Za.measure(a, fsEst, "topic") + Math.max(18, 6 * Za.measure(" ", fsEst, "topic")) + 16;
+                    const minReqSpoke = hubRadius1 + leafRadius2 + Za.measure(a, fsEst, "topic") + Math.max(18, 6 * Za.measure(" ", fsEst, "topic")) + 28;
                     if (!o && h < minReqSpoke) h = minReqSpoke;
-                    const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
+                    const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m, hubRadius1), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
                     const A = cn[Vi()], C = dn[Vi()];
@@ -24983,17 +25184,17 @@ const TAXONOMY_CATEGORIES = [
                     const fs2 = (sxFontSize(2) * b / 17);
                     const textW2 = Za.measure(a, fs2, "topic");
                     const gap2 = Math.max(18, 6 * Za.measure(" ", fs2, "topic"));
-                    const hubR2 = pr.categoryIcon / 2;
+                    const hubR2 = sxIconRadius(1);
                     const iconR2 = sxIconRadius(2);
                     let F, N;
                     if (L) {
-                        const minAllowedEnd = iconR2 + textW2 + 4;
-                        const bulbousBaseEnd = y.routedLength - (hubR2 + 6);
+                        const minAllowedEnd = iconR2 + textW2 + 14;
+                        const bulbousBaseEnd = y.routedLength - (hubR2 + 14);
                         F = Math.max(minAllowedEnd, bulbousBaseEnd);
                         N = ' text-anchor="end"';
                     } else {
-                        const maxAllowedStart = Math.max(hubR2 + 2, y.routedLength - iconR2 - textW2 - 4);
-                        F = Math.max(hubR2 + 4, Math.min(hubR2 + 6, maxAllowedStart));
+                        const maxAllowedStart = Math.max(hubR2 + 14, y.routedLength - iconR2 - textW2 - 14);
+                        F = Math.max(hubR2 + 14, Math.min(hubR2 + 18, maxAllowedStart));
                         N = "";
                     }
                     const _ = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
@@ -25076,13 +25277,13 @@ const TAXONOMY_CATEGORIES = [
                         const iconR3 = sxIconRadius(3);
                         let m, y;
                         if (h) {
-                            const minAllowedEnd = iconR3 + textW3 + 4;
-                            const bulbousBaseEnd = p.routedLength - (hubR3 + 6);
+                            const minAllowedEnd = iconR3 + textW3 + 14;
+                            const bulbousBaseEnd = p.routedLength - (hubR3 + 14);
                             m = Math.max(minAllowedEnd, bulbousBaseEnd);
                             y = ' text-anchor="end"';
                         } else {
-                            const maxAllowedStart = Math.max(hubR3 + 2, p.routedLength - iconR3 - textW3 - 4);
-                            m = Math.max(hubR3 + 4, Math.min(hubR3 + 6, maxAllowedStart));
+                            const maxAllowedStart = Math.max(hubR3 + 14, p.routedLength - iconR3 - textW3 - 14);
+                            m = Math.max(hubR3 + 14, Math.min(hubR3 + 18, maxAllowedStart));
                             y = "";
                         }
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);
@@ -27873,6 +28074,528 @@ const TAXONOMY_CATEGORIES = [
             }
         }
 
+        let sxHeptadState = {
+            topicId: null,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
+            activeVertex: null,
+            isDragging: !1
+        };
+
+        const SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+
+        function sxGetHeptadVertices(width, height) {
+            const cx = width / 2, cy = height / 2;
+            const r = Math.min(width, height) / 2 - 24;
+            const vertices = [];
+            for (let k = 0; k < 7; k++) {
+                const angle = -Math.PI / 2 + k * (2 * Math.PI / 7);
+                vertices.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle });
+            }
+            return { cx, cy, r, vertices };
+        }
+
+        function sxDrawHeptadWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { cx, cy, r, vertices } = sxGetHeptadVertices(width, height);
+
+            // 1. Concentric reference heptagon rings (25%, 50%, 75%, 100%)
+            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+                ctx.beginPath();
+                for (let k = 0; k < 7; k++) {
+                    const angle = vertices[k].angle;
+                    const x = cx + r * frac * Math.cos(angle);
+                    const y = cy + r * frac * Math.sin(angle);
+                    if (k === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
+                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+
+            // 2. Radial spoke axes from center to each vertex
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            for (let k = 0; k < 7; k++) {
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(vertices[k].x, vertices[k].y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Deformed Polygon from active ratings
+            const s = [
+                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p5))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p6))) / 100
+            ];
+
+            const polyPts = vertices.map((v, k) => ({
+                x: cx + (v.x - cx) * s[k],
+                y: cy + (v.y - cy) * s[k]
+            }));
+
+            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6);
+            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+
+            // Filled shape
+            ctx.beginPath();
+            polyPts.forEach((pt, k) => {
+                if (k === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            });
+            ctx.closePath();
+            ctx.fillStyle = polyCol;
+            ctx.globalAlpha = 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole vertex handles
+            polyPts.forEach((pt, idx) => {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                ctx.fillStyle = SX_HEPTAD_COLORS[idx];
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            });
+
+            // 5. Pole Labels
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5", "Pole 6", "Pole 7"];
+            ctx.font = "bold 8.5px system-ui, sans-serif";
+
+            vertices.forEach((v, idx) => {
+                const angle = v.angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const align = Math.abs(cosA) < 0.25 ? "center" : cosA > 0 ? "left" : "right";
+                const baseline = Math.abs(sinA) < 0.25 ? "middle" : sinA > 0 ? "top" : "bottom";
+                ctx.textAlign = align;
+                ctx.textBaseline = baseline;
+                ctx.fillStyle = SX_HEPTAD_COLORS[idx];
+                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + cosA * 7, v.y + sinA * 7);
+            });
+        }
+
+        function sxApplyHeptadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 7) return;
+            To(topicId, shape.keys[0], Math.round(sxHeptadState.p0), !1);
+            To(topicId, shape.keys[1], Math.round(sxHeptadState.p1), !1);
+            To(topicId, shape.keys[2], Math.round(sxHeptadState.p2), !1);
+            To(topicId, shape.keys[3], Math.round(sxHeptadState.p3), !1);
+            To(topicId, shape.keys[4], Math.round(sxHeptadState.p4), !1);
+            To(topicId, shape.keys[5], Math.round(sxHeptadState.p5), !1);
+            To(topicId, shape.keys[6], Math.round(sxHeptadState.p6), !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearHeptadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 7) return;
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !1);
+            Fo(topicId, shape.keys[3], !1);
+            Fo(topicId, shape.keys[4], !1);
+            Fo(topicId, shape.keys[5], !1);
+            Fo(topicId, shape.keys[6], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindHeptadWidget() {
+            const canvas = e.byId("markHeptadCanvas");
+            const slider = e.byId("markHeptadIntensity");
+            const clearBtn = e.byId("markHeptadClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                const { cx, cy, r, vertices } = sxGetHeptadVertices(canvas.width, canvas.height);
+
+                if (sxHeptadState.activeVertex === null) {
+                    let bestIdx = null, bestDist = 22;
+                    vertices.forEach((v, idx) => {
+                        const s = (sxHeptadState[`p${idx}`] || 0) / 100;
+                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
+                        const d = Math.hypot(px - vx, py - vy);
+                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
+                    });
+                    sxHeptadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                }
+
+                const v = sxHeptadState.activeVertex;
+                const angle = vertices[v].angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const dot = (px - cx) * cosA + (py - cy) * sinA;
+                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+
+                sxHeptadState[`p${v}`] = val;
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawHeptadWidget(canvas, shape, sxHeptadState);
+                    sxApplyHeptadRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxHeptadState.isDragging = !0;
+                sxHeptadState.activeVertex = null;
+                canvas.setPointerCapture(evt.pointerId);
+                updateFromPointer(evt);
+            });
+
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxHeptadState.isDragging) return;
+                updateFromPointer(evt);
+            });
+
+            const stopDrag = (evt) => {
+                if (sxHeptadState.isDragging) {
+                    sxHeptadState.isDragging = !1;
+                    sxHeptadState.activeVertex = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const scale = (100 + step) / 100;
+                for (let k = 0; k < 7; k++) {
+                    sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState[`p${k}`] * scale)));
+                }
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawHeptadWidget(canvas, shape, sxHeptadState);
+                    sxApplyHeptadRatings(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    const val = Number(slider.value);
+                    const out = e.byId("markHeptadIntensityOut");
+                    out && (out.textContent = String(Math.round(val)));
+                    const maxCur = Math.max(sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6);
+                    if (maxCur > 0) {
+                        const ratio = val / maxCur;
+                        for (let k = 0; k < 7; k++) {
+                            sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState[`p${k}`] * ratio)));
+                        }
+                    } else {
+                        for (let k = 0; k < 7; k++) {
+                            sxHeptadState[`p${k}`] = val;
+                        }
+                    }
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawHeptadWidget(canvas, shape, sxHeptadState);
+                        sxApplyHeptadRatings(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearHeptadRatings(Qr);
+                    }
+                });
+            }
+        }
+
+        // ==========================================
+        // 8-POLE OCTAD RADAR (REGULAR OCTAGON POLYGON)
+        // ==========================================
+        let sxOctadState = {
+            topicId: null,
+            p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
+            activeVertex: null,
+            isDragging: !1
+        };
+
+        const SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+
+        function sxGetOctadVertices(width, height) {
+            const cx = width / 2, cy = height / 2;
+            const r = Math.min(width, height) / 2 - 24;
+            const vertices = [];
+            for (let k = 0; k < 8; k++) {
+                const angle = -Math.PI / 2 + k * (Math.PI / 4);
+                vertices.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle });
+            }
+            return { cx, cy, r, vertices };
+        }
+
+        function sxDrawOctadWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { cx, cy, r, vertices } = sxGetOctadVertices(width, height);
+
+            // 1. Concentric reference octagon rings (25%, 50%, 75%, 100%)
+            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+                ctx.beginPath();
+                for (let k = 0; k < 8; k++) {
+                    const angle = vertices[k].angle;
+                    const x = cx + r * frac * Math.cos(angle);
+                    const y = cy + r * frac * Math.sin(angle);
+                    if (k === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
+                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+
+            // 2. Radial spoke axes from center to each vertex (with diametric lines connecting antipodes)
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            for (let k = 0; k < 4; k++) {
+                ctx.moveTo(vertices[k].x, vertices[k].y);
+                ctx.lineTo(vertices[k + 4].x, vertices[k + 4].y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Deformed Polygon from active ratings
+            const s = [
+                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p5))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p6))) / 100,
+                Math.max(0, Math.min(100, Math.abs(state.p7))) / 100
+            ];
+
+            const polyPts = vertices.map((v, k) => ({
+                x: cx + (v.x - cx) * s[k],
+                y: cy + (v.y - cy) * s[k]
+            }));
+
+            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6, state.p7);
+            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+
+            // Filled shape
+            ctx.beginPath();
+            polyPts.forEach((pt, k) => {
+                if (k === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            });
+            ctx.closePath();
+            ctx.fillStyle = polyCol;
+            ctx.globalAlpha = 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole vertex handles
+            polyPts.forEach((pt, idx) => {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                ctx.fillStyle = SX_OCTAD_COLORS[idx];
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            });
+
+            // 5. Pole Labels
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5", "Pole 6", "Pole 7", "Pole 8"];
+            ctx.font = "bold 8.2px system-ui, sans-serif";
+
+            vertices.forEach((v, idx) => {
+                const angle = v.angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const align = Math.abs(cosA) < 0.25 ? "center" : cosA > 0 ? "left" : "right";
+                const baseline = Math.abs(sinA) < 0.25 ? "middle" : sinA > 0 ? "top" : "bottom";
+                ctx.textAlign = align;
+                ctx.textBaseline = baseline;
+                ctx.fillStyle = SX_OCTAD_COLORS[idx];
+                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + cosA * 7, v.y + sinA * 7);
+            });
+        }
+
+        function sxApplyOctadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 8) return;
+            To(topicId, shape.keys[0], Math.round(sxOctadState.p0), !1);
+            To(topicId, shape.keys[1], Math.round(sxOctadState.p1), !1);
+            To(topicId, shape.keys[2], Math.round(sxOctadState.p2), !1);
+            To(topicId, shape.keys[3], Math.round(sxOctadState.p3), !1);
+            To(topicId, shape.keys[4], Math.round(sxOctadState.p4), !1);
+            To(topicId, shape.keys[5], Math.round(sxOctadState.p5), !1);
+            To(topicId, shape.keys[6], Math.round(sxOctadState.p6), !1);
+            To(topicId, shape.keys[7], Math.round(sxOctadState.p7), !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearOctadRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 8) return;
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !1);
+            Fo(topicId, shape.keys[3], !1);
+            Fo(topicId, shape.keys[4], !1);
+            Fo(topicId, shape.keys[5], !1);
+            Fo(topicId, shape.keys[6], !1);
+            Fo(topicId, shape.keys[7], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindOctadWidget() {
+            const canvas = e.byId("markOctadCanvas");
+            const slider = e.byId("markOctadIntensity");
+            const clearBtn = e.byId("markOctadClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                const { cx, cy, r, vertices } = sxGetOctadVertices(canvas.width, canvas.height);
+
+                if (sxOctadState.activeVertex === null) {
+                    let bestIdx = null, bestDist = 22;
+                    vertices.forEach((v, idx) => {
+                        const s = (sxOctadState[`p${idx}`] || 0) / 100;
+                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
+                        const d = Math.hypot(px - vx, py - vy);
+                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
+                    });
+                    sxOctadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                }
+
+                const v = sxOctadState.activeVertex;
+                const angle = vertices[v].angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const dot = (px - cx) * cosA + (py - cy) * sinA;
+                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+
+                sxOctadState[`p${v}`] = val;
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawOctadWidget(canvas, shape, sxOctadState);
+                    sxApplyOctadRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxOctadState.isDragging = !0;
+                sxOctadState.activeVertex = null;
+                canvas.setPointerCapture(evt.pointerId);
+                updateFromPointer(evt);
+            });
+
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxOctadState.isDragging) return;
+                updateFromPointer(evt);
+            });
+
+            const stopDrag = (evt) => {
+                if (sxOctadState.isDragging) {
+                    sxOctadState.isDragging = !1;
+                    sxOctadState.activeVertex = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const scale = (100 + step) / 100;
+                for (let k = 0; k < 8; k++) {
+                    sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState[`p${k}`] * scale)));
+                }
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawOctadWidget(canvas, shape, sxOctadState);
+                    sxApplyOctadRatings(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    const val = Number(slider.value);
+                    const out = e.byId("markOctadIntensityOut");
+                    out && (out.textContent = String(Math.round(val)));
+                    const maxCur = Math.max(sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7);
+                    if (maxCur > 0) {
+                        const ratio = val / maxCur;
+                        for (let k = 0; k < 8; k++) {
+                            sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState[`p${k}`] * ratio)));
+                        }
+                    } else {
+                        for (let k = 0; k < 8; k++) {
+                            sxOctadState[`p${k}`] = val;
+                        }
+                    }
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawOctadWidget(canvas, shape, sxOctadState);
+                        sxApplyOctadRatings(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearOctadRatings(Qr);
+                    }
+                });
+            }
+        }
+
         window.sxOpenHotListWidgetPopup = function(topicId, profileId) {
             const dlg = e.byId("hotListWidgetDialog");
             if (!dlg || !topicId) return;
@@ -27894,13 +28617,15 @@ const TAXONOMY_CATEGORIES = [
             titleEl && (titleEl.textContent = label);
             descEl && (descEl.textContent = lo(item));
 
+            const isOctad = Boolean(shape.octad || (shape.keys && shape.keys.length === 8));
+            const isHeptad = Boolean(shape.heptad || (shape.keys && shape.keys.length === 7));
             const isHexad = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
             const isPentad = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
             const isTetrad = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
-            const is2Pole = !isHexad && !isPentad && !isTetrad && !isTriad;
+            const is2Pole = !isOctad && !isHeptad && !isHexad && !isPentad && !isTetrad && !isTriad;
 
-            badgeEl && (badgeEl.textContent = isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
+            badgeEl && (badgeEl.textContent = isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
 
             const keys = shape.keys || [];
             readoutEl && (readoutEl.innerHTML = "");
@@ -27909,7 +28634,7 @@ const TAXONOMY_CATEGORIES = [
                 const statBox = document.createElement("div");
                 statBox.className = "mark-tri-stat";
                 const pName = shape.labels[idx] || k;
-                const pCol = isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
+                const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
                 statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
                 readoutEl && readoutEl.append(statBox);
                 valSpans.push(statBox.querySelector("b"));
@@ -27932,7 +28657,15 @@ const TAXONOMY_CATEGORIES = [
                 sliderOut && (sliderOut.textContent = String(Math.round(maxVal)));
                 syncReadouts();
 
-                if (isHexad) {
+                if (isOctad) {
+                    sxDrawOctadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7]
+                    });
+                } else if (isHeptad) {
+                    sxDrawHeptadWidget(canvas, shape, {
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6]
+                    });
+                } else if (isHexad) {
                     sxDrawHexadWidget(canvas, shape, {
                         p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5]
                     });
@@ -27966,8 +28699,8 @@ const TAXONOMY_CATEGORIES = [
                 const px = (clientX - rect.left) * (canvas.width / rect.width);
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
-                if (isHexad || isPentad || isTetrad) {
-                    const getVerts = isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : (w, h) => {
+                if (isOctad || isHeptad || isHexad || isPentad || isTetrad) {
+                    const getVerts = isOctad ? sxGetOctadVertices : isHeptad ? sxGetHeptadVertices : isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : (w, h) => {
                         const cx = w / 2, cy = h / 2, r = Math.min(w, h) / 2 - 24;
                         return { cx, cy, r, vertices: [
                             { x: cx, y: cy - r, angle: -Math.PI / 2 },
@@ -27989,17 +28722,19 @@ const TAXONOMY_CATEGORIES = [
                     const angle = v.angle;
                     const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
                     const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
-                    To(topicId, keys[activeIdx], val, !0, pId);
+                    To(topicId, keys[activeIdx], val, !1, pId);
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
                 } else if (isTriad) {
                     const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                     const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                    const intensity = 80;
+                    const curRec = ca(topicId, pId);
+                    const oldVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                    const intensity = Math.max(...oldVals, 80);
                     To(topicId, keys[0], Math.round(w0 * intensity), !1, pId);
                     To(topicId, keys[1], Math.round(w1 * intensity), !1, pId);
-                    To(topicId, keys[2], Math.round(w2 * intensity), !0, pId);
+                    To(topicId, keys[2], Math.round(w2 * intensity), !1, pId);
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -28011,7 +28746,7 @@ const TAXONOMY_CATEGORIES = [
                     const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
                     const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
                     To(topicId, "give", g, !1, pId);
-                    To(topicId, "receive", recv, !0, pId);
+                    To(topicId, "receive", recv, !1, pId);
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -28030,6 +28765,9 @@ const TAXONOMY_CATEGORIES = [
                     isDragging = false;
                     activeIdx = null;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch(e) {}
+                    Mr();
+                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                    row && Ss(row);
                 }
             };
 
@@ -28046,8 +28784,9 @@ const TAXONOMY_CATEGORIES = [
                 const curRec = ca(topicId, pId);
                 keys.forEach(k => {
                     const oldV = curRec[k + "Known"] ? curRec[k] : 0;
-                    To(topicId, k, Math.max(0, Math.min(100, Math.round(oldV * scale))), !0, pId);
+                    To(topicId, k, Math.max(0, Math.min(100, Math.round(oldV * scale))), !1, pId);
                 });
+                Mr();
                 redraw();
                 const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                 row && Ss(row);
@@ -28062,22 +28801,25 @@ const TAXONOMY_CATEGORIES = [
                     if (maxCur > 0) {
                         const ratio = targetVal / maxCur;
                         keys.forEach((k, idx) => {
-                            To(topicId, k, Math.max(0, Math.min(100, Math.round(vals[idx] * ratio))), !0, pId);
+                            To(topicId, k, Math.max(0, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
                         });
                     } else {
                         keys.forEach(k => {
-                            To(topicId, k, targetVal, !0, pId);
+                            To(topicId, k, targetVal, !1, pId);
                         });
                     }
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
                 };
+                slider.onchange = () => {
+                    Mr();
+                };
             }
 
             if (clearBtn) {
                 clearBtn.onclick = () => {
-                    keys.forEach(k => Fo(topicId, k, !0, pId));
+                    keys.forEach((k, idx) => Fo(topicId, k, idx === keys.length - 1, pId));
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -28086,6 +28828,7 @@ const TAXONOMY_CATEGORIES = [
 
             const closeDialog = () => {
                 try { dlg.close(); } catch (e) { dlg.hidden = true; }
+                Mr();
             };
             closeBtn && (closeBtn.onclick = closeDialog);
             doneBtn && (doneBtn.onclick = closeDialog);
@@ -28181,7 +28924,6 @@ const TAXONOMY_CATEGORIES = [
         }
 
         // --- 2D XY Role Switch-Box State & Widget ---
-        let sx2PoleViewMode = "switchbox"; // "switchbox" | "sliders"
         let sxSwitchboxState = {
             topicId: null,
             give: 0,
@@ -28339,8 +29081,6 @@ const TAXONOMY_CATEGORIES = [
         function sxBindSwitchboxWidget() {
             const canvas = e.byId("markSwitchboxCanvas");
             const clearBtn = e.byId("markSwitchboxClear");
-            const toggleBtn = e.byId("markSwitchboxToggleMode");
-            const slidersToggleBtn = e.byId("markSlidersToggleMode");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
 
@@ -28405,19 +29145,6 @@ const TAXONOMY_CATEGORIES = [
                     }
                 });
             }
-
-            if (toggleBtn) {
-                toggleBtn.addEventListener("click", () => {
-                    sx2PoleViewMode = "sliders";
-                    if (Qr) sxSyncMarkRatings(Qr);
-                });
-            }
-            if (slidersToggleBtn) {
-                slidersToggleBtn.addEventListener("click", () => {
-                    sx2PoleViewMode = "switchbox";
-                    if (Qr) sxSyncMarkRatings(Qr);
-                });
-            }
         }
 
         function sxSyncMarkRatings(id) {
@@ -28426,6 +29153,7 @@ const TAXONOMY_CATEGORIES = [
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out"), role4Label = e.byId("markRole4Label"), role4Row = e.byId("markRole4Row");
             const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out"), role5Label = e.byId("markRole5Label"), role5Row = e.byId("markRole5Row");
             const role6Row = e.byId("markRole6Row"), role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out"), role6Label = e.byId("markRole6Label");
+            const role7Row = e.byId("markRole7Row"), role7 = e.byId("markRole7"), role7Out = e.byId("markRole7Out"), role7Label = e.byId("markRole7Label");
 
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
@@ -28455,11 +29183,17 @@ const TAXONOMY_CATEGORIES = [
             const hexadVal0 = e.byId("markHexadVal0"), hexadVal1 = e.byId("markHexadVal1"), hexadVal2 = e.byId("markHexadVal2"), hexadVal3 = e.byId("markHexadVal3"), hexadVal4 = e.byId("markHexadVal4"), hexadVal5 = e.byId("markHexadVal5");
             const hexadPole0 = e.byId("markHexadPole0"), hexadPole1 = e.byId("markHexadPole1"), hexadPole2 = e.byId("markHexadPole2"), hexadPole3 = e.byId("markHexadPole3"), hexadPole4 = e.byId("markHexadPole4"), hexadPole5 = e.byId("markHexadPole5");
 
+            const heptadWrap = e.byId("markHeptadWrap");
+            const heptadCanvas = e.byId("markHeptadCanvas");
+            const heptadIntensity = e.byId("markHeptadIntensity");
+            const heptadIntensityOut = e.byId("markHeptadIntensityOut");
+            const heptadVal0 = e.byId("markHeptadVal0"), heptadVal1 = e.byId("markHeptadVal1"), heptadVal2 = e.byId("markHeptadVal2"), heptadVal3 = e.byId("markHeptadVal3"), heptadVal4 = e.byId("markHeptadVal4"), heptadVal5 = e.byId("markHeptadVal5"), heptadVal6 = e.byId("markHeptadVal6");
+            const heptadPole0 = e.byId("markHeptadPole0"), heptadPole1 = e.byId("markHeptadPole1"), heptadPole2 = e.byId("markHeptadPole2"), heptadPole3 = e.byId("markHeptadPole3"), heptadPole4 = e.byId("markHeptadPole4"), heptadPole5 = e.byId("markHeptadPole5"), heptadPole6 = e.byId("markHeptadPole6");
+
             const switchboxWrap = e.byId("markSwitchboxWrap");
             const switchboxCanvas = e.byId("markSwitchboxCanvas");
             const switchboxGiveLabel = e.byId("markSwitchboxGiveLabel");
             const switchboxRecvLabel = e.byId("markSwitchboxRecvLabel");
-            const slidersToggleBtn = e.byId("markSlidersToggleMode");
 
             const linearRatings = e.byId("markRatings");
 
@@ -28471,19 +29205,97 @@ const TAXONOMY_CATEGORIES = [
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !0);
+                heptadWrap && (heptadWrap.hidden = !0);
                 switchboxWrap && (switchboxWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !0);
                 return;
             }
 
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
-            const widget = shape.widget || (shape.hexad ? "hexad-radar" : shape.pentad ? "star-radar" : shape.tetrad ? "diamond" : shape.triangle ? "triangle" : shape.single ? "monopole-slider" : "xy-switchbox");
+            const widget = shape.widget || (shape.octad ? "octad-radar" : shape.heptad ? "heptad-radar" : shape.hexad ? "hexad-radar" : shape.pentad ? "star-radar" : shape.tetrad ? "diamond" : shape.triangle ? "triangle" : shape.single ? "monopole-slider" : "xy-switchbox");
 
-            if (widget === "hexad-radar") {
+            const octadWrap = e.byId("markOctadWrap");
+            const octadCanvas = e.byId("markOctadCanvas");
+            const octadIntensity = e.byId("markOctadIntensity");
+            const octadIntensityOut = e.byId("markOctadIntensityOut");
+            const octadVal0 = e.byId("markOctadVal0"), octadVal1 = e.byId("markOctadVal1"), octadVal2 = e.byId("markOctadVal2"), octadVal3 = e.byId("markOctadVal3"), octadVal4 = e.byId("markOctadVal4"), octadVal5 = e.byId("markOctadVal5"), octadVal6 = e.byId("markOctadVal6"), octadVal7 = e.byId("markOctadVal7");
+            const octadPole0 = e.byId("markOctadPole0"), octadPole1 = e.byId("markOctadPole1"), octadPole2 = e.byId("markOctadPole2"), octadPole3 = e.byId("markOctadPole3"), octadPole4 = e.byId("markOctadPole4"), octadPole5 = e.byId("markOctadPole5"), octadPole6 = e.byId("markOctadPole6"), octadPole7 = e.byId("markOctadPole7");
+
+            // Strictly ONE rating widget visible per placard (unconditionally hide all wraps upfront)
+            [triWrap, tetradWrap, pentadWrap, hexadWrap, heptadWrap, octadWrap, switchboxWrap, linearRatings].forEach(w => w && (w.hidden = !0));
+
+            if (widget === "octad-radar") {
+                // 8-Pole Octad Radar / Regular Octagon Deformation Polygon Widget
+                octadWrap && (octadWrap.hidden = !1);
+
+                const keys = shape.keys;
+                const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
+                sxOctadState.topicId = id;
+                sxOctadState.p0 = ratings[0];
+                sxOctadState.p1 = ratings[1];
+                sxOctadState.p2 = ratings[2];
+                sxOctadState.p3 = ratings[3];
+                sxOctadState.p4 = ratings[4];
+                sxOctadState.p5 = ratings[5];
+                sxOctadState.p6 = ratings[6];
+                sxOctadState.p7 = ratings[7];
+
+                const maxR = Math.max(...ratings);
+                if (octadIntensity) octadIntensity.value = String(Math.round(maxR));
+                if (octadIntensityOut) octadIntensityOut.textContent = String(Math.round(maxR));
+
+                const poleEls = [octadPole0, octadPole1, octadPole2, octadPole3, octadPole4, octadPole5, octadPole6, octadPole7];
+                const valEls = [octadVal0, octadVal1, octadVal2, octadVal3, octadVal4, octadVal5, octadVal6, octadVal7];
+
+                for (let k = 0; k < 8; k++) {
+                    const col = SX_OCTAD_COLORS[k];
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                }
+
+                sxDrawOctadWidget(octadCanvas, shape, sxOctadState);
+            } else if (widget === "heptad-radar") {
+                // 7-Pole Heptad Radar / Heptagon Deformation Polygon Widget
+                octadWrap && (octadWrap.hidden = !0);
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
+                heptadWrap && (heptadWrap.hidden = !1);
+                linearRatings && (linearRatings.hidden = !0);
+
+                const keys = shape.keys;
+                const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
+                sxHeptadState.topicId = id;
+                sxHeptadState.p0 = ratings[0];
+                sxHeptadState.p1 = ratings[1];
+                sxHeptadState.p2 = ratings[2];
+                sxHeptadState.p3 = ratings[3];
+                sxHeptadState.p4 = ratings[4];
+                sxHeptadState.p5 = ratings[5];
+                sxHeptadState.p6 = ratings[6];
+
+                const maxR = Math.max(...ratings);
+                if (heptadIntensity) heptadIntensity.value = String(Math.round(maxR));
+                if (heptadIntensityOut) heptadIntensityOut.textContent = String(Math.round(maxR));
+
+                const poleEls = [heptadPole0, heptadPole1, heptadPole2, heptadPole3, heptadPole4, heptadPole5, heptadPole6];
+                const valEls = [heptadVal0, heptadVal1, heptadVal2, heptadVal3, heptadVal4, heptadVal5, heptadVal6];
+
+                for (let k = 0; k < 7; k++) {
+                    const col = SX_HEPTAD_COLORS[k];
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                }
+
+                sxDrawHeptadWidget(heptadCanvas, shape, sxHeptadState);
+            } else if (widget === "hexad-radar") {
                 // 6-Pole Hexad Radar / Hexagon Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
+                heptadWrap && (heptadWrap.hidden = !0);
                 switchboxWrap && (switchboxWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
@@ -28703,16 +29515,15 @@ const TAXONOMY_CATEGORIES = [
                 give.value = rec.giveKnown ? rec.give : 0;
                 giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
             } else {
-                // 2-Pole Interactive Topic: Default to 2D XY Switch-Box, or Linear Sliders if toggled
+                // 2-Pole Interactive Topic: Directly render designated rating widget (2D Switchbox vs Linear Sliders)
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !0);
 
-                if (sx2PoleViewMode === "sliders") {
+                if (shape.widget === "linear-sliders") {
                     switchboxWrap && (switchboxWrap.hidden = !0);
                     linearRatings && (linearRatings.hidden = !1);
-                    slidersToggleBtn && (slidersToggleBtn.hidden = !1);
                     recvRow && (recvRow.hidden = !1);
                     role3Row && (role3Row.hidden = !0);
                     role4Row && (role4Row.hidden = !0);
@@ -28742,12 +29553,16 @@ const TAXONOMY_CATEGORIES = [
             sxBindTetradWidget();
             sxBindPentadWidget();
             sxBindHexadWidget();
+            sxBindHeptadWidget();
+            sxBindOctadWidget();
             sxBindSwitchboxWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
             const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out");
             const role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out");
+            const role7 = e.byId("markRole7"), role7Out = e.byId("markRole7Out");
+            const role8 = e.byId("markRole8"), role8Out = e.byId("markRole8Out");
             if (!give || give.dataset.bound) return;
             give.dataset.bound = "1";
             const show = (input, out, known) => { out && (out.textContent = known ? String(Math.round(Number(input.value))) : "Unrated"); };
@@ -28851,6 +29666,40 @@ const TAXONOMY_CATEGORIES = [
                 e.byId("markRole6Clear") && e.byId("markRole6Clear").addEventListener("click", () => {
                     if (Qr) {
                         const k = getKey(5, "role6");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+            if (role7) {
+                role7.addEventListener("input", () => show(role7, role7Out, !0));
+                role7.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(6, "role7");
+                        To(Qr, k, Number(role7.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markRole7Clear") && e.byId("markRole7Clear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(6, "role7");
+                        Fo(Qr, k, !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+            if (role8) {
+                role8.addEventListener("input", () => show(role8, role8Out, !0));
+                role8.addEventListener("change", () => {
+                    if (Qr) {
+                        const k = getKey(7, "role8");
+                        To(Qr, k, Number(role8.value), !0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+                e.byId("markRole8Clear") && e.byId("markRole8Clear").addEventListener("click", () => {
+                    if (Qr) {
+                        const k = getKey(7, "role8");
                         Fo(Qr, k, !0);
                         sxSyncMarkRatings(Qr);
                     }
@@ -29490,12 +30339,12 @@ const TAXONOMY_CATEGORIES = [
             p.setAttribute("aria-expanded", "false"), u.append(p), r.append(u), n.append(r);
             const h = document.createElement("div");
             h.className = "outline-rating-group";
-            if (i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
+            if (i.octad || i.heptad || i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
                 const wBtn = document.createElement("button");
                 wBtn.type = "button";
                 wBtn.className = "outline-widget-btn";
                 wBtn.dataset.outlineWidgetLaunch = e.id;
-                const sym = i.hexad ? "⬡ 6-Pole Hexad" : i.pentad ? "★ 5-Pole Pentad" : i.tetrad ? "◆ 4-Pole Tetrad" : "▲ 3-Pole Triad";
+                const sym = i.octad ? "✵ 8-Pole Octad" : i.heptad ? "⯁ 7-Pole Heptad" : i.hexad ? "⬡ 6-Pole Hexad" : i.pentad ? "★ 5-Pole Pentad" : i.tetrad ? "◆ 4-Pole Tetrad" : "▲ 3-Pole Triad";
                 wBtn.innerHTML = `<span class="outline-widget-glyph">${sym}</span>`;
                 wBtn.title = `Open interactive ${sym} widget pop-up for ${e.label}`;
                 wBtn.setAttribute("aria-label", `Open interactive ${sym} widget pop-up for ${e.label}`);
@@ -39881,6 +40730,26 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
             const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
             const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
+            const heptadHit = __sxClosestAction(e.target, "heptadHit") || (e.target.closest && e.target.closest(".map-heptad-hit, .map-heptad-control"));
+            const octadHit = __sxClosestAction(e.target, "octadHit") || (e.target.closest && e.target.closest(".map-octad-hit, .map-octad-control"));
+            if (octadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = octadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "octad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
+            if (heptadHit && 1 === eh.size) {
+                e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
+                const topicId = heptadHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "heptad" };
+                    if (typeof Pi === "function") Pi(topicId);
+                }
+                return;
+            }
             if (hexadHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = hexadHit.dataset.id;
@@ -43545,6 +44414,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     id = "t0415"; // Remap obsolete triad to 4-pole intimacy geometry
                 } else if (id === "t0411" || id === "topic-edging-ruined-forced") {
                     id = "t0414"; // Remap obsolete triad to 4-pole orgasm dynamic
+                } else if (id === "t0022" || id === "t0025" || id === "t0029" || id === "t0032" || id === "t0034" || id === "t0037" || id === "t0038" || id === "t0039" || id === "t0040" || id === "t0043" || id === "t0050") {
+                    id = "t0426"; // Subsumed base 1/2-pole restraint topics remapped to 8-pole containment octad
+                } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
+                    id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
                 if (!Ke.has(id) && !isSubId(id)) return;
                 const topicName = getTopicName(id);
@@ -43641,6 +44514,49 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                                 for (let k = 0; k < 6; k++) incoming[flanks[k]] = gVal;
                             } else if (rVal !== null) {
                                 for (let k = 0; k < 6; k++) incoming[flanks[k]] = rVal;
+                            }
+                        } else if (flanks.length === 7) {
+                            // Orthogonal projection to 7-pole heptad:
+                            // Poles 0, 1: Active / Sovereign (give)
+                            // Pole 2: Instinct / Primal
+                            // Pole 3: Synthesis / Switch (average)
+                            // Poles 4, 5: Receptive / Brat or Nurturer
+                            // Pole 6: Submissive / Slave (receive)
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null && rVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = Math.round((3 * gVal + rVal) / 4);
+                                incoming[flanks[2]] = gVal;
+                                incoming[flanks[3]] = Math.round((gVal + rVal) / 2);
+                                incoming[flanks[4]] = rVal;
+                                incoming[flanks[5]] = Math.round((gVal + 3 * rVal) / 4);
+                                incoming[flanks[6]] = rVal;
+                            } else if (gVal !== null) {
+                                for (let k = 0; k < 7; k++) incoming[flanks[k]] = gVal;
+                            } else if (rVal !== null) {
+                                for (let k = 0; k < 7; k++) incoming[flanks[k]] = rVal;
+                            }
+                        } else if (flanks.length === 8) {
+                            // Orthogonal projection to 8-pole octad:
+                            // Diametric pairs (P0/P4, P1/P5, P2/P6, P3/P7)
+                            // Poles 0, 1, 2, 3: Active / Give / Dynamic (top hemisphere)
+                            // Poles 4, 5, 6, 7: Receptive / Receive / Grounded (bottom hemisphere)
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null && rVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = gVal;
+                                incoming[flanks[2]] = Math.round((3 * gVal + rVal) / 4);
+                                incoming[flanks[3]] = Math.round((gVal + rVal) / 2);
+                                incoming[flanks[4]] = rVal;
+                                incoming[flanks[5]] = rVal;
+                                incoming[flanks[6]] = Math.round((gVal + 3 * rVal) / 4);
+                                incoming[flanks[7]] = Math.round((gVal + rVal) / 2);
+                            } else if (gVal !== null) {
+                                for (let k = 0; k < 8; k++) incoming[flanks[k]] = gVal;
+                            } else if (rVal !== null) {
+                                for (let k = 0; k < 8; k++) incoming[flanks[k]] = rVal;
                             }
                         }
                     }
@@ -46546,8 +47462,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                             if ("topic" !== kind && "child" !== kind) return;
                             const id = "child" === kind ? (w.child ? w.child.id : null) : (w.topic ? w.topic.id : null);
                             if (null == id) return;
-                            const label = "child" === kind ? (w.child ? w.child.label : w.label) : (w.topic ? w.topic.label : w.label), delivered = dkDeliveredItemRadius(w), target = dkComputeFitTarget(key), cur = (mn.kinkOverrides || {})[id], curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
-                            items.push({ branch: name, key: key, id: String(id), label: label || null, delivered: Number.isFinite(delivered) ? delivered : null, target: null != target && Number.isFinite(target) ? target : null, curLen: curLen });
+                            const isChild = "child" === kind;
+                            const label = isChild ? (w.child ? w.child.label : w.label) : (w.topic ? w.topic.label : w.label), delivered = dkDeliveredItemRadius(w);
+                            const target = typeof dkNodeNameTarget === "function" ? dkNodeNameTarget(label, isChild, mn.leafOvergrowth) : (null != dkComputeFitTarget(key) ? dkComputeFitTarget(key) : null);
+                            const cur = (mn.kinkOverrides || {})[id], curLen = cur && Number(cur.length) > 0 ? Number(cur.length) : 1;
+                            items.push({ branch: name, key: key, id: String(id), label: label || null, delivered: Number.isFinite(delivered) ? delivered : null, target: null != target && Number.isFinite(target) ? target : null, curLen: curLen, isChild: isChild });
                         });
                     });
                     return { ok: !0, reason: null, items: items, branchesSeen: Object.keys(seen) };
@@ -46561,25 +47480,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         next[id] = Object.assign({}, mn.kinkOverrides[id]);
                     });
                     measured.items.forEach(m => {
-                        // OVERGROWN FIT (ruled 2026-11-03, Jason,
-                        // superseding the hard 3x of 2026-11-02 17:09):
-                        // this driver — the Autofit button's alone —
-                        // delivers each kink spoke at the "% kink leaf
-                        // overgrowth" percent of its fit target (the
-                        // same percent the Anneal throw uses, via
-                        // sxLeafOvergrowthFactor). dkComputeFitTarget
-                        // itself is NOT changed; the multiple lives
-                        // only here, in the delivered-length
-                        // computation, so the shrink floors and the
-                        // scoring keep reading the unscaled target.
-                        // The hold epsilon and the shortened /
-                        // lengthened split are judged against the
-                        // delivered target, so a spoke already at the
-                        // chosen percent holds and a spoke sitting at
-                        // 1x lengthens.
-                        const deliveredTarget = null != m.target && m.target > 0 ? sxLeafOvergrowthFactor() * m.target : m.target;
+                        // FIT TO NODE NAME LENGTH (ruled 2026-11-14, Jason):
+                        // Autofit delivers each kink spoke at the "node length % of
+                        // node name" (leafOvergrowth) percentage of its name length,
+                        // with 100% framing the name cleanly with hub and icon room.
+                        const deliveredTarget = m.target;
                         const item = { branch: m.branch, key: m.key, id: m.id, label: m.label, beforeLength: m.curLen, afterLength: m.curLen, beforeDelivered: m.delivered, target: m.target, deliveredTarget: deliveredTarget, held: !0 };
-                        if (null == m.delivered || !(m.delivered > 0) || null == m.target || !(m.target > 0)) out.skipped++;
+                        if (null == m.delivered || !(m.delivered > 0) || null == deliveredTarget || !(deliveredTarget > 0)) out.skipped++;
                         else if (Math.abs(m.delivered - deliveredTarget) / deliveredTarget <= EPS) out.held++;
                         else {
                             item.afterLength = m.curLen * deliveredTarget / m.delivered, item.held = !1, next[m.id] = Object.assign({}, next[m.id], { length: item.afterLength }), out.changed++, m.delivered > deliveredTarget ? out.shortened++ : out.lengthened++;

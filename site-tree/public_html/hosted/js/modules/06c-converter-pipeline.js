@@ -230,6 +230,10 @@
                     id = "t0415"; // Remap obsolete triad to 4-pole intimacy geometry
                 } else if (id === "t0411" || id === "topic-edging-ruined-forced") {
                     id = "t0414"; // Remap obsolete triad to 4-pole orgasm dynamic
+                } else if (id === "t0022" || id === "t0025" || id === "t0029" || id === "t0032" || id === "t0034" || id === "t0037" || id === "t0038" || id === "t0039" || id === "t0040" || id === "t0043" || id === "t0050") {
+                    id = "t0426"; // Subsumed base 1/2-pole restraint topics remapped to 8-pole containment octad
+                } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
+                    id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
                 if (!Ke.has(id) && !isSubId(id)) return;
                 const topicName = getTopicName(id);
@@ -326,6 +330,49 @@
                                 for (let k = 0; k < 6; k++) incoming[flanks[k]] = gVal;
                             } else if (rVal !== null) {
                                 for (let k = 0; k < 6; k++) incoming[flanks[k]] = rVal;
+                            }
+                        } else if (flanks.length === 7) {
+                            // Orthogonal projection to 7-pole heptad:
+                            // Poles 0, 1: Active / Sovereign (give)
+                            // Pole 2: Instinct / Primal
+                            // Pole 3: Synthesis / Switch (average)
+                            // Poles 4, 5: Receptive / Brat or Nurturer
+                            // Pole 6: Submissive / Slave (receive)
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null && rVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = Math.round((3 * gVal + rVal) / 4);
+                                incoming[flanks[2]] = gVal;
+                                incoming[flanks[3]] = Math.round((gVal + rVal) / 2);
+                                incoming[flanks[4]] = rVal;
+                                incoming[flanks[5]] = Math.round((gVal + 3 * rVal) / 4);
+                                incoming[flanks[6]] = rVal;
+                            } else if (gVal !== null) {
+                                for (let k = 0; k < 7; k++) incoming[flanks[k]] = gVal;
+                            } else if (rVal !== null) {
+                                for (let k = 0; k < 7; k++) incoming[flanks[k]] = rVal;
+                            }
+                        } else if (flanks.length === 8) {
+                            // Orthogonal projection to 8-pole octad:
+                            // Diametric pairs (P0/P4, P1/P5, P2/P6, P3/P7)
+                            // Poles 0, 1, 2, 3: Active / Give / Dynamic (top hemisphere)
+                            // Poles 4, 5, 6, 7: Receptive / Receive / Grounded (bottom hemisphere)
+                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : null;
+                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : null;
+                            if (gVal !== null && rVal !== null) {
+                                incoming[flanks[0]] = gVal;
+                                incoming[flanks[1]] = gVal;
+                                incoming[flanks[2]] = Math.round((3 * gVal + rVal) / 4);
+                                incoming[flanks[3]] = Math.round((gVal + rVal) / 2);
+                                incoming[flanks[4]] = rVal;
+                                incoming[flanks[5]] = rVal;
+                                incoming[flanks[6]] = Math.round((gVal + 3 * rVal) / 4);
+                                incoming[flanks[7]] = Math.round((gVal + rVal) / 2);
+                            } else if (gVal !== null) {
+                                for (let k = 0; k < 8; k++) incoming[flanks[k]] = gVal;
+                            } else if (rVal !== null) {
+                                for (let k = 0; k < 8; k++) incoming[flanks[k]] = rVal;
                             }
                         }
                     }
