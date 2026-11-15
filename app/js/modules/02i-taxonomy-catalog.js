@@ -3105,6 +3105,259 @@
                     labels: [ "Brit Milah (The Flesh Covenant)", "Halakha (Law & Mitzvot)", "Kabbalah (Merkavah / Mysticism)", "Gospel (Pauline Grace / Faith)", "Sacrament (Eucharist / Liturgy)", "Christology (Logos Incarnate)", "Tawhid (Absolute Divine Unity)", "Tasawwuf (Sufi Fana / Ecstasy)" ]
                 };
             }
+            // Dharmacapades 8-Pole Noble Eightfold Path Octad
+            if (e === "t0428" || e === "topic-noble-eightfold-path" || e === "topic-eightfold-path" || i === "t0428" || i === "topic-noble-eightfold-path" || i === "topic-eightfold-path") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "view", "intention", "speech", "action", "livelihood", "effort", "mindfulness", "concentration" ],
+                    labels: [ "Right View (Wisdom)", "Right Intention (Resolve)", "Right Speech (Ethics)", "Right Action (Ethics)", "Right Livelihood (Ethics)", "Right Effort (Meditation)", "Right Mindfulness (Presence)", "Right Concentration (Jhana)" ]
+                };
+            }
+            // Dharmacapades / Taoic 8-Pole Trigrams / Bagua Octad
+            if (e === "topic-eight-trigrams-bagua" || e === "topic-bagua" || i === "topic-eight-trigrams-bagua" || i === "topic-bagua") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "qian", "dui", "li", "zhen", "xun", "kan", "gen", "kun" ],
+                    labels: [ "Qian (Heaven / Creative)", "Dui (Lake / Joyous)", "Li (Fire / Clinging)", "Zhen (Thunder / Arousing)", "Xun (Wind / Gentle)", "Kan (Water / Abyssal)", "Gen (Mountain / Stillness)", "Kun (Earth / Receptive)" ]
+                };
+            }
+            // Poliscapades 8-Pole Governance Regimes Octad
+            if (e === "topic-eight-governance-regimes" || e === "topic-governance-octad" || i === "topic-eight-governance-regimes" || i === "topic-governance-octad") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "monarchy", "theocracy", "oligarchy", "liberal_dem", "social_dem", "fascism", "state_communism", "anarchism" ],
+                    labels: [ "Feudal Monarchy", "Theocracy", "Oligarchy / Plutocracy", "Liberal Democracy", "Social Democracy", "Fascist Corporatism", "State Marxist-Leninism", "Anarcho-Syndicalism" ]
+                };
+            }
+            // Psycho-Evolutionary 8-Pole Circuits of Consciousness Octad (Leary & Wilson)
+            if (e === "topic-eight-circuits-consciousness" || e === "topic-eight-circuits" || i === "topic-eight-circuits-consciousness" || i === "topic-eight-circuits") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "biosurvival", "emotional", "symbolic", "sociosexual", "neurosomatic", "metaprogramming", "morphogenetic", "quantum" ],
+                    labels: [ "Oral Bio-Survival", "Anal Territorial", "Semantic-Symbolic", "Socio-Sexual", "Neurosomatic", "Metaprogramming", "Morphogenetic", "Non-Local Quantum" ]
+                };
+            }
+            // Cognitive 8-Pole Jungian Functions Octad
+            if (e === "topic-jungian-eight-functions" || e === "topic-jungian-functions" || i === "topic-jungian-eight-functions" || i === "topic-jungian-functions") {
+                return {
+                    single: !1,
+                    octad: !0,
+                    widget: "octad-radar",
+                    archetype: "octad",
+                    keys: [ "te", "ti", "fe", "fi", "se", "si", "ne", "ni" ],
+                    labels: [ "Te (Extraverted Thinking)", "Ti (Introverted Thinking)", "Fe (Extraverted Feeling)", "Fi (Introverted Feeling)", "Se (Extraverted Sensing)", "Si (Introverted Sensing)", "Ne (Extraverted Intuition)", "Ni (Introverted Intuition)" ]
+                };
+            }
+            // Aesthcapades 7-Pole Dietary Identity Heptad
+            if (e === "topic-dietary-identity-heptad" || i === "topic-dietary-identity-heptad") {
+                return {
+                    single: !1,
+                    heptad: !0,
+                    widget: "heptad-radar",
+                    archetype: "heptad",
+                    keys: [ "carnivore", "omnivore", "pescatarian", "ovoveg", "vegetarian", "vegan", "fruitarian" ],
+                    labels: [ "Carnivore", "Omnivore", "Pescatarian", "Ovo-Vegetarian", "Lacto-Ovo Vegetarian", "Vegan", "Fruitarian" ]
+                };
+            }
+            // Aesthcapades 6-Pole Dietary Identity Hexad
+            if (e === "topic-dietary-identity" || e === "topic-dietary-identity-hexad" || i === "topic-dietary-identity" || i === "topic-dietary-identity-hexad") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    widget: "hexad-radar",
+                    archetype: "hexad",
+                    keys: [ "carnivore", "omnivore", "pescatarian", "vegetarian", "vegan", "fruitarian" ],
+                    labels: [ "Carnivore", "Omnivore", "Pescatarian", "Vegetarian", "Vegan", "Fruitarian" ]
+                };
+            }
+            // Aesthcapades 6-Pole Music Genres Hexad
+            if (e === "topic-music-genres-hexad" || i === "topic-music-genres-hexad") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    widget: "hexad-radar",
+                    archetype: "hexad",
+                    keys: [ "rock", "pop", "classical", "jazz", "electronic", "hiphop" ],
+                    labels: [ "Rock / Alternative", "Pop / Mainstream", "Classical / Traditional", "Jazz / Improvisation", "Electronic / Ambient", "Hip-Hop / Urban" ]
+                };
+            }
+            // Vocapades 6-Pole Work Sectors Hexad
+            if (e === "topic-work-sectors-hexad" || i === "topic-work-sectors-hexad") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    widget: "hexad-radar",
+                    archetype: "hexad",
+                    keys: [ "tech", "healthcare", "creative", "trades", "public_service", "finance" ],
+                    labels: [ "Technology & Engineering", "Healthcare & Caregiving", "Creative Arts & Media", "Skilled Trades & Labor", "Public Service & Education", "Finance & Commerce" ]
+                };
+            }
+            // Dharmacapades 6-Pole Classical Yogas Hexad
+            if (e === "topic-six-classical-yogas" || i === "topic-six-classical-yogas") {
+                return {
+                    single: !1,
+                    hexad: !0,
+                    widget: "hexad-radar",
+                    archetype: "hexad",
+                    keys: [ "raja", "jnana", "bhakti", "karma", "hatha", "tantra" ],
+                    labels: [ "Raja (Royal / Meditation)", "Jnana (Wisdom / Discernment)", "Bhakti (Devotion / Love)", "Karma (Selfless Action)", "Hatha (Physical / Breath)", "Tantra (Energy / Integration)" ]
+                };
+            }
+            // Aesthcapades 5-Pole Five Basic Tastes Pentad
+            if (e === "topic-five-tastes" || e === "topic-five-basic-tastes" || i === "topic-five-tastes" || i === "topic-five-basic-tastes") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    widget: "star-radar",
+                    archetype: "star",
+                    keys: [ "sweet", "salty", "sour", "bitter", "umami" ],
+                    labels: [ "Sweet", "Salty", "Sour", "Bitter", "Umami" ]
+                };
+            }
+            // Aesthcapades 5-Pole Art Movements Pentad
+            if (e === "topic-art-movements-pentad" || i === "topic-art-movements-pentad") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    widget: "star-radar",
+                    archetype: "star",
+                    keys: [ "realism", "impressionism", "modernism", "postmodernism", "conceptual" ],
+                    labels: [ "Realism / Figurative", "Impressionism", "Modernism / Avant-Garde", "Postmodernism", "Conceptual Art" ]
+                };
+            }
+            // Vocapades 5-Pole Work Models Pentad
+            if (e === "topic-work-models-pentad" || e === "topic-work-models" || i === "topic-work-models-pentad" || i === "topic-work-models") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    widget: "star-radar",
+                    archetype: "star",
+                    keys: [ "fulltime", "freelance", "founder", "portfolio", "public" ],
+                    labels: [ "Full-Time Employee", "Freelancer / Independent", "Founder / Entrepreneur", "Portfolio / Part-Time", "Public Service / Nonprofit" ]
+                };
+            }
+            // Techcapades 5-Pole AI Risk & Benefit Allocation Pentad
+            if (e === "topic-ai-risk-benefit-pentad" || e === "topic-ai-futures-pentad" || i === "topic-ai-risk-benefit-pentad" || i === "topic-ai-futures-pentad") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    widget: "star-radar",
+                    archetype: "star",
+                    keys: [ "abundance", "feudalism", "displacement", "misalignment", "epistemic" ],
+                    labels: [ "Post-Scarcity Abundance", "Corporate Feudalism", "Labor & Skill Atrophy", "Existential Misalignment", "Epistemic Collapse" ]
+                };
+            }
+            // Dharmacapades 5-Pole Five Mahabhutas Pentad
+            if (e === "topic-five-mahabhutas" || i === "topic-five-mahabhutas") {
+                return {
+                    single: !1,
+                    pentad: !0,
+                    widget: "star-radar",
+                    archetype: "star",
+                    keys: [ "earth", "water", "fire", "air", "ether" ],
+                    labels: [ "Prithvi (Earth)", "Apas (Water)", "Agni (Fire)", "Vayu (Air)", "Akasha (Ether / Space)" ]
+                };
+            }
+            // Aesthcapades 4-Pole Theories of Beauty Tetrad
+            if (e === "topic-theories-of-beauty" || i === "topic-theories-of-beauty") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    widget: "diamond",
+                    archetype: "diamond",
+                    keys: [ "harmony", "sublime", "picturesque", "grotesque" ],
+                    labels: [ "Classical Harmony (Symmetry)", "Sublime (Vastness / Awe)", "Picturesque (Organic Variety)", "Grotesque (Transgressive / Ugly)" ]
+                };
+            }
+            // Dharmacapades 4-Pole Four Purusharthas Tetrad
+            if (e === "topic-four-purusharthas" || i === "topic-four-purusharthas") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    widget: "diamond",
+                    archetype: "diamond",
+                    keys: [ "dharma", "artha", "kama", "moksha" ],
+                    labels: [ "Dharma (Righteous Duty)", "Artha (Material Prosperity)", "Kama (Sensory Pleasure)", "Moksha (Spiritual Liberation)" ]
+                };
+            }
+            // Vocapades 4-Pole Career Anchors / Ikigai Tetrad (Schein)
+            if (e === "topic-career-anchors-tetrad" || e === "topic-career-anchors" || i === "topic-career-anchors-tetrad" || i === "topic-career-anchors") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    widget: "diamond",
+                    archetype: "diamond",
+                    keys: [ "craft", "leadership", "autonomy", "stability" ],
+                    labels: [ "Technical / Craft Mastery", "Executive / Leadership", "Autonomy / Freedom", "Security / Stability" ]
+                };
+            }
+            // Vocapades 4-Pole Leadership Styles Tetrad
+            if (e === "topic-leadership-styles-tetrad" || i === "topic-leadership-styles-tetrad") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    widget: "diamond",
+                    archetype: "diamond",
+                    keys: [ "autocratic", "democratic", "servant", "transformational" ],
+                    labels: [ "Autocratic (Command & Control)", "Democratic (Consensus & Input)", "Servant (Empowerment & Support)", "Transformational (Inspiration & Vision)" ]
+                };
+            }
+            // Techcapades 4-Pole Tech Ethics Quartet Tetrad
+            if (e === "topic-tech-ethics-quartet" || e === "topic-tech-ethics" || i === "topic-tech-ethics-quartet" || i === "topic-tech-ethics") {
+                return {
+                    single: !1,
+                    tetrad: !0,
+                    widget: "diamond",
+                    archetype: "diamond",
+                    keys: [ "utilitarian", "deontological", "virtue", "care" ],
+                    labels: [ "Utilitarian (Net Flourishing)", "Deontological (Duty & Rights)", "Virtue Ethics (Character & Craft)", "Care Ethics (Relational Attunement)" ]
+                };
+            }
+            // Dharmacapades 3-Pole Three Teachings / San Jiao Triad
+            if (e === "topic-three-teachings-sanjiao" || e === "topic-three-teachings" || i === "topic-three-teachings-sanjiao" || i === "topic-three-teachings") {
+                return {
+                    single: !1,
+                    triad: !0,
+                    widget: "triangle",
+                    archetype: "triangle",
+                    keys: [ "confucianism", "taoism", "buddhism" ],
+                    labels: [ "Confucianism (Duty / Li)", "Taoism (Nature / Wu Wei)", "Buddhism (Detachment / Sunyata)" ]
+                };
+            }
+            // Vocapades 3-Pole Vocation Triad (Wrzesniewski)
+            if (e === "topic-vocation-triad" || i === "topic-vocation-triad") {
+                return {
+                    single: !1,
+                    triad: !0,
+                    widget: "triangle",
+                    archetype: "triangle",
+                    keys: [ "calling", "career", "job" ],
+                    labels: [ "Calling (Purpose / Identity)", "Career (Advancement / Status)", "Job (Means / Paycheck)" ]
+                };
+            }
+            // Dharmacapades 3-Pole Three Gunas Triad
+            if (e === "topic-three-gunas" || i === "topic-three-gunas") {
+                return {
+                    single: !1,
+                    triad: !0,
+                    widget: "triangle",
+                    archetype: "triangle",
+                    keys: [ "sattva", "rajas", "tamas" ],
+                    labels: [ "Sattva (Purity / Harmony)", "Rajas (Passion / Motion)", "Tamas (Inertia / Darkness)" ]
+                };
+            }
             // The topic's own give/receive labels win. A parent id in the
             // single-slider set must not collapse Edge Play (or any other
             // give/receive topic) to one "everything" slider.
