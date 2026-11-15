@@ -44466,7 +44466,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 } else if (id === "t0411" || id === "topic-edging-ruined-forced") {
                     id = "t0414"; // Remap obsolete triad to 4-pole orgasm dynamic
                 } else if (id === "t0033" || id === "topic-tape") {
-                    id = "t0030"; // Obsolete tape topic remapped to Duct tape (or falls to s0003 Tape & wrapping)
+                    id = "t0426"; // Obsolete generic Tape / silicone bondage tape subsumed into Restraint & containment octad (t0426 Pole 4: Tape)
                 } else if (id === "t0022" || id === "t0025" || id === "t0029" || id === "t0032" || id === "t0034" || id === "t0037" || id === "t0038" || id === "t0039" || id === "t0040" || id === "t0043" || id === "t0050") {
                     id = "t0426"; // Subsumed base 1/2-pole restraint topics remapped to 8-pole containment octad
                 } else if (id === "t0201" || id === "t0202" || id === "t0213" || id === "t0220" || id === "t0222") {
