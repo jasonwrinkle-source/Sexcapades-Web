@@ -604,47 +604,12 @@ __sxInit(function () {
 });
 
 
-/* ---- guide qmark gestures (1-tap Guide, 2-taps About, 5-taps Easter egg) ---- */
-__sxInit(function () {
-(function () {
-  var link = document.getElementById("reviewLink");
-  if (!link) return;
-  var WINDOW_MS = 400;
-  var count = 0;
-  var timer = null;
-  function reset() {
-    count = 0;
-    if (timer) { clearTimeout(timer); timer = null; }
-  }
-  function openGuide() { window.open(link.href, "_blank", "noopener"); }
-  function openAbout() {
-    var o = document.getElementById("openAppAbout");
-    if (o) o.click();
-  }
-  function openEasterEgg() {
-    var egg = document.querySelector(".easter-egg");
-    if (egg) { egg.click(); return; }
-    window.open("https://linktr.ee/SkewedViewBlue", "_blank", "noopener");
-  }
-  function resolveGesture() {
-    var n = count;
-    reset();
-    if (n === 1) openGuide();
-    else if (n === 2) openAbout();
-  }
-  link.addEventListener("click", function (event) {
-    event.preventDefault();
-    count += 1;
-    if (count >= 5) {
-      reset();
-      openEasterEgg();
-      return;
-    }
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(resolveGesture, WINDOW_MS);
-  });
-})();
-});
+/* ---- guide qmark link (was: tap gestures) ---- */
+/* The "?" used to count taps (1 Guide, 2 About, 5 Easter egg). Removed
+   2026-11-15 on Jason's word ("Remove Easter egg link and about link
+   from the ? Tap behavior"): the "?" is now a plain guide link — the
+   native <a href="gate.html#guide" target="_blank"> opens the Guide on
+   every tap, with no counting, no About, no Easter egg. */
 
 
 /* ---- list view glow ---- */

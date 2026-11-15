@@ -453,21 +453,21 @@ __sxInit(function () {
    (app/js/skin-loader.js) — picking a skin swaps its taxonomy in and
    re-renders the map; picking Sexcapades restores the kink map.
    Trigger: pointer hold (~600ms) on the header bar, touch or mouse, OR
-   a triple-click on the header (three rapid clicks — see below).
-   It never fires on a normal tap/click, never on a press that starts on
-   an interactive control (buttons, links, inputs — every header control
-   keeps working), and the hold timer clears on any real movement or
-   scroll so it cannot break scrolling. No visible button, hint, or icon.
-   The click that ends the long-press is swallowed (capture phase), so
-   the menu opening under the pointer can never instantly select an item
-   or close itself. Menu closes on item select, outside tap, or Escape.
-   Triple-click: rapid clicks on the header are counted and judged only
-   after a settle window with no further click, because a pentuple-click
-   (5 rapid clicks) CONTAINS a triple — firing on the 3rd click would
-   open the menu on 5 clicks too. Only exactly 3 clicks in one settled
-   burst open the menu; 1, 2, 4, 5, ... do nothing. Counting runs on the
-   header click event, never dblclick, so a double-click triggers
-   nothing. */
+   Shift+Click anywhere on the header (see below). Triple-click is GONE:
+   counting taps fought the title's own About button (tap 1 opened About
+   instantly, so a triple could never complete) and is removed entirely —
+   no tap counting anywhere in this module. The hold starts on empty
+   header space and on the title button (the secondary trigger kept for
+   the title); every other header control keeps working untouched, and
+   the hold timer clears on any real movement or scroll so it cannot
+   break scrolling. No visible button, hint, or icon. The click that
+   ends the long-press is swallowed (capture phase), so the menu opening
+   under the pointer can never instantly select an item or close itself.
+   Menu closes on item select, outside tap, or Escape. Shift+Click: a
+   capture-phase click listener on the header opens the menu at the click
+   point when ev.shiftKey is set, and stops the click so the title's
+   About handler (or any other header control) never runs. Normal clicks
+   pass through untouched. */
 __sxInit(function () {
 (function () {
   function boot() {
@@ -589,7 +589,14 @@ __sxInit(function () {
   }
   header.addEventListener("pointerdown", function (ev) {
     if (holdPointerId !== null) { cancelHold(); return; }
-    if (isInteractive(ev.target)) return;
+    /* The title button is interactive, but it is also a hold trigger:
+       a hold on it opens the menu exactly like a hold on empty header
+       space — same timer, same ending-click swallow, so the title's
+       About handler never sees that click. Long-press is the secondary
+       trigger beside Shift+Click, and the title is where the finger
+       lands. Every other interactive control still opts out of the hold. */
+    var onTitle = !!(ev.target && ev.target.closest && ev.target.closest("#openAppAbout"));
+    if (isInteractive(ev.target) && !onTitle) return;
     if (ev.button !== undefined && ev.button !== 0) return;
     holdPointerId = ev.pointerId;
     holdX = ev.clientX; holdY = ev.clientY;
@@ -610,42 +617,23 @@ __sxInit(function () {
   header.addEventListener("pointercancel", function (ev) {
     if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
   });
-  /* Triple-click trigger. Rapid clicks on the header are counted; the
-     count is judged only after TRIPLE_SETTLE_MS with no further click.
-     A pentuple-click (5 rapid clicks) contains a triple, so firing on
-     the 3rd click would open the menu on 5 clicks too — only exactly 3
-     clicks in one settled burst open it. Counts on the header click
-     event, never dblclick, so a double-click triggers nothing. The
-     long-press ending click never reaches here: the capture-phase
-     document click listener swallows it first. Clicks starting on an
-     interactive control reset the count (they are not part of a header
-     triple-click burst). Opens at the last click's point, with no
-     click-swallow armed — the press that triggered it is long gone.
-     Settle is 800ms, not 400ms: 400 was too short for a deliberate
-     triple-tap at Jason's pace — his taps land slower than 400ms apart,
-     so each settled as a single before the next arrived. 800ms covers
-     gaps up to 0.8s while the menu still appears under a second after
-     the third tap. */
-  var TRIPLE_SETTLE_MS = 800;
-  var clickCount = 0;
-  var clickX = 0, clickY = 0;
-  var clickTimer = null;
-  function resetClickCount() {
-    if (clickTimer) { clearTimeout(clickTimer); clickTimer = null; }
-    clickCount = 0;
-  }
+  /* Shift+Click trigger (replaces triple-click, removed 2026-11-15: tap
+     counting fought the title's About button and could never work
+     there). A capture-phase click listener on the header: a Shift+Click
+     anywhere on the header opens the menu at the click point, with no
+     click-swallow armed (nothing is pending after the click). The click
+     is stopped here so it never reaches the title's About handler or
+     any other header control. Normal clicks (shiftKey false) pass
+     through untouched and are never counted — there is no counting
+     anywhere now. If the menu is already open, a Shift+Click closes it
+     in the document capture listener and reopens it here, so it ends
+     open. */
   header.addEventListener("click", function (ev) {
-    if (isInteractive(ev.target)) { resetClickCount(); return; }
-    clickCount += 1;
-    clickX = ev.clientX; clickY = ev.clientY;
-    if (clickTimer) clearTimeout(clickTimer);
-    clickTimer = setTimeout(function () {
-      clickTimer = null;
-      var n = clickCount;
-      clickCount = 0;
-      if (n === 3 && !menuOpen()) openMenu(clickX, clickY, false);
-    }, TRIPLE_SETTLE_MS);
-  });
+    if (!ev.shiftKey) return;
+    ev.stopPropagation();
+    ev.preventDefault();
+    openMenu(ev.clientX, ev.clientY, false);
+  }, true);
   header.addEventListener("contextmenu", function (ev) {
     /* A touch long-press raises contextmenu while the menu is open —
        suppress the browser's own callout so the skin menu owns the
