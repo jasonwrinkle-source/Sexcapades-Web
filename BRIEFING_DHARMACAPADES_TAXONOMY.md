@@ -28,17 +28,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 ### Category 1: Dharma & The Way
 
-#### 1.1 Dharma vs Dao (2-Pole Dipole)
-- **Poles:** Dharma (duty, cosmic order, teaching) ↔ Dao (the Way, natural flow)
-- **Question:** How is the world ordered — by duty and teaching, or by the Way that cannot be named?
-- **Optimal Widget:** Dipole slider.
-
-#### 1.2 Karma: Literal vs Psychological (2-Pole Dipole)
+#### 1.1 Karma: Literal vs Psychological (2-Pole Dipole)
 - **Poles:** Literal (karma as a real mechanism of rebirth) ↔ Psychological (karma as an ethical principle — actions shape character)
 - **Question:** How do you understand karma?
 - **Optimal Widget:** Dipole slider.
 
-#### 1.3 Samsara: Escape vs Engage vs Accept (3-Pole Triad $\Delta^2$)
+#### 1.2 Samsara: Escape vs Engage vs Accept (3-Pole Triad $\Delta^2$)
 - **Poles:**
   - `Pole 0 (Apex)`: **Escape** — Samsara is suffering; the point is to get out (moksha, nirvana).
   - `Pole 1 (Base Right)`: **Engage** — Stay in the cycle to help others (the bodhisattva vow).
@@ -46,7 +41,7 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** What do you do about the cycle of rebirth?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 
-#### 1.4 Buddhism: Religion vs Philosophy vs Way of Life (3-Pole Triad $\Delta^2$)
+#### 1.3 Buddhism: Religion vs Philosophy vs Way of Life (3-Pole Triad $\Delta^2$)
 - **Poles:**
   - `Pole 0 (Apex)`: **Religion** — Devotion, ritual, sangha, rebirth; Buddhism is a religion.
   - `Pole 1 (Base Right)`: **Philosophy** — Reason, analysis, ethics; no god needed; Buddhism is a philosophy.
@@ -55,7 +50,7 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** This topic exists because the question has no settled answer. It records the rater's frame rather than forcing one.
 
-#### 1.5 The Four Purusharthas (4-Pole Tetrad $\Delta^3$)
+#### 1.4 The Four Purusharthas (4-Pole Tetrad $\Delta^3$)
 - **Poles:**
   - `North (Green #22c55e)`: **Dharma** — Moral order, righteousness, spiritual duty, cosmic law.
   - `East (Yellow #eab308)`: **Artha** — Material prosperity, wealth creation, security, career success.
@@ -63,16 +58,18 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
   - `West (Blue #3b82f6)`: **Moksha** — Spiritual liberation, transcendence, release from samsara.
 - **Question:** How do you balance duty, wealth, pleasure, and liberation?
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
+- **Note:** Subsumes primitive 2-pole "Dharma vs Moksha" or "Ascetic vs Worldly" binaries into the classical comprehensive life-aim quartet.
 
-#### 1.6 The Three Teachings / San Jiao (3-Pole Triad $\Delta^2$)
+#### 1.5 The Three Teachings / San Jiao (3-Pole Triad $\Delta^2$)
 - **Poles:**
   - `Pole 0 (Apex)`: **Confucianism** — Social harmony, filial piety, moral duty, ritual propriety.
   - `Pole 1 (Base Right)`: **Taoism** — Natural flow, spontaneity, simplicity, harmony with the Dao.
   - `Pole 2 (Base Left)`: **Buddhism** — Emptiness, compassion, liberation from suffering.
 - **Question:** How do you balance social duty, natural spontaneity, and spiritual detachment?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Note:** Subsumes the crude 2-pole "Dharma vs Dao" dipole into the historically authentic East Asian triadic synthesis.
 
-#### 1.7 The Eight Trigrams / Bagua (8-Pole Octad $\Delta^7$)
+#### 1.6 The Eight Trigrams / Bagua (8-Pole Octad $\Delta^7$)
 - **Poles (in the traditional order):**
   - `Pole 0`: **Heaven (Qian)** — Creative, strong, initiating.
   - `Pole 1`: **Lake (Dui)** — Joyful, open, receptive.
@@ -214,15 +211,15 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 | Poles | Count | Topics |
 |-------|-------|--------|
 | 1-pole (monopole) | 1 | 3.4 |
-| 2-pole (dipole) | 17 | 1.1, 1.2, 2.2, 2.3, 3.1, 3.2, 3.3, 3.6, 4.1, 4.2, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4 |
-| 3-pole (triad) | 5 | 1.3, 1.4, 1.6, 2.1, 4.3 |
-| 4-pole (tetrad) | 1 | 1.5 |
+| 2-pole (dipole) | 16 | 1.1, 2.2, 2.3, 3.1, 3.2, 3.3, 3.6, 4.1, 4.2, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4 |
+| 3-pole (triad) | 5 | 1.2, 1.3, 1.5, 2.1, 4.3 |
+| 4-pole (tetrad) | 1 | 1.4 |
 | 5-pole (pentad) | 0 | — |
 | 6-pole (hexad) | 0 | — |
 | 7-pole (heptad) | 0 | — |
-| 8-pole (octad) | 2 | 1.7, 3.5 |
+| 8-pole (octad) | 2 | 1.6, 3.5 |
 
-**Total: 6 categories, 26 topics.**
+**Total: 6 categories, 25 topics.**
 
 ## 4. Higher-Pole Candidates (not yet specified)
 

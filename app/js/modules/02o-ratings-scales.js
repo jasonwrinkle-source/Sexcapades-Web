@@ -178,11 +178,14 @@
 
         const SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
+            "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
+            "Hotwife": "t0288",
             "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
             "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
             "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
             "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
-            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222"
+            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222",
+            "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
         };
         function Wn(e) {
             if (e && "object" == typeof e && e.id) return e.id;

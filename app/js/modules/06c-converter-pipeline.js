@@ -230,12 +230,18 @@
                     id = "t0415"; // Remap obsolete triad to 4-pole intimacy geometry
                 } else if (id === "t0411" || id === "topic-edging-ruined-forced") {
                     id = "t0414"; // Remap obsolete triad to 4-pole orgasm dynamic
+                } else if (id === "t0009" || id === "t0010" || id === "t0012" || id === "t0014" || id === "t0015" || id === "topic-d-s" || id === "topic-femdom") {
+                    id = "t0423"; // Subsumed base BDSM roles/authority remapped to 7-pole BDSM archetypes heptad
+                } else if (id === "t0008" || id === "t0013" || id === "t0375" || id === "topic-ongoing-dynamics" || id === "topic-24-7" || id === "topic-romantic-surrender") {
+                    id = "t0425"; // Subsumed relational dynamics remapped to 7-pole Sternberg relational heptad
+                } else if (id === "t0288" || id === "topic-hotwife") {
+                    id = "t0281"; // Duplicate Hotwife 2P remapped to 3-pole Bull / Hotwife / Cuckold triad
                 } else if (id === "t0033" || id === "topic-tape") {
-                    id = "t0426"; // Obsolete generic Tape / silicone bondage tape subsumed into Restraint & containment octad (t0426 Pole 4: Tape)
+                    id = "t0426"; // Obsolete generic Tape / silicone bondage tape subsumed into Restraint & containment octad (t0426 Pole 3: Tape)
                 } else if (id === "t0022" || id === "t0025" || id === "t0029" || id === "t0032" || id === "t0034" || id === "t0037" || id === "t0038" || id === "t0039" || id === "t0040" || id === "t0043" || id === "t0050") {
                     id = "t0426"; // Subsumed base 1/2-pole restraint topics remapped to 8-pole containment octad
-                } else if (id === "t0201" || id === "t0202" || id === "t0213" || id === "t0220" || id === "t0222") {
-                    id = "t0427"; // Retired base 1/2-pole anatomical topics (Hands, Feet, Breasts, Pregnancy) remapped to 8-pole somatic octad. Live topics (Hair, Long Hair, Facial Hair, Beards, Body Hair, Pubic Hair, Muscles) stay distinct.
+                } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
+                    id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
                 if (!Ke.has(id) && !isSubId(id)) return;
                 const topicName = getTopicName(id);
@@ -264,12 +270,54 @@
                     });
                     // Backwards compatibility migration for legacy dual {give, receive} rated on newly triadic topics
                     if (!Object.keys(incoming).length && (Object.prototype.hasOwnProperty.call(rating, "give") || Object.prototype.hasOwnProperty.call(rating, "receive"))) {
-                        if (id === "t0281" || id === "t0288" || id === "topic-cuckold-hotwife" || id === "topic-hotwife" || id === "topic-bull-hotwife-cuckold") {
+                        const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;
+                        const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : 0;
+                        const maxVal = Math.max(gVal, rVal);
+
+                        // Specific pole targeted migration for subsumed topics
+                        if (id === "t0427") {
+                            if (origId === "t0203" || origId === "t0204") incoming.hair = maxVal;
+                            else if (origId === "t0208" || origId === "t0209" || origId === "t0210" || origId === "t0211") incoming.bodyhair = maxVal;
+                            else if (origId === "t0231") incoming.muscles = maxVal;
+                            else if (origId === "t0213") incoming.feet = maxVal;
+                            else if (origId === "t0201" || origId === "t0202") incoming.hands = maxVal;
+                            else if (origId === "t0220") incoming.breasts = maxVal;
+                            else if (origId === "t0218") incoming.glutes = maxVal;
+                            else if (origId === "t0222") incoming.pregnancy = maxVal;
+                        } else if (id === "t0426") {
+                            if (origId === "t0022") incoming.rope = maxVal;
+                            else if (origId === "t0050") incoming.shibari = maxVal;
+                            else if (origId === "t0025") incoming.cuffs = maxVal;
+                            else if (origId === "t0029" || origId === "t0033") incoming.tape = maxVal;
+                            else if (origId === "t0032" || origId === "t0039") incoming.mummification = maxVal;
+                            else if (origId === "t0034") incoming.blindfold = maxVal;
+                            else if (origId === "t0037" || origId === "t0038" || origId === "t0040") incoming.caging = maxVal;
+                            else if (origId === "t0043") incoming.suspension = maxVal;
+                        } else if (id === "t0425") {
+                            if (origId === "t0008") incoming.companionate = maxVal;
+                            else if (origId === "t0013") incoming.consummate = maxVal;
+                            else if (origId === "t0375") incoming.romantic = maxVal;
+                        } else if (id === "t0423") {
+                            if (origId === "t0009") incoming.sovereign = maxVal;
+                            else if (origId === "t0010") { incoming.sovereign = gVal; incoming.slave = rVal; }
+                            else if (origId === "t0012") incoming.brat = maxVal;
+                            else if (origId === "t0014") incoming.switch = maxVal;
+                            else if (origId === "t0015") incoming.sovereign = maxVal;
+                        }
+                        // Preserve already populated poles if merging into existing multi-pole rating
+                        const curRating = vt[c][id];
+                        if (curRating && typeof curRating === "object") {
+                            Object.keys(curRating).forEach(k => {
+                                if (incoming[k] === undefined && Number.isFinite(Number(curRating[k]))) incoming[k] = curRating[k];
+                            });
+                        }
+
+                        if (Object.keys(incoming).length) {
+                            // Targeted pole mapped successfully
+                        } else if (id === "t0281" || id === "t0288" || id === "topic-cuckold-hotwife" || id === "topic-hotwife" || id === "topic-bull-hotwife-cuckold") {
                             // t0281 legacy: give = outside-partner sex (hotwife / bull), receive = knowledge/view (cuckold)
                             const isFemale = rt[c] && (rt[c].includes("female") || rt[c].includes("woman") || rt[c].includes("f"));
-                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;
-                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : 0;
-                            if (id === "t0288" || id === "topic-hotwife") {
+                            if (id === "t0288" || id === "topic-hotwife" || origId === "t0288") {
                                 incoming.hotwife = Math.max(gVal, rVal);
                                 incoming.bull = 0;
                                 incoming.cuckold = 0;

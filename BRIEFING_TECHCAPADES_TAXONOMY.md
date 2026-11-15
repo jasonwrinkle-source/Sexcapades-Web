@@ -40,12 +40,7 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 - **Question:** How much autonomy should AI have?
 - **Optimal Widget:** Dipole slider.
 
-#### 1.3 Resist vs Embrace AI (2-Pole Dipole)
-- **Poles:** Resist (avoid it, don't use it) ↔ Embrace (use it everywhere)
-- **Question:** Do you use AI, or refuse it?
-- **Optimal Widget:** Dipole slider.
-
-#### 1.4 Open Weights vs Closed Moats (2-Pole Dipole)
+#### 1.3 Open Weights vs Closed Moats (2-Pole Dipole)
 - **Poles:** Open Source / Decentralized (Democratized weights, permissionless innovation, public inspection) ↔ Guarded Moats / Frontier Containment (Closed APIs, non-proliferation, centralized safety oversight)
 - **Question:** Should AI weights be open or guarded?
 - **Optimal Widget:** Dipole slider.
@@ -162,7 +157,7 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 | Poles | Count | Topics |
 |-------|-------|--------|
 | 1-pole (monopole) | 0 | — |
-| 2-pole (dipole) | 17 | 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 6.1, 6.3 |
+| 2-pole (dipole) | 16 | 1.2, 1.3, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 6.1, 6.3 |
 | 3-pole (triad) | 3 | 3.3, 4.1, 6.2 |
 | 4-pole (tetrad) | 0 | — |
 | 5-pole (pentad) | 1 | 1.1 |
@@ -170,7 +165,7 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 | 7-pole (heptad) | 0 | — |
 | 8-pole (octad) | 0 | — |
 
-**Total: 6 categories, 21 topics.**
+**Total: 6 categories, 20 topics.**
 
 ## 4. Higher-Pole Candidates (not yet specified)
 

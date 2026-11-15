@@ -34,11 +34,6 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Ongoing dynamics",
-                "id": "t0008",
-                "risk": false
-            },
-            {
                 "name": "BDSM archetypes",
                 "id": "t0423",
                 "risk": false,
@@ -52,16 +47,6 @@ export const TAXONOMY_CATEGORIES = [
                 "kinksters": 408109,
                 "receive_label": "obey",
                 "type": "give_receive"
-            },
-            {
-                "name": "24/7",
-                "id": "t0013",
-                "risk": false,
-                "kinksters": 244418,
-                "type": "give_receive",
-                "give_label": "dominate",
-                "receive_label": "submit",
-                "note": "24/7 power-exchange lifestyle; parallel to D/s labels"
             },
             {
                 "name": "Sensation / power / intimacy",
@@ -1853,26 +1838,6 @@ export const TAXONOMY_CATEGORIES = [
                 "name": "Head hair",
                 "topics": [
                     {
-                        "name": "Hair",
-                        "id": "t0203",
-                        "risk": false,
-                        "rank": 285,
-                        "kinksters": 29030,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Long Hair",
-                        "id": "t0204",
-                        "risk": false,
-                        "rank": 152,
-                        "kinksters": 112512,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
                         "name": "Pigtails",
                         "id": "t0205",
                         "risk": false,
@@ -1907,46 +1872,6 @@ export const TAXONOMY_CATEGORIES = [
                 "id": "s0028",
                 "name": "Facial & body hair",
                 "topics": [
-                    {
-                        "name": "Facial Hair",
-                        "id": "t0208",
-                        "risk": false,
-                        "rank": 227,
-                        "kinksters": 58112,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Beards",
-                        "id": "t0209",
-                        "risk": false,
-                        "rank": 192,
-                        "kinksters": 78814,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Body Hair",
-                        "id": "t0210",
-                        "risk": false,
-                        "rank": 235,
-                        "kinksters": 51736,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Pubic Hair",
-                        "id": "t0211",
-                        "risk": false,
-                        "rank": 193,
-                        "kinksters": 77191,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
                     {
                         "name": "Depilation",
                         "id": "t0212",
@@ -2108,16 +2033,6 @@ export const TAXONOMY_CATEGORIES = [
                         "type": "single",
                         "give_label": null,
                         "receive_label": null
-                    },
-                    {
-                        "name": "Muscles",
-                        "id": "t0231",
-                        "risk": false,
-                        "rank": 188,
-                        "kinksters": 80341,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
                     },
                     {
                         "name": "Older Men",
@@ -2676,16 +2591,6 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false,
                 "kinksters": 375233,
                 "type": "single"
-            },
-            {
-                "name": "Hotwife",
-                "id": "t0288",
-                "risk": false,
-                "kinksters": 256605,
-                "type": "give_receive",
-                "give_label": "be the hotwife",
-                "receive_label": "watch",
-                "note": "cross-set duplicate; covered by app 'Cuckold / hotwife'"
             },
             {
                 "name": "Cuckold Humiliation",
@@ -3604,11 +3509,6 @@ export const TAXONOMY_CATEGORIES = [
         "id": "c0017",
         "name": "Fantasy & transformation",
         "topics": [
-            {
-                "name": "Romantic surrender",
-                "id": "t0375",
-                "risk": false
-            },
             {
                 "name": "Seduction scenarios",
                 "id": "t0376",

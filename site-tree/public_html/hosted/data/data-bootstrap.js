@@ -339,11 +339,6 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Ongoing dynamics",
-                "id": "t0008",
-                "risk": false
-            },
-            {
                 "name": "BDSM archetypes",
                 "id": "t0423",
                 "risk": false,
@@ -357,16 +352,6 @@ const TAXONOMY_CATEGORIES = [
                 "kinksters": 408109,
                 "receive_label": "obey",
                 "type": "give_receive"
-            },
-            {
-                "name": "24/7",
-                "id": "t0013",
-                "risk": false,
-                "kinksters": 244418,
-                "type": "give_receive",
-                "give_label": "dominate",
-                "receive_label": "submit",
-                "note": "24/7 power-exchange lifestyle; parallel to D/s labels"
             },
             {
                 "name": "Sensation / power / intimacy",
@@ -2158,26 +2143,6 @@ const TAXONOMY_CATEGORIES = [
                 "name": "Head hair",
                 "topics": [
                     {
-                        "name": "Hair",
-                        "id": "t0203",
-                        "risk": false,
-                        "rank": 285,
-                        "kinksters": 29030,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Long Hair",
-                        "id": "t0204",
-                        "risk": false,
-                        "rank": 152,
-                        "kinksters": 112512,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
                         "name": "Pigtails",
                         "id": "t0205",
                         "risk": false,
@@ -2212,46 +2177,6 @@ const TAXONOMY_CATEGORIES = [
                 "id": "s0028",
                 "name": "Facial & body hair",
                 "topics": [
-                    {
-                        "name": "Facial Hair",
-                        "id": "t0208",
-                        "risk": false,
-                        "rank": 227,
-                        "kinksters": 58112,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Beards",
-                        "id": "t0209",
-                        "risk": false,
-                        "rank": 192,
-                        "kinksters": 78814,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Body Hair",
-                        "id": "t0210",
-                        "risk": false,
-                        "rank": 235,
-                        "kinksters": 51736,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
-                    {
-                        "name": "Pubic Hair",
-                        "id": "t0211",
-                        "risk": false,
-                        "rank": 193,
-                        "kinksters": 77191,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
-                    },
                     {
                         "name": "Depilation",
                         "id": "t0212",
@@ -2413,16 +2338,6 @@ const TAXONOMY_CATEGORIES = [
                         "type": "single",
                         "give_label": null,
                         "receive_label": null
-                    },
-                    {
-                        "name": "Muscles",
-                        "id": "t0231",
-                        "risk": false,
-                        "rank": 188,
-                        "kinksters": 80341,
-                        "type": "give_receive",
-                        "give_label": "have",
-                        "receive_label": "admire"
                     },
                     {
                         "name": "Older Men",
@@ -2981,16 +2896,6 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false,
                 "kinksters": 375233,
                 "type": "single"
-            },
-            {
-                "name": "Hotwife",
-                "id": "t0288",
-                "risk": false,
-                "kinksters": 256605,
-                "type": "give_receive",
-                "give_label": "be the hotwife",
-                "receive_label": "watch",
-                "note": "cross-set duplicate; covered by app 'Cuckold / hotwife'"
             },
             {
                 "name": "Cuckold Humiliation",
@@ -3909,11 +3814,6 @@ const TAXONOMY_CATEGORIES = [
         "id": "c0017",
         "name": "Fantasy & transformation",
         "topics": [
-            {
-                "name": "Romantic surrender",
-                "id": "t0375",
-                "risk": false
-            },
             {
                 "name": "Seduction scenarios",
                 "id": "t0376",
@@ -9062,11 +8962,14 @@ const TAXONOMY_CATEGORIES = [
         };
         const SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
+            "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
+            "Hotwife": "t0288",
             "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
             "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
             "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
             "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
-            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222"
+            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222",
+            "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
         };
         function Wn(e) {
             if (e && "object" == typeof e && e.id) return e.id;
@@ -18272,11 +18175,14 @@ const TAXONOMY_CATEGORIES = [
 
         const SX_SUBSUMED_BASE_TOPIC_IDS = {
             "FemDom": "t0009", "D/s": "t0010", "Brats": "t0012", "Switching": "t0014", "Male Authority": "t0015",
+            "Ongoing dynamics": "t0008", "24/7": "t0013", "Romantic surrender": "t0375",
+            "Hotwife": "t0288",
             "Rope bondage": "t0022", "Cuffs": "t0025", "Bondage tape": "t0029", "Mummification": "t0032", "Tape": "t0033",
             "Blindfold": "t0034", "Caging": "t0037", "Encasement": "t0038", "Sleepsacks": "t0039", "Immobilization": "t0040",
             "Suspension Bondage": "t0043", "Bondage art": "t0050", "Texture contrast": "t0102", "Sensory deprivation": "t0103",
             "Sensory overload": "t0104", "ASMR & whispering": "t0105", "Scent": "t0109", "Hands": "t0201",
-            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222"
+            "Hands & gloves": "t0202", "Feet": "t0213", "Buttocks": "t0218", "Breasts": "t0220", "Pregnancy focus": "t0222",
+            "Hair": "t0203", "Long Hair": "t0204", "Facial Hair": "t0208", "Beards": "t0209", "Body Hair": "t0210", "Pubic Hair": "t0211", "Muscles": "t0231"
         };
         function Wn(e) {
             if (e && "object" == typeof e && e.id) return e.id;
@@ -44866,12 +44772,18 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     id = "t0415"; // Remap obsolete triad to 4-pole intimacy geometry
                 } else if (id === "t0411" || id === "topic-edging-ruined-forced") {
                     id = "t0414"; // Remap obsolete triad to 4-pole orgasm dynamic
+                } else if (id === "t0009" || id === "t0010" || id === "t0012" || id === "t0014" || id === "t0015" || id === "topic-d-s" || id === "topic-femdom") {
+                    id = "t0423"; // Subsumed base BDSM roles/authority remapped to 7-pole BDSM archetypes heptad
+                } else if (id === "t0008" || id === "t0013" || id === "t0375" || id === "topic-ongoing-dynamics" || id === "topic-24-7" || id === "topic-romantic-surrender") {
+                    id = "t0425"; // Subsumed relational dynamics remapped to 7-pole Sternberg relational heptad
+                } else if (id === "t0288" || id === "topic-hotwife") {
+                    id = "t0281"; // Duplicate Hotwife 2P remapped to 3-pole Bull / Hotwife / Cuckold triad
                 } else if (id === "t0033" || id === "topic-tape") {
-                    id = "t0426"; // Obsolete generic Tape / silicone bondage tape subsumed into Restraint & containment octad (t0426 Pole 4: Tape)
+                    id = "t0426"; // Obsolete generic Tape / silicone bondage tape subsumed into Restraint & containment octad (t0426 Pole 3: Tape)
                 } else if (id === "t0022" || id === "t0025" || id === "t0029" || id === "t0032" || id === "t0034" || id === "t0037" || id === "t0038" || id === "t0039" || id === "t0040" || id === "t0043" || id === "t0050") {
                     id = "t0426"; // Subsumed base 1/2-pole restraint topics remapped to 8-pole containment octad
-                } else if (id === "t0201" || id === "t0202" || id === "t0213" || id === "t0220" || id === "t0222") {
-                    id = "t0427"; // Retired base 1/2-pole anatomical topics (Hands, Feet, Breasts, Pregnancy) remapped to 8-pole somatic octad. Live topics (Hair, Long Hair, Facial Hair, Beards, Body Hair, Pubic Hair, Muscles) stay distinct.
+                } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
+                    id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
                 if (!Ke.has(id) && !isSubId(id)) return;
                 const topicName = getTopicName(id);
@@ -44900,12 +44812,54 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     });
                     // Backwards compatibility migration for legacy dual {give, receive} rated on newly triadic topics
                     if (!Object.keys(incoming).length && (Object.prototype.hasOwnProperty.call(rating, "give") || Object.prototype.hasOwnProperty.call(rating, "receive"))) {
-                        if (id === "t0281" || id === "t0288" || id === "topic-cuckold-hotwife" || id === "topic-hotwife" || id === "topic-bull-hotwife-cuckold") {
+                        const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;
+                        const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : 0;
+                        const maxVal = Math.max(gVal, rVal);
+
+                        // Specific pole targeted migration for subsumed topics
+                        if (id === "t0427") {
+                            if (origId === "t0203" || origId === "t0204") incoming.hair = maxVal;
+                            else if (origId === "t0208" || origId === "t0209" || origId === "t0210" || origId === "t0211") incoming.bodyhair = maxVal;
+                            else if (origId === "t0231") incoming.muscles = maxVal;
+                            else if (origId === "t0213") incoming.feet = maxVal;
+                            else if (origId === "t0201" || origId === "t0202") incoming.hands = maxVal;
+                            else if (origId === "t0220") incoming.breasts = maxVal;
+                            else if (origId === "t0218") incoming.glutes = maxVal;
+                            else if (origId === "t0222") incoming.pregnancy = maxVal;
+                        } else if (id === "t0426") {
+                            if (origId === "t0022") incoming.rope = maxVal;
+                            else if (origId === "t0050") incoming.shibari = maxVal;
+                            else if (origId === "t0025") incoming.cuffs = maxVal;
+                            else if (origId === "t0029" || origId === "t0033") incoming.tape = maxVal;
+                            else if (origId === "t0032" || origId === "t0039") incoming.mummification = maxVal;
+                            else if (origId === "t0034") incoming.blindfold = maxVal;
+                            else if (origId === "t0037" || origId === "t0038" || origId === "t0040") incoming.caging = maxVal;
+                            else if (origId === "t0043") incoming.suspension = maxVal;
+                        } else if (id === "t0425") {
+                            if (origId === "t0008") incoming.companionate = maxVal;
+                            else if (origId === "t0013") incoming.consummate = maxVal;
+                            else if (origId === "t0375") incoming.romantic = maxVal;
+                        } else if (id === "t0423") {
+                            if (origId === "t0009") incoming.sovereign = maxVal;
+                            else if (origId === "t0010") { incoming.sovereign = gVal; incoming.slave = rVal; }
+                            else if (origId === "t0012") incoming.brat = maxVal;
+                            else if (origId === "t0014") incoming.switch = maxVal;
+                            else if (origId === "t0015") incoming.sovereign = maxVal;
+                        }
+                        // Preserve already populated poles if merging into existing multi-pole rating
+                        const curRating = vt[c][id];
+                        if (curRating && typeof curRating === "object") {
+                            Object.keys(curRating).forEach(k => {
+                                if (incoming[k] === undefined && Number.isFinite(Number(curRating[k]))) incoming[k] = curRating[k];
+                            });
+                        }
+
+                        if (Object.keys(incoming).length) {
+                            // Targeted pole mapped successfully
+                        } else if (id === "t0281" || id === "t0288" || id === "topic-cuckold-hotwife" || id === "topic-hotwife" || id === "topic-bull-hotwife-cuckold") {
                             // t0281 legacy: give = outside-partner sex (hotwife / bull), receive = knowledge/view (cuckold)
                             const isFemale = rt[c] && (rt[c].includes("female") || rt[c].includes("woman") || rt[c].includes("f"));
-                            const gVal = Object.prototype.hasOwnProperty.call(rating, "give") && Number.isFinite(Number(rating.give)) ? clamp(rating.give) : 0;
-                            const rVal = Object.prototype.hasOwnProperty.call(rating, "receive") && Number.isFinite(Number(rating.receive)) ? clamp(rating.receive) : 0;
-                            if (id === "t0288" || id === "topic-hotwife") {
+                            if (id === "t0288" || id === "topic-hotwife" || origId === "t0288") {
                                 incoming.hotwife = Math.max(gVal, rVal);
                                 incoming.bull = 0;
                                 incoming.cuckold = 0;
