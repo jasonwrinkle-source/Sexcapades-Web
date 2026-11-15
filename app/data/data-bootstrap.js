@@ -5879,17 +5879,24 @@ const TAXONOMY_CATEGORIES = [
             }
             /**
              * Flank width at a fractional position along the spoke.
-             * Bulbous shoulder: width emerges perpendicular/convex at the base
-             * (fat bulb) and smoothly decays to the slender tip width without overcrowding
-             * surrounding icons and spokes in the fan.
+             * Along the node name (fraction <= nameFrac): maintains bulbous shoulder width.
+             * After the node name (fraction > nameFrac): tapers exponentially toward the tip
+             * width according to the prior exponential falloff.
              * @param {number} u - Fraction along the spoke: 0 at base, 1 at tip (unitless).
              * @param {number} baseWidth - Full width at the base, map units.
              * @param {number} tipWidth - Full width approached at the tip, map units.
+             * @param {number} [nameFrac=0.35] - Fraction of spoke length covered by the node name.
              * @returns {number} Full width at u, map units.
              */
-            function flareAt(u, baseWidth, tipWidth) {
-                const shape = Math.exp(-Math.pow(u / 0.72, 2));
-                return tipWidth + (baseWidth - tipWidth) * shape;
+            function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
+                const uName = Math.max(0.15, Math.min(0.65, Number(nameFrac) || 0.35));
+                if (u <= uName) {
+                    const shape = Math.exp(-Math.pow(u / 0.72, 2));
+                    return tipWidth + (baseWidth - tipWidth) * shape;
+                }
+                const wAtName = tipWidth + (baseWidth - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
+                const uPost = (u - uName) / (1 - uName);
+                return tipWidth + (wAtName - tipWidth) * Math.exp(-2.4 * uPost);
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -6060,53 +6067,97 @@ const TAXONOMY_CATEGORIES = [
              * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon). Null/invalid = flat tip crossing.
              * @returns {{top: string, bottom: string}} SVG path data for the two flanks: "top" is the (nx, ny)-negative side, "bottom" the positive side.
              */
-            function flankPaths(baseX, baseY, dx, dy, nx, ny, baseWidth, tipWidth, innerHalf, stripeHalf, mode, baseCircle = null, tipCircle = null) {
-                const p = SAMPLES, h = [], g = [], m = [], f = [];
+            /**
+             * Build the split give/receive flank bands for one spoke, as SVG
+             * path data. Each flank is one side of the spoke: an OUTER edge
+             * that maintains a bulbous base along the node name, then tapers exponentially
+             * toward the tip width; and an INNER edge that follows the new Gaussian curve
+             * on the interior to the spoke, smoothly opening around the text at the base.
+             *
+             * @param {number} baseX - Base point x, map units.
+             * @param {number} baseY - Base point y, map units.
+             * @param {number} dx - Base->tip delta x, map units. Tip point = (baseX + dx, baseY + dy).
+             * @param {number} dy - Base->tip delta y, map units.
+             * @param {number} nx - Unit normal x, unitless. Corners are offset along (nx, ny).
+             * @param {number} ny - Unit normal y, unitless.
+             * @param {number} baseWidth - Base width, map units: the flare's starting full width.
+             * @param {number} tipWidth - Tip width, map units: the flare's limiting full width.
+             * @param {number} innerHalf - Inner half-width, map units: baseline offset of flank's inner edge from centerline.
+             * @param {number} stripeHalf - Center stripe half-width, map units.
+             * @param {string} mode - Mode: "innerFirst" (branch spokes) or "outerFirst" (kink spokes).
+             * @param {{x:number, y:number, r:number}} [baseCircle=null] - Base circle (parent disc), from buildBaseCircle.
+             * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon).
+             * @param {number} [nameLength=0] - Estimated rendered width of the node name along the spoke.
+             * @returns {{top: string, bottom: string}} SVG path data for the two flanks.
+             */
+            function flankPaths(baseX, baseY, dx, dy, nx, ny, baseWidth, tipWidth, innerHalf, stripeHalf, mode, baseCircle = null, tipCircle = null, nameLength = 0) {
+                const p = SAMPLES;
+                const spokeLen = Math.hypot(dx, dy) || 1;
+                const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
+                const innerFlare = 3.5;
+                const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
-                    const frac = si / p, y = Math.max(innerHalf, stripeHalf + flareAt(frac, baseWidth, tipWidth) / 2), b = baseX + dx * frac, v = baseY + dy * frac;
-                    h.push(`${(b - nx * y).toFixed(2)} ${(v - ny * y).toFixed(2)}`), g.push(`${(b - nx * innerHalf).toFixed(2)} ${(v - ny * innerHalf).toFixed(2)}`),
-                    m.push(`${(b + nx * y).toFixed(2)} ${(v + ny * y).toFixed(2)}`), f.push(`${(b + nx * innerHalf).toFixed(2)} ${(v + ny * innerHalf).toFixed(2)}`);
+                    const frac = si / p;
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
+                    const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
+                    const b = baseX + dx * frac, v = baseY + dy * frac;
+                    h.push(`${(b - nx * y).toFixed(2)} ${(v - ny * y).toFixed(2)}`);
+                    g.push(`${(b - nx * curInner).toFixed(2)} ${(v - ny * curInner).toFixed(2)}`);
+                    m.push(`${(b + nx * y).toFixed(2)} ${(v + ny * y).toFixed(2)}`);
+                    f.push(`${(b + nx * curInner).toFixed(2)} ${(v + ny * curInner).toFixed(2)}`);
                 }
-                // Build 2026-10-18_0343: spoke bases hug the parent disc. The
-                // base-arc helper below only capped the base edge between the
-                // corners' projections — the flank corners themselves stayed
-                // outside the disc, joined by radial stubs that poked past
-                // the circle. Now the four base corner points are projected
-                // onto the base circle first, so the flanks themselves start
-                // on the disc edge and the base follows the circle exactly.
-                // A base circle is ignored when the segment starts deep
-                // inside it (center-drawn segments keep the old flat base).
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
+                const curInner0 = innerHalf + innerFlare;
+                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.72, 2));
+                const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
+                const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {
                     const pj = (e2, t2) => {
                         const n2 = e2 - baseCircle.x, i2 = t2 - baseCircle.y, a2 = Math.hypot(n2, i2) || 1;
                         return `${(baseCircle.x + baseCircle.r * n2 / a2).toFixed(2)} ${(baseCircle.y + baseCircle.r * i2 / a2).toFixed(2)}`;
-                    }, y0 = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2);
-                    h[0] = pj(baseX - nx * y0, baseY - ny * y0), g[0] = pj(baseX - nx * innerHalf, baseY - ny * innerHalf), m[0] = pj(baseX + nx * y0, baseY + ny * y0), f[0] = pj(baseX + nx * innerHalf, baseY + ny * innerHalf);
+                    };
+                    h[0] = pj(baseX - nx * y0, baseY - ny * y0);
+                    g[0] = pj(baseX - nx * curInner0, baseY - ny * curInner0);
+                    m[0] = pj(baseX + nx * y0, baseY + ny * y0);
+                    f[0] = pj(baseX + nx * curInner0, baseY + ny * curInner0);
                 }
-                const y = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2), b = (side, startOff, endOff) => {
+                const b = (side, startOff, endOff) => {
                     if (!baseCircle || !(baseCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
-                    const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y}, end = {x: baseX + side * nx * endOff - baseCircle.x, y: baseY + side * ny * endOff - baseCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = baseCircle.x + baseCircle.r * start.x / sm, sy = baseCircle.y + baseCircle.r * start.y / sm, ex = baseCircle.x + baseCircle.r * end.x / em, ey = baseCircle.y + baseCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y};
+                    const end = {x: baseX + side * nx * endOff - baseCircle.x, y: baseY + side * ny * endOff - baseCircle.y};
+                    const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
+                    const sx = baseCircle.x + baseCircle.r * start.x / sm, sy = baseCircle.y + baseCircle.r * start.y / sm;
+                    const ex = baseCircle.x + baseCircle.r * end.x / em, ey = baseCircle.y + baseCircle.r * end.y / em;
+                    const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
                     return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${baseCircle.r.toFixed(2)} ${baseCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
-                const yE = Math.max(innerHalf, stripeHalf + flareAt(1, baseWidth, tipWidth) / 2), bE = (side, startOff, endOff) => {
+                const bE = (side, startOff, endOff) => {
                     if (!tipCircle || !(tipCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
-                    const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y}, end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm, ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y};
+                    const end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y};
+                    const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
+                    const sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm;
+                    const ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em;
+                    const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
                     return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
                 if ("innerFirst" === mode) return {
-                    top: `M ${g.join(" L ")}${bE(-1, innerHalf, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y, innerHalf)} Z`,
-                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${f.slice().reverse().join(" L ")}${b(1, innerHalf, y)} Z`
+                    top: `M ${g.join(" L ")}${bE(-1, curInner1, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y0, curInner0)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${f.slice().reverse().join(" L ")}${b(1, curInner0, y0)} Z`
                 };
                 const v = [], w = [];
                 for (let si = p; si >= 0; si--) {
-                    const px = baseX + dx * (si / p), py = baseY + dy * (si / p);
-                    v.push(`${(px - nx * innerHalf).toFixed(2)} ${(py - ny * innerHalf).toFixed(2)}`), w.push(`${(px + nx * innerHalf).toFixed(2)} ${(py + ny * innerHalf).toFixed(2)}`);
+                    const frac = si / p;
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const px = baseX + dx * frac, py = baseY + dy * frac;
+                    v.push(`${(px - nx * curInner).toFixed(2)} ${(py - ny * curInner).toFixed(2)}`);
+                    w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && (v[v.length - 1] = g[0], w[w.length - 1] = f[0]);
                 return {
-                    top: `M ${h.join(" L ")}${bE(-1, yE, innerHalf)} L ${v.join(" L ")}${b(-1, innerHalf, y)} Z`,
-                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${w.join(" L ")}${b(1, innerHalf, y)} Z`
+                    top: `M ${h.join(" L ")}${bE(-1, yE, curInner1)} L ${v.join(" L ")}${b(-1, curInner0, y0)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${w.join(" L ")}${b(1, curInner0, y0)} Z`
                 };
             }
             /**
@@ -6350,7 +6401,10 @@ const TAXONOMY_CATEGORIES = [
             const midColor = isTripleTopic && middleKnown ? zi(middleVal) : (b || p || Ga.FALLBACK_COLOR);
             let W = "";
             if (w) if (w && f && y) {
-                const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle), d = midColor, u = Ga.midlineOutlinePath(t, n, v, sxD);
+                const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), d = midColor, u = Ga.midlineOutlinePath(t, n, v, sxD);
+                const fs = typeof sxFontSize === "function" ? sxFontSize(sxD) : 14;
+                const nameW = typeof Za !== "undefined" && Za.measure ? Za.measure(I.label || "", fs, "topic") : ((I.label || "").length * 7);
+                const r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle, nameW);
                 W = `<path class="tapered-stem${B}" d="${r.top}" fill="${f}" stroke="none" style="fill:${f}"${N}/><path class="tapered-stem${B}" d="${r.bottom}" fill="${y}" stroke="none" style="fill:${y}"${_}/>` + (v ? `<path class="hanky-midline hanky-none" d="${t}" fill="none" stroke="${Ga.FALLBACK_COLOR}" stroke-width="${i}" stroke-linecap="butt"${Ga.dashAttr(i)} opacity="0.85"${F}/>` : u + `<path class="hanky-midline" d="${t}" fill="none" stroke="${d}" stroke-width="${i}" stroke-linecap="butt" opacity="0.9"${F}/>`);
             } else {
                 const taperedD = SpokeGeometry.taperedPath(t, q, H, tipCircle, bc), i = sxSW, a = isTripleTopic && middleKnown ? zi(middleVal) : (v ? Ga.FALLBACK_COLOR : b || p || Ga.FALLBACK_COLOR), r = v ? Ga.dashAttr(i) : "";
@@ -19326,17 +19380,24 @@ const TAXONOMY_CATEGORIES = [
             }
             /**
              * Flank width at a fractional position along the spoke.
-             * Bulbous shoulder: width emerges perpendicular/convex at the base
-             * (fat bulb) and smoothly decays to the slender tip width without overcrowding
-             * surrounding icons and spokes in the fan.
+             * Along the node name (fraction <= nameFrac): maintains bulbous shoulder width.
+             * After the node name (fraction > nameFrac): tapers exponentially toward the tip
+             * width according to the prior exponential falloff.
              * @param {number} u - Fraction along the spoke: 0 at base, 1 at tip (unitless).
              * @param {number} baseWidth - Full width at the base, map units.
              * @param {number} tipWidth - Full width approached at the tip, map units.
+             * @param {number} [nameFrac=0.35] - Fraction of spoke length covered by the node name.
              * @returns {number} Full width at u, map units.
              */
-            function flareAt(u, baseWidth, tipWidth) {
-                const shape = Math.exp(-Math.pow(u / 0.72, 2));
-                return tipWidth + (baseWidth - tipWidth) * shape;
+            function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
+                const uName = Math.max(0.15, Math.min(0.65, Number(nameFrac) || 0.35));
+                if (u <= uName) {
+                    const shape = Math.exp(-Math.pow(u / 0.72, 2));
+                    return tipWidth + (baseWidth - tipWidth) * shape;
+                }
+                const wAtName = tipWidth + (baseWidth - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
+                const uPost = (u - uName) / (1 - uName);
+                return tipWidth + (wAtName - tipWidth) * Math.exp(-2.4 * uPost);
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -19507,53 +19568,97 @@ const TAXONOMY_CATEGORIES = [
              * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon). Null/invalid = flat tip crossing.
              * @returns {{top: string, bottom: string}} SVG path data for the two flanks: "top" is the (nx, ny)-negative side, "bottom" the positive side.
              */
-            function flankPaths(baseX, baseY, dx, dy, nx, ny, baseWidth, tipWidth, innerHalf, stripeHalf, mode, baseCircle = null, tipCircle = null) {
-                const p = SAMPLES, h = [], g = [], m = [], f = [];
+            /**
+             * Build the split give/receive flank bands for one spoke, as SVG
+             * path data. Each flank is one side of the spoke: an OUTER edge
+             * that maintains a bulbous base along the node name, then tapers exponentially
+             * toward the tip width; and an INNER edge that follows the new Gaussian curve
+             * on the interior to the spoke, smoothly opening around the text at the base.
+             *
+             * @param {number} baseX - Base point x, map units.
+             * @param {number} baseY - Base point y, map units.
+             * @param {number} dx - Base->tip delta x, map units. Tip point = (baseX + dx, baseY + dy).
+             * @param {number} dy - Base->tip delta y, map units.
+             * @param {number} nx - Unit normal x, unitless. Corners are offset along (nx, ny).
+             * @param {number} ny - Unit normal y, unitless.
+             * @param {number} baseWidth - Base width, map units: the flare's starting full width.
+             * @param {number} tipWidth - Tip width, map units: the flare's limiting full width.
+             * @param {number} innerHalf - Inner half-width, map units: baseline offset of flank's inner edge from centerline.
+             * @param {number} stripeHalf - Center stripe half-width, map units.
+             * @param {string} mode - Mode: "innerFirst" (branch spokes) or "outerFirst" (kink spokes).
+             * @param {{x:number, y:number, r:number}} [baseCircle=null] - Base circle (parent disc), from buildBaseCircle.
+             * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon).
+             * @param {number} [nameLength=0] - Estimated rendered width of the node name along the spoke.
+             * @returns {{top: string, bottom: string}} SVG path data for the two flanks.
+             */
+            function flankPaths(baseX, baseY, dx, dy, nx, ny, baseWidth, tipWidth, innerHalf, stripeHalf, mode, baseCircle = null, tipCircle = null, nameLength = 0) {
+                const p = SAMPLES;
+                const spokeLen = Math.hypot(dx, dy) || 1;
+                const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
+                const innerFlare = 3.5;
+                const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
-                    const frac = si / p, y = Math.max(innerHalf, stripeHalf + flareAt(frac, baseWidth, tipWidth) / 2), b = baseX + dx * frac, v = baseY + dy * frac;
-                    h.push(`${(b - nx * y).toFixed(2)} ${(v - ny * y).toFixed(2)}`), g.push(`${(b - nx * innerHalf).toFixed(2)} ${(v - ny * innerHalf).toFixed(2)}`),
-                    m.push(`${(b + nx * y).toFixed(2)} ${(v + ny * y).toFixed(2)}`), f.push(`${(b + nx * innerHalf).toFixed(2)} ${(v + ny * innerHalf).toFixed(2)}`);
+                    const frac = si / p;
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
+                    const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
+                    const b = baseX + dx * frac, v = baseY + dy * frac;
+                    h.push(`${(b - nx * y).toFixed(2)} ${(v - ny * y).toFixed(2)}`);
+                    g.push(`${(b - nx * curInner).toFixed(2)} ${(v - ny * curInner).toFixed(2)}`);
+                    m.push(`${(b + nx * y).toFixed(2)} ${(v + ny * y).toFixed(2)}`);
+                    f.push(`${(b + nx * curInner).toFixed(2)} ${(v + ny * curInner).toFixed(2)}`);
                 }
-                // Build 2026-10-18_0343: spoke bases hug the parent disc. The
-                // base-arc helper below only capped the base edge between the
-                // corners' projections — the flank corners themselves stayed
-                // outside the disc, joined by radial stubs that poked past
-                // the circle. Now the four base corner points are projected
-                // onto the base circle first, so the flanks themselves start
-                // on the disc edge and the base follows the circle exactly.
-                // A base circle is ignored when the segment starts deep
-                // inside it (center-drawn segments keep the old flat base).
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
+                const curInner0 = innerHalf + innerFlare;
+                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.72, 2));
+                const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
+                const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {
                     const pj = (e2, t2) => {
                         const n2 = e2 - baseCircle.x, i2 = t2 - baseCircle.y, a2 = Math.hypot(n2, i2) || 1;
                         return `${(baseCircle.x + baseCircle.r * n2 / a2).toFixed(2)} ${(baseCircle.y + baseCircle.r * i2 / a2).toFixed(2)}`;
-                    }, y0 = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2);
-                    h[0] = pj(baseX - nx * y0, baseY - ny * y0), g[0] = pj(baseX - nx * innerHalf, baseY - ny * innerHalf), m[0] = pj(baseX + nx * y0, baseY + ny * y0), f[0] = pj(baseX + nx * innerHalf, baseY + ny * innerHalf);
+                    };
+                    h[0] = pj(baseX - nx * y0, baseY - ny * y0);
+                    g[0] = pj(baseX - nx * curInner0, baseY - ny * curInner0);
+                    m[0] = pj(baseX + nx * y0, baseY + ny * y0);
+                    f[0] = pj(baseX + nx * curInner0, baseY + ny * curInner0);
                 }
-                const y = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2), b = (side, startOff, endOff) => {
+                const b = (side, startOff, endOff) => {
                     if (!baseCircle || !(baseCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
-                    const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y}, end = {x: baseX + side * nx * endOff - baseCircle.x, y: baseY + side * ny * endOff - baseCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = baseCircle.x + baseCircle.r * start.x / sm, sy = baseCircle.y + baseCircle.r * start.y / sm, ex = baseCircle.x + baseCircle.r * end.x / em, ey = baseCircle.y + baseCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y};
+                    const end = {x: baseX + side * nx * endOff - baseCircle.x, y: baseY + side * ny * endOff - baseCircle.y};
+                    const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
+                    const sx = baseCircle.x + baseCircle.r * start.x / sm, sy = baseCircle.y + baseCircle.r * start.y / sm;
+                    const ex = baseCircle.x + baseCircle.r * end.x / em, ey = baseCircle.y + baseCircle.r * end.y / em;
+                    const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
                     return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${baseCircle.r.toFixed(2)} ${baseCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
-                const yE = Math.max(innerHalf, stripeHalf + flareAt(1, baseWidth, tipWidth) / 2), bE = (side, startOff, endOff) => {
+                const bE = (side, startOff, endOff) => {
                     if (!tipCircle || !(tipCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
-                    const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y}, end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm, ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y};
+                    const end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y};
+                    const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
+                    const sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm;
+                    const ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em;
+                    const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
                     return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
                 if ("innerFirst" === mode) return {
-                    top: `M ${g.join(" L ")}${bE(-1, innerHalf, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y, innerHalf)} Z`,
-                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${f.slice().reverse().join(" L ")}${b(1, innerHalf, y)} Z`
+                    top: `M ${g.join(" L ")}${bE(-1, curInner1, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y0, curInner0)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${f.slice().reverse().join(" L ")}${b(1, curInner0, y0)} Z`
                 };
                 const v = [], w = [];
                 for (let si = p; si >= 0; si--) {
-                    const px = baseX + dx * (si / p), py = baseY + dy * (si / p);
-                    v.push(`${(px - nx * innerHalf).toFixed(2)} ${(py - ny * innerHalf).toFixed(2)}`), w.push(`${(px + nx * innerHalf).toFixed(2)} ${(py + ny * innerHalf).toFixed(2)}`);
+                    const frac = si / p;
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const px = baseX + dx * frac, py = baseY + dy * frac;
+                    v.push(`${(px - nx * curInner).toFixed(2)} ${(py - ny * curInner).toFixed(2)}`);
+                    w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && (v[v.length - 1] = g[0], w[w.length - 1] = f[0]);
                 return {
-                    top: `M ${h.join(" L ")}${bE(-1, yE, innerHalf)} L ${v.join(" L ")}${b(-1, innerHalf, y)} Z`,
-                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${w.join(" L ")}${b(1, innerHalf, y)} Z`
+                    top: `M ${h.join(" L ")}${bE(-1, yE, curInner1)} L ${v.join(" L ")}${b(-1, curInner0, y0)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${w.join(" L ")}${b(1, curInner0, y0)} Z`
                 };
             }
             /**
@@ -19801,7 +19906,10 @@ const TAXONOMY_CATEGORIES = [
             const midColor = isTripleTopic && middleKnown ? zi(middleVal) : (b || p || Ga.FALLBACK_COLOR);
             let W = "";
             if (w) if (w && f && y) {
-                const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle), d = midColor, u = Ga.midlineOutlinePath(t, n, v, sxD);
+                const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), d = midColor, u = Ga.midlineOutlinePath(t, n, v, sxD);
+                const fs = typeof sxFontSize === "function" ? sxFontSize(sxD) : 14;
+                const nameW = typeof Za !== "undefined" && Za.measure ? Za.measure(I.label || "", fs, "topic") : ((I.label || "").length * 7);
+                const r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle, nameW);
                 W = `<path class="tapered-stem${B}" d="${r.top}" fill="${f}" stroke="none" style="fill:${f}"${N}/><path class="tapered-stem${B}" d="${r.bottom}" fill="${y}" stroke="none" style="fill:${y}"${_}/>` + (v ? `<path class="hanky-midline hanky-none" d="${t}" fill="none" stroke="${Ga.FALLBACK_COLOR}" stroke-width="${i}" stroke-linecap="butt"${Ga.dashAttr(i)} opacity="0.85"${F}/>` : u + `<path class="hanky-midline" d="${t}" fill="none" stroke="${d}" stroke-width="${i}" stroke-linecap="butt" opacity="0.9"${F}/>`);
             } else {
                 const taperedD = SpokeGeometry.taperedPath(t, q, H, tipCircle, bc), i = sxSW, a = isTripleTopic && middleKnown ? zi(middleVal) : (v ? Ga.FALLBACK_COLOR : b || p || Ga.FALLBACK_COLOR), r = v ? Ga.dashAttr(i) : "";
@@ -23661,11 +23769,14 @@ const TAXONOMY_CATEGORIES = [
             }
             const S = Sa(d, v, p), $ = ka(u, w, x.giveKnown ? ba(x.give) : "Unrated", { tapFirst: !0 }), E = ka(u, k, x.receiveKnown ? ba(x.receive) : "Unrated", { tapFirst: !0 }), A = null != hubD ? hubD / 2 : h * mapFontScale() / 2 + (h === pr.subcategoryIcon ? 6 : 0), C = null != leafD ? Math.max(12 * mapFontScale(), leafD / 2) : Math.max(12, (Number(g) || 51) * mapFontScale() / 2 + ("Subcategory" === v.kind ? 6 : 0)), {sx0: M, sy0: I, sx1: P, sy1: L} = Ga.trimToIcons(e, t, n, i, A, C), T = (m ? "" : `<line class="hanky-midline-outline" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.CLOUD_OUTLINE_WIDTH(f, sxD)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`) + `<line class="hanky-midline${m ? " hanky-none" : ""}" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${y}" stroke-width="${sxSW}"${b} opacity="1" stroke-linecap="butt"${S}/>`, F = Boolean(o), N = Boolean(s);
             if (!l || !F && !N) return T;
-            const _ = F ? o : s, D = N ? s : o, R = Ga.tipWidth(f), O = Ga.cloudBaseWidth(h, c) * (mapFontScale() * sxF / 3), B = Ga.segment(M, I, P, L), j = P - M, q = L - I, H = f / 2, W = Ga.splitInnerHalf(f, sxD), U = SpokeGeometry.flankPaths(M, I, j, q, B.nx, B.ny, O, R, W, W, "outerFirst", SpokeGeometry.buildBaseCircle(e, t, A), {
+            const _ = F ? o : s, D = N ? s : o, R = Ga.tipWidth(f), O = Ga.cloudBaseWidth(h, c) * (mapFontScale() * sxF / 3), B = Ga.segment(M, I, P, L), j = P - M, q = L - I, H = f / 2, W = Ga.splitInnerHalf(f, sxD);
+            const fs = typeof sxFontSize === "function" ? sxFontSize(sxD) : 14;
+            const nameW = typeof Za !== "undefined" && Za.measure ? Za.measure(u || "", fs, "topic") : ((u || "").length * 7);
+            const U = SpokeGeometry.flankPaths(M, I, j, q, B.nx, B.ny, O, R, W, W, "outerFirst", SpokeGeometry.buildBaseCircle(e, t, A), {
                 x: n,
                 y: i,
                 r: C
-            });
+            }, nameW);
             return `<path class="tapered-stem" d="${U.top}" fill="${_}" stroke="none" opacity="0.9" style="fill:${_}"${$}/><path class="tapered-stem" d="${U.bottom}" fill="${D}" stroke="none" opacity="0.9" style="fill:${D}"${E}/>` + T;
         };
         const vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.group-heat,.selected-spoke,.mutual-halo,.disinterest-halo,.favorite-halo,.limit-halo,.visual-rail";
@@ -24876,27 +24987,13 @@ const TAXONOMY_CATEGORIES = [
                     const iconR2 = sxIconRadius(2);
                     let F, N;
                     if (L) {
-                        const minF = iconR2 + gap2 + textW2;
-                        const maxF = Math.max(iconR2 + textW2 + 4, y.routedLength - (hubR2 + 8));
-                        const rawF = y.routedLength - P;
-                        let endF;
-                        if (minF <= maxF) {
-                            endF = Math.max(minF, Math.min(rawF, maxF));
-                        } else {
-                            endF = Math.min(maxF, Math.max(iconR2 + textW2 + 4, rawF));
-                        }
-                        F = Math.min(y.routedLength - (hubR2 + 4), Math.max(iconR2 + textW2 + 4, endF));
+                        const minAllowedEnd = iconR2 + textW2 + 4;
+                        const bulbousBaseEnd = y.routedLength - (hubR2 + 6);
+                        F = Math.max(minAllowedEnd, bulbousBaseEnd);
                         N = ' text-anchor="end"';
                     } else {
-                        const minF = hubR2 + 8;
-                        const maxF = Math.max(minF, y.routedLength - (iconR2 + gap2) - textW2);
-                        let startF;
-                        if (minF <= maxF) {
-                            startF = Math.max(minF, Math.min(P, maxF));
-                        } else {
-                            startF = Math.min(minF, Math.max(hubR2 + 4, P));
-                        }
-                        F = Math.max(hubR2 + 4, Math.min(y.routedLength - (iconR2 + 4) - textW2, startF));
+                        const maxAllowedStart = Math.max(hubR2 + 2, y.routedLength - iconR2 - textW2 - 4);
+                        F = Math.max(hubR2 + 4, Math.min(hubR2 + 6, maxAllowedStart));
                         N = "";
                     }
                     const _ = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
@@ -24920,7 +25017,7 @@ const TAXONOMY_CATEGORIES = [
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = `<g class="topic-icon${o ? " subcategory-icon" : "noCode" === B.hankyKey ? " no-hanky-code-icon" : ""}${B.glyphFallback ? " glyph-fallback" : ""}"${B.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${te}" ${ee} aria-hidden="true" style="color:${B.color}" transform="translate(${(V - ne).toFixed(2)} ${(Y - ne).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${ne}" cy="${ne}" r="${ne - .5}"/><circle class="icon-disc" cx="${ne}" cy="${ne}" r="${ne - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${ne}" cy="${ne}" r="${ne - 3.5}"/><g transform="translate(${ie.toFixed(3)} ${ie.toFixed(3)}) scale(${ae.toFixed(5)})">${B.glyph}${B.accent}</g></g>`, oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = yi(y.icon.x + y.ux * (ne + 20), y.icon.y + y.uy * (ne + 20), se, r), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : midColor2, sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${Ka(r, peT, 18, a, y.nx, y.ny, l.x, l.y, V, Y, !0, pr.topicIcon, G, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
-                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${_}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${P}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${Hi(a)}</textPath></text></g>`,
+                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${_}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
                         // Per-kink length override for subcategory
@@ -24979,27 +25076,13 @@ const TAXONOMY_CATEGORIES = [
                         const iconR3 = sxIconRadius(3);
                         let m, y;
                         if (h) {
-                            const minM = iconR3 + gap3 + textW3;
-                            const maxM = Math.max(iconR3 + textW3 + 4, p.routedLength - (hubR3 + 6));
-                            const rawM = p.routedLength - p.labelOffset;
-                            let endM;
-                            if (minM <= maxM) {
-                                endM = Math.max(minM, Math.min(rawM, maxM));
-                            } else {
-                                endM = Math.min(maxM, Math.max(iconR3 + textW3 + 4, rawM));
-                            }
-                            m = Math.min(p.routedLength - (hubR3 + 4), Math.max(iconR3 + textW3 + 4, endM));
+                            const minAllowedEnd = iconR3 + textW3 + 4;
+                            const bulbousBaseEnd = p.routedLength - (hubR3 + 6);
+                            m = Math.max(minAllowedEnd, bulbousBaseEnd);
                             y = ' text-anchor="end"';
                         } else {
-                            const minM = hubR3 + 6;
-                            const maxM = Math.max(minM, p.routedLength - (iconR3 + gap3) - textW3);
-                            let startM;
-                            if (minM <= maxM) {
-                                startM = Math.max(minM, Math.min(p.labelOffset, maxM));
-                            } else {
-                                startM = Math.min(minM, Math.max(hubR3 + 4, p.labelOffset));
-                            }
-                            m = Math.max(hubR3 + 4, Math.min(p.routedLength - (iconR3 + 4) - textW3, startM));
+                            const maxAllowedStart = Math.max(hubR3 + 2, p.routedLength - iconR3 - textW3 - 4);
+                            m = Math.max(hubR3 + 4, Math.min(hubR3 + 6, maxAllowedStart));
                             y = "";
                         }
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);
@@ -25024,7 +25107,7 @@ const TAXONOMY_CATEGORIES = [
                         Dt && !B && O.push("is-dim"), Dt && n.id === Dt && O.push("is-preview");
                         const midColor3 = isTriple3 && midKnown3 ? zi(midVal3) : $.lineColor;
                         const j = !o && Boolean(si(n.id)) ? ` Tap to adopt it into ${wt[Vi()] || "the active profile"} unrated, then use the normal give and receive controls.` : "", q = `<g class="topic-icon${"noCode" === $.key ? " no-hanky-code-icon" : ""}${L.glyphFallback ? " glyph-fallback" : ""}"${L.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${T}" ${ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 })} aria-hidden="true" style="color:${L.color}" transform="translate(${(N - F).toFixed(2)} ${(_ - F).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${F}" cy="${F}" r="${F - .5}"/><circle class="icon-disc" cx="${F}" cy="${F}" r="${F - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${F}" cy="${F}" r="${F - 3.5}"/><g transform="translate(${(T / 6).toFixed(2)} ${(T / 6).toFixed(2)}) scale(${(T / 24).toFixed(5)})">${L.glyph}${L.accent}</g></g>`, H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = sxPairTapers ? sxPairTapers(n.id) : null, pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, midColor3, sxFl ? sxFl.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${Ka(n.id, pT, 18, n.label, p.nx, p.ny, V, Y, N, _, !0, pr.topicIcon, P, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(3), 3)}</g>` : Ka(n.id, pT, 6, n.label, p.nx, p.ny, V, Y, l.x, l.y, !0, pr.importedIcon, P, !0, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
-                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${p.labelOffset}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}>${Hi(n.label)}</textPath></text></g>`;
+                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}>${Hi(n.label)}</textPath></text></g>`;
                     });
                 }
             }
@@ -25568,24 +25651,21 @@ const TAXONOMY_CATEGORIES = [
                             // same move to textPath offsets (mirrored on
                             // reversed paths) and to plain category labels
                             // (x/y anchor, rotate origin, underline) alike.
-                            if (Math.abs(anchorS - S) > .5) {
-                                if (d) {
-                                    const hrefId = (d.getAttribute("href") || "").replace(/^#/, "");
-                                    d.setAttribute("startOffset", (hrefId && hrefId !== p ? g - anchorS : anchorS).toFixed(2));
-                                } else {
-                                    const oldPt = m(S).point, newPt = m(anchorS).point, dx = newPt.x - oldPt.x, dy = newPt.y - oldPt.y, cx0 = Number(c.getAttribute("x")), cy0 = Number(c.getAttribute("y"));
-                                    if (Number.isFinite(cx0) && Number.isFinite(cy0)) {
-                                        c.setAttribute("x", (cx0 + dx).toFixed(2)), c.setAttribute("y", (cy0 + dy).toFixed(2));
-                                        const trm = /rotate\((-?[\d.]+)[ ,]+(-?[\d.]+)[ ,]+(-?[\d.]+)\)/.exec(c.getAttribute("transform") || "");
-                                        trm && c.setAttribute("transform", (c.getAttribute("transform") || "").replace(trm[0], `rotate(${trm[1]} ${(cx0 + dx).toFixed(2)} ${(cy0 + dy).toFixed(2)})`));
-                                    }
-                                    if (M) {
-                                        const mx1 = Number(M.getAttribute("x1")), my1 = Number(M.getAttribute("y1")), mx2 = Number(M.getAttribute("x2")), my2 = Number(M.getAttribute("y2"));
-                                        Number.isFinite(mx1) && M.setAttribute("x1", (mx1 + dx).toFixed(2)), Number.isFinite(my1) && M.setAttribute("y1", (my1 + dy).toFixed(2)), 
-                                        Number.isFinite(mx2) && M.setAttribute("x2", (mx2 + dx).toFixed(2)), Number.isFinite(my2) && M.setAttribute("y2", (my2 + dy).toFixed(2));
-                                    }
+                            if (!d && Math.abs(anchorS - S) > .5) {
+                                const oldPt = m(S).point, newPt = m(anchorS).point, dx = newPt.x - oldPt.x, dy = newPt.y - oldPt.y, cx0 = Number(c.getAttribute("x")), cy0 = Number(c.getAttribute("y"));
+                                if (Number.isFinite(cx0) && Number.isFinite(cy0)) {
+                                    c.setAttribute("x", (cx0 + dx).toFixed(2)), c.setAttribute("y", (cy0 + dy).toFixed(2));
+                                    const trm = /rotate\((-?[\d.]+)[ ,]+(-?[\d.]+)[ ,]+(-?[\d.]+)\)/.exec(c.getAttribute("transform") || "");
+                                    trm && c.setAttribute("transform", (c.getAttribute("transform") || "").replace(trm[0], `rotate(${trm[1]} ${(cx0 + dx).toFixed(2)} ${(cy0 + dy).toFixed(2)})`));
+                                }
+                                if (M) {
+                                    const mx1 = Number(M.getAttribute("x1")), my1 = Number(M.getAttribute("y1")), mx2 = Number(M.getAttribute("x2")), my2 = Number(M.getAttribute("y2"));
+                                    Number.isFinite(mx1) && M.setAttribute("x1", (mx1 + dx).toFixed(2)), Number.isFinite(my1) && M.setAttribute("y1", (my1 + dy).toFixed(2)),
+                                    Number.isFinite(mx2) && M.setAttribute("x2", (mx2 + dx).toFixed(2)), Number.isFinite(my2) && M.setAttribute("y2", (my2 + dy).toFixed(2));
                                 }
                                 P = m(anchorS + C / 2).point, l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
+                            } else if (d) {
+                                P = m(S + C / 2).point, l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
                             }
                         }
                         if (r.push(...O.shapes), r.push(o(P.x, P.y, Math.max(24, C), k ? 30 : 22, 180 * Math.atan2(v, b) / Math.PI)), 

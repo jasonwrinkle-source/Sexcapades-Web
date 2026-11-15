@@ -94,17 +94,24 @@
             }
             /**
              * Flank width at a fractional position along the spoke.
-             * Bulbous shoulder: width emerges perpendicular/convex at the base
-             * (fat bulb) and smoothly decays to the slender tip width without overcrowding
-             * surrounding icons and spokes in the fan.
+             * Along the node name (fraction <= nameFrac): maintains bulbous shoulder width.
+             * After the node name (fraction > nameFrac): tapers exponentially toward the tip
+             * width according to the prior exponential falloff.
              * @param {number} u - Fraction along the spoke: 0 at base, 1 at tip (unitless).
              * @param {number} baseWidth - Full width at the base, map units.
              * @param {number} tipWidth - Full width approached at the tip, map units.
+             * @param {number} [nameFrac=0.35] - Fraction of spoke length covered by the node name.
              * @returns {number} Full width at u, map units.
              */
-            function flareAt(u, baseWidth, tipWidth) {
-                const shape = Math.exp(-Math.pow(u / 0.72, 2));
-                return tipWidth + (baseWidth - tipWidth) * shape;
+            function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
+                const uName = Math.max(0.15, Math.min(0.65, Number(nameFrac) || 0.35));
+                if (u <= uName) {
+                    const shape = Math.exp(-Math.pow(u / 0.72, 2));
+                    return tipWidth + (baseWidth - tipWidth) * shape;
+                }
+                const wAtName = tipWidth + (baseWidth - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
+                const uPost = (u - uName) / (1 - uName);
+                return tipWidth + (wAtName - tipWidth) * Math.exp(-2.4 * uPost);
             }
             /**
              * Build the tip circle for a spoke: the circle of the CHILD icon
@@ -275,53 +282,97 @@
              * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon). Null/invalid = flat tip crossing.
              * @returns {{top: string, bottom: string}} SVG path data for the two flanks: "top" is the (nx, ny)-negative side, "bottom" the positive side.
              */
-            function flankPaths(baseX, baseY, dx, dy, nx, ny, baseWidth, tipWidth, innerHalf, stripeHalf, mode, baseCircle = null, tipCircle = null) {
-                const p = SAMPLES, h = [], g = [], m = [], f = [];
+            /**
+             * Build the split give/receive flank bands for one spoke, as SVG
+             * path data. Each flank is one side of the spoke: an OUTER edge
+             * that maintains a bulbous base along the node name, then tapers exponentially
+             * toward the tip width; and an INNER edge that follows the new Gaussian curve
+             * on the interior to the spoke, smoothly opening around the text at the base.
+             *
+             * @param {number} baseX - Base point x, map units.
+             * @param {number} baseY - Base point y, map units.
+             * @param {number} dx - Base->tip delta x, map units. Tip point = (baseX + dx, baseY + dy).
+             * @param {number} dy - Base->tip delta y, map units.
+             * @param {number} nx - Unit normal x, unitless. Corners are offset along (nx, ny).
+             * @param {number} ny - Unit normal y, unitless.
+             * @param {number} baseWidth - Base width, map units: the flare's starting full width.
+             * @param {number} tipWidth - Tip width, map units: the flare's limiting full width.
+             * @param {number} innerHalf - Inner half-width, map units: baseline offset of flank's inner edge from centerline.
+             * @param {number} stripeHalf - Center stripe half-width, map units.
+             * @param {string} mode - Mode: "innerFirst" (branch spokes) or "outerFirst" (kink spokes).
+             * @param {{x:number, y:number, r:number}} [baseCircle=null] - Base circle (parent disc), from buildBaseCircle.
+             * @param {{x:number, y:number, r:number}} [tipCircle=null] - Tip circle (child icon).
+             * @param {number} [nameLength=0] - Estimated rendered width of the node name along the spoke.
+             * @returns {{top: string, bottom: string}} SVG path data for the two flanks.
+             */
+            function flankPaths(baseX, baseY, dx, dy, nx, ny, baseWidth, tipWidth, innerHalf, stripeHalf, mode, baseCircle = null, tipCircle = null, nameLength = 0) {
+                const p = SAMPLES;
+                const spokeLen = Math.hypot(dx, dy) || 1;
+                const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
+                const innerFlare = 3.5;
+                const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
-                    const frac = si / p, y = Math.max(innerHalf, stripeHalf + flareAt(frac, baseWidth, tipWidth) / 2), b = baseX + dx * frac, v = baseY + dy * frac;
-                    h.push(`${(b - nx * y).toFixed(2)} ${(v - ny * y).toFixed(2)}`), g.push(`${(b - nx * innerHalf).toFixed(2)} ${(v - ny * innerHalf).toFixed(2)}`),
-                    m.push(`${(b + nx * y).toFixed(2)} ${(v + ny * y).toFixed(2)}`), f.push(`${(b + nx * innerHalf).toFixed(2)} ${(v + ny * innerHalf).toFixed(2)}`);
+                    const frac = si / p;
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
+                    const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
+                    const b = baseX + dx * frac, v = baseY + dy * frac;
+                    h.push(`${(b - nx * y).toFixed(2)} ${(v - ny * y).toFixed(2)}`);
+                    g.push(`${(b - nx * curInner).toFixed(2)} ${(v - ny * curInner).toFixed(2)}`);
+                    m.push(`${(b + nx * y).toFixed(2)} ${(v + ny * y).toFixed(2)}`);
+                    f.push(`${(b + nx * curInner).toFixed(2)} ${(v + ny * curInner).toFixed(2)}`);
                 }
-                // Build 2026-10-18_0343: spoke bases hug the parent disc. The
-                // base-arc helper below only capped the base edge between the
-                // corners' projections — the flank corners themselves stayed
-                // outside the disc, joined by radial stubs that poked past
-                // the circle. Now the four base corner points are projected
-                // onto the base circle first, so the flanks themselves start
-                // on the disc edge and the base follows the circle exactly.
-                // A base circle is ignored when the segment starts deep
-                // inside it (center-drawn segments keep the old flat base).
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
+                const curInner0 = innerHalf + innerFlare;
+                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.72, 2));
+                const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
+                const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {
                     const pj = (e2, t2) => {
                         const n2 = e2 - baseCircle.x, i2 = t2 - baseCircle.y, a2 = Math.hypot(n2, i2) || 1;
                         return `${(baseCircle.x + baseCircle.r * n2 / a2).toFixed(2)} ${(baseCircle.y + baseCircle.r * i2 / a2).toFixed(2)}`;
-                    }, y0 = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2);
-                    h[0] = pj(baseX - nx * y0, baseY - ny * y0), g[0] = pj(baseX - nx * innerHalf, baseY - ny * innerHalf), m[0] = pj(baseX + nx * y0, baseY + ny * y0), f[0] = pj(baseX + nx * innerHalf, baseY + ny * innerHalf);
+                    };
+                    h[0] = pj(baseX - nx * y0, baseY - ny * y0);
+                    g[0] = pj(baseX - nx * curInner0, baseY - ny * curInner0);
+                    m[0] = pj(baseX + nx * y0, baseY + ny * y0);
+                    f[0] = pj(baseX + nx * curInner0, baseY + ny * curInner0);
                 }
-                const y = Math.max(innerHalf, stripeHalf + flareAt(0, baseWidth, tipWidth) / 2), b = (side, startOff, endOff) => {
+                const b = (side, startOff, endOff) => {
                     if (!baseCircle || !(baseCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
-                    const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y}, end = {x: baseX + side * nx * endOff - baseCircle.x, y: baseY + side * ny * endOff - baseCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = baseCircle.x + baseCircle.r * start.x / sm, sy = baseCircle.y + baseCircle.r * start.y / sm, ex = baseCircle.x + baseCircle.r * end.x / em, ey = baseCircle.y + baseCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    const start = {x: baseX + side * nx * startOff - baseCircle.x, y: baseY + side * ny * startOff - baseCircle.y};
+                    const end = {x: baseX + side * nx * endOff - baseCircle.x, y: baseY + side * ny * endOff - baseCircle.y};
+                    const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
+                    const sx = baseCircle.x + baseCircle.r * start.x / sm, sy = baseCircle.y + baseCircle.r * start.y / sm;
+                    const ex = baseCircle.x + baseCircle.r * end.x / em, ey = baseCircle.y + baseCircle.r * end.y / em;
+                    const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
                     return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${baseCircle.r.toFixed(2)} ${baseCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
-                const yE = Math.max(innerHalf, stripeHalf + flareAt(1, baseWidth, tipWidth) / 2), bE = (side, startOff, endOff) => {
+                const bE = (side, startOff, endOff) => {
                     if (!tipCircle || !(tipCircle.r > 0) || Math.abs(endOff - startOff) < .01) return "";
-                    const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y}, end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y}, sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1, sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm, ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em, cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
+                    const start = {x: baseX + dx + side * nx * startOff - tipCircle.x, y: baseY + dy + side * ny * startOff - tipCircle.y};
+                    const end = {x: baseX + dx + side * nx * endOff - tipCircle.x, y: baseY + dy + side * ny * endOff - tipCircle.y};
+                    const sm = Math.hypot(start.x, start.y) || 1, em = Math.hypot(end.x, end.y) || 1;
+                    const sx = tipCircle.x + tipCircle.r * start.x / sm, sy = tipCircle.y + tipCircle.r * start.y / sm;
+                    const ex = tipCircle.x + tipCircle.r * end.x / em, ey = tipCircle.y + tipCircle.r * end.y / em;
+                    const cross = start.x * end.y - start.y * end.x, sweep = cross >= 0 ? 1 : 0;
                     return ` L ${sx.toFixed(2)} ${sy.toFixed(2)} A ${tipCircle.r.toFixed(2)} ${tipCircle.r.toFixed(2)} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}`;
                 };
                 if ("innerFirst" === mode) return {
-                    top: `M ${g.join(" L ")}${bE(-1, innerHalf, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y, innerHalf)} Z`,
-                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${f.slice().reverse().join(" L ")}${b(1, innerHalf, y)} Z`
+                    top: `M ${g.join(" L ")}${bE(-1, curInner1, yE)} L ${h.slice().reverse().join(" L ")}${b(-1, y0, curInner0)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${f.slice().reverse().join(" L ")}${b(1, curInner0, y0)} Z`
                 };
                 const v = [], w = [];
                 for (let si = p; si >= 0; si--) {
-                    const px = baseX + dx * (si / p), py = baseY + dy * (si / p);
-                    v.push(`${(px - nx * innerHalf).toFixed(2)} ${(py - ny * innerHalf).toFixed(2)}`), w.push(`${(px + nx * innerHalf).toFixed(2)} ${(py + ny * innerHalf).toFixed(2)}`);
+                    const frac = si / p;
+                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const px = baseX + dx * frac, py = baseY + dy * frac;
+                    v.push(`${(px - nx * curInner).toFixed(2)} ${(py - ny * curInner).toFixed(2)}`);
+                    w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && (v[v.length - 1] = g[0], w[w.length - 1] = f[0]);
                 return {
-                    top: `M ${h.join(" L ")}${bE(-1, yE, innerHalf)} L ${v.join(" L ")}${b(-1, innerHalf, y)} Z`,
-                    bottom: `M ${m.join(" L ")}${bE(1, yE, innerHalf)} L ${w.join(" L ")}${b(1, innerHalf, y)} Z`
+                    top: `M ${h.join(" L ")}${bE(-1, yE, curInner1)} L ${v.join(" L ")}${b(-1, curInner0, y0)} Z`,
+                    bottom: `M ${m.join(" L ")}${bE(1, yE, curInner1)} L ${w.join(" L ")}${b(1, curInner0, y0)} Z`
                 };
             }
             /**
@@ -565,7 +616,10 @@
             const midColor = isTripleTopic && middleKnown ? zi(middleVal) : (b || p || Ga.FALLBACK_COLOR);
             let W = "";
             if (w) if (w && f && y) {
-                const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle), d = midColor, u = Ga.midlineOutlinePath(t, n, v, sxD);
+                const seg = Ga.segment(o, s, l, c), i = sxSW, a = Ga.splitInnerHalf(n, sxD), d = midColor, u = Ga.midlineOutlinePath(t, n, v, sxD);
+                const fs = typeof sxFontSize === "function" ? sxFontSize(sxD) : 14;
+                const nameW = typeof Za !== "undefined" && Za.measure ? Za.measure(I.label || "", fs, "topic") : ((I.label || "").length * 7);
+                const r = SpokeGeometry.flankPaths(o, s, seg.dx, seg.dy, seg.nx, seg.ny, q, H, a, a, "innerFirst", bc, tipCircle, nameW);
                 W = `<path class="tapered-stem${B}" d="${r.top}" fill="${f}" stroke="none" style="fill:${f}"${N}/><path class="tapered-stem${B}" d="${r.bottom}" fill="${y}" stroke="none" style="fill:${y}"${_}/>` + (v ? `<path class="hanky-midline hanky-none" d="${t}" fill="none" stroke="${Ga.FALLBACK_COLOR}" stroke-width="${i}" stroke-linecap="butt"${Ga.dashAttr(i)} opacity="0.85"${F}/>` : u + `<path class="hanky-midline" d="${t}" fill="none" stroke="${d}" stroke-width="${i}" stroke-linecap="butt" opacity="0.9"${F}/>`);
             } else {
                 const taperedD = SpokeGeometry.taperedPath(t, q, H, tipCircle, bc), i = sxSW, a = isTripleTopic && middleKnown ? zi(middleVal) : (v ? Ga.FALLBACK_COLOR : b || p || Ga.FALLBACK_COLOR), r = v ? Ga.dashAttr(i) : "";

@@ -194,11 +194,14 @@
             }
             const S = Sa(d, v, p), $ = ka(u, w, x.giveKnown ? ba(x.give) : "Unrated", { tapFirst: !0 }), E = ka(u, k, x.receiveKnown ? ba(x.receive) : "Unrated", { tapFirst: !0 }), A = null != hubD ? hubD / 2 : h * mapFontScale() / 2 + (h === pr.subcategoryIcon ? 6 : 0), C = null != leafD ? Math.max(12 * mapFontScale(), leafD / 2) : Math.max(12, (Number(g) || 51) * mapFontScale() / 2 + ("Subcategory" === v.kind ? 6 : 0)), {sx0: M, sy0: I, sx1: P, sy1: L} = Ga.trimToIcons(e, t, n, i, A, C), T = (m ? "" : `<line class="hanky-midline-outline" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${Ga.OUTLINE_COLOR}" stroke-width="${Ga.CLOUD_OUTLINE_WIDTH(f, sxD)}" stroke-linecap="butt" opacity="0.9" pointer-events="none"/>`) + `<line class="hanky-midline${m ? " hanky-none" : ""}" x1="${M}" y1="${I}" x2="${P}" y2="${L}" stroke="${y}" stroke-width="${sxSW}"${b} opacity="1" stroke-linecap="butt"${S}/>`, F = Boolean(o), N = Boolean(s);
             if (!l || !F && !N) return T;
-            const _ = F ? o : s, D = N ? s : o, R = Ga.tipWidth(f), O = Ga.cloudBaseWidth(h, c) * (mapFontScale() * sxF / 3), B = Ga.segment(M, I, P, L), j = P - M, q = L - I, H = f / 2, W = Ga.splitInnerHalf(f, sxD), U = SpokeGeometry.flankPaths(M, I, j, q, B.nx, B.ny, O, R, W, W, "outerFirst", SpokeGeometry.buildBaseCircle(e, t, A), {
+            const _ = F ? o : s, D = N ? s : o, R = Ga.tipWidth(f), O = Ga.cloudBaseWidth(h, c) * (mapFontScale() * sxF / 3), B = Ga.segment(M, I, P, L), j = P - M, q = L - I, H = f / 2, W = Ga.splitInnerHalf(f, sxD);
+            const fs = typeof sxFontSize === "function" ? sxFontSize(sxD) : 14;
+            const nameW = typeof Za !== "undefined" && Za.measure ? Za.measure(u || "", fs, "topic") : ((u || "").length * 7);
+            const U = SpokeGeometry.flankPaths(M, I, j, q, B.nx, B.ny, O, R, W, W, "outerFirst", SpokeGeometry.buildBaseCircle(e, t, A), {
                 x: n,
                 y: i,
                 r: C
-            });
+            }, nameW);
             return `<path class="tapered-stem" d="${U.top}" fill="${_}" stroke="none" opacity="0.9" style="fill:${_}"${$}/><path class="tapered-stem" d="${U.bottom}" fill="${D}" stroke="none" opacity="0.9" style="fill:${D}"${E}/>` + T;
         };
         const vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.group-heat,.selected-spoke,.mutual-halo,.disinterest-halo,.favorite-halo,.limit-halo,.visual-rail";
