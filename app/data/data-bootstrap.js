@@ -22990,15 +22990,18 @@ const TAXONOMY_CATEGORIES = [
             geo.spokes.forEach((sp, j) => addC(discL, N + j, sp.bb));
             geo.discV = discV, geo.discL = discL;
         }
-        function sxGridNearSeg(geo, a, b) {
+        function sxGridNearSeg(geo, a, b, targetSet) {
             // Corridor query: walk the segment in <=128 wu steps and union the
             // 3x3 cell neighbourhood of each sample. Any element whose stored
             // (2F + SX_GRID_PAD)-inflated bbox can pair with this segment
             // registers in one of those cells; whole-bbox queries over long
             // diagonal spokes drown in bbox-rejected false candidates.
-            const out = new Set, len = Math.hypot(b.x - a.x, b.y - a.y), steps = Math.max(1, Math.ceil(len / 128));
+            const out = targetSet || new Set, len = Math.hypot(b.x - a.x, b.y - a.y), steps = Math.max(1, Math.ceil(len / 128));
+            let prevCx = -999999, prevCy = -999999;
             for (let s = 0; s <= steps; s++) {
                 const px = a.x + (b.x - a.x) * s / steps, py = a.y + (b.y - a.y) * s / steps, cx = Math.floor(px / SX_CELL), cy = Math.floor(py / SX_CELL);
+                if (cx === prevCx && cy === prevCy) continue;
+                prevCx = cx; prevCy = cy;
                 for (let x = cx - 1; x <= cx + 1; x++) for (let y = cy - 1; y <= cy + 1; y++) {
                     const set = geo.grid.get(sxCellKey(x, y));
                     if (set) set.forEach(ix => out.add(ix));
@@ -23089,9 +23092,27 @@ const TAXONOMY_CATEGORIES = [
                 });
             };
             adjScan(maps.adjC, candC), adjScan(maps.adjG, candG), adjScan(maps.adjI, candI);
-            candC.forEach(k => sxStorePair(geo, maps, "cross", k, sxEvalCross(geo, Math.floor(k / SX_PAIR_STRIDE), k % SX_PAIR_STRIDE)));
-            candG.forEach(k => sxStorePair(geo, maps, "graze", k, sxEvalGraze(geo, maps, Math.floor(k / SX_PAIR_STRIDE), k % SX_PAIR_STRIDE)));
-            candI.forEach(k => sxStorePair(geo, maps, "inner", k, sxEvalInner(geo, Math.floor(k / SX_PAIR_STRIDE), k % SX_PAIR_STRIDE)));
+            candC.forEach(k => {
+                const v = Math.floor(k / SX_PAIR_STRIDE), o = k % SX_PAIR_STRIDE;
+                const T = geo.topics[v], lb = o < N ? geo.topics[o].bbM : geo.spokes[o - N].bb;
+                // Layer 1 fast bounding-box filter: if padded bounding boxes don't intersect, eval is guaranteed 0
+                const val = (T && lb && sxBBHitPad(T.bbU || T.bbS, lb, T.hw)) ? sxEvalCross(geo, v, o) : 0;
+                sxStorePair(geo, maps, "cross", k, val);
+            });
+            candG.forEach(k => {
+                const i = Math.floor(k / SX_PAIR_STRIDE), j = k % SX_PAIR_STRIDE;
+                const A = geo.topics[i], B = geo.topics[j];
+                // Layer 1 fast bounding-box filter: if padded bounding boxes don't intersect, eval is guaranteed 0
+                const val = (A && B && sxBBHitPad(A.bbS, B.bbS, A.hw + B.hw)) ? sxEvalGraze(geo, maps, i, j) : 0;
+                sxStorePair(geo, maps, "graze", k, val);
+            });
+            candI.forEach(k => {
+                const p = Math.floor(k / SX_PAIR_STRIDE), q = k % SX_PAIR_STRIDE;
+                const ba = p < N ? geo.topics[p].bbI : geo.spokes[p - N].bb, bb = q < N ? geo.topics[q].bbI : geo.spokes[q - N].bb;
+                // Layer 1 fast bounding-box filter: if bounding boxes don't intersect, inner eval is guaranteed 0
+                const val = (ba && bb && sxBBHit(ba, bb)) ? sxEvalInner(geo, p, q) : 0;
+                sxStorePair(geo, maps, "inner", k, val);
+            });
             return maps.tc + maps.tg + maps.ti - before;
         }
         function sxMulberry32(seed) {
