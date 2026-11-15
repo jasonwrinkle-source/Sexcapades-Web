@@ -54,3 +54,11 @@ During live testing between Sexcapades Web (4.0) and GibberWear (1.0.6) on the P
    - Do not lower `SAMPLE_RATE` from `48000f`. GGWave `ULTRASOUND_FAST` requires $\ge 44.1\text{ kHz}$ to satisfy the Nyquist limit for ~15–20 kHz chirps.
 4. **Wear OS Ambient Mode**:
    - Remind the user that Wear OS calls `MainActivity.onPause()` (which stops listening) when the screen dims or enters ambient mode. The watch display must stay active while executing the initial sync handshake.
+
+---
+
+### 4. Low Power Mode (BLE Fallback Integration)
+To aggressively preserve watch battery, GibberWear supports a dynamically activated **Low Power Mode (LPM)**. When LPM is enabled and a BLE connection to the host device is established, the watch completely shuts down its microphone and ultrasound processing engine, relying purely on BLE GATT for check-ins and telemetry. 
+*   **Enable over BLE or Ultrasound**: `LPM:1` (or `LPM:ON`)
+*   **Disable**: `LPM:0` (or `LPM:OFF`)
+*   **Behavior**: If `LPM=1` and `BLE_CONNECTED=true`, GibberWear executes `GibberLinkEngine.stopListening()`. If the BLE link drops, the ultrasound engine automatically respawns to guarantee delivery. The state is persisted in `SharedPreferences`.

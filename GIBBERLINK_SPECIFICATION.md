@@ -64,6 +64,19 @@ Format: `CHK:<TARGET_UID>:<TYPE>`
 - `CHK:J1:T` $\rightarrow$ Watch `J1` vibrates twice with timer symbol.
 - `CHK:ALL:T` $\rightarrow$ All nearby provisioned watches trigger double check-in.
 
+### C. Low Power Mode Toggle (Muse $\rightarrow$ Watch)
+
+To aggressively preserve battery life, Muse can disable the watch's microphone and ultrasound decoding engine when a reliable BLE link is present.
+
+Format: `LPM:<STATE>`
+
+| Field | Values | Description |
+| :--- | :--- | :--- |
+| `<STATE>` | `1` or `ON` | Enable Low Power Mode. If BLE is connected, ultrasound listening stops immediately. |
+| `<STATE>` | `0` or `OFF`| Disable Low Power Mode. Ultrasound listening resumes (always on). |
+
+*Behavior:* The watch persists this state. If `LPM=1` and the BLE link drops, the ultrasound engine will automatically restart to guarantee delivery via the fallback acoustic channel.
+
 ---
 
 ### C. Device Provisioning / Programming Setup (Muse $\rightarrow$ Watch)
