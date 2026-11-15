@@ -1,18 +1,42 @@
-# Master AI Briefing: The Flexcapades / Taxopolemics Engine
+# Master AI Briefing: TaxoPolemics Engine & The Flexcapades Platform Family
 
-## 1. Executive Summary & Core Mission
-**Flexcapades** (historically named *Sexcapades*, and generalized as the **Taxopolemics Engine**) is an open-source, client-side, zero-backend architectural framework designed to map complex, subjective human affinities, relational roles, philosophical stances, and ideological tensions into an intuitive, interactive, and organic 2D/hyperbolic spatial visualization called the **Hypermap**.
+## 1. Ontological Architecture & Core Mission
+**TaxoPolemics** is the mathematical and computational engine; **Flexcapades** is the application family and platform; and the **`*capades`** are the playful, user-facing product skins.
 
-Unlike traditional flat questionnaires or reductive personality rubrics, Taxopolemics models human desire and ideological posture as a continuous multi-polar landscape. It features:
-1. **Dynamic N-Pole Polarities**: Seamless support for 1-pole monopoles, 2-pole dipoles, 3-pole triads, 4-pole tetrads, 5-pole pentads, and 6-pole hexads.
-2. **Organic Spoke Geometry**: Branching hierarchical arborization with Gaussian bulbous base tapers, bezier curved midlines, and simulated annealing deknotters that eliminate spoke crossings.
-3. **Multi-Profile Relational Dynamics**: Deterministic tensor contractions between two or three profiles (Straight Match, Cross Match, Friction/Tension, Triadic Scaffolding, Dynamic Triangulation).
-4. **Pluggable Skin Taxonomies**: Completely domain-agnostic taxonomy architecture, powering Sexcapades (erotic/relational), Philoscapades (epistemic/metaphysical), Poliscapades (civic/economic), and Forescapades (spiritual/yogic).
-5. **Private, Ephemeral, and Local**: 100% client-side execution; state is stored in memory, IndexedDB/localStorage, or exported as portable cryptographic JSON strings, QR audio packets (ggwave), or printable PDFs.
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        TaxoPolemics (The Engine)                      │
+│   • Mathematical Core & Polar Field Dynamics                          │
+│   • Simulated Annealing & DeKnotter Optimization                      │
+│   • Midline Force Solvers, Bulbous Tapers & Projection Curves         │
+│   • Depth-3 Strict OOP Spoke Invariant (Hub → Subspoke → Leaf)        │
+│   • Barycentric Coordinate Systems (1 to 8 Poles)                      │
+│   • Multi-Profile Tensor Contraction Models                            │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ powers
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                      Flexcapades (The Platform Family)                 │
+│   • Universal Profile Interchange & Local Storage (IndexedDB)         │
+│   • Hypermap Canvas Harness, View Switcher & Hot List Drawer          │
+│   • Offline Sync, QR Audio Packet Protocol (ggwave), Vector PDF Export │
+│   • Dynamic Rating Widgets (Sliders, Barycentric, Polygons, Radar)    │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ manifests as
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                   *capades (User-Facing Thematic Skins)                │
+│   • Sexcapades: Intimacy, Erotic Cartography & BDSM Archetypes         │
+│   • Forescapades: Abrahamic Theology, Foreskin, Covenants & Scripture │
+│   • Philoscapades: Epistemology, Metaphysics, Ethics & Reason          │
+│   • Poliscapades: Political Legitimacy, Ideology & Governance          │
+└────────────────────────────────────────────────────────────────────────┘
+```
 
----
-
-## 2. System Architecture & Bundle Pipeline
+Because each tier names a distinct layer of abstraction, they never compete:
+1. **TaxoPolemics (Engine)**: The rigorous, domain-agnostic mathematical core.
+2. **Flexcapades (Family)**: The framework, application shell, and protocol ecosystem.
+3. **`*capades` (Products)**: The playful, domain-specific thematic hypermaps.
 
 The engine consists of **38 modular ES JavaScript files** located in `app/js/modules/`, which are compiled into a unified runtime bundle `app/data/data-bootstrap.js` via `python3 app/data/build-bundle.py`.
 

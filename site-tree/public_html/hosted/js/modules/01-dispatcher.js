@@ -183,6 +183,8 @@ if (!window.SexcapadesRuntime) {
                 return e;
             }
         });
+        window.TaxoPolemicsRuntime = window.SexcapadesRuntime;
+        window.FlexcapadesRuntime = window.SexcapadesRuntime;
     })();
 }
 if (typeof window !== "undefined") {

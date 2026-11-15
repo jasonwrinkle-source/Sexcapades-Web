@@ -2023,6 +2023,10 @@
             invalidateWarmBootCache: sxInvalidateWarmBootCache
         };
         window.SX = window.SexcapadesEngine;
+        window.TaxoPolemicsEngine = window.SexcapadesEngine;
+        window.FlexcapadesEngine = window.SexcapadesEngine;
+        window.TaxoPolemics = window.TaxoPolemicsEngine;
+        window.Flexcapades = window.FlexcapadesEngine;
 
         // INTERIM-PAINT THROTTLE (anneal speed, 2026-11-13): the capsule
         // draw is the visible animation — keep it, but batch it to at
