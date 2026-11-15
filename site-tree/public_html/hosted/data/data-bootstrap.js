@@ -27826,11 +27826,6 @@ const TAXONOMY_CATEGORIES = [
                     sxApplyTetradRatings(Qr);
                 }
             }, { passive: false });
-                    const shape = Ge(Qr);
-                    sxDrawTetradWidget(canvas, shape, sxTetradState);
-                    sxApplyTetradRatings(Qr);
-                }
-            }, { passive: false });
 
             if (slider) {
                 slider.addEventListener("input", () => {
@@ -30119,9 +30114,12 @@ const TAXONOMY_CATEGORIES = [
             }).join(""));
             const h = tt[Vi()]?.[e] || [], aftercareNote = "Connection & aftercare" === r.branch;
             Zr.maxLength = aftercareNote ? 1600 : 800, Zr.placeholder = aftercareNote ? "Describe your aftercare needs: touch or space, reassurance, water or food, cleanup, medication or accessibility needs, check-in timing, and anything to avoid…" : "Add a note for this topic…", __sxClosestAction(Zr, "markNoteField")?.classList.toggle("is-aftercare-note", aftercareNote);
-            if (Zr.value = h.join(" "), Yr.hidden = !0, n(Xr, ""), Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === (s || "neutral")))), 
-            Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[Vi()]?.[e]))), 
-            Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[Vi()]?.[e]))), 
+            Zr.value = h.join(" ");
+            Yr.hidden = !0;
+            n(Xr, "");
+            Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === (s || "neutral"))));
+            Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[Vi()]?.[e])));
+            Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[Vi()]?.[e])));
             Pr.dataset.openedAt = String(performance.now());
             Pr.hidden = !1;
             sxSyncMarkRatings(e);
