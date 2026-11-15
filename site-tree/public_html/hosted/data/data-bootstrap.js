@@ -30493,10 +30493,14 @@ const TAXONOMY_CATEGORIES = [
                 let w0 = 1 / 3, w1 = 1 / 3, w2 = 1 / 3;
                 if (anyKnown) {
                     const abs0 = Math.abs(r0), abs1 = Math.abs(r1), abs2 = Math.abs(r2);
-                    const maxAbs = Math.max(abs0, abs1, abs2);
                     const sumAbs = abs0 + abs1 + abs2;
                     const sign = (r0 + r1 + r2 < 0) ? -1 : 1;
-                    intensity = sign * maxAbs;
+                    // Intensity is the TOTAL (sum), not the max: the apply writes
+                    // v = w * intensity with normalized weights (sum w = 1), so
+                    // sum(v) = intensity. Deriving maxAbs here fed each drag's
+                    // stored max back as the new intensity (~intensity/3 per
+                    // move near center), collapsing every drag to ~0.
+                    intensity = sign * sumAbs;
                     if (sumAbs > 0) {
                         w0 = abs0 / sumAbs;
                         w1 = abs1 / sumAbs;
