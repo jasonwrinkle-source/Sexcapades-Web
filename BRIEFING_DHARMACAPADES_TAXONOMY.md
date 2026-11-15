@@ -4,7 +4,7 @@
 **Engine:** Taxopolemics (Multi-Pole Dialectical Hypermap Engine)  
 **Skin:** Dharmacapades (Eastern Religions — Dharmic & Taoic Traditions)  
 **Author:** YoBiche (Yolanda Biche) & Principal Investigator Jason Mark Wrinkle  
-**Status:** Draft — First pass, awaiting the Principal Investigator's feedback. Not canonical.  
+**Status:** Draft — Name approved by the Principal Investigator (2026-11-15). Awaiting further feedback. Not canonical.  
 
 ---
 
@@ -16,7 +16,7 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 **Engine cap:** the engine goes to **8 poles and caps there** — monopole through octad. The cap is a human limit, not a technical one: people cannot hold more than about eight positions in mind at once (Jason, 2026-11-14).
 
-**Scope note — a companion to Forescapades, not a replacement.** Forescapades is the world-religions skin; it already covers some Eastern topics (Trimurti, the Three Gunas, the Five Mahabhutas, the Six Classical Yogas) as part of its broad survey. Dharmacapades goes deep on the Dharmic and Taoic traditions, treating them from within — the positions, the practices, the arguments that only make sense inside these traditions. **Eastern Orthodox Christianity belongs in Forescapades, not here** — it is Christian, part of the Abrahamic scope, and "Eastern" in the geographic sense only (Jason, 2026-11-14).
+**Scope note — a companion to Forescapades, not a replacement.** Forescapades is the Abrahamic skin (Judaism, Christianity, Islam — 85 topics, all Abrahamic, zero Eastern content). Dharmacapades is the Eastern-religions skin, covering the Dharmic and Taoic traditions from within — the positions, the practices, the arguments that only make sense inside these traditions. The Eastern topics (Three Gunas, Five Mahabhutas, Six Classical Yogas) live here, in Dharmacapades, not in Forescapades — an earlier scope note wrongly claimed Forescapades covered them; it never did (corrected 2026-11-15, on the Principal Investigator's challenge). **Eastern Orthodox Christianity belongs in Forescapades, not here** — it is Christian, part of the Abrahamic scope, and "Eastern" in the geographic sense only (Jason, 2026-11-14).
 
 **Scope note — Buddhism, religion or philosophy?** Some say Buddhism is more a philosophy than a religion, and the honest answer is that it is both — and neither, depending on who you ask and which form you mean. Dharmacapades does not force the question. It treats Buddhism as a lived Dharmic tradition (practice, liberation, community, ethics) and lets the ambiguity itself be a position: topic 1.4 asks how *you* see Buddhism — religion, philosophy, or way of life. Philoscapades covers Buddhist philosophy (emptiness, dependent origination, the nature of mind) where it overlaps. The two skins complement each other; a person can rate Buddhist philosophy in Philoscapades and Buddhist practice in Dharmacapades, and the 1.4 topic records which frame they hold.
 
@@ -83,6 +83,28 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Octad / 8-axis radial wheel. The fifth canonical octad in the Flexcapades family.
 - **Note:** The Bagua is the archetypal energy balance of the I Ching. Eight trigrams, exactly the engine cap.
 
+#### 1.7 The Three Gunas (3-Pole Triad $\Delta^2$)
+*The three fundamental qualities of prakriti (nature) in Samkhya and Hindu philosophy — they shape temperament, behavior, and spiritual progress.*
+- **Poles:**
+  - `Pole 0 (Apex)`: **Sattva** — Purity, clarity, harmony, balance, wisdom. The quality of light and understanding.
+  - `Pole 1 (Base Right)`: **Rajas** — Passion, activity, restlessness, drive, desire. The quality of energy and ambition.
+  - `Pole 2 (Base Left)`: **Tamas** — Inertia, darkness, ignorance, heaviness, delusion. The quality of stagnation and confusion.
+- **Question:** Which guna dominates your temperament and practice?
+- **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Note:** Promoted from Higher-Pole Candidates 2026-11-15 — this topic lives here in Dharmacapades, not in Forescapades (which is Abrahamic-only and never covered it).
+
+#### 1.8 The Five Mahabhutas (5-Pole Pentad $\Delta^4$)
+*The five great elements — the building blocks of the physical world in Hindu cosmology, mapping to the senses, the chakras, and the stages of practice.*
+- **Poles:**
+  - `Pole 0`: **Earth (Prithvi)** — Solidity, stability, form. The sense of smell.
+  - `Pole 1`: **Water (Apas)** — Fluidity, cohesion, adaptability. The sense of taste.
+  - `Pole 2`: **Fire (Tejas)** — Transformation, energy, digestion. The sense of sight.
+  - `Pole 3`: **Air (Vayu)** — Movement, breath, circulation. The sense of touch.
+  - `Pole 4`: **Ether (Akasha)** — Space, the medium of all, the field in which the others exist. The sense of hearing.
+- **Question:** Which element do you work with most — in your body, your practice, your cosmology?
+- **Optimal Widget:** Pentad wheel.
+- **Note:** Promoted from Higher-Pole Candidates 2026-11-15 — this topic lives here in Dharmacapades, not in Forescapades (which is Abrahamic-only and never covered it).
+
 ### Category 2: Liberation & Enlightenment
 
 #### 2.1 Moksha vs Nirvana vs Union with the Dao (3-Pole Triad $\Delta^2$)
@@ -143,6 +165,19 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Poles:** Wu Wei (Effortless action, natural alignment, non-forcing) ↔ You Wei (Deliberate striving, active intervention, intentional control)
 - **Question:** Do you act by effortless alignment or deliberate striving?
 - **Optimal Widget:** Dipole slider.
+
+#### 3.7 The Six Classical Yogas (6-Pole Hexad $\Delta^5$)
+*The six classical paths — not just concepts, but commitments. Each is a complete way of life with its own practices, texts, and lineage.*
+- **Poles:**
+  - `Pole 0`: **Raja Yoga** — The royal path: meditation, the eight limbs of Patanjali, control of the mind.
+  - `Pole 1`: **Jnana Yoga** — The path of knowledge: wisdom, self-inquiry, discrimination between the real and the unreal.
+  - `Pole 2`: **Bhakti Yoga** — The path of devotion: love, surrender, worship of the divine.
+  - `Pole 3`: **Karma Yoga** — The path of action: selfless service, doing without attachment to results.
+  - `Pole 4`: **Hatha Yoga** — The path of force: postures, breath, the physical discipline of the body.
+  - `Pole 5`: **Tantra Yoga** — The path of weaving: energy, ritual, mantra, and transgression.
+- **Question:** Which yoga is your path?
+- **Optimal Widget:** Hexad wheel.
+- **Note:** Promoted from Higher-Pole Candidates 2026-11-15 — this topic lives here in Dharmacapades, not in Forescapades (which is Abrahamic-only and never covered it). The six yogas are treated here as paths you commit to, not just concepts you know about.
 
 ### Category 4: Deity & The Divine
 
@@ -212,25 +247,17 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 |-------|-------|--------|
 | 1-pole (monopole) | 1 | 3.4 |
 | 2-pole (dipole) | 16 | 1.1, 2.2, 2.3, 3.1, 3.2, 3.3, 3.6, 4.1, 4.2, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4 |
-| 3-pole (triad) | 5 | 1.2, 1.3, 1.5, 2.1, 4.3 |
+| 3-pole (triad) | 6 | 1.2, 1.3, 1.5, 1.7, 2.1, 4.3 |
 | 4-pole (tetrad) | 1 | 1.4 |
-| 5-pole (pentad) | 0 | — |
-| 6-pole (hexad) | 0 | — |
+| 5-pole (pentad) | 1 | 1.8 |
+| 6-pole (hexad) | 1 | 3.7 |
 | 7-pole (heptad) | 0 | — |
 | 8-pole (octad) | 2 | 1.6, 3.5 |
 
-**Total: 6 categories, 25 topics.**
+**Total: 6 categories, 28 topics.**
 
-## 4. Higher-Pole Candidates (not yet specified)
+## 4. Open Questions for the Principal Investigator
 
-- **The Three Gunas** (triad): Sattva / Rajas / Tamas. Already in Forescapades as a topic; a Dharmacapades version would go deeper (how the gunas shape your temperament and practice). Needs a ruling on whether to duplicate or cross-reference.
-- **The Five Mahabhutas** (pentad): Earth / Water / Fire / Air / Ether. Already in Forescapades; same duplication question as the Gunas.
-- **The Six Classical Yogas** (hexad): Raja / Jnana / Bhakti / Karma / Hatha / Tantra. Already in Forescapades; a Dharmacapades version would treat them as paths you commit to, not just concepts. Needs a ruling on duplication vs. cross-reference.
-
-## 5. Open Questions for the Principal Investigator
-
-1. Is "Dharmacapades" the name, or do you want Eastcapades, Waycapades, or something else?
-2. Is the scope right — Dharmic plus Taoic, with Eastern Orthodox explicitly in Forescapades?
-3. Does 1.4 (Buddhism as Religion / Philosophy / Way of Life) handle the ambiguity well, or does it need a different approach?
-4. The Forescapades overlaps (Gunas, Mahabhutas, Yogas) — duplicate them here in depth, or cross-reference Forescapades?
-5. Are the dipole/triad assignments right, or do any of these want a different pole count?
+1. Is the scope right — Dharmic plus Taoic, with Eastern Orthodox explicitly in Forescapades?
+2. Does 1.4 (Buddhism as Religion / Philosophy / Way of Life) handle the ambiguity well, or does it need a different approach?
+3. Are the dipole/triad assignments right, or do any of these want a different pole count?
