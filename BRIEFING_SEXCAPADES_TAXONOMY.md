@@ -254,14 +254,43 @@ When migrating historical profiles to higher $n$-pole topics:
 
 ---
 
-## 5. Potential 8-Pole Systems (The Octad / Ogdoad)
+## 5. Live 8-Pole Octads ($\Delta^7$) & Extended Topologies
 
-Looking ahead to 8-pole topologies, four distinct psychological and cultural systems naturally emerge:
-1. **Leary & Wilson’s 8 Circuits of Consciousness**:
+The hypermap taxonomy formalizes 8-pole octads ($\Delta^7 \times I$) rendered via the regular octagonal deformation polygon widget (`"octad-radar"`). Each pole represents an independent affinity dimension $[0, 100]$ arranged along 8 equidistant radial spokes ($45^\circ$ separation):
+
+### 5.1 Topic `t0426`: Physical Restraint & Containment Octad
+- **Domain**: Bondage & Physical Restriction (`cat-bondage-restriction`)
+- **Poles**:
+  - `Pole 0` (`rope`): **Rope Bondage** — Traditional hemp, jute, synthetic lines and decorative/suspension ties.
+  - `Pole 1` (`shibari`): **Shibari (Art / Tie)** — Formal Japanese kinetic, erotic, and aesthetic kinbaku rope art.
+  - `Pole 2` (`cuffs`): **Cuffs & Straps** — Leather, neoprene, and metal wrist/ankle restraints and spreader bars.
+  - `Pole 3` (`tape`): **Tape & Wrapping** — Bondage tape, vinyl, silicone tape, and cling wrap immobilizations.
+  - `Pole 4` (`mummification`): **Mummification / Sack** — Total sensory/motor envelope, sleep sacks, and vacuums.
+  - `Pole 5` (`blindfold`): **Blindfold / Sensory Hood** — Deprivation hoods, leather blindfolds, and sensory silencing.
+  - `Pole 6` (`caging`): **Caging / Encasement** — Kennels, cages, boxes, furniture restraints, and stocks.
+  - `Pole 7` (`suspension`): **Suspension Bondage** — Full and partial static and dynamic suspension rigging.
+- **Widget**: Octagonal Radar (`"octad-radar"`).
+
+### 5.2 Topic `t0427`: Somatosensory & Anatomical Worship Octad
+- **Domain**: Attraction & Fetish (`cat-attraction-fetish`)
+- **Poles**:
+  - `Pole 0` (`feet`): **Feet & Footwear** — Foot worship, soles, toes, arch fetishism, boots, and heels.
+  - `Pole 1` (`hands`): **Hands & Gloves** — Palmistry, manicured nails, touch sensitivity, leather/satin gloves.
+  - `Pole 2` (`breasts`): **Breasts / Chest** — Mammary worship, cleavage, muscular pecs, nipple eroticism.
+  - `Pole 3` (`glutes`): **Buttocks / Glutes** — Posterior worship, spankable curves, athletic gluteal shape.
+  - `Pole 4` (`muscles`): **Muscles / Physique** — Bodybuilding physique, vascularity, strength aesthetics.
+  - `Pole 5` (`hair`): **Hair / Long Hair** — Long hair pulling, brushing, scent, and visual framing.
+  - `Pole 6` (`bodyhair`): **Body & Facial Hair** — Beards, body hair, chest hair, pubic hair aesthetic appreciation.
+  - `Pole 7` (`pregnancy`): **Pregnancy / Lactation** — Erotic maternal fertility, rounded bellies, lactation kink.
+- **Widget**: Octagonal Radar (`"octad-radar"`).
+
+### 5.3 Extended 8-Pole Systems Across Taxonomies
+Looking ahead to cross-domain skins:
+1. **Philoscapades Epistemological Octad (`topic-eight-epistemologies`)**:
+   Empiricism, Rationalism, Pragmatism, Phenomenology, Hermeneutics, Skepticism, Mysticism, Dialectics.
+2. **Leary & Wilson’s 8 Circuits of Consciousness**:
    Oral Bio-survival, Anal Territorial, Semantic Symbolic, Socio-Sexual, Neurosomatic, Metaprogramming, Morphogenetic, Non-Local Quantum.
-2. **Jungian 8 Cognitive Function-Attitudes**:
+3. **Jungian 8 Cognitive Function-Attitudes**:
    $Te, Ti, Fe, Fi, Se, Si, Ne, Ni$ — mapping psychological dominance and submission phenotypes.
-3. **The 8 Trigrams (Bagua) of Taoist Bedchamber Arts**:
-   Heaven, Earth, Water, Fire, Thunder, Wind, Mountain, Lake — ancient multi-directional energetic friction.
-4. **The 8 Seasonal Libido Rhythms (Wheel of the Year)**:
-   Yule, Imbolc, Ostara, Beltane, Litha, Lughnasadh, Mabon, Samhain.
+4. **The 8 Trigrams (Bagua) of Taoist Bedchamber Arts**:
+   Heaven, Earth, Water, Fire, Thunder, Wind, Mountain, Lake — multi-directional energetic friction.

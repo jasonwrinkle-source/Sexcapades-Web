@@ -111,6 +111,8 @@ Every topic in the hypermap has a geometric shape resolved by `Ge(topicId)` in [
   - `"quad-compass"`: 4-quadrant Cartesian compass.
   - `"star-radar"`: 5-pole regular pentagon radar.
   - `"hexad-radar"`: 6-pole regular hexagon radar.
+  - `"heptad-radar"`: 7-pole regular heptagon radar.
+  - `"octad-radar"`: 8-pole regular octagon radar.
 
 ### 2. Profile Rating Store (`wt`, `ca`, `To`, `Fo`)
 - `wt`: In-memory dictionary of loaded profiles: `{ [profileId]: { id, name, ratings, ... } }`.
@@ -139,7 +141,7 @@ For 2-pole relational topics, traditional UI relied on two linear sliders (Give 
   \end{aligned}$$
   Because $X$ and $Y$ map directly to `give` and `receive` with zero transformation loss, profiles remain 100% backward and forward compatible. Users can flip between 2D Switch-Box and Sliders via the placard toggle button at any time without data desynchronization.
 
-### 2. Triads, Tetrads, Pentads, and Hexads
+### 2. Triads, Tetrads, Pentads, Hexads, Heptads, and Octads
 - **Triads (3-Pole)**:
   - *Barycentric Simplex (`"triangle"`)*: For zero-sum or relative role mixtures where sum of weights is normalized (e.g. Bull / Hotwife / Cuckold, Top / Side / Bottom).
   - *Trilinear Sliders (`"trilinear-sliders"`)*: For independent triadic appetites that can each be maximum without trade-off (e.g. Primal / Sensual / Humiliation).
@@ -150,6 +152,10 @@ For 2-pole relational topics, traditional UI relied on two linear sliders (Give 
   - *Star Radar (`"star-radar"`)*: Regular pentagonal radar web for 5-sensory or 5-love-language dimensions.
 - **Hexads (6-Pole)**:
   - *Hexad Radar (`"hexad-radar"`)*: Regular hexagonal radar web for 6 archetypes or diametric pairings (e.g. Lee's 6 Love Styles).
+- **Heptads (7-Pole)**:
+  - *Heptad Radar (`"heptad-radar"`)*: Regular heptagonal radar web for 7 classical energy centers, planetary archetypes, or somatic spectrums (e.g. Sovereign BDSM Archetypes).
+- **Octads (8-Pole)**:
+  - *Octad Radar (`"octad-radar"`)*: Regular octagonal radar web with 4 orthogonal antipodal pairs for comprehensive physical restraint or anatomical worship clusters (e.g. Physical Restraint & Containment `t0426`, Anatomical Worship `t0427`).
 
 ---
 

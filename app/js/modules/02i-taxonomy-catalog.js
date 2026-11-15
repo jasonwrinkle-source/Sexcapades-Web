@@ -2720,8 +2720,8 @@
                 return {
                     single: !1,
                     triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "bull", "hotwife", "cuckold" ],
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
@@ -2730,8 +2730,8 @@
                 return {
                     single: !1,
                     triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "vixen", "stag", "cuckquean" ],
                     labels: [ "Vixen", "Stag", "Cuckquean" ]
                 };

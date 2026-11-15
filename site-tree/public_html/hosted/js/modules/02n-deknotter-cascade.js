@@ -411,7 +411,15 @@
             return { scale: diagRound(cam.scale), tx: diagRound(cam.tx), ty: diagRound(cam.ty) };
         }
         function restoreKept(forFinal, dk, snapshot, name) {
-            dk.restore(lastKeptSnapshot || snapshot);
+            if (typeof dkCtx !== "undefined" && dkCtx) {
+                dkCtx.isRestoring = !0;
+                dkCtx.phaseStartedAt = 0;
+            }
+            try {
+                dk.restore(lastKeptSnapshot || snapshot);
+            } finally {
+                if (typeof dkCtx !== "undefined" && dkCtx) dkCtx.isRestoring = !1;
+            }
             // The final phase deliberately cleared this
             // branch's fit registrations before committing;
             // a backed-up final restores the kept LAYOUT
@@ -1291,6 +1299,7 @@
                 } catch (e) {}
             }
             const res = dk.applyPhase(patch, phaseName);
+            if (typeof dkCtx !== "undefined" && dkCtx) dkCtx.phaseStartedAt = 0;
             if (!res || !res.ok) throw new Error("phase '" + phaseName + "' rejected by ratio validation" + (res && res.rejected ? ": " + JSON.stringify(res.rejected) : ""));
             await yieldNow();
             const entries = dkLog.slice(logStart), phaseEntry = entries.find(e => "phase" === e.type && e.phase === phaseName), ratios = phaseEntry ? phaseEntry.ratios : { branch: {}, subcat: {}, kink: {} }, now = dkDeliveredRadii(name), subRatios = [], kinkRatios = [];
@@ -2711,6 +2720,10 @@
                 report.finalDiffers = !0, report.gate = "kept";
                 }
             } catch (e) {
+                if (typeof dkCtx !== "undefined" && dkCtx) {
+                    dkCtx.isRestoring = !0;
+                    dkCtx.phaseStartedAt = 0;
+                }
                 report.fitDeviationTotal = tallyFitDev(report), report.gate = "reverted", report.reason = String(e && e.message || e);
                 // Q1: a budget abort or a user cancel is named as
                 // such on the report — phase and the phase's

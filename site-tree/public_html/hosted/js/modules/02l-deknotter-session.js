@@ -271,6 +271,7 @@
         // reported — no new unwind machinery.
         function dkSolvePoll() {
             if (!dkCtx) return;
+            if (dkCtx.isRestoring) return;
             dkCtx.iterCount = (dkCtx.iterCount || 0) + 1;
             const ctl = dkCtx.control, now = Date.now();
             if (ctl && "function" == typeof ctl.shouldCancel && ctl.shouldCancel()) {

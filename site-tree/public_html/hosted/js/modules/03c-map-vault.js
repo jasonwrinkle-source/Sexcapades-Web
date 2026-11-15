@@ -253,8 +253,19 @@
         }
         sxWarmBootInit();
 
-        async function sxSaveWarmBootCache(profileId) {
+        let sxWarmBootSaveTimer = null;
+        function sxSaveWarmBootCache(profileId) {
+            if ((typeof dkCtx !== "undefined" && dkCtx) || window.__sxAnnealActive || window.__sxAnnealRunning || (typeof deknotterRunning !== "undefined" && deknotterRunning)) return;
+            if (sxWarmBootSaveTimer) clearTimeout(sxWarmBootSaveTimer);
+            sxWarmBootSaveTimer = setTimeout(() => {
+                sxWarmBootSaveTimer = null;
+                sxExecuteSaveWarmBootCache(profileId);
+            }, 3000);
+        }
+
+        async function sxExecuteSaveWarmBootCache(profileId) {
             if (!In || In.childNodes.length === 0) return;
+            if ((typeof dkCtx !== "undefined" && dkCtx) || window.__sxAnnealActive || window.__sxAnnealRunning || (typeof deknotterRunning !== "undefined" && deknotterRunning)) return;
             const profId = profileId || "__default__";
             try {
                 const key = sxGetMapVaultKey(profId);

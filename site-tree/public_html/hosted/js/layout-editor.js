@@ -780,7 +780,7 @@
       var statusEl=document.getElementById("layoutDeknotterStatus");
       var api=window.__SEXCAPADES_LAYOUT_API,dk=api&&api.anneal;
       if(!dk||typeof dk.run!=="function"){if(statusEl)statusEl.innerHTML="<p><b>"+dkEsc(name)+"</b> \u2014 the DeKnotter driver is unavailable in this build.</p>";return}
-      deknotterRunning=true;deknotterCancelRequested=false;
+      deknotterRunning=true;window.__sxAnnealRunning=true;deknotterCancelRequested=false;
       var startedAt=Date.now(),lines=[],lastCloud=null,beforeCloud=null,report=null,runError=null;
       // Q1 heartbeat state: the phase currently solving (fed by the
       // driver's onHeartbeat hook, driven from the solver's own
@@ -851,6 +851,7 @@
         // states clear on EVERY exit path — success, gate revert, and
         // exception alike.
         deknotterRunning=false;
+        window.__sxAnnealRunning=false;
         if(hbTimer){clearInterval(hbTimer);hbTimer=null}
         if(cancelBtn)cancelBtn.hidden=true;
         stopDeknotterBusy();

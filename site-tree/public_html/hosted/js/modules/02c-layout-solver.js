@@ -541,40 +541,63 @@
                         if (scCtx && scSectorFrozen(s) && scSectorFrozen(l)) continue;
                         if (i && s !== i && l !== i) continue;
                         const c = n.get(s), d = n.get(l);
-                        Math.hypot(c.anchor.x - d.anchor.x, c.anchor.y - d.anchor.y) <= c.depth + d.depth && c.circles.forEach(e => d.circles.forEach(t => {
-                            const n = e.x - t.x, i = e.y - t.y, a = Math.hypot(n, i), o = e.r + t.r - a;
-                            if (o <= 1 || a < .001) return;
-                            const c = n / a, d = i / a;
-                            r(s, l, s, c, d, o), r(s, l, l, -c, -d, o);
-                        })), [ [ s, l ], [ l, s ] ].forEach(([e, i]) => {
+                        const adx = c.anchor.x - d.anchor.x, ady = c.anchor.y - d.anchor.y;
+                        const maxDepth = c.depth + d.depth;
+                        if (adx * adx + ady * ady <= maxDepth * maxDepth) {
+                            c.circles.forEach(e => d.circles.forEach(t => {
+                                const n = e.x - t.x, i = e.y - t.y;
+                                const dSq = n * n + i * i;
+                                const rSum = e.r + t.r;
+                                if (dSq < rSum * rSum && dSq > 1e-6) {
+                                    const a = Math.sqrt(dSq);
+                                    const o = rSum - a;
+                                    if (o > 1) {
+                                        const c = n / a, d = i / a;
+                                        r(s, l, s, c, d, o), r(s, l, l, -c, -d, o);
+                                    }
+                                }
+                            }));
+                        }
+                        [ [ s, l ], [ l, s ] ].forEach(([e, i]) => {
                             const a = n.get(e), o = n.get(i);
-                            rr.segmentDistance(o.anchor.x, o.anchor.y, t.x, t.y, a.anchor.x, a.anchor.y).distance > o.depth + rr.SPOKE_HALF_WIDTH + 2 || o.circles.forEach(n => {
-                                const o = rr.segmentDistance(n.x, n.y, t.x, t.y, a.anchor.x, a.anchor.y), s = n.r + rr.SPOKE_HALF_WIDTH - o.distance;
-                                if (s <= 1 || o.distance < .001) return;
-                                const l = t.x + (a.anchor.x - t.x) * o.fraction, c = t.y + (a.anchor.y - t.y) * o.fraction;
-                                r(e, i, i, (n.x - l) / o.distance, (n.y - c) / o.distance, s);
-                            });
+                            const sep = o.depth + rr.SPOKE_HALF_WIDTH + 2;
+                            if (rr.segmentDistance(o.anchor.x, o.anchor.y, t.x, t.y, a.anchor.x, a.anchor.y).distance <= sep) {
+                                o.circles.forEach(n => {
+                                    const o = rr.segmentDistance(n.x, n.y, t.x, t.y, a.anchor.x, a.anchor.y), s = n.r + rr.SPOKE_HALF_WIDTH - o.distance;
+                                    if (s <= 1 || o.distance < .001) return;
+                                    const l = t.x + (a.anchor.x - t.x) * o.fraction, c = t.y + (a.anchor.y - t.y) * o.fraction;
+                                    r(e, i, i, (n.x - l) / o.distance, (n.y - c) / o.distance, s);
+                                });
+                            }
                         }), [ [ s, l ], [ l, s ] ].forEach(([e, t]) => {
                             const i = n.get(e), a = n.get(t);
-                            Math.hypot(i.anchor.x - a.anchor.x, i.anchor.y - a.anchor.y) > i.depth + a.depth + rr.SPOKE_HALF_WIDTH + 2 || i.segments.forEach(n => {
-                                a.circles.forEach(i => {
-                                    const a = rr.segmentDistance(i.x, i.y, n.x1, n.y1, n.x2, n.y2), o = i.r + rr.SPOKE_HALF_WIDTH - a.distance;
-                                    if (o <= 1 || a.distance < .001) return;
-                                    const s = n.x1 + (n.x2 - n.x1) * a.fraction, l = n.y1 + (n.y2 - n.y1) * a.fraction;
-                                    r(e, t, t, (i.x - s) / a.distance, (i.y - l) / a.distance, o);
+                            const sep = i.depth + a.depth + rr.SPOKE_HALF_WIDTH + 2;
+                            if (adx * adx + ady * ady <= sep * sep) {
+                                i.segments.forEach(n => {
+                                    a.circles.forEach(i => {
+                                        const a = rr.segmentDistance(i.x, i.y, n.x1, n.y1, n.x2, n.y2), o = i.r + rr.SPOKE_HALF_WIDTH - a.distance;
+                                        if (o <= 1 || a.distance < .001) return;
+                                        const s = n.x1 + (n.x2 - n.x1) * a.fraction, l = n.y1 + (n.y2 - n.y1) * a.fraction;
+                                        r(e, t, t, (i.x - s) / a.distance, (i.y - l) / a.distance, o);
+                                    });
                                 });
-                            });
+                            }
                         });
                     }
                     return a;
                 };
+                let lastTarget = null;
                 for (let e = 0; e < SX_SCORE.OPTIMIZER_MAX_PASSES; e++) {
                     // Q1: heartbeat / cancel / phase-budget poll —
                     // a no-op unless a DeKnotter context is active.
                     dkSolvePoll();
-                    const e = a();
-                    if (!e.length) break;
-                    const t = e.map(e => {
+                    let rawCand = a(lastTarget);
+                    if (!rawCand.length && lastTarget) {
+                        lastTarget = null;
+                        rawCand = a(null);
+                    }
+                    if (!rawCand.length) break;
+                    const t = rawCand.map(e => {
                         const t = Number(e.target.entry.branch._spokeAdjust20) || 0, n = t + e.delta;
                         return {
                             ...e,
@@ -583,7 +606,14 @@
                         };
                     }).filter(e => Math.abs(e.delta) > .5 && ("grow" === mn.collision ? e.delta > 0 || ("armed" === sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)) : "shrink" !== mn.collision || e.delta < 0) && e.next >= rr.SPOKE_MIN_RADIUS - (e.target, 
                     1450) && e.next <= rr.SPOKE_MAX_GROWTH && (e.delta > 0 || ("veto" !== sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)))).filter(e => !scCtx || !scSectorFrozen(e.target) || (scCtx.dropped.optimiser++, !1)).sort((e, t) => Math.abs(e.delta) - Math.abs(t.delta) || (e.delta < 0 ? -1 : 1) - (t.delta < 0 ? -1 : 1) || String(e.target.entry.branch.name).localeCompare(String(t.target.entry.branch.name))), n = t[0];
-                    if (!n) break;
+                    if (!n) {
+                        if (lastTarget) {
+                            lastTarget = null;
+                            continue;
+                        }
+                        break;
+                    }
+                    lastTarget = n.target;
                     // DeKnotter log (E1): while a run context is active,
                     // record every change the optimiser makes to the
                     // ACTIVE branch's _spokeAdjust20 (before/after). The

@@ -390,7 +390,9 @@
             } catch (_) {}
             const i = (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ||
                       Boolean(window.__sxNoCameraAnim) ||
-                      Boolean(window.__SEXCAPADES_LAYOUT_API && window.__SEXCAPADES_LAYOUT_API.deknotter && window.__SEXCAPADES_LAYOUT_API.deknotter.active && window.__SEXCAPADES_LAYOUT_API.deknotter.active());
+                      Boolean(window.__SEXCAPADES_LAYOUT_API && window.__SEXCAPADES_LAYOUT_API.deknotter && window.__SEXCAPADES_LAYOUT_API.deknotter.active && window.__SEXCAPADES_LAYOUT_API.deknotter.active()) ||
+                      Boolean(window.__sxAnnealRunning) ||
+                      Boolean(typeof deknotterRunning !== "undefined" && deknotterRunning);
             if (!Bt || i) {
                 uh(), dh(), $p = e, Ep = t, Ap = n, $h();
                 return;
@@ -463,16 +465,17 @@
             if (!cat) {
                 for (const c of h) {
                     for (const s of (c.subcategories || [])) {
-                        if (s.id === rawId || s.id === migrated) { sub = { cat: c, sub: s }; break; }
-                        if (rawId && (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase())) { sub = { cat: c, sub: s }; break; }
+                        const sidCandidate = typeof Un === "function" ? Un(c.name, s.name) : `subcategory-${s.name}`;
+                        if (s.id === rawId || s.id === migrated || sidCandidate === rawId || sidCandidate === migrated) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
+                        if (rawId && (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase())) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
                         const sSlug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                        if (slug === sSlug && (String(rawId).startsWith("subcategory-") || String(rawId).startsWith("subcat-"))) { sub = { cat: c, sub: s }; break; }
+                        if (slug === sSlug && (String(rawId).startsWith("subcategory-") || String(rawId).startsWith("subcat-"))) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
                     }
                     if (sub) break;
                 }
             }
 
-            let sid = cat ? cat.id : (sub ? sub.sub.id : migrated);
+            let sid = cat ? cat.id : (sub ? (sub.id || sub.sub.id) : migrated);
             const rec = qn[sid] || Xn(sid) || qn[rawId] || Xn(rawId) || null;
             let isCat = Boolean(cat) || isCatId(sid);
             let isSub = Boolean(sub) || isSubId(sid);
@@ -569,9 +572,13 @@
                     return false;
                 }
                 if (isSub && sub) {
-                    if (k === sub.sub.id) return false;
+                    const subId = sub.id || (typeof Un === "function" ? Un(sub.cat.name, sub.sub.name) : sub.sub.id);
+                    if (k === subId) return false;
                     const item = qn[k] || Xn(k);
-                    return (item?.parentId === sub.sub.id || item?.subcategoryId === sub.sub.id || item?.subId === sub.sub.id);
+                    if (item && (item.parentId === subId || item.subcategoryId === subId || item.subId === subId)) return true;
+                    const topicLabel = item ? (item.label || item.name) : null;
+                    if (topicLabel && (sub.sub.topics || []).some(t => sxName(t) === sxName(topicLabel))) return true;
+                    return false;
                 }
                 return false;
             });

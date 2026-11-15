@@ -11997,8 +11997,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "bull", "hotwife", "cuckold" ],
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
@@ -12007,8 +12007,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "vixen", "stag", "cuckquean" ],
                     labels: [ "Vixen", "Stag", "Cuckquean" ]
                 };
@@ -12969,6 +12969,7 @@ const TAXONOMY_CATEGORIES = [
         // reported — no new unwind machinery.
         function dkSolvePoll() {
             if (!dkCtx) return;
+            if (dkCtx.isRestoring) return;
             dkCtx.iterCount = (dkCtx.iterCount || 0) + 1;
             const ctl = dkCtx.control, now = Date.now();
             if (ctl && "function" == typeof ctl.shouldCancel && ctl.shouldCancel()) {
@@ -15215,7 +15216,15 @@ const TAXONOMY_CATEGORIES = [
             return { scale: diagRound(cam.scale), tx: diagRound(cam.tx), ty: diagRound(cam.ty) };
         }
         function restoreKept(forFinal, dk, snapshot, name) {
-            dk.restore(lastKeptSnapshot || snapshot);
+            if (typeof dkCtx !== "undefined" && dkCtx) {
+                dkCtx.isRestoring = !0;
+                dkCtx.phaseStartedAt = 0;
+            }
+            try {
+                dk.restore(lastKeptSnapshot || snapshot);
+            } finally {
+                if (typeof dkCtx !== "undefined" && dkCtx) dkCtx.isRestoring = !1;
+            }
             // The final phase deliberately cleared this
             // branch's fit registrations before committing;
             // a backed-up final restores the kept LAYOUT
@@ -16095,6 +16104,7 @@ const TAXONOMY_CATEGORIES = [
                 } catch (e) {}
             }
             const res = dk.applyPhase(patch, phaseName);
+            if (typeof dkCtx !== "undefined" && dkCtx) dkCtx.phaseStartedAt = 0;
             if (!res || !res.ok) throw new Error("phase '" + phaseName + "' rejected by ratio validation" + (res && res.rejected ? ": " + JSON.stringify(res.rejected) : ""));
             await yieldNow();
             const entries = dkLog.slice(logStart), phaseEntry = entries.find(e => "phase" === e.type && e.phase === phaseName), ratios = phaseEntry ? phaseEntry.ratios : { branch: {}, subcat: {}, kink: {} }, now = dkDeliveredRadii(name), subRatios = [], kinkRatios = [];
@@ -17515,6 +17525,10 @@ const TAXONOMY_CATEGORIES = [
                 report.finalDiffers = !0, report.gate = "kept";
                 }
             } catch (e) {
+                if (typeof dkCtx !== "undefined" && dkCtx) {
+                    dkCtx.isRestoring = !0;
+                    dkCtx.phaseStartedAt = 0;
+                }
                 report.fitDeviationTotal = tallyFitDev(report), report.gate = "reverted", report.reason = String(e && e.message || e);
                 // Q1: a budget abort or a user cancel is named as
                 // such on the report — phase and the phase's
@@ -21516,40 +21530,63 @@ const TAXONOMY_CATEGORIES = [
                         if (scCtx && scSectorFrozen(s) && scSectorFrozen(l)) continue;
                         if (i && s !== i && l !== i) continue;
                         const c = n.get(s), d = n.get(l);
-                        Math.hypot(c.anchor.x - d.anchor.x, c.anchor.y - d.anchor.y) <= c.depth + d.depth && c.circles.forEach(e => d.circles.forEach(t => {
-                            const n = e.x - t.x, i = e.y - t.y, a = Math.hypot(n, i), o = e.r + t.r - a;
-                            if (o <= 1 || a < .001) return;
-                            const c = n / a, d = i / a;
-                            r(s, l, s, c, d, o), r(s, l, l, -c, -d, o);
-                        })), [ [ s, l ], [ l, s ] ].forEach(([e, i]) => {
+                        const adx = c.anchor.x - d.anchor.x, ady = c.anchor.y - d.anchor.y;
+                        const maxDepth = c.depth + d.depth;
+                        if (adx * adx + ady * ady <= maxDepth * maxDepth) {
+                            c.circles.forEach(e => d.circles.forEach(t => {
+                                const n = e.x - t.x, i = e.y - t.y;
+                                const dSq = n * n + i * i;
+                                const rSum = e.r + t.r;
+                                if (dSq < rSum * rSum && dSq > 1e-6) {
+                                    const a = Math.sqrt(dSq);
+                                    const o = rSum - a;
+                                    if (o > 1) {
+                                        const c = n / a, d = i / a;
+                                        r(s, l, s, c, d, o), r(s, l, l, -c, -d, o);
+                                    }
+                                }
+                            }));
+                        }
+                        [ [ s, l ], [ l, s ] ].forEach(([e, i]) => {
                             const a = n.get(e), o = n.get(i);
-                            rr.segmentDistance(o.anchor.x, o.anchor.y, t.x, t.y, a.anchor.x, a.anchor.y).distance > o.depth + rr.SPOKE_HALF_WIDTH + 2 || o.circles.forEach(n => {
-                                const o = rr.segmentDistance(n.x, n.y, t.x, t.y, a.anchor.x, a.anchor.y), s = n.r + rr.SPOKE_HALF_WIDTH - o.distance;
-                                if (s <= 1 || o.distance < .001) return;
-                                const l = t.x + (a.anchor.x - t.x) * o.fraction, c = t.y + (a.anchor.y - t.y) * o.fraction;
-                                r(e, i, i, (n.x - l) / o.distance, (n.y - c) / o.distance, s);
-                            });
+                            const sep = o.depth + rr.SPOKE_HALF_WIDTH + 2;
+                            if (rr.segmentDistance(o.anchor.x, o.anchor.y, t.x, t.y, a.anchor.x, a.anchor.y).distance <= sep) {
+                                o.circles.forEach(n => {
+                                    const o = rr.segmentDistance(n.x, n.y, t.x, t.y, a.anchor.x, a.anchor.y), s = n.r + rr.SPOKE_HALF_WIDTH - o.distance;
+                                    if (s <= 1 || o.distance < .001) return;
+                                    const l = t.x + (a.anchor.x - t.x) * o.fraction, c = t.y + (a.anchor.y - t.y) * o.fraction;
+                                    r(e, i, i, (n.x - l) / o.distance, (n.y - c) / o.distance, s);
+                                });
+                            }
                         }), [ [ s, l ], [ l, s ] ].forEach(([e, t]) => {
                             const i = n.get(e), a = n.get(t);
-                            Math.hypot(i.anchor.x - a.anchor.x, i.anchor.y - a.anchor.y) > i.depth + a.depth + rr.SPOKE_HALF_WIDTH + 2 || i.segments.forEach(n => {
-                                a.circles.forEach(i => {
-                                    const a = rr.segmentDistance(i.x, i.y, n.x1, n.y1, n.x2, n.y2), o = i.r + rr.SPOKE_HALF_WIDTH - a.distance;
-                                    if (o <= 1 || a.distance < .001) return;
-                                    const s = n.x1 + (n.x2 - n.x1) * a.fraction, l = n.y1 + (n.y2 - n.y1) * a.fraction;
-                                    r(e, t, t, (i.x - s) / a.distance, (i.y - l) / a.distance, o);
+                            const sep = i.depth + a.depth + rr.SPOKE_HALF_WIDTH + 2;
+                            if (adx * adx + ady * ady <= sep * sep) {
+                                i.segments.forEach(n => {
+                                    a.circles.forEach(i => {
+                                        const a = rr.segmentDistance(i.x, i.y, n.x1, n.y1, n.x2, n.y2), o = i.r + rr.SPOKE_HALF_WIDTH - a.distance;
+                                        if (o <= 1 || a.distance < .001) return;
+                                        const s = n.x1 + (n.x2 - n.x1) * a.fraction, l = n.y1 + (n.y2 - n.y1) * a.fraction;
+                                        r(e, t, t, (i.x - s) / a.distance, (i.y - l) / a.distance, o);
+                                    });
                                 });
-                            });
+                            }
                         });
                     }
                     return a;
                 };
+                let lastTarget = null;
                 for (let e = 0; e < SX_SCORE.OPTIMIZER_MAX_PASSES; e++) {
                     // Q1: heartbeat / cancel / phase-budget poll —
                     // a no-op unless a DeKnotter context is active.
                     dkSolvePoll();
-                    const e = a();
-                    if (!e.length) break;
-                    const t = e.map(e => {
+                    let rawCand = a(lastTarget);
+                    if (!rawCand.length && lastTarget) {
+                        lastTarget = null;
+                        rawCand = a(null);
+                    }
+                    if (!rawCand.length) break;
+                    const t = rawCand.map(e => {
                         const t = Number(e.target.entry.branch._spokeAdjust20) || 0, n = t + e.delta;
                         return {
                             ...e,
@@ -21558,7 +21595,14 @@ const TAXONOMY_CATEGORIES = [
                         };
                     }).filter(e => Math.abs(e.delta) > .5 && ("grow" === mn.collision ? e.delta > 0 || ("armed" === sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)) : "shrink" !== mn.collision || e.delta < 0) && e.next >= rr.SPOKE_MIN_RADIUS - (e.target, 
                     1450) && e.next <= rr.SPOKE_MAX_GROWTH && (e.delta > 0 || ("veto" !== sxShrinkState(mn.branchSpokeAutoShrink, e.target.entry.branch.name)))).filter(e => !scCtx || !scSectorFrozen(e.target) || (scCtx.dropped.optimiser++, !1)).sort((e, t) => Math.abs(e.delta) - Math.abs(t.delta) || (e.delta < 0 ? -1 : 1) - (t.delta < 0 ? -1 : 1) || String(e.target.entry.branch.name).localeCompare(String(t.target.entry.branch.name))), n = t[0];
-                    if (!n) break;
+                    if (!n) {
+                        if (lastTarget) {
+                            lastTarget = null;
+                            continue;
+                        }
+                        break;
+                    }
+                    lastTarget = n.target;
                     // DeKnotter log (E1): while a run context is active,
                     // record every change the optimiser makes to the
                     // ACTIVE branch's _spokeAdjust20 (before/after). The
@@ -24469,8 +24513,19 @@ const TAXONOMY_CATEGORIES = [
         }
         sxWarmBootInit();
 
-        async function sxSaveWarmBootCache(profileId) {
+        let sxWarmBootSaveTimer = null;
+        function sxSaveWarmBootCache(profileId) {
+            if ((typeof dkCtx !== "undefined" && dkCtx) || window.__sxAnnealActive || window.__sxAnnealRunning || (typeof deknotterRunning !== "undefined" && deknotterRunning)) return;
+            if (sxWarmBootSaveTimer) clearTimeout(sxWarmBootSaveTimer);
+            sxWarmBootSaveTimer = setTimeout(() => {
+                sxWarmBootSaveTimer = null;
+                sxExecuteSaveWarmBootCache(profileId);
+            }, 3000);
+        }
+
+        async function sxExecuteSaveWarmBootCache(profileId) {
             if (!In || In.childNodes.length === 0) return;
+            if ((typeof dkCtx !== "undefined" && dkCtx) || window.__sxAnnealActive || window.__sxAnnealRunning || (typeof deknotterRunning !== "undefined" && deknotterRunning)) return;
             const profId = profileId || "__default__";
             try {
                 const key = sxGetMapVaultKey(profId);
@@ -27364,13 +27419,19 @@ const TAXONOMY_CATEGORIES = [
         function sxGetTetradVertices(width, height) {
             const cx = width / 2, cy = height / 2;
             const r = Math.min(width, height) / 2 - 24;
-            // North (Amber), East (Emerald), South (Blue), West (Crimson)
+            // North (0), East (1), South (2), West (3)
             return {
                 cx, cy, r,
                 P0: { x: cx, y: cy - r },
                 P1: { x: cx + r, y: cy },
                 P2: { x: cx, y: cy + r },
-                P3: { x: cx - r, y: cy }
+                P3: { x: cx - r, y: cy },
+                vertices: [
+                    { x: cx, y: cy - r, angle: -Math.PI / 2 },
+                    { x: cx + r, y: cy, angle: 0 },
+                    { x: cx, y: cy + r, angle: Math.PI / 2 },
+                    { x: cx - r, y: cy, angle: Math.PI }
+                ]
             };
         }
 
@@ -27493,6 +27554,36 @@ const TAXONOMY_CATEGORIES = [
             sxSyncMarkRatings(topicId);
         }
 
+        function sxFindClosestAxis(px, py, cx, cy, vertices, currentValues, handleRadius = 22) {
+            let bestHandleIdx = null, bestHandleDist = handleRadius;
+            if (currentValues && currentValues.length) {
+                vertices.forEach((v, idx) => {
+                    const s = Math.max(0, Math.min(100, Math.abs(currentValues[idx] || 0))) / 100;
+                    const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
+                    const d = Math.hypot(px - vx, py - vy);
+                    if (d < bestHandleDist) {
+                        bestHandleDist = d;
+                        bestHandleIdx = idx;
+                    }
+                });
+                if (bestHandleIdx !== null) return bestHandleIdx;
+            }
+
+            const clickAngle = Math.atan2(py - cy, px - cx);
+            let bestAngleIdx = 0, minAngleDiff = Infinity;
+            vertices.forEach((v, idx) => {
+                let diff = (clickAngle - v.angle) % (2 * Math.PI);
+                if (diff < -Math.PI) diff += 2 * Math.PI;
+                if (diff > Math.PI) diff -= 2 * Math.PI;
+                const absDiff = Math.abs(diff);
+                if (absDiff < minAngleDiff) {
+                    minAngleDiff = absDiff;
+                    bestAngleIdx = idx;
+                }
+            });
+            return bestAngleIdx;
+        }
+
         function sxBindTetradWidget() {
             const canvas = e.byId("markTetradCanvas");
             const slider = e.byId("markTetradIntensity");
@@ -27507,32 +27598,38 @@ const TAXONOMY_CATEGORIES = [
                 const px = (clientX - rect.left) * (canvas.width / rect.width);
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
-                const { cx, cy, r } = sxGetTetradVertices(canvas.width, canvas.height);
-                const dx = px - cx, dy = py - cy;
+                const { cx, cy, r, vertices } = sxGetTetradVertices(canvas.width, canvas.height);
+                const curVals = [sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3];
+                const isAllZero = curVals.every(v => !v);
 
-                // Determine closest axis if none locked yet
-                let v = sxTetradState.activeVertex;
-                if (v === null) {
-                    if (Math.abs(dx) > Math.abs(dy)) {
-                        v = dx > 0 ? 1 : 3; // East (1) or West (3)
-                    } else {
-                        v = dy < 0 ? 0 : 2; // North (0) or South (2)
-                    }
-                    sxTetradState.activeVertex = v;
+                if (sxTetradState.activeVertex === null) {
+                    sxTetradState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
-                // Project distance onto active axis
-                let dist = 0;
-                if (v === 0) dist = Math.max(0, -dy);
-                else if (v === 1) dist = Math.max(0, dx);
-                else if (v === 2) dist = Math.max(0, dy);
-                else if (v === 3) dist = Math.max(0, -dx);
+                const v = sxTetradState.activeVertex;
+                const angle = vertices[v].angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const dot = (px - cx) * cosA + (py - cy) * sinA;
+                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                const val = Math.max(0, Math.min(100, Math.round((dist / r) * 100)));
-                if (v === 0) sxTetradState.p0 = val;
-                else if (v === 1) sxTetradState.p1 = val;
-                else if (v === 2) sxTetradState.p2 = val;
-                else if (v === 3) sxTetradState.p3 = val;
+                if (isAllZero && val > 0) {
+                    // Direct drag from unrated/0 initializes an active polygon rather than a 1D monopole
+                    const base = Math.max(20, Math.round(val * 0.5));
+                    sxTetradState.p0 = (v === 0) ? val : base;
+                    sxTetradState.p1 = (v === 1) ? val : base;
+                    sxTetradState.p2 = (v === 2) ? val : base;
+                    sxTetradState.p3 = (v === 3) ? val : base;
+                } else {
+                    if (v === 0) sxTetradState.p0 = val;
+                    else if (v === 1) sxTetradState.p1 = val;
+                    else if (v === 2) sxTetradState.p2 = val;
+                    else if (v === 3) sxTetradState.p3 = val;
+                }
+
+                const maxVal = Math.max(sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markTetradIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
 
                 if (Qr) {
                     const shape = Ge(Qr);
@@ -27571,7 +27668,16 @@ const TAXONOMY_CATEGORIES = [
                 sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.p1 * scale)));
                 sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.p2 * scale)));
                 sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.p3 * scale)));
+                const maxVal = Math.max(sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markTetradIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
                 if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTetradWidget(canvas, shape, sxTetradState);
+                    sxApplyTetradRatings(Qr);
+                }
+            }, { passive: false });
                     const shape = Ge(Qr);
                     sxDrawTetradWidget(canvas, shape, sxTetradState);
                     sxApplyTetradRatings(Qr);
@@ -27772,16 +27878,11 @@ const TAXONOMY_CATEGORIES = [
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 const { cx, cy, r, vertices } = sxGetPentadVertices(canvas.width, canvas.height);
+                const curVals = [sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4];
+                const isAllZero = curVals.every(v => !v);
 
                 if (sxPentadState.activeVertex === null) {
-                    let bestIdx = null, bestDist = 22;
-                    vertices.forEach((v, idx) => {
-                        const s = (sxPentadState[`p${idx}`] || 0) / 100;
-                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
-                        const d = Math.hypot(px - vx, py - vy);
-                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
-                    });
-                    sxPentadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                    sxPentadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
                 const v = sxPentadState.activeVertex;
@@ -27790,7 +27891,19 @@ const TAXONOMY_CATEGORIES = [
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                sxPentadState[`p${v}`] = val;
+                if (isAllZero && val > 0) {
+                    const base = Math.max(20, Math.round(val * 0.5));
+                    for (let k = 0; k < 5; k++) {
+                        sxPentadState[`p${k}`] = (k === v) ? val : base;
+                    }
+                } else {
+                    sxPentadState[`p${v}`] = val;
+                }
+
+                const maxVal = Math.max(sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markPentadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
 
                 if (Qr) {
                     const shape = Ge(Qr);
@@ -27829,6 +27942,10 @@ const TAXONOMY_CATEGORIES = [
                 for (let k = 0; k < 5; k++) {
                     sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState[`p${k}`] * scale)));
                 }
+                const maxVal = Math.max(sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markPentadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawPentadWidget(canvas, shape, sxPentadState);
@@ -28033,16 +28150,11 @@ const TAXONOMY_CATEGORIES = [
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 const { cx, cy, r, vertices } = sxGetHexadVertices(canvas.width, canvas.height);
+                const curVals = [sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5];
+                const isAllZero = curVals.every(v => !v);
 
                 if (sxHexadState.activeVertex === null) {
-                    let bestIdx = null, bestDist = 22;
-                    vertices.forEach((v, idx) => {
-                        const s = (sxHexadState[`p${idx}`] || 0) / 100;
-                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
-                        const d = Math.hypot(px - vx, py - vy);
-                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
-                    });
-                    sxHexadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                    sxHexadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
                 const v = sxHexadState.activeVertex;
@@ -28051,7 +28163,19 @@ const TAXONOMY_CATEGORIES = [
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                sxHexadState[`p${v}`] = val;
+                if (isAllZero && val > 0) {
+                    const base = Math.max(20, Math.round(val * 0.5));
+                    for (let k = 0; k < 6; k++) {
+                        sxHexadState[`p${k}`] = (k === v) ? val : base;
+                    }
+                } else {
+                    sxHexadState[`p${v}`] = val;
+                }
+
+                const maxVal = Math.max(sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markHexadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
 
                 if (Qr) {
                     const shape = Ge(Qr);
@@ -28090,6 +28214,10 @@ const TAXONOMY_CATEGORIES = [
                 for (let k = 0; k < 6; k++) {
                     sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState[`p${k}`] * scale)));
                 }
+                const maxVal = Math.max(sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markHexadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawHexadWidget(canvas, shape, sxHexadState);
@@ -28291,16 +28419,11 @@ const TAXONOMY_CATEGORIES = [
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 const { cx, cy, r, vertices } = sxGetHeptadVertices(canvas.width, canvas.height);
+                const curVals = [sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6];
+                const isAllZero = curVals.every(v => !v);
 
                 if (sxHeptadState.activeVertex === null) {
-                    let bestIdx = null, bestDist = 22;
-                    vertices.forEach((v, idx) => {
-                        const s = (sxHeptadState[`p${idx}`] || 0) / 100;
-                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
-                        const d = Math.hypot(px - vx, py - vy);
-                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
-                    });
-                    sxHeptadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                    sxHeptadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
                 const v = sxHeptadState.activeVertex;
@@ -28309,7 +28432,19 @@ const TAXONOMY_CATEGORIES = [
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                sxHeptadState[`p${v}`] = val;
+                if (isAllZero && val > 0) {
+                    const base = Math.max(20, Math.round(val * 0.5));
+                    for (let k = 0; k < 7; k++) {
+                        sxHeptadState[`p${k}`] = (k === v) ? val : base;
+                    }
+                } else {
+                    sxHeptadState[`p${v}`] = val;
+                }
+
+                const maxVal = Math.max(sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markHeptadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
 
                 if (Qr) {
                     const shape = Ge(Qr);
@@ -28348,6 +28483,10 @@ const TAXONOMY_CATEGORIES = [
                 for (let k = 0; k < 7; k++) {
                     sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState[`p${k}`] * scale)));
                 }
+                const maxVal = Math.max(sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markHeptadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawHeptadWidget(canvas, shape, sxHeptadState);
@@ -28555,16 +28694,11 @@ const TAXONOMY_CATEGORIES = [
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 const { cx, cy, r, vertices } = sxGetOctadVertices(canvas.width, canvas.height);
+                const curVals = [sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7];
+                const isAllZero = curVals.every(v => !v);
 
                 if (sxOctadState.activeVertex === null) {
-                    let bestIdx = null, bestDist = 22;
-                    vertices.forEach((v, idx) => {
-                        const s = (sxOctadState[`p${idx}`] || 0) / 100;
-                        const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
-                        const d = Math.hypot(px - vx, py - vy);
-                        if (d < bestDist) { bestDist = d; bestIdx = idx; }
-                    });
-                    sxOctadState.activeVertex = bestIdx !== null ? bestIdx : 0;
+                    sxOctadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
                 const v = sxOctadState.activeVertex;
@@ -28573,7 +28707,19 @@ const TAXONOMY_CATEGORIES = [
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                sxOctadState[`p${v}`] = val;
+                if (isAllZero && val > 0) {
+                    const base = Math.max(20, Math.round(val * 0.5));
+                    for (let k = 0; k < 8; k++) {
+                        sxOctadState[`p${k}`] = (k === v) ? val : base;
+                    }
+                } else {
+                    sxOctadState[`p${v}`] = val;
+                }
+
+                const maxVal = Math.max(sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markOctadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
 
                 if (Qr) {
                     const shape = Ge(Qr);
@@ -28612,6 +28758,10 @@ const TAXONOMY_CATEGORIES = [
                 for (let k = 0; k < 8; k++) {
                     sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState[`p${k}`] * scale)));
                 }
+                const maxVal = Math.max(sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId("markOctadIntensityOut");
+                if (out) out.textContent = String(Math.round(maxVal));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawOctadWidget(canvas, shape, sxOctadState);
@@ -28756,29 +28906,28 @@ const TAXONOMY_CATEGORIES = [
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 if (isOctad || isHeptad || isHexad || isPentad || isTetrad) {
-                    const getVerts = isOctad ? sxGetOctadVertices : isHeptad ? sxGetHeptadVertices : isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : (w, h) => {
-                        const cx = w / 2, cy = h / 2, r = Math.min(w, h) / 2 - 24;
-                        return { cx, cy, r, vertices: [
-                            { x: cx, y: cy - r, angle: -Math.PI / 2 },
-                            { x: cx + r, y: cy, angle: 0 },
-                            { x: cx, y: cy + r, angle: Math.PI / 2 },
-                            { x: cx - r, y: cy, angle: Math.PI }
-                        ]};
-                    };
+                    const getVerts = isOctad ? sxGetOctadVertices : isHeptad ? sxGetHeptadVertices : isHexad ? sxGetHexadVertices : isPentad ? sxGetPentadVertices : sxGetTetradVertices;
                     const { cx, cy, r, vertices } = getVerts(canvas.width, canvas.height);
+                    const curRec = ca(topicId, pId);
+                    const curVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                    const isAllZero = curVals.every(v => !v);
+
                     if (activeIdx === null) {
-                        let bestDist = 30, best = 0;
-                        vertices.forEach((v, idx) => {
-                            const d = Math.hypot(px - v.x, py - v.y);
-                            if (d < bestDist) { bestDist = d; best = idx; }
-                        });
-                        activeIdx = best;
+                        activeIdx = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                     }
                     const v = vertices[activeIdx];
                     const angle = v.angle;
                     const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
                     const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
-                    To(topicId, keys[activeIdx], val, !1, pId);
+
+                    if (isAllZero && val > 0) {
+                        const base = Math.max(20, Math.round(val * 0.5));
+                        keys.forEach((k, idx) => {
+                            To(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
+                        });
+                    } else {
+                        To(topicId, keys[activeIdx], val, !1, pId);
+                    }
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -28915,6 +29064,12 @@ const TAXONOMY_CATEGORIES = [
                 sxTriState.w0 = w0;
                 sxTriState.w1 = w1;
                 sxTriState.w2 = w2;
+                if (!sxTriState.intensity) {
+                    sxTriState.intensity = 70;
+                    if (slider) slider.value = "70";
+                    const out = e.byId("markTriangleIntensityOut");
+                    out && (out.textContent = "70");
+                }
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
@@ -29088,50 +29243,73 @@ const TAXONOMY_CATEGORIES = [
             ctx.fillStyle = "#f87171"; ctx.fillText(`- ${giveLabel} Limit`, cx - r - 5, cy);
 
             // 5. Active Puck Position
+            const isUnrated = Boolean(state.isUnrated);
             const g = Math.max(-100, Math.min(100, state.give || 0));
             const recvVal = Math.max(-100, Math.min(100, state.receive || 0));
             const px = cx + (g / 100) * r;
             const py = cy - (recvVal / 100) * r; // screen y is inverted
 
-            // Puck color
-            let puckCol = "#94a3b8";
-            if (g === 0 && recvVal === 0) {
-                puckCol = "rgba(255, 255, 255, 0.5)";
-            } else if (g >= 0 && recvVal >= 0) {
-                puckCol = "#22c55e"; // Green versatile switch
-            } else if (g <= 0 && recvVal <= 0) {
-                puckCol = "#ef4444"; // Red limit
-            } else if (g > 0 && recvVal < 0) {
-                puckCol = "#eab308"; // Top yellow
+            if (isUnrated) {
+                // Unrated ghost prompt
+                ctx.beginPath();
+                ctx.arc(cx, cy, 7.5, 0, 2 * Math.PI);
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([3, 3]);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.font = "italic 9px system-ui, sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+                ctx.fillText("Click to rate", cx, cy - 14);
             } else {
-                puckCol = "#3b82f6"; // Bottom blue
+                // Puck color
+                let puckCol = "#94a3b8";
+                if (g === 0 && recvVal === 0) {
+                    puckCol = "rgba(255, 255, 255, 0.6)";
+                } else if (g >= 0 && recvVal >= 0) {
+                    puckCol = "#22c55e"; // Green versatile switch
+                } else if (g <= 0 && recvVal <= 0) {
+                    puckCol = "#ef4444"; // Red limit
+                } else if (g > 0 && recvVal < 0) {
+                    puckCol = "#eab308"; // Top yellow
+                } else {
+                    puckCol = "#3b82f6"; // Bottom blue
+                }
+
+                // Glow
+                ctx.beginPath();
+                ctx.arc(px, py, 11, 0, 2 * Math.PI);
+                ctx.fillStyle = puckCol;
+                ctx.globalAlpha = 0.35;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+
+                // Puck body
+                ctx.beginPath();
+                ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
+                ctx.fillStyle = puckCol;
+                ctx.fill();
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
             }
-
-            // Glow
-            ctx.beginPath();
-            ctx.arc(px, py, 11, 0, 2 * Math.PI);
-            ctx.fillStyle = puckCol;
-            ctx.globalAlpha = 0.35;
-            ctx.fill();
-            ctx.globalAlpha = 1.0;
-
-            // Puck body
-            ctx.beginPath();
-            ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
-            ctx.fillStyle = puckCol;
-            ctx.fill();
-            ctx.lineWidth = 1.8;
-            ctx.strokeStyle = "#ffffff";
-            ctx.stroke();
         }
 
-        function sxUpdateSwitchboxReadouts(give, receive) {
+        function sxUpdateSwitchboxReadouts(give, receive, isUnrated = false) {
             const gVal = e.byId("markSwitchboxGiveVal");
             const rVal = e.byId("markSwitchboxRecvVal");
             const roleVal = e.byId("markSwitchboxRoleVal");
-            if (gVal) gVal.textContent = String(Math.round(give));
-            if (rVal) rVal.textContent = String(Math.round(receive));
-            if (roleVal) roleVal.textContent = sxGetSwitchboxRole(give, receive);
+            if (isUnrated) {
+                if (gVal) gVal.textContent = "Unrated";
+                if (rVal) rVal.textContent = "Unrated";
+                if (roleVal) roleVal.textContent = "Unrated (click box to rate)";
+            } else {
+                if (gVal) gVal.textContent = String(Math.round(give));
+                if (rVal) rVal.textContent = String(Math.round(receive));
+                if (roleVal) roleVal.textContent = sxGetSwitchboxRole(give, receive);
+            }
         }
 
         function sxBindSwitchboxWidget() {
@@ -29159,13 +29337,14 @@ const TAXONOMY_CATEGORIES = [
 
                 sxSwitchboxState.give = g;
                 sxSwitchboxState.receive = recv;
+                sxSwitchboxState.isUnrated = false;
 
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
                     To(Qr, "give", g, !1);
-                    To(Qr, "receive", recv, !0);
-                    sxUpdateSwitchboxReadouts(g, recv);
+                    To(Qr, "receive", recv, !1);
+                    sxUpdateSwitchboxReadouts(g, recv, false);
                 }
             };
 
@@ -29182,6 +29361,9 @@ const TAXONOMY_CATEGORIES = [
                 if (sxSwitchboxState.isDragging) {
                     sxSwitchboxState.isDragging = !1;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch (e) {}
+                    if (Qr) {
+                        Mr();
+                    }
                 }
             };
             canvas.addEventListener("pointerup", stopDrag);
@@ -29194,9 +29376,10 @@ const TAXONOMY_CATEGORIES = [
                         Fo(Qr, "receive", !0);
                         sxSwitchboxState.give = 0;
                         sxSwitchboxState.receive = 0;
+                        sxSwitchboxState.isUnrated = true;
                         const shape = Ge(Qr);
                         sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
-                        sxUpdateSwitchboxReadouts(0, 0);
+                        sxUpdateSwitchboxReadouts(0, 0, true);
                         sxSyncMarkRatings(Qr);
                     }
                 });
@@ -29246,30 +29429,6 @@ const TAXONOMY_CATEGORIES = [
             const heptadVal0 = e.byId("markHeptadVal0"), heptadVal1 = e.byId("markHeptadVal1"), heptadVal2 = e.byId("markHeptadVal2"), heptadVal3 = e.byId("markHeptadVal3"), heptadVal4 = e.byId("markHeptadVal4"), heptadVal5 = e.byId("markHeptadVal5"), heptadVal6 = e.byId("markHeptadVal6");
             const heptadPole0 = e.byId("markHeptadPole0"), heptadPole1 = e.byId("markHeptadPole1"), heptadPole2 = e.byId("markHeptadPole2"), heptadPole3 = e.byId("markHeptadPole3"), heptadPole4 = e.byId("markHeptadPole4"), heptadPole5 = e.byId("markHeptadPole5"), heptadPole6 = e.byId("markHeptadPole6");
 
-            const switchboxWrap = e.byId("markSwitchboxWrap");
-            const switchboxCanvas = e.byId("markSwitchboxCanvas");
-            const switchboxGiveLabel = e.byId("markSwitchboxGiveLabel");
-            const switchboxRecvLabel = e.byId("markSwitchboxRecvLabel");
-
-            const linearRatings = e.byId("markRatings");
-
-            if (!give || !id) return;
-            const rInfo = qn[id];
-            if (rInfo && (rInfo.kind === "Category" || rInfo.kind === "Subcategory")) {
-                // Categories and Subcategories do not carry ratings on their placard
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                heptadWrap && (heptadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                linearRatings && (linearRatings.hidden = !0);
-                return;
-            }
-
-            const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
-            const widget = shape.widget || (shape.octad ? "octad-radar" : shape.heptad ? "heptad-radar" : shape.hexad ? "hexad-radar" : shape.pentad ? "star-radar" : shape.tetrad ? "diamond" : shape.triangle ? "triangle" : shape.single ? "monopole-slider" : "xy-switchbox");
-
             const octadWrap = e.byId("markOctadWrap");
             const octadCanvas = e.byId("markOctadCanvas");
             const octadIntensity = e.byId("markOctadIntensity");
@@ -29277,12 +29436,38 @@ const TAXONOMY_CATEGORIES = [
             const octadVal0 = e.byId("markOctadVal0"), octadVal1 = e.byId("markOctadVal1"), octadVal2 = e.byId("markOctadVal2"), octadVal3 = e.byId("markOctadVal3"), octadVal4 = e.byId("markOctadVal4"), octadVal5 = e.byId("markOctadVal5"), octadVal6 = e.byId("markOctadVal6"), octadVal7 = e.byId("markOctadVal7");
             const octadPole0 = e.byId("markOctadPole0"), octadPole1 = e.byId("markOctadPole1"), octadPole2 = e.byId("markOctadPole2"), octadPole3 = e.byId("markOctadPole3"), octadPole4 = e.byId("markOctadPole4"), octadPole5 = e.byId("markOctadPole5"), octadPole6 = e.byId("markOctadPole6"), octadPole7 = e.byId("markOctadPole7");
 
-            // Strictly ONE rating widget visible per placard (unconditionally hide all wraps upfront)
-            [triWrap, tetradWrap, pentadWrap, hexadWrap, heptadWrap, octadWrap, switchboxWrap, linearRatings].forEach(w => w && (w.hidden = !0));
+            const switchboxWrap = e.byId("markSwitchboxWrap");
+            const switchboxCanvas = e.byId("markSwitchboxCanvas");
+            const switchboxGiveLabel = e.byId("markSwitchboxGiveLabel");
+            const switchboxRecvLabel = e.byId("markSwitchboxRecvLabel");
+
+            const linearRatings = e.byId("markRatings");
+
+            // Guaranteed single widget helper: only activeWrap is shown, all others hidden
+            const allWraps = [triWrap, tetradWrap, pentadWrap, hexadWrap, heptadWrap, octadWrap, switchboxWrap, linearRatings];
+            const setOnlyWrap = (activeWrap) => {
+                for (let i = 0; i < allWraps.length; i++) {
+                    const w = allWraps[i];
+                    if (w) w.hidden = (w !== activeWrap);
+                }
+            };
+
+            if (!give || !id) {
+                setOnlyWrap(null);
+                return;
+            }
+            const rInfo = qn[id];
+            if (rInfo && (rInfo.kind === "Category" || rInfo.kind === "Subcategory")) {
+                setOnlyWrap(null);
+                return;
+            }
+
+            const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
+            const widget = shape.widget || (shape.octad ? "octad-radar" : shape.heptad ? "heptad-radar" : shape.hexad ? "hexad-radar" : shape.pentad ? "star-radar" : shape.tetrad ? "diamond" : shape.triangle ? "triangle" : shape.single ? "monopole-slider" : "xy-switchbox");
 
             if (widget === "octad-radar") {
                 // 8-Pole Octad Radar / Regular Octagon Deformation Polygon Widget
-                octadWrap && (octadWrap.hidden = !1);
+                setOnlyWrap(octadWrap);
 
                 const keys = shape.keys;
                 const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
@@ -29312,14 +29497,7 @@ const TAXONOMY_CATEGORIES = [
                 sxDrawOctadWidget(octadCanvas, shape, sxOctadState);
             } else if (widget === "heptad-radar") {
                 // 7-Pole Heptad Radar / Heptagon Deformation Polygon Widget
-                octadWrap && (octadWrap.hidden = !0);
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                heptadWrap && (heptadWrap.hidden = !1);
-                linearRatings && (linearRatings.hidden = !0);
+                setOnlyWrap(heptadWrap);
 
                 const keys = shape.keys;
                 const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
@@ -29348,13 +29526,7 @@ const TAXONOMY_CATEGORIES = [
                 sxDrawHeptadWidget(heptadCanvas, shape, sxHeptadState);
             } else if (widget === "hexad-radar") {
                 // 6-Pole Hexad Radar / Hexagon Deformation Polygon Widget
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                heptadWrap && (heptadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !1);
-                linearRatings && (linearRatings.hidden = !0);
+                setOnlyWrap(hexadWrap);
 
                 const keys = shape.keys;
                 const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
@@ -29382,12 +29554,7 @@ const TAXONOMY_CATEGORIES = [
                 sxDrawHexadWidget(hexadCanvas, shape, sxHexadState);
             } else if (widget === "star-radar") {
                 // 5-Pole Pentad Radar / Star Deformation Polygon Widget
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !1);
-                linearRatings && (linearRatings.hidden = !0);
+                setOnlyWrap(pentadWrap);
 
                 const keys = shape.keys;
                 const ratings = keys.map(k => (rec[k + "Known"] ? rec[k] : 0));
@@ -29414,12 +29581,7 @@ const TAXONOMY_CATEGORIES = [
                 sxDrawPentadWidget(pentadCanvas, shape, sxPentadState);
             } else if (widget === "diamond" || widget === "quad-compass") {
                 // 4-Pole Tetrad Radar / Diamond Deformation Polygon Widget
-                triWrap && (triWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !1);
-                linearRatings && (linearRatings.hidden = !0);
+                setOnlyWrap(tetradWrap);
 
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2], k3 = shape.keys[3];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
@@ -29450,12 +29612,7 @@ const TAXONOMY_CATEGORIES = [
                 sxDrawTetradWidget(tetradCanvas, shape, sxTetradState);
             } else if (widget === "triangle") {
                 // 3-Pole Triad Barycentric Simplex Widget
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                linearRatings && (linearRatings.hidden = !0);
-                triWrap && (triWrap.hidden = !1);
+                setOnlyWrap(triWrap);
 
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
@@ -29497,13 +29654,7 @@ const TAXONOMY_CATEGORIES = [
                 sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
             } else if (widget === "trilinear-sliders") {
                 // 3 Independent Linear Sliders (for multi-affinity triadic appetites)
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                linearRatings && (linearRatings.hidden = !1);
-                slidersToggleBtn && (slidersToggleBtn.hidden = !0);
+                setOnlyWrap(linearRatings);
 
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
                 giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
@@ -29514,6 +29665,7 @@ const TAXONOMY_CATEGORIES = [
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
+                role7Row && (role7Row.hidden = !0);
 
                 give.value = rec[k0 + "Known"] ? rec[k0] : 0;
                 recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
@@ -29524,13 +29676,7 @@ const TAXONOMY_CATEGORIES = [
                 role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(rec[k2])) : "Unrated");
             } else if (widget === "quad-sliders") {
                 // 4 Independent Linear Sliders
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                linearRatings && (linearRatings.hidden = !1);
-                slidersToggleBtn && (slidersToggleBtn.hidden = !0);
+                setOnlyWrap(linearRatings);
 
                 const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2], k3 = shape.keys[3];
                 giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
@@ -29542,6 +29688,7 @@ const TAXONOMY_CATEGORIES = [
                 role4Row && (role4Row.hidden = !1);
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
+                role7Row && (role7Row.hidden = !0);
 
                 give.value = rec[k0 + "Known"] ? rec[k0] : 0;
                 recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
@@ -29554,37 +29701,27 @@ const TAXONOMY_CATEGORIES = [
                 role4Out && (role4Out.textContent = rec[k3 + "Known"] ? String(Math.round(rec[k3])) : "Unrated");
             } else if (widget === "monopole-slider" || single) {
                 // 1-Pole Monopole Slider
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-                switchboxWrap && (switchboxWrap.hidden = !0);
-                linearRatings && (linearRatings.hidden = !1);
-                slidersToggleBtn && (slidersToggleBtn.hidden = !0);
+                setOnlyWrap(linearRatings);
 
                 recvRow && (recvRow.hidden = !0);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
+                role7Row && (role7Row.hidden = !0);
                 giveLabel && (giveLabel.textContent = shape.labels[0] || "Rating");
                 give.value = rec.giveKnown ? rec.give : 0;
                 giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
             } else {
                 // 2-Pole Interactive Topic: Directly render designated rating widget (2D Switchbox vs Linear Sliders)
-                triWrap && (triWrap.hidden = !0);
-                tetradWrap && (tetradWrap.hidden = !0);
-                pentadWrap && (pentadWrap.hidden = !0);
-                hexadWrap && (hexadWrap.hidden = !0);
-
                 if (shape.widget === "linear-sliders") {
-                    switchboxWrap && (switchboxWrap.hidden = !0);
-                    linearRatings && (linearRatings.hidden = !1);
+                    setOnlyWrap(linearRatings);
                     recvRow && (recvRow.hidden = !1);
                     role3Row && (role3Row.hidden = !0);
                     role4Row && (role4Row.hidden = !0);
                     role5Row && (role5Row.hidden = !0);
                     role6Row && (role6Row.hidden = !0);
+                    role7Row && (role7Row.hidden = !0);
                     giveLabel && (giveLabel.textContent = shape.labels[0] || "Give");
                     recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
                     give.value = rec.giveKnown ? rec.give : 0;
@@ -29592,15 +29729,16 @@ const TAXONOMY_CATEGORIES = [
                     giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
                     recvOut && (recvOut.textContent = rec.receiveKnown ? String(Math.round(rec.receive)) : "Unrated");
                 } else {
-                    linearRatings && (linearRatings.hidden = !0);
-                    switchboxWrap && (switchboxWrap.hidden = !1);
+                    setOnlyWrap(switchboxWrap);
+                    const isUnrated = !rec.giveKnown && !rec.receiveKnown;
                     sxSwitchboxState.topicId = id;
                     sxSwitchboxState.give = rec.giveKnown ? rec.give : 0;
                     sxSwitchboxState.receive = rec.receiveKnown ? rec.receive : 0;
+                    sxSwitchboxState.isUnrated = isUnrated;
                     if (switchboxGiveLabel) switchboxGiveLabel.textContent = shape.labels[0] || "Give";
                     if (switchboxRecvLabel) switchboxRecvLabel.textContent = shape.labels[1] || "Receive";
                     sxDrawSwitchboxWidget(switchboxCanvas, shape, sxSwitchboxState);
-                    sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive);
+                    sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive, isUnrated);
                 }
             }
         }
@@ -29836,9 +29974,10 @@ const TAXONOMY_CATEGORIES = [
             if (Zr.value = h.join(" "), Yr.hidden = !0, n(Xr, ""), Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === (s || "neutral")))), 
             Pr.querySelector('[data-topic-flag="fantasy"]').setAttribute("aria-pressed", String(Boolean(Je[Vi()]?.[e]))), 
             Pr.querySelector('[data-topic-flag="tried"]').setAttribute("aria-pressed", String(Boolean(et[Vi()]?.[e]))), 
-            sxSyncMarkRatings(e), 
-            Pr.dataset.openedAt = String(performance.now()),
-            Pr.hidden = !1, innerWidth <= 620) Pr.style.removeProperty("left"), Pr.style.removeProperty("top"); else {
+            Pr.dataset.openedAt = String(performance.now());
+            Pr.hidden = !1;
+            sxSyncMarkRatings(e);
+            if (innerWidth <= 620) Pr.style.removeProperty("left"), Pr.style.removeProperty("top"); else {
                 const e = Pr.getBoundingClientRect(), n = 12;
                 Pr.style.left = Math.max(8, Math.min(innerWidth - e.width - 8, t - e.width / 2)) + "px", 
                 Pr.style.top = (i - e.height - n >= 8 ? i - e.height - n : Math.min(innerHeight - e.height - 8, i + n)) + "px";
@@ -40215,7 +40354,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             } catch (_) {}
             const i = (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ||
                       Boolean(window.__sxNoCameraAnim) ||
-                      Boolean(window.__SEXCAPADES_LAYOUT_API && window.__SEXCAPADES_LAYOUT_API.deknotter && window.__SEXCAPADES_LAYOUT_API.deknotter.active && window.__SEXCAPADES_LAYOUT_API.deknotter.active());
+                      Boolean(window.__SEXCAPADES_LAYOUT_API && window.__SEXCAPADES_LAYOUT_API.deknotter && window.__SEXCAPADES_LAYOUT_API.deknotter.active && window.__SEXCAPADES_LAYOUT_API.deknotter.active()) ||
+                      Boolean(window.__sxAnnealRunning) ||
+                      Boolean(typeof deknotterRunning !== "undefined" && deknotterRunning);
             if (!Bt || i) {
                 uh(), dh(), $p = e, Ep = t, Ap = n, $h();
                 return;
@@ -40288,16 +40429,17 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (!cat) {
                 for (const c of h) {
                     for (const s of (c.subcategories || [])) {
-                        if (s.id === rawId || s.id === migrated) { sub = { cat: c, sub: s }; break; }
-                        if (rawId && (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase())) { sub = { cat: c, sub: s }; break; }
+                        const sidCandidate = typeof Un === "function" ? Un(c.name, s.name) : `subcategory-${s.name}`;
+                        if (s.id === rawId || s.id === migrated || sidCandidate === rawId || sidCandidate === migrated) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
+                        if (rawId && (s.name === rawId || s.name.toLowerCase() === rawId.toLowerCase())) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
                         const sSlug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                        if (slug === sSlug && (String(rawId).startsWith("subcategory-") || String(rawId).startsWith("subcat-"))) { sub = { cat: c, sub: s }; break; }
+                        if (slug === sSlug && (String(rawId).startsWith("subcategory-") || String(rawId).startsWith("subcat-"))) { sub = { cat: c, sub: s, id: sidCandidate }; break; }
                     }
                     if (sub) break;
                 }
             }
 
-            let sid = cat ? cat.id : (sub ? sub.sub.id : migrated);
+            let sid = cat ? cat.id : (sub ? (sub.id || sub.sub.id) : migrated);
             const rec = qn[sid] || Xn(sid) || qn[rawId] || Xn(rawId) || null;
             let isCat = Boolean(cat) || isCatId(sid);
             let isSub = Boolean(sub) || isSubId(sid);
@@ -40394,9 +40536,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     return false;
                 }
                 if (isSub && sub) {
-                    if (k === sub.sub.id) return false;
+                    const subId = sub.id || (typeof Un === "function" ? Un(sub.cat.name, sub.sub.name) : sub.sub.id);
+                    if (k === subId) return false;
                     const item = qn[k] || Xn(k);
-                    return (item?.parentId === sub.sub.id || item?.subcategoryId === sub.sub.id || item?.subId === sub.sub.id);
+                    if (item && (item.parentId === subId || item.subcategoryId === subId || item.subId === subId)) return true;
+                    const topicLabel = item ? (item.label || item.name) : null;
+                    if (topicLabel && (sub.sub.topics || []).some(t => sxName(t) === sxName(topicLabel))) return true;
+                    return false;
                 }
                 return false;
             });
@@ -47587,7 +47733,15 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 },
                 restore(snap) {
                     if (!snap || "object" != typeof snap) throw new Error("deknotter.restore: snapshot must be a layout state object");
-                    return window.__SEXCAPADES_LAYOUT_API.apply(dkDeepCloneLayout(snap));
+                    if (dkCtx) {
+                        dkCtx.isRestoring = true;
+                        dkCtx.phaseStartedAt = 0;
+                    }
+                    try {
+                        return window.__SEXCAPADES_LAYOUT_API.apply(dkDeepCloneLayout(snap));
+                    } finally {
+                        if (dkCtx) dkCtx.isRestoring = false;
+                    }
                 },
                 measureCloud(branch) {
                     // STAGED SCORING (ruled 2026-11-02, Jason): during

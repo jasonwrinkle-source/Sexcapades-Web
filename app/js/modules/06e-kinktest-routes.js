@@ -938,7 +938,15 @@
                 },
                 restore(snap) {
                     if (!snap || "object" != typeof snap) throw new Error("deknotter.restore: snapshot must be a layout state object");
-                    return window.__SEXCAPADES_LAYOUT_API.apply(dkDeepCloneLayout(snap));
+                    if (dkCtx) {
+                        dkCtx.isRestoring = true;
+                        dkCtx.phaseStartedAt = 0;
+                    }
+                    try {
+                        return window.__SEXCAPADES_LAYOUT_API.apply(dkDeepCloneLayout(snap));
+                    } finally {
+                        if (dkCtx) dkCtx.isRestoring = false;
+                    }
                 },
                 measureCloud(branch) {
                     // STAGED SCORING (ruled 2026-11-02, Jason): during

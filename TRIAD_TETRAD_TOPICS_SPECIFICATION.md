@@ -68,6 +68,38 @@ However, certain real-world dynamics, relational arrangements, and multi-faceted
   2. When four distinct, mutually complementary roles form a closed ecological cycle.
   3. When an ideology or dynamic spans a 2D quadrant plane where pure extremes exist at four orthogonal poles.
 
+### 2.5 The Pentad (5-Pole / 4-Simplex)
+- **Geometry**: Regular pentagram / pentagon $\Delta^4 = \{ (w_1, \dots, w_5) \in [0,1]^5 \mid \sum_{i=1}^5 w_i = 1 \}$ or independent radial multi-affinity $\mathbf{r} \in [0, 100]^5$ scaled by $\mu \in [0, 100]$.
+- **Widget**: Regular Pentagonal Radar (`"star-radar"`).
+- **Canonical Topics**:
+  - `t0417`: Somatosensory Receptor Palette (Pressure, Thermal, Vibration, Nociception, Proprioception).
+  - `t0418`: Erotic Love Languages & Attunement Channels (Words, Touch, Service, Gifts, Presence).
+  - `t0419`: BDSM Archetypal Pentad (Master, Sadist, Nurturer, Hunter, Alchemist).
+
+### 2.6 The Hexad (6-Pole / 5-Simplex)
+- **Geometry**: Regular hexagon circumplex $\Delta^5 \times I$ with 3 diametric antipodal axes ($60^\circ$ separation), allowing both barycentric and non-zero-sum deformation polygon expression.
+- **Widget**: Regular Hexagonal Radar (`"hexad-radar"`).
+- **Canonical Topics**:
+  - `t0420`: The Classical Eros Hexagon (Lee's Love Styles: Eros, Ludus, Storge, Pragma, Mania, Agape).
+  - `t0421`: Impact & Somatic Strike Modalities (Flogger, Cane, Paddle, Crop, Slap, Thud).
+  - `t0422`: Orgasm Neuro-Somatic Topography (Genital, Pelvic, Full-Body, Prostate/G-Spot, Anal, Energy/Trance).
+
+### 2.7 The Heptad (7-Pole / 6-Simplex)
+- **Geometry**: Regular heptagon $\Delta^6 \times I$ ($51.43^\circ$ radial separation) providing radial representation of 7 classical energy centers, planetary archetypes, or somatic spectrums.
+- **Widget**: Heptagonal Radar (`"heptad-radar"`).
+- **Canonical Topics**:
+  - `t0423`: Sovereign BDSM Archetype Heptad (Commander, Artisan, Warden, Sadist, Guardian, Hermit, Mystic).
+  - `t0424`: Somatosensory Sensory Modalities (Acoustic, Kinetic, Thermal, Olfactory, Visual, Tactile, Vestibular).
+  - `t0425`: Relational Dynamic Spectrum (Sternberg's Matrix: Liking, Infatuation, Empty, Romantic, Companionate, Fatuous, Consummate).
+
+### 2.8 The Octad (8-Pole / 7-Simplex)
+- **Geometry**: Regular octagon $\Delta^7 \times I$ ($45^\circ$ radial separation) with 4 orthogonal antipodal pairs. Solves multi-modal somatic and restraint clusters without taxonomic fragmentation.
+- **Widget**: Octagonal Radar (`"octad-radar"`).
+- **Canonical Topics**:
+  - `t0426`: Physical Restraint & Containment Octad (Rope, Shibari, Cuffs, Tape, Mummification, Blindfold, Caging, Suspension).
+  - `t0427`: Somatosensory & Anatomical Worship Octad (Feet, Hands, Breasts, Glutes, Muscles, Hair, Bodyhair, Pregnancy).
+  - `topic-eight-epistemologies`: Philoscapades Epistemological Octad (Empiricism, Rationalism, Pragmatism, Phenomenology, Hermeneutics, Skepticism, Mysticism, Dialectics).
+
 ---
 
 ## 3. Mathematical Scoring & Tensor Contractions for Simplex Topics
