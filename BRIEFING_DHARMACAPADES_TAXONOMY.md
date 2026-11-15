@@ -108,7 +108,7 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
   - `Pole 6 (Indigo #6366f1)`: **Right Mindfulness** (Meditation) — Clear awareness of body, feeling, mind.
   - `Pole 7 (Purple #a855f7)`: **Right Concentration** (Meditation) — Deep absorption, jhana.
 - **Question:** How much do you emphasize each limb of the Path?
-- **Optimal Widget:** Octad / 8-axis radial wheel. The first octad in Dharmacapades — and the first in any skin. Eight limbs, exactly the engine cap.
+- **Optimal Widget:** Octad / 8-axis radial wheel. The fourth canonical octad in the Flexcapades family and the foundational anchor for Dharmacapades. (Correction, 2026-11-15: this was first described as "the first octad in any skin" — in fact the engine already has three production octads wired into the taxonomy catalog: t0426 Physical Restraint & Containment, t0427 Anatomical Focus & Somatosensory Worship, and the Epistemological Octad in Philoscapades. The Eightfold Path is the fourth.)
 - **Note:** The three sections (Wisdom: View + Intention; Ethics: Speech + Action + Livelihood; Meditation: Effort + Mindfulness + Concentration) structure the ring — adjacent poles within a section are closest.
 
 ### Category 4: Deity & The Divine
