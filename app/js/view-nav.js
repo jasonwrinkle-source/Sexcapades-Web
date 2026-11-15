@@ -452,14 +452,22 @@ __sxInit(function () {
    All 15 skins load for real via window.FlexcapadesSkins
    (app/js/skin-loader.js) — picking a skin swaps its taxonomy in and
    re-renders the map; picking Sexcapades restores the kink map.
-   Trigger: pointer hold (~600ms) on the header bar, touch or mouse.
+   Trigger: pointer hold (~600ms) on the header bar, touch or mouse, OR
+   a triple-click on the header (three rapid clicks — see below).
    It never fires on a normal tap/click, never on a press that starts on
    an interactive control (buttons, links, inputs — every header control
    keeps working), and the hold timer clears on any real movement or
    scroll so it cannot break scrolling. No visible button, hint, or icon.
    The click that ends the long-press is swallowed (capture phase), so
    the menu opening under the pointer can never instantly select an item
-   or close itself. Menu closes on item select, outside tap, or Escape. */
+   or close itself. Menu closes on item select, outside tap, or Escape.
+   Triple-click: rapid clicks on the header are counted and judged only
+   after a settle window with no further click, because a pentuple-click
+   (5 rapid clicks) CONTAINS a triple — firing on the 3rd click would
+   open the menu on 5 clicks too. Only exactly 3 clicks in one settled
+   burst open the menu; 1, 2, 4, 5, ... do nothing. Counting runs on the
+   header click event, never dblclick, so a double-click triggers
+   nothing. */
 __sxInit(function () {
 (function () {
   function boot() {
@@ -505,16 +513,23 @@ __sxInit(function () {
     menu.style.top = top + "px";
     menu.style.visibility = "";
   }
-  function openMenu(x, y) {
+  function openMenu(x, y, swallow) {
     positionMenu(x, y);
     /* Swallow the click that ends this very press: it lands on the menu
        (or outside it) a beat after pointerup, and must neither select
        an item nor close the menu. The flag clears on a zero-delay timer
-       scheduled from pointerup, which runs after the click event. */
-    swallowClick = true;
-    var clearOnce = function () { setTimeout(function () { swallowClick = false; }, 0); };
-    document.addEventListener("pointerup", clearOnce, { once: true });
-    document.addEventListener("pointercancel", clearOnce, { once: true });
+       scheduled from pointerup, which runs after the click event.
+       Only armed when the caller says so (swallow=true, the long-press
+       path, where that click is still coming). The triple-click path
+       opens from a timer long after the last press ended — no click is
+       pending, and arming it would swallow the user's NEXT click, the
+       one meant to close the menu. */
+    if (swallow) {
+      swallowClick = true;
+      var clearOnce = function () { setTimeout(function () { swallowClick = false; }, 0); };
+      document.addEventListener("pointerup", clearOnce, { once: true });
+      document.addEventListener("pointercancel", clearOnce, { once: true });
+    }
     var activeSkin = window.FlexcapadesSkins ? window.FlexcapadesSkins.active() : "sexcapades";
     var cur = menu.querySelector('[data-skin="' + activeSkin + '"]') || menu.querySelector('[data-skin="sexcapades"]');
     if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) { cur.focus(); } }
@@ -582,7 +597,7 @@ __sxInit(function () {
     holdTimer = setTimeout(function () {
       holdTimer = null;
       holdFired = true;
-      openMenu(holdX, holdY);
+      openMenu(holdX, holdY, true);
     }, LONG_PRESS_MS);
   });
   header.addEventListener("pointermove", function (ev) {
@@ -594,6 +609,37 @@ __sxInit(function () {
   });
   header.addEventListener("pointercancel", function (ev) {
     if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
+  });
+  /* Triple-click trigger. Rapid clicks on the header are counted; the
+     count is judged only after TRIPLE_SETTLE_MS with no further click.
+     A pentuple-click (5 rapid clicks) contains a triple, so firing on
+     the 3rd click would open the menu on 5 clicks too — only exactly 3
+     clicks in one settled burst open it. Counts on the header click
+     event, never dblclick, so a double-click triggers nothing. The
+     long-press ending click never reaches here: the capture-phase
+     document click listener swallows it first. Clicks starting on an
+     interactive control reset the count (they are not part of a header
+     triple-click burst). Opens at the last click's point, with no
+     click-swallow armed — the press that triggered it is long gone. */
+  var TRIPLE_SETTLE_MS = 400;
+  var clickCount = 0;
+  var clickX = 0, clickY = 0;
+  var clickTimer = null;
+  function resetClickCount() {
+    if (clickTimer) { clearTimeout(clickTimer); clickTimer = null; }
+    clickCount = 0;
+  }
+  header.addEventListener("click", function (ev) {
+    if (isInteractive(ev.target)) { resetClickCount(); return; }
+    clickCount += 1;
+    clickX = ev.clientX; clickY = ev.clientY;
+    if (clickTimer) clearTimeout(clickTimer);
+    clickTimer = setTimeout(function () {
+      clickTimer = null;
+      var n = clickCount;
+      clickCount = 0;
+      if (n === 3 && !menuOpen()) openMenu(clickX, clickY, false);
+    }, TRIPLE_SETTLE_MS);
   });
   header.addEventListener("contextmenu", function (ev) {
     /* A touch long-press raises contextmenu while the menu is open —
