@@ -388,7 +388,9 @@
                     fitSettleTimer = 0;
                 }
             } catch (_) {}
-            const i = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const i = (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ||
+                      Boolean(window.__sxNoCameraAnim) ||
+                      Boolean(window.__SEXCAPADES_LAYOUT_API && window.__SEXCAPADES_LAYOUT_API.deknotter && window.__SEXCAPADES_LAYOUT_API.deknotter.active && window.__SEXCAPADES_LAYOUT_API.deknotter.active());
             if (!Bt || i) {
                 uh(), dh(), $p = e, Ep = t, Ap = n, $h();
                 return;
@@ -619,13 +621,19 @@
             // center, stretch the box until the fan is clipped against the
             // card edge. 70k is just past one topic cluster; measured from
             // the hub-to-subcategory gaps in this layout.
+            // When a branch or spoke has been thrown, its children sit at
+            // extended radii (> 100k wu); do not clamp to 80k in that case.
             let framedEls = childEls;
             if (isCat && Number.isFinite(anchorX) && Number.isFinite(anchorY)) {
                 const hubs = childEls.filter(el => el.classList.contains("subcategory-node")).map(el => ({
                     x: Number(el.dataset.layoutX),
                     y: Number(el.dataset.layoutY)
                 })).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
-                if (hubs.length) {
+                const hasFarThrownNodes = childEls.some(el => {
+                    const x = Number(el.dataset.layoutX), y = Number(el.dataset.layoutY);
+                    return Number.isFinite(x) && Number.isFinite(y) && Math.hypot(x - anchorX, y - anchorY) > 85000;
+                });
+                if (hubs.length && !hasFarThrownNodes) {
                     const near = childEls.filter(el => {
                         const x = Number(el.dataset.layoutX), y = Number(el.dataset.layoutY);
                         if (!Number.isFinite(x) || !Number.isFinite(y)) return false;

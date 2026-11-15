@@ -297,7 +297,8 @@
                 let activeKey = null;
                 if (typeof window.__sxGetActiveNodeKey === "function") {
                     activeKey = window.__sxGetActiveNodeKey();
-                } else {
+                }
+                if (!activeKey) {
                     const svg = document.getElementById("mapSvg");
                     if (svg) {
                         const prev = svg.querySelector(".node-group.is-preview");
@@ -310,10 +311,20 @@
                         }
                     }
                 }
-                if (activeKey && typeof window.__sxFocusNode === "function") {
-                    window.__sxFocusNode(activeKey, name);
-                } else if (typeof window.__sxFocusBranch === "function") {
-                    window.__sxFocusBranch(name);
+                // Fall back to the thrown branch itself if no active node is selected
+                if (!activeKey && name) {
+                    activeKey = typeof catId === "function" ? catId(name) : name;
+                }
+                window.__sxNoCameraAnim = true;
+                try {
+                    if (activeKey && typeof window.__sxFocusNode === "function") {
+                        window.__sxFocusNode(activeKey, name);
+                    } else if (typeof window.__sxFocusBranch === "function") {
+                        window.__sxFocusBranch(name);
+                    }
+                } finally {
+                    // Let the frame settle before resetting no-anim flag
+                    setTimeout(() => { window.__sxNoCameraAnim = false; }, 50);
                 }
             } catch (_) {}
         }
