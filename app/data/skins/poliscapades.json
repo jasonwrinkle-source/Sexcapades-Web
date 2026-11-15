@@ -1,0 +1,3288 @@
+{
+    "categories": [
+        {
+            "id": "xpoc01",
+            "name": "The Economy",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How should the economy be organized \u2014 by the state, the market, or the commons?",
+                        "poles": [
+                            {
+                                "label": "The State",
+                                "text": "Centralized public planning, taxation, and regulation."
+                            },
+                            {
+                                "label": "The Market",
+                                "text": "Private ownership, free enterprise, and price discovery."
+                            },
+                            {
+                                "label": "The Commons",
+                                "text": "Peer-to-peer resource pools, cooperatives, and mutual aid."
+                            }
+                        ]
+                    },
+                    "id": "xpo0001",
+                    "name": "Macro-Economic Structural Triad: State / Market / Commons",
+                    "poles": [
+                        {
+                            "key": "the-state-command-redistribution",
+                            "label": "The State (Command & Redistribution)"
+                        },
+                        {
+                            "key": "the-market-capital-price-discovery",
+                            "label": "The Market (Capital & Price Discovery)"
+                        },
+                        {
+                            "key": "the-commons-civil-society-mutual-aid",
+                            "label": "The Commons (Civil Society & Mutual Aid)"
+                        }
+                    ],
+                    "question": "How should the economy be organized \u2014 by the state, the market, or the commons?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.1.1",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What makes a distribution of resources just?",
+                        "poles": [
+                            {
+                                "label": "Need",
+                                "text": "Resources allocated according to human vulnerability and necessity."
+                            },
+                            {
+                                "label": "Merit",
+                                "text": "Rewards scaled to output, effort, talent, and market value."
+                            },
+                            {
+                                "label": "Strict Equality",
+                                "text": "Identical baseline endowment regardless of contribution or condition."
+                            }
+                        ]
+                    },
+                    "id": "xpo0003",
+                    "name": "Theories of Distributive Justice Triad",
+                    "poles": [
+                        {
+                            "key": "need-marxian-welfare",
+                            "label": "Need (Marxian / Welfare)"
+                        },
+                        {
+                            "key": "merit-contribution-productivist",
+                            "label": "Merit / Contribution (Productivist)"
+                        },
+                        {
+                            "key": "strict-equality-egalitarian",
+                            "label": "Strict Equality (Egalitarian)"
+                        }
+                    ],
+                    "question": "What makes a distribution of resources just?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.1.3",
+                    "widget": "triangle"
+                },
+                {
+                    "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "How should the state manage money and debt?",
+                        "poles": [
+                            {
+                                "label": "Modern Monetary Theory",
+                                "text": "Sovereign currency issuance to fund full employment."
+                            },
+                            {
+                                "label": "Keynesian Intervention",
+                                "text": "Deficit spending in recessions, tightening in expansions."
+                            },
+                            {
+                                "label": "Sound Money / Monetarism",
+                                "text": "Fixed supply or hard-money standards, central bank independence."
+                            },
+                            {
+                                "label": "Fiscal Austerity",
+                                "text": "Debt ceilings, expenditure reduction, minimal state borrowing."
+                            }
+                        ]
+                    },
+                    "id": "xpo0006",
+                    "name": "Fiscal & Monetary Policy Tetrad",
+                    "poles": [
+                        {
+                            "key": "modern-monetary-theory-mmt",
+                            "label": "Modern Monetary Theory (MMT)"
+                        },
+                        {
+                            "key": "keynesian-counter-cyclical-intervention",
+                            "label": "Keynesian Counter-Cyclical Intervention"
+                        },
+                        {
+                            "key": "sound-money-monetarism",
+                            "label": "Sound Money / Monetarism"
+                        },
+                        {
+                            "key": "fiscal-austerity-balanced-budget",
+                            "label": "Fiscal Austerity / Balanced Budget"
+                        }
+                    ],
+                    "question": "How should the state manage money and debt?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.2.3",
+                    "widget": "diamond"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "How should society divide its finite budget across five vital priorities?",
+                        "poles": [
+                            {
+                                "label": "Healthcare & Social Welfare",
+                                "text": "Universal health, pensions, disability support, homelessness prevention."
+                            },
+                            {
+                                "label": "Infrastructure & Clean Energy",
+                                "text": "High-speed rail, smart grid, nuclear and solar, water networks."
+                            },
+                            {
+                                "label": "Education, Science & Frontier R&D",
+                                "text": "Free higher education, fundamental physics, fusion, space."
+                            },
+                            {
+                                "label": "Defense, Border Security & Resilience",
+                                "text": "Armed forces, intelligence, deterrents, cybersecurity."
+                            },
+                            {
+                                "label": "Ecology, Climate & Biodiversity",
+                                "text": "Rewilding, carbon capture, ocean restoration, regenerative agriculture."
+                            }
+                        ]
+                    },
+                    "id": "xpo0007",
+                    "name": "Civic Resource Allocation Pentad",
+                    "poles": [
+                        {
+                            "key": "healthcare-social-welfare",
+                            "label": "Healthcare & Social Welfare"
+                        },
+                        {
+                            "key": "infrastructure-clean-energy",
+                            "label": "Infrastructure & Clean Energy"
+                        },
+                        {
+                            "key": "education-science-frontier-rd",
+                            "label": "Education, Science & Frontier R&D"
+                        },
+                        {
+                            "key": "defense-border-security-resilience",
+                            "label": "Defense, Border Security & Resilience"
+                        },
+                        {
+                            "key": "ecology-climate-biodiversity",
+                            "label": "Ecology, Climate & Biodiversity"
+                        }
+                    ],
+                    "question": "How should society divide its finite budget across five vital priorities?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.3.1",
+                    "widget": "star-radar"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Who can own what, and on what terms?",
+                        "poles": [
+                            {
+                                "label": "Private Absolute",
+                                "text": "Alienable individual title with unlimited accumulation rights."
+                            },
+                            {
+                                "label": "State Owned",
+                                "text": "Managed by government ministries for the public interest."
+                            },
+                            {
+                                "label": "Common Pool Resource",
+                                "text": "Self-governed by community user groups under nested rules."
+                            },
+                            {
+                                "label": "Usufruct",
+                                "text": "Property rights exist only while land or capital is actively used."
+                            },
+                            {
+                                "label": "Open-Access / Copyleft",
+                                "text": "Non-rivalrous commons where information cannot be locked by patents."
+                            }
+                        ]
+                    },
+                    "id": "xpo0008",
+                    "name": "Theories of Property & Ownership Pentad",
+                    "poles": [
+                        {
+                            "key": "private-absolute-allodial-capitalist",
+                            "label": "Private Absolute (Allodial / Capitalist)"
+                        },
+                        {
+                            "key": "state-owned-nationalized-public",
+                            "label": "State Owned (Nationalized / Public)"
+                        },
+                        {
+                            "key": "common-pool-resource-ostromian-commons",
+                            "label": "Common Pool Resource (Ostromian Commons)"
+                        },
+                        {
+                            "key": "usufruct-possession-by-use",
+                            "label": "Usufruct (Possession by Use)"
+                        },
+                        {
+                            "key": "open-access-copyleft-digital-commons",
+                            "label": "Open-Access / Copyleft (Digital Commons)"
+                        }
+                    ],
+                    "question": "Who can own what, and on what terms?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.3.2",
+                    "widget": "star-radar"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the federal government should set a minimum wage, and at what level.",
+                        "poles": [
+                            {
+                                "label": "Higher federal floor",
+                                "text": "A higher federal floor"
+                            },
+                            {
+                                "label": "No federal floor",
+                                "text": "no federal floor (market sets wages)."
+                            }
+                        ]
+                    },
+                    "id": "xpo0013",
+                    "name": "Minimum wage",
+                    "poles": [
+                        {
+                            "key": "higher-federal-floor",
+                            "label": "Higher federal floor"
+                        },
+                        {
+                            "key": "no-federal-floor",
+                            "label": "No federal floor"
+                        }
+                    ],
+                    "question": "Whether the federal government should set a minimum wage, and at what level.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0001)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Workers' right to organize and bargain, and the rules around it.",
+                        "poles": [
+                            {
+                                "label": "Strong labor protections",
+                                "text": "Strong labor protections"
+                            },
+                            {
+                                "label": "Voluntary association only",
+                                "text": "voluntary association only."
+                            }
+                        ]
+                    },
+                    "id": "xpo0014",
+                    "name": "Unions & labor rights",
+                    "poles": [
+                        {
+                            "key": "strong-labor-protections",
+                            "label": "Strong labor protections"
+                        },
+                        {
+                            "key": "voluntary-association-only",
+                            "label": "Voluntary association only"
+                        }
+                    ],
+                    "question": "Workers' right to organize and bargain, and the rules around it.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0002)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How much different income levels should pay in federal income tax.",
+                        "poles": [
+                            {
+                                "label": "Higher taxes on the wealthy",
+                                "text": "Higher taxes on the wealthy"
+                            },
+                            {
+                                "label": "Lower taxes across the board",
+                                "text": "lower taxes across the board."
+                            }
+                        ]
+                    },
+                    "id": "xpo0015",
+                    "name": "Income tax rates",
+                    "poles": [
+                        {
+                            "key": "higher-taxes-on-the-wealthy",
+                            "label": "Higher taxes on the wealthy"
+                        },
+                        {
+                            "key": "lower-taxes-across-the-board",
+                            "label": "Lower taxes across the board"
+                        }
+                    ],
+                    "question": "How much different income levels should pay in federal income tax.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0003)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How corporations are taxed, and whether loopholes and subsidies should close.",
+                        "poles": [
+                            {
+                                "label": "Close loopholes, tax more",
+                                "text": "Close loopholes and tax corporations more"
+                            },
+                            {
+                                "label": "Cut corporate taxes",
+                                "text": "cut corporate taxes and deregulate."
+                            }
+                        ]
+                    },
+                    "id": "xpo0016",
+                    "name": "Corporate taxes & loopholes",
+                    "poles": [
+                        {
+                            "key": "close-loopholes-tax-more",
+                            "label": "Close loopholes, tax more"
+                        },
+                        {
+                            "key": "cut-corporate-taxes",
+                            "label": "Cut corporate taxes"
+                        }
+                    ],
+                    "question": "How corporations are taxed, and whether loopholes and subsidies should close.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0004)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How much the federal government should spend, and whether deficits matter.",
+                        "poles": [
+                            {
+                                "label": "Invest generously",
+                                "text": "Invest generously (deficits acceptable)"
+                            },
+                            {
+                                "label": "Cut spending to balance",
+                                "text": "cut spending to balance the budget."
+                            }
+                        ]
+                    },
+                    "id": "xpo0017",
+                    "name": "Federal spending & the deficit",
+                    "poles": [
+                        {
+                            "key": "invest-generously",
+                            "label": "Invest generously"
+                        },
+                        {
+                            "key": "cut-spending-to-balance",
+                            "label": "Cut spending to balance"
+                        }
+                    ],
+                    "question": "How much the federal government should spend, and whether deficits matter.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0005)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What to do about the federal debt.",
+                        "poles": [
+                            {
+                                "label": "Manage through growth & fair tax",
+                                "text": "Manage it through growth and fair taxation"
+                            },
+                            {
+                                "label": "Balance by cutting spending",
+                                "text": "balance the budget by cutting spending."
+                            }
+                        ]
+                    },
+                    "id": "xpo0018",
+                    "name": "National debt",
+                    "poles": [
+                        {
+                            "key": "manage-through-growth-fair-tax",
+                            "label": "Manage through growth & fair tax"
+                        },
+                        {
+                            "key": "balance-by-cutting-spending",
+                            "label": "Balance by cutting spending"
+                        }
+                    ],
+                    "question": "What to do about the federal debt.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0006)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should act to reduce the gap between rich and poor, and how.",
+                        "poles": [
+                            {
+                                "label": "Reduce inequality",
+                                "text": "Reduce inequality through redistribution"
+                            },
+                            {
+                                "label": "Market outcome",
+                                "text": "the distribution is the market's outcome."
+                            }
+                        ]
+                    },
+                    "id": "xpo0019",
+                    "name": "Income & wealth distribution",
+                    "poles": [
+                        {
+                            "key": "reduce-inequality",
+                            "label": "Reduce inequality"
+                        },
+                        {
+                            "key": "market-outcome",
+                            "label": "Market outcome"
+                        }
+                    ],
+                    "question": "Whether the government should act to reduce the gap between rich and poor, and how.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0078)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the US should use tariffs and what kind of trade deals it should sign.",
+                        "poles": [
+                            {
+                                "label": "Free trade",
+                                "text": "Free trade"
+                            },
+                            {
+                                "label": "Protective tariffs",
+                                "text": "protective tariffs."
+                            }
+                        ]
+                    },
+                    "id": "xpo0020",
+                    "name": "Tariffs & trade agreements",
+                    "poles": [
+                        {
+                            "key": "free-trade",
+                            "label": "Free trade"
+                        },
+                        {
+                            "key": "protective-tariffs",
+                            "label": "Protective tariffs"
+                        }
+                    ],
+                    "question": "Whether the US should use tariffs and what kind of trade deals it should sign.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0007)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should actively bring manufacturing and supply chains home.",
+                        "poles": [
+                            {
+                                "label": "Industrial policy & reshoring",
+                                "text": "Industrial policy and reshoring"
+                            },
+                            {
+                                "label": "Leave it to the market",
+                                "text": "leave it to the market."
+                            }
+                        ]
+                    },
+                    "id": "xpo0021",
+                    "name": "Manufacturing & supply chains",
+                    "poles": [
+                        {
+                            "key": "industrial-policy-reshoring",
+                            "label": "Industrial policy & reshoring"
+                        },
+                        {
+                            "key": "leave-it-to-the-market",
+                            "label": "Leave it to the market"
+                        }
+                    ],
+                    "question": "Whether the government should actively bring manufacturing and supply chains home.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0008)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How the US should handle economic competition with China.",
+                        "poles": [
+                            {
+                                "label": "Managed competition",
+                                "text": "Managed competition and cooperation"
+                            },
+                            {
+                                "label": "Economic decoupling",
+                                "text": "economic decoupling."
+                            }
+                        ]
+                    },
+                    "id": "xpo0022",
+                    "name": "China & economic competition",
+                    "poles": [
+                        {
+                            "key": "managed-competition",
+                            "label": "Managed competition"
+                        },
+                        {
+                            "key": "economic-decoupling",
+                            "label": "Economic decoupling"
+                        }
+                    ],
+                    "question": "How the US should handle economic competition with China.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0009)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who controls the money supply, and how.",
+                        "poles": [
+                            {
+                                "label": "Independent central bank",
+                                "text": "An independent central bank"
+                            },
+                            {
+                                "label": "Abolish the Fed",
+                                "text": "abolish the Fed / free banking."
+                            }
+                        ]
+                    },
+                    "id": "xpo0023",
+                    "name": "The Federal Reserve & monetary policy",
+                    "poles": [
+                        {
+                            "key": "independent-central-bank",
+                            "label": "Independent central bank"
+                        },
+                        {
+                            "key": "abolish-the-fed",
+                            "label": "Abolish the Fed"
+                        }
+                    ],
+                    "question": "Who controls the money supply, and how.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0010)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether crypto should be protected, regulated, or replaced by a government digital currency.",
+                        "poles": [
+                            {
+                                "label": "Protect crypto, ban gov coin",
+                                "text": "Protect crypto and ban a government coin"
+                            },
+                            {
+                                "label": "Regulate or adopt CBDC",
+                                "text": "regulate or adopt a central bank digital currency."
+                            }
+                        ]
+                    },
+                    "id": "xpo0024",
+                    "name": "Cryptocurrency & digital currency",
+                    "poles": [
+                        {
+                            "key": "protect-crypto-ban-gov-coin",
+                            "label": "Protect crypto, ban gov coin"
+                        },
+                        {
+                            "key": "regulate-or-adopt-cbdc",
+                            "label": "Regulate or adopt CBDC"
+                        }
+                    ],
+                    "question": "Whether crypto should be protected, regulated, or replaced by a government digital currency.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0011)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should act to bring down the prices people pay, and how.",
+                        "poles": [
+                            {
+                                "label": "Act to bring prices down",
+                                "text": "Act to bring prices down"
+                            },
+                            {
+                                "label": "Leave prices to the market",
+                                "text": "leave prices to the market."
+                            }
+                        ]
+                    },
+                    "id": "xpo0025",
+                    "name": "Inflation & cost of living",
+                    "poles": [
+                        {
+                            "key": "act-to-bring-prices-down",
+                            "label": "Act to bring prices down"
+                        },
+                        {
+                            "key": "leave-prices-to-the-market",
+                            "label": "Leave prices to the market"
+                        }
+                    ],
+                    "question": "Whether the government should act to bring down the prices people pay, and how.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0079)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether Social Security should be protected, reformed, or phased out.",
+                        "poles": [
+                            {
+                                "label": "Protect and expand",
+                                "text": "Protect and expand it"
+                            },
+                            {
+                                "label": "Phase it out",
+                                "text": "phase it out."
+                            }
+                        ]
+                    },
+                    "id": "xpo0026",
+                    "name": "Social Security",
+                    "poles": [
+                        {
+                            "key": "protect-and-expand",
+                            "label": "Protect and expand"
+                        },
+                        {
+                            "key": "phase-it-out",
+                            "label": "Phase it out"
+                        }
+                    ],
+                    "question": "Whether Social Security should be protected, reformed, or phased out.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0012)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the federal government should run anti-poverty programs.",
+                        "poles": [
+                            {
+                                "label": "Strong safety net",
+                                "text": "A strong safety net"
+                            },
+                            {
+                                "label": "No federal welfare",
+                                "text": "no federal welfare (charity only)."
+                            }
+                        ]
+                    },
+                    "id": "xpo0027",
+                    "name": "Welfare & anti-poverty programs",
+                    "poles": [
+                        {
+                            "key": "strong-safety-net",
+                            "label": "Strong safety net"
+                        },
+                        {
+                            "key": "no-federal-welfare",
+                            "label": "No federal welfare"
+                        }
+                    ],
+                    "question": "Whether the federal government should run anti-poverty programs.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0013)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What the government should do about the cost of housing.",
+                        "poles": [
+                            {
+                                "label": "Build and subsidize more",
+                                "text": "Build and subsidize more housing"
+                            },
+                            {
+                                "label": "Leave it to the market",
+                                "text": "leave it to the market."
+                            }
+                        ]
+                    },
+                    "id": "xpo0028",
+                    "name": "Housing affordability",
+                    "poles": [
+                        {
+                            "key": "build-and-subsidize-more",
+                            "label": "Build and subsidize more"
+                        },
+                        {
+                            "key": "leave-it-to-the-market",
+                            "label": "Leave it to the market"
+                        }
+                    ],
+                    "question": "What the government should do about the cost of housing.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0014)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xpoc02",
+            "name": "Health & Care",
+            "topics": [
+                {
+                    "archetype": "line",
+                    "hovertip": {
+                        "issue": "Whether health coverage should be public, private, or a mix \u2014 and whether it is a right.",
+                        "poles": [
+                            {
+                                "label": "Single-payer",
+                                "text": "Single-payer / public system"
+                            },
+                            {
+                                "label": "Free-market",
+                                "text": "free-market system"
+                            },
+                            {
+                                "label": "Keep and fix the ACA",
+                                "text": "keep and fix the ACA."
+                            }
+                        ]
+                    },
+                    "id": "xpo0029",
+                    "name": "Health insurance system",
+                    "poles": [
+                        {
+                            "key": "single-payer",
+                            "label": "Single-payer"
+                        },
+                        {
+                            "key": "free-market",
+                            "label": "Free-market"
+                        },
+                        {
+                            "key": "keep-and-fix-the-aca",
+                            "label": "Keep and fix the ACA"
+                        }
+                    ],
+                    "question": "Whether health coverage should be public, private, or a mix \u2014 and whether it is a right.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0015)",
+                    "widget": "trilinear-line"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should cap or negotiate drug prices.",
+                        "poles": [
+                            {
+                                "label": "Negotiate and cap prices",
+                                "text": "Negotiate and cap prices"
+                            },
+                            {
+                                "label": "Leave prices to the market",
+                                "text": "leave prices to the market."
+                            }
+                        ]
+                    },
+                    "id": "xpo0030",
+                    "name": "Prescription drug prices",
+                    "poles": [
+                        {
+                            "key": "negotiate-and-cap-prices",
+                            "label": "Negotiate and cap prices"
+                        },
+                        {
+                            "key": "leave-prices-to-the-market",
+                            "label": "Leave prices to the market"
+                        }
+                    ],
+                    "question": "Whether the government should cap or negotiate drug prices.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0016)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Whether Medicare should be protected, expanded, or replaced.",
+                        "poles": [
+                            {
+                                "label": "Protect and expand",
+                                "text": "Protect and expand"
+                            },
+                            {
+                                "label": "Replace with universal",
+                                "text": "replace with a universal system"
+                            },
+                            {
+                                "label": "Leave to the market",
+                                "text": "leave to the market."
+                            }
+                        ]
+                    },
+                    "id": "xpo0031",
+                    "name": "Medicare",
+                    "poles": [
+                        {
+                            "key": "protect-and-expand",
+                            "label": "Protect and expand"
+                        },
+                        {
+                            "key": "replace-with-universal",
+                            "label": "Replace with universal"
+                        },
+                        {
+                            "key": "leave-to-the-market",
+                            "label": "Leave to the market"
+                        }
+                    ],
+                    "question": "Whether Medicare should be protected, expanded, or replaced.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0017)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How the government should respond to mental illness and the opioid epidemic.",
+                        "poles": [
+                            {
+                                "label": "Treatment and investment",
+                                "text": "Treatment and investment"
+                            },
+                            {
+                                "label": "Enforcement and interdiction",
+                                "text": "enforcement and interdiction."
+                            }
+                        ]
+                    },
+                    "id": "xpo0032",
+                    "name": "Mental health & addiction",
+                    "poles": [
+                        {
+                            "key": "treatment-and-investment",
+                            "label": "Treatment and investment"
+                        },
+                        {
+                            "key": "enforcement-and-interdiction",
+                            "label": "Enforcement and interdiction"
+                        }
+                    ],
+                    "question": "How the government should respond to mental illness and the opioid epidemic.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0018)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should make child care affordable.",
+                        "poles": [
+                            {
+                                "label": "Guaranteed affordable care",
+                                "text": "Guaranteed affordable care"
+                            },
+                            {
+                                "label": "Families pay themselves",
+                                "text": "families pay for it themselves."
+                            }
+                        ]
+                    },
+                    "id": "xpo0033",
+                    "name": "Child care",
+                    "poles": [
+                        {
+                            "key": "guaranteed-affordable-care",
+                            "label": "Guaranteed affordable care"
+                        },
+                        {
+                            "key": "families-pay-themselves",
+                            "label": "Families pay themselves"
+                        }
+                    ],
+                    "question": "Whether the government should make child care affordable.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0019)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether workers should get guaranteed paid time off to care for family or recover from illness.",
+                        "poles": [
+                            {
+                                "label": "National paid-leave program",
+                                "text": "A national paid-leave program"
+                            },
+                            {
+                                "label": "Leave it to employers",
+                                "text": "leave it to employers."
+                            }
+                        ]
+                    },
+                    "id": "xpo0034",
+                    "name": "Paid family & medical leave",
+                    "poles": [
+                        {
+                            "key": "national-paid-leave-program",
+                            "label": "National paid-leave program"
+                        },
+                        {
+                            "key": "leave-it-to-employers",
+                            "label": "Leave it to employers"
+                        }
+                    ],
+                    "question": "Whether workers should get guaranteed paid time off to care for family or recover from illness.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0020)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government can require vaccines or other public-health measures.",
+                        "poles": [
+                            {
+                                "label": "Mandates legitimate",
+                                "text": "Public-health mandates are legitimate"
+                            },
+                            {
+                                "label": "Mandates violate autonomy",
+                                "text": "mandates violate bodily autonomy."
+                            }
+                        ]
+                    },
+                    "id": "xpo0035",
+                    "name": "Vaccines & mandates",
+                    "poles": [
+                        {
+                            "key": "mandates-legitimate",
+                            "label": "Mandates legitimate"
+                        },
+                        {
+                            "key": "mandates-violate-autonomy",
+                            "label": "Mandates violate autonomy"
+                        }
+                    ],
+                    "question": "Whether the government can require vaccines or other public-health measures.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0021)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xpoc03",
+            "name": "Climate, Energy & Environment",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether climate change is a crisis and what the government should do about emissions.",
+                        "poles": [
+                            {
+                                "label": "Urgent action",
+                                "text": "Urgent action and emissions cuts"
+                            },
+                            {
+                                "label": "No government action",
+                                "text": "no government climate action."
+                            }
+                        ]
+                    },
+                    "id": "xpo0036",
+                    "name": "Climate change & emissions",
+                    "poles": [
+                        {
+                            "key": "urgent-action",
+                            "label": "Urgent action"
+                        },
+                        {
+                            "key": "no-government-action",
+                            "label": "No government action"
+                        }
+                    ],
+                    "question": "Whether climate change is a crisis and what the government should do about emissions.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0022)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should expand, restrict, or phase out oil, gas, and coal.",
+                        "poles": [
+                            {
+                                "label": "Drill and expand",
+                                "text": "Drill and expand"
+                            },
+                            {
+                                "label": "Phase out",
+                                "text": "phase out."
+                            }
+                        ]
+                    },
+                    "id": "xpo0037",
+                    "name": "Fossil fuels",
+                    "poles": [
+                        {
+                            "key": "drill-and-expand",
+                            "label": "Drill and expand"
+                        },
+                        {
+                            "key": "phase-out",
+                            "label": "Phase out"
+                        }
+                    ],
+                    "question": "Whether the government should expand, restrict, or phase out oil, gas, and coal.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0023)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether nuclear energy has a place in the energy mix.",
+                        "poles": [
+                            {
+                                "label": "Keep and expand",
+                                "text": "Keep and expand nuclear"
+                            },
+                            {
+                                "label": "Phase it out",
+                                "text": "phase it out."
+                            }
+                        ]
+                    },
+                    "id": "xpo0038",
+                    "name": "Nuclear power",
+                    "poles": [
+                        {
+                            "key": "keep-and-expand",
+                            "label": "Keep and expand"
+                        },
+                        {
+                            "key": "phase-it-out",
+                            "label": "Phase it out"
+                        }
+                    ],
+                    "question": "Whether nuclear energy has a place in the energy mix.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0024)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How far and how fast the government should push solar, wind, and other renewables.",
+                        "poles": [
+                            {
+                                "label": "Massive public investment",
+                                "text": "Massive public investment"
+                            },
+                            {
+                                "label": "Let the market decide",
+                                "text": "let the market decide."
+                            }
+                        ]
+                    },
+                    "id": "xpo0039",
+                    "name": "Renewable energy",
+                    "poles": [
+                        {
+                            "key": "massive-public-investment",
+                            "label": "Massive public investment"
+                        },
+                        {
+                            "key": "let-the-market-decide",
+                            "label": "Let the market decide"
+                        }
+                    ],
+                    "question": "How far and how fast the government should push solar, wind, and other renewables.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0025)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should promote or mandate electric vehicles.",
+                        "poles": [
+                            {
+                                "label": "Incentivize and mandate EVs",
+                                "text": "Incentivize and mandate EVs"
+                            },
+                            {
+                                "label": "Cancel EV mandates",
+                                "text": "cancel EV mandates."
+                            }
+                        ]
+                    },
+                    "id": "xpo0040",
+                    "name": "Electric vehicles",
+                    "poles": [
+                        {
+                            "key": "incentivize-and-mandate-evs",
+                            "label": "Incentivize and mandate EVs"
+                        },
+                        {
+                            "key": "cancel-ev-mandates",
+                            "label": "Cancel EV mandates"
+                        }
+                    ],
+                    "question": "Whether the government should promote or mandate electric vehicles.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0026)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who pays for pollution, and whether overburdened communities get special protection.",
+                        "poles": [
+                            {
+                                "label": "Strict rules, polluter-pays",
+                                "text": "Strict rules and polluter-pays"
+                            },
+                            {
+                                "label": "Property rights & courts only",
+                                "text": "property-rights and court remedies only."
+                            }
+                        ]
+                    },
+                    "id": "xpo0041",
+                    "name": "Pollution & environmental justice",
+                    "poles": [
+                        {
+                            "key": "strict-rules-polluter-pays",
+                            "label": "Strict rules, polluter-pays"
+                        },
+                        {
+                            "key": "property-rights-courts-only",
+                            "label": "Property rights & courts only"
+                        }
+                    ],
+                    "question": "Who pays for pollution, and whether overburdened communities get special protection.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0027)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who owns and manages public lands, and how wildlife and nature are protected.",
+                        "poles": [
+                            {
+                                "label": "Federal conservation",
+                                "text": "Federal conservation"
+                            },
+                            {
+                                "label": "Return to states / private",
+                                "text": "return lands to the states / private stewardship."
+                            }
+                        ]
+                    },
+                    "id": "xpo0042",
+                    "name": "Public lands, wildlife & conservation",
+                    "poles": [
+                        {
+                            "key": "federal-conservation",
+                            "label": "Federal conservation"
+                        },
+                        {
+                            "key": "return-to-states-private",
+                            "label": "Return to states / private"
+                        }
+                    ],
+                    "question": "Who owns and manages public lands, and how wildlife and nature are protected.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0028)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What the government should do for farmers and the food system.",
+                        "poles": [
+                            {
+                                "label": "Support farmers & reform",
+                                "text": "Support farmers and reform the food system"
+                            },
+                            {
+                                "label": "Leave it to the market",
+                                "text": "leave it to the market."
+                            }
+                        ]
+                    },
+                    "id": "xpo0043",
+                    "name": "Agriculture & food",
+                    "poles": [
+                        {
+                            "key": "support-farmers-reform",
+                            "label": "Support farmers & reform"
+                        },
+                        {
+                            "key": "leave-it-to-the-market",
+                            "label": "Leave it to the market"
+                        }
+                    ],
+                    "question": "What the government should do for farmers and the food system.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0029)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xpoc04",
+            "name": "Immigration & Borders",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How the southern border should be secured.",
+                        "poles": [
+                            {
+                                "label": "Wall and hard enforcement",
+                                "text": "A wall and hard enforcement"
+                            },
+                            {
+                                "label": "Technology, agents & pathways",
+                                "text": "technology, agents, and legal pathways."
+                            }
+                        ]
+                    },
+                    "id": "xpo0044",
+                    "name": "Border wall & enforcement",
+                    "poles": [
+                        {
+                            "key": "wall-and-hard-enforcement",
+                            "label": "Wall and hard enforcement"
+                        },
+                        {
+                            "key": "technology-agents-pathways",
+                            "label": "Technology, agents & pathways"
+                        }
+                    ],
+                    "question": "How the southern border should be secured.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0030)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether and how unauthorized immigrants should be removed.",
+                        "poles": [
+                            {
+                                "label": "Mass deportation",
+                                "text": "Mass deportation"
+                            },
+                            {
+                                "label": "Removal after fair process",
+                                "text": "removal only after fair process, or none."
+                            }
+                        ]
+                    },
+                    "id": "xpo0045",
+                    "name": "Deportation",
+                    "poles": [
+                        {
+                            "key": "mass-deportation",
+                            "label": "Mass deportation"
+                        },
+                        {
+                            "key": "removal-after-fair-process",
+                            "label": "Removal after fair process"
+                        }
+                    ],
+                    "question": "Whether and how unauthorized immigrants should be removed.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0031)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How many legal immigrants the US should admit, and through which channels.",
+                        "poles": [
+                            {
+                                "label": "Expand legal immigration",
+                                "text": "Expand legal immigration"
+                            },
+                            {
+                                "label": "Merit-based only",
+                                "text": "restrict it to merit-based admissions."
+                            }
+                        ]
+                    },
+                    "id": "xpo0046",
+                    "name": "Legal immigration levels & pathways",
+                    "poles": [
+                        {
+                            "key": "expand-legal-immigration",
+                            "label": "Expand legal immigration"
+                        },
+                        {
+                            "key": "merit-based-only",
+                            "label": "Merit-based only"
+                        }
+                    ],
+                    "question": "How many legal immigrants the US should admit, and through which channels.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0032)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How asylum claims should be handled.",
+                        "poles": [
+                            {
+                                "label": "Fair, humane process",
+                                "text": "Fair, humane asylum process"
+                            },
+                            {
+                                "label": "Strict vetting & deterrence",
+                                "text": "strict vetting and deterrence."
+                            }
+                        ]
+                    },
+                    "id": "xpo0047",
+                    "name": "Asylum & refugees",
+                    "poles": [
+                        {
+                            "key": "fair-humane-process",
+                            "label": "Fair, humane process"
+                        },
+                        {
+                            "key": "strict-vetting-deterrence",
+                            "label": "Strict vetting & deterrence"
+                        }
+                    ],
+                    "question": "How asylum claims should be handled.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0033)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether long-term unauthorized residents and Dreamers should get a path to citizenship.",
+                        "poles": [
+                            {
+                                "label": "Path to citizenship",
+                                "text": "A path to citizenship"
+                            },
+                            {
+                                "label": "Enforcement only, no amnesty",
+                                "text": "enforcement only, no amnesty."
+                            }
+                        ]
+                    },
+                    "id": "xpo0048",
+                    "name": "Pathway to citizenship / DACA",
+                    "poles": [
+                        {
+                            "key": "path-to-citizenship",
+                            "label": "Path to citizenship"
+                        },
+                        {
+                            "key": "enforcement-only-no-amnesty",
+                            "label": "Enforcement only, no amnesty"
+                        }
+                    ],
+                    "question": "Whether long-term unauthorized residents and Dreamers should get a path to citizenship.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0034)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether children born in the US to unauthorized immigrants are citizens.",
+                        "poles": [
+                            {
+                                "label": "Keep birthright citizenship",
+                                "text": "Keep birthright citizenship"
+                            },
+                            {
+                                "label": "End it",
+                                "text": "end it for children of unauthorized immigrants."
+                            }
+                        ]
+                    },
+                    "id": "xpo0049",
+                    "name": "Birthright citizenship",
+                    "poles": [
+                        {
+                            "key": "keep-birthright-citizenship",
+                            "label": "Keep birthright citizenship"
+                        },
+                        {
+                            "key": "end-it",
+                            "label": "End it"
+                        }
+                    ],
+                    "question": "Whether children born in the US to unauthorized immigrants are citizens.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0035)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether local governments may limit cooperation with federal immigration enforcement.",
+                        "poles": [
+                            {
+                                "label": "Let cities decide",
+                                "text": "Let cities decide"
+                            },
+                            {
+                                "label": "Cut federal funding",
+                                "text": "cut their federal funding."
+                            }
+                        ]
+                    },
+                    "id": "xpo0050",
+                    "name": "Sanctuary cities",
+                    "poles": [
+                        {
+                            "key": "let-cities-decide",
+                            "label": "Let cities decide"
+                        },
+                        {
+                            "key": "cut-federal-funding",
+                            "label": "Cut federal funding"
+                        }
+                    ],
+                    "question": "Whether local governments may limit cooperation with federal immigration enforcement.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0036)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xpoc05",
+            "name": "Democracy & Government",
+            "topics": [
+                {
+                    "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Where do you stand on the two axes of political orientation \u2014 economic and authority?",
+                        "poles": [
+                            {
+                                "label": "Authoritarian Left",
+                                "text": "Public command economy, heavy state apparatus, collective discipline."
+                            },
+                            {
+                                "label": "Authoritarian Right",
+                                "text": "Private enterprise subordinated to national glory, strict hierarchy, militarism."
+                            },
+                            {
+                                "label": "Libertarian Right",
+                                "text": "Absolute private property, unregulated markets, abolition of state intrusion."
+                            },
+                            {
+                                "label": "Libertarian Left",
+                                "text": "Voluntary collectivism, direct democracy, worker-owned production."
+                            }
+                        ]
+                    },
+                    "id": "xpo0004",
+                    "name": "The Classic Political Compass Tetrad",
+                    "poles": [
+                        {
+                            "key": "authoritarian-left-state-socialism",
+                            "label": "Authoritarian Left (State Socialism)"
+                        },
+                        {
+                            "key": "authoritarian-right-traditionalist-fascist",
+                            "label": "Authoritarian Right (Traditionalist / Fascist)"
+                        },
+                        {
+                            "key": "libertarian-right-anarcho-capitalism-minarchism",
+                            "label": "Libertarian Right (Anarcho-Capitalism / Minarchism)"
+                        },
+                        {
+                            "key": "libertarian-left-democratic-confederalism-anarcho-syndicalism",
+                            "label": "Libertarian Left (Democratic Confederalism / Anarcho-Syndicalism)"
+                        }
+                    ],
+                    "question": "Where do you stand on the two axes of political orientation \u2014 economic and authority?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.2.1",
+                    "widget": "quad-compass"
+                },
+                {
+                    "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
+                    "archetype": "multi-affinity",
+                    "hovertip": {
+                        "issue": "Who should decide, and how \u2014 executive, experts, assembly, or consensus?",
+                        "poles": [
+                            {
+                                "label": "Executive Mandate",
+                                "text": "Unitary executive leadership, rapid decisions in crises."
+                            },
+                            {
+                                "label": "Technocratic Meritocracy",
+                                "text": "Bureaucratic expertise, evidence-based policy insulated from populism."
+                            },
+                            {
+                                "label": "Direct Deliberative Democracy",
+                                "text": "Citizens' assemblies, sortition, participatory budgeting."
+                            },
+                            {
+                                "label": "Consensus Federation",
+                                "text": "Strict consensus-seeking, minority veto, local autonomy."
+                            }
+                        ]
+                    },
+                    "id": "xpo0005",
+                    "name": "Decision Ecology & Governance Modalities",
+                    "poles": [
+                        {
+                            "key": "executive-mandate-decisive-sovereign",
+                            "label": "Executive Mandate (Decisive Sovereign)"
+                        },
+                        {
+                            "key": "technocratic-meritocracy-rule-by-expertise",
+                            "label": "Technocratic Meritocracy (Rule by Expertise)"
+                        },
+                        {
+                            "key": "direct-deliberative-democracy-assembly",
+                            "label": "Direct Deliberative Democracy (Assembly)"
+                        },
+                        {
+                            "key": "consensus-federation-veto-unanimity",
+                            "label": "Consensus Federation (Veto / Unanimity)"
+                        }
+                    ],
+                    "question": "Who should decide, and how \u2014 executive, experts, assembly, or consensus?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.2.2",
+                    "widget": "quad-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Which civilizational operating system should govern society?",
+                        "poles": [
+                            {
+                                "label": "Free-Market Capitalism",
+                                "text": "Price system, private enterprise, shareholder returns, market discipline."
+                            },
+                            {
+                                "label": "Technocratic Meritocracy",
+                                "text": "Algorithmic optimization, cognitive elites, institutional competence."
+                            },
+                            {
+                                "label": "Authoritarian Order",
+                                "text": "Strong state, cultural cohesion, hierarchy, strict enforcement of law."
+                            },
+                            {
+                                "label": "Democratic Socialism",
+                                "text": "Social ownership of key heights, economic democracy, workplace parity."
+                            },
+                            {
+                                "label": "Communitarian Localism",
+                                "text": "Small-scale bioregionalism, agrarian self-sufficiency, direct democracy."
+                            },
+                            {
+                                "label": "Libertarian Voluntaryism",
+                                "text": "Radical individual autonomy, non-aggression principle, contract-based society."
+                            }
+                        ]
+                    },
+                    "id": "xpo0009",
+                    "name": "Macro Political Matrix Hexad",
+                    "poles": [
+                        {
+                            "key": "free-market-capitalism",
+                            "label": "Free-Market Capitalism"
+                        },
+                        {
+                            "key": "technocratic-meritocracy",
+                            "label": "Technocratic Meritocracy"
+                        },
+                        {
+                            "key": "authoritarian-order",
+                            "label": "Authoritarian Order"
+                        },
+                        {
+                            "key": "democratic-socialism",
+                            "label": "Democratic Socialism"
+                        },
+                        {
+                            "key": "communitarian-localism",
+                            "label": "Communitarian Localism"
+                        },
+                        {
+                            "key": "libertarian-voluntaryism",
+                            "label": "Libertarian Voluntaryism"
+                        }
+                    ],
+                    "question": "Which civilizational operating system should govern society?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.4.1",
+                    "widget": "hexad-radar"
+                },
+                {
+                    "approx": "heptagonal legitimacy wheel with radial sliders and central barycenter rendered as heptad-radar; real wheel renderer is follow-up work",
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "Where does the moral authority to govern originate?",
+                        "poles": [
+                            {
+                                "label": "Divine Right / Cosmic Order",
+                                "text": "Government authorized by sacred decree or cosmic mandate."
+                            },
+                            {
+                                "label": "Social Contract",
+                                "text": "Citizens rationally delegate authority to protect life and property."
+                            },
+                            {
+                                "label": "Democratic Majoritarianism",
+                                "text": "Legitimacy from periodic transparent elections reflecting majority will."
+                            },
+                            {
+                                "label": "Institutional Functionalism",
+                                "text": "Government is legitimate if it delivers peace, prosperity, clean water."
+                            },
+                            {
+                                "label": "Technocratic Epistocracy",
+                                "text": "Authority belongs to those with demonstrated competence."
+                            },
+                            {
+                                "label": "Revolutionary Vanguard",
+                                "text": "Authority justified by leading transformation toward liberation."
+                            },
+                            {
+                                "label": "Anarchist Voluntaryism",
+                                "text": "No government is legitimate; only unanimous uncoerced consent binds."
+                            }
+                        ]
+                    },
+                    "id": "xpo0011",
+                    "name": "Seven Theories of Political Legitimacy",
+                    "poles": [
+                        {
+                            "key": "divine-right-cosmic-order",
+                            "label": "Divine Right / Cosmic Order"
+                        },
+                        {
+                            "key": "social-contract-hobbes-locke-rousseau",
+                            "label": "Social Contract (Hobbes / Locke / Rousseau)"
+                        },
+                        {
+                            "key": "democratic-majoritarianism",
+                            "label": "Democratic Majoritarianism"
+                        },
+                        {
+                            "key": "institutional-functionalism-output-legitimacy",
+                            "label": "Institutional Functionalism (Output Legitimacy)"
+                        },
+                        {
+                            "key": "technocratic-epistocracy",
+                            "label": "Technocratic Epistocracy"
+                        },
+                        {
+                            "key": "revolutionary-vanguard",
+                            "label": "Revolutionary Vanguard"
+                        },
+                        {
+                            "key": "anarchist-voluntaryism",
+                            "label": "Anarchist Voluntaryism"
+                        }
+                    ],
+                    "question": "Where does the moral authority to govern originate?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.5.1",
+                    "widget": "heptad-radar"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How easy it should be to vote, and what identification should be required.",
+                        "poles": [
+                            {
+                                "label": "Expand access, no ID",
+                                "text": "Expand access and oppose ID requirements"
+                            },
+                            {
+                                "label": "Require ID & same-day voting",
+                                "text": "require ID, proof of citizenship, and same-day voting."
+                            }
+                        ]
+                    },
+                    "id": "xpo0051",
+                    "name": "Voting access & voter ID",
+                    "poles": [
+                        {
+                            "key": "expand-access-no-id",
+                            "label": "Expand access, no ID"
+                        },
+                        {
+                            "key": "require-id-same-day-voting",
+                            "label": "Require ID & same-day voting"
+                        }
+                    ],
+                    "question": "How easy it should be to vote, and what identification should be required.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0037)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether money in politics should be limited, publicly funded, or unrestricted.",
+                        "poles": [
+                            {
+                                "label": "Limit and publicly fund",
+                                "text": "Limit and publicly fund"
+                            },
+                            {
+                                "label": "Unrestricted private financing",
+                                "text": "unrestricted private financing."
+                            }
+                        ]
+                    },
+                    "id": "xpo0052",
+                    "name": "Campaign finance",
+                    "poles": [
+                        {
+                            "key": "limit-and-publicly-fund",
+                            "label": "Limit and publicly fund"
+                        },
+                        {
+                            "key": "unrestricted-private-financing",
+                            "label": "Unrestricted private financing"
+                        }
+                    ],
+                    "question": "Whether money in politics should be limited, publicly funded, or unrestricted.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0038)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the Electoral College should stay, and whether representation should be proportional.",
+                        "poles": [
+                            {
+                                "label": "Keep the Electoral College",
+                                "text": "Keep the Electoral College"
+                            },
+                            {
+                                "label": "Abolish it, proportional representation",
+                                "text": "abolish it and adopt proportional representation."
+                            }
+                        ]
+                    },
+                    "id": "xpo0053",
+                    "name": "Electoral College & proportional representation",
+                    "poles": [
+                        {
+                            "key": "keep-the-electoral-college",
+                            "label": "Keep the Electoral College"
+                        },
+                        {
+                            "key": "abolish-it-proportional-representation",
+                            "label": "Abolish it, proportional representation"
+                        }
+                    ],
+                    "question": "Whether the Electoral College should stay, and whether representation should be proportional.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0039)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether elections should use ranked-choice voting and open primaries.",
+                        "poles": [
+                            {
+                                "label": "Reform the ballot",
+                                "text": "Reform the ballot (ranked choice, open primaries)"
+                            },
+                            {
+                                "label": "Keep the current system",
+                                "text": "keep the current system."
+                            }
+                        ]
+                    },
+                    "id": "xpo0054",
+                    "name": "Ranked-choice voting & primaries",
+                    "poles": [
+                        {
+                            "key": "reform-the-ballot",
+                            "label": "Reform the ballot"
+                        },
+                        {
+                            "key": "keep-the-current-system",
+                            "label": "Keep the current system"
+                        }
+                    ],
+                    "question": "Whether elections should use ranked-choice voting and open primaries.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0040)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who draws congressional district maps, and whether gerrymandering should end.",
+                        "poles": [
+                            {
+                                "label": "Independent, fair maps",
+                                "text": "Independent, fair maps"
+                            },
+                            {
+                                "label": "Leave to state legislatures",
+                                "text": "leave it to state legislatures."
+                            }
+                        ]
+                    },
+                    "id": "xpo0055",
+                    "name": "Redistricting",
+                    "poles": [
+                        {
+                            "key": "independent-fair-maps",
+                            "label": "Independent, fair maps"
+                        },
+                        {
+                            "key": "leave-to-state-legislatures",
+                            "label": "Leave to state legislatures"
+                        }
+                    ],
+                    "question": "Who draws congressional district maps, and whether gerrymandering should end.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0041)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether DC and the territories should get statehood or a different status.",
+                        "poles": [
+                            {
+                                "label": "Statehood / self-determination",
+                                "text": "Statehood / self-determination"
+                            },
+                            {
+                                "label": "Keep current status",
+                                "text": "keep the current status."
+                            }
+                        ]
+                    },
+                    "id": "xpo0056",
+                    "name": "DC & territory status",
+                    "poles": [
+                        {
+                            "key": "statehood-self-determination",
+                            "label": "Statehood / self-determination"
+                        },
+                        {
+                            "key": "keep-current-status",
+                            "label": "Keep current status"
+                        }
+                    ],
+                    "question": "Whether DC and the territories should get statehood or a different status.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0042)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How big the Supreme Court should be and how it should be checked.",
+                        "poles": [
+                            {
+                                "label": "Expand or reform",
+                                "text": "Expand or reform the Court"
+                            },
+                            {
+                                "label": "Keep it at nine",
+                                "text": "keep it at nine and block expansion."
+                            }
+                        ]
+                    },
+                    "id": "xpo0057",
+                    "name": "Supreme Court",
+                    "poles": [
+                        {
+                            "key": "expand-or-reform",
+                            "label": "Expand or reform"
+                        },
+                        {
+                            "key": "keep-it-at-nine",
+                            "label": "Keep it at nine"
+                        }
+                    ],
+                    "question": "How big the Supreme Court should be and how it should be checked.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0043)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What kind of judges should be appointed?",
+                        "poles": [
+                            {
+                                "label": "Protect rights and freedoms",
+                                "text": "Judges who actively protect rights and freedoms"
+                            },
+                            {
+                                "label": "Apply the law as written",
+                                "text": "Judges who apply the law as written and stay within their constitutional role."
+                            }
+                        ]
+                    },
+                    "id": "xpo0058",
+                    "name": "Judicial appointments",
+                    "poles": [
+                        {
+                            "key": "protect-rights-and-freedoms",
+                            "label": "Protect rights and freedoms"
+                        },
+                        {
+                            "key": "apply-the-law-as-written",
+                            "label": "Apply the law as written"
+                        }
+                    ],
+                    "question": "What kind of judges should be appointed?",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0044)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Which level of government should decide \u2014 Washington or the states.",
+                        "poles": [
+                            {
+                                "label": "Strong federal standards",
+                                "text": "Strong federal standards"
+                            },
+                            {
+                                "label": "Powers to the states",
+                                "text": "powers reserved to the states."
+                            }
+                        ]
+                    },
+                    "id": "xpo0059",
+                    "name": "Federalism / states' rights",
+                    "poles": [
+                        {
+                            "key": "strong-federal-standards",
+                            "label": "Strong federal standards"
+                        },
+                        {
+                            "key": "powers-to-the-states",
+                            "label": "Powers to the states"
+                        }
+                    ],
+                    "question": "Which level of government should decide \u2014 Washington or the states.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0045)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How big and active the federal government should be.",
+                        "poles": [
+                            {
+                                "label": "Active federal government",
+                                "text": "An active federal government"
+                            },
+                            {
+                                "label": "Minimal government",
+                                "text": "a minimal one."
+                            }
+                        ]
+                    },
+                    "id": "xpo0060",
+                    "name": "Size & scope of federal government",
+                    "poles": [
+                        {
+                            "key": "active-federal-government",
+                            "label": "Active federal government"
+                        },
+                        {
+                            "key": "minimal-government",
+                            "label": "Minimal government"
+                        }
+                    ],
+                    "question": "How big and active the federal government should be.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0046)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How much the federal government should regulate business and the economy.",
+                        "poles": [
+                            {
+                                "label": "Regulate to protect",
+                                "text": "Regulate to protect people"
+                            },
+                            {
+                                "label": "Deregulate",
+                                "text": "deregulate to free enterprise."
+                            }
+                        ]
+                    },
+                    "id": "xpo0061",
+                    "name": "Regulation",
+                    "poles": [
+                        {
+                            "key": "regulate-to-protect",
+                            "label": "Regulate to protect"
+                        },
+                        {
+                            "key": "deregulate",
+                            "label": "Deregulate"
+                        }
+                    ],
+                    "question": "How much the federal government should regulate business and the economy.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0047)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What the government may collect and watch, and what privacy rights people have.",
+                        "poles": [
+                            {
+                                "label": "Strong privacy protections",
+                                "text": "Strong privacy protections and limits on surveillance"
+                            },
+                            {
+                                "label": "Security first",
+                                "text": "security first."
+                            }
+                        ]
+                    },
+                    "id": "xpo0062",
+                    "name": "Privacy & surveillance",
+                    "poles": [
+                        {
+                            "key": "strong-privacy-protections",
+                            "label": "Strong privacy protections"
+                        },
+                        {
+                            "key": "security-first",
+                            "label": "Security first"
+                        }
+                    ],
+                    "question": "What the government may collect and watch, and what privacy rights people have.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0048)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government may restrict speech, fund or pressure media, or police content.",
+                        "poles": [
+                            {
+                                "label": "No government censorship",
+                                "text": "No government censorship"
+                            },
+                            {
+                                "label": "Act against obscenity",
+                                "text": "the government may act against obscenity and \"inappropriate\" content."
+                            }
+                        ]
+                    },
+                    "id": "xpo0063",
+                    "name": "Free speech & censorship",
+                    "poles": [
+                        {
+                            "key": "no-government-censorship",
+                            "label": "No government censorship"
+                        },
+                        {
+                            "key": "act-against-obscenity",
+                            "label": "Act against obscenity"
+                        }
+                    ],
+                    "question": "Whether the government may restrict speech, fund or pressure media, or police content.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0049)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should set rules for artificial intelligence, and how strict.",
+                        "poles": [
+                            {
+                                "label": "Regulate AI",
+                                "text": "Regulate AI and set guardrails"
+                            },
+                            {
+                                "label": "Minimal regulation",
+                                "text": "let innovation run with minimal regulation."
+                            }
+                        ]
+                    },
+                    "id": "xpo0064",
+                    "name": "Artificial intelligence",
+                    "poles": [
+                        {
+                            "key": "regulate-ai",
+                            "label": "Regulate AI"
+                        },
+                        {
+                            "key": "minimal-regulation",
+                            "label": "Minimal regulation"
+                        }
+                    ],
+                    "question": "Whether the government should set rules for artificial intelligence, and how strict.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0081)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xpoc06",
+            "name": "Rights & Freedoms",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether and how abortion should be legal and accessible.",
+                        "poles": [
+                            {
+                                "label": "Pro-choice",
+                                "text": "Pro-choice"
+                            },
+                            {
+                                "label": "Pro-life",
+                                "text": "pro-life (legal access \u2194 restrictions / bans)."
+                            }
+                        ]
+                    },
+                    "id": "xpo0065",
+                    "name": "Abortion",
+                    "poles": [
+                        {
+                            "key": "pro-choice",
+                            "label": "Pro-choice"
+                        },
+                        {
+                            "key": "pro-life",
+                            "label": "Pro-life"
+                        }
+                    ],
+                    "question": "Whether and how abortion should be legal and accessible.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0050)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether birth control and fertility treatments like IVF should be protected and accessible.",
+                        "poles": [
+                            {
+                                "label": "Guaranteed access",
+                                "text": "Guaranteed access"
+                            },
+                            {
+                                "label": "Restricted or unprotected",
+                                "text": "restricted or unprotected."
+                            }
+                        ]
+                    },
+                    "id": "xpo0066",
+                    "name": "Contraception & fertility care",
+                    "poles": [
+                        {
+                            "key": "guaranteed-access",
+                            "label": "Guaranteed access"
+                        },
+                        {
+                            "key": "restricted-or-unprotected",
+                            "label": "Restricted or unprotected"
+                        }
+                    ],
+                    "question": "Whether birth control and fertility treatments like IVF should be protected and accessible.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0051)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "What counts as a marriage and a family, and whether the government may define them.",
+                        "poles": [
+                            {
+                                "label": "Marriage equality for all",
+                                "text": "Marriage equality for all"
+                            },
+                            {
+                                "label": "One man and one woman",
+                                "text": "marriage is one man and one woman"
+                            },
+                            {
+                                "label": "Government shouldn't define it",
+                                "text": "the government shouldn't define it at all."
+                            }
+                        ]
+                    },
+                    "id": "xpo0067",
+                    "name": "Marriage & family definition",
+                    "poles": [
+                        {
+                            "key": "marriage-equality-for-all",
+                            "label": "Marriage equality for all"
+                        },
+                        {
+                            "key": "one-man-and-one-woman",
+                            "label": "One man and one woman"
+                        },
+                        {
+                            "key": "government-shouldnt-define-it",
+                            "label": "Government shouldn't define it"
+                        }
+                    ],
+                    "question": "What counts as a marriage and a family, and whether the government may define them.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0052)",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether LGBTQ+ people get equal treatment in law, schools, sports, and health care.",
+                        "poles": [
+                            {
+                                "label": "Full equality and protection",
+                                "text": "Full equality and protection"
+                            },
+                            {
+                                "label": "Restrictions",
+                                "text": "restrictions, especially on gender identity."
+                            }
+                        ]
+                    },
+                    "id": "xpo0068",
+                    "name": "LGBTQ+ rights",
+                    "poles": [
+                        {
+                            "key": "full-equality-and-protection",
+                            "label": "Full equality and protection"
+                        },
+                        {
+                            "key": "restrictions",
+                            "label": "Restrictions"
+                        }
+                    ],
+                    "question": "Whether LGBTQ+ people get equal treatment in law, schools, sports, and health care.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0053)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How far religious freedom extends, and whether it covers acting on beliefs in everyday life.",
+                        "poles": [
+                            {
+                                "label": "Freedom to worship & act",
+                                "text": "Freedom to worship and act on beliefs"
+                            },
+                            {
+                                "label": "Strict separation",
+                                "text": "strict separation, no special treatment."
+                            }
+                        ]
+                    },
+                    "id": "xpo0069",
+                    "name": "Religious liberty",
+                    "poles": [
+                        {
+                            "key": "freedom-to-worship-act",
+                            "label": "Freedom to worship & act"
+                        },
+                        {
+                            "key": "strict-separation",
+                            "label": "Strict separation"
+                        }
+                    ],
+                    "question": "How far religious freedom extends, and whether it covers acting on beliefs in everyday life.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0054)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether and how the government may regulate firearms.",
+                        "poles": [
+                            {
+                                "label": "Strict regulation",
+                                "text": "Strict regulation"
+                            },
+                            {
+                                "label": "No regulation at all",
+                                "text": "no regulation at all."
+                            }
+                        ]
+                    },
+                    "id": "xpo0070",
+                    "name": "Guns",
+                    "poles": [
+                        {
+                            "key": "strict-regulation",
+                            "label": "Strict regulation"
+                        },
+                        {
+                            "key": "no-regulation-at-all",
+                            "label": "No regulation at all"
+                        }
+                    ],
+                    "question": "Whether and how the government may regulate firearms.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0055)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How police should be funded, trained, and held accountable.",
+                        "poles": [
+                            {
+                                "label": "Fund and protect police",
+                                "text": "Fund and protect police"
+                            },
+                            {
+                                "label": "Reform and accountability",
+                                "text": "reform and accountability first."
+                            }
+                        ]
+                    },
+                    "id": "xpo0071",
+                    "name": "Policing",
+                    "poles": [
+                        {
+                            "key": "fund-and-protect-police",
+                            "label": "Fund and protect police"
+                        },
+                        {
+                            "key": "reform-and-accountability",
+                            "label": "Reform and accountability"
+                        }
+                    ],
+                    "question": "How police should be funded, trained, and held accountable.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0056)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the justice system should be reformed, and how harshly crimes should be punished.",
+                        "poles": [
+                            {
+                                "label": "Reform, reduce incarceration",
+                                "text": "Reform and reduce incarceration"
+                            },
+                            {
+                                "label": "Tougher enforcement & sentencing",
+                                "text": "tougher enforcement and sentencing."
+                            }
+                        ]
+                    },
+                    "id": "xpo0072",
+                    "name": "Criminal justice reform & sentencing",
+                    "poles": [
+                        {
+                            "key": "reform-reduce-incarceration",
+                            "label": "Reform, reduce incarceration"
+                        },
+                        {
+                            "key": "tougher-enforcement-sentencing",
+                            "label": "Tougher enforcement & sentencing"
+                        }
+                    ],
+                    "question": "Whether the justice system should be reformed, and how harshly crimes should be punished.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0057)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the state should be able to execute people.",
+                        "poles": [
+                            {
+                                "label": "Abolish it",
+                                "text": "Abolish it"
+                            },
+                            {
+                                "label": "Keep it",
+                                "text": "keep it (and use it)."
+                            }
+                        ]
+                    },
+                    "id": "xpo0073",
+                    "name": "Death penalty",
+                    "poles": [
+                        {
+                            "key": "abolish-it",
+                            "label": "Abolish it"
+                        },
+                        {
+                            "key": "keep-it",
+                            "label": "Keep it"
+                        }
+                    ],
+                    "question": "Whether the state should be able to execute people.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0058)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether drug use should be a crime, a health issue, or a free choice.",
+                        "poles": [
+                            {
+                                "label": "Legalize, treat as health",
+                                "text": "Legalize and treat as health"
+                            },
+                            {
+                                "label": "Keep criminal, enforce hard",
+                                "text": "keep criminal, enforce hard."
+                            }
+                        ]
+                    },
+                    "id": "xpo0074",
+                    "name": "Marijuana & drugs",
+                    "poles": [
+                        {
+                            "key": "legalize-treat-as-health",
+                            "label": "Legalize, treat as health"
+                        },
+                        {
+                            "key": "keep-criminal-enforce-hard",
+                            "label": "Keep criminal, enforce hard"
+                        }
+                    ],
+                    "question": "Whether drug use should be a crime, a health issue, or a free choice.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0059)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How the government should respond to crime \u2014 crack down on it, or prevent it.",
+                        "poles": [
+                            {
+                                "label": "Crack down",
+                                "text": "Crack down \u2014 enforcement and punishment"
+                            },
+                            {
+                                "label": "Prevent \u2014 root causes",
+                                "text": "prevent \u2014 root causes and community investment."
+                            }
+                        ]
+                    },
+                    "id": "xpo0075",
+                    "name": "Crime",
+                    "poles": [
+                        {
+                            "key": "crack-down",
+                            "label": "Crack down"
+                        },
+                        {
+                            "key": "prevent-root-causes",
+                            "label": "Prevent \u2014 root causes"
+                        }
+                    ],
+                    "question": "How the government should respond to crime \u2014 crack down on it, or prevent it.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0080)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should actively address racial disparities.",
+                        "poles": [
+                            {
+                                "label": "Active equity programs",
+                                "text": "Active equity programs"
+                            },
+                            {
+                                "label": "Equal treatment only",
+                                "text": "equal treatment under the law, nothing more."
+                            }
+                        ]
+                    },
+                    "id": "xpo0076",
+                    "name": "Racial equity & civil rights",
+                    "poles": [
+                        {
+                            "key": "active-equity-programs",
+                            "label": "Active equity programs"
+                        },
+                        {
+                            "key": "equal-treatment-only",
+                            "label": "Equal treatment only"
+                        }
+                    ],
+                    "question": "Whether the government should actively address racial disparities.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0060)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What protections and support people with disabilities should get.",
+                        "poles": [
+                            {
+                                "label": "Disability rights",
+                                "text": "Strong protections and support"
+                            }
+                        ]
+                    },
+                    "id": "xpo0077",
+                    "name": "Disability rights",
+                    "poles": [
+                        {
+                            "key": "disability-rights",
+                            "label": "Disability rights"
+                        }
+                    ],
+                    "question": "What protections and support people with disabilities should get.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0061)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the Constitution and the law should guarantee women's equality.",
+                        "poles": [
+                            {
+                                "label": "Women's equality",
+                                "text": "Pass the ERA and pay-equity laws"
+                            }
+                        ]
+                    },
+                    "id": "xpo0078",
+                    "name": "Women's equality",
+                    "poles": [
+                        {
+                            "key": "womens-equality",
+                            "label": "Women's equality"
+                        }
+                    ],
+                    "question": "Whether the Constitution and the law should guarantee women's equality.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0062)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How the federal government should treat Tribal Nations and their treaty rights.",
+                        "poles": [
+                            {
+                                "label": "Tribal nations",
+                                "text": "Honor treaty and trust responsibilities"
+                            }
+                        ]
+                    },
+                    "id": "xpo0079",
+                    "name": "Tribal nations",
+                    "poles": [
+                        {
+                            "key": "tribal-nations",
+                            "label": "Tribal nations"
+                        }
+                    ],
+                    "question": "How the federal government should treat Tribal Nations and their treaty rights.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0063)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                }
+            ]
+        },
+        {
+            "id": "xpoc07",
+            "name": "Education & Culture",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who chooses a child's school, and how schools are funded.",
+                        "poles": [
+                            {
+                                "label": "Universal choice & vouchers",
+                                "text": "Universal choice and vouchers"
+                            },
+                            {
+                                "label": "Invest in public schools",
+                                "text": "invest in public schools."
+                            }
+                        ]
+                    },
+                    "id": "xpo0080",
+                    "name": "School choice & funding",
+                    "poles": [
+                        {
+                            "key": "universal-choice-vouchers",
+                            "label": "Universal choice & vouchers"
+                        },
+                        {
+                            "key": "invest-in-public-schools",
+                            "label": "Invest in public schools"
+                        }
+                    ],
+                    "question": "Who chooses a child's school, and how schools are funded.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0064)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What schools should teach \u2014 and what they should not.",
+                        "poles": [
+                            {
+                                "label": "Honest, inclusive curriculum",
+                                "text": "Honest, inclusive curriculum"
+                            },
+                            {
+                                "label": "Fundamentals & patriotic civics",
+                                "text": "fundamentals and patriotic civics, no \"indoctrination.\""
+                            }
+                        ]
+                    },
+                    "id": "xpo0081",
+                    "name": "Curriculum",
+                    "poles": [
+                        {
+                            "key": "honest-inclusive-curriculum",
+                            "label": "Honest, inclusive curriculum"
+                        },
+                        {
+                            "key": "fundamentals-patriotic-civics",
+                            "label": "Fundamentals & patriotic civics"
+                        }
+                    ],
+                    "question": "What schools should teach \u2014 and what they should not.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0065)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether Washington should have any role in education at all.",
+                        "poles": [
+                            {
+                                "label": "Active federal role",
+                                "text": "An active federal role"
+                            },
+                            {
+                                "label": "Close the Department",
+                                "text": "none \u2014 close the Department of Education."
+                            }
+                        ]
+                    },
+                    "id": "xpo0082",
+                    "name": "Federal role in education",
+                    "poles": [
+                        {
+                            "key": "active-federal-role",
+                            "label": "Active federal role"
+                        },
+                        {
+                            "key": "close-the-department",
+                            "label": "Close the Department"
+                        }
+                    ],
+                    "question": "Whether Washington should have any role in education at all.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0066)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Who pays for college, and what happens to student debt.",
+                        "poles": [
+                            {
+                                "label": "Free college & debt cancellation",
+                                "text": "Free college and debt cancellation"
+                            },
+                            {
+                                "label": "Market-priced, no forgiveness",
+                                "text": "market-priced college, no forgiveness."
+                            }
+                        ]
+                    },
+                    "id": "xpo0083",
+                    "name": "College cost & student debt",
+                    "poles": [
+                        {
+                            "key": "free-college-debt-cancellation",
+                            "label": "Free college & debt cancellation"
+                        },
+                        {
+                            "key": "market-priced-no-forgiveness",
+                            "label": "Market-priced, no forgiveness"
+                        }
+                    ],
+                    "question": "Who pays for college, and what happens to student debt.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0067)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government should fund the arts and humanities.",
+                        "poles": [
+                            {
+                                "label": "Fund them",
+                                "text": "Fund them"
+                            },
+                            {
+                                "label": "Leave to private support",
+                                "text": "don't (leave it to private support)."
+                            }
+                        ]
+                    },
+                    "id": "xpo0084",
+                    "name": "Arts & humanities funding",
+                    "poles": [
+                        {
+                            "key": "fund-them",
+                            "label": "Fund them"
+                        },
+                        {
+                            "key": "leave-to-private-support",
+                            "label": "Leave to private support"
+                        }
+                    ],
+                    "question": "Whether the government should fund the arts and humanities.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0068)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        },
+        {
+            "id": "xpoc08",
+            "name": "Foreign Policy & Defense",
+            "topics": [
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Can a society have hyperglobalization, national sovereignty, and democratic politics all at once?",
+                        "poles": [
+                            {
+                                "label": "Hyperglobalization",
+                                "text": "Frictionless trade, capital mobility, uniform regulation."
+                            },
+                            {
+                                "label": "National Sovereignty",
+                                "text": "Self-determination, border integrity, domestic industrial policy."
+                            },
+                            {
+                                "label": "Democratic Politics",
+                                "text": "Electorate accountability, labor protections, social welfare."
+                            }
+                        ]
+                    },
+                    "id": "xpo0002",
+                    "name": "Rodrik's Political Trilemma of the World Economy",
+                    "poles": [
+                        {
+                            "key": "hyperglobalization",
+                            "label": "Hyperglobalization"
+                        },
+                        {
+                            "key": "national-sovereignty",
+                            "label": "National Sovereignty"
+                        },
+                        {
+                            "key": "democratic-politics",
+                            "label": "Democratic Politics"
+                        }
+                    ],
+                    "question": "Can a society have hyperglobalization, national sovereignty, and democratic politics all at once?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.1.2",
+                    "widget": "triangle"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "How should a nation act in the world?",
+                        "poles": [
+                            {
+                                "label": "Realpolitik / Hegemony",
+                                "text": "National interest defined by military and economic dominance."
+                            },
+                            {
+                                "label": "Liberal Internationalism",
+                                "text": "Rule-based order, multilateral treaties, UN, WTO, NATO."
+                            },
+                            {
+                                "label": "Civilizational Realignment",
+                                "text": "Multipolar alliance with cultural civilizational spheres."
+                            },
+                            {
+                                "label": "Anti-Imperialist Solidarity",
+                                "text": "Global South non-alignment, resistance to Western hegemony."
+                            },
+                            {
+                                "label": "Strategic Neo-Isolationism",
+                                "text": "Military retrenchment, non-intervention, domestic fortress."
+                            },
+                            {
+                                "label": "Cosmopolitan Borderless Globalism",
+                                "text": "Abolition of national borders, universal human rights citizenship."
+                            }
+                        ]
+                    },
+                    "id": "xpo0010",
+                    "name": "Foreign Policy & Geopolitical Grand Strategy Hexad",
+                    "poles": [
+                        {
+                            "key": "realpolitik-hegemony",
+                            "label": "Realpolitik / Hegemony"
+                        },
+                        {
+                            "key": "liberal-internationalism",
+                            "label": "Liberal Internationalism"
+                        },
+                        {
+                            "key": "civilizational-realignment",
+                            "label": "Civilizational Realignment"
+                        },
+                        {
+                            "key": "anti-imperialist-solidarity",
+                            "label": "Anti-Imperialist Solidarity"
+                        },
+                        {
+                            "key": "strategic-neo-isolationism",
+                            "label": "Strategic Neo-Isolationism"
+                        },
+                        {
+                            "key": "cosmopolitan-borderless-globalism",
+                            "label": "Cosmopolitan Borderless Globalism"
+                        }
+                    ],
+                    "question": "How should a nation act in the world?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.4.2",
+                    "widget": "hexad-radar"
+                },
+                {
+                    "archetype": "simplex",
+                    "hovertip": {
+                        "issue": "What makes a civilization resilient?",
+                        "poles": [
+                            {
+                                "label": "Energy Density & Grid Security"
+                            },
+                            {
+                                "label": "Food & Water Sovereignty"
+                            },
+                            {
+                                "label": "Demographic Vitality & Family Support"
+                            },
+                            {
+                                "label": "Technological Innovation & Industrial Capacity"
+                            },
+                            {
+                                "label": "Ecological Stability & Planetary Boundaries"
+                            },
+                            {
+                                "label": "Social Trust & Civic Cohesion"
+                            },
+                            {
+                                "label": "Strategic Deterrence & Institutional Defense"
+                            }
+                        ]
+                    },
+                    "id": "xpo0012",
+                    "name": "Seven Pillars of Civilizational Resilience",
+                    "poles": [
+                        {
+                            "key": "energy-density-grid-security",
+                            "label": "Energy Density & Grid Security"
+                        },
+                        {
+                            "key": "food-water-sovereignty",
+                            "label": "Food & Water Sovereignty"
+                        },
+                        {
+                            "key": "demographic-vitality-family-support",
+                            "label": "Demographic Vitality & Family Support"
+                        },
+                        {
+                            "key": "technological-innovation-industrial-capacity",
+                            "label": "Technological Innovation & Industrial Capacity"
+                        },
+                        {
+                            "key": "ecological-stability-planetary-boundaries",
+                            "label": "Ecological Stability & Planetary Boundaries"
+                        },
+                        {
+                            "key": "social-trust-civic-cohesion",
+                            "label": "Social Trust & Civic Cohesion"
+                        },
+                        {
+                            "key": "strategic-deterrence-institutional-defense",
+                            "label": "Strategic Deterrence & Institutional Defense"
+                        }
+                    ],
+                    "question": "What makes a civilization resilient?",
+                    "risk": false,
+                    "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.5.2",
+                    "widget": "heptad-radar"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How much to spend on the military, and what it is for.",
+                        "poles": [
+                            {
+                                "label": "Bigger, stronger military",
+                                "text": "A bigger, stronger military"
+                            },
+                            {
+                                "label": "Cut the defense budget",
+                                "text": "cut the defense budget."
+                            }
+                        ]
+                    },
+                    "id": "xpo0085",
+                    "name": "Defense spending & the military",
+                    "poles": [
+                        {
+                            "key": "bigger-stronger-military",
+                            "label": "Bigger, stronger military"
+                        },
+                        {
+                            "key": "cut-the-defense-budget",
+                            "label": "Cut the defense budget"
+                        }
+                    ],
+                    "question": "How much to spend on the military, and what it is for.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0069)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the government can compel military service.",
+                        "poles": [
+                            {
+                                "label": "Keep the draft",
+                                "text": "Keep the draft as an option"
+                            },
+                            {
+                                "label": "Abolish it",
+                                "text": "abolish it."
+                            }
+                        ]
+                    },
+                    "id": "xpo0086",
+                    "name": "Conscription / draft",
+                    "poles": [
+                        {
+                            "key": "keep-the-draft",
+                            "label": "Keep the draft"
+                        },
+                        {
+                            "key": "abolish-it",
+                            "label": "Abolish it"
+                        }
+                    ],
+                    "question": "Whether the government can compel military service.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0070)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What veterans are owed after service.",
+                        "poles": [
+                            {
+                                "label": "Veterans",
+                                "text": "Generous benefits"
+                            }
+                        ]
+                    },
+                    "id": "xpo0087",
+                    "name": "Veterans",
+                    "poles": [
+                        {
+                            "key": "veterans",
+                            "label": "Veterans"
+                        }
+                    ],
+                    "question": "What veterans are owed after service.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0071)",
+                    "type": "single",
+                    "widget": "monopole-slider"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the US should stay in alliances like NATO.",
+                        "poles": [
+                            {
+                                "label": "Strengthen alliances",
+                                "text": "Strengthen alliances"
+                            },
+                            {
+                                "label": "Avoid entangling alliances",
+                                "text": "avoid entangling alliances."
+                            }
+                        ]
+                    },
+                    "id": "xpo0088",
+                    "name": "Alliances",
+                    "poles": [
+                        {
+                            "key": "strengthen-alliances",
+                            "label": "Strengthen alliances"
+                        },
+                        {
+                            "key": "avoid-entangling-alliances",
+                            "label": "Avoid entangling alliances"
+                        }
+                    ],
+                    "question": "Whether the US should stay in alliances like NATO.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0072)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "How the US should handle China as a rival.",
+                        "poles": [
+                            {
+                                "label": "Managed competition",
+                                "text": "Managed competition"
+                            },
+                            {
+                                "label": "Confrontation & decoupling",
+                                "text": "confrontation and decoupling."
+                            }
+                        ]
+                    },
+                    "id": "xpo0089",
+                    "name": "China",
+                    "poles": [
+                        {
+                            "key": "managed-competition",
+                            "label": "Managed competition"
+                        },
+                        {
+                            "key": "confrontation-decoupling",
+                            "label": "Confrontation & decoupling"
+                        }
+                    ],
+                    "question": "How the US should handle China as a rival.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0073)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What the US position should be in the Middle East, including on Israel.",
+                        "poles": [
+                            {
+                                "label": "Stand with Israel",
+                                "text": "Stand with Israel"
+                            },
+                            {
+                                "label": "Palestinian self-determination",
+                                "text": "support Palestinian self-determination / end military aid."
+                            }
+                        ]
+                    },
+                    "id": "xpo0090",
+                    "name": "Middle East & Israel",
+                    "poles": [
+                        {
+                            "key": "stand-with-israel",
+                            "label": "Stand with Israel"
+                        },
+                        {
+                            "key": "palestinian-self-determination",
+                            "label": "Palestinian self-determination"
+                        }
+                    ],
+                    "question": "What the US position should be in the Middle East, including on Israel.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0074)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the US should send aid, intervene abroad, or stay out.",
+                        "poles": [
+                            {
+                                "label": "Lead and intervene",
+                                "text": "Lead and intervene where needed"
+                            },
+                            {
+                                "label": "Non-intervention",
+                                "text": "non-intervention."
+                            }
+                        ]
+                    },
+                    "id": "xpo0091",
+                    "name": "Foreign aid & intervention",
+                    "poles": [
+                        {
+                            "key": "lead-and-intervene",
+                            "label": "Lead and intervene"
+                        },
+                        {
+                            "key": "non-intervention",
+                            "label": "Non-intervention"
+                        }
+                    ],
+                    "question": "Whether the US should send aid, intervene abroad, or stay out.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0075)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "Whether the US should keep, modernize, or eliminate nuclear weapons.",
+                        "poles": [
+                            {
+                                "label": "Modernize the deterrent",
+                                "text": "Modernize the deterrent and missile defense"
+                            },
+                            {
+                                "label": "Disarm",
+                                "text": "disarm."
+                            }
+                        ]
+                    },
+                    "id": "xpo0092",
+                    "name": "Nuclear weapons & arms control",
+                    "poles": [
+                        {
+                            "key": "modernize-the-deterrent",
+                            "label": "Modernize the deterrent"
+                        },
+                        {
+                            "key": "disarm",
+                            "label": "Disarm"
+                        }
+                    ],
+                    "question": "Whether the US should keep, modernize, or eliminate nuclear weapons.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0076)",
+                    "widget": "linear-sliders"
+                },
+                {
+                    "archetype": null,
+                    "hovertip": {
+                        "issue": "What the US should do about Iran \u2014 its nuclear program, its role in the region, and whether to pressure it or engage it.",
+                        "poles": [
+                            {
+                                "label": "Confront and pressure",
+                                "text": "Confront and pressure Iran"
+                            },
+                            {
+                                "label": "Engage and negotiate",
+                                "text": "engage and negotiate with Iran."
+                            }
+                        ]
+                    },
+                    "id": "xpo0093",
+                    "name": "Iran",
+                    "poles": [
+                        {
+                            "key": "confront-and-pressure",
+                            "label": "Confront and pressure"
+                        },
+                        {
+                            "key": "engage-and-negotiate",
+                            "label": "Engage and negotiate"
+                        }
+                    ],
+                    "question": "What the US should do about Iran \u2014 its nuclear program, its role in the region, and whether to pressure it or engage it.",
+                    "risk": false,
+                    "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0077)",
+                    "widget": "linear-sliders"
+                }
+            ]
+        }
+    ],
+    "domain": "Political Economy, Civic Allocation & Governance",
+    "name": "Poliscapades",
+    "skin": "poliscapades"
+}

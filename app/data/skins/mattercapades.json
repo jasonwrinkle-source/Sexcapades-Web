@@ -1,0 +1,1025 @@
+{
+  "skin": "mattercapades",
+  "name": "Mattercapades",
+  "domain": "Applied Physics — Materials & Quantum Technologies",
+  "categories": [
+    {
+      "id": "xmac01",
+      "name": "The Applied Physics Philosophy & Strategy",
+      "about": "What applied physics is for, and how you choose what to build.",
+      "topics": [
+        {
+          "id": "xma0001",
+          "name": "Microscopic Understanding vs Device Performance",
+          "risk": false,
+          "poles": [
+            {
+              "key": "fundamental-physical-mechanism-first",
+              "label": "Fundamental Physical Mechanism First"
+            },
+            {
+              "key": "device-figure-of-merit-first",
+              "label": "Device Figure of Merit First"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is the goal of applied physics microscopic understanding or record-breaking device performance?",
+            "poles": [
+              {
+                "label": "Fundamental Physical Mechanism First",
+                "text": "You do not truly understand a device until you can explain its microscopic electronic, magnetic, or optical mechanism; performance follows understanding."
+              },
+              {
+                "label": "Device Figure of Merit First",
+                "text": "Optimize the metric that matters: $Q$-factor, power conversion efficiency, electron mobility, ON/OFF ratio, noise figure; the exact microscopic physics is secondary to beating the record."
+              }
+            ]
+          },
+          "question": "Is the goal of applied physics microscopic understanding or record-breaking device performance?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.1"
+        },
+        {
+          "id": "xma0002",
+          "name": "Materials Discovery: Rational Design vs Edisonian Synthesis",
+          "risk": false,
+          "poles": [
+            {
+              "key": "rational-computational-design",
+              "label": "Rational Computational Design"
+            },
+            {
+              "key": "edisonian-empirical-synthesis",
+              "label": "Edisonian Empirical Synthesis"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you discover new materials on a supercomputer or by mixing chemicals in the lab?",
+            "poles": [
+              {
+                "label": "Rational Computational Design",
+                "text": "Predict crystal structures, calculate DFT bandgaps, screen materials databases, and design novel heterostructures before touching a chemical precursor."
+              },
+              {
+                "label": "Edisonian Empirical Synthesis",
+                "text": "Mix precursors in the furnace, explore high-throughput combinatorial libraries, follow intuitive lab bench chemistry; nature always surprises computational models."
+              }
+            ]
+          },
+          "question": "Do you discover new materials on a supercomputer or by mixing chemicals in the lab?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.2"
+        },
+        {
+          "id": "xma0003",
+          "name": "Technology Readiness Level (TRL) Horizon: Deep Discovery vs Scalable Deployment",
+          "risk": false,
+          "poles": [
+            {
+              "key": "low-trl-deep-physics-discovery",
+              "label": "Low-TRL Deep Physics Discovery"
+            },
+            {
+              "key": "high-trl-industrial-scalability",
+              "label": "High-TRL Industrial Scalability"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?",
+            "poles": [
+              {
+                "label": "Low-TRL Deep Physics Discovery",
+                "text": "Proof-of-principle demonstrations in millikelvin dilution fridges under 14-Tesla magnetic fields; celebrate the exotic physical phenomenon regardless of manufacturing hurdles."
+              },
+              {
+                "label": "High-TRL Industrial Scalability",
+                "text": "Focus on room-temperature operation, earth-abundant non-toxic elements, CMOS foundry compatibility, and wafer-scale yield."
+              }
+            ]
+          },
+          "question": "Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
+        },
+        {
+          "id": "xma0004",
+          "name": "Fundamental vs Applied — Within Applied Physics",
+          "risk": false,
+          "poles": [
+            {
+              "key": "fundamental",
+              "label": "Fundamental"
+            },
+            {
+              "key": "applied",
+              "label": "Applied"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Even inside applied physics, do you lean toward the fundamental or the applied?",
+            "poles": [
+              {
+                "label": "Fundamental",
+                "text": "the physics itself is the point — understanding how the world works, even inside an applied context; the device is a way of learning."
+              },
+              {
+                "label": "Applied",
+                "text": "the application is the point — solving a real problem, building something useful; the physics is a means to an end."
+              }
+            ]
+          },
+          "question": "Even inside applied physics, do you lean toward the fundamental or the applied?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.4"
+        }
+      ]
+    },
+    {
+      "id": "xmac02",
+      "name": "Domains & Scale",
+      "about": "The sovereign domains of applied physics and the limits of making things smaller.",
+      "topics": [
+        {
+          "id": "xma0005",
+          "name": "The Four Sovereign Domains of Applied Physics",
+          "risk": false,
+          "poles": [
+            {
+              "key": "condensed-matter-quantum-materials",
+              "label": "Condensed Matter & Quantum Materials"
+            },
+            {
+              "key": "optics-photonics-lasers",
+              "label": "Optics, Photonics & Lasers"
+            },
+            {
+              "key": "plasmas-high-energy-density-physics",
+              "label": "Plasmas & High-Energy-Density Physics"
+            },
+            {
+              "key": "biological-soft-condensed-matter-physics",
+              "label": "Biological & Soft Condensed Matter Physics"
+            }
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Where does your primary applied physics heart reside?",
+            "poles": [
+              {
+                "label": "Condensed Matter & Quantum Materials",
+                "text": "Superconductors, topological insulators, 2D graphene/transition metal dichalcogenides, spintronics, multiferroics."
+              },
+              {
+                "label": "Optics, Photonics & Lasers",
+                "text": "Metamaterials, nanophotonics, ultrafast femtosecond lasers, integrated photonic circuits, non-linear optical crystals."
+              },
+              {
+                "label": "Plasmas & High-Energy-Density Physics",
+                "text": "Tokamak magnetic confinement, laser wakefield acceleration, cold atmospheric plasmas for semiconductor etching and medicine."
+              },
+              {
+                "label": "Biological & Soft Condensed Matter Physics",
+                "text": "Active matter, lipid membranes, microfluidics, biomolecular mechanics, polymer rheology, bio-interfaces."
+              }
+            ]
+          },
+          "question": "Where does your primary applied physics heart reside?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.1"
+        },
+        {
+          "id": "xma0006",
+          "name": "Miniaturization: Continue vs Plateau",
+          "risk": false,
+          "poles": [
+            {
+              "key": "continue",
+              "label": "Continue"
+            },
+            {
+              "key": "plateau",
+              "label": "Plateau"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does miniaturization keep going, or have we hit the wall?",
+            "poles": [
+              {
+                "label": "Continue",
+                "text": "miniaturization keeps going — smaller, denser, more capable; the trend continues down to the atomic limit."
+              },
+              {
+                "label": "Plateau",
+                "text": "we have hit the wall — atomic limits, quantum tunneling, heat dissipation; miniaturization is over and the future is elsewhere."
+              }
+            ]
+          },
+          "question": "Does miniaturization keep going, or have we hit the wall?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.2"
+        },
+        {
+          "id": "xma0007",
+          "name": "Reliability vs Performance",
+          "risk": false,
+          "poles": [
+            {
+              "key": "reliability",
+              "label": "Reliability"
+            },
+            {
+              "key": "performance",
+              "label": "Performance"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you optimize for reliability or for peak performance?",
+            "poles": [
+              {
+                "label": "Reliability",
+                "text": "it has to work every time, for years, in the field — robustness beats peak numbers."
+              },
+              {
+                "label": "Performance",
+                "text": "peak numbers are what matter — the fastest, the most efficient, the record-breaking, even if it is fragile."
+              }
+            ]
+          },
+          "question": "Do you optimize for reliability or for peak performance?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
+        }
+      ]
+    },
+    {
+      "id": "xmac03",
+      "name": "Quantum Technology & Hardware",
+      "about": "Which quantum platform wins, and whether noisy hardware or error correction delivers value.",
+      "topics": [
+        {
+          "id": "xma0008",
+          "name": "Quantum Computing Architecture Quartet",
+          "risk": false,
+          "poles": [
+            {
+              "key": "superconducting-transmons",
+              "label": "Superconducting Transmons"
+            },
+            {
+              "key": "trapped-ions-neutral-atom-arrays",
+              "label": "Trapped Ions & Neutral Atom Arrays"
+            },
+            {
+              "key": "photonic-quantum-information",
+              "label": "Photonic Quantum Information"
+            },
+            {
+              "key": "topological-qubits",
+              "label": "Topological Qubits"
+            }
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which physical platform will win the quantum computing race?",
+            "poles": [
+              {
+                "label": "Superconducting Transmons",
+                "text": "Microwave planar circuits, Josephson junctions (IBM, Google); lithographic scalability, fast gate operations."
+              },
+              {
+                "label": "Trapped Ions & Neutral Atom Arrays",
+                "text": "Laser-trapped individual atoms in optical tweezers (Quantinuum, QuEra); identical natural qubits, long coherence times, all-to-all connectivity."
+              },
+              {
+                "label": "Photonic Quantum Information",
+                "text": "Flying optical photons through silicon waveguide interferometers (PsiQuantum, Xanadu); room-temperature operation, native telecommunications compatibility."
+              },
+              {
+                "label": "Topological Qubits",
+                "text": "Majorana zero modes in semiconductor-superconductor nanowires (Microsoft); topological hardware protection against local decoherence."
+              }
+            ]
+          },
+          "question": "Which physical platform will win the quantum computing race?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.1"
+        },
+        {
+          "id": "xma0009",
+          "name": "NISQ vs Fault-Tolerant",
+          "risk": false,
+          "poles": [
+            {
+              "key": "near-term-nisq-optimism",
+              "label": "Near-Term NISQ Optimism"
+            },
+            {
+              "key": "fault-tolerant-error-correction-purism",
+              "label": "Fault-Tolerant Error-Correction Purism"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Can noisy quantum computers provide real value, or is error correction essential?",
+            "poles": [
+              {
+                "label": "Near-Term NISQ Optimism",
+                "text": "Noisy Intermediate-Scale Quantum hardware will demonstrate real, commercial advantage in quantum chemistry, materials discovery, or optimization before full error correction."
+              },
+              {
+                "label": "Fault-Tolerant Error-Correction Purism",
+                "text": "NISQ is an over-hyped dead end; without millions of physical qubits executing surface codes for fault tolerance, quantum computing cannot deliver economic value."
+              }
+            ]
+          },
+          "question": "Can noisy quantum computers provide real value, or is error correction essential?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.2"
+        },
+        {
+          "id": "xma0010",
+          "name": "Quantum Computing vs Quantum Sensing",
+          "risk": false,
+          "poles": [
+            {
+              "key": "quantum-sensing-metrology-priority",
+              "label": "Quantum Sensing & Metrology Priority"
+            },
+            {
+              "key": "quantum-computing-supremacy",
+              "label": "Quantum Computing Supremacy"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Which will change the world more: quantum computation or quantum sensing?",
+            "poles": [
+              {
+                "label": "Quantum Sensing & Metrology Priority",
+                "text": "Quantum computing is speculative and decades away; the real immediate triumph of applied quantum physics is ultra-precise sensing: NV-centers in diamond, SQUIDs, atomic gravimeters, optical clocks."
+              },
+              {
+                "label": "Quantum Computing Supremacy",
+                "text": "Quantum computation is the singular civilizational transformation; sensing is an incremental improvement to existing metrology."
+              }
+            ]
+          },
+          "question": "Which will change the world more: quantum computation or quantum sensing?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.3"
+        },
+        {
+          "id": "xma0011",
+          "name": "Quantum Hype vs Reality",
+          "risk": false,
+          "poles": [
+            {
+              "key": "hype",
+              "label": "Hype"
+            },
+            {
+              "key": "reality",
+              "label": "Reality"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is quantum technology a revolution or a bubble?",
+            "poles": [
+              {
+                "label": "Hype",
+                "text": "quantum is the next revolution — the breakthroughs are real, the timeline is short, the investment is justified."
+              },
+              {
+                "label": "Reality",
+                "text": "quantum is oversold — the timelines are fantasy, the breakthroughs are incremental, the money is chasing a mirage."
+              }
+            ]
+          },
+          "question": "Is quantum technology a revolution or a bubble?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.4"
+        }
+      ]
+    },
+    {
+      "id": "xmac04",
+      "name": "Energy, Power & Clean Technology",
+      "about": "How we power the future, from fusion to storage.",
+      "topics": [
+        {
+          "id": "xma0012",
+          "name": "Energy: Fusion vs Fission vs Renewables",
+          "risk": false,
+          "poles": [
+            {
+              "key": "fusion",
+              "label": "Fusion"
+            },
+            {
+              "key": "fission",
+              "label": "Fission"
+            },
+            {
+              "key": "renewables",
+              "label": "Renewables"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Which energy source powers the future?",
+            "poles": [
+              {
+                "label": "Fusion",
+                "text": "The sun's power: clean, limitless, always twenty years away."
+              },
+              {
+                "label": "Fission",
+                "text": "Proven, dense, baseload — but the waste and the fear."
+              },
+              {
+                "label": "Renewables",
+                "text": "Solar, wind, distributed — but intermittent and land-hungry."
+              }
+            ]
+          },
+          "question": "Which energy source powers the future?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.1"
+        },
+        {
+          "id": "xma0013",
+          "name": "Fusion Energy: Magnetic vs Inertial Confinement",
+          "risk": false,
+          "poles": [
+            {
+              "key": "magnetic-confinement-fusion",
+              "label": "Magnetic Confinement Fusion (MCF)"
+            },
+            {
+              "key": "inertial-confinement-fusion",
+              "label": "Inertial Confinement Fusion (ICF)"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Will fusion energy be commercialized via magnetic confinement or inertial laser compression?",
+            "poles": [
+              {
+                "label": "Magnetic Confinement Fusion (MCF)",
+                "text": "Tokamaks, Stellarators, SPARC, ITER; continuous, steady-state burning plasma confined by powerful superconducting magnetic fields."
+              },
+              {
+                "label": "Inertial Confinement Fusion (ICF)",
+                "text": "Laser target compression, NIF, pulsed power; rapid microexplosions compressing deuterium-tritium capsules to extreme densities."
+              }
+            ]
+          },
+          "question": "Will fusion energy be commercialized via magnetic confinement or inertial laser compression?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.2"
+        },
+        {
+          "id": "xma0014",
+          "name": "Baseload Clean Energy: Advanced Nuclear/Fusion vs Solid-State Renewables",
+          "risk": false,
+          "poles": [
+            {
+              "key": "high-density-advanced-nuclear-fusion",
+              "label": "High-Density Advanced Nuclear & Fusion"
+            },
+            {
+              "key": "solid-state-photovoltaics-advanced-storage",
+              "label": "Solid-State Photovoltaics & Advanced Storage"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should clean energy rely on centralized high-density nuclear/fusion or distributed solid-state solar/storage?",
+            "poles": [
+              {
+                "label": "High-Density Advanced Nuclear & Fusion",
+                "text": "Small Modular Fission Reactors [SMR], molten salt, and fusion power plants providing dense, 24/7 baseload power with minimal land footprint."
+              },
+              {
+                "label": "Solid-State Photovoltaics & Advanced Storage",
+                "text": "Perovskite-silicon tandem solar cells, flow batteries, and solid-state lithium-metal batteries distributed across the grid."
+              }
+            ]
+          },
+          "question": "Should clean energy rely on centralized high-density nuclear/fusion or distributed solid-state solar/storage?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.3"
+        },
+        {
+          "id": "xma0015",
+          "name": "Energy Storage: Short-Duration vs Long-Duration",
+          "risk": false,
+          "poles": [
+            {
+              "key": "short-duration",
+              "label": "Short-Duration"
+            },
+            {
+              "key": "long-duration",
+              "label": "Long-Duration"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you store energy for hours or for seasons?",
+            "poles": [
+              {
+                "label": "Short-Duration",
+                "text": "Batteries — lithium, solid-state, flow; hours of storage, the workhorse of daily cycling."
+              },
+              {
+                "label": "Long-Duration",
+                "text": "Hydrogen, pumped hydro, compressed air, thermal; days to seasons, the backbone of a renewable grid."
+              }
+            ]
+          },
+          "question": "Do you store energy for hours or for seasons?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.4"
+        },
+        {
+          "id": "xma0016",
+          "name": "Efficiency vs Cost",
+          "risk": false,
+          "poles": [
+            {
+              "key": "efficiency",
+              "label": "Efficiency"
+            },
+            {
+              "key": "cost",
+              "label": "Cost"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you optimize for efficiency or for cost?",
+            "poles": [
+              {
+                "label": "Efficiency",
+                "text": "the most efficient device wins — squeeze every percent, the physics is the point."
+              },
+              {
+                "label": "Cost",
+                "text": "the cheapest device wins — cost per watt, cost per unit; economics beats efficiency."
+              }
+            ]
+          },
+          "question": "Do you optimize for efficiency or for cost?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.5"
+        }
+      ]
+    },
+    {
+      "id": "xmac05",
+      "name": "Materials & Fabrication",
+      "about": "How new materials are discovered, engineered, and built at the nanoscale.",
+      "topics": [
+        {
+          "id": "xma0017",
+          "name": "Materials: Natural vs Engineered",
+          "risk": false,
+          "poles": [
+            {
+              "key": "natural",
+              "label": "Natural"
+            },
+            {
+              "key": "engineered",
+              "label": "Engineered"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work with nature's materials or build your own?",
+            "poles": [
+              {
+                "label": "Natural",
+                "text": "nature's materials — wood, silk, bone, the materials evolution built; work with what exists."
+              },
+              {
+                "label": "Engineered",
+                "text": "designed materials — metamaterials, composites, alloys; build what nature never made."
+              }
+            ]
+          },
+          "question": "Do you work with nature's materials or build your own?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.1"
+        },
+        {
+          "id": "xma0018",
+          "name": "2D Materials: Revolution vs Hype",
+          "risk": false,
+          "poles": [
+            {
+              "key": "revolution",
+              "label": "Revolution"
+            },
+            {
+              "key": "hype",
+              "label": "Hype"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are 2D materials a revolution or a hype cycle?",
+            "poles": [
+              {
+                "label": "Revolution",
+                "text": "graphene and 2D materials change everything — the thinnest, strongest, most conductive materials ever made; a new era."
+              },
+              {
+                "label": "Hype",
+                "text": "graphene is oversold — a decade of promises, no killer app; the Nobel was for the physics, not the product."
+              }
+            ]
+          },
+          "question": "Are 2D materials a revolution or a hype cycle?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.2"
+        },
+        {
+          "id": "xma0019",
+          "name": "Superconductors: Room-Temperature Pursuit vs Pragmatic High-$T_c$ Engineering",
+          "risk": false,
+          "poles": [
+            {
+              "key": "the-holy-grail-of-room-temperature-superconductors",
+              "label": "The Holy Grail of Room-Temperature Superconductors"
+            },
+            {
+              "key": "pragmatic-high-t-c-engineering",
+              "label": "Pragmatic High-$T_c$ Engineering"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should we pursue room-temperature superconductors or deploy high-$T_c$ liquid nitrogen systems?",
+            "poles": [
+              {
+                "label": "The Holy Grail of Room-Temperature Superconductors",
+                "text": "Chasing hydrides under megabar diamond-anvil pressures and hunting ambient superconductors; the ultimate prize in condensed matter."
+              },
+              {
+                "label": "Pragmatic High-$T_c$ Engineering",
+                "text": "Stop chasing unverified ambient miracles; master REBCO coated conductors, reduce manufacturing costs, and deploy 77-Kelvin liquid nitrogen systems today."
+              }
+            ]
+          },
+          "question": "Should we pursue room-temperature superconductors or deploy high-$T_c$ liquid nitrogen systems?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.3"
+        },
+        {
+          "id": "xma0020",
+          "name": "Metamaterials & Wave Engineering",
+          "risk": false,
+          "poles": [
+            {
+              "key": "active-electronic-circuits",
+              "label": "Active Electronic Circuits"
+            },
+            {
+              "key": "passive-geometric-metasurfaces",
+              "label": "Passive Geometric Metasurfaces"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you control waves with active electronic chips or passive geometric metamaterials?",
+            "poles": [
+              {
+                "label": "Active Electronic Circuits",
+                "text": "Solid-state amplifiers, transistors, digital signal processing chips."
+              },
+              {
+                "label": "Passive Geometric Metasurfaces",
+                "text": "Sub-wavelength patterned metal/dielectric resonators that manipulate light, phase, and acoustic waves purely through geometry."
+              }
+            ]
+          },
+          "question": "Do you control waves with active electronic chips or passive geometric metamaterials?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.4"
+        },
+        {
+          "id": "xma0021",
+          "name": "Nanofabrication: Top-Down vs Bottom-Up",
+          "risk": false,
+          "poles": [
+            {
+              "key": "top-down-extreme-lithography",
+              "label": "Top-Down Extreme Lithography"
+            },
+            {
+              "key": "bottom-up-supramolecular-self-assembly",
+              "label": "Bottom-Up Supramolecular Self-Assembly"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you build nanostructures by carving top-down or assembling bottom-up?",
+            "poles": [
+              {
+                "label": "Top-Down Extreme Lithography",
+                "text": "Extreme Ultraviolet [EUV] steppers, focused ion beam etching, carving nanostructures from solid crystalline bulk with sub-nanometer precision."
+              },
+              {
+                "label": "Bottom-Up Supramolecular Self-Assembly",
+                "text": "DNA origami, block copolymer phase separation, chemical vapor epitaxial growth; letting thermodynamic free energy assemble the nanostructure."
+              }
+            ]
+          },
+          "question": "Do you build nanostructures by carving top-down or assembling bottom-up?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.5"
+        },
+        {
+          "id": "xma0022",
+          "name": "Semiconductor Architecture: Moore's Law vs Beyond-Silicon",
+          "risk": false,
+          "poles": [
+            {
+              "key": "dimensional-silicon-scaling",
+              "label": "Dimensional Silicon Scaling (Moore's Law)"
+            },
+            {
+              "key": "beyond-silicon-heterogeneous-integration",
+              "label": "Beyond-Silicon Heterogeneous Integration"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does the future of computing belong to silicon scaling or beyond-silicon materials?",
+            "poles": [
+              {
+                "label": "Dimensional Silicon Scaling (Moore's Law)",
+                "text": "Gate-all-around nanosheets, complementary FETs, atomic layer deposition; pushing silicon down to the 1-nanometer node."
+              },
+              {
+                "label": "Beyond-Silicon Heterogeneous Integration",
+                "text": "Silicon is exhausted; integrate carbon nanotubes, 2D transition metal dichalcogenides, and optical chiplets on chip."
+              }
+            ]
+          },
+          "question": "Does the future of computing belong to silicon scaling or beyond-silicon materials?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.6"
+        }
+      ]
+    },
+    {
+      "id": "xmac06",
+      "name": "Life, Medicine & the Applied Life",
+      "about": "What physics does for life and medicine, and how you live as an applied physicist.",
+      "topics": [
+        {
+          "id": "xma0023",
+          "name": "Biophysics: Physics of Life vs Life as Physics",
+          "risk": false,
+          "poles": [
+            {
+              "key": "physics-of-life",
+              "label": "Physics of Life"
+            },
+            {
+              "key": "life-as-physics",
+              "label": "Life as Physics"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is biophysics physics applied to life, or life explained by physics?",
+            "poles": [
+              {
+                "label": "Physics of Life",
+                "text": "physics applied to biology — use physical tools to understand living systems; biology is the subject, physics is the method."
+              },
+              {
+                "label": "Life as Physics",
+                "text": "living systems ARE physical systems — the laws of physics explain life itself; biology reduces to physics."
+              }
+            ]
+          },
+          "question": "Is biophysics physics applied to life, or life explained by physics?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.1"
+        },
+        {
+          "id": "xma0024",
+          "name": "Medical Physics: Therapy vs Diagnostics",
+          "risk": false,
+          "poles": [
+            {
+              "key": "therapy",
+              "label": "Therapy"
+            },
+            {
+              "key": "diagnostics",
+              "label": "Diagnostics"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does medical physics treat or diagnose?",
+            "poles": [
+              {
+                "label": "Therapy",
+                "text": "treat the patient — radiation therapy, proton beams, focused ultrasound; physics that heals."
+              },
+              {
+                "label": "Diagnostics",
+                "text": "see inside the patient — MRI, PET, CT, imaging; physics that reveals."
+              }
+            ]
+          },
+          "question": "Does medical physics treat or diagnose?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.2"
+        },
+        {
+          "id": "xma0025",
+          "name": "Imaging: Resolution vs Dose",
+          "risk": false,
+          "poles": [
+            {
+              "key": "resolution",
+              "label": "Resolution"
+            },
+            {
+              "key": "dose",
+              "label": "Dose"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you push for sharper images or lower doses?",
+            "poles": [
+              {
+                "label": "Resolution",
+                "text": "see more clearly — sharper images, finer detail, the physics of seeing."
+              },
+              {
+                "label": "Dose",
+                "text": "do less harm — lower radiation, safer scans; the patient comes first."
+              }
+            ]
+          },
+          "question": "Do you push for sharper images or lower doses?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.3"
+        },
+        {
+          "id": "xma0026",
+          "name": "Industry vs Academia",
+          "risk": false,
+          "poles": [
+            {
+              "key": "industry",
+              "label": "Industry"
+            },
+            {
+              "key": "academia",
+              "label": "Academia"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you do applied physics in industry or in academia?",
+            "poles": [
+              {
+                "label": "Industry",
+                "text": "build products, ship them, make money — the applied physicist in the company."
+              },
+              {
+                "label": "Academia",
+                "text": "publish papers, teach students, chase knowledge — the applied physicist in the university."
+              }
+            ]
+          },
+          "question": "Do you do applied physics in industry or in academia?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.4"
+        },
+        {
+          "id": "xma0027",
+          "name": "Identity: Applied Physicist vs Specialized Engineer",
+          "risk": false,
+          "poles": [
+            {
+              "key": "proud-applied-physicist",
+              "label": "Proud Applied Physicist"
+            },
+            {
+              "key": "pragmatic-specialized-engineer",
+              "label": "Pragmatic Specialized Engineer"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you view yourself as a physicist solving practical problems or as a high-level engineer?",
+            "poles": [
+              {
+                "label": "Proud Applied Physicist",
+                "text": "Grounding in Maxwell, Schrödinger, thermodynamics, and quantum mechanics provides a deeper, first-principles insight that specialized engineers lack."
+              },
+              {
+                "label": "Pragmatic Specialized Engineer",
+                "text": "Leave philosophical baggage behind; adopt rigorous design rules, standards, yield economics, and project management."
+              }
+            ]
+          },
+          "question": "Do you view yourself as a physicist solving practical problems or as a high-level engineer?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.5"
+        },
+        {
+          "id": "xma0028",
+          "name": "Intellectual Property: Patent vs Publish",
+          "risk": false,
+          "poles": [
+            {
+              "key": "commercial-patents-spin-out-startups",
+              "label": "Commercial Patents & Spin-Out Startups"
+            },
+            {
+              "key": "open-academic-publishing",
+              "label": "Open Academic Publishing"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should breakthrough applied physics be patented for commercial spin-outs or published openly?",
+            "poles": [
+              {
+                "label": "Commercial Patents & Spin-Out Startups",
+                "text": "File provisional patents immediately, keep secret sauce proprietary, raise venture capital, and build commercial enterprise."
+              },
+              {
+                "label": "Open Academic Publishing",
+                "text": "Publish methods openly on arXiv, contribute to public scientific literature, and reject patent restrictions on physical knowledge."
+              }
+            ]
+          },
+          "question": "Should breakthrough applied physics be patented for commercial spin-outs or published openly?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.6"
+        },
+        {
+          "id": "xma0029",
+          "name": "The Triumph: Product vs Prototype vs Paper",
+          "risk": false,
+          "poles": [
+            {
+              "key": "product",
+              "label": "Product"
+            },
+            {
+              "key": "prototype",
+              "label": "Prototype"
+            },
+            {
+              "key": "paper",
+              "label": "Paper"
+            }
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "What is the ultimate triumph of applied physics — a product, a prototype, or a paper?",
+            "poles": [
+              {
+                "label": "Product",
+                "text": "A shipped commercial product: in customers' hands, making money, changing the world."
+              },
+              {
+                "label": "Prototype",
+                "text": "A working physical device: manufactured, functioning, performing reliably in the field."
+              },
+              {
+                "label": "Paper",
+                "text": "A high-impact publication: *Nature*, *Science*, *Physical Review Letters*; citation impact and prestige within the scientific community."
+              }
+            ]
+          },
+          "question": "What is the ultimate triumph of applied physics — a product, a prototype, or a paper?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.7"
+        }
+      ]
+    }
+  ]
+}

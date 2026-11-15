@@ -1,0 +1,685 @@
+{
+  "skin": "expericapades",
+  "name": "Expericapades",
+  "domain": "Experimental Physics — the world of the detector, the ultra-high vacuum chamber, the cryogenic dilution refrigerator, and the particle collider",
+  "categories": [
+    {
+      "id": "xexc01",
+      "name": "Mission & Discovery Strategy",
+      "about": "How experiments are aimed: theory-testing versus exploration, scale, frontiers, and reproducibility.",
+      "topics": [
+        {
+          "id": "xex0001",
+          "name": "Theory-Driven vs Discovery-Driven",
+          "risk": false,
+          "poles": [
+            {"key": "theory-driven-testing", "label": "Theory-Driven Testing"},
+            {"key": "discovery-driven-exploration", "label": "Discovery-Driven Exploration"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you design experiments to test theories or to explore the unknown?",
+            "poles": [
+              {"label": "Theory-Driven Testing", "text": "Construct an experiment specifically targeted at testing an existing theoretical model, e.g. hunting the Higgs or axions."},
+              {"label": "Discovery-Driven Exploration", "text": "Open up new unprobed parameter spaces, wavelengths, or energy regimes without theoretical prejudice; \"see what nature does\"."}
+            ]
+          },
+          "question": "Do you design experiments to test theories or to explore the unknown?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.1 — Merged — both versions covered this; Antigravity's framing kept."
+        },
+        {
+          "id": "xex0002",
+          "name": "Precision vs Exploration",
+          "risk": false,
+          "poles": [
+            {"key": "precision", "label": "Precision"},
+            {"key": "exploration", "label": "Exploration"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you measure one thing perfectly, or find new things roughly?",
+            "poles": [
+              {"label": "Precision", "text": "measure one thing exquisitely well — the tenth decimal place, the single clean number."},
+              {"label": "Exploration", "text": "cover new ground — new energies, new regimes, new phenomena, even if the numbers are rough."}
+            ]
+          },
+          "question": "Do you measure one thing perfectly, or find new things roughly?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.2 — YoBiche."
+        },
+        {
+          "id": "xex0003",
+          "name": "Scale: Big Science vs Medium-Scale vs Tabletop",
+          "risk": false,
+          "poles": [
+            {"key": "big-science", "label": "Big Science"},
+            {"key": "medium-scale", "label": "Medium-Scale"},
+            {"key": "tabletop-precision", "label": "Tabletop Precision"}
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Does fundamental discovery come from giant colliders, mid-size facilities, or tabletop lasers?",
+            "poles": [
+              {"label": "Big Science", "text": "Megaprojects: CERN LHC, LIGO, James Webb, DUNE — 3,000-person collaborations, billion-dollar budgets, decadal timelines."},
+              {"label": "Medium-Scale", "text": "The middle ground: dedicated facilities and mid-size collaborations (tens to hundreds of people), big enough for serious hardware, small enough that you know everyone's name."},
+              {"label": "Tabletop Precision", "text": "Small artisan groups, optical tables, atomic fountain clocks, microkelvin cryostats, rapid experimental agility."}
+            ]
+          },
+          "question": "Does fundamental discovery come from giant colliders, mid-size facilities, or tabletop lasers?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.3 — Merged — Antigravity's dipole (Big Science vs Tabletop) with YoBiche's Medium-Scale pole added."
+        },
+        {
+          "id": "xex0004",
+          "name": "The Three Frontiers of Empirical Physics",
+          "risk": false,
+          "poles": [
+            {"key": "the-energy-frontier", "label": "The Energy Frontier"},
+            {"key": "the-intensity-precision-frontier", "label": "The Intensity & Precision Frontier"},
+            {"key": "the-cosmic-astrophysical-frontier", "label": "The Cosmic & Astrophysical Frontier"}
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Which frontier offers the greatest promise for new physics?",
+            "poles": [
+              {"label": "The Energy Frontier", "text": "Smash particles at higher center-of-mass energy ($\\sqrt{s}$) to directly create heavy new states."},
+              {"label": "The Intensity & Precision Frontier", "text": "Probe trillions of rare particle decays, electric dipole moments (EDM), and $(g-2)$ deviations with extreme statistical power."},
+              {"label": "The Cosmic & Astrophysical Frontier", "text": "Use the universe as a free particle accelerator and detector: cosmic rays, astrophysical neutrinos (IceCube), dark matter detectors, gravitational wave observatories."}
+            ]
+          },
+          "question": "Which frontier offers the greatest promise for new physics?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.4 — Antigravity 1.3."
+        },
+        {
+          "id": "xex0005",
+          "name": "Reproducibility: Crisis vs Confidence",
+          "risk": false,
+          "poles": [
+            {"key": "crisis", "label": "Crisis"},
+            {"key": "confidence", "label": "Confidence"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is experimental physics in a reproducibility crisis, or is the system working?",
+            "poles": [
+              {"label": "Crisis", "text": "reproducibility is in trouble — too many results don't replicate, too much depends on one lab, one setup, one person."},
+              {"label": "Confidence", "text": "the system works — independent replication is the norm, and the failures get caught."}
+            ]
+          },
+          "question": "Is experimental physics in a reproducibility crisis, or is the system working?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.5 — YoBiche."
+        }
+      ]
+    },
+    {
+      "id": "xexc02",
+      "name": "Detectors & Instruments",
+      "about": "Building and choosing the instruments that turn invisible nature into a signal.",
+      "topics": [
+        {
+          "id": "xex0006",
+          "name": "Bespoke vs Turnkey Instruments",
+          "risk": false,
+          "poles": [
+            {"key": "bespoke-artisan-engineering", "label": "Bespoke Artisan Engineering"},
+            {"key": "turnkey-commercial-integration", "label": "Turnkey Commercial Integration"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should physicists build their own instruments from raw metal or integrate commercial hardware?",
+            "poles": [
+              {"label": "Bespoke Artisan Engineering", "text": "Machining custom vacuum chambers, hand-wrapping superconducting coils, soldering RF amplifiers, writing custom FPGA firmware."},
+              {"label": "Turnkey Commercial Integration", "text": "Off-the-shelf Ti:sapphire lasers, commercial closed-cycle dilution refrigerators, standardized data acquisition suites."}
+            ]
+          },
+          "question": "Should physicists build their own instruments from raw metal or integrate commercial hardware?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.1 — Antigravity 2.1."
+        },
+        {
+          "id": "xex0007",
+          "name": "Active vs Passive Probing",
+          "risk": false,
+          "poles": [
+            {"key": "active-interrogation-drive", "label": "Active Interrogation / Drive"},
+            {"key": "passive-quiet-sensing", "label": "Passive / Quiet Sensing"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you actively smash the system or passively listen for rare signals?",
+            "poles": [
+              {"label": "Active Interrogation / Drive", "text": "Bombard the target with femtosecond laser pulses, synchrotron X-rays, neutron beams, or extreme RF pulses; drive the system far from equilibrium."},
+              {"label": "Passive / Quiet Sensing", "text": "Go thousands of feet underground into silent mines, shield against every thermal and cosmic photon, listen for the rare quiet recoil."}
+            ]
+          },
+          "question": "Do you actively smash the system or passively listen for rare signals?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.2 — Antigravity 2.2."
+        },
+        {
+          "id": "xex0008",
+          "name": "The Four Detection Modalities",
+          "risk": false,
+          "poles": [
+            {"key": "photonics-optical-interferometry", "label": "Photonics & Optical Interferometry"},
+            {"key": "superconducting-cryogenic-sensors", "label": "Superconducting & Cryogenic Sensors"},
+            {"key": "ionization-particle-tracking", "label": "Ionization & Particle Tracking"},
+            {"key": "quantum-resonances-scattering", "label": "Quantum Resonances & Scattering"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which detector modality do you trust most?",
+            "poles": [
+              {"label": "Photonics & Optical Interferometry", "text": "Laser frequency combs, Fabry-Pérot cavities, single-photon avalanche detectors, spectroscopy."},
+              {"label": "Superconducting & Cryogenic Sensors", "text": "SQUIDs, Transition-Edge Sensors (TES), Kinetic Inductance Detectors (MKIDs), cryogenic bolometers."},
+              {"label": "Ionization & Particle Tracking", "text": "Silicon pixel trackers, liquid argon time-projection chambers (LArTPC), drift chambers, scintillating calorimeters."},
+              {"label": "Quantum Resonances & Scattering", "text": "Nuclear Magnetic Resonance (NMR), electron spin resonance, neutron scattering, cold atom interferometry."}
+            ]
+          },
+          "question": "Which detector modality do you trust most?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.3 — Antigravity 2.3."
+        },
+        {
+          "id": "xex0009",
+          "name": "Detector Design: General vs Specialized vs Hybrid",
+          "risk": false,
+          "poles": [
+            {"key": "general", "label": "General"},
+            {"key": "specialized", "label": "Specialized"},
+            {"key": "hybrid", "label": "Hybrid"}
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Do you build one detector for everything, one for a single measurement, or a hybrid?",
+            "poles": [
+              {"label": "General", "text": "One detector that does everything: broad acceptance, many channels, built to catch whatever nature throws at it."},
+              {"label": "Specialized", "text": "One detector built for one measurement: optimized to the hilt for a single signal, and useless for anything else."},
+              {"label": "Hybrid", "text": "A general frame with specialized modules: broad coverage where it is cheap, precision where it matters."}
+            ]
+          },
+          "question": "Do you build one detector for everything, one for a single measurement, or a hybrid?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.4 — YoBiche."
+        },
+        {
+          "id": "xex0010",
+          "name": "Sensitivity vs Background",
+          "risk": false,
+          "poles": [
+            {"key": "sensitivity", "label": "Sensitivity"},
+            {"key": "background", "label": "Background"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you chase fainter signals, or quieter backgrounds?",
+            "poles": [
+              {"label": "Sensitivity", "text": "push the detector to see fainter signals — lower thresholds, better resolution, more gain."},
+              {"label": "Background", "text": "push the shielding to kill the noise — cleaner materials, deeper underground, better vetoes."}
+            ]
+          },
+          "question": "Do you chase fainter signals, or quieter backgrounds?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.5 — YoBiche."
+        },
+        {
+          "id": "xex0011",
+          "name": "Calibration: In Situ vs Test Beam",
+          "risk": false,
+          "poles": [
+            {"key": "in-situ", "label": "In situ"},
+            {"key": "test-beam", "label": "Test beam"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you calibrate where the detector lives, or on a clean test beam?",
+            "poles": [
+              {"label": "In situ", "text": "calibrate in place, in the real detector, with the real beam and the real conditions — messy but honest."},
+              {"label": "Test beam", "text": "calibrate on a dedicated beamline, controlled and clean — precise but not quite the real thing."}
+            ]
+          },
+          "question": "Do you calibrate where the detector lives, or on a clean test beam?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.6 — YoBiche."
+        },
+        {
+          "id": "xex0012",
+          "name": "Upgrade vs New Build",
+          "risk": false,
+          "poles": [
+            {"key": "upgrade", "label": "Upgrade"},
+            {"key": "new-build", "label": "New build"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you upgrade the detector you have, or build a new one?",
+            "poles": [
+              {"label": "Upgrade", "text": "keep the detector you have and make it better — new electronics, new sensors, incremental improvement."},
+              {"label": "New build", "text": "tear it down and start over — the old design has hit its limit, only a fresh instrument will do."}
+            ]
+          },
+          "question": "Do you upgrade the detector you have, or build a new one?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.7 — YoBiche."
+        }
+      ]
+    },
+    {
+      "id": "xexc03",
+      "name": "Data, Noise & Standards of Discovery",
+      "about": "What counts as a discovery: significance, null results, blinding, systematics, and anomalies.",
+      "topics": [
+        {
+          "id": "xex0013",
+          "name": "5σ vs Bayesian",
+          "risk": false,
+          "poles": [
+            {"key": "strict-5-sigma-dogma", "label": "Strict 5-Sigma Dogma"},
+            {"key": "bayesian-evidential-weight", "label": "Bayesian Evidential Weight"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does a physical discovery require 5-sigma, or is Bayesian evidence sufficient?",
+            "poles": [
+              {"label": "Strict 5-Sigma Dogma", "text": "$p < 3 \\times 10^{-7}$, $5\\sigma$ frequentist threshold; zero tolerance for announcing discoveries without absolute statistical certainty to avoid false alarms."},
+              {"label": "Bayesian Evidential Weight", "text": "5-sigma is an arbitrary historical relic; physical consistency, independent cross-checks, and prior plausibility matter more than mechanical $p$-values."}
+            ]
+          },
+          "question": "Does a physical discovery require 5-sigma, or is Bayesian evidence sufficient?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.1 — Merged — both versions covered this; Antigravity's framing kept."
+        },
+        {
+          "id": "xex0014",
+          "name": "Null Results",
+          "risk": false,
+          "poles": [
+            {"key": "null-as-scientific-triumph", "label": "Null as Scientific Triumph"},
+            {"key": "null-as-frustrating-stagnation", "label": "Null as Frustrating Stagnation"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are null results a triumph of exclusion or a disappointment?",
+            "poles": [
+              {"label": "Null as Scientific Triumph", "text": "Ruling out huge swathes of parameter space, WIMP masses, or dark forces is a vital, heroic service to physics."},
+              {"label": "Null as Frustrating Stagnation", "text": "Decades of searching without a positive signal is deeply demoralizing; experiments must find real positive detections."}
+            ]
+          },
+          "question": "Are null results a triumph of exclusion or a disappointment?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.2 — Merged — both versions covered this; Antigravity's framing kept."
+        },
+        {
+          "id": "xex0015",
+          "name": "Blind Analysis",
+          "risk": false,
+          "poles": [
+            {"key": "strict-double-blind-analysis", "label": "Strict Double-Blind Analysis"},
+            {"key": "interactive-visual-exploration", "label": "Interactive Visual Exploration"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should experimental data be strictly blinded or openly examined?",
+            "poles": [
+              {"label": "Strict Double-Blind Analysis", "text": "Data is encrypted/salted with hidden injected signals; cuts and pipelines are frozen before \"unblinding\" the data box."},
+              {"label": "Interactive Visual Exploration", "text": "Physicists must look at raw detector event displays in real-time to catch unexpected hardware glitches and novel patterns."}
+            ]
+          },
+          "question": "Should experimental data be strictly blinded or openly examined?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.3 — Merged — both versions covered this; Antigravity's framing kept."
+        },
+        {
+          "id": "xex0016",
+          "name": "Systematics vs Statistics",
+          "risk": false,
+          "poles": [
+            {"key": "systematics-obsessed", "label": "Systematics-Obsessed"},
+            {"key": "statistics-driven", "label": "Statistics-Driven"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "In the laboratory, is your greatest foe systematic bias or statistical noise?",
+            "poles": [
+              {"label": "Systematics-Obsessed", "text": "Statistical noise is trivial; the true danger is subtle temperature drifts, beam background leakage, cable impedance mismatches, and detector aging."},
+              {"label": "Statistics-Driven", "text": "Just collect more integrated luminosity, integrate for 1,000 more hours, and beat down the $1/\\sqrt{N}$ Poisson error."}
+            ]
+          },
+          "question": "In the laboratory, is your greatest foe systematic bias or statistical noise?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.4 — Merged — both versions covered this; Antigravity's framing kept."
+        },
+        {
+          "id": "xex0017",
+          "name": "Anomaly Signal vs Systematics",
+          "risk": false,
+          "poles": [
+            {"key": "signal", "label": "Signal"},
+            {"key": "systematics", "label": "Systematics"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "When something unexpected shows up, is it a signal or a systematic?",
+            "poles": [
+              {"label": "Signal", "text": "it's real — the anomaly is a genuine physical effect, and the systematics have been checked."},
+              {"label": "Systematics", "text": "it's an artifact — a loose cable, a calibration drift, a background you haven't modelled yet."}
+            ]
+          },
+          "question": "When something unexpected shows up, is it a signal or a systematic?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.5 — YoBiche."
+        },
+        {
+          "id": "xex0018",
+          "name": "Anomaly Reaction: Fast Follower vs Skeptical Anchor",
+          "risk": false,
+          "poles": [
+            {"key": "fast-follower-opportunist", "label": "Fast-Follower Opportunist"},
+            {"key": "skeptical-anchor", "label": "Skeptical Anchor"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "When an experimental anomaly appears, do you chase it or doubt it?",
+            "poles": [
+              {"label": "Fast-Follower Opportunist", "text": "Immediately jump on a $3\\sigma$ collider bump, anomalous magnetic resistance, or unusual recoil; pivot the lab quickly to chase the glory of a breakthrough."},
+              {"label": "Skeptical Anchor", "text": "Assume every anomaly is a loose BNC cable, faulty grounding, or statistical fluke until independently verified by three labs."}
+            ]
+          },
+          "question": "When an experimental anomaly appears, do you chase it or doubt it?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.6 — Antigravity 5.1."
+        }
+      ]
+    },
+    {
+      "id": "xexc04",
+      "name": "Environment & Extremes",
+      "about": "The extreme environments — cold, vacuum, field, depth — where experiments live.",
+      "topics": [
+        {
+          "id": "xex0019",
+          "name": "The Four Laboratory Extremes",
+          "risk": false,
+          "poles": [
+            {"key": "ultra-low-temperatures", "label": "Ultra-Low Temperatures"},
+            {"key": "ultra-high-vacuum-uhv", "label": "Ultra-High Vacuum (UHV)"},
+            {"key": "ultra-high-magnetic-electric-fields", "label": "Ultra-High Magnetic & Electric Fields"},
+            {"key": "ultra-deep-underground-cosmic-shielding", "label": "Ultra-Deep Underground & Cosmic Shielding"}
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which extreme environment defines your laboratory home?",
+            "poles": [
+              {"label": "Ultra-Low Temperatures", "text": "Sub-millikelvin dilution refrigerators, nuclear demagnetization, Bose-Einstein condensates, suppressing thermal phonon noise."},
+              {"label": "Ultra-High Vacuum (UHV)", "text": "Pressures below $10^{-11}$ Torr, ion pumps, non-evaporable getters, clean atomic beams without background gas collision."},
+              {"label": "Ultra-High Magnetic & Electric Fields", "text": "45-Tesla hybrid magnets, pulsed magnetic coils, gigavolt/meter laser wakefields."},
+              {"label": "Ultra-Deep Underground & Cosmic Shielding", "text": "2 kilometers under rock (Gran Sasso, SNOLAB), passive water shielding, cleanroom cosmic silence."}
+            ]
+          },
+          "question": "Which extreme environment defines your laboratory home?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.1 — Antigravity 4.1."
+        },
+        {
+          "id": "xex0020",
+          "name": "Hermetic vs Field Deployment",
+          "risk": false,
+          "poles": [
+            {"key": "hermetic-cleanroom-isolation", "label": "Hermetic Cleanroom Isolation"},
+            {"key": "harsh-field-deployability", "label": "Harsh Field Deployability"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does your experiment belong in a vibration-free basement or the wild elements?",
+            "poles": [
+              {"label": "Hermetic Cleanroom Isolation", "text": "Active air-bearing vibration tables, acoustic damping baffles, mu-metal magnetic shielding, Class-1 cleanrooms."},
+              {"label": "Harsh Field Deployability", "text": "Instruments designed to survive harsh reality: Antarctic ice cores, stratospheric balloon flights, sounding rockets, ocean depths."}
+            ]
+          },
+          "question": "Does your experiment belong in a vibration-free basement or the wild elements?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.2 — Antigravity 4.2."
+        }
+      ]
+    },
+    {
+      "id": "xexc05",
+      "name": "Data, Analysis & Openness",
+      "about": "How data is analysed, shared, and credited: models, machine learning, open data, and authorship.",
+      "topics": [
+        {
+          "id": "xex0021",
+          "name": "Open Data",
+          "risk": false,
+          "poles": [
+            {"key": "immediate-open-data-calibration-release", "label": "Immediate Open Data & Calibration Release"},
+            {"key": "protected-collaboration-priority", "label": "Protected Collaboration Priority"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should raw experimental data be open to the world immediately?",
+            "poles": [
+              {"label": "Immediate Open Data & Calibration Release", "text": "Publicly release raw detector logs, calibration matrices, and firmware pipelines immediately for community scrutiny."},
+              {"label": "Protected Collaboration Priority", "text": "The team that spent 10 years building the detector has the exclusive right to harvest and publish the data."}
+            ]
+          },
+          "question": "Should raw experimental data be open to the world immediately?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.1 — Merged — both versions covered this; Antigravity's framing kept."
+        },
+        {
+          "id": "xex0022",
+          "name": "Analysis: Model-Dependent vs Model-Independent",
+          "risk": false,
+          "poles": [
+            {"key": "model-dependent", "label": "Model-dependent"},
+            {"key": "model-independent", "label": "Model-independent"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you analyse through a model, or let the data speak for itself?",
+            "poles": [
+              {"label": "Model-dependent", "text": "analyse the data through a specific theoretical model — you know what you're looking for, and the analysis is tuned to find it."},
+              {"label": "Model-independent", "text": "analyse the data without assuming a model — let the data speak, and see what falls out."}
+            ]
+          },
+          "question": "Do you analyse through a model, or let the data speak for itself?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.2 — YoBiche."
+        },
+        {
+          "id": "xex0023",
+          "name": "Machine Learning: Trust vs Verify",
+          "risk": false,
+          "poles": [
+            {"key": "trust", "label": "Trust"},
+            {"key": "verify", "label": "Verify"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust the machine learning, or verify everything it says?",
+            "poles": [
+              {"label": "Trust", "text": "machine learning finds patterns humans miss — let the classifier do its work, and trust the result."},
+              {"label": "Verify", "text": "a black box is not an answer — check every ML result against physics, against simulation, against a cut-based analysis."}
+            ]
+          },
+          "question": "Do you trust the machine learning, or verify everything it says?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.3 — YoBiche."
+        },
+        {
+          "id": "xex0024",
+          "name": "Authorship",
+          "risk": false,
+          "poles": [
+            {"key": "megacollaboration-authorship", "label": "Megacollaboration Authorship"},
+            {"key": "small-team-authorship", "label": "Small-Team Authorship"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you prefer the power of massive collaborations or small-lab independence?",
+            "poles": [
+              {"label": "Megacollaboration Authorship", "text": "Thousands of physicists listed alphabetically on papers; institutionalized peer review, task force committees, distributed glory."},
+              {"label": "Small-Team Authorship", "text": "A professor and two graduate students in a basement; absolute personal ownership of every screw and every data point."}
+            ]
+          },
+          "question": "Do you prefer the power of massive collaborations or small-lab independence?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.4 — Merged — both versions covered this; Antigravity's framing kept (her 6.1)."
+        },
+        {
+          "id": "xex0025",
+          "name": "Collaboration: Competition vs Collaboration vs Coopetition",
+          "risk": false,
+          "poles": [
+            {"key": "competition", "label": "Competition"},
+            {"key": "collaboration", "label": "Collaboration"},
+            {"key": "coopetition", "label": "Coopetition"}
+          ],
+          "widget": "trilinear-line",
+          "archetype": "line",
+          "hovertip": {
+            "issue": "Do you race the other labs, join them, or do both at once?",
+            "poles": [
+              {"label": "Competition", "text": "Race the other lab: first to publish wins, and the rivalry drives everyone faster."},
+              {"label": "Collaboration", "text": "Join forces: share the detector, share the data, share the credit, and do together what no lab could do alone."},
+              {"label": "Coopetition", "text": "Compete and cooperate at once: rival groups that share infrastructure, cross-check each other's results, and push each other while keeping their own analyses independent."}
+            ]
+          },
+          "question": "Do you race the other labs, join them, or do both at once?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.5 — YoBiche."
+        }
+      ]
+    },
+    {
+      "id": "xexc06",
+      "name": "The Experimental Life & Lab Culture",
+      "about": "The human side of the lab: credit, hardware versus data, theorists, fieldwork, and shift work.",
+      "topics": [
+        {
+          "id": "xex0026",
+          "name": "Credit: First vs Team",
+          "risk": false,
+          "poles": [
+            {"key": "first", "label": "First"},
+            {"key": "team", "label": "Team"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does the credit go to whoever is first, or to the whole team?",
+            "poles": [
+              {"label": "First", "text": "being first matters — the discovery belongs to whoever publishes first, and the race is the point."},
+              {"label": "Team", "text": "the team matters — the discovery belongs to everyone who built the detector, ran the shifts, and wrote the code."}
+            ]
+          },
+          "question": "Does the credit go to whoever is first, or to the whole team?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.1 — YoBiche."
+        },
+        {
+          "id": "xex0027",
+          "name": "Hardware Monkey vs Data Wizard",
+          "risk": false,
+          "poles": [
+            {"key": "hardware-artisan-hardware-monkey", "label": "Hardware Artisan (\"Hardware Monkey\")"},
+            {"key": "offline-data-wizard", "label": "Offline Data Wizard"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are you at your best turning a wrench on the beamline or analyzing data at a desk?",
+            "poles": [
+              {"label": "Hardware Artisan (\"Hardware Monkey\")", "text": "Turning wrenches, tightening copper flanges, aligning mirrors with an infrared card, soldering circuit boards, smelling ozone and flux."},
+              {"label": "Offline Data Wizard", "text": "Living in Python, ROOT, machine learning event classifiers, unfolding algorithms, Monte Carlo detector simulations."}
+            ]
+          },
+          "question": "Are you at your best turning a wrench on the beamline or analyzing data at a desk?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.2 — Antigravity 6.2."
+        },
+        {
+          "id": "xex0028",
+          "name": "Theorist Relationship: Symbiotic Guide vs Theoretical Antagonist",
+          "risk": false,
+          "poles": [
+            {"key": "theorist-guided-symbiosis", "label": "Theorist-Guided Symbiosis"},
+            {"key": "theoretical-antagonism", "label": "Theoretical Antagonism"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work to confirm theorists' models or to humiliate them with data?",
+            "poles": [
+              {"label": "Theorist-Guided Symbiosis", "text": "Working closely with theorists to design experiments that pinpoint exact theoretical parameter models."},
+              {"label": "Theoretical Antagonism", "text": "\"Theorists are cheap, detectors are expensive\"; our job is to present raw stubborn facts that tear theorists' elegant models to shreds."}
+            ]
+          },
+          "question": "Do you work to confirm theorists' models or to humiliate them with data?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.3 — Antigravity 6.3."
+        },
+        {
+          "id": "xex0029",
+          "name": "Lab vs Field",
+          "risk": false,
+          "poles": [
+            {"key": "lab", "label": "Lab"},
+            {"key": "field", "label": "Field"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work in the lab, or out in the field?",
+            "poles": [
+              {"label": "Lab", "text": "the controlled environment — the bench, the cleanroom, the beamline, everything under your control."},
+              {"label": "Field", "text": "the real world — the mountaintop, the ice sheet, the balloon, the ocean, where nature sets the conditions."}
+            ]
+          },
+          "question": "Do you work in the lab, or out in the field?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.4 — YoBiche."
+        },
+        {
+          "id": "xex0030",
+          "name": "Hands-On vs Remote",
+          "risk": false,
+          "poles": [
+            {"key": "hands-on", "label": "Hands-on"},
+            {"key": "remote", "label": "Remote"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you work hands-on at the detector, or run it remotely?",
+            "poles": [
+              {"label": "Hands-on", "text": "you are there — you touch the detector, you turn the knobs, you hear the pump."},
+              {"label": "Remote", "text": "you run it from a desk — the shift is a screen, the detector is a thousand miles away, and the data comes to you."}
+            ]
+          },
+          "question": "Do you work hands-on at the detector, or run it remotely?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.5 — YoBiche."
+        },
+        {
+          "id": "xex0031",
+          "name": "Shift Work",
+          "risk": false,
+          "poles": [
+            {"key": "love-it", "label": "Love it"},
+            {"key": "hate-it", "label": "Hate it"}
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you love the night shift, or endure it?",
+            "poles": [
+              {"label": "Love it", "text": "the night shift is the best part — the lab at 3 a.m., just you and the detector, the data coming in live."},
+              {"label": "Hate it", "text": "the night shift is the price you pay — sleep-deprived, cold coffee, waiting for a beam that may not come."}
+            ]
+          },
+          "question": "Do you love the night shift, or endure it?",
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.6 — YoBiche."
+        }
+      ]
+    }
+  ]
+}

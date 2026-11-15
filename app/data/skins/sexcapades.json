@@ -1,0 +1,999 @@
+{
+  "categories": [
+    {
+      "id": "c0001",
+      "name": "Power exchange",
+      "topics": [
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "The seven archetypes: Sovereign, Caregiver, Primal, Sadist, Brat, Switch, or Submissive.",
+            "poles": [
+              {
+                "label": "Sovereign (Dominant / Master)",
+                "text": "Order, authority, structure, law, absolute responsibility."
+              },
+              {
+                "label": "Caregiver (Nurturer / Daddy)",
+                "text": "Safety, containment, emotional holding, loving guidance."
+              },
+              {
+                "label": "Primal (Hunter / Instinct)",
+                "text": "Raw animalistic chase, wrestling, growling, uninhibited drive."
+              },
+              {
+                "label": "Sadist (Tormentor / Sensual)",
+                "text": "Endorphin generation, aesthetic pain infliction, erotic torment."
+              },
+              {
+                "label": "Brat (Rebel / Provoker)",
+                "text": "Playful boundary-testing, sassy pushback, earning punishment."
+              },
+              {
+                "label": "Switch (Fluid / Versatile)",
+                "text": "Dynamic role-reversal, intuitive polarity swapping."
+              },
+              {
+                "label": "Submissive (Slave / Devotee)",
+                "text": "Complete somatic surrender, service, egoless offering."
+              }
+            ]
+          },
+          "id": "t0423",
+          "name": "BDSM archetypes",
+          "poles": [
+            {
+              "key": "sovereign",
+              "label": "Sovereign (Dominant / Master)"
+            },
+            {
+              "key": "caregiver",
+              "label": "Caregiver (Nurturer / Daddy)"
+            },
+            {
+              "key": "primal",
+              "label": "Primal (Hunter / Instinct)"
+            },
+            {
+              "key": "sadist",
+              "label": "Sadist (Tormentor / Sensual)"
+            },
+            {
+              "key": "brat",
+              "label": "Brat (Rebel / Provoker)"
+            },
+            {
+              "key": "switch",
+              "label": "Switch (Fluid / Versatile)"
+            },
+            {
+              "key": "slave",
+              "label": "Submissive (Slave / Devotee)"
+            }
+          ],
+          "question": "The seven archetypes: Sovereign, Caregiver, Primal, Sadist, Brat, Switch, or Submissive.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.5",
+          "widget": "heptad-radar"
+        },
+        {
+          "archetype": "multi-affinity",
+          "hovertip": {
+            "issue": "What drives the scene for you: physical sensation, power exchange, or emotional intimacy.",
+            "poles": [
+              {
+                "label": "Sensation",
+                "text": "Physical intensity, nervous system arousal, visceral endorphin rush."
+              },
+              {
+                "label": "Power",
+                "text": "Psychological dynamics, dominance, surrender, control exchange."
+              },
+              {
+                "label": "Intimacy",
+                "text": "Vulnerability, emotional connection, heart-centered merging."
+              }
+            ]
+          },
+          "id": "t0409",
+          "name": "Sensation / power / intimacy",
+          "poles": [
+            {
+              "key": "sensation",
+              "label": "Sensation"
+            },
+            {
+              "key": "power",
+              "label": "Power"
+            },
+            {
+              "key": "intimacy",
+              "label": "Intimacy"
+            }
+          ],
+          "question": "What drives the scene for you: physical sensation, power exchange, or emotional intimacy.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.1",
+          "widget": "trilinear-sliders"
+        }
+      ]
+    },
+    {
+      "id": "c0002",
+      "name": "Bondage & restriction",
+      "topics": [
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "How restraint is done: rope, shibari, cuffs, tape, mummification, blindfold, caging, or suspension.",
+            "poles": [
+              {
+                "label": "Rope Bondage",
+                "text": "Traditional hemp, jute, synthetic lines and decorative/suspension ties."
+              },
+              {
+                "label": "Shibari (Art / Tie)",
+                "text": "Formal Japanese kinetic, erotic, and aesthetic kinbaku rope art."
+              },
+              {
+                "label": "Cuffs & Straps",
+                "text": "Leather, neoprene, and metal wrist/ankle restraints and spreader bars."
+              },
+              {
+                "label": "Tape & Wrapping",
+                "text": "Bondage tape, vinyl, silicone tape, and cling wrap immobilizations."
+              },
+              {
+                "label": "Mummification / Sack",
+                "text": "Total sensory/motor envelope, sleep sacks, and vacuums."
+              },
+              {
+                "label": "Blindfold / Sensory Hood",
+                "text": "Deprivation hoods, leather blindfolds, and sensory silencing."
+              },
+              {
+                "label": "Caging / Encasement",
+                "text": "Kennels, cages, boxes, furniture restraints, and stocks."
+              },
+              {
+                "label": "Suspension Bondage",
+                "text": "Full and partial static and dynamic suspension rigging."
+              }
+            ]
+          },
+          "id": "t0426",
+          "name": "Restraint & containment",
+          "poles": [
+            {
+              "key": "rope",
+              "label": "Rope Bondage"
+            },
+            {
+              "key": "shibari",
+              "label": "Shibari (Art / Tie)"
+            },
+            {
+              "key": "cuffs",
+              "label": "Cuffs & Straps"
+            },
+            {
+              "key": "tape",
+              "label": "Tape & Wrapping"
+            },
+            {
+              "key": "mummification",
+              "label": "Mummification / Sack"
+            },
+            {
+              "key": "blindfold",
+              "label": "Blindfold / Sensory Hood"
+            },
+            {
+              "key": "caging",
+              "label": "Caging / Encasement"
+            },
+            {
+              "key": "suspension",
+              "label": "Suspension Bondage"
+            }
+          ],
+          "question": "How restraint is done: rope, shibari, cuffs, tape, mummification, blindfold, caging, or suspension.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §5.1",
+          "widget": "octad-radar"
+        }
+      ]
+    },
+    {
+      "id": "c0004",
+      "name": "Sensation & atmosphere",
+      "topics": [
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "The tempo of play: slow and tantric, fast and frantic, or still and trance-like.",
+            "poles": [
+              {
+                "label": "Slow & Tantric",
+                "text": "Micro-movements, extended breath entrainment, time dilation."
+              },
+              {
+                "label": "Fast & Frantic",
+                "text": "High kinetic energy, breathless urgency, primal frenzy."
+              },
+              {
+                "label": "Still & Trance",
+                "text": "Motionless eye-gazing, frozen tableau, sensory absorption."
+              }
+            ]
+          },
+          "id": "t0412",
+          "name": "Tantric / frantic / trance",
+          "poles": [
+            {
+              "key": "tantric",
+              "label": "Slow & Tantric"
+            },
+            {
+              "key": "frantic",
+              "label": "Fast & Frantic"
+            },
+            {
+              "key": "trance",
+              "label": "Still & Trance"
+            }
+          ],
+          "question": "The tempo of play: slow and tantric, fast and frantic, or still and trance-like.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.1",
+          "widget": "triangle"
+        },
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which sensory channel: tactile, thermal, impact, electric, olfactory, acoustic, or vestibular.",
+            "poles": [
+              {
+                "label": "Tactile (Texture / Soft)",
+                "text": "Velvet, silk, fur, fingernails, feather-light strokes."
+              },
+              {
+                "label": "Thermal (Hot / Ice)",
+                "text": "Molten candle wax, ice cubes, cold metal, ambient heat."
+              },
+              {
+                "label": "Impact (Sting / Thud)",
+                "text": "Crops, floggers, paddles, canes, open-hand slapping."
+              },
+              {
+                "label": "Electric (Tens / Wand)",
+                "text": "High-frequency spark arcs, pulsed muscle stimulation."
+              },
+              {
+                "label": "Olfactory (Scent / Odor)",
+                "text": "Pheromones, worn leather, perfumes, natural musk."
+              },
+              {
+                "label": "Acoustic (Whisper / ASMR)",
+                "text": "Breathy commands, binaural whispering, auditory triggers."
+              },
+              {
+                "label": "Vestibular (Balance / Suspension)",
+                "text": "Swing bondage, sensory deprivation spinning, disorientation."
+              }
+            ]
+          },
+          "id": "t0424",
+          "name": "Sensory modalities",
+          "poles": [
+            {
+              "key": "tactile",
+              "label": "Tactile (Texture / Soft)"
+            },
+            {
+              "key": "thermal",
+              "label": "Thermal (Hot / Ice)"
+            },
+            {
+              "key": "impact",
+              "label": "Impact (Sting / Thud)"
+            },
+            {
+              "key": "electric",
+              "label": "Electric (Tens / Wand)"
+            },
+            {
+              "key": "scent",
+              "label": "Olfactory (Scent / Odor)"
+            },
+            {
+              "key": "sound",
+              "label": "Acoustic (Whisper / ASMR)"
+            },
+            {
+              "key": "vestibular",
+              "label": "Vestibular (Balance / Suspension)"
+            }
+          ],
+          "question": "Which sensory channel: tactile, thermal, impact, electric, olfactory, acoustic, or vestibular.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.5",
+          "widget": "heptad-radar"
+        }
+      ]
+    },
+    {
+      "id": "c0007",
+      "name": "Body focus & appearance",
+      "topics": [
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What part of the body is worshipped: feet, hands, breasts, glutes, muscles, hair, body hair, or pregnancy.",
+            "poles": [
+              {
+                "label": "Feet & Footwear",
+                "text": "Foot worship, soles, toes, arch fetishism, boots, and heels."
+              },
+              {
+                "label": "Hands & Gloves",
+                "text": "Palmistry, manicured nails, touch sensitivity, leather/satin gloves."
+              },
+              {
+                "label": "Breasts / Chest",
+                "text": "Mammary worship, cleavage, muscular pecs, nipple eroticism."
+              },
+              {
+                "label": "Buttocks / Glutes",
+                "text": "Posterior worship, spankable curves, athletic gluteal shape."
+              },
+              {
+                "label": "Muscles / Physique",
+                "text": "Bodybuilding physique, vascularity, strength aesthetics."
+              },
+              {
+                "label": "Hair / Long Hair",
+                "text": "Long hair pulling, brushing, scent, and visual framing."
+              },
+              {
+                "label": "Body & Facial Hair",
+                "text": "Beards, body hair, chest hair, pubic hair aesthetic appreciation."
+              },
+              {
+                "label": "Pregnancy / Lactation",
+                "text": "Erotic maternal fertility, rounded bellies, lactation kink."
+              }
+            ]
+          },
+          "id": "t0427",
+          "name": "Anatomical focus & worship",
+          "poles": [
+            {
+              "key": "feet",
+              "label": "Feet & Footwear"
+            },
+            {
+              "key": "hands",
+              "label": "Hands & Gloves"
+            },
+            {
+              "key": "breasts",
+              "label": "Breasts / Chest"
+            },
+            {
+              "key": "glutes",
+              "label": "Buttocks / Glutes"
+            },
+            {
+              "key": "muscles",
+              "label": "Muscles / Physique"
+            },
+            {
+              "key": "hair",
+              "label": "Hair / Long Hair"
+            },
+            {
+              "key": "bodyhair",
+              "label": "Body & Facial Hair"
+            },
+            {
+              "key": "pregnancy",
+              "label": "Pregnancy / Lactation"
+            }
+          ],
+          "question": "What part of the body is worshipped: feet, hands, breasts, glutes, muscles, hair, body hair, or pregnancy.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §5.2",
+          "widget": "octad-radar"
+        }
+      ]
+    },
+    {
+      "id": "c0008",
+      "name": "Psychological dynamics",
+      "topics": [
+        {
+          "archetype": "multi-affinity",
+          "hovertip": {
+            "issue": "Sensual / primal / humiliation",
+            "poles": [
+              {
+                "label": "Primal",
+                "text": ""
+              },
+              {
+                "label": "Sensual",
+                "text": ""
+              },
+              {
+                "label": "Humiliation",
+                "text": ""
+              }
+            ]
+          },
+          "id": "t0408",
+          "name": "Sensual / primal / humiliation",
+          "poles": [
+            {
+              "key": "primal",
+              "label": "Primal"
+            },
+            {
+              "key": "sensual",
+              "label": "Sensual"
+            },
+            {
+              "key": "humiliation",
+              "label": "Humiliation"
+            }
+          ],
+          "question": "Sensual / primal / humiliation",
+          "risk": false,
+          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
+          "widget": "trilinear-sliders"
+        }
+      ]
+    },
+    {
+      "id": "c0010",
+      "name": "Partner configurations",
+      "topics": [
+        {
+          "archetype": "multi-affinity",
+          "hovertip": {
+            "issue": "Bull / Hotwife / Cuckold",
+            "poles": [
+              {
+                "label": "Bull",
+                "text": ""
+              },
+              {
+                "label": "Hotwife",
+                "text": ""
+              },
+              {
+                "label": "Cuckold",
+                "text": ""
+              }
+            ]
+          },
+          "id": "t0281",
+          "name": "Bull / Hotwife / Cuckold",
+          "poles": [
+            {
+              "key": "bull",
+              "label": "Bull"
+            },
+            {
+              "key": "hotwife",
+              "label": "Hotwife"
+            },
+            {
+              "key": "cuckold",
+              "label": "Cuckold"
+            }
+          ],
+          "question": "Bull / Hotwife / Cuckold",
+          "risk": false,
+          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
+          "widget": "trilinear-sliders"
+        },
+        {
+          "archetype": "multi-affinity",
+          "hovertip": {
+            "issue": "Cuckquean / stag / vixen",
+            "poles": [
+              {
+                "label": "Vixen",
+                "text": ""
+              },
+              {
+                "label": "Stag",
+                "text": ""
+              },
+              {
+                "label": "Cuckquean",
+                "text": ""
+              }
+            ]
+          },
+          "id": "t0406",
+          "name": "Cuckquean / stag / vixen",
+          "poles": [
+            {
+              "key": "vixen",
+              "label": "Vixen"
+            },
+            {
+              "key": "stag",
+              "label": "Stag"
+            },
+            {
+              "key": "cuckquean",
+              "label": "Cuckquean"
+            }
+          ],
+          "question": "Cuckquean / stag / vixen",
+          "risk": false,
+          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
+          "widget": "trilinear-sliders"
+        },
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which role you take in the moment: Top, Bottom, or Side.",
+            "poles": [
+              {
+                "label": "Top",
+                "text": "Guiding energy, active direction, driving the tempo."
+              },
+              {
+                "label": "Side",
+                "text": "Non-penetrative mutual eroticism, side-by-side resonance without hierarchy."
+              },
+              {
+                "label": "Bottom",
+                "text": "Holding the space, surrender, deep somatic reception."
+              }
+            ]
+          },
+          "id": "t0407",
+          "name": "Top / bottom / side",
+          "poles": [
+            {
+              "key": "top",
+              "label": "Top"
+            },
+            {
+              "key": "side",
+              "label": "Side"
+            },
+            {
+              "key": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "question": "Which role you take in the moment: Top, Bottom, or Side.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.1",
+          "widget": "triangle"
+        },
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which non-monogamous shape fits: hierarchical polyamory, relationship anarchy, swinging, or cuckoldry and compersion.",
+            "poles": [
+              {
+                "label": "Voyeur / Cuckold",
+                "text": "Eroticized voyeurism, third-party pleasure integration."
+              },
+              {
+                "label": "Recreational Swinging",
+                "text": "Compartmentalized sexual novelty within a committed emotional dyad."
+              },
+              {
+                "label": "Hierarchical Poly",
+                "text": "Primary partnership anchor with negotiated secondary circles."
+              },
+              {
+                "label": "Relationship Anarchy",
+                "text": "Zero prescriptive hierarchy; fluid personal sovereignty."
+              }
+            ]
+          },
+          "id": "t0415",
+          "name": "Intimacy geometry",
+          "poles": [
+            {
+              "key": "voyeur",
+              "label": "Voyeur / Cuckold"
+            },
+            {
+              "key": "swinging",
+              "label": "Recreational Swinging"
+            },
+            {
+              "key": "hierarchical",
+              "label": "Hierarchical Poly"
+            },
+            {
+              "key": "anarchy",
+              "label": "Relationship Anarchy"
+            }
+          ],
+          "question": "Which non-monogamous shape fits: hierarchical polyamory, relationship anarchy, swinging, or cuckoldry and compersion.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.2",
+          "widget": "diamond"
+        },
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "How love and attunement are expressed: words, touch, acts of service, vulnerability, or sacred presence.",
+            "poles": [
+              {
+                "label": "Words of Adoration",
+                "text": "Explicit verbal worship, affirmation, degradation/praise scripts."
+              },
+              {
+                "label": "Dedicated Erotic Touch",
+                "text": "Intentional non-demanding tactile contact, caressing, massage."
+              },
+              {
+                "label": "Devoted Acts of Service",
+                "text": "Domestic protocol, body worship, fetch/carry service rituals."
+              },
+              {
+                "label": "Deep Vulnerability",
+                "text": "Tearful confession, emotional unmasking, unguarded somatic exposure."
+              },
+              {
+                "label": "Autonomous Presence",
+                "text": "Undivided attention, intense unbroken eye contact, sovereign holding."
+              }
+            ]
+          },
+          "id": "t0418",
+          "name": "Erotic intimacy languages",
+          "poles": [
+            {
+              "key": "words",
+              "label": "Words of Adoration"
+            },
+            {
+              "key": "touch",
+              "label": "Dedicated Erotic Touch"
+            },
+            {
+              "key": "service",
+              "label": "Devoted Acts of Service"
+            },
+            {
+              "key": "vulnerability",
+              "label": "Deep Vulnerability"
+            },
+            {
+              "key": "autonomy",
+              "label": "Autonomous Presence"
+            }
+          ],
+          "question": "How love and attunement are expressed: words, touch, acts of service, vulnerability, or sacred presence.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.3",
+          "widget": "star-radar"
+        },
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Six love styles: Eros, Ludus, Storge, Pragma, Mania, or Agape.",
+            "poles": [
+              {
+                "label": "Eros (Passionate)",
+                "text": "Passionate, intense physical and romantic longing."
+              },
+              {
+                "label": "Ludus (Playful)",
+                "text": "Playful, non-possessive, flirtatious game-playing."
+              },
+              {
+                "label": "Storge (Companionate)",
+                "text": "Deep, affectionate, companionate and stable friendship."
+              },
+              {
+                "label": "Pragma (Practical)",
+                "text": "Rational, pragmatic, compatible life-partnership criteria."
+              },
+              {
+                "label": "Mania (Obsessive)",
+                "text": "Obsessive, jealous, turbulent emotional rollercoaster."
+              },
+              {
+                "label": "Agape (Altruistic)",
+                "text": "Altruistic, unconditional, self-sacrificing erotic devotion."
+              }
+            ]
+          },
+          "id": "t0420",
+          "name": "Erotic love styles",
+          "poles": [
+            {
+              "key": "eros",
+              "label": "Eros (Passionate)"
+            },
+            {
+              "key": "ludus",
+              "label": "Ludus (Playful)"
+            },
+            {
+              "key": "storge",
+              "label": "Storge (Companionate)"
+            },
+            {
+              "key": "pragma",
+              "label": "Pragma (Practical)"
+            },
+            {
+              "key": "mania",
+              "label": "Mania (Obsessive)"
+            },
+            {
+              "key": "agape",
+              "label": "Agape (Altruistic)"
+            }
+          ],
+          "question": "Six love styles: Eros, Ludus, Storge, Pragma, Mania, or Agape.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.4",
+          "widget": "hexad-radar"
+        },
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Sternberg's seven forms of love, from liking and infatuation to consummate love.",
+            "poles": [
+              {
+                "label": "Liking (Intimacy Alone)",
+                "text": "Deep confessional closeness, soul-connection without pressure."
+              },
+              {
+                "label": "Infatuation (Passion Alone)",
+                "text": "Obsessive sexual charge, raw attraction, erotic whirlwind."
+              },
+              {
+                "label": "Empty (Duty / Contract)",
+                "text": "Pure protocol, explicit ownership contract, formal commitment."
+              },
+              {
+                "label": "Romantic (Intimacy + Passion)",
+                "text": "Sweet courtship, deep sexual-emotional union."
+              },
+              {
+                "label": "Companionate (Intimacy + Duty)",
+                "text": "Long-term cohabitation, stable life-partnership with kink."
+              },
+              {
+                "label": "Fatuous (Passion + Duty)",
+                "text": "High-intensity storm bond anchored by rigid dynamic rules."
+              },
+              {
+                "label": "Consummate (Total Matrix)",
+                "text": "Complete integration of passion, emotional depth, and contractual devotion."
+              }
+            ]
+          },
+          "id": "t0425",
+          "name": "Relational dynamics",
+          "poles": [
+            {
+              "key": "liking",
+              "label": "Liking (Intimacy Alone)"
+            },
+            {
+              "key": "infatuation",
+              "label": "Infatuation (Passion Alone)"
+            },
+            {
+              "key": "empty",
+              "label": "Empty (Duty / Contract)"
+            },
+            {
+              "key": "romantic",
+              "label": "Romantic (Intimacy + Passion)"
+            },
+            {
+              "key": "companionate",
+              "label": "Companionate (Intimacy + Duty)"
+            },
+            {
+              "key": "fatuous",
+              "label": "Fatuous (Passion + Duty)"
+            },
+            {
+              "key": "consummate",
+              "label": "Consummate (Total Matrix)"
+            }
+          ],
+          "question": "Sternberg's seven forms of love, from liking and infatuation to consummate love.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.5",
+          "widget": "heptad-radar"
+        }
+      ]
+    },
+    {
+      "id": "c0013",
+      "name": "Orgasm & reproductive play",
+      "topics": [
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "How climax lands: extended edging, cathartic release, ruined or denied, or forced overstimulation.",
+            "poles": [
+              {
+                "label": "Ruined / Denied",
+                "text": "Deliberate deprivation at the apex; psychological submission."
+              },
+              {
+                "label": "Extended Edging",
+                "text": "Mastery over the precipice; sustained plateau state."
+              },
+              {
+                "label": "Forced / Overstim",
+                "text": "Release compelled beyond volitional control."
+              },
+              {
+                "label": "Cathartic Climax",
+                "text": "Explosive, full-body release accompanied by emotional catharsis."
+              }
+            ]
+          },
+          "id": "t0414",
+          "name": "Orgasm dynamics",
+          "poles": [
+            {
+              "key": "ruined",
+              "label": "Ruined / Denied"
+            },
+            {
+              "key": "edged",
+              "label": "Extended Edging"
+            },
+            {
+              "key": "forced",
+              "label": "Forced / Overstim"
+            },
+            {
+              "key": "cathartic",
+              "label": "Cathartic Climax"
+            }
+          ],
+          "question": "How climax lands: extended edging, cathartic release, ruined or denied, or forced overstimulation.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.2",
+          "widget": "diamond"
+        },
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Where orgasm lives in the body: external, deep pelvic, cervical, anal, whole-body, or psychic and tantric.",
+            "poles": [
+              {
+                "label": "External Cutaneous",
+                "text": "High-density pudendal nerve / clitoral / penile glans focus."
+              },
+              {
+                "label": "Internal Pelvic (G/P)",
+                "text": "Parasympathetic pelvic splanchnic resonance."
+              },
+              {
+                "label": "Cervical / Trance",
+                "text": "Deep vagus nerve pathway inducing altered trance states."
+              },
+              {
+                "label": "Anal / Sphincter Wave",
+                "text": "Intense autonomic contraction wave radiating through perineum."
+              },
+              {
+                "label": "Whole-Body Somatic",
+                "text": "Trembling non-genital fascial release / energetic orgasms."
+              },
+              {
+                "label": "Psychic / Tantric",
+                "text": "Climax achieved purely through breath, visual trance, or touchless entrainment."
+              }
+            ]
+          },
+          "id": "t0422",
+          "name": "Orgasm topography",
+          "poles": [
+            {
+              "key": "clitoral",
+              "label": "External Cutaneous"
+            },
+            {
+              "key": "pelvic",
+              "label": "Internal Pelvic (G/P)"
+            },
+            {
+              "key": "cervical",
+              "label": "Cervical / Trance"
+            },
+            {
+              "key": "anal",
+              "label": "Anal / Sphincter Wave"
+            },
+            {
+              "key": "somatic",
+              "label": "Whole-Body Somatic"
+            },
+            {
+              "key": "psychic",
+              "label": "Psychic / Tantric"
+            }
+          ],
+          "question": "Where orgasm lives in the body: external, deep pelvic, cervical, anal, whole-body, or psychic and tantric.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.4",
+          "widget": "hexad-radar"
+        }
+      ]
+    },
+    {
+      "id": "c0018",
+      "name": "Connection & aftercare",
+      "topics": [
+        {
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "What kink is for: escape, deep intimacy, somatic catharsis, or taboo transgression.",
+            "poles": [
+              {
+                "label": "Mindless Escape",
+                "text": "Dissolving executive function, cognitive shutdown, flow state."
+              },
+              {
+                "label": "Deep Intimacy / Union",
+                "text": "Dissolving interpersonal barriers; radical relational vulnerability."
+              },
+              {
+                "label": "Somatic Catharsis",
+                "text": "Emotional purging through intense physical stimuli (pain-to-endorphin conversion)."
+              },
+              {
+                "label": "Taboo Transgression",
+                "text": "Psychological charge derived from crossing normative social boundaries."
+              }
+            ]
+          },
+          "id": "t0416",
+          "name": "Kink motivations",
+          "poles": [
+            {
+              "key": "escape",
+              "label": "Mindless Escape"
+            },
+            {
+              "key": "union",
+              "label": "Deep Intimacy / Union"
+            },
+            {
+              "key": "catharsis",
+              "label": "Somatic Catharsis"
+            },
+            {
+              "key": "transgression",
+              "label": "Taboo Transgression"
+            }
+          ],
+          "question": "What kink is for: escape, deep intimacy, somatic catharsis, or taboo transgression.",
+          "risk": false,
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.2",
+          "widget": "diamond"
+        }
+      ]
+    }
+  ],
+  "domain": "Intimacy, Eroticism, BDSM, Power Exchange & Relational Geometries",
+  "name": "Sexcapades",
+  "skin": "sexcapades"
+}

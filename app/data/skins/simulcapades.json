@@ -1,0 +1,1017 @@
+{
+  "skin": "simulcapades",
+  "name": "Simulcapades",
+  "domain": "Computational Physics — the Computer as a Virtual Laboratory",
+  "categories": [
+    {
+      "id": "xsic01",
+      "name": "The Epistemology of Simulation",
+      "about": "What a simulation is, what it is for, and how much it can be trusted.",
+      "topics": [
+        {
+          "id": "xsi0001",
+          "name": "The Three Pillars: What Is a Simulation?",
+          "risk": false,
+          "poles": [
+            {
+              "key": "virtual-experiment",
+              "label": "Virtual Experiment"
+            },
+            {
+              "key": "extended-theory-numerical-calculation",
+              "label": "Extended Theory / Numerical Calculation"
+            },
+            {
+              "key": "autonomous-instrument",
+              "label": "Autonomous Instrument"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "What is a simulation — a kind of theory, a kind of experiment, or a third pillar of its own?",
+            "poles": [
+              {
+                "label": "Virtual Experiment",
+                "text": "A simulation is a synthetic laboratory; you set up the physical environment, run the code, and observe emergent data like an experimentalist."
+              },
+              {
+                "label": "Extended Theory / Numerical Calculation",
+                "text": "A simulation is simply an automated numerical evaluator of existing analytic theory; it contains no new physics beyond the input equations."
+              },
+              {
+                "label": "Autonomous Instrument",
+                "text": "Simulation is an entirely distinct third mode of knowledge creation that accesses complex, multi-scale emergent phenomena unreachable by either pure mathematics or laboratory instruments."
+              }
+            ]
+          },
+          "question": "What is a simulation — a kind of theory, a kind of experiment, or a third pillar of its own?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1"
+        },
+        {
+          "id": "xsi0002",
+          "name": "Discovery vs Verification",
+          "risk": false,
+          "poles": [
+            {
+              "key": "discovery",
+              "label": "Discovery"
+            },
+            {
+              "key": "verification",
+              "label": "Verification"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you simulate to discover new physics, or to verify what you already think is true?",
+            "poles": [
+              {
+                "label": "Discovery",
+                "text": "Simulation as a tool for finding new physics — exploring parameter space, finding emergent phenomena, predicting what no one has seen."
+              },
+              {
+                "label": "Verification",
+                "text": "Simulation as a tool for checking what you already believe — confirming analytic predictions, testing a theory against its consequences."
+              }
+            ]
+          },
+          "question": "Do you simulate to discover new physics, or to verify what you already think is true?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2"
+        },
+        {
+          "id": "xsi0003",
+          "name": "The Computational Experiment: Real vs Metaphor",
+          "risk": false,
+          "poles": [
+            {
+              "key": "real",
+              "label": "Real"
+            },
+            {
+              "key": "metaphor",
+              "label": "Metaphor"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is a simulation a real experiment, or is \"experiment\" just a metaphor for a calculation?",
+            "poles": [
+              {
+                "label": "Real",
+                "text": "A simulation IS an experiment — it has a setup, a run, data, and error bars, and the results count as evidence in the same way lab data does."
+              },
+              {
+                "label": "Metaphor",
+                "text": "Calling it an \"experiment\" is just a metaphor — it is a calculation, and its results are only as good as the equations you fed in."
+              }
+            ]
+          },
+          "question": "Is a simulation a real experiment, or is \"experiment\" just a metaphor for a calculation?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3"
+        },
+        {
+          "id": "xsi0004",
+          "name": "Fidelity vs Speed: The Central Simulation Dilemma",
+          "risk": false,
+          "poles": [
+            {
+              "key": "maximum-physical-fidelity",
+              "label": "Maximum Physical Fidelity"
+            },
+            {
+              "key": "high-throughput-speed-scalability",
+              "label": "High-Throughput Speed & Scalability"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you prioritize uncompromising physical fidelity or high-throughput computational speed?",
+            "poles": [
+              {
+                "label": "Maximum Physical Fidelity",
+                "text": "Double/quad precision, all electron shells, full quantum electrodynamics, zero empirical fudge factors; willing to wait 6 months on a supercomputer."
+              },
+              {
+                "label": "High-Throughput Speed & Scalability",
+                "text": "Coarse-grained approximations, GPU parallelism, real-time interactive parameter exploration; \"good enough\" physics at 100x the speed."
+              }
+            ]
+          },
+          "question": "Do you prioritize uncompromising physical fidelity or high-throughput computational speed?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4"
+        },
+        {
+          "id": "xsi0005",
+          "name": "Validation: Comparison to Physical Experiment vs. Mathematical Verification",
+          "risk": false,
+          "poles": [
+            {
+              "key": "empirical-validation-first",
+              "label": "Empirical Validation First"
+            },
+            {
+              "key": "internal-code-verification-first",
+              "label": "Internal Code Verification First"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is a simulation validated by matching lab data or by mathematical convergence?",
+            "poles": [
+              {
+                "label": "Empirical Validation First",
+                "text": "A simulation is meaningless unless its output curves match physical laboratory measurements within experimental error bars."
+              },
+              {
+                "label": "Internal Code Verification First",
+                "text": "The supreme test is mathematical: proving grid convergence, asymptotic order of accuracy, and exact conservation of energy, momentum, and symplectic structure."
+              }
+            ]
+          },
+          "question": "Is a simulation validated by matching lab data or by mathematical convergence?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5"
+        },
+        {
+          "id": "xsi0006",
+          "name": "The Simulation Trust Paradox: \"Nobody Believes the Simulation\"",
+          "risk": false,
+          "poles": [
+            {
+              "key": "bold-simulation-confidence",
+              "label": "Bold Simulation Confidence"
+            },
+            {
+              "key": "permanent-self-skepticism",
+              "label": "Permanent Self-Skepticism"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How much inherent trust do you place in simulation results?",
+            "poles": [
+              {
+                "label": "Bold Simulation Confidence",
+                "text": "Trust the computational output as ground truth; modern simulations are often cleaner and less prone to systematic errors than real-world noise."
+              },
+              {
+                "label": "Permanent Self-Skepticism",
+                "text": "Never trust a simulation fully; discretization errors, floating-point roundoff, and unmodeled boundary artifacts are always lurking."
+              }
+            ]
+          },
+          "question": "How much inherent trust do you place in simulation results?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.6"
+        }
+      ]
+    },
+    {
+      "id": "xsic02",
+      "name": "Methods",
+      "about": "The algorithmic paradigms for simulating physical matter and fields.",
+      "topics": [
+        {
+          "id": "xsi0007",
+          "name": "The Computational Physics Methods Quartet",
+          "risk": false,
+          "poles": [
+            {
+              "key": "electronic-structure-ab-initio-quantum",
+              "label": "Electronic Structure & Ab Initio Quantum"
+            },
+            {
+              "key": "classical-molecular-dynamics",
+              "label": "Classical & Molecular Dynamics (MD)"
+            },
+            {
+              "key": "mesh-continuum-solvers",
+              "label": "Mesh & Continuum Solvers"
+            },
+            {
+              "key": "statistical-stochastic-monte-carlo",
+              "label": "Statistical & Stochastic Monte Carlo"
+            }
+          ],
+          "widget": "diamond",
+          "archetype": "simplex",
+          "hovertip": {
+            "issue": "Which computational physics methodology is your primary weapon?",
+            "poles": [
+              {
+                "label": "Electronic Structure & Ab Initio Quantum",
+                "text": "Density Functional Theory (DFT), Quantum Monte Carlo, Hartree-Fock, coupled-cluster methods for electrons and orbitals."
+              },
+              {
+                "label": "Classical & Molecular Dynamics (MD)",
+                "text": "Newtonian particle equations of motion, force fields, Lennard-Jones, N-body astrophysics, coarse-grained biomolecules."
+              },
+              {
+                "label": "Mesh & Continuum Solvers",
+                "text": "Computational Fluid Dynamics (CFD), magnetohydrodynamics (MHD), Finite Element Analysis (FEA), Particle-In-Cell (PIC) for plasmas."
+              },
+              {
+                "label": "Statistical & Stochastic Monte Carlo",
+                "text": "Lattice gauge theory, Markov Chain Monte Carlo (MCMC), cluster algorithms (Wolff, Swendsen-Wang), simulated annealing."
+              }
+            ]
+          },
+          "question": "Which computational physics methodology is your primary weapon?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1"
+        },
+        {
+          "id": "xsi0008",
+          "name": "First-Principles vs Empirical",
+          "risk": false,
+          "poles": [
+            {
+              "key": "ab-initio-quantum-purity",
+              "label": "Ab Initio Quantum Purity (DFT)"
+            },
+            {
+              "key": "empirical-classical-potentials",
+              "label": "Empirical Classical Potentials"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you calculate forces from first principles or fit empirical potential functions?",
+            "poles": [
+              {
+                "label": "Ab Initio Quantum Purity (DFT)",
+                "text": "Calculate electronic forces directly from Schrödinger/Kohn-Sham equations; zero fitted parameters; limited to thousands of atoms."
+              },
+              {
+                "label": "Empirical Classical Potentials",
+                "text": "Embedded Atom Method, Tersoff, ReaxFF; fitted to bulk properties; capable of simulating billions of atoms."
+              }
+            ]
+          },
+          "question": "Do you calculate forces from first principles or fit empirical potential functions?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2"
+        },
+        {
+          "id": "xsi0009",
+          "name": "Classical vs Quantum Simulators",
+          "risk": false,
+          "poles": [
+            {
+              "key": "classical-supercomputing-algorithms",
+              "label": "Classical Supercomputing Algorithms"
+            },
+            {
+              "key": "quantum-hardware-analog-simulators",
+              "label": "Quantum Hardware / Analog Simulators"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Will strongly correlated quantum systems be solved by classical algorithms or quantum hardware?",
+            "poles": [
+              {
+                "label": "Classical Supercomputing Algorithms",
+                "text": "Tensor networks, DMRG, Quantum Monte Carlo on classical exascale clusters."
+              },
+              {
+                "label": "Quantum Hardware / Analog Simulators",
+                "text": "Mapping the Hamiltonian directly onto neutral atom arrays, superconducting qubits, or Rydberg quantum simulators."
+              }
+            ]
+          },
+          "question": "Will strongly correlated quantum systems be solved by classical algorithms or quantum hardware?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3"
+        },
+        {
+          "id": "xsi0010",
+          "name": "Continuum vs Discrete",
+          "risk": false,
+          "poles": [
+            {
+              "key": "continuum",
+              "label": "Continuum"
+            },
+            {
+              "key": "discrete",
+              "label": "Discrete"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is the world continuous or discrete — and does your simulation treat it that way?",
+            "poles": [
+              {
+                "label": "Continuum",
+                "text": "Fields, PDEs, smooth functions — the world is continuous and the math is calculus."
+              },
+              {
+                "label": "Discrete",
+                "text": "Particles, lattices, graphs — the world is granular and the math is counting."
+              }
+            ]
+          },
+          "question": "Is the world continuous or discrete — and does your simulation treat it that way?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4"
+        },
+        {
+          "id": "xsi0011",
+          "name": "Deterministic vs Stochastic",
+          "risk": false,
+          "poles": [
+            {
+              "key": "deterministic",
+              "label": "Deterministic"
+            },
+            {
+              "key": "stochastic",
+              "label": "Stochastic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is your simulation a clockwork or a dice roll?",
+            "poles": [
+              {
+                "label": "Deterministic",
+                "text": "Same input, same output, every time — the physics is a clockwork and the simulation should be too."
+              },
+              {
+                "label": "Stochastic",
+                "text": "Randomness is in the physics — Monte Carlo, thermal fluctuations, quantum measurement — and the simulation must sample, not solve."
+              }
+            ]
+          },
+          "question": "Is your simulation a clockwork or a dice roll?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5"
+        }
+      ]
+    },
+    {
+      "id": "xsic03",
+      "name": "Scale, Discretization & Time",
+      "about": "How physical space and time are divided, resolved, and marched forward in a simulation.",
+      "topics": [
+        {
+          "id": "xsi0012",
+          "name": "Multi-Scale Bridging: Concurrent vs Hierarchical",
+          "risk": false,
+          "poles": [
+            {
+              "key": "direct-concurrent-multi-scale",
+              "label": "Direct Concurrent Multi-Scale"
+            },
+            {
+              "key": "hierarchical-parameter-hand-off",
+              "label": "Hierarchical Parameter Hand-Off"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you couple multi-scale models concurrently or pass parameters hierarchically?",
+            "poles": [
+              {
+                "label": "Direct Concurrent Multi-Scale",
+                "text": "Simultaneously embedding quantum QM/MM zones inside classical MD, coupled directly to continuum finite element boundaries in a single code run."
+              },
+              {
+                "label": "Hierarchical Parameter Hand-Off",
+                "text": "Run quantum simulations offline to compute material constants, pass them up to molecular dynamics, extract viscosity/elasticity, and feed them into a separate macro CFD code."
+              }
+            ]
+          },
+          "question": "Do you couple multi-scale models concurrently or pass parameters hierarchically?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.1"
+        },
+        {
+          "id": "xsi0013",
+          "name": "Symplectic vs Adaptive Steppers",
+          "risk": false,
+          "poles": [
+            {
+              "key": "symplectic-integrators",
+              "label": "Symplectic Integrators (Geometric Mechanics)"
+            },
+            {
+              "key": "high-order-adaptive-steppers",
+              "label": "High-Order Adaptive Steppers"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you prioritize symplectic geometric conservation or high-order adaptive accuracy?",
+            "poles": [
+              {
+                "label": "Symplectic Integrators (Geometric Mechanics)",
+                "text": "Verlet, leapfrog, Ruth algorithms; exact conservation of phase space volume and bounded Hamiltonian energy over billions of orbits."
+              },
+              {
+                "label": "High-Order Adaptive Steppers",
+                "text": "Runge-Kutta-Fehlberg, Bulirsch-Stoer; adaptive time steps that minimize local truncation error at every moment."
+              }
+            ]
+          },
+          "question": "Do you prioritize symplectic geometric conservation or high-order adaptive accuracy?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.2"
+        },
+        {
+          "id": "xsi0014",
+          "name": "Spatial Discretization: Structured Grids vs. AMR vs. Mesh-Free",
+          "risk": false,
+          "poles": [
+            {
+              "key": "structured-uniform-grids-spectral-methods",
+              "label": "Structured Uniform Grids & Spectral Methods"
+            },
+            {
+              "key": "unstructured-adaptive-meshes",
+              "label": "Unstructured Adaptive Meshes (AMR)"
+            },
+            {
+              "key": "mesh-free-particle-methods",
+              "label": "Mesh-Free Particle Methods"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "How do you discretize physical space?",
+            "poles": [
+              {
+                "label": "Structured Uniform Grids & Spectral Methods",
+                "text": "Cartesian grids, Fast Fourier Transforms, uniform spacing; maximum computational efficiency and spectral accuracy."
+              },
+              {
+                "label": "Unstructured Adaptive Meshes (AMR)",
+                "text": "Tetrahedral/hexahedral meshes, octrees, zooming in on shock fronts and boundary layers where physics happens."
+              },
+              {
+                "label": "Mesh-Free Particle Methods",
+                "text": "Smoothed Particle Hydrodynamics (SPH), vortex methods; no mesh connectivity, immune to mesh tangling during explosive deformation."
+              }
+            ]
+          },
+          "question": "How do you discretize physical space?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.3"
+        },
+        {
+          "id": "xsi0015",
+          "name": "Resolution vs Domain Size",
+          "risk": false,
+          "poles": [
+            {
+              "key": "resolution",
+              "label": "Resolution"
+            },
+            {
+              "key": "domain-size",
+              "label": "Domain Size"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you resolve the fine detail or cover the whole system?",
+            "poles": [
+              {
+                "label": "Resolution",
+                "text": "Fine grids, small timesteps, resolve every detail — the physics is in the fine structure."
+              },
+              {
+                "label": "Domain Size",
+                "text": "Big boxes, long times, the whole system — the physics is in the large-scale behavior."
+              }
+            ]
+          },
+          "question": "Do you resolve the fine detail or cover the whole system?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.4"
+        },
+        {
+          "id": "xsi0016",
+          "name": "Convergence: Strict vs Pragmatic",
+          "risk": false,
+          "poles": [
+            {
+              "key": "strict",
+              "label": "Strict"
+            },
+            {
+              "key": "pragmatic",
+              "label": "Pragmatic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you prove convergence, or just check it looks right?",
+            "poles": [
+              {
+                "label": "Strict",
+                "text": "Prove convergence — grid refinement studies, Richardson extrapolation, error bounds; no result counts until the convergence is demonstrated."
+              },
+              {
+                "label": "Pragmatic",
+                "text": "If it looks converged, it is converged — run it twice at different resolutions, check the answer doesn't move much, and get on with the physics."
+              }
+            ]
+          },
+          "question": "Do you prove convergence, or just check it looks right?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.5"
+        }
+      ]
+    },
+    {
+      "id": "xsic04",
+      "name": "The Machine & The Code",
+      "about": "The hardware, languages, and AI methods that run the physics.",
+      "topics": [
+        {
+          "id": "xsi0017",
+          "name": "HPC vs Hardware You Control",
+          "risk": false,
+          "poles": [
+            {
+              "key": "national-leadership-supercomputers",
+              "label": "National Leadership Supercomputers"
+            },
+            {
+              "key": "hardware-you-control",
+              "label": "Hardware You Control"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you run on national supercomputers or on hardware you control?",
+            "poles": [
+              {
+                "label": "National Leadership Supercomputers",
+                "text": "Frontier, Aurora, Summit; 100,000+ nodes, massive MPI scaling, rigorous grant allocation proposals and queue waits."
+              },
+              {
+                "label": "Hardware You Control",
+                "text": "Local dedicated workstations or cloud instances; instant turnaround, interactive debugging, zero grant bureaucracy — or pay-as-you-go cloud."
+              }
+            ]
+          },
+          "question": "Do you run on national supercomputers or on hardware you control?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.1"
+        },
+        {
+          "id": "xsi0018",
+          "name": "Processor Architecture: CPU vs GPU vs Quantum",
+          "risk": false,
+          "poles": [
+            {
+              "key": "massive-cpu-cores",
+              "label": "Massive CPU Cores"
+            },
+            {
+              "key": "dense-gpu-tensor-accelerators",
+              "label": "Dense GPU / Tensor Accelerators"
+            },
+            {
+              "key": "quantum-processors",
+              "label": "Quantum Processors"
+            }
+          ],
+          "widget": "triangle",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Is your physics algorithm better suited for high-memory CPUs, dense streaming GPUs, or quantum hardware?",
+            "poles": [
+              {
+                "label": "Massive CPU Cores",
+                "text": "Huge RAM per core, deep cache hierarchies, complex branch prediction, pure OpenMP/MPI parallelism."
+              },
+              {
+                "label": "Dense GPU / Tensor Accelerators",
+                "text": "Thousands of CUDA/HIP cores, massive memory bandwidth, SIMD lockstep parallelism, porting physics to GPU kernels."
+              },
+              {
+                "label": "Quantum Processors",
+                "text": "The computation itself is quantum; the hardware is the physics, not just a faster way to do classical arithmetic."
+              }
+            ]
+          },
+          "question": "Is your physics algorithm better suited for high-memory CPUs, dense streaming GPUs, or quantum hardware?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.2"
+        },
+        {
+          "id": "xsi0019",
+          "name": "Language: Performance vs Productivity",
+          "risk": false,
+          "poles": [
+            {
+              "key": "battle-tested-fortran-c-codebases",
+              "label": "Battle-Tested Fortran/C Codebases"
+            },
+            {
+              "key": "modern-composable-high-level-stacks",
+              "label": "Modern Composable High-Level Stacks"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you build upon 40-year-old Fortran monoliths or modern modular scientific languages?",
+            "poles": [
+              {
+                "label": "Battle-Tested Fortran/C Codebases",
+                "text": "Millions of lines written over 40 years, hyper-optimized BLAS/LAPACK, reliable, immovable institutional code."
+              },
+              {
+                "label": "Modern Composable High-Level Stacks",
+                "text": "Julia, Python/JAX, differentiable physics engines, auto-differentiation, high-level expressive abstractions."
+              }
+            ]
+          },
+          "question": "Do you build upon 40-year-old Fortran monoliths or modern modular scientific languages?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.3"
+        },
+        {
+          "id": "xsi0020",
+          "name": "PINNs vs Traditional Solvers",
+          "risk": false,
+          "poles": [
+            {
+              "key": "ai-neural-operators",
+              "label": "AI & Neural Operators (PINNs/FNO)"
+            },
+            {
+              "key": "traditional-numerical-analysis",
+              "label": "Traditional Numerical Analysis (FEM/FVM)"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Will deep learning neural operators replace traditional numerical solvers?",
+            "poles": [
+              {
+                "label": "AI & Neural Operators (PINNs/FNO)",
+                "text": "Train neural networks on physics loss functions; instantaneous surrogate inference, mesh-free, solves inverse problems effortlessly."
+              },
+              {
+                "label": "Traditional Numerical Analysis (FEM/FVM)",
+                "text": "Strictly mathematically verified error bounds, exact conservation laws, no hallucinated physics, guaranteed stability."
+              }
+            ]
+          },
+          "question": "Will deep learning neural operators replace traditional numerical solvers?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.4"
+        },
+        {
+          "id": "xsi0021",
+          "name": "MLIPs — Machine-Learned Interatomic Potentials",
+          "risk": false,
+          "poles": [
+            {
+              "key": "mlip-enthusiast",
+              "label": "MLIP Enthusiast"
+            },
+            {
+              "key": "mlip-skeptic",
+              "label": "MLIP Skeptic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust machine-learned interatomic potentials for new physics discovery?",
+            "poles": [
+              {
+                "label": "MLIP Enthusiast",
+                "text": "Neural network potentials like MACE, NequIP, and ANI achieve near-DFT quantum accuracy at classical molecular dynamics speed; the holy grail is here."
+              },
+              {
+                "label": "MLIP Skeptic",
+                "text": "Machine learning potentials fail unpredictably outside their training manifold; dangerous and untrustworthy for unexpected phase transitions or extreme pressures."
+              }
+            ]
+          },
+          "question": "Do you trust machine-learned interatomic potentials for new physics discovery?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.5"
+        }
+      ]
+    },
+    {
+      "id": "xsic05",
+      "name": "Trust, Error & Reproducibility",
+      "about": "Error bars, reproducibility, and when to trust a solver you did not write.",
+      "topics": [
+        {
+          "id": "xsi0022",
+          "name": "Error Bars: Honest vs Optimistic",
+          "risk": false,
+          "poles": [
+            {
+              "key": "honest",
+              "label": "Honest"
+            },
+            {
+              "key": "optimistic",
+              "label": "Optimistic"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do your error bars tell the truth, or tell the story you want?",
+            "poles": [
+              {
+                "label": "Honest",
+                "text": "Report the full error — systematic and statistical, all of it, even when it makes the result look weak."
+              },
+              {
+                "label": "Optimistic",
+                "text": "Report the error that makes the result look good — the statistical error only, or the best-case systematics, because the paper needs a clean number."
+              }
+            ]
+          },
+          "question": "Do your error bars tell the truth, or tell the story you want?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.1"
+        },
+        {
+          "id": "xsi0023",
+          "name": "Reproducibility: Code vs Results",
+          "risk": false,
+          "poles": [
+            {
+              "key": "code",
+              "label": "Code"
+            },
+            {
+              "key": "results",
+              "label": "Results"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Does reproducibility mean sharing your code, or getting the same answer independently?",
+            "poles": [
+              {
+                "label": "Code",
+                "text": "Reproducibility means the code — publish the source, the input decks, the random seeds, and anyone can re-run it."
+              },
+              {
+                "label": "Results",
+                "text": "Reproducibility means the results — an independent group with different code should get the same physics, and re-running your code only proves your code runs."
+              }
+            ]
+          },
+          "question": "Does reproducibility mean sharing your code, or getting the same answer independently?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.2"
+        },
+        {
+          "id": "xsi0024",
+          "name": "Black Box: Trust vs Verify",
+          "risk": false,
+          "poles": [
+            {
+              "key": "trust",
+              "label": "Trust"
+            },
+            {
+              "key": "verify",
+              "label": "Verify"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you trust the solver, or do you verify it first?",
+            "poles": [
+              {
+                "label": "Trust",
+                "text": "Use the library, the package, the solver — it works, the authors know what they're doing, and your job is the physics, not the numerics."
+              },
+              {
+                "label": "Verify",
+                "text": "Never trust a black box — read the source, test it against known solutions, understand what it does before you let it touch your physics."
+              }
+            ]
+          },
+          "question": "Do you trust the solver, or do you verify it first?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.3"
+        },
+        {
+          "id": "xsi0025",
+          "name": "Code Openness",
+          "risk": false,
+          "poles": [
+            {
+              "key": "radical-open-source-science",
+              "label": "Radical Open-Source Science"
+            },
+            {
+              "key": "protected-competitive-advantage",
+              "label": "Protected Competitive Advantage"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Should simulation source code and input decks be fully open upon publication?",
+            "poles": [
+              {
+                "label": "Radical Open-Source Science",
+                "text": "Publishing all solver code, input decks, random seeds, and raw trajectory data on GitHub/Zenodo with Docker containers for 100% reproduction."
+              },
+              {
+                "label": "Protected Competitive Advantage",
+                "text": "Keeping custom in-house physics algorithms proprietary until all papers and grants are extracted."
+              }
+            ]
+          },
+          "question": "Should simulation source code and input decks be fully open upon publication?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.4"
+        }
+      ]
+    },
+    {
+      "id": "xsic06",
+      "name": "The Computational Life",
+      "about": "Legacy code, specialization, and what it means to be a computational physicist.",
+      "topics": [
+        {
+          "id": "xsi0026",
+          "name": "Legacy Code: Maintain vs Rewrite",
+          "risk": false,
+          "poles": [
+            {
+              "key": "maintain",
+              "label": "Maintain"
+            },
+            {
+              "key": "rewrite",
+              "label": "Rewrite"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you maintain the legacy code or rewrite it?",
+            "poles": [
+              {
+                "label": "Maintain",
+                "text": "The old code works — it has been validated for decades, the bugs are known, and rewriting risks losing physics that nobody remembers is in there."
+              },
+              {
+                "label": "Rewrite",
+                "text": "The old code is unmaintainable — spaghetti Fortran, no tests, no documentation, and the only way forward is to start clean."
+              }
+            ]
+          },
+          "question": "Do you maintain the legacy code or rewrite it?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.1"
+        },
+        {
+          "id": "xsi0027",
+          "name": "Specialist vs Generalist",
+          "risk": false,
+          "poles": [
+            {
+              "key": "specialist",
+              "label": "Specialist"
+            },
+            {
+              "key": "generalist",
+              "label": "Generalist"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Are you a specialist in one method or a generalist across many?",
+            "poles": [
+              {
+                "label": "Specialist",
+                "text": "One method, deeply — you are the DFT person, or the Monte Carlo person, and your depth is your value."
+              },
+              {
+                "label": "Generalist",
+                "text": "Many methods, broadly — you pick the right tool for each problem, and your range is your value."
+              }
+            ]
+          },
+          "question": "Are you a specialist in one method or a generalist across many?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.2"
+        },
+        {
+          "id": "xsi0028",
+          "name": "Theory vs Implementation",
+          "risk": false,
+          "poles": [
+            {
+              "key": "theory",
+              "label": "Theory"
+            },
+            {
+              "key": "implementation",
+              "label": "Implementation"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you start from the theory or from the implementation?",
+            "poles": [
+              {
+                "label": "Theory",
+                "text": "The physics comes first — the equations, the model, the understanding; the code is just how you evaluate it."
+              },
+              {
+                "label": "Implementation",
+                "text": "The code comes first — the algorithm, the data structures, the performance; a theory you can't compute is a wish, not a result."
+              }
+            ]
+          },
+          "question": "Do you start from the theory or from the implementation?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.3"
+        },
+        {
+          "id": "xsi0029",
+          "name": "Physicist vs Research Software Engineer",
+          "risk": false,
+          "poles": [
+            {
+              "key": "physicist-first",
+              "label": "Physicist First"
+            },
+            {
+              "key": "research-software-engineer",
+              "label": "Research Software Engineer (RSE)"
+            }
+          ],
+          "widget": "linear-sliders",
+          "archetype": null,
+          "hovertip": {
+            "issue": "Do you view yourself primarily as a physicist who codes, or as a scientific software engineer?",
+            "poles": [
+              {
+                "label": "Physicist First",
+                "text": "Code is just an incidental vehicle to understand the physics; quick-and-dirty scripts are fine if the physical insight is sound."
+              },
+              {
+                "label": "Research Software Engineer (RSE)",
+                "text": "Code quality, unit testing, continuous integration, version control, and memory safety are as crucial as the physical equations."
+              }
+            ]
+          },
+          "question": "Do you view yourself primarily as a physicist who codes, or as a scientific software engineer?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.4"
+        }
+      ]
+    }
+  ]
+}
