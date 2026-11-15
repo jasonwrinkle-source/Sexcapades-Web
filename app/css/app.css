@@ -1491,3 +1491,19 @@ details.scene-phase ul {
   margin: 6px 0 4px 18px;
   padding: 0;
 }
+
+/* Placard widget wraps: the sync hides inactive wraps with the hidden
+   attribute, but the wraps' own display:flex/grid rules beat the browser's
+   default [hidden] rule, so hidden wraps still painted (all widgets listed
+   on every placard). This rule restores hiding for all nine wraps. */
+#markTriangleWrap[hidden],
+#markTetradWrap[hidden],
+#markCompassWrap[hidden],
+#markPentadWrap[hidden],
+#markHexadWrap[hidden],
+#markHeptadWrap[hidden],
+#markOctadWrap[hidden],
+#markSwitchboxWrap[hidden],
+#markRatings[hidden] {
+  display: none !important;
+}
