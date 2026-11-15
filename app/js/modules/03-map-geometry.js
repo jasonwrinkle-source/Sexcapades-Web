@@ -204,7 +204,15 @@
         const vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.group-heat,.selected-spoke,.mutual-halo,.disinterest-halo,.favorite-halo,.limit-halo,.visual-rail";
         function wr() {
             if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap) return;
-            const e = Cn.classList.contains("is-camera-moving"), t = nh, n = 24 * $p, i = (e, i) => {
+            const isMoving = Cn && Cn.classList.contains("is-camera-moving");
+            if (isMoving) {
+                // Viewport performance optimization: during continuous camera pan and zoom,
+                // do NOT force synchronous DOM reflows by querying getBoundingClientRect() on
+                // hundreds of direction-control nodes per frame. Clipping will reconcile
+                // automatically on settle (kh).
+                return;
+            }
+            const t = nh, n = 24 * $p, i = (e, i) => {
                 const a = Ep + e * $p, r = Ap + i * $p;
                 return a >= t.x - n && a <= t.x + t.width + n && r >= t.y - n && r <= t.y + t.height + n;
             }, a = Cn.getBoundingClientRect();
@@ -214,10 +222,6 @@
             }), In.querySelectorAll(".common-overlap-link").forEach(t => {
                 if ("false" === t.dataset.connected) return void (t.style.display = "none");
                 const n = Number(t.dataset.ax), a = Number(t.dataset.ay), r = Number(t.dataset.bx), o = Number(t.dataset.by);
-                if (e) {
-                    const e = i(n, a) || i(r, o);
-                    return void (t.style.display = e ? "" : "none");
-                }
                 const s = i(n, a) || i(r, o);
                 t.style.display = s ? "" : "none";
             });

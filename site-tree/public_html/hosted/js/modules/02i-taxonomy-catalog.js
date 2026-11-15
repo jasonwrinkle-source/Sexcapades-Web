@@ -2720,6 +2720,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "bull", "hotwife", "cuckold" ],
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
@@ -2728,6 +2730,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "vixen", "stag", "cuckquean" ],
                     labels: [ "Vixen", "Stag", "Cuckquean" ]
                 };
@@ -2736,6 +2740,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "top", "side", "bottom" ],
                     labels: [ "Top", "Side", "Bottom" ]
                 };
@@ -2744,6 +2750,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "primal", "sensual", "humiliation" ],
                     labels: [ "Primal", "Sensual", "Humiliation" ]
                 };
@@ -2752,6 +2760,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "sensation", "power", "intimacy" ],
                     labels: [ "Sensation", "Power", "Intimacy" ]
                 };
@@ -2760,6 +2770,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "monogamy", "polyamory", "anarchy" ],
                     labels: [ "Monogamy", "Polyamory", "Relationship Anarchy" ]
                 };
@@ -2768,6 +2780,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "edging", "ruined", "forced" ],
                     labels: [ "Edging & Denial", "Ruined Orgasm", "Forced / Overstim" ]
                 };
@@ -2776,6 +2790,8 @@
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "tantric", "frantic", "trance" ],
                     labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
                 };
@@ -2785,6 +2801,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "quad-sliders",
                     archetype: "simplex", // Type I: Closed Role Allocation
                     keys: [ "master", "mistress", "slave", "pet" ],
                     labels: [ "Master (Authority)", "Mistress (Nurture)", "Slave (Service)", "Pet / Brat (Primal)" ]
@@ -2794,6 +2811,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "ruined", "edged", "forced", "cathartic" ],
                     labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
@@ -2803,6 +2821,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
                     labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
@@ -2812,6 +2831,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "escape", "union", "catharsis", "transgression" ],
                     labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
@@ -2822,6 +2842,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "quad-compass",
                     archetype: "quad", // Type III: Orthogonal Continua
                     keys: [ "authleft", "authright", "libleft", "libright" ],
                     labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
@@ -2831,6 +2852,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "quad-sliders",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "consensus", "democracy", "technocracy", "mandate" ],
                     labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
@@ -2841,6 +2863,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "materialism", "idealism", "pantheism", "dualism" ],
                     labels: [ "Materialism", "Idealism (Non-Dual)", "Pantheism", "Transcendent Dualism" ]
@@ -2850,6 +2873,7 @@
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "inquiry", "devotion", "action", "asceticism" ],
                     labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
@@ -2860,6 +2884,7 @@
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "thermal", "tactile", "vibrational", "olfactory", "auditory" ],
                     labels: [ "Thermal (Temperature)", "Tactile (Texture/Impact)", "Vibrational / Electro", "Olfactory / Taste", "Auditory / Verbal" ]
@@ -2869,6 +2894,7 @@
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "words", "touch", "service", "vulnerability", "autonomy" ],
                     labels: [ "Words of Adoration", "Dedicated Erotic Touch", "Devoted Acts of Service", "Deep Vulnerability", "Autonomous Presence" ]
@@ -2878,6 +2904,7 @@
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "master", "nurturer", "primal", "brat", "surrender" ],
                     labels: [ "Sovereign / Master", "Nurturer / Caregiver", "Primal / Hunter", "Brat / Trickster", "Devotee / Surrendered" ]
@@ -2888,6 +2915,7 @@
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "welfare", "infrastructure", "education", "defense", "ecology" ],
                     labels: [ "Healthcare & Welfare", "Infrastructure & Energy", "Education & Science", "Defense & Security", "Ecology & Climate" ]
@@ -2898,6 +2926,7 @@
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "earth", "water", "fire", "air", "aether" ],
                     labels: [ "Earth (Body & Form)", "Water (Flow & Emotion)", "Fire (Will & Energy)", "Air (Mind & Breath)", "Aether (Spirit & Void)" ]
@@ -2908,6 +2937,7 @@
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad", // Type II: Multi-Affinity Distribution / Diametric Pairs
                     keys: [ "eros", "ludus", "storge", "pragma", "mania", "agape" ],
                     labels: [ "Eros (Passionate)", "Ludus (Playful)", "Storge (Companionate)", "Pragma (Practical)", "Mania (Obsessive)", "Agape (Altruistic)" ]
@@ -2917,6 +2947,7 @@
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "sting", "thud", "thermal", "clamp", "deprivation", "overload" ],
                     labels: [ "Sting (Cutaneous)", "Thud (Deep Muscle)", "Thermal (Temperature)", "Clamp (Ischemic)", "Deprivation (Starve)", "Overload (Saturation)" ]
@@ -2926,6 +2957,7 @@
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "clitoral", "pelvic", "cervical", "anal", "somatic", "psychic" ],
                     labels: [ "External Cutaneous", "Internal Pelvic (G/P)", "Cervical / Trance", "Anal / Sphincter Wave", "Whole-Body Somatic", "Psychic / Tantric" ]
@@ -2936,6 +2968,7 @@
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "capitalism", "socialism", "technocracy", "communitarian", "authoritarian", "libertarian" ],
                     labels: [ "Free-Market Capitalism", "Democratic Socialism", "Technocratic Meritocracy", "Communitarian Localism", "Authoritarian Order", "Libertarian Voluntaryism" ]
@@ -2946,6 +2979,7 @@
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "bhakti", "jnana", "karma", "raja", "kundalini", "tantra" ],
                     labels: [ "Bhakti (Devotion)", "Jnana (Self-Inquiry)", "Karma (Sacred Action)", "Raja (Meditation)", "Kundalini (Prana)", "Tantra (Matter Integration)" ]
@@ -2956,15 +2990,18 @@
             // give/receive topic) to one "everything" slider.
             if (We[e] && !Ue.has(e)) return {
                 single: !1,
+                widget: "xy-switchbox",
                 keys: [ "give", "receive" ],
                 labels: We[e]
             };
             return Ue.has(i) ? {
                 single: !0,
+                widget: "monopole-slider",
                 keys: [ "give" ],
                 labels: [ "everything" ]
             } : {
                 single: !1,
+                widget: "xy-switchbox",
                 keys: [ "give", "receive" ],
                 labels: We[i] || [ "give", "receive" ]
             };

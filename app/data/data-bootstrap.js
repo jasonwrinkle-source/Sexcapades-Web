@@ -12011,6 +12011,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "bull", "hotwife", "cuckold" ],
                     labels: [ "Bull", "Hotwife", "Cuckold" ]
                 };
@@ -12019,6 +12021,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "vixen", "stag", "cuckquean" ],
                     labels: [ "Vixen", "Stag", "Cuckquean" ]
                 };
@@ -12027,6 +12031,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "top", "side", "bottom" ],
                     labels: [ "Top", "Side", "Bottom" ]
                 };
@@ -12035,6 +12041,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "primal", "sensual", "humiliation" ],
                     labels: [ "Primal", "Sensual", "Humiliation" ]
                 };
@@ -12043,6 +12051,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "sensation", "power", "intimacy" ],
                     labels: [ "Sensation", "Power", "Intimacy" ]
                 };
@@ -12051,6 +12061,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "monogamy", "polyamory", "anarchy" ],
                     labels: [ "Monogamy", "Polyamory", "Relationship Anarchy" ]
                 };
@@ -12059,6 +12071,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "trilinear-sliders",
+                    archetype: "multi-affinity",
                     keys: [ "edging", "ruined", "forced" ],
                     labels: [ "Edging & Denial", "Ruined Orgasm", "Forced / Overstim" ]
                 };
@@ -12067,6 +12081,8 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     triangle: !0,
+                    widget: "triangle",
+                    archetype: "simplex",
                     keys: [ "tantric", "frantic", "trance" ],
                     labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
                 };
@@ -12076,6 +12092,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "quad-sliders",
                     archetype: "simplex", // Type I: Closed Role Allocation
                     keys: [ "master", "mistress", "slave", "pet" ],
                     labels: [ "Master (Authority)", "Mistress (Nurture)", "Slave (Service)", "Pet / Brat (Primal)" ]
@@ -12085,6 +12102,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "ruined", "edged", "forced", "cathartic" ],
                     labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
@@ -12094,6 +12112,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
                     labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
@@ -12103,6 +12122,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "escape", "union", "catharsis", "transgression" ],
                     labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
@@ -12113,6 +12133,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "quad-compass",
                     archetype: "quad", // Type III: Orthogonal Continua
                     keys: [ "authleft", "authright", "libleft", "libright" ],
                     labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
@@ -12122,6 +12143,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "quad-sliders",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "consensus", "democracy", "technocracy", "mandate" ],
                     labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
@@ -12132,6 +12154,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "materialism", "idealism", "pantheism", "dualism" ],
                     labels: [ "Materialism", "Idealism (Non-Dual)", "Pantheism", "Transcendent Dualism" ]
@@ -12141,6 +12164,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     tetrad: !0,
+                    widget: "diamond",
                     archetype: "diamond", // Type II: Multi-Affinity Distribution
                     keys: [ "inquiry", "devotion", "action", "asceticism" ],
                     labels: [ "Contemplative Inquiry", "Emotional Devotion", "Ritual / Social Action", "Ascetic Discipline" ]
@@ -12151,6 +12175,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "thermal", "tactile", "vibrational", "olfactory", "auditory" ],
                     labels: [ "Thermal (Temperature)", "Tactile (Texture/Impact)", "Vibrational / Electro", "Olfactory / Taste", "Auditory / Verbal" ]
@@ -12160,6 +12185,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "words", "touch", "service", "vulnerability", "autonomy" ],
                     labels: [ "Words of Adoration", "Dedicated Erotic Touch", "Devoted Acts of Service", "Deep Vulnerability", "Autonomous Presence" ]
@@ -12169,6 +12195,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "master", "nurturer", "primal", "brat", "surrender" ],
                     labels: [ "Sovereign / Master", "Nurturer / Caregiver", "Primal / Hunter", "Brat / Trickster", "Devotee / Surrendered" ]
@@ -12179,6 +12206,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "welfare", "infrastructure", "education", "defense", "ecology" ],
                     labels: [ "Healthcare & Welfare", "Infrastructure & Energy", "Education & Science", "Defense & Security", "Ecology & Climate" ]
@@ -12189,6 +12217,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     pentad: !0,
+                    widget: "star-radar",
                     archetype: "star", // Type II: Multi-Affinity Distribution
                     keys: [ "earth", "water", "fire", "air", "aether" ],
                     labels: [ "Earth (Body & Form)", "Water (Flow & Emotion)", "Fire (Will & Energy)", "Air (Mind & Breath)", "Aether (Spirit & Void)" ]
@@ -12199,6 +12228,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad", // Type II: Multi-Affinity Distribution / Diametric Pairs
                     keys: [ "eros", "ludus", "storge", "pragma", "mania", "agape" ],
                     labels: [ "Eros (Passionate)", "Ludus (Playful)", "Storge (Companionate)", "Pragma (Practical)", "Mania (Obsessive)", "Agape (Altruistic)" ]
@@ -12208,6 +12238,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "sting", "thud", "thermal", "clamp", "deprivation", "overload" ],
                     labels: [ "Sting (Cutaneous)", "Thud (Deep Muscle)", "Thermal (Temperature)", "Clamp (Ischemic)", "Deprivation (Starve)", "Overload (Saturation)" ]
@@ -12217,6 +12248,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "clitoral", "pelvic", "cervical", "anal", "somatic", "psychic" ],
                     labels: [ "External Cutaneous", "Internal Pelvic (G/P)", "Cervical / Trance", "Anal / Sphincter Wave", "Whole-Body Somatic", "Psychic / Tantric" ]
@@ -12227,6 +12259,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "capitalism", "socialism", "technocracy", "communitarian", "authoritarian", "libertarian" ],
                     labels: [ "Free-Market Capitalism", "Democratic Socialism", "Technocratic Meritocracy", "Communitarian Localism", "Authoritarian Order", "Libertarian Voluntaryism" ]
@@ -12237,6 +12270,7 @@ const TAXONOMY_CATEGORIES = [
                 return {
                     single: !1,
                     hexad: !0,
+                    widget: "hexad-radar",
                     archetype: "hexad",
                     keys: [ "bhakti", "jnana", "karma", "raja", "kundalini", "tantra" ],
                     labels: [ "Bhakti (Devotion)", "Jnana (Self-Inquiry)", "Karma (Sacred Action)", "Raja (Meditation)", "Kundalini (Prana)", "Tantra (Matter Integration)" ]
@@ -12247,15 +12281,18 @@ const TAXONOMY_CATEGORIES = [
             // give/receive topic) to one "everything" slider.
             if (We[e] && !Ue.has(e)) return {
                 single: !1,
+                widget: "xy-switchbox",
                 keys: [ "give", "receive" ],
                 labels: We[e]
             };
             return Ue.has(i) ? {
                 single: !0,
+                widget: "monopole-slider",
                 keys: [ "give" ],
                 labels: [ "everything" ]
             } : {
                 single: !1,
+                widget: "xy-switchbox",
                 keys: [ "give", "receive" ],
                 labels: We[i] || [ "give", "receive" ]
             };
@@ -23634,7 +23671,15 @@ const TAXONOMY_CATEGORIES = [
         const vr = ".tapered-stem,.hanky-midline,.hanky-midline-outline,.topic-pulse,.group-heat,.selected-spoke,.mutual-halo,.disinterest-halo,.favorite-halo,.limit-halo,.visual-rail";
         function wr() {
             if ("number" != typeof $p || "number" != typeof Ep || "number" != typeof Ap) return;
-            const e = Cn.classList.contains("is-camera-moving"), t = nh, n = 24 * $p, i = (e, i) => {
+            const isMoving = Cn && Cn.classList.contains("is-camera-moving");
+            if (isMoving) {
+                // Viewport performance optimization: during continuous camera pan and zoom,
+                // do NOT force synchronous DOM reflows by querying getBoundingClientRect() on
+                // hundreds of direction-control nodes per frame. Clipping will reconcile
+                // automatically on settle (kh).
+                return;
+            }
+            const t = nh, n = 24 * $p, i = (e, i) => {
                 const a = Ep + e * $p, r = Ap + i * $p;
                 return a >= t.x - n && a <= t.x + t.width + n && r >= t.y - n && r <= t.y + t.height + n;
             }, a = Cn.getBoundingClientRect();
@@ -23644,10 +23689,6 @@ const TAXONOMY_CATEGORIES = [
             }), In.querySelectorAll(".common-overlap-link").forEach(t => {
                 if ("false" === t.dataset.connected) return void (t.style.display = "none");
                 const n = Number(t.dataset.ax), a = Number(t.dataset.ay), r = Number(t.dataset.bx), o = Number(t.dataset.by);
-                if (e) {
-                    const e = i(n, a) || i(r, o);
-                    return void (t.style.display = e ? "" : "none");
-                }
                 const s = i(n, a) || i(r, o);
                 t.style.display = s ? "" : "none";
             });
@@ -27776,9 +27817,10 @@ const TAXONOMY_CATEGORIES = [
             const isHexad = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
             const isPentad = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
             const isTetrad = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
-            const isTriad = Boolean(shape.triangle || shape.triple || (shape.keys && shape.keys.length === 3));
+            const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
+            const is2Pole = !isHexad && !isPentad && !isTetrad && !isTriad;
 
-            badgeEl && (badgeEl.textContent = isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : "3-Pole Triad");
+            badgeEl && (badgeEl.textContent = isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
 
             const keys = shape.keys || [];
             readoutEl && (readoutEl.innerHTML = "");
@@ -27787,7 +27829,7 @@ const TAXONOMY_CATEGORIES = [
                 const statBox = document.createElement("div");
                 statBox.className = "mark-tri-stat";
                 const pName = shape.labels[idx] || k;
-                const pCol = isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : ["#ef4444", "#22c55e", "#3b82f6"][idx];
+                const pCol = isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
                 statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
                 readoutEl && readoutEl.append(statBox);
                 valSpans.push(statBox.querySelector("b"));
@@ -27822,9 +27864,14 @@ const TAXONOMY_CATEGORIES = [
                     sxDrawTetradWidget(canvas, shape, {
                         p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3]
                     });
-                } else {
+                } else if (isTriad) {
                     sxDrawTriangleWidget(canvas, shape, {
                         x: 0, y: 0, w0: vals[0]/100, w1: vals[1]/100, w2: vals[2]/100, intensity: maxVal
+                    });
+                } else {
+                    sxDrawSwitchboxWidget(canvas, shape, {
+                        give: curRec.giveKnown ? curRec.give : 0,
+                        receive: curRec.receiveKnown ? curRec.receive : 0
                     });
                 }
             };
@@ -27863,6 +27910,28 @@ const TAXONOMY_CATEGORIES = [
                     const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
                     const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
                     To(topicId, keys[activeIdx], val, !0, pId);
+                    redraw();
+                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                    row && Ss(row);
+                } else if (isTriad) {
+                    const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
+                    const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
+                    const intensity = 80;
+                    To(topicId, keys[0], Math.round(w0 * intensity), !1, pId);
+                    To(topicId, keys[1], Math.round(w1 * intensity), !1, pId);
+                    To(topicId, keys[2], Math.round(w2 * intensity), !0, pId);
+                    redraw();
+                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                    row && Ss(row);
+                } else if (is2Pole && !shape.single) {
+                    const cx = canvas.width / 2, cy = canvas.height / 2;
+                    const r = Math.min(cx, cy) - 22;
+                    let dx = px - cx, dy = py - cy;
+                    if (Math.hypot(dx, dy) < 6) { dx = 0; dy = 0; }
+                    const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
+                    const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
+                    To(topicId, "give", g, !1, pId);
+                    To(topicId, "receive", recv, !0, pId);
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -28031,11 +28100,252 @@ const TAXONOMY_CATEGORIES = [
             }
         }
 
+        // --- 2D XY Role Switch-Box State & Widget ---
+        let sx2PoleViewMode = "switchbox"; // "switchbox" | "sliders"
+        let sxSwitchboxState = {
+            topicId: null,
+            give: 0,
+            receive: 0,
+            isDragging: false
+        };
+
+        function sxGetSwitchboxRole(give, receive) {
+            const g = Math.round(give), r = Math.round(receive);
+            if (g === 0 && r === 0) return "Neutral / Open";
+            if (g > 20 && r > 20) return "Versatile Switch";
+            if (g < -20 && r < -20) return "Hard Red Limit";
+            if (g > 20 && r < -20) return "Dedicated Top / Giver";
+            if (g < -20 && r > 20) return "Dedicated Bottom / Receiver";
+            if (g > 20 && Math.abs(r) <= 20) return "Top Leaning";
+            if (r > 20 && Math.abs(g) <= 20) return "Bottom Leaning";
+            if (g < -20 && Math.abs(r) <= 20) return "Give Limit";
+            if (r < -20 && Math.abs(g) <= 20) return "Receive Limit";
+            return "Moderate Engagement";
+        }
+
+        function sxDrawSwitchboxWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const cx = width / 2, cy = height / 2;
+            const pad = 22;
+            const r = Math.min(cx, cy) - pad;
+
+            // 1. Tinted Quadrant Backgrounds
+            // QI (Top-Right: +Give, +Receive -> Versatile Switch)
+            ctx.fillStyle = "rgba(34, 197, 94, 0.12)";
+            ctx.fillRect(cx, cy - r, r, r);
+
+            // QII (Top-Left: -Give, +Receive -> Bottom / Receiver)
+            ctx.fillStyle = "rgba(59, 130, 246, 0.10)";
+            ctx.fillRect(cx - r, cy - r, r, r);
+
+            // QIII (Bottom-Left: -Give, -Receive -> Hard Limit)
+            ctx.fillStyle = "rgba(239, 68, 68, 0.12)";
+            ctx.fillRect(cx - r, cy, r, r);
+
+            // QIV (Bottom-Right: +Give, -Receive -> Top / Giver)
+            ctx.fillStyle = "rgba(234, 179, 8, 0.10)";
+            ctx.fillRect(cx, cy, r, r);
+
+            // 2. Reference Grid & Border
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.28)";
+            ctx.strokeRect(cx - r, cy - r, 2 * r, 2 * r);
+
+            // Grid lines at +/- 50
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.14)";
+            ctx.beginPath();
+            ctx.moveTo(cx - r * 0.5, cy - r); ctx.lineTo(cx - r * 0.5, cy + r);
+            ctx.moveTo(cx + r * 0.5, cy - r); ctx.lineTo(cx + r * 0.5, cy + r);
+            ctx.moveTo(cx - r, cy - r * 0.5); ctx.lineTo(cx + r, cy - r * 0.5);
+            ctx.moveTo(cx - r, cy + r * 0.5); ctx.lineTo(cx + r, cy + r * 0.5);
+            ctx.stroke();
+
+            // Diagonal switch line Y = X (Top-Right to Bottom-Left)
+            ctx.beginPath();
+            ctx.moveTo(cx - r, cy + r);
+            ctx.lineTo(cx + r, cy - r);
+            ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Main Crosshairs
+            ctx.beginPath();
+            ctx.moveTo(cx - r, cy); ctx.lineTo(cx + r, cy);
+            ctx.moveTo(cx, cy - r); ctx.lineTo(cx, cy + r);
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.stroke();
+
+            // Deadband center circle
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, 2 * Math.PI);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.stroke();
+
+            // 4. Pole Axis Labels
+            const giveLabel = (shape && shape.labels && shape.labels[0]) || "Give";
+            const recvLabel = (shape && shape.labels && shape.labels[1]) || "Receive";
+            ctx.font = "bold 9px system-ui, sans-serif";
+
+            // Top (+Receive)
+            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+            ctx.fillStyle = "#4ade80"; ctx.fillText(`+ ${recvLabel}`, cx, cy - r - 4);
+
+            // Bottom (-Receive Limit)
+            ctx.textAlign = "center"; ctx.textBaseline = "top";
+            ctx.fillStyle = "#f87171"; ctx.fillText(`- ${recvLabel} Limit`, cx, cy + r + 4);
+
+            // Right (+Give)
+            ctx.textAlign = "left"; ctx.textBaseline = "middle";
+            ctx.fillStyle = "#4ade80"; ctx.fillText(`+ ${giveLabel}`, cx + r + 5, cy);
+
+            // Left (-Give Limit)
+            ctx.textAlign = "right"; ctx.textBaseline = "middle";
+            ctx.fillStyle = "#f87171"; ctx.fillText(`- ${giveLabel} Limit`, cx - r - 5, cy);
+
+            // 5. Active Puck Position
+            const g = Math.max(-100, Math.min(100, state.give || 0));
+            const recvVal = Math.max(-100, Math.min(100, state.receive || 0));
+            const px = cx + (g / 100) * r;
+            const py = cy - (recvVal / 100) * r; // screen y is inverted
+
+            // Puck color
+            let puckCol = "#94a3b8";
+            if (g === 0 && recvVal === 0) {
+                puckCol = "rgba(255, 255, 255, 0.5)";
+            } else if (g >= 0 && recvVal >= 0) {
+                puckCol = "#22c55e"; // Green versatile switch
+            } else if (g <= 0 && recvVal <= 0) {
+                puckCol = "#ef4444"; // Red limit
+            } else if (g > 0 && recvVal < 0) {
+                puckCol = "#eab308"; // Top yellow
+            } else {
+                puckCol = "#3b82f6"; // Bottom blue
+            }
+
+            // Glow
+            ctx.beginPath();
+            ctx.arc(px, py, 11, 0, 2 * Math.PI);
+            ctx.fillStyle = puckCol;
+            ctx.globalAlpha = 0.35;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+
+            // Puck body
+            ctx.beginPath();
+            ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
+            ctx.fillStyle = puckCol;
+            ctx.fill();
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+        }
+
+        function sxUpdateSwitchboxReadouts(give, receive) {
+            const gVal = e.byId("markSwitchboxGiveVal");
+            const rVal = e.byId("markSwitchboxRecvVal");
+            const roleVal = e.byId("markSwitchboxRoleVal");
+            if (gVal) gVal.textContent = String(Math.round(give));
+            if (rVal) rVal.textContent = String(Math.round(receive));
+            if (roleVal) roleVal.textContent = sxGetSwitchboxRole(give, receive);
+        }
+
+        function sxBindSwitchboxWidget() {
+            const canvas = e.byId("markSwitchboxCanvas");
+            const clearBtn = e.byId("markSwitchboxClear");
+            const toggleBtn = e.byId("markSwitchboxToggleMode");
+            const slidersToggleBtn = e.byId("markSlidersToggleMode");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+                const cx = canvas.width / 2, cy = canvas.height / 2;
+                const r = Math.min(cx, cy) - 22;
+
+                // Deadband center snap (within 6px)
+                let dx = px - cx, dy = py - cy;
+                if (Math.hypot(dx, dy) < 6) {
+                    dx = 0; dy = 0;
+                }
+                const g = Math.max(-100, Math.min(100, Math.round((dx / r) * 100)));
+                const recv = Math.max(-100, Math.min(100, Math.round((-dy / r) * 100)));
+
+                sxSwitchboxState.give = g;
+                sxSwitchboxState.receive = recv;
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
+                    To(Qr, "give", g, !1);
+                    To(Qr, "receive", recv, !0);
+                    sxUpdateSwitchboxReadouts(g, recv);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxSwitchboxState.isDragging = !0;
+                try { canvas.setPointerCapture(evt.pointerId); } catch (e) {}
+                updateFromPointer(evt);
+            });
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxSwitchboxState.isDragging) return;
+                updateFromPointer(evt);
+            });
+            const stopDrag = (evt) => {
+                if (sxSwitchboxState.isDragging) {
+                    sxSwitchboxState.isDragging = !1;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (e) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        Fo(Qr, "give", !1);
+                        Fo(Qr, "receive", !0);
+                        sxSwitchboxState.give = 0;
+                        sxSwitchboxState.receive = 0;
+                        const shape = Ge(Qr);
+                        sxDrawSwitchboxWidget(canvas, shape, sxSwitchboxState);
+                        sxUpdateSwitchboxReadouts(0, 0);
+                        sxSyncMarkRatings(Qr);
+                    }
+                });
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", () => {
+                    sx2PoleViewMode = "sliders";
+                    if (Qr) sxSyncMarkRatings(Qr);
+                });
+            }
+            if (slidersToggleBtn) {
+                slidersToggleBtn.addEventListener("click", () => {
+                    sx2PoleViewMode = "switchbox";
+                    if (Qr) sxSyncMarkRatings(Qr);
+                });
+            }
+        }
+
         function sxSyncMarkRatings(id) {
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out"), role3Label = e.byId("markRole3Label"), role3Row = e.byId("markRole3Row");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out"), role4Label = e.byId("markRole4Label"), role4Row = e.byId("markRole4Row");
             const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out"), role5Label = e.byId("markRole5Label"), role5Row = e.byId("markRole5Row");
+            const role6Row = e.byId("markRole6Row"), role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out"), role6Label = e.byId("markRole6Label");
 
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
@@ -28064,7 +28374,12 @@ const TAXONOMY_CATEGORIES = [
             const hexadIntensityOut = e.byId("markHexadIntensityOut");
             const hexadVal0 = e.byId("markHexadVal0"), hexadVal1 = e.byId("markHexadVal1"), hexadVal2 = e.byId("markHexadVal2"), hexadVal3 = e.byId("markHexadVal3"), hexadVal4 = e.byId("markHexadVal4"), hexadVal5 = e.byId("markHexadVal5");
             const hexadPole0 = e.byId("markHexadPole0"), hexadPole1 = e.byId("markHexadPole1"), hexadPole2 = e.byId("markHexadPole2"), hexadPole3 = e.byId("markHexadPole3"), hexadPole4 = e.byId("markHexadPole4"), hexadPole5 = e.byId("markHexadPole5");
-            const role6Row = e.byId("markRole6Row"), role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out"), role6Label = e.byId("markRole6Label");
+
+            const switchboxWrap = e.byId("markSwitchboxWrap");
+            const switchboxCanvas = e.byId("markSwitchboxCanvas");
+            const switchboxGiveLabel = e.byId("markSwitchboxGiveLabel");
+            const switchboxRecvLabel = e.byId("markSwitchboxRecvLabel");
+            const slidersToggleBtn = e.byId("markSlidersToggleMode");
 
             const linearRatings = e.byId("markRatings");
 
@@ -28076,21 +28391,20 @@ const TAXONOMY_CATEGORIES = [
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !0);
                 return;
             }
 
             const shape = Ge(id), rec = ca(id, Vi()), single = Boolean(shape.single);
-            const isTriangleTopic = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
-            const isHexadTopic = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
-            const isPentadTopic = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
-            const isTetradTopic = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
+            const widget = shape.widget || (shape.hexad ? "hexad-radar" : shape.pentad ? "star-radar" : shape.tetrad ? "diamond" : shape.triangle ? "triangle" : shape.single ? "monopole-slider" : "xy-switchbox");
 
-            if (isHexadTopic) {
+            if (widget === "hexad-radar") {
                 // 6-Pole Hexad Radar / Hexagon Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
 
@@ -28118,11 +28432,12 @@ const TAXONOMY_CATEGORIES = [
                 }
 
                 sxDrawHexadWidget(hexadCanvas, shape, sxHexadState);
-            } else if (isPentadTopic) {
+            } else if (widget === "star-radar") {
                 // 5-Pole Pentad Radar / Star Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
 
@@ -28149,11 +28464,12 @@ const TAXONOMY_CATEGORIES = [
                 }
 
                 sxDrawPentadWidget(pentadCanvas, shape, sxPentadState);
-            } else if (isTetradTopic) {
+            } else if (widget === "diamond" || widget === "quad-compass") {
                 // 4-Pole Tetrad Radar / Diamond Deformation Polygon Widget
                 triWrap && (triWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !1);
                 linearRatings && (linearRatings.hidden = !0);
 
@@ -28184,11 +28500,12 @@ const TAXONOMY_CATEGORIES = [
                 if (tetradVal3) { tetradVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; tetradVal3.style.color = "#3b82f6"; }
 
                 sxDrawTetradWidget(tetradCanvas, shape, sxTetradState);
-            } else if (isTriangleTopic) {
-                // 3-Pole Triad Barycentric Widget
+            } else if (widget === "triangle") {
+                // 3-Pole Triad Barycentric Simplex Widget
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !0);
                 triWrap && (triWrap.hidden = !1);
 
@@ -28230,24 +28547,114 @@ const TAXONOMY_CATEGORIES = [
                 if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
 
                 sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
-            } else {
-                // 1-Pole Monopoles or 2-Pole Dipoles ONLY
+            } else if (widget === "trilinear-sliders") {
+                // 3 Independent Linear Sliders (for multi-affinity triadic appetites)
                 triWrap && (triWrap.hidden = !0);
                 tetradWrap && (tetradWrap.hidden = !0);
                 pentadWrap && (pentadWrap.hidden = !0);
                 hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
                 linearRatings && (linearRatings.hidden = !1);
+                slidersToggleBtn && (slidersToggleBtn.hidden = !0);
+
+                const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2];
+                giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
+                recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
+                role3Label && (role3Label.textContent = shape.labels[2] || k2);
+                recvRow && (recvRow.hidden = !1);
+                role3Row && (role3Row.hidden = !1);
+                role4Row && (role4Row.hidden = !0);
+                role5Row && (role5Row.hidden = !0);
+                role6Row && (role6Row.hidden = !0);
+
+                give.value = rec[k0 + "Known"] ? rec[k0] : 0;
+                recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
+                role3 && (role3.value = rec[k2 + "Known"] ? rec[k2] : 0);
+
+                giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(rec[k0])) : "Unrated");
+                recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(rec[k1])) : "Unrated");
+                role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(rec[k2])) : "Unrated");
+            } else if (widget === "quad-sliders") {
+                // 4 Independent Linear Sliders
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !1);
+                slidersToggleBtn && (slidersToggleBtn.hidden = !0);
+
+                const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2], k3 = shape.keys[3];
+                giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
+                recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
+                role3Label && (role3Label.textContent = shape.labels[2] || k2);
+                role4Label && (role4Label.textContent = shape.labels[3] || k3);
+                recvRow && (recvRow.hidden = !1);
+                role3Row && (role3Row.hidden = !1);
+                role4Row && (role4Row.hidden = !1);
+                role5Row && (role5Row.hidden = !0);
+                role6Row && (role6Row.hidden = !0);
+
+                give.value = rec[k0 + "Known"] ? rec[k0] : 0;
+                recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
+                role3 && (role3.value = rec[k2 + "Known"] ? rec[k2] : 0);
+                role4 && (role4.value = rec[k3 + "Known"] ? rec[k3] : 0);
+
+                giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(rec[k0])) : "Unrated");
+                recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(rec[k1])) : "Unrated");
+                role3Out && (role3Out.textContent = rec[k2 + "Known"] ? String(Math.round(rec[k2])) : "Unrated");
+                role4Out && (role4Out.textContent = rec[k3 + "Known"] ? String(Math.round(rec[k3])) : "Unrated");
+            } else if (widget === "monopole-slider" || single) {
+                // 1-Pole Monopole Slider
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+                switchboxWrap && (switchboxWrap.hidden = !0);
+                linearRatings && (linearRatings.hidden = !1);
+                slidersToggleBtn && (slidersToggleBtn.hidden = !0);
+
+                recvRow && (recvRow.hidden = !0);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
-                recvRow && (recvRow.hidden = single);
-                giveLabel && (giveLabel.textContent = single ? shape.labels[0] || "Rating" : shape.labels[0] || "Give");
-                recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
+                giveLabel && (giveLabel.textContent = shape.labels[0] || "Rating");
                 give.value = rec.giveKnown ? rec.give : 0;
-                recv && (recv.value = rec.receiveKnown ? rec.receive : 0);
                 giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
-                recvOut && (recvOut.textContent = rec.receiveKnown ? String(Math.round(rec.receive)) : "Unrated");
+            } else {
+                // 2-Pole Interactive Topic: Default to 2D XY Switch-Box, or Linear Sliders if toggled
+                triWrap && (triWrap.hidden = !0);
+                tetradWrap && (tetradWrap.hidden = !0);
+                pentadWrap && (pentadWrap.hidden = !0);
+                hexadWrap && (hexadWrap.hidden = !0);
+
+                if (sx2PoleViewMode === "sliders") {
+                    switchboxWrap && (switchboxWrap.hidden = !0);
+                    linearRatings && (linearRatings.hidden = !1);
+                    slidersToggleBtn && (slidersToggleBtn.hidden = !1);
+                    recvRow && (recvRow.hidden = !1);
+                    role3Row && (role3Row.hidden = !0);
+                    role4Row && (role4Row.hidden = !0);
+                    role5Row && (role5Row.hidden = !0);
+                    role6Row && (role6Row.hidden = !0);
+                    giveLabel && (giveLabel.textContent = shape.labels[0] || "Give");
+                    recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
+                    give.value = rec.giveKnown ? rec.give : 0;
+                    recv && (recv.value = rec.receiveKnown ? rec.receive : 0);
+                    giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
+                    recvOut && (recvOut.textContent = rec.receiveKnown ? String(Math.round(rec.receive)) : "Unrated");
+                } else {
+                    linearRatings && (linearRatings.hidden = !0);
+                    switchboxWrap && (switchboxWrap.hidden = !1);
+                    sxSwitchboxState.topicId = id;
+                    sxSwitchboxState.give = rec.giveKnown ? rec.give : 0;
+                    sxSwitchboxState.receive = rec.receiveKnown ? rec.receive : 0;
+                    if (switchboxGiveLabel) switchboxGiveLabel.textContent = shape.labels[0] || "Give";
+                    if (switchboxRecvLabel) switchboxRecvLabel.textContent = shape.labels[1] || "Receive";
+                    sxDrawSwitchboxWidget(switchboxCanvas, shape, sxSwitchboxState);
+                    sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive);
+                }
             }
         }
         function sxBindMarkRatings() {
@@ -28255,6 +28662,7 @@ const TAXONOMY_CATEGORIES = [
             sxBindTetradWidget();
             sxBindPentadWidget();
             sxBindHexadWidget();
+            sxBindSwitchboxWidget();
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out");
