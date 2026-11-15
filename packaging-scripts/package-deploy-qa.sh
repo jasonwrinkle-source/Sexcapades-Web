@@ -22,6 +22,37 @@ echo "=== Building Sexcapades QA Testing Package (${TS} CDT) ==="
 echo "1. Rebuilding data-bootstrap bundle..."
 python3 "$DIR/app/data/build-bundle.py"
 
+# 1b. Regenerate hosted/app.html from the source export (2026-11-15: the
+# QA packager copies the hosted tree as-is, but hosted/app.html had gone
+# stale — it lacked the skin loader, the skin menu, and the compass markup,
+# so a QA build from it would have shipped a dead skin system. The hosted
+# page is now regenerated from source on every QA build, so it can never
+# go stale again). The source file itself is untouched; only the hosted
+# copy is written. The two hosted URL rewrites are the only differences
+# between source and hosted; asset versions are re-stamped by step 3d.
+echo "1b. Regenerating hosted/app.html from source..."
+HOSTED_APP="$DIR/site-tree/public_html/hosted/app.html"
+cp "$DIR/app/sexcapades-4.0.html" "$HOSTED_APP"
+sed -i 's|https://sexcapades.io/?return=|/hosted/gate.html?return=|g' "$HOSTED_APP"
+sed -i 's|href="https://sexcapades.io/#app"|href="/hosted/guide.html"|g' "$HOSTED_APP"
+# Verify the regenerated page before staging: it must carry the skin
+# system (loader, menu, compass markup), the hosted rewrites must have
+# taken effect (no absolute sexcapades.io URLs left), and its build
+# marker must match the source's. Any failure aborts the build.
+[ "$(grep -c 'skin-loader' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the skin loader (expected 1 occurrence)!"; exit 1; }
+[ "$(grep -c 'skinMenu' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the skin menu (expected 1 occurrence)!"; exit 1; }
+[ "$(grep -c 'skinNote' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the skin note (expected 1 occurrence)!"; exit 1; }
+[ "$(grep -c 'markCompassWrap' "$HOSTED_APP")" = "1" ] || { echo "ERROR: regenerated hosted/app.html lacks the compass widget markup (expected 1 occurrence)!"; exit 1; }
+[ "$(grep -c 'mark-compass-wrap' "$HOSTED_APP")" = "2" ] || { echo "ERROR: regenerated hosted/app.html lacks the compass CSS (expected 2 occurrences)!"; exit 1; }
+grep -q '/hosted/gate.html?return=' "$HOSTED_APP" || { echo "ERROR: regenerated hosted/app.html is missing the hosted gate return URL!"; exit 1; }
+grep -q 'href="/hosted/guide.html"' "$HOSTED_APP" || { echo "ERROR: regenerated hosted/app.html is missing the hosted guide link!"; exit 1; }
+grep -q 'https://sexcapades.io/?return=' "$HOSTED_APP" && { echo "ERROR: regenerated hosted/app.html still has the live gate return URL (rewrite did not apply)!"; exit 1; }
+grep -q 'href="https://sexcapades.io/#app"' "$HOSTED_APP" && { echo "ERROR: regenerated hosted/app.html still has the live guide link (rewrite did not apply)!"; exit 1; }
+SRC_BUILD=$(grep -o 'Version [0-9.]* · Build [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' "$DIR/app/sexcapades-4.0.html" | head -1)
+[ -n "$SRC_BUILD" ] || { echo "ERROR: source sexcapades-4.0.html has no build marker!"; exit 1; }
+grep -qF "$SRC_BUILD" "$HOSTED_APP" || { echo "ERROR: regenerated hosted/app.html build marker does not match the source ($SRC_BUILD)!"; exit 1; }
+echo "Regenerated hosted/app.html verified (skin loader, menu, compass, hosted rewrites, build marker $SRC_BUILD)."
+
 WORK=$(mktemp -d)
 trap "rm -rf $WORK" EXIT
 
@@ -189,6 +220,22 @@ for qapage in sexcapades.io/public_html/qa/app.html; do
   echo "$QAPAGE_CONTENT" | grep -q 'href="/qa/manifest.json"' || { echo "ERROR: $qapage does not link /qa/manifest.json"; exit 1; }
 done
 echo "QA PWA gate passed (QA worker, manifest, icons, and links are QA-scoped)."
+
+# Skin-system gate (2026-11-15): the 1301 QA build nearly shipped a dead
+# skin system because hosted/app.html had gone stale. Step 1b regenerates
+# it, and this gate proves the packaged result: the packaged qa/app.html
+# must carry the skin loader, the skin menu, and the compass markup, and
+# the tarball must carry the skin data and the loader. A QA build that
+# fails this gate must never be hosted.
+echo "Skin-system gate: checking qa/app.html carries the skin system and the skin files are in the package..."
+QA_APP=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/qa/app.html 2>/dev/null || true)
+if [ -z "$QA_APP" ]; then echo "ERROR: qa/app.html missing or unreadable in package!"; exit 1; fi
+echo "$QA_APP" | grep -q "skin-loader" || { echo "ERROR: qa/app.html does not load skin-loader.js (stale app page — the skin system is dead)!"; exit 1; }
+echo "$QA_APP" | grep -q "skinMenu" || { echo "ERROR: qa/app.html lacks the skin menu (stale app page)!"; exit 1; }
+echo "$QA_APP" | grep -q "markCompassWrap" || { echo "ERROR: qa/app.html lacks the compass widget markup (stale app page)!"; exit 1; }
+tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/data/skins/sexcapades.json" || { echo "ERROR: qa/data/skins/sexcapades.json missing from package!"; exit 1; }
+tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/js/skin-loader.js" || { echo "ERROR: qa/js/skin-loader.js missing from package!"; exit 1; }
+echo "Skin-system gate passed (qa/app.html carries the skin loader, menu, and compass; skin files present)."
 
 MD5=$(md5sum "$OUTFILE" | awk '{print $1}')
 SIZE=$(ls -lh "$OUTFILE" | awk '{print $5}')
