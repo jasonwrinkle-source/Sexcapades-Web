@@ -105,11 +105,14 @@
              */
             function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
                 const uName = Math.max(0.15, Math.min(0.65, Number(nameFrac) || 0.35));
+                // Pronounced bulbous flare towards parent circle at u = 0
+                const bulbousSwell = 1.0 + 0.45 * Math.exp(-Math.pow(u / 0.18, 2));
+                const effBase = baseWidth * bulbousSwell;
                 if (u <= uName) {
                     const shape = Math.exp(-Math.pow(u / 0.72, 2));
-                    return tipWidth + (baseWidth - tipWidth) * shape;
+                    return tipWidth + (effBase - tipWidth) * shape;
                 }
-                const wAtName = tipWidth + (baseWidth - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
+                const wAtName = tipWidth + (effBase - tipWidth) * Math.exp(-Math.pow(uName / 0.72, 2));
                 const uPost = (u - uName) / (1 - uName);
                 return tipWidth + (wAtName - tipWidth) * Math.exp(-2.4 * uPost);
             }
@@ -309,7 +312,7 @@
                 const p = SAMPLES;
                 const spokeLen = Math.hypot(dx, dy) || 1;
                 const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
-                const innerFlare = 3.5;
+                const innerFlare = 10.0;
                 const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
                     const frac = si / p;
@@ -554,11 +557,11 @@
                 };
             },
             categoryBaseWidth: (e, t, n) => Za.categoryTaperBaseWidth(e, t, n),
-            spokeBaseWidth: e => 8.5 * e,
+            spokeBaseWidth: e => Math.max(54, 18 * e),
             railsBaseWidth: (e, t, n, i, depth) => (isCatId(e) ? Ga.categoryBaseWidth(t, n, i) : Ga.spokeBaseWidth(t)) * (mapFontScale() * (null == depth ? 1 : sxFontFactor(depth)) / 3),
             cloudBaseWidth(e, t) {
-                const n = Math.max(1, Number(t) || 1), i = e / 2 * er.spread;
-                return Math.max(8, i / Math.max(n, 6));
+                const hubR = Math.max(36, (Number(e) || 48) / 2);
+                return Math.max(48, Math.min(76, hubR * 1.25));
             },
             outlineWidth: (e, depth) => { const f = null == depth ? 1 : sxFontFactor(depth); return midlineStrokeWidth() * f + 16 * (mapFontScale() * f / 3); },
             // splitInnerHalf is half the outline width above, so a
@@ -1256,13 +1259,13 @@
                     return p += n, r;
                 });
             },
-            TAPER_BASE_FRACTION: .92,
+            TAPER_BASE_FRACTION: 1.25,
             // TAPER-BASE RE-ANCHOR: category taper base fatter at the root
             // with bulbous falloff. TAPER_BASE_CAP sets the maximum base chord.
-            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * .92,
+            TAPER_BASE_CAP: 2 * 300 * Math.sin(Math.PI / 18) * 1.35,
             categoryTaperBaseWidth(e, t, n) {
                 const i = 2 * t * Math.sin(Math.PI / Math.max(1, Number(n) || 1));
-                return Math.max(e, Math.min(i * Za.TAPER_BASE_FRACTION, Za.TAPER_BASE_CAP));
+                return Math.max(e * 3.5, Math.min(i * Za.TAPER_BASE_FRACTION, Za.TAPER_BASE_CAP));
             },
             SETTLE: Object.freeze({
                 controlGap: 14,
