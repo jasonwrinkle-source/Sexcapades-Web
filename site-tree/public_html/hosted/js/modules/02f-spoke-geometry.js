@@ -1347,10 +1347,16 @@
                     fontSize: hit.fontSize,
                     spokeLength: hit.spokeLength
                 };
-                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17, i = 96 + Za.measure(e, n) + sxIconRadius(dep) + 6 * Za.measure(" ", n, "topic"), out = {
-                    fontSize: n,
-                    spokeLength: Math.max(t, i)
-                };
+                const n = Math.max(12, Math.min(17, Za.fittedSize(e, Math.max(80, t - 84)))) * sxFontCoef(dep) / 17,
+                      hubR = typeof sxIconRadius === "function" ? sxIconRadius(Math.max(1, dep - 1)) : 96,
+                      leafR = typeof sxIconRadius === "function" ? sxIconRadius(dep) : 62,
+                      tabW = 5 * Za.measure(" ", n, "topic"),
+                      gapW = Math.max(20, 6 * Za.measure(" ", n, "topic")),
+                      i = hubR + leafR + Za.measure(e, n) + tabW + gapW + 36,
+                      out = {
+                          fontSize: n,
+                          spokeLength: Math.max(t, i)
+                      };
                 return Za._estimateCache.size > 2e3 && Za._estimateCache.clear(), Za._estimateCache.set(key, out), {
                     fontSize: out.fontSize,
                     spokeLength: out.spokeLength

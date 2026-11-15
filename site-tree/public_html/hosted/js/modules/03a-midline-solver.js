@@ -736,10 +736,14 @@
         function sxLabelClearance(radius, label, fontSize, iconR) {
             let r = radius;
             try {
-                const fs = null == fontSize ? sxFontSize(3) : fontSize, textW = Za.measure(label || "", fs), icon = null == iconR ? sxIconRadius(3) : iconR, gap = Math.max(18, 6 * Za.measure(" ", fs, "topic"));
+                const fs = null == fontSize ? sxFontSize(3) : fontSize,
+                      tabW = 5 * Za.measure(" ", fs, "topic"),
+                      textW = Za.measure(label || "", fs) + tabW,
+                      icon = null == iconR ? sxIconRadius(3) : iconR,
+                      gap = Math.max(18, 6 * Za.measure(" ", fs, "topic"));
                 const hub = typeof sxIconRadius === "function" ? sxIconRadius(2) : 88;
                 for (let pass = 0; pass < 3; pass++) {
-                    const need = hub + textW + icon + gap + 28;
+                    const need = hub + textW + icon + gap + 36;
                     if (!(Number.isFinite(need) && need > r)) break;
                     r = need;
                 }
