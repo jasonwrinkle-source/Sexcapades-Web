@@ -663,7 +663,6 @@
                             phase: dkCtx ? dkCtx.phase : null,
                             message: String(e && e.message || e)
                         });
-                        dkCtx = null;
                         throw e;
                     }
                 },

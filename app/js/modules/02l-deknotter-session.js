@@ -278,6 +278,9 @@
                 throw err.dkCancelled = !0, err.phase = dkCtx.phase, err.iterations = dkCtx.iterCount, err;
             }
             if (dkCtx.phaseStartedAt && now - dkCtx.phaseStartedAt > DK_PHASE_BUDGET_MS) {
+                // If the phase budget trips, disarm further budget timeouts for the remainder of this run
+                // so that unwinding / restore / finally cleanup passes do not re-trip dkSolvePoll.
+                dkCtx.phaseStartedAt = 0;
                 const err = new Error("aborted: phase '" + (dkCtx.phase || "") + "' exceeded budget (" + Math.round(DK_PHASE_BUDGET_MS / 1e3) + " s) after " + dkCtx.iterCount + " iterations");
                 throw err.dkBudget = !0, err.phase = dkCtx.phase, err.iterations = dkCtx.iterCount, err;
             }

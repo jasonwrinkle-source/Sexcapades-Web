@@ -12976,6 +12976,9 @@ const TAXONOMY_CATEGORIES = [
                 throw err.dkCancelled = !0, err.phase = dkCtx.phase, err.iterations = dkCtx.iterCount, err;
             }
             if (dkCtx.phaseStartedAt && now - dkCtx.phaseStartedAt > DK_PHASE_BUDGET_MS) {
+                // If the phase budget trips, disarm further budget timeouts for the remainder of this run
+                // so that unwinding / restore / finally cleanup passes do not re-trip dkSolvePoll.
+                dkCtx.phaseStartedAt = 0;
                 const err = new Error("aborted: phase '" + (dkCtx.phase || "") + "' exceeded budget (" + Math.round(DK_PHASE_BUDGET_MS / 1e3) + " s) after " + dkCtx.iterCount + " iterations");
                 throw err.dkBudget = !0, err.phase = dkCtx.phase, err.iterations = dkCtx.iterCount, err;
             }
@@ -17518,7 +17521,17 @@ const TAXONOMY_CATEGORIES = [
                 // iteration count ride along for the receipt.
                 if (e && (e.dkBudget || e.dkCancelled)) report.aborted = { kind: e.dkBudget ? "budget" : "cancel", phase: e.phase != null ? String(e.phase) : null, iterations: e.iterations || 0 };
                 try {
-                    clearBranchFit(dk, name), snapshot && (dk.restore(snapshot), report.restoreVerified = dk.canonical(api.get()) === dk.canonical(snapshot));
+                    clearBranchFit(dk, name);
+                    if (snapshot) {
+                        try {
+                            dk.restore(snapshot);
+                            report.restoreVerified = dk.canonical(api.get()) === dk.canonical(snapshot);
+                        } catch (errRestore) {
+                            // If scoped restore or solve threw, force unscoped layout apply as fallback
+                            api.apply(snapshot);
+                            report.restoreVerified = dk.canonical(api.get()) === dk.canonical(snapshot);
+                        }
+                    }
                     snapshot && witnessRestore("whole-run-revert-restored", null, witnessSubs, name, report, witnessJudge, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP);
                 } catch (re) {
                     report.restoreError = String(re && re.message || re);
@@ -47299,7 +47312,6 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                             phase: dkCtx ? dkCtx.phase : null,
                             message: String(e && e.message || e)
                         });
-                        dkCtx = null;
                         throw e;
                     }
                 },

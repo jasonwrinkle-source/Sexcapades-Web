@@ -2717,7 +2717,17 @@
                 // iteration count ride along for the receipt.
                 if (e && (e.dkBudget || e.dkCancelled)) report.aborted = { kind: e.dkBudget ? "budget" : "cancel", phase: e.phase != null ? String(e.phase) : null, iterations: e.iterations || 0 };
                 try {
-                    clearBranchFit(dk, name), snapshot && (dk.restore(snapshot), report.restoreVerified = dk.canonical(api.get()) === dk.canonical(snapshot));
+                    clearBranchFit(dk, name);
+                    if (snapshot) {
+                        try {
+                            dk.restore(snapshot);
+                            report.restoreVerified = dk.canonical(api.get()) === dk.canonical(snapshot);
+                        } catch (errRestore) {
+                            // If scoped restore or solve threw, force unscoped layout apply as fallback
+                            api.apply(snapshot);
+                            report.restoreVerified = dk.canonical(api.get()) === dk.canonical(snapshot);
+                        }
+                    }
                     snapshot && witnessRestore("whole-run-revert-restored", null, witnessSubs, name, report, witnessJudge, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP);
                 } catch (re) {
                     report.restoreError = String(re && re.message || re);
