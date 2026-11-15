@@ -97,6 +97,20 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** How central is kundalini — the coiled energy, the awakening — to your practice?
 - **Optimal Widget:** Monopole slider.
 
+#### 3.5 The Noble Eightfold Path (8-Pole Octad $\Delta^7$)
+- **Poles (in the traditional order, grouped by the three sections):**
+  - `Pole 0 (Red #ef4444)`: **Right View** (Wisdom) — Seeing things as they are.
+  - `Pole 1 (Orange #f97316)`: **Right Intention** (Wisdom) — Resolve, renunciation, goodwill.
+  - `Pole 2 (Yellow #eab308)`: **Right Speech** (Ethics) — Truthful, kind, useful speech.
+  - `Pole 3 (Green #22c55e)`: **Right Action** (Ethics) — Acting without harm.
+  - `Pole 4 (Teal #14b8a6)`: **Right Livelihood** (Ethics) — Earning a living without harm.
+  - `Pole 5 (Blue #3b82f6)`: **Right Effort** (Meditation) — Cultivating wholesome states, abandoning unwholesome ones.
+  - `Pole 6 (Indigo #6366f1)`: **Right Mindfulness** (Meditation) — Clear awareness of body, feeling, mind.
+  - `Pole 7 (Purple #a855f7)`: **Right Concentration** (Meditation) — Deep absorption, jhana.
+- **Question:** How much do you emphasize each limb of the Path?
+- **Optimal Widget:** Octad / 8-axis radial wheel. The first octad in Dharmacapades — and the first in any skin. Eight limbs, exactly the engine cap.
+- **Note:** The three sections (Wisdom: View + Intention; Ethics: Speech + Action + Livelihood; Meditation: Effort + Mindfulness + Concentration) structure the ring — adjacent poles within a section are closest.
+
 ### Category 4: Deity & The Divine
 
 #### 4.1 Theism vs Non-theism (2-Pole Dipole)
@@ -164,16 +178,15 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 | 5-pole (pentad) | 0 | — |
 | 6-pole (hexad) | 0 | — |
 | 7-pole (heptad) | 0 | — |
-| 8-pole (octad) | 0 | — |
+| 8-pole (octad) | 1 | 3.5 |
 
-**Total: 6 categories, 20 topics.**
+**Total: 6 categories, 21 topics.**
 
 ## 4. Higher-Pole Candidates (not yet specified)
 
 - **The Three Gunas** (triad): Sattva / Rajas / Tamas. Already in Forescapades as a topic; a Dharmacapades version would go deeper (how the gunas shape your temperament and practice). Needs a ruling on whether to duplicate or cross-reference.
 - **The Five Mahabhutas** (pentad): Earth / Water / Fire / Air / Ether. Already in Forescapades; same duplication question as the Gunas.
 - **The Six Classical Yogas** (hexad): Raja / Jnana / Bhakti / Karma / Hatha / Tantra. Already in Forescapades; a Dharmacapades version would treat them as paths you commit to, not just concepts. Needs a ruling on duplication vs. cross-reference.
-- **The Noble Eightfold Path** (octad): Right View / Right Intention / Right Speech / Right Action / Right Livelihood / Right Effort / Right Mindfulness / Right Concentration. The first octad in Dharmacapades, and a natural one — eight is the engine cap, and the Path has exactly eight limbs. Needs a ruling on whether the Path belongs as a single 8-pole topic (how much do you emphasize each limb?) or as eight separate topics.
 
 ## 5. Open Questions for the Principal Investigator
 
@@ -181,5 +194,4 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 2. Is the scope right — Dharmic plus Taoic, with Eastern Orthodox explicitly in Forescapades?
 3. Does 1.4 (Buddhism as Religion / Philosophy / Way of Life) handle the ambiguity well, or does it need a different approach?
 4. The Forescapades overlaps (Gunas, Mahabhutas, Yogas) — duplicate them here in depth, or cross-reference Forescapades?
-5. Does the Noble Eightfold Path belong as a single octad topic, or as eight separate topics?
-6. Are the dipole/triad assignments right, or do any of these want a different pole count?
+5. Are the dipole/triad assignments right, or do any of these want a different pole count?
