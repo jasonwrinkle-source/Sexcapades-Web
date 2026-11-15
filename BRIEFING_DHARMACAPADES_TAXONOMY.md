@@ -258,6 +258,5 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 
 ## 4. Open Questions for the Principal Investigator
 
-1. Is the scope right — Dharmic plus Taoic, with Eastern Orthodox explicitly in Forescapades?
-2. Does 1.4 (Buddhism as Religion / Philosophy / Way of Life) handle the ambiguity well, or does it need a different approach?
-3. Are the dipole/triad assignments right, or do any of these want a different pole count?
+1. Does 1.4 (Buddhism as Religion / Philosophy / Way of Life) handle the ambiguity well, or does it need a different approach? (Explained to the Principal Investigator 2026-11-15; awaiting his reaction.)
+2. Are the dipole/triad assignments right? The Principal Investigator notes he does not know Eastern religions well enough to judge — assignments stand on the drafter's judgment unless reviewed by someone who does.
