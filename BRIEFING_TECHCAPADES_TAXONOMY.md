@@ -24,15 +24,16 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 
 ### Category 1: AI & Intelligence
 
-#### 1.1 AI Futures (5-Pole Pentad $\Delta^4$)
+#### 1.1 AI Risk & Benefit Allocation (5-Pole Pentad $\Delta^4$)
 - **Poles:**
-  - `Pole 0 (Green #22c55e)`: **Utopian** — AI saves us; abundance, cures, the good future.
-  - `Pole 1 (Teal #14b8a6)`: **Optimist** — AI helps more than it harms; net positive, with care.
-  - `Pole 2 (Blue #3b82f6)`: **Pragmatist** — AI is a tool; use it well, watch it closely.
-  - `Pole 3 (Yellow #eab308)`: **Skeptic** — AI is overhyped, overtrusted, and mostly marketing.
-  - `Pole 4 (Red #ef4444)`: **Doomer** — AI destroys us; extinction, control loss, the bad future.
-- **Question:** What do you think AI does to us?
+  - `Pole 0 (Green #22c55e)`: **Post-Scarcity Flourishing** — Radical abundance, medicine, automation dividends.
+  - `Pole 1 (Yellow #eab308)`: **Corporate / Algorithmic Feudalism** — Concentration of capital, surveillance, platform monopoly.
+  - `Pole 2 (Orange #f97316)`: **Labor & Cognitive Atrophy** — Erosion of human skills, mass displacement, cultural stagnation.
+  - `Pole 3 (Red #ef4444)`: **Existential Misalignment** — Loss of agency, superintelligent runaway, extinction.
+  - `Pole 4 (Blue #3b82f6)`: **Epistemic Fragmentation** — Synthetic deepfakes, death of objective consensus, dead internet.
+- **Question:** Where do you see AI's impact landing?
 - **Optimal Widget:** Pentad radial star.
+- **Note:** Replaces the earlier Utopian→Doomer pentad, which was a 1-dimensional sentiment slider disguised as a 5-simplex (an individual cannot coherently be 80% Utopian AND 80% Doomer simultaneously). The new poles are distinct vectors of impact, not points on a line.
 
 #### 1.2 AI as Tool vs Agent (2-Pole Dipole)
 - **Poles:** Tool (AI does what you tell it) ↔ Agent (AI acts on its own)
@@ -42,6 +43,11 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 #### 1.3 Resist vs Embrace AI (2-Pole Dipole)
 - **Poles:** Resist (avoid it, don't use it) ↔ Embrace (use it everywhere)
 - **Question:** Do you use AI, or refuse it?
+- **Optimal Widget:** Dipole slider.
+
+#### 1.4 Open Weights vs Closed Moats (2-Pole Dipole)
+- **Poles:** Open Source / Decentralized (Democratized weights, permissionless innovation, public inspection) ↔ Guarded Moats / Frontier Containment (Closed APIs, non-proliferation, centralized safety oversight)
+- **Question:** Should AI weights be open or guarded?
 - **Optimal Widget:** Dipole slider.
 
 ### Category 2: Privacy & Surveillance
@@ -59,6 +65,11 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 #### 2.3 Safety vs Freedom (2-Pole Dipole)
 - **Poles:** Safety (surveillance keeps us safe) ↔ Freedom (surveillance threatens liberty)
 - **Question:** When safety and freedom conflict, which wins?
+- **Optimal Widget:** Dipole slider.
+
+#### 2.4 Computing Sovereignty (2-Pole Dipole)
+- **Poles:** Sovereign Computing (Self-hosting, local hardware, Linux, Right to Repair, data ownership) ↔ Managed Cloud (Apple/Google ecosystem, seamless subscription convenience, zero maintenance)
+- **Question:** Do you own your computing or rent it?
 - **Optimal Widget:** Dipole slider.
 
 ### Category 3: Screens & Attention
@@ -99,6 +110,11 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 #### 4.3 Posting vs Lurking (2-Pole Dipole)
 - **Poles:** Poster (share, create, speak) ↔ Lurker (consume, observe, stay quiet)
 - **Question:** How do you participate online?
+- **Optimal Widget:** Dipole slider.
+
+#### 4.4 Synthetic Intimacy & AI Companionship (2-Pole Dipole)
+- **Poles:** Embrace Synthetic Bonds (AI partners, parasocial companions, synthetic therapy, digital confidants) ↔ Human Exclusivity (Strict boundary; intimacy and emotional trust reserved for biological humans)
+- **Question:** Are you open to emotional or intimate connections with synthetic agents?
 - **Optimal Widget:** Dipole slider.
 
 ### Category 5: Digital Identity & Self
@@ -146,7 +162,7 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 | Poles | Count | Topics |
 |-------|-------|--------|
 | 1-pole (monopole) | 0 | — |
-| 2-pole (dipole) | 14 | 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.3 |
+| 2-pole (dipole) | 17 | 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 6.1, 6.3 |
 | 3-pole (triad) | 3 | 3.3, 4.1, 6.2 |
 | 4-pole (tetrad) | 0 | — |
 | 5-pole (pentad) | 1 | 1.1 |
@@ -154,7 +170,7 @@ Under the **Taxopolemics** engine, tech positions are mapped to their natural ge
 | 7-pole (heptad) | 0 | — |
 | 8-pole (octad) | 0 | — |
 
-**Total: 6 categories, 18 topics.**
+**Total: 6 categories, 21 topics.**
 
 ## 4. Higher-Pole Candidates (not yet specified)
 

@@ -24,17 +24,16 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 
 ### Category 1: Purpose & Meaning
 
-#### 1.1 Purpose vs Paycheck (2-Pole Dipole)
-- **Poles:** Purpose / Calling ↔ Paycheck / Security
-- **Question:** Do you work for meaning, or for money?
-- **Optimal Widget:** Dipole slider.
+#### 1.1 Vocation: Calling vs Career vs Job (3-Pole Triad $\Delta^2$)
+- **Poles:**
+  - `Pole 0 (Apex)`: **Calling** — Work is an inseparable expression of moral purpose, identity, and personal mission. Fulfillment is found in the contribution itself.
+  - `Pole 1 (Base Right)`: **Career** — Work is a structured ladder of advancement, status, leadership, professional mastery, and upward social mobility.
+  - `Pole 2 (Base Left)`: **Job** — Work is a pragmatic economic transaction. A paycheck buys freedom, safety, and leisure; real life happens off the clock.
+- **Question:** Is your work a calling, a career, or a job?
+- **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+- **Note:** Based on Amy Wrzesniewski's canonical research (Yale) — work orientation is fundamentally an irreducible triad, not two separate dipoles. Replaces the earlier 1.1 (Purpose vs Paycheck) and 1.2 (Craft vs Career).
 
-#### 1.2 Craft vs Career (2-Pole Dipole)
-- **Poles:** Craft (mastery of the work itself) ↔ Career (advancement, status, the ladder)
-- **Question:** Do you care about the work, or the ladder?
-- **Optimal Widget:** Dipole slider.
-
-#### 1.3 Service: Others vs Self vs The Work (3-Pole Triad $\Delta^2$)
+#### 1.2 Service: Others vs Self vs The Work (3-Pole Triad $\Delta^2$)
 - **Poles:**
   - `Pole 0 (Apex)`: **Serve Others** — The work matters because it helps people.
   - `Pole 1 (Base Right)`: **Serve Yourself** — The work matters because it fulfills you.
@@ -57,6 +56,11 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 #### 2.3 Risk Tolerance (2-Pole Dipole)
 - **Poles:** Safe / Stable ↔ Risky / Entrepreneurial
 - **Question:** Do you want a steady job, or a bet?
+- **Optimal Widget:** Dipole slider.
+
+#### 2.4 Generalist vs Specialist (2-Pole Dipole)
+- **Poles:** Polymath / Generalist (Wide breadth, multidisciplinary synthesis, connecting dots across fields) ↔ Deep Specialist (Vertical mastery, single-domain depth, world-class technical precision)
+- **Question:** Are you a generalist or a specialist?
 - **Optimal Widget:** Dipole slider.
 
 ### Category 3: Place & Mode
@@ -99,7 +103,12 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Question:** How should a manager manage?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 
-#### 4.4 Work Models (5-Pole Pentad $\Delta^4$)
+#### 4.4 Workplace Governance & Ownership (2-Pole Dipole)
+- **Poles:** Corporate / Capital Hierarchy (Investor-owned, executive command, market efficiency) ↔ Worker Cooperative / Collective (Employee ownership, profit-sharing, democratic workplace decisions)
+- **Question:** Who should own the workplace?
+- **Optimal Widget:** Dipole slider.
+
+#### 4.5 Work Models (5-Pole Pentad $\Delta^4$)
 - **Poles:**
   - `Pole 0 (Blue #3b82f6)`: **Full-time Employee** — One employer, steady role.
   - `Pole 1 (Purple #a855f7)`: **Freelancer / Independent** — Clients, not bosses.
@@ -126,6 +135,16 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 - **Question:** How much do you need to be seen for what you do?
 - **Optimal Widget:** Dipole slider.
 
+#### 5.4 The Four Career Anchors (4-Pole Tetrad $\Delta^3$)
+- **Poles:**
+  - `North (Green #22c55e)`: **Technical / Craft Mastery** — Deep competence in the work itself.
+  - `East (Yellow #eab308)`: **Executive / Managerial Authority** — Steering organizations, accountability, power.
+  - `South (Red #ef4444)`: **Autonomy / Creative Freedom** — Self-direction, working on one's own terms.
+  - `West (Blue #3b82f6)`: **Security / Institutional Stability** — Predictability, safety, reliable long-term foundation.
+- **Question:** What anchors your career?
+- **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
+- **Note:** Derived from Edgar Schein's career anchor research.
+
 ### Category 6: Identity & Boundaries
 
 #### 6.1 Work as Identity (2-Pole Dipole)
@@ -150,15 +169,15 @@ Under the **Taxopolemics** engine, work positions are mapped to their natural ge
 | Poles | Count | Topics |
 |-------|-------|--------|
 | 1-pole (monopole) | 0 | — |
-| 2-pole (dipole) | 15 | 1.1, 1.2, 2.1, 2.2, 2.3, 3.2, 3.3, 4.1, 4.2, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3 |
-| 3-pole (triad) | 3 | 1.3, 3.1, 4.3 |
-| 4-pole (tetrad) | 0 | — |
-| 5-pole (pentad) | 1 | 4.4 |
+| 2-pole (dipole) | 15 | 2.1, 2.2, 2.3, 2.4, 3.2, 3.3, 4.1, 4.2, 4.4, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3 |
+| 3-pole (triad) | 4 | 1.1, 1.2, 3.1, 4.3 |
+| 4-pole (tetrad) | 1 | 5.4 |
+| 5-pole (pentad) | 1 | 4.5 |
 | 6-pole (hexad) | 0 | — |
 | 7-pole (heptad) | 0 | — |
 | 8-pole (octad) | 0 | — |
 
-**Total: 6 categories, 19 topics.**
+**Total: 6 categories, 21 topics.**
 
 ## 4. Higher-Pole Candidates (not yet specified)
 

@@ -55,6 +55,37 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 - **Note:** This topic exists because the question has no settled answer. It records the rater's frame rather than forcing one.
 
+#### 1.5 The Four Purusharthas (4-Pole Tetrad $\Delta^3$)
+- **Poles:**
+  - `North (Green #22c55e)`: **Dharma** — Moral order, righteousness, spiritual duty, cosmic law.
+  - `East (Yellow #eab308)`: **Artha** — Material prosperity, wealth creation, security, career success.
+  - `South (Red #ef4444)`: **Kama** — Sensual pleasure, erotic desire, love, aesthetic delight.
+  - `West (Blue #3b82f6)`: **Moksha** — Spiritual liberation, transcendence, release from samsara.
+- **Question:** How do you balance duty, wealth, pleasure, and liberation?
+- **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
+
+#### 1.6 The Three Teachings / San Jiao (3-Pole Triad $\Delta^2$)
+- **Poles:**
+  - `Pole 0 (Apex)`: **Confucianism** — Social harmony, filial piety, moral duty, ritual propriety.
+  - `Pole 1 (Base Right)`: **Taoism** — Natural flow, spontaneity, simplicity, harmony with the Dao.
+  - `Pole 2 (Base Left)`: **Buddhism** — Emptiness, compassion, liberation from suffering.
+- **Question:** How do you balance social duty, natural spontaneity, and spiritual detachment?
+- **Optimal Widget:** Barycentric Equilateral Triangle Widget.
+
+#### 1.7 The Eight Trigrams / Bagua (8-Pole Octad $\Delta^7$)
+- **Poles (in the traditional order):**
+  - `Pole 0`: **Heaven (Qian)** — Creative, strong, initiating.
+  - `Pole 1`: **Lake (Dui)** — Joyful, open, receptive.
+  - `Pole 2`: **Fire (Li)** — Clinging, bright, illuminating.
+  - `Pole 3`: **Thunder (Zhen)** — Arousing, moving, shocking.
+  - `Pole 4`: **Wind (Xun)** — Gentle, penetrating, dispersing.
+  - `Pole 5`: **Water (Kan)** — Abysmal, dangerous, flowing.
+  - `Pole 6`: **Mountain (Gen)** — Still, keeping, resting.
+  - `Pole 7`: **Earth (Kun)** — Receptive, yielding, nourishing.
+- **Question:** Which archetypal energies do you balance?
+- **Optimal Widget:** Octad / 8-axis radial wheel. The fifth canonical octad in the Flexcapades family.
+- **Note:** The Bagua is the archetypal energy balance of the I Ching. Eight trigrams, exactly the engine cap.
+
 ### Category 2: Liberation & Enlightenment
 
 #### 2.1 Moksha vs Nirvana vs Union with the Dao (3-Pole Triad $\Delta^2$)
@@ -111,6 +142,11 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Octad / 8-axis radial wheel. The fourth canonical octad in the Flexcapades family and the foundational anchor for Dharmacapades. (Correction, 2026-11-15: this was first described as "the first octad in any skin" — in fact the engine already has three production octads wired into the taxonomy catalog: t0426 Physical Restraint & Containment, t0427 Anatomical Focus & Somatosensory Worship, and the Epistemological Octad in Philoscapades. The Eightfold Path is the fourth.)
 - **Note:** The three sections (Wisdom: View + Intention; Ethics: Speech + Action + Livelihood; Meditation: Effort + Mindfulness + Concentration) structure the ring — adjacent poles within a section are closest.
 
+#### 3.6 Wu Wei vs You Wei (2-Pole Dipole)
+- **Poles:** Wu Wei (Effortless action, natural alignment, non-forcing) ↔ You Wei (Deliberate striving, active intervention, intentional control)
+- **Question:** Do you act by effortless alignment or deliberate striving?
+- **Optimal Widget:** Dipole slider.
+
 ### Category 4: Deity & The Divine
 
 #### 4.1 Theism vs Non-theism (2-Pole Dipole)
@@ -165,6 +201,12 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Question:** Do you stay in one school, or borrow across them?
 - **Optimal Widget:** Dipole slider.
 
+#### 6.4 Grasthi vs Sannyasa (2-Pole Dipole)
+- **Poles:** Grasthi (The active householder; family, honest labor, social responsibility) ↔ Sannyasa (The ascetic renouncer; monastic isolation, world-denial)
+- **Question:** Do you live as a householder or a renouncer?
+- **Optimal Widget:** Dipole slider.
+- **Note:** Guru Nanak explicitly rejected monastic withdrawal in favor of righteous engagement in the world. This is Sikhism's sharpest dialectical stance.
+
 ---
 
 ## 3. Pole-Count Summary
@@ -172,15 +214,15 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 | Poles | Count | Topics |
 |-------|-------|--------|
 | 1-pole (monopole) | 1 | 3.4 |
-| 2-pole (dipole) | 15 | 1.1, 1.2, 2.2, 2.3, 3.1, 3.2, 3.3, 4.1, 4.2, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3 |
-| 3-pole (triad) | 4 | 1.3, 1.4, 2.1, 4.3 |
-| 4-pole (tetrad) | 0 | — |
+| 2-pole (dipole) | 17 | 1.1, 1.2, 2.2, 2.3, 3.1, 3.2, 3.3, 3.6, 4.1, 4.2, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4 |
+| 3-pole (triad) | 5 | 1.3, 1.4, 1.6, 2.1, 4.3 |
+| 4-pole (tetrad) | 1 | 1.5 |
 | 5-pole (pentad) | 0 | — |
 | 6-pole (hexad) | 0 | — |
 | 7-pole (heptad) | 0 | — |
-| 8-pole (octad) | 1 | 3.5 |
+| 8-pole (octad) | 2 | 1.7, 3.5 |
 
-**Total: 6 categories, 21 topics.**
+**Total: 6 categories, 26 topics.**
 
 ## 4. Higher-Pole Candidates (not yet specified)
 

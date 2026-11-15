@@ -42,6 +42,11 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 - **Question:** What is a photograph for?
 - **Optimal Widget:** Barycentric Equilateral Triangle Widget.
 
+#### 1.4 Materiality: Impasto vs Flat (2-Pole Dipole)
+- **Poles:** Tactile / Textural (Heavy paint, sculptural impasto, visible brushwork, raw fiber) ↔ Flat / Seamless (Vector smoothness, digital gradient, airbrushed finish, invisible hand)
+- **Question:** Do you prefer art you can feel or art that's seamless?
+- **Optimal Widget:** Dipole slider.
+
 ### Category 2: Music & Sound
 
 #### 2.1 Lyrics vs Sound (2-Pole Dipole)
@@ -150,6 +155,11 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 - **Question:** What kind of beauty moves you?
 - **Optimal Widget:** Orthogonal Diamond Deformation Polygon.
 
+#### 6.6 Wabi-Sabi vs Pristine (2-Pole Dipole)
+- **Poles:** Wabi-Sabi (Imperfection, transience, natural weathering, raw organic patina, asymmetry) ↔ Pristine Precision (Flawless surfaces, high polish, geometric symmetry, industrial exactitude)
+- **Question:** Do you prefer imperfection or flawlessness?
+- **Optimal Widget:** Dipole slider.
+
 ### Category 7: Food & Flavor
 
 #### 7.1 Adventurous vs Cautious Eating (2-Pole Dipole)
@@ -203,6 +213,16 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 - **Question:** Do you prefer to cook, or to be cooked for?
 - **Optimal Widget:** Dipole slider.
 
+#### 7.8 Food: Fuel vs Feast (2-Pole Dipole)
+- **Poles:** Functional Sustenance / Fuel (Food is caloric intake; efficiency, fast preparation, minimal fuss) ↔ Gastronomic Celebration / Feast (Food is sensory theater; multi-hour shared dining, ritual, pleasure, wine pairing)
+- **Question:** Is food fuel or feast?
+- **Optimal Widget:** Dipole slider.
+
+#### 7.9 Culinary Philosophy: Traditional Purism vs Experimental Fusion (2-Pole Dipole)
+- **Poles:** Authentic Purism (Heritage recipes, regional terroir, respect for grandmother's technique) ↔ Experimental Fusion (Molecular gastronomy, boundary-breaking crossovers, deconstructed classics)
+- **Question:** Do you cook by tradition or by experiment?
+- **Optimal Widget:** Dipole slider.
+
 ---
 
 ## 3. Pole-Count Summary
@@ -210,7 +230,7 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 | Poles | Count | Topics |
 |-------|-------|--------|
 | 1-pole (monopole) | 1 | 7.6 |
-| 2-pole (dipole) | 18 | 1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 3.3, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.2, 6.3, 7.1, 7.2, 7.7 |
+| 2-pole (dipole) | 22 | 1.1, 1.2, 1.4, 2.1, 2.2, 3.1, 3.2, 3.3, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.2, 6.3, 6.6, 7.1, 7.2, 7.7, 7.8, 7.9 |
 | 3-pole (triad) | 5 | 1.3, 2.3, 6.1, 6.4, 7.3 |
 | 4-pole (tetrad) | 1 | 6.5 |
 | 5-pole (pentad) | 1 | 7.4 |
@@ -218,7 +238,7 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 | 7-pole (heptad) | 0 | candidate: 7.5 + Ovo-vegetarian |
 | 8-pole (octad) | 0 | — |
 
-**Total: 7 categories, 27 topics.**
+**Total: 7 categories, 31 topics.**
 
 ## 4. Higher-Pole Candidates (not yet specified)
 
