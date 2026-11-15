@@ -23017,16 +23017,31 @@ const TAXONOMY_CATEGORIES = [
             }
             return out;
         }
+        // ---- Layer 2: Persistent scratch collections for sxReprice ----
+        // Pre-allocated Sets reused across all trial steps to eliminate
+        // thousands of object allocation and garbage collection cycles per sweep.
+        const sxScratchA = new Set, sxScratchL = new Set;
+        const sxScratchCandC = new Set, sxScratchCandG = new Set, sxScratchCandI = new Set;
+        const sxScratchNear = new Set, sxScratchSeenDisc = new Set;
+
         // ---- Incremental repricing: delete + recompute every pair touching ----
         // the affected topics (A) or spokes (Bs); returns the tracked-E delta.
         function sxReprice(geo, maps, A, Bs) {
-            const N = geo.topics.length, before = maps.tc + maps.tg + maps.ti, affT = new Set(A), affL = new Set;
-            A.forEach(i => affL.add(i)), Bs.forEach(j => affL.add(N + j));
-            const touched = e => affT.has(e) || affL.has(e);
+            const N = geo.topics.length, before = maps.tc + maps.tg + maps.ti;
+            const affT = sxScratchA; affT.clear();
+            const affL = sxScratchL; affL.clear();
+            for (let idx = 0; idx < A.length; idx++) { const i = A[idx]; affT.add(i); affL.add(i); }
+            for (let idx = 0; idx < Bs.length; idx++) { affL.add(N + Bs[idx]); }
+
             // Candidate pairs from the grid around the affected segments.
-            const candC = new Set, candG = new Set, candI = new Set;
+            const candC = sxScratchCandC; candC.clear();
+            const candG = sxScratchCandG; candG.clear();
+            const candI = sxScratchCandI; candI.clear();
+
             const near = (a, b, self) => {
-                sxGridNearSeg(geo, a, b).forEach(ix => {
+                const nearSet = sxScratchNear; nearSet.clear();
+                sxGridNearSeg(geo, a, b, nearSet);
+                nearSet.forEach(ix => {
                     if (ix === self) return;
                     if (self < N) candC.add(self * SX_PAIR_STRIDE + ix);
                     if (ix < N) candC.add(ix * SX_PAIR_STRIDE + self);
@@ -23035,21 +23050,11 @@ const TAXONOMY_CATEGORIES = [
                 });
             };
             // CAPSULE STAGE 2: disc candidates from the coarse
-            // disc grids. A moved LINE may newly cross a static
-            // topic's disc far from that topic's paddle (the fine
-            // grid's registrations, padded by 2F + 128 around the
-            // segments, cannot see the disc's outer reaches), and
-            // a moved topic's DISC may newly cover a static line.
-            // nearDiscLine walks the moved line's midline through
-            // the coarse cells and adds every registered disc
-            // owner as a cross victim; nearDiscVictim scans the
-            // coarse cells under the moved topic's current disc
-            // bbox and adds every registered line owner as a
-            // cross line. Only cross candidates are added — the
-            // discs play no part in graze or inner.
+            // disc grids.
             const nearDiscLine = (a, b, self) => {
                 if (!geo.discV) return;
-                const len = Math.hypot(b.x - a.x, b.y - a.y), steps = Math.max(1, Math.ceil(len / (SX_DISC_CELL / 2))), seen = new Set;
+                const len = Math.hypot(b.x - a.x, b.y - a.y), steps = Math.max(1, Math.ceil(len / (SX_DISC_CELL / 2)));
+                const seen = sxScratchSeenDisc; seen.clear();
                 for (let s = 0; s <= steps; s++) {
                     const k = sxCellKey(Math.floor((a.x + (b.x - a.x) * s / steps) / SX_DISC_CELL), Math.floor((a.y + (b.y - a.y) * s / steps) / SX_DISC_CELL));
                     if (seen.has(k)) continue;
@@ -23068,16 +23073,16 @@ const TAXONOMY_CATEGORIES = [
                     if (set) set.forEach(jx => { if (jx !== i) candC.add(i * SX_PAIR_STRIDE + jx); });
                 }
             };
-            A.forEach(i => {
-                const e = geo.topics[i];
+            for (let idx = 0; idx < A.length; idx++) {
+                const i = A[idx], e = geo.topics[i];
                 near(e.S[0], e.S[1], i), near(e.M[0], e.M[1], i), near(e.I[0], e.I[1], i);
                 nearDiscLine(e.M[0], e.M[1], i), nearDiscVictim(i);
-            });
-            Bs.forEach(j => {
-                const sp = geo.spokes[j];
+            }
+            for (let idx = 0; idx < Bs.length; idx++) {
+                const j = Bs[idx], sp = geo.spokes[j];
                 near(sp.seg[0], sp.seg[1], N + j);
                 nearDiscLine(sp.seg[0], sp.seg[1], N + j);
-            });
+            }
             // Existing stored pairs touching the affected set must be redone too
             // (per-element adjacency indexes, maintained by sxStorePair).
             const adjScan = (adj, cand) => {
