@@ -190,17 +190,18 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 - **Question:** The five basic tastes, as a five-pole star. How much do you seek each one?
 - **Optimal Widget:** Pentad radial star. The first pentad in Aesthcapades, and a clean one — the five-taste taxonomy is well-established science.
 
-#### 7.5 Dietary Identity (6-Pole Hexad $\Delta^5$)
+#### 7.5 Dietary Identity (7-Pole Heptad $\Delta^6$)
 - **Poles (in ring order, by degree of animal-product exclusion):**
   - `Pole 0 (Red #ef4444)`: **Carnivore** — Meat only.
   - `Pole 1 (Orange #f97316)`: **Omnivore** — Everything.
   - `Pole 2 (Blue #3b82f6)`: **Pescatarian** — Fish, no land meat.
-  - `Pole 3 (Green #22c55e)`: **Vegetarian** — No meat, dairy and eggs ok.
-  - `Pole 4 (Dark green #166534)`: **Vegan** — No animal products.
-  - `Pole 5 (Purple #a855f7)`: **Fruitarian** — Fruit only.
+  - `Pole 3 (Lime #84cc16)`: **Ovo-Vegetarian** — Eggs yes, dairy no, meat no.
+  - `Pole 4 (Green #22c55e)`: **Lacto-Ovo Vegetarian** — Eggs and dairy yes, meat no.
+  - `Pole 5 (Dark green #166534)`: **Vegan** — No animal products.
+  - `Pole 6 (Purple #a855f7)`: **Fruitarian** — Fruit only.
 - **Question:** What do you eat — and what won't you?
-- **Optimal Widget:** Hexagonal ring. Adjacent poles are the most similar; opposites are the most different. A blend captures flexitarianism naturally (70% Omnivore, 30% Vegetarian).
-- **Note:** Ovo-vegetarian folds into Vegetarian as a variant (eggs yes, dairy no) — it would crowd the Vegetarian pole as a separate point. A heptad (adding Ovo-vegetarian as a 7th pole) is possible if the Principal Investigator wants it explicit.
+- **Optimal Widget:** Heptad radial polygon / heptagonal ring (`"heptad-radar"`). Adjacent poles represent continuous dietary gradations; blends capture nuanced dietary flexibility.
+- **Note:** Canonical 7-pole simplex ($\Delta^6$) approved by the Principal Investigator. Subsumes and replaces the earlier 6-pole hexad draft.
 
 #### 7.6 Keto (1-Pole Monopole)
 - **Pole:** Keto adherence, 0–100.
@@ -234,8 +235,8 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 | 3-pole (triad) | 5 | 1.3, 2.3, 6.1, 6.4, 7.3 |
 | 4-pole (tetrad) | 1 | 6.5 |
 | 5-pole (pentad) | 1 | 7.4 |
-| 6-pole (hexad) | 1 | 7.5 |
-| 7-pole (heptad) | 0 | candidate: 7.5 + Ovo-vegetarian |
+| 6-pole (hexad) | 0 | — |
+| 7-pole (heptad) | 1 | 7.5 (Dietary Identity) |
 | 8-pole (octad) | 0 | — |
 
 **Total: 7 categories, 31 topics.**
@@ -250,6 +251,6 @@ Under the **Taxopolemics** engine, aesthetic positions are mapped to their natur
 
 1. Is "Aesthcapades" the name, or do you want the full "Aestheticapades"?
 2. Is the scope right — aesthetics and taste as one skin, or should taste/judgment split off?
-3. Does Ovo-vegetarian get its own pole (heptad) on 7.5, or stay folded into Vegetarian?
+3. ~~Does Ovo-vegetarian get its own pole (heptad) on 7.5, or stay folded into Vegetarian?~~ **Resolved**: Promoted to distinct pole; 7.5 is locked in as a 7-pole Heptad ($\Delta^6$), subsuming the 6-pole candidate.
 4. Are the dipole/triad assignments right, or do any of these want a different pole count?
 5. Do the higher-pole candidates (movements, genres) belong, or are they a different kind of thing?

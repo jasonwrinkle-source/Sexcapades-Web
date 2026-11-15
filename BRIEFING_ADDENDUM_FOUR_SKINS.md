@@ -139,6 +139,13 @@ Integrating food into aesthetics is a triumph. The following additions will comp
 - **Poles:** **Tactile / Textural** (Heavy paint, sculptural impasto, visible brushwork, raw fiber) ↔ **Flat / Seamless** (Vector smoothness, digital gradient, airbrushed finish, invisible hand)
 - **Widget:** Dipole Slider.
 
+### 4.2 Ruling on Topic 7.5: Dietary Identity Promoted to 7-Pole Heptad ($\Delta^6$)
+The Principal Investigator has formally approved **promoting Topic 7.5 (Dietary Identity) to the 7-Pole Heptad ($\Delta^6$)**, cleanly subsuming the draft 6-pole hexad:
+- **Canonical Topic ID:** `topic-dietary-identity` (aliased to `topic-dietary-identity-heptad`)
+- **Poles:** `[ Carnivore, Omnivore, Pescatarian, Ovo-Vegetarian, Lacto-Ovo Vegetarian, Vegan, Fruitarian ]`
+- **Widget:** Heptad Radial Polygon (`"heptad-radar"`)
+- **Rationale:** The 7-pole simplex is strictly more inclusive, biologically and socially complete, and eliminates the awkward folding of ovo-vegetarianism into general vegetarianism. The 6-pole candidate is fully deprecated and subsumed.
+
 ---
 
 ## 5. Vocapades: Work, Vocation & Career

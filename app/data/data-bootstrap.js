@@ -12437,8 +12437,8 @@ const TAXONOMY_CATEGORIES = [
                     labels: [ "Te (Extraverted Thinking)", "Ti (Introverted Thinking)", "Fe (Extraverted Feeling)", "Fi (Introverted Feeling)", "Se (Extraverted Sensing)", "Si (Introverted Sensing)", "Ne (Extraverted Intuition)", "Ni (Introverted Intuition)" ]
                 };
             }
-            // Aesthcapades 7-Pole Dietary Identity Heptad
-            if (e === "topic-dietary-identity-heptad" || i === "topic-dietary-identity-heptad") {
+            // Aesthcapades 7-Pole Dietary Identity Heptad (Canonical Heptad — Subsumes 6-Pole Hexad)
+            if (e === "topic-dietary-identity" || e === "topic-dietary-identity-heptad" || e === "topic-dietary-identity-hexad" || i === "topic-dietary-identity" || i === "topic-dietary-identity-heptad" || i === "topic-dietary-identity-hexad") {
                 return {
                     single: !1,
                     heptad: !0,
@@ -12446,17 +12446,6 @@ const TAXONOMY_CATEGORIES = [
                     archetype: "heptad",
                     keys: [ "carnivore", "omnivore", "pescatarian", "ovoveg", "vegetarian", "vegan", "fruitarian" ],
                     labels: [ "Carnivore", "Omnivore", "Pescatarian", "Ovo-Vegetarian", "Lacto-Ovo Vegetarian", "Vegan", "Fruitarian" ]
-                };
-            }
-            // Aesthcapades 6-Pole Dietary Identity Hexad
-            if (e === "topic-dietary-identity" || e === "topic-dietary-identity-hexad" || i === "topic-dietary-identity" || i === "topic-dietary-identity-hexad") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "carnivore", "omnivore", "pescatarian", "vegetarian", "vegan", "fruitarian" ],
-                    labels: [ "Carnivore", "Omnivore", "Pescatarian", "Vegetarian", "Vegan", "Fruitarian" ]
                 };
             }
             // Aesthcapades 6-Pole Music Genres Hexad
