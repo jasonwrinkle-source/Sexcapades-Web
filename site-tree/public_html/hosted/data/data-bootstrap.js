@@ -7706,7 +7706,382 @@ const TAXONOMY_CATEGORIES = [
             "Connection & aftercare": {
                 color: "#ea7f8b",
                 glyph: '<path class="icon-glyph" d="M12 20S4 15 4 9a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3c0 6-8 11-8 11Z M8 13h2l1-3 2 6 1-3h2"/>'
-            }
+            },
+            /* Flexcapades skin categories: Chemcapades (8). Star glyph shared;
+               distinct colors carry the category identity on the map. */
+            "Ontology & Metaphysics of the Chemical World": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Periodic System & Classification": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Epistemology, Explanation & Modeling": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Disciplinary Identity & Sub-Disciplinary Cultures": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics, Sustainability & Lab Safety": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Kinetics, Thermodynamics & Emergent Complexity": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Codification, Pedagogy & the Chemical Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials, Energy & the Molecular Frontier": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Aesthcapades (7). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Visual Art": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Music & Sound": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Story & Word": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Adornment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Space & Place": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Taste & Judgment": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Food & Flavor": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Dharmacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Dharma & The Way": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Liberation & Enlightenment": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Practice & Discipline": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Deity & The Divine": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics & Conduct": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Lineage": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Expericapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Mission & Discovery Strategy": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Detectors & Instruments": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Noise & Standards of Discovery": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Environment & Extremes": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Analysis & Openness": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Experimental Life & Lab Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Forescapades (7, real v2.4 categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "God": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scripture & Authority": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Leadership": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Salvation & Grace": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ritual & Worship": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life & Morality": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Last Things": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Mattercapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Applied Physics Philosophy & Strategy": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Scale": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Technology & Hardware": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Energy, Power & Clean Technology": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials & Fabrication": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life, Medicine & the Applied Life": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Philoscapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Epistemology & Theory of Truth": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Metaphysics & Ontology": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Axiology & Normative Ethics": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Philosophy of Mind & Consciousness": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Existentialism & The Human Condition": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Political Philosophy & Justice": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Poliscapades (8, real draft categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Economy": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Health & Care": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Climate, Energy & Environment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Immigration & Borders": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Democracy & Government": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rights & Freedoms": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Education & Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Foreign Policy & Defense": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Praxicapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Art of Modeling": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Computation & Method": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Arenas": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Uncertainty & Data": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rigor & Validation": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Applied Life": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Quantacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Interpretation": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Gravity & Spacetime": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Cosmology & the Universe": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Emergence & Information": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Symmetry & Fine-Tuning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Life of a Theorist": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Simulcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Epistemology of Simulation": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Methods": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scale, Discretization & Time": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine & The Code": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Trust, Error & Reproducibility": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Computational Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Techcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "AI & Intelligence": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Privacy & Surveillance": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Screens & Attention": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Connection & Social Media": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Digital Identity & Self": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine Future": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Theoricapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Ontology": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Method & Style": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Branches & Territory": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Proof & Verification": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Reality": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Mathematical Life": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Vocapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Purpose & Meaning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Effort & Ambition": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Place & Mode": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Structure & Authority": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Reward & Security": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Identity & Boundaries": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
         }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
             compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
             checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
@@ -10634,7 +11009,382 @@ const TAXONOMY_CATEGORIES = [
             "Connection & aftercare": {
                 color: "#ea7f8b",
                 glyph: '<path class="icon-glyph" d="M12 20S4 15 4 9a4 4 0 0 1 7-3l1 1 1-1a4 4 0 0 1 7 3c0 6-8 11-8 11Z M8 13h2l1-3 2 6 1-3h2"/>'
-            }
+            },
+            /* Flexcapades skin categories: Chemcapades (8). Star glyph shared;
+               distinct colors carry the category identity on the map. */
+            "Ontology & Metaphysics of the Chemical World": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Periodic System & Classification": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Epistemology, Explanation & Modeling": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Disciplinary Identity & Sub-Disciplinary Cultures": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics, Sustainability & Lab Safety": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Kinetics, Thermodynamics & Emergent Complexity": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Codification, Pedagogy & the Chemical Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials, Energy & the Molecular Frontier": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Aesthcapades (7). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Visual Art": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Music & Sound": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Story & Word": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Adornment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Space & Place": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Taste & Judgment": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Food & Flavor": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Dharmacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Dharma & The Way": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Liberation & Enlightenment": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Practice & Discipline": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Deity & The Divine": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ethics & Conduct": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Lineage": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Expericapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Mission & Discovery Strategy": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Detectors & Instruments": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Noise & Standards of Discovery": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Environment & Extremes": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Data, Analysis & Openness": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Experimental Life & Lab Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Forescapades (7, real v2.4 categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "God": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scripture & Authority": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Community & Leadership": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Salvation & Grace": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Ritual & Worship": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life & Morality": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Last Things": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Mattercapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Applied Physics Philosophy & Strategy": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Scale": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Technology & Hardware": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Energy, Power & Clean Technology": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Materials & Fabrication": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Life, Medicine & the Applied Life": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Philoscapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Epistemology & Theory of Truth": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Metaphysics & Ontology": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Axiology & Normative Ethics": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Philosophy of Mind & Consciousness": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Existentialism & The Human Condition": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Political Philosophy & Justice": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Poliscapades (8, real draft categories). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Economy": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Health & Care": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Climate, Energy & Environment": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Immigration & Borders": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Democracy & Government": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rights & Freedoms": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Education & Culture": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Foreign Policy & Defense": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Praxicapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Art of Modeling": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Computation & Method": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Domains & Arenas": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Uncertainty & Data": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Rigor & Validation": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Applied Life": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Quantacapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Interpretation": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Quantum Gravity & Spacetime": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Cosmology & the Universe": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Emergence & Information": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Symmetry & Fine-Tuning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Life of a Theorist": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Simulcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "The Epistemology of Simulation": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Methods": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Scale, Discretization & Time": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine & The Code": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Trust, Error & Reproducibility": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Computational Life": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Techcapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "AI & Intelligence": {
+                color: "#63c2c8",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Privacy & Surveillance": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Screens & Attention": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Connection & Social Media": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Digital Identity & Self": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Machine Future": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Theoricapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Foundations & Ontology": {
+                color: "#82c66e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Method & Style": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Branches & Territory": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Proof & Verification": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Beauty & Reality": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "The Mathematical Life": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            /* Flexcapades skin categories: Vocapades (6). Star glyph shared; distinct colors carry the category identity on the map. */
+            "Purpose & Meaning": {
+                color: "#e5a45e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Effort & Ambition": {
+                color: "#ef806e",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Place & Mode": {
+                color: "#d7c15c",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Structure & Authority": {
+                color: "#5ab0da",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Reward & Security": {
+                color: "#7ec8e3",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
+            "Identity & Boundaries": {
+                color: "#9b8cf2",
+                glyph: '<path class="icon-glyph" d="M12 2l2.2 6.1L20 5.6l-3.4 5.3 5.4 3.3-6.3.5.9 6.3-4.6-4.3L7.4 21l.9-6.3-6.3-.5 5.4-3.3L4 5.6l5.8 2.5Z"/>'
+            },
         }, me = e => `<path class="icon-glyph" d="${e}"/>`, fe = (e, t, n) => `<circle class="icon-glyph" cx="${e}" cy="${t}" r="${n}"/>`, ye = {
             compass: me("M8 2v12M2 8h12m-4-2-2 2-2 2 2-2Z"),
             checklist: me("M3 3h10v10H3Zm2 3 1 1 2-2m-3 5 1 1 2-2m2-3h2m-2 4h2"),
@@ -11899,118 +12649,13 @@ const TAXONOMY_CATEGORIES = [
         const Ue = new Set([ "t0002", "t0007", "t0008", "t0102", "t0106", "t0107", "t0108", "t0140", "topic-vampires-gothic", "topic-historical-fantasy", "t0377", "t0378", "t0379", "t0380", "t0382", "t0383", "t0384", "t0317", "t0318", "t0319", "t0320", "t0321", "t0322", "t0323", "t0278", "t0279", "t0280", "t0282", "t0258", "t0361", "t0366", "t0396", "t0397", "t0399", "t0401", "t0402", "t0403", "t0269", "t0048", "t0132", "t0143", "t0144", "t0147", "t0148", "t0195", "t0217", "t0219", "t0228", "t0229", "t0230", "t0232", "t0233", "t0259", "t0290", "t0303" ]);
         function Ge(e, t = Vi()) {
             const n = (at[t] || {})[e], i = n && n.parentId || e;
-            if (e === "t0281" || e === "topic-cuckold-hotwife" || e === "topic-bull-hotwife-cuckold" || i === "t0281" || i === "topic-cuckold-hotwife" || i === "topic-bull-hotwife-cuckold") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "bull", "hotwife", "cuckold" ],
-                    labels: [ "Bull", "Hotwife", "Cuckold" ]
-                };
-            }
-            if (e === "t0406" || e === "topic-cuckquean-stag-vixen" || e === "topic-cuckqueen-stag-vixen" || i === "t0406" || i === "topic-cuckquean-stag-vixen" || i === "topic-cuckqueen-stag-vixen") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "vixen", "stag", "cuckquean" ],
-                    labels: [ "Vixen", "Stag", "Cuckquean" ]
-                };
-            }
-            if (e === "t0407" || e === "topic-top-bottom-side" || i === "t0407" || i === "topic-top-bottom-side") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
-                    keys: [ "top", "side", "bottom" ],
-                    labels: [ "Top", "Side", "Bottom" ]
-                };
-            }
-            if (e === "t0408" || e === "topic-sensual-primal-humiliation" || i === "t0408" || i === "topic-sensual-primal-humiliation") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "primal", "sensual", "humiliation" ],
-                    labels: [ "Primal", "Sensual", "Humiliation" ]
-                };
-            }
-            if (e === "t0409" || e === "topic-sensation-power-intimacy" || i === "t0409" || i === "topic-sensation-power-intimacy") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "trilinear-sliders",
-                    archetype: "multi-affinity",
-                    keys: [ "sensation", "power", "intimacy" ],
-                    labels: [ "Sensation", "Power", "Intimacy" ]
-                };
-            }
-            if (e === "t0412" || e === "topic-tantric-frantic-trance" || i === "t0412" || i === "topic-tantric-frantic-trance") {
-                return {
-                    single: !1,
-                    triangle: !0,
-                    widget: "triangle",
-                    archetype: "simplex",
-                    keys: [ "tantric", "frantic", "trance" ],
-                    labels: [ "Slow & Tantric", "Fast & Frantic", "Still & Trance" ]
-                };
-            }
+            /* Flexcapades skin registry: a loaded skin supplies widget configs
+               for its own topic ids — including sexcapades.json, which the
+               loader registers at boot for the 17 higher-pole Sexcapades
+               topics (formerly hardcoded branches here). Consulted first. */
+            const sw = window.__SX_SKIN_WIDGETS;
+            if (sw) { const w = sw[e] || sw[i]; if (w) return w; }
             // 4-Pole Tetrad Topics
-            if (e === "t0414" || e === "topic-orgasm-dynamic" || i === "t0414" || i === "topic-orgasm-dynamic") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "ruined", "edged", "forced", "cathartic" ],
-                    labels: [ "Ruined / Denied", "Extended Edging", "Forced / Overstim", "Cathartic Climax" ]
-                };
-            }
-            if (e === "t0415" || e === "topic-intimacy-geometry" || i === "t0415" || i === "topic-intimacy-geometry") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "voyeur", "swinging", "hierarchical", "anarchy" ],
-                    labels: [ "Voyeur / Cuckold", "Recreational Swinging", "Hierarchical Poly", "Relationship Anarchy" ]
-                };
-            }
-            if (e === "t0416" || e === "topic-kink-motivation" || i === "t0416" || i === "topic-kink-motivation") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "escape", "union", "catharsis", "transgression" ],
-                    labels: [ "Mindless Escape", "Deep Intimacy / Union", "Somatic Catharsis", "Taboo Transgression" ]
-                };
-            }
-            // Poliscapades 4-Pole Placeholders
-            if (e === "topic-political-compass" || i === "topic-political-compass") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "quad-compass",
-                    archetype: "quad", // Type III: Orthogonal Continua
-                    keys: [ "authleft", "authright", "libleft", "libright" ],
-                    labels: [ "Authoritarian Left", "Authoritarian Right", "Libertarian Left", "Libertarian Right" ]
-                };
-            }
-            if (e === "topic-decision-ecology" || i === "topic-decision-ecology") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "quad-sliders",
-                    archetype: "diamond", // Type II: Multi-Affinity Distribution
-                    keys: [ "consensus", "democracy", "technocracy", "mandate" ],
-                    labels: [ "Consensus", "Direct Democracy", "Technocracy", "Executive Mandate" ]
-                };
-            }
             // Forescapades 4-Pole Placeholders
             if (e === "topic-metaphysical-reality" || i === "topic-metaphysical-reality") {
                 return {
@@ -12033,27 +12678,6 @@ const TAXONOMY_CATEGORIES = [
                 };
             }
             // 5-Pole Pentad Topics
-            if (e === "t0418" || e === "topic-erotic-languages" || i === "t0418" || i === "topic-erotic-languages") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star", // Type II: Multi-Affinity Distribution
-                    keys: [ "words", "touch", "service", "vulnerability", "autonomy" ],
-                    labels: [ "Words of Adoration", "Dedicated Erotic Touch", "Devoted Acts of Service", "Deep Vulnerability", "Autonomous Presence" ]
-                };
-            }
-            // Poliscapades 5-Pole Placeholders
-            if (e === "topic-civic-allocation-pentad" || i === "topic-civic-allocation-pentad") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star", // Type II: Multi-Affinity Distribution
-                    keys: [ "welfare", "infrastructure", "education", "defense", "ecology" ],
-                    labels: [ "Healthcare & Welfare", "Infrastructure & Energy", "Education & Science", "Defense & Security", "Ecology & Climate" ]
-                };
-            }
             // Forescapades 5-Pole Placeholders
             if (e === "topic-elemental-balance" || i === "topic-elemental-balance") {
                 return {
@@ -12066,37 +12690,6 @@ const TAXONOMY_CATEGORIES = [
                 };
             }
             // 6-Pole Hexad Topics
-            if (e === "t0420" || e === "topic-eros-hexagon" || i === "t0420" || i === "topic-eros-hexagon") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad", // Type II: Multi-Affinity Distribution / Diametric Pairs
-                    keys: [ "eros", "ludus", "storge", "pragma", "mania", "agape" ],
-                    labels: [ "Eros (Passionate)", "Ludus (Playful)", "Storge (Companionate)", "Pragma (Practical)", "Mania (Obsessive)", "Agape (Altruistic)" ]
-                };
-            }
-            if (e === "t0422" || e === "topic-orgasm-topography" || i === "t0422" || i === "topic-orgasm-topography") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "clitoral", "pelvic", "cervical", "anal", "somatic", "psychic" ],
-                    labels: [ "External Cutaneous", "Internal Pelvic (G/P)", "Cervical / Trance", "Anal / Sphincter Wave", "Whole-Body Somatic", "Psychic / Tantric" ]
-                };
-            }
-            // Poliscapades 6-Pole Placeholders
-            if (e === "topic-political-matrix-hexad" || e === "topic-hexagonal-matrix" || i === "topic-political-matrix-hexad" || i === "topic-hexagonal-matrix") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "capitalism", "socialism", "technocracy", "communitarian", "authoritarian", "libertarian" ],
-                    labels: [ "Free-Market Capitalism", "Democratic Socialism", "Technocratic Meritocracy", "Communitarian Localism", "Authoritarian Order", "Libertarian Voluntaryism" ]
-                };
-            }
             // Forescapades 6-Pole Placeholders
             if (e === "topic-six-yogas" || i === "topic-six-yogas") {
                 return {
@@ -12109,36 +12702,6 @@ const TAXONOMY_CATEGORIES = [
                 };
             }
             // 7-Pole Heptad Topics
-            if (e === "t0423" || e === "topic-bdsm-archetype-heptad" || i === "t0423" || i === "topic-bdsm-archetype-heptad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad", // Type II: Multi-Affinity Distribution / Heptagonal Polygon
-                    keys: [ "sovereign", "caregiver", "primal", "sadist", "brat", "switch", "slave" ],
-                    labels: [ "Sovereign (Dominant / Master)", "Caregiver (Nurturer / Daddy)", "Primal (Hunter / Instinct)", "Sadist (Tormentor / Sensual)", "Brat (Rebel / Provoker)", "Switch (Fluid / Versatile)", "Submissive (Slave / Devotee)" ]
-                };
-            }
-            if (e === "t0424" || e === "topic-somatosensory-modalities-heptad" || i === "t0424" || i === "topic-somatosensory-modalities-heptad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "tactile", "thermal", "impact", "electric", "scent", "sound", "vestibular" ],
-                    labels: [ "Tactile (Texture / Soft)", "Thermal (Hot / Ice)", "Impact (Sting / Thud)", "Electric (Tens / Wand)", "Olfactory (Scent / Odor)", "Acoustic (Whisper / ASMR)", "Vestibular (Balance / Suspension)" ]
-                };
-            }
-            if (e === "t0425" || e === "topic-relational-heptad" || i === "t0425" || i === "topic-relational-heptad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "liking", "infatuation", "empty", "romantic", "companionate", "fatuous", "consummate" ],
-                    labels: [ "Liking (Intimacy Alone)", "Infatuation (Passion Alone)", "Empty (Duty / Contract)", "Romantic (Intimacy + Passion)", "Companionate (Intimacy + Duty)", "Fatuous (Passion + Duty)", "Consummate (Total Matrix)" ]
-                };
-            }
             // Philoscapades 7-Pole Heptad
             if (e === "topic-seven-branches-philosophy" || i === "topic-seven-branches-philosophy") {
                 return {
@@ -12161,95 +12724,9 @@ const TAXONOMY_CATEGORIES = [
                     labels: [ "Sovereign Authority", "Rule of Law", "Economic Equality", "Civil Liberties", "Social Welfare Safety", "Ecological Stewardship", "Geopolitical Autonomy" ]
                 };
             }
-            // Forescapades 7-Pole Heptad (Seven Classical Planetary Spheres / Hermetic Rays)
-            if (e === "topic-seven-planetary-spheres" || e === "topic-seven-chakras" || i === "topic-seven-planetary-spheres" || i === "topic-seven-chakras") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "sol", "venus", "mars", "jupiter", "saturn", "luna", "mercury" ],
-                    labels: [ "Sol (Illumination)", "Venus (Beauty / Love)", "Mars (Strength / Will)", "Jupiter (Wisdom / Grace)", "Saturn (Boundaries / Silence)", "Luna (Intuition / Mystery)", "Mercury (Intellect / Word)" ]
-                };
-            }
             // 8-Pole Octad Topics
             // Sexcapades 8-Pole Physical Restraint & Containment Octad
-            if (e === "t0426" || e === "topic-restraint-containment-octad" || i === "t0426" || i === "topic-restraint-containment-octad") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "rope", "shibari", "cuffs", "tape", "mummification", "blindfold", "caging", "suspension" ],
-                    labels: [ "Rope Bondage", "Shibari (Art / Tie)", "Cuffs & Straps", "Tape & Wrapping", "Mummification / Sack", "Blindfold / Sensory Hood", "Caging / Encasement", "Suspension Bondage" ]
-                };
-            }
             // Sexcapades 8-Pole Somatosensory & Anatomical Worship Octad
-            if (e === "t0427" || e === "topic-anatomical-worship-octad" || i === "t0427" || i === "topic-anatomical-worship-octad") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "feet", "hands", "breasts", "glutes", "muscles", "hair", "bodyhair", "pregnancy" ],
-                    labels: [ "Feet & Footwear", "Hands & Gloves", "Breasts / Chest", "Buttocks / Glutes", "Muscles / Physique", "Hair / Long Hair", "Body & Facial Hair", "Pregnancy / Lactation" ]
-                };
-            }
-            // Philoscapades 8-Pole Epistemological Octad
-            if (e === "topic-eight-epistemologies" || i === "topic-eight-epistemologies") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "empiricism", "rationalism", "pragmatism", "phenomenology", "hermeneutics", "skepticism", "mysticism", "dialectics" ],
-                    labels: [ "Empiricism", "Rationalism", "Pragmatism", "Phenomenology", "Hermeneutics", "Skepticism", "Mysticism", "Dialectics" ]
-                };
-            }
-            // Poliscapades 8-Pole Civilizational Octad
-            if (e === "topic-eight-civilizations" || i === "topic-eight-civilizations") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "western", "sinic", "islamic", "hindu", "orthodox", "latin", "african", "buddhist" ],
-                    labels: [ "Western Democratic", "Sinic / Confucian", "Islamic", "Hindu", "Orthodox Slavic", "Latin American", "Sub-Saharan African", "Buddhist / Dharmic" ]
-                };
-            }
-            // Forescapades 8-Pole Abrahamic Covenantal & Theological Octad
-            if (e === "topic-eight-covenants-abrahamic" || i === "topic-eight-covenants-abrahamic") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "britmilah", "halakha", "kabbalah", "gospel", "eucharist", "orthodoxy", "tawhid", "sufism" ],
-                    labels: [ "Brit Milah (The Flesh Covenant)", "Halakha (Law & Mitzvot)", "Kabbalah (Merkavah / Mysticism)", "Gospel (Pauline Grace / Faith)", "Sacrament (Eucharist / Liturgy)", "Christology (Logos Incarnate)", "Tawhid (Absolute Divine Unity)", "Tasawwuf (Sufi Fana / Ecstasy)" ]
-                };
-            }
-            // Dharmacapades 8-Pole Noble Eightfold Path Octad
-            if (e === "t0428" || e === "topic-noble-eightfold-path" || e === "topic-eightfold-path" || i === "t0428" || i === "topic-noble-eightfold-path" || i === "topic-eightfold-path") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "view", "intention", "speech", "action", "livelihood", "effort", "mindfulness", "concentration" ],
-                    labels: [ "Right View (Wisdom)", "Right Intention (Resolve)", "Right Speech (Ethics)", "Right Action (Ethics)", "Right Livelihood (Ethics)", "Right Effort (Meditation)", "Right Mindfulness (Presence)", "Right Concentration (Jhana)" ]
-                };
-            }
-            // Dharmacapades / Taoic 8-Pole Trigrams / Bagua Octad
-            if (e === "topic-eight-trigrams-bagua" || e === "topic-bagua" || i === "topic-eight-trigrams-bagua" || i === "topic-bagua") {
-                return {
-                    single: !1,
-                    octad: !0,
-                    widget: "octad-radar",
-                    archetype: "octad",
-                    keys: [ "qian", "dui", "li", "zhen", "xun", "kan", "gen", "kun" ],
-                    labels: [ "Qian (Heaven / Creative)", "Dui (Lake / Joyous)", "Li (Fire / Clinging)", "Zhen (Thunder / Arousing)", "Xun (Wind / Gentle)", "Kan (Water / Abyssal)", "Gen (Mountain / Stillness)", "Kun (Earth / Receptive)" ]
-                };
-            }
             // Poliscapades 8-Pole Governance Regimes Octad
             if (e === "topic-eight-governance-regimes" || e === "topic-governance-octad" || i === "topic-eight-governance-regimes" || i === "topic-governance-octad") {
                 return {
@@ -12283,17 +12760,6 @@ const TAXONOMY_CATEGORIES = [
                     labels: [ "Te (Extraverted Thinking)", "Ti (Introverted Thinking)", "Fe (Extraverted Feeling)", "Fi (Introverted Feeling)", "Se (Extraverted Sensing)", "Si (Introverted Sensing)", "Ne (Extraverted Intuition)", "Ni (Introverted Intuition)" ]
                 };
             }
-            // Aesthcapades 7-Pole Dietary Identity Heptad (Canonical Heptad — Subsumes 6-Pole Hexad)
-            if (e === "topic-dietary-identity" || e === "topic-dietary-identity-heptad" || e === "topic-dietary-identity-hexad" || i === "topic-dietary-identity" || i === "topic-dietary-identity-heptad" || i === "topic-dietary-identity-hexad") {
-                return {
-                    single: !1,
-                    heptad: !0,
-                    widget: "heptad-radar",
-                    archetype: "heptad",
-                    keys: [ "carnivore", "omnivore", "pescatarian", "ovoveg", "vegetarian", "vegan", "fruitarian" ],
-                    labels: [ "Carnivore", "Omnivore", "Pescatarian", "Ovo-Vegetarian", "Lacto-Ovo Vegetarian", "Vegan", "Fruitarian" ]
-                };
-            }
             // Aesthcapades 6-Pole Music Genres Hexad
             if (e === "topic-music-genres-hexad" || i === "topic-music-genres-hexad") {
                 return {
@@ -12316,28 +12782,6 @@ const TAXONOMY_CATEGORIES = [
                     labels: [ "Technology & Engineering", "Healthcare & Caregiving", "Creative Arts & Media", "Skilled Trades & Labor", "Public Service & Education", "Finance & Commerce" ]
                 };
             }
-            // Dharmacapades 6-Pole Classical Yogas Hexad
-            if (e === "topic-six-classical-yogas" || i === "topic-six-classical-yogas") {
-                return {
-                    single: !1,
-                    hexad: !0,
-                    widget: "hexad-radar",
-                    archetype: "hexad",
-                    keys: [ "raja", "jnana", "bhakti", "karma", "hatha", "tantra" ],
-                    labels: [ "Raja (Royal / Meditation)", "Jnana (Wisdom / Discernment)", "Bhakti (Devotion / Love)", "Karma (Selfless Action)", "Hatha (Physical / Breath)", "Tantra (Energy / Integration)" ]
-                };
-            }
-            // Aesthcapades 5-Pole Five Basic Tastes Pentad
-            if (e === "topic-five-tastes" || e === "topic-five-basic-tastes" || i === "topic-five-tastes" || i === "topic-five-basic-tastes") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "sweet", "salty", "sour", "bitter", "umami" ],
-                    labels: [ "Sweet", "Salty", "Sour", "Bitter", "Umami" ]
-                };
-            }
             // Aesthcapades 5-Pole Art Movements Pentad
             if (e === "topic-art-movements-pentad" || i === "topic-art-movements-pentad") {
                 return {
@@ -12347,72 +12791,6 @@ const TAXONOMY_CATEGORIES = [
                     archetype: "star",
                     keys: [ "realism", "impressionism", "modernism", "postmodernism", "conceptual" ],
                     labels: [ "Realism / Figurative", "Impressionism", "Modernism / Avant-Garde", "Postmodernism", "Conceptual Art" ]
-                };
-            }
-            // Vocapades 5-Pole Work Models Pentad
-            if (e === "topic-work-models-pentad" || e === "topic-work-models" || i === "topic-work-models-pentad" || i === "topic-work-models") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "fulltime", "freelance", "founder", "portfolio", "public" ],
-                    labels: [ "Full-Time Employee", "Freelancer / Independent", "Founder / Entrepreneur", "Portfolio / Part-Time", "Public Service / Nonprofit" ]
-                };
-            }
-            // Techcapades 5-Pole AI Risk & Benefit Allocation Pentad
-            if (e === "topic-ai-risk-benefit-pentad" || e === "topic-ai-futures-pentad" || i === "topic-ai-risk-benefit-pentad" || i === "topic-ai-futures-pentad") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "abundance", "feudalism", "displacement", "misalignment", "epistemic" ],
-                    labels: [ "Post-Scarcity Abundance", "Corporate Feudalism", "Labor & Skill Atrophy", "Existential Misalignment", "Epistemic Collapse" ]
-                };
-            }
-            // Dharmacapades 5-Pole Five Mahabhutas Pentad
-            if (e === "topic-five-mahabhutas" || i === "topic-five-mahabhutas") {
-                return {
-                    single: !1,
-                    pentad: !0,
-                    widget: "star-radar",
-                    archetype: "star",
-                    keys: [ "earth", "water", "fire", "air", "ether" ],
-                    labels: [ "Prithvi (Earth)", "Apas (Water)", "Agni (Fire)", "Vayu (Air)", "Akasha (Ether / Space)" ]
-                };
-            }
-            // Aesthcapades 4-Pole Theories of Beauty Tetrad
-            if (e === "topic-theories-of-beauty" || i === "topic-theories-of-beauty") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond",
-                    keys: [ "harmony", "sublime", "picturesque", "grotesque" ],
-                    labels: [ "Classical Harmony (Symmetry)", "Sublime (Vastness / Awe)", "Picturesque (Organic Variety)", "Grotesque (Transgressive / Ugly)" ]
-                };
-            }
-            // Dharmacapades 4-Pole Four Purusharthas Tetrad
-            if (e === "topic-four-purusharthas" || i === "topic-four-purusharthas") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond",
-                    keys: [ "dharma", "artha", "kama", "moksha" ],
-                    labels: [ "Dharma (Righteous Duty)", "Artha (Material Prosperity)", "Kama (Sensory Pleasure)", "Moksha (Spiritual Liberation)" ]
-                };
-            }
-            // Vocapades 4-Pole Career Anchors / Ikigai Tetrad (Schein)
-            if (e === "topic-career-anchors-tetrad" || e === "topic-career-anchors" || i === "topic-career-anchors-tetrad" || i === "topic-career-anchors") {
-                return {
-                    single: !1,
-                    tetrad: !0,
-                    widget: "diamond",
-                    archetype: "diamond",
-                    keys: [ "craft", "leadership", "autonomy", "stability" ],
-                    labels: [ "Technical / Craft Mastery", "Executive / Leadership", "Autonomy / Freedom", "Security / Stability" ]
                 };
             }
             // Vocapades 4-Pole Leadership Styles Tetrad
@@ -12435,39 +12813,6 @@ const TAXONOMY_CATEGORIES = [
                     archetype: "diamond",
                     keys: [ "utilitarian", "deontological", "virtue", "care" ],
                     labels: [ "Utilitarian (Net Flourishing)", "Deontological (Duty & Rights)", "Virtue Ethics (Character & Craft)", "Care Ethics (Relational Attunement)" ]
-                };
-            }
-            // Dharmacapades 3-Pole Three Teachings / San Jiao Triad
-            if (e === "topic-three-teachings-sanjiao" || e === "topic-three-teachings" || i === "topic-three-teachings-sanjiao" || i === "topic-three-teachings") {
-                return {
-                    single: !1,
-                    triad: !0,
-                    widget: "triangle",
-                    archetype: "triangle",
-                    keys: [ "confucianism", "taoism", "buddhism" ],
-                    labels: [ "Confucianism (Duty / Li)", "Taoism (Nature / Wu Wei)", "Buddhism (Detachment / Sunyata)" ]
-                };
-            }
-            // Vocapades 3-Pole Vocation Triad (Wrzesniewski)
-            if (e === "topic-vocation-triad" || i === "topic-vocation-triad") {
-                return {
-                    single: !1,
-                    triad: !0,
-                    widget: "triangle",
-                    archetype: "triangle",
-                    keys: [ "calling", "career", "job" ],
-                    labels: [ "Calling (Purpose / Identity)", "Career (Advancement / Status)", "Job (Means / Paycheck)" ]
-                };
-            }
-            // Dharmacapades 3-Pole Three Gunas Triad
-            if (e === "topic-three-gunas" || i === "topic-three-gunas") {
-                return {
-                    single: !1,
-                    triad: !0,
-                    widget: "triangle",
-                    archetype: "triangle",
-                    keys: [ "sattva", "rajas", "tamas" ],
-                    labels: [ "Sattva (Purity / Harmony)", "Rajas (Passion / Motion)", "Tamas (Inertia / Darkness)" ]
                 };
             }
             // The topic's own give/receive labels win. A parent id in the
@@ -24517,6 +24862,18 @@ const TAXONOMY_CATEGORIES = [
 
         const SX_WARM_BOOT_VER = "4.0.0-w3";
         const SX_WARM_BOOT_STORAGE_KEY = "sx_hypermap_warm_boot_v3";
+        // Warm-boot cache is keyed by skin (ruled 2026-11-15): each skin has
+        // its own cached markup, and a restore only matches its own skin.
+        // A native Sexcapades boot has no active skin yet, so it normalizes
+        // to "sexcapades" — consistently on save AND restore, or the
+        // Sexcapades cache would never match.
+        function sxWarmBootSkin() {
+            var s = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+            return String(s);
+        }
+        function sxWarmBootStorageKey(skin) {
+            return SX_WARM_BOOT_STORAGE_KEY + ":" + (skin || sxWarmBootSkin());
+        }
         const SX_IDB_NAME = "sx_hypermap_db";
         const SX_IDB_STORE = "hypermap_cache";
         const SX_IDB_VERSION = 1;
@@ -24605,10 +24962,13 @@ const TAXONOMY_CATEGORIES = [
                     localStorage.removeItem("sx_hypermap_warm_boot_v1");
                     sessionStorage.removeItem("sx_hypermap_warm_boot_v1");
                 } catch (_) {}
-                sxWarmBootPromise = sxIdbGet(SX_WARM_BOOT_STORAGE_KEY).then(res => {
+                sxWarmBootPromise = sxIdbGet(sxWarmBootStorageKey()).then(res => {
                     sxWarmBootCachedObj = res;
                     return res;
                 }).catch(() => null);
+                // One-time cleanup: the pre-fix record lived under the bare
+                // key with no skin in it — never read again, safe to drop.
+                sxIdbDelete(SX_WARM_BOOT_STORAGE_KEY).catch(() => {});
             } catch (_) {}
         }
         sxWarmBootInit();
@@ -24627,6 +24987,7 @@ const TAXONOMY_CATEGORIES = [
             if (!In || In.childNodes.length === 0) return;
             if ((typeof dkCtx !== "undefined" && dkCtx) || window.__sxAnnealActive || window.__sxAnnealRunning || (typeof deknotterRunning !== "undefined" && deknotterRunning)) return;
             const profId = profileId || "__default__";
+            const skin = sxWarmBootSkin();
             try {
                 const key = sxGetMapVaultKey(profId);
                 const markupStr = In.innerHTML;
@@ -24636,13 +24997,14 @@ const TAXONOMY_CATEGORIES = [
                     time: Date.now(),
                     key: key,
                     profileId: profId,
+                    skin: skin,
                     compressed: compressed
                 };
                 sxWarmBootCachedObj = payload;
-                sxIdbSet(SX_WARM_BOOT_STORAGE_KEY, payload).then(() => {
+                sxIdbSet(sxWarmBootStorageKey(skin), payload).then(() => {
                     const originalKb = Math.round(markupStr.length / 1024);
                     const storedKb = compressed.raw ? originalKb : Math.round(compressed.data.byteLength / 1024);
-                    console.log("[Sexcapades WarmBoot] Saved hypermap to IndexedDB for [" + profId + "] (" + storedKb + " KB gzipped, " + originalKb + " KB raw)");
+                    console.log("[Sexcapades WarmBoot] Saved hypermap to IndexedDB for [" + profId + "] skin [" + skin + "] (" + storedKb + " KB gzipped, " + originalKb + " KB raw)");
                 }).catch(err => {
                     console.warn("[Sexcapades WarmBoot] IndexedDB save failed:", err);
                 });
@@ -24658,15 +25020,16 @@ const TAXONOMY_CATEGORIES = [
                 if (!cached && sxWarmBootPromise) {
                     cached = await sxWarmBootPromise;
                 }
+                const currentSkin = sxWarmBootSkin();
                 if (!cached) {
-                    cached = await sxIdbGet(SX_WARM_BOOT_STORAGE_KEY).catch(() => null);
+                    cached = await sxIdbGet(sxWarmBootStorageKey(currentSkin)).catch(() => null);
                 }
 
                 const currentTargetId = Mt && vt[Mt] ? Mt : "__default__";
                 const currentKey = sxGetMapVaultKey(currentTargetId);
 
-                // Priority 1: If warm boot cache exists in IndexedDB and matches current profile & vault key
-                if (cached && cached.v === SX_WARM_BOOT_VER && cached.profileId === currentTargetId && cached.key === currentKey) {
+                // Priority 1: If warm boot cache exists in IndexedDB and matches current profile, vault key AND skin
+                if (cached && cached.v === SX_WARM_BOOT_VER && cached.profileId === currentTargetId && cached.key === currentKey && cached.skin === currentSkin) {
                     const isDirty = Boolean(typeof yt !== "undefined" && yt[currentTargetId]);
                     if (!isDirty) {
                         const markup = cached.compressed ? await sxDecompressSvg(cached.compressed) : cached.markup;
@@ -24675,13 +25038,32 @@ const TAXONOMY_CATEGORIES = [
                             sxWireMapListeners();
                             sxActiveVaultKey = currentKey;
                             sxActiveVaultProfileId = currentTargetId;
+                            // Restore parity (2026-11-15): a restored boot
+                            // skips the solver, so the solver's per-page
+                            // caches would stay empty until the next solve
+                            // — and a skin switch after a restored boot
+                            // would then compute them fresh from the NEW
+                            // skin, while after a fresh boot it reuses the
+                            // BOOT skin's cached values. That split is what
+                            // landed Chem at 142.514 after a reload instead
+                            // of pristine 124.840. Warm both caches from
+                            // the restored skin here (branch order +
+                            // stagger density range), so a restored boot
+                            // carries exactly the solver state a fresh boot
+                            // builds. Cheap (a sort + a min/max scan),
+                            // synchronous, and it never touches the
+                            // painted markup.
+                            try {
+                                if (typeof branchOrderRankMap === "function") branchOrderRankMap();
+                                if (typeof yr === "function" && typeof h !== "undefined" && h && h.length) yr(h[0]);
+                            } catch (_) {}
                             window.__sxBootChunkPaint = 0;
                             if (typeof window.__sxBootProgress === "function") window.__sxBootProgress(100);
                             if (typeof window.__sxBootFinish === "function") window.__sxBootFinish(false);
                             if (typeof window.__sxLoad === "function") window.__sxLoad(100);
                             try { vc(); } catch (_) {}
                             try { Ih(); } catch (_) {}
-                            console.log("[Sexcapades WarmBoot] Restored warm boot cache for [" + currentTargetId + "] in < 15ms!");
+                            console.log("[Sexcapades WarmBoot] Restored warm boot cache for [" + currentTargetId + "] skin [" + currentSkin + "] in < 15ms!");
                             return true;
                         }
                     }
@@ -24698,7 +25080,7 @@ const TAXONOMY_CATEGORIES = [
         function sxInvalidateWarmBootCache(id) {
             try {
                 sxWarmBootCachedObj = null;
-                sxIdbDelete(SX_WARM_BOOT_STORAGE_KEY).catch(() => {});
+                sxIdbDelete(sxWarmBootStorageKey()).catch(() => {});
             } catch (_) {}
         }
 
@@ -25343,7 +25725,7 @@ const TAXONOMY_CATEGORIES = [
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || Q.color};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
+                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || (Q && Q.color) || Ga.FALLBACK_COLOR};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
                 for (let sxTi = 0; sxTi < e.topics.length; sxTi++) {
                     const t = e.topics[sxTi];
                     if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
@@ -26525,6 +26907,43 @@ const TAXONOMY_CATEGORIES = [
                 e.topics.forEach(e => on.add(Wn(e))));
             });
         }
+        /* Flexcapades skin switch: the solver's expanded-branch set (rn) and
+           per-node visibility modes (un) are keyed by category NAME / node
+           ID and are populated from the taxonomy at boot / on profile
+           select (see ji() in 02o). A skin swap changes the names and IDs,
+           so the new ones must be registered here or frBuildTree skips
+           every topic of an unregistered branch as collapsed
+           (`if (!En && !o && !s) return;`) and hides every unrated topic
+           behind the default "rated" visibility mode (`fi()` falls back
+           to "rated" for unknown branch IDs — a fresh skin has no ratings
+           yet, so its branches must start at "all"). The loader calls this
+           before re-rendering; it mirrors ji()'s expansion pass and runs
+           regardless of layout-auto mode. Collapse / visibility state is
+           not preserved across a switch (all branches come back expanded
+           and "all", as on a profile select). */
+        window.__SX_SKIN_LAYOUT_SYNC = function () {
+            try {
+                rn.clear(), on.clear();
+                h.forEach(e => {
+                    const n = catId(e.name);
+                    un.set(n, "all"), rn.add(e.name), (e.subcategories || []).forEach(t => {
+                        const i = Un(e.name, t.name);
+                        un.set(i, "all"), on.add(i);
+                    }), e.topics.forEach(t => {
+                        const n = Wn(t);
+                        un.set(n, "all"), on.add(n);
+                    });
+                });
+            } catch (_) {}
+        };
+        /* Flexcapades skin switch: re-fit the camera to the new map. A plain
+           Mr() deliberately keeps the user's zoom/pan (only the boot arm
+           re-fits), so without this the smaller Chem map would sit tiny
+           inside the Sexcapades fit — and restoring would leave Sexcapades
+           cropped. Same call profile select makes (Ih() in 02o). */
+        window.__SX_SKIN_REFIT = function () {
+            try { Ih(); } catch (_) {}
+        };
         // Ownership note (map-render refactor, finding 15): the
         // center-node global metric total (#metricMapGlobal) is NOT
         // computed or updated anywhere in this bundle — it is owned
@@ -27149,7 +27568,7 @@ const TAXONOMY_CATEGORIES = [
         function lo(e) {
             const t = je[e.branch] || {};
             let n = "";
-            if ("Category" === e.kind) n = t.description || "A branch of related topics to rate and discuss."; else if ("Subcategory" === e.kind) n = `A navigation group for ${(e.topics || []).length} related topics in ${e.branch}.`; else if (qe[e.label]) n = qe[e.label]; else if (e.parentId) {
+            if ("Category" === e.kind) n = t.description || "A branch of related topics to rate and discuss."; else if ("Subcategory" === e.kind) n = `A navigation group for ${(e.topics || []).length} related topics in ${e.branch}.`; else if (qe[e.label]) n = qe[e.label]; else if (window.__SX_SKIN_DESCRIPTIONS && window.__SX_SKIN_DESCRIPTIONS[e.label]) n = window.__SX_SKIN_DESCRIPTIONS[e.label]; else if (e.parentId) {
                 const t = qn[e.parentId] || Xn(e.parentId), i = t && qe[t.label];
                 n = i ? `${e.label} is an imported variation of this: ${i}` : `${e.label} is an imported, more specific act or scenario grouped under ${t ? t.label.toLowerCase() : "its parent topic"}.`;
             } else n = je[e.branch]?.description || `${e.label} does not yet have authored About text.`;
@@ -27665,6 +28084,277 @@ const TAXONOMY_CATEGORIES = [
             Fo(topicId, shape.keys[2], !1);
             Fo(topicId, shape.keys[3], !0);
             sxSyncMarkRatings(topicId);
+        }
+
+        // --- 4-Pole Political Compass (quad-compass) State & Widget ---
+        // A square with two axes: horizontal = economic (left/right),
+        // vertical = authority (authoritarian top / libertarian bottom).
+        // One draggable point. Pole order is the JSON's, clockwise from
+        // top-left: keys[0] = top-left, keys[1] = top-right,
+        // keys[2] = bottom-right, keys[3] = bottom-left.
+        // Storage: the four values are bilinear weights x intensity, so
+        // they sum to the intensity (0..100) and the point is recoverable
+        // from them: u = (v1 + v2) / I, v = (v2 + v3) / I, I = sum.
+        let sxCompassState = {
+            topicId: null,
+            u: 0.5, v: 0.5, intensity: 0,
+            isDragging: !1
+        };
+
+        // Corner colors in JSON pole order (top-left, top-right,
+        // bottom-right, bottom-left) — same four colors as the tetrad.
+        const SX_COMPASS_COLORS = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"];
+
+        function sxCompassShortLabel(label) {
+            // "Authoritarian Left (State Socialism)" -> "Auth Left".
+            // The canvas corners are too narrow for the full labels;
+            // the full labels stay in the readout rows below the canvas.
+            const s = String(label || "");
+            const cut = s.indexOf(" (");
+            const base = cut >= 0 ? s.slice(0, cut) : s;
+            return base.replace("Authoritarian", "Auth").replace("Libertarian", "Lib");
+        }
+
+        function sxGetCompassSquare(width, height) {
+            // Square with room for the corner labels outside it.
+            const s = Math.max(40, Math.min(width - 110, height - 80));
+            const cx = width / 2, cy = height / 2;
+            return { cx, cy, s, x0: cx - s / 2, y0: cy - s / 2, x1: cx + s / 2, y1: cy + s / 2 };
+        }
+
+        function sxCompassPointToUV(px, py, sq) {
+            const u = Math.max(0, Math.min(1, (px - sq.x0) / sq.s));
+            const v = Math.max(0, Math.min(1, (py - sq.y0) / sq.s));
+            return { u, v };
+        }
+
+        function sxCompassValuesFromPoint(u, v, intensity) {
+            const I = Math.max(0, Math.min(100, intensity));
+            const vals = [
+                Math.round((1 - u) * (1 - v) * I),
+                Math.round(u * (1 - v) * I),
+                Math.round(u * v * I),
+                Math.round((1 - u) * v * I)
+            ];
+            // Per-key rounding can leave the sum off by 1-2; fold the
+            // residual into the largest value so the four values sum to
+            // the intensity exactly (the storage shape's invariant).
+            const residual = Math.round(I) - (vals[0] + vals[1] + vals[2] + vals[3]);
+            if (residual !== 0) {
+                let maxIdx = 0;
+                for (let k = 1; k < 4; k++) if (vals[k] > vals[maxIdx]) maxIdx = k;
+                vals[maxIdx] = Math.max(0, Math.min(100, vals[maxIdx] + residual));
+            }
+            return vals;
+        }
+
+        function sxCompassPointFromValues(r0, r1, r2, r3) {
+            const vals = [r0, r1, r2, r3].map(n => Math.max(0, Math.min(100, Number(n) || 0)));
+            const I = Math.min(100, vals[0] + vals[1] + vals[2] + vals[3]);
+            if (I <= 0) return { u: 0.5, v: 0.5, intensity: 0 };
+            return {
+                u: Math.max(0, Math.min(1, (vals[1] + vals[2]) / I)),
+                v: Math.max(0, Math.min(1, (vals[2] + vals[3]) / I)),
+                intensity: I
+            };
+        }
+
+        function sxDrawCompassWidget(canvas, shape, state) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const sq = sxGetCompassSquare(width, height);
+            const { cx, cy, s, x0, y0, x1, y1 } = sq;
+            const u = (state && typeof state.u === "number") ? state.u : 0.5;
+            const v = (state && typeof state.v === "number") ? state.v : 0.5;
+            const px = x0 + u * s, py = y0 + v * s;
+
+            // 1. Tinted quadrant backgrounds
+            const tints = ["rgba(34, 197, 94, 0.10)", "rgba(234, 179, 8, 0.10)", "rgba(239, 68, 68, 0.10)", "rgba(59, 130, 246, 0.10)"];
+            ctx.fillStyle = tints[0]; ctx.fillRect(x0, y0, s / 2, s / 2);
+            ctx.fillStyle = tints[1]; ctx.fillRect(cx, y0, s / 2, s / 2);
+            ctx.fillStyle = tints[2]; ctx.fillRect(cx, cy, s / 2, s / 2);
+            ctx.fillStyle = tints[3]; ctx.fillRect(x0, cy, s / 2, s / 2);
+
+            // 2. Gridlines at 25/50/75% + square frame
+            [0.25, 0.5, 0.75].forEach(frac => {
+                ctx.beginPath();
+                ctx.moveTo(x0 + s * frac, y0); ctx.lineTo(x0 + s * frac, y1);
+                ctx.moveTo(x0, y0 + s * frac); ctx.lineTo(x1, y0 + s * frac);
+                ctx.lineWidth = 0.8;
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+            ctx.beginPath();
+            ctx.rect(x0, y0, s, s);
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.stroke();
+
+            // 3. Crosshair axes (dashed)
+            ctx.beginPath();
+            ctx.moveTo(cx, y0); ctx.lineTo(cx, y1);
+            ctx.moveTo(x0, cy); ctx.lineTo(x1, cy);
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 4. Axis captions
+            ctx.font = "9px system-ui, sans-serif";
+            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.fillText("Economic", cx, y1 - 4);
+            ctx.save();
+            ctx.translate(x0 + 10, cy);
+            ctx.rotate(-Math.PI / 2);
+            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+            ctx.fillText("Authority", 0, -4);
+            ctx.restore();
+
+            // 5. Corner labels (short forms, corner colors)
+            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4"];
+            const short = labels.map(l => sxCompassShortLabel(l));
+            ctx.font = "bold 9px system-ui, sans-serif";
+            // Top-left
+            ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+            ctx.fillStyle = SX_COMPASS_COLORS[0]; ctx.fillText(short[0], x0, y0 - 4);
+            // Top-right
+            ctx.textAlign = "right"; ctx.textBaseline = "bottom";
+            ctx.fillStyle = SX_COMPASS_COLORS[1]; ctx.fillText(short[1], x1, y0 - 4);
+            // Bottom-right
+            ctx.textAlign = "right"; ctx.textBaseline = "top";
+            ctx.fillStyle = SX_COMPASS_COLORS[2]; ctx.fillText(short[2], x1, y1 + 4);
+            // Bottom-left
+            ctx.textAlign = "left"; ctx.textBaseline = "top";
+            ctx.fillStyle = SX_COMPASS_COLORS[3]; ctx.fillText(short[3], x0, y1 + 4);
+
+            // 6. Draggable point puck (same pattern as the triangle widget)
+            ctx.beginPath();
+            ctx.arc(px, py, 11, 0, 2 * Math.PI);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(px, py, 6, 0, 2 * Math.PI);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = "#0f172a";
+            ctx.stroke();
+        }
+
+        function sxApplyCompassRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 4) return;
+            const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, sxCompassState.intensity);
+            To(topicId, shape.keys[0], vals[0], !1);
+            To(topicId, shape.keys[1], vals[1], !1);
+            To(topicId, shape.keys[2], vals[2], !1);
+            To(topicId, shape.keys[3], vals[3], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearCompassRatings(topicId) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 4) return;
+            Fo(topicId, shape.keys[0], !1);
+            Fo(topicId, shape.keys[1], !1);
+            Fo(topicId, shape.keys[2], !1);
+            Fo(topicId, shape.keys[3], !0);
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindCompassWidget() {
+            const canvas = e.byId("markCompassCanvas");
+            const slider = e.byId("markCompassIntensity");
+            const clearBtn = e.byId("markCompassClear");
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+
+            const updatePointFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+                const sq = sxGetCompassSquare(canvas.width, canvas.height);
+                const { u, v } = sxCompassPointToUV(px, py, sq);
+                sxCompassState.u = u;
+                sxCompassState.v = v;
+                if (!sxCompassState.intensity) {
+                    sxCompassState.intensity = 70;
+                    if (slider) slider.value = "70";
+                    const out = e.byId("markCompassIntensityOut");
+                    out && (out.textContent = "70");
+                }
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawCompassWidget(canvas, shape, sxCompassState);
+                    sxApplyCompassRatings(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                sxCompassState.isDragging = !0;
+                canvas.setPointerCapture(evt.pointerId);
+                updatePointFromPointer(evt);
+            });
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!sxCompassState.isDragging) return;
+                updatePointFromPointer(evt);
+            });
+            const stopDrag = (evt) => {
+                if (sxCompassState.isDragging) {
+                    sxCompassState.isDragging = !1;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            // Mouse wheel scales the intensity (sum), point unchanged
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const scale = (100 + step) / 100;
+                sxCompassState.intensity = Math.max(0, Math.min(100, Math.round(sxCompassState.intensity * scale)));
+                if (slider) slider.value = String(Math.round(sxCompassState.intensity));
+                const out = e.byId("markCompassIntensityOut");
+                out && (out.textContent = String(Math.round(sxCompassState.intensity)));
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawCompassWidget(canvas, shape, sxCompassState);
+                    sxApplyCompassRatings(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    sxCompassState.intensity = Math.max(0, Math.min(100, Number(slider.value)));
+                    const out = e.byId("markCompassIntensityOut");
+                    out && (out.textContent = String(Math.round(sxCompassState.intensity)));
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawCompassWidget(canvas, shape, sxCompassState);
+                        sxApplyCompassRatings(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        sxClearCompassRatings(Qr);
+                    }
+                });
+            }
         }
 
         function sxFindClosestAxis(px, py, cx, cy, vertices, currentValues, handleRadius = 22) {
@@ -28935,11 +29625,12 @@ const TAXONOMY_CATEGORIES = [
             const isHeptad = Boolean(shape.heptad || (shape.keys && shape.keys.length === 7));
             const isHexad = Boolean(shape.hexad || (shape.keys && shape.keys.length === 6));
             const isPentad = Boolean(shape.pentad || (shape.keys && shape.keys.length === 5));
-            const isTetrad = Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
+            const isCompass = shape.widget === "quad-compass";
+            const isTetrad = !isCompass && Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
             const is2Pole = !isOctad && !isHeptad && !isHexad && !isPentad && !isTetrad && !isTriad;
 
-            badgeEl && (badgeEl.textContent = isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
+            badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
 
             const keys = shape.keys || [];
             readoutEl && (readoutEl.innerHTML = "");
@@ -28948,7 +29639,7 @@ const TAXONOMY_CATEGORIES = [
                 const statBox = document.createElement("div");
                 statBox.className = "mark-tri-stat";
                 const pName = shape.labels[idx] || k;
-                const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
+                const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isCompass ? SX_COMPASS_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
                 statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
                 readoutEl && readoutEl.append(statBox);
                 valSpans.push(statBox.querySelector("b"));
@@ -28967,11 +29658,16 @@ const TAXONOMY_CATEGORIES = [
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const maxVal = Math.max(...vals, 0);
-                slider && (slider.value = String(Math.round(maxVal)));
-                sliderOut && (sliderOut.textContent = String(Math.round(maxVal)));
+                // Compass intensity is the SUM of the four quadrant values, not the max.
+                const sliderVal = isCompass ? (vals[0] + vals[1] + vals[2] + vals[3]) : maxVal;
+                slider && (slider.value = String(Math.round(sliderVal)));
+                sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
                 syncReadouts();
 
-                if (isOctad) {
+                if (isCompass) {
+                    const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
+                    sxDrawCompassWidget(canvas, shape, pt);
+                } else if (isOctad) {
                     sxDrawOctadWidget(canvas, shape, {
                         p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7]
                     });
@@ -29036,6 +29732,18 @@ const TAXONOMY_CATEGORIES = [
                     } else {
                         To(topicId, keys[activeIdx], val, !1, pId);
                     }
+                    redraw();
+                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                    row && Ss(row);
+                } else if (isCompass) {
+                    const sq = sxGetCompassSquare(canvas.width, canvas.height);
+                    const { u, v } = sxCompassPointToUV(px, py, sq);
+                    const curRec = ca(topicId, pId);
+                    const oldVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                    let intensity = oldVals[0] + oldVals[1] + oldVals[2] + oldVals[3];
+                    if (!intensity) intensity = 70;
+                    const vals = sxCompassValuesFromPoint(u, v, intensity);
+                    keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -29111,7 +29819,22 @@ const TAXONOMY_CATEGORIES = [
                     const curRec = ca(topicId, pId);
                     const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                     const maxCur = Math.max(...vals, 0);
-                    if (maxCur > 0) {
+                    if (isCompass) {
+                        // Compass intensity is the SUM: rescale so the four
+                        // values sum to the target, point unchanged.
+                        const sumCur = vals[0] + vals[1] + vals[2] + vals[3];
+                        if (sumCur > 0) {
+                            const ratio = targetVal / sumCur;
+                            keys.forEach((k, idx) => {
+                                To(topicId, k, Math.max(0, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
+                            });
+                        } else {
+                            // No ratings yet: start at the center point
+                            keys.forEach(k => {
+                                To(topicId, k, Math.max(0, Math.min(100, Math.round(targetVal / 4))), !1, pId);
+                            });
+                        }
+                    } else if (maxCur > 0) {
                         const ratio = targetVal / maxCur;
                         keys.forEach((k, idx) => {
                             To(topicId, k, Math.max(0, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
@@ -29516,6 +30239,13 @@ const TAXONOMY_CATEGORIES = [
             const tetradVal0 = e.byId("markTetradVal0"), tetradVal1 = e.byId("markTetradVal1"), tetradVal2 = e.byId("markTetradVal2"), tetradVal3 = e.byId("markTetradVal3");
             const tetradPole0 = e.byId("markTetradPole0"), tetradPole1 = e.byId("markTetradPole1"), tetradPole2 = e.byId("markTetradPole2"), tetradPole3 = e.byId("markTetradPole3");
 
+            const compassWrap = e.byId("markCompassWrap");
+            const compassCanvas = e.byId("markCompassCanvas");
+            const compassIntensity = e.byId("markCompassIntensity");
+            const compassIntensityOut = e.byId("markCompassIntensityOut");
+            const compassVal0 = e.byId("markCompassVal0"), compassVal1 = e.byId("markCompassVal1"), compassVal2 = e.byId("markCompassVal2"), compassVal3 = e.byId("markCompassVal3");
+            const compassPole0 = e.byId("markCompassPole0"), compassPole1 = e.byId("markCompassPole1"), compassPole2 = e.byId("markCompassPole2"), compassPole3 = e.byId("markCompassPole3");
+
             const pentadWrap = e.byId("markPentadWrap");
             const pentadCanvas = e.byId("markPentadCanvas");
             const pentadIntensity = e.byId("markPentadIntensity");
@@ -29552,7 +30282,7 @@ const TAXONOMY_CATEGORIES = [
             const linearRatings = e.byId("markRatings");
 
             // Guaranteed single widget helper: only activeWrap is shown, all others hidden
-            const allWraps = [triWrap, tetradWrap, pentadWrap, hexadWrap, heptadWrap, octadWrap, switchboxWrap, linearRatings];
+            const allWraps = [triWrap, tetradWrap, compassWrap, pentadWrap, hexadWrap, heptadWrap, octadWrap, switchboxWrap, linearRatings];
             const setOnlyWrap = (activeWrap) => {
                 for (let i = 0; i < allWraps.length; i++) {
                     const w = allWraps[i];
@@ -29687,7 +30417,38 @@ const TAXONOMY_CATEGORIES = [
                 }
 
                 sxDrawPentadWidget(pentadCanvas, shape, sxPentadState);
-            } else if (widget === "diamond" || widget === "quad-compass") {
+            } else if (widget === "quad-compass") {
+                // 4-Pole Political Compass: square, economic x authority axes,
+                // one draggable point; values are bilinear weights x intensity.
+                setOnlyWrap(compassWrap);
+
+                const k0 = shape.keys[0], k1 = shape.keys[1], k2 = shape.keys[2], k3 = shape.keys[3];
+                const r0 = rec[k0 + "Known"] ? rec[k0] : 0;
+                const r1 = rec[k1 + "Known"] ? rec[k1] : 0;
+                const r2 = rec[k2 + "Known"] ? rec[k2] : 0;
+                const r3 = rec[k3 + "Known"] ? rec[k3] : 0;
+
+                const pt = sxCompassPointFromValues(r0, r1, r2, r3);
+                sxCompassState.topicId = id;
+                sxCompassState.u = pt.u;
+                sxCompassState.v = pt.v;
+                sxCompassState.intensity = pt.intensity;
+
+                if (compassIntensity) compassIntensity.value = String(Math.round(pt.intensity));
+                if (compassIntensityOut) compassIntensityOut.textContent = String(Math.round(pt.intensity));
+
+                if (compassPole0) { compassPole0.textContent = shape.labels[0] || k0; compassPole0.style.color = SX_COMPASS_COLORS[0]; }
+                if (compassPole1) { compassPole1.textContent = shape.labels[1] || k1; compassPole1.style.color = SX_COMPASS_COLORS[1]; }
+                if (compassPole2) { compassPole2.textContent = shape.labels[2] || k2; compassPole2.style.color = SX_COMPASS_COLORS[2]; }
+                if (compassPole3) { compassPole3.textContent = shape.labels[3] || k3; compassPole3.style.color = SX_COMPASS_COLORS[3]; }
+
+                if (compassVal0) { compassVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; compassVal0.style.color = SX_COMPASS_COLORS[0]; }
+                if (compassVal1) { compassVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; compassVal1.style.color = SX_COMPASS_COLORS[1]; }
+                if (compassVal2) { compassVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; compassVal2.style.color = SX_COMPASS_COLORS[2]; }
+                if (compassVal3) { compassVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; compassVal3.style.color = SX_COMPASS_COLORS[3]; }
+
+                sxDrawCompassWidget(compassCanvas, shape, sxCompassState);
+            } else if (widget === "diamond") {
                 // 4-Pole Tetrad Radar / Diamond Deformation Polygon Widget
                 setOnlyWrap(tetradWrap);
 
@@ -29820,6 +30581,20 @@ const TAXONOMY_CATEGORIES = [
                 giveLabel && (giveLabel.textContent = shape.labels[0] || "Rating");
                 give.value = rec.giveKnown ? rec.give : 0;
                 giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
+            } else if (widget === "trilinear-line") {
+                // 3-Pole LINE Triad: one scalar on a single track; the middle pole
+                // sits at 0. Stored under the single key "line" (bind writes via
+                // shape.keys[0]); derived weights: middle = 1 - |V|/100.
+                setOnlyWrap(linearRatings);
+                recvRow && (recvRow.hidden = !0);
+                role3Row && (role3Row.hidden = !0);
+                role4Row && (role4Row.hidden = !0);
+                role5Row && (role5Row.hidden = !0);
+                role6Row && (role6Row.hidden = !0);
+                role7Row && (role7Row.hidden = !0);
+                giveLabel && (giveLabel.textContent = (shape.labels[0] || "") + " — " + (shape.labels[1] || "") + " — " + (shape.labels[2] || ""));
+                give.value = rec.lineKnown ? rec.line : 0;
+                giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");
             } else {
                 // 2-Pole Interactive Topic: Directly render designated rating widget (2D Switchbox vs Linear Sliders)
                 if (shape.widget === "linear-sliders") {
@@ -29832,10 +30607,15 @@ const TAXONOMY_CATEGORIES = [
                     role7Row && (role7Row.hidden = !0);
                     giveLabel && (giveLabel.textContent = shape.labels[0] || "Give");
                     recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
-                    give.value = rec.giveKnown ? rec.give : 0;
-                    recv && (recv.value = rec.receiveKnown ? rec.receive : 0);
-                    giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
-                    recvOut && (recvOut.textContent = rec.receiveKnown ? String(Math.round(rec.receive)) : "Unrated");
+                    /* Per-key display: bind writes via shape.keys, so the readout must
+                       read the same keys — not give/receive (a non-role dipole's
+                       keys are its pole slugs). No Sexcapades topic returns
+                       "linear-sliders", so this branch is unreachable for Sexcapades. */
+                    const k0 = (shape.keys && shape.keys[0]) || "give", k1 = (shape.keys && shape.keys[1]) || "receive";
+                    give.value = rec[k0 + "Known"] ? rec[k0] : 0;
+                    recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
+                    giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(rec[k0])) : "Unrated");
+                    recvOut && (recvOut.textContent = rec[k1 + "Known"] ? String(Math.round(rec[k1])) : "Unrated");
                 } else {
                     setOnlyWrap(switchboxWrap);
                     const isUnrated = !rec.giveKnown && !rec.receiveKnown;
@@ -29853,6 +30633,7 @@ const TAXONOMY_CATEGORIES = [
         function sxBindMarkRatings() {
             sxBindTriangleWidget();
             sxBindTetradWidget();
+            sxBindCompassWidget();
             sxBindPentadWidget();
             sxBindHexadWidget();
             sxBindHeptadWidget();
@@ -30558,11 +31339,13 @@ const TAXONOMY_CATEGORIES = [
             var i;
             if (e.rated && us(i = Go).every(e => e.topics.filter(t => (e.outlineTopicRanks?.get(Wn(t)) ?? Number.POSITIVE_INFINITY) < 3).every(e => ls(Wn(e), i))) && p("quickstart_completed"), 
             Jo = t, n && !Zo) return ks(!0), void vs();
-            const a = Math.min(100, e.rated / 403 * 100), r = xt(ps()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
-            Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of 403 topics rated`, jo.textContent = o, qo.style.width = a + "%", 
-            qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(403)), 
-            qo.parentElement.setAttribute("aria-valuenow", String(Math.min(403, e.rated))), 
-            qo.parentElement.setAttribute("aria-label", `${e.rated} of 403 topics rated; tick marks every 54 topics (3 per category across 18 categories), up to 403 for Full map`), 
+            /* Flexcapades: topic total follows the active skin (403 = Sexcapades
+               copy, unchanged; a loaded skin sets window.__SX_SKIN_TOPIC_COUNT). */
+            const T = window.__SX_SKIN_TOPIC_COUNT || 403, a = Math.min(100, e.rated / T * 100), r = xt(ps()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
+            Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of ${T} topics rated`, jo.textContent = o, qo.style.width = a + "%",
+            qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(T)),
+            qo.parentElement.setAttribute("aria-valuenow", String(Math.min(T, e.rated))),
+            qo.parentElement.setAttribute("aria-label", 403 === T ? `${e.rated} of 403 topics rated; tick marks every 54 topics (3 per category across 18 categories), up to 403 for Full map` : `${e.rated} of ${T} topics rated`),
             n && vs();
         }
         function ks(e) {
