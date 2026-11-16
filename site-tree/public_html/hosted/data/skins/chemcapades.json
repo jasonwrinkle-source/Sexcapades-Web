@@ -1,5 +1,6 @@
 {
   "skin": "chemcapades",
+  "meter": "understanding",
   "name": "Chemcapades",
   "domain": "Chemistry — the Science of Matter",
   "categories": [
@@ -14,14 +15,20 @@
           "type": "single",
           "risk": false,
           "poles": [
-            {"key": "unconditional-mass-atom-conservation", "label": "Unconditional Mass/Atom Conservation"}
+            {
+              "key": "unconditional-mass-atom-conservation",
+              "label": "Unconditional Mass/Atom Conservation"
+            }
           ],
           "widget": "monopole-slider",
           "archetype": null,
           "hovertip": {
             "issue": "How strongly do you anchor chemical reasoning in strict stoichiometric conservation versus approximate, open-system, or non-stoichiometric defect regimes?",
             "poles": [
-              {"label": "Unconditional Mass/Atom Conservation", "text": "In all non-nuclear chemical transformations, atoms are neither created nor destroyed; stoichiometry is the inviolable accounting law of matter."}
+              {
+                "label": "Unconditional Mass/Atom Conservation",
+                "text": "In all non-nuclear chemical transformations, atoms are neither created nor destroyed; stoichiometry is the inviolable accounting law of matter."
+              }
             ]
           },
           "question": "How strongly do you anchor chemical reasoning in strict stoichiometric conservation versus approximate, open-system, or non-stoichiometric defect regimes?",
@@ -32,18 +39,36 @@
           "name": "The Reality of the Chemical Bond",
           "risk": false,
           "poles": [
-            {"key": "strict-physical-realist", "label": "Strict Physical Realist"},
-            {"key": "pattern-realist", "label": "Pattern-Realist / Emergentist"},
-            {"key": "pure-instrumentalist", "label": "Pure Instrumentalist"}
+            {
+              "key": "strict-physical-realist",
+              "label": "Strict Physical Realist"
+            },
+            {
+              "key": "pattern-realist",
+              "label": "Pattern-Realist / Emergentist"
+            },
+            {
+              "key": "pure-instrumentalist",
+              "label": "Pure Instrumentalist"
+            }
           ],
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
             "issue": "When a chemist draws a line between two atoms, are they depicting a physical feature of the universe, an emergent structural pattern, or a pedagogical shorthand?",
             "poles": [
-              {"label": "Strict Physical Realist", "text": "Bonds are localized physical entities (e.g., QTAIM bond paths or shared electron density) that exist independently of human models."},
-              {"label": "Pattern-Realist / Emergentist", "text": "Bonds are neither discrete physical strings nor mere fictions; they are real emergent relational patterns with causal stability."},
-              {"label": "Pure Instrumentalist", "text": "Bonds are convenient bookkeeping lines drawn between nuclei; only nuclei, electrons, and electrostatic forces actually exist."}
+              {
+                "label": "Strict Physical Realist",
+                "text": "Bonds are localized physical entities (e.g., QTAIM bond paths or shared electron density) that exist independently of human models."
+              },
+              {
+                "label": "Pattern-Realist / Emergentist",
+                "text": "Bonds are neither discrete physical strings nor mere fictions; they are real emergent relational patterns with causal stability."
+              },
+              {
+                "label": "Pure Instrumentalist",
+                "text": "Bonds are convenient bookkeeping lines drawn between nuclei; only nuclei, electrons, and electrostatic forces actually exist."
+              }
             ]
           },
           "question": "When a chemist draws a line between two atoms, are they depicting a physical feature of the universe, an emergent structural pattern, or a pedagogical shorthand?",
@@ -54,16 +79,28 @@
           "name": "Orbitals: Real vs Mathematical Artifact",
           "risk": false,
           "poles": [
-            {"key": "mathematical-constructs", "label": "Mathematical Constructs (Unobservable)"},
-            {"key": "quasi-physical-experiential-entities", "label": "Quasi-Physical / Experiential Entities"}
+            {
+              "key": "mathematical-constructs",
+              "label": "Mathematical Constructs (Unobservable)"
+            },
+            {
+              "key": "quasi-physical-experiential-entities",
+              "label": "Quasi-Physical / Experiential Entities"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Are orbitals real, or just math?",
             "poles": [
-              {"label": "Mathematical Constructs (Unobservable)", "text": "Orbitals are one-electron wavefunctions (ψ), artifacts of the Hartree-Fock approximation that cannot be observed in multi-electron systems."},
-              {"label": "Quasi-Physical / Experiential Entities", "text": "Scanning tunneling microscopy (STM), photoelectron spectroscopy, and frontier orbital reactivity prove that orbitals capture real spatial and energetic realities."}
+              {
+                "label": "Mathematical Constructs (Unobservable)",
+                "text": "Orbitals are one-electron wavefunctions (ψ), artifacts of the Hartree-Fock approximation that cannot be observed in multi-electron systems."
+              },
+              {
+                "label": "Quasi-Physical / Experiential Entities",
+                "text": "Scanning tunneling microscopy (STM), photoelectron spectroscopy, and frontier orbital reactivity prove that orbitals capture real spatial and energetic realities."
+              }
             ]
           },
           "question": "Are orbitals real, or just math?",
@@ -74,22 +111,52 @@
           "name": "Reductionism vs Chemical Autonomy",
           "risk": false,
           "poles": [
-            {"key": "strong-reductionism", "label": "Strong Reductionism (Dirac's Dictum)"},
-            {"key": "epistemological-anti-reductionism", "label": "Epistemological Anti-Reductionism"},
-            {"key": "ontological-emergence", "label": "Ontological Emergence"},
-            {"key": "downward-causation-contextuality", "label": "Downward Causation / Contextuality"},
-            {"key": "pluralism", "label": "Pluralism"}
+            {
+              "key": "strong-reductionism",
+              "label": "Strong Reductionism (Dirac's Dictum)"
+            },
+            {
+              "key": "epistemological-anti-reductionism",
+              "label": "Epistemological Anti-Reductionism"
+            },
+            {
+              "key": "ontological-emergence",
+              "label": "Ontological Emergence"
+            },
+            {
+              "key": "downward-causation-contextuality",
+              "label": "Downward Causation / Contextuality"
+            },
+            {
+              "key": "pluralism",
+              "label": "Pluralism"
+            }
           ],
           "widget": "star-radar",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Is chemistry fundamentally just applied physics, or does it possess autonomous laws and irreducible entities of its own?",
             "poles": [
-              {"label": "Strong Reductionism (Dirac's Dictum)", "text": "Chemistry is wholly reducible in principle to quantum mechanics; any apparent autonomy is merely due to computational intractability."},
-              {"label": "Epistemological Anti-Reductionism", "text": "Even if ontology is physical, chemical explanations (e.g., steric hindrance, nucleophilicity) cannot be replaced by wavefunctions without losing explanatory power."},
-              {"label": "Ontological Emergence", "text": "Novel properties (such as molecular shape, chirality, and phase transitions) genuinely emerge at higher levels of complexity and are absent in the underlying physics."},
-              {"label": "Downward Causation / Contextuality", "text": "The macro-environment (solvent, temperature, crystal lattice, observer measurement) actively constrains and determines quantum states at the molecular level."},
-              {"label": "Pluralism", "text": "Both, depending on the question."}
+              {
+                "label": "Strong Reductionism (Dirac's Dictum)",
+                "text": "Chemistry is wholly reducible in principle to quantum mechanics; any apparent autonomy is merely due to computational intractability."
+              },
+              {
+                "label": "Epistemological Anti-Reductionism",
+                "text": "Even if ontology is physical, chemical explanations (e.g., steric hindrance, nucleophilicity) cannot be replaced by wavefunctions without losing explanatory power."
+              },
+              {
+                "label": "Ontological Emergence",
+                "text": "Novel properties (such as molecular shape, chirality, and phase transitions) genuinely emerge at higher levels of complexity and are absent in the underlying physics."
+              },
+              {
+                "label": "Downward Causation / Contextuality",
+                "text": "The macro-environment (solvent, temperature, crystal lattice, observer measurement) actively constrains and determines quantum states at the molecular level."
+              },
+              {
+                "label": "Pluralism",
+                "text": "Both, depending on the question."
+              }
             ]
           },
           "question": "Is chemistry fundamentally just applied physics, or does it possess autonomous laws and irreducible entities of its own?",
@@ -100,16 +167,28 @@
           "name": "Molecular Structure & the Born-Oppenheimer Problem",
           "risk": false,
           "poles": [
-            {"key": "classical-geometric-primacy", "label": "Classical-Geometric Primacy"},
-            {"key": "quantum-holistic-indeterminacy", "label": "Quantum-Holistic Indeterminacy"}
+            {
+              "key": "classical-geometric-primacy",
+              "label": "Classical-Geometric Primacy"
+            },
+            {
+              "key": "quantum-holistic-indeterminacy",
+              "label": "Quantum-Holistic Indeterminacy"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Does a molecule possess an inherent three-dimensional shape in isolation, or is molecular geometry an artifact of environmental interaction?",
             "poles": [
-              {"label": "Classical-Geometric Primacy", "text": "A molecule is defined by its 3D nuclear scaffold; shape is the primary determinant of chemical identity and function."},
-              {"label": "Quantum-Holistic Indeterminacy", "text": "In an exact, non-clamped quantum state, isolated molecules have no intrinsic shape."}
+              {
+                "label": "Classical-Geometric Primacy",
+                "text": "A molecule is defined by its 3D nuclear scaffold; shape is the primary determinant of chemical identity and function."
+              },
+              {
+                "label": "Quantum-Holistic Indeterminacy",
+                "text": "In an exact, non-clamped quantum state, isolated molecules have no intrinsic shape."
+              }
             ]
           },
           "question": "Does a molecule possess an inherent three-dimensional shape in isolation, or is molecular geometry an artifact of environmental interaction?",
@@ -120,18 +199,36 @@
           "name": "What Is a Molecule?",
           "risk": false,
           "poles": [
-            {"key": "real-entity", "label": "Real Entity"},
-            {"key": "useful-model", "label": "Useful Model"},
-            {"key": "emergent-pattern", "label": "Emergent Pattern"}
+            {
+              "key": "real-entity",
+              "label": "Real Entity"
+            },
+            {
+              "key": "useful-model",
+              "label": "Useful Model"
+            },
+            {
+              "key": "emergent-pattern",
+              "label": "Emergent Pattern"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "What is a molecule, really?",
             "poles": [
-              {"label": "Real Entity", "text": "A molecule is a discrete thing with an identity. It exists whether or not anyone is looking at it."},
-              {"label": "Useful Model", "text": "A molecule is a convenient label for a pattern of atoms. The label is ours; the atoms are real, the \"molecule\" is a bookkeeping device."},
-              {"label": "Emergent Pattern", "text": "A molecule is a stable pattern that emerges from quantum interactions. It is neither a bare thing nor a mere label — it is what the interactions settle into."}
+              {
+                "label": "Real Entity",
+                "text": "A molecule is a discrete thing with an identity. It exists whether or not anyone is looking at it."
+              },
+              {
+                "label": "Useful Model",
+                "text": "A molecule is a convenient label for a pattern of atoms. The label is ours; the atoms are real, the \"molecule\" is a bookkeeping device."
+              },
+              {
+                "label": "Emergent Pattern",
+                "text": "A molecule is a stable pattern that emerges from quantum interactions. It is neither a bare thing nor a mere label — it is what the interactions settle into."
+              }
             ]
           },
           "question": "What is a molecule, really?",
@@ -149,22 +246,52 @@
           "name": "The Optimal Architecture of the Periodic Table",
           "risk": false,
           "poles": [
-            {"key": "medium-long-form", "label": "Medium-Long Form (18-Column Standard)"},
-            {"key": "left-step-table", "label": "Left-Step Table (Janet / Scerri)"},
-            {"key": "long-form", "label": "Long Form (32-Column)"},
-            {"key": "three-dimensional-spiral-helical", "label": "Three-Dimensional / Spiral / Helical"},
-            {"key": "property-cluster-data-driven", "label": "Property-Cluster / Data-Driven"}
+            {
+              "key": "medium-long-form",
+              "label": "Medium-Long Form (18-Column Standard)"
+            },
+            {
+              "key": "left-step-table",
+              "label": "Left-Step Table (Janet / Scerri)"
+            },
+            {
+              "key": "long-form",
+              "label": "Long Form (32-Column)"
+            },
+            {
+              "key": "three-dimensional-spiral-helical",
+              "label": "Three-Dimensional / Spiral / Helical"
+            },
+            {
+              "key": "property-cluster-data-driven",
+              "label": "Property-Cluster / Data-Driven"
+            }
           ],
           "widget": "star-radar",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Which periodic table is the right one?",
             "poles": [
-              {"label": "Medium-Long Form (18-Column Standard)", "text": "The IUPAC-preferred compromise balancing electron configuration visibility with printable aspect ratios."},
-              {"label": "Left-Step Table (Janet / Scerri)", "text": "Places Helium above Beryllium and orders strictly by n + l Madelung rule, prioritizing quantum-mechanical symmetry over chemical reactivity."},
-              {"label": "Long Form (32-Column)", "text": "Integrates the lanthanides and actinides directly into the main body, eliminating the artificial \"footnote\" block."},
-              {"label": "Three-Dimensional / Spiral / Helical", "text": "Continuous topologies (e.g., Benfey's snail, Alexander's 3D arrangement) that preserve the continuity of atomic number (Z) without artificial line breaks."},
-              {"label": "Property-Cluster / Data-Driven", "text": "Non-geometric networks or topological maps organized by empirical chemical similarity, oxidation states, and compound formation rather than electron shells."}
+              {
+                "label": "Medium-Long Form (18-Column Standard)",
+                "text": "The IUPAC-preferred compromise balancing electron configuration visibility with printable aspect ratios."
+              },
+              {
+                "label": "Left-Step Table (Janet / Scerri)",
+                "text": "Places Helium above Beryllium and orders strictly by n + l Madelung rule, prioritizing quantum-mechanical symmetry over chemical reactivity."
+              },
+              {
+                "label": "Long Form (32-Column)",
+                "text": "Integrates the lanthanides and actinides directly into the main body, eliminating the artificial \"footnote\" block."
+              },
+              {
+                "label": "Three-Dimensional / Spiral / Helical",
+                "text": "Continuous topologies (e.g., Benfey's snail, Alexander's 3D arrangement) that preserve the continuity of atomic number (Z) without artificial line breaks."
+              },
+              {
+                "label": "Property-Cluster / Data-Driven",
+                "text": "Non-geometric networks or topological maps organized by empirical chemical similarity, oxidation states, and compound formation rather than electron shells."
+              }
             ]
           },
           "question": "Which periodic table is the right one?",
@@ -175,9 +302,18 @@
           "name": "Group 3 Membership",
           "risk": false,
           "poles": [
-            {"key": "sc-y-la-ac", "label": "Sc–Y–La–Ac"},
-            {"key": "sc-y-lu-lr", "label": "Sc–Y–Lu–Lr"},
-            {"key": "bifurcated-indeterminate", "label": "Bifurcated / Indeterminate (15-Element f-Block)"}
+            {
+              "key": "sc-y-la-ac",
+              "label": "Sc–Y–La–Ac"
+            },
+            {
+              "key": "sc-y-lu-lr",
+              "label": "Sc–Y–Lu–Lr"
+            },
+            {
+              "key": "bifurcated-indeterminate",
+              "label": "Bifurcated / Indeterminate (15-Element f-Block)"
+            }
           ],
           "widget": "triangle",
           "archetype": null,
@@ -185,9 +321,18 @@
           "hovertip": {
             "issue": "Which elements truly belong beneath Scandium and Yttrium in Group 3 of the Periodic Table?",
             "poles": [
-              {"label": "Sc–Y–La–Ac", "text": "Preserves historical continuity and treats the 14 f-block elements as Ce–Lu and Th–Lr."},
-              {"label": "Sc–Y–Lu–Lr", "text": "Aligns with d-block electronic configurations (d¹) and periodic trends in atomic radii and melting points."},
-              {"label": "Bifurcated / Indeterminate (15-Element f-Block)", "text": "Leaves the Group 3 lower slots open or split, treating all 15 lanthanides/actinides as a collective transition series."}
+              {
+                "label": "Sc–Y–La–Ac",
+                "text": "Preserves historical continuity and treats the 14 f-block elements as Ce–Lu and Th–Lr."
+              },
+              {
+                "label": "Sc–Y–Lu–Lr",
+                "text": "Aligns with d-block electronic configurations (d¹) and periodic trends in atomic radii and melting points."
+              },
+              {
+                "label": "Bifurcated / Indeterminate (15-Element f-Block)",
+                "text": "Leaves the Group 3 lower slots open or split, treating all 15 lanthanides/actinides as a collective transition series."
+              }
             ]
           },
           "question": "Which elements truly belong beneath Scandium and Yttrium in Group 3 of the Periodic Table?",
@@ -198,9 +343,18 @@
           "name": "The End of the Periodic Table",
           "risk": false,
           "poles": [
-            {"key": "nuclear-limit-termination", "label": "Nuclear-Limit Termination"},
-            {"key": "superheavy-island-of-stability", "label": "Superheavy Island of Stability (Viable Frontier Window)"},
-            {"key": "relativistic-breakdown", "label": "Relativistic Breakdown (Z ≈ 137–173)"}
+            {
+              "key": "nuclear-limit-termination",
+              "label": "Nuclear-Limit Termination"
+            },
+            {
+              "key": "superheavy-island-of-stability",
+              "label": "Superheavy Island of Stability (Viable Frontier Window)"
+            },
+            {
+              "key": "relativistic-breakdown",
+              "label": "Relativistic Breakdown (Z ≈ 137–173)"
+            }
           ],
           "widget": "trilinear-sliders",
           "archetype": null,
@@ -208,9 +362,18 @@
           "hovertip": {
             "issue": "Where and why does the Periodic Table come to an end — at the limits of nuclear stability or the breakdown of atomic electron shells?",
             "poles": [
-              {"label": "Nuclear-Limit Termination", "text": "Synthesis halts around Z ≈ 120–126 due to spontaneous fission and vanishing nuclear half-lives before chemistry can even occur."},
-              {"label": "Superheavy Island of Stability (Viable Frontier Window)", "text": "Nuclear shell closures (\"Islands of Stability\") will permit long-lived superheavy elements with novel, discoverable chemistry."},
-              {"label": "Relativistic Breakdown (Z ≈ 137–173)", "text": "Extreme spin-orbit coupling and 1s orbital collapse destroy periodicity, rendering chemical behavior unrecognizable."}
+              {
+                "label": "Nuclear-Limit Termination",
+                "text": "Synthesis halts around Z ≈ 120–126 due to spontaneous fission and vanishing nuclear half-lives before chemistry can even occur."
+              },
+              {
+                "label": "Superheavy Island of Stability (Viable Frontier Window)",
+                "text": "Nuclear shell closures (\"Islands of Stability\") will permit long-lived superheavy elements with novel, discoverable chemistry."
+              },
+              {
+                "label": "Relativistic Breakdown (Z ≈ 137–173)",
+                "text": "Extreme spin-orbit coupling and 1s orbital collapse destroy periodicity, rendering chemical behavior unrecognizable."
+              }
             ]
           },
           "question": "Where and why does the Periodic Table come to an end — at the limits of nuclear stability or the breakdown of atomic electron shells?",
@@ -228,18 +391,36 @@
           "name": "Mechanism Inference vs \"Arrow Pushing\" Formalism",
           "risk": false,
           "poles": [
-            {"key": "mechanistic-realism", "label": "Mechanistic Realism"},
-            {"key": "mnemonic-predictive-pragmatism", "label": "Mnemonic & Predictive Pragmatism"},
-            {"key": "kinetic-spectroscopic-skepticism", "label": "Kinetic & Spectroscopic Skepticism"}
+            {
+              "key": "mechanistic-realism",
+              "label": "Mechanistic Realism"
+            },
+            {
+              "key": "mnemonic-predictive-pragmatism",
+              "label": "Mnemonic & Predictive Pragmatism"
+            },
+            {
+              "key": "kinetic-spectroscopic-skepticism",
+              "label": "Kinetic & Spectroscopic Skepticism"
+            }
           ],
           "widget": "trilinear-sliders",
           "archetype": "multi-affinity",
           "hovertip": {
             "issue": "Are curved-arrow reaction mechanisms literal depictions of molecular events or merely a syntactic grammar for predicting products?",
             "poles": [
-              {"label": "Mechanistic Realism", "text": "Curved-arrow mechanisms track actual, physical electron-pair rearrangements along a true minimum-energy reaction coordinate."},
-              {"label": "Mnemonic & Predictive Pragmatism", "text": "Arrow pushing is a formalized grammar for predicting products — whether electrons \"actually\" move that way is secondary to its predictive success."},
-              {"label": "Kinetic & Spectroscopic Skepticism", "text": "Mechanisms can never be proven, only falsified; true understanding requires rigorous rate laws, kinetic isotope effects (KIE), and trapped intermediates."}
+              {
+                "label": "Mechanistic Realism",
+                "text": "Curved-arrow mechanisms track actual, physical electron-pair rearrangements along a true minimum-energy reaction coordinate."
+              },
+              {
+                "label": "Mnemonic & Predictive Pragmatism",
+                "text": "Arrow pushing is a formalized grammar for predicting products — whether electrons \"actually\" move that way is secondary to its predictive success."
+              },
+              {
+                "label": "Kinetic & Spectroscopic Skepticism",
+                "text": "Mechanisms can never be proven, only falsified; true understanding requires rigorous rate laws, kinetic isotope effects (KIE), and trapped intermediates."
+              }
             ]
           },
           "question": "Are curved-arrow reaction mechanisms literal depictions of molecular events or merely a syntactic grammar for predicting products?",
@@ -250,20 +431,44 @@
           "name": "Computational Chemistry vs Wet-Bench Experimentation",
           "risk": false,
           "poles": [
-            {"key": "bench-supremacy", "label": "Bench Supremacy (\"In Silico Is Not Real\")"},
-            {"key": "computational-vanguard", "label": "Computational Vanguard"},
-            {"key": "synergistic-co-equal-loop", "label": "Synergistic Co-Equal Loop"},
-            {"key": "autonomous-self-driving-labs", "label": "Autonomous Self-Driving Labs (Closed-Loop AI + Robotics)"}
+            {
+              "key": "bench-supremacy",
+              "label": "Bench Supremacy (\"In Silico Is Not Real\")"
+            },
+            {
+              "key": "computational-vanguard",
+              "label": "Computational Vanguard"
+            },
+            {
+              "key": "synergistic-co-equal-loop",
+              "label": "Synergistic Co-Equal Loop"
+            },
+            {
+              "key": "autonomous-self-driving-labs",
+              "label": "Autonomous Self-Driving Labs (Closed-Loop AI + Robotics)"
+            }
           ],
           "widget": "quad-sliders",
           "archetype": "multi-affinity",
           "hovertip": {
             "issue": "Does theory lead the bench, or the bench lead theory?",
             "poles": [
-              {"label": "Bench Supremacy (\"In Silico Is Not Real\")", "text": "Only physical synthesis, isolation, and characterization in the lab constitute real chemical discovery; calculations merely rationalize after the fact."},
-              {"label": "Computational Vanguard", "text": "Modern DFT, ab initio, and machine learning methods can screen reaction space and predict structures faster and more accurately than human hands."},
-              {"label": "Synergistic Co-Equal Loop", "text": "Neither is complete alone; experiment anchors theory against parameterization errors, while theory reveals transient transition states inaccessible to instruments."},
-              {"label": "Autonomous Self-Driving Labs (Closed-Loop AI + Robotics)", "text": "The distinction is obsolete; automated synthesis platforms guided by Bayesian optimization represent the future paradigm."}
+              {
+                "label": "Bench Supremacy (\"In Silico Is Not Real\")",
+                "text": "Only physical synthesis, isolation, and characterization in the lab constitute real chemical discovery; calculations merely rationalize after the fact."
+              },
+              {
+                "label": "Computational Vanguard",
+                "text": "Modern DFT, ab initio, and machine learning methods can screen reaction space and predict structures faster and more accurately than human hands."
+              },
+              {
+                "label": "Synergistic Co-Equal Loop",
+                "text": "Neither is complete alone; experiment anchors theory against parameterization errors, while theory reveals transient transition states inaccessible to instruments."
+              },
+              {
+                "label": "Autonomous Self-Driving Labs (Closed-Loop AI + Robotics)",
+                "text": "The distinction is obsolete; automated synthesis platforms guided by Bayesian optimization represent the future paradigm."
+              }
             ]
           },
           "question": "Does theory lead the bench, or the bench lead theory?",
@@ -274,18 +479,36 @@
           "name": "Structural Elucidation: Crystallography vs Spectroscopy vs Chemical Proof",
           "risk": false,
           "poles": [
-            {"key": "diffraction-absoluteness", "label": "Diffraction Absoluteness (\"Seeing Is Believing\")"},
-            {"key": "solution-state-spectroscopic-realism", "label": "Solution-State Spectroscopic Realism"},
-            {"key": "total-synthesis-verification", "label": "Total Synthesis Verification"}
+            {
+              "key": "diffraction-absoluteness",
+              "label": "Diffraction Absoluteness (\"Seeing Is Believing\")"
+            },
+            {
+              "key": "solution-state-spectroscopic-realism",
+              "label": "Solution-State Spectroscopic Realism"
+            },
+            {
+              "key": "total-synthesis-verification",
+              "label": "Total Synthesis Verification"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Which form of evidence provides the gold standard of proof for a molecule's identity and structure?",
             "poles": [
-              {"label": "Diffraction Absoluteness (\"Seeing Is Believing\")", "text": "Single-crystal X-ray or MicroED diffraction provides the definitive, unambiguous 3D atomic coordinates of a compound."},
-              {"label": "Solution-State Spectroscopic Realism", "text": "Crystals are static packing artifacts; multinuclear NMR, IR, and Mass Spec reveal how molecules actually behave and flex in solution."},
-              {"label": "Total Synthesis Verification", "text": "A natural product's structure is only truly proven when synthesized from scratch and matched against the natural isolate."}
+              {
+                "label": "Diffraction Absoluteness (\"Seeing Is Believing\")",
+                "text": "Single-crystal X-ray or MicroED diffraction provides the definitive, unambiguous 3D atomic coordinates of a compound."
+              },
+              {
+                "label": "Solution-State Spectroscopic Realism",
+                "text": "Crystals are static packing artifacts; multinuclear NMR, IR, and Mass Spec reveal how molecules actually behave and flex in solution."
+              },
+              {
+                "label": "Total Synthesis Verification",
+                "text": "A natural product's structure is only truly proven when synthesized from scratch and matched against the natural isolate."
+              }
             ]
           },
           "question": "Which form of evidence provides the gold standard of proof for a molecule's identity and structure?",
@@ -296,18 +519,36 @@
           "name": "Chemical Intuition vs Data-Driven / Algorithmic Discovery",
           "risk": false,
           "poles": [
-            {"key": "artisanal-chemical-intuition", "label": "Artisanal Chemical Intuition"},
-            {"key": "explainable-cheminformatics", "label": "Explainable Cheminformatics"},
-            {"key": "black-box-high-throughput-empiricism", "label": "Black-Box High-Throughput Empiricism"}
+            {
+              "key": "artisanal-chemical-intuition",
+              "label": "Artisanal Chemical Intuition"
+            },
+            {
+              "key": "explainable-cheminformatics",
+              "label": "Explainable Cheminformatics"
+            },
+            {
+              "key": "black-box-high-throughput-empiricism",
+              "label": "Black-Box High-Throughput Empiricism"
+            }
           ],
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
             "issue": "Is \"chemical intuition\" a vital form of tacit expertise or a romanticized form of cognitive bias that data science should replace?",
             "poles": [
-              {"label": "Artisanal Chemical Intuition", "text": "Great chemists develop an irreplaceable, tacit \"feel\" for reactivity, sterics, and electronics honed through years at the bench."},
-              {"label": "Explainable Cheminformatics", "text": "Machine learning should be harnessed specifically to extract new, human-readable physical-organic rules rather than acting as a black box."},
-              {"label": "Black-Box High-Throughput Empiricism", "text": "Human \"intuition\" is riddled with survivorship bias; high-throughput experimentation (HTE) and deep neural networks uncover non-intuitive optima without human rules."}
+              {
+                "label": "Artisanal Chemical Intuition",
+                "text": "Great chemists develop an irreplaceable, tacit \"feel\" for reactivity, sterics, and electronics honed through years at the bench."
+              },
+              {
+                "label": "Explainable Cheminformatics",
+                "text": "Machine learning should be harnessed specifically to extract new, human-readable physical-organic rules rather than acting as a black box."
+              },
+              {
+                "label": "Black-Box High-Throughput Empiricism",
+                "text": "Human \"intuition\" is riddled with survivorship bias; high-throughput experimentation (HTE) and deep neural networks uncover non-intuitive optima without human rules."
+              }
             ]
           },
           "question": "Is \"chemical intuition\" a vital form of tacit expertise or a romanticized form of cognitive bias that data science should replace?",
@@ -318,16 +559,28 @@
           "name": "Serendipity vs Design",
           "risk": false,
           "poles": [
-            {"key": "serendipity", "label": "Serendipity"},
-            {"key": "design", "label": "Design"}
+            {
+              "key": "serendipity",
+              "label": "Serendipity"
+            },
+            {
+              "key": "design",
+              "label": "Design"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do discoveries come from accidents or from plans?",
             "poles": [
-              {"label": "Serendipity", "text": "Discoveries come from accidents (penicillin, Teflon, mauveine, the sticky note); the prepared mind meeting the unexpected."},
-              {"label": "Design", "text": "Discoveries come from planning: target a molecule, design the route, build it."}
+              {
+                "label": "Serendipity",
+                "text": "Discoveries come from accidents (penicillin, Teflon, mauveine, the sticky note); the prepared mind meeting the unexpected."
+              },
+              {
+                "label": "Design",
+                "text": "Discoveries come from planning: target a molecule, design the route, build it."
+              }
             ]
           },
           "question": "Do discoveries come from accidents or from plans?",
@@ -345,20 +598,44 @@
           "name": "Chemistry's External Identity: Central Science vs Service Science",
           "risk": false,
           "poles": [
-            {"key": "the-central-science", "label": "The Central Science (Bridging Hub)"},
-            {"key": "the-creative-inventive-science", "label": "The Creative / Inventive Science"},
-            {"key": "a-service-enabling-discipline", "label": "A Service / Enabling Discipline"},
-            {"key": "dissolving-boundaries", "label": "Dissolving Boundaries (Molecular Science)"}
+            {
+              "key": "the-central-science",
+              "label": "The Central Science (Bridging Hub)"
+            },
+            {
+              "key": "the-creative-inventive-science",
+              "label": "The Creative / Inventive Science"
+            },
+            {
+              "key": "a-service-enabling-discipline",
+              "label": "A Service / Enabling Discipline"
+            },
+            {
+              "key": "dissolving-boundaries",
+              "label": "Dissolving Boundaries (Molecular Science)"
+            }
           ],
           "widget": "quad-compass",
           "archetype": null,
           "hovertip": {
             "issue": "Is chemistry an autonomous creative powerhouse, the central hub of all sciences, or increasingly a service provider to neighboring fields?",
             "poles": [
-              {"label": "The Central Science (Bridging Hub)", "text": "Chemistry is the indispensable intellectual linchpin connecting physics to biology, materials science, geology, and medicine."},
-              {"label": "The Creative / Inventive Science", "text": "Unlike physics or biology (which study what already exists), chemistry is uniquely defined by creating novel matter that never existed in nature."},
-              {"label": "A Service / Enabling Discipline", "text": "In modern academia and industry, chemistry risks being reduced to a reagent-supplying utility for biologists, device engineers, and clinicians."},
-              {"label": "Dissolving Boundaries (Molecular Science)", "text": "Traditional disciplinary walls are outdated; chemistry should merge seamlessly into broader \"Molecular Science & Engineering.\"."}
+              {
+                "label": "The Central Science (Bridging Hub)",
+                "text": "Chemistry is the indispensable intellectual linchpin connecting physics to biology, materials science, geology, and medicine."
+              },
+              {
+                "label": "The Creative / Inventive Science",
+                "text": "Unlike physics or biology (which study what already exists), chemistry is uniquely defined by creating novel matter that never existed in nature."
+              },
+              {
+                "label": "A Service / Enabling Discipline",
+                "text": "In modern academia and industry, chemistry risks being reduced to a reagent-supplying utility for biologists, device engineers, and clinicians."
+              },
+              {
+                "label": "Dissolving Boundaries (Molecular Science)",
+                "text": "Traditional disciplinary walls are outdated; chemistry should merge seamlessly into broader \"Molecular Science & Engineering.\"."
+              }
             ]
           },
           "question": "Is chemistry an autonomous creative powerhouse, the central hub of all sciences, or increasingly a service provider to neighboring fields?",
@@ -369,22 +646,52 @@
           "name": "The Five Branches",
           "risk": false,
           "poles": [
-            {"key": "organic-chemistry", "label": "Organic Chemistry"},
-            {"key": "inorganic-chemistry", "label": "Inorganic Chemistry"},
-            {"key": "physical-chemistry", "label": "Physical Chemistry"},
-            {"key": "analytical-chemistry", "label": "Analytical Chemistry"},
-            {"key": "biochemistry-chemical-biology", "label": "Biochemistry / Chemical Biology"}
+            {
+              "key": "organic-chemistry",
+              "label": "Organic Chemistry"
+            },
+            {
+              "key": "inorganic-chemistry",
+              "label": "Inorganic Chemistry"
+            },
+            {
+              "key": "physical-chemistry",
+              "label": "Physical Chemistry"
+            },
+            {
+              "key": "analytical-chemistry",
+              "label": "Analytical Chemistry"
+            },
+            {
+              "key": "biochemistry-chemical-biology",
+              "label": "Biochemistry / Chemical Biology"
+            }
           ],
           "widget": "star-radar",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Which branch is home?",
             "poles": [
-              {"label": "Organic Chemistry", "text": "Carbon, synthesis, the molecules of life; artistry, total synthesis, reaction discovery, high-throughput bench endurance, and \"molecule-making\" machismo."},
-              {"label": "Inorganic Chemistry", "text": "Metals, minerals, salts, the rest of the table; symmetry, group theory, color, air-free Schlenk-line virtuosity, catalysis, and the whole Periodic Table playground."},
-              {"label": "Physical Chemistry", "text": "Thermodynamics, kinetics, quantum chemistry, spectroscopy; lasers, vacuum chambers, statistical mechanics, and mathematical rigor."},
-              {"label": "Analytical Chemistry", "text": "Measurement, detection, separation; precision, metrology, instrumentation, trace detection, validation, and ruthless skepticism toward dirty samples."},
-              {"label": "Biochemistry / Chemical Biology", "text": "The chemistry of living things; complexity, aqueous media, enzymes, cellular context, and probing living systems with molecular tools."}
+              {
+                "label": "Organic Chemistry",
+                "text": "Carbon, synthesis, the molecules of life; artistry, total synthesis, reaction discovery, high-throughput bench endurance, and \"molecule-making\" machismo."
+              },
+              {
+                "label": "Inorganic Chemistry",
+                "text": "Metals, minerals, salts, the rest of the table; symmetry, group theory, color, air-free Schlenk-line virtuosity, catalysis, and the whole Periodic Table playground."
+              },
+              {
+                "label": "Physical Chemistry",
+                "text": "Thermodynamics, kinetics, quantum chemistry, spectroscopy; lasers, vacuum chambers, statistical mechanics, and mathematical rigor."
+              },
+              {
+                "label": "Analytical Chemistry",
+                "text": "Measurement, detection, separation; precision, metrology, instrumentation, trace detection, validation, and ruthless skepticism toward dirty samples."
+              },
+              {
+                "label": "Biochemistry / Chemical Biology",
+                "text": "The chemistry of living things; complexity, aqueous media, enzymes, cellular context, and probing living systems with molecular tools."
+              }
             ]
           },
           "question": "Which branch is home?",
@@ -395,20 +702,44 @@
           "name": "Total Synthesis: Peak Art Form vs Obsolete Heroism",
           "risk": false,
           "poles": [
-            {"key": "the-mount-everest-of-chemistry", "label": "The Mount Everest of Chemistry"},
-            {"key": "step-economy-ideality", "label": "Step-Economy & Ideality"},
-            {"key": "function-oriented-synthesis", "label": "Function-Oriented Synthesis (FOS)"},
-            {"key": "biosynthetic-biocatalytic-shift", "label": "Biosynthetic / Biocatalytic Shift"}
+            {
+              "key": "the-mount-everest-of-chemistry",
+              "label": "The Mount Everest of Chemistry"
+            },
+            {
+              "key": "step-economy-ideality",
+              "label": "Step-Economy & Ideality"
+            },
+            {
+              "key": "function-oriented-synthesis",
+              "label": "Function-Oriented Synthesis (FOS)"
+            },
+            {
+              "key": "biosynthetic-biocatalytic-shift",
+              "label": "Biosynthetic / Biocatalytic Shift"
+            }
           ],
           "widget": "quad-sliders",
           "archetype": "multi-affinity",
           "hovertip": {
             "issue": "Does multi-step natural product total synthesis remain the pinnacle of chemical achievement, or is it an inefficient relic of 20th-century hero-worship?",
             "poles": [
-              {"label": "The Mount Everest of Chemistry", "text": "Complex natural product total synthesis is the ultimate crucible for testing synthetic methods and training master chemists."},
-              {"label": "Step-Economy & Ideality", "text": "Synthesis should be judged by brevity, redox economy, and atom economy (Wender/Baran ideal synthesis), not brute-force 40-step marathons."},
-              {"label": "Function-Oriented Synthesis (FOS)", "text": "Making a natural product just to say you made it is outdated; the goal should be designing simpler analogues with superior biological or material function."},
-              {"label": "Biosynthetic / Biocatalytic Shift", "text": "Complex molecules should be produced via engineered enzymes and metabolic pathways rather than harsh synthetic reagents."}
+              {
+                "label": "The Mount Everest of Chemistry",
+                "text": "Complex natural product total synthesis is the ultimate crucible for testing synthetic methods and training master chemists."
+              },
+              {
+                "label": "Step-Economy & Ideality",
+                "text": "Synthesis should be judged by brevity, redox economy, and atom economy (Wender/Baran ideal synthesis), not brute-force 40-step marathons."
+              },
+              {
+                "label": "Function-Oriented Synthesis (FOS)",
+                "text": "Making a natural product just to say you made it is outdated; the goal should be designing simpler analogues with superior biological or material function."
+              },
+              {
+                "label": "Biosynthetic / Biocatalytic Shift",
+                "text": "Complex molecules should be produced via engineered enzymes and metabolic pathways rather than harsh synthetic reagents."
+              }
             ]
           },
           "question": "Does multi-step natural product total synthesis remain the pinnacle of chemical achievement, or is it an inefficient relic of 20th-century hero-worship?",
@@ -419,16 +750,28 @@
           "name": "Discovery Chemistry vs Process / Industrial Chemistry",
           "risk": false,
           "poles": [
-            {"key": "academic-discovery-ethos", "label": "Academic Discovery Ethos"},
-            {"key": "process-scale-up-realism", "label": "Process & Scale-Up Realism"}
+            {
+              "key": "academic-discovery-ethos",
+              "label": "Academic Discovery Ethos"
+            },
+            {
+              "key": "process-scale-up-realism",
+              "label": "Process & Scale-Up Realism"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "What counts as a \"good\" chemical reaction — one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?",
             "poles": [
-              {"label": "Academic Discovery Ethos", "text": "Prioritize novel reactivity, structural elegance, and publishable scope, even if reactions use toxic solvents, expensive ligands, or column chromatography."},
-              {"label": "Process & Scale-Up Realism", "text": "A reaction only truly works when it runs safely at metric-ton scale, crystallizes cleanly without chromatography, and minimizes cost and waste."}
+              {
+                "label": "Academic Discovery Ethos",
+                "text": "Prioritize novel reactivity, structural elegance, and publishable scope, even if reactions use toxic solvents, expensive ligands, or column chromatography."
+              },
+              {
+                "label": "Process & Scale-Up Realism",
+                "text": "A reaction only truly works when it runs safely at metric-ton scale, crystallizes cleanly without chromatography, and minimizes cost and waste."
+              }
             ]
           },
           "question": "What counts as a \"good\" chemical reaction — one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?",
@@ -439,16 +782,28 @@
           "name": "Pure vs Applied Chemistry",
           "risk": false,
           "poles": [
-            {"key": "pure", "label": "Pure"},
-            {"key": "applied", "label": "Applied"}
+            {
+              "key": "pure",
+              "label": "Pure"
+            },
+            {
+              "key": "applied",
+              "label": "Applied"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you do chemistry to understand, or to make?",
             "poles": [
-              {"label": "Pure", "text": "Chemistry for its own sake: understanding, the beauty of a new reaction, knowledge as its own reward."},
-              {"label": "Applied", "text": "Chemistry for what it does: products, drugs, materials, solutions to real problems."}
+              {
+                "label": "Pure",
+                "text": "Chemistry for its own sake: understanding, the beauty of a new reaction, knowledge as its own reward."
+              },
+              {
+                "label": "Applied",
+                "text": "Chemistry for what it does: products, drugs, materials, solutions to real problems."
+              }
             ]
           },
           "question": "Do you do chemistry to understand, or to make?",
@@ -466,20 +821,44 @@
           "name": "Green Chemistry vs Unconstrained Synthetic Freedom",
           "risk": false,
           "poles": [
-            {"key": "strict-green-by-design", "label": "Strict Green-By-Design"},
-            {"key": "pragmatic-sustainability", "label": "Pragmatic Sustainability"},
-            {"key": "techno-optimist-remediation", "label": "Techno-Optimist Remediation"},
-            {"key": "unfettered-fundamental-inquiry", "label": "Unfettered Fundamental Inquiry"}
+            {
+              "key": "strict-green-by-design",
+              "label": "Strict Green-By-Design"
+            },
+            {
+              "key": "pragmatic-sustainability",
+              "label": "Pragmatic Sustainability"
+            },
+            {
+              "key": "techno-optimist-remediation",
+              "label": "Techno-Optimist Remediation"
+            },
+            {
+              "key": "unfettered-fundamental-inquiry",
+              "label": "Unfettered Fundamental Inquiry"
+            }
           ],
           "widget": "quad-compass",
           "archetype": null,
           "hovertip": {
             "issue": "Should environmental sustainability constrain fundamental reaction discovery from day one, or be addressed downstream during industrial optimization?",
             "poles": [
-              {"label": "Strict Green-By-Design", "text": "Atom economy, benign solvents, renewable feedstocks, and non-toxic reagents must be mandatory constraints from the earliest discovery stage."},
-              {"label": "Pragmatic Sustainability", "text": "Use whatever hazardous or precious-metal reagents are needed to discover a breakthrough, then optimize the greenness during process scale-up."},
-              {"label": "Techno-Optimist Remediation", "text": "Chemistry shouldn't restrict its toolkit; instead, it should invent better catalysts to capture carbon, degrade PFAS, and recycle plastics."},
-              {"label": "Unfettered Fundamental Inquiry", "text": "Imposing environmental or utility metrics on basic exploratory research stifles serendipity and slows foundational progress."}
+              {
+                "label": "Strict Green-By-Design",
+                "text": "Atom economy, benign solvents, renewable feedstocks, and non-toxic reagents must be mandatory constraints from the earliest discovery stage."
+              },
+              {
+                "label": "Pragmatic Sustainability",
+                "text": "Use whatever hazardous or precious-metal reagents are needed to discover a breakthrough, then optimize the greenness during process scale-up."
+              },
+              {
+                "label": "Techno-Optimist Remediation",
+                "text": "Chemistry shouldn't restrict its toolkit; instead, it should invent better catalysts to capture carbon, degrade PFAS, and recycle plastics."
+              },
+              {
+                "label": "Unfettered Fundamental Inquiry",
+                "text": "Imposing environmental or utility metrics on basic exploratory research stifles serendipity and slows foundational progress."
+              }
             ]
           },
           "question": "Should environmental sustainability constrain fundamental reaction discovery from day one, or be addressed downstream during industrial optimization?",
@@ -490,18 +869,36 @@
           "name": "Lab Safety Culture vs Exploratory Risk-Taking",
           "risk": false,
           "poles": [
-            {"key": "zero-harm-institutional-compliance", "label": "Zero-Harm Institutional Compliance"},
-            {"key": "competence-based-risk-management", "label": "Competence-Based Risk Management"},
-            {"key": "frontier-risk-acceptance", "label": "Frontier Risk Acceptance"}
+            {
+              "key": "zero-harm-institutional-compliance",
+              "label": "Zero-Harm Institutional Compliance"
+            },
+            {
+              "key": "competence-based-risk-management",
+              "label": "Competence-Based Risk Management"
+            },
+            {
+              "key": "frontier-risk-acceptance",
+              "label": "Frontier Risk Acceptance"
+            }
           ],
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
             "issue": "Where is the healthy boundary between institutional safety compliance, competence-based mentorship, and frontier hazard tolerance?",
             "poles": [
-              {"label": "Zero-Harm Institutional Compliance", "text": "Exhaustive SOPs, strict PPE enforcement, and EHS oversight must always supersede experimental speed or boldness."},
-              {"label": "Competence-Based Risk Management", "text": "Over-bureaucratized safety theater breeds cynicism; true safety comes from deep chemical understanding and mentorship."},
-              {"label": "Frontier Risk Acceptance", "text": "Working with pyrophorics, high-energy materials, fluorine, or unstable intermediates carries inherent danger that cannot be regulated away."}
+              {
+                "label": "Zero-Harm Institutional Compliance",
+                "text": "Exhaustive SOPs, strict PPE enforcement, and EHS oversight must always supersede experimental speed or boldness."
+              },
+              {
+                "label": "Competence-Based Risk Management",
+                "text": "Over-bureaucratized safety theater breeds cynicism; true safety comes from deep chemical understanding and mentorship."
+              },
+              {
+                "label": "Frontier Risk Acceptance",
+                "text": "Working with pyrophorics, high-energy materials, fluorine, or unstable intermediates carries inherent danger that cannot be regulated away."
+              }
             ]
           },
           "question": "Where is the healthy boundary between institutional safety compliance, competence-based mentorship, and frontier hazard tolerance?",
@@ -512,18 +909,36 @@
           "name": "Chemistry in the Public Eye",
           "risk": false,
           "poles": [
-            {"key": "dangerous", "label": "Dangerous"},
-            {"key": "useful", "label": "Useful"},
-            {"key": "invisible", "label": "Invisible"}
+            {
+              "key": "dangerous",
+              "label": "Dangerous"
+            },
+            {
+              "key": "useful",
+              "label": "Useful"
+            },
+            {
+              "key": "invisible",
+              "label": "Invisible"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "How does the public see chemistry?",
             "poles": [
-              {"label": "Dangerous", "text": "The public sees pollution, weapons, poison, \"chemicals\" as a dirty word. Chemistry is the science people fear."},
-              {"label": "Useful", "text": "The public sees medicine, materials, clean water, fertiliser. Chemistry is the science that makes modern life work."},
-              {"label": "Invisible", "text": "The public does not see chemistry at all. It is taken for granted, hidden inside everything, and nobody thinks about it."}
+              {
+                "label": "Dangerous",
+                "text": "The public sees pollution, weapons, poison, \"chemicals\" as a dirty word. Chemistry is the science people fear."
+              },
+              {
+                "label": "Useful",
+                "text": "The public sees medicine, materials, clean water, fertiliser. Chemistry is the science that makes modern life work."
+              },
+              {
+                "label": "Invisible",
+                "text": "The public does not see chemistry at all. It is taken for granted, hidden inside everything, and nobody thinks about it."
+              }
             ]
           },
           "question": "How does the public see chemistry?",
@@ -534,18 +949,36 @@
           "name": "Chemophobia & Public Engagement",
           "risk": false,
           "poles": [
-            {"key": "empathetic-public-literacy", "label": "Empathetic Public Literacy"},
-            {"key": "industrial-accountability-first", "label": "Industrial Accountability First"},
-            {"key": "focus-on-the-science", "label": "Focus on the Science"}
+            {
+              "key": "empathetic-public-literacy",
+              "label": "Empathetic Public Literacy"
+            },
+            {
+              "key": "industrial-accountability-first",
+              "label": "Industrial Accountability First"
+            },
+            {
+              "key": "focus-on-the-science",
+              "label": "Focus on the Science"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "How should the chemical community respond to widespread public \"chemophobia\" and the legacy of environmental contamination?",
             "poles": [
-              {"label": "Empathetic Public Literacy", "text": "Chemists must actively counter \"chemical-free\" marketing myths by communicating risk, dosage, and molecular benefits with humility and transparency."},
-              {"label": "Industrial Accountability First", "text": "Public distrust of chemistry is rooted in real historical harms (Bhopal, Love Canal, PFAS, lead); trust requires strict regulation and corporate accountability, not just PR."},
-              {"label": "Focus on the Science", "text": "Public misconceptions are inevitable; chemists are best served focusing on rigorous research rather than endless social-media debates over chemophobia."}
+              {
+                "label": "Empathetic Public Literacy",
+                "text": "Chemists must actively counter \"chemical-free\" marketing myths by communicating risk, dosage, and molecular benefits with humility and transparency."
+              },
+              {
+                "label": "Industrial Accountability First",
+                "text": "Public distrust of chemistry is rooted in real historical harms (Bhopal, Love Canal, PFAS, lead); trust requires strict regulation and corporate accountability, not just PR."
+              },
+              {
+                "label": "Focus on the Science",
+                "text": "Public misconceptions are inevitable; chemists are best served focusing on rigorous research rather than endless social-media debates over chemophobia."
+              }
             ]
           },
           "question": "How should the chemical community respond to widespread public \"chemophobia\" and the legacy of environmental contamination?",
@@ -556,16 +989,28 @@
           "name": "Dual-Use Responsibility & Chemical Weapons Vigilance",
           "risk": false,
           "poles": [
-            {"key": "preemptive-publication-ai-guardrails", "label": "Preemptive Publication & AI Guardrails"},
-            {"key": "open-science-defensive-transparency", "label": "Open Science & Defensive Transparency"}
+            {
+              "key": "preemptive-publication-ai-guardrails",
+              "label": "Preemptive Publication & AI Guardrails"
+            },
+            {
+              "key": "open-science-defensive-transparency",
+              "label": "Open Science & Defensive Transparency"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Should chemical synthesis data and AI-driven molecular generators be restricted to prevent dual-use weapons proliferation, or kept open for scientific progress?",
             "poles": [
-              {"label": "Preemptive Publication & AI Guardrails", "text": "Synthesis routes for toxins, nerve agents, and precursors — as well as generative AI molecular design tools — must be actively screened and restricted."},
-              {"label": "Open Science & Defensive Transparency", "text": "Suppressing chemical knowledge harms legitimate defensive and medical research while failing to stop determined bad actors."}
+              {
+                "label": "Preemptive Publication & AI Guardrails",
+                "text": "Synthesis routes for toxins, nerve agents, and precursors — as well as generative AI molecular design tools — must be actively screened and restricted."
+              },
+              {
+                "label": "Open Science & Defensive Transparency",
+                "text": "Suppressing chemical knowledge harms legitimate defensive and medical research while failing to stop determined bad actors."
+              }
             ]
           },
           "question": "Should chemical synthesis data and AI-driven molecular generators be restricted to prevent dual-use weapons proliferation, or kept open for scientific progress?",
@@ -583,16 +1028,28 @@
           "name": "Thermodynamic Control vs Kinetic Control as Guiding Worldviews",
           "risk": false,
           "poles": [
-            {"key": "thermodynamic-equilibrium-primacy", "label": "Thermodynamic / Equilibrium Primacy"},
-            {"key": "kinetic-metastable-primacy", "label": "Kinetic / Metastable Primacy"}
+            {
+              "key": "thermodynamic-equilibrium-primacy",
+              "label": "Thermodynamic / Equilibrium Primacy"
+            },
+            {
+              "key": "kinetic-metastable-primacy",
+              "label": "Kinetic / Metastable Primacy"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is the chemical universe better understood through the lens of ultimate thermodynamic stability or the transient pathways of kinetic trapping?",
             "poles": [
-              {"label": "Thermodynamic / Equilibrium Primacy", "text": "Matter inevitably seeks its lowest free-energy basin (ΔG); understanding stability, phase diagrams, and equilibrium governs the long-term fate of systems."},
-              {"label": "Kinetic / Metastable Primacy", "text": "Almost everything interesting in chemistry and life exists in kinetically trapped, metastable states; barrier heights (ΔG‡) and catalysts rule reality."}
+              {
+                "label": "Thermodynamic / Equilibrium Primacy",
+                "text": "Matter inevitably seeks its lowest free-energy basin (ΔG); understanding stability, phase diagrams, and equilibrium governs the long-term fate of systems."
+              },
+              {
+                "label": "Kinetic / Metastable Primacy",
+                "text": "Almost everything interesting in chemistry and life exists in kinetically trapped, metastable states; barrier heights (ΔG‡) and catalysts rule reality."
+              }
             ]
           },
           "question": "Is the chemical universe better understood through the lens of ultimate thermodynamic stability or the transient pathways of kinetic trapping?",
@@ -606,16 +1063,28 @@
           "give_label": "X-Axis (Give / Electron-Pair Donor)",
           "receive_label": "Y-Axis (Receive / Electron-Pair Acceptor)",
           "poles": [
-            {"key": "give", "label": "X-Axis (Give / Electron-Pair Donor)"},
-            {"key": "receive", "label": "Y-Axis (Receive / Electron-Pair Acceptor)"}
+            {
+              "key": "give",
+              "label": "X-Axis (Give / Electron-Pair Donor)"
+            },
+            {
+              "key": "receive",
+              "label": "Y-Axis (Receive / Electron-Pair Acceptor)"
+            }
           ],
           "widget": "xy-switchbox",
           "archetype": null,
           "hovertip": {
             "issue": "In your preferred reaction design and mechanistic intuition, do you gravitate toward electron-rich donor chemistry, electron-deficient acceptor activation, amphoteric/ambiphilic \"switch\" reagents, or inert/non-coordinating regimes?",
             "poles": [
-              {"label": "X-Axis (Give / Electron-Pair Donor)", "text": "Nucleophilic / Lewis Basic / Reducing behavior."},
-              {"label": "Y-Axis (Receive / Electron-Pair Acceptor)", "text": "Electrophilic / Lewis Acidic / Oxidizing behavior."}
+              {
+                "label": "X-Axis (Give / Electron-Pair Donor)",
+                "text": "Nucleophilic / Lewis Basic / Reducing behavior."
+              },
+              {
+                "label": "Y-Axis (Receive / Electron-Pair Acceptor)",
+                "text": "Electrophilic / Lewis Acidic / Oxidizing behavior."
+              }
             ]
           },
           "question": "In your preferred reaction design and mechanistic intuition, do you gravitate toward electron-rich donor chemistry, electron-deficient acceptor activation, amphoteric/ambiphilic \"switch\" reagents, or inert/non-coordinating regimes?",
@@ -626,18 +1095,36 @@
           "name": "Systems Chemistry & Prebiotic Emergence",
           "risk": false,
           "poles": [
-            {"key": "pure-compound-isolationism", "label": "Pure-Compound Isolationism"},
-            {"key": "dynamic-combinatorial-systems-chemistry", "label": "Dynamic Combinatorial & Systems Chemistry"},
-            {"key": "prebiotic-geochemical-realism", "label": "Prebiotic Geochemical Realism"}
+            {
+              "key": "pure-compound-isolationism",
+              "label": "Pure-Compound Isolationism"
+            },
+            {
+              "key": "dynamic-combinatorial-systems-chemistry",
+              "label": "Dynamic Combinatorial & Systems Chemistry"
+            },
+            {
+              "key": "prebiotic-geochemical-realism",
+              "label": "Prebiotic Geochemical Realism"
+            }
           ],
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
             "issue": "Can complex chemical emergence and the origins of life be understood by studying purified reactions in isolation, or only through messy, coupled reaction networks?",
             "poles": [
-              {"label": "Pure-Compound Isolationism", "text": "Traditional chemistry demands isolating, purifying, and characterizing single discrete molecules in clean flasks."},
-              {"label": "Dynamic Combinatorial & Systems Chemistry", "text": "True emergent behaviors (oscillation, self-replication, homeostasis) only appear in messy, coupled networks of interacting reactions."},
-              {"label": "Prebiotic Geochemical Realism", "text": "Understanding the origin of life requires abandoning idealized lab conditions in favor of dirty, mineral-rich, wet-dry cycling planetary environments."}
+              {
+                "label": "Pure-Compound Isolationism",
+                "text": "Traditional chemistry demands isolating, purifying, and characterizing single discrete molecules in clean flasks."
+              },
+              {
+                "label": "Dynamic Combinatorial & Systems Chemistry",
+                "text": "True emergent behaviors (oscillation, self-replication, homeostasis) only appear in messy, coupled networks of interacting reactions."
+              },
+              {
+                "label": "Prebiotic Geochemical Realism",
+                "text": "Understanding the origin of life requires abandoning idealized lab conditions in favor of dirty, mineral-rich, wet-dry cycling planetary environments."
+              }
             ]
           },
           "question": "Can complex chemical emergence and the origins of life be understood by studying purified reactions in isolation, or only through messy, coupled reaction networks?",
@@ -648,18 +1135,36 @@
           "name": "Catalysis: Homogeneous Precision vs Heterogeneous Robustness vs Biocatalysis",
           "risk": false,
           "poles": [
-            {"key": "homogeneous-molecular-catalysis", "label": "Homogeneous Molecular Catalysis"},
-            {"key": "heterogeneous-surface-catalysis", "label": "Heterogeneous Surface Catalysis"},
-            {"key": "enzymatic-biocatalysis", "label": "Enzymatic / Biocatalysis"}
+            {
+              "key": "homogeneous-molecular-catalysis",
+              "label": "Homogeneous Molecular Catalysis"
+            },
+            {
+              "key": "heterogeneous-surface-catalysis",
+              "label": "Heterogeneous Surface Catalysis"
+            },
+            {
+              "key": "enzymatic-biocatalysis",
+              "label": "Enzymatic / Biocatalysis"
+            }
           ],
           "widget": "trilinear-sliders",
           "archetype": "multi-affinity",
           "hovertip": {
             "issue": "Which catalytic paradigm holds the greatest promise for the future of sustainable chemical manufacturing and molecular control?",
             "poles": [
-              {"label": "Homogeneous Molecular Catalysis", "text": "Tunable ligand environments offer unmatched mechanistic clarity, enantioselectivity, and atomic-level design."},
-              {"label": "Heterogeneous Surface Catalysis", "text": "Solid-state catalysts drive global civilization (Haber-Bosch, petrochemical cracking) through thermal durability and effortless product separation."},
-              {"label": "Enzymatic / Biocatalysis", "text": "Evolved or directed-evolution protein scaffolds achieve exquisite selectivity under mild aqueous conditions that synthetic catalysts still struggle to match."}
+              {
+                "label": "Homogeneous Molecular Catalysis",
+                "text": "Tunable ligand environments offer unmatched mechanistic clarity, enantioselectivity, and atomic-level design."
+              },
+              {
+                "label": "Heterogeneous Surface Catalysis",
+                "text": "Solid-state catalysts drive global civilization (Haber-Bosch, petrochemical cracking) through thermal durability and effortless product separation."
+              },
+              {
+                "label": "Enzymatic / Biocatalysis",
+                "text": "Evolved or directed-evolution protein scaffolds achieve exquisite selectivity under mild aqueous conditions that synthetic catalysts still struggle to match."
+              }
             ]
           },
           "question": "Which catalytic paradigm holds the greatest promise for the future of sustainable chemical manufacturing and molecular control?",
@@ -670,16 +1175,28 @@
           "name": "Supramolecular & Non-Covalent Chemistry vs Covalent Bond-Making",
           "risk": false,
           "poles": [
-            {"key": "covalent-architecture", "label": "Covalent Architecture"},
-            {"key": "non-covalent-self-assembly", "label": "Non-Covalent Self-Assembly"}
+            {
+              "key": "covalent-architecture",
+              "label": "Covalent Architecture"
+            },
+            {
+              "key": "non-covalent-self-assembly",
+              "label": "Non-Covalent Self-Assembly"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Does the frontier of molecular design lie in forging stronger, more complex covalent frameworks or choreographing reversible non-covalent assemblies?",
             "poles": [
-              {"label": "Covalent Architecture", "text": "Robust, permanent molecular frameworks forged via strong covalent bonds remain the bedrock of durable materials and pharmaceuticals."},
-              {"label": "Non-Covalent Self-Assembly", "text": "Hydrogen bonding, π-stacking, host-guest chemistry, and mechanical bonds (rotaxanes/catenanes) unlock adaptive, reversible, \"smart\" matter."}
+              {
+                "label": "Covalent Architecture",
+                "text": "Robust, permanent molecular frameworks forged via strong covalent bonds remain the bedrock of durable materials and pharmaceuticals."
+              },
+              {
+                "label": "Non-Covalent Self-Assembly",
+                "text": "Hydrogen bonding, π-stacking, host-guest chemistry, and mechanical bonds (rotaxanes/catenanes) unlock adaptive, reversible, \"smart\" matter."
+              }
             ]
           },
           "question": "Does the frontier of molecular design lie in forging stronger, more complex covalent frameworks or choreographing reversible non-covalent assemblies?",
@@ -697,18 +1214,36 @@
           "name": "IUPAC Systematic Nomenclature vs Trivial & Common Names",
           "risk": false,
           "poles": [
-            {"key": "strict-iupac-standardization", "label": "Strict IUPAC Standardization"},
-            {"key": "pragmatic-trivial-common-usage", "label": "Pragmatic Trivial / Common Usage"},
-            {"key": "machine-readable-identifiers", "label": "Machine-Readable Identifiers (InChI / SMILES)"}
+            {
+              "key": "strict-iupac-standardization",
+              "label": "Strict IUPAC Standardization"
+            },
+            {
+              "key": "pragmatic-trivial-common-usage",
+              "label": "Pragmatic Trivial / Common Usage"
+            },
+            {
+              "key": "machine-readable-identifiers",
+              "label": "Machine-Readable Identifiers (InChI / SMILES)"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Should chemists prioritize strict IUPAC systematic nomenclature, intuitive historical names, or machine-readable graph identifiers?",
             "poles": [
-              {"label": "Strict IUPAC Standardization", "text": "Unambiguous, algorithmically parsable systematic names are essential for global databases, patents, and error-free communication."},
-              {"label": "Pragmatic Trivial / Common Usage", "text": "Nobody calls water \"oxidane\" or caffeine by its 40-character systematic name; historical trivial names carry vital contextual and cultural meaning."},
-              {"label": "Machine-Readable Identifiers (InChI / SMILES)", "text": "Human-readable names are obsolete for indexing; chemical identity should be anchored by canonical string/graph representations."}
+              {
+                "label": "Strict IUPAC Standardization",
+                "text": "Unambiguous, algorithmically parsable systematic names are essential for global databases, patents, and error-free communication."
+              },
+              {
+                "label": "Pragmatic Trivial / Common Usage",
+                "text": "Nobody calls water \"oxidane\" or caffeine by its 40-character systematic name; historical trivial names carry vital contextual and cultural meaning."
+              },
+              {
+                "label": "Machine-Readable Identifiers (InChI / SMILES)",
+                "text": "Human-readable names are obsolete for indexing; chemical identity should be anchored by canonical string/graph representations."
+              }
             ]
           },
           "question": "Should chemists prioritize strict IUPAC systematic nomenclature, intuitive historical names, or machine-readable graph identifiers?",
@@ -719,20 +1254,44 @@
           "name": "General Chemistry Pedagogy: Concepts-First vs Math-First vs Atoms-First",
           "risk": false,
           "poles": [
-            {"key": "traditional-macroscopic-first", "label": "Traditional Macroscopic-First"},
-            {"key": "atoms-first-approach", "label": "Atoms-First Approach"},
-            {"key": "conceptual-qualitative-reasoning", "label": "Conceptual / Qualitative Reasoning"},
-            {"key": "context-problem-based-learning", "label": "Context / Problem-Based Learning"}
+            {
+              "key": "traditional-macroscopic-first",
+              "label": "Traditional Macroscopic-First"
+            },
+            {
+              "key": "atoms-first-approach",
+              "label": "Atoms-First Approach"
+            },
+            {
+              "key": "conceptual-qualitative-reasoning",
+              "label": "Conceptual / Qualitative Reasoning"
+            },
+            {
+              "key": "context-problem-based-learning",
+              "label": "Context / Problem-Based Learning"
+            }
           ],
           "widget": "quad-compass",
           "archetype": null,
           "hovertip": {
             "issue": "What is the most effective pedagogical sequence for introducing students to the molecular world without overwhelming them?",
             "poles": [
-              {"label": "Traditional Macroscopic-First", "text": "Start with stoichiometry, gas laws, and solutions before introducing quantum mechanics and bonding."},
-              {"label": "Atoms-First Approach", "text": "Build bottom-up from quantum numbers, atomic orbitals, and periodic trends before tackling macroscopic reactions."},
-              {"label": "Conceptual / Qualitative Reasoning", "text": "Prioritize visual molecular representations, electronegativity, and acid-base intuition over plug-and-chug algebra."},
-              {"label": "Context / Problem-Based Learning", "text": "Teach core chemical principles entirely through real-world challenges."}
+              {
+                "label": "Traditional Macroscopic-First",
+                "text": "Start with stoichiometry, gas laws, and solutions before introducing quantum mechanics and bonding."
+              },
+              {
+                "label": "Atoms-First Approach",
+                "text": "Build bottom-up from quantum numbers, atomic orbitals, and periodic trends before tackling macroscopic reactions."
+              },
+              {
+                "label": "Conceptual / Qualitative Reasoning",
+                "text": "Prioritize visual molecular representations, electronegativity, and acid-base intuition over plug-and-chug algebra."
+              },
+              {
+                "label": "Context / Problem-Based Learning",
+                "text": "Teach core chemical principles entirely through real-world challenges."
+              }
             ]
           },
           "question": "What is the most effective pedagogical sequence for introducing students to the molecular world without overwhelming them?",
@@ -743,18 +1302,36 @@
           "name": "Publication Culture: Salami-Slicing & Scope Tables vs Deep Mechanistic Studies",
           "risk": false,
           "poles": [
-            {"key": "high-throughput-methodology-substrate-scope", "label": "High-Throughput Methodology & Substrate Scope"},
-            {"key": "deep-physical-organic-mechanistic-rigor", "label": "Deep Physical-Organic Mechanistic Rigor"},
-            {"key": "open-preprints-raw-data-reproducibility", "label": "Open Preprints, Raw Data & Reproducibility"}
+            {
+              "key": "high-throughput-methodology-substrate-scope",
+              "label": "High-Throughput Methodology & Substrate Scope"
+            },
+            {
+              "key": "deep-physical-organic-mechanistic-rigor",
+              "label": "Deep Physical-Organic Mechanistic Rigor"
+            },
+            {
+              "key": "open-preprints-raw-data-reproducibility",
+              "label": "Open Preprints, Raw Data & Reproducibility"
+            }
           ],
           "widget": "trilinear-sliders",
           "archetype": "multi-affinity",
           "hovertip": {
             "issue": "Does modern chemical publishing reward superficial substrate-scope proliferation at the expense of deep mechanistic understanding and reproducibility?",
             "poles": [
-              {"label": "High-Throughput Methodology & Substrate Scope", "text": "Rapidly publishing new synthetic transformations with 30-substrate tolerance tables accelerates community adoption."},
-              {"label": "Deep Physical-Organic Mechanistic Rigor", "text": "Fewer, longer papers featuring thorough kinetics, isotope effects, and failed-substrate honesty advance genuine understanding."},
-              {"label": "Open Preprints, Raw Data & Reproducibility", "text": "Reform must focus on mandatory raw FID/crystallographic data deposition, negative-result sharing, and independent replication."}
+              {
+                "label": "High-Throughput Methodology & Substrate Scope",
+                "text": "Rapidly publishing new synthetic transformations with 30-substrate tolerance tables accelerates community adoption."
+              },
+              {
+                "label": "Deep Physical-Organic Mechanistic Rigor",
+                "text": "Fewer, longer papers featuring thorough kinetics, isotope effects, and failed-substrate honesty advance genuine understanding."
+              },
+              {
+                "label": "Open Preprints, Raw Data & Reproducibility",
+                "text": "Reform must focus on mandatory raw FID/crystallographic data deposition, negative-result sharing, and independent replication."
+              }
             ]
           },
           "question": "Does modern chemical publishing reward superficial substrate-scope proliferation at the expense of deep mechanistic understanding and reproducibility?",
@@ -765,18 +1342,36 @@
           "name": "Teaching vs Research vs Teacher-Scholar",
           "risk": false,
           "poles": [
-            {"key": "teaching-first", "label": "Teaching-First"},
-            {"key": "teacher-scholar", "label": "Teacher-Scholar"},
-            {"key": "research-first", "label": "Research-First"}
+            {
+              "key": "teaching-first",
+              "label": "Teaching-First"
+            },
+            {
+              "key": "teacher-scholar",
+              "label": "Teacher-Scholar"
+            },
+            {
+              "key": "research-first",
+              "label": "Research-First"
+            }
           ],
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
             "issue": "Do you value teaching, research, or both equally?",
             "poles": [
-              {"label": "Teaching-First", "text": "Passing it on is the point. The next generation of chemists matters more than the next paper."},
-              {"label": "Teacher-Scholar", "text": "Both equally: teaching and research feed each other; the best teachers are active researchers and the best researchers are teachers."},
-              {"label": "Research-First", "text": "Pushing it forward is the point. New knowledge is the job; teaching is what you do on the side."}
+              {
+                "label": "Teaching-First",
+                "text": "Passing it on is the point. The next generation of chemists matters more than the next paper."
+              },
+              {
+                "label": "Teacher-Scholar",
+                "text": "Both equally: teaching and research feed each other; the best teachers are active researchers and the best researchers are teachers."
+              },
+              {
+                "label": "Research-First",
+                "text": "Pushing it forward is the point. New knowledge is the job; teaching is what you do on the side."
+              }
             ]
           },
           "question": "Do you value teaching, research, or both equally?",
@@ -787,16 +1382,28 @@
           "name": "Solitude vs Collaboration",
           "risk": false,
           "poles": [
-            {"key": "solitude", "label": "Solitude"},
-            {"key": "collaboration", "label": "Collaboration"}
+            {
+              "key": "solitude",
+              "label": "Solitude"
+            },
+            {
+              "key": "collaboration",
+              "label": "Collaboration"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you work alone or together?",
             "poles": [
-              {"label": "Solitude", "text": "The lone chemist: deep focus, your own bench, your own problem, nobody else's hands on it."},
-              {"label": "Collaboration", "text": "The team: shared instruments, co-authors, the group meeting, the problem solved together."}
+              {
+                "label": "Solitude",
+                "text": "The lone chemist: deep focus, your own bench, your own problem, nobody else's hands on it."
+              },
+              {
+                "label": "Collaboration",
+                "text": "The team: shared instruments, co-authors, the group meeting, the problem solved together."
+              }
             ]
           },
           "question": "Do you work alone or together?",
@@ -807,16 +1414,28 @@
           "name": "Publish vs Patent",
           "risk": false,
           "poles": [
-            {"key": "publish", "label": "Publish"},
-            {"key": "patent", "label": "Patent"}
+            {
+              "key": "publish",
+              "label": "Publish"
+            },
+            {
+              "key": "patent",
+              "label": "Patent"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you publish openly, or patent and protect?",
             "poles": [
-              {"label": "Publish", "text": "Share openly: knowledge belongs to everyone; the paper is the point."},
-              {"label": "Patent", "text": "Protect it: the work has commercial value; the patent is the point."}
+              {
+                "label": "Publish",
+                "text": "Share openly: knowledge belongs to everyone; the paper is the point."
+              },
+              {
+                "label": "Patent",
+                "text": "Protect it: the work has commercial value; the patent is the point."
+              }
             ]
           },
           "question": "Do you publish openly, or patent and protect?",
@@ -827,16 +1446,28 @@
           "name": "Hands-On vs Automated",
           "risk": false,
           "poles": [
-            {"key": "hands-on", "label": "Hands-On"},
-            {"key": "automated", "label": "Automated"}
+            {
+              "key": "hands-on",
+              "label": "Hands-On"
+            },
+            {
+              "key": "automated",
+              "label": "Automated"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you work with your hands, or let machines do it?",
             "poles": [
-              {"label": "Hands-On", "text": "The bench, glassware, your own hands on the reaction: the feel of it, the smell of it, the craft."},
-              {"label": "Automated", "text": "Robots, flow chemistry, high-throughput screening: the machine does the work, you design the experiment."}
+              {
+                "label": "Hands-On",
+                "text": "The bench, glassware, your own hands on the reaction: the feel of it, the smell of it, the craft."
+              },
+              {
+                "label": "Automated",
+                "text": "Robots, flow chemistry, high-throughput screening: the machine does the work, you design the experiment."
+              }
             ]
           },
           "question": "Do you work with your hands, or let machines do it?",
@@ -854,20 +1485,44 @@
           "name": "Chemical Energy Storage & the Hydrogen/Electrosynthesis Economy",
           "risk": false,
           "poles": [
-            {"key": "electrochemical-battery-dominance", "label": "Electrochemical Battery Dominance"},
-            {"key": "green-hydrogen-ammonia-carriers", "label": "Green Hydrogen & Ammonia Carriers"},
-            {"key": "electrosynthesis-photoredox-revolution", "label": "Electrosynthesis & Photoredox Revolution"},
-            {"key": "artificial-photosynthesis-solar-fuels", "label": "Artificial Photosynthesis / Solar Fuels"}
+            {
+              "key": "electrochemical-battery-dominance",
+              "label": "Electrochemical Battery Dominance"
+            },
+            {
+              "key": "green-hydrogen-ammonia-carriers",
+              "label": "Green Hydrogen & Ammonia Carriers"
+            },
+            {
+              "key": "electrosynthesis-photoredox-revolution",
+              "label": "Electrosynthesis & Photoredox Revolution"
+            },
+            {
+              "key": "artificial-photosynthesis-solar-fuels",
+              "label": "Artificial Photosynthesis / Solar Fuels"
+            }
           ],
           "widget": "diamond",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Which chemical energy paradigm will prove most transformative in decarbonizing global industry and energy infrastructure?",
             "poles": [
-              {"label": "Electrochemical Battery Dominance", "text": "Solid-state, lithium-sulfur, and sodium-ion battery chemistry will electrify nearly all energy storage without needing chemical fuels."},
-              {"label": "Green Hydrogen & Ammonia Carriers", "text": "High-density chemical bonds (H₂, NH₃) are indispensable for heavy transport, steelmaking, and seasonal grid storage."},
-              {"label": "Electrosynthesis & Photoredox Revolution", "text": "Replacing stoichiometric chemical oxidants/reductants with electrons and photons will fundamentally decarbonize chemical manufacturing."},
-              {"label": "Artificial Photosynthesis / Solar Fuels", "text": "Direct catalytic reduction of CO₂ and H₂O into liquid hydrocarbons is the ultimate closed-loop chemical goal."}
+              {
+                "label": "Electrochemical Battery Dominance",
+                "text": "Solid-state, lithium-sulfur, and sodium-ion battery chemistry will electrify nearly all energy storage without needing chemical fuels."
+              },
+              {
+                "label": "Green Hydrogen & Ammonia Carriers",
+                "text": "High-density chemical bonds (H₂, NH₃) are indispensable for heavy transport, steelmaking, and seasonal grid storage."
+              },
+              {
+                "label": "Electrosynthesis & Photoredox Revolution",
+                "text": "Replacing stoichiometric chemical oxidants/reductants with electrons and photons will fundamentally decarbonize chemical manufacturing."
+              },
+              {
+                "label": "Artificial Photosynthesis / Solar Fuels",
+                "text": "Direct catalytic reduction of CO₂ and H₂O into liquid hydrocarbons is the ultimate closed-loop chemical goal."
+              }
             ]
           },
           "question": "Which chemical energy paradigm will prove most transformative in decarbonizing global industry and energy infrastructure?",
@@ -878,18 +1533,36 @@
           "name": "Reticular Chemistry (MOFs/COFs) vs Classical Solid-State & Polymer Materials",
           "risk": false,
           "poles": [
-            {"key": "reticular-design", "label": "Reticular Design (MOFs & COFs)"},
-            {"key": "classical-polymers-composites", "label": "Classical Polymers & Composites"},
-            {"key": "hybrid-soft-matter-biomimetic-materials", "label": "Hybrid / Soft-Matter & Biomimetic Materials"}
+            {
+              "key": "reticular-design",
+              "label": "Reticular Design (MOFs & COFs)"
+            },
+            {
+              "key": "classical-polymers-composites",
+              "label": "Classical Polymers & Composites"
+            },
+            {
+              "key": "hybrid-soft-matter-biomimetic-materials",
+              "label": "Hybrid / Soft-Matter & Biomimetic Materials"
+            }
           ],
           "widget": "trilinear-sliders",
           "archetype": "multi-affinity",
           "hovertip": {
             "issue": "Are reticular crystalline frameworks (MOFs/COFs) the future of tailored materials, or do scalable polymers and adaptive soft matter hold the real-world edge?",
             "poles": [
-              {"label": "Reticular Design (MOFs & COFs)", "text": "Modular, crystalline porous frameworks offer unprecedented control over pore geometry for carbon capture, water harvesting, and gas storage."},
-              {"label": "Classical Polymers & Composites", "text": "Scalable, processable macromolecules remain far more practical, durable, and cost-effective than fragile crystalline frameworks."},
-              {"label": "Hybrid / Soft-Matter & Biomimetic Materials", "text": "Self-healing polymers, hydrogels, and vitrimers represent the true frontier of adaptive material performance."}
+              {
+                "label": "Reticular Design (MOFs & COFs)",
+                "text": "Modular, crystalline porous frameworks offer unprecedented control over pore geometry for carbon capture, water harvesting, and gas storage."
+              },
+              {
+                "label": "Classical Polymers & Composites",
+                "text": "Scalable, processable macromolecules remain far more practical, durable, and cost-effective than fragile crystalline frameworks."
+              },
+              {
+                "label": "Hybrid / Soft-Matter & Biomimetic Materials",
+                "text": "Self-healing polymers, hydrogels, and vitrimers represent the true frontier of adaptive material performance."
+              }
             ]
           },
           "question": "Are reticular crystalline frameworks (MOFs/COFs) the future of tailored materials, or do scalable polymers and adaptive soft matter hold the real-world edge?",
@@ -900,20 +1573,44 @@
           "name": "Drug Discovery: Rational Structure-Based Design vs Phenotypic & AI Screening",
           "risk": false,
           "poles": [
-            {"key": "structure-based-medicinal-chemistry", "label": "Structure-Based Medicinal Chemistry"},
-            {"key": "phenotypic-chemical-genetic-screening", "label": "Phenotypic & Chemical-Genetic Screening"},
-            {"key": "dna-encoded-libraries-ultra-large-virtual-screening", "label": "DNA-Encoded Libraries (DELs) & Ultra-Large Virtual Screening"},
-            {"key": "new-modalities", "label": "New Modalities (PROTACs, Molecular Glues, Oligonucleotides)"}
+            {
+              "key": "structure-based-medicinal-chemistry",
+              "label": "Structure-Based Medicinal Chemistry"
+            },
+            {
+              "key": "phenotypic-chemical-genetic-screening",
+              "label": "Phenotypic & Chemical-Genetic Screening"
+            },
+            {
+              "key": "dna-encoded-libraries-ultra-large-virtual-screening",
+              "label": "DNA-Encoded Libraries (DELs) & Ultra-Large Virtual Screening"
+            },
+            {
+              "key": "new-modalities",
+              "label": "New Modalities (PROTACs, Molecular Glues, Oligonucleotides)"
+            }
           ],
           "widget": "diamond",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Which strategic paradigm is most effective for navigating astronomical chemical space to discover transformative medicines?",
             "poles": [
-              {"label": "Structure-Based Medicinal Chemistry", "text": "Co-crystal structures, SAR optimization, and physical-organic lipophilicity tuning remain the gold standard of drug design."},
-              {"label": "Phenotypic & Chemical-Genetic Screening", "text": "Biological systems are too complex for single-target reductionism; screen molecules directly in living cells and organisms first."},
-              {"label": "DNA-Encoded Libraries (DELs) & Ultra-Large Virtual Screening", "text": "Brute-force exploration of billion-compound chemical space outperforms boutique medicinal chemistry intuition."},
-              {"label": "New Modalities (PROTACs, Molecular Glues, Oligonucleotides)", "text": "Traditional Lipinski \"Rule of 5\" small molecules are giving way to targeted protein degradation and programmable biologics."}
+              {
+                "label": "Structure-Based Medicinal Chemistry",
+                "text": "Co-crystal structures, SAR optimization, and physical-organic lipophilicity tuning remain the gold standard of drug design."
+              },
+              {
+                "label": "Phenotypic & Chemical-Genetic Screening",
+                "text": "Biological systems are too complex for single-target reductionism; screen molecules directly in living cells and organisms first."
+              },
+              {
+                "label": "DNA-Encoded Libraries (DELs) & Ultra-Large Virtual Screening",
+                "text": "Brute-force exploration of billion-compound chemical space outperforms boutique medicinal chemistry intuition."
+              },
+              {
+                "label": "New Modalities (PROTACs, Molecular Glues, Oligonucleotides)",
+                "text": "Traditional Lipinski \"Rule of 5\" small molecules are giving way to targeted protein degradation and programmable biologics."
+              }
             ]
           },
           "question": "Which strategic paradigm is most effective for navigating astronomical chemical space to discover transformative medicines?",
@@ -924,16 +1621,28 @@
           "name": "Astrochemistry & Origins: Bottom-Up Cosmic Synthesis vs Terrestrial Exceptionalism",
           "risk": false,
           "poles": [
-            {"key": "cosmic-chemical-continuity", "label": "Cosmic Chemical Continuity"},
-            {"key": "planetary-specific-geochemical-bottlenecks", "label": "Planetary-Specific Geochemical Bottlenecks"}
+            {
+              "key": "cosmic-chemical-continuity",
+              "label": "Cosmic Chemical Continuity"
+            },
+            {
+              "key": "planetary-specific-geochemical-bottlenecks",
+              "label": "Planetary-Specific Geochemical Bottlenecks"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is the chemical toolkit of life assembled abundantly in interstellar space, or does it require rare, specialized planetary geochemistry?",
             "poles": [
-              {"label": "Cosmic Chemical Continuity", "text": "Complex prebiotic organics (amino acids, nucleobases, PAHs) form abundantly in interstellar clouds and meteorites, seeding habitable worlds universally."},
-              {"label": "Planetary-Specific Geochemical Bottlenecks", "text": "Interstellar organics are too dilute and racemic; only highly specific terrestrial planetary environments can concentrate and homochirally select life's chemistry."}
+              {
+                "label": "Cosmic Chemical Continuity",
+                "text": "Complex prebiotic organics (amino acids, nucleobases, PAHs) form abundantly in interstellar clouds and meteorites, seeding habitable worlds universally."
+              },
+              {
+                "label": "Planetary-Specific Geochemical Bottlenecks",
+                "text": "Interstellar organics are too dilute and racemic; only highly specific terrestrial planetary environments can concentrate and homochirally select life's chemistry."
+              }
             ]
           },
           "question": "Is the chemical toolkit of life assembled abundantly in interstellar space, or does it require rare, specialized planetary geochemistry?",

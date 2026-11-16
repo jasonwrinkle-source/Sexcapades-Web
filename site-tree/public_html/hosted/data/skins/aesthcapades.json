@@ -1,5 +1,6 @@
 {
   "skin": "aesthcapades",
+  "meter": "taste",
   "name": "Aesthcapades",
   "domain": "Aesthetics — Taste Preferences & Judgments of Beauty",
   "categories": [
@@ -13,16 +14,28 @@
           "name": "Representation vs Abstraction",
           "risk": false,
           "poles": [
-            {"key": "representational", "label": "Representational"},
-            {"key": "abstract", "label": "Abstract"}
+            {
+              "key": "representational",
+              "label": "Representational"
+            },
+            {
+              "key": "abstract",
+              "label": "Abstract"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "How much should art look like the world?",
             "poles": [
-              {"label": "Representational", "text": "Art depicts the world as it is."},
-              {"label": "Abstract", "text": "Art departs from likeness."}
+              {
+                "label": "Representational",
+                "text": "Art depicts the world as it is."
+              },
+              {
+                "label": "Abstract",
+                "text": "Art departs from likeness."
+              }
             ]
           },
           "question": "How much do you want art to look like the world vs. depart from it?",
@@ -33,16 +46,28 @@
           "name": "Classical vs Contemporary",
           "risk": false,
           "poles": [
-            {"key": "classical", "label": "Classical"},
-            {"key": "contemporary", "label": "Contemporary"}
+            {
+              "key": "classical",
+              "label": "Classical"
+            },
+            {
+              "key": "contemporary",
+              "label": "Contemporary"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you trust the old masters or the new edge?",
             "poles": [
-              {"label": "Classical", "text": "Traditional, the old masters."},
-              {"label": "Contemporary", "text": "Avant-garde, the new edge."}
+              {
+                "label": "Classical",
+                "text": "Traditional, the old masters."
+              },
+              {
+                "label": "Contemporary",
+                "text": "Avant-garde, the new edge."
+              }
             ]
           },
           "question": "Do you trust the old masters or the new edge?",
@@ -53,18 +78,36 @@
           "name": "Photography: Document vs Art",
           "risk": false,
           "poles": [
-            {"key": "documentary", "label": "Documentary"},
-            {"key": "fine-art", "label": "Fine Art"},
-            {"key": "vernacular", "label": "Vernacular"}
+            {
+              "key": "documentary",
+              "label": "Documentary"
+            },
+            {
+              "key": "fine-art",
+              "label": "Fine Art"
+            },
+            {
+              "key": "vernacular",
+              "label": "Vernacular"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "What is a photograph for?",
             "poles": [
-              {"label": "Documentary", "text": "Truth, record, witness."},
-              {"label": "Fine Art", "text": "Expression, composition, vision."},
-              {"label": "Vernacular", "text": "Snapshot, memory, the everyday."}
+              {
+                "label": "Documentary",
+                "text": "Truth, record, witness."
+              },
+              {
+                "label": "Fine Art",
+                "text": "Expression, composition, vision."
+              },
+              {
+                "label": "Vernacular",
+                "text": "Snapshot, memory, the everyday."
+              }
             ]
           },
           "question": "What is a photograph for?",
@@ -75,16 +118,28 @@
           "name": "Materiality: Impasto vs Flat",
           "risk": false,
           "poles": [
-            {"key": "tactile", "label": "Tactile"},
-            {"key": "flat", "label": "Flat"}
+            {
+              "key": "tactile",
+              "label": "Tactile"
+            },
+            {
+              "key": "flat",
+              "label": "Flat"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you prefer art you can feel or art that's seamless?",
             "poles": [
-              {"label": "Tactile", "text": "Heavy paint, sculptural impasto, visible brushwork."},
-              {"label": "Flat", "text": "Vector smoothness, digital gradient, airbrushed finish."}
+              {
+                "label": "Tactile",
+                "text": "Heavy paint, sculptural impasto, visible brushwork."
+              },
+              {
+                "label": "Flat",
+                "text": "Vector smoothness, digital gradient, airbrushed finish."
+              }
             ]
           },
           "question": "Do you prefer art you can feel or art that's seamless?",
@@ -102,16 +157,28 @@
           "name": "Lyrics vs Sound",
           "risk": false,
           "poles": [
-            {"key": "words", "label": "Words"},
-            {"key": "music", "label": "Music"}
+            {
+              "key": "words",
+              "label": "Words"
+            },
+            {
+              "key": "music",
+              "label": "Music"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you listen for the lyrics or the sound?",
             "poles": [
-              {"label": "Words", "text": "Lyrics carry the song."},
-              {"label": "Music", "text": "The sound carries the song."}
+              {
+                "label": "Words",
+                "text": "Lyrics carry the song."
+              },
+              {
+                "label": "Music",
+                "text": "The sound carries the song."
+              }
             ]
           },
           "question": "Do you listen for the lyrics or the sound?",
@@ -122,16 +189,28 @@
           "name": "Live vs Recorded",
           "risk": false,
           "poles": [
-            {"key": "live", "label": "Live"},
-            {"key": "recorded", "label": "Recorded"}
+            {
+              "key": "live",
+              "label": "Live"
+            },
+            {
+              "key": "recorded",
+              "label": "Recorded"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "The room or the record?",
             "poles": [
-              {"label": "Live", "text": "Performance in the room."},
-              {"label": "Recorded", "text": "Studio, the record."}
+              {
+                "label": "Live",
+                "text": "Performance in the room."
+              },
+              {
+                "label": "Recorded",
+                "text": "Studio, the record."
+              }
             ]
           },
           "question": "The room or the record?",
@@ -142,18 +221,36 @@
           "name": "Pop vs Art vs Classical",
           "risk": false,
           "poles": [
-            {"key": "popular", "label": "Popular"},
-            {"key": "art", "label": "Art"},
-            {"key": "classical", "label": "Classical"}
+            {
+              "key": "popular",
+              "label": "Popular"
+            },
+            {
+              "key": "art",
+              "label": "Art"
+            },
+            {
+              "key": "classical",
+              "label": "Classical"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Where does your ear live?",
             "poles": [
-              {"label": "Popular", "text": "Melody, immediacy, the charts."},
-              {"label": "Art", "text": "Innovation, difficulty, the edge."},
-              {"label": "Classical", "text": "Canon, form, heritage."}
+              {
+                "label": "Popular",
+                "text": "Melody, immediacy, the charts."
+              },
+              {
+                "label": "Art",
+                "text": "Innovation, difficulty, the edge."
+              },
+              {
+                "label": "Classical",
+                "text": "Canon, form, heritage."
+              }
             ]
           },
           "question": "Where does your ear live?",
@@ -171,16 +268,28 @@
           "name": "Genre vs Literary Fiction",
           "risk": false,
           "poles": [
-            {"key": "genre", "label": "Genre"},
-            {"key": "literary", "label": "Literary"}
+            {
+              "key": "genre",
+              "label": "Genre"
+            },
+            {
+              "key": "literary",
+              "label": "Literary"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you read for the story or the sentence?",
             "poles": [
-              {"label": "Genre", "text": "Plot-driven."},
-              {"label": "Literary", "text": "Character-driven."}
+              {
+                "label": "Genre",
+                "text": "Plot-driven."
+              },
+              {
+                "label": "Literary",
+                "text": "Character-driven."
+              }
             ]
           },
           "question": "Do you read for the story or the sentence?",
@@ -191,16 +300,28 @@
           "name": "Plot vs Character",
           "risk": false,
           "poles": [
-            {"key": "plot", "label": "Plot"},
-            {"key": "character", "label": "Character"}
+            {
+              "key": "plot",
+              "label": "Plot"
+            },
+            {
+              "key": "character",
+              "label": "Character"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "What carries a story — what happens, or who it happens to?",
             "poles": [
-              {"label": "Plot", "text": "What happens."},
-              {"label": "Character", "text": "Who it happens to."}
+              {
+                "label": "Plot",
+                "text": "What happens."
+              },
+              {
+                "label": "Character",
+                "text": "Who it happens to."
+              }
             ]
           },
           "question": "What carries a story for you — what happens, or who it happens to?",
@@ -211,16 +332,28 @@
           "name": "Screen vs Page",
           "risk": false,
           "poles": [
-            {"key": "film", "label": "Film"},
-            {"key": "literature", "label": "Literature"}
+            {
+              "key": "film",
+              "label": "Film"
+            },
+            {
+              "key": "literature",
+              "label": "Literature"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Which medium do you prefer for story?",
             "poles": [
-              {"label": "Film", "text": "The screen."},
-              {"label": "Literature", "text": "The page."}
+              {
+                "label": "Film",
+                "text": "The screen."
+              },
+              {
+                "label": "Literature",
+                "text": "The page."
+              }
             ]
           },
           "question": "Which medium do you prefer for story?",
@@ -238,16 +371,28 @@
           "name": "Natural vs Enhanced",
           "risk": false,
           "poles": [
-            {"key": "natural", "label": "Natural"},
-            {"key": "enhanced", "label": "Enhanced"}
+            {
+              "key": "natural",
+              "label": "Natural"
+            },
+            {
+              "key": "enhanced",
+              "label": "Enhanced"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "How do you feel about cosmetic enhancement?",
             "poles": [
-              {"label": "Natural", "text": "Unaugmented, as you are."},
-              {"label": "Enhanced", "text": "Makeup, grooming, cosmetic procedures."}
+              {
+                "label": "Natural",
+                "text": "Unaugmented, as you are."
+              },
+              {
+                "label": "Enhanced",
+                "text": "Makeup, grooming, cosmetic procedures."
+              }
             ]
           },
           "question": "Attitudes toward makeup, grooming, cosmetic procedures, enhancement.",
@@ -258,16 +403,28 @@
           "name": "Minimal vs Maximal Style",
           "risk": false,
           "poles": [
-            {"key": "minimal", "label": "Minimal"},
-            {"key": "maximal", "label": "Maximal"}
+            {
+              "key": "minimal",
+              "label": "Minimal"
+            },
+            {
+              "key": "maximal",
+              "label": "Maximal"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "How much is enough, on the body?",
             "poles": [
-              {"label": "Minimal", "text": "Understated."},
-              {"label": "Maximal", "text": "Bold."}
+              {
+                "label": "Minimal",
+                "text": "Understated."
+              },
+              {
+                "label": "Maximal",
+                "text": "Bold."
+              }
             ]
           },
           "question": "How much is enough, on the body?",
@@ -278,16 +435,28 @@
           "name": "Fashion: Expression vs Conformity",
           "risk": false,
           "poles": [
-            {"key": "self-expression", "label": "Self-expression"},
-            {"key": "conformity", "label": "Conformity"}
+            {
+              "key": "self-expression",
+              "label": "Self-expression"
+            },
+            {
+              "key": "conformity",
+              "label": "Conformity"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you dress to say something, or to belong?",
             "poles": [
-              {"label": "Self-expression", "text": "Dress to say something."},
-              {"label": "Conformity", "text": "Dress to belong."}
+              {
+                "label": "Self-expression",
+                "text": "Dress to say something."
+              },
+              {
+                "label": "Conformity",
+                "text": "Dress to belong."
+              }
             ]
           },
           "question": "Do you dress to say something, or to belong?",
@@ -305,16 +474,28 @@
           "name": "Modern vs Traditional Architecture",
           "risk": false,
           "poles": [
-            {"key": "modern", "label": "Modern"},
-            {"key": "traditional", "label": "Traditional"}
+            {
+              "key": "modern",
+              "label": "Modern"
+            },
+            {
+              "key": "traditional",
+              "label": "Traditional"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Glass and steel, or stone and arch?",
             "poles": [
-              {"label": "Modern", "text": "Minimal, glass and steel."},
-              {"label": "Traditional", "text": "Ornamental, stone and arch."}
+              {
+                "label": "Modern",
+                "text": "Minimal, glass and steel."
+              },
+              {
+                "label": "Traditional",
+                "text": "Ornamental, stone and arch."
+              }
             ]
           },
           "question": "Glass and steel, or stone and arch?",
@@ -325,16 +506,28 @@
           "name": "Minimal vs Cozy Interiors",
           "risk": false,
           "poles": [
-            {"key": "minimal", "label": "Minimal"},
-            {"key": "cozy", "label": "Cozy"}
+            {
+              "key": "minimal",
+              "label": "Minimal"
+            },
+            {
+              "key": "cozy",
+              "label": "Cozy"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "How much stuff does a room need to feel like home?",
             "poles": [
-              {"label": "Minimal", "text": "Sparse."},
-              {"label": "Cozy", "text": "Layered."}
+              {
+                "label": "Minimal",
+                "text": "Sparse."
+              },
+              {
+                "label": "Cozy",
+                "text": "Layered."
+              }
             ]
           },
           "question": "How much stuff does a room need to feel like home?",
@@ -345,16 +538,28 @@
           "name": "Urban vs Natural Landscape",
           "risk": false,
           "poles": [
-            {"key": "urban", "label": "Urban"},
-            {"key": "natural", "label": "Natural"}
+            {
+              "key": "urban",
+              "label": "Urban"
+            },
+            {
+              "key": "natural",
+              "label": "Natural"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Which landscapes move you — the skyline or the wilderness?",
             "poles": [
-              {"label": "Urban", "text": "Built, the skyline."},
-              {"label": "Natural", "text": "Wild, the wilderness."}
+              {
+                "label": "Urban",
+                "text": "Built, the skyline."
+              },
+              {
+                "label": "Natural",
+                "text": "Wild, the wilderness."
+              }
             ]
           },
           "question": "Which landscapes move you — the skyline or the wilderness?",
@@ -372,18 +577,36 @@
           "name": "High vs Low Culture",
           "risk": false,
           "poles": [
-            {"key": "high", "label": "High"},
-            {"key": "popular", "label": "Popular"},
-            {"key": "low", "label": "Low"}
+            {
+              "key": "high",
+              "label": "High"
+            },
+            {
+              "key": "popular",
+              "label": "Popular"
+            },
+            {
+              "key": "low",
+              "label": "Low"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Where do you place your taste — the canon, the mainstream, or the gutter?",
             "poles": [
-              {"label": "High", "text": "The consecrated, the curriculum."},
-              {"label": "Popular", "text": "The widely loved, the charts."},
-              {"label": "Low", "text": "The gutter, the guilty pleasure."}
+              {
+                "label": "High",
+                "text": "The consecrated, the curriculum."
+              },
+              {
+                "label": "Popular",
+                "text": "The widely loved, the charts."
+              },
+              {
+                "label": "Low",
+                "text": "The gutter, the guilty pleasure."
+              }
             ]
           },
           "question": "Where do you place your taste — the canon, the mainstream, or the gutter?",
@@ -394,16 +617,28 @@
           "name": "Canon vs Personal Taste",
           "risk": false,
           "poles": [
-            {"key": "trust-the-canon", "label": "Trust the canon"},
-            {"key": "trust-your-own-taste", "label": "Trust your own taste"}
+            {
+              "key": "trust-the-canon",
+              "label": "Trust the canon"
+            },
+            {
+              "key": "trust-your-own-taste",
+              "label": "Trust your own taste"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "When the canon and your gut disagree, who wins?",
             "poles": [
-              {"label": "Trust the canon", "text": "The consecrated judgment."},
-              {"label": "Trust your own taste", "text": "Your gut."}
+              {
+                "label": "Trust the canon",
+                "text": "The consecrated judgment."
+              },
+              {
+                "label": "Trust your own taste",
+                "text": "Your gut."
+              }
             ]
           },
           "question": "When the canon and your gut disagree, who wins?",
@@ -414,16 +649,28 @@
           "name": "Minimalism vs Maximalism",
           "risk": false,
           "poles": [
-            {"key": "minimalism", "label": "Minimalism"},
-            {"key": "maximalism", "label": "Maximalism"}
+            {
+              "key": "minimalism",
+              "label": "Minimalism"
+            },
+            {
+              "key": "maximalism",
+              "label": "Maximalism"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Less is more, or more is more?",
             "poles": [
-              {"label": "Minimalism", "text": "Less is more."},
-              {"label": "Maximalism", "text": "More is more."}
+              {
+                "label": "Minimalism",
+                "text": "Less is more."
+              },
+              {
+                "label": "Maximalism",
+                "text": "More is more."
+              }
             ]
           },
           "question": "The meta-aesthetic stance — the one that predicts most of the others.",
@@ -434,18 +681,36 @@
           "name": "Kitsch & Camp",
           "risk": false,
           "poles": [
-            {"key": "sincere-enjoyment", "label": "Sincere enjoyment"},
-            {"key": "ironic-appreciation", "label": "Ironic appreciation"},
-            {"key": "rejection", "label": "Rejection"}
+            {
+              "key": "sincere-enjoyment",
+              "label": "Sincere enjoyment"
+            },
+            {
+              "key": "ironic-appreciation",
+              "label": "Ironic appreciation"
+            },
+            {
+              "key": "rejection",
+              "label": "Rejection"
+            }
           ],
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
             "issue": "Do you love kitsch, love it ironically, or not at all?",
             "poles": [
-              {"label": "Sincere enjoyment", "text": "You love it straight."},
-              {"label": "Ironic appreciation", "text": "You love it because it's bad."},
-              {"label": "Rejection", "text": "You don't love it at all."}
+              {
+                "label": "Sincere enjoyment",
+                "text": "You love it straight."
+              },
+              {
+                "label": "Ironic appreciation",
+                "text": "You love it because it's bad."
+              },
+              {
+                "label": "Rejection",
+                "text": "You don't love it at all."
+              }
             ]
           },
           "question": "Do you love kitsch, love it ironically, or not at all?",
@@ -456,20 +721,44 @@
           "name": "Theories of Beauty",
           "risk": false,
           "poles": [
-            {"key": "classical-harmony", "label": "Classical Harmony"},
-            {"key": "sublime", "label": "Sublime"},
-            {"key": "picturesque", "label": "Picturesque"},
-            {"key": "grotesque", "label": "Grotesque"}
+            {
+              "key": "classical-harmony",
+              "label": "Classical Harmony"
+            },
+            {
+              "key": "sublime",
+              "label": "Sublime"
+            },
+            {
+              "key": "picturesque",
+              "label": "Picturesque"
+            },
+            {
+              "key": "grotesque",
+              "label": "Grotesque"
+            }
           ],
           "widget": "diamond",
           "archetype": "simplex",
           "hovertip": {
             "issue": "What kind of beauty moves you?",
             "poles": [
-              {"label": "Classical Harmony", "text": "Symmetry, order, proportion."},
-              {"label": "Sublime", "text": "Awe, vastness, terror."},
-              {"label": "Picturesque", "text": "Roughness, variety, irregularity."},
-              {"label": "Grotesque", "text": "The ugly as aesthetic value."}
+              {
+                "label": "Classical Harmony",
+                "text": "Symmetry, order, proportion."
+              },
+              {
+                "label": "Sublime",
+                "text": "Awe, vastness, terror."
+              },
+              {
+                "label": "Picturesque",
+                "text": "Roughness, variety, irregularity."
+              },
+              {
+                "label": "Grotesque",
+                "text": "The ugly as aesthetic value."
+              }
             ]
           },
           "question": "What kind of beauty moves you?",
@@ -480,16 +769,28 @@
           "name": "Wabi-Sabi vs Pristine",
           "risk": false,
           "poles": [
-            {"key": "wabi-sabi", "label": "Wabi-Sabi"},
-            {"key": "pristine", "label": "Pristine"}
+            {
+              "key": "wabi-sabi",
+              "label": "Wabi-Sabi"
+            },
+            {
+              "key": "pristine",
+              "label": "Pristine"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you prefer imperfection or flawlessness?",
             "poles": [
-              {"label": "Wabi-Sabi", "text": "Imperfection, transience, natural weathering, raw patina."},
-              {"label": "Pristine", "text": "Flawless surfaces, high polish, geometric symmetry."}
+              {
+                "label": "Wabi-Sabi",
+                "text": "Imperfection, transience, natural weathering, raw patina."
+              },
+              {
+                "label": "Pristine",
+                "text": "Flawless surfaces, high polish, geometric symmetry."
+              }
             ]
           },
           "question": "Do you prefer imperfection or flawlessness?",
@@ -507,16 +808,28 @@
           "name": "Adventurous vs Cautious Eating",
           "risk": false,
           "poles": [
-            {"key": "adventurous", "label": "Adventurous"},
-            {"key": "cautious", "label": "Cautious"}
+            {
+              "key": "adventurous",
+              "label": "Adventurous"
+            },
+            {
+              "key": "cautious",
+              "label": "Cautious"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "The weird restaurant or the safe place?",
             "poles": [
-              {"label": "Adventurous", "text": "Try anything."},
-              {"label": "Cautious", "text": "Stick to the familiar."}
+              {
+                "label": "Adventurous",
+                "text": "Try anything."
+              },
+              {
+                "label": "Cautious",
+                "text": "Stick to the familiar."
+              }
             ]
           },
           "question": "Do you want the weird restaurant or the safe place? The classic friends-compatibility axis.",
@@ -527,16 +840,28 @@
           "name": "Mild vs Fiery",
           "risk": false,
           "poles": [
-            {"key": "mild", "label": "Mild"},
-            {"key": "fiery", "label": "Fiery"}
+            {
+              "key": "mild",
+              "label": "Mild"
+            },
+            {
+              "key": "fiery",
+              "label": "Fiery"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "How much heat do you want?",
             "poles": [
-              {"label": "Mild", "text": "Little or no spice."},
-              {"label": "Fiery", "text": "As hot as it gets."}
+              {
+                "label": "Mild",
+                "text": "Little or no spice."
+              },
+              {
+                "label": "Fiery",
+                "text": "As hot as it gets."
+              }
             ]
           },
           "question": "How much heat do you want? Spice tolerance as a preference axis.",
@@ -547,18 +872,36 @@
           "name": "Comfort vs Casual vs Fine",
           "risk": false,
           "poles": [
-            {"key": "comfort", "label": "Comfort"},
-            {"key": "casual", "label": "Casual"},
-            {"key": "fine", "label": "Fine"}
+            {
+              "key": "comfort",
+              "label": "Comfort"
+            },
+            {
+              "key": "casual",
+              "label": "Casual"
+            },
+            {
+              "key": "fine",
+              "label": "Fine"
+            }
           ],
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
             "issue": "What register of food do you live in?",
             "poles": [
-              {"label": "Comfort", "text": "Hearty, familiar, home."},
-              {"label": "Casual", "text": "Everyday, accessible, the neighborhood spot."},
-              {"label": "Fine", "text": "Refined, experimental, the tasting menu."}
+              {
+                "label": "Comfort",
+                "text": "Hearty, familiar, home."
+              },
+              {
+                "label": "Casual",
+                "text": "Everyday, accessible, the neighborhood spot."
+              },
+              {
+                "label": "Fine",
+                "text": "Refined, experimental, the tasting menu."
+              }
             ]
           },
           "question": "What register of food do you live in?",
@@ -569,22 +912,52 @@
           "name": "Five Tastes",
           "risk": false,
           "poles": [
-            {"key": "sweet", "label": "Sweet"},
-            {"key": "salty", "label": "Salty"},
-            {"key": "sour", "label": "Sour"},
-            {"key": "bitter", "label": "Bitter"},
-            {"key": "umami", "label": "Umami"}
+            {
+              "key": "sweet",
+              "label": "Sweet"
+            },
+            {
+              "key": "salty",
+              "label": "Salty"
+            },
+            {
+              "key": "sour",
+              "label": "Sour"
+            },
+            {
+              "key": "bitter",
+              "label": "Bitter"
+            },
+            {
+              "key": "umami",
+              "label": "Umami"
+            }
           ],
           "widget": "star-radar",
           "archetype": "simplex",
           "hovertip": {
             "issue": "How much do you seek each of the five basic tastes?",
             "poles": [
-              {"label": "Sweet", "text": "Sweet"},
-              {"label": "Salty", "text": "Salty"},
-              {"label": "Sour", "text": "Sour"},
-              {"label": "Bitter", "text": "Bitter"},
-              {"label": "Umami", "text": "Umami"}
+              {
+                "label": "Sweet",
+                "text": "Sweet"
+              },
+              {
+                "label": "Salty",
+                "text": "Salty"
+              },
+              {
+                "label": "Sour",
+                "text": "Sour"
+              },
+              {
+                "label": "Bitter",
+                "text": "Bitter"
+              },
+              {
+                "label": "Umami",
+                "text": "Umami"
+              }
             ]
           },
           "question": "The five basic tastes, as a five-pole star. How much do you seek each one?",
@@ -595,26 +968,68 @@
           "name": "Dietary Identity",
           "risk": false,
           "poles": [
-            {"key": "carnivore", "label": "Carnivore"},
-            {"key": "omnivore", "label": "Omnivore"},
-            {"key": "pescatarian", "label": "Pescatarian"},
-            {"key": "ovo-vegetarian", "label": "Ovo-Vegetarian"},
-            {"key": "lacto-ovo-vegetarian", "label": "Lacto-Ovo Vegetarian"},
-            {"key": "vegan", "label": "Vegan"},
-            {"key": "fruitarian", "label": "Fruitarian"}
+            {
+              "key": "carnivore",
+              "label": "Carnivore"
+            },
+            {
+              "key": "omnivore",
+              "label": "Omnivore"
+            },
+            {
+              "key": "pescatarian",
+              "label": "Pescatarian"
+            },
+            {
+              "key": "ovo-vegetarian",
+              "label": "Ovo-Vegetarian"
+            },
+            {
+              "key": "lacto-ovo-vegetarian",
+              "label": "Lacto-Ovo Vegetarian"
+            },
+            {
+              "key": "vegan",
+              "label": "Vegan"
+            },
+            {
+              "key": "fruitarian",
+              "label": "Fruitarian"
+            }
           ],
           "widget": "heptad-radar",
           "archetype": "simplex",
           "hovertip": {
             "issue": "What do you eat — and what won't you?",
             "poles": [
-              {"label": "Carnivore", "text": "Meat only."},
-              {"label": "Omnivore", "text": "Everything."},
-              {"label": "Pescatarian", "text": "Fish, no land meat."},
-              {"label": "Ovo-Vegetarian", "text": "Eggs yes, dairy no, meat no."},
-              {"label": "Lacto-Ovo Vegetarian", "text": "Eggs and dairy yes, meat no."},
-              {"label": "Vegan", "text": "No animal products."},
-              {"label": "Fruitarian", "text": "Fruit only."}
+              {
+                "label": "Carnivore",
+                "text": "Meat only."
+              },
+              {
+                "label": "Omnivore",
+                "text": "Everything."
+              },
+              {
+                "label": "Pescatarian",
+                "text": "Fish, no land meat."
+              },
+              {
+                "label": "Ovo-Vegetarian",
+                "text": "Eggs yes, dairy no, meat no."
+              },
+              {
+                "label": "Lacto-Ovo Vegetarian",
+                "text": "Eggs and dairy yes, meat no."
+              },
+              {
+                "label": "Vegan",
+                "text": "No animal products."
+              },
+              {
+                "label": "Fruitarian",
+                "text": "Fruit only."
+              }
             ]
           },
           "question": "What do you eat — and what won't you?",
@@ -626,14 +1041,20 @@
           "type": "single",
           "risk": false,
           "poles": [
-            {"key": "keto", "label": "Keto"}
+            {
+              "key": "keto",
+              "label": "Keto"
+            }
           ],
           "widget": "monopole-slider",
           "archetype": null,
           "hovertip": {
             "issue": "How strictly do you follow keto?",
             "poles": [
-              {"label": "Keto", "text": "High fat, low carb; cross-cuts dietary identity rather than sitting on it."}
+              {
+                "label": "Keto",
+                "text": "High fat, low carb; cross-cuts dietary identity rather than sitting on it."
+              }
             ]
           },
           "question": "How strictly do you follow keto?",
@@ -644,16 +1065,28 @@
           "name": "Cook vs Eat Out",
           "risk": false,
           "poles": [
-            {"key": "cook", "label": "Cook"},
-            {"key": "eat-out", "label": "Eat Out"}
+            {
+              "key": "cook",
+              "label": "Cook"
+            },
+            {
+              "key": "eat-out",
+              "label": "Eat Out"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you prefer to cook, or to be cooked for?",
             "poles": [
-              {"label": "Cook", "text": "Make it yourself."},
-              {"label": "Eat Out", "text": "Be cooked for, go out."}
+              {
+                "label": "Cook",
+                "text": "Make it yourself."
+              },
+              {
+                "label": "Eat Out",
+                "text": "Be cooked for, go out."
+              }
             ]
           },
           "question": "Do you prefer to cook, or to be cooked for?",
@@ -664,16 +1097,28 @@
           "name": "Food: Fuel vs Feast",
           "risk": false,
           "poles": [
-            {"key": "fuel", "label": "Fuel"},
-            {"key": "feast", "label": "Feast"}
+            {
+              "key": "fuel",
+              "label": "Fuel"
+            },
+            {
+              "key": "feast",
+              "label": "Feast"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is food fuel or feast?",
             "poles": [
-              {"label": "Fuel", "text": "Functional sustenance; efficiency, fast preparation, minimal fuss."},
-              {"label": "Feast", "text": "Sensory theater; multi-hour shared dining, ritual, pleasure."}
+              {
+                "label": "Fuel",
+                "text": "Functional sustenance; efficiency, fast preparation, minimal fuss."
+              },
+              {
+                "label": "Feast",
+                "text": "Sensory theater; multi-hour shared dining, ritual, pleasure."
+              }
             ]
           },
           "question": "Is food fuel or feast?",
@@ -684,16 +1129,28 @@
           "name": "Culinary Philosophy: Traditional Purism vs Experimental Fusion",
           "risk": false,
           "poles": [
-            {"key": "authentic-purism", "label": "Authentic Purism"},
-            {"key": "experimental-fusion", "label": "Experimental Fusion"}
+            {
+              "key": "authentic-purism",
+              "label": "Authentic Purism"
+            },
+            {
+              "key": "experimental-fusion",
+              "label": "Experimental Fusion"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you cook by tradition or by experiment?",
             "poles": [
-              {"label": "Authentic Purism", "text": "Heritage recipes, regional terroir, grandmother's technique."},
-              {"label": "Experimental Fusion", "text": "Molecular gastronomy, boundary-breaking crossovers."}
+              {
+                "label": "Authentic Purism",
+                "text": "Heritage recipes, regional terroir, grandmother's technique."
+              },
+              {
+                "label": "Experimental Fusion",
+                "text": "Molecular gastronomy, boundary-breaking crossovers."
+              }
             ]
           },
           "question": "Do you cook by tradition or by experiment?",

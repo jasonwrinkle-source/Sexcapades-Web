@@ -1,5 +1,6 @@
 {
   "skin": "quantacapades",
+  "meter": "understanding",
   "name": "Quantacapades",
   "domain": "Theoretical Physics — the pen-and-paper, blackboard, and chalk world where mathematical structure attempts to unveil the foundational architecture of physical reality",
   "categories": [
@@ -13,20 +14,44 @@
           "name": "The Great Quantum Interpretations Quartet",
           "risk": false,
           "poles": [
-            {"key": "copenhagen-epistemic-orthodox", "label": "Copenhagen / Epistemic (Orthodox)"},
-            {"key": "many-worlds-everettian", "label": "Many-Worlds / Everettian"},
-            {"key": "de-broglie-bohm-pilot-wave", "label": "De Broglie-Bohm / Pilot Wave"},
-            {"key": "qbism-relational-quantum-mechanics-rqm", "label": "QBism & Relational Quantum Mechanics (RQM)"}
+            {
+              "key": "copenhagen-epistemic-orthodox",
+              "label": "Copenhagen / Epistemic (Orthodox)"
+            },
+            {
+              "key": "many-worlds-everettian",
+              "label": "Many-Worlds / Everettian"
+            },
+            {
+              "key": "de-broglie-bohm-pilot-wave",
+              "label": "De Broglie-Bohm / Pilot Wave"
+            },
+            {
+              "key": "qbism-relational-quantum-mechanics-rqm",
+              "label": "QBism & Relational Quantum Mechanics (RQM)"
+            }
           ],
           "widget": "diamond",
           "archetype": "simplex",
           "hovertip": {
             "issue": "What is the true nature of the quantum state?",
             "poles": [
-              {"label": "Copenhagen / Epistemic (Orthodox)", "text": "Wavefunction represents observer knowledge / probabilities; measurement causes collapse; don't ask what happens between observations."},
-              {"label": "Many-Worlds / Everettian", "text": "Unitary evolution ($\\hat{U}$) is absolute and never collapses; universe continuously branches into a vast multiverse of decohering branches."},
-              {"label": "De Broglie-Bohm / Pilot Wave", "text": "Deterministic non-local hidden variables; particles have definite trajectories guided by an objective physical wave."},
-              {"label": "QBism & Relational Quantum Mechanics (RQM)", "text": "Quantum states are personal subjective Bayesian credences (QBism) or relational correlations between systems (Rovelli); no observer-independent state of reality."}
+              {
+                "label": "Copenhagen / Epistemic (Orthodox)",
+                "text": "Wavefunction represents observer knowledge / probabilities; measurement causes collapse; don't ask what happens between observations."
+              },
+              {
+                "label": "Many-Worlds / Everettian",
+                "text": "Unitary evolution ($\\hat{U}$) is absolute and never collapses; universe continuously branches into a vast multiverse of decohering branches."
+              },
+              {
+                "label": "De Broglie-Bohm / Pilot Wave",
+                "text": "Deterministic non-local hidden variables; particles have definite trajectories guided by an objective physical wave."
+              },
+              {
+                "label": "QBism & Relational Quantum Mechanics (RQM)",
+                "text": "Quantum states are personal subjective Bayesian credences (QBism) or relational correlations between systems (Rovelli); no observer-independent state of reality."
+              }
             ]
           },
           "question": "What is the true nature of the quantum state?",
@@ -37,16 +62,28 @@
           "name": "Wavefunction Ontology: ψ-Ontic vs. ψ-Epistemic",
           "risk": false,
           "poles": [
-            {"key": "psi-ontic", "label": "ψ-Ontic"},
-            {"key": "psi-epistemic", "label": "ψ-Epistemic"}
+            {
+              "key": "psi-ontic",
+              "label": "ψ-Ontic"
+            },
+            {
+              "key": "psi-epistemic",
+              "label": "ψ-Epistemic"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is the wavefunction physical reality or human ignorance?",
             "poles": [
-              {"label": "ψ-Ontic", "text": "The quantum wavefunction is an objective, physically real entity existing in the world."},
-              {"label": "ψ-Epistemic", "text": "The wavefunction is merely a mathematical tool representing incomplete human knowledge or belief."}
+              {
+                "label": "ψ-Ontic",
+                "text": "The quantum wavefunction is an objective, physically real entity existing in the world."
+              },
+              {
+                "label": "ψ-Epistemic",
+                "text": "The wavefunction is merely a mathematical tool representing incomplete human knowledge or belief."
+              }
             ]
           },
           "question": "Is the wavefunction physical reality or human ignorance?",
@@ -57,18 +94,36 @@
           "name": "The Measurement Problem: Collapse vs. Decoherence vs. No-Collapse",
           "risk": false,
           "poles": [
-            {"key": "collapse", "label": "Collapse"},
-            {"key": "decoherence", "label": "Decoherence"},
-            {"key": "no-collapse", "label": "No-Collapse"}
+            {
+              "key": "collapse",
+              "label": "Collapse"
+            },
+            {
+              "key": "decoherence",
+              "label": "Decoherence"
+            },
+            {
+              "key": "no-collapse",
+              "label": "No-Collapse"
+            }
           ],
           "widget": "triangle",
           "archetype": null,
           "hovertip": {
             "issue": "What happens when you measure?",
             "poles": [
-              {"label": "Collapse", "text": "The wavefunction physically collapses on measurement; objective dynamical collapse theories (GRW, Penrose-Diósi) where gravity or non-linear terms collapse the state at a critical mass/threshold."},
-              {"label": "Decoherence", "text": "No collapse; the Schrödinger equation never breaks; entanglement with the environment creates the appearance of collapse."},
-              {"label": "No-Collapse", "text": "The measurement problem is dissolved; all branches are real (many-worlds) or the problem itself is a pseudo-problem."}
+              {
+                "label": "Collapse",
+                "text": "The wavefunction physically collapses on measurement; objective dynamical collapse theories (GRW, Penrose-Diósi) where gravity or non-linear terms collapse the state at a critical mass/threshold."
+              },
+              {
+                "label": "Decoherence",
+                "text": "No collapse; the Schrödinger equation never breaks; entanglement with the environment creates the appearance of collapse."
+              },
+              {
+                "label": "No-Collapse",
+                "text": "The measurement problem is dissolved; all branches are real (many-worlds) or the problem itself is a pseudo-problem."
+              }
             ]
           },
           "question": "What happens when you measure?",
@@ -79,16 +134,28 @@
           "name": "Determinism: Laplacian Clockwork vs. Irreducible Stochasticity",
           "risk": false,
           "poles": [
-            {"key": "strict-determinism", "label": "Strict Determinism"},
-            {"key": "irreducible-randomness", "label": "Irreducible Randomness"}
+            {
+              "key": "strict-determinism",
+              "label": "Strict Determinism"
+            },
+            {
+              "key": "irreducible-randomness",
+              "label": "Irreducible Randomness"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is the universe deterministic or intrinsically random?",
             "poles": [
-              {"label": "Strict Determinism", "text": "The total state of the cosmos evolves with absolute determinism; probabilities reflect only coarse-graining or branching perspective."},
-              {"label": "Irreducible Randomness", "text": "Nature is fundamentally indeterminate; quantum events are uncaused objective dice-rolls."}
+              {
+                "label": "Strict Determinism",
+                "text": "The total state of the cosmos evolves with absolute determinism; probabilities reflect only coarse-graining or branching perspective."
+              },
+              {
+                "label": "Irreducible Randomness",
+                "text": "Nature is fundamentally indeterminate; quantum events are uncaused objective dice-rolls."
+              }
             ]
           },
           "question": "Is the universe deterministic or intrinsically random?",
@@ -99,16 +166,28 @@
           "name": "Locality vs. Realism: Bell's Theorem Stance",
           "risk": false,
           "poles": [
-            {"key": "non-local-realism", "label": "Non-Local Realism"},
-            {"key": "local-anti-realism", "label": "Local Anti-Realism"}
+            {
+              "key": "non-local-realism",
+              "label": "Non-Local Realism"
+            },
+            {
+              "key": "local-anti-realism",
+              "label": "Local Anti-Realism"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Faced with Bell's inequality, do you abandon locality or counterfactual realism?",
             "poles": [
-              {"label": "Non-Local Realism", "text": "Retain objective particles with definite trajectories at the expense of Einsteinian locality; superluminal quantum potential."},
-              {"label": "Local Anti-Realism", "text": "Preserve relativistic locality at the cost of counterfactual definiteness; unperformed experiments have no results."}
+              {
+                "label": "Non-Local Realism",
+                "text": "Retain objective particles with definite trajectories at the expense of Einsteinian locality; superluminal quantum potential."
+              },
+              {
+                "label": "Local Anti-Realism",
+                "text": "Preserve relativistic locality at the cost of counterfactual definiteness; unperformed experiments have no results."
+              }
             ]
           },
           "question": "Faced with Bell's inequality, do you abandon locality or counterfactual realism?",
@@ -126,20 +205,44 @@
           "name": "The Quantum Gravity Crossroads",
           "risk": false,
           "poles": [
-            {"key": "string-m-theory", "label": "String / M-Theory"},
-            {"key": "loop-quantum-gravity-lqg", "label": "Loop Quantum Gravity (LQG)"},
-            {"key": "asymptotic-safety-causal-dynamical-triangulations-cdt", "label": "Asymptotic Safety & Causal Dynamical Triangulations (CDT)"},
-            {"key": "emergent-thermodynamic-gravity", "label": "Emergent / Thermodynamic Gravity"}
+            {
+              "key": "string-m-theory",
+              "label": "String / M-Theory"
+            },
+            {
+              "key": "loop-quantum-gravity-lqg",
+              "label": "Loop Quantum Gravity (LQG)"
+            },
+            {
+              "key": "asymptotic-safety-causal-dynamical-triangulations-cdt",
+              "label": "Asymptotic Safety & Causal Dynamical Triangulations (CDT)"
+            },
+            {
+              "key": "emergent-thermodynamic-gravity",
+              "label": "Emergent / Thermodynamic Gravity"
+            }
           ],
           "widget": "diamond",
           "archetype": "simplex",
           "hovertip": {
             "issue": "How will quantum gravity be solved?",
             "poles": [
-              {"label": "String / M-Theory", "text": "1D vibrating strings in 10/11 dimensions, supersymmetry, Calabi-Yau compactifications, AdS/CFT holographic duality."},
-              {"label": "Loop Quantum Gravity (LQG)", "text": "Non-perturbative, background-independent quantization of geometry; spin networks, discretized quanta of area and volume."},
-              {"label": "Asymptotic Safety & Causal Dynamical Triangulations (CDT)", "text": "Gravity is fundamentally a non-perturbatively renormalizable continuous quantum field theory or path integral over triangulated causal geometries."},
-              {"label": "Emergent / Thermodynamic Gravity", "text": "Spacetime and Einstein's equations are macroscopic hydrodynamic limits of underlying quantum entanglement."}
+              {
+                "label": "String / M-Theory",
+                "text": "1D vibrating strings in 10/11 dimensions, supersymmetry, Calabi-Yau compactifications, AdS/CFT holographic duality."
+              },
+              {
+                "label": "Loop Quantum Gravity (LQG)",
+                "text": "Non-perturbative, background-independent quantization of geometry; spin networks, discretized quanta of area and volume."
+              },
+              {
+                "label": "Asymptotic Safety & Causal Dynamical Triangulations (CDT)",
+                "text": "Gravity is fundamentally a non-perturbatively renormalizable continuous quantum field theory or path integral over triangulated causal geometries."
+              },
+              {
+                "label": "Emergent / Thermodynamic Gravity",
+                "text": "Spacetime and Einstein's equations are macroscopic hydrodynamic limits of underlying quantum entanglement."
+              }
             ]
           },
           "question": "How will quantum gravity be solved?",
@@ -150,16 +253,28 @@
           "name": "Spacetime Primacy: Fundamental vs. Emergent Spacetime",
           "risk": false,
           "poles": [
-            {"key": "fundamental-spacetime", "label": "Fundamental Spacetime"},
-            {"key": "emergent-spacetime", "label": "Emergent Spacetime"}
+            {
+              "key": "fundamental-spacetime",
+              "label": "Fundamental Spacetime"
+            },
+            {
+              "key": "emergent-spacetime",
+              "label": "Emergent Spacetime"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is spacetime fundamental or an emergent collective phenomenon?",
             "poles": [
-              {"label": "Fundamental Spacetime", "text": "Spacetime manifold is the bedrock arena in which physics takes place."},
-              {"label": "Emergent Spacetime", "text": "Spacetime is an illusion; geometry is stitched together from quantum entanglement like threads in a tapestry."}
+              {
+                "label": "Fundamental Spacetime",
+                "text": "Spacetime manifold is the bedrock arena in which physics takes place."
+              },
+              {
+                "label": "Emergent Spacetime",
+                "text": "Spacetime is an illusion; geometry is stitched together from quantum entanglement like threads in a tapestry."
+              }
             ]
           },
           "question": "Is spacetime fundamental or an emergent collective phenomenon?",
@@ -170,16 +285,28 @@
           "name": "Supersymmetry (SUSY) Stance",
           "risk": false,
           "poles": [
-            {"key": "susy-believer", "label": "SUSY Believer"},
-            {"key": "susy-skeptic", "label": "SUSY Skeptic"}
+            {
+              "key": "susy-believer",
+              "label": "SUSY Believer"
+            },
+            {
+              "key": "susy-skeptic",
+              "label": "SUSY Skeptic"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do superpartners exist in nature?",
             "poles": [
-              {"label": "SUSY Believer", "text": "Supersymmetry is mathematically necessary, solves the hierarchy problem, and will emerge at higher energy scales."},
-              {"label": "SUSY Skeptic", "text": "LHC failed to find low-energy superpartners; naturalness was a mirage and SUSY is an intellectual trap."}
+              {
+                "label": "SUSY Believer",
+                "text": "Supersymmetry is mathematically necessary, solves the hierarchy problem, and will emerge at higher energy scales."
+              },
+              {
+                "label": "SUSY Skeptic",
+                "text": "LHC failed to find low-energy superpartners; naturalness was a mirage and SUSY is an intellectual trap."
+              }
             ]
           },
           "question": "Do superpartners exist in nature?",
@@ -190,16 +317,28 @@
           "name": "Singularity Resolution: Quantum Bounce vs. Physical Singularity",
           "risk": false,
           "poles": [
-            {"key": "quantum-bounce-invariant-cutoff", "label": "Quantum Bounce / Invariant Cutoff"},
-            {"key": "physical-singularity-spacetime-breakdown", "label": "Physical Singularity & Spacetime Breakdown"}
+            {
+              "key": "quantum-bounce-invariant-cutoff",
+              "label": "Quantum Bounce / Invariant Cutoff"
+            },
+            {
+              "key": "physical-singularity-spacetime-breakdown",
+              "label": "Physical Singularity & Spacetime Breakdown"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do quantum effects prevent gravitational singularities?",
             "poles": [
-              {"label": "Quantum Bounce / Invariant Cutoff", "text": "Planckian density limits eliminate singularities; big bounce replaces big bang, black holes have quantum cores."},
-              {"label": "Physical Singularity & Spacetime Breakdown", "text": "General relativistic singularities indicate a true edge to spacetime where classical laws irreversibly end."}
+              {
+                "label": "Quantum Bounce / Invariant Cutoff",
+                "text": "Planckian density limits eliminate singularities; big bounce replaces big bang, black holes have quantum cores."
+              },
+              {
+                "label": "Physical Singularity & Spacetime Breakdown",
+                "text": "General relativistic singularities indicate a true edge to spacetime where classical laws irreversibly end."
+              }
             ]
           },
           "question": "Do quantum effects prevent gravitational singularities?",
@@ -210,16 +349,28 @@
           "name": "Grand Unification vs. Effective Field Theory",
           "risk": false,
           "poles": [
-            {"key": "gut", "label": "GUT"},
-            {"key": "eft", "label": "EFT"}
+            {
+              "key": "gut",
+              "label": "GUT"
+            },
+            {
+              "key": "eft",
+              "label": "EFT"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you chase unification, or work scale by scale?",
             "poles": [
-              {"label": "GUT", "text": "Pursue grand unification — the strong, weak, and electromagnetic forces unify at high energy; find the single gauge group."},
-              {"label": "EFT", "text": "Work with effective field theories — each energy scale has its own theory, and that is fine; unification is a mirage."}
+              {
+                "label": "GUT",
+                "text": "Pursue grand unification — the strong, weak, and electromagnetic forces unify at high energy; find the single gauge group."
+              },
+              {
+                "label": "EFT",
+                "text": "Work with effective field theories — each energy scale has its own theory, and that is fine; unification is a mirage."
+              }
             ]
           },
           "question": "Do you chase unification, or work scale by scale?",
@@ -230,16 +381,28 @@
           "name": "The Scale of Ambition: The Grand Theory of Everything vs. Effective Field Theories",
           "risk": false,
           "poles": [
-            {"key": "grand-unified-ambition-toe", "label": "Grand Unified Ambition (TOE)"},
-            {"key": "pragmatic-effective-field-theory-eft", "label": "Pragmatic Effective Field Theory (EFT)"}
+            {
+              "key": "grand-unified-ambition-toe",
+              "label": "Grand Unified Ambition (TOE)"
+            },
+            {
+              "key": "pragmatic-effective-field-theory-eft",
+              "label": "Pragmatic Effective Field Theory (EFT)"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is a final Theory of Everything achievable?",
             "poles": [
-              {"label": "Grand Unified Ambition (TOE)", "text": "The sacred quest to write down the single master equation that unifies all four fundamental forces at the Planck scale."},
-              {"label": "Pragmatic Effective Field Theory (EFT)", "text": "All physical theories are Wilsonian low-energy approximations with finite cutoffs; a final TOE is a chimera."}
+              {
+                "label": "Grand Unified Ambition (TOE)",
+                "text": "The sacred quest to write down the single master equation that unifies all four fundamental forces at the Planck scale."
+              },
+              {
+                "label": "Pragmatic Effective Field Theory (EFT)",
+                "text": "All physical theories are Wilsonian low-energy approximations with finite cutoffs; a final TOE is a chimera."
+              }
             ]
           },
           "question": "Is a final Theory of Everything achievable?",
@@ -257,18 +420,36 @@
           "name": "Cosmic Origin: Big Bang vs. Cyclic vs. Steady State",
           "risk": false,
           "poles": [
-            {"key": "big-bang", "label": "Big Bang"},
-            {"key": "cyclic", "label": "Cyclic"},
-            {"key": "steady-state", "label": "Steady State"}
+            {
+              "key": "big-bang",
+              "label": "Big Bang"
+            },
+            {
+              "key": "cyclic",
+              "label": "Cyclic"
+            },
+            {
+              "key": "steady-state",
+              "label": "Steady State"
+            }
           ],
           "widget": "triangle",
           "archetype": null,
           "hovertip": {
             "issue": "How did the universe begin — or did it?",
             "poles": [
-              {"label": "Big Bang", "text": "The universe began in a hot dense state ~13.8 billion years ago; there was a beginning."},
-              {"label": "Cyclic", "text": "The universe goes through endless cycles of expansion and contraction (ekpyrotic, conformal cyclic cosmology); the bang was a bounce."},
-              {"label": "Steady State", "text": "The universe has no beginning; it has always existed in roughly the same state."}
+              {
+                "label": "Big Bang",
+                "text": "The universe began in a hot dense state ~13.8 billion years ago; there was a beginning."
+              },
+              {
+                "label": "Cyclic",
+                "text": "The universe goes through endless cycles of expansion and contraction (ekpyrotic, conformal cyclic cosmology); the bang was a bounce."
+              },
+              {
+                "label": "Steady State",
+                "text": "The universe has no beginning; it has always existed in roughly the same state."
+              }
             ]
           },
           "question": "How did the universe begin — or did it?",
@@ -279,16 +460,28 @@
           "name": "Dark Matter Identity: Particle vs. Modified Dynamics",
           "risk": false,
           "poles": [
-            {"key": "particle-dark-matter", "label": "Particle Dark Matter"},
-            {"key": "modified-gravity-mond", "label": "Modified Gravity / MOND"}
+            {
+              "key": "particle-dark-matter",
+              "label": "Particle Dark Matter"
+            },
+            {
+              "key": "modified-gravity-mond",
+              "label": "Modified Gravity / MOND"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is dark matter missing mass or missing gravity?",
             "poles": [
-              {"label": "Particle Dark Matter", "text": "New cold/warm fundamental matter particles: WIMPs, axions, sterile neutrinos, dark photons."},
-              {"label": "Modified Gravity / MOND", "text": "Gravity is non-Newtonian at low accelerations ($a < a_0$); Milgrom's MOND or scale-invariant gravity."}
+              {
+                "label": "Particle Dark Matter",
+                "text": "New cold/warm fundamental matter particles: WIMPs, axions, sterile neutrinos, dark photons."
+              },
+              {
+                "label": "Modified Gravity / MOND",
+                "text": "Gravity is non-Newtonian at low accelerations ($a < a_0$); Milgrom's MOND or scale-invariant gravity."
+              }
             ]
           },
           "question": "Is dark matter missing mass or missing gravity?",
@@ -299,16 +492,28 @@
           "name": "Dark Energy: Constant vs. Dynamical",
           "risk": false,
           "poles": [
-            {"key": "constant", "label": "Constant"},
-            {"key": "dynamical", "label": "Dynamical"}
+            {
+              "key": "constant",
+              "label": "Constant"
+            },
+            {
+              "key": "dynamical",
+              "label": "Dynamical"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is dark energy a constant of nature or a changing field?",
             "poles": [
-              {"label": "Constant", "text": "Dark energy is the cosmological constant $\\Lambda$ — a fixed energy density of empty space, unchanging through cosmic time."},
-              {"label": "Dynamical", "text": "Dark energy is a dynamical field, e.g. quintessence, that evolves over time; its value today is an accident of cosmic history."}
+              {
+                "label": "Constant",
+                "text": "Dark energy is the cosmological constant $\\Lambda$ — a fixed energy density of empty space, unchanging through cosmic time."
+              },
+              {
+                "label": "Dynamical",
+                "text": "Dark energy is a dynamical field, e.g. quintessence, that evolves over time; its value today is an accident of cosmic history."
+              }
             ]
           },
           "question": "Is dark energy a constant of nature or a changing field?",
@@ -319,18 +524,36 @@
           "name": "The Cosmological Constant Trilemma",
           "risk": false,
           "poles": [
-            {"key": "anthropic-multiverse", "label": "Anthropic Multiverse"},
-            {"key": "undiscovered-symmetry", "label": "Undiscovered Symmetry"},
-            {"key": "modified-cosmic-gravity", "label": "Modified Cosmic Gravity"}
+            {
+              "key": "anthropic-multiverse",
+              "label": "Anthropic Multiverse"
+            },
+            {
+              "key": "undiscovered-symmetry",
+              "label": "Undiscovered Symmetry"
+            },
+            {
+              "key": "modified-cosmic-gravity",
+              "label": "Modified Cosmic Gravity"
+            }
           ],
           "widget": "triangle",
           "archetype": null,
           "hovertip": {
             "issue": "What explains the cosmological constant?",
             "poles": [
-              {"label": "Anthropic Multiverse", "text": "String theory landscape ($\\sim 10^{500}$ vacua) combined with eternal inflation; we observe a tiny positive $\\Lambda$ because larger values prevent galaxy and life formation."},
-              {"label": "Undiscovered Symmetry", "text": "An exact, yet-unknown dynamical symmetry or quantum cancellation mechanism drives $\\Lambda$ toward near-zero."},
-              {"label": "Modified Cosmic Gravity", "text": "General relativity fails at cosmological horizons; dark energy is an artifact of modified infrared gravitational dynamics (e.g. $f(R)$ gravity)."}
+              {
+                "label": "Anthropic Multiverse",
+                "text": "String theory landscape ($\\sim 10^{500}$ vacua) combined with eternal inflation; we observe a tiny positive $\\Lambda$ because larger values prevent galaxy and life formation."
+              },
+              {
+                "label": "Undiscovered Symmetry",
+                "text": "An exact, yet-unknown dynamical symmetry or quantum cancellation mechanism drives $\\Lambda$ toward near-zero."
+              },
+              {
+                "label": "Modified Cosmic Gravity",
+                "text": "General relativity fails at cosmological horizons; dark energy is an artifact of modified infrared gravitational dynamics (e.g. $f(R)$ gravity)."
+              }
             ]
           },
           "question": "What explains the cosmological constant?",
@@ -341,16 +564,28 @@
           "name": "The Multiverse: Many Worlds vs. One Universe",
           "risk": false,
           "poles": [
-            {"key": "multiverse", "label": "Multiverse"},
-            {"key": "one-universe", "label": "One Universe"}
+            {
+              "key": "multiverse",
+              "label": "Multiverse"
+            },
+            {
+              "key": "one-universe",
+              "label": "One Universe"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Are there other universes?",
             "poles": [
-              {"label": "Multiverse", "text": "Other universes exist — eternal inflation, string landscape, many-worlds; our universe is one of many."},
-              {"label": "One Universe", "text": "This universe is all there is; the multiverse is untestable metaphysics, not physics."}
+              {
+                "label": "Multiverse",
+                "text": "Other universes exist — eternal inflation, string landscape, many-worlds; our universe is one of many."
+              },
+              {
+                "label": "One Universe",
+                "text": "This universe is all there is; the multiverse is untestable metaphysics, not physics."
+              }
             ]
           },
           "question": "Are there other universes?",
@@ -361,16 +596,28 @@
           "name": "The Arrow of Time: Past Hypothesis vs. Fundamental Asymmetry",
           "risk": false,
           "poles": [
-            {"key": "past-hypothesis-statistical-fluke", "label": "Past Hypothesis (Statistical Fluke)"},
-            {"key": "fundamental-dynamical-irreversibility", "label": "Fundamental Dynamical Irreversibility"}
+            {
+              "key": "past-hypothesis-statistical-fluke",
+              "label": "Past Hypothesis (Statistical Fluke)"
+            },
+            {
+              "key": "fundamental-dynamical-irreversibility",
+              "label": "Fundamental Dynamical Irreversibility"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Why does time have a direction?",
             "poles": [
-              {"label": "Past Hypothesis (Statistical Fluke)", "text": "The arrow of time is purely statistical thermodynamic increase from an extraordinarily low-entropy initial cosmological boundary."},
-              {"label": "Fundamental Dynamical Irreversibility", "text": "The fundamental microscopic laws of physics possess an intrinsic directionality of time."}
+              {
+                "label": "Past Hypothesis (Statistical Fluke)",
+                "text": "The arrow of time is purely statistical thermodynamic increase from an extraordinarily low-entropy initial cosmological boundary."
+              },
+              {
+                "label": "Fundamental Dynamical Irreversibility",
+                "text": "The fundamental microscopic laws of physics possess an intrinsic directionality of time."
+              }
             ]
           },
           "question": "Why does time have a direction?",
@@ -381,16 +628,28 @@
           "name": "The Ontology of Time: Block Universe vs. Heraclitean Flow",
           "risk": false,
           "poles": [
-            {"key": "block-universe-eternalism", "label": "Block Universe / Eternalism"},
-            {"key": "presentism-dynamic-time", "label": "Presentism / Dynamic Time"}
+            {
+              "key": "block-universe-eternalism",
+              "label": "Block Universe / Eternalism"
+            },
+            {
+              "key": "presentism-dynamic-time",
+              "label": "Presentism / Dynamic Time"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Does time flow, or is reality an unchanging 4D block?",
             "poles": [
-              {"label": "Block Universe / Eternalism", "text": "Past, present, and future all exist simultaneously in 4D spacetime; the passage of time is a subjective human illusion."},
-              {"label": "Presentism / Dynamic Time", "text": "Only the present moment is physically real; time truly passes and the future is genuinely open."}
+              {
+                "label": "Block Universe / Eternalism",
+                "text": "Past, present, and future all exist simultaneously in 4D spacetime; the passage of time is a subjective human illusion."
+              },
+              {
+                "label": "Presentism / Dynamic Time",
+                "text": "Only the present moment is physically real; time truly passes and the future is genuinely open."
+              }
             ]
           },
           "question": "Does time flow, or is reality an unchanging 4D block?",
@@ -408,18 +667,36 @@
           "name": "The Micro-Macro Spectrum: Reductionism vs. Emergence vs. Duality",
           "risk": false,
           "poles": [
-            {"key": "fundamental-reductionism", "label": "Fundamental Reductionism"},
-            {"key": "autonomous-emergence", "label": "Autonomous Emergence"},
-            {"key": "duality-equivalence", "label": "Duality Equivalence"}
+            {
+              "key": "fundamental-reductionism",
+              "label": "Fundamental Reductionism"
+            },
+            {
+              "key": "autonomous-emergence",
+              "label": "Autonomous Emergence"
+            },
+            {
+              "key": "duality-equivalence",
+              "label": "Duality Equivalence"
+            }
           ],
           "widget": "triangle",
           "archetype": null,
           "hovertip": {
             "issue": "Where does fundamental physical reality live?",
             "poles": [
-              {"label": "Fundamental Reductionism", "text": "The ultimate truth resides at the smallest scale; macro phenomena are strictly derivable from the fundamental Lagrangian."},
-              {"label": "Autonomous Emergence", "text": "Macro phases possess universal, topologically protected laws completely decoupled from microscopic details; \"more is different.\"."},
-              {"label": "Duality Equivalence", "text": "Micro and macro, strong and weak coupling, gravity and field theory are dual descriptions of the same reality; neither is more fundamental."}
+              {
+                "label": "Fundamental Reductionism",
+                "text": "The ultimate truth resides at the smallest scale; macro phenomena are strictly derivable from the fundamental Lagrangian."
+              },
+              {
+                "label": "Autonomous Emergence",
+                "text": "Macro phases possess universal, topologically protected laws completely decoupled from microscopic details; \"more is different.\"."
+              },
+              {
+                "label": "Duality Equivalence",
+                "text": "Micro and macro, strong and weak coupling, gravity and field theory are dual descriptions of the same reality; neither is more fundamental."
+              }
             ]
           },
           "question": "Where does fundamental physical reality live?",
@@ -430,16 +707,28 @@
           "name": "Information: Fundamental vs. Derived",
           "risk": false,
           "poles": [
-            {"key": "fundamental-it-from-bit", "label": "Fundamental (\"It from Bit\")"},
-            {"key": "derived", "label": "Derived"}
+            {
+              "key": "fundamental-it-from-bit",
+              "label": "Fundamental (\"It from Bit\")"
+            },
+            {
+              "key": "derived",
+              "label": "Derived"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is information the stuff of reality, or just a way of describing it?",
             "poles": [
-              {"label": "Fundamental (\"It from Bit\")", "text": "Information is the basic stuff of reality; matter and spacetime emerge from it — Wheeler."},
-              {"label": "Derived", "text": "Information is a description, not a substance; matter and energy are fundamental, information is bookkeeping."}
+              {
+                "label": "Fundamental (\"It from Bit\")",
+                "text": "Information is the basic stuff of reality; matter and spacetime emerge from it — Wheeler."
+              },
+              {
+                "label": "Derived",
+                "text": "Information is a description, not a substance; matter and energy are fundamental, information is bookkeeping."
+              }
             ]
           },
           "question": "Is information the stuff of reality, or just a way of describing it?",
@@ -450,16 +739,28 @@
           "name": "Realism vs. Instrumentalism",
           "risk": false,
           "poles": [
-            {"key": "realism", "label": "Realism"},
-            {"key": "instrumentalism", "label": "Instrumentalism"}
+            {
+              "key": "realism",
+              "label": "Realism"
+            },
+            {
+              "key": "instrumentalism",
+              "label": "Instrumentalism"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do physical theories describe reality, or just predict observations?",
             "poles": [
-              {"label": "Realism", "text": "Physical theories describe a real world that exists independently of us; electrons are real."},
-              {"label": "Instrumentalism", "text": "Theories are tools for prediction; what matters is what they predict, not whether their entities are \"real\"."}
+              {
+                "label": "Realism",
+                "text": "Physical theories describe a real world that exists independently of us; electrons are real."
+              },
+              {
+                "label": "Instrumentalism",
+                "text": "Theories are tools for prediction; what matters is what they predict, not whether their entities are \"real\"."
+              }
             ]
           },
           "question": "Do physical theories describe reality, or just predict observations?",
@@ -477,16 +778,28 @@
           "name": "Symmetry: Fundamental vs. Broken",
           "risk": false,
           "poles": [
-            {"key": "fundamental", "label": "Fundamental"},
-            {"key": "broken", "label": "Broken"}
+            {
+              "key": "fundamental",
+              "label": "Fundamental"
+            },
+            {
+              "key": "broken",
+              "label": "Broken"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is symmetry the foundation, or is its breaking where the action is?",
             "poles": [
-              {"label": "Fundamental", "text": "Symmetry is the deep principle; the laws are symmetric and beauty lies in the symmetry."},
-              {"label": "Broken", "text": "Symmetry breaking is where the physics lives; the interesting phenomena come from symmetries being broken — Higgs, spontaneous symmetry breaking."}
+              {
+                "label": "Fundamental",
+                "text": "Symmetry is the deep principle; the laws are symmetric and beauty lies in the symmetry."
+              },
+              {
+                "label": "Broken",
+                "text": "Symmetry breaking is where the physics lives; the interesting phenomena come from symmetries being broken — Higgs, spontaneous symmetry breaking."
+              }
             ]
           },
           "question": "Is symmetry the foundation, or is its breaking where the action is?",
@@ -497,16 +810,28 @@
           "name": "Fine-Tuning & Naturalness",
           "risk": false,
           "poles": [
-            {"key": "naturalness-dogma", "label": "Naturalness Dogma"},
-            {"key": "acceptance-of-fine-tuning", "label": "Acceptance of Fine-Tuning"}
+            {
+              "key": "naturalness-dogma",
+              "label": "Naturalness Dogma"
+            },
+            {
+              "key": "acceptance-of-fine-tuning",
+              "label": "Acceptance of Fine-Tuning"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is fine-tuning a crisis or a fact of nature?",
             "poles": [
-              {"label": "Naturalness Dogma", "text": "Dimensionless ratios must be $O(1)$; fine-tuning of parameters is an acute pathology demanding new physical mechanisms."},
-              {"label": "Acceptance of Fine-Tuning", "text": "Naturalness is an aesthetic prejudice; parameters are contingent selections from a cosmological landscape."}
+              {
+                "label": "Naturalness Dogma",
+                "text": "Dimensionless ratios must be $O(1)$; fine-tuning of parameters is an acute pathology demanding new physical mechanisms."
+              },
+              {
+                "label": "Acceptance of Fine-Tuning",
+                "text": "Naturalness is an aesthetic prejudice; parameters are contingent selections from a cosmological landscape."
+              }
             ]
           },
           "question": "Is fine-tuning a crisis or a fact of nature?",
@@ -517,16 +842,28 @@
           "name": "The Anthropic Principle: Accept vs. Reject",
           "risk": false,
           "poles": [
-            {"key": "accept", "label": "Accept"},
-            {"key": "reject", "label": "Reject"}
+            {
+              "key": "accept",
+              "label": "Accept"
+            },
+            {
+              "key": "reject",
+              "label": "Reject"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is anthropic reasoning legitimate physics?",
             "poles": [
-              {"label": "Accept", "text": "Anthropic reasoning is legitimate — we observe a universe compatible with our existence, and that constrains the parameters."},
-              {"label": "Reject", "text": "Anthropic reasoning is a cop-out — it explains nothing and can't be tested; it is giving up on finding the real mechanism."}
+              {
+                "label": "Accept",
+                "text": "Anthropic reasoning is legitimate — we observe a universe compatible with our existence, and that constrains the parameters."
+              },
+              {
+                "label": "Reject",
+                "text": "Anthropic reasoning is a cop-out — it explains nothing and can't be tested; it is giving up on finding the real mechanism."
+              }
             ]
           },
           "question": "Is anthropic reasoning legitimate physics?",
@@ -537,16 +874,28 @@
           "name": "Beauty as Guide: Trust vs. Distrust",
           "risk": false,
           "poles": [
-            {"key": "aesthetic-structural-beauty-dirac", "label": "Aesthetic & Structural Beauty (Dirac)"},
-            {"key": "strict-falsifiability-popper", "label": "Strict Falsifiability (Popper)"}
+            {
+              "key": "aesthetic-structural-beauty-dirac",
+              "label": "Aesthetic & Structural Beauty (Dirac)"
+            },
+            {
+              "key": "strict-falsifiability-popper",
+              "label": "Strict Falsifiability (Popper)"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Should beauty or falsifiability guide theoretical physics?",
             "poles": [
-              {"label": "Aesthetic & Structural Beauty (Dirac)", "text": "It is more important to have beauty in one's equations than to fit experimental data prematurely; internal mathematical consistency guides truth; trust beauty."},
-              {"label": "Strict Falsifiability (Popper)", "text": "A theory that cannot be tested by contemporary or near-future experiment is philosophy or mathematics, not physics; distrust beauty unless it can be tested."}
+              {
+                "label": "Aesthetic & Structural Beauty (Dirac)",
+                "text": "It is more important to have beauty in one's equations than to fit experimental data prematurely; internal mathematical consistency guides truth; trust beauty."
+              },
+              {
+                "label": "Strict Falsifiability (Popper)",
+                "text": "A theory that cannot be tested by contemporary or near-future experiment is philosophy or mathematics, not physics; distrust beauty unless it can be tested."
+              }
             ]
           },
           "question": "Should beauty or falsifiability guide theoretical physics?",
@@ -557,18 +906,36 @@
           "name": "Black Hole Information Paradox: Unitary Recovery vs. Information Loss vs. Remnants",
           "risk": false,
           "poles": [
-            {"key": "unitary-hawking-radiation", "label": "Unitary Hawking Radiation"},
-            {"key": "true-information-loss", "label": "True Information Loss"},
-            {"key": "remnants-firewalls", "label": "Remnants / Firewalls"}
+            {
+              "key": "unitary-hawking-radiation",
+              "label": "Unitary Hawking Radiation"
+            },
+            {
+              "key": "true-information-loss",
+              "label": "True Information Loss"
+            },
+            {
+              "key": "remnants-firewalls",
+              "label": "Remnants / Firewalls"
+            }
           ],
           "widget": "triangle",
           "archetype": null,
           "hovertip": {
             "issue": "What is the fate of black hole information?",
             "poles": [
-              {"label": "Unitary Hawking Radiation", "text": "Information is preserved and encoded in subtle quantum entanglements of Hawking radiation via quantum extremal islands and Page curves."},
-              {"label": "True Information Loss", "text": "Black hole evaporation violates unitarity; pure quantum states evolve into mixed states."},
-              {"label": "Remnants / Firewalls", "text": "The equivalence principle breaks down at the horizon (AMPS firewall) or evaporation ceases at a Planck-scale remnant containing the information."}
+              {
+                "label": "Unitary Hawking Radiation",
+                "text": "Information is preserved and encoded in subtle quantum entanglements of Hawking radiation via quantum extremal islands and Page curves."
+              },
+              {
+                "label": "True Information Loss",
+                "text": "Black hole evaporation violates unitarity; pure quantum states evolve into mixed states."
+              },
+              {
+                "label": "Remnants / Firewalls",
+                "text": "The equivalence principle breaks down at the horizon (AMPS firewall) or evaporation ceases at a Planck-scale remnant containing the information."
+              }
             ]
           },
           "question": "What is the fate of black hole information?",
@@ -586,16 +953,28 @@
           "name": "The Theorist's Method: Pen & Blackboard vs. Symbolic Computing",
           "risk": false,
           "poles": [
-            {"key": "analytic-pen-chalk", "label": "Analytic Pen & Chalk"},
-            {"key": "automated-symbolic-computation", "label": "Automated Symbolic Computation"}
+            {
+              "key": "analytic-pen-chalk",
+              "label": "Analytic Pen & Chalk"
+            },
+            {
+              "key": "automated-symbolic-computation",
+              "label": "Automated Symbolic Computation"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "How do you derive physical truth?",
             "poles": [
-              {"label": "Analytic Pen & Chalk", "text": "Chalk on slate, long analytical derivations, Feynman diagrams sketched by hand, pure mental models."},
-              {"label": "Automated Symbolic Computation", "text": "Mathematica, SageMath, numerical tensor packages, automated multi-loop amplitude engines."}
+              {
+                "label": "Analytic Pen & Chalk",
+                "text": "Chalk on slate, long analytical derivations, Feynman diagrams sketched by hand, pure mental models."
+              },
+              {
+                "label": "Automated Symbolic Computation",
+                "text": "Mathematica, SageMath, numerical tensor packages, automated multi-loop amplitude engines."
+              }
             ]
           },
           "question": "How do you derive physical truth?",
@@ -606,16 +985,28 @@
           "name": "Mathematics: Discovered vs. Invented",
           "risk": false,
           "poles": [
-            {"key": "discovered", "label": "Discovered"},
-            {"key": "invented", "label": "Invented"}
+            {
+              "key": "discovered",
+              "label": "Discovered"
+            },
+            {
+              "key": "invented",
+              "label": "Invented"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Is mathematics discovered or invented?",
             "poles": [
-              {"label": "Discovered", "text": "Mathematics is out there, we find it — the laws of physics are written in the language of mathematics because math is real."},
-              {"label": "Invented", "text": "Mathematics is a human construction — a tool we built, and its fit to physics is something we engineered."}
+              {
+                "label": "Discovered",
+                "text": "Mathematics is out there, we find it — the laws of physics are written in the language of mathematics because math is real."
+              },
+              {
+                "label": "Invented",
+                "text": "Mathematics is a human construction — a tool we built, and its fit to physics is something we engineered."
+              }
             ]
           },
           "question": "Is mathematics discovered or invented?",
@@ -626,16 +1017,28 @@
           "name": "Theory vs. Phenomenology",
           "risk": false,
           "poles": [
-            {"key": "theory", "label": "Theory"},
-            {"key": "phenomenology", "label": "Phenomenology"}
+            {
+              "key": "theory",
+              "label": "Theory"
+            },
+            {
+              "key": "phenomenology",
+              "label": "Phenomenology"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you work on the theory or the phenomena?",
             "poles": [
-              {"label": "Theory", "text": "Work on the deep structure — the fundamental laws, the mathematical framework."},
-              {"label": "Phenomenology", "text": "Work on the phenomena — fit the data, build models that predict what experiments will see."}
+              {
+                "label": "Theory",
+                "text": "Work on the deep structure — the fundamental laws, the mathematical framework."
+              },
+              {
+                "label": "Phenomenology",
+                "text": "Work on the phenomena — fit the data, build models that predict what experiments will see."
+              }
             ]
           },
           "question": "Do you work on the theory or the phenomena?",
@@ -646,16 +1049,28 @@
           "name": "Solitude vs. Collaboration",
           "risk": false,
           "poles": [
-            {"key": "solitude", "label": "Solitude"},
-            {"key": "collaboration", "label": "Collaboration"}
+            {
+              "key": "solitude",
+              "label": "Solitude"
+            },
+            {
+              "key": "collaboration",
+              "label": "Collaboration"
+            }
           ],
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
             "issue": "Do you think alone or together?",
             "poles": [
-              {"label": "Solitude", "text": "The lone theorist — pen, blackboard, long walks, thinking alone."},
-              {"label": "Collaboration", "text": "The seminar, the co-author, the group — physics is done together."}
+              {
+                "label": "Solitude",
+                "text": "The lone theorist — pen, blackboard, long walks, thinking alone."
+              },
+              {
+                "label": "Collaboration",
+                "text": "The seminar, the co-author, the group — physics is done together."
+              }
             ]
           },
           "question": "Do you think alone or together?",

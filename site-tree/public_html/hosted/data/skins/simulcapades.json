@@ -1,5 +1,6 @@
 {
   "skin": "simulcapades",
+  "meter": "stance",
   "name": "Simulcapades",
   "domain": "Computational Physics — the Computer as a Virtual Laboratory",
   "categories": [
