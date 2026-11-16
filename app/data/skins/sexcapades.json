@@ -996,6 +996,7 @@
   "domain": "Intimacy, Eroticism, BDSM, Power Exchange & Relational Geometries",
   "name": "Sexcapades",
   "skin": "sexcapades",
+  "meter": "interest",
   "defaultLayout": {
     "app": "sexcapades",
     "kind": "layout-settings",
