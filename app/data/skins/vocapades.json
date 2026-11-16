@@ -2674,5 +2674,571 @@
         }
       ]
     }
+  },
+  "samples": {
+    "voc-calling": {
+      "name": "The Purpose-Driven Calling",
+      "count": 18,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Purpose-Driven Calling",
+        "archetype": "The Purpose-Driven Calling",
+        "aboutMe": "Work is a calling in service of others: meaning first, money and status a distant second.",
+        "ratings": {
+          "xvo0001": {
+            "calling": 90,
+            "career": 10,
+            "job": -60
+          },
+          "xvo0002": {
+            "serve-others": 85,
+            "serve-yourself": -40,
+            "serve-the-work": 50
+          },
+          "xvo0003": {
+            "hustle-grind": 30,
+            "balance-rest": 50
+          },
+          "xvo0004": {
+            "contentment": 60,
+            "ambition": 20
+          },
+          "xvo0005": {
+            "safe-stable": 40,
+            "risky-entrepreneurial": -20
+          },
+          "xvo0008": {
+            "solo-independent": 20,
+            "team-collaborative": 70
+          },
+          "xvo0010": {
+            "hierarchical": -30,
+            "flat": 60
+          },
+          "xvo0011": {
+            "autonomy": 60,
+            "direction": 20
+          },
+          "xvo0012": {
+            "command": -40,
+            "coach": 70,
+            "laissez-faire": 30
+          },
+          "xvo0013": {
+            "corporate-capital-hierarchy": -60,
+            "worker-cooperative-collective": 70
+          },
+          "xvo0014": {
+            "full-time-employee": 40,
+            "freelancer-independent": 20,
+            "founder-entrepreneur": -30,
+            "part-time-portfolio": 30,
+            "public-service-nonprofit": 90
+          },
+          "xvo0015": {
+            "high-pay": -30,
+            "good-perks-benefits": 50
+          },
+          "xvo0016": {
+            "security": 40,
+            "upside": 10
+          },
+          "xvo0017": {
+            "quiet-contribution": 80,
+            "public-recognition": -30
+          },
+          "xvo0018": {
+            "technical-craft-mastery": 50,
+            "executive-managerial-authority": -50,
+            "autonomy-creative-freedom": 60,
+            "security-institutional-stability": 30
+          },
+          "xvo0019": {
+            "job-is-who-i-am": 80,
+            "job-is-what-i-do": -50
+          },
+          "xvo0020": {
+            "permeable": 60,
+            "firm": -30
+          },
+          "xvo0021": {
+            "retire": -60,
+            "work-for-life": 85
+          }
+        }
+      }
+    },
+    "voc-climber": {
+      "name": "The Ambitious Climber",
+      "count": 18,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Ambitious Climber",
+        "archetype": "The Ambitious Climber",
+        "aboutMe": "Climb the ladder: ambition, visibility, and upside - work is the arena where you prove yourself.",
+        "ratings": {
+          "xvo0001": {
+            "calling": -20,
+            "career": 90,
+            "job": -30
+          },
+          "xvo0002": {
+            "serve-others": 10,
+            "serve-yourself": 70,
+            "serve-the-work": 40
+          },
+          "xvo0003": {
+            "hustle-grind": 85,
+            "balance-rest": -50
+          },
+          "xvo0004": {
+            "contentment": -60,
+            "ambition": 90
+          },
+          "xvo0005": {
+            "safe-stable": -60,
+            "risky-entrepreneurial": 70
+          },
+          "xvo0006": {
+            "polymath-generalist": 40,
+            "deep-specialist": 40
+          },
+          "xvo0008": {
+            "solo-independent": 30,
+            "team-collaborative": 60
+          },
+          "xvo0010": {
+            "hierarchical": 60,
+            "flat": -20
+          },
+          "xvo0011": {
+            "autonomy": 50,
+            "direction": 30
+          },
+          "xvo0012": {
+            "command": 50,
+            "coach": 50,
+            "laissez-faire": -30
+          },
+          "xvo0013": {
+            "corporate-capital-hierarchy": 70,
+            "worker-cooperative-collective": -50
+          },
+          "xvo0014": {
+            "full-time-employee": 70,
+            "freelancer-independent": 20,
+            "founder-entrepreneur": 60,
+            "part-time-portfolio": -40,
+            "public-service-nonprofit": -20
+          },
+          "xvo0015": {
+            "high-pay": 85,
+            "good-perks-benefits": 20
+          },
+          "xvo0016": {
+            "security": -20,
+            "upside": 85
+          },
+          "xvo0017": {
+            "quiet-contribution": -50,
+            "public-recognition": 85
+          },
+          "xvo0018": {
+            "technical-craft-mastery": 40,
+            "executive-managerial-authority": 90,
+            "autonomy-creative-freedom": 30,
+            "security-institutional-stability": 20
+          },
+          "xvo0019": {
+            "job-is-who-i-am": 70,
+            "job-is-what-i-do": -40
+          },
+          "xvo0021": {
+            "retire": 30,
+            "work-for-life": 40
+          }
+        }
+      }
+    },
+    "voc-security": {
+      "name": "The Security Seeker",
+      "count": 18,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Security Seeker",
+        "archetype": "The Security Seeker",
+        "aboutMe": "A steady job, well held: security, predictability, and a life outside work matter more than the ladder.",
+        "ratings": {
+          "xvo0001": {
+            "calling": -40,
+            "career": 30,
+            "job": 80
+          },
+          "xvo0002": {
+            "serve-others": 40,
+            "serve-yourself": 50,
+            "serve-the-work": 20
+          },
+          "xvo0003": {
+            "hustle-grind": -60,
+            "balance-rest": 70
+          },
+          "xvo0004": {
+            "contentment": 80,
+            "ambition": -50
+          },
+          "xvo0005": {
+            "safe-stable": 90,
+            "risky-entrepreneurial": -80
+          },
+          "xvo0007": {
+            "remote": 50,
+            "hybrid": 60,
+            "office": 40
+          },
+          "xvo0008": {
+            "solo-independent": 30,
+            "team-collaborative": 50
+          },
+          "xvo0009": {
+            "fixed-schedule": 70,
+            "flexible-async": 20
+          },
+          "xvo0010": {
+            "hierarchical": 50,
+            "flat": 0
+          },
+          "xvo0011": {
+            "autonomy": 30,
+            "direction": 60
+          },
+          "xvo0014": {
+            "full-time-employee": 90,
+            "freelancer-independent": -60,
+            "founder-entrepreneur": -70,
+            "part-time-portfolio": 20,
+            "public-service-nonprofit": 40
+          },
+          "xvo0015": {
+            "high-pay": 40,
+            "good-perks-benefits": 80
+          },
+          "xvo0016": {
+            "security": 90,
+            "upside": -60
+          },
+          "xvo0017": {
+            "quiet-contribution": 60,
+            "public-recognition": 0
+          },
+          "xvo0018": {
+            "technical-craft-mastery": 40,
+            "executive-managerial-authority": 10,
+            "autonomy-creative-freedom": 10,
+            "security-institutional-stability": 90
+          },
+          "xvo0019": {
+            "job-is-who-i-am": -60,
+            "job-is-what-i-do": 80
+          },
+          "xvo0020": {
+            "permeable": -50,
+            "firm": 80
+          },
+          "xvo0021": {
+            "retire": 80,
+            "work-for-life": -60
+          }
+        }
+      }
+    },
+    "voc-balance": {
+      "name": "The Balance Keeper",
+      "count": 18,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Balance Keeper",
+        "archetype": "The Balance Keeper",
+        "aboutMe": "Work funds a life, it is not the life: firm boundaries, enough money, and time kept for what matters.",
+        "ratings": {
+          "xvo0001": {
+            "calling": -30,
+            "career": 20,
+            "job": 70
+          },
+          "xvo0002": {
+            "serve-others": 30,
+            "serve-yourself": 70,
+            "serve-the-work": 10
+          },
+          "xvo0003": {
+            "hustle-grind": -80,
+            "balance-rest": 90
+          },
+          "xvo0004": {
+            "contentment": 85,
+            "ambition": -60
+          },
+          "xvo0005": {
+            "safe-stable": 60,
+            "risky-entrepreneurial": -40
+          },
+          "xvo0007": {
+            "remote": 80,
+            "hybrid": 50,
+            "office": -40
+          },
+          "xvo0008": {
+            "solo-independent": 60,
+            "team-collaborative": 20
+          },
+          "xvo0009": {
+            "fixed-schedule": -20,
+            "flexible-async": 85
+          },
+          "xvo0010": {
+            "hierarchical": -40,
+            "flat": 60
+          },
+          "xvo0011": {
+            "autonomy": 80,
+            "direction": -10
+          },
+          "xvo0014": {
+            "full-time-employee": 50,
+            "freelancer-independent": 50,
+            "founder-entrepreneur": -30,
+            "part-time-portfolio": 80,
+            "public-service-nonprofit": 30
+          },
+          "xvo0015": {
+            "high-pay": 20,
+            "good-perks-benefits": 70
+          },
+          "xvo0016": {
+            "security": 60,
+            "upside": 0
+          },
+          "xvo0017": {
+            "quiet-contribution": 50,
+            "public-recognition": -20
+          },
+          "xvo0018": {
+            "technical-craft-mastery": 30,
+            "executive-managerial-authority": -60,
+            "autonomy-creative-freedom": 85,
+            "security-institutional-stability": 50
+          },
+          "xvo0019": {
+            "job-is-who-i-am": -80,
+            "job-is-what-i-do": 85
+          },
+          "xvo0020": {
+            "permeable": -80,
+            "firm": 90
+          },
+          "xvo0021": {
+            "retire": 70,
+            "work-for-life": -50
+          }
+        }
+      }
+    },
+    "voc-craftsman": {
+      "name": "The Master Craftsman",
+      "count": 18,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Master Craftsman",
+        "archetype": "The Master Craftsman",
+        "aboutMe": "Mastery is the reward: deep skill in the craft itself, done well and quietly, is what a working life is for.",
+        "ratings": {
+          "xvo0001": {
+            "calling": 60,
+            "career": 40,
+            "job": 0
+          },
+          "xvo0002": {
+            "serve-others": 30,
+            "serve-yourself": 20,
+            "serve-the-work": 90
+          },
+          "xvo0003": {
+            "hustle-grind": 40,
+            "balance-rest": 30
+          },
+          "xvo0004": {
+            "contentment": 60,
+            "ambition": 30
+          },
+          "xvo0005": {
+            "safe-stable": 50,
+            "risky-entrepreneurial": 0
+          },
+          "xvo0006": {
+            "polymath-generalist": -50,
+            "deep-specialist": 90
+          },
+          "xvo0008": {
+            "solo-independent": 70,
+            "team-collaborative": 20
+          },
+          "xvo0009": {
+            "fixed-schedule": 30,
+            "flexible-async": 50
+          },
+          "xvo0010": {
+            "hierarchical": -20,
+            "flat": 50
+          },
+          "xvo0011": {
+            "autonomy": 85,
+            "direction": -20
+          },
+          "xvo0012": {
+            "command": -50,
+            "coach": 40,
+            "laissez-faire": 70
+          },
+          "xvo0014": {
+            "full-time-employee": 50,
+            "freelancer-independent": 70,
+            "founder-entrepreneur": 20,
+            "part-time-portfolio": 30,
+            "public-service-nonprofit": 20
+          },
+          "xvo0015": {
+            "high-pay": 30,
+            "good-perks-benefits": 40
+          },
+          "xvo0016": {
+            "security": 40,
+            "upside": 30
+          },
+          "xvo0017": {
+            "quiet-contribution": 90,
+            "public-recognition": -40
+          },
+          "xvo0018": {
+            "technical-craft-mastery": 95,
+            "executive-managerial-authority": -70,
+            "autonomy-creative-freedom": 70,
+            "security-institutional-stability": 30
+          },
+          "xvo0019": {
+            "job-is-who-i-am": 60,
+            "job-is-what-i-do": 10
+          },
+          "xvo0021": {
+            "retire": -20,
+            "work-for-life": 60
+          }
+        }
+      }
+    },
+    "voc-founder": {
+      "name": "The Founder",
+      "count": 18,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Founder",
+        "archetype": "The Founder",
+        "aboutMe": "Build it yourself: bet on your own venture, own the upside, and trade security for freedom and control.",
+        "ratings": {
+          "xvo0001": {
+            "calling": 50,
+            "career": 50,
+            "job": -70
+          },
+          "xvo0003": {
+            "hustle-grind": 80,
+            "balance-rest": -40
+          },
+          "xvo0004": {
+            "contentment": -40,
+            "ambition": 85
+          },
+          "xvo0005": {
+            "safe-stable": -80,
+            "risky-entrepreneurial": 95
+          },
+          "xvo0006": {
+            "polymath-generalist": 80,
+            "deep-specialist": 0
+          },
+          "xvo0007": {
+            "remote": 60,
+            "hybrid": 40,
+            "office": -20
+          },
+          "xvo0008": {
+            "solo-independent": 70,
+            "team-collaborative": 40
+          },
+          "xvo0009": {
+            "fixed-schedule": -60,
+            "flexible-async": 85
+          },
+          "xvo0010": {
+            "hierarchical": -60,
+            "flat": 80
+          },
+          "xvo0011": {
+            "autonomy": 95,
+            "direction": -50
+          },
+          "xvo0012": {
+            "command": 30,
+            "coach": 40,
+            "laissez-faire": 70
+          },
+          "xvo0013": {
+            "corporate-capital-hierarchy": -70,
+            "worker-cooperative-collective": 20
+          },
+          "xvo0014": {
+            "full-time-employee": -70,
+            "freelancer-independent": 50,
+            "founder-entrepreneur": 95,
+            "part-time-portfolio": 0,
+            "public-service-nonprofit": -40
+          },
+          "xvo0015": {
+            "high-pay": 60,
+            "good-perks-benefits": -20
+          },
+          "xvo0016": {
+            "security": -80,
+            "upside": 95
+          },
+          "xvo0018": {
+            "technical-craft-mastery": 40,
+            "executive-managerial-authority": 70,
+            "autonomy-creative-freedom": 90,
+            "security-institutional-stability": -70
+          },
+          "xvo0019": {
+            "job-is-who-i-am": 60,
+            "job-is-what-i-do": -30
+          },
+          "xvo0020": {
+            "permeable": 70,
+            "firm": -40
+          }
+        }
+      }
+    }
   }
 }

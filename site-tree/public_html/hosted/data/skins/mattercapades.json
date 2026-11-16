@@ -2999,5 +2999,599 @@
         }
       ]
     }
+  },
+  "samples": {
+    "mat-nuclear": {
+      "name": "The Nuclear Advocate",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Nuclear Advocate",
+        "archetype": "The Nuclear Advocate",
+        "aboutMe": "Dense, reliable, carbon-free: fission is the only proven baseload clean energy, and advanced reactors are its future.",
+        "ratings": {
+          "xma0001": {
+            "fundamental-physical-mechanism-first": 50,
+            "device-figure-of-merit-first": 50
+          },
+          "xma0002": {
+            "rational-computational-design": 50,
+            "edisonian-empirical-synthesis": 40
+          },
+          "xma0003": {
+            "low-trl-deep-physics-discovery": 30,
+            "high-trl-industrial-scalability": 80
+          },
+          "xma0004": {
+            "fundamental": 30,
+            "applied": 70
+          },
+          "xma0005": {
+            "condensed-matter-quantum-materials": 40,
+            "optics-photonics-lasers": 20,
+            "plasmas-high-energy-density-physics": 70,
+            "biological-soft-condensed-matter-physics": 10
+          },
+          "xma0006": {
+            "continue": 60,
+            "plateau": 10
+          },
+          "xma0007": {
+            "reliability": 85,
+            "performance": 40
+          },
+          "xma0009": {
+            "near-term-nisq-optimism": 20,
+            "fault-tolerant-error-correction-purism": 60
+          },
+          "xma0010": {
+            "quantum-sensing-metrology-priority": 40,
+            "quantum-computing-supremacy": 40
+          },
+          "xma0011": {
+            "hype": 0,
+            "reality": 70
+          },
+          "xma0012": {
+            "fusion": 40,
+            "fission": 90,
+            "renewables": 20
+          },
+          "xma0013": {
+            "magnetic-confinement-fusion": 60,
+            "inertial-confinement-fusion": 30
+          },
+          "xma0014": {
+            "high-density-advanced-nuclear-fusion": 90,
+            "solid-state-photovoltaics-advanced-storage": -40
+          },
+          "xma0015": {
+            "short-duration": 30,
+            "long-duration": 70
+          },
+          "xma0016": {
+            "efficiency": 50,
+            "cost": 60
+          },
+          "xma0017": {
+            "natural": 20,
+            "engineered": 70
+          },
+          "xma0018": {
+            "revolution": 30,
+            "hype": 50
+          },
+          "xma0019": {
+            "the-holy-grail-of-room-temperature-superconductors": 30,
+            "pragmatic-high-t-c-engineering": 60
+          },
+          "xma0020": {
+            "active-electronic-circuits": 50,
+            "passive-geometric-metasurfaces": 30
+          },
+          "xma0021": {
+            "top-down-extreme-lithography": 60,
+            "bottom-up-supramolecular-self-assembly": 30
+          },
+          "xma0022": {
+            "dimensional-silicon-scaling": 50,
+            "beyond-silicon-heterogeneous-integration": 40
+          },
+          "xma0026": {
+            "industry": 80,
+            "academia": 20
+          },
+          "xma0027": {
+            "proud-applied-physicist": 50,
+            "pragmatic-specialized-engineer": 60
+          },
+          "xma0028": {
+            "commercial-patents-spin-out-startups": 60,
+            "open-academic-publishing": 30
+          },
+          "xma0029": {
+            "product": 70,
+            "prototype": 50,
+            "paper": 20
+          }
+        }
+      }
+    },
+    "mat-renewables": {
+      "name": "The Renewables Advocate",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Renewables Advocate",
+        "archetype": "The Renewables Advocate",
+        "aboutMe": "Sun, wind, and storage: distributed solid-state energy is already winning on cost, and storage makes it baseload.",
+        "ratings": {
+          "xma0001": {
+            "fundamental-physical-mechanism-first": 30,
+            "device-figure-of-merit-first": 70
+          },
+          "xma0002": {
+            "rational-computational-design": 60,
+            "edisonian-empirical-synthesis": 30
+          },
+          "xma0003": {
+            "low-trl-deep-physics-discovery": 10,
+            "high-trl-industrial-scalability": 90
+          },
+          "xma0004": {
+            "fundamental": 20,
+            "applied": 85
+          },
+          "xma0005": {
+            "condensed-matter-quantum-materials": 60,
+            "optics-photonics-lasers": 50,
+            "plasmas-high-energy-density-physics": 0,
+            "biological-soft-condensed-matter-physics": 20
+          },
+          "xma0006": {
+            "continue": 70,
+            "plateau": 0
+          },
+          "xma0007": {
+            "reliability": 70,
+            "performance": 50
+          },
+          "xma0009": {
+            "near-term-nisq-optimism": 30,
+            "fault-tolerant-error-correction-purism": 40
+          },
+          "xma0010": {
+            "quantum-sensing-metrology-priority": 50,
+            "quantum-computing-supremacy": 20
+          },
+          "xma0011": {
+            "hype": 10,
+            "reality": 60
+          },
+          "xma0012": {
+            "fusion": 20,
+            "fission": -50,
+            "renewables": 95
+          },
+          "xma0013": {
+            "magnetic-confinement-fusion": 30,
+            "inertial-confinement-fusion": 20
+          },
+          "xma0014": {
+            "high-density-advanced-nuclear-fusion": -70,
+            "solid-state-photovoltaics-advanced-storage": 90
+          },
+          "xma0015": {
+            "short-duration": 50,
+            "long-duration": 80
+          },
+          "xma0016": {
+            "efficiency": 60,
+            "cost": 80
+          },
+          "xma0017": {
+            "natural": 40,
+            "engineered": 60
+          },
+          "xma0018": {
+            "revolution": 60,
+            "hype": 20
+          },
+          "xma0019": {
+            "the-holy-grail-of-room-temperature-superconductors": 20,
+            "pragmatic-high-t-c-engineering": 50
+          },
+          "xma0020": {
+            "active-electronic-circuits": 60,
+            "passive-geometric-metasurfaces": 40
+          },
+          "xma0021": {
+            "top-down-extreme-lithography": 50,
+            "bottom-up-supramolecular-self-assembly": 50
+          },
+          "xma0022": {
+            "dimensional-silicon-scaling": 40,
+            "beyond-silicon-heterogeneous-integration": 70
+          },
+          "xma0026": {
+            "industry": 70,
+            "academia": 30
+          },
+          "xma0027": {
+            "proud-applied-physicist": 40,
+            "pragmatic-specialized-engineer": 70
+          },
+          "xma0028": {
+            "commercial-patents-spin-out-startups": 50,
+            "open-academic-publishing": 50
+          },
+          "xma0029": {
+            "product": 80,
+            "prototype": 50,
+            "paper": 10
+          }
+        }
+      }
+    },
+    "mat-fusion": {
+      "name": "The Fusion Optimist",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Fusion Optimist",
+        "archetype": "The Fusion Optimist",
+        "aboutMe": "Fusion is the endgame: limitless fuel, no long-lived waste, and magnetic confinement is finally within reach.",
+        "ratings": {
+          "xma0001": {
+            "fundamental-physical-mechanism-first": 70,
+            "device-figure-of-merit-first": 40
+          },
+          "xma0002": {
+            "rational-computational-design": 70,
+            "edisonian-empirical-synthesis": 30
+          },
+          "xma0003": {
+            "low-trl-deep-physics-discovery": 70,
+            "high-trl-industrial-scalability": 40
+          },
+          "xma0004": {
+            "fundamental": 60,
+            "applied": 40
+          },
+          "xma0005": {
+            "condensed-matter-quantum-materials": 50,
+            "optics-photonics-lasers": 40,
+            "plasmas-high-energy-density-physics": 90,
+            "biological-soft-condensed-matter-physics": 0
+          },
+          "xma0006": {
+            "continue": 60,
+            "plateau": 20
+          },
+          "xma0007": {
+            "reliability": 50,
+            "performance": 80
+          },
+          "xma0009": {
+            "near-term-nisq-optimism": 30,
+            "fault-tolerant-error-correction-purism": 50
+          },
+          "xma0010": {
+            "quantum-sensing-metrology-priority": 30,
+            "quantum-computing-supremacy": 50
+          },
+          "xma0011": {
+            "hype": -20,
+            "reality": 60
+          },
+          "xma0012": {
+            "fusion": 95,
+            "fission": 40,
+            "renewables": 40
+          },
+          "xma0013": {
+            "magnetic-confinement-fusion": 85,
+            "inertial-confinement-fusion": 40
+          },
+          "xma0014": {
+            "high-density-advanced-nuclear-fusion": 90,
+            "solid-state-photovoltaics-advanced-storage": 10
+          },
+          "xma0015": {
+            "short-duration": 20,
+            "long-duration": 80
+          },
+          "xma0016": {
+            "efficiency": 70,
+            "cost": 30
+          },
+          "xma0017": {
+            "natural": 10,
+            "engineered": 80
+          },
+          "xma0018": {
+            "revolution": 70,
+            "hype": 10
+          },
+          "xma0019": {
+            "the-holy-grail-of-room-temperature-superconductors": 60,
+            "pragmatic-high-t-c-engineering": 40
+          },
+          "xma0020": {
+            "active-electronic-circuits": 60,
+            "passive-geometric-metasurfaces": 40
+          },
+          "xma0021": {
+            "top-down-extreme-lithography": 50,
+            "bottom-up-supramolecular-self-assembly": 40
+          },
+          "xma0022": {
+            "dimensional-silicon-scaling": 40,
+            "beyond-silicon-heterogeneous-integration": 60
+          },
+          "xma0026": {
+            "industry": 50,
+            "academia": 60
+          },
+          "xma0027": {
+            "proud-applied-physicist": 80,
+            "pragmatic-specialized-engineer": 30
+          },
+          "xma0028": {
+            "commercial-patents-spin-out-startups": 40,
+            "open-academic-publishing": 60
+          },
+          "xma0029": {
+            "product": 40,
+            "prototype": 70,
+            "paper": 50
+          }
+        }
+      }
+    },
+    "mat-quantum": {
+      "name": "The Quantum Technologist",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Quantum Technologist",
+        "archetype": "The Quantum Technologist",
+        "aboutMe": "Quantum is the next platform: error-corrected machines and quantum sensors will do what classical physics cannot.",
+        "ratings": {
+          "xma0001": {
+            "fundamental-physical-mechanism-first": 80,
+            "device-figure-of-merit-first": 50
+          },
+          "xma0002": {
+            "rational-computational-design": 80,
+            "edisonian-empirical-synthesis": 20
+          },
+          "xma0003": {
+            "low-trl-deep-physics-discovery": 80,
+            "high-trl-industrial-scalability": 30
+          },
+          "xma0004": {
+            "fundamental": 70,
+            "applied": 40
+          },
+          "xma0005": {
+            "condensed-matter-quantum-materials": 90,
+            "optics-photonics-lasers": 60,
+            "plasmas-high-energy-density-physics": 20,
+            "biological-soft-condensed-matter-physics": 10
+          },
+          "xma0006": {
+            "continue": 80,
+            "plateau": -20
+          },
+          "xma0007": {
+            "reliability": 40,
+            "performance": 85
+          },
+          "xma0008": {
+            "superconducting-transmons": 70,
+            "trapped-ions-neutral-atom-arrays": 60,
+            "photonic-quantum-information": 50,
+            "topological-qubits": 60
+          },
+          "xma0009": {
+            "near-term-nisq-optimism": 40,
+            "fault-tolerant-error-correction-purism": 85
+          },
+          "xma0010": {
+            "quantum-sensing-metrology-priority": 60,
+            "quantum-computing-supremacy": 80
+          },
+          "xma0011": {
+            "hype": -40,
+            "reality": 80
+          },
+          "xma0012": {
+            "fusion": 30,
+            "fission": 20,
+            "renewables": 30
+          },
+          "xma0014": {
+            "high-density-advanced-nuclear-fusion": 20,
+            "solid-state-photovoltaics-advanced-storage": 40
+          },
+          "xma0015": {
+            "short-duration": 40,
+            "long-duration": 40
+          },
+          "xma0016": {
+            "efficiency": 70,
+            "cost": 20
+          },
+          "xma0017": {
+            "natural": 10,
+            "engineered": 85
+          },
+          "xma0018": {
+            "revolution": 80,
+            "hype": -20
+          },
+          "xma0019": {
+            "the-holy-grail-of-room-temperature-superconductors": 70,
+            "pragmatic-high-t-c-engineering": 40
+          },
+          "xma0020": {
+            "active-electronic-circuits": 70,
+            "passive-geometric-metasurfaces": 50
+          },
+          "xma0021": {
+            "top-down-extreme-lithography": 70,
+            "bottom-up-supramolecular-self-assembly": 50
+          },
+          "xma0022": {
+            "dimensional-silicon-scaling": 20,
+            "beyond-silicon-heterogeneous-integration": 90
+          },
+          "xma0026": {
+            "industry": 60,
+            "academia": 50
+          },
+          "xma0027": {
+            "proud-applied-physicist": 85,
+            "pragmatic-specialized-engineer": 20
+          },
+          "xma0028": {
+            "commercial-patents-spin-out-startups": 50,
+            "open-academic-publishing": 60
+          },
+          "xma0029": {
+            "product": 30,
+            "prototype": 70,
+            "paper": 70
+          }
+        }
+      }
+    },
+    "mat-pragmatist": {
+      "name": "The Device-First Pragmatist",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Device-First Pragmatist",
+        "archetype": "The Device-First Pragmatist",
+        "aboutMe": "Ship the device: figure of merit, reliability, and cost beat deep physics - the triumph is a product in the world.",
+        "ratings": {
+          "xma0001": {
+            "fundamental-physical-mechanism-first": -20,
+            "device-figure-of-merit-first": 90
+          },
+          "xma0002": {
+            "rational-computational-design": 40,
+            "edisonian-empirical-synthesis": 70
+          },
+          "xma0003": {
+            "low-trl-deep-physics-discovery": -30,
+            "high-trl-industrial-scalability": 90
+          },
+          "xma0004": {
+            "fundamental": -40,
+            "applied": 90
+          },
+          "xma0005": {
+            "condensed-matter-quantum-materials": 50,
+            "optics-photonics-lasers": 70,
+            "plasmas-high-energy-density-physics": 20,
+            "biological-soft-condensed-matter-physics": 40
+          },
+          "xma0006": {
+            "continue": 50,
+            "plateau": 30
+          },
+          "xma0007": {
+            "reliability": 90,
+            "performance": 60
+          },
+          "xma0009": {
+            "near-term-nisq-optimism": 60,
+            "fault-tolerant-error-correction-purism": 20
+          },
+          "xma0010": {
+            "quantum-sensing-metrology-priority": 70,
+            "quantum-computing-supremacy": 30
+          },
+          "xma0011": {
+            "hype": 20,
+            "reality": 80
+          },
+          "xma0012": {
+            "fusion": 30,
+            "fission": 50,
+            "renewables": 60
+          },
+          "xma0013": {
+            "magnetic-confinement-fusion": 40,
+            "inertial-confinement-fusion": 30
+          },
+          "xma0014": {
+            "high-density-advanced-nuclear-fusion": 50,
+            "solid-state-photovoltaics-advanced-storage": 70
+          },
+          "xma0015": {
+            "short-duration": 60,
+            "long-duration": 50
+          },
+          "xma0016": {
+            "efficiency": 50,
+            "cost": 85
+          },
+          "xma0017": {
+            "natural": 20,
+            "engineered": 80
+          },
+          "xma0018": {
+            "revolution": 40,
+            "hype": 40
+          },
+          "xma0019": {
+            "the-holy-grail-of-room-temperature-superconductors": 10,
+            "pragmatic-high-t-c-engineering": 80
+          },
+          "xma0020": {
+            "active-electronic-circuits": 80,
+            "passive-geometric-metasurfaces": 40
+          },
+          "xma0021": {
+            "top-down-extreme-lithography": 80,
+            "bottom-up-supramolecular-self-assembly": 20
+          },
+          "xma0022": {
+            "dimensional-silicon-scaling": 70,
+            "beyond-silicon-heterogeneous-integration": 50
+          },
+          "xma0026": {
+            "industry": 90,
+            "academia": -30
+          },
+          "xma0027": {
+            "proud-applied-physicist": 20,
+            "pragmatic-specialized-engineer": 90
+          },
+          "xma0028": {
+            "commercial-patents-spin-out-startups": 85,
+            "open-academic-publishing": 10
+          },
+          "xma0029": {
+            "product": 95,
+            "prototype": 50,
+            "paper": -20
+          }
+        }
+      }
+    }
   }
 }

@@ -3096,5 +3096,531 @@
         }
       ]
     }
+  },
+  "samples": {
+    "theo-formalism": {
+      "name": "Formalism",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Formalism",
+        "archetype": "Formalism",
+        "aboutMe": "Mathematics is the manipulation of symbols by fixed rules; consistency, not meaning, is what a system must prove.",
+        "ratings": {
+          "xth0001": {
+            "platonism": -60,
+            "formalism": 95,
+            "intuitionism": -50,
+            "logicism": 30,
+            "structuralism": 40
+          },
+          "xth0002": {
+            "zfc-set-theory": 80,
+            "category-theory-topoi": 20,
+            "homotopy-type-theory-hott": 10
+          },
+          "xth0003": {
+            "classical-logic": 85,
+            "constructive-logic": -60
+          },
+          "xth0004": {
+            "discovered": -50,
+            "invented": 80
+          },
+          "xth0005": {
+            "radical-mathematical-realism": -60,
+            "epistemic-anti-realism": 70
+          },
+          "xth0006": {
+            "actual-infinity": 70,
+            "potential-infinity": -40
+          },
+          "xth0007": {
+            "the-rising-sea": 40,
+            "the-hammer-chisel": 20
+          },
+          "xth0008": {
+            "extreme-structural-abstraction": 60,
+            "exceptional-concrete-jewels": 0
+          },
+          "xth0009": {
+            "high-abstraction": 70,
+            "low-abstraction": -50
+          },
+          "xth0010": {
+            "luminous-simplicity-the-book": 30,
+            "architectural-monumentality": 60,
+            "constructive-computational-revelation": 40
+          },
+          "xth0011": {
+            "visual": -20,
+            "symbolic": 80
+          },
+          "xth0012": {
+            "trust": 0,
+            "distrust": 50
+          },
+          "xth0013": {
+            "algebra-symmetry": 60,
+            "geometry-topology": 20,
+            "analysis-continua": 40,
+            "number-theory-arithmetic": 30
+          },
+          "xth0014": 50,
+          "xth0015": {
+            "discrete": 60,
+            "continuous": 10
+          },
+          "xth0016": {
+            "pure": 80,
+            "applied": -40
+          },
+          "xth0017": {
+            "accept": 70,
+            "reject": -60
+          },
+          "xth0018": {
+            "machine-checked-formalization": 80,
+            "human-social-consensus": -30
+          },
+          "xth0019": {
+            "unconditional-acceptance-zfc": 85,
+            "skeptical-restriction-zf-dependent-choice": -40,
+            "defiant-rejection-constructive-determinacy": -80
+          },
+          "xth0020": {
+            "conjecture-solver": 20,
+            "theory-builder": 60
+          },
+          "xth0021": {
+            "rigor": 90,
+            "intuition": -50
+          },
+          "xth0022": {
+            "elegance": 40,
+            "power": 50
+          },
+          "xth0023": {
+            "simplicity": 30,
+            "depth": 60
+          },
+          "xth0024": {
+            "essential": 20,
+            "incidental": 30
+          },
+          "xth0025": {
+            "proud-inutility-hardy-s-apology": 60,
+            "unreasonable-effectiveness-wigner": -20
+          },
+          "xth0026": {
+            "autonomous-self-reference": 80,
+            "physical-symbiosis": -50
+          },
+          "xth0028": {
+            "traditional-chalkboard": -10,
+            "digital-computational-experimentation": 60
+          },
+          "xth0029": {
+            "private-aesthetic-epiphany": 50,
+            "institutional-immortality": -10
+          }
+        }
+      }
+    },
+    "theo-intuitionism": {
+      "name": "Intuitionism",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Intuitionism",
+        "archetype": "Intuitionism",
+        "aboutMe": "Mathematics is a mental construction; a statement is true only when we can construct a proof of it, and the law of excluded middle does not hold for the infinite.",
+        "ratings": {
+          "xth0001": {
+            "platonism": -70,
+            "formalism": -60,
+            "intuitionism": 95,
+            "logicism": -40,
+            "structuralism": 0
+          },
+          "xth0002": {
+            "zfc-set-theory": -50,
+            "category-theory-topoi": 30,
+            "homotopy-type-theory-hott": 60
+          },
+          "xth0003": {
+            "classical-logic": -90,
+            "constructive-logic": 95
+          },
+          "xth0004": {
+            "discovered": -60,
+            "invented": 85
+          },
+          "xth0005": {
+            "radical-mathematical-realism": -80,
+            "epistemic-anti-realism": 85
+          },
+          "xth0006": {
+            "actual-infinity": -80,
+            "potential-infinity": 90
+          },
+          "xth0007": {
+            "the-rising-sea": -30,
+            "the-hammer-chisel": 60
+          },
+          "xth0008": {
+            "extreme-structural-abstraction": -40,
+            "exceptional-concrete-jewels": 50
+          },
+          "xth0009": {
+            "high-abstraction": -50,
+            "low-abstraction": 60
+          },
+          "xth0010": {
+            "luminous-simplicity-the-book": 60,
+            "architectural-monumentality": -30,
+            "constructive-computational-revelation": 70
+          },
+          "xth0011": {
+            "visual": 40,
+            "symbolic": -10
+          },
+          "xth0012": {
+            "trust": 70,
+            "distrust": -50
+          },
+          "xth0013": {
+            "algebra-symmetry": 20,
+            "geometry-topology": 30,
+            "analysis-continua": 50,
+            "number-theory-arithmetic": 60
+          },
+          "xth0014": 60,
+          "xth0015": {
+            "discrete": 50,
+            "continuous": 40
+          },
+          "xth0016": {
+            "pure": 60,
+            "applied": -20
+          },
+          "xth0017": {
+            "accept": -30,
+            "reject": 50
+          },
+          "xth0018": {
+            "machine-checked-formalization": 30,
+            "human-social-consensus": 20
+          },
+          "xth0019": {
+            "unconditional-acceptance-zfc": -80,
+            "skeptical-restriction-zf-dependent-choice": 60,
+            "defiant-rejection-constructive-determinacy": 70
+          },
+          "xth0020": {
+            "conjecture-solver": 40,
+            "theory-builder": 30
+          },
+          "xth0021": {
+            "rigor": 60,
+            "intuition": 80
+          },
+          "xth0022": {
+            "elegance": 60,
+            "power": 20
+          },
+          "xth0023": {
+            "simplicity": 70,
+            "depth": 40
+          },
+          "xth0024": {
+            "essential": 50,
+            "incidental": 0
+          },
+          "xth0025": {
+            "proud-inutility-hardy-s-apology": 40,
+            "unreasonable-effectiveness-wigner": -10
+          },
+          "xth0026": {
+            "autonomous-self-reference": 60,
+            "physical-symbiosis": -30
+          },
+          "xth0028": {
+            "traditional-chalkboard": 50,
+            "digital-computational-experimentation": 0
+          },
+          "xth0029": {
+            "private-aesthetic-epiphany": 70,
+            "institutional-immortality": -30
+          }
+        }
+      }
+    },
+    "theo-platonism": {
+      "name": "Platonism",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Platonism",
+        "archetype": "Platonism",
+        "aboutMe": "Mathematical objects exist independently of us in an abstract realm; mathematicians discover truths, they do not invent them.",
+        "ratings": {
+          "xth0001": {
+            "platonism": 95,
+            "formalism": -60,
+            "intuitionism": -30,
+            "logicism": 20,
+            "structuralism": 50
+          },
+          "xth0002": {
+            "zfc-set-theory": 70,
+            "category-theory-topoi": 40,
+            "homotopy-type-theory-hott": 20
+          },
+          "xth0003": {
+            "classical-logic": 80,
+            "constructive-logic": -40
+          },
+          "xth0004": {
+            "discovered": 95,
+            "invented": -85
+          },
+          "xth0005": {
+            "radical-mathematical-realism": 80,
+            "epistemic-anti-realism": -70
+          },
+          "xth0006": {
+            "actual-infinity": 90,
+            "potential-infinity": -60
+          },
+          "xth0007": {
+            "the-rising-sea": 50,
+            "the-hammer-chisel": 30
+          },
+          "xth0008": {
+            "extreme-structural-abstraction": 50,
+            "exceptional-concrete-jewels": 40
+          },
+          "xth0009": {
+            "high-abstraction": 60,
+            "low-abstraction": -30
+          },
+          "xth0010": {
+            "luminous-simplicity-the-book": 50,
+            "architectural-monumentality": 50,
+            "constructive-computational-revelation": 0
+          },
+          "xth0011": {
+            "visual": 30,
+            "symbolic": 40
+          },
+          "xth0012": {
+            "trust": 60,
+            "distrust": -30
+          },
+          "xth0013": {
+            "algebra-symmetry": 40,
+            "geometry-topology": 50,
+            "analysis-continua": 40,
+            "number-theory-arithmetic": 70
+          },
+          "xth0014": 40,
+          "xth0015": {
+            "discrete": 30,
+            "continuous": 50
+          },
+          "xth0016": {
+            "pure": 85,
+            "applied": -50
+          },
+          "xth0017": {
+            "accept": 40,
+            "reject": -20
+          },
+          "xth0018": {
+            "machine-checked-formalization": 40,
+            "human-social-consensus": 10
+          },
+          "xth0019": {
+            "unconditional-acceptance-zfc": 70,
+            "skeptical-restriction-zf-dependent-choice": -20,
+            "defiant-rejection-constructive-determinacy": -60
+          },
+          "xth0020": {
+            "conjecture-solver": 50,
+            "theory-builder": 40
+          },
+          "xth0021": {
+            "rigor": 70,
+            "intuition": 50
+          },
+          "xth0022": {
+            "elegance": 70,
+            "power": 30
+          },
+          "xth0023": {
+            "simplicity": 40,
+            "depth": 70
+          },
+          "xth0024": {
+            "essential": 80,
+            "incidental": -40
+          },
+          "xth0025": {
+            "proud-inutility-hardy-s-apology": 50,
+            "unreasonable-effectiveness-wigner": 50
+          },
+          "xth0026": {
+            "autonomous-self-reference": 60,
+            "physical-symbiosis": 20
+          },
+          "xth0028": {
+            "traditional-chalkboard": 30,
+            "digital-computational-experimentation": 10
+          },
+          "xth0029": {
+            "private-aesthetic-epiphany": 80,
+            "institutional-immortality": 0
+          }
+        }
+      }
+    },
+    "theo-logicism": {
+      "name": "Logicism",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Logicism",
+        "archetype": "Logicism",
+        "aboutMe": "Mathematics is logic in disguise; every mathematical truth can be derived from purely logical principles.",
+        "ratings": {
+          "xth0001": {
+            "platonism": 40,
+            "formalism": 30,
+            "intuitionism": -50,
+            "logicism": 95,
+            "structuralism": 20
+          },
+          "xth0002": {
+            "zfc-set-theory": 50,
+            "category-theory-topoi": 20,
+            "homotopy-type-theory-hott": 30
+          },
+          "xth0003": {
+            "classical-logic": 85,
+            "constructive-logic": -50
+          },
+          "xth0004": {
+            "discovered": 60,
+            "invented": -30
+          },
+          "xth0005": {
+            "radical-mathematical-realism": 30,
+            "epistemic-anti-realism": -20
+          },
+          "xth0006": {
+            "actual-infinity": 60,
+            "potential-infinity": -30
+          },
+          "xth0007": {
+            "the-rising-sea": 30,
+            "the-hammer-chisel": 40
+          },
+          "xth0008": {
+            "extreme-structural-abstraction": 60,
+            "exceptional-concrete-jewels": 10
+          },
+          "xth0009": {
+            "high-abstraction": 65,
+            "low-abstraction": -40
+          },
+          "xth0010": {
+            "luminous-simplicity-the-book": 40,
+            "architectural-monumentality": 50,
+            "constructive-computational-revelation": 20
+          },
+          "xth0011": {
+            "visual": -40,
+            "symbolic": 90
+          },
+          "xth0012": {
+            "trust": -10,
+            "distrust": 60
+          },
+          "xth0013": {
+            "algebra-symmetry": 50,
+            "geometry-topology": 10,
+            "analysis-continua": 40,
+            "number-theory-arithmetic": 50
+          },
+          "xth0014": 50,
+          "xth0015": {
+            "discrete": 50,
+            "continuous": 20
+          },
+          "xth0016": {
+            "pure": 70,
+            "applied": -30
+          },
+          "xth0017": {
+            "accept": 60,
+            "reject": -40
+          },
+          "xth0018": {
+            "machine-checked-formalization": 70,
+            "human-social-consensus": -20
+          },
+          "xth0019": {
+            "unconditional-acceptance-zfc": 60,
+            "skeptical-restriction-zf-dependent-choice": -10,
+            "defiant-rejection-constructive-determinacy": -70
+          },
+          "xth0020": {
+            "conjecture-solver": 30,
+            "theory-builder": 70
+          },
+          "xth0021": {
+            "rigor": 95,
+            "intuition": -60
+          },
+          "xth0022": {
+            "elegance": 50,
+            "power": 40
+          },
+          "xth0023": {
+            "simplicity": 50,
+            "depth": 50
+          },
+          "xth0024": {
+            "essential": 60,
+            "incidental": -20
+          },
+          "xth0025": {
+            "proud-inutility-hardy-s-apology": 40,
+            "unreasonable-effectiveness-wigner": 20
+          },
+          "xth0026": {
+            "autonomous-self-reference": 70,
+            "physical-symbiosis": -20
+          },
+          "xth0028": {
+            "traditional-chalkboard": 0,
+            "digital-computational-experimentation": 40
+          },
+          "xth0029": {
+            "private-aesthetic-epiphany": 60,
+            "institutional-immortality": -10
+          }
+        }
+      }
+    }
   }
 }

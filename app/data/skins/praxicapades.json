@@ -2891,5 +2891,582 @@
         }
       ]
     }
+  },
+  "samples": {
+    "pra-bayesian": {
+      "name": "The Bayesian",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Bayesian",
+        "archetype": "The Bayesian",
+        "aboutMe": "Belief is a probability, updated by evidence: priors made explicit, uncertainty quantified, decisions by expected loss.",
+        "ratings": {
+          "xpr0001": {
+            "generality": 50,
+            "realism": 40,
+            "precision": 60
+          },
+          "xpr0002": {
+            "deterministic": -40,
+            "stochastic": 80
+          },
+          "xpr0003": {
+            "continuous": 50,
+            "discrete": 30
+          },
+          "xpr0004": {
+            "deductive-first-principles": 20,
+            "inductive-data-driven-surrogates": 70
+          },
+          "xpr0005": {
+            "linear-approximations": 30,
+            "nonlinear-reality": 50
+          },
+          "xpr0006": {
+            "grid-mesh-pde-solvers": 20,
+            "particle-monte-carlo-methods": 85,
+            "discrete-networks-agent-simulators": 40,
+            "neural-operators-ai-surrogates": 50
+          },
+          "xpr0007": {
+            "analytic": 30,
+            "numerical": 70
+          },
+          "xpr0008": {
+            "simulation": 60,
+            "theory": 40
+          },
+          "xpr0009": {
+            "exact": -20,
+            "heuristic": 60
+          },
+          "xpr0010": {
+            "physical-continua-geophysical-fluids": 30,
+            "biological-ecological-epidemic-dynamics": 70,
+            "economic-financial-game-theoretic-flows": 60,
+            "engineering-control-cybernetics": 30,
+            "information-tensors-machine-intelligence": 60
+          },
+          "xpr0011": {
+            "pure": -20,
+            "applied": 60
+          },
+          "xpr0012": {
+            "interdisciplinary": 70,
+            "domain-specific": 20
+          },
+          "xpr0013": {
+            "aleatoric-uncertainty": 70,
+            "epistemic-parameter-uncertainty": 90,
+            "structural-model-misspecification": 60,
+            "knightian-ambiguity-extreme-regimes": 40
+          },
+          "xpr0014": {
+            "forward-simulation": 30,
+            "real-time-data-assimilation": 85,
+            "inverse-problem-parameter-identification": 80
+          },
+          "xpr0015": {
+            "bayesian-updating": 95,
+            "frequentist-objective-likelihood": -85
+          },
+          "xpr0016": {
+            "big-data": 60,
+            "small-data": 30
+          },
+          "xpr0017": {
+            "pure-rigor-analysis-of-pdes": -20,
+            "pragmatic-engineering-utility": 60
+          },
+          "xpr0018": {
+            "elegance": 40,
+            "effectiveness": 70
+          },
+          "xpr0019": {
+            "general": 70,
+            "specific": 30
+          },
+          "xpr0020": {
+            "occam-s-minimalist-toy-model": 50,
+            "multi-physics-high-fidelity-ensemble": 40
+          },
+          "xpr0021": {
+            "mechanistic-understanding": 50,
+            "predictive-supremacy": 70
+          },
+          "xpr0022": {
+            "industry-national-labs-tech-giants": 30,
+            "university-academia": 60
+          },
+          "xpr0026": {
+            "impact": 60,
+            "publication": 50
+          }
+        }
+      }
+    },
+    "pra-frequentist": {
+      "name": "The Frequentist",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Frequentist",
+        "archetype": "The Frequentist",
+        "aboutMe": "Probability is long-run frequency, not belief: likelihoods, confidence intervals, and procedures with guaranteed error rates.",
+        "ratings": {
+          "xpr0001": {
+            "generality": 60,
+            "realism": 50,
+            "precision": 70
+          },
+          "xpr0002": {
+            "deterministic": 40,
+            "stochastic": 60
+          },
+          "xpr0003": {
+            "continuous": 60,
+            "discrete": 20
+          },
+          "xpr0004": {
+            "deductive-first-principles": 60,
+            "inductive-data-driven-surrogates": 20
+          },
+          "xpr0005": {
+            "linear-approximations": 50,
+            "nonlinear-reality": 40
+          },
+          "xpr0006": {
+            "grid-mesh-pde-solvers": 60,
+            "particle-monte-carlo-methods": 50,
+            "discrete-networks-agent-simulators": 20,
+            "neural-operators-ai-surrogates": -30
+          },
+          "xpr0007": {
+            "analytic": 70,
+            "numerical": 40
+          },
+          "xpr0008": {
+            "simulation": 30,
+            "theory": 70
+          },
+          "xpr0009": {
+            "exact": 70,
+            "heuristic": 10
+          },
+          "xpr0010": {
+            "physical-continua-geophysical-fluids": 60,
+            "biological-ecological-epidemic-dynamics": 40,
+            "economic-financial-game-theoretic-flows": 40,
+            "engineering-control-cybernetics": 50,
+            "information-tensors-machine-intelligence": 30
+          },
+          "xpr0011": {
+            "pure": 40,
+            "applied": 40
+          },
+          "xpr0012": {
+            "interdisciplinary": 30,
+            "domain-specific": 60
+          },
+          "xpr0013": {
+            "aleatoric-uncertainty": 80,
+            "epistemic-parameter-uncertainty": 30,
+            "structural-model-misspecification": 50,
+            "knightian-ambiguity-extreme-regimes": 20
+          },
+          "xpr0014": {
+            "forward-simulation": 60,
+            "real-time-data-assimilation": 40,
+            "inverse-problem-parameter-identification": 60
+          },
+          "xpr0015": {
+            "bayesian-updating": -85,
+            "frequentist-objective-likelihood": 95
+          },
+          "xpr0016": {
+            "big-data": 50,
+            "small-data": 40
+          },
+          "xpr0017": {
+            "pure-rigor-analysis-of-pdes": 70,
+            "pragmatic-engineering-utility": 20
+          },
+          "xpr0018": {
+            "elegance": 50,
+            "effectiveness": 50
+          },
+          "xpr0019": {
+            "general": 60,
+            "specific": 40
+          },
+          "xpr0020": {
+            "occam-s-minimalist-toy-model": 70,
+            "multi-physics-high-fidelity-ensemble": 20
+          },
+          "xpr0021": {
+            "mechanistic-understanding": 60,
+            "predictive-supremacy": 50
+          },
+          "xpr0022": {
+            "industry-national-labs-tech-giants": 20,
+            "university-academia": 70
+          },
+          "xpr0026": {
+            "impact": 40,
+            "publication": 70
+          }
+        }
+      }
+    },
+    "pra-first-principles": {
+      "name": "The First-Principles Theorist",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The First-Principles Theorist",
+        "archetype": "The First-Principles Theorist",
+        "aboutMe": "Start from conservation laws and derive: a model earns trust by deduction from physics, not by fitting data.",
+        "ratings": {
+          "xpr0001": {
+            "generality": 80,
+            "realism": 70,
+            "precision": 50
+          },
+          "xpr0002": {
+            "deterministic": 70,
+            "stochastic": -20
+          },
+          "xpr0003": {
+            "continuous": 80,
+            "discrete": -30
+          },
+          "xpr0004": {
+            "deductive-first-principles": 95,
+            "inductive-data-driven-surrogates": -80
+          },
+          "xpr0005": {
+            "linear-approximations": 20,
+            "nonlinear-reality": 80
+          },
+          "xpr0006": {
+            "grid-mesh-pde-solvers": 80,
+            "particle-monte-carlo-methods": 30,
+            "discrete-networks-agent-simulators": -20,
+            "neural-operators-ai-surrogates": -70
+          },
+          "xpr0007": {
+            "analytic": 85,
+            "numerical": 20
+          },
+          "xpr0008": {
+            "simulation": -40,
+            "theory": 90
+          },
+          "xpr0009": {
+            "exact": 80,
+            "heuristic": -40
+          },
+          "xpr0010": {
+            "physical-continua-geophysical-fluids": 80,
+            "biological-ecological-epidemic-dynamics": 20,
+            "economic-financial-game-theoretic-flows": 10,
+            "engineering-control-cybernetics": 30,
+            "information-tensors-machine-intelligence": 40
+          },
+          "xpr0011": {
+            "pure": 70,
+            "applied": -10
+          },
+          "xpr0012": {
+            "interdisciplinary": 20,
+            "domain-specific": 70
+          },
+          "xpr0013": {
+            "aleatoric-uncertainty": 30,
+            "epistemic-parameter-uncertainty": 40,
+            "structural-model-misspecification": 80,
+            "knightian-ambiguity-extreme-regimes": 30
+          },
+          "xpr0014": {
+            "forward-simulation": 80,
+            "real-time-data-assimilation": 10,
+            "inverse-problem-parameter-identification": 30
+          },
+          "xpr0015": {
+            "bayesian-updating": 20,
+            "frequentist-objective-likelihood": 40
+          },
+          "xpr0016": {
+            "big-data": -40,
+            "small-data": 70
+          },
+          "xpr0017": {
+            "pure-rigor-analysis-of-pdes": 90,
+            "pragmatic-engineering-utility": -50
+          },
+          "xpr0018": {
+            "elegance": 85,
+            "effectiveness": 20
+          },
+          "xpr0019": {
+            "general": 85,
+            "specific": 10
+          },
+          "xpr0020": {
+            "occam-s-minimalist-toy-model": 85,
+            "multi-physics-high-fidelity-ensemble": -50
+          },
+          "xpr0021": {
+            "mechanistic-understanding": 95,
+            "predictive-supremacy": -30
+          },
+          "xpr0022": {
+            "industry-national-labs-tech-giants": -40,
+            "university-academia": 85
+          },
+          "xpr0026": {
+            "impact": 10,
+            "publication": 85
+          }
+        }
+      }
+    },
+    "pra-simulation-first": {
+      "name": "The Simulation-First Computationalist",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Simulation-First Computationalist",
+        "archetype": "The Simulation-First Computationalist",
+        "aboutMe": "Compute first: high-fidelity simulation and learned surrogates are how hard problems actually get solved.",
+        "ratings": {
+          "xpr0001": {
+            "generality": 30,
+            "realism": 80,
+            "precision": 60
+          },
+          "xpr0002": {
+            "deterministic": 20,
+            "stochastic": 60
+          },
+          "xpr0003": {
+            "continuous": 40,
+            "discrete": 60
+          },
+          "xpr0004": {
+            "deductive-first-principles": 10,
+            "inductive-data-driven-surrogates": 80
+          },
+          "xpr0005": {
+            "linear-approximations": -30,
+            "nonlinear-reality": 80
+          },
+          "xpr0006": {
+            "grid-mesh-pde-solvers": 60,
+            "particle-monte-carlo-methods": 70,
+            "discrete-networks-agent-simulators": 50,
+            "neural-operators-ai-surrogates": 85
+          },
+          "xpr0007": {
+            "analytic": -30,
+            "numerical": 90
+          },
+          "xpr0008": {
+            "simulation": 90,
+            "theory": -30
+          },
+          "xpr0009": {
+            "exact": -10,
+            "heuristic": 70
+          },
+          "xpr0010": {
+            "physical-continua-geophysical-fluids": 70,
+            "biological-ecological-epidemic-dynamics": 50,
+            "economic-financial-game-theoretic-flows": 40,
+            "engineering-control-cybernetics": 60,
+            "information-tensors-machine-intelligence": 80
+          },
+          "xpr0011": {
+            "pure": -40,
+            "applied": 80
+          },
+          "xpr0012": {
+            "interdisciplinary": 70,
+            "domain-specific": 30
+          },
+          "xpr0013": {
+            "aleatoric-uncertainty": 50,
+            "epistemic-parameter-uncertainty": 60,
+            "structural-model-misspecification": 70,
+            "knightian-ambiguity-extreme-regimes": 50
+          },
+          "xpr0014": {
+            "forward-simulation": 80,
+            "real-time-data-assimilation": 60,
+            "inverse-problem-parameter-identification": 50
+          },
+          "xpr0015": {
+            "bayesian-updating": 50,
+            "frequentist-objective-likelihood": 20
+          },
+          "xpr0016": {
+            "big-data": 85,
+            "small-data": -30
+          },
+          "xpr0017": {
+            "pure-rigor-analysis-of-pdes": -40,
+            "pragmatic-engineering-utility": 80
+          },
+          "xpr0018": {
+            "elegance": 10,
+            "effectiveness": 85
+          },
+          "xpr0019": {
+            "general": 30,
+            "specific": 70
+          },
+          "xpr0020": {
+            "occam-s-minimalist-toy-model": -40,
+            "multi-physics-high-fidelity-ensemble": 90
+          },
+          "xpr0021": {
+            "mechanistic-understanding": 20,
+            "predictive-supremacy": 85
+          },
+          "xpr0022": {
+            "industry-national-labs-tech-giants": 70,
+            "university-academia": 30
+          },
+          "xpr0026": {
+            "impact": 70,
+            "publication": 40
+          }
+        }
+      }
+    },
+    "pra-engineer": {
+      "name": "The Pragmatic Engineer",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Pragmatic Engineer",
+        "archetype": "The Pragmatic Engineer",
+        "aboutMe": "Does it work? A model is judged by the decision it improves and the system it ships - rigor serves utility, not the reverse.",
+        "ratings": {
+          "xpr0001": {
+            "generality": 20,
+            "realism": 70,
+            "precision": 50
+          },
+          "xpr0002": {
+            "deterministic": 30,
+            "stochastic": 40
+          },
+          "xpr0003": {
+            "continuous": 40,
+            "discrete": 50
+          },
+          "xpr0004": {
+            "deductive-first-principles": 10,
+            "inductive-data-driven-surrogates": 70
+          },
+          "xpr0005": {
+            "linear-approximations": 60,
+            "nonlinear-reality": 40
+          },
+          "xpr0006": {
+            "grid-mesh-pde-solvers": 50,
+            "particle-monte-carlo-methods": 40,
+            "discrete-networks-agent-simulators": 60,
+            "neural-operators-ai-surrogates": 60
+          },
+          "xpr0007": {
+            "analytic": 20,
+            "numerical": 80
+          },
+          "xpr0008": {
+            "simulation": 70,
+            "theory": 20
+          },
+          "xpr0009": {
+            "exact": 10,
+            "heuristic": 85
+          },
+          "xpr0010": {
+            "physical-continua-geophysical-fluids": 50,
+            "biological-ecological-epidemic-dynamics": 40,
+            "economic-financial-game-theoretic-flows": 50,
+            "engineering-control-cybernetics": 90,
+            "information-tensors-machine-intelligence": 60
+          },
+          "xpr0011": {
+            "pure": -60,
+            "applied": 90
+          },
+          "xpr0012": {
+            "interdisciplinary": 80,
+            "domain-specific": 20
+          },
+          "xpr0013": {
+            "aleatoric-uncertainty": 40,
+            "epistemic-parameter-uncertainty": 50,
+            "structural-model-misspecification": 60,
+            "knightian-ambiguity-extreme-regimes": 60
+          },
+          "xpr0014": {
+            "forward-simulation": 50,
+            "real-time-data-assimilation": 80,
+            "inverse-problem-parameter-identification": 60
+          },
+          "xpr0015": {
+            "bayesian-updating": 40,
+            "frequentist-objective-likelihood": 40
+          },
+          "xpr0016": {
+            "big-data": 60,
+            "small-data": 40
+          },
+          "xpr0017": {
+            "pure-rigor-analysis-of-pdes": -70,
+            "pragmatic-engineering-utility": 95
+          },
+          "xpr0018": {
+            "elegance": -20,
+            "effectiveness": 95
+          },
+          "xpr0019": {
+            "general": 20,
+            "specific": 80
+          },
+          "xpr0020": {
+            "occam-s-minimalist-toy-model": 40,
+            "multi-physics-high-fidelity-ensemble": 50
+          },
+          "xpr0021": {
+            "mechanistic-understanding": 30,
+            "predictive-supremacy": 80
+          },
+          "xpr0022": {
+            "industry-national-labs-tech-giants": 80,
+            "university-academia": -30
+          },
+          "xpr0026": {
+            "impact": 90,
+            "publication": 10
+          }
+        }
+      }
+    }
   }
 }

@@ -3067,5 +3067,491 @@
         }
       ]
     }
+  },
+  "samples": {
+    "quanta-copenhagen": {
+      "name": "Copenhagen interpretation",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Copenhagen interpretation",
+        "archetype": "Copenhagen interpretation",
+        "aboutMe": "The quantum state is a tool for predicting measurement outcomes, not a picture of reality; measurement brings a definite result out of irreducible chance.",
+        "ratings": {
+          "xqu0001": {
+            "copenhagen-epistemic-orthodox": 95,
+            "many-worlds-everettian": -80,
+            "de-broglie-bohm-pilot-wave": -70,
+            "qbism-relational-quantum-mechanics-rqm": -30
+          },
+          "xqu0002": {
+            "psi-ontic": -70,
+            "psi-epistemic": 85
+          },
+          "xqu0003": {
+            "collapse": 80,
+            "decoherence": 40,
+            "no-collapse": -70
+          },
+          "xqu0004": {
+            "strict-determinism": -85,
+            "irreducible-randomness": 90
+          },
+          "xqu0005": {
+            "non-local-realism": -50,
+            "local-anti-realism": 70
+          },
+          "xqu0007": {
+            "fundamental-spacetime": 10,
+            "emergent-spacetime": 0
+          },
+          "xqu0009": {
+            "quantum-bounce-invariant-cutoff": 0,
+            "physical-singularity-spacetime-breakdown": 0
+          },
+          "xqu0010": {
+            "gut": 0,
+            "eft": 0
+          },
+          "xqu0011": {
+            "grand-unified-ambition-toe": 0,
+            "pragmatic-effective-field-theory-eft": 0
+          },
+          "xqu0012": {
+            "big-bang": 75,
+            "cyclic": 10,
+            "steady-state": -85
+          },
+          "xqu0013": {
+            "particle-dark-matter": 10,
+            "modified-gravity-mond": -10
+          },
+          "xqu0014": {
+            "constant": 20,
+            "dynamical": -10
+          },
+          "xqu0015": {
+            "anthropic-multiverse": -30,
+            "undiscovered-symmetry": 40,
+            "modified-cosmic-gravity": 10
+          },
+          "xqu0016": {
+            "multiverse": -60,
+            "one-universe": 70
+          },
+          "xqu0017": {
+            "past-hypothesis-statistical-fluke": 30,
+            "fundamental-dynamical-irreversibility": 0
+          },
+          "xqu0018": {
+            "block-universe-eternalism": 10,
+            "presentism-dynamic-time": 10
+          },
+          "xqu0019": {
+            "fundamental-reductionism": 0,
+            "autonomous-emergence": 40,
+            "duality-equivalence": 30
+          },
+          "xqu0020": {
+            "fundamental-it-from-bit": 30,
+            "derived": -10
+          },
+          "xqu0021": {
+            "realism": -40,
+            "instrumentalism": 70
+          },
+          "xqu0022": {
+            "fundamental": 0,
+            "broken": 0
+          },
+          "xqu0023": {
+            "naturalness-dogma": 10,
+            "acceptance-of-fine-tuning": 0
+          },
+          "xqu0024": {
+            "accept": -20,
+            "reject": 30
+          },
+          "xqu0025": {
+            "aesthetic-structural-beauty-dirac": 0,
+            "strict-falsifiability-popper": 40
+          },
+          "xqu0026": {
+            "unitary-hawking-radiation": 60,
+            "true-information-loss": -50,
+            "remnants-firewalls": 0
+          },
+          "xqu0028": {
+            "discovered": -20,
+            "invented": 20
+          }
+        }
+      }
+    },
+    "quanta-many-worlds": {
+      "name": "Many-Worlds interpretation",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Many-Worlds interpretation",
+        "archetype": "Many-Worlds interpretation",
+        "aboutMe": "The wavefunction is real and never collapses; every measurement outcome happens, each in its own branch of reality.",
+        "ratings": {
+          "xqu0001": {
+            "copenhagen-epistemic-orthodox": -85,
+            "many-worlds-everettian": 95,
+            "de-broglie-bohm-pilot-wave": -60,
+            "qbism-relational-quantum-mechanics-rqm": -70
+          },
+          "xqu0002": {
+            "psi-ontic": 95,
+            "psi-epistemic": -90
+          },
+          "xqu0003": {
+            "collapse": -90,
+            "decoherence": 80,
+            "no-collapse": 90
+          },
+          "xqu0004": {
+            "strict-determinism": 80,
+            "irreducible-randomness": -70
+          },
+          "xqu0005": {
+            "non-local-realism": -30,
+            "local-anti-realism": -50
+          },
+          "xqu0007": {
+            "fundamental-spacetime": 20,
+            "emergent-spacetime": 0
+          },
+          "xqu0009": {
+            "quantum-bounce-invariant-cutoff": 0,
+            "physical-singularity-spacetime-breakdown": 0
+          },
+          "xqu0010": {
+            "gut": 0,
+            "eft": 0
+          },
+          "xqu0011": {
+            "grand-unified-ambition-toe": 0,
+            "pragmatic-effective-field-theory-eft": 0
+          },
+          "xqu0012": {
+            "big-bang": 75,
+            "cyclic": 0,
+            "steady-state": -85
+          },
+          "xqu0013": {
+            "particle-dark-matter": 10,
+            "modified-gravity-mond": -10
+          },
+          "xqu0014": {
+            "constant": 20,
+            "dynamical": -10
+          },
+          "xqu0015": {
+            "anthropic-multiverse": 85,
+            "undiscovered-symmetry": -30,
+            "modified-cosmic-gravity": -40
+          },
+          "xqu0016": {
+            "multiverse": 95,
+            "one-universe": -95
+          },
+          "xqu0017": {
+            "past-hypothesis-statistical-fluke": 50,
+            "fundamental-dynamical-irreversibility": -20
+          },
+          "xqu0018": {
+            "block-universe-eternalism": 60,
+            "presentism-dynamic-time": -50
+          },
+          "xqu0019": {
+            "fundamental-reductionism": 70,
+            "autonomous-emergence": 10,
+            "duality-equivalence": 20
+          },
+          "xqu0020": {
+            "fundamental-it-from-bit": -20,
+            "derived": 40
+          },
+          "xqu0021": {
+            "realism": 95,
+            "instrumentalism": -90
+          },
+          "xqu0022": {
+            "fundamental": 20,
+            "broken": 0
+          },
+          "xqu0023": {
+            "naturalness-dogma": -40,
+            "acceptance-of-fine-tuning": 60
+          },
+          "xqu0024": {
+            "accept": 80,
+            "reject": -70
+          },
+          "xqu0025": {
+            "aesthetic-structural-beauty-dirac": 50,
+            "strict-falsifiability-popper": -10
+          },
+          "xqu0026": {
+            "unitary-hawking-radiation": 90,
+            "true-information-loss": -90,
+            "remnants-firewalls": -40
+          },
+          "xqu0028": {
+            "discovered": 50,
+            "invented": -30
+          }
+        }
+      }
+    },
+    "quanta-bohm": {
+      "name": "De Broglie-Bohm interpretation",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "De Broglie-Bohm interpretation",
+        "archetype": "De Broglie-Bohm interpretation",
+        "aboutMe": "Particles always have definite positions, guided by a real pilot wave; quantum randomness is ignorance of initial conditions, at the price of nonlocality.",
+        "ratings": {
+          "xqu0001": {
+            "copenhagen-epistemic-orthodox": -70,
+            "many-worlds-everettian": -60,
+            "de-broglie-bohm-pilot-wave": 95,
+            "qbism-relational-quantum-mechanics-rqm": -60
+          },
+          "xqu0002": {
+            "psi-ontic": 95,
+            "psi-epistemic": -80
+          },
+          "xqu0003": {
+            "collapse": -80,
+            "decoherence": 50,
+            "no-collapse": 80
+          },
+          "xqu0004": {
+            "strict-determinism": 95,
+            "irreducible-randomness": -90
+          },
+          "xqu0005": {
+            "non-local-realism": 90,
+            "local-anti-realism": -85
+          },
+          "xqu0007": {
+            "fundamental-spacetime": 60,
+            "emergent-spacetime": -40
+          },
+          "xqu0009": {
+            "quantum-bounce-invariant-cutoff": 40,
+            "physical-singularity-spacetime-breakdown": -30
+          },
+          "xqu0010": {
+            "gut": 0,
+            "eft": 0
+          },
+          "xqu0011": {
+            "grand-unified-ambition-toe": 0,
+            "pragmatic-effective-field-theory-eft": 0
+          },
+          "xqu0012": {
+            "big-bang": 75,
+            "cyclic": 10,
+            "steady-state": -85
+          },
+          "xqu0013": {
+            "particle-dark-matter": 10,
+            "modified-gravity-mond": -10
+          },
+          "xqu0014": {
+            "constant": 20,
+            "dynamical": -10
+          },
+          "xqu0015": {
+            "anthropic-multiverse": -40,
+            "undiscovered-symmetry": 30,
+            "modified-cosmic-gravity": 0
+          },
+          "xqu0016": {
+            "multiverse": -50,
+            "one-universe": 60
+          },
+          "xqu0017": {
+            "past-hypothesis-statistical-fluke": 40,
+            "fundamental-dynamical-irreversibility": -20
+          },
+          "xqu0018": {
+            "block-universe-eternalism": 40,
+            "presentism-dynamic-time": -20
+          },
+          "xqu0019": {
+            "fundamental-reductionism": 60,
+            "autonomous-emergence": 0,
+            "duality-equivalence": 10
+          },
+          "xqu0020": {
+            "fundamental-it-from-bit": -40,
+            "derived": 50
+          },
+          "xqu0021": {
+            "realism": 95,
+            "instrumentalism": -85
+          },
+          "xqu0022": {
+            "fundamental": 10,
+            "broken": 0
+          },
+          "xqu0023": {
+            "naturalness-dogma": 0,
+            "acceptance-of-fine-tuning": 0
+          },
+          "xqu0024": {
+            "accept": -20,
+            "reject": 20
+          },
+          "xqu0025": {
+            "aesthetic-structural-beauty-dirac": 30,
+            "strict-falsifiability-popper": 20
+          },
+          "xqu0026": {
+            "unitary-hawking-radiation": 70,
+            "true-information-loss": -70,
+            "remnants-firewalls": -20
+          },
+          "xqu0028": {
+            "discovered": 30,
+            "invented": -10
+          }
+        }
+      }
+    },
+    "quanta-qbism": {
+      "name": "QBism",
+      "count": 25,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "QBism",
+        "archetype": "QBism",
+        "aboutMe": "Quantum probabilities are personal degrees of belief; the theory is a user's manual for agents betting on their own future experiences.",
+        "ratings": {
+          "xqu0001": {
+            "copenhagen-epistemic-orthodox": -30,
+            "many-worlds-everettian": -75,
+            "de-broglie-bohm-pilot-wave": -70,
+            "qbism-relational-quantum-mechanics-rqm": 95
+          },
+          "xqu0002": {
+            "psi-ontic": -95,
+            "psi-epistemic": 95
+          },
+          "xqu0003": {
+            "collapse": -30,
+            "decoherence": 20,
+            "no-collapse": 60
+          },
+          "xqu0004": {
+            "strict-determinism": -60,
+            "irreducible-randomness": 70
+          },
+          "xqu0005": {
+            "non-local-realism": -70,
+            "local-anti-realism": 80
+          },
+          "xqu0007": {
+            "fundamental-spacetime": -20,
+            "emergent-spacetime": 30
+          },
+          "xqu0009": {
+            "quantum-bounce-invariant-cutoff": 0,
+            "physical-singularity-spacetime-breakdown": 0
+          },
+          "xqu0010": {
+            "gut": 0,
+            "eft": 0
+          },
+          "xqu0011": {
+            "grand-unified-ambition-toe": 0,
+            "pragmatic-effective-field-theory-eft": 0
+          },
+          "xqu0012": {
+            "big-bang": 75,
+            "cyclic": 0,
+            "steady-state": -85
+          },
+          "xqu0013": {
+            "particle-dark-matter": 10,
+            "modified-gravity-mond": -10
+          },
+          "xqu0014": {
+            "constant": 20,
+            "dynamical": -10
+          },
+          "xqu0015": {
+            "anthropic-multiverse": -50,
+            "undiscovered-symmetry": 30,
+            "modified-cosmic-gravity": 0
+          },
+          "xqu0016": {
+            "multiverse": -70,
+            "one-universe": 75
+          },
+          "xqu0017": {
+            "past-hypothesis-statistical-fluke": 10,
+            "fundamental-dynamical-irreversibility": 0
+          },
+          "xqu0018": {
+            "block-universe-eternalism": -30,
+            "presentism-dynamic-time": 40
+          },
+          "xqu0019": {
+            "fundamental-reductionism": -50,
+            "autonomous-emergence": 50,
+            "duality-equivalence": 10
+          },
+          "xqu0020": {
+            "fundamental-it-from-bit": 90,
+            "derived": -80
+          },
+          "xqu0021": {
+            "realism": -85,
+            "instrumentalism": 85
+          },
+          "xqu0022": {
+            "fundamental": 0,
+            "broken": 0
+          },
+          "xqu0023": {
+            "naturalness-dogma": 0,
+            "acceptance-of-fine-tuning": 0
+          },
+          "xqu0024": {
+            "accept": -30,
+            "reject": 30
+          },
+          "xqu0025": {
+            "aesthetic-structural-beauty-dirac": -10,
+            "strict-falsifiability-popper": 30
+          },
+          "xqu0026": {
+            "unitary-hawking-radiation": 40,
+            "true-information-loss": -40,
+            "remnants-firewalls": 0
+          },
+          "xqu0028": {
+            "discovered": -20,
+            "invented": 30
+          }
+        }
+      }
+    }
   }
 }

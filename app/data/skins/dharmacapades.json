@@ -3179,5 +3179,519 @@
         }
       ]
     }
+  },
+  "samples": {
+    "dharma-theravada": {
+      "name": "Theravada Buddhism",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Theravada Buddhism",
+        "archetype": "Theravada Buddhism",
+        "aboutMe": "The earliest teaching: liberation comes through one's own effort, the Four Noble Truths, the Eightfold Path, and insight into impermanence and no-self.",
+        "ratings": {
+          "xdh0001": {
+            "literal": 75,
+            "psychological": 30,
+            "no-karma": -80
+          },
+          "xdh0002": {
+            "escape": 90,
+            "engage": -50,
+            "accept": 0
+          },
+          "xdh0003": {
+            "religion": 40,
+            "philosophy": 50,
+            "way-of-life": 70
+          },
+          "xdh0005": {
+            "confucianism": -10,
+            "taoism": 0,
+            "buddhism": 85
+          },
+          "xdh0009": {
+            "moksha": -20,
+            "nirvana": 95,
+            "union-with-the-dao": -60
+          },
+          "xdh0010": {
+            "sudden": -40,
+            "gradual": 85
+          },
+          "xdh0011": {
+            "atman": -90,
+            "anatta": 95
+          },
+          "xdh0012": {
+            "physical": 40,
+            "breath": 50,
+            "meditative": 80,
+            "devotional": 10,
+            "philosophical": 60
+          },
+          "xdh0013": {
+            "samatha": 60,
+            "vipassana": 90
+          },
+          "xdh0014": {
+            "left-hand": -80,
+            "right-hand": 40
+          },
+          "xdh0015": {
+            "awakening": -40,
+            "danger": 50
+          },
+          "xdh0016": {
+            "right-view": 85,
+            "right-intention": 80,
+            "right-speech": 85,
+            "right-action": 85,
+            "right-livelihood": 80,
+            "right-effort": 80,
+            "right-mindfulness": 90,
+            "right-concentration": 85
+          },
+          "xdh0017": {
+            "wu-wei": 10,
+            "you-wei": 60
+          },
+          "xdh0018": {
+            "raja-yoga": 50,
+            "jnana-yoga": 60,
+            "bhakti-yoga": 0,
+            "karma-yoga": 40,
+            "hatha-yoga": 40,
+            "tantra-yoga": -70
+          },
+          "xdh0019": {
+            "personal-theism": -60,
+            "impersonal-theism": -20,
+            "non-theistic-spirituality": 85,
+            "atheism-materialism": 20
+          },
+          "xdh0021": {
+            "historical-buddha": 90,
+            "cosmic-buddha": -30,
+            "buddha-nature": 20
+          },
+          "xdh0022": {
+            "jain": 20,
+            "buddhist": 85,
+            "hindu": 0
+          },
+          "xdh0023": {
+            "strict-rules": 75,
+            "flexible-guidelines": -30
+          },
+          "xdh0024": {
+            "karuna": 60,
+            "prajna": 85
+          },
+          "xdh0025": {
+            "essential": -20,
+            "optional": 70
+          },
+          "xdh0026": {
+            "monastic": 85,
+            "lay": -20
+          },
+          "xdh0027": {
+            "orthodox": 80,
+            "eclectic": -50
+          },
+          "xdh0028": {
+            "grasthi": -40,
+            "sannyasa": 80
+          }
+        }
+      }
+    },
+    "dharma-zen": {
+      "name": "Zen Buddhism",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Zen Buddhism",
+        "archetype": "Zen Buddhism",
+        "aboutMe": "Direct pointing at the mind: awakening is sudden, beyond words and scriptures, found in seated meditation and everyday life.",
+        "ratings": {
+          "xdh0001": {
+            "literal": 20,
+            "psychological": 60,
+            "no-karma": -40
+          },
+          "xdh0002": {
+            "escape": 40,
+            "engage": 50,
+            "accept": 60
+          },
+          "xdh0003": {
+            "religion": 10,
+            "philosophy": 40,
+            "way-of-life": 80
+          },
+          "xdh0005": {
+            "confucianism": 10,
+            "taoism": 50,
+            "buddhism": 85
+          },
+          "xdh0009": {
+            "moksha": -30,
+            "nirvana": 85,
+            "union-with-the-dao": 30
+          },
+          "xdh0010": {
+            "sudden": 90,
+            "gradual": -20
+          },
+          "xdh0011": {
+            "atman": -85,
+            "anatta": 90
+          },
+          "xdh0012": {
+            "physical": 30,
+            "breath": 60,
+            "meditative": 90,
+            "devotional": -20,
+            "philosophical": 40
+          },
+          "xdh0013": {
+            "samatha": 55,
+            "vipassana": 55
+          },
+          "xdh0014": {
+            "left-hand": -40,
+            "right-hand": 20
+          },
+          "xdh0015": {
+            "awakening": 30,
+            "danger": 10
+          },
+          "xdh0016": {
+            "right-view": 70,
+            "right-intention": 70,
+            "right-speech": 60,
+            "right-action": 60,
+            "right-livelihood": 40,
+            "right-effort": 60,
+            "right-mindfulness": 85,
+            "right-concentration": 85
+          },
+          "xdh0017": {
+            "wu-wei": 85,
+            "you-wei": -40
+          },
+          "xdh0018": {
+            "raja-yoga": 40,
+            "jnana-yoga": 50,
+            "bhakti-yoga": -20,
+            "karma-yoga": 30,
+            "hatha-yoga": 20,
+            "tantra-yoga": -30
+          },
+          "xdh0019": {
+            "personal-theism": -70,
+            "impersonal-theism": 0,
+            "non-theistic-spirituality": 90,
+            "atheism-materialism": 30
+          },
+          "xdh0021": {
+            "historical-buddha": 40,
+            "cosmic-buddha": 10,
+            "buddha-nature": 90
+          },
+          "xdh0022": {
+            "jain": 10,
+            "buddhist": 80,
+            "hindu": 0
+          },
+          "xdh0023": {
+            "strict-rules": -40,
+            "flexible-guidelines": 70
+          },
+          "xdh0024": {
+            "karuna": 60,
+            "prajna": 80
+          },
+          "xdh0025": {
+            "essential": 50,
+            "optional": 20
+          },
+          "xdh0026": {
+            "monastic": 60,
+            "lay": 30
+          },
+          "xdh0027": {
+            "orthodox": 30,
+            "eclectic": 50
+          },
+          "xdh0028": {
+            "grasthi": 20,
+            "sannyasa": 40
+          }
+        }
+      }
+    },
+    "dharma-pure-land": {
+      "name": "Pure Land Buddhism",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Pure Land Buddhism",
+        "archetype": "Pure Land Buddhism",
+        "aboutMe": "Salvation by other-power: sincere recitation of Amitabha's name, trusting his vow, brings rebirth in the Pure Land where awakening is assured.",
+        "ratings": {
+          "xdh0001": {
+            "literal": 80,
+            "psychological": 20,
+            "no-karma": -70
+          },
+          "xdh0002": {
+            "escape": 80,
+            "engage": -30,
+            "accept": 10
+          },
+          "xdh0003": {
+            "religion": 80,
+            "philosophy": 10,
+            "way-of-life": 50
+          },
+          "xdh0005": {
+            "confucianism": 0,
+            "taoism": 0,
+            "buddhism": 90
+          },
+          "xdh0009": {
+            "moksha": -20,
+            "nirvana": 85,
+            "union-with-the-dao": -50
+          },
+          "xdh0010": {
+            "sudden": 20,
+            "gradual": 70
+          },
+          "xdh0011": {
+            "atman": -70,
+            "anatta": 70
+          },
+          "xdh0012": {
+            "physical": 20,
+            "breath": 40,
+            "meditative": 50,
+            "devotional": 95,
+            "philosophical": 20
+          },
+          "xdh0013": {
+            "samatha": 60,
+            "vipassana": 30
+          },
+          "xdh0014": {
+            "left-hand": -60,
+            "right-hand": 50
+          },
+          "xdh0015": {
+            "awakening": 20,
+            "danger": 20
+          },
+          "xdh0016": {
+            "right-view": 70,
+            "right-intention": 75,
+            "right-speech": 70,
+            "right-action": 65,
+            "right-livelihood": 60,
+            "right-effort": 65,
+            "right-mindfulness": 70,
+            "right-concentration": 60
+          },
+          "xdh0017": {
+            "wu-wei": 50,
+            "you-wei": 0
+          },
+          "xdh0018": {
+            "raja-yoga": 20,
+            "jnana-yoga": 20,
+            "bhakti-yoga": 90,
+            "karma-yoga": 50,
+            "hatha-yoga": 10,
+            "tantra-yoga": -50
+          },
+          "xdh0019": {
+            "personal-theism": 60,
+            "impersonal-theism": 20,
+            "non-theistic-spirituality": 10,
+            "atheism-materialism": -50
+          },
+          "xdh0021": {
+            "historical-buddha": 50,
+            "cosmic-buddha": 85,
+            "buddha-nature": 50
+          },
+          "xdh0022": {
+            "jain": 10,
+            "buddhist": 85,
+            "hindu": 0
+          },
+          "xdh0023": {
+            "strict-rules": 40,
+            "flexible-guidelines": 40
+          },
+          "xdh0024": {
+            "karuna": 85,
+            "prajna": 50
+          },
+          "xdh0025": {
+            "essential": 50,
+            "optional": 30
+          },
+          "xdh0026": {
+            "monastic": 20,
+            "lay": 80
+          },
+          "xdh0027": {
+            "orthodox": 60,
+            "eclectic": 10
+          },
+          "xdh0028": {
+            "grasthi": 70,
+            "sannyasa": -10
+          }
+        }
+      }
+    },
+    "dharma-tibetan": {
+      "name": "Tibetan Buddhism",
+      "count": 23,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Tibetan Buddhism",
+        "archetype": "Tibetan Buddhism",
+        "aboutMe": "The swift Vajrayana path: deity yoga, mantra, and the guru's transmission turn ordinary experience into the means of awakening, for the sake of all beings.",
+        "ratings": {
+          "xdh0001": {
+            "literal": 70,
+            "psychological": 50,
+            "no-karma": -70
+          },
+          "xdh0002": {
+            "escape": 70,
+            "engage": 40,
+            "accept": 20
+          },
+          "xdh0003": {
+            "religion": 70,
+            "philosophy": 40,
+            "way-of-life": 60
+          },
+          "xdh0005": {
+            "confucianism": 0,
+            "taoism": 10,
+            "buddhism": 90
+          },
+          "xdh0009": {
+            "moksha": -10,
+            "nirvana": 85,
+            "union-with-the-dao": -30
+          },
+          "xdh0010": {
+            "sudden": 60,
+            "gradual": 60
+          },
+          "xdh0011": {
+            "atman": -85,
+            "anatta": 85
+          },
+          "xdh0012": {
+            "physical": 50,
+            "breath": 60,
+            "meditative": 80,
+            "devotional": 70,
+            "philosophical": 60
+          },
+          "xdh0013": {
+            "samatha": 70,
+            "vipassana": 75
+          },
+          "xdh0014": {
+            "left-hand": 70,
+            "right-hand": 50
+          },
+          "xdh0015": {
+            "awakening": 80,
+            "danger": 60
+          },
+          "xdh0016": {
+            "right-view": 85,
+            "right-intention": 80,
+            "right-speech": 75,
+            "right-action": 75,
+            "right-livelihood": 60,
+            "right-effort": 80,
+            "right-mindfulness": 85,
+            "right-concentration": 85
+          },
+          "xdh0017": {
+            "wu-wei": 40,
+            "you-wei": 60
+          },
+          "xdh0018": {
+            "raja-yoga": 50,
+            "jnana-yoga": 60,
+            "bhakti-yoga": 50,
+            "karma-yoga": 50,
+            "hatha-yoga": 40,
+            "tantra-yoga": 90
+          },
+          "xdh0019": {
+            "personal-theism": 40,
+            "impersonal-theism": 30,
+            "non-theistic-spirituality": 40,
+            "atheism-materialism": -40
+          },
+          "xdh0021": {
+            "historical-buddha": 60,
+            "cosmic-buddha": 70,
+            "buddha-nature": 80
+          },
+          "xdh0022": {
+            "jain": 10,
+            "buddhist": 85,
+            "hindu": 10
+          },
+          "xdh0023": {
+            "strict-rules": 60,
+            "flexible-guidelines": 30
+          },
+          "xdh0024": {
+            "karuna": 90,
+            "prajna": 85
+          },
+          "xdh0025": {
+            "essential": 95,
+            "optional": -70
+          },
+          "xdh0026": {
+            "monastic": 70,
+            "lay": 20
+          },
+          "xdh0027": {
+            "orthodox": 75,
+            "eclectic": -30
+          },
+          "xdh0028": {
+            "grasthi": 0,
+            "sannyasa": 60
+          }
+        }
+      }
+    }
   }
 }

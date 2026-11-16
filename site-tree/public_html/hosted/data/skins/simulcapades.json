@@ -2991,5 +2991,547 @@
         }
       ]
     }
+  },
+  "samples": {
+    "sim-optimist": {
+      "name": "The Simulation Optimist",
+      "count": 29,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Simulation Optimist",
+        "archetype": "The Simulation Optimist",
+        "aboutMe": "Simulations are a third pillar of science: they discover, they predict, and they deserve trust earned by validation.",
+        "ratings": {
+          "xsi0001": {
+            "virtual-experiment": 80,
+            "extended-theory-numerical-calculation": 50,
+            "autonomous-instrument": 60
+          },
+          "xsi0002": {
+            "discovery": 85,
+            "verification": 40
+          },
+          "xsi0003": {
+            "real": 80,
+            "metaphor": -50
+          },
+          "xsi0004": {
+            "maximum-physical-fidelity": 60,
+            "high-throughput-speed-scalability": 60
+          },
+          "xsi0005": {
+            "empirical-validation-first": 70,
+            "internal-code-verification-first": 50
+          },
+          "xsi0006": {
+            "bold-simulation-confidence": 85,
+            "permanent-self-skepticism": -40
+          },
+          "xsi0007": {
+            "electronic-structure-ab-initio-quantum": 60,
+            "classical-molecular-dynamics": 60,
+            "mesh-continuum-solvers": 50,
+            "statistical-stochastic-monte-carlo": 50
+          },
+          "xsi0008": {
+            "ab-initio-quantum-purity": 50,
+            "empirical-classical-potentials": 50
+          },
+          "xsi0009": {
+            "classical-supercomputing-algorithms": 50,
+            "quantum-hardware-analog-simulators": 70
+          },
+          "xsi0010": {
+            "continuum": 40,
+            "discrete": 50
+          },
+          "xsi0011": {
+            "deterministic": 40,
+            "stochastic": 60
+          },
+          "xsi0012": {
+            "direct-concurrent-multi-scale": 70,
+            "hierarchical-parameter-hand-off": 40
+          },
+          "xsi0013": {
+            "symplectic-integrators": 40,
+            "high-order-adaptive-steppers": 60
+          },
+          "xsi0014": {
+            "structured-uniform-grids-spectral-methods": 50,
+            "unstructured-adaptive-meshes": 60,
+            "mesh-free-particle-methods": 50
+          },
+          "xsi0015": {
+            "resolution": 60,
+            "domain-size": 60
+          },
+          "xsi0016": {
+            "strict": 40,
+            "pragmatic": 70
+          },
+          "xsi0017": {
+            "national-leadership-supercomputers": 70,
+            "hardware-you-control": 30
+          },
+          "xsi0018": {
+            "massive-cpu-cores": 40,
+            "dense-gpu-tensor-accelerators": 80,
+            "quantum-processors": 60
+          },
+          "xsi0019": {
+            "battle-tested-fortran-c-codebases": 20,
+            "modern-composable-high-level-stacks": 80
+          },
+          "xsi0020": {
+            "ai-neural-operators": 85,
+            "traditional-numerical-analysis": 20
+          },
+          "xsi0021": {
+            "mlip-enthusiast": 85,
+            "mlip-skeptic": -60
+          },
+          "xsi0022": {
+            "honest": 70,
+            "optimistic": 40
+          },
+          "xsi0023": {
+            "code": 60,
+            "results": 60
+          },
+          "xsi0024": {
+            "trust": 60,
+            "verify": 50
+          },
+          "xsi0025": {
+            "radical-open-source-science": 80,
+            "protected-competitive-advantage": -40
+          },
+          "xsi0026": {
+            "maintain": 20,
+            "rewrite": 70
+          },
+          "xsi0027": {
+            "specialist": 30,
+            "generalist": 70
+          },
+          "xsi0028": {
+            "theory": 40,
+            "implementation": 70
+          },
+          "xsi0029": {
+            "physicist-first": 40,
+            "research-software-engineer": 60
+          }
+        }
+      }
+    },
+    "sim-skeptic": {
+      "name": "The Simulation Skeptic",
+      "count": 29,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Simulation Skeptic",
+        "archetype": "The Simulation Skeptic",
+        "aboutMe": "Nobody believes the simulation - and they shouldn't: a calculation is a metaphor until experiment and strict convergence say otherwise.",
+        "ratings": {
+          "xsi0001": {
+            "virtual-experiment": -40,
+            "extended-theory-numerical-calculation": 80,
+            "autonomous-instrument": -30
+          },
+          "xsi0002": {
+            "discovery": 10,
+            "verification": 90
+          },
+          "xsi0003": {
+            "real": -70,
+            "metaphor": 85
+          },
+          "xsi0004": {
+            "maximum-physical-fidelity": 90,
+            "high-throughput-speed-scalability": -50
+          },
+          "xsi0005": {
+            "empirical-validation-first": 90,
+            "internal-code-verification-first": 60
+          },
+          "xsi0006": {
+            "bold-simulation-confidence": -80,
+            "permanent-self-skepticism": 90
+          },
+          "xsi0007": {
+            "electronic-structure-ab-initio-quantum": 70,
+            "classical-molecular-dynamics": 40,
+            "mesh-continuum-solvers": 50,
+            "statistical-stochastic-monte-carlo": 40
+          },
+          "xsi0008": {
+            "ab-initio-quantum-purity": 80,
+            "empirical-classical-potentials": -30
+          },
+          "xsi0009": {
+            "classical-supercomputing-algorithms": 70,
+            "quantum-hardware-analog-simulators": -30
+          },
+          "xsi0010": {
+            "continuum": 60,
+            "discrete": 20
+          },
+          "xsi0011": {
+            "deterministic": 70,
+            "stochastic": 20
+          },
+          "xsi0012": {
+            "direct-concurrent-multi-scale": 20,
+            "hierarchical-parameter-hand-off": 70
+          },
+          "xsi0013": {
+            "symplectic-integrators": 80,
+            "high-order-adaptive-steppers": 30
+          },
+          "xsi0014": {
+            "structured-uniform-grids-spectral-methods": 70,
+            "unstructured-adaptive-meshes": 40,
+            "mesh-free-particle-methods": 20
+          },
+          "xsi0015": {
+            "resolution": 80,
+            "domain-size": 20
+          },
+          "xsi0016": {
+            "strict": 90,
+            "pragmatic": -50
+          },
+          "xsi0017": {
+            "national-leadership-supercomputers": 40,
+            "hardware-you-control": 60
+          },
+          "xsi0018": {
+            "massive-cpu-cores": 70,
+            "dense-gpu-tensor-accelerators": 20,
+            "quantum-processors": -40
+          },
+          "xsi0019": {
+            "battle-tested-fortran-c-codebases": 80,
+            "modern-composable-high-level-stacks": 10
+          },
+          "xsi0020": {
+            "ai-neural-operators": -80,
+            "traditional-numerical-analysis": 90
+          },
+          "xsi0021": {
+            "mlip-enthusiast": -80,
+            "mlip-skeptic": 90
+          },
+          "xsi0022": {
+            "honest": 95,
+            "optimistic": -70
+          },
+          "xsi0023": {
+            "code": 50,
+            "results": 80
+          },
+          "xsi0024": {
+            "trust": -70,
+            "verify": 95
+          },
+          "xsi0025": {
+            "radical-open-source-science": 50,
+            "protected-competitive-advantage": 20
+          },
+          "xsi0026": {
+            "maintain": 70,
+            "rewrite": -30
+          },
+          "xsi0027": {
+            "specialist": 70,
+            "generalist": 20
+          },
+          "xsi0028": {
+            "theory": 80,
+            "implementation": 20
+          },
+          "xsi0029": {
+            "physicist-first": 85,
+            "research-software-engineer": -30
+          }
+        }
+      }
+    },
+    "sim-pragmatist": {
+      "name": "The Pragmatic Engineer",
+      "count": 29,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Pragmatic Engineer",
+        "archetype": "The Pragmatic Engineer",
+        "aboutMe": "Speed and scale win: a simulation that runs today and guides the build beats a perfect one that never finishes.",
+        "ratings": {
+          "xsi0001": {
+            "virtual-experiment": 60,
+            "extended-theory-numerical-calculation": 40,
+            "autonomous-instrument": 50
+          },
+          "xsi0002": {
+            "discovery": 50,
+            "verification": 60
+          },
+          "xsi0003": {
+            "real": 50,
+            "metaphor": 10
+          },
+          "xsi0004": {
+            "maximum-physical-fidelity": 20,
+            "high-throughput-speed-scalability": 90
+          },
+          "xsi0005": {
+            "empirical-validation-first": 80,
+            "internal-code-verification-first": 40
+          },
+          "xsi0006": {
+            "bold-simulation-confidence": 50,
+            "permanent-self-skepticism": 20
+          },
+          "xsi0007": {
+            "electronic-structure-ab-initio-quantum": 30,
+            "classical-molecular-dynamics": 70,
+            "mesh-continuum-solvers": 80,
+            "statistical-stochastic-monte-carlo": 50
+          },
+          "xsi0008": {
+            "ab-initio-quantum-purity": -20,
+            "empirical-classical-potentials": 80
+          },
+          "xsi0009": {
+            "classical-supercomputing-algorithms": 60,
+            "quantum-hardware-analog-simulators": 20
+          },
+          "xsi0010": {
+            "continuum": 50,
+            "discrete": 50
+          },
+          "xsi0011": {
+            "deterministic": 50,
+            "stochastic": 50
+          },
+          "xsi0012": {
+            "direct-concurrent-multi-scale": 40,
+            "hierarchical-parameter-hand-off": 70
+          },
+          "xsi0013": {
+            "symplectic-integrators": 20,
+            "high-order-adaptive-steppers": 80
+          },
+          "xsi0014": {
+            "structured-uniform-grids-spectral-methods": 40,
+            "unstructured-adaptive-meshes": 80,
+            "mesh-free-particle-methods": 60
+          },
+          "xsi0015": {
+            "resolution": 30,
+            "domain-size": 80
+          },
+          "xsi0016": {
+            "strict": 10,
+            "pragmatic": 90
+          },
+          "xsi0017": {
+            "national-leadership-supercomputers": 60,
+            "hardware-you-control": 50
+          },
+          "xsi0018": {
+            "massive-cpu-cores": 30,
+            "dense-gpu-tensor-accelerators": 90,
+            "quantum-processors": 20
+          },
+          "xsi0019": {
+            "battle-tested-fortran-c-codebases": 30,
+            "modern-composable-high-level-stacks": 80
+          },
+          "xsi0020": {
+            "ai-neural-operators": 70,
+            "traditional-numerical-analysis": 40
+          },
+          "xsi0021": {
+            "mlip-enthusiast": 60,
+            "mlip-skeptic": -20
+          },
+          "xsi0022": {
+            "honest": 60,
+            "optimistic": 50
+          },
+          "xsi0023": {
+            "code": 70,
+            "results": 60
+          },
+          "xsi0024": {
+            "trust": 50,
+            "verify": 60
+          },
+          "xsi0025": {
+            "radical-open-source-science": 60,
+            "protected-competitive-advantage": 10
+          },
+          "xsi0026": {
+            "maintain": 40,
+            "rewrite": 50
+          },
+          "xsi0027": {
+            "specialist": 30,
+            "generalist": 80
+          },
+          "xsi0028": {
+            "theory": 20,
+            "implementation": 85
+          },
+          "xsi0029": {
+            "physicist-first": 10,
+            "research-software-engineer": 85
+          }
+        }
+      }
+    },
+    "sim-purist": {
+      "name": "The First-Principles Purist",
+      "count": 29,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The First-Principles Purist",
+        "archetype": "The First-Principles Purist",
+        "aboutMe": "Forces from quantum mechanics or nothing: empirical potentials are fitting, not physics, and only ab initio earns the name.",
+        "ratings": {
+          "xsi0001": {
+            "virtual-experiment": 40,
+            "extended-theory-numerical-calculation": 85,
+            "autonomous-instrument": 10
+          },
+          "xsi0002": {
+            "discovery": 60,
+            "verification": 70
+          },
+          "xsi0003": {
+            "real": 30,
+            "metaphor": 30
+          },
+          "xsi0004": {
+            "maximum-physical-fidelity": 95,
+            "high-throughput-speed-scalability": -40
+          },
+          "xsi0005": {
+            "empirical-validation-first": 60,
+            "internal-code-verification-first": 85
+          },
+          "xsi0006": {
+            "bold-simulation-confidence": 30,
+            "permanent-self-skepticism": 60
+          },
+          "xsi0007": {
+            "electronic-structure-ab-initio-quantum": 95,
+            "classical-molecular-dynamics": -40,
+            "mesh-continuum-solvers": 20,
+            "statistical-stochastic-monte-carlo": 30
+          },
+          "xsi0008": {
+            "ab-initio-quantum-purity": 95,
+            "empirical-classical-potentials": -85
+          },
+          "xsi0009": {
+            "classical-supercomputing-algorithms": 80,
+            "quantum-hardware-analog-simulators": 50
+          },
+          "xsi0010": {
+            "continuum": 70,
+            "discrete": 10
+          },
+          "xsi0011": {
+            "deterministic": 80,
+            "stochastic": 0
+          },
+          "xsi0012": {
+            "direct-concurrent-multi-scale": 60,
+            "hierarchical-parameter-hand-off": 50
+          },
+          "xsi0013": {
+            "symplectic-integrators": 70,
+            "high-order-adaptive-steppers": 50
+          },
+          "xsi0014": {
+            "structured-uniform-grids-spectral-methods": 80,
+            "unstructured-adaptive-meshes": 30,
+            "mesh-free-particle-methods": 0
+          },
+          "xsi0015": {
+            "resolution": 85,
+            "domain-size": 10
+          },
+          "xsi0016": {
+            "strict": 85,
+            "pragmatic": -20
+          },
+          "xsi0017": {
+            "national-leadership-supercomputers": 80,
+            "hardware-you-control": 20
+          },
+          "xsi0018": {
+            "massive-cpu-cores": 80,
+            "dense-gpu-tensor-accelerators": 30,
+            "quantum-processors": 40
+          },
+          "xsi0019": {
+            "battle-tested-fortran-c-codebases": 60,
+            "modern-composable-high-level-stacks": 30
+          },
+          "xsi0020": {
+            "ai-neural-operators": -50,
+            "traditional-numerical-analysis": 80
+          },
+          "xsi0021": {
+            "mlip-enthusiast": -70,
+            "mlip-skeptic": 80
+          },
+          "xsi0022": {
+            "honest": 85,
+            "optimistic": -30
+          },
+          "xsi0023": {
+            "code": 80,
+            "results": 50
+          },
+          "xsi0024": {
+            "trust": 10,
+            "verify": 90
+          },
+          "xsi0025": {
+            "radical-open-source-science": 70,
+            "protected-competitive-advantage": -20
+          },
+          "xsi0026": {
+            "maintain": 50,
+            "rewrite": 30
+          },
+          "xsi0027": {
+            "specialist": 85,
+            "generalist": 10
+          },
+          "xsi0028": {
+            "theory": 90,
+            "implementation": 10
+          },
+          "xsi0029": {
+            "physicist-first": 90,
+            "research-software-engineer": -40
+          }
+        }
+      }
+    }
   }
 }

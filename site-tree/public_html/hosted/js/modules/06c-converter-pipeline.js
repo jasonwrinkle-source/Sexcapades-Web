@@ -479,6 +479,34 @@
                             incoming[flanks[k]] = clamp(vals[k]);
                         }
                     }
+                    // LINE triad (2026-11-16 fix): a trilinear-line stores one
+                    // scalar under the single key "line" (bind writes via
+                    // shape.keys[0]), but archetype payloads carry one
+                    // affinity per pole. Without a conversion the exact-key
+                    // copy above finds no "line" key, the positional
+                    // fallback requires >= 2 flanks, and the throw below
+                    // aborts the whole load (the Polis Democrat landed 10
+                    // of 38 ratings and no tab). Derive the position from
+                    // the affinities using the line's own forward semantics
+                    // (03e: middle weight = 1 - |V|/100, so |V| =
+                    // (100 - middleAffinity) / 2); the direction is the
+                    // more-liked end pole, a tie sits at 0. The middle pole
+                    // is poles[1] — skins list their line poles in axis
+                    // order [left, middle, right] — except the three topics
+                    // whose mix pole is listed third (Health insurance:
+                    // the ACA; Detector Design: Hybrid; Collaboration:
+                    // Coopetition), where it is poles[2]. A missing or
+                    // non-numeric pole falls through to the throw below:
+                    // a partial affinity set is not silently guessed.
+                    if (!Object.keys(incoming).length && 1 === flanks.length && "line" === flanks[0]) {
+                        const pk = shape.poleKeys && 3 === shape.poleKeys.length ? shape.poleKeys : Object.keys(rating);
+                        const midIdx = "xpo0029" === id || "xex0009" === id || "xex0025" === id ? 2 : 1;
+                        const aL = Number(rating[pk[0]]), aM = Number(rating[pk[midIdx]]), aR = Number(rating[pk[1 === midIdx ? 2 : 1]]);
+                        if (Number.isFinite(aL) && Number.isFinite(aM) && Number.isFinite(aR)) {
+                            const mag = (100 - clamp(aM)) / 2;
+                            incoming.line = clamp(Math.round((aL > aR ? -1 : aR > aL ? 1 : 0) * mag));
+                        }
+                    }
                 }
                 if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
                 const applied = {};
