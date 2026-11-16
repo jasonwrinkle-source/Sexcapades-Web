@@ -388,8 +388,8 @@
   }
 
   function setBrand(skinId, displayName) {
-    var name = skinId === "sexcapades" ? "Sexcapades.IO" : displayName;
-    document.title = skinId === "sexcapades" ? "Sexcapades.IO" : displayName + " — Flexcapades";
+    var name = skinId === "sexcapades" ? "Sex.Capades.IO" : displayName;
+    document.title = skinId === "sexcapades" ? "Sex.Capades.IO" : displayName + " — Flexcapades";
     var btn = document.getElementById("openAppAbout");
     if (btn) btn.textContent = name;
     var about = document.getElementById("appAboutTitle");
