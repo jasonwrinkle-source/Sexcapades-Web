@@ -92,6 +92,19 @@
         // per-branch length overrides, which are preserved untouched in
         // mn.branchOverrides and apply again as soon as it is turned off.
         let staggerDensityRange = null;
+        // SOLVER MINIMUM SPOKE (2026-11-15, Jason's route-b ruling): a
+        // branch's throw never falls below SX_MIN_BRANCH_THROW model units.
+        // Small skins carry no manual length override — their settings are a
+        // byte copy of Sexcapades', keyed by Sexcapades branch names, so no
+        // override matches and their throws sat at ~4-6k against Sexcapades'
+        // ~70-450k, collapsing the maps onto the hub. The floor lifts them
+        // to radiate. Sexcapades' smallest tuned throw (~70.5k, measured
+        // 2026-11-15 from the live branch-node positions) sits far above the
+        // floor and is untouched. The floor is a solver constant, not a
+        // setting: it needs no editor UI and no fingerprint churn. Applied
+        // to the TOTAL throw (after the solver's own adjustment), so an
+        // optimiser shrink can never pull a branch back under the floor.
+        const SX_MIN_BRANCH_THROW = 50000;
         function yr(e) {
             const t = mn.branchOverrides && mn.branchOverrides[e.name] || {}, n = Math.max(0, h.indexOf(e));
             // SOLVER-METRICS REFACTOR (F9): the branch-length factor
@@ -130,7 +143,7 @@
                 // staggerDensity is turned off.
                 manualFactor = .7 + .6 * normalized;
             }
-            return 1450 * mn.spokeLen * manualFactor * staggerFactor * collisionFactor * shrinkFactor + solverAdjust + pr.categoryIcon / 2 + 30;
+            return Math.max(SX_MIN_BRANCH_THROW, 1450 * mn.spokeLen * manualFactor * staggerFactor * collisionFactor * shrinkFactor + solverAdjust + pr.categoryIcon / 2 + 30);
         }
         function br(e, t) {
             const n = pr.centerX, i = pr.centerY, a = (pr.centerRadius + 150) * centerRingScale(), kp = p => { const dx = p.x - n, dy = p.y - i, dd = Math.hypot(dx, dy); return dd >= a + 2 ? p : dd < 1e-6 ? { x: n + a + 2, y: i } : { x: n + dx / dd * (a + 2), y: i + dy / dd * (a + 2) }; };

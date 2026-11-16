@@ -1543,6 +1543,14 @@
                         clone.removeAttribute("tabindex"), clone.removeAttribute("role"), clone.removeAttribute("aria-label"), 
                         clone.removeAttribute("aria-expanded"), clone.setAttribute("aria-hidden", "true"), clone.addEventListener("click", Qa), 
                         sxOverlay.appendChild(clone);
+                        // Branch-label zoom (2026-11-15): the real label
+                        // paints above its overlay clone and swallows
+                        // the click, so bind the same handler to the
+                        // label itself. Marker-guarded: the overlay
+                        // pass re-runs per render.
+                        if (!label.dataset.sxLabelZoom) {
+                            label.addEventListener("click", Qa), label.dataset.sxLabelZoom = "1";
+                        }
                     }
                     const a = Number(e.dataset.layoutX), r = Number(e.dataset.layoutY);
                     if (Number.isFinite(a) && Number.isFinite(r)) {
@@ -2259,7 +2267,14 @@
                 // the map, pull back to the full map — Ih() also arms
                 // the fit-settle chain, which re-fits again after the
                 // anneal moves the nodes. Non-boot paints are untouched.
-                if (ok && sxBootArm) try { Ih(); } catch (_) {}
+                // User-wins gate (2026-11-15): the boot paint can finish
+                // AFTER the user has already focused a node (slow paint
+                // on a loaded machine) — the pull-back then clobbers the
+                // user's zoom (kh cancels the focus tween and re-fits).
+                // A user camera move sets fitSettleUserHold via
+                // noteFitUserCamera(); when it is set, skip the
+                // pull-back and leave the user's camera alone.
+                if (ok && sxBootArm && !fitSettleUserHold) try { Ih(); } catch (_) {}
             });
             return window.sxPaintPromise = sxPaintPromise = p, p.then(ok => (release(), sxPaintPromise === p && (window.sxPaintPromise = sxPaintPromise = null), ok), () => (release(), window.sxPaintPromise = null, !1));
         }

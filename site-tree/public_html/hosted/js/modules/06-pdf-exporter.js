@@ -856,7 +856,20 @@
                     if (sxLastDoubleTime && performance.now() - sxLastDoubleTime < 520) return;
                     if ("pointerup" !== e.type) return;
                     if (isCat || isSub) {
-                        n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        // Branch-label tap, fast path (Build 2026-11-15_2225):
+                        // a label tap on an already-expanded branch used to run
+                        // the expand path, whose full re-render holds the camera
+                        // zoom behind it (seconds on a loaded machine) although
+                        // the branch is already open. When the label's own
+                        // aria-expanded says the branch is open, select like
+                        // the icon instead and zoom at once; only a collapsed
+                        // branch still takes the expand path (which re-renders
+                        // to reveal its children before the zoom). The
+                        // aria-expanded="true" attribute selector matches only
+                        // the real label: the overlay clone carries no
+                        // aria-expanded (it is aria-hidden instead).
+                        const sxLabelEl = document.querySelector(`.category-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"], .subcategory-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"]`);
+                        n.spoke || sxLabelEl ? selectSpokeNode(n.id, !0) : $i(n.id);
                         if (typeof Th === "function") Th(sid, branch);
                         return;
                     }

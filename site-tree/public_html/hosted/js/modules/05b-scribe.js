@@ -1571,7 +1571,7 @@
                 play = {
                     considered: gPlayTopics.length, matches: gMatches.length,
                     headline: msAggG.pct,
-                    label: "Play MS",
+                    label: sxTerm("playMS"),
                     lists: {
                         matches: gMatches.sort(byStrength),
                         curiousAbout: gPlayTopics.filter(r => "curious-fit" === r.playOutcome).sort(byStrength),
@@ -1585,7 +1585,7 @@
                 conversation = {
                     considered: gConvTopics.length, counted: gCounted.length,
                     kinkFactor: kfAggG.pct,
-                    label: "Play KF",
+                    label: sxTerm("playKF"),
                     lists: {
                         counted: gCounted.sort(byLabel),
                         limits: topics.filter(r => r.groupLimited).sort(byLabel)
@@ -1595,7 +1595,7 @@
             const parlay = {
                 considered: msParlayAggG.considered, counted: msParlayAggG.counted,
                 headline: msParlayAggG.pct, kinkFactor: kfParlayAggG.pct,
-                label: "Parlay MS", kfLabel: "Parlay KF",
+                label: sxTerm("parlayMS"), kfLabel: sxTerm("parlayKF"),
                 lists: {
                     limits: topics.filter(r => r.groupLimited).sort(byLabel)
                 }
@@ -1802,13 +1802,29 @@
                 kfAggS = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
             return { outer: msAggS.pct, inner: kfAggS.pct };
         }
+        /* Domain-terms skinning (first i18n step, 2026-11-15): the active
+           skin's words, resolved by the skin loader into
+           window.__SX_TERMS (the loader owns the table; see
+           skin-loader.js). Sexcapades keeps its own words; other skins
+           get the vanilla equivalents. Falls back to the Sexcapades
+           form when the loader hasn't run yet — never blank, and never
+           wrong for the default skin. Shared by this module and
+           05-compatibility.js (the bundle concatenates the modules
+           into one scope, so this declaration is visible there). */
+        function sxTerm(key) {
+            var T = (typeof window !== "undefined" && window.__SX_TERMS) || null;
+            var v = T && T[key];
+            if (typeof v === "string" && v) return v;
+            var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife" };
+            return fallback[key] || key;
+        }
         /* Score-ring values for a tab/profile context. kind: "profile"
            (outer Charted, inner Personal KF), "bowtie" (outer Play MS,
            inner Play KF, off the pair/group engine aggregates),
            "circledot" (Parlay MS / Parlay KF pair, provisional). */
         function sxRingValuesForProfile(profile) {
             const pc = sxPersonalCharted(profile);
-            return { outerLabel: "Charted", outer: pc.charted, innerLabel: "Personal Kink Factor", inner: pc.personal };
+            return { outerLabel: "Charted", outer: pc.charted, innerLabel: "Personal " + sxTerm("kinkFactor"), inner: pc.personal };
         }
         function sxRingValuesForCast(profiles, pairOp) {
             if (!profiles || profiles.length < 2) return null;
@@ -1830,13 +1846,13 @@
                        pair Parlay and group Play already use; no new
                        surface is invented. */
                     const par = grp.parlay;
-                    return { outerLabel: "Parlay MS", outer: par ? par.headline : null, innerLabel: "Parlay KF", inner: par ? par.kinkFactor : null };
+                    return { outerLabel: sxTerm("parlayMS"), outer: par ? par.headline : null, innerLabel: sxTerm("parlayKF"), inner: par ? par.kinkFactor : null };
                 }
                 const si = sxStraightInterim(pair);
-                return { outerLabel: "Parlay MS", outer: si.outer, innerLabel: "Parlay KF", inner: si.inner };
+                return { outerLabel: sxTerm("parlayMS"), outer: si.outer, innerLabel: sxTerm("parlayKF"), inner: si.inner };
             }
             const play = isPair ? pair.play : grp.play, conv = isPair ? pair.conversation : grp.conversation;
-            return { outerLabel: "Play MS", outer: play ? play.headline : null, innerLabel: "Play KF", inner: conv ? conv.kinkFactor : null };
+            return { outerLabel: sxTerm("playMS"), outer: play ? play.headline : null, innerLabel: sxTerm("playKF"), inner: conv ? conv.kinkFactor : null };
         }
         /* Score rings (two-ring build): the header Avatar rings are the
            only score-ring paint — outer + inner rings in the same
