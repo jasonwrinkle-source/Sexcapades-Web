@@ -22851,6 +22851,14 @@ const TAXONOMY_CATEGORIES = [
         // itself (entries, topics, children) is rebuilt fresh every
         // paint, so the payload can never resurrect a stale taxonomy.
         // ============================================================
+        // SOLVER VERSION (2026-11-15): bump whenever the solver's delivered
+        // geometry changes, so positions baked under an older solver fail
+        // the gate and the paint solves instead of serving stale geometry.
+        // The settings fingerprint cannot catch a solver change — it hashes
+        // mn only — so without this the minimum-spoke floor (or any future
+        // solver change) would slip through the gate undetected. v2 = the
+        // minimum primary-spoke floor (SX_MIN_BRANCH_THROW, 03-map-geometry).
+        const SX_SOLVER_VERSION = 2;
         function sxBakedFingerprint() {
             try { return dkStableStringify(mn); } catch (e) { return null; }
         }
@@ -22931,6 +22939,7 @@ const TAXONOMY_CATEGORIES = [
             try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
             return {
                 skin: skin,
+                solverVersion: SX_SOLVER_VERSION,
                 capturedAt: new Date().toISOString(),
                 settingsHash: settingsHash,
                 fingerprint: sxBakedFingerprint(),
@@ -23039,6 +23048,7 @@ const TAXONOMY_CATEGORIES = [
             var skin = "sexcapades";
             try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
             if (pos.skin && pos.skin !== skin) return null;
+            if (pos.solverVersion !== SX_SOLVER_VERSION) return null;
             if (scCtx) return null;
             if (dkCtx) return null;
             var fp = null;
@@ -24628,6 +24638,19 @@ const TAXONOMY_CATEGORIES = [
         // per-branch length overrides, which are preserved untouched in
         // mn.branchOverrides and apply again as soon as it is turned off.
         let staggerDensityRange = null;
+        // SOLVER MINIMUM SPOKE (2026-11-15, Jason's route-b ruling): a
+        // branch's throw never falls below SX_MIN_BRANCH_THROW model units.
+        // Small skins carry no manual length override — their settings are a
+        // byte copy of Sexcapades', keyed by Sexcapades branch names, so no
+        // override matches and their throws sat at ~4-6k against Sexcapades'
+        // ~70-450k, collapsing the maps onto the hub. The floor lifts them
+        // to radiate. Sexcapades' smallest tuned throw (~70.5k, measured
+        // 2026-11-15 from the live branch-node positions) sits far above the
+        // floor and is untouched. The floor is a solver constant, not a
+        // setting: it needs no editor UI and no fingerprint churn. Applied
+        // to the TOTAL throw (after the solver's own adjustment), so an
+        // optimiser shrink can never pull a branch back under the floor.
+        const SX_MIN_BRANCH_THROW = 50000;
         function yr(e) {
             const t = mn.branchOverrides && mn.branchOverrides[e.name] || {}, n = Math.max(0, h.indexOf(e));
             // SOLVER-METRICS REFACTOR (F9): the branch-length factor
@@ -24666,7 +24689,7 @@ const TAXONOMY_CATEGORIES = [
                 // staggerDensity is turned off.
                 manualFactor = .7 + .6 * normalized;
             }
-            return 1450 * mn.spokeLen * manualFactor * staggerFactor * collisionFactor * shrinkFactor + solverAdjust + pr.categoryIcon / 2 + 30;
+            return Math.max(SX_MIN_BRANCH_THROW, 1450 * mn.spokeLen * manualFactor * staggerFactor * collisionFactor * shrinkFactor + solverAdjust + pr.categoryIcon / 2 + 30);
         }
         function br(e, t) {
             const n = pr.centerX, i = pr.centerY, a = (pr.centerRadius + 150) * centerRingScale(), kp = p => { const dx = p.x - n, dy = p.y - i, dd = Math.hypot(dx, dy); return dd >= a + 2 ? p : dd < 1e-6 ? { x: n + a + 2, y: i } : { x: n + dx / dd * (a + 2), y: i + dy / dd * (a + 2) }; };
@@ -26880,6 +26903,14 @@ const TAXONOMY_CATEGORIES = [
                         clone.removeAttribute("tabindex"), clone.removeAttribute("role"), clone.removeAttribute("aria-label"), 
                         clone.removeAttribute("aria-expanded"), clone.setAttribute("aria-hidden", "true"), clone.addEventListener("click", Qa), 
                         sxOverlay.appendChild(clone);
+                        // Branch-label zoom (2026-11-15): the real label
+                        // paints above its overlay clone and swallows
+                        // the click, so bind the same handler to the
+                        // label itself. Marker-guarded: the overlay
+                        // pass re-runs per render.
+                        if (!label.dataset.sxLabelZoom) {
+                            label.addEventListener("click", Qa), label.dataset.sxLabelZoom = "1";
+                        }
                     }
                     const a = Number(e.dataset.layoutX), r = Number(e.dataset.layoutY);
                     if (Number.isFinite(a) && Number.isFinite(r)) {
@@ -27596,7 +27627,14 @@ const TAXONOMY_CATEGORIES = [
                 // the map, pull back to the full map — Ih() also arms
                 // the fit-settle chain, which re-fits again after the
                 // anneal moves the nodes. Non-boot paints are untouched.
-                if (ok && sxBootArm) try { Ih(); } catch (_) {}
+                // User-wins gate (2026-11-15): the boot paint can finish
+                // AFTER the user has already focused a node (slow paint
+                // on a loaded machine) — the pull-back then clobbers the
+                // user's zoom (kh cancels the focus tween and re-fits).
+                // A user camera move sets fitSettleUserHold via
+                // noteFitUserCamera(); when it is set, skip the
+                // pull-back and leave the user's camera alone.
+                if (ok && sxBootArm && !fitSettleUserHold) try { Ih(); } catch (_) {}
             });
             return window.sxPaintPromise = sxPaintPromise = p, p.then(ok => (release(), sxPaintPromise === p && (window.sxPaintPromise = sxPaintPromise = null), ok), () => (release(), window.sxPaintPromise = null, !1));
         }
@@ -36025,7 +36063,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 play = {
                     considered: gPlayTopics.length, matches: gMatches.length,
                     headline: msAggG.pct,
-                    label: "Play MS",
+                    label: sxTerm("playMS"),
                     lists: {
                         matches: gMatches.sort(byStrength),
                         curiousAbout: gPlayTopics.filter(r => "curious-fit" === r.playOutcome).sort(byStrength),
@@ -36039,7 +36077,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 conversation = {
                     considered: gConvTopics.length, counted: gCounted.length,
                     kinkFactor: kfAggG.pct,
-                    label: "Play KF",
+                    label: sxTerm("playKF"),
                     lists: {
                         counted: gCounted.sort(byLabel),
                         limits: topics.filter(r => r.groupLimited).sort(byLabel)
@@ -36049,7 +36087,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const parlay = {
                 considered: msParlayAggG.considered, counted: msParlayAggG.counted,
                 headline: msParlayAggG.pct, kinkFactor: kfParlayAggG.pct,
-                label: "Parlay MS", kfLabel: "Parlay KF",
+                label: sxTerm("parlayMS"), kfLabel: sxTerm("parlayKF"),
                 lists: {
                     limits: topics.filter(r => r.groupLimited).sort(byLabel)
                 }
@@ -36256,13 +36294,29 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 kfAggS = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
             return { outer: msAggS.pct, inner: kfAggS.pct };
         }
+        /* Domain-terms skinning (first i18n step, 2026-11-15): the active
+           skin's words, resolved by the skin loader into
+           window.__SX_TERMS (the loader owns the table; see
+           skin-loader.js). Sexcapades keeps its own words; other skins
+           get the vanilla equivalents. Falls back to the Sexcapades
+           form when the loader hasn't run yet — never blank, and never
+           wrong for the default skin. Shared by this module and
+           05-compatibility.js (the bundle concatenates the modules
+           into one scope, so this declaration is visible there). */
+        function sxTerm(key) {
+            var T = (typeof window !== "undefined" && window.__SX_TERMS) || null;
+            var v = T && T[key];
+            if (typeof v === "string" && v) return v;
+            var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife" };
+            return fallback[key] || key;
+        }
         /* Score-ring values for a tab/profile context. kind: "profile"
            (outer Charted, inner Personal KF), "bowtie" (outer Play MS,
            inner Play KF, off the pair/group engine aggregates),
            "circledot" (Parlay MS / Parlay KF pair, provisional). */
         function sxRingValuesForProfile(profile) {
             const pc = sxPersonalCharted(profile);
-            return { outerLabel: "Charted", outer: pc.charted, innerLabel: "Personal Kink Factor", inner: pc.personal };
+            return { outerLabel: "Charted", outer: pc.charted, innerLabel: "Personal " + sxTerm("kinkFactor"), inner: pc.personal };
         }
         function sxRingValuesForCast(profiles, pairOp) {
             if (!profiles || profiles.length < 2) return null;
@@ -36284,13 +36338,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                        pair Parlay and group Play already use; no new
                        surface is invented. */
                     const par = grp.parlay;
-                    return { outerLabel: "Parlay MS", outer: par ? par.headline : null, innerLabel: "Parlay KF", inner: par ? par.kinkFactor : null };
+                    return { outerLabel: sxTerm("parlayMS"), outer: par ? par.headline : null, innerLabel: sxTerm("parlayKF"), inner: par ? par.kinkFactor : null };
                 }
                 const si = sxStraightInterim(pair);
-                return { outerLabel: "Parlay MS", outer: si.outer, innerLabel: "Parlay KF", inner: si.inner };
+                return { outerLabel: sxTerm("parlayMS"), outer: si.outer, innerLabel: sxTerm("parlayKF"), inner: si.inner };
             }
             const play = isPair ? pair.play : grp.play, conv = isPair ? pair.conversation : grp.conversation;
-            return { outerLabel: "Play MS", outer: play ? play.headline : null, innerLabel: "Play KF", inner: conv ? conv.kinkFactor : null };
+            return { outerLabel: sxTerm("playMS"), outer: play ? play.headline : null, innerLabel: sxTerm("playKF"), inner: conv ? conv.kinkFactor : null };
         }
         /* Score rings (two-ring build): the header Avatar rings are the
            only score-ring paint — outer + inner rings in the same
@@ -36756,7 +36810,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // is no save click left to relocate.
         function sxStamp(ctx) {
             const parts = ctx.profiles.map((p, i) => `${p.name || `Profile ${i + 1}`} ${sxHeatZone(sxHeatFor(sxKey(ctx, i)))}`);
-            return `${"play" === sxcv.mode ? "Play" : "Conversation"} · Heat: ${parts.join(" · ")}`;
+            return `${"play" === sxcv.mode ? sxTerm("playMode") : sxTerm("conversationMode")} · Heat: ${parts.join(" · ")}`;
         }
         function sxRenderResults(allowBuzz) {
             const root = sxResultsEl();
@@ -36765,11 +36819,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             let headlineLabel, headlineText, coverageHtml = "";
             if (isPair) {
                 const agg = "play" === mode ? pair.play : pair.conversation, cov = pair.coverage;
-                headlineLabel = "play" === mode ? "Play MS" : "Play KF", headlineText = agg.headlineText || "No score — no shared topics",
+                headlineLabel = "play" === mode ? sxTerm("playMS") : sxTerm("playKF"), headlineText = agg.headlineText || "No score — no shared topics",
                 coverageHtml = `<p class="sx-coverage">${Hi(pair.a)}: ${cov.aRated} rated · ${cov.aPercent}% of ${cov.catalog} topics · ${Hi(pair.b)}: ${cov.bRated} rated · ${cov.bPercent}% of ${cov.catalog} topics · ${cov.oneSided} one-sided · ${cov.limitBlocked} limit-blocked · ${cov.fantasySetAside} fantasy set aside</p>`;
             } else {
                 const agg = "play" === mode ? grp.play : grp.conversation, limitedCount = grp.topics.filter(t => t.groupLimited).length;
-                headlineLabel = agg.label || ("play" === mode ? "Play MS" : "Play KF"), headlineText = agg.headlineText || "No score — no shared topics";
+                headlineLabel = agg.label || ("play" === mode ? sxTerm("playMS") : sxTerm("playKF")), headlineText = agg.headlineText || "No score — no shared topics";
                 const per = ctx.profiles.map((p, i) => {
                     const pr = grp.pairs.find(x => x.i === i || x.j === i);
                     if (!pr) return `${Hi(p.name || `Profile ${i + 1}`)}: —`;
@@ -36814,7 +36868,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                render in this seat — the header paint shows the same
                Play MS / Play KF for the active match
                tab through sxRingValuesForCast. */
-            n(root, `<div class="sx-stamp">${Hi(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
+            n(root, `<div class="sx-stamp" data-sx-term="playMode,conversationMode">${Hi(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
             const sxTabNow = sxCurrentTab();
             sxTabNow && "bowtie" === sxTabNow.kind && (sxTabNow.buckets = sxBowtieBuckets(ctx, grp), sxUpdateMatchRings(sxTabNow));
             allowBuzz && sxMaybeBuzz(ctx, grp);
@@ -36844,13 +36898,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         function sxMatchIconsHtml() {
             if (!sxMatchIconsVisible()) return "";
-            return `<button type="button" class="profile-match-btn" data-sx-match-open="circledot" aria-label="Open Straight Talk for the selected profiles" title="Straight Talk">⊙</button><button type="button" class="profile-match-btn" data-sx-match-open="bowtie" aria-label="Open Krossmatch for the selected profiles" title="Krossmatch">⋈</button>`;
+            return `<button type="button" class="profile-match-btn" data-sx-match-open="circledot" aria-label="Open Straight Talk for the selected profiles" title="Straight Talk">⊙</button><button type="button" class="profile-match-btn" data-sx-match-open="bowtie" data-sx-term="krossmatch" aria-label="Open ${sxTerm("krossmatch")} for the selected profiles" title="${sxTerm("krossmatch")}">⋈</button>`;
         }
         function sxMatchTabsHtml() {
             const reg = sxTabsReg();
             return [ ...reg.tabs.values() ].map(tab => {
-                const active = reg.stageOn && reg.active === tab.key, label = "circledot" === tab.kind ? "Straight Talk" : "Krossmatch", glyph = "circledot" === tab.kind ? "⊙" : "⋈";
-                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${label} match tab"><span aria-hidden="true">${glyph}</span> ${label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${label} tab">×</button></span>`;
+                const active = reg.stageOn && reg.active === tab.key, label = "circledot" === tab.kind ? "Straight Talk" : sxTerm("krossmatch"), glyph = "circledot" === tab.kind ? "⊙" : "⋈";
+                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${label} match tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}><span aria-hidden="true">${glyph}</span> ${label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${label} tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}>×</button></span>`;
             }).join("");
         }
         function sxCurrentTab() {
@@ -37068,7 +37122,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // legacy results assembly survives ONLY as the 4+-profile
             // group presentation (carve-out: no N-map layout is invented
             // for 4+); it stays hidden for 2- and 3-profile casts.
-            sec.innerHTML = "circledot" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>`;
+            sec.innerHTML = "circledot" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp="" data-sx-term="playMode,conversationMode"></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>`;
             stage.appendChild(sec), tab.section = sec;
         }
         /* Straight bands (Job 2, ruled equal thirds over the per-topic
@@ -37111,7 +37165,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const pk = tab.section.querySelector("[data-sx-picker]");
             pk && (pk.innerHTML = sxPickerHtml());
             const st = tab.section.querySelector("[data-sx-stamp]");
-            st && (st.textContent = ctx ? `Conversation · Heat: ${ctx.profiles.map((p, i) => `${p.name || `Profile ${i + 1}`} ${sxHeatZone(sxHeatFor(sxKey(ctx, i)))}`).join(" · ")}` : "");
+            st && (st.textContent = ctx ? sxStamp(ctx) : "");
             const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {}) : null;
             const bandLists = sxStraightBands(pair);
             /* Banded Straight Talk list (Job 3): the Job 1 ranked list,
@@ -38288,7 +38342,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 const v = sxHeatFor(id);
                 return `${names[i]} ${sxHeatZone(v)} ${v > 0 ? "+" + v : v}`;
             }), veil = ids.map((id, i) => `${names[i]} ${sxVeilFor(id)}`);
-            return `COMPARE SETTINGS — Mode: ${"play" === sxcv.mode ? "Play" : "Conversation"} · Heat: ${heat.join(" · ")} · Veil: ${veil.join(" · ")}`;
+            return `COMPARE SETTINGS — Mode: ${"play" === sxcv.mode ? sxTerm("playMode") : sxTerm("conversationMode")} · Heat: ${heat.join(" · ")} · Veil: ${veil.join(" · ")}`;
         }
         // Shared plain-text lines for the BINDING surfaces only
         // (refactor F11): the per-person binding Terms line and the
@@ -42062,7 +42116,20 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     if (sxLastDoubleTime && performance.now() - sxLastDoubleTime < 520) return;
                     if ("pointerup" !== e.type) return;
                     if (isCat || isSub) {
-                        n.spoke ? selectSpokeNode(n.id, !0) : $i(n.id);
+                        // Branch-label tap, fast path (Build 2026-11-15_2225):
+                        // a label tap on an already-expanded branch used to run
+                        // the expand path, whose full re-render holds the camera
+                        // zoom behind it (seconds on a loaded machine) although
+                        // the branch is already open. When the label's own
+                        // aria-expanded says the branch is open, select like
+                        // the icon instead and zoom at once; only a collapsed
+                        // branch still takes the expand path (which re-renders
+                        // to reveal its children before the zoom). The
+                        // aria-expanded="true" attribute selector matches only
+                        // the real label: the overlay clone carries no
+                        // aria-expanded (it is aria-hidden instead).
+                        const sxLabelEl = document.querySelector(`.category-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"], .subcategory-label[data-id="${CSS.escape(sid)}"][aria-expanded="true"]`);
+                        n.spoke || sxLabelEl ? selectSpokeNode(n.id, !0) : $i(n.id);
                         if (typeof Th === "function") Th(sid, branch);
                         return;
                     }
