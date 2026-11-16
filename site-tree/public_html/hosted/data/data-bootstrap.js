@@ -22806,6 +22806,13 @@ const TAXONOMY_CATEGORIES = [
         // ============================================================
         const SX_SOLVER_FACADE = {
             build() {
+                var baked = null;
+                try { baked = sxTryBaked(); } catch (e) { baked = null; }
+                if (baked) {
+                    try { window.__sxLastBuildMode = "baked"; } catch (e2) {}
+                    return baked;
+                }
+                try { window.__sxLastBuildMode = "solved"; } catch (e3) {}
                 return fr();
             },
             tidy(geo) {
@@ -22826,6 +22833,220 @@ const TAXONOMY_CATEGORIES = [
                 return dkRunCascade(branch, opts);
             }
         };
+        // ============================================================
+        // BAKED POSITIONS (2026-11-15): the skin files carry solved
+        // geometry (defaultLayout.positions). When the live state
+        // exactly matches the captured state — same skin, same
+        // settings fingerprint, same tree structure, no scoped or
+        // DeKnotter context active — the paint uses the baked geometry
+        // instead of solving. The solver itself stays for editor
+        // operations (Anneal, Autofit, DeKnotter, KinkTest, fit
+        // targets): any settings change, profile/detail/search change,
+        // or taxonomy change fails the gate and the paint solves, as
+        // before. The crossings readout needs no special case: the
+        // reconstructed branches become dkLastBranches, so
+        // window.__sxCrossingMeasure computes from the baked geometry.
+        // The baked payload carries only solve-assigned numbers
+        // (angles, sectors, cloud radii, spoke adjustments); the tree
+        // itself (entries, topics, children) is rebuilt fresh every
+        // paint, so the payload can never resurrect a stale taxonomy.
+        // ============================================================
+        function sxBakedFingerprint() {
+            try { return dkStableStringify(mn); } catch (e) { return null; }
+        }
+        // The signature is a MEMBERSHIP signature, deliberately
+        // order-insensitive: branches sorted by catId, topics and
+        // children sorted by id. The tree's order is NOT stable across
+        // a skin round-trip — frBuildTree sorts each subcategory's
+        // children by popularity score (02g G/U/W), and after a swap
+        // the scores read as unrated, so the sort falls back to label
+        // order (2026-11-15: switch-back tree reads t0291..t0296 where
+        // the fresh boot reads t0294,t0293,t0291,t0296,t0292,t0295 —
+        // same members, different order). The baked reconstruction
+        // looks every branch/topic/child up BY ID, and the crossings
+        // measure sums over pairs, so order carries no geometry; only
+        // membership does. Sorting here keeps the gate from failing
+        // on a benign reordering while still catching any real
+        // taxonomy change (a missing/added topic or child changes
+        // the sorted lists).
+        function sxBakedTreeSignature(tree) {
+            var parts = [];
+            (tree || []).forEach(function (b) {
+                var topics = (b.topics || []).map(function (t) {
+                    var kids = (t.children || []).map(function (c) { return c.id; }).sort().join(",");
+                    return t.id + "[" + kids + "]";
+                }).sort().join(",");
+                parts.push(b.catId + ":" + topics);
+            });
+            return parts.sort().join("|");
+        }
+        function sxSerializeBranch(br) {
+            return {
+                name: br.entry.branch.name,
+                catId: br.entry.catId,
+                angle: br.angle,
+                sector: br.sector,
+                topicCloudRadius: br.topicCloudRadius,
+                topicCloudRadiusBase: br.topicCloudRadiusBase,
+                spokeAdjust20: Number(br.entry.branch._spokeAdjust20) || 0,
+                topics: (br.topics || []).map(function (t) {
+                    return {
+                        id: t.topic.id,
+                        angle: t.angle,
+                        sector: t.sector,
+                        cloudAngle: t.cloudAngle,
+                        cloudRadius: t.cloudRadius,
+                        cloudCount: t.cloudCount,
+                        cloudIndex: t.cloudIndex,
+                        childCloudRadius: t.childCloudRadius,
+                        curve: !!t.curve,
+                        radialFit20: (typeof t._radialFit20 === "number" && isFinite(t._radialFit20)) ? t._radialFit20 : null,
+                        children: (t.children || []).map(function (c) {
+                            return {
+                                id: c.child.id,
+                                angle: c.angle,
+                                sector: c.sector,
+                                cloudAngle: c.cloudAngle,
+                                cloudRadius: c.cloudRadius,
+                                cloudCount: c.cloudCount,
+                                cloudIndex: c.cloudIndex,
+                                curve: !!c.curve,
+                                radialFit20: (typeof c._radialFit20 === "number" && isFinite(c._radialFit20)) ? c._radialFit20 : null
+                            };
+                        })
+                    };
+                })
+            };
+        }
+        function sxSerializeBaked() {
+            if (!dkLastBranches) return null;
+            var tree = null;
+            try { tree = frBuildTree(); } catch (e) { return null; }
+            var sig = sxBakedTreeSignature(tree);
+            var crossings = null;
+            try { var m = (typeof window.__sxCrossingMeasure === "function") ? window.__sxCrossingMeasure() : null; crossings = m ? m.crossing : null; } catch (e) { crossings = null; }
+            var settingsHash = null;
+            try { settingsHash = (window.__SEXCAPADES_LAYOUT_TEST && typeof window.__SEXCAPADES_LAYOUT_TEST.hash === "function") ? window.__SEXCAPADES_LAYOUT_TEST.hash() : null; } catch (e) { settingsHash = null; }
+            var skin = "sexcapades";
+            try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
+            return {
+                skin: skin,
+                capturedAt: new Date().toISOString(),
+                settingsHash: settingsHash,
+                fingerprint: sxBakedFingerprint(),
+                treeSignature: sig,
+                crossings: crossings,
+                branches: (dkLastBranches || []).map(sxSerializeBranch)
+            };
+        }
+        function sxBuildBaked(pos) {
+            if (scCtx) return null;
+            var tree = null;
+            try { tree = frBuildTree(); } catch (e) { return null; }
+            if (sxBakedTreeSignature(tree) !== pos.treeSignature) return null;
+            var t = tree.map(function (e) { return { entry: e, label: e.branch.name, weight: e.weight, minDemand: e.minDemand }; });
+            t.sort(function (a, b) { return (branchOrderRankMap().get(a.entry.branch.name) ?? 0) - (branchOrderRankMap().get(b.entry.branch.name) ?? 0); });
+            var byCat = {};
+            (pos.branches || []).forEach(function (b) { byCat[b.catId] = b; });
+            var n = t.map(function (w) {
+                var entry = w.entry;
+                var baked = byCat[entry.catId];
+                if (!baked) return null;
+                var br = {
+                    entry: entry,
+                    label: entry.branch.name,
+                    weight: entry.weight,
+                    minDemand: entry.minDemand,
+                    angle: baked.angle,
+                    sector: baked.sector,
+                    start: baked.angle - baked.sector / 2,
+                    end: baked.angle + baked.sector / 2,
+                    topicCloudRadius: baked.topicCloudRadius,
+                    topicCloudRadiusBase: baked.topicCloudRadiusBase,
+                    topics: []
+                };
+                entry.branch._spokeAdjust20 = baked.spokeAdjust20 || 0;
+                var byId = {};
+                (baked.topics || []).forEach(function (x) { byId[x.id] = x; });
+                br.topics = entry.topics.map(function (tt) {
+                    var bt = byId[tt.id];
+                    if (!bt) return null;
+                    var tw = {
+                        topic: tt,
+                        label: tt.label,
+                        weight: tt.weight,
+                        minDemand: tt.minDemand,
+                        branchName: entry.branch.name,
+                        startAngle: baked.angle,
+                        angle: bt.angle,
+                        sector: bt.sector,
+                        start: bt.angle - bt.sector / 2,
+                        end: bt.angle + bt.sector / 2,
+                        cloudAngle: bt.cloudAngle,
+                        cloudRadius: bt.cloudRadius,
+                        cloudCount: bt.cloudCount,
+                        cloudIndex: bt.cloudIndex,
+                        childCloudRadius: bt.childCloudRadius,
+                        curve: !!bt.curve,
+                        children: []
+                    };
+                    if (typeof bt.radialFit20 === "number") tw._radialFit20 = bt.radialFit20;
+                    var byKid = {};
+                    (bt.children || []).forEach(function (x) { byKid[x.id] = x; });
+                    tw.children = (tt.children || []).map(function (cc) {
+                        var bc = byKid[cc.id];
+                        if (!bc) return null;
+                        var cw = {
+                            child: cc,
+                            label: cc.label,
+                            weight: 1,
+                            branchName: entry.branch.name,
+                            parentTopic: tt,
+                            startAngle: bt.angle,
+                            angle: bc.angle,
+                            sector: bc.sector,
+                            start: bc.angle - bc.sector / 2,
+                            end: bc.angle + bc.sector / 2,
+                            cloudAngle: bc.cloudAngle,
+                            cloudRadius: bc.cloudRadius,
+                            cloudCount: bc.cloudCount,
+                            cloudIndex: bc.cloudIndex,
+                            curve: !!bc.curve
+                        };
+                        if (typeof bc.radialFit20 === "number") cw._radialFit20 = bc.radialFit20;
+                        return cw;
+                    });
+                    if (tw.children.some(function (x) { return !x; })) return null;
+                    return tw;
+                });
+                if (br.topics.some(function (x) { return !x; })) return null;
+                return br;
+            });
+            if (n.some(function (x) { return !x; })) return null;
+            dkLastBranches = n;
+            n.forEach(function (b) {
+                (b.topics || []).forEach(function (t) {
+                    dkRecordDelivered(t);
+                    if (t.topic && t.topic.isSubcategory) (t.children || []).forEach(function (ch) { dkRecordDelivered(ch); });
+                });
+            });
+            return { tree: tree, branches: n };
+        }
+        function sxTryBaked() {
+            var pos = null;
+            try { pos = window.__SX_BAKED_POSITIONS || null; } catch (e) { return null; }
+            if (!pos || !Array.isArray(pos.branches) || !pos.branches.length) return null;
+            var skin = "sexcapades";
+            try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
+            if (pos.skin && pos.skin !== skin) return null;
+            if (scCtx) return null;
+            if (dkCtx) return null;
+            var fp = null;
+            try { fp = sxBakedFingerprint(); } catch (e) { return null; }
+            if (!fp || fp !== pos.fingerprint) return null;
+            return sxBuildBaked(pos);
+        }
+        window.__sxCaptureBakedGeometry = sxSerializeBaked;
         let sxDemoteLogged = !1, sxSettleDone = !1;
         function sxSolverModeQuiet() {
             const v = mn && mn.solverMidline;
@@ -27945,7 +28166,9 @@ const TAXONOMY_CATEGORIES = [
             p2: 0,
             p3: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         function sxGetTetradVertices(width, height) {
@@ -28387,6 +28610,22 @@ const TAXONOMY_CATEGORIES = [
             return bestAngleIdx;
         }
 
+        // Angle initializer helper: the vertex whose angle is closest to the
+        // pointer's angle from the canvas center (circular distance). The
+        // radar binders use it to re-pick the active vertex during the early
+        // (uncommitted) part of an all-zero drag, so the drag direction —
+        // not the grab point — decides which pole rises.
+        function sxClosestVertexByAngle(px, py, cx, cy, vertices) {
+            const ptrAngle = Math.atan2(py - cy, px - cx);
+            let best = 0, bestD = Infinity;
+            for (let i = 0; i < vertices.length; i++) {
+                let d = Math.abs(vertices[i].angle - ptrAngle);
+                if (d > Math.PI) d = 2 * Math.PI - d;
+                if (d < bestD) { bestD = d; best = i; }
+            }
+            return best;
+        }
+
         function sxBindTetradWidget() {
             const canvas = e.byId("markTetradCanvas");
             const slider = e.byId("markTetradIntensity");
@@ -28409,19 +28648,33 @@ const TAXONOMY_CATEGORIES = [
                     sxTetradState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxTetradState.dragFromZero && !sxTetradState.vertexLocked) {
+                    sxTetradState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxTetradState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxTetradState.dragFromZero && !sxTetradState.vertexLocked)) && val > 0) {
                     // Direct drag from unrated/0 initializes an active polygon rather than a 1D monopole
                     const base = Math.max(20, Math.round(val * 0.5));
                     sxTetradState.p0 = (v === 0) ? val : base;
                     sxTetradState.p1 = (v === 1) ? val : base;
                     sxTetradState.p2 = (v === 2) ? val : base;
                     sxTetradState.p3 = (v === 3) ? val : base;
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxTetradState.vertexLocked = true;
                 } else {
                     if (v === 0) sxTetradState.p0 = val;
                     else if (v === 1) sxTetradState.p1 = val;
@@ -28444,6 +28697,8 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("pointerdown", (evt) => {
                 sxTetradState.isDragging = !0;
                 sxTetradState.activeVertex = null;
+                sxTetradState.vertexLocked = !1;
+                sxTetradState.dragFromZero = !sxTetradState.p0 && !sxTetradState.p1 && !sxTetradState.p2 && !sxTetradState.p3;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -28520,7 +28775,9 @@ const TAXONOMY_CATEGORIES = [
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
@@ -28683,17 +28940,31 @@ const TAXONOMY_CATEGORIES = [
                     sxPentadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxPentadState.dragFromZero && !sxPentadState.vertexLocked) {
+                    sxPentadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxPentadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxPentadState.dragFromZero && !sxPentadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 5; k++) {
                         sxPentadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxPentadState.vertexLocked = true;
                 } else {
                     sxPentadState[`p${v}`] = val;
                 }
@@ -28713,6 +28984,8 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("pointerdown", (evt) => {
                 sxPentadState.isDragging = !0;
                 sxPentadState.activeVertex = null;
+                sxPentadState.vertexLocked = !1;
+                sxPentadState.dragFromZero = !sxPentadState.p0 && !sxPentadState.p1 && !sxPentadState.p2 && !sxPentadState.p3 && !sxPentadState.p4;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -28788,7 +29061,9 @@ const TAXONOMY_CATEGORIES = [
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
@@ -28955,17 +29230,31 @@ const TAXONOMY_CATEGORIES = [
                     sxHexadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxHexadState.dragFromZero && !sxHexadState.vertexLocked) {
+                    sxHexadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxHexadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxHexadState.dragFromZero && !sxHexadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 6; k++) {
                         sxHexadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxHexadState.vertexLocked = true;
                 } else {
                     sxHexadState[`p${v}`] = val;
                 }
@@ -28985,6 +29274,8 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("pointerdown", (evt) => {
                 sxHexadState.isDragging = !0;
                 sxHexadState.activeVertex = null;
+                sxHexadState.vertexLocked = !1;
+                sxHexadState.dragFromZero = !sxHexadState.p0 && !sxHexadState.p1 && !sxHexadState.p2 && !sxHexadState.p3 && !sxHexadState.p4 && !sxHexadState.p5;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -29060,7 +29351,9 @@ const TAXONOMY_CATEGORIES = [
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
@@ -29224,17 +29517,31 @@ const TAXONOMY_CATEGORIES = [
                     sxHeptadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxHeptadState.dragFromZero && !sxHeptadState.vertexLocked) {
+                    sxHeptadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxHeptadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxHeptadState.dragFromZero && !sxHeptadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 7; k++) {
                         sxHeptadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxHeptadState.vertexLocked = true;
                 } else {
                     sxHeptadState[`p${v}`] = val;
                 }
@@ -29254,6 +29561,8 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("pointerdown", (evt) => {
                 sxHeptadState.isDragging = !0;
                 sxHeptadState.activeVertex = null;
+                sxHeptadState.vertexLocked = !1;
+                sxHeptadState.dragFromZero = !sxHeptadState.p0 && !sxHeptadState.p1 && !sxHeptadState.p2 && !sxHeptadState.p3 && !sxHeptadState.p4 && !sxHeptadState.p5 && !sxHeptadState.p6;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -29332,7 +29641,9 @@ const TAXONOMY_CATEGORIES = [
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
@@ -29499,17 +29810,31 @@ const TAXONOMY_CATEGORIES = [
                     sxOctadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxOctadState.dragFromZero && !sxOctadState.vertexLocked) {
+                    sxOctadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxOctadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxOctadState.dragFromZero && !sxOctadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 8; k++) {
                         sxOctadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxOctadState.vertexLocked = true;
                 } else {
                     sxOctadState[`p${v}`] = val;
                 }
@@ -29529,6 +29854,8 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("pointerdown", (evt) => {
                 sxOctadState.isDragging = !0;
                 sxOctadState.activeVertex = null;
+                sxOctadState.vertexLocked = !1;
+                sxOctadState.dragFromZero = !sxOctadState.p0 && !sxOctadState.p1 && !sxOctadState.p2 && !sxOctadState.p3 && !sxOctadState.p4 && !sxOctadState.p5 && !sxOctadState.p6 && !sxOctadState.p7;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -29603,7 +29930,13 @@ const TAXONOMY_CATEGORIES = [
         window.sxOpenHotListWidgetPopup = function(topicId, profileId) {
             const dlg = e.byId("hotListWidgetDialog");
             if (!dlg || !topicId) return;
-            const pId = profileId || Vi();
+            // Hot List freeze fix (2026-11-15): pId may be the empty-template id
+            // on a fresh boot. The first write mints a real profile, so every
+            // handler re-resolves the id before reading/writing — otherwise
+            // reads keep hitting the empty template and the readout never moves.
+            // An explicitly passed real profile id is preserved as-is.
+            let pId = profileId || Vi();
+            const freshPid = () => (profileId && profileId !== Et) ? profileId : Vi();
             const shape = Ge(topicId, pId);
             const item = qn[topicId] || Xn(topicId) || (at[pId] || {})[topicId] || {};
             const titleEl = e.byId("hotListWidgetTitle");
@@ -29655,6 +29988,7 @@ const TAXONOMY_CATEGORIES = [
             };
 
             const redraw = () => {
+                pId = freshPid();
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const maxVal = Math.max(...vals, 0);
@@ -29703,6 +30037,7 @@ const TAXONOMY_CATEGORIES = [
 
             let activeIdx = null, isDragging = false;
             const onPointer = (evt) => {
+                pId = freshPid();
                 const rect = canvas.getBoundingClientRect();
                 const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
                 const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
@@ -29798,6 +30133,7 @@ const TAXONOMY_CATEGORIES = [
             canvas.onpointercancel = onUp;
 
             canvas.onwheel = (evt) => {
+                pId = freshPid();
                 evt.preventDefault();
                 evt.stopPropagation();
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
@@ -29815,6 +30151,7 @@ const TAXONOMY_CATEGORIES = [
 
             if (slider) {
                 slider.oninput = () => {
+                    pId = freshPid();
                     const targetVal = Number(slider.value);
                     const curRec = ca(topicId, pId);
                     const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
@@ -30951,8 +31288,13 @@ const TAXONOMY_CATEGORIES = [
                 }), Object.keys(a).length && (vt[e][t] = a);
             }), Object.keys(At).forEach(e => delete At[e]), Ze[Et] = {}, Ct = !1, zt(e), !0);
         }
+        // Hot List freeze fix (2026-11-15): an explicitly passed empty-template
+        // id (Et) is NOT a valid write target — it used to mint a new "New
+        // profile" on every call (the dialog passes its captured Et per move).
+        // Fall through to the selected profile so at most one profile is
+        // minted, on the first write, and later writes reuse it.
         function To(e, t, n, i = !0, a = null) {
-            let r = a && (a === Et || vt[a]) ? a : Mt && vt[Mt] ? Mt : Et;
+            let r = a && vt[a] ? a : Mt && vt[Mt] ? Mt : Et;
             if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
@@ -30975,8 +31317,10 @@ const TAXONOMY_CATEGORIES = [
             return c[t] = s, o[e] = c, Co(r, e, t, "manual"), d && zt(r), $o(e, r),
             i && Mr(), c[t];
         }
+        // Same Et guard as To() above: a stale empty-template id must not
+        // mint a profile per call.
         function Fo(e, t, n = !0, i = null) {
-            let a = i && (i === Et || vt[i]) ? i : Mt && vt[Mt] ? Mt : Et;
+            let a = i && vt[i] ? i : Mt && vt[Mt] ? Mt : Et;
             if (a === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
