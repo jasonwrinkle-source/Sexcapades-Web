@@ -37,6 +37,7 @@
   var cache = {};          // skinId -> parsed skin JSON
   var original = null;     // deep clone of the Sexcapades categories
   var activeSkin = "sexcapades";
+  var aboutOriginalHTML = null; // captured Sexcapades About copy, for restore
 
   /* Sample profiles live in the skin JSONs (2026-11-16): the loader owns
      window.SEXCAPADES_SAMPLE_PROFILES and mutates it IN PLACE — never
@@ -263,6 +264,7 @@
     window.__SX_SKIN_TOPIC_COUNT = count;
     window.__SX_ACTIVE_SKIN = data.skin;
     activeSkin = data.skin;
+    setAboutDescription(data.name, data.about);
     setSamples(data.samples);
     /* Register the new category names in the solver's expanded-branch set,
        or frBuildTree skips every topic as collapsed (bare spokes). */
@@ -370,6 +372,7 @@
     window.__SX_SKIN_TOPIC_COUNT = SEXCAPADES_TOPIC_COUNT;
     window.__SX_ACTIVE_SKIN = "sexcapades";
     activeSkin = "sexcapades";
+    setAboutDescription("Sex.Capades.IO", null);
     /* Re-register the sexcapades.json widget configs (same seam as boot):
        without them the 17 higher-pole topics would fall back to the
        generic widgets after a switch-back. Synchronous when the file is
@@ -394,6 +397,31 @@
       });
     }
     return null;
+  }
+
+  function setAboutDescription(displayName, aboutText) {
+    /* Per-skin About description (2026-11-16): the skin JSON's `about`
+       field holds the full description as the user reads it (name
+       included). Render it with the name inside the .sx-brand span so
+       setBrand keeps swapping the name on later switches; when a skin
+       has no `about` field, restore the captured Sexcapades original
+       (the static HTML copy — Sexcapades keeps its text unchanged). */
+    var el = document.getElementById("appAboutDescription");
+    if (!el) return;
+    if (aboutOriginalHTML === null) aboutOriginalHTML = el.innerHTML;
+    if (aboutText && typeof aboutText === "string") {
+      var name = displayName || "";
+      var tail = aboutText;
+      if (name && tail.indexOf(name) === 0) tail = tail.slice(name.length);
+      el.innerHTML = "";
+      var span = document.createElement("span");
+      span.className = "sx-brand";
+      span.textContent = name;
+      el.appendChild(span);
+      el.appendChild(document.createTextNode(tail));
+    } else if (aboutOriginalHTML) {
+      el.innerHTML = aboutOriginalHTML;
+    }
   }
 
   function setSamples(samples) {
@@ -490,14 +518,23 @@
 
   function setBrand(skinId, displayName) {
     var name = skinId === "sexcapades" ? "Sex.Capades.IO" : displayName;
+    var brand = skinId === "sexcapades" ? "Sex.Capades.IO" : "Flex.Capades.IO";
     document.title = skinId === "sexcapades" ? "Sex.Capades.IO" : displayName + " — Flexcapades";
     var btn = document.getElementById("openAppAbout");
     if (btn) btn.textContent = name;
     var about = document.getElementById("appAboutTitle");
-    if (about) about.textContent = "About " + name;
+    if (about) {
+      about.textContent = "";
+      about.appendChild(document.createTextNode("About "));
+      var nameSpan = document.createElement("span");
+      nameSpan.className = "sx-about-name";
+      nameSpan.textContent = name;
+      about.appendChild(nameSpan);
+    }
     var closeAbout = document.getElementById("closeAppAbout");
     if (closeAbout) closeAbout.setAttribute("aria-label", "Close About " + name);
     document.querySelectorAll(".sx-brand").forEach(function (b) { b.textContent = name; });
+    document.querySelectorAll(".sx-tally-brand").forEach(function (b) { b.textContent = brand; });
   }
 
   /* ---- Domain-terms skinning (first i18n step, 2026-11-15) ----
@@ -895,7 +932,7 @@
   (function bootSkin() {
     var fromUrl = skinFromUrl();
     var boot = fromUrl || skinForHostname(window.location.hostname);
-    if (boot === "sexcapades") { registerSexcapadesWidgets(); return; }
+    if (boot === "sexcapades") { registerSexcapadesWidgets(); setBrand("sexcapades"); return; }
     var tries = 0;
     var timer = setInterval(function () {
       tries += 1;
@@ -906,6 +943,7 @@
           clearInterval(timer);
           if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin not applied: engine not ready");
           registerSexcapadesWidgets();
+          setBrand("sexcapades");
         }
         return;
       }

@@ -1515,3 +1515,5 @@ details.scene-phase ul {
 #markRatings[hidden] {
   display: none !important;
 }
+#appAboutDescription .sx-brand{font:inherit}
+#appAboutTitle .sx-about-name{font-family:"Source Sans 3",sans-serif}
