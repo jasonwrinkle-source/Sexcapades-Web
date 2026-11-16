@@ -1812,18 +1812,31 @@
            before re-rendering; it mirrors ji()'s expansion pass and runs
            regardless of layout-auto mode. Collapse / visibility state is
            not preserved across a switch (all branches come back expanded
-           and "all", as on a profile select). */
+           and "all", as on a profile select).
+           Known-topic set Ke (2026-11-16 fix): Ke is the import path's
+           "is this a real topic" gate (applyProfileRatings drops any
+           rating whose id is in neither Ke nor the subcategories), and
+           it is populated ONCE at boot from the Sexcapades taxonomy
+           (02o). A skin swap left it holding only Sexcapades ids, so
+           every imported rating for a vanilla skin was silently
+           dropped — archetype loads landed 0 ratings and pair matches
+           came back blank, while Sexcapades archetypes (ids already in
+           Ke) loaded fine. Re-register the new skin's ids here,
+           alongside rn/on/un. Additive only, never cleared, so
+           imported-children ids and the other skins' ids survive a
+           switch (Ke is append-only by design; a stale id from another
+           skin is still a real topic id, not an unknown key). */
         window.__SX_SKIN_LAYOUT_SYNC = function () {
             try {
                 rn.clear(), on.clear();
                 h.forEach(e => {
                     const n = catId(e.name);
-                    un.set(n, "all"), rn.add(e.name), (e.subcategories || []).forEach(t => {
+                    Ke.add(n), un.set(n, "all"), rn.add(e.name), (e.subcategories || []).forEach(t => {
                         const i = Un(e.name, t.name);
-                        un.set(i, "all"), on.add(i);
+                        Ke.add(i), un.set(i, "all"), on.add(i);
                     }), e.topics.forEach(t => {
                         const n = Wn(t);
-                        un.set(n, "all"), on.add(n);
+                        Ke.add(n), un.set(n, "all"), on.add(n);
                     });
                 });
             } catch (_) {}
