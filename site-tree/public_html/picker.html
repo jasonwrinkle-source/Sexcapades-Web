@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flexcapades — Pick a Map</title>
+<meta name="description" content="Flexcapades — fifteen maps, one engine. Pick a map. Each one opens a different hard conversation." />
+<meta property="og:title" content="Flexcapades — Pick a Map" />
+<meta property="og:description" content="Fifteen maps, one engine. Each one opens a different hard conversation." />
+<meta property="og:url" content="https://flex.capades.io/picker.html" />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#0b1014" />
+<style>
+  :root {
+    --bg: #0b1014;
+    --surface: #191d21;
+    --surface-raised: #20252a;
+    --text: #f4f5f6;
+    --muted: #9aa3a8;
+    --line: #343a40;
+    --link: #65d7dc;
+    --accent: #ff4d64;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100dvh;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 48px 20px 64px; }
+  header { margin-bottom: 32px; }
+  h1 {
+    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 1;
+    margin: 0 0 8px;
+    letter-spacing: .02em;
+  }
+  .tagline { font-size: 1.15rem; color: var(--text); margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .card {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--link); background: var(--surface-raised); outline: none; }
+  .card-name {
+    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card-desc { color: var(--muted); margin: 6px 0 0; }
+  .badge {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 1px 8px;
+    letter-spacing: .04em;
+  }
+  footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
+  footer a { color: var(--link); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Flexcapades</h1>
+    <p class="tagline">Fifteen maps, one engine — hard conversations, mapped.</p>
+    <p class="sub">Pick a map. Each one opens a different conversation.</p>
+  </header>
+  <ul class="grid">
+    <li><a class="card" href="https://aesth.capades.io/"><span class="card-name">Aesthcapades</span><p class="card-desc">Opens beauty.</p></a></li>
+    <li><a class="card" href="https://chem.capades.io/"><span class="card-name">Chemcapades</span><p class="card-desc">Opens how things grow.</p></a></li>
+    <li><a class="card" href="https://dharma.capades.io/"><span class="card-name">Dharmacapades</span><p class="card-desc">Opens how we walk the earth.</p></a></li>
+    <li><a class="card" href="https://exper.capades.io/"><span class="card-name">Expericapades</span><p class="card-desc">Opens you.</p></a></li>
+    <li><a class="card" href="https://fores.capades.io/"><span class="card-name">Forescapades</span><p class="card-desc">Opens faith.</p></a></li>
+    <li><a class="card" href="https://matter.capades.io/"><span class="card-name">Mattercapades</span><p class="card-desc">Opens stuff and energy.</p></a></li>
+    <li><a class="card" href="https://philo.capades.io/"><span class="card-name">Philoscapades</span><p class="card-desc">Opens how we know.</p></a></li>
+    <li><a class="card" href="https://polis.capades.io/"><span class="card-name">Poliscapades</span><p class="card-desc">Opens power and the vote.</p></a></li>
+    <li><a class="card" href="https://praxi.capades.io/"><span class="card-name">Praxicapades</span><p class="card-desc">Opens what we do.</p></a></li>
+    <li><a class="card" href="https://quanta.capades.io/"><span class="card-name">Quantacapades</span><p class="card-desc">Opens the small and strange.</p></a></li>
+    <li><a class="card" href="https://simul.capades.io/"><span class="card-name">Simulcapades</span><p class="card-desc">Opens copies, what's real and what is show.</p></a></li>
+    <li><a class="card" href="https://tech.capades.io/"><span class="card-name">Techcapades</span><p class="card-desc">Opens what we build.</p></a></li>
+    <li><a class="card" href="https://theori.capades.io/"><span class="card-name">Theoricapades</span><p class="card-desc">Opens the big picture.</p></a></li>
+    <li><a class="card" href="https://voca.capades.io/"><span class="card-name">Vocapades</span><p class="card-desc">Opens work and worth.</p></a></li>
+    <li><a class="card" href="https://sex.capades.io/"><span class="card-name">Sexcapades <span class="badge">18+</span></span><p class="card-desc">Opens the bedroom talk.</p></a></li>
+  </ul>
+  <footer>
+    <p>Fifteen maps, one engine.</p>
+  </footer>
+</main>
+</body>
+</html>

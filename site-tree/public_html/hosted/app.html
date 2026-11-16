@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-15_2037" name="sexcapades-build"/>
-<meta content="release-4.0-1115-2037" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-15_2037", "version": "4.0", "channel": "release"} -->
+<meta content="2026-11-16_0035" name="sexcapades-build"/>
+<meta content="release-5.0-1116-0035" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-16_0035", "version": "5.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -25,7 +25,12 @@ if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){
     (function () {
       var host = '';
       try { host = window.location.hostname.toLowerCase(); } catch (e) { __sxErrLog("host-check", e); }
-      if (host !== 'sexcapades.io' && host !== 'www.sexcapades.io') return;
+      // Gate runs only on the Sexcapades hosts: the legacy domain and
+      // the sex subdomain (2026-11-16 — the gate follows the Sexcapades
+      // skin). Every other host (vanilla subdomains, flex/capades.io,
+      // localhost) skips the gate at boot; switching to Sexcapades
+      // in-app gates via the loader instead.
+      if (host !== 'sexcapades.io' && host !== 'www.sexcapades.io' && host !== 'sex.capades.io' && host !== 'www.sex.capades.io') return;
       var params = new URLSearchParams(window.location.search || '');
       var queryVerified = params.get('verified') === '1';
       var storedVerified = false;
@@ -932,7 +937,7 @@ window.__sxProgressWidget=function(refs){
     if (m) {
       var build = m.getAttribute('content');
       var span = document.querySelector('.app-about-version');
-      if (build && span) span.textContent = 'Version 4.0 · ' + (tag && tag.indexOf('qa-') === 0 ? 'QA Build ' : 'Build ') + build;
+      if (build && span) span.textContent = 'Version 5.0 · ' + (tag && tag.indexOf('qa-') === 0 ? 'QA Build ' : 'Build ') + build;
     }
     if (t) {
       var tagSpan = document.querySelector('.app-about-buildtag');
@@ -1840,12 +1845,12 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sexcapades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 4.0 · Build 2026-11-15_2037</span>
-<span class="app-about-version app-about-buildtag">release-4.0-1115-2037</span>
+<span class="app-about-version">Version 5.0 · Build 2026-11-16_0035</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1116-0035</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
-<a class="app-about-support" href="https://patreon.com/SexcapadesIO" rel="noopener" target="_blank">Support Sexcapades on Patreon</a>
+<a class="app-about-support" href="https://patreon.com/FlexCapadesIO" rel="noopener" target="_blank">Support Flexcapades on Patreon</a>
 </div>
 <button aria-label="Close About Sexcapades.IO" class="close-btn" id="closeAppAbout" type="button">×</button>
 </div>
@@ -1866,6 +1871,7 @@ window.__sxProgressWidget=function(refs){
 <div class="app-about-credit app-about-copy">
 <span>Built with Muse. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a>, then redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get <strong>1 billion tokens</strong>.</span>
 <span>Sexcapades.io Version 3.5 was vibe coded over <strong>32 days: ~511 hours, approximately 2.7 billion tokens (as of October 29th, 2026)</strong>. Tokens price at $10 per 500 million, so that tally is roughly $54 of compute — and every invite redemption sends another billion, $20 worth, flagged for vibe coding.</span>
+<span>Built by YoBiche (Yolanda Biche), with Gemini, AntiGravity, and Grok — four AI collaborators, one principal investigator, Jason Mark Wrinkle.</span>
 </div>
 <p class="app-about-copy">Suno is better with friends: the songs on this site are made with Suno. Sign up with <a href="https://suno.com/invite/@jason_wrinkle_personal" rel="noopener" target="_blank">my invite link</a> and create 10 songs, and we both receive 250 free credits (limit 2,500 credits per person).</p>
 <div class="app-about-links app-about-copy"><a href="/hosted/methodology.html" rel="noopener" target="_blank">How we compute community stats</a><a data-open-references="" href="#references">External References</a><a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a><span>Questions? <a href="mailto:help@sexcapades.io">help@sexcapades.io</a></span><span class="app-about-copyright">© 2026 Jason Mark Wrinkle. All rights reserved.</span></div>
@@ -2954,7 +2960,6 @@ window.__sxProgressWidget=function(refs){
 <div class="center-contact-list" id="centerContactList"></div>
 <div class="center-profile-actions"><button class="action-btn" id="toggleCenterBranches" type="button">Expand / collapse hypermap</button><button class="action-btn" id="editCenterProfile" type="button">Edit profile</button></div>
 </div>
-<a aria-hidden="true" class="easter-egg" href="https://linktr.ee/SkewedViewBlue" rel="noopener noreferrer" tabindex="-1" target="_blank"></a>
 <div aria-label="Take a test or import profile data" class="profile-add-menu" hidden="" id="profileLoadMenu" role="menu">
 <button data-converter-mode="paste" data-profile-converter="kinktest" data-source-name="Take KinkTest" data-source-note="A guided questionnaire based on KinkTest — you answer right here in Sexcapades; nothing is sent to the site." data-source-url="https://kinktest.co.uk" data-tooltip-tap-first="" role="menuitem" type="button">Take KinkTest…</button>
 <button data-converter-mode="paste" data-profile-converter="checklist" data-source-name="Take Yes/No/Maybe" data-source-note="Based on thatotherpaper.com/austin/yes_no_maybe — the classic Yes / No / Maybe checklist, answered right here in Sexcapades." data-tooltip-tap-first="" role="menuitem" type="button">Take Yes/No/Maybe…</button>

@@ -1568,7 +1568,7 @@
       }
       .app-header .review-callout:hover { border-color: #63c2c8; }
       .app-header .guide-qmark { font-size: 1.25rem; font-weight: 800; line-height: 1; }
-      /* Gate About dialog (Easter egg): same copy as the app's About. */
+      /* Gate About dialog: same copy as the app's About. */
       #gateAboutDialog { max-width: min(620px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: 12px; background: var(--surface-raised); color: var(--text); padding: 0; }
       #gateAboutDialog::backdrop { background: rgba(0, 0, 0, .6); }
       #gateAboutDialog .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 20px 0; }
@@ -1829,11 +1829,12 @@
         <button type="button" class="close-btn" id="gateCloseAbout" aria-label="Close About Sexcapades.IO">×</button>
       </div>
       <div class="dialog-body">
-        <p class="app-about-version">Version 4.0 · Build 2026-11-13_0528</p>
-        <p class="app-about-version">release-4.0-1113-0528</p>
+        <p class="app-about-version">Version 5.0 · Build 2026-11-13_0528</p>
+        <p class="app-about-version">release-5.0-1113-0528</p>
         <p id="gateAboutDescription">Sexcapades is an interactive hypermap for rating and visualizing adult interests. Build a personal profile, compare where partners align, use Scribe to write stories and scenes, and Scene Setter to plan and negotiate play — all in the same shared vocabulary.</p>
-        <p><a href="https://patreon.com/SexcapadesIO" rel="noopener" target="_blank">Support Sexcapades on Patreon</a></p>
+        <p><a href="https://patreon.com/FlexCapadesIO" rel="noopener" target="_blank">Support Flexcapades on Patreon</a></p>
         <p>Built with Muse. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a>, then redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get <strong>1 billion tokens</strong>.</p>
+        <p>Built by YoBiche (Yolanda Biche), with Gemini, AntiGravity, and Grok — four AI collaborators, one principal investigator, Jason Mark Wrinkle.</p>
         <p>Suno is better with friends: the songs on this site are made with Suno. Sign up with <a href="https://suno.com/invite/@jason_wrinkle_personal" rel="noopener" target="_blank">my invite link</a> and create 10 songs, and we both receive 250 free credits (limit 2,500 credits per person).</p>
         <p><a href="/hosted/methodology.html" rel="noopener" target="_blank">How we compute community stats</a> · <a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a> · Questions? <a href="mailto:help@sexcapades.io">help@sexcapades.io</a></p>
         <p>© 2026 Jason Mark Wrinkle. All rights reserved.</p>
@@ -1841,7 +1842,7 @@
     </dialog>
 
     <script>
-      /* GATE APP HEADER — About dialog (Easter egg) + avatar music.
+      /* GATE APP HEADER — About dialog + avatar music.
          Self-contained; does not import the app bundle. The verse is the
          app's hypermap verse (avatar-music.js TABLE "hypermap"). The mp3s
          are not in the repo yet (Jason adds them from his machine), so a
@@ -1852,7 +1853,7 @@
         var VERSE_URL = "/hosted/assets/audio/the-explainer/e1/verse-hypermap.mp3";
         var VERSE_LABEL = "Hypermap";
 
-        /* ---- About dialog (Easter egg) ---- */
+        /* ---- About dialog ---- */
         var aboutBtn = document.getElementById("gateAppAboutBtn");
         var aboutDlg = document.getElementById("gateAboutDialog");
         var aboutClose = document.getElementById("gateCloseAbout");
@@ -2049,7 +2050,7 @@
         // (scene-sentinel) is a guide section too. The section is a single
         // safe anchor (letters, digits, hyphens); guide.html itself ignores
         // unknown anchors and shows the contents page, so this cannot
-        // misdirect — the URL stays on sexcapades.io, and the gate still
+        // misdirect — the URL stays on one of our own hosts, and the gate still
         // runs first before any of these destinations are followed.
         var guideSectionPattern = /^[a-z0-9][a-z0-9_-]*$/i;
 
@@ -2113,7 +2114,13 @@
           }
 
           if (parsed.protocol !== 'https:') return '';
-          if (parsed.hostname !== 'sexcapades.io' && parsed.hostname !== 'www.sexcapades.io') return '';
+          // Return stays on our own hosts: the legacy domain and any
+          // capades.io host (the sex subdomain, the skin subdomains,
+          // flex). The return is resolved against this page's origin,
+          // so a relative return stays on the gate's own host; an
+          // absolute return must name one of our hosts, never a third
+          // party, so the parameter can't be abused as an open redirect.
+          if (parsed.hostname !== 'sexcapades.io' && parsed.hostname !== 'www.sexcapades.io' && !/(^|\.)capades\.io$/i.test(parsed.hostname)) return '';
           if (parsed.username || parsed.password) return '';
           if (/\/gate\.html$/i.test(parsed.pathname) || parsed.pathname === '/hosted/gate.html') return '';
 
@@ -2176,6 +2183,21 @@
           enterButton.setAttribute('aria-expanded', 'true');
         }
 
+
+        // Direct visit on a vanilla host: this page is the Sexcapades
+        // gate, so a visitor who lands here without a ?return= (no app
+        // bounce) is sent to the picker instead of gated. A ?return=
+        // means the app bounced them here for verification — the gate
+        // runs normally.
+        (function () {
+          var h = "";
+          try { h = window.location.hostname.toLowerCase(); } catch (e) { h = ""; }
+          var isSexHost = h === "sexcapades.io" || h === "www.sexcapades.io" || h === "sex.capades.io" || h === "www.sex.capades.io";
+          if (isSexHost) return;
+          var hasReturn = false;
+          try { hasReturn = !!new URLSearchParams(window.location.search).get("return"); } catch (e) { hasReturn = false; }
+          if (!hasReturn) window.location.replace("/picker.html");
+        })();
 
         var initialDeepLinkDestination = getDeepLinkDestination();
         var previousGatePass = hasPreviousGatePass();
