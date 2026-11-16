@@ -5,6 +5,18 @@
    back a deep clone taken before the first swap.
    Skin data: app/data/skins/<skin>.json, fetched relative to the app
    page (works in source, hosted, and QA trees after the bundle sync).
+   Every skin carries a defaultLayout section (its layout settings plus
+   its baked solved positions, embedded in the skin file itself — the
+   ONLY place layouts live).
+   After a skin loads and re-renders, the loader applies it through
+   the layout editor's import path; Sexcapades, the default skin, gets
+   the same treatment at boot (once the editor and engine are ready)
+   and on switch-back. A skin without one keeps its current behavior.
+   The positions are handed to the bundle before the import, so the
+   paint uses the baked geometry instead of solving; the settings
+   stay the source of truth for whether the baked geometry is valid.
+   The shell's inline layout object is only a pre-fetch fallback: the
+   live layout comes from the skin file.
    Sexcapades itself has a skin file too (sexcapades.json): it carries
    ONLY the 17 higher-pole topics whose widget configs used to live
    hardcoded in the widget picker. The loader registers those configs
@@ -149,15 +161,20 @@
      (before boot), so the registry is normally populated before the
      first paint; if it lands after boot completed, re-render once so
      any topic painted with the generic fallback gets its real widget. */
+  /* Fetch sexcapades.json (cached after the first load). Shared by the
+     boot seam and the switch-back path. */
+  function sexcapadesData() {
+    if (cache["sexcapades"]) return Promise.resolve(cache["sexcapades"]);
+    return fetch(SKIN_DIR + "sexcapades.json").then(function (r) {
+      if (!r.ok) throw new Error("skin file not found: data/skins/sexcapades.json");
+      return r.json();
+    }).then(function (data) { cache["sexcapades"] = data; return data; });
+  }
+
   function registerSexcapadesWidgets() {
-    var p = cache["sexcapades"]
-      ? Promise.resolve(cache["sexcapades"])
-      : fetch(SKIN_DIR + "sexcapades.json").then(function (r) {
-          if (!r.ok) throw new Error("skin file not found: data/skins/sexcapades.json");
-          return r.json();
-        }).then(function (data) { cache["sexcapades"] = data; return data; });
-    return p.then(function (data) {
+    return sexcapadesData().then(function (data) {
       registerWidgets(data);
+      bootApplySexcapades(data);
       var dlg = document.getElementById("sxBootDialog");
       if (window.FlexcapadesEngine && window.FlexcapadesEngine.Map && dlg && dlg.hidden) rerender();
     }).catch(function (err) {
@@ -214,11 +231,190 @@
     document.querySelectorAll(".sx-brand").forEach(function (b) { b.textContent = name; });
   }
 
+  /* Apply a skin's embedded default layout (defaultLayout in the skin
+     JSON), if present, through the layout editor's import path. The
+     import validates the settings and repaints the map. On success the
+     shipped layout settings also become window.__SEXCAPADES_LAYOUT_DEFAULTS
+     (the single source "Reset to defaults" and the editor's baked-base
+     helpers read), so a skin's Reset restores that skin's shipped values.
+     Missing, invalid, or unapplied layouts are silent no-ops — the skin
+     loads with its current behavior. The import entry point is the layout
+     editor's __SEXCAPADES_LAYOUT_TEST.importText; if the editor has
+     not booted yet, this is a no-op. Returns true when a layout was applied. */
+  function applyDefaultLayout(data) {
+    var layout = data && data.defaultLayout;
+    if (!layout || typeof layout !== "object" || Array.isArray(layout)) return false;
+    if (!layout.settings || typeof layout.settings !== "object") return false;
+    var hook = window.__SEXCAPADES_LAYOUT_TEST;
+    if (!hook || typeof hook.importText !== "function") return false;
+    try {
+      /* Baked positions (2026-11-15): hand the skin's solved geometry to
+         the bundle before the import repaints, so the paint uses it
+         instead of solving. The positions stay out of the import payload
+         (the import validates settings only). */
+      if (layout.positions && typeof layout.positions === "object" && Array.isArray(layout.positions.branches)) {
+        window.__SX_BAKED_POSITIONS = layout.positions;
+      }
+      var payload = { app: layout.app, kind: layout.kind, version: layout.version,
+        build: layout.build, exportedAt: layout.exportedAt,
+        settings: layout.settings, hash: layout.hash };
+      var r = hook.importText(JSON.stringify(payload));
+      if (!r || !r.ok) return false;
+      window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(layout.settings));
+      return true;
+    } catch (e) {
+      /* keep current behavior on any failure */
+      return false;
+    }
+  }
+
+  /* Personal saved defaults (localStorage "sexcapades-layout-savedDefaults"):
+     the same merge the boot script applies — only keys that already exist
+     in the base settings are taken, so a stale save can never inject
+     unknown settings. Sexcapades only: saved payloads are Sexcapades-shaped,
+     so they must never be merged onto another skin's settings. */
+  function mergeSavedDefaults(baseSettings) {
+    var merged = JSON.parse(JSON.stringify(baseSettings));
+    try {
+      var raw = window.localStorage ? window.localStorage.getItem("sexcapades-layout-savedDefaults") : "";
+      if (raw) {
+        var parsed = JSON.parse(raw), saved = parsed && parsed.settings;
+        if (saved && typeof saved === "object") {
+          Object.keys(saved).forEach(function (key) {
+            if (Object.prototype.hasOwnProperty.call(baseSettings, key)) merged[key] = saved[key];
+          });
+        }
+      }
+    } catch (e) { /* keep the base settings */ }
+    return merged;
+  }
+
+  /* Sexcapades layout apply: the skin's shipped settings, with the user's
+     saved personal defaults merged over them (the boot script's rule),
+     through the editor's import path. The shipped settings (unmerged)
+     become window.__SEXCAPADES_LAYOUT_DEFAULTS, so "Reset to defaults"
+     restores the shipped values and clears the saved copy, exactly as
+     before. The stored hash is dropped from the import payload: the
+     merged settings no longer match it, and the import path ignores
+     the hash anyway. Returns true when applied. */
+  function applySexcapadesLayout(data) {
+    var layout = data && data.defaultLayout;
+    if (!layout || typeof layout !== "object" || Array.isArray(layout)) return false;
+    if (!layout.settings || typeof layout.settings !== "object") return false;
+    var hook = window.__SEXCAPADES_LAYOUT_TEST;
+    if (!hook || typeof hook.importText !== "function") return false;
+    try {
+      /* Baked positions (2026-11-15): see applyDefaultLayout. */
+      if (layout.positions && typeof layout.positions === "object" && Array.isArray(layout.positions.branches)) {
+        window.__SX_BAKED_POSITIONS = layout.positions;
+      }
+      var payload = { app: layout.app, kind: layout.kind, version: layout.version,
+        build: layout.build, exportedAt: layout.exportedAt,
+        settings: mergeSavedDefaults(layout.settings) };
+      var r = hook.importText(JSON.stringify(payload));
+      if (!r || !r.ok) return false;
+      window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(layout.settings));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* Boot apply: once the editor hook and the map engine are ready, make
+     the Sexcapades skin's shipped settings the Reset-to-defaults source
+     and apply the skin layout — unless the URL carries explicit layout-*
+     params, in which case the shared link's settings win over the skin
+     default and the live layout stays as the shell computed it. The map
+     may already have painted once with the shell's fallback layout; the
+     import repaints with the skin layout, exactly as a skin switch does.
+     Polls briefly; if the engine never becomes ready it leaves the
+     fallback layout in place (safe degradation, warned on the console). */
+  /* URL-layout carve-out (2026-11-15): the boot apply is skipped when the
+     URL carries a layout, so a share link wins over the skin's layout.
+     But every layout import writes a `layout-solverMidline` token into
+     the URL hash (layout-editor writeSolverModeHash — the ONLY layout-*
+     token the app itself writes), so after ANY boot or skin load the URL
+     carries a layout-* param — and the next reload would skip the skin's
+     layout apply entirely, leaving the map on the inline fallback (empty
+     overrides, crossings ~17135 on Sexcapades) even though the URL
+     carries no settings at all. A solverMidline-only hash is the app's
+     own bookkeeping, not a user layout: skip only when the URL carries a
+     layout param OTHER than solverMidline. A share link that carries
+     real settings params still wins, as before. (Edge case, accepted:
+     a solverMidline-only share link loses its solver-mode override to
+     the skin's — the solver mode is a transient editor preference, and
+     the hash token was written from the skin's own settings in the
+     common case, so the values agree.) */
+  function urlHasLayoutSettings() {
+    try {
+      var hash = window.location.hash || "";
+      var body = hash.charAt(0) === "#" ? hash.slice(1) : hash;
+      if (body) {
+        var tokens = body.split("&");
+        for (var i = 0; i < tokens.length; i++) {
+          var t = tokens[i];
+          if (/^layout-/i.test(t) && t.toLowerCase().indexOf("layout-solvermidline=") !== 0) return true;
+        }
+      }
+      var search = window.location.search || "";
+      if (search) {
+        var q = search.charAt(0) === "?" ? search.slice(1) : search;
+        var parts = q.split("&");
+        for (var j = 0; j < parts.length; j++) {
+          if (/^layout-/i.test(parts[j])) return true;
+        }
+      }
+      return false;
+    } catch (e) { return false; }
+  }
+
+  function bootApplySexcapades(data) {
+    var layout = data && data.defaultLayout;
+    if (!layout || typeof layout !== "object") return;
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries += 1;
+      var hook = window.__SEXCAPADES_LAYOUT_TEST;
+      var engine = window.FlexcapadesEngine;
+      if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map) {
+        if (tries >= 300) {
+          clearInterval(timer);
+          if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot layout not applied: engine not ready");
+        }
+        return;
+      }
+      clearInterval(timer);
+      /* Shipped values become the Reset source even when a URL hash wins
+         the live layout — Reset restores the skin's shipped values. */
+      if (layout.settings && typeof layout.settings === "object") {
+        try { window.__SEXCAPADES_LAYOUT_DEFAULTS = JSON.parse(JSON.stringify(layout.settings)); } catch (e) { /* keep fallback */ }
+      }
+      /* Baked positions (2026-11-15): the apply's own repaint paints the
+         baked geometry, so no follow-up re-solve is needed — the old
+         boot re-solve trigger (one more render after the paint settled)
+         is removed; with baked positions it would only repaint the
+         same geometry. The skip uses urlHasLayoutSettings, not the
+         __SEXCAPADES_LAYOUT_FROM_URL flag: a solverMidline-only hash
+         (written by every import) must not skip the skin's apply. */
+      if (!urlHasLayoutSettings()) applySexcapadesLayout(data);
+    }, 100);
+  }
+
   function loadSkin(skinId, displayName) {
     if (skinId === "sexcapades") {
       restoreSexcapades();
       setBrand("sexcapades");
-      return Promise.resolve(rerender()).then(function () { return "sexcapades"; });
+      return Promise.resolve(rerender()).then(function () {
+        /* Switch-back re-applies the Sexcapades layout (with the user's
+           saved defaults merged over it): without this the map would keep
+           the previous skin's layout settings. A URL hash layout is a
+           boot-time instruction only — an explicit switch selects the
+           skin's defaults. A failed fetch leaves the current layout. */
+        return sexcapadesData().then(function (data) {
+          applySexcapadesLayout(data);
+          return "sexcapades";
+        }).catch(function () { return "sexcapades"; });
+      });
     }
     var url = SKIN_DIR + skinId + ".json";
     var p = cache[skinId]
@@ -230,8 +426,11 @@
     return p.then(function (data) {
       applySkin(data);
       setBrand(skinId, displayName || data.name);
-      return rerender();
-    }).then(function () { return skinId; });
+      return Promise.resolve(rerender()).then(function () {
+        applyDefaultLayout(data);
+        return skinId;
+      });
+    });
   }
 
   window.FlexcapadesSkins = {
@@ -240,6 +439,8 @@
   };
 
   /* Boot seam: register the sexcapades.json widget configs so the 17
-     higher-pole topics get their widgets from the file on a native boot. */
+     higher-pole topics get their widgets from the file on a native boot,
+     and apply the skin's embedded layout once the editor and engine are
+     ready (see bootApplySexcapades). */
   registerSexcapadesWidgets();
 })();

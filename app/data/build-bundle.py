@@ -158,31 +158,4 @@ for p in parts:
                     f_dst.write(code)
 print(f"[Bundle] Synced {len(parts)} unbundled modules to hosted/js/modules/ and qa/js/modules/")
 
-# Sync baked layout defaults into HTML app entrypoints if sexcapades-layout-defaults.json exists
-defaults_json_path = os.path.join(base_dir, "sexcapades-layout-defaults.json")
-if os.path.exists(defaults_json_path):
-    with open(defaults_json_path, "r", encoding="utf-8") as f:
-        new_defaults_str = f.read().strip()
-
-    html_targets = [
-        os.path.join(base_dir, "../sexcapades-4.0.html"),
-        os.path.join(base_dir, "../../site-tree/public_html/hosted/app.html"),
-        os.path.join(base_dir, "../../site-tree/public_html/qa/app.html"),
-        os.path.join(base_dir, "../../hosted/app.html"),
-    ]
-    for ht in html_targets:
-        if os.path.exists(ht):
-            with open(ht, "r", encoding="utf-8") as f_html:
-                html_content = f_html.read()
-            updated_html = re.sub(
-                r'([ \t]*var\s+defaults\s*=\s*)\{.*?\}(\s*;)',
-                r'\g<1>' + new_defaults_str.replace('\\', '\\\\') + r'\g<2>',
-                html_content,
-                count=1
-            )
-            if updated_html != html_content:
-                with open(ht, "w", encoding="utf-8") as f_html:
-                    f_html.write(updated_html)
-                print(f"[Bundle] Baked layout defaults into {ht}")
-
 print(f"[Bundle] Complete! Generated {round(os.path.getsize(target_app)/1024, 1)} KB ES-bundled bundle.")

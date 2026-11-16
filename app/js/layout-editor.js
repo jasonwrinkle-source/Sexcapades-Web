@@ -78,7 +78,12 @@
     // the API object - documented here (F8); do not remove the
     // fallback without retiring those callers.
     function config(){var c=window.__SEXCAPADES_LAYOUT_API?window.__SEXCAPADES_LAYOUT_API.get():Object.assign({},window.__SEXCAPADES_LAYOUT);if(c.animations===undefined)c.animations=!!(window.__SEXCAPADES_LAYOUT&&window.__SEXCAPADES_LAYOUT.animations);if(c.mapSliders===undefined)c.mapSliders=!!(window.__SEXCAPADES_LAYOUT&&window.__SEXCAPADES_LAYOUT.mapSliders);return c}
-    function copyOverrides(value){var out={};Object.keys(value||{}).forEach(function(key){out[key]=Object.assign({},value[key])});return out}
+    // copyOverrides: shallow-copy each entry. Object-valued entries
+    // (branch/subcat/kink overrides, angle offsets) are copied;
+    // scalar leaves (the shrink-flag maps are boolean-valued) pass
+    // through verbatim — Object.assign({}, true) is {}, which used
+    // to fold every armed shrink flag to an empty object on import.
+    function copyOverrides(value){var out={};Object.keys(value||{}).forEach(function(key){var v=value[key];out[key]=(v&&typeof v==="object")?Object.assign({},v):v});return out}
     // Override-entry shapes (Rank 8): ONE definition per store, shared by
     // all three apply-entry paths — the single-item actuators (LR_ACT),
     // the apply-to-all batch closures (bindForAll), and the tilt
