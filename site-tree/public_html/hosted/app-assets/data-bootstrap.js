@@ -27188,18 +27188,31 @@ const TAXONOMY_CATEGORIES = [
            before re-rendering; it mirrors ji()'s expansion pass and runs
            regardless of layout-auto mode. Collapse / visibility state is
            not preserved across a switch (all branches come back expanded
-           and "all", as on a profile select). */
+           and "all", as on a profile select).
+           Known-topic set Ke (2026-11-16 fix): Ke is the import path's
+           "is this a real topic" gate (applyProfileRatings drops any
+           rating whose id is in neither Ke nor the subcategories), and
+           it is populated ONCE at boot from the Sexcapades taxonomy
+           (02o). A skin swap left it holding only Sexcapades ids, so
+           every imported rating for a vanilla skin was silently
+           dropped — archetype loads landed 0 ratings and pair matches
+           came back blank, while Sexcapades archetypes (ids already in
+           Ke) loaded fine. Re-register the new skin's ids here,
+           alongside rn/on/un. Additive only, never cleared, so
+           imported-children ids and the other skins' ids survive a
+           switch (Ke is append-only by design; a stale id from another
+           skin is still a real topic id, not an unknown key). */
         window.__SX_SKIN_LAYOUT_SYNC = function () {
             try {
                 rn.clear(), on.clear();
                 h.forEach(e => {
                     const n = catId(e.name);
-                    un.set(n, "all"), rn.add(e.name), (e.subcategories || []).forEach(t => {
+                    Ke.add(n), un.set(n, "all"), rn.add(e.name), (e.subcategories || []).forEach(t => {
                         const i = Un(e.name, t.name);
-                        un.set(i, "all"), on.add(i);
+                        Ke.add(i), un.set(i, "all"), on.add(i);
                     }), e.topics.forEach(t => {
                         const n = Wn(t);
-                        un.set(n, "all"), on.add(n);
+                        Ke.add(n), un.set(n, "all"), on.add(n);
                     });
                 });
             } catch (_) {}
@@ -34833,9 +34846,17 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             };
         }
         function od(e) {
-            const t = [];
-            return bb(rt[e]).length || t.push("gender"), iv(ot[e]).length || t.push("orientation"), 
-            t;
+            // Gender/orientation NO LONGER REQUIRED (owner ruling,
+            // 2026-11-16): the profile-details demand is relaxed —
+            // Scribe and Scene Setter pick pronouns from context
+            // (hp() already falls back to they/them when no gender is
+            // stored), so a profile without gender/sexuality is
+            // complete as-is. od() stays as the "missing required
+            // details" hook for any future required field; today the
+            // set is empty. This stops the details dialog auto-opening
+            // after archetype/sample loads (rk) and stops the export
+            // gate (Jv) demanding them.
+            return [];
         }
         function sd(e) {
             return e.filter(e => od(e).length).map(e => `${od(e).join(" and ")} for ${rd(e)}`).join("; ");
@@ -35533,22 +35554,55 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 give: n,
                 receive: n,
                 giveKnown: !0,
-                receiveKnown: !0
+                receiveKnown: !0,
+                poles: null,
+                polesKnown: !1,
+                line: null,
+                lineKnown: !1
             };
             if (n && "object" == typeof n) {
                 const e = Object.prototype.hasOwnProperty.call(n, "give"), t = Object.prototype.hasOwnProperty.call(n, "receive");
-                return {
+                const r = {
                     give: e && Number(n.give) || 0,
                     receive: t && Number(n.receive) || 0,
                     giveKnown: e,
-                    receiveKnown: t
+                    receiveKnown: t,
+                    poles: null,
+                    polesKnown: !1,
+                    line: null,
+                    lineKnown: !1
                 };
+                // Line topic (trilinear-line): one scalar under "line".
+                // The converter derives it at load, so the store holds it.
+                if (Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
+                    r.line = Number(n.line);
+                    r.lineKnown = !0;
+                    return r;
+                }
+                // Multi-pole topic: per-pole affinities under the pole
+                // keys. (Flanked topics carry give/receive keys, so they
+                // never reach here; a 0 is a rating — an all-zero vector
+                // counts.)
+                if (!e && !t) {
+                    const k = Object.keys(n).filter(j => Number.isFinite(Number(n[j])));
+                    if (k.length) {
+                        const p = {};
+                        k.forEach(j => { p[j] = Number(n[j]); });
+                        r.poles = p;
+                        r.polesKnown = !0;
+                    }
+                }
+                return r;
             }
             return {
                 give: 0,
                 receive: 0,
                 giveKnown: !1,
-                receiveKnown: !1
+                receiveKnown: !1,
+                poles: null,
+                polesKnown: !1,
+                line: null,
+                lineKnown: !1
             };
         }
         function Td(e, t) {
@@ -35610,11 +35664,35 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (!single && Ue.has(id)) {
                 single = !0, singleValue = raw.giveKnown ? raw.give : raw.receiveKnown ? raw.receive : null;
             }
+            // Multi-pole comparison (ruled 2026-11-16): a pole vector or
+            // a line scalar counts as a rating for the boolean, and the
+            // vector / scalar is carried through for the pair scorer.
+            // A 0 is a rating — an all-zero vector counts as rated.
+            const poles = raw.polesKnown ? raw.poles : null;
+            const line = raw.lineKnown ? raw.line : null;
+            // Strongest stance: the signed pole affinity with the largest
+            // absolute value (for a line topic, the scalar itself). Used
+            // for the Depth Factor intensity and Personal KF.
+            let strongest = null;
+            if (null != line) strongest = line;
+            else if (poles) {
+                let best = null;
+                Object.keys(poles).forEach(k => {
+                    const v = poles[k];
+                    if (null == best || Math.abs(v) > Math.abs(best)) best = v;
+                });
+                strongest = best;
+            }
             return {
                 raw: raw,
                 single: single,
                 singleValue: singleValue,
-                rated: Boolean(raw.giveKnown || raw.receiveKnown),
+                rated: Boolean(raw.giveKnown || raw.receiveKnown || raw.polesKnown || raw.lineKnown),
+                poles: poles,
+                polesKnown: Boolean(raw.polesKnown),
+                line: line,
+                lineKnown: Boolean(raw.lineKnown),
+                strongest: strongest,
                 limitScope: sxAnnoScope(profile, id, meta, "limit"),
                 notInterested: Boolean(sxAnnoScope(profile, id, meta, "notinterested")),
                 favorite: Boolean(sxAnnoScope(profile, id, meta, "favorite")),
@@ -35624,6 +35702,40 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         function sxStance(value, known, T) {
             return !known ? "unknown" : value < 0 ? "against" : value > T ? "strong" : "curious";
+        }
+        // Multi-pole comparison (ruled 2026-11-16): the agreement
+        // between two profiles' stances on one topic, as a fraction
+        // 0–1. score = 100 − (mean |A−B| over the poles) ÷ 2, so the
+        // fraction is 1 − (mean |A−B|) / 200. A line topic is a
+        // one-pole vector (score = 100 − |A−B| ÷ 2). Two all-zero
+        // vectors agree perfectly (fraction 1). Returns null when the
+        // topic is not a multi-pole topic for both profiles.
+        function sxPoleAgreement(a, b) {
+            if (!a || !b) return null;
+            // Line topic: one scalar each.
+            if (a.lineKnown && b.lineKnown) {
+                return 1 - Math.abs(a.line - b.line) / 200;
+            }
+            // Pole vectors: mean |A−B| over the union of pole keys.
+            if (a.polesKnown && b.polesKnown) {
+                const keys = [...new Set([...Object.keys(a.poles), ...Object.keys(b.poles)])];
+                if (!keys.length) return null;
+                let sum = 0;
+                keys.forEach(k => {
+                    const va = k in a.poles ? a.poles[k] : 0;
+                    const vb = k in b.poles ? b.poles[k] : 0;
+                    sum += Math.abs(va - vb);
+                });
+                return 1 - (sum / keys.length) / 200;
+            }
+            return null;
+        }
+        // Depth Factor intensity for a multi-pole topic: the geometric
+        // mean over members of each member's strongest stance ÷100.
+        // (Absolute values — opposite signs still have intensity.)
+        function sxPoleIntensity(a, b) {
+            if (!a || !b || null == a.strongest || null == b.strongest) return 0;
+            return Math.sqrt(Math.abs(a.strongest) * Math.abs(b.strongest)) / 100;
         }
         function sxSides(td, heat) {
             const T = sxClamp(35 - heat, 0, 85);
@@ -35867,8 +35979,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     outcome: "invisible", playOutcome: "invisible", strength: null, bestFit: null,
                     fits: [], directions: [], bothWays: !1, clashes: [], shed: !1, mutualNo: !1,
                     ratings: {
-                        a: { give: a.raw.give, giveKnown: a.raw.giveKnown, receive: a.raw.receive, receiveKnown: a.raw.receiveKnown, single: a.single, singleValue: a.singleValue },
-                        b: { give: b.raw.give, giveKnown: b.raw.giveKnown, receive: b.raw.receive, receiveKnown: b.raw.receiveKnown, single: b.single, singleValue: b.singleValue }
+                        a: { give: a.raw.give, giveKnown: a.raw.giveKnown, receive: a.raw.receive, receiveKnown: a.raw.receiveKnown, single: a.single, singleValue: a.singleValue, polesKnown: a.polesKnown, lineKnown: a.lineKnown },
+                        b: { give: b.raw.give, giveKnown: b.raw.giveKnown, receive: b.raw.receive, receiveKnown: b.raw.receiveKnown, single: b.single, singleValue: b.singleValue, polesKnown: b.polesKnown, lineKnown: b.lineKnown }
                     },
                     flags: {
                         notInterested: [ a.notInterested && nameA, b.notInterested && nameB ].filter(Boolean),
@@ -35920,18 +36032,40 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                    weight factor — the stated multiplication stands,
                    fit sets direction/magnitude, marks set how much of
                    that fit is covered. */
-                const gvA = sxRawVal(a, "give"), rvA = sxRawVal(a, "receive"), gvB = sxRawVal(b, "give"), rvB = sxRawVal(b, "receive"),
-                    fitGive = null != gvA && null != rvB ? gvA * rvB / 100 : null,
-                    fitRecv = null != gvB && null != rvA ? gvB * rvA / 100 : null;
-                rec.crossFitGive = fitGive, rec.crossFitReceive = fitRecv;
-                const totA = sxPlayMemberTotal(a), totB = sxPlayMemberTotal(b), totMax = Math.max(totA, totB),
-                    gmRated = totMax > 0 ? sxPlayGeoMean([ totA / totMax, totB / totMax ]) : 0,
-                    fitArr = [ fitGive, fitRecv ].filter(v => null != v),
-                    maxFit = fitArr.length ? Math.max(...fitArr) : null;
-                rec.playKFEntry = null == maxFit ? null : maxFit / 100 * gmRated;
-                const binFit = (null != fitGive && Math.abs(fitGive) > sxPairEps ? 1 : 0) + (null != fitRecv && Math.abs(fitRecv) > sxPairEps ? 1 : 0),
-                    cMsA = binFit + sxPlayTableFlags(a), cMsB = binFit + sxPlayTableFlags(b), cMsMax = Math.max(cMsA, cMsB);
-                rec.playMSEntry = cMsMax > 0 ? sxPlayGeoMean([ cMsA / cMsMax, cMsB / cMsMax ]) : 0;
+                /* Multi-pole comparison (ruled 2026-11-16): for a
+                   shared multi-pole topic, the Play MS entry is the
+                   agreement fraction (0–1) and the Play KF entry is
+                   the agreement × the Depth Factor intensity
+                   (geometric mean over members of each member's
+                   strongest stance ÷100). The flanked computation is
+                   skipped for these topics — they have no flanks, so
+                   it would give a null KF entry and a 0 MS entry.
+                   (Flag folding for multi-pole entries is not defined
+                   in the design; the samples carry no flags, so the
+                   entries are the agreement and agreement ×
+                   intensity exactly.) */
+                const agreement = sxPoleAgreement(a, b);
+                if (null != agreement) {
+                    const intensity = sxPoleIntensity(a, b);
+                    rec.agreement = agreement;
+                    rec.poleIntensity = intensity;
+                    rec.crossFitGive = null, rec.crossFitReceive = null;
+                    rec.playMSEntry = agreement;
+                    rec.playKFEntry = agreement * intensity;
+                } else {
+                    const gvA = sxRawVal(a, "give"), rvA = sxRawVal(a, "receive"), gvB = sxRawVal(b, "give"), rvB = sxRawVal(b, "receive"),
+                        fitGive = null != gvA && null != rvB ? gvA * rvB / 100 : null,
+                        fitRecv = null != gvB && null != rvA ? gvB * rvA / 100 : null;
+                    rec.crossFitGive = fitGive, rec.crossFitReceive = fitRecv;
+                    const totA = sxPlayMemberTotal(a), totB = sxPlayMemberTotal(b), totMax = Math.max(totA, totB),
+                        gmRated = totMax > 0 ? sxPlayGeoMean([ totA / totMax, totB / totMax ]) : 0,
+                        fitArr = [ fitGive, fitRecv ].filter(v => null != v),
+                        maxFit = fitArr.length ? Math.max(...fitArr) : null;
+                    rec.playKFEntry = null == maxFit ? null : maxFit / 100 * gmRated;
+                    const binFit = (null != fitGive && Math.abs(fitGive) > sxPairEps ? 1 : 0) + (null != fitRecv && Math.abs(fitRecv) > sxPairEps ? 1 : 0),
+                        cMsA = binFit + sxPlayTableFlags(a), cMsB = binFit + sxPlayTableFlags(b), cMsMax = Math.max(cMsA, cMsB);
+                    rec.playMSEntry = cMsMax > 0 ? sxPlayGeoMean([ cMsA / cMsMax, cMsB / cMsMax ]) : 0;
+                }
                 fantasy && fantasySetAside++;
                 const mkRoute = (dir, gS, gV, gSingle, rS, rV, rSingle, giverName, receiverName, againstName) => {
                     const r = sxRoute(gS, gV, gSingle, rS, rV, rSingle);
@@ -35978,12 +36112,17 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     giveGive = ra.giveKnown && rb.giveKnown ? ra.give * rb.give : null,
                     recvRecv = ra.receiveKnown && rb.receiveKnown ? ra.receive * rb.receive : null,
                     sum = null == giveGive && null == recvRecv ? null : (giveGive || 0) + (recvRecv || 0),
-                    aRated = ra.giveKnown || ra.receiveKnown, bRated = rb.giveKnown || rb.receiveKnown;
+                    // Multi-pole comparison (ruled 2026-11-16): a pole
+                    // vector or a line scalar counts as rated here too,
+                    // so a shared multi-pole topic is "shared" in the
+                    // straight register (its Parlay entry comes from
+                    // the agreement, carried on the record).
+                    aRated = ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown, bRated = rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown;
                 let status;
                 if (rec.limiters.length) status = "limit-blocked", straightLimitBlocked++;
                 else if (!(aRated && bRated)) status = "invisible", aRated !== bRated && straightOneSided++;
                 else status = "shared", straightShared++;
-                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags };
+                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null };
                 straightTopics.push(srec), straightById[rec.id] = srec;
             });
             const straightList = straightTopics.filter(s => "shared" === s.status && null != s.sum && s.sum > 0).sort((x, y) => (y.sum || 0) - (x.sum || 0) || x.label.localeCompare(y.label)),
@@ -36034,7 +36173,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                (weighted). */
             const sxSharedRated = r => {
                     const ra = r.ratings.a, rb = r.ratings.b;
-                    return (ra.giveKnown || ra.receiveKnown) && (rb.giveKnown || rb.receiveKnown) && !r.limiters.length;
+                    // Multi-pole comparison (ruled 2026-11-16): a pole
+                    // vector or a line scalar counts as rated, so a
+                    // shared multi-pole topic is in the considered set.
+                    return (ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown) && (rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown) && !r.limiters.length;
                 },
                 msAgg = sxPlayWeightedPct(topics, r => r.playMSEntry, r => sxSharedRated(r) && !(r.flags.fantasyBy || []).length),
                 kfAgg = sxPlayWeightedPct(topics, r => r.playKFEntry, r => sxSharedRated(r));
@@ -36427,6 +36569,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                below replaces the plain rated flag in BOTH terms. */
             const e = Number.isFinite(eps) ? eps : SX_EPSILON_E0, flanks = [];
             if (td.single) { if (td.rated && null != td.singleValue && Math.abs(td.singleValue) > e) flanks.push(td.singleValue / 100); }
+            else if (td.polesKnown || td.lineKnown) {
+                // Multi-pole comparison (ruled 2026-11-16): Personal KF
+                // is the largest absolute pole affinity, signed, ÷100;
+                // the epsilon threshold applies to the largest absolute
+                // pole affinity. (A line topic's strongest stance is
+                // its scalar.)
+                if (null != td.strongest && Math.abs(td.strongest) > e) flanks.push(td.strongest / 100);
+            }
             else { if (td.raw.giveKnown && Math.abs(td.raw.give) > e) flanks.push(td.raw.give / 100); if (td.raw.receiveKnown && Math.abs(td.raw.receive) > e) flanks.push(td.raw.receive / 100); }
             const ratedE = flanks.length > 0,
                 base = ratedE ? Math.max(...flanks) : 0, flags = sxFlagSum(td);
@@ -36521,6 +36671,21 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const sxParlayEps = sxPlayEpsilon(pair.heat ? [ pair.heat.a, pair.heat.b ] : []),
                 recs = pair.straight.topics.map(s => {
                     if ("shared" !== s.status) return { id: s.id, entryKF: null, entryMS: null, consideredKF: !1, consideredMS: !1 };
+                    // Multi-pole comparison (ruled 2026-11-16): Parlay
+                    // includes the ratings too — the agreement feeds
+                    // Parlay (Converse) as well as Play (Commune).
+                    // The Parlay entries use the agreement exactly as
+                    // the Play entries do (MS = the agreement fraction,
+                    // KF = agreement × intensity). The samples carry no
+                    // flags, so the Parlay flag table does not change
+                    // these entries.
+                    if (null != s.agreement) return {
+                        id: s.id,
+                        entryKF: s.agreement * (null != s.poleIntensity ? s.poleIntensity : 0),
+                        entryMS: s.agreement,
+                        consideredKF: !0,
+                        consideredMS: !0
+                    };
                     const rec = pair.topicsById ? pair.topicsById[s.id] : null, fl = rec ? rec.flags || {} : {},
                         ra = rec ? rec.ratings.a : null, rb = rec ? rec.ratings.b : null,
                         mkTd = (r, name) => ({
@@ -45402,7 +45567,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 });
                 Zy[n] = s, Ew();
             } catch (e) {
-                t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that sample profile.", {
+                t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
                     tone: "error",
                     persistent: !0
                 });
@@ -46436,6 +46601,34 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         const vals = Object.values(rating).filter(Number.isFinite);
                         for (let k = 0; k < Math.min(flanks.length, vals.length); k++) {
                             incoming[flanks[k]] = clamp(vals[k]);
+                        }
+                    }
+                    // LINE triad (2026-11-16 fix): a trilinear-line stores one
+                    // scalar under the single key "line" (bind writes via
+                    // shape.keys[0]), but archetype payloads carry one
+                    // affinity per pole. Without a conversion the exact-key
+                    // copy above finds no "line" key, the positional
+                    // fallback requires >= 2 flanks, and the throw below
+                    // aborts the whole load (the Polis Democrat landed 10
+                    // of 38 ratings and no tab). Derive the position from
+                    // the affinities using the line's own forward semantics
+                    // (03e: middle weight = 1 - |V|/100, so |V| =
+                    // (100 - middleAffinity) / 2); the direction is the
+                    // more-liked end pole, a tie sits at 0. The middle pole
+                    // is poles[1] — skins list their line poles in axis
+                    // order [left, middle, right] — except the three topics
+                    // whose mix pole is listed third (Health insurance:
+                    // the ACA; Detector Design: Hybrid; Collaboration:
+                    // Coopetition), where it is poles[2]. A missing or
+                    // non-numeric pole falls through to the throw below:
+                    // a partial affinity set is not silently guessed.
+                    if (!Object.keys(incoming).length && 1 === flanks.length && "line" === flanks[0]) {
+                        const pk = shape.poleKeys && 3 === shape.poleKeys.length ? shape.poleKeys : Object.keys(rating);
+                        const midIdx = "xpo0029" === id || "xex0009" === id || "xex0025" === id ? 2 : 1;
+                        const aL = Number(rating[pk[0]]), aM = Number(rating[pk[midIdx]]), aR = Number(rating[pk[1 === midIdx ? 2 : 1]]);
+                        if (Number.isFinite(aL) && Number.isFinite(aM) && Number.isFinite(aR)) {
+                            const mag = (100 - clamp(aM)) / 2;
+                            incoming.line = clamp(Math.round((aL > aR ? -1 : aR > aL ? 1 : 0) * mag));
                         }
                     }
                 }
