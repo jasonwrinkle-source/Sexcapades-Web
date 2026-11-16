@@ -402,7 +402,7 @@
         // is no save click left to relocate.
         function sxStamp(ctx) {
             const parts = ctx.profiles.map((p, i) => `${p.name || `Profile ${i + 1}`} ${sxHeatZone(sxHeatFor(sxKey(ctx, i)))}`);
-            return `${"play" === sxcv.mode ? "Play" : "Conversation"} · Heat: ${parts.join(" · ")}`;
+            return `${"play" === sxcv.mode ? sxTerm("playMode") : sxTerm("conversationMode")} · Heat: ${parts.join(" · ")}`;
         }
         function sxRenderResults(allowBuzz) {
             const root = sxResultsEl();
@@ -411,11 +411,11 @@
             let headlineLabel, headlineText, coverageHtml = "";
             if (isPair) {
                 const agg = "play" === mode ? pair.play : pair.conversation, cov = pair.coverage;
-                headlineLabel = "play" === mode ? "Play MS" : "Play KF", headlineText = agg.headlineText || "No score — no shared topics",
+                headlineLabel = "play" === mode ? sxTerm("playMS") : sxTerm("playKF"), headlineText = agg.headlineText || "No score — no shared topics",
                 coverageHtml = `<p class="sx-coverage">${Hi(pair.a)}: ${cov.aRated} rated · ${cov.aPercent}% of ${cov.catalog} topics · ${Hi(pair.b)}: ${cov.bRated} rated · ${cov.bPercent}% of ${cov.catalog} topics · ${cov.oneSided} one-sided · ${cov.limitBlocked} limit-blocked · ${cov.fantasySetAside} fantasy set aside</p>`;
             } else {
                 const agg = "play" === mode ? grp.play : grp.conversation, limitedCount = grp.topics.filter(t => t.groupLimited).length;
-                headlineLabel = agg.label || ("play" === mode ? "Play MS" : "Play KF"), headlineText = agg.headlineText || "No score — no shared topics";
+                headlineLabel = agg.label || ("play" === mode ? sxTerm("playMS") : sxTerm("playKF")), headlineText = agg.headlineText || "No score — no shared topics";
                 const per = ctx.profiles.map((p, i) => {
                     const pr = grp.pairs.find(x => x.i === i || x.j === i);
                     if (!pr) return `${Hi(p.name || `Profile ${i + 1}`)}: —`;
@@ -460,7 +460,7 @@
                render in this seat — the header paint shows the same
                Play MS / Play KF for the active match
                tab through sxRingValuesForCast. */
-            n(root, `<div class="sx-stamp">${Hi(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
+            n(root, `<div class="sx-stamp" data-sx-term="playMode,conversationMode">${Hi(sxStamp(ctx))}</div>${coverageHtml}${explainer}${listsHtml}${hotHtml}`);
             const sxTabNow = sxCurrentTab();
             sxTabNow && "bowtie" === sxTabNow.kind && (sxTabNow.buckets = sxBowtieBuckets(ctx, grp), sxUpdateMatchRings(sxTabNow));
             allowBuzz && sxMaybeBuzz(ctx, grp);
@@ -490,13 +490,13 @@
         }
         function sxMatchIconsHtml() {
             if (!sxMatchIconsVisible()) return "";
-            return `<button type="button" class="profile-match-btn" data-sx-match-open="circledot" aria-label="Open Straight Talk for the selected profiles" title="Straight Talk">⊙</button><button type="button" class="profile-match-btn" data-sx-match-open="bowtie" aria-label="Open Krossmatch for the selected profiles" title="Krossmatch">⋈</button>`;
+            return `<button type="button" class="profile-match-btn" data-sx-match-open="circledot" aria-label="Open Straight Talk for the selected profiles" title="Straight Talk">⊙</button><button type="button" class="profile-match-btn" data-sx-match-open="bowtie" data-sx-term="krossmatch" aria-label="Open ${sxTerm("krossmatch")} for the selected profiles" title="${sxTerm("krossmatch")}">⋈</button>`;
         }
         function sxMatchTabsHtml() {
             const reg = sxTabsReg();
             return [ ...reg.tabs.values() ].map(tab => {
-                const active = reg.stageOn && reg.active === tab.key, label = "circledot" === tab.kind ? "Straight Talk" : "Krossmatch", glyph = "circledot" === tab.kind ? "⊙" : "⋈";
-                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${label} match tab"><span aria-hidden="true">${glyph}</span> ${label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${label} tab">×</button></span>`;
+                const active = reg.stageOn && reg.active === tab.key, label = "circledot" === tab.kind ? "Straight Talk" : sxTerm("krossmatch"), glyph = "circledot" === tab.kind ? "⊙" : "⋈";
+                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${label} match tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}><span aria-hidden="true">${glyph}</span> ${label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${label} tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}>×</button></span>`;
             }).join("");
         }
         function sxCurrentTab() {
@@ -714,7 +714,7 @@
             // legacy results assembly survives ONLY as the 4+-profile
             // group presentation (carve-out: no N-map layout is invented
             // for 4+); it stays hidden for 2- and 3-profile casts.
-            sec.innerHTML = "circledot" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>`;
+            sec.innerHTML = "circledot" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp="" data-sx-term="playMode,conversationMode"></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>`;
             stage.appendChild(sec), tab.section = sec;
         }
         /* Straight bands (Job 2, ruled equal thirds over the per-topic
@@ -757,7 +757,7 @@
             const pk = tab.section.querySelector("[data-sx-picker]");
             pk && (pk.innerHTML = sxPickerHtml());
             const st = tab.section.querySelector("[data-sx-stamp]");
-            st && (st.textContent = ctx ? `Conversation · Heat: ${ctx.profiles.map((p, i) => `${p.name || `Profile ${i + 1}`} ${sxHeatZone(sxHeatFor(sxKey(ctx, i)))}`).join(" · ")}` : "");
+            st && (st.textContent = ctx ? sxStamp(ctx) : "");
             const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {}) : null;
             const bandLists = sxStraightBands(pair);
             /* Banded Straight Talk list (Job 3): the Job 1 ranked list,
@@ -1934,7 +1934,7 @@
                 const v = sxHeatFor(id);
                 return `${names[i]} ${sxHeatZone(v)} ${v > 0 ? "+" + v : v}`;
             }), veil = ids.map((id, i) => `${names[i]} ${sxVeilFor(id)}`);
-            return `COMPARE SETTINGS — Mode: ${"play" === sxcv.mode ? "Play" : "Conversation"} · Heat: ${heat.join(" · ")} · Veil: ${veil.join(" · ")}`;
+            return `COMPARE SETTINGS — Mode: ${"play" === sxcv.mode ? sxTerm("playMode") : sxTerm("conversationMode")} · Heat: ${heat.join(" · ")} · Veil: ${veil.join(" · ")}`;
         }
         // Shared plain-text lines for the BINDING surfaces only
         // (refactor F11): the per-person binding Terms line and the

@@ -441,6 +441,14 @@
         // itself (entries, topics, children) is rebuilt fresh every
         // paint, so the payload can never resurrect a stale taxonomy.
         // ============================================================
+        // SOLVER VERSION (2026-11-15): bump whenever the solver's delivered
+        // geometry changes, so positions baked under an older solver fail
+        // the gate and the paint solves instead of serving stale geometry.
+        // The settings fingerprint cannot catch a solver change — it hashes
+        // mn only — so without this the minimum-spoke floor (or any future
+        // solver change) would slip through the gate undetected. v2 = the
+        // minimum primary-spoke floor (SX_MIN_BRANCH_THROW, 03-map-geometry).
+        const SX_SOLVER_VERSION = 2;
         function sxBakedFingerprint() {
             try { return dkStableStringify(mn); } catch (e) { return null; }
         }
@@ -521,6 +529,7 @@
             try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
             return {
                 skin: skin,
+                solverVersion: SX_SOLVER_VERSION,
                 capturedAt: new Date().toISOString(),
                 settingsHash: settingsHash,
                 fingerprint: sxBakedFingerprint(),
@@ -629,6 +638,7 @@
             var skin = "sexcapades";
             try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
             if (pos.skin && pos.skin !== skin) return null;
+            if (pos.solverVersion !== SX_SOLVER_VERSION) return null;
             if (scCtx) return null;
             if (dkCtx) return null;
             var fp = null;
