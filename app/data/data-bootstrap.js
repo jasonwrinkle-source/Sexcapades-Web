@@ -18923,16 +18923,30 @@ const TAXONOMY_CATEGORIES = [
         }), window.__sxOnPtr( e => {
             Mi.hidden || Mi.contains(e.target) || __sxClosestAction(e.target, "centerHit") || Ri();
         }, !0), (() => {
-            let sxTapX = 0, sxTapY = 0, sxTapDown = !1;
+            let sxTapX = 0, sxTapY = 0, sxTapDown = !1, sxTapOnMap = !1;
             window.__sxOnPtr( e => {
-                sxTapX = e.clientX, sxTapY = e.clientY, sxTapDown = !0;
+                sxTapX = e.clientX, sxTapY = e.clientY, sxTapDown = !0,
+                // Hot List popup fix (2026-11-16): this guard used to
+                // swallow the pointerup of ANY >10px drag anywhere in
+                // the app — including the widget canvases, whose
+                // drag-end handlers live on the canvas and never fired,
+                // leaving isDragging stuck true and killing canvas hover
+                // tips after any drag (popup AND placard). Only swallow
+                // pointerups for gestures that started on the map, which
+                // is what the guard protects (map pan/tap
+                // disambiguation); the click itself stays suppressed
+                // app-wide by the 03b guard and the one-shot listener
+                // below, unchanged.
+                sxTapOnMap = !!(e.target && e.target.closest && e.target.closest("#mapSvg"));
             }, !0);
             document.addEventListener("pointerup", e => {
                 if (!sxTapDown) return;
                 sxTapDown = !1;
+                const onMap = sxTapOnMap;
+                sxTapOnMap = !1;
                 const dx = e.clientX - sxTapX, dy = e.clientY - sxTapY;
                 if (dx * dx + dy * dy > 100) {
-                    e.preventDefault(), e.stopPropagation();
+                    if (onMap) e.preventDefault(), e.stopPropagation();
                     const t = e.target;
                     t && t.addEventListener("click", function h(ev) {
                         ev.preventDefault(), ev.stopPropagation(), t.removeEventListener("click", h, !0);
@@ -27982,6 +27996,229 @@ const TAXONOMY_CATEGORIES = [
             isDragging: !1
         };
 
+        /* --- Widget approachability: one shared pole-label system (T5/T6/T3/T7) ---
+           Every polygon widget draws its pole names the same way: rotated to
+           the tangent of the circumscribing circle at the vertex (tangent =
+           vertex angle + 90°, normalised to (-90, 90] so no label is ever
+           upside-down), centred 13px out from the vertex along the vertex
+           direction, in one font (bold 9px system-ui). The rotated bounding
+           box is clamped inside the canvas so long names never clip. Each
+           drawn label is recorded on canvas.__sxLabelRects (axis-aligned
+           box + angle + pole key + full name) for the canvas hover
+           hit-test (seam B). Compass corners stay horizontal (ruled) and
+           are recorded, not redrawn. */
+        const SX_POLE_LABEL_FONT = "bold 9px system-ui, sans-serif";
+        const SX_POLE_LABEL_OFFSET = 13;
+        function sxNormTangentDeg(deg) {
+            let d = deg;
+            while (d > 90) d -= 180;
+            while (d <= -90) d += 180;
+            return d;
+        }
+        function sxRecordPoleLabelRect(canvas, text, x, y, w, h, angleDeg, key, name, ax, ay, tw, th) {
+            if (!canvas || !text) return;
+            if (!canvas.__sxLabelRects) canvas.__sxLabelRects = [];
+            canvas.__sxLabelRects.push({
+                text: text,
+                name: name || text,
+                x: Math.round(x * 10) / 10,
+                y: Math.round(y * 10) / 10,
+                w: Math.round(w * 10) / 10,
+                h: Math.round(h * 10) / 10,
+                angle: Math.round(angleDeg * 10) / 10,
+                key: key || "",
+                /* Rotated hit-test frame: anchor + unrotated half-extents.
+                   The axis-aligned box above is the clamp/probe record; the
+                   hit test uses the true rotated shape so long steep labels
+                   don't claim the whole canvas. Defaults = the box itself. */
+                ax: (ax !== undefined ? Math.round(ax * 10) / 10 : Math.round((x + w / 2) * 10) / 10),
+                ay: (ay !== undefined ? Math.round(ay * 10) / 10 : Math.round((y + h / 2) * 10) / 10),
+                tw: (tw !== undefined ? Math.round(tw * 10) / 10 : Math.round(w * 10) / 10),
+                th: (th !== undefined ? Math.round(th * 10) / 10 : Math.round(h * 10) / 10)
+            });
+        }
+        function sxDrawPoleLabelAt(ctx, canvas, ax, ay, angleDeg, text, color, key, name) {
+            if (!ctx || !canvas || !text) return;
+            const W = canvas.width, H = canvas.height;
+            const theta = (angleDeg * Math.PI) / 180;
+            ctx.save();
+            ctx.font = SX_POLE_LABEL_FONT;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const tw = ctx.measureText(text).width;
+            const th = 9;
+            const c = Math.abs(Math.cos(theta)), s = Math.abs(Math.sin(theta));
+            const bw = tw * c + th * s, bh = tw * s + th * c;
+            ax = Math.max(bw / 2 + 2, Math.min(W - bw / 2 - 2, ax));
+            ay = Math.max(bh / 2 + 2, Math.min(H - bh / 2 - 2, ay));
+            ctx.translate(ax, ay);
+            ctx.rotate(theta);
+            ctx.fillStyle = color;
+            ctx.fillText(text, 0, 0);
+            ctx.restore();
+            sxRecordPoleLabelRect(canvas, text, ax - bw / 2, ay - bh / 2, bw, bh, angleDeg, key, name, ax, ay, tw, th);
+        }
+        function sxDrawPoleLabel(ctx, canvas, vx, vy, angleRad, text, color, key) {
+            if (!ctx || !canvas || !text) return;
+            const tangentDeg = sxNormTangentDeg((angleRad * 180) / Math.PI + 90);
+            const dx = Math.cos(angleRad), dy = Math.sin(angleRad);
+            sxDrawPoleLabelAt(ctx, canvas, vx + dx * SX_POLE_LABEL_OFFSET, vy + dy * SX_POLE_LABEL_OFFSET, tangentDeg, text, color, key, text);
+        }
+        function sxPoleLabels(shape, n) {
+            // Label, else pole key, else "" — never a "Pole N" fallback (T7).
+            const out = [];
+            for (let k = 0; k < n; k++) {
+                out.push((shape && shape.labels && shape.labels[k]) || (shape && shape.keys && shape.keys[k]) || "");
+            }
+            return out;
+        }
+        function sxShortAxisWord(label) {
+            // "X-Axis (Give / Electron-Pair Donor)" -> "X-Axis"; a plain
+            // verb like "overpower" passes through unchanged (T4/T2).
+            const s = String(label || "");
+            if (!s) return "";
+            const cut = s.indexOf(" (");
+            return (cut >= 0 ? s.slice(0, cut) : s).trim();
+        }
+        function sxShortRoleWord(label, fallback) {
+            // Parenthetical last word: "X-Axis (Give / Electron-Pair
+            // Donor)" -> "Donor"; plain "Give"/"Receive" -> "Giver"/"Receiver".
+            const s = String(label || "");
+            if (!s) return fallback;
+            const m = /\(([^)]*)\)\s*$/.exec(s);
+            const inner = m ? m[1] : s;
+            const parts = inner.split("/").map(x => x.trim()).filter(Boolean);
+            const last = parts.length ? parts[parts.length - 1] : inner;
+            const words = last.split(/\s+/).filter(Boolean);
+            const w = words.length ? words[words.length - 1] : fallback;
+            if (/^give$/i.test(w)) return "Giver";
+            if (/^receive$/i.test(w)) return "Receiver";
+            return w;
+        }
+        function sxSwitchboxRoleWords(topicId) {
+            // Short role words from the topic's own labels; the classic
+            // Sexcapades names apply only on the Sexcapades skin (T2).
+            const classic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            let g = "Giver", r = "Receiver";
+            if (topicId && typeof Ge === "function") {
+                const shape = Ge(topicId);
+                if (shape && shape.labels) {
+                    if (shape.labels[0]) g = sxShortRoleWord(shape.labels[0], "Giver");
+                    if (shape.labels[1]) r = sxShortRoleWord(shape.labels[1], "Receiver");
+                }
+            }
+            return { g: g, r: r, classic: classic };
+        }
+        function sxSetSwitchboxQuadrants(topicId) {
+            const words = sxSwitchboxRoleWords(topicId);
+            const names = words.classic
+                ? { tl: "Bottom / Receiver", tr: "Versatile Switch", bl: "Hard Red Limit", br: "Top / Giver" }
+                : { tl: words.r + " only", tr: "Both " + words.g + " + " + words.r, bl: "Neither (limit)", br: words.g + " only" };
+            const set = (cls, text) => {
+                const el = document.querySelector("#markSwitchboxWrap " + cls + " .mark-quad-name");
+                if (el) el.textContent = text;
+            };
+            set(".mark-quad-tl", names.tl);
+            set(".mark-quad-tr", names.tr);
+            set(".mark-quad-bl", names.bl);
+            set(".mark-quad-br", names.br);
+        }
+        function sxPoleLine(topicId, key) {
+            // One pole's "Label — text" line. Skin-registered topics come
+            // first (loader); Sexcapades give/receive uses the custom
+            // wording where it exists (Ge labels are the topic's own verbs,
+            // e.g. "overpower" / "be overpowered"), else the ruled
+            // "Give — <topic> / Receive — <topic>" form (Q2).
+            if (!topicId || !key) return null;
+            if (typeof window.__SX_POLE_LINE_FOR === "function") {
+                const line = window.__SX_POLE_LINE_FOR(topicId, key);
+                if (line) return line;
+            }
+            if ((key === "give" || key === "receive") && typeof Ge === "function") {
+                const shape = Ge(topicId);
+                const idx = key === "give" ? 0 : 1;
+                const verb = shape && shape.labels && shape.labels[idx];
+                if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
+                let name = "";
+                const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
+                if (rec) name = rec.label || rec.name || "";
+                if (!name) {
+                    const t = e.byId("markMenuTitle");
+                    if (t) name = t.textContent.replace(/\s*\(tray\)\s*$/i, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+                }
+                return (key === "give" ? "Give — " : "Receive — ") + (name || topicId);
+            }
+            return null;
+        }
+        function sxSetPoleTip(el, topicId, key) {
+            if (!el) return;
+            const line = sxPoleLine(topicId, key);
+            if (line) el.setAttribute("data-ui-tooltip", line);
+            else el.removeAttribute("data-ui-tooltip");
+        }
+        function sxSetMeterLine(wrap, topicId) {
+            // T9: one short line in the widget wrap stating what is being
+            // metered, from the skin JSON (per-skin default word, per-topic
+            // override where one exists). Hidden when no word is known.
+            if (!wrap) return;
+            let line = wrap.querySelector(":scope > .sx-meter-line");
+            if (!line) {
+                line = document.createElement("div");
+                line.className = "sx-meter-line";
+                line.setAttribute("role", "note");
+                line.style.cssText = "font-size:11px;opacity:.75;margin:2px 0 6px;";
+                const header = wrap.querySelector(":scope > .mark-triangle-header");
+                if (header && header.nextSibling) wrap.insertBefore(line, header.nextSibling);
+                else if (header) wrap.appendChild(line);
+                else wrap.insertBefore(line, wrap.firstChild);
+            }
+            const word = (typeof window.__SX_METER_FOR_TOPIC === "function") ? window.__SX_METER_FOR_TOPIC(topicId) : null;
+            line.textContent = word ? ("What this measures: " + word + ".") : "";
+            line.hidden = !word;
+        }
+        function sxHitPoleLabel(canvas, evt) {
+            const rects = canvas.__sxLabelRects;
+            if (!rects || !rects.length) return null;
+            const rect = canvas.getBoundingClientRect();
+            const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
+            const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
+            for (let i = 0; i < rects.length; i++) {
+                const r = rects[i];
+                if (!Number.isFinite(r.ax) || !Number.isFinite(r.ay) || !Number.isFinite(r.tw) || !Number.isFinite(r.th)) continue;
+                // Point in the label's own (rotated) frame: rotate the
+                // offset by -angle, then test against the unrotated box.
+                const theta = ((r.angle || 0) * Math.PI) / 180;
+                const dx = px - r.ax, dy = py - r.ay;
+                const c = Math.cos(-theta), s = Math.sin(-theta);
+                const lx = dx * c - dy * s, ly = dx * s + dy * c;
+                if (Math.abs(lx) <= r.tw / 2 + 2 && Math.abs(ly) <= r.th / 2 + 2) return r;
+            }
+            return null;
+        }
+        function sxBindPoleHover(canvas, getDragging) {
+            // Seam B: hovering a canvas pole label shows that pole's line;
+            // hovering empty canvas shows nothing. Skipped while dragging.
+            if (!canvas || canvas.dataset.poleHoverBound) return;
+            canvas.dataset.poleHoverBound = "1";
+            canvas.addEventListener("pointermove", (evt) => {
+                if ((getDragging && getDragging()) || typeof window.__SX_TIP_SHOW !== "function") return;
+                const hit = sxHitPoleLabel(canvas, evt);
+                if (!hit) {
+                    if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
+                    return;
+                }
+                // The popup canvas carries its own hover topic (set fresh
+                // on every open); placard canvases never set it and keep
+                // resolving via Qr, the placard's current topic.
+                const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
+                if (line) window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                else if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
+            });
+            canvas.addEventListener("pointerleave", () => {
+                if (typeof window.__SX_TIP_HIDE === "function") window.__SX_TIP_HIDE();
+            });
+        }
+
         function sxGetTriVertices(width, height) {
             // Pole 0 (Red, bottom-left), Pole 1 (Green, top center / middle position), Pole 2 (Blue, bottom-right)
             return {
@@ -28129,27 +28366,13 @@ const TAXONOMY_CATEGORIES = [
             ctx.strokeStyle = "#ffffff";
             ctx.stroke();
 
-            // 4. Pole labels (matching RGB colors)
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3"];
-            ctx.font = "bold 10px system-ui, sans-serif";
-
-            // Pole 0 (Red, bottom-left)
-            ctx.textAlign = "left";
-            ctx.textBaseline = "top";
-            ctx.fillStyle = "#ef4444";
-            ctx.fillText(labels[0], V0.x - 14, V0.y + 6);
-
-            // Pole 1 (Green, top middle)
-            ctx.textAlign = "center";
-            ctx.textBaseline = "bottom";
-            ctx.fillStyle = "#22c55e";
-            ctx.fillText(labels[1], V1.x, V1.y - 5);
-
-            // Pole 2 (Blue, bottom-right)
-            ctx.textAlign = "right";
-            ctx.textBaseline = "top";
-            ctx.fillStyle = "#3b82f6";
-            ctx.fillText(labels[2], V2.x + 14, V2.y + 6);
+            // 4. Pole labels (matching RGB colors) — tangent-rotated (T5).
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 3);
+            const triCx = (V0.x + V1.x + V2.x) / 3, triCy = (V0.y + V1.y + V2.y) / 3;
+            [V0, V1, V2].forEach((V, idx) => {
+                sxDrawPoleLabel(ctx, canvas, V.x, V.y, Math.atan2(V.y - triCy, V.x - triCx), labels[idx], ["#ef4444", "#22c55e", "#3b82f6"][idx], shape && shape.keys && shape.keys[idx]);
+            });
 
             // 5. Active point puck position
             const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
@@ -28307,22 +28530,15 @@ const TAXONOMY_CATEGORIES = [
                 ctx.stroke();
             });
 
-            // 5. Pole Labels
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4"];
-            ctx.font = "bold 9px system-ui, sans-serif";
-
-            // North
-            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
-            ctx.fillStyle = "#22c55e"; ctx.fillText(labels[0], P0.x, P0.y - 4);
-            // East
-            ctx.textAlign = "left"; ctx.textBaseline = "middle";
-            ctx.fillStyle = "#eab308"; ctx.fillText(labels[1], P1.x + 6, P1.y);
-            // South
-            ctx.textAlign = "center"; ctx.textBaseline = "top";
-            ctx.fillStyle = "#ef4444"; ctx.fillText(labels[2], P2.x, P2.y + 4);
-            // West
-            ctx.textAlign = "right"; ctx.textBaseline = "middle";
-            ctx.fillStyle = "#3b82f6"; ctx.fillText(labels[3], P3.x - 6, P3.y);
+            // 5. Pole Labels — tangent-rotated (T5). N/S read horizontal,
+            // E/W vertical, and the rotated box is clamped so the side
+            // labels ("Moksha", "Artha") no longer clip (T3). (P0..P3
+            // carry no angle — it is derived from the centroid.)
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 4);
+            [P0, P1, P2, P3].forEach((P, idx) => {
+                sxDrawPoleLabel(ctx, canvas, P.x, P.y, Math.atan2(P.y - cy, P.x - cx), labels[idx], ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx], shape && shape.keys && shape.keys[idx]);
+            });
         }
 
         function sxApplyTetradRatings(topicId) {
@@ -28465,34 +28681,50 @@ const TAXONOMY_CATEGORIES = [
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // 4. Axis captions
+            // 4. Axis captions — from the topic's axes (T1). A compass
+            // topic without axes draws no captions: the old hardcoded
+            // "Economic"/"Authority" was live-wrong on Chemcapades.
+            const axes = (shape && shape.axes) || null;
             ctx.font = "9px system-ui, sans-serif";
-            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
-            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.fillText("Economic", cx, y1 - 4);
-            ctx.save();
-            ctx.translate(x0 + 10, cy);
-            ctx.rotate(-Math.PI / 2);
-            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
-            ctx.fillText("Authority", 0, -4);
-            ctx.restore();
+            if (axes && axes[0]) {
+                ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                ctx.fillText(axes[0], cx, y1 - 4);
+            }
+            if (axes && axes[1]) {
+                ctx.save();
+                ctx.translate(x0 + 10, cy);
+                ctx.rotate(-Math.PI / 2);
+                ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                ctx.fillText(axes[1], 0, -4);
+                ctx.restore();
+            }
 
-            // 5. Corner labels (short forms, corner colors)
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4"];
+            // 5. Corner labels (short forms, corner colors) — horizontal,
+            // per the compass ruling (Q1); recorded for hover (seam B).
+            // The full label is the hover name; the short form is drawn.
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 4);
             const short = labels.map(l => sxCompassShortLabel(l));
-            ctx.font = "bold 9px system-ui, sans-serif";
+            ctx.font = SX_POLE_LABEL_FONT;
+            const sxCornerW = (t) => ctx.measureText(t).width;
             // Top-left
             ctx.textAlign = "left"; ctx.textBaseline = "bottom";
             ctx.fillStyle = SX_COMPASS_COLORS[0]; ctx.fillText(short[0], x0, y0 - 4);
+            sxRecordPoleLabelRect(canvas, short[0], x0, y0 - 13, sxCornerW(short[0]), 9, 0, shape && shape.keys && shape.keys[0], labels[0]);
             // Top-right
             ctx.textAlign = "right"; ctx.textBaseline = "bottom";
             ctx.fillStyle = SX_COMPASS_COLORS[1]; ctx.fillText(short[1], x1, y0 - 4);
+            sxRecordPoleLabelRect(canvas, short[1], x1 - sxCornerW(short[1]), y0 - 13, sxCornerW(short[1]), 9, 0, shape && shape.keys && shape.keys[1], labels[1]);
             // Bottom-right
             ctx.textAlign = "right"; ctx.textBaseline = "top";
             ctx.fillStyle = SX_COMPASS_COLORS[2]; ctx.fillText(short[2], x1, y1 + 4);
+            sxRecordPoleLabelRect(canvas, short[2], x1 - sxCornerW(short[2]), y1 + 4, sxCornerW(short[2]), 9, 0, shape && shape.keys && shape.keys[2], labels[2]);
             // Bottom-left
             ctx.textAlign = "left"; ctx.textBaseline = "top";
             ctx.fillStyle = SX_COMPASS_COLORS[3]; ctx.fillText(short[3], x0, y1 + 4);
+            sxRecordPoleLabelRect(canvas, short[3], x0, y1 + 4, sxCornerW(short[3]), 9, 0, shape && shape.keys && shape.keys[3], labels[3]);
 
             // 6. Draggable point puck (same pattern as the triangle widget)
             ctx.beginPath();
@@ -28537,6 +28769,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markCompassClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxCompassState.isDragging);
 
             const updatePointFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -28670,6 +28903,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markTetradClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxTetradState.isDragging);
 
             const updateFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -28911,24 +29145,11 @@ const TAXONOMY_CATEGORIES = [
                 ctx.stroke();
             });
 
-            // 5. Pole Labels
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5"];
-            ctx.font = "bold 9px system-ui, sans-serif";
-
-            const alignments = [
-                { align: "center", baseline: "bottom", dx: 0, dy: -4 },
-                { align: "left", baseline: "middle", dx: 6, dy: 0 },
-                { align: "left", baseline: "top", dx: 6, dy: 4 },
-                { align: "right", baseline: "top", dx: -6, dy: 4 },
-                { align: "right", baseline: "middle", dx: -6, dy: 0 }
-            ];
-
+            // 5. Pole Labels — tangent-rotated (T5).
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 5);
             vertices.forEach((v, idx) => {
-                const a = alignments[idx];
-                ctx.textAlign = a.align;
-                ctx.textBaseline = a.baseline;
-                ctx.fillStyle = SX_PENTAD_COLORS[idx];
-                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + a.dx, v.y + a.dy);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_PENTAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
             });
         }
 
@@ -28962,6 +29183,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markPentadClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxPentadState.isDragging);
 
             const updateFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -29198,25 +29420,11 @@ const TAXONOMY_CATEGORIES = [
                 ctx.stroke();
             });
 
-            // 5. Pole Labels
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5", "Pole 6"];
-            ctx.font = "bold 9px system-ui, sans-serif";
-
-            const alignments = [
-                { align: "center", baseline: "bottom", dx: 0, dy: -4 },
-                { align: "left", baseline: "middle", dx: 6, dy: -2 },
-                { align: "left", baseline: "middle", dx: 6, dy: 2 },
-                { align: "center", baseline: "top", dx: 0, dy: 4 },
-                { align: "right", baseline: "middle", dx: -6, dy: 2 },
-                { align: "right", baseline: "middle", dx: -6, dy: -2 }
-            ];
-
+            // 5. Pole Labels — tangent-rotated (T5).
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 6);
             vertices.forEach((v, idx) => {
-                const a = alignments[idx];
-                ctx.textAlign = a.align;
-                ctx.textBaseline = a.baseline;
-                ctx.fillStyle = SX_HEXAD_COLORS[idx];
-                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + a.dx, v.y + a.dy);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_HEXAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
             });
         }
 
@@ -29252,6 +29460,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markHexadClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxHexadState.isDragging);
 
             const updateFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -29489,19 +29698,11 @@ const TAXONOMY_CATEGORIES = [
                 ctx.stroke();
             });
 
-            // 5. Pole Labels
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5", "Pole 6", "Pole 7"];
-            ctx.font = "bold 8.5px system-ui, sans-serif";
-
+            // 5. Pole Labels — tangent-rotated (T5).
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 7);
             vertices.forEach((v, idx) => {
-                const angle = v.angle;
-                const cosA = Math.cos(angle), sinA = Math.sin(angle);
-                const align = Math.abs(cosA) < 0.25 ? "center" : cosA > 0 ? "left" : "right";
-                const baseline = Math.abs(sinA) < 0.25 ? "middle" : sinA > 0 ? "top" : "bottom";
-                ctx.textAlign = align;
-                ctx.textBaseline = baseline;
-                ctx.fillStyle = SX_HEPTAD_COLORS[idx];
-                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + cosA * 7, v.y + sinA * 7);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_HEPTAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
             });
         }
 
@@ -29539,6 +29740,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markHeptadClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxHeptadState.isDragging);
 
             const updateFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -29780,19 +29982,11 @@ const TAXONOMY_CATEGORIES = [
                 ctx.stroke();
             });
 
-            // 5. Pole Labels
-            const labels = (shape && shape.labels) || ["Pole 1", "Pole 2", "Pole 3", "Pole 4", "Pole 5", "Pole 6", "Pole 7", "Pole 8"];
-            ctx.font = "bold 8.2px system-ui, sans-serif";
-
+            // 5. Pole Labels — tangent-rotated (T5).
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, 8);
             vertices.forEach((v, idx) => {
-                const angle = v.angle;
-                const cosA = Math.cos(angle), sinA = Math.sin(angle);
-                const align = Math.abs(cosA) < 0.25 ? "center" : cosA > 0 ? "left" : "right";
-                const baseline = Math.abs(sinA) < 0.25 ? "middle" : sinA > 0 ? "top" : "bottom";
-                ctx.textAlign = align;
-                ctx.textBaseline = baseline;
-                ctx.fillStyle = SX_OCTAD_COLORS[idx];
-                ctx.fillText(labels[idx] || `Pole ${idx + 1}`, v.x + cosA * 7, v.y + sinA * 7);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_OCTAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
             });
         }
 
@@ -29832,6 +30026,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markOctadClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxOctadState.isDragging);
 
             const updateFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -30012,6 +30207,8 @@ const TAXONOMY_CATEGORIES = [
                 const pName = shape.labels[idx] || k;
                 const pCol = isOctad ? SX_OCTAD_COLORS[idx] : isHeptad ? SX_HEPTAD_COLORS[idx] : isHexad ? SX_HEXAD_COLORS[idx] : isPentad ? SX_PENTAD_COLORS[idx] : isCompass ? SX_COMPASS_COLORS[idx] : isTetrad ? ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx] : isTriad ? ["#ef4444", "#22c55e", "#3b82f6"][idx] : ["#22c55e", "#3b82f6"][idx];
                 statBox.innerHTML = `<span style="color:${pCol}">${pName}</span>: <b style="color:${pCol}">0</b>`;
+                // Seam A: the pole name span carries the pole's hovertip line.
+                sxSetPoleTip(statBox.querySelector("span"), topicId, k);
                 readoutEl && readoutEl.append(statBox);
                 valSpans.push(statBox.querySelector("b"));
             });
@@ -30074,6 +30271,15 @@ const TAXONOMY_CATEGORIES = [
             redraw();
 
             let activeIdx = null, isDragging = false;
+
+            // Hot List popup meter line + pole tips (2026-11-16): the
+            // same T9 line and hover seams as the placard. The meter
+            // line lives in the widget stage (above the canvas); the
+            // hover topic is refreshed on every open because the canvas
+            // is persistent while the bind is once-only (dataset guard).
+            sxSetMeterLine(e.byId("hotListWidgetStage"), topicId);
+            canvas.__sxHoverTopicId = topicId;
+            sxBindPoleHover(canvas, () => isDragging);
             const onPointer = (evt) => {
                 pId = freshPid();
                 const rect = canvas.getBoundingClientRect();
@@ -30258,6 +30464,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markTriangleClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxTriState.isDragging);
 
             const updatePointFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -30348,17 +30555,18 @@ const TAXONOMY_CATEGORIES = [
             isDragging: false
         };
 
-        function sxGetSwitchboxRole(give, receive) {
+        function sxGetSwitchboxRole(give, receive, topicId) {
             const g = Math.round(give), r = Math.round(receive);
+            const words = sxSwitchboxRoleWords(topicId);
             if (g === 0 && r === 0) return "Neutral / Open";
-            if (g > 20 && r > 20) return "Versatile Switch";
-            if (g < -20 && r < -20) return "Hard Red Limit";
-            if (g > 20 && r < -20) return "Dedicated Top / Giver";
-            if (g < -20 && r > 20) return "Dedicated Bottom / Receiver";
-            if (g > 20 && Math.abs(r) <= 20) return "Top Leaning";
-            if (r > 20 && Math.abs(g) <= 20) return "Bottom Leaning";
-            if (g < -20 && Math.abs(r) <= 20) return "Give Limit";
-            if (r < -20 && Math.abs(g) <= 20) return "Receive Limit";
+            if (g > 20 && r > 20) return words.classic ? "Versatile Switch" : "Both " + words.g + " + " + words.r;
+            if (g < -20 && r < -20) return words.classic ? "Hard Red Limit" : "Neither (limit)";
+            if (g > 20 && r < -20) return words.classic ? "Dedicated Top / Giver" : words.g + " only";
+            if (g < -20 && r > 20) return words.classic ? "Dedicated Bottom / Receiver" : words.r + " only";
+            if (g > 20 && Math.abs(r) <= 20) return words.classic ? "Top Leaning" : words.g + " leaning";
+            if (r > 20 && Math.abs(g) <= 20) return words.classic ? "Bottom Leaning" : words.r + " leaning";
+            if (g < -20 && Math.abs(r) <= 20) return words.classic ? "Give Limit" : words.g + " limit";
+            if (r < -20 && Math.abs(g) <= 20) return words.classic ? "Receive Limit" : words.r + " limit";
             return "Moderate Engagement";
         }
 
@@ -30427,26 +30635,24 @@ const TAXONOMY_CATEGORIES = [
             ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
             ctx.stroke();
 
-            // 4. Pole Axis Labels
-            const giveLabel = (shape && shape.labels && shape.labels[0]) || "Give";
-            const recvLabel = (shape && shape.labels && shape.labels[1]) || "Receive";
-            ctx.font = "bold 9px system-ui, sans-serif";
+            // 4. Pole Axis Labels — short axis words on canvas (T2/T4);
+            // the full names live in the readout rows + hovertips. Side
+            // labels run vertical (tangent, 90°) so they fit the 190px
+            // canvas instead of clipping past its edge (T3).
+            canvas.__sxLabelRects = [];
+            const giveFull = (shape && shape.labels && shape.labels[0]) || "Give";
+            const recvFull = (shape && shape.labels && shape.labels[1]) || "Receive";
+            const giveLabel = sxShortAxisWord(giveFull);
+            const recvLabel = sxShortAxisWord(recvFull);
 
-            // Top (+Receive)
-            ctx.textAlign = "center"; ctx.textBaseline = "bottom";
-            ctx.fillStyle = "#4ade80"; ctx.fillText(`+ ${recvLabel}`, cx, cy - r - 4);
-
-            // Bottom (-Receive Limit)
-            ctx.textAlign = "center"; ctx.textBaseline = "top";
-            ctx.fillStyle = "#f87171"; ctx.fillText(`- ${recvLabel} Limit`, cx, cy + r + 4);
-
-            // Right (+Give)
-            ctx.textAlign = "left"; ctx.textBaseline = "middle";
-            ctx.fillStyle = "#4ade80"; ctx.fillText(`+ ${giveLabel}`, cx + r + 5, cy);
-
-            // Left (-Give Limit)
-            ctx.textAlign = "right"; ctx.textBaseline = "middle";
-            ctx.fillStyle = "#f87171"; ctx.fillText(`- ${giveLabel} Limit`, cx - r - 5, cy);
+            // Top (+Receive) — horizontal
+            sxDrawPoleLabelAt(ctx, canvas, cx, cy - r - 9, 0, `+ ${recvLabel}`, "#4ade80", "receive", recvFull);
+            // Bottom (-Receive Limit) — horizontal
+            sxDrawPoleLabelAt(ctx, canvas, cx, cy + r + 9, 0, `- ${recvLabel} Limit`, "#f87171", "receive", recvFull);
+            // Right (+Give) — vertical
+            sxDrawPoleLabelAt(ctx, canvas, cx + r + 9, cy, 90, `+ ${giveLabel}`, "#4ade80", "give", giveFull);
+            // Left (-Give Limit) — vertical
+            sxDrawPoleLabelAt(ctx, canvas, cx - r - 9, cy, 90, `- ${giveLabel} Limit`, "#f87171", "give", giveFull);
 
             // 5. Active Puck Position
             const isUnrated = Boolean(state.isUnrated);
@@ -30514,7 +30720,7 @@ const TAXONOMY_CATEGORIES = [
             } else {
                 if (gVal) gVal.textContent = String(Math.round(give));
                 if (rVal) rVal.textContent = String(Math.round(receive));
-                if (roleVal) roleVal.textContent = sxGetSwitchboxRole(give, receive);
+                if (roleVal) roleVal.textContent = sxGetSwitchboxRole(give, receive, sxSwitchboxState.topicId);
             }
         }
 
@@ -30523,6 +30729,7 @@ const TAXONOMY_CATEGORIES = [
             const clearBtn = e.byId("markSwitchboxClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => sxSwitchboxState.isDragging);
 
             const updateFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -30663,6 +30870,7 @@ const TAXONOMY_CATEGORIES = [
                     const w = allWraps[i];
                     if (w) w.hidden = (w !== activeWrap);
                 }
+                sxSetMeterLine(activeWrap, id);
             };
 
             if (!give || !id) {
@@ -30703,7 +30911,7 @@ const TAXONOMY_CATEGORIES = [
 
                 for (let k = 0; k < 8; k++) {
                     const col = SX_OCTAD_COLORS[k];
-                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
                     if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
                 }
 
@@ -30732,7 +30940,7 @@ const TAXONOMY_CATEGORIES = [
 
                 for (let k = 0; k < 7; k++) {
                     const col = SX_HEPTAD_COLORS[k];
-                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
                     if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
                 }
 
@@ -30760,7 +30968,7 @@ const TAXONOMY_CATEGORIES = [
 
                 for (let k = 0; k < 6; k++) {
                     const col = SX_HEXAD_COLORS[k];
-                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
                     if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
                 }
 
@@ -30787,7 +30995,7 @@ const TAXONOMY_CATEGORIES = [
 
                 for (let k = 0; k < 5; k++) {
                     const col = SX_PENTAD_COLORS[k];
-                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; }
+                    if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
                     if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
                 }
 
@@ -30812,10 +31020,10 @@ const TAXONOMY_CATEGORIES = [
                 if (compassIntensity) compassIntensity.value = String(Math.round(pt.intensity));
                 if (compassIntensityOut) compassIntensityOut.textContent = String(Math.round(pt.intensity));
 
-                if (compassPole0) { compassPole0.textContent = shape.labels[0] || k0; compassPole0.style.color = SX_COMPASS_COLORS[0]; }
-                if (compassPole1) { compassPole1.textContent = shape.labels[1] || k1; compassPole1.style.color = SX_COMPASS_COLORS[1]; }
-                if (compassPole2) { compassPole2.textContent = shape.labels[2] || k2; compassPole2.style.color = SX_COMPASS_COLORS[2]; }
-                if (compassPole3) { compassPole3.textContent = shape.labels[3] || k3; compassPole3.style.color = SX_COMPASS_COLORS[3]; }
+                if (compassPole0) { compassPole0.textContent = shape.labels[0] || k0; compassPole0.style.color = SX_COMPASS_COLORS[0]; sxSetPoleTip(compassPole0, id, k0); }
+                if (compassPole1) { compassPole1.textContent = shape.labels[1] || k1; compassPole1.style.color = SX_COMPASS_COLORS[1]; sxSetPoleTip(compassPole1, id, k1); }
+                if (compassPole2) { compassPole2.textContent = shape.labels[2] || k2; compassPole2.style.color = SX_COMPASS_COLORS[2]; sxSetPoleTip(compassPole2, id, k2); }
+                if (compassPole3) { compassPole3.textContent = shape.labels[3] || k3; compassPole3.style.color = SX_COMPASS_COLORS[3]; sxSetPoleTip(compassPole3, id, k3); }
 
                 if (compassVal0) { compassVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; compassVal0.style.color = SX_COMPASS_COLORS[0]; }
                 if (compassVal1) { compassVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; compassVal1.style.color = SX_COMPASS_COLORS[1]; }
@@ -30843,10 +31051,10 @@ const TAXONOMY_CATEGORIES = [
                 if (tetradIntensity) tetradIntensity.value = String(Math.round(maxR));
                 if (tetradIntensityOut) tetradIntensityOut.textContent = String(Math.round(maxR));
 
-                if (tetradPole0) { tetradPole0.textContent = shape.labels[0] || k0; tetradPole0.style.color = "#22c55e"; }
-                if (tetradPole1) { tetradPole1.textContent = shape.labels[1] || k1; tetradPole1.style.color = "#eab308"; }
-                if (tetradPole2) { tetradPole2.textContent = shape.labels[2] || k2; tetradPole2.style.color = "#ef4444"; }
-                if (tetradPole3) { tetradPole3.textContent = shape.labels[3] || k3; tetradPole3.style.color = "#3b82f6"; }
+                if (tetradPole0) { tetradPole0.textContent = shape.labels[0] || k0; tetradPole0.style.color = "#22c55e"; sxSetPoleTip(tetradPole0, id, k0); }
+                if (tetradPole1) { tetradPole1.textContent = shape.labels[1] || k1; tetradPole1.style.color = "#eab308"; sxSetPoleTip(tetradPole1, id, k1); }
+                if (tetradPole2) { tetradPole2.textContent = shape.labels[2] || k2; tetradPole2.style.color = "#ef4444"; sxSetPoleTip(tetradPole2, id, k2); }
+                if (tetradPole3) { tetradPole3.textContent = shape.labels[3] || k3; tetradPole3.style.color = "#3b82f6"; sxSetPoleTip(tetradPole3, id, k3); }
 
                 if (tetradVal0) { tetradVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; tetradVal0.style.color = "#22c55e"; }
                 if (tetradVal1) { tetradVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; tetradVal1.style.color = "#eab308"; }
@@ -30891,9 +31099,9 @@ const TAXONOMY_CATEGORIES = [
                 if (triIntensity) triIntensity.value = String(Math.round(intensity));
                 if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
 
-                if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; }
-                if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; }
-                if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; }
+                if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; sxSetPoleTip(triPole0, id, k0); }
+                if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; sxSetPoleTip(triPole1, id, k1); }
+                if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; sxSetPoleTip(triPole2, id, k2); }
 
                 if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
                 if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
@@ -30908,6 +31116,9 @@ const TAXONOMY_CATEGORIES = [
                 giveLabel && (giveLabel.textContent = shape.labels[0] || k0);
                 recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
                 role3Label && (role3Label.textContent = shape.labels[2] || k2);
+                sxSetPoleTip(giveLabel, id, k0);
+                sxSetPoleTip(recvLabel, id, k1);
+                sxSetPoleTip(role3Label, id, k2);
                 recvRow && (recvRow.hidden = !1);
                 role3Row && (role3Row.hidden = !1);
                 role4Row && (role4Row.hidden = !0);
@@ -30931,6 +31142,10 @@ const TAXONOMY_CATEGORIES = [
                 recvLabel && (recvLabel.textContent = shape.labels[1] || k1);
                 role3Label && (role3Label.textContent = shape.labels[2] || k2);
                 role4Label && (role4Label.textContent = shape.labels[3] || k3);
+                sxSetPoleTip(giveLabel, id, k0);
+                sxSetPoleTip(recvLabel, id, k1);
+                sxSetPoleTip(role3Label, id, k2);
+                sxSetPoleTip(role4Label, id, k3);
                 recvRow && (recvRow.hidden = !1);
                 role3Row && (role3Row.hidden = !1);
                 role4Row && (role4Row.hidden = !1);
@@ -30971,7 +31186,20 @@ const TAXONOMY_CATEGORIES = [
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
                 role7Row && (role7Row.hidden = !0);
-                giveLabel && (giveLabel.textContent = (shape.labels[0] || "") + " — " + (shape.labels[1] || "") + " — " + (shape.labels[2] || ""));
+                // T8: three separate spans (each with its own pole hovertip)
+                // instead of one joined string — the old joined label crammed
+                // three names into one slider label.
+                if (giveLabel) {
+                    giveLabel.textContent = "";
+                    const triParts = [shape.labels[0] || "", shape.labels[1] || "", shape.labels[2] || ""];
+                    triParts.forEach((p, i) => {
+                        if (i > 0) giveLabel.appendChild(document.createTextNode(" — "));
+                        const sp = document.createElement("span");
+                        sp.textContent = p;
+                        sxSetPoleTip(sp, id, (shape.poleKeys && shape.poleKeys[i]) || (shape.keys && shape.keys[i]));
+                        giveLabel.appendChild(sp);
+                    });
+                }
                 give.value = rec.lineKnown ? rec.line : 0;
                 giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");
             } else {
@@ -30991,6 +31219,8 @@ const TAXONOMY_CATEGORIES = [
                        keys are its pole slugs). No Sexcapades topic returns
                        "linear-sliders", so this branch is unreachable for Sexcapades. */
                     const k0 = (shape.keys && shape.keys[0]) || "give", k1 = (shape.keys && shape.keys[1]) || "receive";
+                    sxSetPoleTip(giveLabel, id, k0);
+                    sxSetPoleTip(recvLabel, id, k1);
                     give.value = rec[k0 + "Known"] ? rec[k0] : 0;
                     recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
                     giveOut && (giveOut.textContent = rec[k0 + "Known"] ? String(Math.round(rec[k0])) : "Unrated");
@@ -31004,6 +31234,9 @@ const TAXONOMY_CATEGORIES = [
                     sxSwitchboxState.isUnrated = isUnrated;
                     if (switchboxGiveLabel) switchboxGiveLabel.textContent = shape.labels[0] || "Give";
                     if (switchboxRecvLabel) switchboxRecvLabel.textContent = shape.labels[1] || "Receive";
+                    sxSetPoleTip(switchboxGiveLabel, id, "give");
+                    sxSetPoleTip(switchboxRecvLabel, id, "receive");
+                    sxSetSwitchboxQuadrants(id);
                     sxDrawSwitchboxWidget(switchboxCanvas, shape, sxSwitchboxState);
                     sxUpdateSwitchboxReadouts(sxSwitchboxState.give, sxSwitchboxState.receive, isUnrated);
                 }
@@ -32607,6 +32840,20 @@ const TAXONOMY_CATEGORIES = [
             };
         })();
         let Ns = null, _s = null, Ds = null, Rs = null, Os = 0;
+        /* Canvas pole-label hover hook (widget approachability): a canvas
+           has no DOM node per pole, so the paint module calls this with
+           the canvas as anchor, the pole's full label as name, and its
+           "Label — text" line as the definition. */
+        window.__SX_TIP_SHOW = function (anchorEl, name, text, clientX, clientY) {
+            if (!anchorEl) return;
+            Fs.show(anchorEl, {
+                name: name || "Details",
+                definition: text || "",
+                value: "",
+                point: (Number.isFinite(clientX) && Number.isFinite(clientY)) ? { x: clientX, y: clientY, pointerType: "mouse" } : null
+            });
+        };
+        window.__SX_TIP_HIDE = function () { Fs.hide(); };
         const Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             matches: !0
         };
@@ -48184,17 +48431,6 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         Nx.addEventListener("change", Jx), _x.addEventListener("change", Jx), Sg.addEventListener("close", () => {
             Zx++, zx(), sxPairLoadInto = null, sxLoadOriginId = null;
         }), e.byId("toastDismiss") && e.byId("toastDismiss").addEventListener("click", eS);
-        const nS = e.one(".easter-egg");
-        nS.addEventListener("click", () => {
-            fetch("https://countapi.mileshilliard.com/api/v1/hit/sexcapades-easter-egg-skewed-view-blue", {
-                mode: "no-cors",
-                keepalive: !0
-            }).catch((e) => { __sxErrLog("analytics-beacon", e); });
-        });
-        let iS = 0, aS = 0;
-        e.one(".intro h1").addEventListener("click", () => {
-            t.clear(aS), aS = t.setTimeout(() => iS = 0, 1700), 5 === ++iS && (iS = 0, nS.click());
-        });
 
         function ktRender() {
             const per = 10, total = ix.length, pages = Math.ceil(total / per);
