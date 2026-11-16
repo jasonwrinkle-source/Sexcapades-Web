@@ -49,15 +49,15 @@ WORK=$(mktemp -d)
 trap "rm -rf $WORK" EXIT
 
 STAGING="$WORK/pkg"
-mkdir -p "$STAGING/sexcapades.io"
+mkdir -p "$STAGING/capades.io"
 
 echo "1. Copying static site tree..."
-cp -a "$STATIC" "$STAGING/sexcapades.io/public_html"
+cp -a "$STATIC" "$STAGING/capades.io/public_html"
 find "$STAGING" -name "*.db" -delete
-rm -rf "$STAGING/sexcapades.io/public_html/qa"
+rm -rf "$STAGING/capades.io/public_html/qa"
 
 echo "2. Stamping service worker cache name..."
-SW_STAGED="$STAGING/sexcapades.io/public_html/sw.js"
+SW_STAGED="$STAGING/capades.io/public_html/sw.js"
 sed -i "s/__SX_CACHE__/$BUILD_NUM/g" "$SW_STAGED"
 if ! grep -q "sexcapades-v$BUILD_NUM" "$SW_STAGED"; then
   echo "ERROR: sw.js cache-name stamp failed"
@@ -66,7 +66,7 @@ fi
 touch "$SW_STAGED"
 echo "   Service worker stamped: sexcapades-v$BUILD_NUM"
 
-HOSTED="$STAGING/sexcapades.io/public_html/hosted"
+HOSTED="$STAGING/capades.io/public_html/hosted"
 
 echo "3. Staging and Bundling App..."
 # App source is modular: app/sexcapades-5.0.html (622KB), app/css/, app/js/, app/data/, app/vendor/, app/images/
@@ -152,7 +152,7 @@ mkdir -p "$HOSTED/guide-assets"
 cp -r "$WORK/guide/guide-assets/." "$HOSTED/guide-assets/"
 
 echo "8. Bundling release pipeline scripts..."
-PIPELINE_DIR="$STAGING/sexcapades.io/pipeline"
+PIPELINE_DIR="$STAGING/capades.io/pipeline"
 mkdir -p "$PIPELINE_DIR"
 if [ -d "$DIR/site-tree/pipeline" ]; then
   cp -r "$DIR/site-tree/pipeline/." "$PIPELINE_DIR/"
@@ -169,7 +169,7 @@ find "$STAGING" -type f -name "*.php" -exec chmod 644 {} +
 
 echo "10. Creating tarball..."
 cd "$STAGING"
-tar -czf "$OUTFILE" sexcapades.io
+tar -czf "$OUTFILE" capades.io
 
 # Post-package verification gate
 verify_failed=""
@@ -177,61 +177,61 @@ fail() { verify_failed=1; echo "  FAIL: $1"; }
 
 echo "11. Verifying tarball..."
 LISTING=$(tar -tzf "$OUTFILE")
-for req in sexcapades.io/public_html/.htaccess \
-           sexcapades.io/public_html/index.html \
-           sexcapades.io/public_html/404.html \
-           sexcapades.io/public_html/sitemap.xml \
-           sexcapades.io/public_html/sw.js \
-           sexcapades.io/public_html/hosted/app.html \
-           sexcapades.io/public_html/hosted/app-assets/app.js \
-           sexcapades.io/public_html/hosted/app-assets/data-bootstrap.js \
-           sexcapades.io/public_html/hosted/app-assets/version-manifest.json \
-           sexcapades.io/public_html/hosted/gate.html \
-           sexcapades.io/public_html/hosted/gate-assets/gate.css \
-           sexcapades.io/public_html/hosted/gate-assets/gate.js \
-           sexcapades.io/public_html/hosted/quickstart.html \
-           sexcapades.io/public_html/hosted/quickstart-assets/quickstart.css \
-           sexcapades.io/public_html/hosted/quickstart-assets/quickstart.js \
-           sexcapades.io/public_html/hosted/guide.html \
-           sexcapades.io/public_html/hosted/guide-assets/guide.js \
-           sexcapades.io/public_html/hosted/flyer.html; do
+for req in capades.io/public_html/.htaccess \
+           capades.io/public_html/index.html \
+           capades.io/public_html/404.html \
+           capades.io/public_html/sitemap.xml \
+           capades.io/public_html/sw.js \
+           capades.io/public_html/hosted/app.html \
+           capades.io/public_html/hosted/app-assets/app.js \
+           capades.io/public_html/hosted/app-assets/data-bootstrap.js \
+           capades.io/public_html/hosted/app-assets/version-manifest.json \
+           capades.io/public_html/hosted/gate.html \
+           capades.io/public_html/hosted/gate-assets/gate.css \
+           capades.io/public_html/hosted/gate-assets/gate.js \
+           capades.io/public_html/hosted/quickstart.html \
+           capades.io/public_html/hosted/quickstart-assets/quickstart.css \
+           capades.io/public_html/hosted/quickstart-assets/quickstart.js \
+           capades.io/public_html/hosted/guide.html \
+           capades.io/public_html/hosted/guide-assets/guide.js \
+           capades.io/public_html/hosted/flyer.html; do
   echo "$LISTING" | grep -qx "$req" || fail "missing required entry: $req"
 done
 
-if echo "$LISTING" | grep -qx 'sexcapades.io/.htaccess'; then
+if echo "$LISTING" | grep -qx 'capades.io/.htaccess'; then
   fail ".htaccess at domain root (outside docroot -- rules would be inert)"
 fi
 if echo "$LISTING" | grep -q '\.db$'; then
   fail "tarball contains .db files (never ship databases)"
 fi
-if echo "$LISTING" | grep -qx 'sexcapades.io/app.html'; then
-  fail "stray sexcapades.io/app.html"
+if echo "$LISTING" | grep -qx 'capades.io/app.html'; then
+  fail "stray capades.io/app.html"
 fi
-if echo "$LISTING" | grep -qx 'sexcapades.io/index.html'; then
-  fail "stray sexcapades.io/index.html (would overwrite the gate)"
+if echo "$LISTING" | grep -qx 'capades.io/index.html'; then
+  fail "stray capades.io/index.html (would overwrite the gate)"
 fi
 
-if ! tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/app.html 2>/dev/null | grep -qF "$EXPECTED_BUILD"; then
+if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/app.html 2>/dev/null | grep -qF "$EXPECTED_BUILD"; then
   fail "packaged hosted/app.html lacks the source build marker: $EXPECTED_BUILD"
 fi
 
-MANIFEST_JSON=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/app-assets/version-manifest.json 2>/dev/null || true)
+MANIFEST_JSON=$(tar -xzOf "$OUTFILE" capades.io/public_html/hosted/app-assets/version-manifest.json 2>/dev/null || true)
 if [ -z "$MANIFEST_JSON" ]; then
   fail "packaged version-manifest.json missing or unreadable"
 elif ! printf '%s' "$MANIFEST_JSON" | python3 -c "import json,sys; m=json.load(sys.stdin); assert m['build']=='$BUILD_NUM'; assert len(m['files'])==18" 2>/dev/null; then
   fail "packaged version-manifest.json is invalid, names the wrong build, or lists != 18 files"
 fi
 
-if ! tar -xzOf "$OUTFILE" sexcapades.io/public_html/.htaccess 2>/dev/null | grep -q 'version-manifest'; then
+if ! tar -xzOf "$OUTFILE" capades.io/public_html/.htaccess 2>/dev/null | grep -q 'version-manifest'; then
   fail "packaged .htaccess lacks the version-manifest no-cache rule"
 fi
 
-SW_CACHE=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/sw.js 2>/dev/null | grep -o 'sexcapades-v[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' | head -1 || true)
+SW_CACHE=$(tar -xzOf "$OUTFILE" capades.io/public_html/sw.js 2>/dev/null | grep -o 'sexcapades-v[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' | head -1 || true)
 if [ "$SW_CACHE" != "sexcapades-v$BUILD_NUM" ]; then
   fail "packaged sw.js cache name '${SW_CACHE:-none}' != sexcapades-v$BUILD_NUM"
 fi
 
-SHELL_REFS=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/app.html 2>/dev/null | grep -oE '"/hosted/app-assets/[^"]+"' || true)
+SHELL_REFS=$(tar -xzOf "$OUTFILE" capades.io/public_html/hosted/app.html 2>/dev/null | grep -oE '"/hosted/app-assets/[^"]+"' || true)
 for ref in $SHELL_REFS; do
   refpath=${ref//\"/}
   case "$refpath" in
@@ -241,16 +241,16 @@ for ref in $SHELL_REFS; do
   esac
 done
 
-if ! tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/gate-assets/gate.js 2>/dev/null | grep -q 'getReturnDestination'; then
+if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/gate-assets/gate.js 2>/dev/null | grep -q 'getReturnDestination'; then
   fail "packaged gate bundle lacks getReturnDestination"
 fi
-if ! tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/guide-assets/guide.js 2>/dev/null | grep -q 'showGuidePage'; then
+if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/guide-assets/guide.js 2>/dev/null | grep -q 'showGuidePage'; then
   fail "packaged guide bundle lacks showGuidePage"
 fi
-if ! tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/quickstart.html 2>/dev/null | grep -q '#app/scan'; then
+if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/quickstart.html 2>/dev/null | grep -q '#app/scan'; then
   fail "packaged quickstart.html lost its Scan link (#app/scan)"
 fi
-if ! tar -xzOf "$OUTFILE" sexcapades.io/public_html/hosted/guide.html 2>/dev/null | grep -q 'sexcapades_age_verified'; then
+if ! tar -xzOf "$OUTFILE" capades.io/public_html/hosted/guide.html 2>/dev/null | grep -q 'sexcapades_age_verified'; then
   fail "packaged guide.html lost its inline age-verified check"
 fi
 

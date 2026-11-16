@@ -56,8 +56,8 @@ echo "Regenerated hosted/app.html verified (skin loader, menu, compass, hosted r
 WORK=$(mktemp -d)
 trap "rm -rf $WORK" EXIT
 
-# Target structure: sexcapades.io/public_html/qa/
-QA_STAGING="$WORK/pkg/sexcapades.io/public_html/qa"
+# Target structure: capades.io/public_html/qa/
+QA_STAGING="$WORK/pkg/capades.io/public_html/qa"
 mkdir -p "$QA_STAGING"
 
 echo "2. Staging files into public_html/qa/..."
@@ -151,18 +151,18 @@ find "$QA_STAGING" -type f -name "*.sh" -exec chmod 755 {} \;
 find "$QA_STAGING" -type f -name "*.php" -exec chmod 644 {} \;
 
 echo "4. Creating tarball..."
-tar -czf "$OUTFILE" -C "$WORK/pkg" sexcapades.io/public_html/qa
+tar -czf "$OUTFILE" -C "$WORK/pkg" capades.io/public_html/qa
 
 echo "5. Verifying archive contents..."
-tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/test-runner.html" || {
+tar -tf "$OUTFILE" | grep -q "capades.io/public_html/qa/test-runner.html" || {
   echo "ERROR: test-runner.html missing from package!"
   exit 1
 }
-tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/app.html" || {
+tar -tf "$OUTFILE" | grep -q "capades.io/public_html/qa/app.html" || {
   echo "ERROR: app.html missing from package!"
   exit 1
 }
-tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/data/data-bootstrap.js" || {
+tar -tf "$OUTFILE" | grep -q "capades.io/public_html/qa/data/data-bootstrap.js" || {
   echo "ERROR: data-bootstrap.js missing from package!"
   exit 1
 }
@@ -170,7 +170,7 @@ tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/data/data-bootstrap.j
 # Cache-buster gate: every .js/.css the QA app pages load must carry ?v=$TS.
 # A stale or missing ?v= means a browser can serve old JavaScript under a
 # new build number (the 1738/2047 stale-cache catch).
-for qapage in sexcapades.io/public_html/qa/app.html; do
+for qapage in capades.io/public_html/qa/app.html; do
   QAPAGE_CONTENT=$(tar -xzOf "$OUTFILE" "$qapage" 2>/dev/null || true)
   if [ -z "$QAPAGE_CONTENT" ]; then
     echo "ERROR: $qapage missing or unreadable in package!"
@@ -190,7 +190,7 @@ echo "QA cache-buster gate passed (all app asset refs carry ?v=$TS)."
 # still registers the live worker (or a QA worker with live paths) would
 # cache QA files under the live build's cache name.
 echo "QA PWA gate: checking the QA worker, manifest, icons, and links..."
-QA_SW=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/qa/sw.js 2>/dev/null || true)
+QA_SW=$(tar -xzOf "$OUTFILE" capades.io/public_html/qa/sw.js 2>/dev/null || true)
 if [ -z "$QA_SW" ]; then echo "ERROR: qa/sw.js missing from package!"; exit 1; fi
 echo "$QA_SW" | grep -q "sexcapades-qa-v$TS" || { echo "ERROR: qa/sw.js cache name is not sexcapades-qa-v$TS"; exit 1; }
 echo "$QA_SW" | grep -q "'/qa/'" || { echo "ERROR: qa/sw.js CORE_URLS missing /qa/ root"; exit 1; }
@@ -203,7 +203,7 @@ echo "$QA_SW" | grep -q "superimposed" && { echo "ERROR: qa/sw.js still referenc
 echo "$QA_SW" | grep -q "/hosted/" && { echo "ERROR: qa/sw.js still has /hosted/ paths"; exit 1; }
 echo "$QA_SW" | grep -q "'/manifest.json'" && { echo "ERROR: qa/sw.js still references the live manifest"; exit 1; }
 echo "$QA_SW" | grep -q "'/icons/icon-" && { echo "ERROR: qa/sw.js still references the live icons"; exit 1; }
-QA_MF=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/qa/manifest.json 2>/dev/null || true)
+QA_MF=$(tar -xzOf "$OUTFILE" capades.io/public_html/qa/manifest.json 2>/dev/null || true)
 if [ -z "$QA_MF" ]; then echo "ERROR: qa/manifest.json missing from package!"; exit 1; fi
 echo "$QA_MF" | grep -q '"name":"Sexcapades QA"' || { echo "ERROR: qa/manifest.json name is not Sexcapades QA"; exit 1; }
 echo "$QA_MF" | grep -q '"scope":"/qa/"' || { echo "ERROR: qa/manifest.json scope is not /qa/"; exit 1; }
@@ -212,9 +212,9 @@ echo "$QA_MF" | grep -q 'icon-qa-192-badge.png' || { echo "ERROR: qa/manifest.js
 echo "$QA_MF" | grep -q 'icon-qa-512-badge.png' || { echo "ERROR: qa/manifest.json does not reference the QA 512 badge icon"; exit 1; }
 echo "$QA_MF" | grep -q 'superimposed' && { echo "ERROR: qa/manifest.json still references the superimposed icons"; exit 1; }
 for qaicon in icon-qa-192-badge.png icon-qa-512-badge.png; do
-  tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/icons/$qaicon" || { echo "ERROR: qa/icons/$qaicon missing from package!"; exit 1; }
+  tar -tf "$OUTFILE" | grep -q "capades.io/public_html/qa/icons/$qaicon" || { echo "ERROR: qa/icons/$qaicon missing from package!"; exit 1; }
 done
-for qapage in sexcapades.io/public_html/qa/app.html; do
+for qapage in capades.io/public_html/qa/app.html; do
   QAPAGE_CONTENT=$(tar -xzOf "$OUTFILE" "$qapage" 2>/dev/null || true)
   echo "$QAPAGE_CONTENT" | grep -q "register('/qa/sw.js')" || { echo "ERROR: $qapage does not register /qa/sw.js"; exit 1; }
   echo "$QAPAGE_CONTENT" | grep -q 'href="/qa/manifest.json"' || { echo "ERROR: $qapage does not link /qa/manifest.json"; exit 1; }
@@ -228,13 +228,13 @@ echo "QA PWA gate passed (QA worker, manifest, icons, and links are QA-scoped)."
 # the tarball must carry the skin data and the loader. A QA build that
 # fails this gate must never be hosted.
 echo "Skin-system gate: checking qa/app.html carries the skin system and the skin files are in the package..."
-QA_APP=$(tar -xzOf "$OUTFILE" sexcapades.io/public_html/qa/app.html 2>/dev/null || true)
+QA_APP=$(tar -xzOf "$OUTFILE" capades.io/public_html/qa/app.html 2>/dev/null || true)
 if [ -z "$QA_APP" ]; then echo "ERROR: qa/app.html missing or unreadable in package!"; exit 1; fi
 echo "$QA_APP" | grep -q "skin-loader" || { echo "ERROR: qa/app.html does not load skin-loader.js (stale app page — the skin system is dead)!"; exit 1; }
 echo "$QA_APP" | grep -q "skinMenu" || { echo "ERROR: qa/app.html lacks the skin menu (stale app page)!"; exit 1; }
 echo "$QA_APP" | grep -q "markCompassWrap" || { echo "ERROR: qa/app.html lacks the compass widget markup (stale app page)!"; exit 1; }
-tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/data/skins/sexcapades.json" || { echo "ERROR: qa/data/skins/sexcapades.json missing from package!"; exit 1; }
-tar -tf "$OUTFILE" | grep -q "sexcapades.io/public_html/qa/js/skin-loader.js" || { echo "ERROR: qa/js/skin-loader.js missing from package!"; exit 1; }
+tar -tf "$OUTFILE" | grep -q "capades.io/public_html/qa/data/skins/sexcapades.json" || { echo "ERROR: qa/data/skins/sexcapades.json missing from package!"; exit 1; }
+tar -tf "$OUTFILE" | grep -q "capades.io/public_html/qa/js/skin-loader.js" || { echo "ERROR: qa/js/skin-loader.js missing from package!"; exit 1; }
 echo "Skin-system gate passed (qa/app.html carries the skin loader, menu, and compass; skin files present)."
 
 MD5=$(md5sum "$OUTFILE" | awk '{print $1}')

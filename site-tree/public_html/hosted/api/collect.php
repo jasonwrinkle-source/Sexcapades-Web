@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !$isGetStats) {
 }
 
 // SQLite DB (auto-created) — stored OUTSIDE public_html so deploys don't overwrite it
-// Path: ~/domains/sexcapades-data/sexcapades_data.db (sibling of sexcapades.io, not inside it)
-$dataDir = dirname(dirname(dirname(dirname(__DIR__)))) . '/sexcapades-data';
+// Path: ~/domains/capades-data/sexcapades_data.db (sibling of the site trees, not inside them)
+$dataDir = dirname(dirname(dirname(dirname(__DIR__)))) . '/capades-data';
 if (!is_dir($dataDir)) {
     mkdir($dataDir, 0755, true);
 }
@@ -208,7 +208,7 @@ if ($action === 'survey') {
     $utmSource = $input['utm_source'] ?? '';
     
     // Validate event type (whitelist)
-    $allowedEvents = ['quickstart_started', 'quickstart_completed', 'qr_sheet_shared', 'gate_passed', 'scan_started', 'session_stats'];
+    $allowedEvents = ['quickstart_started', 'quickstart_completed', 'qr_sheet_shared', 'gate_passed', 'scan_started', 'session_stats', 'picker_landing'];
     if (!in_array($eventType, $allowedEvents)) {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid event type']);
