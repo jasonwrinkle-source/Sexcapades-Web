@@ -2603,5 +2603,429 @@
         }
       ]
     }
+  },
+  "samples": {
+    "tec-accelerationist": {
+      "name": "The Accelerationist",
+      "count": 17,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Accelerationist",
+        "archetype": "The Accelerationist",
+        "aboutMe": "Build faster: intelligence compounds, abundance follows, and slowing down only delays the future.",
+        "ratings": {
+          "xte0001": {
+            "post-scarcity-flourishing": 90,
+            "corporate-algorithmic-feudalism": -20,
+            "labor-cognitive-atrophy": -50,
+            "existential-misalignment": -60,
+            "epistemic-fragmentation": -30
+          },
+          "xte0002": {
+            "tool": -30,
+            "agent": 80
+          },
+          "xte0003": {
+            "open-source-decentralized": 60,
+            "guarded-moats-frontier-containment": -60
+          },
+          "xte0004": {
+            "privacy": 10,
+            "convenience": 70
+          },
+          "xte0005": {
+            "trust": 50,
+            "distrust": -40
+          },
+          "xte0006": {
+            "safety": -20,
+            "freedom": 70
+          },
+          "xte0007": {
+            "sovereign-computing": -20,
+            "managed-cloud": 60
+          },
+          "xte0008": {
+            "screen-light": -60,
+            "screen-heavy": 80
+          },
+          "xte0009": {
+            "all-on": 70,
+            "all-off": -60
+          },
+          "xte0010": {
+            "detox-regularly": -70,
+            "detox-occasionally": 0,
+            "never-detox": 80
+          },
+          "xte0011": {
+            "love": 70,
+            "tolerate": 30,
+            "hate": -80
+          },
+          "xte0012": {
+            "online-connection": 70,
+            "in-person-connection": 20
+          },
+          "xte0013": {
+            "poster": 60,
+            "lurker": -20
+          },
+          "xte0014": {
+            "embrace-synthetic-bonds": 80,
+            "human-exclusivity": -60
+          },
+          "xte0018": {
+            "job-loss": -40,
+            "liberation": 85
+          },
+          "xte0019": {
+            "embrace-enhancement": 85,
+            "cautious-augmentation": 20,
+            "reject-enhancement": -80
+          },
+          "xte0020": {
+            "accelerate": 95,
+            "decelerate": -90
+          }
+        }
+      }
+    },
+    "tec-safety": {
+      "name": "The AI Safety Advocate",
+      "count": 16,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The AI Safety Advocate",
+        "archetype": "The AI Safety Advocate",
+        "aboutMe": "Slow down and prove it safe: powerful AI is the highest-stakes engineering problem ever, and caution is not Luddism.",
+        "ratings": {
+          "xte0001": {
+            "post-scarcity-flourishing": 20,
+            "corporate-algorithmic-feudalism": 40,
+            "labor-cognitive-atrophy": 60,
+            "existential-misalignment": 90,
+            "epistemic-fragmentation": 70
+          },
+          "xte0002": {
+            "tool": 70,
+            "agent": -60
+          },
+          "xte0003": {
+            "open-source-decentralized": -40,
+            "guarded-moats-frontier-containment": 80
+          },
+          "xte0004": {
+            "privacy": 60,
+            "convenience": 0
+          },
+          "xte0005": {
+            "trust": -30,
+            "distrust": 60
+          },
+          "xte0006": {
+            "safety": 90,
+            "freedom": -20
+          },
+          "xte0007": {
+            "sovereign-computing": 30,
+            "managed-cloud": 20
+          },
+          "xte0008": {
+            "screen-light": 30,
+            "screen-heavy": 0
+          },
+          "xte0010": {
+            "detox-regularly": 40,
+            "detox-occasionally": 50,
+            "never-detox": -30
+          },
+          "xte0011": {
+            "love": -30,
+            "tolerate": 50,
+            "hate": 20
+          },
+          "xte0014": {
+            "embrace-synthetic-bonds": -50,
+            "human-exclusivity": 70
+          },
+          "xte0015": {
+            "anonymous": 30,
+            "real-identity": 40
+          },
+          "xte0017": {
+            "erase": 40,
+            "archive": 30
+          },
+          "xte0018": {
+            "job-loss": 60,
+            "liberation": -20
+          },
+          "xte0019": {
+            "embrace-enhancement": -40,
+            "cautious-augmentation": 80,
+            "reject-enhancement": 20
+          },
+          "xte0020": {
+            "accelerate": -85,
+            "decelerate": 90
+          }
+        }
+      }
+    },
+    "tec-privacy": {
+      "name": "The Privacy Defender",
+      "count": 17,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Privacy Defender",
+        "archetype": "The Privacy Defender",
+        "aboutMe": "Your data is yours: privacy first, sovereign computing, and no trust without verification.",
+        "ratings": {
+          "xte0001": {
+            "post-scarcity-flourishing": 0,
+            "corporate-algorithmic-feudalism": 80,
+            "labor-cognitive-atrophy": 40,
+            "existential-misalignment": 30,
+            "epistemic-fragmentation": 50
+          },
+          "xte0002": {
+            "tool": 60,
+            "agent": -30
+          },
+          "xte0003": {
+            "open-source-decentralized": 85,
+            "guarded-moats-frontier-containment": -20
+          },
+          "xte0004": {
+            "privacy": 95,
+            "convenience": -70
+          },
+          "xte0005": {
+            "trust": -80,
+            "distrust": 90
+          },
+          "xte0006": {
+            "safety": 30,
+            "freedom": 80
+          },
+          "xte0007": {
+            "sovereign-computing": 95,
+            "managed-cloud": -80
+          },
+          "xte0008": {
+            "screen-light": 50,
+            "screen-heavy": -20
+          },
+          "xte0009": {
+            "all-on": -80,
+            "all-off": 85
+          },
+          "xte0010": {
+            "detox-regularly": 60,
+            "detox-occasionally": 40,
+            "never-detox": -60
+          },
+          "xte0011": {
+            "love": -60,
+            "tolerate": 20,
+            "hate": 60
+          },
+          "xte0012": {
+            "online-connection": 20,
+            "in-person-connection": 70
+          },
+          "xte0013": {
+            "poster": -60,
+            "lurker": 80
+          },
+          "xte0015": {
+            "anonymous": 90,
+            "real-identity": -70
+          },
+          "xte0016": {
+            "curated": -40,
+            "authentic": 70
+          },
+          "xte0017": {
+            "erase": 85,
+            "archive": -40
+          },
+          "xte0020": {
+            "accelerate": -40,
+            "decelerate": 50
+          }
+        }
+      }
+    },
+    "tec-commons": {
+      "name": "The Open-Source Commons Builder",
+      "count": 16,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Open-Source Commons Builder",
+        "archetype": "The Open-Source Commons Builder",
+        "aboutMe": "Code belongs to everyone: open weights, open tools, and shared infrastructure beat any moat.",
+        "ratings": {
+          "xte0001": {
+            "post-scarcity-flourishing": 70,
+            "corporate-algorithmic-feudalism": -70,
+            "labor-cognitive-atrophy": 0,
+            "existential-misalignment": -20,
+            "epistemic-fragmentation": 20
+          },
+          "xte0002": {
+            "tool": 40,
+            "agent": 40
+          },
+          "xte0003": {
+            "open-source-decentralized": 95,
+            "guarded-moats-frontier-containment": -85
+          },
+          "xte0004": {
+            "privacy": 70,
+            "convenience": 20
+          },
+          "xte0005": {
+            "trust": -50,
+            "distrust": 60
+          },
+          "xte0006": {
+            "safety": 20,
+            "freedom": 80
+          },
+          "xte0007": {
+            "sovereign-computing": 80,
+            "managed-cloud": -30
+          },
+          "xte0011": {
+            "love": 40,
+            "tolerate": 50,
+            "hate": -30
+          },
+          "xte0012": {
+            "online-connection": 80,
+            "in-person-connection": 30
+          },
+          "xte0013": {
+            "poster": 80,
+            "lurker": -40
+          },
+          "xte0014": {
+            "embrace-synthetic-bonds": 40,
+            "human-exclusivity": -10
+          },
+          "xte0015": {
+            "anonymous": 50,
+            "real-identity": 30
+          },
+          "xte0016": {
+            "curated": 0,
+            "authentic": 60
+          },
+          "xte0017": {
+            "erase": 10,
+            "archive": 80
+          },
+          "xte0018": {
+            "job-loss": 0,
+            "liberation": 70
+          },
+          "xte0020": {
+            "accelerate": 60,
+            "decelerate": -40
+          }
+        }
+      }
+    },
+    "tec-minimalist": {
+      "name": "The Digital Minimalist",
+      "count": 16,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Digital Minimalist",
+        "archetype": "The Digital Minimalist",
+        "aboutMe": "Attention is the scarcest resource: fewer screens, fewer notifications, and a life lived mostly offline.",
+        "ratings": {
+          "xte0004": {
+            "privacy": 50,
+            "convenience": -40
+          },
+          "xte0005": {
+            "trust": -20,
+            "distrust": 40
+          },
+          "xte0006": {
+            "safety": 40,
+            "freedom": 50
+          },
+          "xte0008": {
+            "screen-light": 95,
+            "screen-heavy": -90
+          },
+          "xte0009": {
+            "all-on": -90,
+            "all-off": 95
+          },
+          "xte0010": {
+            "detox-regularly": 90,
+            "detox-occasionally": 30,
+            "never-detox": -90
+          },
+          "xte0011": {
+            "love": -80,
+            "tolerate": 0,
+            "hate": 80
+          },
+          "xte0012": {
+            "online-connection": -60,
+            "in-person-connection": 90
+          },
+          "xte0013": {
+            "poster": -70,
+            "lurker": 70
+          },
+          "xte0014": {
+            "embrace-synthetic-bonds": -70,
+            "human-exclusivity": 85
+          },
+          "xte0015": {
+            "anonymous": 40,
+            "real-identity": 30
+          },
+          "xte0016": {
+            "curated": -60,
+            "authentic": 85
+          },
+          "xte0017": {
+            "erase": 60,
+            "archive": 20
+          },
+          "xte0018": {
+            "job-loss": 20,
+            "liberation": 60
+          },
+          "xte0019": {
+            "embrace-enhancement": -50,
+            "cautious-augmentation": 40,
+            "reject-enhancement": 50
+          },
+          "xte0020": {
+            "accelerate": -50,
+            "decelerate": 70
+          }
+        }
+      }
+    }
   }
 }

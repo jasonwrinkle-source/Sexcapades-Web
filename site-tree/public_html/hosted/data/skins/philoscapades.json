@@ -2631,5 +2631,365 @@
         }
       ]
     }
+  },
+  "samples": {
+    "philo-empiricism": {
+      "name": "Empiricism",
+      "count": 12,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Empiricism",
+        "archetype": "Empiricism",
+        "aboutMe": "All knowledge comes from experience; the mind begins as a blank slate and reason works only on what the senses supply.",
+        "ratings": {
+          "xph0001": {
+            "foundationalism": 60,
+            "coherentism": 10,
+            "infinitism": -40
+          },
+          "xph0002": {
+            "pure-rationalism": -80,
+            "radical-empiricism": 90,
+            "pragmatism": 20,
+            "skepticism": 40
+          },
+          "xph0003": {
+            "correspondence": 70,
+            "coherence": 20,
+            "pragmatic": 10,
+            "deflationism": 0
+          },
+          "xph0015": {
+            "empiricism": 95,
+            "rationalism": -75,
+            "pragmatism": 25,
+            "phenomenology": 10,
+            "hermeneutics": 0,
+            "skepticism": 45,
+            "mysticism": -60,
+            "dialectics": -20
+          },
+          "xph0004": {
+            "substance-dualism": -50,
+            "physicalism": 60,
+            "objective-idealism": -60,
+            "neutral-monism": 10
+          },
+          "xph0005": {
+            "hard-determinism": 40,
+            "libertarian-agency": -30,
+            "classical-compatibilism": 65,
+            "hard-incompatibilism": -40
+          },
+          "xph0006": {
+            "platonic-realism": -70,
+            "conceptualism": 40,
+            "nominalism": 70
+          },
+          "xph0008": {
+            "deontology": -10,
+            "consequentialism": 60,
+            "virtue-ethics": 30,
+            "care-ethics": 20
+          },
+          "xph0009": {
+            "moral-realism": -20,
+            "moral-relativism": 20,
+            "error-theory": 10,
+            "expressivism": 50
+          },
+          "xph0010": {
+            "hedonism": 40,
+            "eudaimonism": 20,
+            "desire-satisfaction": 50,
+            "objective-list": -30
+          },
+          "xph0011": {
+            "illusionism": 30,
+            "computational-functionalism": 40,
+            "biological-emergence": 50,
+            "panpsychism": -40,
+            "cosmopsychism": -60
+          },
+          "xph0013": {
+            "distributive": 40,
+            "retributive": 0,
+            "restorative": 20,
+            "procedural": 30
+          }
+        }
+      }
+    },
+    "philo-rationalism": {
+      "name": "Rationalism",
+      "count": 12,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Rationalism",
+        "archetype": "Rationalism",
+        "aboutMe": "Reason, not the senses, is the primary source of knowledge; certain truths are known innately, by the intellect alone.",
+        "ratings": {
+          "xph0001": {
+            "foundationalism": 85,
+            "coherentism": 40,
+            "infinitism": -50
+          },
+          "xph0002": {
+            "pure-rationalism": 95,
+            "radical-empiricism": -80,
+            "pragmatism": -30,
+            "skepticism": -40
+          },
+          "xph0003": {
+            "correspondence": 60,
+            "coherence": 50,
+            "pragmatic": -30,
+            "deflationism": -20
+          },
+          "xph0015": {
+            "empiricism": -80,
+            "rationalism": 95,
+            "pragmatism": -25,
+            "phenomenology": 0,
+            "hermeneutics": -10,
+            "skepticism": -50,
+            "mysticism": -40,
+            "dialectics": 10
+          },
+          "xph0004": {
+            "substance-dualism": 70,
+            "physicalism": -50,
+            "objective-idealism": 40,
+            "neutral-monism": 50
+          },
+          "xph0005": {
+            "hard-determinism": 50,
+            "libertarian-agency": 10,
+            "classical-compatibilism": 30,
+            "hard-incompatibilism": -20
+          },
+          "xph0006": {
+            "platonic-realism": 80,
+            "conceptualism": 10,
+            "nominalism": -70
+          },
+          "xph0008": {
+            "deontology": 60,
+            "consequentialism": -10,
+            "virtue-ethics": 40,
+            "care-ethics": 0
+          },
+          "xph0009": {
+            "moral-realism": 70,
+            "moral-relativism": -50,
+            "error-theory": -60,
+            "expressivism": -40
+          },
+          "xph0010": {
+            "hedonism": -40,
+            "eudaimonism": 60,
+            "desire-satisfaction": -20,
+            "objective-list": 70
+          },
+          "xph0011": {
+            "illusionism": -30,
+            "computational-functionalism": 30,
+            "biological-emergence": 0,
+            "panpsychism": 20,
+            "cosmopsychism": 30
+          },
+          "xph0013": {
+            "distributive": 20,
+            "retributive": 20,
+            "restorative": 0,
+            "procedural": 50
+          }
+        }
+      }
+    },
+    "philo-pragmatism": {
+      "name": "Pragmatism",
+      "count": 12,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Pragmatism",
+        "archetype": "Pragmatism",
+        "aboutMe": "A belief is true insofar as it works; truth is what survives inquiry and proves useful in guiding action.",
+        "ratings": {
+          "xph0001": {
+            "foundationalism": -60,
+            "coherentism": 50,
+            "infinitism": 20
+          },
+          "xph0002": {
+            "pure-rationalism": -50,
+            "radical-empiricism": 30,
+            "pragmatism": 95,
+            "skepticism": 10
+          },
+          "xph0003": {
+            "correspondence": -20,
+            "coherence": 40,
+            "pragmatic": 90,
+            "deflationism": 30
+          },
+          "xph0015": {
+            "empiricism": 50,
+            "rationalism": -40,
+            "pragmatism": 95,
+            "phenomenology": 30,
+            "hermeneutics": 40,
+            "skepticism": -10,
+            "mysticism": 0,
+            "dialectics": 20
+          },
+          "xph0004": {
+            "substance-dualism": -70,
+            "physicalism": 40,
+            "objective-idealism": -30,
+            "neutral-monism": 50
+          },
+          "xph0005": {
+            "hard-determinism": -40,
+            "libertarian-agency": 40,
+            "classical-compatibilism": 20,
+            "hard-incompatibilism": -50
+          },
+          "xph0006": {
+            "platonic-realism": -50,
+            "conceptualism": 40,
+            "nominalism": 50
+          },
+          "xph0008": {
+            "deontology": -30,
+            "consequentialism": 70,
+            "virtue-ethics": 50,
+            "care-ethics": 40
+          },
+          "xph0009": {
+            "moral-realism": -10,
+            "moral-relativism": 30,
+            "error-theory": -20,
+            "expressivism": 40
+          },
+          "xph0010": {
+            "hedonism": 20,
+            "eudaimonism": 60,
+            "desire-satisfaction": 50,
+            "objective-list": 10
+          },
+          "xph0011": {
+            "illusionism": 0,
+            "computational-functionalism": 50,
+            "biological-emergence": 60,
+            "panpsychism": -10,
+            "cosmopsychism": -30
+          },
+          "xph0013": {
+            "distributive": 50,
+            "retributive": -10,
+            "restorative": 50,
+            "procedural": 40
+          }
+        }
+      }
+    },
+    "philo-phenomenology": {
+      "name": "Phenomenology",
+      "count": 12,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Phenomenology",
+        "archetype": "Phenomenology",
+        "aboutMe": "Go back to the things themselves: describe experience exactly as it presents itself, before theory explains it away.",
+        "ratings": {
+          "xph0001": {
+            "foundationalism": 40,
+            "coherentism": 20,
+            "infinitism": -30
+          },
+          "xph0002": {
+            "pure-rationalism": 10,
+            "radical-empiricism": 20,
+            "pragmatism": 30,
+            "skepticism": -60
+          },
+          "xph0003": {
+            "correspondence": 20,
+            "coherence": 30,
+            "pragmatic": 20,
+            "deflationism": -30
+          },
+          "xph0015": {
+            "empiricism": 20,
+            "rationalism": 10,
+            "pragmatism": 35,
+            "phenomenology": 95,
+            "hermeneutics": 70,
+            "skepticism": -50,
+            "mysticism": 20,
+            "dialectics": 40
+          },
+          "xph0004": {
+            "substance-dualism": -60,
+            "physicalism": -50,
+            "objective-idealism": 30,
+            "neutral-monism": 40
+          },
+          "xph0005": {
+            "hard-determinism": -50,
+            "libertarian-agency": 50,
+            "classical-compatibilism": 10,
+            "hard-incompatibilism": -30
+          },
+          "xph0006": {
+            "platonic-realism": 40,
+            "conceptualism": 30,
+            "nominalism": -40
+          },
+          "xph0008": {
+            "deontology": 20,
+            "consequentialism": -20,
+            "virtue-ethics": 60,
+            "care-ethics": 50
+          },
+          "xph0009": {
+            "moral-realism": 30,
+            "moral-relativism": 20,
+            "error-theory": -50,
+            "expressivism": 10
+          },
+          "xph0010": {
+            "hedonism": -20,
+            "eudaimonism": 70,
+            "desire-satisfaction": 0,
+            "objective-list": 50
+          },
+          "xph0011": {
+            "illusionism": -60,
+            "computational-functionalism": -50,
+            "biological-emergence": 30,
+            "panpsychism": 20,
+            "cosmopsychism": 10
+          },
+          "xph0012": {
+            "camusian-revolt": 30,
+            "kierkegaardian-leap": 20,
+            "sartrean-freedom": 80,
+            "nietzschean-overcoming": 30,
+            "stoic-acceptance": 0,
+            "transhumanist-overcoming": -40
+          }
+        }
+      }
+    }
   }
 }

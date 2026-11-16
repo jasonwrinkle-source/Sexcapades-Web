@@ -38,6 +38,13 @@
   var original = null;     // deep clone of the Sexcapades categories
   var activeSkin = "sexcapades";
 
+  /* Sample profiles live in the skin JSONs (2026-11-16): the loader owns
+     window.SEXCAPADES_SAMPLE_PROFILES and mutates it IN PLACE — never
+     replaces it — because 06d's Aw() caches the object on first use and
+     reads keys from it at click time. Created here so the global always
+     exists, even before the first skin JSON arrives. */
+  if (!window.SEXCAPADES_SAMPLE_PROFILES || typeof window.SEXCAPADES_SAMPLE_PROFILES !== "object") window.SEXCAPADES_SAMPLE_PROFILES = {};
+
   /* Paint generation (boot-race fix, 2026-11-16): the taxonomy array is
      swapped in place, so a chunked paint already in flight keeps the
      old branch geometry while reading the new taxonomy — and throws on
@@ -256,6 +263,7 @@
     window.__SX_SKIN_TOPIC_COUNT = count;
     window.__SX_ACTIVE_SKIN = data.skin;
     activeSkin = data.skin;
+    setSamples(data.samples);
     /* Register the new category names in the solver's expanded-branch set,
        or frBuildTree skips every topic as collapsed (bare spokes). */
     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") window.__SX_SKIN_LAYOUT_SYNC();
@@ -339,6 +347,7 @@
   function registerSexcapadesWidgets() {
     return sexcapadesData().then(function (data) {
       registerWidgets(data);
+      setSamples(data.samples);
       bootApplySexcapades(data);
       var dlg = document.getElementById("sxBootDialog");
       if (window.FlexcapadesEngine && window.FlexcapadesEngine.Map && dlg && dlg.hidden) rerender();
@@ -365,7 +374,7 @@
        without them the 17 higher-pole topics would fall back to the
        generic widgets after a switch-back. Synchronous when the file is
        already cached, async otherwise (the rerender below picks it up). */
-    if (cache["sexcapades"]) registerWidgets(cache["sexcapades"]);
+    if (cache["sexcapades"]) { registerWidgets(cache["sexcapades"]); setSamples(cache["sexcapades"].samples); }
     else registerSexcapadesWidgets();
     /* Re-register the Sexcapades category names in the solver's
        expanded-branch set (same reason as in applySkin). */
@@ -385,6 +394,98 @@
       });
     }
     return null;
+  }
+
+  function setSamples(samples) {
+    /* Per-skin archetypes and samples (2026-11-16): the skin JSON's
+       `samples` section is the single source (the old inline
+       __EMBEDDED_SAMPLE_PROFILES block is deleted from the entrypoints).
+       Each entry carries a `kind` at the sample level — "archetype" or
+       "sample" (Adam/Eve are samples; everything else is an archetype;
+       entries with no kind default to archetype, so the fourteen
+       vanilla skins need no kind field). The kind lives on the sample
+       entry, NOT inside the import payload, so it never reaches the
+       profile store. The object is mutated IN PLACE — never replaced —
+       because 06d's Aw() caches the object on first use and reads keys
+       from it at click time; replacing it would leave the cached
+       promise pointing at the old set. Called under the same
+       paint-generation bump as the taxonomy swap (the caller bumps
+       first): the samples swap rides the same generation, so no second
+       mid-paint swap can reintroduce the race the boot-race fix closed.
+       A skin with no `samples` section leaves the menu empty — honest,
+       not stale. */
+    var target = window.SEXCAPADES_SAMPLE_PROFILES;
+    if (!target || typeof target !== "object") { window.SEXCAPADES_SAMPLE_PROFILES = {}; target = window.SEXCAPADES_SAMPLE_PROFILES; }
+    Object.keys(target).forEach(function (k) { delete target[k]; });
+    if (samples && typeof samples === "object") {
+      Object.keys(samples).forEach(function (k) { target[k] = samples[k]; });
+    }
+    rebuildSampleMenu(samples);
+  }
+
+  function rebuildSampleMenu(samples) {
+    /* Rebuild the archetypes-and-samples menu from the active skin's
+       samples. Two labeled groups (Jason, 2026-11-16): "Archetypes"
+       first, then "Samples" — and the Samples group is rendered ONLY
+       when the skin has samples (Sexcapades has Adam/Eve; the vanilla
+       skins have none, so their menus show Archetypes only). The group
+       is the entry's `kind` ("sample" vs anything else = archetype).
+       The static HTML buttons are the Sexcapades set (the parse-time
+       fallback); every skin-set rebuilds them. The click handler in
+       06d is delegated on the menu element and matches
+       [data-sample-profile], and Ew() re-queries the buttons on every
+       open, so rebuilt buttons behave exactly like the static ones.
+       The <strong> is the archetype label (the profile's name IS its
+       archetype) or the sample's name (Adam Peasant, Eve Vale — real
+       people, not archetypes). An <img> is included only when the
+       sample carries a photo (Adam/Eve only — archetypes have none;
+       Mw() resolves null without one and the load skips photos). */
+    var menu = document.getElementById("profileSampleMenu");
+    if (!menu) return;
+    menu.querySelectorAll(".sample-profile-choice, .sample-menu-group").forEach(function (b) { b.remove(); });
+    if (!samples || typeof samples !== "object") return;
+    var archetypes = [], samplesList = [];
+    Object.keys(samples).forEach(function (key) {
+      var entry = samples[key];
+      if (!entry || !entry.payload || !entry.payload.ratings) return;
+      if (entry.kind === "sample") samplesList.push(key);
+      else archetypes.push(key);
+    });
+    function addGroup(heading, keys) {
+      if (!keys.length) return;
+      var label = document.createElement("div");
+      label.className = "sample-menu-group";
+      label.textContent = heading;
+      menu.appendChild(label);
+      keys.forEach(function (key) {
+        var entry = samples[key];
+        var count = entry.count || Object.keys(entry.payload.ratings).length;
+        var btn = document.createElement("button");
+        btn.className = "sample-profile-choice";
+        btn.type = "button";
+        btn.setAttribute("role", "menuitem");
+        btn.setAttribute("data-sample-profile", key);
+        btn.setAttribute("data-sample-name", entry.name || key);
+        btn.setAttribute("data-sample-count", String(count));
+        if (entry.photo) {
+          var img = document.createElement("img");
+          img.alt = "";
+          img.decoding = "async";
+          img.loading = "lazy";
+          img.src = entry.photo;
+          btn.appendChild(img);
+        }
+        var strong = document.createElement("strong");
+        strong.textContent = entry.name || key;
+        btn.appendChild(strong);
+        var small = document.createElement("small");
+        small.textContent = count + " rated topics";
+        btn.appendChild(small);
+        menu.appendChild(btn);
+      });
+    }
+    addGroup("Archetypes", archetypes);
+    addGroup("Samples", samplesList);
   }
 
   function setBrand(skinId, displayName) {

@@ -2138,12 +2138,10 @@ __sxInit(function initSceneSetterAi() {
 
   var setterPlayBtn = document.getElementById("setterPlayBtn");
   var playGuidePlayBtn = document.getElementById("setterPlayGuidePlayBtn");
-  var sentinelPlayBtn = document.getElementById("setterPlaySentinelBtn");
   var openSentinelBtn = document.getElementById("setterOpenSentinelBtn");
 
   if (setterPlayBtn) setterPlayBtn.addEventListener("click", handleSetterPlayToggle);
   if (playGuidePlayBtn) playGuidePlayBtn.addEventListener("click", handleSetterPlayToggle);
-  if (sentinelPlayBtn) sentinelPlayBtn.addEventListener("click", handleSetterPlayToggle);
 
   if (openSentinelBtn) {
     openSentinelBtn.addEventListener("click", function() {
@@ -2162,7 +2160,6 @@ __sxInit(function initSceneSetterAi() {
     var st = window.__sxGetGuidePlayState();
     var sPlayBtn = document.getElementById("setterPlayBtn");
     var pgPlayBtn = document.getElementById("setterPlayGuidePlayBtn");
-    var senPlayBtn = document.getElementById("setterPlaySentinelBtn");
     var dot = document.getElementById("setterPlayDot");
     var live = document.getElementById("setterLivePlayStatus");
 
@@ -2173,10 +2170,6 @@ __sxInit(function initSceneSetterAi() {
     if (st.on && !st.paused) {
       if (sPlayBtn) sPlayBtn.textContent = "⏸ Pause (" + timeStr + ")";
       if (pgPlayBtn) pgPlayBtn.textContent = "⏸ Pause Guide";
-      if (senPlayBtn) {
-        senPlayBtn.textContent = "⏸ Pause";
-        senPlayBtn.style.background = "#eab308";
-      }
       if (dot) {
         dot.style.background = "#22c55e";
         dot.style.boxShadow = "0 0 8px #22c55e";
@@ -2190,10 +2183,6 @@ __sxInit(function initSceneSetterAi() {
     } else if (st.on && st.paused) {
       if (sPlayBtn) sPlayBtn.textContent = "▶ Resume (" + timeStr + ")";
       if (pgPlayBtn) pgPlayBtn.textContent = "▶ Resume Guide";
-      if (senPlayBtn) {
-        senPlayBtn.textContent = "▶ Resume";
-        senPlayBtn.style.background = "#059669";
-      }
       if (dot) {
         dot.style.background = "#facc15";
         dot.style.boxShadow = "0 0 6px #facc15";
@@ -2205,10 +2194,6 @@ __sxInit(function initSceneSetterAi() {
     } else {
       if (sPlayBtn) sPlayBtn.textContent = "▶ Play";
       if (pgPlayBtn) pgPlayBtn.textContent = "▶ Play in Scene Sentinel";
-      if (senPlayBtn) {
-        senPlayBtn.textContent = "▶ Start Playback";
-        senPlayBtn.style.background = "#059669";
-      }
       if (dot) {
         dot.style.background = "#64748b";
         dot.style.boxShadow = "none";
