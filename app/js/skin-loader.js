@@ -38,6 +38,17 @@
   var original = null;     // deep clone of the Sexcapades categories
   var activeSkin = "sexcapades";
 
+  /* Paint generation (boot-race fix, 2026-11-16): the taxonomy array is
+     swapped in place, so a chunked paint already in flight keeps the
+     old branch geometry while reading the new taxonomy — and throws on
+     the first subcategory branch it reaches. Every swap bumps this
+     counter FIRST; the bundle's chunked driver aborts a paint whose
+     generation moved (no throw, no pause screen) and the queued
+     re-render paints the new skin. */
+  function bumpPaintGen() {
+    window.__SX_PAINT_GEN = (window.__SX_PAINT_GEN || 0) + 1;
+  }
+
   /* ---- Hostname -> skin (flex.capades.io plan, 2026-11-16) ----
      One shared folder serves every capades.io host, and the app picks
      its skin from the hostname: <prefix>.capades.io loads that skin at
@@ -235,6 +246,7 @@
   }
 
   function applySkin(data) {
+    bumpPaintGen();
     var cats = taxonomyCategories();
     if (!original) original = JSON.parse(JSON.stringify(cats));
     var merged = data.categories.map(mergedCategory);
@@ -337,6 +349,7 @@
 
   function restoreSexcapades() {
     if (!original) return;
+    bumpPaintGen();
     var cats = taxonomyCategories();
     cats.length = 0;
     /* Fresh clones of the pristine snapshot: the paint/solver mutate the

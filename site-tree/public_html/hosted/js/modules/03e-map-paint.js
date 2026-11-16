@@ -2236,8 +2236,15 @@
             // so a render requested mid-paint queues exactly as it
             // does during a synchronous paint today.
             const gen = Ar(e), sxBudgetMs = sxChunkBudget;
+            // Boot-race fix (2026-11-16): the skin loader bumps
+            // window.__SX_PAINT_GEN on every taxonomy swap. If the
+            // generation moved since this paint started, the paint is
+            // stale — abort quietly (no throw, no pause screen) and
+            // let the queued re-render paint the new skin.
+            const sxPaintGen = window.__SX_PAINT_GEN || 0;
             const p = new Promise(resolve => {
                 const step = () => {
+                    if ((window.__SX_PAINT_GEN || 0) !== sxPaintGen) return void resolve(!1);
                     const t0 = performance.now();
                     let s;
                     try {
