@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TaxoPolemics — the engine underneath the maps</title>
+<meta name="description" content="One engine. Fifteen hypermaps. The hard conversations, mapped." />
+<meta property="og:title" content="TaxoPolemics — the engine underneath the maps" />
+<meta property="og:description" content="One engine. Fifteen hypermaps. The hard conversations, mapped." />
+<meta property="og:url" content="https://capades.io/" />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#0b1014" />
+<style>
+  :root {
+    --bg: #0b1014;
+    --surface: #191d21;
+    --surface-raised: #20252a;
+    --text: #f4f5f6;
+    --muted: #9aa3a8;
+    --line: #343a40;
+    --link: #65d7dc;
+    --accent: #ff4d64;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100dvh;
+  }
+  main { max-width: 960px; margin: 0 auto; padding: 48px 20px 64px; }
+  header { margin-bottom: 32px; }
+  h1 {
+    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 1;
+    margin: 0 0 8px;
+    letter-spacing: .02em;
+  }
+  .tagline { font-size: 1.15rem; color: var(--text); margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0; }
+  section { margin-bottom: 32px; }
+  h2 {
+    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+    font-size: 1.9rem;
+    line-height: 1.1;
+    margin: 0 0 10px;
+    letter-spacing: .01em;
+  }
+  section p { margin: 0 0 12px; }
+  section p:last-child { margin-bottom: 0; }
+  .measures { margin: 0 0 12px; }
+  .measures dt {
+    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    margin-top: 10px;
+  }
+  .measures dd { margin: 2px 0 0; color: var(--muted); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .card {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--link); background: var(--surface-raised); outline: none; }
+  .card-name {
+    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card-desc { color: var(--muted); margin: 6px 0 0; }
+  .badge {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 1px 8px;
+    letter-spacing: .04em;
+  }
+  .pick { font-size: 1.25rem; font-weight: 600; }
+  .pick a { color: var(--link); text-decoration: none; }
+  .pick a:hover, .pick a:focus-visible { text-decoration: underline; outline: none; }
+  .signoff { font-size: 1.15rem; margin-top: 8px; }
+  footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
+  footer a { color: var(--link); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>TaxoPolemics</h1>
+    <p class="tagline">One engine. Fifteen hypermaps. The hard conversations, mapped.</p>
+  </header>
+  <section>
+    <p>Some questions have two sides. Some have eight. The talks that matter most are the ones we keep dodging — politics at the table, faith, the big questions, the bedroom talk. This is a way to have them.</p>
+  </section>
+  <section>
+    <h2>The idea: an indaba, drawn as a map</h2>
+    <p>A hard talk is a dialectic — positions in tension, each with something true in it. The engine treats it as an <strong>indaba</strong>: in isiZulu and isiXhosa, a matter of importance, and the gathering called to talk it through — until everyone has been heard and a common mind emerges.</p>
+    <p>The usual way to have a hard talk is to argue until somebody wins. This is the other way: draw the positions out, stand in yours, and look at the whole picture together.</p>
+    <p>What you get is a hypermap — the whole indaba on one picture, every position drawn out, so you can stand in yours and see the rest.</p>
+    <p>Nothing here is a test. There is no scorecard and no winner. The map shows where people stand — not who is right.</p>
+  </section>
+  <section>
+    <h2>The poles</h2>
+    <p>Every hard question has poles: the places to stand on it. A yes-or-no has two. Some questions have three, or five, or eight. The engine counts the poles and asks them all — every side of the question, not just the two loudest.</p>
+    <p>You say where you stand on each pole. The map draws it: branches on a wheel, every spoke a question, every color how you feel about it.</p>
+  </section>
+  <section>
+    <h2>What it measures</h2>
+    <dl class="measures">
+      <dt>Depth Factor</dt>
+      <dd>How deep you stand in what you believe. The roots underneath, not the volume on top.</dd>
+      <dt>Charted</dt>
+      <dd>How much of the map you have walked. The ground your feet have been.</dd>
+      <dt>Crossmatch</dt>
+      <dd>Lay two maps together, every topic crossed, and see where they overlap. Where our maps overlap, that is common ground. The Match Score counts it.</dd>
+    </dl>
+    <p>None of it is a grade. It is a mirror, held up to what you know — and a way to find the ground you share before you argue about the ground you don't.</p>
+  </section>
+  <section>
+    <h2>One engine, fifteen maps</h2>
+    <p>The engine is the same underneath. The subject changes. Each map opens a different hard conversation:</p>
+    <ul class="grid">
+      <li><a class="card" href="https://polis.capades.io/"><span class="card-name">Poliscapades</span><p class="card-desc">Opens power and the vote.</p></a></li>
+      <li><a class="card" href="https://fores.capades.io/"><span class="card-name">Forescapades</span><p class="card-desc">Opens faith.</p></a></li>
+      <li><a class="card" href="https://philo.capades.io/"><span class="card-name">Philoscapades</span><p class="card-desc">Opens how we know.</p></a></li>
+      <li><a class="card" href="https://aesth.capades.io/"><span class="card-name">Aesthcapades</span><p class="card-desc">Opens beauty.</p></a></li>
+      <li><a class="card" href="https://chem.capades.io/"><span class="card-name">Chemcapades</span><p class="card-desc">Opens how things grow.</p></a></li>
+      <li><a class="card" href="https://dharma.capades.io/"><span class="card-name">Dharmacapades</span><p class="card-desc">Opens how we walk the earth.</p></a></li>
+      <li><a class="card" href="https://exper.capades.io/"><span class="card-name">Expericapades</span><p class="card-desc">Opens you.</p></a></li>
+      <li><a class="card" href="https://matter.capades.io/"><span class="card-name">Mattercapades</span><p class="card-desc">Opens stuff and energy.</p></a></li>
+      <li><a class="card" href="https://praxi.capades.io/"><span class="card-name">Praxicapades</span><p class="card-desc">Opens what we do.</p></a></li>
+      <li><a class="card" href="https://quanta.capades.io/"><span class="card-name">Quanta.capades.io</span><p class="card-desc">Opens the small and strange.</p></a></li>
+      <li><a class="card" href="https://simul.capades.io/"><span class="card-name">Simulcapades</span><p class="card-desc">Opens copies, what's real and what is show.</p></a></li>
+      <li><a class="card" href="https://tech.capades.io/"><span class="card-name">Techcapades</span><p class="card-desc">Opens what we build.</p></a></li>
+      <li><a class="card" href="https://theori.capades.io/"><span class="card-name">Theoricapades</span><p class="card-desc">Opens the big picture.</p></a></li>
+      <li><a class="card" href="https://voca.capades.io/"><span class="card-name">Vocapades</span><p class="card-desc">Opens work and worth.</p></a></li>
+      <li><a class="card" href="https://sex.capades.io/"><span class="card-name">Sexcapades <span class="badge">18+</span></span><p class="card-desc">Opens the bedroom talk, the first map, where it all started.</p></a></li>
+    </ul>
+  </section>
+  <section>
+    <p class="pick"><a href="https://flex.capades.io/">Pick a map →</a></p>
+  </section>
+  <section>
+    <h2>Who it is for</h2>
+    <p>Two people at a table. Friends who disagree. A group that wants to know itself. Anyone with a talk they have been putting off.</p>
+    <p>Pull up a chair, put the kettle on. No test, no scorecard — just "what do you think?" and "tell me more."</p>
+    <p class="signoff">— Jason</p>
+  </section>
+  <footer>
+    <p><a href="https://patreon.com/FlexCapadesIO">Support Flexcapades on Patreon</a></p>
+  </footer>
+</main>
+<script>
+/* Engine landing ping: counts capades.io visits in the shared analytics.
+   One engine_landing event per load, fire-and-forget. The page renders
+   whether the ping succeeds or not. UUID is per-load (same as the app —
+   the app keeps no stored UUID key). */
+(function () {
+  try {
+    var uuid = '';
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+      uuid = window.crypto.randomUUID();
+    } else {
+      var b = new Uint8Array(16);
+      if (window.crypto && typeof window.crypto.getRandomValues === 'function') { window.crypto.getRandomValues(b); }
+      else { for (var i = 0; i < 16; i++) { b[i] = Math.floor(Math.random() * 256); } }
+      b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+      uuid = Array.from(b, function (v, n) { return (n === 4 || n === 6 || n === 8 || n === 10 ? '-' : '') + v.toString(16).padStart(2, '0'); }).join('');
+    }
+    var utm = '';
+    try { utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 128); } catch (e) { utm = ''; }
+    var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'engine_landing', utm_source: utm });
+    var endpoint = '/hosted/api/collect.php';
+    if (navigator.sendBeacon) {
+      try { if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return; } catch (e) { /* fall through to fetch */ }
+    }
+    fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
+  } catch (e) { /* Tracking must never break the page. */ }
+})();
+</script>
+</body>
+</html>
