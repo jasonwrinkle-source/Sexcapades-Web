@@ -38,6 +38,90 @@
   var original = null;     // deep clone of the Sexcapades categories
   var activeSkin = "sexcapades";
 
+  /* ---- Hostname -> skin (flex.capades.io plan, 2026-11-16) ----
+     One shared folder serves every capades.io host, and the app picks
+     its skin from the hostname: <prefix>.capades.io loads that skin at
+     boot, sexcapades.io (legacy) loads Sexcapades, and flex.capades.io /
+     capades.io boot the default skin with the skin menu open (the "no
+     skin picked" state). Anything else (localhost, unknown hosts) boots
+     Sexcapades, as before. The ?skin= query param (see skinFromUrl)
+     wins over the hostname: it carries a skin selection across the
+     age-gate round-trip. */
+  var HOSTNAME_SKINS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", exper: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+  var SKIN_IDS = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades"];
+
+  function skinForHostname(hostname) {
+    var host = (hostname || "").toLowerCase();
+    if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
+    if (host === "flex.capades.io" || host === "capades.io") return "sexcapades";
+    var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
+    if (prefix && HOSTNAME_SKINS[prefix]) return HOSTNAME_SKINS[prefix];
+    return "sexcapades";
+  }
+  function bootShouldOpenMenu(hostname) {
+    var host = (hostname || "").toLowerCase();
+    return host === "flex.capades.io" || host === "capades.io";
+  }
+  function skinFromUrl() {
+    try {
+      var q = new URLSearchParams(window.location.search || "");
+      var s = q.get("skin");
+      if (s && SKIN_IDS.indexOf(s) !== -1) return s;
+    } catch (e) { /* no skin param */ }
+    return null;
+  }
+
+  /* Gate-pass predicate, mirroring the gate page's hasPreviousGatePass
+     (gate.html): the stored flag, the gate cookie, or a minted UUID.
+     The app's inline gate script checks only the stored flag at boot;
+     the gate itself accepts all three, so the switch-time check below
+     accepts all three too — otherwise a visitor the gate would wave
+     straight through gets gated twice. */
+  function hasGatePass() {
+    try {
+      if (document.cookie.split(";").some(function (p) { return p.trim() === "sexcapades_age_verified=1"; })) return true;
+    } catch (e) { /* no cookie */ }
+    try {
+      if (window.localStorage.getItem("sexcapades_age_verified") === "true") return true;
+      if (window.localStorage.getItem("sexcapades_uuid")) return true;
+    } catch (e) { /* no storage */ }
+    if (window.__SEXCAPADES_MEMORY_ONLY) return true;
+    return false;
+  }
+
+  /* Honor a ?verified=1 gate return on hosts where the app's inline
+     gate script returns early (non-sex hosts): store the pass and clean
+     the gate params, keeping any ?skin= for the boot below. On a sex
+     host the inline script already did this, so this is a no-op there. */
+  function handleVerifiedParam() {
+    try {
+      var q = new URLSearchParams(window.location.search || "");
+      if (q.get("verified") !== "1") return;
+      try { window.localStorage.setItem("sexcapades_age_verified", "true"); } catch (e) { window.__SEXCAPADES_MEMORY_ONLY = true; }
+      q.delete("verified");
+      q.delete("gate_attempt");
+      var clean = window.location.pathname + (q.toString() ? "?" + q.toString() : "") + (window.location.hash || "");
+      try { window.history.replaceState(null, "", clean); } catch (e) { /* keep URL */ }
+    } catch (e) { /* no verified param */ }
+  }
+
+  /* Gate URL next to the app page (app/gate.html, hosted/gate.html,
+     qa/gate.html — same directory in every tree), so the redirect works
+     in the source, hosted, and QA trees alike. */
+  function gateUrl(returnUrl) {
+    var path = window.location.pathname || "/hosted/app.html";
+    var dir = path.replace(/\/[^/]*$/, "/");
+    return dir + "gate.html?return=" + encodeURIComponent(returnUrl);
+  }
+  function redirectToGateForSkin(skinId) {
+    var params = new URLSearchParams(window.location.search || "");
+    params.set("verified", "1");
+    params.set("gate_attempt", "1");
+    params.set("skin", skinId);
+    var returnUrl = window.location.origin + window.location.pathname + "?" + params.toString() + (window.location.hash || "");
+    window.location.replace(gateUrl(returnUrl));
+  }
+
   function taxonomyCategories() {
     return window.TaxonomyLoader.loadTaxonomy().categories;
   }
@@ -121,6 +205,13 @@
        which would read as "against the left pole" under a pole key). The
        three pole labels stay in cfg.labels for the spectrum label. */
     if (topic.widget === "trilinear-line") cfg.keys = ["line"];
+    /* T1: compass axis captions come from the topic (xpo0004 carries
+       ["Economic", "Authority"]); a compass topic without axes draws no
+       captions rather than a wrong hardcoded pair. */
+    if (topic.axes) cfg.axes = topic.axes.slice();
+    /* T8: a LINE triad stores one scalar under "line", but its three pole
+       labels still need their pole keys for per-pole hovertips. */
+    if (topic.widget === "trilinear-line") cfg.poleKeys = keys;
     if (topic.archetype) cfg.archetype = topic.archetype;
     if (topic.widget !== "trilinear-line") {
       if (poles.length === 3) cfg.triangle = true;
@@ -164,6 +255,8 @@
   function registerWidgets(data) {
     var widgets = {};
     var desc = {};
+    var poleLines = {};
+    var meterTopics = {};
     var count = 0;
     data.categories.forEach(function (cat) {
       var all = (cat.topics || []).slice();
@@ -173,13 +266,45 @@
       all.forEach(function (t) {
         widgets[t.id] = widgetConfig(t);
         if (t.hovertip) desc[t.name] = formatHovertip(t);
+        /* Widget approachability: per-pole hovertip lines ("Label — text"),
+           keyed by topic id then pole key; the placard attaches them to the
+           readout spans (seam A) and the canvas hover hit-test (seam B). */
+        if (t.hovertip && t.hovertip.poles) {
+          var lines = {};
+          var topicPoles = t.poles || [];
+          (t.hovertip.poles || []).forEach(function (p, i) {
+            /* Hovertip pole entries carry {label, text} only — the key
+               lives on the topic's own poles[i] (same order). */
+            var k = (topicPoles[i] && topicPoles[i].key) || p.key;
+            if (k) lines[k] = p.label + " — " + p.text;
+          });
+          poleLines[t.id] = lines;
+        }
+        if (t.meter) meterTopics[t.id] = t.meter;
         count += 1;
       });
     });
     window.__SX_SKIN_WIDGETS = widgets;
     window.__SX_SKIN_DESCRIPTIONS = desc;
+    window.__SX_POLE_LINES = poleLines;
+    window.__SX_METER = { default: data.meter || null, topics: meterTopics };
     return count;
   }
+
+  /* Widget approachability lookups. __SX_POLE_LINE_FOR returns one pole's
+     "Label — text" line, or null. __SX_METER_FOR_TOPIC returns the topic's
+     meter word, else its skin's default word, else null. */
+  window.__SX_POLE_LINE_FOR = function (topicId, key) {
+    var reg = window.__SX_POLE_LINES;
+    if (reg && reg[topicId] && reg[topicId][key]) return reg[topicId][key];
+    return null;
+  };
+  window.__SX_METER_FOR_TOPIC = function (topicId) {
+    var m = window.__SX_METER;
+    if (!m) return null;
+    if (topicId && m.topics && m.topics[topicId]) return m.topics[topicId];
+    return m.default || null;
+  };
 
   /* Sexcapades seam: sexcapades.json carries the 17 higher-pole topics'
      widget configs (formerly hardcoded in the widget picker). Register
@@ -585,6 +710,13 @@
 
   function loadSkin(skinId, displayName) {
     if (skinId === "sexcapades") {
+      /* Gate follows the skin (2026-11-16): switching to Sexcapades
+         in-app gates when the gate hasn't been passed. On a sex host
+         the app's inline gate script already enforced this at boot, so
+         the pass is there; on a vanilla host the switch is the first
+         gate moment. The gate returns with ?verified=1&skin=sexcapades,
+         and the boot below restores the selection. */
+      if (!hasGatePass()) { redirectToGateForSkin("sexcapades"); return Promise.resolve("sexcapades"); }
       restoreSexcapades();
       setBrand("sexcapades");
       return Promise.resolve(rerender()).then(function () {
@@ -632,5 +764,62 @@
      helper in 05b-scribe.js never reads an empty map. */
   window.__SX_TERMS = resolveTerms("sexcapades", null);
   window.__SX_HAS_IMPORTERS = true;
-  registerSexcapadesWidgets();
+  /* Test hooks: the hostname mapping and the boot-menu decision are
+     pure functions of their input, so probes can call them with every
+     hostname without DNS. */
+  window.__SX_SKIN_FOR_HOSTNAME = skinForHostname;
+  window.__SX_BOOT_SHOULD_OPEN_MENU = bootShouldOpenMenu;
+  window.__SX_SKIN_FROM_URL = skinFromUrl;
+  window.__SX_HAS_GATE_PASS = hasGatePass;
+  handleVerifiedParam();
+  /* Boot skin: ?skin= (a gate round-trip) wins over the hostname, and
+     the hostname wins over the default. A non-Sexcapades boot skin
+     loads once the layout hook and the engine are ready (same poll as
+     the Sexcapades boot apply — the layout apply needs both); if the
+     engine never becomes ready, or the skin file fails to load, the
+     Sexcapades seam runs instead so the map still boots. */
+  (function bootSkin() {
+    var fromUrl = skinFromUrl();
+    var boot = fromUrl || skinForHostname(window.location.hostname);
+    if (boot === "sexcapades") { registerSexcapadesWidgets(); return; }
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries += 1;
+      var hook = window.__SEXCAPADES_LAYOUT_TEST;
+      var engine = window.FlexcapadesEngine;
+      if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map) {
+        if (tries >= 300) {
+          clearInterval(timer);
+          if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin not applied: engine not ready");
+          registerSexcapadesWidgets();
+        }
+        return;
+      }
+      clearInterval(timer);
+      loadSkin(boot).catch(function (err) {
+        if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin failed, staying on Sexcapades:", err);
+        registerSexcapadesWidgets();
+      });
+    }, 100);
+  })();
+  /* No skin picked (flex.capades.io / capades.io): open the skin menu
+     once the menu hook exists (view-nav registers it at boot) and the
+     engine is ready, so the boot pull-back can't close it under us.
+     Once only, and only when no ?skin= already picked one. */
+  (function bootOpenMenu() {
+    if (skinFromUrl()) return;
+    if (!bootShouldOpenMenu(window.location.hostname)) return;
+    var opened = false;
+    var timer = setInterval(function () {
+      if (opened) { clearInterval(timer); return; }
+      var open = window.__SX_OPEN_SKIN_MENU;
+      var engine = window.FlexcapadesEngine;
+      if (typeof open === "function" && engine && engine.Map) {
+        opened = true;
+        clearInterval(timer);
+        try { open(); } catch (e) { /* menu stays closed */ }
+      }
+    }, 200);
+    setTimeout(function () { clearInterval(timer); }, 30000);
+  })();
 })();

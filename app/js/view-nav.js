@@ -538,6 +538,13 @@ __sxInit(function () {
     if (!menuOpen()) return;
     menu.hidden = true;
   }
+  /* Programmatic open for the flex.capades.io boot (skin-loader calls
+     this once when the hostname picks no skin): opens just below the
+     header, centred, with no click to swallow. */
+  window.__SX_OPEN_SKIN_MENU = function () {
+    var r = header.getBoundingClientRect();
+    openMenu(Math.round(r.left + r.width / 2), Math.round(r.bottom), false);
+  };
   function skinName(item) {
     var n = item.querySelector(".skin-name");
     return n ? n.textContent.trim() : (item.getAttribute("data-skin") || "That skin");
