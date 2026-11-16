@@ -44,31 +44,55 @@
 
   /* Build one category in the post-overlay (merged) shape the paint reads:
      topics (objects with a non-enumerable toString) + topicDetails keyed
-     by topic name. Mirrors TaxonomyLoader's applySubcategoryOverlay for
-     a flat skin (Chemcapades has no subcategories). */
+     by topic name. Mirrors TaxonomyLoader's applySubcategoryOverlay:
+     a category with subcategories keeps them (each with its own topics)
+     and topics stays the flat list (parentTopics first, then subcategory
+     topics in order). A flat category (no subcategories) is unchanged. */
+  function mergedTopic(t) {
+    var topic = { id: t.id, name: t.name, risk: !!t.risk };
+    if (t.type) topic.type = t.type;
+    if (t.give_label) topic.give_label = t.give_label;
+    if (t.receive_label) topic.receive_label = t.receive_label;
+    if (t.note) topic.note = t.note;
+    Object.defineProperty(topic, "toString", {
+      value: function () { return this.name; },
+      enumerable: false
+    });
+    return topic;
+  }
+  function topicDetailRow(t) {
+    var row = {};
+    if (t.type) row.type = t.type;
+    if (t.give_label) row.give_label = t.give_label;
+    if (t.receive_label) row.receive_label = t.receive_label;
+    if (t.note) row.note = t.note;
+    return row;
+  }
   function mergedCategory(cat) {
-    var topics = (cat.topics || []).map(function (t) {
-      var topic = { id: t.id, name: t.name, risk: !!t.risk };
-      if (t.type) topic.type = t.type;
-      if (t.give_label) topic.give_label = t.give_label;
-      if (t.receive_label) topic.receive_label = t.receive_label;
-      if (t.note) topic.note = t.note;
-      Object.defineProperty(topic, "toString", {
-        value: function () { return this.name; },
-        enumerable: false
-      });
-      return topic;
-    });
+    var topics = [];
     var details = {};
-    (cat.topics || []).forEach(function (t) {
-      var row = {};
-      if (t.type) row.type = t.type;
-      if (t.give_label) row.give_label = t.give_label;
-      if (t.receive_label) row.receive_label = t.receive_label;
-      if (t.note) row.note = t.note;
-      if (Object.keys(row).length) details[t.name] = row;
-    });
-    return { id: cat.id, name: cat.name, topics: topics, topicDetails: details };
+    function absorb(list) {
+      (list || []).forEach(function (t) {
+        topics.push(mergedTopic(t));
+        var row = topicDetailRow(t);
+        if (Object.keys(row).length) details[t.name] = row;
+      });
+    }
+    var out = { id: cat.id, name: cat.name };
+    var subs = cat.subcategories || [];
+    if (subs.length) {
+      absorb(cat.parentTopics);
+      out.subcategories = subs.map(function (sub) {
+        var before = topics.length;
+        absorb(sub.topics);
+        return { id: sub.id, name: sub.name, topics: topics.slice(before) };
+      });
+    } else {
+      absorb(cat.topics);
+    }
+    out.topics = topics;
+    out.topicDetails = details;
+    return out;
   }
 
   /* Ge()-shaped widget config for one skin topic. Pole-count flags mirror
@@ -142,7 +166,11 @@
     var desc = {};
     var count = 0;
     data.categories.forEach(function (cat) {
-      (cat.topics || []).forEach(function (t) {
+      var all = (cat.topics || []).slice();
+      (cat.subcategories || []).forEach(function (sub) {
+        all = all.concat(sub.topics || []);
+      });
+      all.forEach(function (t) {
         widgets[t.id] = widgetConfig(t);
         if (t.hovertip) desc[t.name] = formatHovertip(t);
         count += 1;
@@ -228,7 +256,162 @@
     if (btn) btn.textContent = name;
     var about = document.getElementById("appAboutTitle");
     if (about) about.textContent = "About " + name;
+    var closeAbout = document.getElementById("closeAppAbout");
+    if (closeAbout) closeAbout.setAttribute("aria-label", "Close About " + name);
     document.querySelectorAll(".sx-brand").forEach(function (b) { b.textContent = name; });
+  }
+
+  /* ---- Domain-terms skinning (first i18n step, 2026-11-15) ----
+     The shell's adult/kink-flavored words swap per skin: Sexcapades
+     keeps them, every other skin gets the vanilla equivalents Jason
+     ruled (Krossmatch -> Cross match, Kink Factor -> Depth Factor,
+     Play -> Commune, Parlay -> Converse). The table lives HERE, in the
+     loader — the mappings are the same for every non-Sexcapades skin,
+     so one table beats fourteen copies, and the loader already owns
+     brand swapping (setBrand) with the same Sexcapades-special-case
+     shape. A skin JSON may override individual keys with a `terms`
+     object and may declare `importers: true` if it ever gains
+     questionnaire importers (none do today — only Sexcapades has any).
+     Two layers apply the terms:
+     (1) the bundle renders labels through window.__SX_TERMS (resolved
+     here on every skin load) — see sxTerm() in 05b-scribe.js — so
+     fresh paints come out right;
+     (2) applyTerms() rewrites the live DOM on every switch, fixing
+     surfaces rendered before the switch that don't repaint (match-tab
+     stamp, profile-tab strip buttons) and the static HTML strings
+     (horizon intro, Get-ratings summary). Only elements marked with
+     data-sx-term="<key>,<key>" are rewritten, key by key, whole-word
+     only — unmarked text (topic names, songbook "Play the verse",
+     descriptions) is never touched. Each rewrite first undoes the
+     vanilla forms back to the Sexcapades forms, then applies the new
+     skin's terms, so switches in either direction (and between two
+     non-Sexcapades skins) land exactly; the element's own key list
+     disambiguates the shared vanilla word ("Converse" undoes to
+     "Parlay" or "Conversation" according to which key the element
+     lists). Longest form first, so "Play KF" wins over "Play".
+     NOT skinned, by Jason's word or for lack of a ruled equivalent:
+     bowtie, circle-dot, Hot List, On Deck (ruled fine as-is); "Straight
+     Talk" (the circledot tab's label — no ruled mapping for it);
+     Charted (a coverage number, not a flavored word); "kink cloud"
+     (one layout-editor tooltip, no obvious vanilla name); the map's
+     "consenting adult interests" aria-label (description text, left
+     alone); the "Syncing Sexcapades Guide" name; Scribe / Scene Setter
+     / Scene Sentinel (feature names); "Play guide" (a document name).
+     "kink card" needed no change — the UI already says "sync card". */
+  var SX_TERM_TABLE = {
+    krossmatch: { sex: "Krossmatch", vanilla: "Cross match" },
+    kinkFactor: { sex: "Kink Factor", vanilla: "Depth Factor" },
+    playMode: { sex: "Play", vanilla: "Commune" },
+    parlayMode: { sex: "Parlay", vanilla: "Converse" },
+    conversationMode: { sex: "Conversation", vanilla: "Converse" },
+    playMS: { sex: "Play MS", vanilla: "Commune MS" },
+    playKF: { sex: "Play KF", vanilla: "Commune DF" },
+    parlayMS: { sex: "Parlay MS", vanilla: "Converse MS" },
+    parlayKF: { sex: "Parlay KF", vanilla: "Converse DF" },
+    getRatings: { sex: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", vanilla: "Hot list", exact: true }
+  };
+  /* The four skin-specific questionnaire importers, wherever they are
+     offered: the test-result loader dialog, the profile tab's load
+     menu, the profile-details "Get ratings" menu, and the test
+     chooser. The shared import mechanism (Scan or Import — sync card /
+     QR / exported file) is NOT in this list and stays live on every
+     skin. */
+  var SX_IMPORTER_SELECTORS = [
+    "[data-converter=\"kinktest\"]", "[data-converter=\"checklist\"]",
+    "[data-converter=\"fetlife\"]", "[data-converter=\"bdsmtest\"]",
+    "[data-profile-converter=\"kinktest\"]", "[data-profile-converter=\"checklist\"]",
+    "[data-profile-converter=\"fetlife\"]", "[data-profile-converter=\"bdsmtest\"]",
+    "[data-profile-details-converter=\"kinktest\"]", "[data-profile-details-converter=\"checklist\"]",
+    "[data-profile-details-converter=\"fetlife\"]", "[data-profile-details-converter=\"bdsmtest\"]",
+    "[data-test-choice=\"kinktest\"]", "[data-test-choice=\"checklist\"]"
+  ];
+
+  function resolveTerms(skinId, skinData) {
+    var terms = {};
+    var vanilla = skinId !== "sexcapades";
+    Object.keys(SX_TERM_TABLE).forEach(function (key) {
+      var row = SX_TERM_TABLE[key];
+      var override = skinData && skinData.terms && skinData.terms[key];
+      terms[key] = vanilla
+        ? (typeof override === "string" && override ? override : row.vanilla)
+        : row.sex;
+    });
+    return terms;
+  }
+
+  function sxTermRegex(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  /* Apply one (from -> to) whole-word replacement list to an element's
+     text nodes (so <strong> etc. survive) plus its title, aria-label
+     and data-ui-tooltip. A pair whose row is marked exact swaps only
+     when a whole text value equals the form exactly — needed where the
+     vanilla form is a prefix of the Sexcapades form (Get-ratings
+     summary: "Hot list" inside the full feed list), so the undo pass
+     can never duplicate the tail. */
+  function sxRewriteElementText(el, pairs) {
+    function swap(s) {
+      var out = s;
+      pairs.forEach(function (p) {
+        if (p[2]) {
+          if (out.trim() === p[0]) out = out.replace(p[0], p[1]);
+        } else {
+          out = out.replace(new RegExp("\\b" + sxTermRegex(p[0]) + "\\b", "g"), p[1]);
+        }
+      });
+      return out;
+    }
+    (function walk(node) {
+      if (node.nodeType === 3) node.nodeValue = swap(node.nodeValue);
+      else if (node.nodeType === 1) for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
+    })(el);
+    ["title", "aria-label", "data-ui-tooltip"].forEach(function (attr) {
+      var v = el.getAttribute(attr);
+      if (v !== null) el.setAttribute(attr, swap(v));
+    });
+  }
+
+  function applyTermsToElement(el, terms) {
+    var keys = (el.getAttribute("data-sx-term") || "").split(",").map(function (k) { return k.trim(); }).filter(function (k) { return !!k && SX_TERM_TABLE[k]; });
+    if (!keys.length) return;
+    /* Longest Sexcapades form first, so "Play KF" wins over "Play"
+       and "Commune DF" undoes before "Commune". */
+    var ordered = keys.slice().sort(function (a, b) { return SX_TERM_TABLE[b].sex.length - SX_TERM_TABLE[a].sex.length; });
+    /* Pass 1: undo any vanilla forms back to the Sexcapades forms. */
+    sxRewriteElementText(el, ordered.map(function (key) { return [SX_TERM_TABLE[key].vanilla, SX_TERM_TABLE[key].sex, !!SX_TERM_TABLE[key].exact]; }));
+    /* Pass 2: apply the active skin's terms. */
+    sxRewriteElementText(el, ordered.map(function (key) { return [SX_TERM_TABLE[key].sex, terms[key], !!SX_TERM_TABLE[key].exact]; }));
+  }
+
+  function applyImporterGating(hasImporters) {
+    SX_IMPORTER_SELECTORS.forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(function (el) {
+        if (hasImporters) {
+          el.disabled = false;
+          if (el.__sxOrigTitle !== undefined) {
+            if (el.__sxOrigTitle) el.setAttribute("title", el.__sxOrigTitle);
+            else el.removeAttribute("title");
+            delete el.__sxOrigTitle;
+          }
+        } else {
+          if (!el.disabled) {
+            el.__sxOrigTitle = el.getAttribute("title") || "";
+            el.setAttribute("title", "Not available for this skin — it has no importers");
+          }
+          el.disabled = true;
+        }
+      });
+    });
+  }
+
+  function applyTerms(skinId, skinData) {
+    var terms = resolveTerms(skinId, skinData);
+    window.__SX_TERMS = terms;
+    var hasImporters = skinId === "sexcapades" || !!(skinData && skinData.importers);
+    window.__SX_HAS_IMPORTERS = hasImporters;
+    document.querySelectorAll("[data-sx-term]").forEach(function (el) { applyTermsToElement(el, terms); });
+    applyImporterGating(hasImporters);
   }
 
   /* Apply a skin's embedded default layout (defaultLayout in the skin
@@ -412,8 +595,9 @@
            skin's defaults. A failed fetch leaves the current layout. */
         return sexcapadesData().then(function (data) {
           applySexcapadesLayout(data);
+          applyTerms("sexcapades", data);
           return "sexcapades";
-        }).catch(function () { return "sexcapades"; });
+        }).catch(function () { applyTerms("sexcapades", null); return "sexcapades"; });
       });
     }
     var url = SKIN_DIR + skinId + ".json";
@@ -428,6 +612,7 @@
       setBrand(skinId, displayName || data.name);
       return Promise.resolve(rerender()).then(function () {
         applyDefaultLayout(data);
+        applyTerms(skinId, data);
         return skinId;
       });
     });
@@ -442,5 +627,10 @@
      higher-pole topics get their widgets from the file on a native boot,
      and apply the skin's embedded layout once the editor and engine are
      ready (see bootApplySexcapades). */
+  /* The bundle renders through window.__SX_TERMS from the first paint:
+     resolve the Sexcapades (identity) terms at loader init so the
+     helper in 05b-scribe.js never reads an empty map. */
+  window.__SX_TERMS = resolveTerms("sexcapades", null);
+  window.__SX_HAS_IMPORTERS = true;
   registerSexcapadesWidgets();
 })();

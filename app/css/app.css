@@ -578,7 +578,8 @@ html{background:#151816}body{background:#151816}/* Interest-color stops: --red-d
 .le-power-toggle input{width:20px;height:20px;margin:0;accent-color:var(--focus);flex:0 0 auto}
 .le-adv{border-top:1px dashed var(--line);margin-top:2px}
 .le-adv>summary{display:flex;align-items:center;min-height:44px;padding:8px 0;font:600 15px/1.1 "Barlow Condensed",sans-serif;letter-spacing:.04em;color:var(--muted);cursor:pointer}
-.le-adv-body{display:grid;gap:12px;padding:2px 0 10px}
+.le-adv-body{gap:12px;padding:2px 0 10px}
+details[open]>.le-adv-body{display:grid}
 /* Group 3a (Build 2026-10-20_0814): the Collision mode and Branch order
    button groups rendered only their current option — every other option
    computed display:none — so in a real session the groups read as static
