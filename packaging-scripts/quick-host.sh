@@ -10,12 +10,12 @@ MODE="app"
 echo "=== Sexcapades Quick Host Pipeline ($MODE) ==="
 
 if [ "$MODE" = "all" ]; then
-  OUTPUT=$(bash "$DIR/packaging-scripts/package-deploy-all-4.0.sh")
-  TARBALL=$(echo "$OUTPUT" | grep -o 'deploy-all-v4.0-[^ ]*-optimized\.tar\.gz' | head -1)
+  OUTPUT=$(bash "$DIR/packaging-scripts/package-deploy-all-5.0.sh")
+  TARBALL=$(echo "$OUTPUT" | grep -o 'deploy-all-v5.0-[^ ]*-optimized\.tar\.gz' | head -1)
   MD5=$(echo "$OUTPUT" | grep '^MD5: ' | head -1 | awk '{print $2}')
 else
-  OUTPUT=$(bash "$DIR/packaging-scripts/package-deploy-app-4.0.sh")
-  TARBALL=$(echo "$OUTPUT" | grep -o 'deploy-app-v4.0-[^ ]*-optimized\.tar\.gz' | head -1)
+  OUTPUT=$(bash "$DIR/packaging-scripts/package-deploy-app-5.0.sh")
+  TARBALL=$(echo "$OUTPUT" | grep -o 'deploy-app-v5.0-[^ ]*-optimized\.tar\.gz' | head -1)
   MD5=$(echo "$OUTPUT" | grep '^MD5: ' | head -1 | awk '{print $2}')
 fi
 

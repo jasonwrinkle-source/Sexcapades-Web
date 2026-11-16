@@ -10,5 +10,5 @@ When the user says deploy qa, commit the source on the current branch before pac
 - Commit the source the QA packager will copy: the hosted tree, the app sources it is built from, and packaging-script changes that affect the package.
 - Leave out tarballs, `DEPLOY_QA_COMMAND.txt`, `__pycache__`, `.env`, credentials, and scratch notes.
 - The message says why, in one or two sentences, and matches what the diff actually contains.
-- After the package succeeds, tag that commit with the stamp the packager printed, for example `qa-4.0-1112-1018`. Do not push unless asked.
+- After the package succeeds, tag that commit with the stamp the packager printed, for example `qa-5.0-1112-1018`. Do not push unless asked.
 - If the working tree has nothing to commit, package and tag the current HEAD.

@@ -3,7 +3,7 @@
 # Packages the modular app + test-runner.html into a self-contained public_html/qa/ tarball
 #
 # Usage: ./packaging-scripts/package-deploy-qa.sh [timestamp]
-# Output: deploy-qa-v4.0-YYYY-MM-DD_HHMM.tar.gz
+# Output: deploy-qa-v5.0-YYYY-MM-DD_HHMM.tar.gz
 
 set -e
 
@@ -11,7 +11,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TS="${1:-$(TZ=America/Chicago date +%Y-%m-%d_%H%M)}"
 OUTDIR="$DIR/deploy-output"
 mkdir -p "$OUTDIR"
-OUTFILE="$OUTDIR/deploy-qa-v4.0-${TS}.tar.gz"
+OUTFILE="$OUTDIR/deploy-qa-v5.0-${TS}.tar.gz"
 
 HOSTED_SRC="$DIR/site-tree/public_html/hosted"
 STATIC_SRC="$DIR/site-tree/public_html"
@@ -32,7 +32,7 @@ python3 "$DIR/app/data/build-bundle.py"
 # between source and hosted; asset versions are re-stamped by step 3d.
 echo "1b. Regenerating hosted/app.html from source..."
 HOSTED_APP="$DIR/site-tree/public_html/hosted/app.html"
-cp "$DIR/app/sexcapades-4.0.html" "$HOSTED_APP"
+cp "$DIR/app/sexcapades-5.0.html" "$HOSTED_APP"
 sed -i 's|https://sexcapades.io/?return=|/hosted/gate.html?return=|g' "$HOSTED_APP"
 sed -i 's|href="https://sexcapades.io/#app"|href="/hosted/guide.html"|g' "$HOSTED_APP"
 # Verify the regenerated page before staging: it must carry the skin
@@ -48,8 +48,8 @@ grep -q '/hosted/gate.html?return=' "$HOSTED_APP" || { echo "ERROR: regenerated 
 grep -q 'href="/hosted/guide.html"' "$HOSTED_APP" || { echo "ERROR: regenerated hosted/app.html is missing the hosted guide link!"; exit 1; }
 grep -q 'https://sexcapades.io/?return=' "$HOSTED_APP" && { echo "ERROR: regenerated hosted/app.html still has the live gate return URL (rewrite did not apply)!"; exit 1; }
 grep -q 'href="https://sexcapades.io/#app"' "$HOSTED_APP" && { echo "ERROR: regenerated hosted/app.html still has the live guide link (rewrite did not apply)!"; exit 1; }
-SRC_BUILD=$(grep -o 'Version [0-9.]* · Build [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' "$DIR/app/sexcapades-4.0.html" | head -1)
-[ -n "$SRC_BUILD" ] || { echo "ERROR: source sexcapades-4.0.html has no build marker!"; exit 1; }
+SRC_BUILD=$(grep -o 'Version [0-9.]* · Build [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' "$DIR/app/sexcapades-5.0.html" | head -1)
+[ -n "$SRC_BUILD" ] || { echo "ERROR: source sexcapades-5.0.html has no build marker!"; exit 1; }
 grep -qF "$SRC_BUILD" "$HOSTED_APP" || { echo "ERROR: regenerated hosted/app.html build marker does not match the source ($SRC_BUILD)!"; exit 1; }
 echo "Regenerated hosted/app.html verified (skin loader, menu, compass, hosted rewrites, build marker $SRC_BUILD)."
 
@@ -80,7 +80,7 @@ find "$QA_STAGING" -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \)
 find "$QA_STAGING" -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i 's|sexcapades.io/qa/assets/audio/|sexcapades.io/hosted/assets/audio/|g' {} +
 
 # Stamp the packaged pages only. The repo keeps the last release number;
-# a QA drop gets its own qa-4.0-MMDD-HHMM tag for this package timestamp.
+# a QA drop gets its own qa-5.0-MMDD-HHMM tag for this package timestamp.
 echo "3b. Stamping QA build ${TS}..."
 QA_STAMP_FILES=()
 for page in app.html; do

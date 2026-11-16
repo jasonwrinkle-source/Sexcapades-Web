@@ -17,16 +17,16 @@ def bump(build_num=None, channel="release", files=None):
 
     channel = "qa" if channel == "qa" else "release"
     label = "QA Build" if channel == "qa" else "Build"
-    # release-4.0-MMDD-HHMM, or qa-4.0-MMDD-HHMM for a QA package
+    # release-5.0-MMDD-HHMM, or qa-5.0-MMDD-HHMM for a QA package
     m = re.match(r"^(\d{4})-(\d{2})-(\d{2})_(\d{4})$", build_num)
     if m:
-        build_tag = f"{channel}-4.0-{m.group(2)}{m.group(3)}-{m.group(4)}"
+        build_tag = f"{channel}-5.0-{m.group(2)}{m.group(3)}-{m.group(4)}"
     else:
-        build_tag = f"{channel}-4.0-{build_num}"
+        build_tag = f"{channel}-5.0-{build_num}"
 
     if files is None:
         files = [
-            os.path.join(root, "app", "sexcapades-4.0.html"),
+            os.path.join(root, "app", "sexcapades-5.0.html"),
             os.path.join(root, "site-tree", "public_html", "hosted", "app.html")
         ]
 
@@ -41,9 +41,9 @@ def bump(build_num=None, channel="release", files=None):
         content = re.sub(r'<meta content="[^"]*" name="sexcapades-build-tag"/>',
                          f'<meta content="{build_tag}" name="sexcapades-build-tag"/>', content)
         content = re.sub(r'<!-- BUILD-MANIFEST \{[^}]*\} -->',
-                         f'<!-- BUILD-MANIFEST {{"build": "{build_num}", "version": "4.0", "channel": "{channel}"}} -->', content, count=1)
+                         f'<!-- BUILD-MANIFEST {{"build": "{build_num}", "version": "5.0", "channel": "{channel}"}} -->', content, count=1)
         content = re.sub(r'<span class="app-about-version">Version 4\.0 · (?:QA )?Build [^<]*</span>',
-                         f'<span class="app-about-version">Version 4.0 · {label} {build_num}</span>', content, count=1)
+                         f'<span class="app-about-version">Version 5.0 · {label} {build_num}</span>', content, count=1)
         content = re.sub(r'<span class="app-about-version app-about-buildtag">[^<]*</span>',
                          f'<span class="app-about-version app-about-buildtag">{build_tag}</span>', content)
 
