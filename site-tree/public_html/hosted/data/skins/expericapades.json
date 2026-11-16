@@ -2,6 +2,7 @@
   "skin": "expericapades",
   "meter": "experience",
   "name": "Expericapades",
+  "about": "Expericapades is an interactive hypermap for rating and visualizing how experiments should be run — what counts as evidence, how sure is sure enough, and what a good discovery takes — and comparing your standards with another person's, judgment by judgment, on the same picture. Build a personal profile, see where your standards meet and where they part, use Scribe to write the experiment you'd run, and Scene Setter to plan the collaboration that runs it — all in the same shared vocabulary.",
   "domain": "Experimental Physics — the world of the detector, the ultra-high vacuum chamber, the cryogenic dilution refrigerator, and the particle collider",
   "categories": [
     {

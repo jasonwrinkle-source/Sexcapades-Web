@@ -3342,6 +3342,7 @@
   ],
   "domain": "Political Economy, Civic Allocation & Governance",
   "name": "Poliscapades",
+  "about": "Poliscapades is an interactive hypermap for rating and visualizing where you stand on the questions that run a country — the economy, health and care, who holds power — and comparing your positions with another person's, stance by stance, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to draft the case you'd make, and Scene Setter to plan the conversation — all in the same shared vocabulary.",
   "skin": "poliscapades",
   "meter": "stance",
   "defaultLayout": {

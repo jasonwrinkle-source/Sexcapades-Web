@@ -3342,6 +3342,7 @@
   ],
   "domain": "The Abrahamic Faiths — Judaism, Christianity, and Islam",
   "name": "Forescapades",
+  "about": "Forescapades is an interactive hypermap for rating and visualizing what you believe about God, scripture, and the life of faith — and comparing your convictions with another person's, belief by belief, on the same picture. Build a personal profile, see where your faiths meet and where they part, use Scribe to write out what you hold true, and Scene Setter to plan a conversation about what matters most — all in the same shared vocabulary.",
   "skin": "forescapades",
   "meter": "belief",
   "defaultLayout": {
