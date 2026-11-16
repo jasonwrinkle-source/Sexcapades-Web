@@ -3787,5 +3787,843 @@
         }
       ]
     }
+  },
+  "samples": {
+    "che-organic": {
+      "name": "The Organic Chemist",
+      "count": 32,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Organic Chemist",
+        "archetype": "The Organic Chemist",
+        "aboutMe": "Carbon is the canvas: total synthesis is the Everest of chemistry, and the curved arrow is how a molecule is truly understood.",
+        "ratings": {
+          "xch0001": 85,
+          "xch0002": {
+            "strict-physical-realist": 30,
+            "pattern-realist": 60,
+            "pure-instrumentalist": 30
+          },
+          "xch0003": {
+            "mathematical-constructs": 40,
+            "quasi-physical-experiential-entities": 60
+          },
+          "xch0004": {
+            "strong-reductionism": 20,
+            "epistemological-anti-reductionism": 50,
+            "ontological-emergence": 60,
+            "downward-causation-contextuality": 30,
+            "pluralism": 50
+          },
+          "xch0005": {
+            "classical-geometric-primacy": 80,
+            "quantum-holistic-indeterminacy": 20
+          },
+          "xch0006": {
+            "real-entity": 80,
+            "useful-model": 40,
+            "emergent-pattern": 30
+          },
+          "xch0010": {
+            "mechanistic-realism": 85,
+            "mnemonic-predictive-pragmatism": 50,
+            "kinetic-spectroscopic-skepticism": 40
+          },
+          "xch0011": {
+            "bench-supremacy": 70,
+            "computational-vanguard": 20,
+            "synergistic-co-equal-loop": 50,
+            "autonomous-self-driving-labs": 10
+          },
+          "xch0012": {
+            "diffraction-absoluteness": 70,
+            "solution-state-spectroscopic-realism": 80,
+            "total-synthesis-verification": 85
+          },
+          "xch0013": {
+            "artisanal-chemical-intuition": 90,
+            "explainable-cheminformatics": 40,
+            "black-box-high-throughput-empiricism": -30
+          },
+          "xch0014": {
+            "serendipity": 50,
+            "design": 70
+          },
+          "xch0015": {
+            "the-central-science": 60,
+            "the-creative-inventive-science": 90,
+            "a-service-enabling-discipline": 10,
+            "dissolving-boundaries": 30
+          },
+          "xch0016": {
+            "organic-chemistry": 95,
+            "inorganic-chemistry": 10,
+            "physical-chemistry": 20,
+            "analytical-chemistry": 40,
+            "biochemistry-chemical-biology": 50
+          },
+          "xch0017": {
+            "the-mount-everest-of-chemistry": 90,
+            "step-economy-ideality": 60,
+            "function-oriented-synthesis": 50,
+            "biosynthetic-biocatalytic-shift": 40
+          },
+          "xch0018": {
+            "academic-discovery-ethos": 80,
+            "process-scale-up-realism": 20
+          },
+          "xch0020": {
+            "strict-green-by-design": 30,
+            "pragmatic-sustainability": 70,
+            "techno-optimist-remediation": 30,
+            "unfettered-fundamental-inquiry": 60
+          },
+          "xch0021": {
+            "zero-harm-institutional-compliance": 40,
+            "competence-based-risk-management": 80,
+            "frontier-risk-acceptance": 40
+          },
+          "xch0023": {
+            "empathetic-public-literacy": 60,
+            "industrial-accountability-first": 40,
+            "focus-on-the-science": 50
+          },
+          "xch0024": {
+            "preemptive-publication-ai-guardrails": 30,
+            "open-science-defensive-transparency": 60
+          },
+          "xch0025": {
+            "thermodynamic-equilibrium-primacy": 40,
+            "kinetic-metastable-primacy": 70
+          },
+          "xch0026": {
+            "give": 70,
+            "receive": 65
+          },
+          "xch0027": {
+            "pure-compound-isolationism": 70,
+            "dynamic-combinatorial-systems-chemistry": 20,
+            "prebiotic-geochemical-realism": 10
+          },
+          "xch0028": {
+            "homogeneous-molecular-catalysis": 90,
+            "heterogeneous-surface-catalysis": 20,
+            "enzymatic-biocatalysis": 40
+          },
+          "xch0029": {
+            "covalent-architecture": 90,
+            "non-covalent-self-assembly": 30
+          },
+          "xch0030": {
+            "strict-iupac-standardization": 40,
+            "pragmatic-trivial-common-usage": 80,
+            "machine-readable-identifiers": 30
+          },
+          "xch0032": {
+            "high-throughput-methodology-substrate-scope": 60,
+            "deep-physical-organic-mechanistic-rigor": 85,
+            "open-preprints-raw-data-reproducibility": 50
+          },
+          "xch0033": {
+            "teaching-first": 40,
+            "teacher-scholar": 60,
+            "research-first": 70
+          },
+          "xch0034": {
+            "solitude": 40,
+            "collaboration": 60
+          },
+          "xch0035": {
+            "publish": 80,
+            "patent": 20
+          },
+          "xch0036": {
+            "hands-on": 85,
+            "automated": 20
+          },
+          "xch0038": {
+            "reticular-design": 30,
+            "classical-polymers-composites": 50,
+            "hybrid-soft-matter-biomimetic-materials": 40
+          },
+          "xch0039": {
+            "structure-based-medicinal-chemistry": 80,
+            "phenotypic-chemical-genetic-screening": 50,
+            "dna-encoded-libraries-ultra-large-virtual-screening": 40,
+            "new-modalities": 60
+          }
+        }
+      }
+    },
+    "che-physical": {
+      "name": "The Physical Chemist",
+      "count": 32,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Physical Chemist",
+        "archetype": "The Physical Chemist",
+        "aboutMe": "Chemistry is physics with molecules: quantum mechanics, thermodynamics, and computation are the ground truth, and the bench tests them.",
+        "ratings": {
+          "xch0001": 90,
+          "xch0002": {
+            "strict-physical-realist": 85,
+            "pattern-realist": 30,
+            "pure-instrumentalist": -20
+          },
+          "xch0003": {
+            "mathematical-constructs": 80,
+            "quasi-physical-experiential-entities": 10
+          },
+          "xch0004": {
+            "strong-reductionism": 85,
+            "epistemological-anti-reductionism": 10,
+            "ontological-emergence": 20,
+            "downward-causation-contextuality": 10,
+            "pluralism": 20
+          },
+          "xch0005": {
+            "classical-geometric-primacy": 10,
+            "quantum-holistic-indeterminacy": 85
+          },
+          "xch0006": {
+            "real-entity": 60,
+            "useful-model": 60,
+            "emergent-pattern": 50
+          },
+          "xch0007": {
+            "medium-long-form": 50,
+            "left-step-table": 60,
+            "long-form": 30,
+            "three-dimensional-spiral-helical": 20,
+            "property-cluster-data-driven": 40
+          },
+          "xch0010": {
+            "mechanistic-realism": 70,
+            "mnemonic-predictive-pragmatism": 20,
+            "kinetic-spectroscopic-skepticism": 80
+          },
+          "xch0011": {
+            "bench-supremacy": -20,
+            "computational-vanguard": 90,
+            "synergistic-co-equal-loop": 70,
+            "autonomous-self-driving-labs": 50
+          },
+          "xch0012": {
+            "diffraction-absoluteness": 50,
+            "solution-state-spectroscopic-realism": 85,
+            "total-synthesis-verification": 10
+          },
+          "xch0013": {
+            "artisanal-chemical-intuition": -30,
+            "explainable-cheminformatics": 80,
+            "black-box-high-throughput-empiricism": 30
+          },
+          "xch0014": {
+            "serendipity": 20,
+            "design": 85
+          },
+          "xch0015": {
+            "the-central-science": 70,
+            "the-creative-inventive-science": 30,
+            "a-service-enabling-discipline": 20,
+            "dissolving-boundaries": 70
+          },
+          "xch0016": {
+            "organic-chemistry": 20,
+            "inorganic-chemistry": 30,
+            "physical-chemistry": 95,
+            "analytical-chemistry": 50,
+            "biochemistry-chemical-biology": 30
+          },
+          "xch0018": {
+            "academic-discovery-ethos": 70,
+            "process-scale-up-realism": 30
+          },
+          "xch0019": {
+            "pure": 80,
+            "applied": 20
+          },
+          "xch0020": {
+            "strict-green-by-design": 40,
+            "pragmatic-sustainability": 60,
+            "techno-optimist-remediation": 50,
+            "unfettered-fundamental-inquiry": 50
+          },
+          "xch0021": {
+            "zero-harm-institutional-compliance": 60,
+            "competence-based-risk-management": 60,
+            "frontier-risk-acceptance": 20
+          },
+          "xch0023": {
+            "empathetic-public-literacy": 50,
+            "industrial-accountability-first": 30,
+            "focus-on-the-science": 70
+          },
+          "xch0024": {
+            "preemptive-publication-ai-guardrails": 50,
+            "open-science-defensive-transparency": 50
+          },
+          "xch0025": {
+            "thermodynamic-equilibrium-primacy": 85,
+            "kinetic-metastable-primacy": 40
+          },
+          "xch0026": {
+            "give": 50,
+            "receive": 60
+          },
+          "xch0027": {
+            "pure-compound-isolationism": 40,
+            "dynamic-combinatorial-systems-chemistry": 60,
+            "prebiotic-geochemical-realism": 50
+          },
+          "xch0028": {
+            "homogeneous-molecular-catalysis": 50,
+            "heterogeneous-surface-catalysis": 60,
+            "enzymatic-biocatalysis": 30
+          },
+          "xch0029": {
+            "covalent-architecture": 50,
+            "non-covalent-self-assembly": 70
+          },
+          "xch0032": {
+            "high-throughput-methodology-substrate-scope": 30,
+            "deep-physical-organic-mechanistic-rigor": 90,
+            "open-preprints-raw-data-reproducibility": 70
+          },
+          "xch0033": {
+            "teaching-first": 30,
+            "teacher-scholar": 60,
+            "research-first": 80
+          },
+          "xch0034": {
+            "solitude": 50,
+            "collaboration": 60
+          },
+          "xch0035": {
+            "publish": 85,
+            "patent": 10
+          },
+          "xch0036": {
+            "hands-on": 30,
+            "automated": 70
+          },
+          "xch0037": {
+            "electrochemical-battery-dominance": 70,
+            "green-hydrogen-ammonia-carriers": 50,
+            "electrosynthesis-photoredox-revolution": 60,
+            "artificial-photosynthesis-solar-fuels": 60
+          },
+          "xch0040": {
+            "cosmic-chemical-continuity": 70,
+            "planetary-specific-geochemical-bottlenecks": 40
+          }
+        }
+      }
+    },
+    "che-inorganic": {
+      "name": "The Inorganic Chemist",
+      "count": 32,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Inorganic Chemist",
+        "archetype": "The Inorganic Chemist",
+        "aboutMe": "The rest of the periodic table: metals, solids, and materials - structure, bonding, and function beyond carbon.",
+        "ratings": {
+          "xch0001": 85,
+          "xch0002": {
+            "strict-physical-realist": 60,
+            "pattern-realist": 60,
+            "pure-instrumentalist": 10
+          },
+          "xch0003": {
+            "mathematical-constructs": 50,
+            "quasi-physical-experiential-entities": 50
+          },
+          "xch0004": {
+            "strong-reductionism": 40,
+            "epistemological-anti-reductionism": 40,
+            "ontological-emergence": 50,
+            "downward-causation-contextuality": 40,
+            "pluralism": 60
+          },
+          "xch0005": {
+            "classical-geometric-primacy": 70,
+            "quantum-holistic-indeterminacy": 40
+          },
+          "xch0006": {
+            "real-entity": 70,
+            "useful-model": 50,
+            "emergent-pattern": 40
+          },
+          "xch0007": {
+            "medium-long-form": 70,
+            "left-step-table": 50,
+            "long-form": 40,
+            "three-dimensional-spiral-helical": 20,
+            "property-cluster-data-driven": 30
+          },
+          "xch0008": {
+            "sc-y-la-ac": 50,
+            "sc-y-lu-lr": 60,
+            "bifurcated-indeterminate": 30
+          },
+          "xch0009": {
+            "nuclear-limit-termination": 50,
+            "superheavy-island-of-stability": 80,
+            "relativistic-breakdown": 60
+          },
+          "xch0010": {
+            "mechanistic-realism": 60,
+            "mnemonic-predictive-pragmatism": 40,
+            "kinetic-spectroscopic-skepticism": 60
+          },
+          "xch0011": {
+            "bench-supremacy": 60,
+            "computational-vanguard": 40,
+            "synergistic-co-equal-loop": 60,
+            "autonomous-self-driving-labs": 20
+          },
+          "xch0012": {
+            "diffraction-absoluteness": 90,
+            "solution-state-spectroscopic-realism": 60,
+            "total-synthesis-verification": 20
+          },
+          "xch0014": {
+            "serendipity": 60,
+            "design": 60
+          },
+          "xch0015": {
+            "the-central-science": 60,
+            "the-creative-inventive-science": 60,
+            "a-service-enabling-discipline": 30,
+            "dissolving-boundaries": 50
+          },
+          "xch0016": {
+            "organic-chemistry": 20,
+            "inorganic-chemistry": 95,
+            "physical-chemistry": 50,
+            "analytical-chemistry": 40,
+            "biochemistry-chemical-biology": 20
+          },
+          "xch0018": {
+            "academic-discovery-ethos": 60,
+            "process-scale-up-realism": 50
+          },
+          "xch0019": {
+            "pure": 60,
+            "applied": 50
+          },
+          "xch0020": {
+            "strict-green-by-design": 40,
+            "pragmatic-sustainability": 60,
+            "techno-optimist-remediation": 40,
+            "unfettered-fundamental-inquiry": 50
+          },
+          "xch0021": {
+            "zero-harm-institutional-compliance": 50,
+            "competence-based-risk-management": 70,
+            "frontier-risk-acceptance": 40
+          },
+          "xch0023": {
+            "empathetic-public-literacy": 50,
+            "industrial-accountability-first": 40,
+            "focus-on-the-science": 60
+          },
+          "xch0024": {
+            "preemptive-publication-ai-guardrails": 40,
+            "open-science-defensive-transparency": 60
+          },
+          "xch0025": {
+            "thermodynamic-equilibrium-primacy": 60,
+            "kinetic-metastable-primacy": 60
+          },
+          "xch0026": {
+            "give": 60,
+            "receive": 70
+          },
+          "xch0028": {
+            "homogeneous-molecular-catalysis": 60,
+            "heterogeneous-surface-catalysis": 90,
+            "enzymatic-biocatalysis": 30
+          },
+          "xch0029": {
+            "covalent-architecture": 60,
+            "non-covalent-self-assembly": 80
+          },
+          "xch0032": {
+            "high-throughput-methodology-substrate-scope": 50,
+            "deep-physical-organic-mechanistic-rigor": 60,
+            "open-preprints-raw-data-reproducibility": 60
+          },
+          "xch0033": {
+            "teaching-first": 40,
+            "teacher-scholar": 60,
+            "research-first": 70
+          },
+          "xch0034": {
+            "solitude": 40,
+            "collaboration": 70
+          },
+          "xch0035": {
+            "publish": 70,
+            "patent": 40
+          },
+          "xch0036": {
+            "hands-on": 80,
+            "automated": 30
+          },
+          "xch0037": {
+            "electrochemical-battery-dominance": 80,
+            "green-hydrogen-ammonia-carriers": 60,
+            "electrosynthesis-photoredox-revolution": 40,
+            "artificial-photosynthesis-solar-fuels": 50
+          },
+          "xch0038": {
+            "reticular-design": 90,
+            "classical-polymers-composites": 40,
+            "hybrid-soft-matter-biomimetic-materials": 50
+          }
+        }
+      }
+    },
+    "che-biochemist": {
+      "name": "The Biochemist",
+      "count": 32,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Biochemist",
+        "archetype": "The Biochemist",
+        "aboutMe": "Chemistry in the service of life: enzymes, pathways, and molecules that heal - function first, mechanism in context.",
+        "ratings": {
+          "xch0001": 80,
+          "xch0002": {
+            "strict-physical-realist": 30,
+            "pattern-realist": 70,
+            "pure-instrumentalist": 40
+          },
+          "xch0003": {
+            "mathematical-constructs": 30,
+            "quasi-physical-experiential-entities": 60
+          },
+          "xch0004": {
+            "strong-reductionism": 10,
+            "epistemological-anti-reductionism": 60,
+            "ontological-emergence": 80,
+            "downward-causation-contextuality": 60,
+            "pluralism": 60
+          },
+          "xch0005": {
+            "classical-geometric-primacy": 50,
+            "quantum-holistic-indeterminacy": 50
+          },
+          "xch0006": {
+            "real-entity": 60,
+            "useful-model": 60,
+            "emergent-pattern": 80
+          },
+          "xch0010": {
+            "mechanistic-realism": 70,
+            "mnemonic-predictive-pragmatism": 40,
+            "kinetic-spectroscopic-skepticism": 60
+          },
+          "xch0011": {
+            "bench-supremacy": 50,
+            "computational-vanguard": 40,
+            "synergistic-co-equal-loop": 80,
+            "autonomous-self-driving-labs": 30
+          },
+          "xch0012": {
+            "diffraction-absoluteness": 60,
+            "solution-state-spectroscopic-realism": 90,
+            "total-synthesis-verification": 40
+          },
+          "xch0013": {
+            "artisanal-chemical-intuition": 60,
+            "explainable-cheminformatics": 60,
+            "black-box-high-throughput-empiricism": 50
+          },
+          "xch0014": {
+            "serendipity": 50,
+            "design": 70
+          },
+          "xch0015": {
+            "the-central-science": 80,
+            "the-creative-inventive-science": 50,
+            "a-service-enabling-discipline": 50,
+            "dissolving-boundaries": 80
+          },
+          "xch0016": {
+            "organic-chemistry": 50,
+            "inorganic-chemistry": 20,
+            "physical-chemistry": 30,
+            "analytical-chemistry": 40,
+            "biochemistry-chemical-biology": 95
+          },
+          "xch0018": {
+            "academic-discovery-ethos": 50,
+            "process-scale-up-realism": 60
+          },
+          "xch0019": {
+            "pure": 40,
+            "applied": 70
+          },
+          "xch0020": {
+            "strict-green-by-design": 60,
+            "pragmatic-sustainability": 80,
+            "techno-optimist-remediation": 40,
+            "unfettered-fundamental-inquiry": 30
+          },
+          "xch0021": {
+            "zero-harm-institutional-compliance": 70,
+            "competence-based-risk-management": 60,
+            "frontier-risk-acceptance": 10
+          },
+          "xch0022": {
+            "dangerous": 20,
+            "useful": 90,
+            "invisible": 30
+          },
+          "xch0023": {
+            "empathetic-public-literacy": 80,
+            "industrial-accountability-first": 50,
+            "focus-on-the-science": 40
+          },
+          "xch0024": {
+            "preemptive-publication-ai-guardrails": 60,
+            "open-science-defensive-transparency": 50
+          },
+          "xch0025": {
+            "thermodynamic-equilibrium-primacy": 50,
+            "kinetic-metastable-primacy": 70
+          },
+          "xch0026": {
+            "give": 60,
+            "receive": 60
+          },
+          "xch0027": {
+            "pure-compound-isolationism": -20,
+            "dynamic-combinatorial-systems-chemistry": 85,
+            "prebiotic-geochemical-realism": 70
+          },
+          "xch0028": {
+            "homogeneous-molecular-catalysis": 40,
+            "heterogeneous-surface-catalysis": 20,
+            "enzymatic-biocatalysis": 95
+          },
+          "xch0029": {
+            "covalent-architecture": 40,
+            "non-covalent-self-assembly": 90
+          },
+          "xch0032": {
+            "high-throughput-methodology-substrate-scope": 60,
+            "deep-physical-organic-mechanistic-rigor": 60,
+            "open-preprints-raw-data-reproducibility": 70
+          },
+          "xch0033": {
+            "teaching-first": 50,
+            "teacher-scholar": 70,
+            "research-first": 50
+          },
+          "xch0034": {
+            "solitude": 20,
+            "collaboration": 85
+          },
+          "xch0035": {
+            "publish": 60,
+            "patent": 50
+          },
+          "xch0036": {
+            "hands-on": 60,
+            "automated": 50
+          },
+          "xch0039": {
+            "structure-based-medicinal-chemistry": 70,
+            "phenotypic-chemical-genetic-screening": 80,
+            "dna-encoded-libraries-ultra-large-virtual-screening": 60,
+            "new-modalities": 85
+          },
+          "xch0040": {
+            "cosmic-chemical-continuity": 50,
+            "planetary-specific-geochemical-bottlenecks": 60
+          }
+        }
+      }
+    },
+    "che-analytical": {
+      "name": "The Analytical Chemist",
+      "count": 32,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Analytical Chemist",
+        "archetype": "The Analytical Chemist",
+        "aboutMe": "Prove it: measurement is the ground truth - structure confirmed by diffraction, spectrum, and separation, or it isn't confirmed.",
+        "ratings": {
+          "xch0001": 90,
+          "xch0002": {
+            "strict-physical-realist": 70,
+            "pattern-realist": 40,
+            "pure-instrumentalist": 20
+          },
+          "xch0003": {
+            "mathematical-constructs": 60,
+            "quasi-physical-experiential-entities": 40
+          },
+          "xch0004": {
+            "strong-reductionism": 50,
+            "epistemological-anti-reductionism": 40,
+            "ontological-emergence": 30,
+            "downward-causation-contextuality": 20,
+            "pluralism": 40
+          },
+          "xch0005": {
+            "classical-geometric-primacy": 70,
+            "quantum-holistic-indeterminacy": 30
+          },
+          "xch0006": {
+            "real-entity": 70,
+            "useful-model": 50,
+            "emergent-pattern": 30
+          },
+          "xch0007": {
+            "medium-long-form": 80,
+            "left-step-table": 30,
+            "long-form": 40,
+            "three-dimensional-spiral-helical": 10,
+            "property-cluster-data-driven": 60
+          },
+          "xch0010": {
+            "mechanistic-realism": 50,
+            "mnemonic-predictive-pragmatism": 30,
+            "kinetic-spectroscopic-skepticism": 90
+          },
+          "xch0011": {
+            "bench-supremacy": 70,
+            "computational-vanguard": 30,
+            "synergistic-co-equal-loop": 60,
+            "autonomous-self-driving-labs": 60
+          },
+          "xch0012": {
+            "diffraction-absoluteness": 90,
+            "solution-state-spectroscopic-realism": 90,
+            "total-synthesis-verification": 30
+          },
+          "xch0013": {
+            "artisanal-chemical-intuition": 20,
+            "explainable-cheminformatics": 80,
+            "black-box-high-throughput-empiricism": 60
+          },
+          "xch0014": {
+            "serendipity": 30,
+            "design": 70
+          },
+          "xch0015": {
+            "the-central-science": 50,
+            "the-creative-inventive-science": 20,
+            "a-service-enabling-discipline": 80,
+            "dissolving-boundaries": 40
+          },
+          "xch0016": {
+            "organic-chemistry": 30,
+            "inorganic-chemistry": 30,
+            "physical-chemistry": 50,
+            "analytical-chemistry": 95,
+            "biochemistry-chemical-biology": 40
+          },
+          "xch0018": {
+            "academic-discovery-ethos": 40,
+            "process-scale-up-realism": 80
+          },
+          "xch0019": {
+            "pure": 30,
+            "applied": 80
+          },
+          "xch0020": {
+            "strict-green-by-design": 50,
+            "pragmatic-sustainability": 70,
+            "techno-optimist-remediation": 50,
+            "unfettered-fundamental-inquiry": 20
+          },
+          "xch0021": {
+            "zero-harm-institutional-compliance": 80,
+            "competence-based-risk-management": 60,
+            "frontier-risk-acceptance": 10
+          },
+          "xch0022": {
+            "dangerous": 30,
+            "useful": 80,
+            "invisible": 50
+          },
+          "xch0023": {
+            "empathetic-public-literacy": 60,
+            "industrial-accountability-first": 60,
+            "focus-on-the-science": 50
+          },
+          "xch0024": {
+            "preemptive-publication-ai-guardrails": 50,
+            "open-science-defensive-transparency": 60
+          },
+          "xch0025": {
+            "thermodynamic-equilibrium-primacy": 60,
+            "kinetic-metastable-primacy": 50
+          },
+          "xch0026": {
+            "give": 40,
+            "receive": 50
+          },
+          "xch0028": {
+            "homogeneous-molecular-catalysis": 40,
+            "heterogeneous-surface-catalysis": 50,
+            "enzymatic-biocatalysis": 40
+          },
+          "xch0029": {
+            "covalent-architecture": 50,
+            "non-covalent-self-assembly": 60
+          },
+          "xch0030": {
+            "strict-iupac-standardization": 85,
+            "pragmatic-trivial-common-usage": 40,
+            "machine-readable-identifiers": 80
+          },
+          "xch0031": {
+            "traditional-macroscopic-first": 40,
+            "atoms-first-approach": 50,
+            "conceptual-qualitative-reasoning": 60,
+            "context-problem-based-learning": 50
+          },
+          "xch0032": {
+            "high-throughput-methodology-substrate-scope": 70,
+            "deep-physical-organic-mechanistic-rigor": 60,
+            "open-preprints-raw-data-reproducibility": 90
+          },
+          "xch0033": {
+            "teaching-first": 50,
+            "teacher-scholar": 60,
+            "research-first": 50
+          },
+          "xch0034": {
+            "solitude": 40,
+            "collaboration": 70
+          },
+          "xch0035": {
+            "publish": 70,
+            "patent": 40
+          },
+          "xch0036": {
+            "hands-on": 50,
+            "automated": 85
+          }
+        }
+      }
+    }
   }
 }

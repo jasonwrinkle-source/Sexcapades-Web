@@ -2361,7 +2361,7 @@
                 });
                 Zy[n] = s, Ew();
             } catch (e) {
-                t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that sample profile.", {
+                t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
                     tone: "error",
                     persistent: !0
                 });

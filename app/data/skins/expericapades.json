@@ -3103,5 +3103,543 @@
         }
       ]
     }
+  },
+  "samples": {
+    "exp-collider": {
+      "name": "The Big Science Collider Physicist",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Big Science Collider Physicist",
+        "archetype": "The Big Science Collider Physicist",
+        "aboutMe": "Go big: the energy frontier needs giant machines and thousand-person teams, and only they can reach the next scale.",
+        "ratings": {
+          "xex0001": {
+            "theory-driven-testing": 70,
+            "discovery-driven-exploration": 40
+          },
+          "xex0002": {
+            "precision": 70,
+            "exploration": 40
+          },
+          "xex0003": {
+            "big-science": 95,
+            "medium-scale": 20,
+            "tabletop-precision": -60
+          },
+          "xex0004": {
+            "the-energy-frontier": 95,
+            "the-intensity-precision-frontier": 20,
+            "the-cosmic-astrophysical-frontier": 10
+          },
+          "xex0005": {
+            "crisis": -20,
+            "confidence": 70
+          },
+          "xex0006": {
+            "bespoke-artisan-engineering": 60,
+            "turnkey-commercial-integration": 30
+          },
+          "xex0007": {
+            "active-interrogation-drive": 90,
+            "passive-quiet-sensing": -30
+          },
+          "xex0008": {
+            "photonics-optical-interferometry": 30,
+            "superconducting-cryogenic-sensors": 50,
+            "ionization-particle-tracking": 90,
+            "quantum-resonances-scattering": 40
+          },
+          "xex0009": {
+            "general": 60,
+            "specialized": 40,
+            "hybrid": 50
+          },
+          "xex0010": {
+            "sensitivity": 70,
+            "background": 60
+          },
+          "xex0011": {
+            "in-situ": 70,
+            "test-beam": 50
+          },
+          "xex0012": {
+            "upgrade": 60,
+            "new-build": 50
+          },
+          "xex0013": {
+            "strict-5-sigma-dogma": 85,
+            "bayesian-evidential-weight": 20
+          },
+          "xex0014": {
+            "null-as-scientific-triumph": 70,
+            "null-as-frustrating-stagnation": -30
+          },
+          "xex0015": {
+            "strict-double-blind-analysis": 80,
+            "interactive-visual-exploration": 10
+          },
+          "xex0016": {
+            "systematics-obsessed": 70,
+            "statistics-driven": 50
+          },
+          "xex0017": {
+            "signal": 40,
+            "systematics": 60
+          },
+          "xex0018": {
+            "fast-follower-opportunist": 30,
+            "skeptical-anchor": 60
+          },
+          "xex0019": {
+            "ultra-low-temperatures": 40,
+            "ultra-high-vacuum-uhv": 60,
+            "ultra-high-magnetic-electric-fields": 50,
+            "ultra-deep-underground-cosmic-shielding": 30
+          },
+          "xex0020": {
+            "hermetic-cleanroom-isolation": 70,
+            "harsh-field-deployability": -20
+          },
+          "xex0021": {
+            "immediate-open-data-calibration-release": 60,
+            "protected-collaboration-priority": 30
+          },
+          "xex0022": {
+            "model-dependent": 60,
+            "model-independent": 20
+          },
+          "xex0023": {
+            "trust": 50,
+            "verify": 60
+          },
+          "xex0024": {
+            "megacollaboration-authorship": 90,
+            "small-team-authorship": -50
+          },
+          "xex0025": {
+            "competition": 40,
+            "collaboration": 80,
+            "coopetition": 50
+          },
+          "xex0026": {
+            "first": 70,
+            "team": 60
+          },
+          "xex0027": {
+            "hardware-artisan-hardware-monkey": 70,
+            "offline-data-wizard": 40
+          },
+          "xex0030": {
+            "hands-on": 80,
+            "remote": 20
+          }
+        }
+      }
+    },
+    "exp-tabletop": {
+      "name": "The Tabletop Precision Physicist",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Tabletop Precision Physicist",
+        "archetype": "The Tabletop Precision Physicist",
+        "aboutMe": "Small, quiet, exact: a tabletop apparatus pushed to its limit can beat a collider on the questions that matter.",
+        "ratings": {
+          "xex0001": {
+            "theory-driven-testing": 60,
+            "discovery-driven-exploration": 40
+          },
+          "xex0002": {
+            "precision": 95,
+            "exploration": 20
+          },
+          "xex0003": {
+            "big-science": -70,
+            "medium-scale": 30,
+            "tabletop-precision": 95
+          },
+          "xex0004": {
+            "the-energy-frontier": -20,
+            "the-intensity-precision-frontier": 95,
+            "the-cosmic-astrophysical-frontier": 20
+          },
+          "xex0005": {
+            "crisis": 10,
+            "confidence": 50
+          },
+          "xex0006": {
+            "bespoke-artisan-engineering": 90,
+            "turnkey-commercial-integration": 10
+          },
+          "xex0007": {
+            "active-interrogation-drive": 30,
+            "passive-quiet-sensing": 80
+          },
+          "xex0008": {
+            "photonics-optical-interferometry": 90,
+            "superconducting-cryogenic-sensors": 60,
+            "ionization-particle-tracking": 10,
+            "quantum-resonances-scattering": 70
+          },
+          "xex0009": {
+            "general": 20,
+            "specialized": 85,
+            "hybrid": 30
+          },
+          "xex0010": {
+            "sensitivity": 80,
+            "background": 70
+          },
+          "xex0011": {
+            "in-situ": 80,
+            "test-beam": 20
+          },
+          "xex0012": {
+            "upgrade": 70,
+            "new-build": 30
+          },
+          "xex0013": {
+            "strict-5-sigma-dogma": 60,
+            "bayesian-evidential-weight": 50
+          },
+          "xex0014": {
+            "null-as-scientific-triumph": 80,
+            "null-as-frustrating-stagnation": -40
+          },
+          "xex0015": {
+            "strict-double-blind-analysis": 70,
+            "interactive-visual-exploration": 30
+          },
+          "xex0016": {
+            "systematics-obsessed": 90,
+            "statistics-driven": 30
+          },
+          "xex0017": {
+            "signal": 20,
+            "systematics": 85
+          },
+          "xex0018": {
+            "fast-follower-opportunist": -30,
+            "skeptical-anchor": 85
+          },
+          "xex0019": {
+            "ultra-low-temperatures": 80,
+            "ultra-high-vacuum-uhv": 85,
+            "ultra-high-magnetic-electric-fields": 60,
+            "ultra-deep-underground-cosmic-shielding": 20
+          },
+          "xex0020": {
+            "hermetic-cleanroom-isolation": 90,
+            "harsh-field-deployability": -50
+          },
+          "xex0021": {
+            "immediate-open-data-calibration-release": 50,
+            "protected-collaboration-priority": 40
+          },
+          "xex0022": {
+            "model-dependent": 30,
+            "model-independent": 70
+          },
+          "xex0023": {
+            "trust": 20,
+            "verify": 90
+          },
+          "xex0024": {
+            "megacollaboration-authorship": -60,
+            "small-team-authorship": 90
+          },
+          "xex0025": {
+            "competition": 30,
+            "collaboration": 70,
+            "coopetition": 40
+          },
+          "xex0026": {
+            "first": 40,
+            "team": 60
+          },
+          "xex0027": {
+            "hardware-artisan-hardware-monkey": 85,
+            "offline-data-wizard": 30
+          },
+          "xex0030": {
+            "hands-on": 90,
+            "remote": 0
+          }
+        }
+      }
+    },
+    "exp-cosmic": {
+      "name": "The Cosmic Frontier Observer",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Cosmic Frontier Observer",
+        "archetype": "The Cosmic Frontier Observer",
+        "aboutMe": "Look up and listen: the sky is the laboratory, and the rarest signals arrive on their own schedule.",
+        "ratings": {
+          "xex0001": {
+            "theory-driven-testing": 30,
+            "discovery-driven-exploration": 85
+          },
+          "xex0002": {
+            "precision": 50,
+            "exploration": 85
+          },
+          "xex0003": {
+            "big-science": 60,
+            "medium-scale": 40,
+            "tabletop-precision": 10
+          },
+          "xex0004": {
+            "the-energy-frontier": 10,
+            "the-intensity-precision-frontier": 30,
+            "the-cosmic-astrophysical-frontier": 95
+          },
+          "xex0005": {
+            "crisis": 0,
+            "confidence": 60
+          },
+          "xex0006": {
+            "bespoke-artisan-engineering": 50,
+            "turnkey-commercial-integration": 40
+          },
+          "xex0007": {
+            "active-interrogation-drive": -50,
+            "passive-quiet-sensing": 90
+          },
+          "xex0008": {
+            "photonics-optical-interferometry": 70,
+            "superconducting-cryogenic-sensors": 70,
+            "ionization-particle-tracking": 50,
+            "quantum-resonances-scattering": 30
+          },
+          "xex0009": {
+            "general": 70,
+            "specialized": 30,
+            "hybrid": 50
+          },
+          "xex0010": {
+            "sensitivity": 90,
+            "background": 80
+          },
+          "xex0011": {
+            "in-situ": 60,
+            "test-beam": 10
+          },
+          "xex0012": {
+            "upgrade": 50,
+            "new-build": 60
+          },
+          "xex0013": {
+            "strict-5-sigma-dogma": 50,
+            "bayesian-evidential-weight": 70
+          },
+          "xex0014": {
+            "null-as-scientific-triumph": 60,
+            "null-as-frustrating-stagnation": -20
+          },
+          "xex0015": {
+            "strict-double-blind-analysis": 50,
+            "interactive-visual-exploration": 60
+          },
+          "xex0016": {
+            "systematics-obsessed": 60,
+            "statistics-driven": 60
+          },
+          "xex0017": {
+            "signal": 60,
+            "systematics": 40
+          },
+          "xex0018": {
+            "fast-follower-opportunist": 50,
+            "skeptical-anchor": 40
+          },
+          "xex0019": {
+            "ultra-low-temperatures": 60,
+            "ultra-high-vacuum-uhv": 30,
+            "ultra-high-magnetic-electric-fields": 20,
+            "ultra-deep-underground-cosmic-shielding": 95
+          },
+          "xex0020": {
+            "hermetic-cleanroom-isolation": 20,
+            "harsh-field-deployability": 85
+          },
+          "xex0021": {
+            "immediate-open-data-calibration-release": 85,
+            "protected-collaboration-priority": 0
+          },
+          "xex0022": {
+            "model-dependent": 20,
+            "model-independent": 80
+          },
+          "xex0023": {
+            "trust": 40,
+            "verify": 70
+          },
+          "xex0024": {
+            "megacollaboration-authorship": 60,
+            "small-team-authorship": 30
+          },
+          "xex0025": {
+            "competition": 20,
+            "collaboration": 85,
+            "coopetition": 50
+          },
+          "xex0026": {
+            "first": 50,
+            "team": 60
+          },
+          "xex0027": {
+            "hardware-artisan-hardware-monkey": 40,
+            "offline-data-wizard": 70
+          },
+          "xex0030": {
+            "hands-on": 30,
+            "remote": 70
+          }
+        }
+      }
+    },
+    "exp-anomaly-hunter": {
+      "name": "The Discovery-Driven Anomaly Hunter",
+      "count": 28,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "The Discovery-Driven Anomaly Hunter",
+        "archetype": "The Discovery-Driven Anomaly Hunter",
+        "aboutMe": "Chase the anomaly: the unexpected bump is where new physics hides, and the first to check it wins.",
+        "ratings": {
+          "xex0001": {
+            "theory-driven-testing": -20,
+            "discovery-driven-exploration": 90
+          },
+          "xex0002": {
+            "precision": 30,
+            "exploration": 90
+          },
+          "xex0003": {
+            "big-science": 30,
+            "medium-scale": 60,
+            "tabletop-precision": 50
+          },
+          "xex0004": {
+            "the-energy-frontier": 50,
+            "the-intensity-precision-frontier": 50,
+            "the-cosmic-astrophysical-frontier": 50
+          },
+          "xex0005": {
+            "crisis": 50,
+            "confidence": 20
+          },
+          "xex0006": {
+            "bespoke-artisan-engineering": 40,
+            "turnkey-commercial-integration": 40
+          },
+          "xex0007": {
+            "active-interrogation-drive": 60,
+            "passive-quiet-sensing": 40
+          },
+          "xex0008": {
+            "photonics-optical-interferometry": 50,
+            "superconducting-cryogenic-sensors": 40,
+            "ionization-particle-tracking": 50,
+            "quantum-resonances-scattering": 60
+          },
+          "xex0009": {
+            "general": 50,
+            "specialized": 40,
+            "hybrid": 60
+          },
+          "xex0010": {
+            "sensitivity": 80,
+            "background": 40
+          },
+          "xex0011": {
+            "in-situ": 50,
+            "test-beam": 50
+          },
+          "xex0012": {
+            "upgrade": 40,
+            "new-build": 60
+          },
+          "xex0013": {
+            "strict-5-sigma-dogma": -30,
+            "bayesian-evidential-weight": 85
+          },
+          "xex0014": {
+            "null-as-scientific-triumph": 20,
+            "null-as-frustrating-stagnation": 70
+          },
+          "xex0015": {
+            "strict-double-blind-analysis": -20,
+            "interactive-visual-exploration": 85
+          },
+          "xex0016": {
+            "systematics-obsessed": 20,
+            "statistics-driven": 70
+          },
+          "xex0017": {
+            "signal": 85,
+            "systematics": -20
+          },
+          "xex0018": {
+            "fast-follower-opportunist": 90,
+            "skeptical-anchor": -60
+          },
+          "xex0019": {
+            "ultra-low-temperatures": 40,
+            "ultra-high-vacuum-uhv": 40,
+            "ultra-high-magnetic-electric-fields": 40,
+            "ultra-deep-underground-cosmic-shielding": 40
+          },
+          "xex0020": {
+            "hermetic-cleanroom-isolation": 30,
+            "harsh-field-deployability": 40
+          },
+          "xex0021": {
+            "immediate-open-data-calibration-release": 70,
+            "protected-collaboration-priority": 20
+          },
+          "xex0022": {
+            "model-dependent": 20,
+            "model-independent": 80
+          },
+          "xex0023": {
+            "trust": 70,
+            "verify": 30
+          },
+          "xex0024": {
+            "megacollaboration-authorship": 30,
+            "small-team-authorship": 50
+          },
+          "xex0025": {
+            "competition": 80,
+            "collaboration": 40,
+            "coopetition": 60
+          },
+          "xex0026": {
+            "first": 85,
+            "team": 30
+          },
+          "xex0027": {
+            "hardware-artisan-hardware-monkey": 40,
+            "offline-data-wizard": 70
+          },
+          "xex0030": {
+            "hands-on": 50,
+            "remote": 50
+          }
+        }
+      }
+    }
   }
 }

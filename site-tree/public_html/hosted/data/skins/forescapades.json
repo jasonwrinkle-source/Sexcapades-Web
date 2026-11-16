@@ -6206,5 +6206,1493 @@
         }
       ]
     }
+  },
+  "samples": {
+    "for-catholic": {
+      "name": "Catholic creed",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Catholic creed",
+        "archetype": "Catholic creed",
+        "aboutMe": "The Catholic creed: one God in three persons, Scripture and Tradition, the pope and the seven sacraments, salvation by grace through faith and works, and the communion of saints.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": -80,
+            "one-god-in-three-persons": 95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": 95,
+            "prophet-and-messiah-not-divine": -85,
+            "jewish-teacher-not-messiah": -90
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": 95,
+            "not-born-of-a-virgin": -95
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": 95,
+            "jesus-did-not-rise": -95
+          },
+          "xfo0014": {
+            "original-sin-inherited": 90,
+            "ancestral-sin-inherited": 20,
+            "no-inherited-sin": -85
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": -90,
+            "jesus-the-messiah-prophet": -70,
+            "jesus-the-messiah-god-incarnate": 95
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": 30,
+            "fulfilled-in-the-new-covenant": 85,
+            "covenant-renewed-in-islam": -80
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": -70,
+            "christianity-christology-incarnate-logos": 95,
+            "islam-tawhid-final-prophethood": -80
+          },
+          "xfo0083": {
+            "purely-allegorical": 30,
+            "real-attributes-meaning-deferred": 70,
+            "affirmed-literally-bila-kayfa": -30
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": 90,
+            "written-text-alone": -85
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": 40,
+            "the-canon-is-the-christian-bible": 95,
+            "the-canon-is-the-quran": -85
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 40,
+            "scripture-is-authoritative-for-salvation": 85
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": 90,
+            "tradition-is-a-subordinate-witness": -70
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": 95,
+            "no-papal-jurisdiction": -95
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": 95,
+            "succession-is-fidelity-to-doctrine": -60
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": -70,
+            "jesus-the-final-revelation": 90,
+            "muhammad-the-final-prophet": -85
+          },
+          "xfo0071": {
+            "binding-law": -70,
+            "binding-but-evolves": -40,
+            "guide-interpreted-by-conscience": 40
+          },
+          "xfo0031": {
+            "one-visible-communion": 90,
+            "people-of-god-in-congregations": -60
+          },
+          "xfo0032": {
+            "episcopal": 95,
+            "presbyterian": -70,
+            "congregational": -80
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": -90,
+            "leadership-reserved-to-men": 90
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": -80,
+            "made-right-by-faith-and-works": 85
+          },
+          "xfo0025": {
+            "irresistible-grace": -60,
+            "resistible-grace": 80,
+            "prevenient-grace": 40
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": -70,
+            "election-to-salvation-in-christ": 70,
+            "election-conditioned-on-foreknowledge": 30
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": 85,
+            "ransom-christus-victor": 50,
+            "repentance-and-good-deeds": 30
+          },
+          "xfo0030": {
+            "venerated-and-invoked": 95,
+            "honoured-not-invoked": 20,
+            "christ-alone-mediator": -70
+          },
+          "xfo0035": {
+            "seven-sacraments": 95,
+            "two-sacraments-or-ordinances": -90
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": 95,
+            "infant-baptism-sign-and-seal": 30,
+            "believers-baptism-by-immersion": -80
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": 95,
+            "spiritually-present-to-faith": 20,
+            "memorial-and-symbol-only": -90
+          },
+          "xfo0053": {
+            "venerated-images": 80,
+            "images-permitted-not-venerated": 40,
+            "aniconism-no-images": -85
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": -60,
+            "the-miraculous-gifts-continue-today": 70
+          },
+          "xfo0074": {
+            "shabbat": -20,
+            "sunday": 95,
+            "friday": -60
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 95,
+            "two-people": -90
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 95,
+            "permitted-as-last-resort": -85
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 95,
+            "same-sex-relationships-affirmed": -90
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": -80,
+            "alcohol-is-permitted-in-moderation": 85
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": -70,
+            "no-dietary-law": 70
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": 95,
+            "jesus-will-not-return": -95
+          },
+          "xfo0061": {
+            "hell-is-eternal": 85,
+            "hell-is-a-temporary-purification": -60
+          }
+        }
+      }
+    },
+    "for-orthodox": {
+      "name": "Eastern Orthodox creed",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Eastern Orthodox creed",
+        "archetype": "Eastern Orthodox creed",
+        "aboutMe": "The Eastern Orthodox creed: one God in three persons, the Spirit from the Father alone, Holy Tradition and seven councils, salvation as theosis, and the veneration of icons.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": -80,
+            "one-god-in-three-persons": 95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": 95,
+            "prophet-and-messiah-not-divine": -85,
+            "jewish-teacher-not-messiah": -90
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": 95,
+            "not-born-of-a-virgin": -95
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": 95,
+            "jesus-did-not-rise": -95
+          },
+          "xfo0014": {
+            "original-sin-inherited": -40,
+            "ancestral-sin-inherited": 90,
+            "no-inherited-sin": -70
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": -90,
+            "jesus-the-messiah-prophet": -70,
+            "jesus-the-messiah-god-incarnate": 95
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": 30,
+            "fulfilled-in-the-new-covenant": 85,
+            "covenant-renewed-in-islam": -80
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": -70,
+            "christianity-christology-incarnate-logos": 95,
+            "islam-tawhid-final-prophethood": -80
+          },
+          "xfo0083": {
+            "purely-allegorical": 20,
+            "real-attributes-meaning-deferred": 75,
+            "affirmed-literally-bila-kayfa": -30
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": 90,
+            "written-text-alone": -85
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": 40,
+            "the-canon-is-the-christian-bible": 95,
+            "the-canon-is-the-quran": -85
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 30,
+            "scripture-is-authoritative-for-salvation": 85
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": 90,
+            "tradition-is-a-subordinate-witness": -70
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": -90,
+            "no-papal-jurisdiction": 90
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": 95,
+            "succession-is-fidelity-to-doctrine": -50
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": -70,
+            "jesus-the-final-revelation": 90,
+            "muhammad-the-final-prophet": -85
+          },
+          "xfo0071": {
+            "binding-law": -70,
+            "binding-but-evolves": -30,
+            "guide-interpreted-by-conscience": 40
+          },
+          "xfo0031": {
+            "one-visible-communion": 90,
+            "people-of-god-in-congregations": -60
+          },
+          "xfo0032": {
+            "episcopal": 90,
+            "presbyterian": -60,
+            "congregational": -70
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": -90,
+            "leadership-reserved-to-men": 90
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": -75,
+            "made-right-by-faith-and-works": 80
+          },
+          "xfo0025": {
+            "irresistible-grace": -70,
+            "resistible-grace": 85,
+            "prevenient-grace": 30
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": -80,
+            "election-to-salvation-in-christ": 75,
+            "election-conditioned-on-foreknowledge": 20
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": 10,
+            "ransom-christus-victor": 90,
+            "repentance-and-good-deeds": 40
+          },
+          "xfo0030": {
+            "venerated-and-invoked": 95,
+            "honoured-not-invoked": 20,
+            "christ-alone-mediator": -70
+          },
+          "xfo0035": {
+            "seven-sacraments": 90,
+            "two-sacraments-or-ordinances": -85
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": 95,
+            "infant-baptism-sign-and-seal": 30,
+            "believers-baptism-by-immersion": -80
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": 95,
+            "spiritually-present-to-faith": 30,
+            "memorial-and-symbol-only": -90
+          },
+          "xfo0053": {
+            "venerated-images": 95,
+            "images-permitted-not-venerated": 20,
+            "aniconism-no-images": -90
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": -50,
+            "the-miraculous-gifts-continue-today": 60
+          },
+          "xfo0074": {
+            "shabbat": -20,
+            "sunday": 95,
+            "friday": -60
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 95,
+            "two-people": -90
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 90,
+            "permitted-as-last-resort": -75
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 95,
+            "same-sex-relationships-affirmed": -90
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": -80,
+            "alcohol-is-permitted-in-moderation": 85
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": -60,
+            "no-dietary-law": 60
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": 95,
+            "jesus-will-not-return": -95
+          },
+          "xfo0061": {
+            "hell-is-eternal": 70,
+            "hell-is-a-temporary-purification": -40
+          }
+        }
+      }
+    },
+    "for-lutheran": {
+      "name": "Lutheran creed",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Lutheran creed",
+        "archetype": "Lutheran creed",
+        "aboutMe": "The Lutheran creed: Scripture alone, grace alone, faith alone, as confessed in the Augsburg Confession — infant baptism, the real presence, and the priesthood of all believers.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": -80,
+            "one-god-in-three-persons": 95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": 95,
+            "prophet-and-messiah-not-divine": -85,
+            "jewish-teacher-not-messiah": -90
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": 95,
+            "not-born-of-a-virgin": -95
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": 95,
+            "jesus-did-not-rise": -95
+          },
+          "xfo0014": {
+            "original-sin-inherited": 90,
+            "ancestral-sin-inherited": 10,
+            "no-inherited-sin": -90
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": -90,
+            "jesus-the-messiah-prophet": -70,
+            "jesus-the-messiah-god-incarnate": 95
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": 10,
+            "fulfilled-in-the-new-covenant": 90,
+            "covenant-renewed-in-islam": -85
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": -70,
+            "christianity-christology-incarnate-logos": 95,
+            "islam-tawhid-final-prophethood": -80
+          },
+          "xfo0083": {
+            "purely-allegorical": 30,
+            "real-attributes-meaning-deferred": 70,
+            "affirmed-literally-bila-kayfa": -30
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": -70,
+            "written-text-alone": 85
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": 40,
+            "the-canon-is-the-christian-bible": 90,
+            "the-canon-is-the-quran": -85
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 85,
+            "scripture-is-authoritative-for-salvation": 60
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": -70,
+            "tradition-is-a-subordinate-witness": 80
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": -90,
+            "no-papal-jurisdiction": 90
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": -40,
+            "succession-is-fidelity-to-doctrine": 80
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": -70,
+            "jesus-the-final-revelation": 90,
+            "muhammad-the-final-prophet": -85
+          },
+          "xfo0071": {
+            "binding-law": -75,
+            "binding-but-evolves": -40,
+            "guide-interpreted-by-conscience": 45
+          },
+          "xfo0031": {
+            "one-visible-communion": 20,
+            "people-of-god-in-congregations": 70
+          },
+          "xfo0032": {
+            "episcopal": 60,
+            "presbyterian": 20,
+            "congregational": 10
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": -85,
+            "leadership-reserved-to-men": 85
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": 95,
+            "made-right-by-faith-and-works": -85
+          },
+          "xfo0025": {
+            "irresistible-grace": 85,
+            "resistible-grace": -70,
+            "prevenient-grace": -40
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": -60,
+            "election-to-salvation-in-christ": 85,
+            "election-conditioned-on-foreknowledge": -30
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": 90,
+            "ransom-christus-victor": 40,
+            "repentance-and-good-deeds": 20
+          },
+          "xfo0030": {
+            "venerated-and-invoked": -60,
+            "honoured-not-invoked": 70,
+            "christ-alone-mediator": 60
+          },
+          "xfo0035": {
+            "seven-sacraments": -70,
+            "two-sacraments-or-ordinances": 85
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": 70,
+            "infant-baptism-sign-and-seal": 60,
+            "believers-baptism-by-immersion": -70
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": 85,
+            "spiritually-present-to-faith": 40,
+            "memorial-and-symbol-only": -85
+          },
+          "xfo0053": {
+            "venerated-images": -30,
+            "images-permitted-not-venerated": 80,
+            "aniconism-no-images": -60
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": 10,
+            "the-miraculous-gifts-continue-today": 30
+          },
+          "xfo0074": {
+            "shabbat": -20,
+            "sunday": 95,
+            "friday": -60
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 90,
+            "two-people": -85
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 85,
+            "permitted-as-last-resort": -60
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 90,
+            "same-sex-relationships-affirmed": -85
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": -70,
+            "alcohol-is-permitted-in-moderation": 80
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": -75,
+            "no-dietary-law": 75
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": 95,
+            "jesus-will-not-return": -95
+          },
+          "xfo0061": {
+            "hell-is-eternal": 90,
+            "hell-is-a-temporary-purification": -80
+          }
+        }
+      }
+    },
+    "for-reformed": {
+      "name": "Reformed creed",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Reformed creed",
+        "archetype": "Reformed creed",
+        "aboutMe": "The Reformed creed: Scripture alone and the sovereignty of God, as confessed at Westminster — unconditional election, the spiritual presence at the Table, and government by elders.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": -80,
+            "one-god-in-three-persons": 95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": 95,
+            "prophet-and-messiah-not-divine": -85,
+            "jewish-teacher-not-messiah": -90
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": 90,
+            "not-born-of-a-virgin": -90
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": 95,
+            "jesus-did-not-rise": -95
+          },
+          "xfo0014": {
+            "original-sin-inherited": 95,
+            "ancestral-sin-inherited": 10,
+            "no-inherited-sin": -95
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": -90,
+            "jesus-the-messiah-prophet": -70,
+            "jesus-the-messiah-god-incarnate": 95
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": 20,
+            "fulfilled-in-the-new-covenant": 90,
+            "covenant-renewed-in-islam": -85
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": -70,
+            "christianity-christology-incarnate-logos": 95,
+            "islam-tawhid-final-prophethood": -80
+          },
+          "xfo0083": {
+            "purely-allegorical": 30,
+            "real-attributes-meaning-deferred": 70,
+            "affirmed-literally-bila-kayfa": -30
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": -75,
+            "written-text-alone": 90
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": 40,
+            "the-canon-is-the-christian-bible": 90,
+            "the-canon-is-the-quran": -85
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 85,
+            "scripture-is-authoritative-for-salvation": 60
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": -75,
+            "tradition-is-a-subordinate-witness": 85
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": -90,
+            "no-papal-jurisdiction": 90
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": -60,
+            "succession-is-fidelity-to-doctrine": 85
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": -70,
+            "jesus-the-final-revelation": 90,
+            "muhammad-the-final-prophet": -85
+          },
+          "xfo0071": {
+            "binding-law": -70,
+            "binding-but-evolves": -30,
+            "guide-interpreted-by-conscience": 40
+          },
+          "xfo0031": {
+            "one-visible-communion": 10,
+            "people-of-god-in-congregations": 75
+          },
+          "xfo0032": {
+            "episcopal": -50,
+            "presbyterian": 95,
+            "congregational": -40
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": -60,
+            "leadership-reserved-to-men": 60
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": 95,
+            "made-right-by-faith-and-works": -85
+          },
+          "xfo0025": {
+            "irresistible-grace": 90,
+            "resistible-grace": -80,
+            "prevenient-grace": -60
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": 95,
+            "election-to-salvation-in-christ": -40,
+            "election-conditioned-on-foreknowledge": -80
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": 95,
+            "ransom-christus-victor": 30,
+            "repentance-and-good-deeds": 10
+          },
+          "xfo0030": {
+            "venerated-and-invoked": -85,
+            "honoured-not-invoked": 30,
+            "christ-alone-mediator": 90
+          },
+          "xfo0035": {
+            "seven-sacraments": -75,
+            "two-sacraments-or-ordinances": 90
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": 20,
+            "infant-baptism-sign-and-seal": 90,
+            "believers-baptism-by-immersion": -60
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": 10,
+            "spiritually-present-to-faith": 90,
+            "memorial-and-symbol-only": -60
+          },
+          "xfo0053": {
+            "venerated-images": -80,
+            "images-permitted-not-venerated": 40,
+            "aniconism-no-images": 30
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": 70,
+            "the-miraculous-gifts-continue-today": -50
+          },
+          "xfo0074": {
+            "shabbat": -20,
+            "sunday": 95,
+            "friday": -60
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 85,
+            "two-people": -80
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 85,
+            "permitted-as-last-resort": -60
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 85,
+            "same-sex-relationships-affirmed": -80
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": -60,
+            "alcohol-is-permitted-in-moderation": 75
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": -75,
+            "no-dietary-law": 75
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": 95,
+            "jesus-will-not-return": -95
+          },
+          "xfo0061": {
+            "hell-is-eternal": 90,
+            "hell-is-a-temporary-purification": -80
+          }
+        }
+      }
+    },
+    "for-baptist": {
+      "name": "Baptist creed",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Baptist creed",
+        "archetype": "Baptist creed",
+        "aboutMe": "The Baptist creed: Scripture alone, believers' baptism by immersion, two ordinances, congregational government, and the priesthood of all believers.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": -80,
+            "one-god-in-three-persons": 95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": 95,
+            "prophet-and-messiah-not-divine": -85,
+            "jewish-teacher-not-messiah": -90
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": 95,
+            "not-born-of-a-virgin": -95
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": 95,
+            "jesus-did-not-rise": -95
+          },
+          "xfo0014": {
+            "original-sin-inherited": 85,
+            "ancestral-sin-inherited": 10,
+            "no-inherited-sin": -85
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": -90,
+            "jesus-the-messiah-prophet": -70,
+            "jesus-the-messiah-god-incarnate": 95
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": 40,
+            "fulfilled-in-the-new-covenant": 80,
+            "covenant-renewed-in-islam": -85
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": -70,
+            "christianity-christology-incarnate-logos": 95,
+            "islam-tawhid-final-prophethood": -80
+          },
+          "xfo0083": {
+            "purely-allegorical": 30,
+            "real-attributes-meaning-deferred": 70,
+            "affirmed-literally-bila-kayfa": -30
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": -80,
+            "written-text-alone": 90
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": 40,
+            "the-canon-is-the-christian-bible": 90,
+            "the-canon-is-the-quran": -85
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 90,
+            "scripture-is-authoritative-for-salvation": 55
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": -80,
+            "tradition-is-a-subordinate-witness": 85
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": -90,
+            "no-papal-jurisdiction": 90
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": -80,
+            "succession-is-fidelity-to-doctrine": 90
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": -70,
+            "jesus-the-final-revelation": 90,
+            "muhammad-the-final-prophet": -85
+          },
+          "xfo0071": {
+            "binding-law": -75,
+            "binding-but-evolves": -40,
+            "guide-interpreted-by-conscience": 40
+          },
+          "xfo0031": {
+            "one-visible-communion": -50,
+            "people-of-god-in-congregations": 90
+          },
+          "xfo0032": {
+            "episcopal": -70,
+            "presbyterian": -30,
+            "congregational": 95
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": -80,
+            "leadership-reserved-to-men": 80
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": 90,
+            "made-right-by-faith-and-works": -80
+          },
+          "xfo0025": {
+            "irresistible-grace": 20,
+            "resistible-grace": 60,
+            "prevenient-grace": 20
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": 40,
+            "election-to-salvation-in-christ": 40,
+            "election-conditioned-on-foreknowledge": 30
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": 90,
+            "ransom-christus-victor": 40,
+            "repentance-and-good-deeds": 20
+          },
+          "xfo0030": {
+            "venerated-and-invoked": -90,
+            "honoured-not-invoked": 20,
+            "christ-alone-mediator": 95
+          },
+          "xfo0035": {
+            "seven-sacraments": -85,
+            "two-sacraments-or-ordinances": 90
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": -85,
+            "infant-baptism-sign-and-seal": -60,
+            "believers-baptism-by-immersion": 95
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": -80,
+            "spiritually-present-to-faith": 20,
+            "memorial-and-symbol-only": 90
+          },
+          "xfo0053": {
+            "venerated-images": -85,
+            "images-permitted-not-venerated": 50,
+            "aniconism-no-images": 10
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": 20,
+            "the-miraculous-gifts-continue-today": 40
+          },
+          "xfo0074": {
+            "shabbat": -20,
+            "sunday": 90,
+            "friday": -60
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 95,
+            "two-people": -90
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 90,
+            "permitted-as-last-resort": -70
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 95,
+            "same-sex-relationships-affirmed": -90
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": 70,
+            "alcohol-is-permitted-in-moderation": -60
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": -80,
+            "no-dietary-law": 80
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": 95,
+            "jesus-will-not-return": -95
+          },
+          "xfo0061": {
+            "hell-is-eternal": 90,
+            "hell-is-a-temporary-purification": -80
+          }
+        }
+      }
+    },
+    "for-methodist": {
+      "name": "Methodist creed",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Methodist creed",
+        "archetype": "Methodist creed",
+        "aboutMe": "The Methodist creed: Scripture first with tradition, reason, and experience; prevenient grace for all, holiness of heart and life, and an open table and open pulpit.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": -80,
+            "one-god-in-three-persons": 95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": 95,
+            "prophet-and-messiah-not-divine": -85,
+            "jewish-teacher-not-messiah": -90
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": 90,
+            "not-born-of-a-virgin": -90
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": 95,
+            "jesus-did-not-rise": -95
+          },
+          "xfo0014": {
+            "original-sin-inherited": 70,
+            "ancestral-sin-inherited": 30,
+            "no-inherited-sin": -80
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": -90,
+            "jesus-the-messiah-prophet": -70,
+            "jesus-the-messiah-god-incarnate": 95
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": 30,
+            "fulfilled-in-the-new-covenant": 85,
+            "covenant-renewed-in-islam": -80
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": -70,
+            "christianity-christology-incarnate-logos": 95,
+            "islam-tawhid-final-prophethood": -80
+          },
+          "xfo0083": {
+            "purely-allegorical": 30,
+            "real-attributes-meaning-deferred": 70,
+            "affirmed-literally-bila-kayfa": -30
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": -40,
+            "written-text-alone": 60
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": 40,
+            "the-canon-is-the-christian-bible": 90,
+            "the-canon-is-the-quran": -85
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 20,
+            "scripture-is-authoritative-for-salvation": 80
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": -30,
+            "tradition-is-a-subordinate-witness": 70
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": -85,
+            "no-papal-jurisdiction": 85
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": -30,
+            "succession-is-fidelity-to-doctrine": 70
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": -70,
+            "jesus-the-final-revelation": 90,
+            "muhammad-the-final-prophet": -85
+          },
+          "xfo0071": {
+            "binding-law": -70,
+            "binding-but-evolves": -30,
+            "guide-interpreted-by-conscience": 45
+          },
+          "xfo0031": {
+            "one-visible-communion": 30,
+            "people-of-god-in-congregations": 70
+          },
+          "xfo0032": {
+            "episcopal": 85,
+            "presbyterian": 10,
+            "congregational": -20
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": 85,
+            "leadership-reserved-to-men": -85
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": 70,
+            "made-right-by-faith-and-works": -20
+          },
+          "xfo0025": {
+            "irresistible-grace": -70,
+            "resistible-grace": 40,
+            "prevenient-grace": 90
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": -75,
+            "election-to-salvation-in-christ": 50,
+            "election-conditioned-on-foreknowledge": 80
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": 70,
+            "ransom-christus-victor": 50,
+            "repentance-and-good-deeds": 40
+          },
+          "xfo0030": {
+            "venerated-and-invoked": -70,
+            "honoured-not-invoked": 60,
+            "christ-alone-mediator": 70
+          },
+          "xfo0035": {
+            "seven-sacraments": -60,
+            "two-sacraments-or-ordinances": 80
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": 10,
+            "infant-baptism-sign-and-seal": 85,
+            "believers-baptism-by-immersion": -50
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": 20,
+            "spiritually-present-to-faith": 85,
+            "memorial-and-symbol-only": -40
+          },
+          "xfo0053": {
+            "venerated-images": -70,
+            "images-permitted-not-venerated": 70,
+            "aniconism-no-images": -40
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": -60,
+            "the-miraculous-gifts-continue-today": 75
+          },
+          "xfo0074": {
+            "shabbat": -20,
+            "sunday": 95,
+            "friday": -60
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 30,
+            "two-people": 60
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 40,
+            "permitted-as-last-resort": 30
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 20,
+            "same-sex-relationships-affirmed": 70
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": 60,
+            "alcohol-is-permitted-in-moderation": -40
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": -75,
+            "no-dietary-law": 75
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": 95,
+            "jesus-will-not-return": -95
+          },
+          "xfo0061": {
+            "hell-is-eternal": 85,
+            "hell-is-a-temporary-purification": -70
+          }
+        }
+      }
+    },
+    "for-jewish": {
+      "name": "Orthodox Jewish creed",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Orthodox Jewish creed",
+        "archetype": "Orthodox Jewish creed",
+        "aboutMe": "The Orthodox Jewish creed: one God, indivisible; the Written and Oral Torah eternal; the Messiah not yet come; and halakha as binding law, as summed in Maimonides' Thirteen Principles.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": 95,
+            "one-god-in-three-persons": -95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": -90,
+            "prophet-and-messiah-not-divine": -40,
+            "jewish-teacher-not-messiah": 80
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": -70,
+            "not-born-of-a-virgin": 70
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": -85,
+            "jesus-did-not-rise": 80
+          },
+          "xfo0014": {
+            "original-sin-inherited": -80,
+            "ancestral-sin-inherited": -30,
+            "no-inherited-sin": 85
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": 95,
+            "jesus-the-messiah-prophet": -80,
+            "jesus-the-messiah-god-incarnate": -90
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": 95,
+            "fulfilled-in-the-new-covenant": -85,
+            "covenant-renewed-in-islam": -85
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": 95,
+            "christianity-christology-incarnate-logos": -85,
+            "islam-tawhid-final-prophethood": -80
+          },
+          "xfo0083": {
+            "purely-allegorical": 80,
+            "real-attributes-meaning-deferred": 10,
+            "affirmed-literally-bila-kayfa": -70
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": 85,
+            "written-text-alone": -80
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": 95,
+            "the-canon-is-the-christian-bible": -70,
+            "the-canon-is-the-quran": -85
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 70,
+            "scripture-is-authoritative-for-salvation": 70
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": 85,
+            "tradition-is-a-subordinate-witness": -60
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": -50,
+            "no-papal-jurisdiction": 50
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": 0,
+            "succession-is-fidelity-to-doctrine": 0
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": 90,
+            "jesus-the-final-revelation": -80,
+            "muhammad-the-final-prophet": -85
+          },
+          "xfo0071": {
+            "binding-law": 95,
+            "binding-but-evolves": -50,
+            "guide-interpreted-by-conscience": -80
+          },
+          "xfo0031": {
+            "one-visible-communion": -20,
+            "people-of-god-in-congregations": 80
+          },
+          "xfo0032": {
+            "episcopal": -40,
+            "presbyterian": 30,
+            "congregational": 60
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": -80,
+            "leadership-reserved-to-men": 80
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": -60,
+            "made-right-by-faith-and-works": 70
+          },
+          "xfo0025": {
+            "irresistible-grace": 0,
+            "resistible-grace": 0,
+            "prevenient-grace": 0
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": 0,
+            "election-to-salvation-in-christ": 0,
+            "election-conditioned-on-foreknowledge": 0
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": -70,
+            "ransom-christus-victor": -60,
+            "repentance-and-good-deeds": 90
+          },
+          "xfo0030": {
+            "venerated-and-invoked": -80,
+            "honoured-not-invoked": -40,
+            "christ-alone-mediator": -50
+          },
+          "xfo0035": {
+            "seven-sacraments": -60,
+            "two-sacraments-or-ordinances": -60
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": -70,
+            "infant-baptism-sign-and-seal": -50,
+            "believers-baptism-by-immersion": -60
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": -80,
+            "spiritually-present-to-faith": -60,
+            "memorial-and-symbol-only": -50
+          },
+          "xfo0053": {
+            "venerated-images": -90,
+            "images-permitted-not-venerated": -40,
+            "aniconism-no-images": 85
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": 40,
+            "the-miraculous-gifts-continue-today": -30
+          },
+          "xfo0074": {
+            "shabbat": 95,
+            "sunday": -70,
+            "friday": -60
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 90,
+            "two-people": -80
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 60,
+            "permitted-as-last-resort": 60
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 90,
+            "same-sex-relationships-affirmed": -85
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": -70,
+            "alcohol-is-permitted-in-moderation": 80
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": 95,
+            "no-dietary-law": -90
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": -90,
+            "jesus-will-not-return": 85
+          },
+          "xfo0061": {
+            "hell-is-eternal": -60,
+            "hell-is-a-temporary-purification": 70
+          }
+        }
+      }
+    },
+    "for-muslim": {
+      "name": "Sunni Muslim creed",
+      "count": 41,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Sunni Muslim creed",
+        "archetype": "Sunni Muslim creed",
+        "aboutMe": "The Sunni Muslim creed: absolute tawhid, Muhammad as the final prophet, the Qur'an as God's literal word, the Six Pillars of faith, and sharia as God's law for life.",
+        "ratings": {
+          "xfo0007": {
+            "one-god-indivisible": 95,
+            "one-god-in-three-persons": -95
+          },
+          "xfo0009": {
+            "true-god-and-true-man": -85,
+            "prophet-and-messiah-not-divine": 90,
+            "jewish-teacher-not-messiah": -60
+          },
+          "xfo0010": {
+            "conceived-by-the-holy-spirit": 90,
+            "not-born-of-a-virgin": -85
+          },
+          "xfo0011": {
+            "christ-truly-rose-bodily": -80,
+            "jesus-did-not-rise": 75
+          },
+          "xfo0014": {
+            "original-sin-inherited": -85,
+            "ancestral-sin-inherited": -40,
+            "no-inherited-sin": 90
+          },
+          "xfo0066": {
+            "messiah-not-yet-come": -60,
+            "jesus-the-messiah-prophet": 90,
+            "jesus-the-messiah-god-incarnate": -85
+          },
+          "xfo0067": {
+            "covenant-with-israel-eternal": -70,
+            "fulfilled-in-the-new-covenant": -80,
+            "covenant-renewed-in-islam": 90
+          },
+          "xfo0001": {
+            "judaism-yahwism-covenant-of-the-torah": -80,
+            "christianity-christology-incarnate-logos": -70,
+            "islam-tawhid-final-prophethood": 95
+          },
+          "xfo0083": {
+            "purely-allegorical": -60,
+            "real-attributes-meaning-deferred": 70,
+            "affirmed-literally-bila-kayfa": 60
+          },
+          "xfo0015": {
+            "text-with-authoritative-tradition": 70,
+            "written-text-alone": -60
+          },
+          "xfo0016": {
+            "the-canon-is-the-tanakh": -40,
+            "the-canon-is-the-christian-bible": -60,
+            "the-canon-is-the-quran": 95
+          },
+          "xfo0017": {
+            "scripture-is-without-error": 90,
+            "scripture-is-authoritative-for-salvation": 60
+          },
+          "xfo0019": {
+            "sacred-tradition-is-equally-authoritative": 75,
+            "tradition-is-a-subordinate-witness": -50
+          },
+          "xfo0020": {
+            "papal-primacy-of-jurisdiction": -50,
+            "no-papal-jurisdiction": 50
+          },
+          "xfo0022": {
+            "unbroken-chain-of-ordination": 0,
+            "succession-is-fidelity-to-doctrine": 0
+          },
+          "xfo0070": {
+            "prophecy-ended-with-hebrew-prophets": -60,
+            "jesus-the-final-revelation": -70,
+            "muhammad-the-final-prophet": 95
+          },
+          "xfo0071": {
+            "binding-law": -60,
+            "binding-but-evolves": -30,
+            "guide-interpreted-by-conscience": 30
+          },
+          "xfo0031": {
+            "one-visible-communion": 40,
+            "people-of-god-in-congregations": 60
+          },
+          "xfo0032": {
+            "episcopal": -50,
+            "presbyterian": 20,
+            "congregational": 70
+          },
+          "xfo0033": {
+            "women-lead-and-are-ordained": -85,
+            "leadership-reserved-to-men": 85
+          },
+          "xfo0024": {
+            "made-right-by-faith-alone": -70,
+            "made-right-by-faith-and-works": 80
+          },
+          "xfo0025": {
+            "irresistible-grace": 0,
+            "resistible-grace": 0,
+            "prevenient-grace": 0
+          },
+          "xfo0026": {
+            "unconditional-election-and-reprobation": 0,
+            "election-to-salvation-in-christ": 0,
+            "election-conditioned-on-foreknowledge": 0
+          },
+          "xfo0027": {
+            "satisfaction-vicarious-atonement": -80,
+            "ransom-christus-victor": -70,
+            "repentance-and-good-deeds": 95
+          },
+          "xfo0030": {
+            "venerated-and-invoked": -85,
+            "honoured-not-invoked": -30,
+            "christ-alone-mediator": -60
+          },
+          "xfo0035": {
+            "seven-sacraments": -70,
+            "two-sacraments-or-ordinances": -70
+          },
+          "xfo0036": {
+            "infant-baptism-regenerates": -70,
+            "infant-baptism-sign-and-seal": -60,
+            "believers-baptism-by-immersion": -70
+          },
+          "xfo0037": {
+            "truly-present-body-and-blood": -85,
+            "spiritually-present-to-faith": -70,
+            "memorial-and-symbol-only": -50
+          },
+          "xfo0053": {
+            "venerated-images": -95,
+            "images-permitted-not-venerated": -60,
+            "aniconism-no-images": 90
+          },
+          "xfo0056": {
+            "the-miraculous-gifts-have-ceased": -40,
+            "the-miraculous-gifts-continue-today": 50
+          },
+          "xfo0074": {
+            "shabbat": -50,
+            "sunday": -40,
+            "friday": 95
+          },
+          "xfo0039": {
+            "one-man-and-one-woman": 95,
+            "two-people": -90
+          },
+          "xfo0042": {
+            "opposed-except-to-save-life": 70,
+            "permitted-as-last-resort": 20
+          },
+          "xfo0043": {
+            "sex-only-in-marriage": 95,
+            "same-sex-relationships-affirmed": -90
+          },
+          "xfo0047": {
+            "total-abstinence-is-the-norm": 95,
+            "alcohol-is-permitted-in-moderation": -95
+          },
+          "xfo0077": {
+            "dietary-law-is-binding": 90,
+            "no-dietary-law": -85
+          },
+          "xfo0059": {
+            "jesus-will-return-in-glory": 85,
+            "jesus-will-not-return": -80
+          },
+          "xfo0061": {
+            "hell-is-eternal": 60,
+            "hell-is-a-temporary-purification": 30
+          },
+          "xfo0004": {
+            "belief-in-allah-tawhid": 95,
+            "belief-in-the-angels-malaikah": 90,
+            "belief-in-the-holy-books-kutub": 90,
+            "belief-in-the-prophets-anbiya": 90,
+            "belief-in-the-last-day-qiyamah": 90,
+            "belief-in-divine-predestination-qadar": 90
+          },
+          "xfo0072": 95,
+          "xfo0086": {
+            "12th-imam-from-occultation": -80,
+            "future-descendant-of-muhammad": 85,
+            "rejection-of-the-mahdi": -75
+          }
+        }
+      }
+    }
   }
 }

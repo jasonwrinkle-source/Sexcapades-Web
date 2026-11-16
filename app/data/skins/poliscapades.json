@@ -6203,5 +6203,857 @@
         }
       ]
     }
+  },
+  "samples": {
+    "pol-democrat": {
+      "name": "Democratic Party platform",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Democratic Party platform",
+        "archetype": "Democratic Party platform",
+        "aboutMe": "The Democratic Party platform: an active federal government that taxes the wealthy, protects the safety net and the ACA, acts urgently on climate, and defends voting access, abortion rights, and a path to citizenship.",
+        "ratings": {
+          "xpo0001": {
+            "the-state-command-redistribution": 55,
+            "the-market-capital-price-discovery": 10,
+            "the-commons-civil-society-mutual-aid": 40
+          },
+          "xpo0015": {
+            "higher-taxes-on-the-wealthy": 85,
+            "lower-taxes-across-the-board": -70
+          },
+          "xpo0016": {
+            "close-loopholes-tax-more": 80,
+            "cut-corporate-taxes": -60
+          },
+          "xpo0017": {
+            "invest-generously": 75,
+            "cut-spending-to-balance": -60
+          },
+          "xpo0019": {
+            "reduce-inequality": 80,
+            "market-outcome": -65
+          },
+          "xpo0020": {
+            "free-trade": 10,
+            "protective-tariffs": 50
+          },
+          "xpo0023": {
+            "independent-central-bank": 70,
+            "abolish-the-fed": -70
+          },
+          "xpo0013": {
+            "higher-federal-floor": 85,
+            "no-federal-floor": -80
+          },
+          "xpo0026": {
+            "protect-and-expand": 85,
+            "phase-it-out": -85
+          },
+          "xpo0027": {
+            "strong-safety-net": 85,
+            "no-federal-welfare": -80
+          },
+          "xpo0029": {
+            "single-payer": 20,
+            "free-market": -70,
+            "keep-and-fix-the-aca": 85
+          },
+          "xpo0030": {
+            "negotiate-and-cap-prices": 85,
+            "leave-prices-to-the-market": -75
+          },
+          "xpo0031": {
+            "protect-and-expand": 80,
+            "replace-with-universal": 30,
+            "leave-to-the-market": -75
+          },
+          "xpo0036": {
+            "urgent-action": 90,
+            "no-government-action": -85
+          },
+          "xpo0037": {
+            "drill-and-expand": -55,
+            "phase-out": 60
+          },
+          "xpo0039": {
+            "massive-public-investment": 80,
+            "let-the-market-decide": -70
+          },
+          "xpo0044": {
+            "wall-and-hard-enforcement": -60,
+            "technology-agents-pathways": 75
+          },
+          "xpo0045": {
+            "mass-deportation": -85,
+            "removal-after-fair-process": 80
+          },
+          "xpo0048": {
+            "path-to-citizenship": 90,
+            "enforcement-only-no-amnesty": -85
+          },
+          "xpo0049": {
+            "keep-birthright-citizenship": 85,
+            "end-it": -85
+          },
+          "xpo0051": {
+            "expand-access-no-id": 90,
+            "require-id-same-day-voting": -80
+          },
+          "xpo0052": {
+            "limit-and-publicly-fund": 85,
+            "unrestricted-private-financing": -70
+          },
+          "xpo0053": {
+            "keep-the-electoral-college": -30,
+            "abolish-it-proportional-representation": 55
+          },
+          "xpo0059": {
+            "strong-federal-standards": 70,
+            "powers-to-the-states": -60
+          },
+          "xpo0060": {
+            "active-federal-government": 80,
+            "minimal-government": -75
+          },
+          "xpo0065": {
+            "pro-choice": 90,
+            "pro-life": -90
+          },
+          "xpo0067": {
+            "marriage-equality-for-all": 90,
+            "one-man-and-one-woman": -85,
+            "government-shouldnt-define-it": -10
+          },
+          "xpo0068": {
+            "full-equality-and-protection": 90,
+            "restrictions": -85
+          },
+          "xpo0070": {
+            "strict-regulation": 85,
+            "no-regulation-at-all": -80
+          },
+          "xpo0072": {
+            "reform-reduce-incarceration": 70,
+            "tougher-enforcement-sentencing": -60
+          },
+          "xpo0073": {
+            "abolish-it": 70,
+            "keep-it": -60
+          },
+          "xpo0074": {
+            "legalize-treat-as-health": 60,
+            "keep-criminal-enforce-hard": -50
+          },
+          "xpo0080": {
+            "universal-choice-vouchers": -75,
+            "invest-in-public-schools": 85
+          },
+          "xpo0083": {
+            "free-college-debt-cancellation": 60,
+            "market-priced-no-forgiveness": -50
+          },
+          "xpo0085": {
+            "bigger-stronger-military": 20,
+            "cut-the-defense-budget": -10
+          },
+          "xpo0088": {
+            "strengthen-alliances": 85,
+            "avoid-entangling-alliances": -75
+          },
+          "xpo0090": {
+            "stand-with-israel": 40,
+            "palestinian-self-determination": 45
+          },
+          "xpo0091": {
+            "lead-and-intervene": 60,
+            "non-intervention": -50
+          }
+        }
+      }
+    },
+    "pol-republican": {
+      "name": "Republican Party platform",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Republican Party platform",
+        "archetype": "Republican Party platform",
+        "aboutMe": "The Republican Party platform: lower taxes, deregulation, energy expansion, a strong military, strict border enforcement with mass deportation, and pro-life, pro-Second Amendment social policy.",
+        "ratings": {
+          "xpo0001": {
+            "the-state-command-redistribution": -50,
+            "the-market-capital-price-discovery": 75,
+            "the-commons-civil-society-mutual-aid": -10
+          },
+          "xpo0015": {
+            "higher-taxes-on-the-wealthy": -60,
+            "lower-taxes-across-the-board": 80
+          },
+          "xpo0016": {
+            "close-loopholes-tax-more": -55,
+            "cut-corporate-taxes": 70
+          },
+          "xpo0017": {
+            "invest-generously": -50,
+            "cut-spending-to-balance": 70
+          },
+          "xpo0019": {
+            "reduce-inequality": -60,
+            "market-outcome": 70
+          },
+          "xpo0020": {
+            "free-trade": -20,
+            "protective-tariffs": 75
+          },
+          "xpo0023": {
+            "independent-central-bank": 40,
+            "abolish-the-fed": -20
+          },
+          "xpo0013": {
+            "higher-federal-floor": -60,
+            "no-federal-floor": 60
+          },
+          "xpo0026": {
+            "protect-and-expand": 55,
+            "phase-it-out": -40
+          },
+          "xpo0027": {
+            "strong-safety-net": -55,
+            "no-federal-welfare": 60
+          },
+          "xpo0029": {
+            "single-payer": -85,
+            "free-market": 80,
+            "keep-and-fix-the-aca": -70
+          },
+          "xpo0030": {
+            "negotiate-and-cap-prices": 30,
+            "leave-prices-to-the-market": -10
+          },
+          "xpo0031": {
+            "protect-and-expand": 60,
+            "replace-with-universal": -60,
+            "leave-to-the-market": 10
+          },
+          "xpo0036": {
+            "urgent-action": -70,
+            "no-government-action": 70
+          },
+          "xpo0037": {
+            "drill-and-expand": 85,
+            "phase-out": -80
+          },
+          "xpo0039": {
+            "massive-public-investment": -55,
+            "let-the-market-decide": 60
+          },
+          "xpo0044": {
+            "wall-and-hard-enforcement": 90,
+            "technology-agents-pathways": -50
+          },
+          "xpo0045": {
+            "mass-deportation": 85,
+            "removal-after-fair-process": -30
+          },
+          "xpo0048": {
+            "path-to-citizenship": -70,
+            "enforcement-only-no-amnesty": 75
+          },
+          "xpo0049": {
+            "keep-birthright-citizenship": -60,
+            "end-it": 65
+          },
+          "xpo0051": {
+            "expand-access-no-id": -75,
+            "require-id-same-day-voting": 85
+          },
+          "xpo0052": {
+            "limit-and-publicly-fund": -50,
+            "unrestricted-private-financing": 55
+          },
+          "xpo0053": {
+            "keep-the-electoral-college": 85,
+            "abolish-it-proportional-representation": -85
+          },
+          "xpo0059": {
+            "strong-federal-standards": -50,
+            "powers-to-the-states": 70
+          },
+          "xpo0060": {
+            "active-federal-government": -55,
+            "minimal-government": 65
+          },
+          "xpo0065": {
+            "pro-choice": -85,
+            "pro-life": 85
+          },
+          "xpo0067": {
+            "marriage-equality-for-all": -70,
+            "one-man-and-one-woman": 75,
+            "government-shouldnt-define-it": 20
+          },
+          "xpo0068": {
+            "full-equality-and-protection": -70,
+            "restrictions": 70
+          },
+          "xpo0070": {
+            "strict-regulation": -80,
+            "no-regulation-at-all": 75
+          },
+          "xpo0072": {
+            "reform-reduce-incarceration": -50,
+            "tougher-enforcement-sentencing": 65
+          },
+          "xpo0073": {
+            "abolish-it": -70,
+            "keep-it": 70
+          },
+          "xpo0074": {
+            "legalize-treat-as-health": -55,
+            "keep-criminal-enforce-hard": 60
+          },
+          "xpo0080": {
+            "universal-choice-vouchers": 80,
+            "invest-in-public-schools": -70
+          },
+          "xpo0083": {
+            "free-college-debt-cancellation": -60,
+            "market-priced-no-forgiveness": 65
+          },
+          "xpo0085": {
+            "bigger-stronger-military": 85,
+            "cut-the-defense-budget": -75
+          },
+          "xpo0088": {
+            "strengthen-alliances": -30,
+            "avoid-entangling-alliances": 40
+          },
+          "xpo0090": {
+            "stand-with-israel": 90,
+            "palestinian-self-determination": -60
+          },
+          "xpo0091": {
+            "lead-and-intervene": 30,
+            "non-intervention": -20
+          }
+        }
+      }
+    },
+    "pol-libertarian": {
+      "name": "Libertarian Party platform",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Libertarian Party platform",
+        "archetype": "Libertarian Party platform",
+        "aboutMe": "The Libertarian Party platform: minimal government, free markets and free trade, an end to the IRS and the Federal Reserve, open immigration, drug legalization, and non-intervention abroad.",
+        "ratings": {
+          "xpo0001": {
+            "the-state-command-redistribution": -90,
+            "the-market-capital-price-discovery": 90,
+            "the-commons-civil-society-mutual-aid": 0
+          },
+          "xpo0015": {
+            "higher-taxes-on-the-wealthy": -70,
+            "lower-taxes-across-the-board": 90
+          },
+          "xpo0016": {
+            "close-loopholes-tax-more": -40,
+            "cut-corporate-taxes": 85
+          },
+          "xpo0017": {
+            "invest-generously": -85,
+            "cut-spending-to-balance": 90
+          },
+          "xpo0019": {
+            "reduce-inequality": -80,
+            "market-outcome": 85
+          },
+          "xpo0020": {
+            "free-trade": 95,
+            "protective-tariffs": -90
+          },
+          "xpo0023": {
+            "independent-central-bank": -60,
+            "abolish-the-fed": 90
+          },
+          "xpo0013": {
+            "higher-federal-floor": -85,
+            "no-federal-floor": 90
+          },
+          "xpo0026": {
+            "protect-and-expand": -80,
+            "phase-it-out": 85
+          },
+          "xpo0027": {
+            "strong-safety-net": -90,
+            "no-federal-welfare": 90
+          },
+          "xpo0029": {
+            "single-payer": -95,
+            "free-market": 90,
+            "keep-and-fix-the-aca": -85
+          },
+          "xpo0030": {
+            "negotiate-and-cap-prices": -80,
+            "leave-prices-to-the-market": 85
+          },
+          "xpo0031": {
+            "protect-and-expand": -80,
+            "replace-with-universal": -85,
+            "leave-to-the-market": 90
+          },
+          "xpo0036": {
+            "urgent-action": -75,
+            "no-government-action": 80
+          },
+          "xpo0037": {
+            "drill-and-expand": 70,
+            "phase-out": -60
+          },
+          "xpo0039": {
+            "massive-public-investment": -80,
+            "let-the-market-decide": 85
+          },
+          "xpo0044": {
+            "wall-and-hard-enforcement": -70,
+            "technology-agents-pathways": 40
+          },
+          "xpo0045": {
+            "mass-deportation": -80,
+            "removal-after-fair-process": 60
+          },
+          "xpo0048": {
+            "path-to-citizenship": 70,
+            "enforcement-only-no-amnesty": -60
+          },
+          "xpo0049": {
+            "keep-birthright-citizenship": 70,
+            "end-it": -60
+          },
+          "xpo0051": {
+            "expand-access-no-id": 20,
+            "require-id-same-day-voting": -10
+          },
+          "xpo0052": {
+            "limit-and-publicly-fund": -70,
+            "unrestricted-private-financing": 75
+          },
+          "xpo0053": {
+            "keep-the-electoral-college": -40,
+            "abolish-it-proportional-representation": 60
+          },
+          "xpo0059": {
+            "strong-federal-standards": -80,
+            "powers-to-the-states": 90
+          },
+          "xpo0060": {
+            "active-federal-government": -95,
+            "minimal-government": 95
+          },
+          "xpo0065": {
+            "pro-choice": 20,
+            "pro-life": -20
+          },
+          "xpo0067": {
+            "marriage-equality-for-all": 60,
+            "one-man-and-one-woman": -60,
+            "government-shouldnt-define-it": 85
+          },
+          "xpo0068": {
+            "full-equality-and-protection": 75,
+            "restrictions": -70
+          },
+          "xpo0070": {
+            "strict-regulation": -85,
+            "no-regulation-at-all": 85
+          },
+          "xpo0072": {
+            "reform-reduce-incarceration": 85,
+            "tougher-enforcement-sentencing": -80
+          },
+          "xpo0073": {
+            "abolish-it": 80,
+            "keep-it": -75
+          },
+          "xpo0074": {
+            "legalize-treat-as-health": 95,
+            "keep-criminal-enforce-hard": -90
+          },
+          "xpo0080": {
+            "universal-choice-vouchers": 85,
+            "invest-in-public-schools": -80
+          },
+          "xpo0083": {
+            "free-college-debt-cancellation": -85,
+            "market-priced-no-forgiveness": 90
+          },
+          "xpo0085": {
+            "bigger-stronger-military": -85,
+            "cut-the-defense-budget": 85
+          },
+          "xpo0088": {
+            "strengthen-alliances": -85,
+            "avoid-entangling-alliances": 90
+          },
+          "xpo0090": {
+            "stand-with-israel": -70,
+            "palestinian-self-determination": 30
+          },
+          "xpo0091": {
+            "lead-and-intervene": -90,
+            "non-intervention": 95
+          }
+        }
+      }
+    },
+    "pol-green": {
+      "name": "Green Party platform",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Green Party platform",
+        "archetype": "Green Party platform",
+        "aboutMe": "The Green Party platform: an ecosocialist Green New Deal, single-payer health care, free public college, racial and economic justice, and nonviolence at home and abroad.",
+        "ratings": {
+          "xpo0001": {
+            "the-state-command-redistribution": 70,
+            "the-market-capital-price-discovery": -60,
+            "the-commons-civil-society-mutual-aid": 75
+          },
+          "xpo0015": {
+            "higher-taxes-on-the-wealthy": 90,
+            "lower-taxes-across-the-board": -80
+          },
+          "xpo0016": {
+            "close-loopholes-tax-more": 85,
+            "cut-corporate-taxes": -70
+          },
+          "xpo0017": {
+            "invest-generously": 80,
+            "cut-spending-to-balance": -55
+          },
+          "xpo0019": {
+            "reduce-inequality": 90,
+            "market-outcome": -80
+          },
+          "xpo0020": {
+            "free-trade": -40,
+            "protective-tariffs": 30
+          },
+          "xpo0023": {
+            "independent-central-bank": 30,
+            "abolish-the-fed": -10
+          },
+          "xpo0013": {
+            "higher-federal-floor": 90,
+            "no-federal-floor": -85
+          },
+          "xpo0026": {
+            "protect-and-expand": 85,
+            "phase-it-out": -80
+          },
+          "xpo0027": {
+            "strong-safety-net": 90,
+            "no-federal-welfare": -85
+          },
+          "xpo0029": {
+            "single-payer": 95,
+            "free-market": -90,
+            "keep-and-fix-the-aca": -40
+          },
+          "xpo0030": {
+            "negotiate-and-cap-prices": 90,
+            "leave-prices-to-the-market": -85
+          },
+          "xpo0031": {
+            "protect-and-expand": 40,
+            "replace-with-universal": 90,
+            "leave-to-the-market": -90
+          },
+          "xpo0036": {
+            "urgent-action": 95,
+            "no-government-action": -95
+          },
+          "xpo0037": {
+            "drill-and-expand": -95,
+            "phase-out": 95
+          },
+          "xpo0039": {
+            "massive-public-investment": 95,
+            "let-the-market-decide": -90
+          },
+          "xpo0044": {
+            "wall-and-hard-enforcement": -85,
+            "technology-agents-pathways": 60
+          },
+          "xpo0045": {
+            "mass-deportation": -90,
+            "removal-after-fair-process": 85
+          },
+          "xpo0048": {
+            "path-to-citizenship": 90,
+            "enforcement-only-no-amnesty": -85
+          },
+          "xpo0049": {
+            "keep-birthright-citizenship": 85,
+            "end-it": -85
+          },
+          "xpo0051": {
+            "expand-access-no-id": 90,
+            "require-id-same-day-voting": -80
+          },
+          "xpo0052": {
+            "limit-and-publicly-fund": 90,
+            "unrestricted-private-financing": -85
+          },
+          "xpo0053": {
+            "keep-the-electoral-college": -80,
+            "abolish-it-proportional-representation": 90
+          },
+          "xpo0059": {
+            "strong-federal-standards": 60,
+            "powers-to-the-states": -50
+          },
+          "xpo0060": {
+            "active-federal-government": 85,
+            "minimal-government": -70
+          },
+          "xpo0065": {
+            "pro-choice": 90,
+            "pro-life": -90
+          },
+          "xpo0067": {
+            "marriage-equality-for-all": 95,
+            "one-man-and-one-woman": -90,
+            "government-shouldnt-define-it": 0
+          },
+          "xpo0068": {
+            "full-equality-and-protection": 95,
+            "restrictions": -90
+          },
+          "xpo0070": {
+            "strict-regulation": 80,
+            "no-regulation-at-all": -75
+          },
+          "xpo0072": {
+            "reform-reduce-incarceration": 90,
+            "tougher-enforcement-sentencing": -85
+          },
+          "xpo0073": {
+            "abolish-it": 90,
+            "keep-it": -85
+          },
+          "xpo0074": {
+            "legalize-treat-as-health": 90,
+            "keep-criminal-enforce-hard": -85
+          },
+          "xpo0080": {
+            "universal-choice-vouchers": -70,
+            "invest-in-public-schools": 80
+          },
+          "xpo0083": {
+            "free-college-debt-cancellation": 90,
+            "market-priced-no-forgiveness": -85
+          },
+          "xpo0085": {
+            "bigger-stronger-military": -85,
+            "cut-the-defense-budget": 90
+          },
+          "xpo0088": {
+            "strengthen-alliances": -40,
+            "avoid-entangling-alliances": 50
+          },
+          "xpo0090": {
+            "stand-with-israel": -80,
+            "palestinian-self-determination": 90
+          },
+          "xpo0091": {
+            "lead-and-intervene": -70,
+            "non-intervention": 80
+          }
+        }
+      }
+    },
+    "pol-constitution": {
+      "name": "Constitution Party platform",
+      "count": 38,
+      "payload": {
+        "app": "sexcapades",
+        "version": 16,
+        "noFlash": true,
+        "profileName": "Constitution Party platform",
+        "archetype": "Constitution Party platform",
+        "aboutMe": "The Constitution Party platform: the federal government strictly limited to its enumerated powers, sound money and tariffs instead of income tax, and Biblical foundations for life, marriage, and law.",
+        "ratings": {
+          "xpo0001": {
+            "the-state-command-redistribution": -80,
+            "the-market-capital-price-discovery": 60,
+            "the-commons-civil-society-mutual-aid": -20
+          },
+          "xpo0015": {
+            "higher-taxes-on-the-wealthy": -80,
+            "lower-taxes-across-the-board": 85
+          },
+          "xpo0016": {
+            "close-loopholes-tax-more": -50,
+            "cut-corporate-taxes": 80
+          },
+          "xpo0017": {
+            "invest-generously": -90,
+            "cut-spending-to-balance": 90
+          },
+          "xpo0019": {
+            "reduce-inequality": -70,
+            "market-outcome": 75
+          },
+          "xpo0020": {
+            "free-trade": -70,
+            "protective-tariffs": 90
+          },
+          "xpo0023": {
+            "independent-central-bank": -80,
+            "abolish-the-fed": 95
+          },
+          "xpo0013": {
+            "higher-federal-floor": -90,
+            "no-federal-floor": 90
+          },
+          "xpo0026": {
+            "protect-and-expand": -85,
+            "phase-it-out": 90
+          },
+          "xpo0027": {
+            "strong-safety-net": -95,
+            "no-federal-welfare": 95
+          },
+          "xpo0029": {
+            "single-payer": -95,
+            "free-market": 85,
+            "keep-and-fix-the-aca": -90
+          },
+          "xpo0030": {
+            "negotiate-and-cap-prices": -70,
+            "leave-prices-to-the-market": 75
+          },
+          "xpo0031": {
+            "protect-and-expand": -85,
+            "replace-with-universal": -90,
+            "leave-to-the-market": 85
+          },
+          "xpo0036": {
+            "urgent-action": -80,
+            "no-government-action": 85
+          },
+          "xpo0037": {
+            "drill-and-expand": 80,
+            "phase-out": -70
+          },
+          "xpo0039": {
+            "massive-public-investment": -75,
+            "let-the-market-decide": 80
+          },
+          "xpo0044": {
+            "wall-and-hard-enforcement": 95,
+            "technology-agents-pathways": -60
+          },
+          "xpo0045": {
+            "mass-deportation": 90,
+            "removal-after-fair-process": -40
+          },
+          "xpo0048": {
+            "path-to-citizenship": -90,
+            "enforcement-only-no-amnesty": 90
+          },
+          "xpo0049": {
+            "keep-birthright-citizenship": -90,
+            "end-it": 90
+          },
+          "xpo0051": {
+            "expand-access-no-id": -60,
+            "require-id-same-day-voting": 70
+          },
+          "xpo0052": {
+            "limit-and-publicly-fund": -40,
+            "unrestricted-private-financing": 50
+          },
+          "xpo0053": {
+            "keep-the-electoral-college": 80,
+            "abolish-it-proportional-representation": -80
+          },
+          "xpo0059": {
+            "strong-federal-standards": -90,
+            "powers-to-the-states": 95
+          },
+          "xpo0060": {
+            "active-federal-government": -95,
+            "minimal-government": 95
+          },
+          "xpo0065": {
+            "pro-choice": -95,
+            "pro-life": 95
+          },
+          "xpo0067": {
+            "marriage-equality-for-all": -90,
+            "one-man-and-one-woman": 95,
+            "government-shouldnt-define-it": -30
+          },
+          "xpo0068": {
+            "full-equality-and-protection": -90,
+            "restrictions": 90
+          },
+          "xpo0070": {
+            "strict-regulation": -85,
+            "no-regulation-at-all": 90
+          },
+          "xpo0072": {
+            "reform-reduce-incarceration": -60,
+            "tougher-enforcement-sentencing": 70
+          },
+          "xpo0073": {
+            "abolish-it": -80,
+            "keep-it": 85
+          },
+          "xpo0074": {
+            "legalize-treat-as-health": -70,
+            "keep-criminal-enforce-hard": 75
+          },
+          "xpo0080": {
+            "universal-choice-vouchers": 85,
+            "invest-in-public-schools": -85
+          },
+          "xpo0083": {
+            "free-college-debt-cancellation": -85,
+            "market-priced-no-forgiveness": 90
+          },
+          "xpo0085": {
+            "bigger-stronger-military": 60,
+            "cut-the-defense-budget": -50
+          },
+          "xpo0088": {
+            "strengthen-alliances": -70,
+            "avoid-entangling-alliances": 80
+          },
+          "xpo0090": {
+            "stand-with-israel": 10,
+            "palestinian-self-determination": -10
+          },
+          "xpo0091": {
+            "lead-and-intervene": -85,
+            "non-intervention": 90
+          }
+        }
+      }
+    }
   }
 }
