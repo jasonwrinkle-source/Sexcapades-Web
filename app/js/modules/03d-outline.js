@@ -1133,6 +1133,20 @@
             };
         })();
         let Ns = null, _s = null, Ds = null, Rs = null, Os = 0;
+        /* Canvas pole-label hover hook (widget approachability): a canvas
+           has no DOM node per pole, so the paint module calls this with
+           the canvas as anchor, the pole's full label as name, and its
+           "Label — text" line as the definition. */
+        window.__SX_TIP_SHOW = function (anchorEl, name, text, clientX, clientY) {
+            if (!anchorEl) return;
+            Fs.show(anchorEl, {
+                name: name || "Details",
+                definition: text || "",
+                value: "",
+                point: (Number.isFinite(clientX) && Number.isFinite(clientY)) ? { x: clientX, y: clientY, pointerType: "mouse" } : null
+            });
+        };
+        window.__SX_TIP_HIDE = function () { Fs.hide(); };
         const Bs = window.matchMedia ? window.matchMedia("(hover: hover)") : {
             matches: !0
         };

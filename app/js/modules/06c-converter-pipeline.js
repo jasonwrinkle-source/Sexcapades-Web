@@ -2481,14 +2481,3 @@
         Nx.addEventListener("change", Jx), _x.addEventListener("change", Jx), Sg.addEventListener("close", () => {
             Zx++, zx(), sxPairLoadInto = null, sxLoadOriginId = null;
         }), e.byId("toastDismiss") && e.byId("toastDismiss").addEventListener("click", eS);
-        const nS = e.one(".easter-egg");
-        nS.addEventListener("click", () => {
-            fetch("https://countapi.mileshilliard.com/api/v1/hit/sexcapades-easter-egg-skewed-view-blue", {
-                mode: "no-cors",
-                keepalive: !0
-            }).catch((e) => { __sxErrLog("analytics-beacon", e); });
-        });
-        let iS = 0, aS = 0;
-        e.one(".intro h1").addEventListener("click", () => {
-            t.clear(aS), aS = t.setTimeout(() => iS = 0, 1700), 5 === ++iS && (iS = 0, nS.click());
-        });

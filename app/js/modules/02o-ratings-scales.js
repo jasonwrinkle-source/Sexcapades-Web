@@ -638,16 +638,30 @@
         }), window.__sxOnPtr( e => {
             Mi.hidden || Mi.contains(e.target) || __sxClosestAction(e.target, "centerHit") || Ri();
         }, !0), (() => {
-            let sxTapX = 0, sxTapY = 0, sxTapDown = !1;
+            let sxTapX = 0, sxTapY = 0, sxTapDown = !1, sxTapOnMap = !1;
             window.__sxOnPtr( e => {
-                sxTapX = e.clientX, sxTapY = e.clientY, sxTapDown = !0;
+                sxTapX = e.clientX, sxTapY = e.clientY, sxTapDown = !0,
+                // Hot List popup fix (2026-11-16): this guard used to
+                // swallow the pointerup of ANY >10px drag anywhere in
+                // the app — including the widget canvases, whose
+                // drag-end handlers live on the canvas and never fired,
+                // leaving isDragging stuck true and killing canvas hover
+                // tips after any drag (popup AND placard). Only swallow
+                // pointerups for gestures that started on the map, which
+                // is what the guard protects (map pan/tap
+                // disambiguation); the click itself stays suppressed
+                // app-wide by the 03b guard and the one-shot listener
+                // below, unchanged.
+                sxTapOnMap = !!(e.target && e.target.closest && e.target.closest("#mapSvg"));
             }, !0);
             document.addEventListener("pointerup", e => {
                 if (!sxTapDown) return;
                 sxTapDown = !1;
+                const onMap = sxTapOnMap;
+                sxTapOnMap = !1;
                 const dx = e.clientX - sxTapX, dy = e.clientY - sxTapY;
                 if (dx * dx + dy * dy > 100) {
-                    e.preventDefault(), e.stopPropagation();
+                    if (onMap) e.preventDefault(), e.stopPropagation();
                     const t = e.target;
                     t && t.addEventListener("click", function h(ev) {
                         ev.preventDefault(), ev.stopPropagation(), t.removeEventListener("click", h, !0);
