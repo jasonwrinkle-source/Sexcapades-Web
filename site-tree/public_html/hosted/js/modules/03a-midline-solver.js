@@ -396,6 +396,13 @@
         // ============================================================
         const SX_SOLVER_FACADE = {
             build() {
+                var baked = null;
+                try { baked = sxTryBaked(); } catch (e) { baked = null; }
+                if (baked) {
+                    try { window.__sxLastBuildMode = "baked"; } catch (e2) {}
+                    return baked;
+                }
+                try { window.__sxLastBuildMode = "solved"; } catch (e3) {}
                 return fr();
             },
             tidy(geo) {
@@ -416,6 +423,220 @@
                 return dkRunCascade(branch, opts);
             }
         };
+        // ============================================================
+        // BAKED POSITIONS (2026-11-15): the skin files carry solved
+        // geometry (defaultLayout.positions). When the live state
+        // exactly matches the captured state — same skin, same
+        // settings fingerprint, same tree structure, no scoped or
+        // DeKnotter context active — the paint uses the baked geometry
+        // instead of solving. The solver itself stays for editor
+        // operations (Anneal, Autofit, DeKnotter, KinkTest, fit
+        // targets): any settings change, profile/detail/search change,
+        // or taxonomy change fails the gate and the paint solves, as
+        // before. The crossings readout needs no special case: the
+        // reconstructed branches become dkLastBranches, so
+        // window.__sxCrossingMeasure computes from the baked geometry.
+        // The baked payload carries only solve-assigned numbers
+        // (angles, sectors, cloud radii, spoke adjustments); the tree
+        // itself (entries, topics, children) is rebuilt fresh every
+        // paint, so the payload can never resurrect a stale taxonomy.
+        // ============================================================
+        function sxBakedFingerprint() {
+            try { return dkStableStringify(mn); } catch (e) { return null; }
+        }
+        // The signature is a MEMBERSHIP signature, deliberately
+        // order-insensitive: branches sorted by catId, topics and
+        // children sorted by id. The tree's order is NOT stable across
+        // a skin round-trip — frBuildTree sorts each subcategory's
+        // children by popularity score (02g G/U/W), and after a swap
+        // the scores read as unrated, so the sort falls back to label
+        // order (2026-11-15: switch-back tree reads t0291..t0296 where
+        // the fresh boot reads t0294,t0293,t0291,t0296,t0292,t0295 —
+        // same members, different order). The baked reconstruction
+        // looks every branch/topic/child up BY ID, and the crossings
+        // measure sums over pairs, so order carries no geometry; only
+        // membership does. Sorting here keeps the gate from failing
+        // on a benign reordering while still catching any real
+        // taxonomy change (a missing/added topic or child changes
+        // the sorted lists).
+        function sxBakedTreeSignature(tree) {
+            var parts = [];
+            (tree || []).forEach(function (b) {
+                var topics = (b.topics || []).map(function (t) {
+                    var kids = (t.children || []).map(function (c) { return c.id; }).sort().join(",");
+                    return t.id + "[" + kids + "]";
+                }).sort().join(",");
+                parts.push(b.catId + ":" + topics);
+            });
+            return parts.sort().join("|");
+        }
+        function sxSerializeBranch(br) {
+            return {
+                name: br.entry.branch.name,
+                catId: br.entry.catId,
+                angle: br.angle,
+                sector: br.sector,
+                topicCloudRadius: br.topicCloudRadius,
+                topicCloudRadiusBase: br.topicCloudRadiusBase,
+                spokeAdjust20: Number(br.entry.branch._spokeAdjust20) || 0,
+                topics: (br.topics || []).map(function (t) {
+                    return {
+                        id: t.topic.id,
+                        angle: t.angle,
+                        sector: t.sector,
+                        cloudAngle: t.cloudAngle,
+                        cloudRadius: t.cloudRadius,
+                        cloudCount: t.cloudCount,
+                        cloudIndex: t.cloudIndex,
+                        childCloudRadius: t.childCloudRadius,
+                        curve: !!t.curve,
+                        radialFit20: (typeof t._radialFit20 === "number" && isFinite(t._radialFit20)) ? t._radialFit20 : null,
+                        children: (t.children || []).map(function (c) {
+                            return {
+                                id: c.child.id,
+                                angle: c.angle,
+                                sector: c.sector,
+                                cloudAngle: c.cloudAngle,
+                                cloudRadius: c.cloudRadius,
+                                cloudCount: c.cloudCount,
+                                cloudIndex: c.cloudIndex,
+                                curve: !!c.curve,
+                                radialFit20: (typeof c._radialFit20 === "number" && isFinite(c._radialFit20)) ? c._radialFit20 : null
+                            };
+                        })
+                    };
+                })
+            };
+        }
+        function sxSerializeBaked() {
+            if (!dkLastBranches) return null;
+            var tree = null;
+            try { tree = frBuildTree(); } catch (e) { return null; }
+            var sig = sxBakedTreeSignature(tree);
+            var crossings = null;
+            try { var m = (typeof window.__sxCrossingMeasure === "function") ? window.__sxCrossingMeasure() : null; crossings = m ? m.crossing : null; } catch (e) { crossings = null; }
+            var settingsHash = null;
+            try { settingsHash = (window.__SEXCAPADES_LAYOUT_TEST && typeof window.__SEXCAPADES_LAYOUT_TEST.hash === "function") ? window.__SEXCAPADES_LAYOUT_TEST.hash() : null; } catch (e) { settingsHash = null; }
+            var skin = "sexcapades";
+            try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
+            return {
+                skin: skin,
+                capturedAt: new Date().toISOString(),
+                settingsHash: settingsHash,
+                fingerprint: sxBakedFingerprint(),
+                treeSignature: sig,
+                crossings: crossings,
+                branches: (dkLastBranches || []).map(sxSerializeBranch)
+            };
+        }
+        function sxBuildBaked(pos) {
+            if (scCtx) return null;
+            var tree = null;
+            try { tree = frBuildTree(); } catch (e) { return null; }
+            if (sxBakedTreeSignature(tree) !== pos.treeSignature) return null;
+            var t = tree.map(function (e) { return { entry: e, label: e.branch.name, weight: e.weight, minDemand: e.minDemand }; });
+            t.sort(function (a, b) { return (branchOrderRankMap().get(a.entry.branch.name) ?? 0) - (branchOrderRankMap().get(b.entry.branch.name) ?? 0); });
+            var byCat = {};
+            (pos.branches || []).forEach(function (b) { byCat[b.catId] = b; });
+            var n = t.map(function (w) {
+                var entry = w.entry;
+                var baked = byCat[entry.catId];
+                if (!baked) return null;
+                var br = {
+                    entry: entry,
+                    label: entry.branch.name,
+                    weight: entry.weight,
+                    minDemand: entry.minDemand,
+                    angle: baked.angle,
+                    sector: baked.sector,
+                    start: baked.angle - baked.sector / 2,
+                    end: baked.angle + baked.sector / 2,
+                    topicCloudRadius: baked.topicCloudRadius,
+                    topicCloudRadiusBase: baked.topicCloudRadiusBase,
+                    topics: []
+                };
+                entry.branch._spokeAdjust20 = baked.spokeAdjust20 || 0;
+                var byId = {};
+                (baked.topics || []).forEach(function (x) { byId[x.id] = x; });
+                br.topics = entry.topics.map(function (tt) {
+                    var bt = byId[tt.id];
+                    if (!bt) return null;
+                    var tw = {
+                        topic: tt,
+                        label: tt.label,
+                        weight: tt.weight,
+                        minDemand: tt.minDemand,
+                        branchName: entry.branch.name,
+                        startAngle: baked.angle,
+                        angle: bt.angle,
+                        sector: bt.sector,
+                        start: bt.angle - bt.sector / 2,
+                        end: bt.angle + bt.sector / 2,
+                        cloudAngle: bt.cloudAngle,
+                        cloudRadius: bt.cloudRadius,
+                        cloudCount: bt.cloudCount,
+                        cloudIndex: bt.cloudIndex,
+                        childCloudRadius: bt.childCloudRadius,
+                        curve: !!bt.curve,
+                        children: []
+                    };
+                    if (typeof bt.radialFit20 === "number") tw._radialFit20 = bt.radialFit20;
+                    var byKid = {};
+                    (bt.children || []).forEach(function (x) { byKid[x.id] = x; });
+                    tw.children = (tt.children || []).map(function (cc) {
+                        var bc = byKid[cc.id];
+                        if (!bc) return null;
+                        var cw = {
+                            child: cc,
+                            label: cc.label,
+                            weight: 1,
+                            branchName: entry.branch.name,
+                            parentTopic: tt,
+                            startAngle: bt.angle,
+                            angle: bc.angle,
+                            sector: bc.sector,
+                            start: bc.angle - bc.sector / 2,
+                            end: bc.angle + bc.sector / 2,
+                            cloudAngle: bc.cloudAngle,
+                            cloudRadius: bc.cloudRadius,
+                            cloudCount: bc.cloudCount,
+                            cloudIndex: bc.cloudIndex,
+                            curve: !!bc.curve
+                        };
+                        if (typeof bc.radialFit20 === "number") cw._radialFit20 = bc.radialFit20;
+                        return cw;
+                    });
+                    if (tw.children.some(function (x) { return !x; })) return null;
+                    return tw;
+                });
+                if (br.topics.some(function (x) { return !x; })) return null;
+                return br;
+            });
+            if (n.some(function (x) { return !x; })) return null;
+            dkLastBranches = n;
+            n.forEach(function (b) {
+                (b.topics || []).forEach(function (t) {
+                    dkRecordDelivered(t);
+                    if (t.topic && t.topic.isSubcategory) (t.children || []).forEach(function (ch) { dkRecordDelivered(ch); });
+                });
+            });
+            return { tree: tree, branches: n };
+        }
+        function sxTryBaked() {
+            var pos = null;
+            try { pos = window.__SX_BAKED_POSITIONS || null; } catch (e) { return null; }
+            if (!pos || !Array.isArray(pos.branches) || !pos.branches.length) return null;
+            var skin = "sexcapades";
+            try { skin = window.__SX_ACTIVE_SKIN || "sexcapades"; } catch (e) {}
+            if (pos.skin && pos.skin !== skin) return null;
+            if (scCtx) return null;
+            if (dkCtx) return null;
+            var fp = null;
+            try { fp = sxBakedFingerprint(); } catch (e) { return null; }
+            if (!fp || fp !== pos.fingerprint) return null;
+            return sxBuildBaked(pos);
+        }
+        window.__sxCaptureBakedGeometry = sxSerializeBaked;
         let sxDemoteLogged = !1, sxSettleDone = !1;
         function sxSolverModeQuiet() {
             const v = mn && mn.solverMidline;

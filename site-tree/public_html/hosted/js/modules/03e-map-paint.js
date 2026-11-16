@@ -2829,7 +2829,9 @@
             p2: 0,
             p3: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         function sxGetTetradVertices(width, height) {
@@ -3271,6 +3273,22 @@
             return bestAngleIdx;
         }
 
+        // Angle initializer helper: the vertex whose angle is closest to the
+        // pointer's angle from the canvas center (circular distance). The
+        // radar binders use it to re-pick the active vertex during the early
+        // (uncommitted) part of an all-zero drag, so the drag direction —
+        // not the grab point — decides which pole rises.
+        function sxClosestVertexByAngle(px, py, cx, cy, vertices) {
+            const ptrAngle = Math.atan2(py - cy, px - cx);
+            let best = 0, bestD = Infinity;
+            for (let i = 0; i < vertices.length; i++) {
+                let d = Math.abs(vertices[i].angle - ptrAngle);
+                if (d > Math.PI) d = 2 * Math.PI - d;
+                if (d < bestD) { bestD = d; best = i; }
+            }
+            return best;
+        }
+
         function sxBindTetradWidget() {
             const canvas = e.byId("markTetradCanvas");
             const slider = e.byId("markTetradIntensity");
@@ -3293,19 +3311,33 @@
                     sxTetradState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxTetradState.dragFromZero && !sxTetradState.vertexLocked) {
+                    sxTetradState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxTetradState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxTetradState.dragFromZero && !sxTetradState.vertexLocked)) && val > 0) {
                     // Direct drag from unrated/0 initializes an active polygon rather than a 1D monopole
                     const base = Math.max(20, Math.round(val * 0.5));
                     sxTetradState.p0 = (v === 0) ? val : base;
                     sxTetradState.p1 = (v === 1) ? val : base;
                     sxTetradState.p2 = (v === 2) ? val : base;
                     sxTetradState.p3 = (v === 3) ? val : base;
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxTetradState.vertexLocked = true;
                 } else {
                     if (v === 0) sxTetradState.p0 = val;
                     else if (v === 1) sxTetradState.p1 = val;
@@ -3328,6 +3360,8 @@
             canvas.addEventListener("pointerdown", (evt) => {
                 sxTetradState.isDragging = !0;
                 sxTetradState.activeVertex = null;
+                sxTetradState.vertexLocked = !1;
+                sxTetradState.dragFromZero = !sxTetradState.p0 && !sxTetradState.p1 && !sxTetradState.p2 && !sxTetradState.p3;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -3404,7 +3438,9 @@
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_PENTAD_COLORS = ["#a855f7", "#06b6d4", "#f59e0b", "#ef4444", "#22c55e"];
@@ -3567,17 +3603,31 @@
                     sxPentadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxPentadState.dragFromZero && !sxPentadState.vertexLocked) {
+                    sxPentadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxPentadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxPentadState.dragFromZero && !sxPentadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 5; k++) {
                         sxPentadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxPentadState.vertexLocked = true;
                 } else {
                     sxPentadState[`p${v}`] = val;
                 }
@@ -3597,6 +3647,8 @@
             canvas.addEventListener("pointerdown", (evt) => {
                 sxPentadState.isDragging = !0;
                 sxPentadState.activeVertex = null;
+                sxPentadState.vertexLocked = !1;
+                sxPentadState.dragFromZero = !sxPentadState.p0 && !sxPentadState.p1 && !sxPentadState.p2 && !sxPentadState.p3 && !sxPentadState.p4;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -3672,7 +3724,9 @@
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_HEXAD_COLORS = ["#22c55e", "#06b6d4", "#6366f1", "#ef4444", "#f97316", "#eab308"];
@@ -3839,17 +3893,31 @@
                     sxHexadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxHexadState.dragFromZero && !sxHexadState.vertexLocked) {
+                    sxHexadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxHexadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxHexadState.dragFromZero && !sxHexadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 6; k++) {
                         sxHexadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxHexadState.vertexLocked = true;
                 } else {
                     sxHexadState[`p${v}`] = val;
                 }
@@ -3869,6 +3937,8 @@
             canvas.addEventListener("pointerdown", (evt) => {
                 sxHexadState.isDragging = !0;
                 sxHexadState.activeVertex = null;
+                sxHexadState.vertexLocked = !1;
+                sxHexadState.dragFromZero = !sxHexadState.p0 && !sxHexadState.p1 && !sxHexadState.p2 && !sxHexadState.p3 && !sxHexadState.p4 && !sxHexadState.p5;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -3944,7 +4014,9 @@
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_HEPTAD_COLORS = ["#22c55e", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
@@ -4108,17 +4180,31 @@
                     sxHeptadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxHeptadState.dragFromZero && !sxHeptadState.vertexLocked) {
+                    sxHeptadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxHeptadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxHeptadState.dragFromZero && !sxHeptadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 7; k++) {
                         sxHeptadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxHeptadState.vertexLocked = true;
                 } else {
                     sxHeptadState[`p${v}`] = val;
                 }
@@ -4138,6 +4224,8 @@
             canvas.addEventListener("pointerdown", (evt) => {
                 sxHeptadState.isDragging = !0;
                 sxHeptadState.activeVertex = null;
+                sxHeptadState.vertexLocked = !1;
+                sxHeptadState.dragFromZero = !sxHeptadState.p0 && !sxHeptadState.p1 && !sxHeptadState.p2 && !sxHeptadState.p3 && !sxHeptadState.p4 && !sxHeptadState.p5 && !sxHeptadState.p6;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -4216,7 +4304,9 @@
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
             activeVertex: null,
-            isDragging: !1
+            isDragging: !1,
+            dragFromZero: !1,
+            vertexLocked: !1
         };
 
         const SX_OCTAD_COLORS = ["#22c55e", "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
@@ -4383,17 +4473,31 @@
                     sxOctadState.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
                 }
 
+                // Angle initializer: this drag started from all-zero and no
+                // vertex has been pulled out yet — re-pick the active vertex
+                // by pointer ANGLE on every move, so the drag direction (not
+                // the grab point) decides which pole rises. Once committed
+                // the locked vertex holds for the rest of the drag.
+                if (sxOctadState.dragFromZero && !sxOctadState.vertexLocked) {
+                    sxOctadState.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
                 const v = sxOctadState.activeVertex;
                 const angle = vertices[v].angle;
                 const cosA = Math.cos(angle), sinA = Math.sin(angle);
                 const dot = (px - cx) * cosA + (py - cy) * sinA;
                 const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                if (isAllZero && val > 0) {
+                if ((isAllZero || (sxOctadState.dragFromZero && !sxOctadState.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < 8; k++) {
                         sxOctadState[`p${k}`] = (k === v) ? val : base;
                     }
+                    // Commit: the dragged vertex has been pulled past the base
+                    // level the others sit at (base is at least 20 and at most
+                    // val/2, so val > base reduces to val > 20) — lock the
+                    // vertex for the rest of the drag.
+                    if (val > base) sxOctadState.vertexLocked = true;
                 } else {
                     sxOctadState[`p${v}`] = val;
                 }
@@ -4413,6 +4517,8 @@
             canvas.addEventListener("pointerdown", (evt) => {
                 sxOctadState.isDragging = !0;
                 sxOctadState.activeVertex = null;
+                sxOctadState.vertexLocked = !1;
+                sxOctadState.dragFromZero = !sxOctadState.p0 && !sxOctadState.p1 && !sxOctadState.p2 && !sxOctadState.p3 && !sxOctadState.p4 && !sxOctadState.p5 && !sxOctadState.p6 && !sxOctadState.p7;
                 canvas.setPointerCapture(evt.pointerId);
                 updateFromPointer(evt);
             });
@@ -4487,7 +4593,13 @@
         window.sxOpenHotListWidgetPopup = function(topicId, profileId) {
             const dlg = e.byId("hotListWidgetDialog");
             if (!dlg || !topicId) return;
-            const pId = profileId || Vi();
+            // Hot List freeze fix (2026-11-15): pId may be the empty-template id
+            // on a fresh boot. The first write mints a real profile, so every
+            // handler re-resolves the id before reading/writing — otherwise
+            // reads keep hitting the empty template and the readout never moves.
+            // An explicitly passed real profile id is preserved as-is.
+            let pId = profileId || Vi();
+            const freshPid = () => (profileId && profileId !== Et) ? profileId : Vi();
             const shape = Ge(topicId, pId);
             const item = qn[topicId] || Xn(topicId) || (at[pId] || {})[topicId] || {};
             const titleEl = e.byId("hotListWidgetTitle");
@@ -4539,6 +4651,7 @@
             };
 
             const redraw = () => {
+                pId = freshPid();
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const maxVal = Math.max(...vals, 0);
@@ -4587,6 +4700,7 @@
 
             let activeIdx = null, isDragging = false;
             const onPointer = (evt) => {
+                pId = freshPid();
                 const rect = canvas.getBoundingClientRect();
                 const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
                 const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
@@ -4682,6 +4796,7 @@
             canvas.onpointercancel = onUp;
 
             canvas.onwheel = (evt) => {
+                pId = freshPid();
                 evt.preventDefault();
                 evt.stopPropagation();
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
@@ -4699,6 +4814,7 @@
 
             if (slider) {
                 slider.oninput = () => {
+                    pId = freshPid();
                     const targetVal = Number(slider.value);
                     const curRec = ca(topicId, pId);
                     const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
@@ -5835,8 +5951,13 @@
                 }), Object.keys(a).length && (vt[e][t] = a);
             }), Object.keys(At).forEach(e => delete At[e]), Ze[Et] = {}, Ct = !1, zt(e), !0);
         }
+        // Hot List freeze fix (2026-11-15): an explicitly passed empty-template
+        // id (Et) is NOT a valid write target — it used to mint a new "New
+        // profile" on every call (the dialog passes its captured Et per move).
+        // Fall through to the selected profile so at most one profile is
+        // minted, on the first write, and later writes reuse it.
         function To(e, t, n, i = !0, a = null) {
-            let r = a && (a === Et || vt[a]) ? a : Mt && vt[Mt] ? Mt : Et;
+            let r = a && vt[a] ? a : Mt && vt[Mt] ? Mt : Et;
             if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
@@ -5859,8 +5980,10 @@
             return c[t] = s, o[e] = c, Co(r, e, t, "manual"), d && zt(r), $o(e, r),
             i && Mr(), c[t];
         }
+        // Same Et guard as To() above: a stale empty-template id must not
+        // mint a profile per call.
         function Fo(e, t, n = !0, i = null) {
-            let a = i && (i === Et || vt[i]) ? i : Mt && vt[Mt] ? Mt : Et;
+            let a = i && vt[i] ? i : Mt && vt[Mt] ? Mt : Et;
             if (a === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
