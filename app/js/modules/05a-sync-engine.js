@@ -364,7 +364,7 @@
                 } catch (e) { __sxErrLog("number-parse", e); }
                 r && (r.textContent = "Your Charted ring is " + a + "%. Raise it by rating or marking more of the map; your Personal Kink Factor ring rises as your strongest direction reaches further."), 
                 o && n(o, '<p style="font-size:12px;opacity:0.7;">Loading community stats...</p>'), 
-                Wi(t), function(){ try { return fetch("https://sexcapades.io/hosted/api/completion.php", { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : void 0 }); } catch(e) { return Promise.reject(e); } }().then(function(e) {
+                Wi(t), function(){ try { return fetch("/hosted/api/completion.php", { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : void 0 }); } catch(e) { return Promise.reject(e); } }().then(function(e) {
                     return e.json();
                 }).then(function(e) {
                     (t.open || t.hasAttribute("open")) && function(e) {
