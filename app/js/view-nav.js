@@ -533,6 +533,7 @@ __sxInit(function () {
     var activeSkin = window.FlexcapadesSkins ? window.FlexcapadesSkins.active() : "sexcapades";
     var cur = menu.querySelector('[data-skin="' + activeSkin + '"]') || menu.querySelector('[data-skin="sexcapades"]');
     if (cur) { try { cur.focus({ preventScroll: true }); } catch (e) { cur.focus(); } }
+    markCurrent(activeSkin);
   }
   function closeMenu() {
     if (!menuOpen()) return;
