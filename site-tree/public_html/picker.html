@@ -115,5 +115,33 @@
     <p>Fifteen maps, one engine.</p>
   </footer>
 </main>
+<script>
+/* Picker landing ping: counts flex.capades.io visits in the shared analytics.
+   One picker_landing event per load, fire-and-forget. The page renders
+   whether the ping succeeds or not. UUID is per-load (same as the app —
+   the app keeps no stored UUID key). */
+(function () {
+  try {
+    var uuid = '';
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+      uuid = window.crypto.randomUUID();
+    } else {
+      var b = new Uint8Array(16);
+      if (window.crypto && typeof window.crypto.getRandomValues === 'function') { window.crypto.getRandomValues(b); }
+      else { for (var i = 0; i < 16; i++) { b[i] = Math.floor(Math.random() * 256); } }
+      b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+      uuid = Array.from(b, function (v, n) { return (n === 4 || n === 6 || n === 8 || n === 10 ? '-' : '') + v.toString(16).padStart(2, '0'); }).join('');
+    }
+    var utm = '';
+    try { utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 128); } catch (e) { utm = ''; }
+    var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'picker_landing', utm_source: utm });
+    var endpoint = '/hosted/api/collect.php';
+    if (navigator.sendBeacon) {
+      try { if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return; } catch (e) { /* fall through to fetch */ }
+    }
+    fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
+  } catch (e) { /* Tracking must never break the page. */ }
+})();
+</script>
 </body>
 </html>

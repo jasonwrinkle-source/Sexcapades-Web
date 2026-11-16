@@ -1,6 +1,6 @@
 /* ---- module: ui-wiring (folded from patches.js) ---- */
 
-var SX_SHELL_COLLECT_URL = 'https://sexcapades.io/hosted/api/collect.php';
+var SX_SHELL_COLLECT_URL = '/hosted/api/collect.php';
 function sxShellOnLiveHost() {
   return location.hostname === 'sexcapades.io' || location.hostname === 'www.sexcapades.io';
 }

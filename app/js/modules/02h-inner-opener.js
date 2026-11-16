@@ -115,7 +115,7 @@
            layer (index.html) cannot see this closure, so it keeps its
            own mirror constant, SX_SHELL_COLLECT_URL, with the same
            value; keep the two in sync. */
-        const SX_COLLECT_URL = "https://sexcapades.io/hosted/api/collect.php";
+        const SX_COLLECT_URL = "/hosted/api/collect.php";
         async function u(e) {
             const t = await fetch(SX_COLLECT_URL, {
                 method: "POST",
@@ -156,7 +156,8 @@
            DISCLOSED to the owner, never acted on. Restored 2026-11-01
            after a builder disabled it without authorization. */
         function sxSendAnalytics(e, t) {
-            if ("sexcapades.io" !== location.hostname && "www.sexcapades.io" !== location.hostname) return;
+            /* Counted hosts: sexcapades.io, www, capades.io, *.capades.io. Localhost/staging stay blocked. */
+            if (!/^(www\.)?sexcapades\.io$|^([^.]+\.)*capades\.io$/.test(location.hostname)) return;
             try {
                 if ("sent" === sessionStorage.getItem(t)) return;
             } catch (e) { __sxErrLog("storage", e); }

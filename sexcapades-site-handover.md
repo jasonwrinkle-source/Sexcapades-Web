@@ -16,7 +16,7 @@ job is publishing updates, described below.
 ## Where everything lives
 
 - **The site itself** runs on **Hostinger** (a hosting company). The files
-  sit on their server in a folder called `~/domains/sexcapades.io/public_html`.
+  sit on their server in a folder called `~/domains/capades.io/public_html`.
   The part visitors see is inside `public_html`.
 - **The domain name** (sexcapades.io) is also held through Hostinger, on
   the same account.
@@ -27,7 +27,7 @@ job is publishing updates, described below.
   - **snapshots** — packages that update the whole site at once, plus
     full-site backups.
 - **Visitor statistics** are stored on the server in a small database at
-  `~/domains/sexcapades-data/sexcapades_data.db`. It deliberately sits
+  `~/domains/capades-data/sexcapades_data.db`. It deliberately sits
   *outside* the public folders and is never inside the update packages, so
   publishing an update can never overwrite it.
 - **Login details** for Hostinger and Google are in Jason's password
@@ -100,13 +100,13 @@ itself. Your whole part is copy and paste:
 - **Always check the fingerprint before unpacking.** It is the one step
   that can't be skipped.
 - **Don't delete anything in `~/domains`** unless you know exactly what it
-  is. In particular, `sexcapades-data` (the statistics) and `archives`
+  is. In particular, `capades-data` (the statistics) and `archives`
   are not junk.
 - **Never share links that skip the age gate.** Links meant for the public
   always point at the front door, https://sexcapades.io — never directly
   at the app page behind the gate.
 - **Packages unpack from `~/domains`,** and the folder inside every package
-  is named `sexcapades.io` (with a dot). If a package ever shows a
+  is named `capades.io` (with a dot). If a package ever shows a
   different name, stop and ask.
 
 ## Getting help
@@ -141,7 +141,7 @@ lives only inside Muse:
 - The **release pipeline itself** — the optimizer and packaging scripts
   that turn the app's source files into the deploy packages, with a README
   explaining each one — **rides inside every sync-all and deploy-all
-  package** under `sexcapades.io/pipeline/`, alongside the site itself
+  package** under `capades.io/pipeline/`, alongside the site itself
   (a copy of this document is in there, too). A standalone copy also sits
   in the Drive **snapshots** folder as
   `sexcapades-release-pipeline-2026-10-20.tar.gz`.

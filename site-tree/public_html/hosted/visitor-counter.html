@@ -69,7 +69,7 @@
   }
   
   // Fetch count from API
-  fetch('https://sexcapades.io/hosted/api/collect.php', {
+  fetch('/hosted/api/collect.php', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({action: 'get_stats'})

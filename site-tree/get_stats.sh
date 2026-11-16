@@ -3,11 +3,11 @@
 # Usage: bash get_stats.sh   (or: chmod +x get_stats.sh && ./get_stats.sh)
 
 # Data lives OUTSIDE public_html so deploys don't overwrite it (Jason 2026-10-14)
-DATA_DIR="$HOME/domains/sexcapades-data"
+DATA_DIR="$HOME/domains/capades-data"
 DB="$DATA_DIR/sexcapades_data.db"
 OUT="$DATA_DIR/stats.out"
 # Still cd to site root for .build-number
-cd ~/domains/sexcapades.io/public_html/ || { echo "Could not cd to site root"; exit 1; }
+cd ~/domains/capades.io/public_html/ || { echo "Could not cd to site root"; exit 1; }
 BUILD=$(cat .build-number 2>/dev/null || echo "unknown")
 
 # Check if DB and tables exist

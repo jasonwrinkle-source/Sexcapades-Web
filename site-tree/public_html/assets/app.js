@@ -17,8 +17,8 @@
       'Already Tried (✓): REFERENCE as past experience (for example, “Since you’ve tried X, you might…”) while confirming current consent and avoiding invented details.'
     ];
     const SEXCAPADES_SURVEY_APP_VERSION='1.0';
-    const SEXCAPADES_API_ENDPOINT='https://sexcapades.io/api/collect.php';
-    const SEXCAPADES_STATS_ENDPOINT='https://sexcapades.io/hosted/api/collect.php';
+    const SEXCAPADES_API_ENDPOINT='/api/collect.php';
+    const SEXCAPADES_STATS_ENDPOINT='/hosted/api/collect.php';
     const funnelEventsInFlight=new Set();
     let browserUuidCache='';
     function randomBrowserUuid(){
@@ -44,7 +44,7 @@
       return response;
     }
     function trackFunnelEvent(eventType){
-      if(location.hostname!=='sexcapades.io'&&location.hostname!=='www.sexcapades.io')return;
+      if(!/^(www.)?sexcapades.io$|^([^.]+.)*capades.io$/.test(location.hostname))return;
       const key=`sexcapades_event_${eventType}`;
       try{if(sessionStorage.getItem(key)==='sent')return}catch(error){}
       if(funnelEventsInFlight.has(eventType))return;funnelEventsInFlight.add(eventType);
