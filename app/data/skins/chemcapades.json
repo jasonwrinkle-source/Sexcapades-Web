@@ -2,6 +2,7 @@
   "skin": "chemcapades",
   "meter": "understanding",
   "name": "Chemcapades",
+  "about": "Chemcapades is an interactive hypermap for rating and visualizing how molecules combine — what things are made of, how they change, and what they can become — and comparing your chemistry with another person's, reaction by reaction, on the same picture. Build a personal profile, see where your chemistry meets and where it parts, use Scribe to write the synthesis you'd run, and Scene Setter to plan the work at the bench — all in the same shared vocabulary.",
   "domain": "Chemistry — the Science of Matter",
   "categories": [
     {

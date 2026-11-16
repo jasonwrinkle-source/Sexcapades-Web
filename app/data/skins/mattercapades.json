@@ -2,6 +2,7 @@
   "skin": "mattercapades",
   "meter": "understanding",
   "name": "Mattercapades",
+  "about": "Mattercapades is an interactive hypermap for rating and visualizing where you stand on the stuff the world is made of and the energy that moves it — materials, power, and what to build with them — and comparing your positions with another person's, choice by choice, on the same picture. Build a personal profile, see where your choices meet and where they part, use Scribe to write up the build you'd back, and Scene Setter to plan how it gets made — all in the same shared vocabulary.",
   "domain": "Applied Physics — Materials & Quantum Technologies",
   "categories": [
     {

@@ -2,6 +2,7 @@
   "skin": "theoricapades",
   "meter": "position",
   "name": "Theoricapades",
+  "about": "Theoricapades is an interactive hypermap for rating and visualizing where you stand on the foundations of mathematics — what is true, what counts as proof, what is beautiful — and comparing your positions with another person's, claim by claim, on the same picture. Build a personal profile, see where your mathematics meets and where it parts, use Scribe to set out the proof you'd give, and Scene Setter to plan the conversation that settles it — all in the same shared vocabulary.",
   "domain": "Pure & Theoretical Mathematics — what math is, what makes it true, and how you live as a mathematician",
   "categories": [
     {

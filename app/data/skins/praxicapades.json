@@ -2,6 +2,7 @@
   "skin": "praxicapades",
   "meter": "practice",
   "name": "Praxicapades",
+  "about": "Praxicapades is an interactive hypermap for rating and visualizing how you model the world — what you compute, what you trust, and how you know a model is good — and comparing your practice with another person's, method by method, on the same picture. Build a personal profile, see where your methods meet and where they part, use Scribe to write the model you'd build, and Scene Setter to plan the review that tests it — all in the same shared vocabulary.",
   "domain": "Applied Mathematics — how you model the world, how you compute, and what you value in applied work",
   "categories": [
     {

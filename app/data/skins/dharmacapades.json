@@ -1213,6 +1213,7 @@
   ],
   "domain": "Eastern Religions — Dharmic & Taoic Traditions",
   "name": "Dharmacapades",
+  "about": "Dharmacapades is an interactive hypermap for rating and visualizing how you walk the path — practice, conduct, liberation, and what you hold sacred — and comparing your way with another person's, step by step, on the same picture. Build a personal profile, see where your paths meet and where they part, use Scribe to write the practice you'd keep, and Scene Setter to plan a conversation about the way forward — all in the same shared vocabulary.",
   "skin": "dharmacapades",
   "meter": "practice",
   "defaultLayout": {

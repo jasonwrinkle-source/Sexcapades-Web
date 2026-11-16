@@ -2,6 +2,7 @@
   "skin": "simulcapades",
   "meter": "stance",
   "name": "Simulcapades",
+  "about": "Simulcapades is an interactive hypermap for rating and visualizing what you trust about copies of the world — what a simulation can show, where it lies, and when it's real enough — and comparing your trust with another person's, claim by claim, on the same picture. Build a personal profile, see where your trust meets and where it parts, use Scribe to write the simulation you'd build, and Scene Setter to plan the check that proves it — all in the same shared vocabulary.",
   "domain": "Computational Physics — the Computer as a Virtual Laboratory",
   "categories": [
     {
