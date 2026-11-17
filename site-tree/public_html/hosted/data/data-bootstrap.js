@@ -35300,7 +35300,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, isDisc ? "- Use individual-only details for character texture, reactions, and dialogue—not as permission to add a position outside the authoritative shared ground." : "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "1", scribeLengthDisplay = "~1", scribeRequestText = "", scribeLengthUnit = "pages", scribeDetailLevel = "balanced", scribeRigor = 4;
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "minutes", scribeDetailLevel = "balanced", scribeRigor = 4;
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -35431,11 +35431,9 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }[t] || [ "paragraph", "paragraphs" ];
             return "1" === String(e) ? n[0] : n[1];
         }
-        // Effective target text (2026-11-17): the user's target, except
-        // a blank length on a YoBitch guide means the 60-minute default
-        // sequence (the old hardcoded length, kept only as the default).
+        // Effective target text: the user's target. A blank length
+        // means the 5-minute default (value 5, unit minutes).
         function sxScribeTargetText() {
-            if ("yobitch" === scribeTarget && "~1" === scribeLengthDisplay) return "60 minutes";
             return `${scribeLengthValue} ${unitWord(scribeLengthValue, scribeLengthUnit)}`;
         }
         // One parameterized phase-section builder (refactor F2): the
@@ -35694,7 +35692,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     hideExcludedNames: !0,
                     excludeFantasy: !0
                 });
-                const seqLen = "~1" === scribeLengthDisplay ? "an approximately 60-minute sequence" : `a sequence of ${sxScribeTargetText()}`;
+                const seqLen = `a sequence of ${sxScribeTargetText()}`;
                 promptText = [ "YO BITCH — WRITE THE FULL PLAY GUIDE NOW", "You are YoBitch, the user’s Muse personal AI. Write the complete, practical play guide directly in this chat. Do not return an outline, a prompt for another AI, or commentary about how to write it. Make the finished guide clear and naturally spoken, rendering it in the chat as you write so it can be voiced aloud in real time.", "", `CAST, GENDER & SEXUALITY: ${A}${C}`, "", `PROFILE DATA: ${sxIndividualProfileTexts(o, f, {
                     excludeFantasy: !0
                 })}`, "", `OVERLAP / COMPARISON RESULTS: ${s ? "No overlap or comparison result is available because only one profile is selected. Do not infer a partner’s preferences or consent." : [ D, R, O ].filter(Boolean).join("  ")}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `PLAY GUIDE SOURCE: ${sxGuidePhaseLines(f, "AFTERCARE IDEAS FROM RATINGS", "No rated aftercare preference is recorded.").join("  ")}`, "", Lu(e, {
@@ -38299,7 +38297,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             else {
                 const o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), d = e.byId("scribePageCountHelp");
                 o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
-                d && (d.textContent = "Story length in word count, paragraphs, pages, chapters, or minutes. Enter one number or a range; blank defaults to 1 page."),
+                d && (d.textContent = "Story length in word count, paragraphs, pages, chapters, or minutes. Enter one number or a range; blank defaults to 5 minutes."),
                 s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story.");
             }
             c && (c.disabled = !1),
@@ -38699,7 +38697,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             t.participantIds.length && t.topicData.length && (scribeRequestText = t.details, function(t, n) {
                 const i = e.byId("scribePageCount"), u = e.byId("scribeLengthUnit"), d = e.byId("scribeDetailLevel"), a = function() {
                     const t = e.byId("scribePageCount"), n = String(t?.value || "").trim().replace(/[–—]/g, "-");
-                    if (!n) return t && t.setCustomValidity(""), "1";
+                    if (!n) return t && t.setCustomValidity(""), "5";
                     const i = n.match(/^(\d{1,5}(?:\.\d)?)(?:\s*-\s*(\d{1,5}(?:\.\d)?))?$/);
                     if (!i) return t && (t.setCustomValidity("Use a number such as 5 or a range such as 5–7."), 
                     t.reportValidity()), null;
@@ -38716,7 +38714,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 }();
                 if (!a) return;
                 scribeLengthUnit = [ "words", "paragraphs", "pages", "minutes", "chapters" ].includes(String(u?.value || "")) ? u.value : "pages", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
-                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~1";
+                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~5";
                 const r = `Projected: ${scribeLengthDisplay} ${scribeLengthUnit}`;
                 e.byId("scenePageProjection").textContent = r, e.byId("novelAiPageProjection").textContent = r, 
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));
@@ -45721,6 +45719,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }
         let gw = "edit";
         function mw(t) {
+            const archEl = e.byId("profileArchetypeResults");
+            archEl && (archEl.innerHTML = "");
             gw = "about" === t ? "about" : "edit", Dg.dataset.profileMode = gw, _g.dataset.profileMode = gw, 
             Rg.hidden = "about" !== gw, "about" === gw && Hy ? (function(t) {
                 const i = String(nt[t] || "").trim(), a = String(it[t] || "").trim(), r = Yv(dt[t])[0], o = dc(t), s = o.green.length + o.yellow.length + o.red.length, l = Rv(ut[t]), c = Di(l);
@@ -45746,6 +45746,78 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }(Hy), e.byId("profileDetailsTitle").textContent = "About Profile", _g.querySelector(".dialog-head p").textContent = `Profile: ${wt[Hy] || "Profile"}`) : (e.byId("profileDetailsTitle").textContent = Hy ? "Edit profile" : "New profile", 
             _g.querySelector(".dialog-head p").textContent = Hy ? `Profile: ${wt[Hy] || "Profile"}` : "Name the profile and choose the identity language used by the scene builder.");
         }
+        // Profile-to-archetype projection (2026-11-17): match the profile
+        // open in this dialog against every archetype in the current skin,
+        // through the real pair engine (the same Play Match Score the
+        // Krossmatch tabs show), ranked best-first. Adam/Eve are samples,
+        // not archetypes, so they are left out. A partly-rated profile
+        // still projects — the score rests on the topics both sides rated,
+        // and the note under the list says how many that was.
+        function sxArchetypeProjection() {
+            const resultsEl = e.byId("profileArchetypeResults");
+            if (!resultsEl) return;
+            const engine = window.__SEXCAPADES_SYNC_ENGINE;
+            const samples = window.SEXCAPADES_SAMPLE_PROFILES;
+            if (!engine || !engine.pair || !engine.profileById) {
+                resultsEl.innerHTML = `<p class="profile-archetype-note">The match engine is not available right now — try again after the map finishes loading.</p>`;
+                return;
+            }
+            if (!Hy || !vt[Hy]) {
+                resultsEl.innerHTML = `<p class="profile-archetype-note">Open a profile first.</p>`;
+                return;
+            }
+            const user = engine.profileById(Hy);
+            const userRated = Object.keys(user.ratings || {}).length;
+            if (!userRated) {
+                resultsEl.innerHTML = `<p class="profile-archetype-note">Rate some topics first — the projection needs your ratings to find your closest archetype.</p>`;
+                return;
+            }
+            if (!samples || typeof samples !== "object") {
+                resultsEl.innerHTML = `<p class="profile-archetype-note">This map has no archetypes to compare against.</p>`;
+                return;
+            }
+            const scored = [];
+            Object.keys(samples).forEach(key => {
+                const entry = samples[key];
+                if (!entry || !entry.payload || !entry.payload.ratings) return;
+                if (entry.kind === "sample") return;
+                const arch = {
+                    id: "archetype:" + key,
+                    name: entry.name || key,
+                    ratings: entry.payload.ratings,
+                    annotations: {},
+                    fantasyOnly: {},
+                    alreadyTried: {},
+                    importedChildren: {},
+                    genders: [],
+                    orientations: []
+                };
+                let pair = null;
+                try { pair = engine.pair(user, arch, {}); } catch (err) { pair = null; }
+                if (!pair || !pair.play || !pair.coverage) return;
+                const shared = pair.coverage.shared || 0;
+                const headline = pair.play.headline;
+                if (!shared || !Number.isFinite(headline)) return;
+                const matchDrivers = (pair.play.lists && pair.play.lists.matches ? pair.play.lists.matches : []).map(r => r.label).filter(Boolean);
+                const curiousDrivers = (pair.play.lists && pair.play.lists.curiousAbout ? pair.play.lists.curiousAbout : []).map(r => r.label).filter(Boolean);
+                const drivers = matchDrivers.concat(curiousDrivers.filter(l => !matchDrivers.includes(l))).slice(0, 3);
+                scored.push({ key: key, name: entry.name || key, about: entry.about || "", score: Math.round(headline), shared: shared, drivers: drivers });
+            });
+            if (!scored.length) {
+                resultsEl.innerHTML = `<p class="profile-archetype-note">No shared topics yet — rate a few of the topics these archetypes cover and try again.</p>`;
+                return;
+            }
+            scored.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+            const top = scored.slice(0, 5);
+            const rows = top.map((s, i) => {
+                const drivers = s.drivers.length ? `<p class="profile-archetype-drivers">Closest on: ${s.drivers.map(Hi).join(", ")}</p>` : "";
+                const about = s.about ? `<p class="profile-archetype-about">${Hi(s.about)}</p>` : "";
+                return `<div class="profile-archetype-row"><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${Hi(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}${about}</div>`;
+            }).join("");
+            const best = top[0];
+            resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · ${Hi(best.name)} leads at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
+        }
+
         let fw = !1;
         function yw() {
             var t = e.byId("profileIndependentTip");
@@ -46029,7 +46101,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             e.preventDefault(), "about" === gw ? Ui(_g) : cw();
         }), e.byId("profileDialogEdit").onclick = () => {
             Hy && (mw("edit"), requestAnimationFrame(() => Hg.focus()));
-        }, e.byId("keepEditingProfileDetails").onclick = lw, e.byId("discardProfileDetails").onclick = sw, 
+        }, e.byId("profileArchetypeBtn") && e.byId("profileArchetypeBtn").addEventListener("click", sxArchetypeProjection), e.byId("keepEditingProfileDetails").onclick = lw, e.byId("discardProfileDetails").onclick = sw, 
         wm.addEventListener("cancel", e => {
             e.preventDefault(), lw();
         }), e.byId("saveProfileDetails").onclick = () => vw(), e.byId("saveActiveProfile").onclick = () => {
