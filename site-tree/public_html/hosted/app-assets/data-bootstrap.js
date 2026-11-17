@@ -34808,8 +34808,79 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const t = Math.max(0, Math.min(100, Number(e) || 0));
             return t <= 20 ? "tentatively Curious about" : t <= 35 ? "strongly Curious about" : t <= 55 ? "moderately Want to do" : t <= 79 ? "strongly Want to do" : "very strongly Want to do";
         }
+        // Stance-strength word for a pole affinity v in [-100, 100],
+        // on the same 80-100 / 56-79 / 36-55 / 0-35 emphasis bands
+        // Scribe uses for give/receive. A negative affinity is a stance
+        // AGAINST the pole; 0 is a recorded don't-care.
+        function sxPoleBand(v) {
+            const a = Math.abs(Number(v) || 0);
+            if (0 === a) return "don't care";
+            const s = a > 79 ? "very strong" : a > 55 ? "strong" : a > 35 ? "moderate" : a > 20 ? "mild" : "slight";
+            return (Number(v) || 0) < 0 ? s + ", against" : s;
+        }
+        // The absolute pole affinities (or the line scalar's absolute
+        // value) for a multi-pole / line topic, from a ca() rating.
+        // Null for a give/receive or single-slider topic, or when the
+        // profile holds no pole/line rating on the topic.
+        function sxPoleAffinities(topicId, rating) {
+            const w = Ge(topicId);
+            if (!w || !Array.isArray(w.keys) || w.single) return null;
+            if (1 === w.keys.length && "line" === w.keys[0]) return rating.lineKnown ? [ Math.abs(Number(rating.line) || 0) ] : null;
+            const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
+            if (!poleKeys.length) return null;
+            const vals = poleKeys.filter(k => rating[k + "Known"]).map(k => Math.abs(Number(rating[k]) || 0));
+            return vals.length ? vals : null;
+        }
+        // The strongest stance a profile holds on a multi-pole / line
+        // topic: the signed pole affinity with the largest absolute
+        // value, or the line scalar. Null when the profile holds no
+        // pole/line rating there. Built from ca() + the widget config,
+        // so it works wherever a pair record's reduced ratings cannot
+        // carry the pole vector.
+        function sxStrongestPole(topicId, profileId) {
+            const w = Ge(topicId), s = ca(topicId, profileId);
+            if (!w || !Array.isArray(w.keys) || w.single) return null;
+            if (1 === w.keys.length && "line" === w.keys[0]) return s.lineKnown ? Number(s.line) || 0 : null;
+            const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
+            if (!poleKeys.length) return null;
+            let best = null;
+            poleKeys.forEach(k => {
+                if (!s[k + "Known"]) return;
+                const v = Number(s[k]) || 0;
+                if (null == best || Math.abs(v) > Math.abs(best)) best = v;
+            });
+            return best;
+        }
+        // The active skin's Scribe genre: "discussion" on the vanilla
+        // stance/belief maps, "story" on Sexcapades. The loader sets
+        // window.__SX_SCRIBE from the skin JSON's `scribe` section.
+        function sxScribeIsDiscussion() {
+            return !!(window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre);
+        }
         function ad(e, t = "") {
             const n = Ge(t), i = [];
+            // Pole/line topic: the rating is a per-pole affinity vector
+            // (or a line scalar), not give/receive. Name each recorded
+            // pole with its value and strength; a 0 is a rating (don't
+            // care). Flanked give/receive topics carry keys give/receive
+            // and fall through to the give/receive branch below.
+            if (n && Array.isArray(n.keys) && !n.single) {
+                const keys = n.keys;
+                if (1 === keys.length && "line" === keys[0] && e.lineKnown) {
+                    i.push(`${(n.labels && n.labels[0]) || "Line"} ${Math.round(e.line)} (${sxPoleBand(e.line)})`);
+                    return i.join(" · ");
+                }
+                const poleKeys = keys.filter(k => "give" !== k && "receive" !== k);
+                if (poleKeys.length && poleKeys.some(k => e[k + "Known"])) {
+                    poleKeys.forEach(k => {
+                        if (!e[k + "Known"]) return;
+                        const v = Number(e[k]) || 0;
+                        const label = (n.labels && n.labels[keys.indexOf(k)]) || k;
+                        i.push(`${label} ${Math.round(v)} (${sxPoleBand(v)})`);
+                    });
+                    return i.join(" · ");
+                }
+            }
             return e.giveKnown && e.give >= 0 && i.push(`${n.labels[0]} ${Math.round(e.give)} (${id(e.give)})`), 
             !n.single && e.receiveKnown && e.receive >= 0 && i.push(`${n.labels[1]} ${Math.round(e.receive)} (${id(e.receive)})`), 
             i.join(" · ");
@@ -34908,13 +34979,20 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function sxSingleProfileData(e) {
             const t = rd(e), n = [], i = [];
             let a = 0;
+            const isDisc = sxScribeIsDiscussion();
             return Uc().forEach(r => {
                 if (ja(r, e)) return void a++;
                 const o = qn[r];
                 if (!o) return;
-                const s = ca(r, e), l = "favorite" === Qe[e]?.[r], c = [ s.giveKnown && s.give > 35 ? s.give : null, s.receiveKnown && s.receive > 35 ? s.receive : null ].filter(e => null !== e), d = [ s.giveKnown && s.give >= 0 && s.give <= 35 ? s.give : null, s.receiveKnown && s.receive >= 0 && s.receive <= 35 ? s.receive : null ].filter(e => null !== e);
+                // Multi-pole / line topic (2026-11-16): the strongest pole
+                // affinity (or the line scalar) joins the give/receive
+                // ratings in the same 35 threshold — established when
+                // |strongest| > 35, curious when 0 <= |strongest| <= 35,
+                // score = the strongest affinity. A 0 is a rating, so an
+                // all-zero vector lands in curious, not in "unrated".
+                const s = ca(r, e), l = "favorite" === Qe[e]?.[r], pa = sxPoleAffinities(r, s), c = [ s.giveKnown && s.give > 35 ? s.give : null, s.receiveKnown && s.receive > 35 ? s.receive : null ].concat(pa ? pa.filter(v => v > 35) : []).filter(e => null !== e), d = [ s.giveKnown && s.give >= 0 && s.give <= 35 ? s.give : null, s.receiveKnown && s.receive >= 0 && s.receive <= 35 ? s.receive : null ].concat(pa ? pa.filter(v => v >= 0 && v <= 35) : []).filter(e => null !== e);
                 if (l || c.length) {
-                    const i = c.length ? Math.max(...c) : 100, a = cd(r, e);
+                    const i = c.length ? Math.max(...c) : 100, a = cd(r, e), stance = ad(s, r);
                     n.push({
                         id: r,
                         label: o.label,
@@ -34922,7 +35000,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         score: i,
                         kind: l ? "favorite" : "interest",
                         ...a,
-                        detail: `${t}${l ? " marked this Favorite" : ""}${l && ad(s, r) ? " · " : l ? "" : " wants to do · "}${ad(s, r) || "confirm the roles before starting"}.${dd(a)}`
+                        detail: isDisc ? (l ? `${t} marked this Favorite${stance ? " · holds " + stance : ""}.` : `${t} holds ${stance || "no recorded stance"}.`) + dd(a) : `${t}${l ? " marked this Favorite" : ""}${l && stance ? " · " : l ? "" : " wants to do · "}${stance || "confirm the roles before starting"}.${dd(a)}`
                     });
                 } else if (d.length || Ha(r, e)) {
                     const n = cd(r, e), a = d.length ? Math.max(...d) : 1;
@@ -34933,7 +35011,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         score: a,
                         kind: "curious",
                         ...n,
-                        detail: `${n.fantasyOnly ? "Fictional fantasy only:" : "Curious about — discuss before deciding:"} ${t} recorded ${ad(s, r) || "no real-world willingness"}. ${n.fantasyOnly ? "Do not treat this as a practical activity." : "Curious about is not Want to do; ask explicitly and make opting out easy."}${dd(n)}`
+                        detail: isDisc ? `${t} recorded a mild stance: ${ad(s, r) || "no strong stance"}. A mild stance is not a settled position.${dd(n)}` : `${n.fantasyOnly ? "Fictional fantasy only:" : "Curious about — discuss before deciding:"} ${t} recorded ${ad(s, r) || "no real-world willingness"}. ${n.fantasyOnly ? "Do not treat this as a practical activity." : "Curious about is not Want to do; ask explicitly and make opting out easy."}${dd(n)}`
                     });
                 }
             }), n.sort((e, t) => ("favorite" === t.kind) - ("favorite" === e.kind) || t.score - e.score || e.label.localeCompare(t.label)), 
@@ -34969,6 +35047,16 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function sxMatchDetail(kind, x) {
             if ("strong" === kind) return `Combined match ${Math.round(x.score)}%. Matched direction: ${x.route ? _d(x.route, !0) : "recorded both ways"}. ${ld(x.id, x.ids[0], x.ids[1])}${dd(x.markers)}`;
             if ("curious" === kind) return `Combined match ${Math.round(x.score)}%. Curious about — discuss before deciding, with an easy opt-out. ${ld(x.id, x.ids[0], x.ids[1])} Preferred possible route: ${x.route ? _d(x.route, !0) : "recorded both ways"}.${dd(x.markers)}`;
+            // Multi-pole pair detail (2026-11-16): the agreement is the
+            // ruled per-pole comparison and the score is the Depth Factor
+            // intensity (geometric mean of each member's strongest
+            // stance). ld() names each member's pole stances through
+            // the pole-aware ad(). The agreement is reported, never a
+            // gate — what counts as a "match" for the matches/curious
+            // lists is still an open ruling (see the multi-pole
+            // follow-up); Scribe lists the shared stance either way.
+            if ("pole-strong" === kind) return `Shared stance — agreement ${Math.round((x.agreement || 0) * 100)}%, Depth Factor intensity ${Math.round(x.score)}%. ${ld(x.id, x.ids[0], x.ids[1])}${dd(x.markers)}`;
+            if ("pole-curious" === kind) return `Mild shared stance — agreement ${Math.round((x.agreement || 0) * 100)}%, Depth Factor intensity ${Math.round(x.score)}%. ${ld(x.id, x.ids[0], x.ids[1])} A mild stance is not a settled position.${dd(x.markers)}`;
             if ("group" === kind) return `Combined group match ${Math.round(x.score)}%. Matched directions: ${x.routes.map(e => _d(e, !0)).join("; ")}. ` + x.ids.map(id => `${rd(id)} — ${ad(ca(x.id, id), x.id) || "no positive direction recorded"}`).join("; ") + ".";
             return `${x.label} (${Math.round(x.score)}%${x.route ? `; ${_d(x.route, !0)}` : ""}) — ${ud(x.id, x.ids)}`;
         }
@@ -35014,7 +35102,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 // rule documented at sxSingleProfileData.
                 const i = [], pair = sxPairByIds(e, t, sxSettings);
                 if (!pair) return i;
-                return pair.topics.forEach(rec => {
+                pair.topics.forEach(rec => {
                     if ("match" !== rec.outcome) return;
                     const s = qn[rec.id];
                     if (!s) return;
@@ -35031,13 +35119,46 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         route: l,
                         detail: sxMatchDetail("strong", { id: rec.id, score: c, route: l, ids: [ e, t ], markers: p })
                     });
-                }), i.sort((e, t) => ("favorite" === t.kind) - ("favorite" === e.kind) || t.score - e.score || e.label.localeCompare(t.label)), i;
+                });
+                // Multi-pole topics (2026-11-16): the pair engine always
+                // gives them outcome "not-topics" (no give/receive
+                // flanks to route), so they never enter the MATCH branch
+                // above. Established here means BOTH profiles hold a
+                // strong stance (|strongest pole affinity| > 35, the
+                // same 35 as the single-profile rule); the score is the
+                // Depth Factor intensity (rec.poleIntensity × 100, the
+                // ruled combined intensity). The agreement is reported
+                // in the detail and does NOT gate inclusion — this does
+                // not define a "match" threshold.
+                pair.topics.forEach(rec => {
+                    if (null == rec.agreement || "not-topics" !== rec.outcome) return;
+                    const s = qn[rec.id];
+                    if (!s) return;
+                    const aStrong = sxStrongestPole(rec.id, e), bStrong = sxStrongestPole(rec.id, t);
+                    if (null == aStrong || null == bStrong) return;
+                    if (Math.abs(aStrong) <= 35 || Math.abs(bStrong) <= 35) return;
+                    const c = (rec.poleIntensity || 0) * 100, p = cd(rec.id, [ e, t ]), fav = [ e, t ].filter(x => "favorite" === Oa(rec.id, x)).map(x => rd(x)), u = fav.length > 0;
+                    i.push({
+                        id: rec.id,
+                        label: s.label,
+                        branch: s.branch,
+                        score: c,
+                        kind: u ? "favorite" : "interest",
+                        favorite: u,
+                        ...p,
+                        matchLabel: `shared stance, ${Math.round((rec.agreement || 0) * 100)}% agreement`,
+                        agreement: rec.agreement,
+                        poleIntensity: rec.poleIntensity,
+                        detail: sxMatchDetail("pole-strong", { id: rec.id, score: c, agreement: rec.agreement, ids: [ e, t ], markers: p })
+                    });
+                });
+                return i.sort((e, t) => ("favorite" === t.kind) - ("favorite" === e.kind) || t.score - e.score || e.label.localeCompare(t.label)), i;
             }
         function gdCuriousMatches(e, t, n, sxSettings) {
                 // Curious topics = sync engine v1.1 CURIOUS FIT outcomes.
                 const o = [], pair = sxPairByIds(e, t, sxSettings);
                 if (!pair) return o;
-                return pair.topics.forEach(rec => {
+                pair.topics.forEach(rec => {
                     if (n.has(rec.id) || "curious-fit" !== rec.outcome) return;
                     const d = qn[rec.id];
                     if (!d) return;
@@ -35052,7 +35173,37 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         ...b,
                         detail: sxMatchDetail("curious", { id: rec.id, score: g, route: l, ids: [ e, t ], markers: b })
                     });
-                }), o.sort((e, t) => Number(t.favorite) - Number(e.favorite) || t.score - e.score || e.label.localeCompare(t.label)), o;
+                });
+                // Multi-pole topics (2026-11-16): both rated but NOT
+                // both strong (|strongest| > 35 for both) land here as
+                // a mild shared stance, mirroring the single-profile
+                // 0–35 curious band. The strong list above already
+                // holds the both-strong ones (excluded via n), and the
+                // both-strong guard below is belt-and-braces. Score is
+                // the same Depth Factor intensity as the strong list.
+                pair.topics.forEach(rec => {
+                    if (n.has(rec.id) || null == rec.agreement || "not-topics" !== rec.outcome) return;
+                    const d = qn[rec.id];
+                    if (!d) return;
+                    const aStrong = sxStrongestPole(rec.id, e), bStrong = sxStrongestPole(rec.id, t);
+                    if (null == aStrong || null == bStrong) return;
+                    if (Math.abs(aStrong) > 35 && Math.abs(bStrong) > 35) return;
+                    const g = (rec.poleIntensity || 0) * 100, y = [ e, t ].some(x => "favorite" === Oa(rec.id, x)), b = cd(rec.id, [ e, t ]);
+                    o.push({
+                        id: rec.id,
+                        label: d.label,
+                        branch: d.branch,
+                        score: g,
+                        kind: "curious",
+                        favorite: y,
+                        ...b,
+                        matchLabel: `mild shared stance, ${Math.round((rec.agreement || 0) * 100)}% agreement`,
+                        agreement: rec.agreement,
+                        poleIntensity: rec.poleIntensity,
+                        detail: sxMatchDetail("pole-curious", { id: rec.id, score: g, agreement: rec.agreement, ids: [ e, t ], markers: b })
+                    });
+                });
+                return o.sort((e, t) => Number(t.favorite) - Number(e.favorite) || t.score - e.score || e.label.localeCompare(t.label)), o;
             }
         function sxCastMatchData(e, t, sxSettings) {
             // Writers Phase 3 (F4): the retired leniency slot is gone.
@@ -35135,13 +35286,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }), [ ...new Set(t) ].sort((e, t) => e.localeCompare(t));
         }
         function sxIndividualProfileTexts(e, t, n = {}) {
-            const i = new Set(t.established.concat(t.curious).map(e => e.id)), a = new Set(Uc().filter(t => e.some(e => ja(t, e)))), r = new Set(n.excludeFantasy ? Uc().filter(t => e.some(e => Ha(t, e))) : []);
+            const i = new Set(t.established.concat(t.curious).map(e => e.id)), a = new Set(Uc().filter(t => e.some(e => ja(t, e)))), r = new Set(n.excludeFantasy ? Uc().filter(t => e.some(e => Ha(t, e))) : []), isDisc = sxScribeIsDiscussion();
             return e.map(e => {
-                const t = sxSingleProfileData(e), n = t.established.concat(t.curious).filter(e => !a.has(e.id) && !r.has(e.id)), o = n.filter(e => i.has(e.id)), s = n.filter(e => !i.has(e.id)), l = t => `${t.label} — ${ud(t.id, [ e ])} SLIDER RATINGS AND ROLES — ${ad(ca(t.id, e), t.id) || t.kind}`;
-                return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
+                const t = sxSingleProfileData(e), n = t.established.concat(t.curious).filter(e => !a.has(e.id) && !r.has(e.id)), o = n.filter(e => i.has(e.id)), s = n.filter(e => !i.has(e.id)), l = t => `${t.label} — ${ud(t.id, [ e ])} ${isDisc ? "STANCE DETAIL" : "SLIDER RATINGS AND ROLES"} — ${ad(ca(t.id, e), t.id) || t.kind}`;
+                return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, isDisc ? "- Use individual-only details for character texture, reactions, and dialogue—not as permission to add a position outside the authoritative shared ground." : "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "1", scribeLengthDisplay = "~1", scribeRequestText = "", scribeLengthUnit = "pages", scribeDetailLevel = "balanced";
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "1", scribeLengthDisplay = "~1", scribeRequestText = "", scribeLengthUnit = "pages", scribeDetailLevel = "balanced", scribeRigor = 4;
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -35220,11 +35371,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 displayName: "General AI",
                 shortName: "AI-agnostic",
                 storyMeta: "AI story",
-                head: story => story ? "AI-agnostic story prompt, ready to download and upload into Grok, Gemini, Claude, or another capable AI." : "AI-agnostic play-guide prompt, ready to download.",
-                title: story => story ? "Literotica-style story" : "Play guide",
-                intro: (story, single) => story ? "Weighted from slider ratings and all five topic markers. Limits stay out; favorites lead; fantasy-only stays clearly imagined; already-tried becomes past experience." : single ? "Built from this profile’s slider ratings and all five topic markers. Limits and fantasy-only topics stay out of practical play." : "Built from compatible ratings, all five topic markers, and the filled negotiation checklist.",
+                head: story => sxScribeIsDiscussion() ? "AI-agnostic discussion prompt, ready to download and upload into Grok, Gemini, Claude, or another capable AI." : story ? "AI-agnostic story prompt, ready to download and upload into Grok, Gemini, Claude, or another capable AI." : "AI-agnostic play-guide prompt, ready to download.",
+                title: story => sxScribeIsDiscussion() && story ? "Informed discussion" : story ? "Literotica-style story" : "Play guide",
+                intro: (story, single) => sxScribeIsDiscussion() ? "Weighted from the recorded pole stances. Positions come only from the recorded stances; the discussion steelmans each side and follows the agreement where the profiles overlap." : story ? "Weighted from slider ratings and all five topic markers. Limits stay out; favorites lead; fantasy-only stays clearly imagined; already-tried becomes past experience." : single ? "Built from this profile’s slider ratings and all five topic markers. Limits and fantasy-only topics stay out of practical play." : "Built from compatible ratings, all five topic markers, and the filled negotiation checklist.",
                 help: () => "Copy the full prompt below or download it as a text file, then give it to Grok, Gemini, Claude, or another capable AI.",
-                note: (story, single) => story ? "AI-agnostic story prompt generated from the selected profile data." : `AI-agnostic play guide generated from ${single ? "the loaded profile" : "the current Group and negotiation checklist"}.`
+                note: (story, single) => sxScribeIsDiscussion() && story ? "AI-agnostic discussion prompt generated from the selected profile data." : story ? "AI-agnostic story prompt generated from the selected profile data." : `AI-agnostic play guide generated from ${single ? "the loaded profile" : "the current Group and negotiation checklist"}.`
             }
         };
         function sxScribeTargetInfo(target) {
@@ -35259,7 +35410,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         function Ad(e) {
             const t = String(scribeRequestText || "").trim();
-            return t ? [ `USER’S ${e ? "STORY" : "PLAY-GUIDE"} REQUEST — CREATIVE DIRECTION`, t, "Honor this request wherever it fits the selected hypermap data. If any part conflicts with a hard exclusion, recorded role, shared-ground boundary, consent rule, or other binding requirement below, omit the conflicting part and preserve the binding profile data." ].join("\n") : "";
+            const kind = sxScribeIsDiscussion() ? "DISCUSSION" : e ? "STORY" : "PLAY-GUIDE";
+            return t ? [ `USER’S ${kind} REQUEST — CREATIVE DIRECTION`, t, "Honor this request wherever it fits the selected hypermap data. If any part conflicts with a hard exclusion, recorded role, shared-ground boundary, consent rule, or other binding requirement below, omit the conflicting part and preserve the binding profile data." ].join("\n") : "";
         }
         function unitWord(e, t) {
             const n = {
@@ -35281,10 +35433,22 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 extended: "a long portion of the total length",
                 marathon: "the largest portion of the total length"
             }, val = id => String(e.byId(prefix + id)?.value || "").trim(), on = id => Boolean(e.byId(prefix + id)?.checked), rows = [];
-            return on("PhaseWarmupOn") && rows.push(`- Warm-up: ${val("PhaseWarmupIntensity")} intensity, lasting ${dur[val("PhaseWarmupDuration")] || dur.standard} — ease in, build anticipation, and set the tone before the main phase.`),
-            on("PhaseMainOn") && rows.push(`- Main phase: ${val("PhaseMainIntensity")} intensity, lasting ${dur[val("PhaseMainDuration")] || dur.standard} — the core of the scene, carrying the strongest established interests.`),
-            on("PhaseCooldownOn") && rows.push(`- Cool-down / aftercare: ${val("PhaseCooldownStyle")}, lasting ${dur[val("PhaseCooldownDuration")] || dur.standard} — wind down gradually and close with care.`),
-            rows.length ? [ "SCENE STRUCTURE", header, ...rows ].join("\n") : "";
+            // Discussion phases (2026-11-16): on a vanilla skin the
+            // Scribe dialog's phases are Opening / Development /
+            // Closing (from the skin JSON's `scribe.phases` section),
+            // not Warm-up / Main phase / Cool-down. The Scene Setter
+            // ("setter" prefix) is untouched — its skinning is not
+            // ruled, so it keeps the scene phases on every skin.
+            const isDisc = "scribe" === prefix && sxScribeIsDiscussion(),
+                ph = isDisc && window.__SX_SCRIBE && window.__SX_SCRIBE.phases ? window.__SX_SCRIBE.phases : null,
+                wLabel = ph && ph.warmup ? ph.warmup : "Warm-up",
+                mLabel = ph && ph.main ? ph.main : "Main phase",
+                cLabel = ph && ph.cooldown ? ph.cooldown : "Cool-down / aftercare",
+                sectionHead = isDisc ? "DISCUSSION STRUCTURE" : "SCENE STRUCTURE";
+            return on("PhaseWarmupOn") && rows.push(`- ${wLabel}: ${val("PhaseWarmupIntensity")} intensity, lasting ${dur[val("PhaseWarmupDuration")] || dur.standard} — ${isDisc ? "open the discussion, set out the positions, and frame the question before the main development." : "ease in, build anticipation, and set the tone before the main phase."}`),
+            on("PhaseMainOn") && rows.push(`- ${mLabel}: ${val("PhaseMainIntensity")} intensity, lasting ${dur[val("PhaseMainDuration")] || dur.standard} — ${isDisc ? "the core of the discussion, carrying the strongest recorded stances." : "the core of the scene, carrying the strongest established interests."}`),
+            on("PhaseCooldownOn") && rows.push(`- ${cLabel}: ${val("PhaseCooldownStyle")}, lasting ${dur[val("PhaseCooldownDuration")] || dur.standard} — ${isDisc ? "close by drawing the threads together." : "wind down gradually and close with care."}`),
+            rows.length ? [ sectionHead, header, ...rows ].join("\n") : "";
         }
         function scribePhaseSection() {
             return sxPhaseSection("scribe", "Organize the output into the following phases, in this order, pacing each phase to its stated duration and transitioning clearly between phases:");
@@ -35327,7 +35491,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 return "straight" === i || "heterosexual" === i ? c(r ? `Choose an adult woman as ${a}’s unnamed partner to fit ${a}’s ${s.toLowerCase()} identity.` : o ? `Choose an adult man as ${a}’s unnamed partner to fit ${a}’s ${s.toLowerCase()} identity.` : `Choose an adult partner configuration consistent with ${a}’s ${s.toLowerCase()} identity; this shared profile does not identify one person’s gender.`) : "lesbian" === i ? c(`Choose an adult woman as ${a}’s unnamed partner. Do not infer anatomy.`) : "gay" === i ? c(r ? `Choose an adult man as ${a}’s unnamed partner. Do not infer anatomy.` : o ? `Choose an adult woman as ${a}’s unnamed partner. Do not infer anatomy.` : `Choose an adult partner gender consistent with ${a}’s gay identity; the profile does not identify one person’s gender.`) : "heteroflexible" === i ? c(r ? `Prefer an adult woman as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s heteroflexible identity.` : o ? `Prefer an adult man as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s heteroflexible identity.` : `Choose an adult partner gender consistent with ${a}’s heteroflexible identity.`) : "homoflexible" === i ? c(r ? `Prefer an adult man as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s homoflexible identity.` : o ? `Prefer an adult woman as ${a}’s unnamed partner, while allowing another gender when the story deliberately reflects ${a}’s homoflexible identity.` : `Choose an adult partner gender consistent with ${a}’s homoflexible identity.`) : [ "bisexual", "pansexual", "queer", "fluid", "bicurious", "omnisexual" ].includes(i) ? c(`Choose an adult partner gender that fits ${a}’s ${s.toLowerCase()} identity; do not default automatically to an opposite-gender partner, and do not infer anatomy.`) : c("asexual" === i ? `${a} is asexual, which does not determine partner gender. Choose any adult partner gender only as the story needs, without inventing sexual-attraction assumptions.` : "demisexual" === i ? `${a} is demisexual, which does not determine partner gender. Choose any adult partner gender without inventing anatomy or unsupported relationship history.` : `${a}’s recorded sexuality (${s}) does not determine one partner gender. Choose an adult partner gender without contradicting that identity or inventing anatomy.`);
             }(scribeLeadId)}` : "", M = u ? f.established.filter(e => "Connection & aftercare" !== e.branch) : f.established, I = u ? f.curious.filter(e => "Connection & aftercare" !== e.branch) : f.curious, P = g.length ? u ? `- FANTASY ONLY: ${g.map(e => e.label).join(", ")}. These may appear only as clearly imagined fantasies; never treat them as real-world willingness or consent.` : `- ${g.length} fantasy-only ${1 === g.length ? "topic is" : "topics are"} omitted from this practical guide. Their names are intentionally absent from the prompt.` : "", L = m.length ? `- ALREADY TRIED: ${m.map(e => e.label).join(", ")}. Explicitly reference this as past experience without inventing details or assuming current consent.` : "";
             var T;
-            const F = [ (T = u, [ "MARKER HANDLING — BINDING:", ...i, ...T ? a : r ].map(e => "MARKER HANDLING — BINDING:" === e ? e : `- ${e}`).join(" ")), P, L, M.concat(I).map(e => `- ${e.label}: ${ud(e.id, o)} SLIDER RATINGS AND ROLES — ${(u ? td : ed)(e.detail)}`).join(" ") ].filter(Boolean).join(" ") || "- none recorded", N = sxHardLimitLines(o).length, _ = N ? `- ${N} hard-excluded ${1 === N ? "topic is" : "topics are"} omitted from this prompt. Their names are intentionally absent.` : "- No hard-excluded topics are marked.", D = s ? "" : [ "ESTABLISHED ROLE DYNAMICS — INFERRED FROM RECORDED DIRECTION SCORES", p.length ? p.map(e => `- ${e.text}`).join(" ") : "- No clear complementary dominant/submissive pairing is established.", "- When a clear pairing is listed, keep those dominant/submissive roles stable throughout. Do not suggest, schedule, or narrate a role reversal; explicit per-activity give/receive directions still control who performs each named activity." ].join(" "), R = s ? "" : [ "AUTHORITATIVE FULL-GROUP SHARED GROUND — PRECOMPUTED", `- Scores computed by the sync comparison engine (v1.1).`, `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${_d(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => _d(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${_d(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => _d(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", "- Activities may come only from this full-group shared ground. Pairwise and individual profiles add character texture and dynamics, not new activity permission." ].join(" "), O = s ? "" : function(e, n = {}) {
+            const F = [ (T = u, [ "MARKER HANDLING — BINDING:", ...i, ...T ? a : r ].map(e => "MARKER HANDLING — BINDING:" === e ? e : `- ${e}`).join(" ")), P, L, M.concat(I).map(e => `- ${e.label}: ${ud(e.id, o)} SLIDER RATINGS AND ROLES — ${(u ? td : ed)(e.detail)}`).join(" ") ].filter(Boolean).join(" ") || "- none recorded", N = sxHardLimitLines(o).length, _ = N ? `- ${N} hard-excluded ${1 === N ? "topic is" : "topics are"} omitted from this prompt. Their names are intentionally absent.` : "- No hard-excluded topics are marked.", D = sxScribeIsDiscussion() ? "" : s ? "" : [ "ESTABLISHED ROLE DYNAMICS — INFERRED FROM RECORDED DIRECTION SCORES", p.length ? p.map(e => `- ${e.text}`).join(" ") : "- No clear complementary dominant/submissive pairing is established.", "- When a clear pairing is listed, keep those dominant/submissive roles stable throughout. Do not suggest, schedule, or narrate a role reversal; explicit per-activity give/receive directions still control who performs each named activity." ].join(" "), R = s ? "" : [ "AUTHORITATIVE FULL-GROUP SHARED GROUND — PRECOMPUTED", `- Scores computed by the sync comparison engine (v1.1).`, `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${_d(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => _d(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${e.route ? `; ${_d(e.route, !0)}` : e.routes ? `; ${e.routes.map(e => _d(e, !0)).join(" | ")}` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", sxScribeIsDiscussion() ? "- Positions may come only from this full-group shared ground. Pairwise and individual profiles add character texture and dynamics, not new positions." : "- Activities may come only from this full-group shared ground. Pairwise and individual profiles add character texture and dynamics, not new activity permission." ].join(" "), O = s ? "" : function(e, n = {}) {
                 if (e.length < 3) return "";
                 const i = new Set(Uc().filter(t => e.some(e => ja(t, e)))), a = new Set(n.excludeFantasy ? Uc().filter(t => e.some(e => Ha(t, e))) : []);
                 return Id(e).map(([e, n]) => {
@@ -35348,26 +35512,27 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // the composers and the finisher below.
         function sxRenderScribeBrief(ctx) {
             const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f, targetInfo, targetDisplayName: k } = ctx;
-            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span><span>${u ? targetInfo.storyMeta : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${f.established.length} ${y}${1 === f.established.length ? "" : "s"}</span><span>${f.curious.length} curious</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
+            const isDisc = sxScribeIsDiscussion();
+            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span><span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${f.established.length} ${y}${1 === f.established.length ? "" : "s"}</span><span>${f.curious.length} curious</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
             const establishedLabels = f.established.map(e => e.label).join(" · ") || "None recorded", curiousLabels = f.curious.map(e => e.label).join(" · ") || "None recorded";
-            e.byId("sceneNegotiationTitle").textContent = u ? "Story ingredients" : "Negotiation notes";
+            e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? "Discussion ingredients" : "Story ingredients") : "Negotiation notes";
             const roleDynamicItem = p.length ? `<li><strong>Established role dynamic</strong><span>${Hi(h)} Keep these dominant/submissive roles stable; do not suggest switching them.</span></li>` : "";
-            if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${Hi(s ? d + " with an unnamed adult partner" : w)}</span></li>${roleDynamicItem}<li><strong>Want to do</strong><span>${Hi(establishedLabels)}</span></li><li><strong>Curious about</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Keep these fictional; they do not signal real-world willingness.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
+            if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${Hi(s ? (isDisc ? d : d + " with an unnamed adult partner") : w)}</span></li>${roleDynamicItem}<li><strong>${isDisc ? "Established stances" : "Want to do"}</strong><span>${Hi(establishedLabels)}</span></li><li><strong>${isDisc ? "Curious stances" : "Curious about"}</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Keep these fictional; they do not signal real-world willingness.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
                 const t = s ? `<li><strong>Source profile</strong><span>${Hi(d)} only. A partner’s preferences are not assumed.</span></li>` : `<li><strong>Group profiles</strong><span>${Hi(w)}</span></li>`;
                 n(e.byId("sceneNegotiation"), `${t}${roleDynamicItem}<li><strong>Want to do</strong><span>${Hi(establishedLabels)}</span></li><li><strong>Curious about</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only — excluded</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Do not schedule or suggest these in real-world play.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Prior experience may inform pacing and check-ins.</span></li>` : ""}<li><strong>Before starting</strong><span>Confirm every named activity, actual intensity, pacing, roles, stop signals, and practical details. Curious about is not Want to do; ask explicitly before including it.</span></li>`);
             }
             const renderPhaseList = (listId, items, emptyText) => {
                 const r = e.byId(listId);
                 items.length ? n(r, items.map(e => `<li><strong>${Hi(function(e) {
-                    const t = "curious" === e.kind ? "Curious about · " : "favorite" === e.kind ? "Favorite · " : "", n = e.matchLabel ? ` · ${Math.round(e.score)}% ${e.matchLabel}` : "curious" === e.kind ? ` · curious ${Math.round(e.score)}` : ` · interest ${Math.round(e.score)}`;
+                    const t = "curious" === e.kind ? (isDisc ? "Mild stance · " : "Curious about · ") : "favorite" === e.kind ? "Favorite · " : "", n = e.matchLabel ? ` · ${Math.round(e.score)}% ${e.matchLabel}` : "curious" === e.kind ? ` · ${isDisc ? "mild stance" : "curious"} ${Math.round(e.score)}` : ` · ${isDisc ? "stance" : "interest"} ${Math.round(e.score)}`;
                     return t + e.label + n;
                 }(e))}</strong><span>${Hi(ed(e.detail))}</span></li>`).join("")) : n(r, `<li>${Hi(emptyText)}</li>`);
             };
-            renderPhaseList("sceneWarmup", f.warmup, u ? "Open directly into the fantasy." : "No separate warm-up item is recorded."), 
-            renderPhaseList("sceneEscalation", f.escalation, u ? "Escalate naturally from the listed interests." : "No additional escalation or exploration item is recorded."), 
-            renderPhaseList("scenePeak", f.peak, u ? "Choose the strongest listed interest for the climax." : "No established non-aftercare favorite or interest is recorded for a peak. Keep it open until agreed together."), 
+            renderPhaseList("sceneWarmup", f.warmup, u ? (isDisc ? "Open with the positions." : "Open directly into the fantasy.") : "No separate warm-up item is recorded."), 
+            renderPhaseList("sceneEscalation", f.escalation, u ? (isDisc ? "Develop the strongest stances." : "Escalate naturally from the listed interests.") : "No additional escalation or exploration item is recorded."), 
+            renderPhaseList("scenePeak", f.peak, u ? (isDisc ? "Give the strongest stance the fullest treatment." : "Choose the strongest listed interest for the climax.") : "No established non-aftercare favorite or interest is recorded for a peak. Keep it open until agreed together."), 
             __sxClosestAction(e.one("#sceneAftercare"), "scenePhase").querySelector("h4").textContent = u ? "Closing" : "Aftercare", 
-            renderPhaseList("sceneAftercare", u ? [] : f.aftercare, u ? "End with a satisfying erotic denouement after the climax." : "No aftercare preference is recorded. Agree on aftercare before beginning.");
+            renderPhaseList("sceneAftercare", u ? [] : f.aftercare, u ? (isDisc ? "Close by drawing the threads together." : "End with a satisfying erotic denouement after the climax.") : "No aftercare preference is recorded. Agree on aftercare before beginning.");
         }
         // Story composer (refactor F1): assembles the story-mode
         // prompt for the resolved target from the shared sections.
@@ -35399,6 +35564,71 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 dynamic: h
             }) : "strictai" === scribeTarget ? [ `Write a mature, romantic, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, romantic, and strongly suggestive rather than graphic. Focus on chemistry, anticipation, dialogue, emotion, atmosphere, power dynamics, consent, and aftermath.", "- Do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet, non-graphic phrasing and fade to black whenever needed.", "- The supplied preference labels are private planning data. Translate them into tasteful, general language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and suggestive action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "suggestive" === scribeTarget ? [ `Write a mature, sensual, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, and strongly suggestive without turning graphic. Describe chemistry, anticipation, touch, and desire in warm sensual detail, but do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet phrasing and fade to black whenever an act would turn graphic.", "- The supplied preference labels are private planning data. Translate them into tasteful, sensual language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and sensual action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "explicit" === scribeTarget ? [ `Write an immersive, explicit erotic story for ${d} to enjoy, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Do not return an outline, checklist, programming code, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content explicit and uninhibited in detail within the recorded preferences, keeping the tone elegant and restrained rather than raw. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ") : [ `Write an immersive Literotica-style porn story for ${s ? `${d} to enjoy and masturbate to` : `${w} to enjoy`}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Do not return an outline, checklist, programming code, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content hot, spicy, steamy, graphic, explicit, and uninhibited within the recorded preferences. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ");
             return composedPromptText;
+        }
+        // Discussion composer (2026-11-16, Jason's ruling): on the
+        // vanilla stance/belief maps Scribe writes an informed
+        // discussion between the stances recorded on the map — or, for
+        // a multi-profile cast, between the stances and the
+        // commonalities of the bow-tie (Play/Commune) and circle-dot
+        // (Conversation/Converse) profiles. It is NOT a story: no
+        // Literotica framing, no erotic content, no give/receive roles,
+        // no Scene Setter pointer. The per-skin prompt template
+        // (opening, rules, rigor) comes from the skin JSON's
+        // `scribe.prompt` section via window.__SX_SCRIBE. The Depth
+        // slider (scribeRigor, 1-5) is the rigor knob: at 5 the
+        // discussion is dissertation-defense standard.
+        function sxComposeScribeDiscussion(ctx) {
+            const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f } = ctx, { A, C, M, I, F, _, D, R, O, B, j, q, H } = ctx.sections;
+            const spec = window.__SX_SCRIBE || null, pr = (spec && spec.prompt) || {};
+            const opening = pr.opening || "Write an informed discussion between the stances recorded on this map.";
+            const rules = Array.isArray(pr.rules) ? pr.rules : [];
+            const rigor = pr.rigor || "";
+            // The cast, by name only: gender, orientation, and
+            // give/receive roles are Sexcapades data and have no meaning
+            // for a stance map, so the shared cast line (A) is not used.
+            const castLine = s ? `${d} (one profile)` : w;
+            // The stance lists, with each topic's pole detail. The
+            // detail strings are already pole-aware through ad(), and
+            // the pair details already carry the agreement and the
+            // Depth Factor intensity — so the score in parens is the
+            // intensity and the detail states the agreement, with no
+            // matchLabel to repeat it.
+            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%): ${ed(e.detail)}`;
+            const stanceDetail = [ `ESTABLISHED STANCES: ${M.map(fmtStance).join(" ") || "none recorded"}.`, `CURIOUS STANCES: ${I.map(fmtStance).join(" ") || "none recorded"}.` ].join(" ");
+            // The shared ground for a multi-profile cast: the
+            // authoritative overlap, stated as positions (not
+            // activities). For a single profile there is no overlap.
+            const sharedLine = s ? "" : [ "SHARED GROUND — THE COMMONALITIES", `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", "- Positions may come only from this shared ground. Pairwise and individual profiles add character texture and dynamics, not new positions." ].join(" ");
+            // The rigor line: the Depth slider at 5 ("Dissertation
+            // defense") turns the discussion into dissertation-defense
+            // material. The length and detail knobs are carried by the
+            // length line below; the JSON's rigor text names all three
+            // because the slider is the depth/rigor control and the
+            // length/detail lines already reflect the other two.
+            const rigorLine = 5 === scribeRigor && rigor ? rigor : "";
+            const lengthLine = `- Target approximately ${scribeLengthValue} ${j} of discussion text. Return only the finished discussion directly as plain text. ${"concise" === scribeDetailLevel ? "Keep the discussion concise: short sections and only the essential arguments." : "detailed" === scribeDetailLevel ? "Use high detail: full arguments, objections, and replies." : "Use balanced detail: enough argument and reply to follow without over-writing."}`;
+            return [
+                opening,
+                "",
+                `CAST: ${castLine}`,
+                "",
+                `STANCE DETAIL: ${stanceDetail}`,
+                "",
+                `HARD-EXCLUDED LIMITS: ${_}`,
+                "",
+                "Rules:",
+                ...rules.map(r => `- ${r}`),
+                rigorLine ? `- ${rigorLine}` : "",
+                lengthLine,
+                "- Use only the named topics below as the positions in the discussion. Do not add, imply, or reference any unlisted stance.",
+                "- Every marked Limit has been hard-excluded. Never reintroduce an excluded topic — not as a position, an objection, a suggestion, or background detail.",
+                s ? "- Use the one profile as the source of stance detail." : "- Use the authoritative shared ground above as the position boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.",
+                "- Treat curious items as mild stances: include them as open questions, not settled positions.",
+                "- Use each profile's recorded stance as emphasis: 80–100 central, 56–79 strong support, 36–55 light, and 0–35 optional curiosity. When two profiles disagree, give each side its strongest form before comparing them.",
+                "- Do not invent identity, physical details, relationship history, or permissions beyond the supplied data.",
+                sharedLine ? "" : "",
+                sharedLine
+            ].filter(e => "" !== e).join("\n\n");
         }
         // One phase-lines builder (writers refactor): the single and
         // group guide composers and the YoBitch rebuild below repeated
@@ -35482,13 +35712,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 peak: rawMatchData.peak.filter(e => !e.fantasyOnly),
                 aftercare: rawMatchData.aftercare.filter(e => !e.fantasyOnly)
             });
-            if (!(promptMatchData.established.length + promptMatchData.curious.length)) return e.byId("sceneAvailability").textContent = !isStory && fantasyTopics.length ? "Only fantasy-only topics are available. Add a real-world interest before creating a practical play guide." : "No favorites, positive interests, or curious ratings are available yet.", 
+            if (!(promptMatchData.established.length + promptMatchData.curious.length)) return e.byId("sceneAvailability").textContent = sxScribeIsDiscussion() ? "No strong or mild stances are recorded yet." : !isStory && fantasyTopics.length ? "Only fantasy-only topics are available. Add a real-world interest before creating a practical play guide." : "No favorites, positive interests, or curious ratings are available yet.", 
             void (e.byId("sceneBrief").hidden = !0);
             const establishedKindLabel = isSingle ? "favorite / interest" : "compatible interest", castSummary = castIds.map(e => `${rd(e)} · ${vb(rt[e]) || "gender unspecified"} · ${Nb(ot[e]) || "orientation unspecified"}`).join(" + "), castNames = castIds.map(e => rd(e)), castNameList = castNames.length < 2 ? castNames[0] : 2 === castNames.length ? castNames.join(" and ") : `${castNames.slice(0, -1).join(", ")}, and ${castNames[castNames.length - 1]}`, targetInfo = sxScribeTargetInfo(scribeTarget), targetDisplayName = targetInfo.displayName;
             const promptCtx = { castIds, isSingle, isStory, leadName, castNames, castNameList, castSummary, establishedKindLabel, targetInfo, targetDisplayName, roleDynamics, roleDynamicText, fantasyTopics, triedTopics, promptMatchData, sections: null };
             sxRenderScribeBrief(promptCtx);
             promptCtx.sections = sxScribeSharedSections(castIds, isSingle, isStory, roleDynamics, promptMatchData, fantasyTopics, triedTopics);
-            const composedPrompt = isStory ? sxComposeScribeStory(promptCtx) : sxComposeScribeGuide(promptCtx), finalPrompt = sxFinishScribePrompt(composedPrompt, promptCtx);
+            const composedPrompt = isStory ? (sxScribeIsDiscussion() ? sxComposeScribeDiscussion(promptCtx) : sxComposeScribeStory(promptCtx)) : sxComposeScribeGuide(promptCtx), finalPrompt = sxFinishScribePrompt(composedPrompt, promptCtx);
             scribePromptCache = finalPrompt, e.byId("scenePromptText").value = scribePromptCache, e.byId("sceneAvailability").textContent = targetInfo.note(isStory, isSingle), 
             e.byId("sceneDownloadStatus").textContent = "", e.byId("copyScenePrompt").textContent = "Copy", 
             e.byId("sceneBrief").hidden = !1;
@@ -38028,10 +38258,21 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castText;
             if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castText;
             scribePartnerId = 2 === t.length ? t[1] : null;
-            const a = t.filter(e => vt[e]).length > 1, o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit"), d = e.byId("scribePageCountHelp");
-            o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
-            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page."),
-            s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story."),
+            const a = t.filter(e => vt[e]).length > 1, l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit");
+            // The panel copy comes from the active skin's `scribe`
+            // section (window.__SX_SCRIBE, set by the loader). The
+            // loader swaps the same strings at boot; this re-applies
+            // them on open with the cast's real single/multi form. On a
+            // vanilla skin there is no Scene Setter pointer and no
+            // Literotica copy — the spec's discussion copy replaces it.
+            if (window.__SX_SET_SCRIBE_PANEL) window.__SX_SET_SCRIBE_PANEL(window.__SX_SCRIBE, a);
+            else {
+                const o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), d = e.byId("scribePageCountHelp");
+                o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
+                d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page."),
+                s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story.");
+            }
+            c && (c.disabled = !1),
             l && (l.textContent = "Prompt"), kg.open && Ui(kg),
             Sg.open && Ui(Sg), Oc.open && Ui(Oc), jc.open && Ui(jc), Wi(Bc);
         }
@@ -38448,10 +38689,18 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 const r = `Projected: ${scribeLengthDisplay} ${scribeLengthUnit}`;
                 e.byId("scenePageProjection").textContent = r, e.byId("novelAiPageProjection").textContent = r, 
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));
+                // On a vanilla skin the Explicitness slider is the Depth
+                // slider: its value (1-5) is the discussion's rigor
+                // (the composer turns it into dissertation-defense
+                // material at 5), and the AI target is always the
+                // general AI — the story tones (strictai, suggestive,
+                // explicit) are Sexcapades-only and never apply to a
+                // discussion.
+                if (sxScribeIsDiscussion()) scribeRigor = Math.min(5, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4));
                 const sxSharedIds = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]), sxSharedData = sxSharedIds.length ? sxScribeMatchData(sxSharedIds, 1 === sxSharedIds.length) : null;
                 const o = "porn" === scribeMode, s = e.byId("scribeTitle"), l = e.byId("scribeModeSummary");
-                if (s) s.textContent = o ? "Scribe — Story" : "Scribe — Play Guide";
-                if (l) l.textContent = o ? "Fictional storytelling for enjoyment and fantasy — not a real-world plan." : "Practical coordination guidance for real-world use — not fiction; confirm every activity together.";
+                if (s) s.textContent = o ? (sxScribeIsDiscussion() ? "Scribe — Discussion" : "Scribe — Story") : "Scribe — Play Guide";
+                if (l) l.textContent = o ? (sxScribeIsDiscussion() && window.__SX_SCRIBE && window.__SX_SCRIBE.panel && window.__SX_SCRIBE.panel.summary ? window.__SX_SCRIBE.panel.summary : "Fictional storytelling for enjoyment and fantasy — not a real-world plan.") : "Practical coordination guidance for real-world use — not fiction; confirm every activity together.";
                 sxNovelAiFields = null;
                 sxPrepScribeDialog(sxSharedData, !0);
                 sxBuildScribePrompt(sxSharedData);
@@ -38481,8 +38730,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     briefEl.hidden = !1;
                     try { briefEl.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
                 }
-            }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit", 4: "uninhibited", 5: "extreme" })[t.explicitness] || "grok"));
-        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(5, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited", "Extreme" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
+            }("porn", sxScribeIsDiscussion() ? "grok" : ({ 1: "strictai", 2: "suggestive", 3: "explicit", 4: "uninhibited", 5: "extreme" })[t.explicitness] || "grok"));
+        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(5, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"), lv = window.__SX_SCRIBE && window.__SX_SCRIBE.explicitness && window.__SX_SCRIBE.explicitness.levels ? window.__SX_SCRIBE.explicitness.levels : [ "Tame", "Suggestive", "Explicit", "Uninhibited", "Extreme" ]; i && (i.textContent = `${n} · ${lv[n - 1] || ""}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
         sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
@@ -38503,10 +38752,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }), e.byId("downloadScenePrompt") && e.byId("downloadScenePrompt").addEventListener("click", function() {
             const n = e.byId("scenePromptText"), i = e.byId("sceneDownloadStatus"), a = currentScribePrompt();
             if (!a) return void (i.textContent = "Generate a prompt first.");
-            const r = sxFilenameSlug((scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]).map(e => wt[e]).join("-"), "profile"), o = "porn" === scribeMode ? "story-prompt" : "play-guide-prompt", s = new Blob([ a + "\n" ], {
+            const r = sxFilenameSlug((scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]).map(e => wt[e]).join("-"), "profile"), o = sxScribeIsDiscussion() ? "discussion-prompt" : "porn" === scribeMode ? "story-prompt" : "play-guide-prompt", skinPrefix = window.__SX_ACTIVE_SKIN ? window.__SX_ACTIVE_SKIN.charAt(0).toUpperCase() + window.__SX_ACTIVE_SKIN.slice(1) : "Sexcapades", s = new Blob([ a + "\n" ], {
                 type: "text/plain;charset=utf-8"
             }), l = URL.createObjectURL(s), c = document.createElement("a");
-            c.href = l, c.download = `Sexcapades-${r}-${o}.txt`, c.hidden = !0, document.body.appendChild(c), 
+            c.href = l, c.download = `${skinPrefix}-${r}-${o}.txt`, c.hidden = !0, document.body.appendChild(c), 
             c.click(), c.remove(), t.setTimeout(() => URL.revokeObjectURL(l), 0), i.textContent = "Prompt downloaded.";
         });
         const su = "https://sexcapades.io/#guide", lu = "https://sexcapades.io/#app", cu = [], du = [];
