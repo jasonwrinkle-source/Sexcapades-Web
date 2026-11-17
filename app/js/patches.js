@@ -307,6 +307,35 @@ __sxInit(function initScribeGeminiBYOK() {
     });
   }
 
+  // Token budget from the Scribe target length (2026-11-17): the model
+  // needs enough output tokens to actually reach the target, or it
+  // stops early at its own default. The target is read from the
+  // dialog inputs (the bundle's module state is not reachable from
+  // this file). A blank length on a YoBitch play-guide prompt means
+  // the 60-minute default sequence. Words convert at ~1.35 tokens
+  // per word; pages ~450 words, paragraphs ~120, chapters ~2500,
+  // minutes ~150 (spoken pace). Floored at 512, capped at 32768.
+  function scribeTokenBudget(promptText) {
+    var wordsPerUnit = { words: 1, paragraphs: 120, pages: 450, chapters: 2500, minutes: 150 };
+    var unit = "pages", val = 1, blank = true;
+    try {
+      var lenEl = document.getElementById("scribePageCount");
+      var unitEl = document.getElementById("scribeLengthUnit");
+      var raw = lenEl ? String(lenEl.value || "").trim() : "";
+      if (unitEl && unitEl.value && wordsPerUnit[unitEl.value]) unit = unitEl.value;
+      if (raw) {
+        blank = false;
+        var nums = raw.match(/\d+(?:\.\d+)?/g) || [];
+        var parsed = nums.map(function(n) { return parseFloat(n); }).filter(function(n) { return isFinite(n) && n > 0; });
+        if (parsed.length) val = Math.max.apply(null, parsed);
+      }
+    } catch (_) {}
+    if (blank && promptText && promptText.indexOf("YO BITCH") === 0) { unit = "minutes"; val = 60; }
+    var words = val * (wordsPerUnit[unit] || 450);
+    var singular = unit.replace(/s$/, "");
+    return { text: val + " " + (1 === val ? singular : unit), tokens: Math.min(32768, Math.max(512, Math.round(words * 1.35))) };
+  }
+
   if (genStoryBtn) {
     genStoryBtn.addEventListener("click", async function() {
       var promptEl = document.getElementById("scenePromptText");
@@ -372,7 +401,9 @@ __sxInit(function initScribeGeminiBYOK() {
         }
       }, 120000);
 
-      var fullPrompt = prompt + "\n\nWrite the complete, immersive narrative scene now as plain text, strictly honoring all character roles, boundaries, and pacing detailed above. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or PDF/file outputs.";
+      var scribeBudget = scribeTokenBudget(prompt);
+      var hitTokenLimit = false;
+      var fullPrompt = prompt + "\n\nWrite the complete, immersive narrative scene now as plain text, strictly honoring all character roles, boundaries, and pacing detailed above. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or PDF/file outputs." + "\n\nTarget length: " + scribeBudget.text + ". Do not stop early: keep writing until the full target length is reached.";
 
       try {
         var totalText = "";
@@ -439,6 +470,7 @@ __sxInit(function initScribeGeminiBYOK() {
                 { role: "user", content: fullPrompt }
               ],
               temperature: 0.9,
+              max_tokens: scribeBudget.tokens,
               stream: true
             }),
             signal: activeAbortController.signal
@@ -472,6 +504,11 @@ __sxInit(function initScribeGeminiBYOK() {
                     var parsed = JSON.parse(dataStr);
                     var delta = parsed && parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content;
                     if (delta) onStreamChunk(delta);
+                    var grokFr = parsed && parsed.choices && parsed.choices[0] && parsed.choices[0].finish_reason;
+                    if (grokFr === "length") {
+                      hitTokenLimit = true;
+                      if (storyStatus) storyStatus.textContent = "Stopped at the token budget — the output was cut short at the length limit.";
+                    }
                   } catch (_) {}
                 }
               }
@@ -481,6 +518,7 @@ __sxInit(function initScribeGeminiBYOK() {
             if (fallbackJson.choices && fallbackJson.choices[0] && fallbackJson.choices[0].message) {
               totalText = fallbackJson.choices[0].message.content || "";
             }
+            if (fallbackJson.choices && fallbackJson.choices[0] && fallbackJson.choices[0].finish_reason === "length") hitTokenLimit = true;
           }
         } else {
           // Google Gemini API with SSE streaming & fallback cascade
@@ -499,7 +537,8 @@ __sxInit(function initScribeGeminiBYOK() {
             ],
             generationConfig: {
               temperature: 0.9,
-              topP: 0.95
+              topP: 0.95,
+              maxOutputTokens: scribeBudget.tokens
             }
           };
 
@@ -570,6 +609,10 @@ __sxInit(function initScribeGeminiBYOK() {
                         if (chunkJson.candidates && chunkJson.candidates[0] && chunkJson.candidates[0].finishReason === "SAFETY") {
                           if (storyStatus) storyStatus.textContent = "Generation halted: triggered safety filter.";
                         }
+                        if (chunkJson.candidates && chunkJson.candidates[0] && chunkJson.candidates[0].finishReason === "MAX_TOKENS") {
+                          hitTokenLimit = true;
+                          if (storyStatus) storyStatus.textContent = "Stopped at the token budget — the output was cut short at the length limit.";
+                        }
                       } catch (_) {}
                     }
                   }
@@ -582,6 +625,7 @@ __sxInit(function initScribeGeminiBYOK() {
                 if (fullJson.candidates && fullJson.candidates[0] && fullJson.candidates[0].content && fullJson.candidates[0].content.parts) {
                   totalText = fullJson.candidates[0].content.parts.map(function(p) { return p.text || ""; }).join("");
                 }
+                if (fullJson.candidates && fullJson.candidates[0] && fullJson.candidates[0].finishReason === "MAX_TOKENS") hitTokenLimit = true;
                 streamedSuccessfully = true;
                 break;
               }
@@ -614,7 +658,7 @@ __sxInit(function initScribeGeminiBYOK() {
 
         var wordCount = (totalText.trim().match(/\S+/g) || []).length;
         if (storyStatus) {
-          storyStatus.textContent = "Complete! (" + wordCount + " words in " + finalElapsedSec + "s via " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + ")";
+          storyStatus.textContent = "Complete! (" + wordCount + " words in " + finalElapsedSec + "s via " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + ")" + (hitTokenLimit ? " — stopped at the token budget; the output was cut short. Raise the target length or regenerate for the full length." : "");
         }
 
         if (liveNarrator) {

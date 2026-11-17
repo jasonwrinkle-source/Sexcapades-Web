@@ -665,9 +665,17 @@
                 words: [ "word", "words" ],
                 paragraphs: [ "paragraph", "paragraphs" ],
                 pages: [ "page", "pages" ],
+                minutes: [ "minute", "minutes" ],
                 chapters: [ "chapter", "chapters" ]
             }[t] || [ "paragraph", "paragraphs" ];
             return "1" === String(e) ? n[0] : n[1];
+        }
+        // Effective target text (2026-11-17): the user's target, except
+        // a blank length on a YoBitch guide means the 60-minute default
+        // sequence (the old hardcoded length, kept only as the default).
+        function sxScribeTargetText() {
+            if ("yobitch" === scribeTarget && "~1" === scribeLengthDisplay) return "60 minutes";
+            return `${scribeLengthValue} ${unitWord(scribeLengthValue, scribeLengthUnit)}`;
         }
         // One parameterized phase-section builder (refactor F2): the
         // Scribe and Scene Setter dialogs have identical phase controls
@@ -925,12 +933,13 @@
                     hideExcludedNames: !0,
                     excludeFantasy: !0
                 });
+                const seqLen = "~1" === scribeLengthDisplay ? "an approximately 60-minute sequence" : `a sequence of ${sxScribeTargetText()}`;
                 promptText = [ "YO BITCH — WRITE THE FULL PLAY GUIDE NOW", "You are YoBitch, the user’s Muse personal AI. Write the complete, practical play guide directly in this chat. Do not return an outline, a prompt for another AI, or commentary about how to write it. Make the finished guide clear and naturally spoken, rendering it in the chat as you write so it can be voiced aloud in real time.", "", `CAST, GENDER & SEXUALITY: ${A}${C}`, "", `PROFILE DATA: ${sxIndividualProfileTexts(o, f, {
                     excludeFantasy: !0
                 })}`, "", `OVERLAP / COMPARISON RESULTS: ${s ? "No overlap or comparison result is available because only one profile is selected. Do not infer a partner’s preferences or consent." : [ D, R, O ].filter(Boolean).join("  ")}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `PLAY GUIDE SOURCE: ${sxGuidePhaseLines(f, "AFTERCARE IDEAS FROM RATINGS", "No rated aftercare preference is recorded.").join("  ")}`, "", Lu(e, {
                     hideExcluded: !0,
                     hideTerms: "novelai" !== scribeTarget
-                }), "", `HARD-EXCLUDED LIMITS — DUPLICATED FOR VISIBILITY: ${_}`, "", "REQUIREMENTS:", "- Treat the negotiation checklist as binding. Keep every hard limit completely out, and treat every red topic as a no for that person.", "- Use the supplied overlap/comparison results as authoritative. Do not infer, broaden, or recalculate shared consent.", "- Include a short pre-scene briefing, an approximately 60-minute sequence with flexible phase timings, roles, dialogue cues, transitions, consent check-ins, and clear pause or stop options.", "- Work the recorded safewords, pause language, and nonverbal stop signals into the briefing and check-ins. If they are blank, add a visible decision point before play instead of inventing them.", "- Build the aftercare section from every participant’s stated or rated aftercare needs. If those fields are blank, add a visible decision point before play instead of inventing an answer.", "- Treat curious items as invitations to discuss and explicitly opt into, never as established consent.", "- Preserve every give/receive role and let the lower compatible rating cap prominence until everyone explicitly agrees otherwise. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest switching those roles.", "- Use only the named activities in the supplied data. Do not invent preferences, permissions, identities, anatomy, physical details, or relationship history.", "- Use only first names for every participant. Use a full name only when the guide explicitly requires one.", "- Give the guide a suitable title and render the complete finished play guide in the chat as plain text, ready to voice aloud in real time. Do not generate code, scripts, or PDF files; return only the plain text.", q ].join(" ");
+                }), "", `HARD-EXCLUDED LIMITS — DUPLICATED FOR VISIBILITY: ${_}`, "", "REQUIREMENTS:", "- Treat the negotiation checklist as binding. Keep every hard limit completely out, and treat every red topic as a no for that person.", "- Use the supplied overlap/comparison results as authoritative. Do not infer, broaden, or recalculate shared consent.", `- Include a short pre-scene briefing, ${seqLen}, with phase timings that fill that length, roles, dialogue cues, transitions, consent check-ins, and clear pause or stop options.`, "- Work the recorded safewords, pause language, and nonverbal stop signals into the briefing and check-ins. If they are blank, add a visible decision point before play instead of inventing them.", "- Build the aftercare section from every participant’s stated or rated aftercare needs. If those fields are blank, add a visible decision point before play instead of inventing an answer.", "- Treat curious items as invitations to discuss and explicitly opt into, never as established consent.", "- Preserve every give/receive role and let the lower compatible rating cap prominence until everyone explicitly agrees otherwise. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest switching those roles.", "- Use only the named activities in the supplied data. Do not invent preferences, permissions, identities, anatomy, physical details, or relationship history.", "- Use only first names for every participant. Use a full name only when the guide explicitly requires one.", "- Give the guide a suitable title and render the complete finished play guide in the chat as plain text, ready to voice aloud in real time. Do not generate code, scripts, or PDF files; return only the plain text.", q ].join(" ");
             }
             if ("novelai" !== scribeTarget) {
                 const e = Ad(u);
@@ -945,6 +954,16 @@
                 sxA && (promptText = [ promptText, "", sxA ].join("\n"));
                 const sxAge = sxAgeBlock(o, v);
                 sxAge && (promptText = [ promptText, "", sxAge ].join("\n"));
+            }
+            // Closing length line (2026-11-17): restate the target at
+            // the very end of the finished prompt, so the length is the
+            // last instruction the model reads — the mid-prompt
+            // "approximately" line alone was being ignored and the model
+            // stopped early. NovelAI is skipped: its output is a
+            // copy-ready field block, not a free prompt.
+            if ("novelai" !== scribeTarget) {
+                const kind = sxScribeIsDiscussion() ? "discussion" : u ? "story" : "guide";
+                promptText = [ promptText, "", `LENGTH — FINAL CHECK: this ${kind} must run ${sxScribeTargetText()}. Do not stop early: if you reach what feels like a natural ending before that length, keep going — add ${"story" === kind ? "scenes, tension, and development" : "discussion" === kind ? "arguments, objections, and replies" : "phases, detail, and check-ins"} — until the full length is reached.` ].join("\n");
             }
             return [ sxWriterStamp(o), "", promptText ].join("\n");
         }
