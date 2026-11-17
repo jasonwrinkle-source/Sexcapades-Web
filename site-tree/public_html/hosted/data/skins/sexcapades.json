@@ -1038,6 +1038,59 @@
    "help": "Enabled phases are added to the generated prompt as a Scene structure section, in warm-up, main, cool-down order. Turn a phase off to leave it out."
   }
  },
+ "sceneSetter": {
+  "genre": "play",
+  "output": "play-guide",
+  "panel": {
+   "subtitleSuffix": "limits stay out of every play suggestion.",
+   "detailsLabel": "Scene details <small>Optional</small>",
+   "detailsPlaceholder": "The map provides your kinks and preferences. Describe the setting, scenario, mood, pacing, or specific situations to emphasize or avoid — e.g. “a slow build at home, focus on teasing and denial, ending with quiet cuddling.”",
+   "detailsHelp": "Don’t re-enter your kinks here. Scene Setter already uses the selected hypermap data, and the binding checklist below still controls the plan.",
+   "playGuideLegend": "Play guide length",
+   "playGuideHelp": "Length for the AI play-guide prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
+   "negotiationLegend": "Negotiation guide length",
+   "negotiationHelp": "Length for the standalone negotiation guide only. One page (or 500 words) is compact; larger targets add the rated-aftercare detail, then a full per-topic appendix. It never changes the play guide.",
+   "phasesLegend": "Scene phases",
+   "phasesHelp": "Enabled phases are added to the generated play-guide prompt as a Scene structure section, in warm-up, main, cool-down order. Turn a phase off to leave it out.",
+   "outputsTitle": "Documents",
+   "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same binding checklist content.",
+   "negotiationTitle": "Negotiation guide",
+   "negotiationDesc": "The completed checklist as a finished, standalone agreement document — not an AI prompt.",
+   "playGuideTitle": "Play guide",
+   "playGuideDesc": "The AI play-guide prompt, with the negotiation checklist embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the guide, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+   "copyNegotiationGuide": "Copy negotiation guide",
+   "downloadNegotiationGuide": "Download negotiation guide (.txt)",
+   "copyPlayGuide": "Copy play guide prompt",
+   "downloadPlayGuide": "Download play guide prompt (.txt)",
+   "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts limits, stop signals, and aftercare into a binding negotiation checklist first. Its play-guide source is inspiration only; the checklist always controls the generated plan.",
+   "playGuideTextPlaceholder": "Your generated play guide will stream here in real time…",
+   "openNegotiationTip": "Build a shared negotiation document and an AI-ready play guide from two or more selected profiles.",
+   "viewNavTip": "Build a binding negotiation checklist and practical play guide for 2 or more partners.",
+   "legendRow": "<b>Scene Setter</b> — Planning and negotiating play with a partner: a shared checklist and practical play guide."
+  },
+  "groundRules": null,
+  "prompt": {
+   "opening": "Create or randomize a practical play guide.",
+   "rules": [
+    "Use PLAY GUIDE DATA as source material and inspiration, but use NEGOTIATION CHECKLIST DATA as the controlling safety and consent layer.",
+    "Keep every hard limit completely out of the guide.",
+    "Treat every red topic as a no for that participant."
+   ],
+   "rigor": ""
+  },
+  "phases": {
+   "warmup": "Warm-up",
+   "main": "Main phase",
+   "cooldown": "Cool-down / aftercare",
+   "cooldownStyles": [
+    "tender aftercare",
+    "quiet rest",
+    "playful wind-down"
+   ],
+   "legend": "Scene phases",
+   "help": "Enabled phases are added to the generated play-guide prompt as a Scene structure section, in warm-up, main, cool-down order. Turn a phase off to leave it out."
+  }
+ },
  "skin": "sexcapades",
  "meter": "interest",
  "defaultLayout": {

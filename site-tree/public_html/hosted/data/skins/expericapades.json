@@ -18,8 +18,8 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
       "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
@@ -50,6 +50,70 @@
       ],
       "legend": "Discussion phases",
       "help": "Enabled phases are added to the generated prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
+    }
+  },
+  "sceneSetter": {
+    "genre": "moderation",
+    "output": "moderation-plan",
+    "panel": {
+      "subtitleSuffix": "the ground rules stay in every discussion plan.",
+      "detailsLabel": "Discussion details <small>Optional</small>",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "playGuideLegend": "Discussion plan length",
+      "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
+      "negotiationLegend": "Discussion agreement length",
+      "negotiationHelp": "Length for the standalone discussion agreement only. One page (or 500 words) is compact; larger targets add the ground-rules detail, then a full per-topic appendix. It never changes the discussion plan.",
+      "phasesLegend": "Discussion phases",
+      "phasesHelp": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out.",
+      "outputsTitle": "Documents",
+      "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
+      "negotiationTitle": "Discussion agreement",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "playGuideTitle": "Discussion plan",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "copyNegotiationGuide": "Copy discussion agreement",
+      "downloadNegotiationGuide": "Download discussion agreement (.txt)",
+      "copyPlayGuide": "Copy discussion plan prompt",
+      "downloadPlayGuide": "Download discussion plan prompt (.txt)",
+      "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
+      "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
+      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+    },
+    "groundRules": [
+      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Speak from your own recorded stance; don't speak for the other side.",
+      "Take turns: one position at a time, each side heard fully before replies.",
+      "Objections go to the position, not the person holding it.",
+      "Anyone may call a pause; the discussion resumes only when everyone is ready.",
+      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+    ],
+    "prompt": {
+      "opening": "Write a moderated discussion plan for the stances recorded on this map.",
+      "rules": [
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Show where the stances agree, where they part, and what follows from each position.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
+        "Give each side its strongest form before comparing them; never let one side speak for the other.",
+        "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
+        "Do not invent positions, sources, or facts beyond the supplied data."
+      ],
+      "rigor": "At full detail, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
+    },
+    "phases": {
+      "warmup": "Opening",
+      "main": "Development",
+      "cooldown": "Closing",
+      "cooldownStyles": [
+        "synthesis",
+        "open questions",
+        "verdict"
+      ],
+      "legend": "Discussion phases",
+      "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
   "domain": "Experimental Physics — the world of the detector, the ultra-high vacuum chamber, the cryogenic dilution refrigerator, and the particle collider",
