@@ -2722,6 +2722,13 @@
     "tec-accelerationist": {
       "name": "The Accelerationist",
       "count": 17,
+      "about": "The accelerationist holds that technological progress, especially in AI, should be pushed forward as fast as possible, believing rapid development is the best route to abundance and human flourishing. It opposes slowing or heavily restricting technological advance.",
+      "links": [
+        {
+          "label": "Wikipedia — Effective Accelerationism",
+          "url": "https://en.wikipedia.org/wiki/Effective_accelerationism"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -2810,6 +2817,17 @@
     "tec-safety": {
       "name": "The AI Safety Advocate",
       "count": 16,
+      "about": "The AI safety advocate holds that advanced AI poses serious risks if developed without care, and that safety research, evaluation and governance must keep pace with capability. The goal is powerful AI that remains reliably aligned with human interests.",
+      "links": [
+        {
+          "label": "Center for AI Safety",
+          "url": "https://www.safe.ai/"
+        },
+        {
+          "label": "Future of Life Institute",
+          "url": "https://futureoflife.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -2894,6 +2912,13 @@
     "tec-privacy": {
       "name": "The Privacy Defender",
       "count": 17,
+      "about": "The privacy defender holds that personal data and communications should stay under the individual's control, not harvested or surveilled by companies or governments. They value encryption, data minimization and strong legal protections.",
+      "links": [
+        {
+          "label": "Electronic Frontier Foundation — Privacy",
+          "url": "https://www.eff.org/issues/privacy"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -2981,6 +3006,17 @@
     "tec-commons": {
       "name": "The Open-Source Commons Builder",
       "count": 16,
+      "about": "The open-source commons builder believes software — and knowledge — should be freely shared, studied, modified and redistributed. They contribute to and rely on open licences and collaborative communities rather than closed, proprietary systems.",
+      "links": [
+        {
+          "label": "Open Source Initiative",
+          "url": "https://opensource.org/"
+        },
+        {
+          "label": "Wikipedia — Open-Source Software",
+          "url": "https://en.wikipedia.org/wiki/Open-source_software"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3063,6 +3099,13 @@
     "tec-minimalist": {
       "name": "The Digital Minimalist",
       "count": 16,
+      "about": "The digital minimalist holds that technology should serve a life well lived, not consume it. They deliberately cut back on apps, feeds and screen time to keep only the tools that clearly support their values.",
+      "links": [
+        {
+          "label": "Cal Newport — Digital Minimalism",
+          "url": "https://www.calnewport.com/books/digital-minimalism/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

@@ -3298,6 +3298,13 @@
     "dharma-theravada": {
       "name": "Theravada Buddhism",
       "count": 23,
+      "about": "Theravada, the 'Teaching of the Elders', is the oldest surviving school of Buddhism, rooted in the Pali Canon and practised mainly in Sri Lanka and Southeast Asia. Its path centres on the Four Noble Truths, the Noble Eightfold Path and meditation leading to awakening.",
+      "links": [
+        {
+          "label": "Access to Insight — Readings in Theravada Buddhism",
+          "url": "https://www.accesstoinsight.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3426,6 +3433,13 @@
     "dharma-zen": {
       "name": "Zen Buddhism",
       "count": 23,
+      "about": "Zen is the school of Buddhism that emphasizes direct experience over doctrine, with meditation (zazen), koans and the guidance of a teacher at its centre. It holds that awakening is found in the present moment, here and now.",
+      "links": [
+        {
+          "label": "Zen Studies Society",
+          "url": "https://www.zenstudies.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3554,6 +3568,13 @@
     "dharma-pure-land": {
       "name": "Pure Land Buddhism",
       "count": 23,
+      "about": "Pure Land Buddhism centres on devotion to Amitabha Buddha and the aspiration to be reborn in his Pure Land, where awakening is easier to attain. Its central practice is the sincere recitation of Amitabha's name (nembutsu), open to ordinary people of any capacity.",
+      "links": [
+        {
+          "label": "Buddhist Churches of America (Jodo Shinshu)",
+          "url": "https://www.buddhistchurchesofamerica.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3682,6 +3703,17 @@
     "dharma-tibetan": {
       "name": "Tibetan Buddhism",
       "count": 23,
+      "about": "Tibetan Buddhism, also called Vajrayana, is the form of Buddhism that developed in Tibet, combining Mahayana philosophy with tantric practices, guru devotion and meditation on compassion. It is best known in the West through the Dalai Lama and the Gelug tradition.",
+      "links": [
+        {
+          "label": "His Holiness the Dalai Lama",
+          "url": "https://www.dalailama.com/"
+        },
+        {
+          "label": "Foundation for the Preservation of the Mahayana Tradition (FPMT)",
+          "url": "https://fpmt.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

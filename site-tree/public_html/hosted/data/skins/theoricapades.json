@@ -3215,6 +3215,13 @@
     "theo-formalism": {
       "name": "Formalism",
       "count": 28,
+      "about": "Formalism holds that mathematics is the manipulation of symbols according to formal rules — a game played with marks on paper, in Hilbert's image. Mathematical statements do not need to refer to abstract objects to be meaningful; their meaning lies in the rules that govern them.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Formalism in the Philosophy of Mathematics",
+          "url": "https://plato.stanford.edu/entries/formalism-mathematics/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3346,6 +3353,13 @@
     "theo-intuitionism": {
       "name": "Intuitionism",
       "count": 28,
+      "about": "Intuitionism, founded by L. E. J. Brouwer, holds that mathematics is a mental construction: a statement is true only when we can construct a proof of it. Because truth requires construction, intuitionists reject the law of excluded middle for infinite domains — a claim is not true merely because its negation fails.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Intuitionism in the Philosophy of Mathematics",
+          "url": "https://plato.stanford.edu/entries/intuitionism/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3477,6 +3491,13 @@
     "theo-platonism": {
       "name": "Platonism",
       "count": 28,
+      "about": "Platonism in mathematics holds that numbers, sets, and other mathematical objects exist independently of us, in an abstract realm outside space and time. Mathematical truths are discovered, not invented — we find out what is true of these objects, much as we find out what is true of the physical world.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Platonism in the Philosophy of Mathematics",
+          "url": "https://plato.stanford.edu/entries/platonism-mathematics/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3608,6 +3629,13 @@
     "theo-logicism": {
       "name": "Logicism",
       "count": 28,
+      "about": "Logicism holds that mathematics reduces to logic: mathematical truths are logical truths, and mathematical concepts can be defined in purely logical terms. Associated with Frege and Russell, it treats arithmetic as a branch of logic rather than a separate science of its own objects.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Logicism and Neo-Logicism",
+          "url": "https://plato.stanford.edu/entries/logicism/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

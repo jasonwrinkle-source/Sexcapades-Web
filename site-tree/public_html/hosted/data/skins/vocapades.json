@@ -2793,6 +2793,17 @@
     "voc-calling": {
       "name": "The Purpose-Driven Calling",
       "count": 18,
+      "about": "The purpose-driven calling orientation treats work as a vocation — a way to contribute to something larger than oneself. Career choices are judged by meaning and impact, not just pay or prestige.",
+      "links": [
+        {
+          "label": "80,000 Hours — Career Guide",
+          "url": "https://80000hours.org/career-guide/"
+        },
+        {
+          "label": "Designing Your Life",
+          "url": "https://designingyour.life/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -2887,6 +2898,8 @@
     "voc-climber": {
       "name": "The Ambitious Climber",
       "count": 18,
+      "about": "The ambitious climber is driven to rise: promotions, status, recognition and ever-greater responsibility. Career success is measured by how far and how fast one advances.",
+      "links": [],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -2981,6 +2994,8 @@
     "voc-security": {
       "name": "The Security Seeker",
       "count": 18,
+      "about": "The security seeker values stability above all — a steady income, job security, benefits and predictability. Career choices favour safe, reliable paths over risky upside.",
+      "links": [],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3075,6 +3090,13 @@
     "voc-balance": {
       "name": "The Balance Keeper",
       "count": 18,
+      "about": "The balance keeper treats work as one part of a good life, not the whole of it. Career choices protect time and energy for family, health, rest and outside interests.",
+      "links": [
+        {
+          "label": "Designing Your Life",
+          "url": "https://designingyour.life/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3169,6 +3191,13 @@
     "voc-craftsman": {
       "name": "The Master Craftsman",
       "count": 18,
+      "about": "The master craftsman is driven by the pursuit of excellence in the work itself. Satisfaction comes from deep skill, mastery and doing the job superbly, whatever the title.",
+      "links": [
+        {
+          "label": "Cal Newport — So Good They Can't Ignore You",
+          "url": "https://www.calnewport.com/books/so-good/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3263,6 +3292,8 @@
     "voc-founder": {
       "name": "The Founder",
       "count": 18,
+      "about": "The founder is driven to build something of their own — a company, a product, a venture — rather than climb someone else's ladder. Autonomy, ownership and creating from scratch matter most.",
+      "links": [],
       "payload": {
         "app": "sexcapades",
         "version": 16,

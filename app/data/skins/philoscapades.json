@@ -2750,6 +2750,13 @@
     "philo-empiricism": {
       "name": "Empiricism",
       "count": 12,
+      "about": "Empiricism holds that sense experience is the ultimate source of our concepts and knowledge. On this view there is no knowledge independent of experience: what we know, we know because we have observed it, or because it can be traced back to observation.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Rationalism vs. Empiricism",
+          "url": "https://plato.stanford.edu/entries/rationalism-empiricism/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -2839,6 +2846,13 @@
     "philo-rationalism": {
       "name": "Rationalism",
       "count": 12,
+      "about": "Rationalism holds that reason — intuition, deduction, and ideas we are born with — is a genuine source of knowledge independent of sense experience. Some truths, on this view, can be known a priori, by thinking alone, rather than by looking at the world.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Rationalism vs. Empiricism",
+          "url": "https://plato.stanford.edu/entries/rationalism-empiricism/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -2928,6 +2942,13 @@
     "philo-pragmatism": {
       "name": "Pragmatism",
       "count": 12,
+      "about": "Pragmatism judges ideas by their practical consequences: a belief is true insofar as it works — it guides action successfully and resolves doubt in inquiry. Meaning, on this view, is found in what an idea does, not in a picture of reality it supposedly mirrors.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Pragmatism",
+          "url": "https://plato.stanford.edu/entries/pragmatism/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3017,6 +3038,13 @@
     "philo-phenomenology": {
       "name": "Phenomenology",
       "count": 12,
+      "about": "Phenomenology is the study of conscious experience as it is lived from the first-person point of view. It sets aside assumptions about what causes experience in order to describe carefully how things show up for us — perception, memory, imagination, emotion, and the sense of self.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Phenomenology",
+          "url": "https://plato.stanford.edu/entries/phenomenology/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

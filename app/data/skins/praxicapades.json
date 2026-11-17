@@ -3010,6 +3010,13 @@
     "pra-bayesian": {
       "name": "The Bayesian",
       "count": 23,
+      "about": "Treats probability as a degree of belief and updates it with evidence using Bayes' theorem: start with a prior, fold in new data, and get a posterior. The stance is that all inference is belief revision, and uncertainty should be stated as a probability.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Bayes' Theorem",
+          "url": "https://plato.stanford.edu/entries/bayes-theorem/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3125,6 +3132,13 @@
     "pra-frequentist": {
       "name": "The Frequentist",
       "count": 23,
+      "about": "Treats probability as the long-run frequency of an outcome if an experiment were repeated many times. Inference runs on significance tests, p-values, and confidence intervals, with no prior beliefs in the calculation.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Interpretations of Probability",
+          "url": "https://plato.stanford.edu/entries/probability-interpret/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3240,6 +3254,8 @@
     "pra-first-principles": {
       "name": "The First-Principles Theorist",
       "count": 23,
+      "about": "Derives results from the most fundamental laws available rather than from empirical fitting or rules of thumb: start from basic principles and work upward. The stance is that a model is only as trustworthy as the foundations it is built on.",
+      "links": [],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3355,6 +3371,13 @@
     "pra-simulation-first": {
       "name": "The Simulation-First Computationalist",
       "count": 23,
+      "about": "Builds understanding through computation first: simulate the system, watch it behave, and let the numbers guide theory and experiment. For systems too complex or costly to solve on paper or in the lab, the simulation is the primary instrument.",
+      "links": [
+        {
+          "label": "Nature — Computational Science",
+          "url": "https://www.nature.com/subjects/computational-science"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3470,6 +3493,13 @@
     "pra-engineer": {
       "name": "The Pragmatic Engineer",
       "count": 23,
+      "about": "Optimizes for solutions that work under real constraints: budget, materials, deadlines, and safety margins. The stance is that a good-enough design that ships and holds up beats a perfect design that never leaves the drawing board.",
+      "links": [
+        {
+          "label": "IEEE Spectrum — Technology and Engineering News",
+          "url": "https://spectrum.ieee.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

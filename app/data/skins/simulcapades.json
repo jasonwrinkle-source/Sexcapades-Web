@@ -3110,6 +3110,17 @@
     "sim-optimist": {
       "name": "The Simulation Optimist",
       "count": 29,
+      "about": "The Simulation Optimist finds Bostrom's simulation argument persuasive: if posthuman civilizations are likely to run many ancestor simulations, then simulated minds would vastly outnumber unsimulated ones, and we are probably living in a simulation. This stance treats the hypothesis as a live, likely possibility rather than a curiosity.",
+      "links": [
+        {
+          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "url": "https://www.simulation-argument.com/simulation.html"
+        },
+        {
+          "label": "The Simulation Argument (Bostrom's site)",
+          "url": "https://www.simulation-argument.com/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3245,6 +3256,17 @@
     "sim-skeptic": {
       "name": "The Simulation Skeptic",
       "count": 29,
+      "about": "The Simulation Skeptic doubts the simulation argument's premises — for example, that conscious minds can be simulated at all, or that advanced civilizations would choose to run many ancestor simulations. On this stance, the argument's trilemma does not compel belief: the likely truth is that we are not simulated, or that the argument cannot show we are.",
+      "links": [
+        {
+          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "url": "https://www.simulation-argument.com/simulation.html"
+        },
+        {
+          "label": "The Simulation Argument (Bostrom's site)",
+          "url": "https://www.simulation-argument.com/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3380,6 +3402,17 @@
     "sim-pragmatist": {
       "name": "The Pragmatic Engineer",
       "count": 29,
+      "about": "The Pragmatic Engineer sidesteps whether we are simulated and asks what the simulation framing is good for: what can be built, tested, or exploited from it. Whether base reality or a simulation, the focus is on practical implications — looking for glitches, limits, or leverage — rather than settling the metaphysics.",
+      "links": [
+        {
+          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "url": "https://www.simulation-argument.com/simulation.html"
+        },
+        {
+          "label": "The Simulation Argument (Bostrom's site)",
+          "url": "https://www.simulation-argument.com/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3515,6 +3548,17 @@
     "sim-purist": {
       "name": "The First-Principles Purist",
       "count": 29,
+      "about": "The First-Principles Purist insists on grounding everything in base-reality physics before entertaining simulation talk. Until there is testable evidence — a prediction that distinguishes a simulation from base reality — the hypothesis is speculation, however elegant, and the real work is in the physics itself.",
+      "links": [
+        {
+          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "url": "https://www.simulation-argument.com/simulation.html"
+        },
+        {
+          "label": "The Simulation Argument (Bostrom's site)",
+          "url": "https://www.simulation-argument.com/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

@@ -3186,6 +3186,13 @@
     "quanta-copenhagen": {
       "name": "Copenhagen interpretation",
       "count": 25,
+      "about": "The Copenhagen interpretation, associated with Bohr and Heisenberg, holds that the wavefunction is a complete description of a quantum system and that measurement collapses it to a single outcome, with probabilities given by the Born rule. It treats complementary descriptions — wave and particle, position and momentum — as both needed and mutually exclusive.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — The Copenhagen Interpretation of Quantum Mechanics",
+          "url": "https://plato.stanford.edu/entries/qm-copenhagen/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3307,6 +3314,13 @@
     "quanta-many-worlds": {
       "name": "Many-Worlds interpretation",
       "count": 25,
+      "about": "The Many-Worlds interpretation, due to Hugh Everett, holds that the wavefunction never collapses: every possible outcome of a measurement actually happens, each in its own branching world. What looks like a random single outcome is just the branch of reality that this observer happens to be in.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Everett's Relative-State Formulation of Quantum Mechanics",
+          "url": "https://plato.stanford.edu/entries/qm-manyworlds/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3428,6 +3442,13 @@
     "quanta-bohm": {
       "name": "De Broglie-Bohm interpretation",
       "count": 25,
+      "about": "The De Broglie–Bohm (pilot-wave) interpretation holds that particles always have definite positions, guided by a wavefunction that acts as a pilot wave. It is fully deterministic — randomness comes only from ignorance of the initial positions — at the price of explicit nonlocality, with distant particles influencing each other instantly.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Bohmian Mechanics",
+          "url": "https://plato.stanford.edu/entries/qm-bohm/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3549,6 +3570,13 @@
     "quanta-qbism": {
       "name": "QBism",
       "count": 25,
+      "about": "QBism (Quantum Bayesianism) holds that a quantum state is not a property of the world but an agent's personal degrees of belief about the outcomes of their future actions on the world. Probabilities are subjective and Bayesian; measurement is an agent acting and experiencing a result, not a physical collapse happening out there.",
+      "links": [
+        {
+          "label": "Stanford Encyclopedia of Philosophy — Quantum Bayesianism (QBism)",
+          "url": "https://plato.stanford.edu/entries/quantum-bayesian/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
