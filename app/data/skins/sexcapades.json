@@ -995,6 +995,49 @@
  ],
  "domain": "Intimacy, Eroticism, BDSM, Power Exchange & Relational Geometries",
  "name": "Sexcapades",
+ "scribe": {
+  "genre": "story",
+  "output": "story",
+  "explicitness": {
+   "label": "Explicitness",
+   "levels": [
+    "Tame",
+    "Suggestive",
+    "Explicit",
+    "Uninhibited",
+    "Extreme"
+   ],
+   "help": "Level 1 (Tame) is for strict AIs such as Gemini or ChatGPT. Limits are always hard-excluded."
+  },
+  "panel": {
+   "modeSingle": "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter.",
+   "modeMulti": "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter.",
+   "introSingle": "One profile selected: Scribe will create a Literotica-style erotic Story.",
+   "introMulti": "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners.",
+   "detailsPlaceholder": "The map provides your kinks and preferences. Describe the setting, scenario, mood, characters, pacing, or specific situations to emphasize or avoid — e.g. “a rainy weekend cabin trip, slow build, focus on teasing and denial.”",
+   "detailsHelp": "Don’t re-enter your kinks here. Scribe already uses the selected hypermap data.",
+   "lengthHelp": "Stories and play guides can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
+   "downloadIntro": "Generated from the selected profile data with marked limits excluded completely.",
+   "summary": "Fictional storytelling for enjoyment and fantasy — not a real-world plan."
+  },
+  "prompt": {
+   "opening": "Write an immersive Literotica-style erotic story.",
+   "rules": [],
+   "rigor": ""
+  },
+  "phases": {
+   "warmup": "Warm-up",
+   "main": "Main phase",
+   "cooldown": "Cool-down / aftercare",
+   "cooldownStyles": [
+    "tender aftercare",
+    "quiet rest",
+    "playful wind-down"
+   ],
+   "legend": "Scene phases",
+   "help": "Enabled phases are added to the generated prompt as a Scene structure section, in warm-up, main, cool-down order. Turn a phase off to leave it out."
+  }
+ },
  "skin": "sexcapades",
  "meter": "interest",
  "defaultLayout": {
