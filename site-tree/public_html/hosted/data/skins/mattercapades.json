@@ -3118,6 +3118,13 @@
     "mat-nuclear": {
       "name": "The Nuclear Advocate",
       "count": 25,
+      "about": "Argues that nuclear power is an essential part of low-carbon energy: dense, reliable, and proven at scale, able to run day and night regardless of weather. The stance is that decarbonization without nuclear is slower and harder than with it.",
+      "links": [
+        {
+          "label": "World Nuclear Association — Nuclear Power in the World Today",
+          "url": "https://world-nuclear.org/information-library/current-and-future-generation/nuclear-power-in-the-world-today"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3236,6 +3243,17 @@
     "mat-renewables": {
       "name": "The Renewables Advocate",
       "count": 25,
+      "about": "Argues that wind, solar, hydro, and geothermal energy are the path forward: clean, abundant, and getting cheaper every year. The stance is that renewables plus storage can carry the energy transition.",
+      "links": [
+        {
+          "label": "U.S. Dept. of Energy — Renewable Energy",
+          "url": "https://www.energy.gov/eere/renewable-energy"
+        },
+        {
+          "label": "International Energy Agency — Renewables",
+          "url": "https://www.iea.org/energy-system/renewables"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3354,6 +3372,13 @@
     "mat-fusion": {
       "name": "The Fusion Optimist",
       "count": 25,
+      "about": "Believes fusion — fusing light nuclei the way the Sun does — is the long-term answer to clean energy: near-limitless fuel, no long-lived waste, and no carbon. The stance is that the engineering is hard but the physics is sound, and the payoff justifies the wait.",
+      "links": [
+        {
+          "label": "ITER — Fusion Energy",
+          "url": "https://www.iter.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3472,6 +3497,13 @@
     "mat-quantum": {
       "name": "The Quantum Technologist",
       "count": 25,
+      "about": "Champions technologies built directly on quantum mechanics: quantum computers, quantum sensors, and quantum communications. The stance is that controlling single atoms and photons will open capabilities classical devices cannot match.",
+      "links": [
+        {
+          "label": "National Quantum Initiative — quantum.gov",
+          "url": "https://www.quantum.gov/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3592,6 +3624,13 @@
     "mat-pragmatist": {
       "name": "The Device-First Pragmatist",
       "count": 25,
+      "about": "Judges energy and technology by what actually works in the field: deployed devices, cost, reliability, and maintenance, rather than by ideology or promise. If a device does the job affordably and durably, it wins; if it does not, no amount of elegance saves it.",
+      "links": [
+        {
+          "label": "IEEE Spectrum — Technology and Engineering News",
+          "url": "https://spectrum.ieee.org/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

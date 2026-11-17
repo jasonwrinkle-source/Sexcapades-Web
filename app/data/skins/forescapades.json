@@ -6325,6 +6325,13 @@
     "for-catholic": {
       "name": "Catholic creed",
       "count": 38,
+      "about": "Catholics believe in one holy, catholic, and apostolic Church led by the pope, the Bishop of Rome, in communion with bishops worldwide. Faith rests on Scripture and sacred Tradition as taught by the Church's Magisterium, and is lived through the seven sacraments, above all the Eucharist, and the creeds professed at Mass.",
+      "links": [
+        {
+          "label": "The Holy See (Vatican)",
+          "url": "https://www.vatican.va"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -6509,6 +6516,13 @@
     "for-orthodox": {
       "name": "Eastern Orthodox creed",
       "count": 38,
+      "about": "Eastern Orthodox Christians believe the Church is the continuation of the apostolic community guided by the seven ecumenical councils, with no single earthly head but autocephalous (self-governing) churches in communion. Worship centers on the Divine Liturgy, the sacraments (mysteries), icons, and theosis, becoming united with God through grace.",
+      "links": [
+        {
+          "label": "Orthodox Church in America",
+          "url": "https://www.oca.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -6693,6 +6707,17 @@
     "for-lutheran": {
       "name": "Lutheran creed",
       "count": 38,
+      "about": "Lutherans believe people are saved by God's grace alone, through faith alone, as revealed in Scripture alone, the teaching recovered in the Reformation and confessed in the Augsburg Confession. They practice two sacraments, Baptism and Holy Communion, and emphasize preaching, hymnody, and vocation in daily life.",
+      "links": [
+        {
+          "label": "Evangelical Lutheran Church in America",
+          "url": "https://www.elca.org"
+        },
+        {
+          "label": "The Lutheran Church—Missouri Synod",
+          "url": "https://www.lcms.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -6877,6 +6902,13 @@
     "for-reformed": {
       "name": "Reformed creed",
       "count": 38,
+      "about": "Reformed Christians emphasize the sovereignty of God over all of life, salvation by grace alone through faith alone, and the supreme authority of Scripture, as summarized in historic confessions such as the Heidelberg Catechism and the Westminster Confession. Their theology is often summarized by the \"five points of Calvinism\" and lived out through covenant community and a disciplined Christian life.",
+      "links": [
+        {
+          "label": "Reformed Church in America",
+          "url": "https://www.rca.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -7061,6 +7093,17 @@
     "for-baptist": {
       "name": "Baptist creed",
       "count": 38,
+      "about": "Baptists believe the Bible is the sole authority for faith and practice, that salvation comes by grace through faith in Jesus Christ, and that baptism is for believers only, by immersion. Churches are autonomous congregations, and every believer shares in the \"priesthood of all believers,\" with a strong emphasis on evangelism and religious liberty.",
+      "links": [
+        {
+          "label": "Southern Baptist Convention",
+          "url": "https://www.sbc.net"
+        },
+        {
+          "label": "Baptist World Alliance",
+          "url": "https://baptistworld.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -7245,6 +7288,13 @@
     "for-methodist": {
       "name": "Methodist creed",
       "count": 38,
+      "about": "Methodists follow the teaching of John Wesley: salvation by grace through faith, with God's grace working throughout life, prevenient grace drawing people in, justifying grace forgiving, and sanctifying grace making believers holy. They emphasize personal holiness and social holiness together, prayer, Scripture, and the sacraments alongside works of mercy and justice, organized in a connectional church.",
+      "links": [
+        {
+          "label": "The United Methodist Church",
+          "url": "https://www.umc.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -7429,6 +7479,13 @@
     "for-jewish": {
       "name": "Orthodox Jewish creed",
       "count": 38,
+      "about": "Orthodox Jews believe the Torah, the Written Torah and the Oral Torah, is God's revealed law, binding on Jewish life through halakha (Jewish law). Observance includes Shabbat, kashrut (kosher food), daily prayer, and study, with the 613 commandments as the framework of a life lived in covenant with God, awaiting the coming of the Messiah.",
+      "links": [
+        {
+          "label": "Orthodox Union",
+          "url": "https://www.ou.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -7613,6 +7670,13 @@
     "for-muslim": {
       "name": "Sunni Muslim creed",
       "count": 41,
+      "about": "Sunni Muslims, the large majority of the world's Muslims, believe in one God (Allah) and that Muhammad is His final prophet, and follow the Qur'an together with the Sunnah (the Prophet's example) as recorded in the hadith. Their faith is structured around the Five Pillars, the declaration of faith, prayer, almsgiving, fasting in Ramadan, and pilgrimage to Mecca, and guided by the four major schools of Islamic law.",
+      "links": [
+        {
+          "label": "ISNA — Islamic Society of North America",
+          "url": "https://isna.net/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

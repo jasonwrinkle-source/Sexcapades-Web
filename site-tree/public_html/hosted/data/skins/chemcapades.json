@@ -3906,6 +3906,13 @@
     "che-organic": {
       "name": "The Organic Chemist",
       "count": 32,
+      "about": "Studies carbon-containing compounds: their structures, properties, reactions, and how to build them. Organic chemistry is the science behind most medicines, plastics, dyes, and fuels.",
+      "links": [
+        {
+          "label": "American Chemical Society — Organic Chemistry",
+          "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/organic-chemistry.html"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -4074,6 +4081,13 @@
     "che-physical": {
       "name": "The Physical Chemist",
       "count": 32,
+      "about": "Applies physics and mathematics to chemical systems, studying how matter behaves, how energy flows, and how fast reactions run. It covers thermodynamics, kinetics, quantum chemistry, and spectroscopy.",
+      "links": [
+        {
+          "label": "American Chemical Society — Physical Chemistry",
+          "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/physical-chemistry.html"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -4241,6 +4255,13 @@
     "che-inorganic": {
       "name": "The Inorganic Chemist",
       "count": 32,
+      "about": "Studies compounds that are not mainly carbon-based, including metals, minerals, salts, and organometallic compounds. The field underpins catalysts, pigments, semiconductors, and many industrial materials.",
+      "links": [
+        {
+          "label": "American Chemical Society — Inorganic Chemistry",
+          "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/inorganic-chemistry.html"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -4409,6 +4430,17 @@
     "che-biochemist": {
       "name": "The Biochemist",
       "count": 32,
+      "about": "Studies the chemistry of living things: the molecules of life such as proteins, DNA, and enzymes, and the chemical reactions that keep cells running. Biochemistry bridges chemistry, biology, and medicine.",
+      "links": [
+        {
+          "label": "American Society for Biochemistry and Molecular Biology",
+          "url": "https://www.asbmb.org/"
+        },
+        {
+          "label": "American Chemical Society — Biochemistry",
+          "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/biochemistry.html"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -4574,6 +4606,13 @@
     "che-analytical": {
       "name": "The Analytical Chemist",
       "count": 32,
+      "about": "Identifies what substances are present in a sample and measures how much of each there is. Analytical chemistry develops the instruments and separation methods used in forensics, environmental testing, drug development, and quality control.",
+      "links": [
+        {
+          "label": "American Chemical Society — Analytical Chemistry",
+          "url": "https://www.acs.org/education/what-is-chemistry/areas-of-chemistry/analytical-chemistry.html"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

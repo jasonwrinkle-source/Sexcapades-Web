@@ -3222,6 +3222,13 @@
     "exp-collider": {
       "name": "The Big Science Collider Physicist",
       "count": 28,
+      "about": "Works with giant particle accelerators such as the Large Hadron Collider, smashing particles together at near-light speed to study the fundamental particles and forces of nature. It is team science at the largest scale physics allows.",
+      "links": [
+        {
+          "label": "CERN — The Large Hadron Collider",
+          "url": "https://home.cern/science/accelerators/large-hadron-collider"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3356,6 +3363,13 @@
     "exp-tabletop": {
       "name": "The Tabletop Precision Physicist",
       "count": 28,
+      "about": "Tests the laws of physics with small, exquisitely precise bench-top experiments rather than giant machines: atomic clocks, interferometers, and traps that measure nature's constants to many decimal places. A tiny discrepancy here can overturn a theory.",
+      "links": [
+        {
+          "label": "NIST — Physical Measurement Laboratory",
+          "url": "https://www.nist.gov/pml"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3490,6 +3504,13 @@
     "exp-cosmic": {
       "name": "The Cosmic Frontier Observer",
       "count": 28,
+      "about": "Studies the universe at the largest scales using telescopes, satellites, and cosmic-ray and gravitational-wave detectors. The questions are the biggest ones: dark matter, dark energy, and how the cosmos began and evolves.",
+      "links": [
+        {
+          "label": "NASA — Astrophysics",
+          "url": "https://science.nasa.gov/astrophysics/"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -3624,6 +3645,13 @@
     "exp-anomaly-hunter": {
       "name": "The Discovery-Driven Anomaly Hunter",
       "count": 28,
+      "about": "Hunts for results that do not fit the current theory, treating each unexplained discrepancy as a possible clue to new physics. Where most physicists confirm what is known, the anomaly hunter looks for where it breaks.",
+      "links": [
+        {
+          "label": "CERN — The Standard Model (and what lies beyond it)",
+          "url": "https://home.cern/science/physics/standard-model"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

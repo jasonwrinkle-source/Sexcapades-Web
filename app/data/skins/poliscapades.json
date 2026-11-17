@@ -6322,6 +6322,13 @@
     "pol-democrat": {
       "name": "Democratic Party platform",
       "count": 38,
+      "about": "The Democratic Party's 2024 platform stands for an active federal government that grows the economy \"from the middle out and bottom up\": expanding health care through the Affordable Care Act, investing in clean energy and infrastructure, protecting voting rights and reproductive freedom, and asking wealthy individuals and large corporations to pay more in taxes. It also backs labor unions, a higher minimum wage, and a path to citizenship for Dreamers alongside border security.",
+      "links": [
+        {
+          "label": "Democratic National Committee",
+          "url": "https://democrats.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -6492,6 +6499,13 @@
     "pol-republican": {
       "name": "Republican Party platform",
       "count": 38,
+      "about": "The Republican Party's 2024 platform, \"Make America Great Again,\" stands for lower taxes, fewer regulations, and a smaller federal government, with energy dominance through expanded oil, gas, coal, and nuclear production. It prioritizes sealing the border and large-scale deportations, defending gun rights and religious liberty, protecting Social Security and Medicare without cuts, and \"peace through strength\" with a stronger military, while leaving abortion policy largely to the states.",
+      "links": [
+        {
+          "label": "Republican National Committee",
+          "url": "https://gop.com"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -6662,6 +6676,13 @@
     "pol-libertarian": {
       "name": "Libertarian Party platform",
       "count": 38,
+      "about": "The Libertarian Party holds that every person has the right to live as they choose so long as they do not forcibly interfere with the equal rights of others. Its platform calls for sharply limited government, free markets, strong civil liberties including free speech and privacy, and a non-interventionist foreign policy.",
+      "links": [
+        {
+          "label": "Libertarian Party",
+          "url": "https://lp.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -6832,6 +6853,13 @@
     "pol-green": {
       "name": "Green Party platform",
       "count": 38,
+      "about": "The Green Party's platform is built on four pillars: ecological wisdom, social justice, grassroots democracy, and nonviolence. It calls for rapid action on climate change through renewable energy, universal health care, economic equality, and decentralized, participatory democracy.",
+      "links": [
+        {
+          "label": "Green Party of the United States",
+          "url": "https://gp.org"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,
@@ -7002,6 +7030,13 @@
     "pol-constitution": {
       "name": "Constitution Party platform",
       "count": 38,
+      "about": "The Constitution Party stands for a strict, original-intent reading of the U.S. Constitution, with federal power limited to what the document expressly authorizes and most other decisions returned to the states. It combines limited government with traditional moral values, including protection of life from conception, and a non-interventionist foreign policy that puts American sovereignty first.",
+      "links": [
+        {
+          "label": "Constitution Party",
+          "url": "https://constitutionparty.com"
+        }
+      ],
       "payload": {
         "app": "sexcapades",
         "version": 16,

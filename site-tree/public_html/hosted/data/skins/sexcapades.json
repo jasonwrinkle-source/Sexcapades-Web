@@ -7830,6 +7830,13 @@
    "kind": "archetype",
    "name": "Sadist",
    "count": 39,
+   "about": "Enjoys giving intense sensation — including pain — in consensual play. A sadist gets pleasure from their partner's reactions, and scenes are negotiated in advance with clear limits and consent.",
+   "links": [
+    {
+     "label": "Sadist — Kinkly",
+     "url": "https://www.kinkly.com/definition/sadist"
+    }
+   ],
    "payload": {
     "profileName": "Sadist",
     "ratings": {
@@ -7993,6 +8000,13 @@
    "kind": "archetype",
    "name": "Masochist",
    "count": 37,
+   "about": "Enjoys receiving intense sensation — including pain — in consensual play. A masochist finds pleasure, release, or connection in surrendering to sensation within agreed limits.",
+   "links": [
+    {
+     "label": "Masochist — Kinkly",
+     "url": "https://www.kinkly.com/definition/masochist"
+    }
+   ],
    "payload": {
     "profileName": "Masochist",
     "ratings": {
@@ -8139,6 +8153,17 @@
    "kind": "archetype",
    "name": "Rope Bunny",
    "count": 32,
+   "about": "Enjoys being tied up with rope, often in decorative or restrictive Shibari-style bondage. The appeal can be the feeling of restraint, the beauty of the rope work, or the trust and closeness of being tied by a partner.",
+   "links": [
+    {
+     "label": "Rope Bunny — Kinkly",
+     "url": "https://www.kinkly.com/definition/rope-bunny"
+    },
+    {
+     "label": "The Duchy — Shibari Education",
+     "url": "https://www.theduchy.com/"
+    }
+   ],
    "payload": {
     "profileName": "Rope Bunny",
     "ratings": {
@@ -8265,6 +8290,17 @@
    "kind": "archetype",
    "name": "Rigger",
    "count": 32,
+   "about": "Enjoys tying a partner up with rope, often in Shibari-style bondage. A rigger focuses on technique, safety, and the shared experience of restraint, treating rope as both craft and connection.",
+   "links": [
+    {
+     "label": "Rigger — Kinkly",
+     "url": "https://www.kinkly.com/definition/rigger"
+    },
+    {
+     "label": "The Duchy — Shibari Education",
+     "url": "https://www.theduchy.com/"
+    }
+   ],
    "payload": {
     "profileName": "Rigger",
     "ratings": {
@@ -8394,6 +8430,13 @@
    "kind": "archetype",
    "name": "Brat",
    "count": 32,
+   "about": "A playful submissive who teases, talks back, or pushes back against a dominant — not to refuse, but to invite a response. The defiance is part of the game, and it only works when both partners enjoy the back-and-forth.",
+   "links": [
+    {
+     "label": "Brat — Kinkly",
+     "url": "https://www.kinkly.com/definition/brat"
+    }
+   ],
    "payload": {
     "profileName": "Brat",
     "ratings": {
@@ -8529,6 +8572,13 @@
    "kind": "archetype",
    "name": "Brat Tamer",
    "count": 33,
+   "about": "Enjoys meeting a brat's playful defiance with control and discipline. A brat tamer likes the challenge of the pushback and the fun of bringing a brat back into line, consensually.",
+   "links": [
+    {
+     "label": "Brat Tamer — Kinkly",
+     "url": "https://www.kinkly.com/definition/brat-tamer"
+    }
+   ],
    "payload": {
     "profileName": "Brat Tamer",
     "ratings": {
@@ -8665,6 +8715,8 @@
    "kind": "archetype",
    "name": "Dominant",
    "count": 34,
+   "about": "Takes charge and directs the scene, setting the pace, the rules, and the activities. A dominant enjoys the responsibility and control of leading a partner who has consented to follow.",
+   "links": [],
    "payload": {
     "profileName": "Dominant",
     "ratings": {
@@ -8793,6 +8845,8 @@
    "kind": "archetype",
    "name": "Service Submissive",
    "count": 33,
+   "about": "Finds fulfillment in serving a partner's needs — through acts of service, attentiveness, and devotion. The pleasure comes from being useful and pleasing a partner, rather than from pain or restraint.",
+   "links": [],
    "payload": {
     "profileName": "Service Submissive",
     "ratings": {
@@ -8920,6 +8974,13 @@
    "kind": "archetype",
    "name": "Exhibitionist",
    "count": 30,
+   "about": "Enjoys being seen or watched during intimate or kinky play, whether by a partner, a group, or an audience. The thrill comes from being observed and desired.",
+   "links": [
+    {
+     "label": "Exhibitionist — Kinkly",
+     "url": "https://www.kinkly.com/definition/exhibitionist"
+    }
+   ],
    "payload": {
     "profileName": "Exhibitionist",
     "ratings": {
@@ -9014,6 +9075,13 @@
    "kind": "archetype",
    "name": "Voyeur",
    "count": 31,
+   "about": "Enjoys watching others during intimate or kinky play, with everyone's knowledge and consent. The pleasure comes from observing rather than participating directly.",
+   "links": [
+    {
+     "label": "Voyeur — Kinkly",
+     "url": "https://www.kinkly.com/definition/voyeur"
+    }
+   ],
    "payload": {
     "profileName": "Voyeur",
     "ratings": {
@@ -9112,6 +9180,13 @@
    "kind": "archetype",
    "name": "Degradee",
    "count": 34,
+   "about": "Enjoys consensual degradation or humiliation — being talked down to, used, or belittled in a scene. What looks harsh from outside is negotiated, wanted, and stops the moment consent is withdrawn.",
+   "links": [
+    {
+     "label": "Degradation — Kinkly",
+     "url": "https://www.kinkly.com/definition/degradation"
+    }
+   ],
    "payload": {
     "profileName": "Degradee",
     "ratings": {
@@ -9246,6 +9321,13 @@
    "kind": "archetype",
    "name": "Degrader",
    "count": 34,
+   "about": "Enjoys delivering consensual degradation or humiliation — teasing, belittling, or using a partner in a scene. A degrader enjoys the power of the words, and it only happens within limits the degradee has agreed to.",
+   "links": [
+    {
+     "label": "Degradation — Kinkly",
+     "url": "https://www.kinkly.com/definition/degradation"
+    }
+   ],
    "payload": {
     "profileName": "Degrader",
     "ratings": {
@@ -9380,6 +9462,13 @@
    "kind": "archetype",
    "name": "Primal",
    "count": 30,
+   "about": "Drawn to raw, instinctive, animalistic play — growling, wrestling, biting, and chasing, with less talk and structure than a formal scene. Primal play is about letting instinct lead, within agreed boundaries.",
+   "links": [
+    {
+     "label": "Primal Play — Kinkly",
+     "url": "https://www.kinkly.com/definition/primal-play"
+    }
+   ],
    "payload": {
     "profileName": "Primal",
     "ratings": {
@@ -9495,6 +9584,8 @@
    "kind": "archetype",
    "name": "Prey",
    "count": 32,
+   "about": "Enjoys being pursued, hunted, and caught in primal play. The thrill is in the chase and the capture — being overpowered by a partner who is playing the predator, consensually.",
+   "links": [],
    "payload": {
     "profileName": "Prey",
     "ratings": {
@@ -9618,6 +9709,8 @@
    "kind": "archetype",
    "name": "Switch",
    "count": 30,
+   "about": "Enjoys both dominant and submissive roles, and moves between them — sometimes within a single scene, sometimes from partner to partner. A switch finds pleasure in both giving up control and taking it.",
+   "links": [],
    "payload": {
     "profileName": "Switch",
     "ratings": {
@@ -9739,6 +9832,8 @@
    "kind": "archetype",
    "name": "Cuckold",
    "count": 29,
+   "about": "Enjoys their partner being intimate with someone else, with everyone's knowledge and consent. The appeal can be the voyeurism, the humiliation, the compersion, or some mix of the three.",
+   "links": [],
    "payload": {
     "profileName": "Cuckold",
     "ratings": {
@@ -9839,6 +9934,13 @@
    "kind": "archetype",
    "name": "Sensation Seeker",
    "count": 33,
+   "about": "Chases varied, intense physical sensations — from impact and temperature to texture and pressure. A sensation seeker is curious about what different feelings can do, and explores them consensually.",
+   "links": [
+    {
+     "label": "Sensation Play — Kinkly",
+     "url": "https://www.kinkly.com/definition/sensation-play"
+    }
+   ],
    "payload": {
     "profileName": "Sensation Seeker",
     "ratings": {
@@ -9963,6 +10065,17 @@
    "kind": "archetype",
    "name": "Edge Player",
    "count": 34,
+   "about": "Plays at the edge of limits — with riskier activities that need extra care, knowledge, and negotiation. Edge play is defined by its risk, so it demands more preparation, communication, and risk awareness than other kinds of play.",
+   "links": [
+    {
+     "label": "Edgeplay — Kinkly",
+     "url": "https://www.kinkly.com/definition/edgeplay"
+    },
+    {
+     "label": "Consent Counts — National Coalition for Sexual Freedom",
+     "url": "https://ncsfreedom.org/consent-counts/"
+    }
+   ],
    "payload": {
     "profileName": "Edge Player",
     "ratings": {
