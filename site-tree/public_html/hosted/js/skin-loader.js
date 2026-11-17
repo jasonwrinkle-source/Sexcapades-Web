@@ -77,6 +77,21 @@
     if (prefix && HOSTNAME_SKINS[prefix]) return HOSTNAME_SKINS[prefix];
     return "sexcapades";
   }
+  /* Inverse of HOSTNAME_SKINS: the subdomain prefix for a skin id
+     ("quantacapades" -> "quanta", "philoscapades" -> "philo",
+     "vocapades" -> "voca"). A lookup, NOT a string-strip — stripping
+     "capades" off the coined name gives the wrong prefix for
+     Philoscapades ("philos") and Vocapades ("vo"). Exposed on window
+     alongside __SX_ACTIVE_SKIN so the pitch-pitcher can name the
+     specific skin's dotted domain. Unknown ids fall back to "sex",
+     mirroring skinForHostname's unknown-host default. */
+  function skinPrefixFor(skinId) {
+    var id = String(skinId || "");
+    for (var p in HOSTNAME_SKINS) {
+      if (HOSTNAME_SKINS[p] === id) return p;
+    }
+    return "sex";
+  }
   function bootShouldOpenMenu(hostname) {
     var host = (hostname || "").toLowerCase();
     return host === "flex.capades.io" || host === "capades.io";
@@ -263,6 +278,7 @@
     var count = registerWidgets(data);
     window.__SX_SKIN_TOPIC_COUNT = count;
     window.__SX_ACTIVE_SKIN = data.skin;
+    window.__SX_SKIN_PREFIX = skinPrefixFor(data.skin);
     activeSkin = data.skin;
     setAboutDescription(data.name, data.about);
     setSamples(data.samples);
@@ -375,6 +391,7 @@
     window.__SX_SKIN_DESCRIPTIONS = {};
     window.__SX_SKIN_TOPIC_COUNT = SEXCAPADES_TOPIC_COUNT;
     window.__SX_ACTIVE_SKIN = "sexcapades";
+    window.__SX_SKIN_PREFIX = "sex";
     activeSkin = "sexcapades";
     setAboutDescription("Sex.Capades.IO", null);
     /* Re-register the sexcapades.json widget configs (same seam as boot):

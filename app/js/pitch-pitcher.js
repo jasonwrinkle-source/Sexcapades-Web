@@ -312,15 +312,23 @@
     }
   }
 
-  /* Brand for the prompt packet — same source as the loader's tally brand
-     (skin-loader.js setBrand): the active skin id. Sexcapades keeps
-     "Sex.Capades.IO", every other skin reads "Flex.Capades.IO". Read at
-     call time — promptPacket runs on a button click, long after the loader
-     has set window.__SX_ACTIVE_SKIN. */
+  /* Brand for the prompt packet — the ACTIVE SKIN's own dotted domain:
+     "Quanta.Capades.IO", "Fores.Capades.IO", "Sex.Capades.IO". The
+     prefix comes from the loader (skin-loader.js sets
+     window.__SX_SKIN_PREFIX alongside __SX_ACTIVE_SKIN, inverting its
+     HOSTNAME_SKINS map — the single source of truth for prefix ↔ skin;
+     string-stripping "capades" off the skin id gives the WRONG prefix
+     for Philoscapades ("philos") and Vocapades ("vo")). This is NOT the
+     About tally brand, which stays "Flex.Capades.IO" on vanilla skins
+     per Jason's ruling — the pitch names the specific skin. Read at
+     call time — promptPacket runs on a button click, long after the
+     loader has set the prefix. Undefined (fresh Sexcapades boot, before
+     any switch) falls back to "Sex.Capades.IO". */
   function pitchBrand() {
     try {
-      return window.__SX_ACTIVE_SKIN && window.__SX_ACTIVE_SKIN !== "sexcapades"
-        ? "Flex.Capades.IO" : "Sex.Capades.IO";
+      var prefix = String(window.__SX_SKIN_PREFIX || "");
+      if (!prefix) return "Sex.Capades.IO";
+      return prefix.charAt(0).toUpperCase() + prefix.slice(1) + ".Capades.IO";
     } catch (e) { return "Sex.Capades.IO"; }
   }
 
