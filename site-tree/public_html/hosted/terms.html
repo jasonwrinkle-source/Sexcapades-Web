@@ -287,6 +287,8 @@
       .footer-note { margin-top: 20px; }
     }
   </style>
+<script src="/hosted/js/docs-skin.js"></script>
+<style>[data-sx-vanilla-only]{display:none}</style>
 </head>
 <body>
   <main class="page">
@@ -315,11 +317,18 @@
       </nav>
 
       <article class="terms" aria-label="Terms of Service">
-        <section class="term" id="age">
+        <section class="term" id="age" data-sx-sex-only>
           <div class="number" aria-hidden="true">01</div>
           <div>
             <h2>Adults only</h2>
             <p>You must be <strong>18 or older</strong> to use Sexcapades. By using it, you confirm that you meet this age requirement.</p>
+          </div>
+        </section>
+        <section class="term" id="age" data-sx-vanilla-only>
+          <div class="number" aria-hidden="true">01</div>
+          <div>
+            <h2>No age requirement</h2>
+            <p>There is no age requirement for this map.</p>
           </div>
         </section>
 
@@ -337,7 +346,7 @@
           <div>
             <h2>Not professional advice</h2>
             <p>Sexcapades does not provide medical, psychological, legal, or relationship advice. Talk with a qualified professional when you need advice in any of those areas.</p>
-            <p>Practice kink responsibly: negotiate consent, communicate openly with your partners, and learn appropriate risk-aware techniques before trying an activity.</p>
+            <p data-sx-sex-only>Practice kink responsibly: negotiate consent, communicate openly with your partners, and learn appropriate risk-aware techniques before trying an activity.</p><p data-sx-vanilla-only>Discuss honestly: represent your own positions, don't present someone else's views as your own, and keep the conversation respectful.</p>
           </div>
         </section>
 
@@ -402,7 +411,7 @@
           </div>
         </section>
 
-        <section class="term" id="contact">
+        <section class="term" id="contact" data-sx-sex-only>
           <div class="number" aria-hidden="true">11</div>
           <div>
             <h2>Contact</h2>
