@@ -309,7 +309,7 @@ const TAXONOMY_CATEGORIES = [
         "name": "Power exchange",
         "topics": [
             {
-                "name": "Protocols & rules",
+                "name": "Protocols",
                 "id": "t0002",
                 "risk": false
             },
@@ -478,7 +478,7 @@ const TAXONOMY_CATEGORIES = [
         "name": "Bondage & restriction",
         "parentTopics": [
             {
-                "name": "Restraint & containment",
+                "name": "Restraint",
                 "id": "t0426",
                 "risk": false,
                 "note": "Rope, Shibari, Cuffs, Tape, Mummification, Blindfold, Caging, Suspension"
@@ -1151,12 +1151,12 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Wax & temperature",
+                "name": "Temperature",
                 "id": "t0098",
                 "risk": false
             },
             {
-                "name": "Ice & cool touch",
+                "name": "Cold Touch",
                 "id": "t0099",
                 "risk": false
             },
@@ -1181,7 +1181,7 @@ const TAXONOMY_CATEGORIES = [
                 "note": "Tactile, Thermal, Impact, Electric, Scent, Sound, Vestibular"
             },
             {
-                "name": "Music & sound",
+                "name": "Music",
                 "id": "t0106",
                 "risk": false
             },
@@ -1660,7 +1660,7 @@ const TAXONOMY_CATEGORIES = [
                 "name": "Materials",
                 "topics": [
                     {
-                        "name": "Latex & rubber",
+                        "name": "Latex",
                         "id": "t0152",
                         "risk": false
                     },
@@ -1932,7 +1932,7 @@ const TAXONOMY_CATEGORIES = [
                 "name": "Lingerie & hosiery",
                 "topics": [
                     {
-                        "name": "Lingerie & stockings",
+                        "name": "Lingerie",
                         "id": "t0181",
                         "risk": false
                     },
@@ -2131,7 +2131,7 @@ const TAXONOMY_CATEGORIES = [
         "name": "Body focus & appearance",
         "parentTopics": [
             {
-                "name": "Anatomical focus & worship",
+                "name": "Anatomical Focus",
                 "id": "t0427",
                 "risk": false,
                 "note": "Feet, Hands, Breasts, Glutes, Muscles, Hair, BodyHair, Pregnancy"
@@ -2605,7 +2605,7 @@ const TAXONOMY_CATEGORIES = [
                 "name": "Vulnerability",
                 "topics": [
                     {
-                        "name": "Anticipation & suspense",
+                        "name": "Anticipation",
                         "id": "t0258",
                         "risk": false
                     },
@@ -2637,7 +2637,7 @@ const TAXONOMY_CATEGORIES = [
                         "receive_label": "blush"
                     },
                     {
-                        "name": "Confession & secrets",
+                        "name": "Secrets",
                         "id": "t0262",
                         "risk": false
                     }
@@ -2679,7 +2679,7 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Private photo & video",
+                "name": "Private Media",
                 "id": "t0267",
                 "risk": false
             },
@@ -2689,7 +2689,7 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Public & outdoor play",
+                "name": "Public Play",
                 "id": "t0269",
                 "risk": false
             },
@@ -3560,7 +3560,7 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Wrestling & struggle",
+                "name": "Wrestling",
                 "id": "t0353",
                 "risk": false
             },
@@ -3588,7 +3588,7 @@ const TAXONOMY_CATEGORIES = [
                 "receive_label": "be manhandled"
             },
             {
-                "name": "Pursuit, Take-Down & Capture",
+                "name": "Pursuit & Capture",
                 "id": "t0357",
                 "risk": false,
                 "kinksters": 153599,
@@ -3619,7 +3619,7 @@ const TAXONOMY_CATEGORIES = [
                 "give_label": "manhandle",
                 "receive_label": "be manhandled"
             },
-            "Pursuit, Take-Down & Capture": {
+            "Pursuit & Capture": {
                 "kinksters": 153599,
                 "type": "give_receive",
                 "give_label": "pursue & capture",
@@ -4018,12 +4018,12 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Cuddling & touch",
+                "name": "Cuddling",
                 "id": "t0397",
                 "risk": false
             },
             {
-                "name": "Food & hydration",
+                "name": "Nourishment",
                 "id": "t0398",
                 "risk": false
             },
@@ -4043,7 +4043,7 @@ const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Space & solitude",
+                "name": "Solitude",
                 "id": "t0402",
                 "risk": false
             },
@@ -7072,7 +7072,7 @@ const TAXONOMY_CATEGORIES = [
             "Suspension Bondage": [ "Suspension" ],
             "Hunter / prey": [ "Predator/prey" ],
             "Biting & scratching": [ "Scratch & bite play" ],
-            "Wax & temperature": [ "Wax" ],
+            "Temperature": [ "Wax" ],
             "Electrical Play": [ "Electro sensation" ],
             Cutting: [ "artistic cutting", "decorative cutting" ],
             "Needle Play": [ "Needles & piercing", "Play Piercing", "Piercings" ],
@@ -8513,7 +8513,7 @@ const TAXONOMY_CATEGORIES = [
             "Service & ritual": "green"
         }, Ie = new Map;
         Object.entries({
-            black: [ "Wax & temperature", "Electrical Play", "Sensory overload", "Consensual non-consent fantasy", "Fear Play", "Interrogation", "Blood play", "Wrestling & struggle", "Biting & scratching" ],
+            black: [ "Temperature", "Electrical Play", "Sensory overload", "Consensual non-consent fantasy", "Fear Play", "Interrogation", "Blood play", "Wrestling", "Biting & scratching" ],
             darkBlue: [ "Anal beads", "Anal fingering", "Rimming", "Anal sex" ],
             lightBlue: [ "Facefucking", "Facesitting", "Facials", "Fingering mouths", "Oral sex" ],
             red: [ "Vaginal fisting", "Anal fisting" ],
@@ -8701,7 +8701,7 @@ const TAXONOMY_CATEGORIES = [
                 description: "Ways partners reconnect, recover, reflect, and care for one another during and after an experience."
             }
         }, qe = {
-            "Protocols & rules": "Agreed rules that shape how someone speaks, dresses, asks permission, completes tasks, or behaves in a power-exchange relationship or scene.",
+            "Protocols": "Agreed rules that shape how someone speaks, dresses, asks permission, completes tasks, or behaves in a power-exchange relationship or scene.",
             "Ownership language": "Calling someone “mine,” “owned,” “property,” or similar words to make the power exchange feel possessive and real while both people are choosing the dynamic.",
             "Collars & symbols": "Wearing a collar, ring, bracelet, tag, or other item that represents a dominant/submissive bond, a role, or a commitment.",
             "Reward & correction": "The person in charge rewards wanted behavior and corrects behavior that breaks the agreed rules, using attention, privileges, tasks, or other consequences.",
@@ -8733,15 +8733,15 @@ const TAXONOMY_CATEGORIES = [
             Sounding: "Urethral sounding is the insertion of smooth metal or silicone rods into the urethra for sexual stimulation. It is a higher-risk practice requiring sterile technique, specialized knowledge, appropriate lubrication, and explicit negotiation.",
             "Heavy marking": "Hitting, biting, scratching, suctioning, or otherwise working the skin hard enough to leave bruises, welts, scratches, or other visible marks.",
             "Extreme endurance": "One partner endures intense pain, difficult positions, repeated impact, or prolonged stimulation while the other pushes their agreed physical or mental limits.",
-            "Wax & temperature": "Dripping warm wax onto skin or using controlled heat and cold to create sudden temperature sensations across the body.",
-            "Ice & cool touch": "Running ice, chilled metal, cold hands, or cool air over the skin, sometimes alternating it with warmth or sexual touch.",
+            "Temperature": "Dripping warm wax onto skin or using controlled heat and cold to create sudden temperature sensations across the body.",
+            "Cold Touch": "Running ice, chilled metal, cold hands, or cool air over the skin, sometimes alternating it with warmth or sexual touch.",
             Tickling: "Touching sensitive areas lightly or rapidly to make someone squirm, laugh, lose composure, or struggle against restraint.",
             "Electrical Play": "Applying controlled electrical pulses with an E-stim device or violet wand so the body feels tingling, tapping, pulsing, or sharper shocks.",
             "Texture contrast": "Moving very different materials—such as fur, leather, metal, rope, feathers, or rough fabric—across the skin to emphasize how each feels.",
             "Sensory deprivation": "Removing or reducing sight, sound, movement, or touch so someone has less information and becomes more focused on the sensations that remain.",
             "Sensory overload": "Giving many strong sensations at once—such as noise, light, touch, vibration, pain, or sexual stimulation—until it becomes deliberately overwhelming.",
             "ASMR & whispering": "Using close whispers, soft mouth sounds, breath, scratching, or other quiet repetitive sounds to create tingles, calm, or erotic intimacy.",
-            "Music & sound": "Using music, voices, rhythms, sound effects, or deliberate silence to set the pace and emotional tone of a scene.",
+            "Music": "Using music, voices, rhythms, sound effects, or deliberate silence to set the pace and emotional tone of a scene.",
             Mirrors: "Positioning mirrors so someone can watch themselves or their partner during sex, bondage, dressing, or another scene.",
             "Low light": "Using dim lamps, candles, darkness, or shadows to change what can be seen and make the scene feel private, suspenseful, or intimate.",
             Scent: "One partner gives a scent — wears perfume, leather, sweat, incense — the other receives it: smells, breathes it in.",
@@ -8762,8 +8762,8 @@ const TAXONOMY_CATEGORIES = [
             "Vampires & gothic": "Using vampire roles, biting, blood imagery, dark clothing, candlelight, crypts, or other gothic elements as the erotic fantasy.",
             "Historical fantasy": "Roleplaying adults in another time period—such as a royal court, pirate ship, manor, or wartime setting—with period-inspired roles and clothing.",
             Leather: "Wearing, touching, smelling, or using leather clothing and gear such as harnesses, boots, gloves, straps, or jackets as part of attraction or play.",
-            "Latex & rubber": "Wearing tight latex or rubber clothing, or enjoying its shine, smell, pressure, squeak, and slick feel against the body.",
-            "Lingerie & stockings": "Wearing or admiring bras, panties, corsets, garters, stockings, and similar garments as part of dressing up, teasing, or sex.",
+            "Latex": "Wearing tight latex or rubber clothing, or enjoying its shine, smell, pressure, squeak, and slick feel against the body.",
+            "Lingerie": "Wearing or admiring bras, panties, corsets, garters, stockings, and similar garments as part of dressing up, teasing, or sex.",
             Uniforms: "Wearing a recognizable work, military, school-style, service, or authority uniform to create a look or support a roleplay.",
             "Heels & boots": "Wearing, touching, admiring, or being controlled with high heels, tall boots, or heavy footwear as the focus of attraction or a scene.",
             "Masks & hoods": "Covering part or all of the face or head to hide identity, change appearance, restrict sight or sound, or create a depersonalized feeling.",
@@ -8794,12 +8794,12 @@ const TAXONOMY_CATEGORIES = [
             "Hypnosis & mind-control fantasy": "Using hypnotic language, triggers, repetition, or roleplay to create the fantasy that someone’s thoughts or actions are being controlled.",
             "Fear Play": "Creating a controlled feeling of danger, dread, or helplessness through threats, darkness, weapons as props, pursuit, or not knowing what comes next.",
             Interrogation: "One person questions another under pressure, using commands, restraint, threats, or discomfort while the other resists or gives up information in character.",
-            "Anticipation & suspense": "Delaying or hiding what will happen next so waiting, uncertainty, and mounting tension become part of the arousal.",
-            "Confession & secrets": "One person gives a secret — reveals desires, fantasies, embarrassing thoughts — while the other receives it: listens, questions, or commands.",
+            "Anticipation": "Delaying or hiding what will happen next so waiting, uncertainty, and mounting tension become part of the arousal.",
+            "Secrets": "One person gives a secret — reveals desires, fantasies, embarrassing thoughts — while the other receives it: listens, questions, or commands.",
             "Watching & being watched": "One partner watches the other undress, masturbate, have sex, or perform another intimate act; the watched partner knows and agrees to the audience.",
-            "Private photo & video": "Taking, posing for, or recording intimate photos or video meant to stay within the participants’ agreed private audience.",
+            "Private Media": "Taking, posing for, or recording intimate photos or video meant to stay within the participants’ agreed private audience.",
             "Performance for a partner": "Stripping, masturbating, dancing, posing, or performing a sexual act mainly for a partner who is watching.",
-            "Public & outdoor play": "Having sex or doing kink outdoors in a secluded place, or doing something discreet in public — such as hidden touch or remote-toy play — for the thrill of almost being noticed without involving nonconsenting people.",
+            "Public Play": "Having sex or doing kink outdoors in a secluded place, or doing something discreet in public — such as hidden touch or remote-toy play — for the thrill of almost being noticed without involving nonconsenting people.",
             "Exhibition / voyeurism": "One partner exhibits — exposes their body or performs sexual activity for an audience — while the other watches; any enacted “secret” watching is roleplayed by consenting adults.",
             "Cuckold / hotwife fantasy": "Fantasizing that one partner has sex with someone else while the other knows, watches, hears details, or experiences jealousy and arousal.",
             Threesomes: "Sexual activity involving three adults at the same time, in whatever combination of genders and roles they choose.",
@@ -8853,7 +8853,7 @@ const TAXONOMY_CATEGORIES = [
             "Messy food play": "Smearing, pouring, sitting in, or covering bodies with foods such as cream, syrup, cake, or fruit, then touching, licking, or having sex in the mess.",
             "Hunter / prey": "One partner hunts — tracks, chases, catches, pins, or claims — while the other is hunted: runs, hides, resists, struggles, or is caught, often with raw growling, grabbing, biting, or rough sex.",
             "Chase scenes": "One partner gives the chase — pursues — the other receives it: is chased, caught.",
-            "Wrestling & struggle": "One partner gives the fight or struggle — initiates the grappling, pinning, or contest for position — while the other receives it: engages, resists, and physically struggles back.",
+            "Wrestling": "One partner gives the fight or struggle — initiates the grappling, pinning, or contest for position — while the other receives it: engages, resists, and physically struggles back.",
             "Biting & scratching": "Using teeth and fingernails on the body to create marks, pain, pressure, or an animalistic feeling.",
             "Acts of service": "Doing useful or pleasing things for someone—such as preparing gear, bringing drinks, cleaning, or following instructions—as an expression of devotion or submission.",
             "Domestic service": "Cooking, cleaning, laundry, errands, and other household work are performed for a partner as part of an agreed service dynamic.",
@@ -8878,12 +8878,12 @@ const TAXONOMY_CATEGORIES = [
             Sissification: "One partner gives the sissification — feminizes the other through clothing, names, posture, tasks, or roles — while the other receives it: is sissified.",
             "Kidnapping fantasy (consensual)": "Adults agree to roleplay that one person is abducted, restrained, transported, or held captive while acting as though the capture is against their will.",
             "Verbal check-ins": "Pausing or checking in with words during a scene to ask how someone feels, whether the intensity is right, and whether they want to continue or change anything.",
-            "Cuddling & touch": "Holding, stroking, kissing, or lying close together after a scene to help the body settle and restore affectionate connection.",
-            "Food & hydration": "Offering water, electrolytes, snacks, or a meal after intense play so participants can recover physically.",
+            "Cuddling": "Holding, stroking, kissing, or lying close together after a scene to help the body settle and restore affectionate connection.",
+            "Nourishment": "Offering water, electrolytes, snacks, or a meal after intense play so participants can recover physically.",
             "Quiet decompression": "Sitting or lying somewhere calm with low stimulation while breathing, resting, and letting the intensity of the scene fade.",
             "Praise (aftercare)": "Telling someone after an intense or vulnerable scene that they did well, are cared for, are not being judged, and are emotionally safe.",
             "Post-scene review": "Talking after the scene about what felt good, what did not, any surprises, and what each person would keep or change next time.",
-            "Space & solitude": "Giving someone time alone after a scene because quiet privacy, rather than touch or conversation, is what helps them recover.",
+            "Solitude": "Giving someone time alone after a scene because quiet privacy, rather than touch or conversation, is what helps them recover.",
             "Next-day check-in": "Contacting each other the following day to ask about emotions, soreness, marks, regrets, needs, and how the experience feels in hindsight.",
             "Needle Play": "Using sterile needles to pierce or decorate the skin during a scene, including temporary play piercing, arranged needle patterns, and an erotic focus on piercings; it requires specialized training, sterile technique, sharps handling, and explicit negotiation.",
             "Rope bondage": "Tying someone with rope to restrain movement, hold a pose, create pressure, or make the rope itself part of the erotic experience, including decorative ties, hemp rope, Japanese shibari or kinbaku, and historically inspired hojojutsu forms.",
@@ -9106,7 +9106,7 @@ const TAXONOMY_CATEGORIES = [
             Klismaphilia: "Sexual arousal from enemas, including giving or receiving rectal fluid, holding it, expelling it, watching the process, or eroticizing the medical and control aspects.",
             "Being Overpowered": "A consenting person is physically dominated, pinned, restrained, lifted, or forced into position so they can feel another person's superior strength and control.",
             Manhandling: "Grabbing, moving, pinning, carrying, throwing onto furniture, or forcefully repositioning a consenting partner to create roughness and physical control.",
-            "Pursuit, Take-Down & Capture": "One adult chases another, catches them, brings them to the ground or restrains them, and claims them within a negotiated predator-and-prey scenario.",
+            "Pursuit & Capture": "One adult chases another, catches them, brings them to the ground or restrains them, and claims them within a negotiated predator-and-prey scenario.",
             "Foot Massage": "Rubbing, kneading, pressing, and handling a partner's feet to provide pleasure, care, service, relaxation, or erotic attention to the feet.",
             "Domestic Servitude": "A submissive performs ongoing household labor such as cooking, cleaning, laundry, organization, and errands as service to a dominant partner.",
             "French Maids": "An adult wears a stylized maid costume and performs cleaning, serving, obedience, flirtation, or punishment roleplay for a partner acting as employer or guest.",
@@ -9169,8 +9169,8 @@ const TAXONOMY_CATEGORIES = [
             Sounding: [ "urethral sound", "urethral sound" ],
             "Heavy marking": [ "marks", "marks" ],
             "Extreme endurance": [ "intense challenge", "intense pain or stimulation" ],
-            "Wax & temperature": [ "heat or cold", "heat or cold" ],
-            "Ice & cool touch": [ "cold touch", "cold touch" ],
+            "Temperature": [ "heat or cold", "heat or cold" ],
+            "Cold Touch": [ "cold touch", "cold touch" ],
             Tickling: [ "tickling", "being tickled" ],
             "Electrical Play": [ "electrical stimulation", "electrical stimulation" ],
             "Sensory deprivation": [ "reduced sensory input", "reduced sensory input" ],
@@ -9191,8 +9191,8 @@ const TAXONOMY_CATEGORIES = [
             "Consensual non-consent fantasy": [ "overpowering a partner (in fantasy)", "being overpowered (in fantasy)" ],
             "Captivity / kidnapping": [ "capturing & holding a partner captive", "being captured & held captive" ],
             Leather: [ "leather", "leather" ],
-            "Latex & rubber": [ "latex or rubber", "latex or rubber" ],
-            "Lingerie & stockings": [ "lingerie or stockings", "lingerie or stockings" ],
+            "Latex": [ "latex or rubber", "latex or rubber" ],
+            "Lingerie": [ "lingerie or stockings", "lingerie or stockings" ],
             Uniforms: [ "uniform", "uniform" ],
             "Heels & boots": [ "heels or boots", "heels or boots" ],
             "Masks & hoods": [ "mask or hood", "mask or hood" ],
@@ -9220,9 +9220,9 @@ const TAXONOMY_CATEGORIES = [
             "Hypnosis & mind-control fantasy": [ "hypnotic suggestions or control", "being hypnotized or mind-controlled (in fantasy)" ],
             "Fear Play": [ "scaring a partner", "being frightened" ],
             Interrogation: [ "questions & pressure", "being questioned under pressure" ],
-            "Confession & secrets": [ "a partner's confession or secrets", "confessing your own secrets" ],
+            "Secrets": [ "a partner's confession or secrets", "confessing your own secrets" ],
             "Watching & being watched": [ "attention or a view", "attention or a view" ],
-            "Private photo & video": [ "intimate image or video", "intimate image or video" ],
+            "Private Media": [ "intimate image or video", "intimate image or video" ],
             "Performance for a partner": [ "sexual performance", "sexual performance" ],
             "Exhibition / voyeurism": [ "performance or exposure", "performance or exposure" ],
             "Cuckold / hotwife": [ "outside-partner sex", "knowledge, details, or a view of outside-partner sex" ],
@@ -9259,7 +9259,7 @@ const TAXONOMY_CATEGORIES = [
             Spit: [ "saliva", "saliva" ],
             "Hunter / prey": [ "the hunt — pursuing & catching your prey", "being hunted, chased & caught" ],
             "Chase scenes": [ "pursuing & catching", "being pursued & caught" ],
-            "Wrestling & struggle": [ "grappling & pinning", "being grappled & pinned" ],
+            "Wrestling": [ "grappling & pinning", "being grappled & pinned" ],
             "Biting & scratching": [ "bites & scratches", "bites & scratches on your skin" ],
             "Acts of service": [ "service", "service" ],
             "Domestic service": [ "household work", "household work" ],
@@ -9274,7 +9274,7 @@ const TAXONOMY_CATEGORIES = [
             Crossdressing: [ "gendered clothing or presentation", "gendered clothing or presentation" ],
             "Celebrity fantasy": [ "celebrity fantasy", "celebrity fantasy" ],
             Sissification: [ "feminizing a partner", "being feminized" ],
-            "Food & hydration": [ "food or drink", "food or drink" ],
+            "Nourishment": [ "food or drink", "food or drink" ],
             "Praise (aftercare)": [ "praise or reassurance", "praise or reassurance" ]
         }, We = {
             "cat-power-exchange": [ "dom", "sub" ],
@@ -10379,7 +10379,7 @@ const TAXONOMY_CATEGORIES = [
             "Suspension Bondage": [ "Suspension" ],
             "Hunter / prey": [ "Predator/prey" ],
             "Biting & scratching": [ "Scratch & bite play" ],
-            "Wax & temperature": [ "Wax" ],
+            "Temperature": [ "Wax" ],
             "Electrical Play": [ "Electro sensation" ],
             Cutting: [ "artistic cutting", "decorative cutting" ],
             "Needle Play": [ "Needles & piercing", "Play Piercing", "Piercings" ],
@@ -11817,7 +11817,7 @@ const TAXONOMY_CATEGORIES = [
             "Service & ritual": "green"
         }, Ie = new Map;
         Object.entries({
-            black: [ "Wax & temperature", "Electrical Play", "Sensory overload", "Consensual non-consent fantasy", "Fear Play", "Interrogation", "Blood play", "Wrestling & struggle", "Biting & scratching" ],
+            black: [ "Temperature", "Electrical Play", "Sensory overload", "Consensual non-consent fantasy", "Fear Play", "Interrogation", "Blood play", "Wrestling", "Biting & scratching" ],
             darkBlue: [ "Anal beads", "Anal fingering", "Rimming", "Anal sex" ],
             lightBlue: [ "Facefucking", "Facesitting", "Facials", "Fingering mouths", "Oral sex" ],
             red: [ "Vaginal fisting", "Anal fisting" ],
@@ -12005,7 +12005,7 @@ const TAXONOMY_CATEGORIES = [
                 description: "Ways partners reconnect, recover, reflect, and care for one another during and after an experience."
             }
         }, qe = {
-            "Protocols & rules": "Agreed rules that shape how someone speaks, dresses, asks permission, completes tasks, or behaves in a power-exchange relationship or scene.",
+            "Protocols": "Agreed rules that shape how someone speaks, dresses, asks permission, completes tasks, or behaves in a power-exchange relationship or scene.",
             "Ownership language": "Calling someone “mine,” “owned,” “property,” or similar words to make the power exchange feel possessive and real while both people are choosing the dynamic.",
             "Collars & symbols": "Wearing a collar, ring, bracelet, tag, or other item that represents a dominant/submissive bond, a role, or a commitment.",
             "Reward & correction": "The person in charge rewards wanted behavior and corrects behavior that breaks the agreed rules, using attention, privileges, tasks, or other consequences.",
@@ -12037,15 +12037,15 @@ const TAXONOMY_CATEGORIES = [
             Sounding: "Urethral sounding is the insertion of smooth metal or silicone rods into the urethra for sexual stimulation. It is a higher-risk practice requiring sterile technique, specialized knowledge, appropriate lubrication, and explicit negotiation.",
             "Heavy marking": "Hitting, biting, scratching, suctioning, or otherwise working the skin hard enough to leave bruises, welts, scratches, or other visible marks.",
             "Extreme endurance": "One partner endures intense pain, difficult positions, repeated impact, or prolonged stimulation while the other pushes their agreed physical or mental limits.",
-            "Wax & temperature": "Dripping warm wax onto skin or using controlled heat and cold to create sudden temperature sensations across the body.",
-            "Ice & cool touch": "Running ice, chilled metal, cold hands, or cool air over the skin, sometimes alternating it with warmth or sexual touch.",
+            "Temperature": "Dripping warm wax onto skin or using controlled heat and cold to create sudden temperature sensations across the body.",
+            "Cold Touch": "Running ice, chilled metal, cold hands, or cool air over the skin, sometimes alternating it with warmth or sexual touch.",
             Tickling: "Touching sensitive areas lightly or rapidly to make someone squirm, laugh, lose composure, or struggle against restraint.",
             "Electrical Play": "Applying controlled electrical pulses with an E-stim device or violet wand so the body feels tingling, tapping, pulsing, or sharper shocks.",
             "Texture contrast": "Moving very different materials—such as fur, leather, metal, rope, feathers, or rough fabric—across the skin to emphasize how each feels.",
             "Sensory deprivation": "Removing or reducing sight, sound, movement, or touch so someone has less information and becomes more focused on the sensations that remain.",
             "Sensory overload": "Giving many strong sensations at once—such as noise, light, touch, vibration, pain, or sexual stimulation—until it becomes deliberately overwhelming.",
             "ASMR & whispering": "Using close whispers, soft mouth sounds, breath, scratching, or other quiet repetitive sounds to create tingles, calm, or erotic intimacy.",
-            "Music & sound": "Using music, voices, rhythms, sound effects, or deliberate silence to set the pace and emotional tone of a scene.",
+            "Music": "Using music, voices, rhythms, sound effects, or deliberate silence to set the pace and emotional tone of a scene.",
             Mirrors: "Positioning mirrors so someone can watch themselves or their partner during sex, bondage, dressing, or another scene.",
             "Low light": "Using dim lamps, candles, darkness, or shadows to change what can be seen and make the scene feel private, suspenseful, or intimate.",
             Scent: "One partner gives a scent — wears perfume, leather, sweat, incense — the other receives it: smells, breathes it in.",
@@ -12066,8 +12066,8 @@ const TAXONOMY_CATEGORIES = [
             "Vampires & gothic": "Using vampire roles, biting, blood imagery, dark clothing, candlelight, crypts, or other gothic elements as the erotic fantasy.",
             "Historical fantasy": "Roleplaying adults in another time period—such as a royal court, pirate ship, manor, or wartime setting—with period-inspired roles and clothing.",
             Leather: "Wearing, touching, smelling, or using leather clothing and gear such as harnesses, boots, gloves, straps, or jackets as part of attraction or play.",
-            "Latex & rubber": "Wearing tight latex or rubber clothing, or enjoying its shine, smell, pressure, squeak, and slick feel against the body.",
-            "Lingerie & stockings": "Wearing or admiring bras, panties, corsets, garters, stockings, and similar garments as part of dressing up, teasing, or sex.",
+            "Latex": "Wearing tight latex or rubber clothing, or enjoying its shine, smell, pressure, squeak, and slick feel against the body.",
+            "Lingerie": "Wearing or admiring bras, panties, corsets, garters, stockings, and similar garments as part of dressing up, teasing, or sex.",
             Uniforms: "Wearing a recognizable work, military, school-style, service, or authority uniform to create a look or support a roleplay.",
             "Heels & boots": "Wearing, touching, admiring, or being controlled with high heels, tall boots, or heavy footwear as the focus of attraction or a scene.",
             "Masks & hoods": "Covering part or all of the face or head to hide identity, change appearance, restrict sight or sound, or create a depersonalized feeling.",
@@ -12098,12 +12098,12 @@ const TAXONOMY_CATEGORIES = [
             "Hypnosis & mind-control fantasy": "Using hypnotic language, triggers, repetition, or roleplay to create the fantasy that someone’s thoughts or actions are being controlled.",
             "Fear Play": "Creating a controlled feeling of danger, dread, or helplessness through threats, darkness, weapons as props, pursuit, or not knowing what comes next.",
             Interrogation: "One person questions another under pressure, using commands, restraint, threats, or discomfort while the other resists or gives up information in character.",
-            "Anticipation & suspense": "Delaying or hiding what will happen next so waiting, uncertainty, and mounting tension become part of the arousal.",
-            "Confession & secrets": "One person gives a secret — reveals desires, fantasies, embarrassing thoughts — while the other receives it: listens, questions, or commands.",
+            "Anticipation": "Delaying or hiding what will happen next so waiting, uncertainty, and mounting tension become part of the arousal.",
+            "Secrets": "One person gives a secret — reveals desires, fantasies, embarrassing thoughts — while the other receives it: listens, questions, or commands.",
             "Watching & being watched": "One partner watches the other undress, masturbate, have sex, or perform another intimate act; the watched partner knows and agrees to the audience.",
-            "Private photo & video": "Taking, posing for, or recording intimate photos or video meant to stay within the participants’ agreed private audience.",
+            "Private Media": "Taking, posing for, or recording intimate photos or video meant to stay within the participants’ agreed private audience.",
             "Performance for a partner": "Stripping, masturbating, dancing, posing, or performing a sexual act mainly for a partner who is watching.",
-            "Public & outdoor play": "Having sex or doing kink outdoors in a secluded place, or doing something discreet in public — such as hidden touch or remote-toy play — for the thrill of almost being noticed without involving nonconsenting people.",
+            "Public Play": "Having sex or doing kink outdoors in a secluded place, or doing something discreet in public — such as hidden touch or remote-toy play — for the thrill of almost being noticed without involving nonconsenting people.",
             "Exhibition / voyeurism": "One partner exhibits — exposes their body or performs sexual activity for an audience — while the other watches; any enacted “secret” watching is roleplayed by consenting adults.",
             "Cuckold / hotwife fantasy": "Fantasizing that one partner has sex with someone else while the other knows, watches, hears details, or experiences jealousy and arousal.",
             Threesomes: "Sexual activity involving three adults at the same time, in whatever combination of genders and roles they choose.",
@@ -12157,7 +12157,7 @@ const TAXONOMY_CATEGORIES = [
             "Messy food play": "Smearing, pouring, sitting in, or covering bodies with foods such as cream, syrup, cake, or fruit, then touching, licking, or having sex in the mess.",
             "Hunter / prey": "One partner hunts — tracks, chases, catches, pins, or claims — while the other is hunted: runs, hides, resists, struggles, or is caught, often with raw growling, grabbing, biting, or rough sex.",
             "Chase scenes": "One partner gives the chase — pursues — the other receives it: is chased, caught.",
-            "Wrestling & struggle": "One partner gives the fight or struggle — initiates the grappling, pinning, or contest for position — while the other receives it: engages, resists, and physically struggles back.",
+            "Wrestling": "One partner gives the fight or struggle — initiates the grappling, pinning, or contest for position — while the other receives it: engages, resists, and physically struggles back.",
             "Biting & scratching": "Using teeth and fingernails on the body to create marks, pain, pressure, or an animalistic feeling.",
             "Acts of service": "Doing useful or pleasing things for someone—such as preparing gear, bringing drinks, cleaning, or following instructions—as an expression of devotion or submission.",
             "Domestic service": "Cooking, cleaning, laundry, errands, and other household work are performed for a partner as part of an agreed service dynamic.",
@@ -12182,12 +12182,12 @@ const TAXONOMY_CATEGORIES = [
             Sissification: "One partner gives the sissification — feminizes the other through clothing, names, posture, tasks, or roles — while the other receives it: is sissified.",
             "Kidnapping fantasy (consensual)": "Adults agree to roleplay that one person is abducted, restrained, transported, or held captive while acting as though the capture is against their will.",
             "Verbal check-ins": "Pausing or checking in with words during a scene to ask how someone feels, whether the intensity is right, and whether they want to continue or change anything.",
-            "Cuddling & touch": "Holding, stroking, kissing, or lying close together after a scene to help the body settle and restore affectionate connection.",
-            "Food & hydration": "Offering water, electrolytes, snacks, or a meal after intense play so participants can recover physically.",
+            "Cuddling": "Holding, stroking, kissing, or lying close together after a scene to help the body settle and restore affectionate connection.",
+            "Nourishment": "Offering water, electrolytes, snacks, or a meal after intense play so participants can recover physically.",
             "Quiet decompression": "Sitting or lying somewhere calm with low stimulation while breathing, resting, and letting the intensity of the scene fade.",
             "Praise (aftercare)": "Telling someone after an intense or vulnerable scene that they did well, are cared for, are not being judged, and are emotionally safe.",
             "Post-scene review": "Talking after the scene about what felt good, what did not, any surprises, and what each person would keep or change next time.",
-            "Space & solitude": "Giving someone time alone after a scene because quiet privacy, rather than touch or conversation, is what helps them recover.",
+            "Solitude": "Giving someone time alone after a scene because quiet privacy, rather than touch or conversation, is what helps them recover.",
             "Next-day check-in": "Contacting each other the following day to ask about emotions, soreness, marks, regrets, needs, and how the experience feels in hindsight.",
             "Needle Play": "Using sterile needles to pierce or decorate the skin during a scene, including temporary play piercing, arranged needle patterns, and an erotic focus on piercings; it requires specialized training, sterile technique, sharps handling, and explicit negotiation.",
             "Rope bondage": "Tying someone with rope to restrain movement, hold a pose, create pressure, or make the rope itself part of the erotic experience, including decorative ties, hemp rope, Japanese shibari or kinbaku, and historically inspired hojojutsu forms.",
@@ -12410,7 +12410,7 @@ const TAXONOMY_CATEGORIES = [
             Klismaphilia: "Sexual arousal from enemas, including giving or receiving rectal fluid, holding it, expelling it, watching the process, or eroticizing the medical and control aspects.",
             "Being Overpowered": "A consenting person is physically dominated, pinned, restrained, lifted, or forced into position so they can feel another person's superior strength and control.",
             Manhandling: "Grabbing, moving, pinning, carrying, throwing onto furniture, or forcefully repositioning a consenting partner to create roughness and physical control.",
-            "Pursuit, Take-Down & Capture": "One adult chases another, catches them, brings them to the ground or restrains them, and claims them within a negotiated predator-and-prey scenario.",
+            "Pursuit & Capture": "One adult chases another, catches them, brings them to the ground or restrains them, and claims them within a negotiated predator-and-prey scenario.",
             "Foot Massage": "Rubbing, kneading, pressing, and handling a partner's feet to provide pleasure, care, service, relaxation, or erotic attention to the feet.",
             "Domestic Servitude": "A submissive performs ongoing household labor such as cooking, cleaning, laundry, organization, and errands as service to a dominant partner.",
             "French Maids": "An adult wears a stylized maid costume and performs cleaning, serving, obedience, flirtation, or punishment roleplay for a partner acting as employer or guest.",
@@ -12473,8 +12473,8 @@ const TAXONOMY_CATEGORIES = [
             Sounding: [ "urethral sound", "urethral sound" ],
             "Heavy marking": [ "marks", "marks" ],
             "Extreme endurance": [ "intense challenge", "intense pain or stimulation" ],
-            "Wax & temperature": [ "heat or cold", "heat or cold" ],
-            "Ice & cool touch": [ "cold touch", "cold touch" ],
+            "Temperature": [ "heat or cold", "heat or cold" ],
+            "Cold Touch": [ "cold touch", "cold touch" ],
             Tickling: [ "tickling", "being tickled" ],
             "Electrical Play": [ "electrical stimulation", "electrical stimulation" ],
             "Sensory deprivation": [ "reduced sensory input", "reduced sensory input" ],
@@ -12495,8 +12495,8 @@ const TAXONOMY_CATEGORIES = [
             "Consensual non-consent fantasy": [ "overpowering a partner (in fantasy)", "being overpowered (in fantasy)" ],
             "Captivity / kidnapping": [ "capturing & holding a partner captive", "being captured & held captive" ],
             Leather: [ "leather", "leather" ],
-            "Latex & rubber": [ "latex or rubber", "latex or rubber" ],
-            "Lingerie & stockings": [ "lingerie or stockings", "lingerie or stockings" ],
+            "Latex": [ "latex or rubber", "latex or rubber" ],
+            "Lingerie": [ "lingerie or stockings", "lingerie or stockings" ],
             Uniforms: [ "uniform", "uniform" ],
             "Heels & boots": [ "heels or boots", "heels or boots" ],
             "Masks & hoods": [ "mask or hood", "mask or hood" ],
@@ -12524,9 +12524,9 @@ const TAXONOMY_CATEGORIES = [
             "Hypnosis & mind-control fantasy": [ "hypnotic suggestions or control", "being hypnotized or mind-controlled (in fantasy)" ],
             "Fear Play": [ "scaring a partner", "being frightened" ],
             Interrogation: [ "questions & pressure", "being questioned under pressure" ],
-            "Confession & secrets": [ "a partner's confession or secrets", "confessing your own secrets" ],
+            "Secrets": [ "a partner's confession or secrets", "confessing your own secrets" ],
             "Watching & being watched": [ "attention or a view", "attention or a view" ],
-            "Private photo & video": [ "intimate image or video", "intimate image or video" ],
+            "Private Media": [ "intimate image or video", "intimate image or video" ],
             "Performance for a partner": [ "sexual performance", "sexual performance" ],
             "Exhibition / voyeurism": [ "performance or exposure", "performance or exposure" ],
             "Cuckold / hotwife": [ "outside-partner sex", "knowledge, details, or a view of outside-partner sex" ],
@@ -12563,7 +12563,7 @@ const TAXONOMY_CATEGORIES = [
             Spit: [ "saliva", "saliva" ],
             "Hunter / prey": [ "the hunt — pursuing & catching your prey", "being hunted, chased & caught" ],
             "Chase scenes": [ "pursuing & catching", "being pursued & caught" ],
-            "Wrestling & struggle": [ "grappling & pinning", "being grappled & pinned" ],
+            "Wrestling": [ "grappling & pinning", "being grappled & pinned" ],
             "Biting & scratching": [ "bites & scratches", "bites & scratches on your skin" ],
             "Acts of service": [ "service", "service" ],
             "Domestic service": [ "household work", "household work" ],
@@ -12578,7 +12578,7 @@ const TAXONOMY_CATEGORIES = [
             Crossdressing: [ "gendered clothing or presentation", "gendered clothing or presentation" ],
             "Celebrity fantasy": [ "celebrity fantasy", "celebrity fantasy" ],
             Sissification: [ "feminizing a partner", "being feminized" ],
-            "Food & hydration": [ "food or drink", "food or drink" ],
+            "Nourishment": [ "food or drink", "food or drink" ],
             "Praise (aftercare)": [ "praise or reassurance", "praise or reassurance" ]
         }, We = {
             "cat-power-exchange": [ "dom", "sub" ],
@@ -18589,7 +18589,7 @@ const TAXONOMY_CATEGORIES = [
             facefucking: "Face fucking",
             collars: "Collars & symbols",
             paddles: "Paddles & straps",
-            cuddling: "Cuddling & touch",
+            cuddling: "Cuddling",
             ageplayer: "Age play",
             threesome: "Threesome"
         };
@@ -27800,7 +27800,7 @@ const TAXONOMY_CATEGORIES = [
             Kilts: "https://en.wikipedia.org/wiki/Kilt",
             "Knife Play": "https://en.wikipedia.org/wiki/Knife_play",
             Latex: "https://en.wikipedia.org/wiki/Latex",
-            "Latex & rubber": "https://en.wikipedia.org/wiki/Rubber_and_PVC_fetishism",
+            "Latex": "https://en.wikipedia.org/wiki/Rubber_and_PVC_fetishism",
             Lingerie: "https://en.wikipedia.org/wiki/Lingerie",
             "Medical Play": "https://en.wikipedia.org/wiki/Medical_fetishism",
             "Military Uniforms": "https://en.wikipedia.org/wiki/Military_uniform",
@@ -27835,7 +27835,7 @@ const TAXONOMY_CATEGORIES = [
             "Urethral Play": "https://en.wikipedia.org/wiki/Urethral_sounding",
             Vampires: "https://en.wikipedia.org/wiki/Vampire",
             "Violet Wand": "https://en.wikipedia.org/wiki/Erotic_electrostimulation",
-            "Wax & temperature": "https://en.wikipedia.org/wiki/Wax_play",
+            "Temperature": "https://en.wikipedia.org/wiki/Wax_play",
             Whips: "https://en.wikipedia.org/wiki/Whip",
             Wrestling: "https://en.wikipedia.org/wiki/Wrestling",
             Zentai: "https://en.wikipedia.org/wiki/Zentai",
