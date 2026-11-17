@@ -61,7 +61,7 @@
       "topics": [
         {
           "id": "xte0001",
-          "name": "AI Risk & Benefit Allocation",
+          "name": "AI Impact",
           "risk": false,
           "poles": [
             {
@@ -538,7 +538,7 @@
         },
         {
           "id": "xte0014",
-          "name": "Synthetic Intimacy & AI Companionship",
+          "name": "AI Companionship",
           "risk": false,
           "poles": [
             {

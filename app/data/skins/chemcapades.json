@@ -61,7 +61,7 @@
       "topics": [
         {
           "id": "xch0001",
-          "name": "Conservation of Matter & Stoichiometric Integrity",
+          "name": "Conservation of Matter",
           "type": "single",
           "risk": false,
           "poles": [
@@ -214,7 +214,7 @@
         },
         {
           "id": "xch0005",
-          "name": "Molecular Structure & the Born-Oppenheimer Problem",
+          "name": "Molecular Structure",
           "risk": false,
           "poles": [
             {
@@ -293,7 +293,7 @@
       "topics": [
         {
           "id": "xch0007",
-          "name": "The Optimal Architecture of the Periodic Table",
+          "name": "The Periodic Table",
           "risk": false,
           "poles": [
             {
@@ -438,7 +438,7 @@
       "topics": [
         {
           "id": "xch0010",
-          "name": "Mechanism Inference vs \"Arrow Pushing\" Formalism",
+          "name": "Mechanism Inference",
           "risk": false,
           "poles": [
             {
@@ -478,7 +478,7 @@
         },
         {
           "id": "xch0011",
-          "name": "Computational Chemistry vs Wet-Bench Experimentation",
+          "name": "Computation vs Experiment",
           "risk": false,
           "poles": [
             {
@@ -526,7 +526,7 @@
         },
         {
           "id": "xch0012",
-          "name": "Structural Elucidation: Crystallography vs Spectroscopy vs Chemical Proof",
+          "name": "Structural Elucidation",
           "risk": false,
           "poles": [
             {
@@ -566,7 +566,7 @@
         },
         {
           "id": "xch0013",
-          "name": "Chemical Intuition vs Data-Driven / Algorithmic Discovery",
+          "name": "Intuition vs Data",
           "risk": false,
           "poles": [
             {
@@ -645,7 +645,7 @@
       "topics": [
         {
           "id": "xch0015",
-          "name": "Chemistry's External Identity: Central Science vs Service Science",
+          "name": "Chemistry's Identity",
           "risk": false,
           "poles": [
             {
@@ -749,7 +749,7 @@
         },
         {
           "id": "xch0017",
-          "name": "Total Synthesis: Peak Art Form vs Obsolete Heroism",
+          "name": "Total Synthesis",
           "risk": false,
           "poles": [
             {
@@ -797,7 +797,7 @@
         },
         {
           "id": "xch0018",
-          "name": "Discovery Chemistry vs Process / Industrial Chemistry",
+          "name": "Discovery vs Process Chemistry",
           "risk": false,
           "poles": [
             {
@@ -868,7 +868,7 @@
       "topics": [
         {
           "id": "xch0020",
-          "name": "Green Chemistry vs Unconstrained Synthetic Freedom",
+          "name": "Green Chemistry",
           "risk": false,
           "poles": [
             {
@@ -916,7 +916,7 @@
         },
         {
           "id": "xch0021",
-          "name": "Lab Safety Culture vs Exploratory Risk-Taking",
+          "name": "Lab Safety",
           "risk": false,
           "poles": [
             {
@@ -996,7 +996,7 @@
         },
         {
           "id": "xch0023",
-          "name": "Chemophobia & Public Engagement",
+          "name": "Chemophobia",
           "risk": false,
           "poles": [
             {
@@ -1036,7 +1036,7 @@
         },
         {
           "id": "xch0024",
-          "name": "Dual-Use Responsibility & Chemical Weapons Vigilance",
+          "name": "Dual-Use Responsibility",
           "risk": false,
           "poles": [
             {
@@ -1075,7 +1075,7 @@
       "topics": [
         {
           "id": "xch0025",
-          "name": "Thermodynamic Control vs Kinetic Control as Guiding Worldviews",
+          "name": "Thermodynamic vs Kinetic Control",
           "risk": false,
           "poles": [
             {
@@ -1107,7 +1107,7 @@
         },
         {
           "id": "xch0026",
-          "name": "Donor–Acceptor Reactivity Roles (Nucleophile/Base vs Electrophile/Acid)",
+          "name": "Donor–Acceptor Roles",
           "type": "give_receive",
           "risk": false,
           "give_label": "X-Axis (Give / Electron-Pair Donor)",
@@ -1142,7 +1142,7 @@
         },
         {
           "id": "xch0027",
-          "name": "Systems Chemistry & Prebiotic Emergence",
+          "name": "Systems Chemistry",
           "risk": false,
           "poles": [
             {
@@ -1182,7 +1182,7 @@
         },
         {
           "id": "xch0028",
-          "name": "Catalysis: Homogeneous Precision vs Heterogeneous Robustness vs Biocatalysis",
+          "name": "Catalysis",
           "risk": false,
           "poles": [
             {
@@ -1222,7 +1222,7 @@
         },
         {
           "id": "xch0029",
-          "name": "Supramolecular & Non-Covalent Chemistry vs Covalent Bond-Making",
+          "name": "Molecular Design",
           "risk": false,
           "poles": [
             {
@@ -1261,7 +1261,7 @@
       "topics": [
         {
           "id": "xch0030",
-          "name": "IUPAC Systematic Nomenclature vs Trivial & Common Names",
+          "name": "Chemical Nomenclature",
           "risk": false,
           "poles": [
             {
@@ -1301,7 +1301,7 @@
         },
         {
           "id": "xch0031",
-          "name": "General Chemistry Pedagogy: Concepts-First vs Math-First vs Atoms-First",
+          "name": "Chemistry Pedagogy",
           "risk": false,
           "poles": [
             {
@@ -1349,7 +1349,7 @@
         },
         {
           "id": "xch0032",
-          "name": "Publication Culture: Salami-Slicing & Scope Tables vs Deep Mechanistic Studies",
+          "name": "Publication Culture",
           "risk": false,
           "poles": [
             {
@@ -1532,7 +1532,7 @@
       "topics": [
         {
           "id": "xch0037",
-          "name": "Chemical Energy Storage & the Hydrogen/Electrosynthesis Economy",
+          "name": "Chemical Energy Storage",
           "risk": false,
           "poles": [
             {
@@ -1580,7 +1580,7 @@
         },
         {
           "id": "xch0038",
-          "name": "Reticular Chemistry (MOFs/COFs) vs Classical Solid-State & Polymer Materials",
+          "name": "Materials Chemistry",
           "risk": false,
           "poles": [
             {
@@ -1620,7 +1620,7 @@
         },
         {
           "id": "xch0039",
-          "name": "Drug Discovery: Rational Structure-Based Design vs Phenotypic & AI Screening",
+          "name": "Drug Discovery",
           "risk": false,
           "poles": [
             {
@@ -1668,7 +1668,7 @@
         },
         {
           "id": "xch0040",
-          "name": "Astrochemistry & Origins: Bottom-Up Cosmic Synthesis vs Terrestrial Exceptionalism",
+          "name": "Astrochemistry",
           "risk": false,
           "poles": [
             {
