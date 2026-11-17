@@ -4,7 +4,7 @@ export const TAXONOMY_CATEGORIES = [
         "name": "Power exchange",
         "topics": [
             {
-                "name": "Protocols & rules",
+                "name": "Protocols",
                 "id": "t0002",
                 "risk": false
             },
@@ -173,7 +173,7 @@ export const TAXONOMY_CATEGORIES = [
         "name": "Bondage & restriction",
         "parentTopics": [
             {
-                "name": "Restraint & containment",
+                "name": "Restraint",
                 "id": "t0426",
                 "risk": false,
                 "note": "Rope, Shibari, Cuffs, Tape, Mummification, Blindfold, Caging, Suspension"
@@ -846,12 +846,12 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Wax & temperature",
+                "name": "Temperature",
                 "id": "t0098",
                 "risk": false
             },
             {
-                "name": "Ice & cool touch",
+                "name": "Cold Touch",
                 "id": "t0099",
                 "risk": false
             },
@@ -876,7 +876,7 @@ export const TAXONOMY_CATEGORIES = [
                 "note": "Tactile, Thermal, Impact, Electric, Scent, Sound, Vestibular"
             },
             {
-                "name": "Music & sound",
+                "name": "Music",
                 "id": "t0106",
                 "risk": false
             },
@@ -1355,7 +1355,7 @@ export const TAXONOMY_CATEGORIES = [
                 "name": "Materials",
                 "topics": [
                     {
-                        "name": "Latex & rubber",
+                        "name": "Latex",
                         "id": "t0152",
                         "risk": false
                     },
@@ -1627,7 +1627,7 @@ export const TAXONOMY_CATEGORIES = [
                 "name": "Lingerie & hosiery",
                 "topics": [
                     {
-                        "name": "Lingerie & stockings",
+                        "name": "Lingerie",
                         "id": "t0181",
                         "risk": false
                     },
@@ -1826,7 +1826,7 @@ export const TAXONOMY_CATEGORIES = [
         "name": "Body focus & appearance",
         "parentTopics": [
             {
-                "name": "Anatomical focus & worship",
+                "name": "Anatomical Focus",
                 "id": "t0427",
                 "risk": false,
                 "note": "Feet, Hands, Breasts, Glutes, Muscles, Hair, BodyHair, Pregnancy"
@@ -2300,7 +2300,7 @@ export const TAXONOMY_CATEGORIES = [
                 "name": "Vulnerability",
                 "topics": [
                     {
-                        "name": "Anticipation & suspense",
+                        "name": "Anticipation",
                         "id": "t0258",
                         "risk": false
                     },
@@ -2332,7 +2332,7 @@ export const TAXONOMY_CATEGORIES = [
                         "receive_label": "blush"
                     },
                     {
-                        "name": "Confession & secrets",
+                        "name": "Secrets",
                         "id": "t0262",
                         "risk": false
                     }
@@ -2374,7 +2374,7 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Private photo & video",
+                "name": "Private Media",
                 "id": "t0267",
                 "risk": false
             },
@@ -2384,7 +2384,7 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Public & outdoor play",
+                "name": "Public Play",
                 "id": "t0269",
                 "risk": false
             },
@@ -3255,7 +3255,7 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Wrestling & struggle",
+                "name": "Wrestling",
                 "id": "t0353",
                 "risk": false
             },
@@ -3283,7 +3283,7 @@ export const TAXONOMY_CATEGORIES = [
                 "receive_label": "be manhandled"
             },
             {
-                "name": "Pursuit, Take-Down & Capture",
+                "name": "Pursuit & Capture",
                 "id": "t0357",
                 "risk": false,
                 "kinksters": 153599,
@@ -3314,7 +3314,7 @@ export const TAXONOMY_CATEGORIES = [
                 "give_label": "manhandle",
                 "receive_label": "be manhandled"
             },
-            "Pursuit, Take-Down & Capture": {
+            "Pursuit & Capture": {
                 "kinksters": 153599,
                 "type": "give_receive",
                 "give_label": "pursue & capture",
@@ -3713,12 +3713,12 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Cuddling & touch",
+                "name": "Cuddling",
                 "id": "t0397",
                 "risk": false
             },
             {
-                "name": "Food & hydration",
+                "name": "Nourishment",
                 "id": "t0398",
                 "risk": false
             },
@@ -3738,7 +3738,7 @@ export const TAXONOMY_CATEGORIES = [
                 "risk": false
             },
             {
-                "name": "Space & solitude",
+                "name": "Solitude",
                 "id": "t0402",
                 "risk": false
             },

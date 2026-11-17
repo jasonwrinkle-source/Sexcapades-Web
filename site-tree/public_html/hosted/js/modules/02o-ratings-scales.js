@@ -302,7 +302,7 @@
             facefucking: "Face fucking",
             collars: "Collars & symbols",
             paddles: "Paddles & straps",
-            cuddling: "Cuddling & touch",
+            cuddling: "Cuddling",
             ageplayer: "Age play",
             threesome: "Threesome"
         };
