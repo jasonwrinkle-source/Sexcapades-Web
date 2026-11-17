@@ -312,13 +312,25 @@
     }
   }
 
+  /* Brand for the prompt packet — same source as the loader's tally brand
+     (skin-loader.js setBrand): the active skin id. Sexcapades keeps
+     "Sex.Capades.IO", every other skin reads "Flex.Capades.IO". Read at
+     call time — promptPacket runs on a button click, long after the loader
+     has set window.__SX_ACTIVE_SKIN. */
+  function pitchBrand() {
+    try {
+      return window.__SX_ACTIVE_SKIN && window.__SX_ACTIVE_SKIN !== "sexcapades"
+        ? "Flex.Capades.IO" : "Sex.Capades.IO";
+    } catch (e) { return "Sex.Capades.IO"; }
+  }
+
   function promptPacket() {
     var resolved = resolveProfile();
     var name = resolved && resolved.profile ? (resolved.profile.profileName || "me") : "me";
     var derived = resolved ? deriveSlots(resolved.profile, "", "") : null;
     var bucketLabel = derived ? BUCKET_LABELS[derived.bucket] : "";
     return [
-      "You are writing a personal pitch suite for " + name + ", a user of Sexcapades.IO (a kink hypermap tool).",
+      "You are writing a personal pitch suite for " + name + ", a user of " + pitchBrand() + " (a kink hypermap tool).",
       "Write 6 short pitches (40-90 words each is too long — aim for 2-4 sentences) in three registers: Magnetic (names top interests outright, for kink-native rooms), Gestured (hints without naming, for semi-public rooms), and SFW (pitches the communication tool only, no kink content).",
       "Write each pitch TWICE: first the filled version with the person's specifics, then the slot form with placeholders restored, using exactly these slots: {top_strength} {second_strength} {top_curiosity} {breadth} {role_words} {looking_for} {compare_line} {one_liner}.",
       derived ? ("The person's current map reads as: " + bucketLabel + "; top strength: " + (derived.slots.top_strength || "(none yet)") + "; second strength: " + (derived.slots.second_strength || "(none yet)") + "; top curiosity: " + (derived.slots.top_curiosity || "(none yet)") + ".") : "The person has no rated map yet; write from the words they give you.",

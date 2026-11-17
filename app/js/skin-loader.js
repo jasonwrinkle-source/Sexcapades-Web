@@ -741,7 +741,7 @@
        Mw() resolves null without one and the load skips photos). */
     var menu = document.getElementById("profileSampleMenu");
     if (!menu) return;
-    menu.querySelectorAll(".sample-profile-choice, .sample-menu-group").forEach(function (b) { b.remove(); });
+    menu.querySelectorAll(".sample-profile-choice, .sample-profile-item, .sample-menu-group").forEach(function (b) { b.remove(); });
     if (!samples || typeof samples !== "object") return;
     var archetypes = [], samplesList = [];
     Object.keys(samples).forEach(function (key) {
@@ -759,6 +759,8 @@
       keys.forEach(function (key) {
         var entry = samples[key];
         var count = entry.count || Object.keys(entry.payload.ratings).length;
+        var item = document.createElement("div");
+        item.className = "sample-profile-item";
         var btn = document.createElement("button");
         btn.className = "sample-profile-choice";
         btn.type = "button";
@@ -780,7 +782,33 @@
         var small = document.createElement("small");
         small.textContent = count + " rated topics";
         btn.appendChild(small);
-        menu.appendChild(btn);
+        item.appendChild(btn);
+        /* Archetype about + learn-more links (2026-11-17): the skin JSON
+           carries `about` (1-3 sentences) and `links` per archetype.
+           They render UNDER the button, not inside it — a link inside a
+           <button> is invalid HTML and would load the profile on click.
+           Samples (Adam/Eve) carry no about/links, so they render as before. */
+        if (entry.about) {
+          var about = document.createElement("p");
+          about.className = "sample-profile-about";
+          about.textContent = entry.about;
+          item.appendChild(about);
+        }
+        if (entry.links && entry.links.length) {
+          var links = document.createElement("div");
+          links.className = "sample-profile-links";
+          entry.links.forEach(function (l) {
+            if (!l || !l.url) return;
+            var a = document.createElement("a");
+            a.href = l.url;
+            a.textContent = l.label || l.url;
+            a.target = "_blank";
+            a.rel = "noopener";
+            links.appendChild(a);
+          });
+          if (links.childNodes.length) item.appendChild(links);
+        }
+        menu.appendChild(item);
       });
     }
     addGroup("Archetypes", archetypes);
