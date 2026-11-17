@@ -59,12 +59,20 @@
     return prefix;
   }
   var prefix = detectSkin();
+  /* Skins with comparison data — the only skins whose gate shows the
+     Compare link and whose compare page has content. Sexcapades has the
+     kink-test comparison table; Poliscapades has the political-affiliation
+     comparisons (the party-platform archetypes). Every other skin has no
+     comparison data: its gate hides the link and its compare page redirects
+     to the gate. (Jason, 2026-11-17.) */
+  var COMPARE_SKINS = { sex: true, polis: true };
   var skin = {
     prefix: prefix,
     name: SKINS[prefix][0],
     brand: SKINS[prefix][1],
     host: prefix + ".capades.io",
-    isSex: prefix === "sex"
+    isSex: prefix === "sex",
+    hasCompare: !!COMPARE_SKINS[prefix]
   };
   window.__SX_DOC_SKIN = skin;
   if (skin.isSex) {

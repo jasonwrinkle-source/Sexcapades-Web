@@ -1686,7 +1686,7 @@
                       <li><a href="/hosted/how-it-works.html">How it works</a></li>
                       <li><a href="/hosted/quickstart.html">Quick Start</a></li>
                       <li><a href="/hosted/guide.html">Guide</a></li>
-                      <li><a href="/compare">Compare</a></li>
+                      <li id="gateCompareLinkItem"><a href="/compare">Compare</a></li>
                       <li class="docs-submenu-item">
                         <details class="docs-details">
                           <summary class="docs-summary"><span>Glossary</span><span class="docs-arrow">▾</span></summary>
@@ -2233,6 +2233,13 @@
           var aboutBtn = document.getElementById("gateAppAboutBtn");
           if (aboutBtn) aboutBtn.textContent = skinBrand;
           destinationMenu.setAttribute("aria-label", skinName + " destinations");
+          // The compare page exists only for skins with comparison data
+          // (Sexcapades and Poliscapades). Hide the gate's Compare link
+          // on every other skin. (Jason, 2026-11-17.)
+          if (gateSkinPrefix !== "polis") {
+            var compareItem = document.getElementById("gateCompareLinkItem");
+            if (compareItem) compareItem.style.display = "none";
+          }
         } else if (gateSkinPrefix !== "sex") {
           var hasReturn = false;
           try { hasReturn = !!new URLSearchParams(window.location.search).get("return"); } catch (e) { hasReturn = false; }

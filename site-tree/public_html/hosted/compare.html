@@ -408,6 +408,20 @@
   }
   </script>
 <script src="/hosted/js/docs-skin.js"></script>
+<script>
+  // The compare page exists only for skins with comparison data
+  // (Sexcapades and Poliscapades). A skin without it that lands here by
+  // direct URL goes to the gate instead of seeing a comparison that
+  // doesn't exist. (Jason, 2026-11-17.) Runs synchronously in <head>,
+  // before the body renders, so there is no flash of the wrong page.
+  // The ?skin= is carried so the gate keeps the skin on hosts that
+  // don't carry it in the hostname (localhost testing); on a real skin
+  // host the hostname wins and the parameter is ignored.
+  (function () {
+    var s = window.__SX_DOC_SKIN;
+    if (s && !s.hasCompare) window.location.replace("/hosted/gate.html?skin=" + s.prefix);
+  })();
+</script>
 <style>[data-sx-vanilla-only]{display:none}</style>
 </head>
 <body>
@@ -421,8 +435,8 @@
   <main>
     <section class="vanilla-note" data-sx-vanilla-only>
       <div class="wrap">
-        <h1>A comparison for the adult map</h1>
-        <p>This comparison covers the adult map and the questionnaire tools it replaces. This map is a stance map — there’s no equivalent comparison for it yet.</p>
+        <h1>Find your affiliation</h1>
+        <p>Poliscapades compares your rated positions against the five party platforms — Democratic, Republican, Libertarian, Green, and Constitution — to show which one you align with. Rate the topics, then see your closest match.</p>
         <p><a class="cta" href="/hosted/app.html">Open the map</a> <a class="cta" href="/hosted/guide.html">Read the guide</a></p>
       </div>
     </section>
