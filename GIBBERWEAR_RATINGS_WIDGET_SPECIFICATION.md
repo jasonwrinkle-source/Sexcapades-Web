@@ -243,10 +243,10 @@ const val MAX_GESTURE_WINDOW_MS = 400L      // Must complete within 400ms
 const val REVERSAL_SETTLE_MS = 150L         // Settle period to prevent bounce
 ```
 
-1. **Roll Axis**: The primary rotation axis corresponds to forearm pronation/supination (rotation around the longitudinal forearm axis, typically the device Y-axis in Wear OS orientation).
+1. **Axes**: Right-wrist mode flips the sign and does not swap the axes. Gyro X (toward 3 o'clock) lies across the wrist. A short snap there is the flick and sends go. Raising the hand about 90° at the elbow is the same axis held past 220 ms, and that commits the rating. Gyro Y (toward 12 o'clock) lies along the forearm. A twist that dominates X and Z also commits.
 2. **Gesture Signature**:
-   - Wearer snaps wrist away (supination) or rotates wrist rapidly towards body by $\ge 50^\circ$, then snaps back or halts abruptly.
-   - Peak angular velocity $\omega_y$ must exceed $3.5\text{ rad/s}$.
+   - Elbow raise: gyro X stays above $3.8\text{ rad/s}$ and dominates the other axes for more than $220\text{ ms}$.
+   - Forearm twist: at least $50^\circ$ about Y within $400\text{ ms}$, peak $\omega_y$ above $3.5\text{ rad/s}$, and $\omega_y$ at least $1.5\times$ the rotation about X and Z.
 3. **Rejection of Normal Movement**:
    - Walking, arm swinging, or general gesturing have peak angular velocities $\le 1.8\text{ rad/s}$ and lack the rapid snap reversal signature.
 4. **Physical Feedback**:
