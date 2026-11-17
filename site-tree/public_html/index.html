@@ -22,7 +22,7 @@
   //   sex hosts (sexcapades.io, sex.capades.io) -> the age gate
   //   flex.capades.io                          -> the skin picker
   //   capades.io                               -> the engine page
-  //   <prefix>.capades.io (one of the 15 skins) -> the app on that skin
+  //   <prefix>.capades.io (one of the 15 skins) -> the gate on that skin
   //   anything else (localhost, unknown hosts) -> the gate, as before
   // No meta-refresh: it would drop the fragment before JS runs.
   (function () {
@@ -37,7 +37,9 @@
     if (host === "capades.io") { go("/engine.html"); return; }
     var SKINS = { sex: 1, polis: 1, fores: 1, philo: 1, aesth: 1, voca: 1, tech: 1, dharma: 1, theori: 1, praxi: 1, quanta: 1, experi: 1, simul: 1, matter: 1, chem: 1 };
     var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
-    if (prefix && SKINS[prefix]) { go("/hosted/app.html"); return; }
+    // Each skin opens on its own gate page first (picker -> skin ->
+    // gate -> hypermap or Hot List); the gate sends the visitor on.
+    if (prefix && SKINS[prefix]) { go("/hosted/gate.html"); return; }
     go("/hosted/gate.html");
   })();
 </script>

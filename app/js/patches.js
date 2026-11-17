@@ -312,7 +312,7 @@ __sxInit(function initScribeGeminiBYOK() {
   // stops early at its own default. The target is read from the
   // dialog inputs (the bundle's module state is not reachable from
   // this file). A blank length on a YoBitch play-guide prompt means
-  // the 60-minute default sequence. Words convert at ~1.35 tokens
+  // the 5-minute default. Words convert at ~1.35 tokens
   // per word; pages ~450 words, paragraphs ~120, chapters ~2500,
   // minutes ~150 (spoken pace). Floored at 512, capped at 32768.
   function scribeTokenBudget(promptText) {
@@ -330,7 +330,7 @@ __sxInit(function initScribeGeminiBYOK() {
         if (parsed.length) val = Math.max.apply(null, parsed);
       }
     } catch (_) {}
-    if (blank && promptText && promptText.indexOf("YO BITCH") === 0) { unit = "minutes"; val = 60; }
+    if (blank) { val = 5; }
     var words = val * (wordsPerUnit[unit] || 450);
     var singular = unit.replace(/s$/, "");
     return { text: val + " " + (1 === val ? singular : unit), tokens: Math.min(32768, Math.max(512, Math.round(words * 1.35))) };

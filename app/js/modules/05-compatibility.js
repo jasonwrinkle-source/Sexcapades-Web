@@ -1210,7 +1210,7 @@
             else {
                 const o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), d = e.byId("scribePageCountHelp");
                 o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
-                d && (d.textContent = "Story length in word count, paragraphs, pages, chapters, or minutes. Enter one number or a range; blank defaults to 1 page."),
+                d && (d.textContent = "Story length in word count, paragraphs, pages, chapters, or minutes. Enter one number or a range; blank defaults to 5 minutes."),
                 s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story.");
             }
             c && (c.disabled = !1),
@@ -1610,7 +1610,7 @@
             t.participantIds.length && t.topicData.length && (scribeRequestText = t.details, function(t, n) {
                 const i = e.byId("scribePageCount"), u = e.byId("scribeLengthUnit"), d = e.byId("scribeDetailLevel"), a = function() {
                     const t = e.byId("scribePageCount"), n = String(t?.value || "").trim().replace(/[–—]/g, "-");
-                    if (!n) return t && t.setCustomValidity(""), "1";
+                    if (!n) return t && t.setCustomValidity(""), "5";
                     const i = n.match(/^(\d{1,5}(?:\.\d)?)(?:\s*-\s*(\d{1,5}(?:\.\d)?))?$/);
                     if (!i) return t && (t.setCustomValidity("Use a number such as 5 or a range such as 5–7."), 
                     t.reportValidity()), null;
@@ -1627,7 +1627,7 @@
                 }();
                 if (!a) return;
                 scribeLengthUnit = [ "words", "paragraphs", "pages", "minutes", "chapters" ].includes(String(u?.value || "")) ? u.value : "pages", scribeDetailLevel = [ "concise", "balanced", "detailed" ].includes(String(d?.value || "")) ? d.value : "balanced", 
-                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~1";
+                scribeLengthValue = a, scribeLengthDisplay = String(i?.value || "").trim() ? a.replace(/–/g, "-") : "~5";
                 const r = `Projected: ${scribeLengthDisplay} ${scribeLengthUnit}`;
                 e.byId("scenePageProjection").textContent = r, e.byId("novelAiPageProjection").textContent = r, 
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));

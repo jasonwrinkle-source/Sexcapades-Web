@@ -1674,10 +1674,9 @@
                       </a>
                       <div class="view-nav-divider" aria-hidden="true"></div>
                       <div class="view-nav-aux-row">
-                        <a class="view-nav-aux-link" href="/hosted/examples.html">Examples</a>
                         <a class="view-nav-aux-link" href="/hosted/privacy.html">Privacy</a>
-                        <a class="view-nav-aux-link" href="mailto:help@sexcapades.io">Contact</a>
                         <a class="view-nav-aux-link" href="/sitemap.html">Sitemap</a>
+                        <a class="view-nav-aux-link" href="https://capades.io/">TaxoPolemics</a>
                       </div>
                     </div>
                   </div>
@@ -1836,7 +1835,7 @@
         <p>Built with Muse. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a>, then redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get <strong>1 billion tokens</strong>.</p>
         <p>Built by YoBiche (Yolanda Biche), with Gemini, AntiGravity, and Grok — four AI collaborators, one principal investigator, Jason Mark Wrinkle.</p>
         <p>Suno is better with friends: the songs on this site are made with Suno. Sign up with <a href="https://suno.com/invite/@jason_wrinkle_personal" rel="noopener" target="_blank">my invite link</a> and create 10 songs, and we both receive 250 free credits (limit 2,500 credits per person).</p>
-        <p><a href="/hosted/methodology.html" rel="noopener" target="_blank">How we compute community stats</a> · <a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a> · Questions? <a href="mailto:help@sexcapades.io">help@sexcapades.io</a></p>
+        <p><a href="/hosted/methodology.html" rel="noopener" target="_blank">How we compute community stats</a> · <a href="/hosted/privacy.html" rel="noopener" target="_blank">Privacy Policy</a></p>
         <p>© 2026 Jason Mark Wrinkle. All rights reserved.</p>
       </div>
     </dialog>
@@ -2041,8 +2040,7 @@
           flyer: '/hosted/flyer.html',
           faq: '/hosted/faq.html',
           quickstart: '/hosted/quickstart.html',
-          'how-it-works': '/hosted/how-it-works.html',
-          examples: '/hosted/examples.html'
+          'how-it-works': '/hosted/how-it-works.html'
         };
 
         // Guide sections: a guide deep link may name a section after the
@@ -2177,30 +2175,77 @@
         function revealDestinations() {
           ageGate.classList.add('is-confirmed');
           ageGate.removeAttribute('aria-labelledby');
-          ageGate.setAttribute('aria-label', 'Sexcapades destinations');
+          ageGate.setAttribute('aria-label', isVanillaSkinGate ? (GATE_SKINS[gateSkinPrefix][0] + ' destinations') : 'Sexcapades destinations');
           destinationMenu.classList.add('is-visible');
           destinationMenu.setAttribute('aria-hidden', 'false');
           enterButton.setAttribute('aria-expanded', 'true');
         }
 
 
-        // Direct visit on a vanilla host: this page is the Sexcapades
-        // gate, so a visitor who lands here without a ?return= (no app
-        // bounce) is sent to the picker instead of gated. A ?return=
-        // means the app bounced them here for verification — the gate
-        // runs normally.
-        (function () {
-          var h = "";
-          try { h = window.location.hostname.toLowerCase(); } catch (e) { h = ""; }
-          var isSexHost = h === "sexcapades.io" || h === "www.sexcapades.io" || h === "sex.capades.io" || h === "www.sex.capades.io";
-          if (isSexHost) return;
+        // Skin-aware gate (consolidated gate, 2026-11-17): this page is the
+        // front door for every skin, not just Sexcapades. The skin is read
+        // from the hostname prefix. A ?skin= override applies only on hosts
+        // that are not a skin already (localhost testing) — it can never
+        // override a sex host, so the age gate is not bypassable by a query
+        // parameter. A vanilla skin has no age gate: the init flow below
+        // reveals the destinations straight away, no verification is
+        // recorded and no gate-passed event is sent, because there is no
+        // gate to pass. A sex host runs the age gate as before. Any other
+        // host (localhost, unknown) with no ?return= is sent to the picker.
+        var GATE_SKINS = {
+          sex: ["Sexcapades", "Sex.Capades.IO"],
+          polis: ["Poliscapades", "Polis.Capades.IO"],
+          fores: ["Forescapades", "Fores.Capades.IO"],
+          philo: ["Philoscapades", "Philo.Capades.IO"],
+          aesth: ["Aesthcapades", "Aesth.Capades.IO"],
+          voca: ["Vocapades", "Voca.Capades.IO"],
+          tech: ["Techcapades", "Tech.Capades.IO"],
+          dharma: ["Dharmacapades", "Dharma.Capades.IO"],
+          theori: ["Theoricapades", "Theori.Capades.IO"],
+          praxi: ["Praxicapades", "Praxi.Capades.IO"],
+          quanta: ["Quantacapades", "Quanta.Capades.IO"],
+          experi: ["Expericapades", "Experi.Capades.IO"],
+          simul: ["Simulcapades", "Simul.Capades.IO"],
+          matter: ["Mattercapades", "Matter.Capades.IO"],
+          chem: ["Chemcapades", "Chem.Capades.IO"]
+        };
+        var gateSkinPrefix = "";
+        try {
+          var gateHost = window.location.hostname.toLowerCase();
+          if (/\.capades\.io$/.test(gateHost)) gateSkinPrefix = gateHost.split(".")[0];
+          else if (gateHost === "sexcapades.io" || gateHost === "www.sexcapades.io") gateSkinPrefix = "sex";
+        } catch (e) { gateSkinPrefix = ""; }
+        if (!gateSkinPrefix || !GATE_SKINS[gateSkinPrefix]) {
+          try {
+            var skinParam = new URLSearchParams(window.location.search).get("skin");
+            if (skinParam && GATE_SKINS[skinParam.toLowerCase()]) gateSkinPrefix = skinParam.toLowerCase();
+          } catch (e) { /* no override; fall through to the picker redirect */ }
+        }
+        var isVanillaSkinGate = !!(gateSkinPrefix && GATE_SKINS[gateSkinPrefix] && gateSkinPrefix !== "sex");
+        if (isVanillaSkinGate) {
+          var skinName = GATE_SKINS[gateSkinPrefix][0];
+          var skinBrand = GATE_SKINS[gateSkinPrefix][1];
+          try { document.title = skinBrand; } catch (e) { /* title stays */ }
+          var siteTitle = document.querySelector(".site-title");
+          if (siteTitle) siteTitle.textContent = skinName;
+          var headerNote = document.querySelector(".site-header-note");
+          if (headerNote) headerNote.style.display = "none";
+          var aboutBtn = document.getElementById("gateAppAboutBtn");
+          if (aboutBtn) aboutBtn.textContent = skinBrand;
+          destinationMenu.setAttribute("aria-label", skinName + " destinations");
+        } else if (gateSkinPrefix !== "sex") {
           var hasReturn = false;
           try { hasReturn = !!new URLSearchParams(window.location.search).get("return"); } catch (e) { hasReturn = false; }
           if (!hasReturn) window.location.replace("/picker.html");
-        })();
+        }
 
         var initialDeepLinkDestination = getDeepLinkDestination();
         var previousGatePass = hasPreviousGatePass();
+
+        // A vanilla skin has no age gate: the gate page is the skin's front
+        // door, so the destinations open straight away. No verification is
+        // recorded and no gate-passed event is sent — there is no gate to pass.
+        if (isVanillaSkinGate) revealDestinations();
 
         // Self-heal: if either store kept the pass, rewrite both. A returning
         // visitor whose cookie survived but whose localStorage was cleared (or

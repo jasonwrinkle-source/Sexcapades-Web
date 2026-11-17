@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sitemap — Sexcapades</title>
-<meta name="description" content="Every page on sexcapades.io, mapped.">
+<title>Sitemap — Flexcapades</title>
+<meta name="description" content="Every page on capades.io, mapped.">
 <style>
   :root {
     --bg: #0b1014;
@@ -95,6 +95,13 @@
   svg.lines line { stroke: var(--line); stroke-width: 1.5; }
   footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; }
   footer a { color: var(--cyan); }
+  .maps-list { margin-top: 2.5rem; width: min(90vw, 700px); }
+  .maps-list h2 { font-size: 1.3rem; margin-bottom: 0.8rem; }
+  .maps-list ul { list-style: none; }
+  .maps-list li { padding: 0.35rem 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+  .maps-list a { color: var(--cyan); text-decoration: none; }
+  .maps-list a:hover { text-decoration: underline; }
+  .badge-18 { color: var(--accent); font-weight: 700; font-size: 0.75rem; border: 1px solid var(--accent); border-radius: 999px; padding: 0 6px; }
   @media (max-width: 600px) {
     .node { font-size: 0.75rem; padding: 0.5rem 0.8rem; }
     .node .desc { display: none; }
@@ -104,7 +111,7 @@
 </head>
 <body>
   <h1>Sitemap</h1>
-  <p class="sub">Every page on sexcapades.io — click a node to visit.</p>
+  <p class="sub">Every page on capades.io — click a node to visit.</p>
 
   <div class="map" id="map">
     <svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -117,8 +124,8 @@
       <line x1="50" y1="50" x2="6" y2="50"/>
       <line x1="50" y1="50" x2="18" y2="20"/>
     </svg>
-    <a class="center" href="/">sexcapades.io</a>
-    <a class="node" href="/hosted/app.html">Hypermap<span class="desc">Rate 400+ kinks visually</span></a>
+    <a class="center" href="/">capades.io</a>
+    <a class="node" href="/hosted/app.html">Hypermap<span class="desc">Walk the map</span></a>
     <a class="node" href="/hosted/guide.html">Guide<span class="desc">How it all works</span></a>
     <a class="node" href="/hosted/faq.html">FAQ<span class="desc">Common questions</span></a>
     <a class="node" href="/hosted/quickstart.html">Quick Start<span class="desc">54 topics, ~20 min</span></a>
@@ -128,8 +135,28 @@
     <a class="node" href="/hosted/privacy.html">Privacy<span class="desc">Your data stays yours</span></a>
   </div>
 
+  <section class="maps-list">
+    <h2>The fifteen maps</h2>
+    <ul>
+      <li><a href="https://polis.capades.io/">Polis.capades.io</a> — power and the vote</li>
+      <li><a href="https://fores.capades.io/">Fores.capades.io</a> — Abrahamic faith</li>
+      <li><a href="https://philo.capades.io/">Philo.capades.io</a> — how we know</li>
+      <li><a href="https://aesth.capades.io/">Aesth.capades.io</a> — beauty</li>
+      <li><a href="https://chem.capades.io/">Chem.capades.io</a> — how molecules combine</li>
+      <li><a href="https://dharma.capades.io/">Dharma.capades.io</a> — how we walk the earth</li>
+      <li><a href="https://experi.capades.io/">Experi.capades.io</a> — how experiments are done</li>
+      <li><a href="https://matter.capades.io/">Matter.capades.io</a> — stuff and energy</li>
+      <li><a href="https://praxi.capades.io/">Praxi.capades.io</a> — what we do</li>
+      <li><a href="https://quanta.capades.io/">Quanta.capades.io</a> — the small and strange</li>
+      <li><a href="https://simul.capades.io/">Simul.capades.io</a> — copies, what's real and what is show</li>
+      <li><a href="https://tech.capades.io/">Tech.capades.io</a> — what we build</li>
+      <li><a href="https://theori.capades.io/">Theori.capades.io</a> — the big picture</li>
+      <li><a href="https://voca.capades.io/">Voca.capades.io</a> — work and worth</li>
+      <li><a href="https://sex.capades.io/">Sex.capades.io</a> — the bedroom talk, the first map <span class="badge-18">18+</span></li>
+    </ul>
+  </section>
   <footer>
-    <p><a href="/">← Back to Sexcapades</a></p>
+    <p><a href="/">← Back to TaxoPolemics</a></p>
   </footer>
 </body>
 </html>
