@@ -1552,6 +1552,17 @@ __sxInit(function initSceneSetterAi() {
   var setterGenerateBtn = document.getElementById("setterGenerateBtn");
   var setterAiPanel = document.getElementById("setterAiPanel");
 
+  // Scene Setter skinning (2026-11-16): on a vanilla stance/belief
+  // skin, Scene Setter moderates a discussion (genre "moderation" in
+  // window.__SX_SETTER, published by the skin loader); on Sexcapades
+  // it is a play checklist (genre "play"). The loader publishes the
+  // spec on window, so this closure reads it directly. Named without
+  // the sx prefix to avoid colliding with the bundle's
+  // sxSetterIsModeration (same check, different scope).
+  function setterIsModeration() {
+    return !!(window.__SX_SETTER && window.__SX_SETTER.genre === "moderation");
+  }
+
   var activeAbortController = null;
 
   var PROVIDER_CONFIG = {
@@ -1671,8 +1682,13 @@ __sxInit(function initSceneSetterAi() {
       return;
     }
     var hasGuide = guideText && guideText.value && guideText.value.trim().length > 0;
-    setterGenerateBtn.textContent = hasGuide ? "↻ Regenerate" : "✨ Generate Play Guide";
+    setterGenerateBtn.textContent = hasGuide ? "↻ Regenerate" : (setterIsModeration() ? "✨ Generate Discussion Plan" : "✨ Generate Play Guide");
   }
+  // The skin loader re-syncs this label on every skin switch (the
+  // button text is JS-managed, so the loader's copy swap alone would
+  // not reach it); the load-time call below covers the first boot.
+  window.__sxSetterSyncGenerateLabel = setterSyncGenerateLabel;
+  setterSyncGenerateLabel();
 
   function setterOpenAiPanel() {
     if (setterAiPanel) {
@@ -1802,7 +1818,7 @@ __sxInit(function initSceneSetterAi() {
         try { apiKey = localStorage.getItem(getStorageKey(prov)) || ""; } catch (_) {}
       }
       if (!apiKey) {
-        alert("Please enter and save your " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + " API key to generate play guides directly with AI.");
+        alert("Please enter and save your " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + (setterIsModeration() ? " API key to generate discussion plans directly with AI." : " API key to generate play guides directly with AI."));
         if (keyInput) keyInput.focus();
         return;
       }
@@ -1849,7 +1865,7 @@ __sxInit(function initSceneSetterAi() {
         }
       }, 120000);
 
-      var fullPrompt = prompt + "\n\nWrite the complete, timed play guide now in the EXACT required format specified above, adhering strictly to all checklist agreements and timecodes.";
+      var fullPrompt = prompt + (setterIsModeration() ? "\n\nWrite the complete, timed discussion plan now in the EXACT required format specified above, adhering strictly to all ground rules and timecodes." : "\n\nWrite the complete, timed play guide now in the EXACT required format specified above, adhering strictly to all checklist agreements and timecodes.");
 
       try {
         var totalText = "";
@@ -1863,7 +1879,7 @@ __sxInit(function initSceneSetterAi() {
           }
           var wc = (totalText.trim().match(/\S+/g) || []).length;
           if (guideStatus) {
-            guideStatus.textContent = "Streaming play guide (" + wc + " words)…";
+            guideStatus.textContent = (setterIsModeration() ? "Streaming discussion plan (" : "Streaming play guide (") + wc + " words)…";
           }
         }
 
@@ -1871,7 +1887,7 @@ __sxInit(function initSceneSetterAi() {
           var chatEndpoint = prov === "grok" ? "https://api.x.ai/v1/chat/completions" : "https://api.openai.com/v1/chat/completions";
           console.log("[Scene Setter " + prov.toUpperCase() + "] Sending streaming request to:", chatEndpoint);
 
-          if (guideStatus) guideStatus.textContent = "Writing play guide with " + prov.toUpperCase() + " (" + model + ")…";
+          if (guideStatus) guideStatus.textContent = (setterIsModeration() ? "Writing discussion plan with " : "Writing play guide with ") + prov.toUpperCase() + " (" + model + ")…";
 
           var response = await fetch(chatEndpoint, {
             method: "POST",
@@ -1882,7 +1898,7 @@ __sxInit(function initSceneSetterAi() {
             body: JSON.stringify({
               model: model,
               messages: [
-                { role: "system", content: "You are an expert intimacy and scene coordinator who creates structured, consensual, boundaried BDSM and intimacy play guides." },
+                { role: "system", content: setterIsModeration() ? "You are an expert discussion moderator who creates structured, balanced, moderated discussion plans." : "You are an expert intimacy and scene coordinator who creates structured, consensual, boundaried BDSM and intimacy play guides." },
                 { role: "user", content: fullPrompt }
               ],
               temperature: 0.7,
@@ -2177,7 +2193,7 @@ __sxInit(function initSceneSetterAi() {
       if (live) {
         var act = st.currentActivity ? (" • " + st.currentActivity) : "";
         var stepInfo = (st.stepIdx >= 0 && st.steps && st.steps.length) ? (" (Step " + (st.stepIdx + 1) + "/" + st.steps.length + ")") : "";
-        live.textContent = "Playing " + timeStr + act + stepInfo;
+        live.textContent = (setterIsModeration() ? "Running " : "Playing ") + timeStr + act + stepInfo;
         live.style.color = "#4ade80";
       }
     } else if (st.on && st.paused) {
@@ -2192,14 +2208,14 @@ __sxInit(function initSceneSetterAi() {
         live.style.color = "#facc15";
       }
     } else {
-      if (sPlayBtn) sPlayBtn.textContent = "▶ Play";
-      if (pgPlayBtn) pgPlayBtn.textContent = "▶ Play in Scene Sentinel";
+      if (sPlayBtn) sPlayBtn.textContent = setterIsModeration() ? "▶ Run" : "▶ Play";
+      if (pgPlayBtn) pgPlayBtn.textContent = setterIsModeration() ? "▶ Run in Scene Sentinel" : "▶ Play in Scene Sentinel";
       if (dot) {
         dot.style.background = "#64748b";
         dot.style.boxShadow = "none";
       }
       if (live) {
-        live.textContent = "Scene Sentinel: Ready to play";
+        live.textContent = setterIsModeration() ? "Scene Sentinel: Ready to run" : "Scene Sentinel: Ready to play";
         live.style.color = "#cbd5e1";
       }
     }

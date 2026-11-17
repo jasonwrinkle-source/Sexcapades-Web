@@ -1679,7 +1679,7 @@
             if (ids.length < 2) return;
             const st = Cu(ids), tg = ev.target, isNegotiationLength = "setterNegotiationLength" === tg.id || "setterNegotiationLengthUnit" === tg.id;
             if ("setterLength" === tg.id) st.length = String(tg.value || "5").trim() || "5"; else if ("setterLengthUnit" === tg.id) st.lengthUnit = String(tg.value || "paragraphs"); else if ("setterDetailLevel" === tg.id) st.detail = String(tg.value || "balanced"); else if ("setterNegotiationLength" === tg.id) st.negotiationLength = String(tg.value || "1").trim() || "1"; else if ("setterNegotiationLengthUnit" === tg.id) st.negotiationLengthUnit = String(tg.value || "pages"); else return;
-            Fu(ids), isNegotiationLength ? e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = "Negotiation guide length saved.") : e.byId("negotiationCopyStatus") && (e.byId("negotiationCopyStatus").textContent = "Play guide settings saved.");
+            Fu(ids), isNegotiationLength ? e.byId("negotiationGuideStatus") && (e.byId("negotiationGuideStatus").textContent = sxSetterIsModeration() ? "Discussion agreement length saved." : "Negotiation guide length saved.") : e.byId("negotiationCopyStatus") && (e.byId("negotiationCopyStatus").textContent = sxSetterIsModeration() ? "Discussion plan settings saved." : "Play guide settings saved.");
         }), 
         e.byId("copyScenePrompt") && e.byId("copyScenePrompt").addEventListener("click", async function() {
             const n = e.byId("scenePromptText"), i = e.byId("sceneDownloadStatus"), a = e.byId("copyScenePrompt"), r = currentScribePrompt();
@@ -2014,11 +2014,14 @@
             return [ "PLAY GUIDE DATA — SOURCE MATERIAL", "Warm-up", ...e.warmup.length ? e.warmup.map(e => `- ${e}`) : [ "- Agree on a gentle start together." ], "Main play", ...e.main.length ? e.main.map(e => `- ${e}`) : [ "- No shared green/green main-play topic is recorded." ], "Aftercare ideas from rated profiles", ...e.aftercare.length ? e.aftercare.map(e => `- ${e}`) : [ "- No shared aftercare topic is recorded." ], ...(e.fantasy && e.fantasy.length ? [ "Fantasy only — excluded from practical play", ...e.fantasy.map(e => `- ${e}`) ] : []), ...(e.teasers && e.teasers.length ? [ "Teasers — soft no revisited at the current Heat (flagged; teaser-eligible only, never a match)", ...e.teasers.map(e => `- ${e}`) ] : []) ].join(" ");
         }
         function sxNegotiationLengthSpec(t) {
-            const raw = String(t.negotiationLength || "1").trim().replace(/[–—]/g, "-"), unit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(t.negotiationLengthUnit || "")) ? String(t.negotiationLengthUnit) : "pages", m = raw.match(/(\d+(?:\.\d+)?)(?:\s*-\s*(\d+(?:\.\d+)?))?/), first = m ? Number(m[1]) : 1, labelNum = m ? m[2] ? `${m[1]}–${m[2]}` : `${m[1]}` : "1", pages = "words" === unit ? first / 500 : "paragraphs" === unit ? first / 5 : first, tier = pages <= 1 ? "compact" : pages <= 3 ? "standard" : "full";
+            const raw = String(t.negotiationLength || "1").trim().replace(/[–—]/g, "-"), unit = [ "words", "paragraphs", "pages", "chapters" ].includes(String(t.negotiationLengthUnit || "")) ? String(t.negotiationLengthUnit) : "pages", m = raw.match(/(\d+(?:\.\d+)?)(?:\s*-\s*(\d+(?:\.\d+)?))?/), first = m ? Number(m[1]) : 1, labelNum = m ? m[2] ? `${m[1]}–${m[2]}` : `${m[1]}` : "1", pages = "words" === unit ? first / 500 : "paragraphs" === unit ? first / 5 : first, tier = pages <= 1 ? "compact" : pages <= 3 ? "standard" : "full", mod = sxSetterIsModeration();
             return {
                 label: `${labelNum} ${unitWord(labelNum, unit)}`,
                 tier: tier,
-                tierLabel: "compact" === tier ? "compact (full per-topic detail folded)" : "standard" === tier ? "standard (rated-aftercare detail included)" : "full (rated-aftercare detail and per-topic appendix included)"
+                // The moderation tier labels name the shared-ground
+                // detail instead of the rated-aftercare detail — there
+                // is no aftercare on a stance map.
+                tierLabel: "compact" === tier ? "compact (full per-topic detail folded)" : "standard" === tier ? (mod ? "standard (shared-ground detail included)" : "standard (rated-aftercare detail included)") : (mod ? "full (shared-ground detail and per-topic appendix included)" : "full (rated-aftercare detail and per-topic appendix included)")
             };
         }
         function sxStoreNegotiationGuide(g) {
@@ -2043,9 +2046,10 @@
         // pair is selected.
         function playGuidePromptText() {
             const t = e.byId("negotiationPanel"), x = [ setterPhaseSection(), setterDetailsSection() ].filter(Boolean).join("\n");
-            return (t?.dataset.copy || "") + (x ? "\n" + x : "") + "\n\n" + SX_PLAY_GUIDE_FORMAT;
+            return (t?.dataset.copy || "") + (x ? "\n" + x : "") + "\n\n" + (sxSetterIsModeration() ? SX_DISCUSSION_PLAN_FORMAT : SX_PLAY_GUIDE_FORMAT);
         }
         window.__sxPlayGuidePromptText = playGuidePromptText;
+        const SX_DISCUSSION_PLAN_FORMAT = [ "STRUCTURED DISCUSSION PLAN FORMAT — REQUIRED", "End your answer with a timed discussion plan in EXACTLY this format, so Scene Sentinel can read it back and run its timers. One step per line, every line in this shape:", "[MM:SS-MM:SS] Activity name — what happens in this step, in one or two sentences.", "Rules: (1) Time codes are elapsed time from the start of the discussion, zero-based: the first step starts at 00:00, steps run back to back with no gaps or overlaps, and the last step ends at the planned discussion length. Use MM:SS under an hour, H:MM:SS over an hour. (2) The activity name MUST be one of this fixed set, spelled exactly: Opening; Position statements; Rebuttal; Cross-examination; Synthesis; Closing; Other. Put anything else in the guidance after the dash, never in the activity name. (3) End with a Synthesis or Closing step. (4) After the timed steps, add one line: CHECK-IN EVERY: N MINUTES, with N between 1 and 15, so the app knows how often to pulse the watch for a check-in. (5) Keep the timed plan as plain lines — no tables, no bullet markers, no extra time formats anywhere else in the plan.", "Example:", "[00:00-05:00] Opening — Each side states its position in two minutes, uninterrupted.", "[05:00-20:00] Position statements — The strongest form of each position, with its reasons.", "[20:00-25:00] Synthesis — Where the positions agree, where they part, and what follows.", "CHECK-IN EVERY: 5 MINUTES" ].join("\n");
         const SX_PLAY_GUIDE_FORMAT = [ "STRUCTURED PLAY GUIDE FORMAT — REQUIRED (Scene Sentinel Way B standard, guide-1106-0847)", "End your answer with a timed play guide in EXACTLY this format, so Scene Sentinel can read it back and run its timers. One step per line, every line in this shape:", "[MM:SS-MM:SS] Activity name — what happens in this step, in one or two sentences.", "Rules: (1) Time codes are elapsed time from the start of the scene, zero-based: the first step starts at 00:00, steps run back to back with no gaps or overlaps, and the last step ends at the planned scene length. Use MM:SS under an hour, H:MM:SS over an hour. (2) The activity name MUST be one of this fixed set, spelled exactly: Warm-up; Negotiation check; Bondage; Impact play; Sensation play; Teasing & denial; Oral; Manual stimulation; Penetrative sex; Orgasm control; Roleplay; Service; Worship; Free play; Aftercare; Other. Put anything else in the guidance after the dash, never in the activity name. (3) End with an Aftercare step. (4) After the timed steps, add one line: CHECK-IN EVERY: N MINUTES, with N between 1 and 15, so the app knows how often to pulse the watch for a check-in. (5) Keep the timed guide as plain lines — no tables, no bullet markers, no extra time formats anywhere else in the guide.", "Example:", "[00:00-05:00] Warm-up — Slow massage and teasing, building touch gradually.", "[05:00-20:00] Impact play — Flogging, starting light and checking in before building.", "[20:00-25:00] Aftercare — Water, blanket, quiet cuddling.", "CHECK-IN EVERY: 5 MINUTES" ].join("\n");
 
         function setterParticipantIds() {
@@ -2053,12 +2057,157 @@
             return ids.length >= 2 && Fu(ids), ids;
         }
         window.__sxSetterParticipantIds = setterParticipantIds;
+        // Scene Setter discussion moderation (2026-11-16): on a
+        // vanilla stance/belief skin, Scene Setter moderates a
+        // discussion between the stances — it is NOT a play checklist.
+        // The moderation prompt is built from the selected profiles'
+        // actual pole stances (the same pole-aware readers Scribe
+        // uses), with the ground rules as its binding layer and the
+        // discussion data as inspiration. The Sexcapades play-guide
+        // path below is untouched.
+        function sxSetterModerationData(ids) {
+            // The shared ground for the Scene Setter's own participant
+            // ids — unlike sxScribeMatchData, which reads the Scribe
+            // dialog's lead/partner for pairs. The heat/veil settings
+            // are the same ones Iu() passes, so the shared ground
+            // matches the discussion data below.
+            const sxSettings = Object.fromEntries(ids.map(id => [ id, { heat: sxHeatFor(id), veil: sxVeilFor(id) } ])),
+                match = ids.length > 2 ? sxMultiMatchData(ids, sxSettings) : sxCastMatchData(ids[0], ids[1], sxSettings),
+                established = match.established || [], curious = match.curious || [];
+            // Agreement split (the ruled comparison runs 100 =
+            // identical stances, 0 = opposite on every pole): a shared
+            // topic is "where they agree" at 50% or above, "where they
+            // part" below 50%. A topic with no agreement field (a
+            // single-profile or unrated entry) counts as agreed — it
+            // is in the shared pool, not a disagreement.
+            return {
+                ids, names: ids.map(id => rd(id)),
+                established, curious,
+                agree: established.filter(e => null == e.agreement || e.agreement * 100 >= 50),
+                part: established.filter(e => null != e.agreement && e.agreement * 100 < 50),
+                perPerson: ids.map(id => sxSingleProfileData(id))
+            };
+        }
+        function sxGroundRulesBlock(mod) {
+            const spec = window.__SX_SETTER || null,
+                rules = (spec && Array.isArray(spec.groundRules)) ? spec.groundRules : [],
+                fmt = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}`,
+                lines = [ `GROUND RULES — BINDING — ${mod.names.join(" + ")}` ];
+            // Each side's anchor stances: the strongest recorded
+            // positions per profile, so the moderator knows what each
+            // side stands on. Capped at five per profile — the shared
+            // ground below carries the full overlap.
+            mod.perPerson.forEach((p, i) => {
+                const top = (p.established || []).slice().sort((a, b) => Math.abs(b.score) - Math.abs(a.score)).slice(0, 5);
+                lines.push("", `${mod.names[i]} — STRONGEST RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- No established stance recorded." ]));
+            });
+            lines.push("", "WHERE THEY AGREE", ...(mod.agree.length ? mod.agree.map(fmt) : [ "- No shared established stance." ]));
+            lines.push("", "WHERE THEY PART", ...(mod.part.length ? mod.part.map(fmt) : [ "- No shared established stance where they part." ]));
+            lines.push("", "GROUND RULES", ...(rules.length ? rules.map(r => `- ${r}`) : [ "- Steelman every position: state each side in its strongest form before comparing." ]));
+            return lines.join(" ");
+        }
+        function sxDiscussionDataBlock(e) {
+            // The discussion source material: the same phase-grouped
+            // shared topics Iu() computes, relabelled Opening /
+            // Development / Closing. The fantasy/teasers groups are
+            // Sexcapades concepts; they are included only if
+            // non-empty, under neutral labels.
+            return [ "DISCUSSION DATA — SOURCE MATERIAL", "Opening", ...e.warmup.length ? e.warmup.map(x => `- ${x}`) : [ "- Agree on a gentle opening together." ], "Development", ...e.main.length ? e.main.map(x => `- ${x}`) : [ "- No shared development topic is recorded." ], "Closing", ...e.aftercare.length ? e.aftercare.map(x => `- ${x}`) : [ "- No shared closing topic is recorded." ], ...(e.fantasy && e.fantasy.length ? [ "Excluded from the discussion", ...e.fantasy.map(x => `- ${x}`) ] : []), ...(e.teasers && e.teasers.length ? [ "Flagged — revisit only after an explicit check-in", ...e.teasers.map(x => `- ${x}`) ] : []) ].join(" ");
+        }
+        function sxComposeSetterModeration(ids, iuData, mod) {
+            const spec = window.__SX_SETTER || null, pr = (spec && spec.prompt) || {};
+            const opening = pr.opening || "Write a moderated discussion plan for the stances recorded on this map.";
+            const rules = Array.isArray(pr.rules) ? pr.rules : [];
+            const rigor = pr.rigor || "";
+            // The detail level is the depth control (the Setter dialog
+            // has no Depth slider): "detailed" turns the plan into
+            // dissertation-defense material, gated on the JSON's rigor
+            // text — the same rule Scribe uses for its Depth-5 line.
+            const i = Cu(ids), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`,
+                detailLine = "concise" === i.detail ? "Concise: use short phase notes and only essential check-ins." : "detailed" === i.detail ? "High detail: include specific phase timing, transitions, turn-taking, check-ins, and closing synthesis." : "Balanced detail: include enough timing, transitions, turn-taking, and check-ins to follow without over-scripting.",
+                rigorLine = "detailed" === i.detail && rigor ? rigor : "";
+            // The stance lists, with each topic's pole detail and the
+            // pair agreement — the same fmtStance the Scribe discussion
+            // composer uses. The cast is by name only: gender,
+            // orientation, and give/receive roles are Sexcapades data
+            // and have no meaning for a stance map.
+            const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""}): ${e.detail || ""}`,
+                stanceDetail = `ESTABLISHED STANCES: ${mod.established.map(fmtStance).join(" ") || "none recorded"}. CURIOUS STANCES: ${mod.curious.map(fmtStance).join(" ") || "none recorded"}.`;
+            return [ "AI MODERATION-PLAN REQUEST", `${opening} targeting approximately ${a}. ${detailLine} Use DISCUSSION DATA as inspiration while treating GROUND RULES as binding. Give each side its strongest form before comparing, and never let one side speak for the other. Use only the named topics below as the positions in the discussion. Do not invent positions, sources, or facts beyond the supplied data. If a field is not filled out, leave a clear pre-discussion decision point instead of inventing an answer.`, "", `CAST: ${mod.names.join(" + ")} (by name only)`, "", `STANCE DETAIL: ${stanceDetail}`, "", sxDiscussionDataBlock(iuData), "", sxGroundRulesBlock(mod), "", sxTermsBlock(mod.ids, mod.names), "", `HARD-EXCLUDED FROM DISCUSSION ${iuData.excluded.length ? iuData.excluded.map(x => `- ${x}`).join(" ") : iuData.mutuals.length ? "- no marked limits; mutual deep-red exclusions follow" : iuData.terms && iuData.terms.some(Boolean) ? "- no marked limits or mutual deep-red exclusions; limits named in the Terms above still apply" : "- none marked"}${iuData.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${iuData.mutuals.map(x => `- ${x}`).join(" ")}` : ""}`, "", "Rules:", ...rules.map(r => `- ${r}`), rigorLine ? `- ${rigorLine}` : "" ].join(" ");
+        }
+        function sxStoreDiscussionAgreement(ids, iuData, mod) {
+            // The vanilla branch of sxStoreNegotiationGuide: a
+            // discussion agreement, not a negotiation guide. CAST by
+            // name only (no gender/orientation/roles — Sexcapades
+            // data); per-person stances, the shared ground split by
+            // agreement, the ground rules, and the discussion data.
+            // Tier-gated detail mirrors the negotiation guide's tiers,
+            // without the aftercare mention — there is no aftercare on
+            // a stance map.
+            const st = Cu(ids), sp = sxNegotiationLengthSpec(st),
+                list = (items, empty) => items && items.length ? items.map(x => `- ${x}`) : [ `- ${empty}` ],
+                L = [ "DISCUSSION AGREEMENT", mod.names.join(" + "), sxWriterStamp(ids), `Target length: ${sp.label} · Detail: ${sp.tierLabel}`, "This document records the completed ground rules as the agreement itself. A hypermap match is not agreement." ];
+            L.push("", "CAST", ...mod.names.map(n => `- ${n}`));
+            mod.perPerson.forEach((p, i) => {
+                const top = (p.established || []).slice().sort((a, b) => Math.abs(b.score) - Math.abs(a.score)).slice(0, 10);
+                L.push("", `${mod.names[i]} — RECORDED STANCES`, ...(top.length ? top.map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- No established stance recorded." ]));
+                const cur = p.curious || [];
+                L.push("", `${mod.names[i]} — CURIOUS ABOUT`, ...(cur.length ? cur.slice(0, 5).map(e => `- ${e.label} (${Math.round(e.score)}%): ${e.detail || ""}`) : [ "- None recorded." ]));
+            });
+            L.push("", "WHERE THEY AGREE", ...list(mod.agree.map(e => `${e.label} (${Math.round(e.score)}%; agreement ${Math.round((null == e.agreement ? 1 : e.agreement) * 100)}%)`), "No shared established stance."));
+            L.push("", "WHERE THEY PART", ...list(mod.part.map(e => `${e.label} (${Math.round(e.score)}%; agreement ${Math.round((null == e.agreement ? 1 : e.agreement) * 100)}%)`), "No shared established stance where they part."));
+            const spec = window.__SX_SETTER || null, rules = (spec && Array.isArray(spec.groundRules)) ? spec.groundRules : [];
+            L.push("", "GROUND RULES", ...list(rules, "Steelman every position: state each side in its strongest form before comparing."));
+            L.push("", "DISCUSSION DATA", "", "Opening", ...list(iuData.warmup, "Agree on a gentle opening together."), "", "Development", ...list(iuData.main, "No shared development topic is recorded."), "", "Closing", ...list(iuData.aftercare, "No shared closing topic is recorded."));
+            if ("compact" === sp.tier) {
+                L.push("", "PER-TOPIC DETAIL — FOLDED AT THIS LENGTH", `- Topic detail folded: ${iuData.warmup.length} opening, ${iuData.main.length} development, and ${iuData.aftercare.length} closing ideas are recorded.`);
+            } else {
+                L.push("", "PER-TOPIC DETAIL — SHARED GROUND", "", "Where they agree", ...list(mod.agree.map(e => `- ${e.label}: ${e.detail || ""}`), "None."), "", "Where they part", ...list(mod.part.map(e => `- ${e.label}: ${e.detail || ""}`), "None."));
+            }
+            if ("full" === sp.tier) {
+                L.push("", "APPENDIX — PER-TOPIC DETAIL", "", "Opening", ...list(iuData.warmup, "Agree on a gentle opening together."), "", "Development", ...list(iuData.main, "No shared development topic is recorded."), "", "Closing", ...list(iuData.aftercare, "No shared closing topic is recorded."));
+            }
+            L.push("", "End of discussion agreement.");
+            const doc = L.join("\n"), panel = e.byId("negotiationPanel");
+            return panel && (panel.dataset.negotiationGuide = doc, panel.dataset.negotiationLength = sp.label, panel.dataset.negotiationDetail = sp.tier), doc;
+        }
+        function sxSkinDownloadPrefix() {
+            // Download filename prefix: the active skin's display name
+            // (Quantacapades, Poliscapades, …) — derived from the skin
+            // key, so a vanilla download is not mislabelled Sexcapades.
+            const key = String(window.__SX_ACTIVE_SKIN || "sexcapades"), base = key.replace(/capades$/, "");
+            return base.charAt(0).toUpperCase() + base.slice(1) + "capades";
+        }
+        function sxSetterModerationPanelHtml(i, mod) {
+            // The on-screen Scene Setter panel for a moderation skin:
+            // the ground rules (shared ground + per-person stances +
+            // the six rules) and the discussion source material. No
+            // safeword or aftercare inputs — there are none on a stance
+            // map, so the input listener that saves them is not
+            // attached (06d). Called from the dialog's open handler.
+            const spec = window.__SX_SETTER || null,
+                rules = (spec && Array.isArray(spec.groundRules)) ? spec.groundRules : [];
+            return `<p class="sx-stamp">${Hi(sxWriterStamp(i.ids))}</p><section class="guide-block"><h4>Ground rules</h4><p class="guide-source-intro">The ground rules below are the binding layer for the discussion plan. The shared ground and the per-person stances come from the selected profiles' recorded ratings.</p><h5>Where they agree</h5><ul>${Pu(mod.agree.map(e => null == e.agreement ? e.label : `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance.")}</ul><h5>Where they part</h5><ul>${Pu(mod.part.map(e => `${e.label} — ${Math.round(e.agreement * 100)}% agreement`), "No shared established stance where they part.")}</ul>${mod.perPerson.map((p, pi) => `<strong>${Hi(mod.names[pi])}</strong><ul>${Pu((p.established || []).slice().sort((x, y) => Math.abs(y.score) - Math.abs(x.score)).slice(0, 5).map(e => `${e.label} (${Math.round(e.score)}%)`), "No established stance recorded.")}</ul>`).join("")}<h5>Ground rules</h5><ul>${Pu(rules, "Steelman every position: state each side in its strongest form before comparing.")}</ul></section><section class="guide-block"><h4>Discussion source material</h4><p class="guide-source-intro">This is the profile-derived idea pool the AI may arrange into a plan. It is not an agreement: the ground rules above are the binding layer.</p><div class="guide-source-grid"><div class="guide-source-group"><h5>Opening ideas</h5><ul>${Pu(i.warmup, "Agree on a gentle opening together.")}</ul></div><div class="guide-source-group"><h5>Development ideas</h5><ul>${Pu(i.main, "No shared development topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Closing ideas</h5><ul>${Pu(i.aftercare, "No shared closing topic is recorded.")}</ul></div><div class="guide-source-group"><h5>Hard-excluded</h5><ul>${Pu([ ...new Set(i.excluded.concat(i.mutuals)) ].concat(i.names.map((e, t) => i.terms[t] ? e + " — hard limits named in Terms (binding), quoted above" : "").filter(Boolean)), "None marked.")}</ul></div></div></section>`;
+        }
         // Draft data computed once per open (writers refactor): the
         // open handler hands Fu the Iu() result it already computed
         // for the on-screen panel, instead of Fu recomputing the
         // full match a second time to rebuild the same documents.
         // Other callers pass nothing and Fu computes it, as before.
-        function Fu(t, precomputed) {
+        function Fu(t, precomputed, precomputedMod) {
+            // Moderation branch (2026-11-16): on a vanilla skin the
+            // stored documents are a discussion-moderation plan + a
+            // discussion agreement, built from the pole stances. The
+            // Sexcapades play-guide path below is untouched.
+            if (sxSetterIsModeration()) {
+                const iuData = precomputed || Iu(t),
+                    mod = precomputedMod || sxSetterModerationData(t),
+                    copy = sxComposeSetterModeration(t, iuData, mod);
+                e.byId("negotiationPanel").dataset.copy = copy;
+                e.byId("negotiationPanel").dataset.playGuide = copy;
+                sxStoreDiscussionAgreement(t, iuData, mod);
+                return;
+            }
             var n;
             const i = Cu(t), a = `${i.length || "5"} ${unitWord(i.length || "5", i.lengthUnit)}`, r = "concise" === i.detail ? "Concise: use short phase notes and only essential check-ins." : "detailed" === i.detail ? "High detail: include specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Balanced detail: include enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.";
             e.byId("negotiationPanel").dataset.copy = [ "AI PLAY-GUIDE REQUEST", `Create or randomize a practical play guide targeting approximately ${a}. ${r} Use PLAY GUIDE DATA as inspiration while treating NEGOTIATION CHECKLIST DATA as binding. Keep every hard limit completely out. Treat every red topic as a no for that person. Mention each discuss-first clash only as an explicit negotiation point, never as assumed consent or planned action. Work the agreed safewords and stop signals naturally into the guide, and build the aftercare section from every participant’s stated aftercare needs. If a field is not filled out, leave a clear pre-scene decision point instead of inventing an answer.`, "", Tu(n = precomputed || Iu(t)), "", Lu(n), "", sxRolesBlock(n.ids, n.names), "", sxCastBlock(n.ids, n.names), "", sxTermsBlock(n.ids, n.names), "", sxAgeBlock(n.ids, n.names), "", `HARD-EXCLUDED FROM SCENE GENERATION ${n.excluded.length ? n.excluded.map(e => `- ${e}`).join(" ") : n.mutuals.length ? "- no marked limits; mutual deep-red exclusions follow" : n.terms && n.terms.some(Boolean) ? "- no marked limits or mutual deep-red exclusions; limits named in the Terms above still apply" : "- none marked"}${n.mutuals.length ? ` MUTUAL EXCLUSIONS — BOTH PARTNERS RATED DEEP-RED ${n.mutuals.map(e => `- ${e}`).join(" ")}` : ""}` ].join(" "), e.byId("negotiationPanel").dataset.playGuide = e.byId("negotiationPanel").dataset.copy, sxStoreNegotiationGuide(n);

@@ -96,6 +96,14 @@
         function sxScribeIsDiscussion() {
             return !!(window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre);
         }
+        // The active skin's Scene Setter genre: "moderation" on the
+        // vanilla stance/belief maps, "play" on Sexcapades. The loader
+        // sets window.__SX_SETTER from the skin JSON's `sceneSetter`
+        // section. A missing section reads as play (Sexcapades copy
+        // stays in place) — honest, not stale.
+        function sxSetterIsModeration() {
+            return !!(window.__SX_SETTER && "moderation" === window.__SX_SETTER.genre);
+        }
         function ad(e, t = "") {
             const n = Ge(t), i = [];
             // Pole/line topic: the rating is a per-pole affinity vector
@@ -676,10 +684,13 @@
             // Scribe dialog's phases are Opening / Development /
             // Closing (from the skin JSON's `scribe.phases` section),
             // not Warm-up / Main phase / Cool-down. The Scene Setter
-            // ("setter" prefix) is untouched — its skinning is not
-            // ruled, so it keeps the scene phases on every skin.
-            const isDisc = "scribe" === prefix && sxScribeIsDiscussion(),
-                ph = isDisc && window.__SX_SCRIBE && window.__SX_SCRIBE.phases ? window.__SX_SCRIBE.phases : null,
+            // ("setter" prefix) is skinned the same way (2026-11-16):
+            // on a moderation skin its phases are Opening / Development
+            // / Closing from the skin JSON's `sceneSetter.phases`
+            // section; on Sexcapades it keeps the scene phases.
+            const isDisc = ("scribe" === prefix && sxScribeIsDiscussion()) || ("setter" === prefix && sxSetterIsModeration()),
+                spec = "setter" === prefix ? window.__SX_SETTER : window.__SX_SCRIBE,
+                ph = isDisc && spec && spec.phases ? spec.phases : null,
                 wLabel = ph && ph.warmup ? ph.warmup : "Warm-up",
                 mLabel = ph && ph.main ? ph.main : "Main phase",
                 cLabel = ph && ph.cooldown ? ph.cooldown : "Cool-down / aftercare",
@@ -693,7 +704,7 @@
             return sxPhaseSection("scribe", "Organize the output into the following phases, in this order, pacing each phase to its stated duration and transitioning clearly between phases:");
         }
         function setterPhaseSection() {
-            return sxPhaseSection("setter", "Organize the play guide into the following phases, in this order, pacing each phase to its stated duration and transitioning clearly between phases:");
+            return sxPhaseSection("setter", sxSetterIsModeration() ? "Organize the discussion plan into the following phases, in this order, pacing each phase to its stated duration and transitioning clearly between phases:" : "Organize the play guide into the following phases, in this order, pacing each phase to its stated duration and transitioning clearly between phases:");
         }
         // Phase toggle wiring shared by both dialogs (refactor F2):
         // the prefix selects the dialog ("scribe" or "setter"); each

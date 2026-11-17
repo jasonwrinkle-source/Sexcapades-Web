@@ -267,6 +267,7 @@
     setAboutDescription(data.name, data.about);
     setSamples(data.samples);
     setScribe(data.scribe);
+    setSceneSetter(data.sceneSetter);
     /* Register the new category names in the solver's expanded-branch set,
        or frBuildTree skips every topic as collapsed (bare spokes). */
     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") window.__SX_SKIN_LAYOUT_SYNC();
@@ -352,6 +353,7 @@
       registerWidgets(data);
       setSamples(data.samples);
       setScribe(data.scribe);
+      setSceneSetter(data.sceneSetter);
       bootApplySexcapades(data);
       var dlg = document.getElementById("sxBootDialog");
       if (window.FlexcapadesEngine && window.FlexcapadesEngine.Map && dlg && dlg.hidden) rerender();
@@ -379,7 +381,7 @@
        without them the 17 higher-pole topics would fall back to the
        generic widgets after a switch-back. Synchronous when the file is
        already cached, async otherwise (the rerender below picks it up). */
-    if (cache["sexcapades"]) { registerWidgets(cache["sexcapades"]); setSamples(cache["sexcapades"].samples); setScribe(cache["sexcapades"].scribe); }
+    if (cache["sexcapades"]) { registerWidgets(cache["sexcapades"]); setSamples(cache["sexcapades"].samples); setScribe(cache["sexcapades"].scribe); setSceneSetter(cache["sexcapades"].sceneSetter); }
     else registerSexcapadesWidgets();
     /* Re-register the Sexcapades category names in the solver's
        expanded-branch set (same reason as in applySkin). */
@@ -557,7 +559,7 @@
     // tab, view-nav item) carry the same Literotica copy; swap them
     // with the discussion wording on vanilla skins.
     var tip = function (node, value) { if (node) node.setAttribute("data-ui-tooltip", value); };
-    tip(viewSwitchTip, isDiscussion ? "Switch views: Hypermap for the visual hypermap, Hot List for rating topic by topic, Scene Setter for agreements and play guides, Scene Sentinel for safe signals, check-in timers, and emergency contacts, or Scribe for an informed discussion between the recorded stances." : o.viewSwitchTip);
+    tip(viewSwitchTip, isDiscussion ? "Switch views: Hypermap for the visual hypermap, Hot List for rating topic by topic, Scene Setter for a moderated discussion plan, Scene Sentinel for safe signals, check-in timers, and emergency contacts, or Scribe for an informed discussion between the recorded stances." : o.viewSwitchTip);
     tip(scribeTabTip, isDiscussion ? "Write an informed discussion between the recorded stances from one profile, or from a multi-select." : o.scribeTabTip);
     tip(scribeNavTip, isDiscussion ? "Generate an informed discussion between the recorded stances, based on selected profiles." : o.scribeNavTip);
     if (expLevels) {
@@ -585,6 +587,140 @@
   // The open handler (05-compatibility Qd) re-applies this swap with
   // the cast's real single/multi form.
   window.__SX_SET_SCRIBE_PANEL = setScribePanel;
+
+  var sceneSetterPanelOriginal = null;
+  function setSceneSetter(sceneSetter) {
+    /* Per-skin Scene Setter contract (2026-11-16): the skin JSON's
+       `sceneSetter` section is the single source for Scene Setter's
+       genre and copy. Sexcapades keeps its play-checklist contract
+       (genre "play"); every vanilla skin is a stance/belief map, so
+       Scene Setter moderates a discussion between the stances (genre
+       "moderation"), with the play guide becoming a discussion plan
+       and the negotiation guide becoming a discussion agreement. The
+       spec is exposed on window.__SX_SETTER for the prompt composer,
+       the panel setter, and the Generate handler. The loader also
+       swaps the panel's static copy at boot (setSceneSetterPanel), so
+       the dialog reads in the active skin's genre before it is ever
+       opened. A skin with no `sceneSetter` section leaves the
+       Sexcapades copy in place — honest, not stale. The subtitle is
+       NOT swapped here: the dialog's open handler (06d) sets it with
+       the participants' names plus the spec's subtitleSuffix. The
+       Play buttons and the Generate label are NOT swapped here either:
+       patches.js rewrites them on a 500ms sync (syncSentinelPlayStatus
+       / setterSyncGenerateLabel), so they branch on the spec there. */
+    window.__SX_SETTER = (sceneSetter && typeof sceneSetter === "object") ? sceneSetter : null;
+    setSceneSetterPanel(window.__SX_SETTER);
+  }
+
+  function setSceneSetterPanel(spec) {
+    /* Boot-time swap of the Scene Setter panel's static copy. The
+       Sexcapades originals are captured on first call and restored
+       whenever the active spec is a play guide (or absent), so
+       switching back from a vanilla skin puts the play-checklist copy
+       back byte-for-byte. The view-switch tooltip is NOT swapped here:
+       setScribePanel owns it (it names both Scribe and Scene Setter)
+       and already carries the moderated-discussion wording on vanilla
+       skins. Exposed as window.__SX_SET_SETTER_PANEL so the dialog's
+       open handler can re-apply the same swap. */
+    var el = function (id) { return document.getElementById(id); };
+    var detailsLabel = el("setterDetailsLabel"), details = el("setterDetails"),
+        detailsHelp = el("setterDetailsHelp"),
+        playGuideLegend = el("setterPlayGuideLegend"), playGuideHelp = el("setterLengthHelp"),
+        negotiationLegend = el("setterNegotiationLegend"), negotiationHelp = el("setterNegotiationLengthHelp"),
+        phasesLegend = el("setterPhasesLegend"),
+        warmup = el("setterPhaseWarmupLabel"), main = el("setterPhaseMainLabel"),
+        cooldown = el("setterPhaseCooldownLabel"), phasesHelp = el("setterPhasesHelp"),
+        cooldownStyle = el("setterPhaseCooldownStyle"),
+        outputsTitle = el("setterOutputsTitle"), outputsIntro = el("setterOutputsIntro"),
+        negotiationTitle = el("negotiationGuideOutputTitle"), negotiationDesc = el("negotiationGuideOutputDesc"),
+        playGuideTitle = el("playGuideOutputTitle"), playGuideDesc = el("playGuideOutputDesc"),
+        copyNegotiation = el("copyNegotiationGuide"), downloadNegotiation = el("downloadNegotiationGuide"),
+        copyPlayGuide = el("copyNegotiation"), downloadPlayGuide = el("downloadPlayGuide"),
+        aiNote = el("setterAiNote"), playGuideText = el("setterPlayGuideText"),
+        openNegotiation = el("openNegotiation"), viewNav = el("setterViewNavItem"),
+        legendRow = el("legendSceneSetterRow");
+    if (!details && !playGuideLegend && !negotiationTitle) return;
+    if (!sceneSetterPanelOriginal) {
+      sceneSetterPanelOriginal = {
+        detailsLabel: detailsLabel ? detailsLabel.innerHTML : "",
+        detailsPlaceholder: details ? details.placeholder : "",
+        detailsHelp: detailsHelp ? detailsHelp.textContent : "",
+        playGuideLegend: playGuideLegend ? playGuideLegend.textContent : "",
+        playGuideHelp: playGuideHelp ? playGuideHelp.textContent : "",
+        negotiationLegend: negotiationLegend ? negotiationLegend.textContent : "",
+        negotiationHelp: negotiationHelp ? negotiationHelp.textContent : "",
+        phasesLegend: phasesLegend ? phasesLegend.textContent : "",
+        warmup: warmup ? warmup.textContent : "",
+        main: main ? main.textContent : "",
+        cooldown: cooldown ? cooldown.textContent : "",
+        phasesHelp: phasesHelp ? phasesHelp.textContent : "",
+        cooldownStyle: cooldownStyle ? cooldownStyle.innerHTML : "",
+        outputsTitle: outputsTitle ? outputsTitle.textContent : "",
+        outputsIntro: outputsIntro ? outputsIntro.textContent : "",
+        negotiationTitle: negotiationTitle ? negotiationTitle.textContent : "",
+        negotiationDesc: negotiationDesc ? negotiationDesc.innerHTML : "",
+        playGuideTitle: playGuideTitle ? playGuideTitle.textContent : "",
+        playGuideDesc: playGuideDesc ? playGuideDesc.innerHTML : "",
+        copyNegotiation: copyNegotiation ? copyNegotiation.textContent : "",
+        downloadNegotiation: downloadNegotiation ? downloadNegotiation.textContent : "",
+        copyPlayGuide: copyPlayGuide ? copyPlayGuide.textContent : "",
+        downloadPlayGuide: downloadPlayGuide ? downloadPlayGuide.textContent : "",
+        aiNote: aiNote ? aiNote.innerHTML : "",
+        playGuideTextPlaceholder: playGuideText ? playGuideText.placeholder : "",
+        openNegotiationTip: openNegotiation ? openNegotiation.getAttribute("data-ui-tooltip") : "",
+        viewNavTip: viewNav ? viewNav.getAttribute("data-ui-tooltip") : "",
+        legendRow: legendRow ? legendRow.innerHTML : ""
+      };
+    }
+    var o = sceneSetterPanelOriginal;
+    var isModeration = !!(spec && spec.genre === "moderation");
+    var p = (spec && spec.panel) || null,
+        ph = (spec && spec.phases) || null;
+    var text = function (node, value) { if (node) node.textContent = value; };
+    var html = function (node, value) { if (node) node.innerHTML = value; };
+    if (detailsLabel) detailsLabel.innerHTML = isModeration && p && p.detailsLabel ? p.detailsLabel : o.detailsLabel;
+    if (details) details.placeholder = isModeration && p && p.detailsPlaceholder ? p.detailsPlaceholder : o.detailsPlaceholder;
+    text(detailsHelp, isModeration && p && p.detailsHelp ? p.detailsHelp : o.detailsHelp);
+    text(playGuideLegend, isModeration && p && p.playGuideLegend ? p.playGuideLegend : o.playGuideLegend);
+    text(playGuideHelp, isModeration && p && p.playGuideHelp ? p.playGuideHelp : o.playGuideHelp);
+    text(negotiationLegend, isModeration && p && p.negotiationLegend ? p.negotiationLegend : o.negotiationLegend);
+    text(negotiationHelp, isModeration && p && p.negotiationHelp ? p.negotiationHelp : o.negotiationHelp);
+    text(phasesLegend, isModeration && ph && ph.legend ? ph.legend : o.phasesLegend);
+    text(warmup, isModeration && ph && ph.warmup ? ph.warmup : o.warmup);
+    text(main, isModeration && ph && ph.main ? ph.main : o.main);
+    text(cooldown, isModeration && ph && ph.cooldown ? ph.cooldown : o.cooldown);
+    text(phasesHelp, isModeration && ph && ph.help ? ph.help : o.phasesHelp);
+    text(outputsTitle, isModeration && p && p.outputsTitle ? p.outputsTitle : o.outputsTitle);
+    text(outputsIntro, isModeration && p && p.outputsIntro ? p.outputsIntro : o.outputsIntro);
+    text(negotiationTitle, isModeration && p && p.negotiationTitle ? p.negotiationTitle : o.negotiationTitle);
+    html(negotiationDesc, isModeration && p && p.negotiationDesc ? p.negotiationDesc : o.negotiationDesc);
+    text(playGuideTitle, isModeration && p && p.playGuideTitle ? p.playGuideTitle : o.playGuideTitle);
+    html(playGuideDesc, isModeration && p && p.playGuideDesc ? p.playGuideDesc : o.playGuideDesc);
+    text(copyNegotiation, isModeration && p && p.copyNegotiationGuide ? p.copyNegotiationGuide : o.copyNegotiation);
+    text(downloadNegotiation, isModeration && p && p.downloadNegotiationGuide ? p.downloadNegotiationGuide : o.downloadNegotiation);
+    text(copyPlayGuide, isModeration && p && p.copyPlayGuide ? p.copyPlayGuide : o.copyPlayGuide);
+    text(downloadPlayGuide, isModeration && p && p.downloadPlayGuide ? p.downloadPlayGuide : o.downloadPlayGuide);
+    html(aiNote, isModeration && p && p.aiNote ? p.aiNote : o.aiNote);
+    if (playGuideText) playGuideText.placeholder = isModeration && p && p.playGuideTextPlaceholder ? p.playGuideTextPlaceholder : o.playGuideTextPlaceholder;
+    var tip = function (node, value) { if (node) node.setAttribute("data-ui-tooltip", value); };
+    tip(openNegotiation, isModeration && p && p.openNegotiationTip ? p.openNegotiationTip : o.openNegotiationTip);
+    tip(viewNav, isModeration && p && p.viewNavTip ? p.viewNavTip : o.viewNavTip);
+    html(legendRow, isModeration && p && p.legendRow ? p.legendRow : o.legendRow);
+    if (cooldownStyle) {
+      if (isModeration && ph && ph.cooldownStyles) {
+        cooldownStyle.innerHTML = ph.cooldownStyles.map(function (st, i) {
+          return "<option" + (i === 0 ? " selected=\"\"" : "") + " value=\"" + st + "\">" + st + "</option>";
+        }).join("");
+      } else cooldownStyle.innerHTML = o.cooldownStyle;
+    }
+    // The Generate button's label is JS-managed by patches.js
+    // (setterSyncGenerateLabel), so the copy swap above does not
+    // reach it — re-sync it here on every skin switch. patches.js
+    // loads before this file and exposes the sync on window; the
+    // guard covers a boot where it has not run yet.
+    if (typeof window.__sxSetterSyncGenerateLabel === "function") window.__sxSetterSyncGenerateLabel();
+  }
+  window.__SX_SET_SETTER_PANEL = setSceneSetterPanel;
 
   function rebuildSampleMenu(samples) {
     /* Rebuild the archetypes-and-samples menu from the active skin's
