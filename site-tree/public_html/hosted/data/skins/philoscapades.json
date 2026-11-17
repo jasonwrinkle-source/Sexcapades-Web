@@ -61,7 +61,7 @@
       "topics": [
         {
           "id": "xph0001",
-          "name": "The Agrippan Trilemma / Justification Triad",
+          "name": "The Agrippan Trilemma",
           "risk": false,
           "poles": [
             {
@@ -101,7 +101,7 @@
         },
         {
           "id": "xph0002",
-          "name": "Epistemic Grounds & Justification Matrix",
+          "name": "Epistemic Grounds",
           "risk": false,
           "poles": [
             {
@@ -332,7 +332,7 @@
         },
         {
           "id": "xph0005",
-          "name": "Free Will, Agency & Determinism",
+          "name": "Free Will",
           "risk": false,
           "poles": [
             {
@@ -563,7 +563,7 @@
         },
         {
           "id": "xph0010",
-          "name": "Axiological Goods / What Has Intrinsic Value",
+          "name": "Intrinsic Value",
           "risk": false,
           "poles": [
             {

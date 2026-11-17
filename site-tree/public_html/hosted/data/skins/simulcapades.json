@@ -133,7 +133,7 @@
         },
         {
           "id": "xsi0003",
-          "name": "The Computational Experiment: Real vs Metaphor",
+          "name": "The Computational Experiment",
           "risk": false,
           "poles": [
             {
@@ -165,7 +165,7 @@
         },
         {
           "id": "xsi0004",
-          "name": "Fidelity vs Speed: The Central Simulation Dilemma",
+          "name": "Fidelity vs Speed",
           "risk": false,
           "poles": [
             {
@@ -197,7 +197,7 @@
         },
         {
           "id": "xsi0005",
-          "name": "Validation: Comparison to Physical Experiment vs. Mathematical Verification",
+          "name": "Validation",
           "risk": false,
           "poles": [
             {
@@ -229,7 +229,7 @@
         },
         {
           "id": "xsi0006",
-          "name": "The Simulation Trust Paradox: \"Nobody Believes the Simulation\"",
+          "name": "Simulation Trust",
           "risk": false,
           "poles": [
             {
@@ -268,7 +268,7 @@
       "topics": [
         {
           "id": "xsi0007",
-          "name": "The Computational Physics Methods Quartet",
+          "name": "Computational Methods",
           "risk": false,
           "poles": [
             {
@@ -451,7 +451,7 @@
       "topics": [
         {
           "id": "xsi0012",
-          "name": "Multi-Scale Bridging: Concurrent vs Hierarchical",
+          "name": "Multi-Scale Bridging",
           "risk": false,
           "poles": [
             {
@@ -515,7 +515,7 @@
         },
         {
           "id": "xsi0014",
-          "name": "Spatial Discretization: Structured Grids vs. AMR vs. Mesh-Free",
+          "name": "Spatial Discretization",
           "risk": false,
           "poles": [
             {
@@ -658,7 +658,7 @@
         },
         {
           "id": "xsi0018",
-          "name": "Processor Architecture: CPU vs GPU vs Quantum",
+          "name": "Processor Architecture",
           "risk": false,
           "poles": [
             {
@@ -762,7 +762,7 @@
         },
         {
           "id": "xsi0021",
-          "name": "MLIPs — Machine-Learned Interatomic Potentials",
+          "name": "MLIPs",
           "risk": false,
           "poles": [
             {

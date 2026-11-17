@@ -61,7 +61,7 @@
       "topics": [
         {
           "id": "xqu0001",
-          "name": "The Great Quantum Interpretations Quartet",
+          "name": "Quantum Interpretations",
           "risk": false,
           "poles": [
             {
@@ -109,7 +109,7 @@
         },
         {
           "id": "xqu0002",
-          "name": "Wavefunction Ontology: ψ-Ontic vs. ψ-Epistemic",
+          "name": "Wavefunction Ontology",
           "risk": false,
           "poles": [
             {
@@ -141,7 +141,7 @@
         },
         {
           "id": "xqu0003",
-          "name": "The Measurement Problem: Collapse vs. Decoherence vs. No-Collapse",
+          "name": "The Measurement Problem",
           "risk": false,
           "poles": [
             {
@@ -181,7 +181,7 @@
         },
         {
           "id": "xqu0004",
-          "name": "Determinism: Laplacian Clockwork vs. Irreducible Stochasticity",
+          "name": "Determinism",
           "risk": false,
           "poles": [
             {
@@ -213,7 +213,7 @@
         },
         {
           "id": "xqu0005",
-          "name": "Locality vs. Realism: Bell's Theorem Stance",
+          "name": "Locality vs. Realism",
           "risk": false,
           "poles": [
             {
@@ -300,7 +300,7 @@
         },
         {
           "id": "xqu0007",
-          "name": "Spacetime Primacy: Fundamental vs. Emergent Spacetime",
+          "name": "Spacetime Primacy",
           "risk": false,
           "poles": [
             {
@@ -364,7 +364,7 @@
         },
         {
           "id": "xqu0009",
-          "name": "Singularity Resolution: Quantum Bounce vs. Physical Singularity",
+          "name": "Singularity Resolution",
           "risk": false,
           "poles": [
             {
@@ -396,7 +396,7 @@
         },
         {
           "id": "xqu0010",
-          "name": "Grand Unification vs. Effective Field Theory",
+          "name": "Grand Unification",
           "risk": false,
           "poles": [
             {
@@ -428,7 +428,7 @@
         },
         {
           "id": "xqu0011",
-          "name": "The Scale of Ambition: The Grand Theory of Everything vs. Effective Field Theories",
+          "name": "The Scale of Ambition",
           "risk": false,
           "poles": [
             {
@@ -467,7 +467,7 @@
       "topics": [
         {
           "id": "xqu0012",
-          "name": "Cosmic Origin: Big Bang vs. Cyclic vs. Steady State",
+          "name": "Cosmic Origin",
           "risk": false,
           "poles": [
             {
@@ -507,7 +507,7 @@
         },
         {
           "id": "xqu0013",
-          "name": "Dark Matter Identity: Particle vs. Modified Dynamics",
+          "name": "Dark Matter Identity",
           "risk": false,
           "poles": [
             {
@@ -611,7 +611,7 @@
         },
         {
           "id": "xqu0016",
-          "name": "The Multiverse: Many Worlds vs. One Universe",
+          "name": "The Multiverse",
           "risk": false,
           "poles": [
             {
@@ -643,7 +643,7 @@
         },
         {
           "id": "xqu0017",
-          "name": "The Arrow of Time: Past Hypothesis vs. Fundamental Asymmetry",
+          "name": "The Arrow of Time",
           "risk": false,
           "poles": [
             {
@@ -675,7 +675,7 @@
         },
         {
           "id": "xqu0018",
-          "name": "The Ontology of Time: Block Universe vs. Heraclitean Flow",
+          "name": "The Ontology of Time",
           "risk": false,
           "poles": [
             {
@@ -714,7 +714,7 @@
       "topics": [
         {
           "id": "xqu0019",
-          "name": "The Micro-Macro Spectrum: Reductionism vs. Emergence vs. Duality",
+          "name": "The Micro-Macro Spectrum",
           "risk": false,
           "poles": [
             {
@@ -857,7 +857,7 @@
         },
         {
           "id": "xqu0023",
-          "name": "Fine-Tuning & Naturalness",
+          "name": "Fine-Tuning",
           "risk": false,
           "poles": [
             {
@@ -889,7 +889,7 @@
         },
         {
           "id": "xqu0024",
-          "name": "The Anthropic Principle: Accept vs. Reject",
+          "name": "The Anthropic Principle",
           "risk": false,
           "poles": [
             {
@@ -953,7 +953,7 @@
         },
         {
           "id": "xqu0026",
-          "name": "Black Hole Information Paradox: Unitary Recovery vs. Information Loss vs. Remnants",
+          "name": "Black Hole Information Paradox",
           "risk": false,
           "poles": [
             {
@@ -1000,7 +1000,7 @@
       "topics": [
         {
           "id": "xqu0027",
-          "name": "The Theorist's Method: Pen & Blackboard vs. Symbolic Computing",
+          "name": "The Theorist's Method",
           "risk": false,
           "poles": [
             {

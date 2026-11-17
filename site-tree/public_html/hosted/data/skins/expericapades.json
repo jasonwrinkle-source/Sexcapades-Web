@@ -125,7 +125,7 @@
         },
         {
           "id": "xex0003",
-          "name": "Scale: Big Science vs Medium-Scale vs Tabletop",
+          "name": "Experiment Scale",
           "risk": false,
           "poles": [
             {
@@ -356,7 +356,7 @@
         },
         {
           "id": "xex0009",
-          "name": "Detector Design: General vs Specialized vs Hybrid",
+          "name": "Detector Design",
           "risk": false,
           "poles": [
             {
@@ -659,7 +659,7 @@
         },
         {
           "id": "xex0018",
-          "name": "Anomaly Reaction: Fast Follower vs Skeptical Anchor",
+          "name": "Anomaly Reaction",
           "risk": false,
           "poles": [
             {
@@ -817,7 +817,7 @@
         },
         {
           "id": "xex0022",
-          "name": "Analysis: Model-Dependent vs Model-Independent",
+          "name": "Model Dependence",
           "risk": false,
           "poles": [
             {
@@ -913,7 +913,7 @@
         },
         {
           "id": "xex0025",
-          "name": "Collaboration: Competition vs Collaboration vs Coopetition",
+          "name": "Collaboration",
           "risk": false,
           "poles": [
             {
@@ -1024,7 +1024,7 @@
         },
         {
           "id": "xex0028",
-          "name": "Theorist Relationship: Symbiotic Guide vs Theoretical Antagonist",
+          "name": "Theorist Relationship",
           "risk": false,
           "poles": [
             {

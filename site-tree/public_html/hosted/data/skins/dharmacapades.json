@@ -25,7 +25,7 @@
             ]
           },
           "id": "xdh0001",
-          "name": "Karma: Literal vs Psychological vs No Karma",
+          "name": "Karma",
           "poles": [
             {
               "key": "literal",
@@ -105,7 +105,7 @@
             ]
           },
           "id": "xdh0003",
-          "name": "Buddhism: Religion vs Philosophy vs Way of Life",
+          "name": "Buddhism",
           "poles": [
             {
               "key": "religion",
@@ -942,7 +942,7 @@
             ]
           },
           "id": "xdh0021",
-          "name": "Buddha: Historical vs Cosmic vs Buddha-nature",
+          "name": "The Buddha",
           "poles": [
             {
               "key": "historical-buddha",

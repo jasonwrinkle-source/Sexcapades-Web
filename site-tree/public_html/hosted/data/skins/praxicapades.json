@@ -165,7 +165,7 @@
         },
         {
           "id": "xpr0004",
-          "name": "Modeling Philosophy: First-Principles Physics vs. Data-Driven Empirical Surrogates",
+          "name": "Modeling Philosophy",
           "risk": false,
           "poles": [
             {
@@ -197,7 +197,7 @@
         },
         {
           "id": "xpr0005",
-          "name": "Linearity Stance: Linearized Tractability vs. Nonlinear Realism",
+          "name": "Linearity",
           "risk": false,
           "poles": [
             {
@@ -562,7 +562,7 @@
         },
         {
           "id": "xpr0014",
-          "name": "The Inverse Problem & Data Assimilation Spectrum",
+          "name": "The Inverse Problem",
           "risk": false,
           "poles": [
             {
@@ -602,7 +602,7 @@
         },
         {
           "id": "xpr0015",
-          "name": "Statistical Philosophy: Bayesian vs. Frequentist in Applied Modeling",
+          "name": "Statistical Philosophy",
           "risk": false,
           "poles": [
             {
@@ -769,7 +769,7 @@
         },
         {
           "id": "xpr0020",
-          "name": "Model Complexity: Occam's Parsimony vs. Multi-Physics Maximalism",
+          "name": "Model Complexity",
           "risk": false,
           "poles": [
             {
@@ -801,7 +801,7 @@
         },
         {
           "id": "xpr0021",
-          "name": "Goal: Mechanistic Explanation vs. Predictive Accuracy",
+          "name": "Modeling Goal",
           "risk": false,
           "poles": [
             {
@@ -840,7 +840,7 @@
       "topics": [
         {
           "id": "xpr0022",
-          "name": "Habitat: Industrial Supercomputing vs. Academic Freedom",
+          "name": "Habitat",
           "risk": false,
           "poles": [
             {
@@ -904,7 +904,7 @@
         },
         {
           "id": "xpr0024",
-          "name": "The Computational Craft: Low-Level Performance vs. Rapid Prototyping",
+          "name": "The Computational Craft",
           "risk": false,
           "poles": [
             {
@@ -936,7 +936,7 @@
         },
         {
           "id": "xpr0025",
-          "name": "Interdisciplinary Role: Domain Bridge-Builder vs. Methodological Core",
+          "name": "Interdisciplinary Role",
           "risk": false,
           "poles": [
             {

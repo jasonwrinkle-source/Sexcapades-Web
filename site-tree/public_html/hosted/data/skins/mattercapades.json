@@ -61,7 +61,7 @@
       "topics": [
         {
           "id": "xma0001",
-          "name": "Microscopic Understanding vs Device Performance",
+          "name": "Understanding vs Performance",
           "risk": false,
           "poles": [
             {
@@ -93,7 +93,7 @@
         },
         {
           "id": "xma0002",
-          "name": "Materials Discovery: Rational Design vs Edisonian Synthesis",
+          "name": "Materials Discovery",
           "risk": false,
           "poles": [
             {
@@ -125,7 +125,7 @@
         },
         {
           "id": "xma0003",
-          "name": "Technology Readiness Level (TRL) Horizon: Deep Discovery vs Scalable Deployment",
+          "name": "Technology Readiness",
           "risk": false,
           "poles": [
             {
@@ -157,7 +157,7 @@
         },
         {
           "id": "xma0004",
-          "name": "Fundamental vs Applied — Within Applied Physics",
+          "name": "Fundamental vs Applied",
           "risk": false,
           "poles": [
             {
@@ -196,7 +196,7 @@
       "topics": [
         {
           "id": "xma0005",
-          "name": "The Four Sovereign Domains of Applied Physics",
+          "name": "The Four Domains",
           "risk": false,
           "poles": [
             {
@@ -506,7 +506,7 @@
         },
         {
           "id": "xma0013",
-          "name": "Fusion Energy: Magnetic vs Inertial Confinement",
+          "name": "Fusion Energy",
           "risk": false,
           "poles": [
             {
@@ -538,7 +538,7 @@
         },
         {
           "id": "xma0014",
-          "name": "Baseload Clean Energy: Advanced Nuclear/Fusion vs Solid-State Renewables",
+          "name": "Baseload Clean Energy",
           "risk": false,
           "poles": [
             {
@@ -570,7 +570,7 @@
         },
         {
           "id": "xma0015",
-          "name": "Energy Storage: Short-Duration vs Long-Duration",
+          "name": "Energy Storage",
           "risk": false,
           "poles": [
             {
@@ -705,7 +705,7 @@
         },
         {
           "id": "xma0019",
-          "name": "Superconductors: Room-Temperature Pursuit vs Pragmatic High-$T_c$ Engineering",
+          "name": "Superconductors",
           "risk": false,
           "poles": [
             {
@@ -737,7 +737,7 @@
         },
         {
           "id": "xma0020",
-          "name": "Metamaterials & Wave Engineering",
+          "name": "Metamaterials",
           "risk": false,
           "poles": [
             {
@@ -801,7 +801,7 @@
         },
         {
           "id": "xma0022",
-          "name": "Semiconductor Architecture: Moore's Law vs Beyond-Silicon",
+          "name": "Semiconductor Architecture",
           "risk": false,
           "poles": [
             {
@@ -840,7 +840,7 @@
       "topics": [
         {
           "id": "xma0023",
-          "name": "Biophysics: Physics of Life vs Life as Physics",
+          "name": "Biophysics",
           "risk": false,
           "poles": [
             {
@@ -968,7 +968,7 @@
         },
         {
           "id": "xma0027",
-          "name": "Identity: Applied Physicist vs Specialized Engineer",
+          "name": "Professional Identity",
           "risk": false,
           "poles": [
             {
@@ -1032,7 +1032,7 @@
         },
         {
           "id": "xma0029",
-          "name": "The Triumph: Product vs Prototype vs Paper",
+          "name": "The Triumph",
           "risk": false,
           "poles": [
             {

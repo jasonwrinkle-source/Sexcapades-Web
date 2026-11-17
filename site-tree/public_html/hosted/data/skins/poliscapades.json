@@ -28,7 +28,7 @@
                 ]
               },
               "id": "xpo0001",
-              "name": "Macro-Economic Structural Triad: State / Market / Commons",
+              "name": "Economic Structure",
               "poles": [
                 {
                   "key": "the-state-command-redistribution",
@@ -113,7 +113,7 @@
                 ]
               },
               "id": "xpo0006",
-              "name": "Fiscal & Monetary Policy Tetrad",
+              "name": "Macroeconomic Policy",
               "poles": [
                 {
                   "key": "modern-monetary-theory-mmt",
@@ -221,7 +221,7 @@
                 ]
               },
               "id": "xpo0008",
-              "name": "Theories of Property & Ownership Pentad",
+              "name": "Property & Ownership",
               "poles": [
                 {
                   "key": "private-absolute-allodial-capitalist",
@@ -303,7 +303,7 @@
                 ]
               },
               "id": "xpo0016",
-              "name": "Corporate taxes & loopholes",
+              "name": "Corporate Taxes",
               "poles": [
                 {
                   "key": "close-loopholes-tax-more",
@@ -335,7 +335,7 @@
                 ]
               },
               "id": "xpo0017",
-              "name": "Federal spending & the deficit",
+              "name": "Federal Spending",
               "poles": [
                 {
                   "key": "invest-generously",
@@ -399,7 +399,7 @@
                 ]
               },
               "id": "xpo0019",
-              "name": "Income & wealth distribution",
+              "name": "Wealth Distribution",
               "poles": [
                 {
                   "key": "reduce-inequality",
@@ -437,7 +437,7 @@
                 ]
               },
               "id": "xpo0020",
-              "name": "Tariffs & trade agreements",
+              "name": "Trade Policy",
               "poles": [
                 {
                   "key": "free-trade",
@@ -469,7 +469,7 @@
                 ]
               },
               "id": "xpo0021",
-              "name": "Manufacturing & supply chains",
+              "name": "Manufacturing",
               "poles": [
                 {
                   "key": "industrial-policy-reshoring",
@@ -501,7 +501,7 @@
                 ]
               },
               "id": "xpo0022",
-              "name": "China & economic competition",
+              "name": "China & Competition",
               "poles": [
                 {
                   "key": "managed-competition",
@@ -539,7 +539,7 @@
                 ]
               },
               "id": "xpo0023",
-              "name": "The Federal Reserve & monetary policy",
+              "name": "Monetary Policy",
               "poles": [
                 {
                   "key": "independent-central-bank",
@@ -571,7 +571,7 @@
                 ]
               },
               "id": "xpo0024",
-              "name": "Cryptocurrency & digital currency",
+              "name": "Digital Currency",
               "poles": [
                 {
                   "key": "protect-crypto-ban-gov-coin",
@@ -603,7 +603,7 @@
                 ]
               },
               "id": "xpo0025",
-              "name": "Inflation & cost of living",
+              "name": "Inflation",
               "poles": [
                 {
                   "key": "act-to-bring-prices-down",
@@ -673,7 +673,7 @@
                 ]
               },
               "id": "xpo0014",
-              "name": "Unions & labor rights",
+              "name": "Labor Rights",
               "poles": [
                 {
                   "key": "strong-labor-protections",
@@ -737,7 +737,7 @@
                 ]
               },
               "id": "xpo0027",
-              "name": "Welfare & anti-poverty programs",
+              "name": "Welfare",
               "poles": [
                 {
                   "key": "strong-safety-net",
@@ -921,7 +921,7 @@
             ]
           },
           "id": "xpo0032",
-          "name": "Mental health & addiction",
+          "name": "Behavioral Health",
           "poles": [
             {
               "key": "treatment-and-investment",
@@ -985,7 +985,7 @@
             ]
           },
           "id": "xpo0034",
-          "name": "Paid family & medical leave",
+          "name": "Paid Leave",
           "poles": [
             {
               "key": "national-paid-leave-program",
@@ -1017,7 +1017,7 @@
             ]
           },
           "id": "xpo0035",
-          "name": "Vaccines & mandates",
+          "name": "Vaccines",
           "poles": [
             {
               "key": "mandates-legitimate",
@@ -1055,7 +1055,7 @@
             ]
           },
           "id": "xpo0036",
-          "name": "Climate change & emissions",
+          "name": "Climate Change",
           "poles": [
             {
               "key": "urgent-action",
@@ -1215,7 +1215,7 @@
             ]
           },
           "id": "xpo0041",
-          "name": "Pollution & environmental justice",
+          "name": "Environmental Justice",
           "poles": [
             {
               "key": "strict-rules-polluter-pays",
@@ -1247,7 +1247,7 @@
             ]
           },
           "id": "xpo0042",
-          "name": "Public lands, wildlife & conservation",
+          "name": "Public Lands & Conservation",
           "poles": [
             {
               "key": "federal-conservation",
@@ -1279,7 +1279,7 @@
             ]
           },
           "id": "xpo0043",
-          "name": "Agriculture & food",
+          "name": "Agriculture",
           "poles": [
             {
               "key": "support-farmers-reform",
@@ -1317,7 +1317,7 @@
             ]
           },
           "id": "xpo0044",
-          "name": "Border wall & enforcement",
+          "name": "Border Enforcement",
           "poles": [
             {
               "key": "wall-and-hard-enforcement",
@@ -1381,7 +1381,7 @@
             ]
           },
           "id": "xpo0046",
-          "name": "Legal immigration levels & pathways",
+          "name": "Legal Immigration",
           "poles": [
             {
               "key": "expand-legal-immigration",
@@ -1613,7 +1613,7 @@
                 ]
               },
               "id": "xpo0005",
-              "name": "Decision Ecology & Governance Modalities",
+              "name": "Decision Ecology",
               "poles": [
                 {
                   "key": "executive-mandate-decisive-sovereign",
@@ -1796,7 +1796,7 @@
                 ]
               },
               "id": "xpo0051",
-              "name": "Voting access & voter ID",
+              "name": "Voting Access",
               "poles": [
                 {
                   "key": "expand-access-no-id",
@@ -1860,7 +1860,7 @@
                 ]
               },
               "id": "xpo0053",
-              "name": "Electoral College & proportional representation",
+              "name": "Electoral Systems",
               "poles": [
                 {
                   "key": "keep-the-electoral-college",
@@ -1892,7 +1892,7 @@
                 ]
               },
               "id": "xpo0054",
-              "name": "Ranked-choice voting & primaries",
+              "name": "Voting Systems",
               "poles": [
                 {
                   "key": "reform-the-ballot",
@@ -1956,7 +1956,7 @@
                 ]
               },
               "id": "xpo0056",
-              "name": "DC & territory status",
+              "name": "DC & Territories",
               "poles": [
                 {
                   "key": "statehood-self-determination",
@@ -2090,7 +2090,7 @@
                 ]
               },
               "id": "xpo0060",
-              "name": "Size & scope of federal government",
+              "name": "Government Size",
               "poles": [
                 {
                   "key": "active-federal-government",
@@ -2160,7 +2160,7 @@
                 ]
               },
               "id": "xpo0062",
-              "name": "Privacy & surveillance",
+              "name": "Privacy",
               "poles": [
                 {
                   "key": "strong-privacy-protections",
@@ -2192,7 +2192,7 @@
                 ]
               },
               "id": "xpo0063",
-              "name": "Free speech & censorship",
+              "name": "Free Speech",
               "poles": [
                 {
                   "key": "no-government-censorship",
@@ -2296,7 +2296,7 @@
             ]
           },
           "id": "xpo0066",
-          "name": "Contraception & fertility care",
+          "name": "Reproductive Care",
           "poles": [
             {
               "key": "guaranteed-access",
@@ -2332,7 +2332,7 @@
             ]
           },
           "id": "xpo0067",
-          "name": "Marriage & family definition",
+          "name": "Marriage & Family",
           "poles": [
             {
               "key": "marriage-equality-for-all",
@@ -2496,7 +2496,7 @@
             ]
           },
           "id": "xpo0072",
-          "name": "Criminal justice reform & sentencing",
+          "name": "Criminal Justice",
           "poles": [
             {
               "key": "reform-reduce-incarceration",
@@ -2560,7 +2560,7 @@
             ]
           },
           "id": "xpo0074",
-          "name": "Marijuana & drugs",
+          "name": "Drug Policy",
           "poles": [
             {
               "key": "legalize-treat-as-health",
@@ -2624,7 +2624,7 @@
             ]
           },
           "id": "xpo0076",
-          "name": "Racial equity & civil rights",
+          "name": "Civil Rights",
           "poles": [
             {
               "key": "active-equity-programs",
@@ -2737,7 +2737,7 @@
             ]
           },
           "id": "xpo0080",
-          "name": "School choice & funding",
+          "name": "School Choice",
           "poles": [
             {
               "key": "universal-choice-vouchers",
@@ -2833,7 +2833,7 @@
             ]
           },
           "id": "xpo0083",
-          "name": "College cost & student debt",
+          "name": "College Affordability",
           "poles": [
             {
               "key": "free-college-debt-cancellation",
@@ -2865,7 +2865,7 @@
             ]
           },
           "id": "xpo0084",
-          "name": "Arts & humanities funding",
+          "name": "Arts Funding",
           "poles": [
             {
               "key": "fund-them",
@@ -2907,7 +2907,7 @@
             ]
           },
           "id": "xpo0002",
-          "name": "Rodrik's Political Trilemma of the World Economy",
+          "name": "Rodrik's Trilemma",
           "poles": [
             {
               "key": "hyperglobalization",
@@ -2959,7 +2959,7 @@
             ]
           },
           "id": "xpo0010",
-          "name": "Foreign Policy & Geopolitical Grand Strategy Hexad",
+          "name": "Grand Strategy",
           "poles": [
             {
               "key": "realpolitik-hegemony",
@@ -3020,7 +3020,7 @@
             ]
           },
           "id": "xpo0012",
-          "name": "Seven Pillars of Civilizational Resilience",
+          "name": "Civilizational Resilience",
           "poles": [
             {
               "key": "energy-density-grid-security",
@@ -3072,7 +3072,7 @@
             ]
           },
           "id": "xpo0085",
-          "name": "Defense spending & the military",
+          "name": "Defense Spending",
           "poles": [
             {
               "key": "bigger-stronger-military",
@@ -3225,7 +3225,7 @@
             ]
           },
           "id": "xpo0090",
-          "name": "Middle East & Israel",
+          "name": "The Middle East",
           "poles": [
             {
               "key": "stand-with-israel",
@@ -3257,7 +3257,7 @@
             ]
           },
           "id": "xpo0091",
-          "name": "Foreign aid & intervention",
+          "name": "Foreign Aid",
           "poles": [
             {
               "key": "lead-and-intervene",
@@ -3289,7 +3289,7 @@
             ]
           },
           "id": "xpo0092",
-          "name": "Nuclear weapons & arms control",
+          "name": "Nuclear Weapons",
           "poles": [
             {
               "key": "modernize-the-deterrent",

@@ -117,7 +117,7 @@
         },
         {
           "id": "xth0002",
-          "name": "Foundational Bedrock: Sets vs. Categories vs. Types",
+          "name": "Foundations",
           "risk": false,
           "poles": [
             {
@@ -157,7 +157,7 @@
         },
         {
           "id": "xth0003",
-          "name": "The Law of Excluded Middle: Classical vs. Constructive Logic",
+          "name": "The Law of Excluded Middle",
           "risk": false,
           "poles": [
             {
@@ -221,7 +221,7 @@
         },
         {
           "id": "xth0005",
-          "name": "Mathematical Universe Hypothesis: Realist Ontology",
+          "name": "The Mathematical Universe",
           "risk": false,
           "poles": [
             {
@@ -292,7 +292,7 @@
       "topics": [
         {
           "id": "xth0007",
-          "name": "The Rising Sea vs. The Hammer & Chisel",
+          "name": "Mathematical Style",
           "risk": false,
           "poles": [
             {
@@ -324,7 +324,7 @@
         },
         {
           "id": "xth0008",
-          "name": "Abstraction: Deep Generalization vs. Concrete Jewels",
+          "name": "Abstraction",
           "risk": false,
           "poles": [
             {
@@ -547,7 +547,7 @@
         },
         {
           "id": "xth0014",
-          "name": "Combinatorics & Discrete Structures",
+          "name": "Combinatorics",
           "type": "single",
           "risk": false,
           "poles": [
@@ -675,7 +675,7 @@
         },
         {
           "id": "xth0018",
-          "name": "Proof Verification: Computer Proof Assistants vs. Human Social Consensus",
+          "name": "Proof Verification",
           "risk": false,
           "poles": [
             {
@@ -747,7 +747,7 @@
         },
         {
           "id": "xth0020",
-          "name": "Conjecture Orientation: Conjecture-Solver vs. Theory-Builder",
+          "name": "Conjecture Orientation",
           "risk": false,
           "poles": [
             {
@@ -914,7 +914,7 @@
         },
         {
           "id": "xth0025",
-          "name": "G.H. Hardy's Stance: Proud Inutility vs. Unreasonable Effectiveness",
+          "name": "The Value of Mathematics",
           "risk": false,
           "poles": [
             {
@@ -985,7 +985,7 @@
       "topics": [
         {
           "id": "xth0027",
-          "name": "The Social Mode: The Wandering Erdős vs. The Monastic Perelman",
+          "name": "The Social Mode",
           "risk": false,
           "poles": [
             {
@@ -1017,7 +1017,7 @@
         },
         {
           "id": "xth0028",
-          "name": "The Instrument: Chalk & Slate vs. Digital Computation",
+          "name": "The Instrument",
           "risk": false,
           "poles": [
             {
@@ -1049,7 +1049,7 @@
         },
         {
           "id": "xth0029",
-          "name": "The Reward: Aesthetic Epiphany vs. Institutional Immortality",
+          "name": "The Reward",
           "risk": false,
           "poles": [
             {
