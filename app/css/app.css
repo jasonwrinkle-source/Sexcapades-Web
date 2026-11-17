@@ -1444,11 +1444,18 @@ textarea{font-size:16px}
 .outline-search-wrap{flex:1 1 180px;min-width:140px;max-width:320px}
 .outline-search-input{width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--ink);font-size:16px}
 .mark-ratings{display:grid;gap:8px;margin:4px 0 12px}
-.mark-rating{display:grid;grid-template-columns:minmax(72px,auto) minmax(0,1fr) auto auto;gap:8px;align-items:center;font-size:14px;font-weight:700}
+.mark-rating{display:grid;grid-template-columns:200px minmax(0,1fr) 64px auto;gap:8px;align-items:center;font-size:14px;font-weight:700}
 .mark-rating[hidden]{display:none}
-.mark-rating input[type=range]{width:100%;accent-color:var(--green)}
-.mark-rating output{min-width:52px;font-weight:650;color:var(--muted)}
+.mark-rating>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.mark-rating input[type=range]{width:100%;height:28px;padding:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
+.mark-rating input[type=range]::-webkit-slider-runnable-track{height:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(90deg,var(--red-deep),var(--curious),var(--green-deep))}
+.mark-rating input[type=range]::-webkit-slider-thumb{width:20px;height:20px;margin-top:-6px;appearance:none;-webkit-appearance:none;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073}
+.mark-rating input[type=range]::-moz-range-track{height:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(90deg,var(--red-deep),var(--curious),var(--green-deep))}
+.mark-rating input[type=range]::-moz-range-thumb{width:15px;height:15px;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073}
+.mark-rating input[type=range]:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
+.mark-rating output{width:64px;text-align:right;font-weight:650;color:var(--muted)}
 .mark-rating button{min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:7px;background:var(--paper-2)}
+@media (max-width:760px){.mark-rating{grid-template-columns:120px minmax(0,1fr) 56px auto}.mark-rating output{width:56px}}
 .branch-heat{pointer-events:none}
 /* Relation connectors are a focus affordance. At a search zoom their
    non-scaling dashes read as thick leftover lines, and they only
