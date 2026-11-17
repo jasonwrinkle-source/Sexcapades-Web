@@ -1524,3 +1524,14 @@ details.scene-phase ul {
 }
 #appAboutDescription .sx-brand{font:inherit}
 #appAboutTitle .sx-about-name{font-family:"Source Sans 3",sans-serif}
+
+/* Profile-to-archetype projection (2026-11-17): ranked list in the About profile page. */
+.profile-archetype-results{display:grid;gap:10px;margin-top:12px}
+.profile-archetype-results:empty{display:none}
+.profile-archetype-row{border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--paper-2)}
+.profile-archetype-row-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.profile-archetype-name{font:750 18px/1.2 "Barlow Condensed",sans-serif}
+.profile-archetype-score{font:800 18px/1 "Source Sans 3",sans-serif;color:var(--green)}
+.profile-archetype-drivers{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.4}
+.profile-archetype-about{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.4}
+.profile-archetype-note{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.4}

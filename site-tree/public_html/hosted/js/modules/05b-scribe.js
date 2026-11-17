@@ -539,7 +539,7 @@
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, isDisc ? "- Use individual-only details for character texture, reactions, and dialogue—not as permission to add a position outside the authoritative shared ground." : "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "1", scribeLengthDisplay = "~1", scribeRequestText = "", scribeLengthUnit = "pages", scribeDetailLevel = "balanced", scribeRigor = 4;
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "minutes", scribeDetailLevel = "balanced", scribeRigor = 4;
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -670,11 +670,9 @@
             }[t] || [ "paragraph", "paragraphs" ];
             return "1" === String(e) ? n[0] : n[1];
         }
-        // Effective target text (2026-11-17): the user's target, except
-        // a blank length on a YoBitch guide means the 60-minute default
-        // sequence (the old hardcoded length, kept only as the default).
+        // Effective target text: the user's target. A blank length
+        // means the 5-minute default (value 5, unit minutes).
         function sxScribeTargetText() {
-            if ("yobitch" === scribeTarget && "~1" === scribeLengthDisplay) return "60 minutes";
             return `${scribeLengthValue} ${unitWord(scribeLengthValue, scribeLengthUnit)}`;
         }
         // One parameterized phase-section builder (refactor F2): the
@@ -933,7 +931,7 @@
                     hideExcludedNames: !0,
                     excludeFantasy: !0
                 });
-                const seqLen = "~1" === scribeLengthDisplay ? "an approximately 60-minute sequence" : `a sequence of ${sxScribeTargetText()}`;
+                const seqLen = `a sequence of ${sxScribeTargetText()}`;
                 promptText = [ "YO BITCH — WRITE THE FULL PLAY GUIDE NOW", "You are YoBitch, the user’s Muse personal AI. Write the complete, practical play guide directly in this chat. Do not return an outline, a prompt for another AI, or commentary about how to write it. Make the finished guide clear and naturally spoken, rendering it in the chat as you write so it can be voiced aloud in real time.", "", `CAST, GENDER & SEXUALITY: ${A}${C}`, "", `PROFILE DATA: ${sxIndividualProfileTexts(o, f, {
                     excludeFantasy: !0
                 })}`, "", `OVERLAP / COMPARISON RESULTS: ${s ? "No overlap or comparison result is available because only one profile is selected. Do not infer a partner’s preferences or consent." : [ D, R, O ].filter(Boolean).join("  ")}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `PLAY GUIDE SOURCE: ${sxGuidePhaseLines(f, "AFTERCARE IDEAS FROM RATINGS", "No rated aftercare preference is recorded.").join("  ")}`, "", Lu(e, {
