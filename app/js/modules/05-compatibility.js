@@ -1199,10 +1199,21 @@
             if (e.byId("scribeChoiceProfiles")) e.byId("scribeChoiceProfiles").textContent = castText;
             if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castText;
             scribePartnerId = 2 === t.length ? t[1] : null;
-            const a = t.filter(e => vt[e]).length > 1, o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit"), d = e.byId("scribePageCountHelp");
-            o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
-            c && (c.disabled = !1), d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page."),
-            s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story."),
+            const a = t.filter(e => vt[e]).length > 1, l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit");
+            // The panel copy comes from the active skin's `scribe`
+            // section (window.__SX_SCRIBE, set by the loader). The
+            // loader swaps the same strings at boot; this re-applies
+            // them on open with the cast's real single/multi form. On a
+            // vanilla skin there is no Scene Setter pointer and no
+            // Literotica copy — the spec's discussion copy replaces it.
+            if (window.__SX_SET_SCRIBE_PANEL) window.__SX_SET_SCRIBE_PANEL(window.__SX_SCRIBE, a);
+            else {
+                const o = e.byId("scribeModeDescription"), s = e.byId("scribeChoiceIntro"), d = e.byId("scribePageCountHelp");
+                o && (o.textContent = a ? "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter." : "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter."),
+                d && (d.textContent = "Story length in word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page."),
+                s && (s.textContent = a ? "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners." : "One profile selected: Scribe will create a Literotica-style erotic Story.");
+            }
+            c && (c.disabled = !1),
             l && (l.textContent = "Prompt"), kg.open && Ui(kg),
             Sg.open && Ui(Sg), Oc.open && Ui(Oc), jc.open && Ui(jc), Wi(Bc);
         }
@@ -1619,10 +1630,18 @@
                 const r = `Projected: ${scribeLengthDisplay} ${scribeLengthUnit}`;
                 e.byId("scenePageProjection").textContent = r, e.byId("novelAiPageProjection").textContent = r, 
                 ({ target: scribeTarget, mode: scribeMode } = sxResolveScribeMode(n, t));
+                // On a vanilla skin the Explicitness slider is the Depth
+                // slider: its value (1-5) is the discussion's rigor
+                // (the composer turns it into dissertation-defense
+                // material at 5), and the AI target is always the
+                // general AI — the story tones (strictai, suggestive,
+                // explicit) are Sexcapades-only and never apply to a
+                // discussion.
+                if (sxScribeIsDiscussion()) scribeRigor = Math.min(5, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4));
                 const sxSharedIds = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]), sxSharedData = sxSharedIds.length ? sxScribeMatchData(sxSharedIds, 1 === sxSharedIds.length) : null;
                 const o = "porn" === scribeMode, s = e.byId("scribeTitle"), l = e.byId("scribeModeSummary");
-                if (s) s.textContent = o ? "Scribe — Story" : "Scribe — Play Guide";
-                if (l) l.textContent = o ? "Fictional storytelling for enjoyment and fantasy — not a real-world plan." : "Practical coordination guidance for real-world use — not fiction; confirm every activity together.";
+                if (s) s.textContent = o ? (sxScribeIsDiscussion() ? "Scribe — Discussion" : "Scribe — Story") : "Scribe — Play Guide";
+                if (l) l.textContent = o ? (sxScribeIsDiscussion() && window.__SX_SCRIBE && window.__SX_SCRIBE.panel && window.__SX_SCRIBE.panel.summary ? window.__SX_SCRIBE.panel.summary : "Fictional storytelling for enjoyment and fantasy — not a real-world plan.") : "Practical coordination guidance for real-world use — not fiction; confirm every activity together.";
                 sxNovelAiFields = null;
                 sxPrepScribeDialog(sxSharedData, !0);
                 sxBuildScribePrompt(sxSharedData);
@@ -1652,8 +1671,8 @@
                     briefEl.hidden = !1;
                     try { briefEl.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
                 }
-            }("porn", ({ 1: "strictai", 2: "suggestive", 3: "explicit", 4: "uninhibited", 5: "extreme" })[t.explicitness] || "grok"));
-        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(5, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"); i && (i.textContent = `${n} · ${[ "Tame", "Suggestive", "Explicit", "Uninhibited", "Extreme" ][n - 1]}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
+            }("porn", sxScribeIsDiscussion() ? "grok" : ({ 1: "strictai", 2: "suggestive", 3: "explicit", 4: "uninhibited", 5: "extreme" })[t.explicitness] || "grok"));
+        }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(5, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"), lv = window.__SX_SCRIBE && window.__SX_SCRIBE.explicitness && window.__SX_SCRIBE.explicitness.levels ? window.__SX_SCRIBE.explicitness.levels : [ "Tame", "Suggestive", "Explicit", "Uninhibited", "Extreme" ]; i && (i.textContent = `${n} · ${lv[n - 1] || ""}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
         sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
@@ -1674,10 +1693,10 @@
         }), e.byId("downloadScenePrompt") && e.byId("downloadScenePrompt").addEventListener("click", function() {
             const n = e.byId("scenePromptText"), i = e.byId("sceneDownloadStatus"), a = currentScribePrompt();
             if (!a) return void (i.textContent = "Generate a prompt first.");
-            const r = sxFilenameSlug((scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]).map(e => wt[e]).join("-"), "profile"), o = "porn" === scribeMode ? "story-prompt" : "play-guide-prompt", s = new Blob([ a + "\n" ], {
+            const r = sxFilenameSlug((scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]).map(e => wt[e]).join("-"), "profile"), o = sxScribeIsDiscussion() ? "discussion-prompt" : "porn" === scribeMode ? "story-prompt" : "play-guide-prompt", skinPrefix = window.__SX_ACTIVE_SKIN ? window.__SX_ACTIVE_SKIN.charAt(0).toUpperCase() + window.__SX_ACTIVE_SKIN.slice(1) : "Sexcapades", s = new Blob([ a + "\n" ], {
                 type: "text/plain;charset=utf-8"
             }), l = URL.createObjectURL(s), c = document.createElement("a");
-            c.href = l, c.download = `Sexcapades-${r}-${o}.txt`, c.hidden = !0, document.body.appendChild(c), 
+            c.href = l, c.download = `${skinPrefix}-${r}-${o}.txt`, c.hidden = !0, document.body.appendChild(c), 
             c.click(), c.remove(), t.setTimeout(() => URL.revokeObjectURL(l), 0), i.textContent = "Prompt downloaded.";
         });
         const su = "https://sexcapades.io/#guide", lu = "https://sexcapades.io/#app", cu = [], du = [];

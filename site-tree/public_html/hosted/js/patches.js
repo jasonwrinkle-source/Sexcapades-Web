@@ -212,7 +212,7 @@ __sxInit(function initScribeGeminiBYOK() {
         keyStatus.textContent = provName + " API key saved locally on your device.";
         keyStatus.style.color = "#4ade80";
       } else {
-        keyStatus.textContent = "Enter your " + provName + " API key to enable direct story generation.";
+        keyStatus.textContent = "Enter your " + provName + " API key to enable direct " + (window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre ? "discussion" : "story") + " generation.";
         keyStatus.style.color = "#94a3b8";
       }
     }
@@ -322,7 +322,7 @@ __sxInit(function initScribeGeminiBYOK() {
         try { apiKey = localStorage.getItem(getStorageKey(prov)) || ""; } catch (_) {}
       }
       if (!apiKey) {
-        alert("Please enter and save your " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + " API key to generate stories directly with AI.");
+        alert("Please enter and save your " + (prov === "grok" ? "xAI Grok" : prov === "openai" ? "OpenAI" : "Gemini") + " API key to generate " + (window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre ? "discussions" : "stories") + " directly with AI.");
         if (keyInput) keyInput.focus();
         return;
       }

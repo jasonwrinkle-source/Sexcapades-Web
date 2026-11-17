@@ -266,6 +266,7 @@
     activeSkin = data.skin;
     setAboutDescription(data.name, data.about);
     setSamples(data.samples);
+    setScribe(data.scribe);
     /* Register the new category names in the solver's expanded-branch set,
        or frBuildTree skips every topic as collapsed (bare spokes). */
     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") window.__SX_SKIN_LAYOUT_SYNC();
@@ -350,6 +351,7 @@
     return sexcapadesData().then(function (data) {
       registerWidgets(data);
       setSamples(data.samples);
+      setScribe(data.scribe);
       bootApplySexcapades(data);
       var dlg = document.getElementById("sxBootDialog");
       if (window.FlexcapadesEngine && window.FlexcapadesEngine.Map && dlg && dlg.hidden) rerender();
@@ -377,7 +379,7 @@
        without them the 17 higher-pole topics would fall back to the
        generic widgets after a switch-back. Synchronous when the file is
        already cached, async otherwise (the rerender below picks it up). */
-    if (cache["sexcapades"]) { registerWidgets(cache["sexcapades"]); setSamples(cache["sexcapades"].samples); }
+    if (cache["sexcapades"]) { registerWidgets(cache["sexcapades"]); setSamples(cache["sexcapades"].samples); setScribe(cache["sexcapades"].scribe); }
     else registerSexcapadesWidgets();
     /* Re-register the Sexcapades category names in the solver's
        expanded-branch set (same reason as in applySkin). */
@@ -450,6 +452,139 @@
     }
     rebuildSampleMenu(samples);
   }
+
+  var scribePanelOriginal = null;
+  function setScribe(scribe) {
+    /* Per-skin Scribe contract (2026-11-16): the skin JSON's `scribe`
+       section is the single source for Scribe's genre and copy.
+       Sexcapades keeps its erotic-story contract (genre "story");
+       every vanilla skin is a stance/belief map, so Scribe writes an
+       informed discussion between the stances (genre "discussion"),
+       with the Explicitness slider relabeled as depth/rigor. The spec
+       is exposed on window.__SX_SCRIBE for the prompt composer, the
+       panel setter, and the Generate handler. The loader also swaps
+       the panel's static copy at boot (setScribePanel), so the dialog
+       reads in the active skin's genre before it is ever opened; the
+       open handler (05-compatibility) re-applies the same strings
+       with the single/multi cast form. A skin with no `scribe`
+       section leaves the Sexcapades copy in place — honest, not stale. */
+    window.__SX_SCRIBE = (scribe && typeof scribe === "object") ? scribe : null;
+    setScribePanel(window.__SX_SCRIBE);
+  }
+
+  function setScribePanel(spec, isMulti) {
+    /* Boot-time swap of the Scribe panel's static copy. The Sexcapades
+       originals are captured on first call and restored whenever the
+       active spec is a story (or absent), so switching back from a
+       vanilla skin puts the erotic copy back byte-for-byte. The
+       mode/intro lines take their SINGLE- or MULTI-profile form from
+       the isMulti flag; the boot call passes none (single), and the
+       dialog's open handler (05-compatibility Qd) re-applies with the
+       cast's real form. The explicitness output label is re-rendered
+       from the slider's current value, so a mid-value slider reads
+       "4 · Rigorous" on a vanilla skin, not the stale Sexcapades
+       level name. Exposed as window.__SX_SET_SCRIBE_PANEL so the
+       open handler can re-apply the same swap. */
+    var el = function (id) { return document.getElementById(id); };
+    var mode = el("scribeModeDescription"), intro = el("scribeChoiceIntro"),
+        detailsLabel = el("scribeDetailsLabel"), details = el("scribeDetails"),
+        detailsHelp = el("scribeDetailsHelp"), lengthHelp = el("scribePageCountHelp"),
+        summary = el("scribeModeSummary"), phasesLegend = el("scribePhasesLegend"),
+        warmup = el("scribePhaseWarmupLabel"), main = el("scribePhaseMainLabel"),
+        cooldown = el("scribePhaseCooldownLabel"), phasesHelp = el("scribePhasesHelp"),
+        expLegend = el("scribeExplicitnessLegend"), expLevels = el("scribeExplicitnessLevels"),
+        expOut = el("scribeExplicitnessLabel"), expSlider = el("scribeExplicitness"),
+        expHelp = el("scribeExplicitnessHelp"), briefIntro = el("sceneBriefIntro"),
+        cooldownStyle = el("scribePhaseCooldownStyle"),
+        viewSwitchTip = el("mapListViewButton"), scribeTabTip = el("scribeTab"),
+        scribeNavTip = el("scribeViewNavItem");
+    if (!mode && !intro && !details) return;
+    if (!scribePanelOriginal) {
+      scribePanelOriginal = {
+        mode: mode ? mode.textContent : "",
+        intro: intro ? intro.textContent : "",
+        detailsLabel: detailsLabel ? detailsLabel.innerHTML : "",
+        detailsPlaceholder: details ? details.placeholder : "",
+        detailsHelp: detailsHelp ? detailsHelp.textContent : "",
+        lengthHelp: lengthHelp ? lengthHelp.textContent : "",
+        summary: summary ? summary.textContent : "",
+        phasesLegend: phasesLegend ? phasesLegend.textContent : "",
+        warmup: warmup ? warmup.textContent : "",
+        main: main ? main.textContent : "",
+        cooldown: cooldown ? cooldown.textContent : "",
+        phasesHelp: phasesHelp ? phasesHelp.textContent : "",
+        expLegend: expLegend ? expLegend.textContent : "",
+        expLevels: expLevels ? expLevels.innerHTML : "",
+        expOut: expOut ? expOut.textContent : "",
+        expSliderLabel: expSlider ? expSlider.getAttribute("aria-label") : "",
+        expHelp: expHelp ? expHelp.textContent : "",
+        briefIntro: briefIntro ? briefIntro.textContent : "",
+        cooldownStyle: cooldownStyle ? cooldownStyle.innerHTML : "",
+        viewSwitchTip: viewSwitchTip ? viewSwitchTip.getAttribute("data-ui-tooltip") : "",
+        scribeTabTip: scribeTabTip ? scribeTabTip.getAttribute("data-ui-tooltip") : "",
+        scribeNavTip: scribeNavTip ? scribeNavTip.getAttribute("data-ui-tooltip") : ""
+      };
+    }
+    var o = scribePanelOriginal;
+    var isDiscussion = !!(spec && spec.genre === "discussion");
+    var p = (spec && spec.panel) || null,
+        ph = (spec && spec.phases) || null,
+        ex = (spec && spec.explicitness) || null;
+    var text = function (node, value) { if (node) node.textContent = value; };
+    // The mode/intro lines come from the spec's panel for BOTH genres
+    // (the Sexcapades JSON carries the exact single/multi strings the
+    // old setter used verbatim); the captured HTML originals are only
+    // the fallback when a skin carries no `scribe` section at all.
+    // (The HTML's static mode/intro text is a generic placeholder and
+    // is NOT what the setter used to display — restoring it on
+    // Sexcapades would regress the single/multi wording.)
+    text(mode, p ? (isMulti && p.modeMulti ? p.modeMulti : p.modeSingle || o.mode) : o.mode);
+    text(intro, p ? (isMulti && p.introMulti ? p.introMulti : p.introSingle || o.intro) : o.intro);
+    if (detailsLabel) detailsLabel.innerHTML = isDiscussion ? "Discussion details <small>Optional</small>" : o.detailsLabel;
+    if (details) details.placeholder = isDiscussion && p && p.detailsPlaceholder ? p.detailsPlaceholder : o.detailsPlaceholder;
+    text(detailsHelp, isDiscussion && p && p.detailsHelp ? p.detailsHelp : o.detailsHelp);
+    text(lengthHelp, isDiscussion && p && p.lengthHelp ? p.lengthHelp : o.lengthHelp);
+    text(summary, isDiscussion && p && p.summary ? p.summary : o.summary);
+    text(phasesLegend, isDiscussion && ph && ph.legend ? ph.legend : o.phasesLegend);
+    text(warmup, isDiscussion && ph && ph.warmup ? ph.warmup : o.warmup);
+    text(main, isDiscussion && ph && ph.main ? ph.main : o.main);
+    text(cooldown, isDiscussion && ph && ph.cooldown ? ph.cooldown : o.cooldown);
+    text(phasesHelp, isDiscussion && ph && ph.help ? ph.help : o.phasesHelp);
+    text(expLegend, isDiscussion && ex && ex.label ? ex.label : o.expLegend);
+    text(expHelp, isDiscussion && ex && ex.help ? ex.help : o.expHelp);
+    text(briefIntro, isDiscussion && p && p.downloadIntro ? p.downloadIntro : o.briefIntro);
+    // The three Scribe tooltips outside the dialog (view switch, Scribe
+    // tab, view-nav item) carry the same Literotica copy; swap them
+    // with the discussion wording on vanilla skins.
+    var tip = function (node, value) { if (node) node.setAttribute("data-ui-tooltip", value); };
+    tip(viewSwitchTip, isDiscussion ? "Switch views: Hypermap for the visual hypermap, Hot List for rating topic by topic, Scene Setter for agreements and play guides, Scene Sentinel for safe signals, check-in timers, and emergency contacts, or Scribe for an informed discussion between the recorded stances." : o.viewSwitchTip);
+    tip(scribeTabTip, isDiscussion ? "Write an informed discussion between the recorded stances from one profile, or from a multi-select." : o.scribeTabTip);
+    tip(scribeNavTip, isDiscussion ? "Generate an informed discussion between the recorded stances, based on selected profiles." : o.scribeNavTip);
+    if (expLevels) {
+      if (isDiscussion && ex && ex.levels) {
+        expLevels.innerHTML = ex.levels.map(function (lv, i) {
+          return "<span>" + (i + 1) + " · " + lv + "</span>";
+        }).join("");
+      } else expLevels.innerHTML = o.expLevels;
+    }
+    if (cooldownStyle) {
+      if (isDiscussion && ph && ph.cooldownStyles) {
+        cooldownStyle.innerHTML = ph.cooldownStyles.map(function (st, i) {
+          return "<option" + (i === 0 ? " selected=\"\"" : "") + " value=\"" + st + "\">" + st + "</option>";
+        }).join("");
+      } else cooldownStyle.innerHTML = o.cooldownStyle;
+    }
+    if (expSlider) expSlider.setAttribute("aria-label", isDiscussion && ex && ex.label ? ex.label + " level" : o.expSliderLabel);
+    if (expOut) {
+      if (isDiscussion && ex && ex.levels && expSlider) {
+        var v = Math.max(1, Math.min(5, parseInt(expSlider.value, 10) || 1));
+        expOut.textContent = v + " · " + ex.levels[v - 1];
+      } else expOut.textContent = o.expOut;
+    }
+  }
+  // The open handler (05-compatibility Qd) re-applies this swap with
+  // the cast's real single/multi form.
+  window.__SX_SET_SCRIBE_PANEL = setScribePanel;
 
   function rebuildSampleMenu(samples) {
     /* Rebuild the archetypes-and-samples menu from the active skin's
