@@ -3,6 +3,55 @@
   "meter": "position",
   "name": "Philoscapades",
   "about": "Philoscapades is an interactive hypermap for rating and visualizing where you stand on the oldest questions — what is true, what is real, what is right — and comparing your positions with another person's, claim by claim, on the same picture. Build a personal profile, see where your thinking meets and where it parts, use Scribe to set out the argument you'd make, and Scene Setter to plan a conversation that goes deep — all in the same shared vocabulary.",
+  "scribe": {
+    "genre": "discussion",
+    "output": "discussion",
+    "explicitness": {
+      "label": "Depth",
+      "levels": [
+        "Overview",
+        "Engaged",
+        "Thorough",
+        "Rigorous",
+        "Dissertation defense"
+      ],
+      "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
+    },
+    "panel": {
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position.",
+      "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
+      "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
+      "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
+      "downloadIntro": "Generated from the selected profile data.",
+      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+    },
+    "prompt": {
+      "opening": "Write an informed discussion between the stances recorded on this map.",
+      "rules": [
+        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Show where the stances agree, where they part, and what follows from each position.",
+        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
+        "Do not invent positions, sources, or facts beyond the supplied data."
+      ],
+      "rigor": "At maximum depth, length, and rigor, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
+    },
+    "phases": {
+      "warmup": "Opening",
+      "main": "Development",
+      "cooldown": "Closing",
+      "cooldownStyles": [
+        "synthesis",
+        "open questions",
+        "verdict"
+      ],
+      "legend": "Discussion phases",
+      "help": "Enabled phases are added to the generated prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
+    }
+  },
   "domain": "Philosophy — Human Intellectual Commitments, Metaphysical Worldviews & Normative Frameworks",
   "categories": [
     {
