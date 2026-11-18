@@ -125,7 +125,7 @@
       "topics": [
         {
           "id": "xex0001",
-          "name": "Theory-Driven vs Discovery-Driven",
+          "name": "Discovery strategy",
           "risk": false,
           "poles": [
             {
@@ -157,7 +157,7 @@
         },
         {
           "id": "xex0002",
-          "name": "Precision vs Exploration",
+          "name": "Measurement",
           "risk": false,
           "poles": [
             {
@@ -189,7 +189,7 @@
         },
         {
           "id": "xex0003",
-          "name": "Experiment Scale",
+          "name": "Scale",
           "risk": false,
           "poles": [
             {
@@ -269,7 +269,7 @@
         },
         {
           "id": "xex0005",
-          "name": "Reproducibility: Crisis vs Confidence",
+          "name": "Reproducibility",
           "risk": false,
           "poles": [
             {
@@ -308,7 +308,7 @@
       "topics": [
         {
           "id": "xex0006",
-          "name": "Bespoke vs Turnkey Instruments",
+          "name": "Instruments",
           "risk": false,
           "poles": [
             {
@@ -340,7 +340,7 @@
         },
         {
           "id": "xex0007",
-          "name": "Active vs Passive Probing",
+          "name": "Probing",
           "risk": false,
           "poles": [
             {
@@ -420,7 +420,7 @@
         },
         {
           "id": "xex0009",
-          "name": "Detector Design",
+          "name": "Detector design",
           "risk": false,
           "poles": [
             {
@@ -460,7 +460,7 @@
         },
         {
           "id": "xex0010",
-          "name": "Sensitivity vs Background",
+          "name": "Signal-to-background",
           "risk": false,
           "poles": [
             {
@@ -492,7 +492,7 @@
         },
         {
           "id": "xex0011",
-          "name": "Calibration: In Situ vs Test Beam",
+          "name": "Calibration",
           "risk": false,
           "poles": [
             {
@@ -524,7 +524,7 @@
         },
         {
           "id": "xex0012",
-          "name": "Upgrade vs New Build",
+          "name": "Detector future",
           "risk": false,
           "poles": [
             {
@@ -563,7 +563,7 @@
       "topics": [
         {
           "id": "xex0013",
-          "name": "5σ vs Bayesian",
+          "name": "Discovery standard",
           "risk": false,
           "poles": [
             {
@@ -659,7 +659,7 @@
         },
         {
           "id": "xex0016",
-          "name": "Systematics vs Statistics",
+          "name": "Error",
           "risk": false,
           "poles": [
             {
@@ -691,7 +691,7 @@
         },
         {
           "id": "xex0017",
-          "name": "Anomaly Signal vs Systematics",
+          "name": "Anomaly status",
           "risk": false,
           "poles": [
             {
@@ -723,7 +723,7 @@
         },
         {
           "id": "xex0018",
-          "name": "Anomaly Reaction",
+          "name": "Anomaly reaction",
           "risk": false,
           "poles": [
             {
@@ -810,7 +810,7 @@
         },
         {
           "id": "xex0020",
-          "name": "Hermetic vs Field Deployment",
+          "name": "Deployment",
           "risk": false,
           "poles": [
             {
@@ -881,7 +881,7 @@
         },
         {
           "id": "xex0022",
-          "name": "Model Dependence",
+          "name": "Analysis",
           "risk": false,
           "poles": [
             {
@@ -913,7 +913,7 @@
         },
         {
           "id": "xex0023",
-          "name": "Machine Learning: Trust vs Verify",
+          "name": "Machine learning",
           "risk": false,
           "poles": [
             {
@@ -1024,7 +1024,7 @@
       "topics": [
         {
           "id": "xex0026",
-          "name": "Credit: First vs Team",
+          "name": "Credit",
           "risk": false,
           "poles": [
             {
@@ -1056,7 +1056,7 @@
         },
         {
           "id": "xex0027",
-          "name": "Hardware Monkey vs Data Wizard",
+          "name": "Lab role",
           "risk": false,
           "poles": [
             {
@@ -1088,7 +1088,7 @@
         },
         {
           "id": "xex0028",
-          "name": "Theorist Relationship",
+          "name": "Theorist relationship",
           "risk": false,
           "poles": [
             {
@@ -1120,7 +1120,7 @@
         },
         {
           "id": "xex0029",
-          "name": "Lab vs Field",
+          "name": "Workplace",
           "risk": false,
           "poles": [
             {
@@ -1152,7 +1152,7 @@
         },
         {
           "id": "xex0030",
-          "name": "Hands-On vs Remote",
+          "name": "Presence",
           "risk": false,
           "poles": [
             {

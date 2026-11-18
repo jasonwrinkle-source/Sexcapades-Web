@@ -221,7 +221,7 @@
         },
         {
           "id": "xth0003",
-          "name": "The Law of Excluded Middle",
+          "name": "Excluded middle",
           "risk": false,
           "poles": [
             {
@@ -253,7 +253,7 @@
         },
         {
           "id": "xth0004",
-          "name": "Discovered vs Invented",
+          "name": "Mathematics",
           "risk": false,
           "poles": [
             {
@@ -317,7 +317,7 @@
         },
         {
           "id": "xth0006",
-          "name": "Infinity: Actual vs Potential",
+          "name": "Infinity",
           "risk": false,
           "poles": [
             {
@@ -356,7 +356,7 @@
       "topics": [
         {
           "id": "xth0007",
-          "name": "Mathematical Style",
+          "name": "Method",
           "risk": false,
           "poles": [
             {
@@ -388,7 +388,7 @@
         },
         {
           "id": "xth0008",
-          "name": "Abstraction",
+          "name": "Abstraction style",
           "risk": false,
           "poles": [
             {
@@ -420,7 +420,7 @@
         },
         {
           "id": "xth0009",
-          "name": "Abstraction: High vs Low",
+          "name": "Abstraction level",
           "risk": false,
           "poles": [
             {
@@ -492,7 +492,7 @@
         },
         {
           "id": "xth0011",
-          "name": "Visual vs Symbolic",
+          "name": "Thinking",
           "risk": false,
           "poles": [
             {
@@ -524,7 +524,7 @@
         },
         {
           "id": "xth0012",
-          "name": "Intuition: Trust vs Distrust",
+          "name": "Intuition",
           "risk": false,
           "poles": [
             {
@@ -636,7 +636,7 @@
         },
         {
           "id": "xth0015",
-          "name": "Discrete vs Continuous",
+          "name": "Continuity",
           "risk": false,
           "poles": [
             {
@@ -668,7 +668,7 @@
         },
         {
           "id": "xth0016",
-          "name": "Pure vs Applied",
+          "name": "Purpose",
           "risk": false,
           "poles": [
             {
@@ -739,7 +739,7 @@
         },
         {
           "id": "xth0018",
-          "name": "Proof Verification",
+          "name": "Proof verification",
           "risk": false,
           "poles": [
             {
@@ -811,7 +811,7 @@
         },
         {
           "id": "xth0020",
-          "name": "Conjecture Orientation",
+          "name": "Conjecture orientation",
           "risk": false,
           "poles": [
             {
@@ -843,7 +843,7 @@
         },
         {
           "id": "xth0021",
-          "name": "Rigor vs Intuition",
+          "name": "Proof",
           "risk": false,
           "poles": [
             {
@@ -882,7 +882,7 @@
       "topics": [
         {
           "id": "xth0022",
-          "name": "Elegance vs Power",
+          "name": "Values",
           "risk": false,
           "poles": [
             {
@@ -914,7 +914,7 @@
         },
         {
           "id": "xth0023",
-          "name": "Simplicity vs Depth",
+          "name": "Results",
           "risk": false,
           "poles": [
             {
@@ -946,7 +946,7 @@
         },
         {
           "id": "xth0024",
-          "name": "Beauty: Essential vs Incidental",
+          "name": "Beauty",
           "risk": false,
           "poles": [
             {
@@ -978,7 +978,7 @@
         },
         {
           "id": "xth0025",
-          "name": "The Value of Mathematics",
+          "name": "Hardy's stance",
           "risk": false,
           "poles": [
             {
@@ -1010,7 +1010,7 @@
         },
         {
           "id": "xth0026",
-          "name": "Pure Mathematics vs. Physics Boundary",
+          "name": "Math-physics boundary",
           "risk": false,
           "poles": [
             {
@@ -1049,7 +1049,7 @@
       "topics": [
         {
           "id": "xth0027",
-          "name": "The Social Mode",
+          "name": "Social mode",
           "risk": false,
           "poles": [
             {
@@ -1081,7 +1081,7 @@
         },
         {
           "id": "xth0028",
-          "name": "The Instrument",
+          "name": "Instrument",
           "risk": false,
           "poles": [
             {
@@ -1113,7 +1113,7 @@
         },
         {
           "id": "xth0029",
-          "name": "The Reward",
+          "name": "Reward",
           "risk": false,
           "poles": [
             {
@@ -1145,7 +1145,7 @@
         },
         {
           "id": "xth0030",
-          "name": "Publication vs Perfection",
+          "name": "Output",
           "risk": false,
           "poles": [
             {
@@ -1177,7 +1177,7 @@
         },
         {
           "id": "xth0031",
-          "name": "Teaching vs Research",
+          "name": "Academic life",
           "risk": false,
           "poles": [
             {

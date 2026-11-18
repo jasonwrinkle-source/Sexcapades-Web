@@ -125,7 +125,7 @@
       "topics": [
         {
           "id": "xae0001",
-          "name": "Representation vs Abstraction",
+          "name": "Depiction",
           "risk": false,
           "poles": [
             {
@@ -157,7 +157,7 @@
         },
         {
           "id": "xae0002",
-          "name": "Classical vs Contemporary",
+          "name": "Era",
           "risk": false,
           "poles": [
             {
@@ -189,7 +189,7 @@
         },
         {
           "id": "xae0003",
-          "name": "Photography: Document vs Art",
+          "name": "Photo purpose",
           "risk": false,
           "poles": [
             {
@@ -229,7 +229,7 @@
         },
         {
           "id": "xae0004",
-          "name": "Materiality: Impasto vs Flat",
+          "name": "Materiality",
           "risk": false,
           "poles": [
             {
@@ -268,7 +268,7 @@
       "topics": [
         {
           "id": "xae0005",
-          "name": "Lyrics vs Sound",
+          "name": "Song focus",
           "risk": false,
           "poles": [
             {
@@ -300,7 +300,7 @@
         },
         {
           "id": "xae0006",
-          "name": "Live vs Recorded",
+          "name": "Performance",
           "risk": false,
           "poles": [
             {
@@ -332,7 +332,7 @@
         },
         {
           "id": "xae0007",
-          "name": "Pop vs Art vs Classical",
+          "name": "Music taste",
           "risk": false,
           "poles": [
             {
@@ -379,7 +379,7 @@
       "topics": [
         {
           "id": "xae0008",
-          "name": "Genre vs Literary Fiction",
+          "name": "Fiction",
           "risk": false,
           "poles": [
             {
@@ -411,7 +411,7 @@
         },
         {
           "id": "xae0009",
-          "name": "Plot vs Character",
+          "name": "Story focus",
           "risk": false,
           "poles": [
             {
@@ -443,7 +443,7 @@
         },
         {
           "id": "xae0010",
-          "name": "Screen vs Page",
+          "name": "Story medium",
           "risk": false,
           "poles": [
             {
@@ -482,7 +482,7 @@
       "topics": [
         {
           "id": "xae0011",
-          "name": "Natural vs Enhanced",
+          "name": "Enhancement",
           "risk": false,
           "poles": [
             {
@@ -514,7 +514,7 @@
         },
         {
           "id": "xae0012",
-          "name": "Minimal vs Maximal Style",
+          "name": "Style",
           "risk": false,
           "poles": [
             {
@@ -546,7 +546,7 @@
         },
         {
           "id": "xae0013",
-          "name": "Fashion: Expression vs Conformity",
+          "name": "Fashion",
           "risk": false,
           "poles": [
             {
@@ -585,7 +585,7 @@
       "topics": [
         {
           "id": "xae0014",
-          "name": "Modern vs Traditional Architecture",
+          "name": "Architecture",
           "risk": false,
           "poles": [
             {
@@ -617,7 +617,7 @@
         },
         {
           "id": "xae0015",
-          "name": "Minimal vs Cozy Interiors",
+          "name": "Interiors",
           "risk": false,
           "poles": [
             {
@@ -649,7 +649,7 @@
         },
         {
           "id": "xae0016",
-          "name": "Urban vs Natural Landscape",
+          "name": "Landscape",
           "risk": false,
           "poles": [
             {
@@ -688,7 +688,7 @@
       "topics": [
         {
           "id": "xae0017",
-          "name": "High vs Low Culture",
+          "name": "Culture",
           "risk": false,
           "poles": [
             {
@@ -728,7 +728,7 @@
         },
         {
           "id": "xae0018",
-          "name": "Canon vs Personal Taste",
+          "name": "Taste authority",
           "risk": false,
           "poles": [
             {
@@ -760,7 +760,7 @@
         },
         {
           "id": "xae0019",
-          "name": "Minimalism vs Maximalism",
+          "name": "Amount",
           "risk": false,
           "poles": [
             {
@@ -880,7 +880,7 @@
         },
         {
           "id": "xae0022",
-          "name": "Wabi-Sabi vs Pristine",
+          "name": "Imperfection",
           "risk": false,
           "poles": [
             {
@@ -919,7 +919,7 @@
       "topics": [
         {
           "id": "xae0023",
-          "name": "Adventurous vs Cautious Eating",
+          "name": "Eating",
           "risk": false,
           "poles": [
             {
@@ -951,7 +951,7 @@
         },
         {
           "id": "xae0024",
-          "name": "Mild vs Fiery",
+          "name": "Heat",
           "risk": false,
           "poles": [
             {
@@ -983,7 +983,7 @@
         },
         {
           "id": "xae0025",
-          "name": "Comfort vs Casual vs Fine",
+          "name": "Dining",
           "risk": false,
           "poles": [
             {
@@ -1176,7 +1176,7 @@
         },
         {
           "id": "xae0029",
-          "name": "Cook vs Eat Out",
+          "name": "Meals",
           "risk": false,
           "poles": [
             {
@@ -1208,7 +1208,7 @@
         },
         {
           "id": "xae0030",
-          "name": "Food: Fuel vs Feast",
+          "name": "Food",
           "risk": false,
           "poles": [
             {
@@ -1240,7 +1240,7 @@
         },
         {
           "id": "xae0031",
-          "name": "Culinary Philosophy",
+          "name": "Culinary philosophy",
           "risk": false,
           "poles": [
             {

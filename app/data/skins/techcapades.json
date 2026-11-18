@@ -181,7 +181,7 @@
         },
         {
           "id": "xte0002",
-          "name": "AI as Tool vs Agent",
+          "name": "AI autonomy",
           "risk": false,
           "poles": [
             {
@@ -213,7 +213,7 @@
         },
         {
           "id": "xte0003",
-          "name": "Open Weights vs Closed Moats",
+          "name": "Model access",
           "risk": false,
           "poles": [
             {
@@ -252,7 +252,7 @@
       "topics": [
         {
           "id": "xte0004",
-          "name": "Privacy vs Convenience",
+          "name": "Data tradeoff",
           "risk": false,
           "poles": [
             {
@@ -284,7 +284,7 @@
         },
         {
           "id": "xte0005",
-          "name": "Trust vs Distrust Big Tech",
+          "name": "Big Tech trust",
           "risk": false,
           "poles": [
             {
@@ -316,7 +316,7 @@
         },
         {
           "id": "xte0006",
-          "name": "Safety vs Freedom",
+          "name": "Tradeoff",
           "risk": false,
           "poles": [
             {
@@ -387,7 +387,7 @@
       "topics": [
         {
           "id": "xte0008",
-          "name": "Screen-light vs Screen-heavy",
+          "name": "Screen time",
           "risk": false,
           "poles": [
             {
@@ -419,7 +419,7 @@
         },
         {
           "id": "xte0009",
-          "name": "Notifications On vs Off",
+          "name": "Notifications",
           "risk": false,
           "poles": [
             {
@@ -538,7 +538,7 @@
         },
         {
           "id": "xte0012",
-          "name": "Online vs In-person",
+          "name": "Connection",
           "risk": false,
           "poles": [
             {
@@ -570,7 +570,7 @@
         },
         {
           "id": "xte0013",
-          "name": "Posting vs Lurking",
+          "name": "Participation",
           "risk": false,
           "poles": [
             {
@@ -641,7 +641,7 @@
       "topics": [
         {
           "id": "xte0015",
-          "name": "Anonymity vs Real Name",
+          "name": "Identity",
           "risk": false,
           "poles": [
             {
@@ -673,7 +673,7 @@
         },
         {
           "id": "xte0016",
-          "name": "Curated vs Authentic Self",
+          "name": "Self-presentation",
           "risk": false,
           "poles": [
             {
@@ -705,7 +705,7 @@
         },
         {
           "id": "xte0017",
-          "name": "Erase vs Archive",
+          "name": "Digital legacy",
           "risk": false,
           "poles": [
             {
@@ -744,7 +744,7 @@
       "topics": [
         {
           "id": "xte0018",
-          "name": "Automation: Job Loss vs Liberation",
+          "name": "Automation",
           "risk": false,
           "poles": [
             {
@@ -816,7 +816,7 @@
         },
         {
           "id": "xte0020",
-          "name": "Accelerate vs Decelerate",
+          "name": "Pace",
           "risk": false,
           "poles": [
             {

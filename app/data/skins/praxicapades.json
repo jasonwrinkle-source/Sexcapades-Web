@@ -165,7 +165,7 @@
         },
         {
           "id": "xpr0002",
-          "name": "Deterministic vs Stochastic",
+          "name": "Predictability",
           "risk": false,
           "poles": [
             {
@@ -197,7 +197,7 @@
         },
         {
           "id": "xpr0003",
-          "name": "Continuous vs Discrete Models",
+          "name": "Models",
           "risk": false,
           "poles": [
             {
@@ -229,7 +229,7 @@
         },
         {
           "id": "xpr0004",
-          "name": "Modeling Philosophy",
+          "name": "Modeling philosophy",
           "risk": false,
           "poles": [
             {
@@ -348,7 +348,7 @@
         },
         {
           "id": "xpr0007",
-          "name": "Analytic vs Numerical",
+          "name": "Solution method",
           "risk": false,
           "poles": [
             {
@@ -380,7 +380,7 @@
         },
         {
           "id": "xpr0008",
-          "name": "Simulation vs Theory",
+          "name": "Approach",
           "risk": false,
           "poles": [
             {
@@ -412,7 +412,7 @@
         },
         {
           "id": "xpr0009",
-          "name": "Optimization: Exact vs Heuristic",
+          "name": "Optimization",
           "risk": false,
           "poles": [
             {
@@ -507,7 +507,7 @@
         },
         {
           "id": "xpr0011",
-          "name": "Pure vs Applied",
+          "name": "Purpose",
           "risk": false,
           "poles": [
             {
@@ -539,7 +539,7 @@
         },
         {
           "id": "xpr0012",
-          "name": "Interdisciplinary vs Domain-Specific",
+          "name": "Breadth",
           "risk": false,
           "poles": [
             {
@@ -666,7 +666,7 @@
         },
         {
           "id": "xpr0015",
-          "name": "Statistical Philosophy",
+          "name": "Statistics",
           "risk": false,
           "poles": [
             {
@@ -698,7 +698,7 @@
         },
         {
           "id": "xpr0016",
-          "name": "Big Data vs Small Data",
+          "name": "Data",
           "risk": false,
           "poles": [
             {
@@ -737,7 +737,7 @@
       "topics": [
         {
           "id": "xpr0017",
-          "name": "Rigorous Proof vs. Pragmatic Utility",
+          "name": "Modeling values",
           "risk": false,
           "poles": [
             {
@@ -769,7 +769,7 @@
         },
         {
           "id": "xpr0018",
-          "name": "Elegance vs Effectiveness",
+          "name": "Values",
           "risk": false,
           "poles": [
             {
@@ -801,7 +801,7 @@
         },
         {
           "id": "xpr0019",
-          "name": "General vs Specific",
+          "name": "Scope",
           "risk": false,
           "poles": [
             {
@@ -833,7 +833,7 @@
         },
         {
           "id": "xpr0020",
-          "name": "Model Complexity",
+          "name": "Model complexity",
           "risk": false,
           "poles": [
             {
@@ -865,7 +865,7 @@
         },
         {
           "id": "xpr0021",
-          "name": "Modeling Goal",
+          "name": "Modeling goal",
           "risk": false,
           "poles": [
             {
@@ -936,7 +936,7 @@
         },
         {
           "id": "xpr0023",
-          "name": "Collaboration vs Solitude",
+          "name": "Working style",
           "risk": false,
           "poles": [
             {
@@ -968,7 +968,7 @@
         },
         {
           "id": "xpr0024",
-          "name": "The Computational Craft",
+          "name": "Computational craft",
           "risk": false,
           "poles": [
             {
@@ -1000,7 +1000,7 @@
         },
         {
           "id": "xpr0025",
-          "name": "Interdisciplinary Role",
+          "name": "Interdisciplinary role",
           "risk": false,
           "poles": [
             {
@@ -1032,7 +1032,7 @@
         },
         {
           "id": "xpr0026",
-          "name": "Impact vs Publication",
+          "name": "Outcome",
           "risk": false,
           "poles": [
             {
