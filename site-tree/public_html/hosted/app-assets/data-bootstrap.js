@@ -37502,7 +37502,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (!ids.length) return `<div class="sx-picker"><div class="sx-picker-label">Who's comparing?</div><p class="sx-picker-help">No profiles are loaded yet. Add or import two or more profiles, then pick them here to compare.</p></div>`;
             const sel = new Set(Yi());
             const btns = ids.map(id => `<button aria-pressed="${sel.has(id)}" class="sx-pick" data-sx-pick="${Hi(id)}" type="button">${Hi(wt[id])}</button>`).join("");
-            return `<div class="sx-picker"><div class="sx-picker-label">Who's comparing?</div><div class="sx-pick-row">${btns}</div><p class="sx-picker-help">Tap to add or remove a profile from the cast. Pick two or more to compare. (Ctrl+click or Cmd+click on a profile tab works too.)</p></div>`;
+            return `<div class="sx-picker"><div class="sx-picker-label">Who's comparing?</div><div class="sx-pick-row">${btns}</div><p class="sx-picker-help">Tap to add or remove a profile from the comparison. Pick two or more to compare. (Ctrl+click or Cmd+click on a profile tab works too.)</p></div>`;
         }
         // Match-tab fix (2026-10-26): the bowtie controls slot is GONE with
         // the bowtie text tab — the stage panel is never shown for a ⋈ tab
