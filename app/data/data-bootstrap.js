@@ -39377,7 +39377,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             }
             return new Uint8Array(n);
         }
-        async function Ru(e, t = tu(e), n = !0, i = !1) {
+        async function Ru(e, t = tu(e), n = !0, i = !1, a = !1) {
             return async function(e) {
                 const t = (new TextEncoder).encode(e);
                 if ("function" != typeof CompressionStream) return "SCP2J:" + gu(t);
@@ -39393,14 +39393,15 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     }
                     return t;
                 }(new Uint8Array(await new Response(n).arrayBuffer()));
-            }(JSON.stringify(function(e, t = tu(e), n = !0, i = !1) {
+            }(JSON.stringify(function(e, t = tu(e), n = !0, i = !1, a = !1) {
                 return yx.serialize("compact", {
                     person: e,
                     allowedIds: t,
                     includeProfileInfo: n,
-                    blind: i
+                    blind: i,
+                    stripIdentity: a
                 });
-            }(e, t, n, i)));
+            }(e, t, n, i, a)));
         }
         // ===== OVERSIZE UNIFIED FRAMEWORK (Rank 13, ruled 2026-10-30) =====
         // One common core for EVERY surface, plus per-surface
@@ -39411,7 +39412,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // capacities below are the surfaces' existing physical
         // limits, named here and NOT changed by this framework: the
         // document page holds 2 scan codes, the Sync card tries 2
-        // codes then 4, the QR sheet is unbounded, and a share-link
+        // codes, then 4, then 5, the QR sheet is unbounded, and a share-link
         // token is bounded by the format itself (see
         // sxShareLinkMaxTokenLength). The two image shrink-to-fit
         // paths (the attached-photo 400px cap in Xu, the map-raster
@@ -39439,7 +39440,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function sxOversizeDocumentDialog(neededPieces) {
             return `PDF complete, but it has no scan codes: this profile is too large for document scan codes (it needs ${neededPieces} and the page holds 2), so none are printed — partial codes could never be scanned back in. For scannable codes, use Export QR codes: the numbered QR sheet holds every piece.`;
         }
-        // Sync card: try 2 codes, then 4, then throw. The throw states
+        // Sync card: try 2 codes, then 4, then 5, then throw. The throw states
         // the measured size of the data that would not fit and names
         // the alternative; it does NOT claim a 700-character piece
         // count — the card's fit check is QR version capacity at two
@@ -39449,7 +39450,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // card callers (op/lp) surface it in the export dialog
         // instead of their generic failure text.
         function sxOversizeCardMessage(payloadLength) {
-            return `This profile is too large for the reliable two-code or four-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size or 4 codes at the small size. No partial card was made. ${sxOversizeAlt()}`;
+            return `This profile is too large for the reliable two-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, 4 codes at the small size, or 5 codes. No partial card was made. ${sxOversizeAlt()}`;
         }
         // Share link: measured limit plus alternative. The limit is
         // derived from the format itself, not invented: a token is 9
@@ -39499,11 +39500,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 length: a
             }, (e, r) => `SCP4:${i}:${r + 1}:${a}:${n.slice(r * s, (r + 1) * s)}`);
         }
-        function ju(e, t) {
+        function ju(e, t, r) {
             if (!window.QRCode || "function" != typeof QRCode.create) return !1;
             try {
                 return e.forEach(e => QRCode.create(e, {
-                    errorCorrectionLevel: "H",
+                    errorCorrectionLevel: r || "H",
                     version: t
                 })), !0;
             } catch (e) {
@@ -40000,7 +40001,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             h.strokeRect(f, 36, y, y), h.textBaseline = "top", h.fillStyle = "#d7bd55", h.font = `700 25px ${l}`, 
             h.fillText("SYNC CARD · FRONT", 72, 58), h.fillStyle = g, h.font = `700 56px ${l}`, 
             eu(h, o, 72, 98, 760, 62, 2), await c(28, "Building card front", "Creating the scan-to-import code…");
-            const b = "https://sexcapades.io/#app/scan", v = await qu(b, 720);
+            const b = "https://" + (window.__SX_SKIN_PREFIX || "sex") + ".capades.io/#app/scan", v = await qu(b, 720);
             h.fillStyle = "#fff", h.fillRect(76, 236, 748, 748), h.imageSmoothingEnabled = !1, 
             h.drawImage(v, 100, 260, 700, 700), h.imageSmoothingEnabled = !0, h.textAlign = "center", 
             h.fillStyle = g, h.font = `700 32px ${l}`, h.fillText("Scan to import this card", 450, 996), 
@@ -40019,24 +40020,36 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 vcard: k
             };
             await c(52, "Checking card size", "Seeing whether this profile fits a Sync card…");
-            const sxCardEncoded = await Ru(e, u, i, a), sxCardFit = function(e) {
+            const sxCardEncoded = await Ru(e, u, i, a, !0), sxCardFit = function(e) {
                 const t = chunkPayload(e, {
                     chunkCount: 2
                 });
-                if (ju(t, 18)) return {
+                if (ju(t, 18, "M")) return {
                     parts: t,
                     size: 600,
                     columns: 1,
-                    maxVersion: 18
+                    maxVersion: 18,
+                    errorCorrectionLevel: "M"
                 };
                 const n = chunkPayload(e, {
                     chunkCount: 4
                 });
-                if (ju(n, 15)) return {
+                if (ju(n, 15, "M")) return {
                     parts: n,
                     size: 450,
                     columns: 2,
-                    maxVersion: 15
+                    maxVersion: 15,
+                    errorCorrectionLevel: "M"
+                };
+                const a = chunkPayload(e, {
+                    chunkCount: 5
+                });
+                if (ju(a, 15, "M")) return {
+                    parts: a,
+                    size: 360,
+                    columns: 2,
+                    maxVersion: 15,
+                    errorCorrectionLevel: "M"
                 };
                 throw new Error(sxOversizeCardMessage(e.length));
             }(sxCardEncoded);
@@ -40060,7 +40073,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             for (let e = 0; e < I.length; e++) await c(58 + Math.round(22 * (e + 1) / I.length), "Building profile codes", `Creating profile code ${e + 1} of ${I.length}…`), 
             P.push(await qu(I[e], 900, {
                 version: M.maxVersion,
-                errorCorrectionLevel: "H"
+                errorCorrectionLevel: M.errorCorrectionLevel
             })), await new Promise(e => t.setTimeout(e, 0));
             const L = P.length, T = M.columns, F = Math.ceil(L / T), N = M.size, _ = 2 === L ? 0 : 48, D = N + 58, R = Math.max(650, Math.min(780, C + 34)), O = R + 56;
             $.fillStyle = g, $.textAlign = "left", $.font = `700 32px ${l}`, $.fillText("Profile data", 72, R), 
@@ -40073,10 +40086,21 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             });
             const B = Math.max(O + F * D + 20, R + 120);
             if (B <= 1980) {
-                $.textAlign = "left", $.fillStyle = g, $.font = `700 32px ${l}`, $.fillText("Notes:", 72, B), 
+                // Freed space (2026-11-17): when the profile needs
+                // fewer than the maximum codes, the back has room
+                // below the codes. Print the card hypermap there (the
+                // map decoration) so the space is not left blank, with
+                // the Notes lines to its right. The Contact block is
+                // already at the top of the back.
+                const mapAvail = 2010 - B - 8, mapSize = Math.min(mapAvail, 280);
+                let notesX = 72;
+                if (mapSize >= 180) {
+                    $.imageSmoothingEnabled = !1, $.drawImage(d, 72, B + 8, mapSize, mapSize), $.imageSmoothingEnabled = !0, $.strokeStyle = "#59645d", $.lineWidth = 3, $.strokeRect(72, B + 8, mapSize, mapSize), notesX = 72 + mapSize + 24;
+                }
+                $.textAlign = "left", $.fillStyle = g, $.font = `700 32px ${l}`, $.fillText("Notes:", notesX, B), 
                 $.strokeStyle = "white" === s ? "rgba(21,24,22,.32)" : "rgba(237,242,238,.32)", 
                 $.lineWidth = 2, $.setLineDash([ 5, 12 ]);
-                for (let e = B + 72; e <= 2010; e += 88) $.beginPath(), $.moveTo(72, e), $.lineTo(1128, e), 
+                for (let e = B + 72; e <= 2010; e += 88) $.beginPath(), $.moveTo(e < B + 8 + mapSize && mapSize >= 180 ? notesX : 72, e), $.lineTo(1128, e), 
                 $.stroke();
                 $.setLineDash([]);
             }
@@ -48257,20 +48281,21 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 let n;
                 const personId = t.person || Mt || (window.Sexcapades2xProfiles ? window.Sexcapades2xProfiles.getIds()[0] : null);
                 if ("profile" === e) n = Ww(personId); else if ("viewport" === e) n = Qu(personId, t.visibleIds, t.displayName || ""); else if ("export" === e) n = Ju(personId, t.visibleIds, Boolean(t.includeProfileInfo), t.displayName || "", Boolean(t.blind)); else if ("sync-card" === e) n = serializeSyncCard(personId, t.visibleIds, t.displayName || "", Boolean(t.includeProfileInfo), Boolean(t.blind)); else {
-                    if ("compact" === e) return this.validate("compact", function(e, t = tu(e), n = !0, i = !1) {
-                        const a = e => !t || t.has(e), r = Rv(ut[e]), o = Object.values(at[e] || {}).filter(e => a(e.id)), s = new Map(o.map((e, t) => [ e.id, t ])), l = e => hu.has(e) ? hu.get(e) : cu.length + s.get(e), c = e => Number.isFinite(Number(e)) ? Math.round(Number(e)) : null, d = Object.entries(vt[e] || {}).filter(([e, t]) => !isCatId(e) && a(e) && t && Number.isInteger(l(e)) && (Number.isFinite(Number(t.give)) || Number.isFinite(Number(t.receive)))).map(([e, t]) => [ l(e), c(t.give), c(t.receive) ]), u = Object.entries(Qe[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), "favorite" === t ? 1 : "notinterested" === t ? 3 : 2 ]), p = Object.keys(Je[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), h = Object.keys(et[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), g = n ? Object.entries(tt[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), Array.isArray(t) ? t.join(" ") : String(t || "") ]).filter(e => e[1]) : [], m = o.map(e => [ e.label, hu.get(e.parentId) ]).filter(e => Number.isInteger(e[1])), f = bb(rt[e]), j = String(pz[e] || ""), y = iv(ot[e]), b = Gb(st[e]), v = Xv(lt[e]), w = Zv(ct[e]), k = String(nt[e] || ""), x = String(it[e] || ""), S = {
+                    if ("compact" === e) return this.validate("compact", function(e, t = tu(e), n = !0, i = !1, strip = !1) {
+                        const keepId = n && !strip;
+                        const a = e => !t || t.has(e), r = Rv(ut[e]), o = Object.values(at[e] || {}).filter(e => a(e.id)), s = new Map(o.map((e, t) => [ e.id, t ])), l = e => hu.has(e) ? hu.get(e) : cu.length + s.get(e), c = e => Number.isFinite(Number(e)) ? Math.round(Number(e)) : null, d = Object.entries(vt[e] || {}).filter(([e, t]) => !isCatId(e) && a(e) && t && Number.isInteger(l(e)) && (Number.isFinite(Number(t.give)) || Number.isFinite(Number(t.receive)))).map(([e, t]) => [ l(e), c(t.give), c(t.receive) ]), u = Object.entries(Qe[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), "favorite" === t ? 1 : "notinterested" === t ? 3 : 2 ]), p = Object.keys(Je[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), h = Object.keys(et[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), g = keepId ? Object.entries(tt[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), Array.isArray(t) ? t.join(" ") : String(t || "") ]).filter(e => e[1]) : [], m = o.map(e => [ e.label, hu.get(e.parentId) ]).filter(e => Number.isInteger(e[1])), f = bb(rt[e]), j = String(pz[e] || ""), y = iv(ot[e]), b = Gb(st[e]), v = Xv(lt[e]), w = Zv(ct[e]), k = String(nt[e] || ""), x = String(it[e] || ""), S = {
                             a: "sexcapades",
                             v: 7,
                             n: n ? wt[e] || "Profile" : "Shared profile",
                             r: d
                         };
-                        i && (S.k = 1), n && f.length && (S.g = f), n && j && (S.p = j), n && y.length && (S.s = y), n && b.length && (S.w = b), 
-                        n && v && (S.y = v), n && w && (S.l = w), n && Ov(r) && (S.c = r), n && k && (S.b = k), 
-                        n && x && (S.u = x), n && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
+                        i && (S.k = 1), keepId && f.length && (S.g = f), keepId && j && (S.p = j), keepId && y.length && (S.s = y), keepId && b.length && (S.w = b), 
+                        keepId && v && (S.y = v), keepId && w && (S.l = w), keepId && Ov(r) && (S.c = r), keepId && k && (S.b = k), 
+                        keepId && x && (S.u = x), keepId && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
                         u.length && (S.m = u), p.length && (S.h = p), h.length && (S.i = h), g.length && (S.t = g);
-                        const $ = n ? St(mt[e]) : {};
+                        const $ = keepId ? St(mt[e]) : {};
                         return Object.keys($).length && (S.q = $), S;
-                    }(t.person, t.allowedIds, !1 !== t.includeProfileInfo, Boolean(t.blind)));
+                    }(t.person, t.allowedIds, !1 !== t.includeProfileInfo, Boolean(t.blind), Boolean(t.stripIdentity)));
                     if ("bundle" === e) n = function(e, t, n = {}) {
                         return Ku(e, t.map(e => Ww(e)), n);
                     }(t.bundleKind, t.ids || [], t.extra || {}); else {
