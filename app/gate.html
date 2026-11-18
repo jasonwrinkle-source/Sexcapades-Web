@@ -1157,47 +1157,55 @@
         max-height: 70vh;
         overflow-y: auto;
       }
-      .docs-details {
-        margin: 2px 0;
-      }
-      .docs-summary {
+      .docs-submenu-trigger {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+        width: 100%;
         padding: 8px 10px;
         color: var(--text);
+        font-family: inherit;
         font-size: .85rem;
         font-weight: 600;
+        text-align: left;
+        background: none;
+        border: 0;
         cursor: pointer;
-        list-style: none;
         user-select: none;
       }
-      .docs-summary::-webkit-details-marker { display: none; }
-      .docs-summary:hover {
+      .docs-submenu-trigger:hover,
+      .docs-submenu-trigger[aria-expanded="true"] {
         background: var(--surface-raised);
       }
-      .docs-arrow {
+      .docs-flyout-arrow {
+        flex: none;
         font-size: .75rem;
         color: var(--link);
-        transition: transform .2s ease;
       }
-      .docs-details[open] .docs-arrow {
-        transform: rotate(180deg);
+      /* Flyout panels: positioned by script (position: fixed) so the
+         scrolling Docs menu cannot clip them. They live outside the
+         menu as siblings of it. */
+      .app-view-menu.docs-flyout {
+        position: fixed;
+        top: auto;
+        left: auto;
+        z-index: 60;
+        min-width: 260px;
+        max-width: calc(100vw - 24px);
+        max-height: 70vh;
+        overflow-y: auto;
       }
-      .docs-sub-list {
-        list-style: none;
-        margin: 0;
-        padding: 4px 0 4px 12px;
-        border-left: 2px solid var(--line);
-      }
-      .app-view-menu .docs-sub-list a {
+      .app-view-menu .docs-flyout a,
+      .docs-flyout a {
         font-size: .78rem !important;
         font-weight: 500 !important;
         padding: 5px 8px !important;
         opacity: .9;
+        white-space: normal;
       }
-      .app-view-menu .docs-sub-list a.docs-main-link {
+      .app-view-menu .docs-flyout a.docs-main-link,
+      .docs-flyout a.docs-main-link {
         font-weight: 700 !important;
         color: var(--link) !important;
       }
@@ -1688,42 +1696,38 @@
                       <li><a href="/hosted/guide.html">Guide</a></li>
                       <li id="gateCompareLinkItem"><a href="/compare">Compare</a></li>
                       <li class="docs-submenu-item">
-                        <details class="docs-details">
-                          <summary class="docs-summary"><span>Glossary</span><span class="docs-arrow">▾</span></summary>
-                          <ul class="docs-sub-list">
-                            <li><a class="docs-main-link" href="/hosted/glossary.html">All Glossary Terms</a></li>
-                            <li><a href="/hosted/glossary.html#sync-map">Hypermap</a></li>
-                            <li><a href="/hosted/glossary.html#quick-start">Quick Start</a></li>
-                            <li><a href="/hosted/glossary.html#net">Net</a></li>
-                            <li><a href="/hosted/glossary.html#cast">Cast</a></li>
-                            <li><a href="/hosted/glossary.html#scribe">Scribe</a></li>
-                            <li><a href="/hosted/glossary.html#scene-setter">Scene Setter</a></li>
-                            <li><a href="/hosted/glossary.html#scan-or-import">Scan or Import</a></li>
-                            <li><a href="/hosted/glossary.html#sync-card">Sync Card</a></li>
-                            <li><a href="/hosted/glossary.html#qr-sheet">QR Sheet</a></li>
-                            <li><a href="/hosted/glossary.html#compare-sync-maps">Compare hypermaps?</a></li>
-                            <li><a href="/hosted/glossary.html#kink-categories">Kink categories</a></li>
-                            <li><a href="/hosted/glossary.html#kink-lines">Kink lines</a></li>
-                          </ul>
-                        </details>
+                        <button class="docs-submenu-trigger" type="button" id="docsGlossaryTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="docsGlossaryFlyout"><span>Glossary</span><span class="docs-flyout-arrow">▸</span></button>
                       </li>
                       <li class="docs-submenu-item">
-                        <details class="docs-details">
-                          <summary class="docs-summary"><span>FAQ</span><span class="docs-arrow">▾</span></summary>
-                          <ul class="docs-sub-list">
-                            <li><a class="docs-main-link" href="/hosted/faq.html">All FAQ Questions</a></li>
-                            <li><a href="/hosted/faq.html#loading">The site won’t load, or I see an old version</a></li>
-                            <li><a href="/hosted/faq.html#profile">My profile disappeared after refresh</a></li>
-                            <li><a href="/hosted/faq.html#compare">How do I compare with a partner?</a></li>
-                            <li><a href="/hosted/faq.html#privacy">Is my data private?</a></li>
-                            <li><a href="/hosted/faq.html#import">Import isn’t working</a></li>
-                            <li><a href="/hosted/faq.html#views">What’s the difference between list view and map view?</a></li>
-                            <li><a href="/hosted/faq.html#sharing">How do I share my profile?</a></li>
-                            <li><a href="/hosted/faq.html#colors">What do the colors mean?</a></li>
-                          </ul>
-                        </details>
+                        <button class="docs-submenu-trigger" type="button" id="docsFaqTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="docsFaqFlyout"><span>FAQ</span><span class="docs-flyout-arrow">▸</span></button>
                       </li>
                       <li><a href="/hosted/flyer.html">Flyer</a></li>
+                    </ul>
+                    <ul class="app-view-menu docs-flyout" id="docsGlossaryFlyout" hidden role="menu" aria-label="Glossary links">
+                      <li><a class="docs-main-link" href="/hosted/glossary.html">All Glossary Terms</a></li>
+                      <li><a href="/hosted/glossary.html#sync-map">Hypermap</a></li>
+                      <li><a href="/hosted/glossary.html#quick-start">Quick Start</a></li>
+                      <li><a href="/hosted/glossary.html#net">Net</a></li>
+                      <li><a href="/hosted/glossary.html#cast">Cast</a></li>
+                      <li><a href="/hosted/glossary.html#scribe">Scribe</a></li>
+                      <li><a href="/hosted/glossary.html#scene-setter">Scene Setter</a></li>
+                      <li><a href="/hosted/glossary.html#scan-or-import">Scan or Import</a></li>
+                      <li><a href="/hosted/glossary.html#sync-card">Sync Card</a></li>
+                      <li><a href="/hosted/glossary.html#qr-sheet">QR Sheet</a></li>
+                      <li><a href="/hosted/glossary.html#compare-sync-maps">Compare hypermaps?</a></li>
+                      <li><a href="/hosted/glossary.html#kink-categories">Kink categories</a></li>
+                      <li><a href="/hosted/glossary.html#kink-lines">Kink lines</a></li>
+                    </ul>
+                    <ul class="app-view-menu docs-flyout" id="docsFaqFlyout" hidden role="menu" aria-label="FAQ links">
+                      <li><a class="docs-main-link" href="/hosted/faq.html">All FAQ Questions</a></li>
+                      <li><a href="/hosted/faq.html#loading">The site won’t load, or I see an old version</a></li>
+                      <li><a href="/hosted/faq.html#profile">My profile disappeared after refresh</a></li>
+                      <li><a href="/hosted/faq.html#compare">How do I compare with a partner?</a></li>
+                      <li><a href="/hosted/faq.html#privacy">Is my data private?</a></li>
+                      <li><a href="/hosted/faq.html#import">Import isn’t working</a></li>
+                      <li><a href="/hosted/faq.html#views">What’s the difference between list view and map view?</a></li>
+                      <li><a href="/hosted/faq.html#sharing">How do I share my profile?</a></li>
+                      <li><a href="/hosted/faq.html#colors">What do the colors mean?</a></li>
                     </ul>
                   </div>
                 </div>
@@ -2386,8 +2390,93 @@
           var docsTrigger = document.getElementById('docsViewTrigger');
           var docsMenu = document.getElementById('docsViewMenu');
           if (!docsTrigger || !docsMenu) return;
-          var items = Array.prototype.slice.call(docsMenu.querySelectorAll('a'));
+          var glossaryTrigger = document.getElementById('docsGlossaryTrigger');
+          var glossaryFlyout = document.getElementById('docsGlossaryFlyout');
+          var faqTrigger = document.getElementById('docsFaqTrigger');
+          var faqFlyout = document.getElementById('docsFaqFlyout');
+          var openFlyoutEl = null;
+          var openFlyoutTrigger = null;
+          var items = Array.prototype.slice.call(docsMenu.querySelectorAll('a, .docs-submenu-trigger'));
+          // Flyouts live outside the scrolling Docs menu (position: fixed,
+          // placed by script) so the menu's overflow cannot clip them.
+          function positionFlyout(trigger, flyout) {
+            var row = trigger.getBoundingClientRect();
+            var menu = docsMenu.getBoundingClientRect();
+            var vw = window.innerWidth;
+            var vh = window.innerHeight;
+            var fw = flyout.offsetWidth;
+            var fh = flyout.offsetHeight;
+            var left = menu.right + 4;
+            var top = row.top;
+            // Flip to the left when there is no room on the right.
+            if (left + fw > vw - 8) left = menu.left - fw - 4;
+            // Narrow screen: no room on either side — put the flyout
+            // below the Docs menu, same width, so the menu stays visible
+            // and its other rows stay reachable.
+            if (left < 8 || left + fw > vw - 8) {
+              left = Math.min(menu.left, vw - menu.width - 8);
+              left = Math.max(8, left);
+              top = menu.bottom + 4;
+              flyout.style.width = menu.width + 'px';
+              fw = flyout.offsetWidth;
+              fh = flyout.offsetHeight;
+            } else {
+              flyout.style.width = '';
+            }
+            // Keep the flyout inside the viewport vertically.
+            if (top + fh > vh - 8) top = Math.max(8, vh - fh - 8);
+            flyout.style.left = Math.max(8, left) + 'px';
+            flyout.style.top = top + 'px';
+          }
+          function closeFlyout(focusTrigger) {
+            if (!openFlyoutEl) return;
+            var trigger = openFlyoutTrigger;
+            openFlyoutEl.hidden = true;
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            openFlyoutEl = null;
+            openFlyoutTrigger = null;
+            if (focusTrigger && trigger) trigger.focus();
+          }
+          function openFlyout(trigger, flyout) {
+            if (openFlyoutEl === flyout) { closeFlyout(false); return; }
+            closeFlyout(false);
+            flyout.hidden = false;
+            trigger.setAttribute('aria-expanded', 'true');
+            openFlyoutEl = flyout;
+            openFlyoutTrigger = trigger;
+            positionFlyout(trigger, flyout);
+            var first = flyout.querySelector('a');
+            if (first) first.focus();
+          }
+          function repositionOpenFlyout() {
+            if (openFlyoutEl && openFlyoutTrigger) positionFlyout(openFlyoutTrigger, openFlyoutEl);
+          }
+          function wireSubmenu(trigger, flyout) {
+            if (!trigger || !flyout) return;
+            trigger.addEventListener('click', function(e) {
+              e.stopPropagation();
+              openFlyout(trigger, flyout);
+            });
+            trigger.addEventListener('keydown', function(e) {
+              if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                openFlyout(trigger, flyout);
+              }
+            });
+            flyout.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                e.stopPropagation();
+                closeFlyout(true);
+              }
+            });
+          }
+          wireSubmenu(glossaryTrigger, glossaryFlyout);
+          wireSubmenu(faqTrigger, faqFlyout);
+          docsMenu.addEventListener('scroll', repositionOpenFlyout);
+          window.addEventListener('resize', repositionOpenFlyout);
           function closeDocs() {
+            closeFlyout(false);
             docsMenu.hidden = true;
             docsTrigger.setAttribute('aria-expanded', 'false');
           }
@@ -2408,7 +2497,8 @@
             if (item) item.focus();
           });
           document.addEventListener('click', function(e) {
-            if (!docsMenu.hidden && !docsMenu.contains(e.target) && !docsTrigger.contains(e.target)) {
+            if (!docsMenu.hidden && !docsMenu.contains(e.target) && !docsTrigger.contains(e.target)
+                && !(openFlyoutEl && openFlyoutEl.contains(e.target))) {
               closeDocs();
             }
           });
