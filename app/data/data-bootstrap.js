@@ -31564,12 +31564,14 @@ const TAXONOMY_CATEGORIES = [
             }) || i?.delete(n.branch);
         }
         function Eo(e, t) {
-            return Object.values(Ze[e]?.[t] || {}).includes("manual");
+            const n = Ze[e]?.[t];
+            return n && Object.keys(n).length ? Object.values(n).includes("manual") : !0;
         }
         function Ao(e, t, n) {
-            return Ze[e]?.[t]?.[n] || null;
+            return Ze[e]?.[t]?.[n] || "manual";
         }
         function Co(e, t, n, i) {
+            if ("manual" === i) return Mo(e, t, n);
             Ze[e] || (Ze[e] = {}), Ze[e][t] || (Ze[e][t] = {}), Ze[e][t][n] = i;
         }
         function Mo(e, t, n) {
@@ -32324,7 +32326,7 @@ const TAXONOMY_CATEGORIES = [
         function __sxPlaceParked(profileId, rec, topicId) {
             if (!profileId || !vt[profileId] || !rec || !topicLabelById[topicId]) return !1;
             const value = rec.value, clone = v => v && "object" == typeof v ? JSON.parse(JSON.stringify(v)) : v;
-            if ("ratings" === rec.section) vt[profileId][topicId] = clone(value); else if ("alreadyTried" === rec.section) (et[profileId] || (et[profileId] = {}))[topicId] = !0; else if ("annotations" === rec.section) (Qe[profileId] || (Qe[profileId] = {}))[topicId] = value; else if ("fantasyOnly" === rec.section) (Je[profileId] || (Je[profileId] = {}))[topicId] = value; else if ("ratingSources" === rec.section) (Ze[profileId] || (Ze[profileId] = {}))[topicId] = clone(value); else if ("notes" === rec.section) (tt[profileId] || (tt[profileId] = {}))[topicId] = clone(value); else if ("importAttention" === rec.section) (cn[profileId] || (cn[profileId] = new Set)).add(topicId); else return !1;
+            if ("ratings" === rec.section) vt[profileId][topicId] = clone(value); else if ("alreadyTried" === rec.section) (et[profileId] || (et[profileId] = {}))[topicId] = !0; else if ("annotations" === rec.section) (Qe[profileId] || (Qe[profileId] = {}))[topicId] = value; else if ("fantasyOnly" === rec.section) (Je[profileId] || (Je[profileId] = {}))[topicId] = value; else if ("ratingSources" === rec.section) Object.entries(clone(value) || {}).forEach(([flank, src]) => Co(profileId, topicId, flank, src)); else if ("notes" === rec.section) (tt[profileId] || (tt[profileId] = {}))[topicId] = clone(value); else if ("importAttention" === rec.section) (cn[profileId] || (cn[profileId] = new Set)).add(topicId); else return !1;
             const store = droppedKeyRecords[profileId] || [];
             return droppedKeyRecords[profileId] = store.filter(e => e !== rec), zt(profileId), !0;
         }
@@ -39869,9 +39871,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     const k = idk(e);
                     if (t && !t.has(k)) return;
                     const r = "number" == typeof a ? [ "give", "receive" ] : Object.keys(a || {});
-                    r.length && (n[k] = {}, r.forEach(t => {
-                        n[k][t] = "string" == typeof i[k]?.[t] ? i[k][t] : "string" == typeof i[e]?.[t] ? i[e][t] : "unknown";
-                    }));
+                    r.length && r.forEach(t => {
+                        const s = "string" == typeof i[k]?.[t] ? i[k][t] : "string" == typeof i[e]?.[t] ? i[e][t] : null;
+                        s && "manual" !== s && ((n[k] || (n[k] = {}))[t] = s);
+                    });
                 }), n;
             }(e, t), o = i(Qe[e]), s = i(Je[e]), l = i(et[e]), c = i(tt[e]), d = i(at[e]), u = [], p = [], h = [], g = [], m = [], f = [];
             const out = (t.forEach(t => {
@@ -47272,7 +47275,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         function importProfileRatings(c, e) {
             applyProfileRatings(c, e.ratings, { source: (topic, flank, supplying) => {
                 const i = e.ratingSources && e.ratingSources[topic] && e.ratingSources[topic][supplying || flank];
-                return "string" == typeof i && i.trim() ? i : "unknown";
+                return "string" == typeof i && i.trim() ? i : "manual";
             } });
         }
         // Fix 1, item 2: the section ingestions rk used to write
