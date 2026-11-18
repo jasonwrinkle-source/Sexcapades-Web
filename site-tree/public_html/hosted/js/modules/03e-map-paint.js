@@ -667,27 +667,26 @@
                     const hubR2 = sxIconRadius(1);
                     const iconR2 = sxIconRadius(2);
                     let F, N;
-                    // CENTRED LABEL (2026-11-17): the label sits in the
-                    // middle of the free space between the hub icon and
-                    // the topic icon, so the padding is the same on both
-                    // sides. The old hub-anchored placement (P) is kept
-                    // only as the fallback when the label is too long to
-                    // centre with 20 clear on each side.
-                    const free2 = y.routedLength - hubR2 - iconR2, pad2 = (free2 - textW2) / 2;
-                    if (pad2 >= 20) {
-                        F = L ? iconR2 + textW2 + pad2 : hubR2 + pad2;
-                        N = L ? ' text-anchor="end"' : "";
-                    } else if (L) {
-                        const minAllowedEnd = iconR2 + textW2 + 20;
-                        const safeHubEnd = y.routedLength - (hubR2 + 32);
-                        F = Math.max(minAllowedEnd, Math.min(y.routedLength - P, safeHubEnd));
-                        if (F < minAllowedEnd) F = minAllowedEnd;
+                    // ICON-ANCHORED LABEL (2026-11-18): the label sits
+                    // at the far end of the spoke, its icon-side end a
+                    // six-space gap inside the icon; the hub side
+                    // absorbs the slack, so labels no longer look
+                    // centred on their spokes. Rendered width =
+                    // measured width minus the halo (6 per character
+                    // gap) the render does not draw, so the gap is
+                    // measured to the glyphs actually drawn.
+                    const renderedW2 = textW2 - 6 * Math.max(0, a.length - 1);
+                    if (L) {
+                        F = iconR2 + gap2 + renderedW2;
+                        const maxF2 = y.routedLength - hubR2 - 20;
+                        if (F > maxF2) F = maxF2;
+                        if (F < iconR2 + renderedW2 + 10) F = iconR2 + renderedW2 + 10;
                         N = ' text-anchor="end"';
                     } else {
-                        const safeHubStart = hubR2 + 32;
-                        const maxAllowedStart = y.routedLength - iconR2 - textW2 - 20;
-                        F = Math.max(safeHubStart, Math.min(P, maxAllowedStart));
-                        if (F > maxAllowedStart) F = maxAllowedStart;
+                        F = y.routedLength - iconR2 - gap2 - renderedW2;
+                        const minF2 = hubR2 + 20;
+                        if (F < minF2) F = minF2;
+                        if (F > y.routedLength - iconR2 - renderedW2 - 10) F = y.routedLength - iconR2 - renderedW2 - 10;
                         N = "";
                     }
                     const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", D = Vi(), R = Rt ? null : o ? function(e, t) {
@@ -769,25 +768,21 @@
                         const hubR3 = sxIconRadius(2);
                         const iconR3 = sxIconRadius(3);
                         let m, y;
-                        // CENTRED LABEL (2026-11-17): same centring as the
-                        // cloud-topics loop above — equal padding on both
-                        // sides; the old hub-anchored placement is kept
-                        // only as the fallback for an over-long label.
-                        const free3 = p.routedLength - hubR3 - iconR3, pad3 = (free3 - textW3) / 2;
-                        if (pad3 >= 20) {
-                            m = h ? iconR3 + textW3 + pad3 : hubR3 + pad3;
-                            y = h ? ' text-anchor="end"' : "";
-                        } else if (h) {
-                            const minAllowedEnd = iconR3 + textW3 + 20;
-                            const safeHubEnd = p.routedLength - (hubR3 + 28);
-                            m = Math.max(minAllowedEnd, Math.min(p.routedLength - p.labelOffset, safeHubEnd));
-                            if (m < minAllowedEnd) m = minAllowedEnd;
+                        // ICON-ANCHORED LABEL (2026-11-18): same as the
+                        // cloud-topics loop above — far end of the spoke,
+                        // six-space gap inside the icon, rendered width.
+                        const renderedW3 = textW3 - 6 * Math.max(0, n.label.length - 1);
+                        if (h) {
+                            m = iconR3 + gap3 + renderedW3;
+                            const maxF3 = p.routedLength - hubR3 - 20;
+                            if (m > maxF3) m = maxF3;
+                            if (m < iconR3 + renderedW3 + 10) m = iconR3 + renderedW3 + 10;
                             y = ' text-anchor="end"';
                         } else {
-                            const safeHubStart = hubR3 + 28;
-                            const maxAllowedStart = p.routedLength - iconR3 - textW3 - 20;
-                            m = Math.max(safeHubStart, Math.min(p.labelOffset, maxAllowedStart));
-                            if (m > maxAllowedStart) m = maxAllowedStart;
+                            m = p.routedLength - iconR3 - gap3 - renderedW3;
+                            const minF3 = hubR3 + 20;
+                            if (m < minF3) m = minF3;
+                            if (m > p.routedLength - iconR3 - renderedW3 - 10) m = p.routedLength - iconR3 - renderedW3 - 10;
                             y = "";
                         }
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);
@@ -1211,9 +1206,19 @@
                             M.setAttribute("x1", (a + e * i).toFixed(2)), M.setAttribute("y1", (r + t * i).toFixed(2)), 
                             M.setAttribute("x2", (a + b * C + e * i).toFixed(2)), M.setAttribute("y2", (r + v * C + t * i).toFixed(2));
                         }
-                        let I = S + C, P = m(S + C / 2).point;
+                        // TIGHTNESS FIX (2026-11-18): for a left-pointing
+                        // (reversed-path) label the startOffset S is
+                        // measured along the reversed path (icon→hub)
+                        // and the text ENDS at S (text-anchor=end), so
+                        // the label's icon-side end in forward
+                        // (hub→icon) coordinates is g − S + C, not
+                        // S + C. The old I = S + C seated the icon
+                        // thousands of units too far out on the left.
+                        // The label centre P is the same mirror.
+                        const sxIsReversed = Boolean(u && u.indexOf("#pr-") === 0), sxFs = Number.parseFloat(c.style.fontSize) || 17, sxSixSpace = Math.max(18, 6 * Za.measure(" ", sxFs, "topic"));
+                        let I = sxIsReversed ? g - S + C : S + C, P = (sxIsReversed ? m(g - S + C / 2) : m(S + C / 2)).point;
                         l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
-                        const L = !k && !l.classList.contains("imported-child"), T = l.classList.contains("imported-child"), F = l.classList.contains("subcategory-node"), scFrozenNode = Boolean(scCtx && qn[l.dataset.layoutKey] && scCtx.frozenBranches.has(qn[l.dataset.layoutKey].branch)), N = L ? 1 : T ? 1 : n, _ = Number.parseFloat(l.dataset.iconDistanceOverride), D = F ? g : Number.isFinite(_) ? _ : I + N + A, R = e => {
+                        const L = !k && !l.classList.contains("imported-child"), T = l.classList.contains("imported-child"), F = l.classList.contains("subcategory-node"), scFrozenNode = Boolean(scCtx && qn[l.dataset.layoutKey] && scCtx.frozenBranches.has(qn[l.dataset.layoutKey].branch)), N = L || T ? sxSixSpace : n, _ = Number.parseFloat(l.dataset.iconDistanceOverride), D = F ? g : Number.isFinite(_) ? _ : I + N + A, R = e => {
                             const n = m(e).point, i = E ? e + A + (L ? 6 : t) : I, a = w.map(e => {
                                 const t = Number(e.dataset.controlScale) || 1, n = Number(e.dataset.tagWidth) || 48, i = Number(e.dataset.tagHeight) || 20, a = Boolean(Nt && Nt.id === l.dataset.layoutKey && Nt.direction === e.dataset.direction);
                                 return {
@@ -1370,7 +1375,7 @@
                                 }
                                 P = m(anchorS + C / 2).point, l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
                             } else if (d) {
-                                P = m(S + C / 2).point, l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
+                                P = (sxIsReversed ? m(g - S + C / 2) : m(S + C / 2)).point, l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
                             }
                         }
                         if (r.push(...O.shapes), r.push(o(P.x, P.y, Math.max(24, C), k ? 30 : 22, 180 * Math.atan2(v, b) / Math.PI)), 
