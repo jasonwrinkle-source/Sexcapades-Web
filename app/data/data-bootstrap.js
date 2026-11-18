@@ -45860,12 +45860,38 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 try { pair = engine.pair(user, arch, {}); } catch (err) { pair = null; }
                 if (!pair || !pair.play || !pair.coverage) return;
                 const shared = pair.coverage.shared || 0;
-                const headline = pair.play.headline;
-                if (!shared || !Number.isFinite(headline)) return;
+                if (!shared) return;
+                // Identity score — "which archetype am I?": same-flank
+                // similarity over the shared set (both rated, not
+                // limit-blocked, not fantasy). The old score was the
+                // pair engine's Play match score, which measures
+                // whether both sides rated the crossed flanks at all,
+                // not agreement — so every archetype scored 100.
+                // Multi-pole topics use their agreement fraction
+                // (already a same-position comparison); two-pole
+                // topics compare each flank with itself (give with
+                // give, receive with receive), skipping a flank
+                // either side left unrated.
+                const identityAgreements = [];
+                (pair.topics || []).forEach(rec => {
+                    if (!rec || !rec.ratings || !rec.ratings.a || !rec.ratings.b) return;
+                    if ((rec.limiters || []).length) return;
+                    if (((rec.flags || {}).fantasyBy || []).length) return;
+                    const ra = rec.ratings.a, rb = rec.ratings.b;
+                    if (!(ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown) || !(rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown)) return;
+                    if (null != rec.agreement) { identityAgreements.push(rec.agreement); return; }
+                    const diffs = [];
+                    if (ra.giveKnown && rb.giveKnown) diffs.push(Math.abs(ra.give - rb.give));
+                    if (ra.receiveKnown && rb.receiveKnown) diffs.push(Math.abs(ra.receive - rb.receive));
+                    if (!diffs.length) return;
+                    identityAgreements.push(1 - diffs.reduce((s, v) => s + v, 0) / (200 * diffs.length));
+                });
+                if (!identityAgreements.length) return;
+                const identityScore = Math.round(100 * identityAgreements.reduce((s, v) => s + v, 0) / identityAgreements.length);
                 const matchDrivers = (pair.play.lists && pair.play.lists.matches ? pair.play.lists.matches : []).map(r => r.label).filter(Boolean);
                 const curiousDrivers = (pair.play.lists && pair.play.lists.curiousAbout ? pair.play.lists.curiousAbout : []).map(r => r.label).filter(Boolean);
                 const drivers = matchDrivers.concat(curiousDrivers.filter(l => !matchDrivers.includes(l))).slice(0, 3);
-                scored.push({ key: key, name: entry.name || key, about: entry.about || "", score: Math.round(headline), shared: shared, drivers: drivers });
+                scored.push({ key: key, name: entry.name || key, about: entry.about || "", score: identityScore, shared: shared, drivers: drivers });
             });
             if (!scored.length) {
                 resultsEl.innerHTML = `<p class="profile-archetype-note">No shared topics yet — rate a few of the topics these archetypes cover and try again.</p>`;
@@ -45879,7 +45905,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 return `<div class="profile-archetype-row"><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${Hi(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}${about}</div>`;
             }).join("");
             const best = top[0];
-            resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · ${Hi(best.name)} leads at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
+            resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
         }
 
         let fw = !1;
