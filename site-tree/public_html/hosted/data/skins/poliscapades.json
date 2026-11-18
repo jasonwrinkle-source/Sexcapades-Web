@@ -221,7 +221,7 @@
                 ]
               },
               "id": "xpo0008",
-              "name": "Property & Ownership",
+              "name": "Who owns what",
               "poles": [
                 {
                   "key": "private-absolute-allodial-capitalist",
@@ -501,7 +501,7 @@
                 ]
               },
               "id": "xpo0022",
-              "name": "China & Competition",
+              "name": "Economic rivalry",
               "poles": [
                 {
                   "key": "managed-competition",
@@ -1247,7 +1247,7 @@
             ]
           },
           "id": "xpo0042",
-          "name": "Public Lands & Conservation",
+          "name": "Land stewardship",
           "poles": [
             {
               "key": "federal-conservation",
@@ -1413,7 +1413,7 @@
             ]
           },
           "id": "xpo0047",
-          "name": "Asylum & refugees",
+          "name": "Safe haven",
           "poles": [
             {
               "key": "fair-humane-process",
@@ -1445,7 +1445,7 @@
             ]
           },
           "id": "xpo0048",
-          "name": "Pathway to citizenship / DACA",
+          "name": "Immigration legalization",
           "poles": [
             {
               "key": "path-to-citizenship",
@@ -1956,7 +1956,7 @@
                 ]
               },
               "id": "xpo0056",
-              "name": "DC & Territories",
+              "name": "Political status",
               "poles": [
                 {
                   "key": "statehood-self-determination",
@@ -2058,7 +2058,7 @@
                 ]
               },
               "id": "xpo0059",
-              "name": "Federalism / states' rights",
+              "name": "Levels of government",
               "poles": [
                 {
                   "key": "strong-federal-standards",
@@ -3104,7 +3104,7 @@
             ]
           },
           "id": "xpo0086",
-          "name": "Conscription / draft",
+          "name": "Compelled service",
           "poles": [
             {
               "key": "keep-the-draft",
