@@ -153,7 +153,29 @@
             ]
           },
           "question": "Do you design experiments to test theories or to explore the unknown?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.1 — Merged — both versions covered this; Antigravity's framing kept."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.1 — Merged — both versions covered this; Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0002",
@@ -185,7 +207,29 @@
             ]
           },
           "question": "Do you measure one thing perfectly, or find new things roughly?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.2 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.2 — YoBiche.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0003",
@@ -225,7 +269,29 @@
             ]
           },
           "question": "Does fundamental discovery come from giant colliders, mid-size facilities, or tabletop lasers?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.3 — Merged — Antigravity's dipole (Big Science vs Tabletop) with YoBiche's Medium-Scale pole added."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.3 — Merged — Antigravity's dipole (Big Science vs Tabletop) with YoBiche's Medium-Scale pole added.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0004",
@@ -265,7 +331,29 @@
             ]
           },
           "question": "Which frontier offers the greatest promise for new physics?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.4 — Antigravity 1.3."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.4 — Antigravity 1.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0005",
@@ -297,7 +385,29 @@
             ]
           },
           "question": "Is experimental physics in a reproducibility crisis, or is the system working?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.5 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.1.5 — YoBiche.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         }
       ]
     },
@@ -336,7 +446,24 @@
             ]
           },
           "question": "Should physicists build their own instruments from raw metal or integrate commercial hardware?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.1 — Antigravity 2.1."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.1 — Antigravity 2.1.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0007",
@@ -368,7 +495,24 @@
             ]
           },
           "question": "Do you actively smash the system or passively listen for rare signals?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.2 — Antigravity 2.2."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.2 — Antigravity 2.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0008",
@@ -416,7 +560,24 @@
             ]
           },
           "question": "Which detector modality do you trust most?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.3 — Antigravity 2.3."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.3 — Antigravity 2.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0009",
@@ -456,7 +617,24 @@
             ]
           },
           "question": "Do you build one detector for everything, one for a single measurement, or a hybrid?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.4 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.4 — YoBiche.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0010",
@@ -488,7 +666,24 @@
             ]
           },
           "question": "Do you chase fainter signals, or quieter backgrounds?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.5 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.5 — YoBiche.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0011",
@@ -520,7 +715,24 @@
             ]
           },
           "question": "Do you calibrate where the detector lives, or on a clean test beam?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.6 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.6 — YoBiche.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0012",
@@ -552,7 +764,24 @@
             ]
           },
           "question": "Do you upgrade the detector you have, or build a new one?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.7 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.2.7 — YoBiche.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         }
       ]
     },
@@ -591,7 +820,24 @@
             ]
           },
           "question": "Does a physical discovery require 5-sigma, or is Bayesian evidence sufficient?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.1 — Merged — both versions covered this; Antigravity's framing kept."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.1 — Merged — both versions covered this; Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0014",
@@ -623,7 +869,24 @@
             ]
           },
           "question": "Are null results a triumph of exclusion or a disappointment?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.2 — Merged — both versions covered this; Antigravity's framing kept."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.2 — Merged — both versions covered this; Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0015",
@@ -655,7 +918,24 @@
             ]
           },
           "question": "Should experimental data be strictly blinded or openly examined?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.3 — Merged — both versions covered this; Antigravity's framing kept."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.3 — Merged — both versions covered this; Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0016",
@@ -687,7 +967,24 @@
             ]
           },
           "question": "In the laboratory, is your greatest foe systematic bias or statistical noise?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.4 — Merged — both versions covered this; Antigravity's framing kept."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.4 — Merged — both versions covered this; Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0017",
@@ -719,7 +1016,24 @@
             ]
           },
           "question": "When something unexpected shows up, is it a signal or a systematic?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.5 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.5 — YoBiche.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xex0018",
@@ -751,7 +1065,24 @@
             ]
           },
           "question": "When an experimental anomaly appears, do you chase it or doubt it?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.6 — Antigravity 5.1."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.3.6 — Antigravity 5.1.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         }
       ]
     },
@@ -806,7 +1137,24 @@
             ]
           },
           "question": "Which extreme environment defines your laboratory home?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.1 — Antigravity 4.1."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.1 — Antigravity 4.1.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0020",
@@ -838,7 +1186,24 @@
             ]
           },
           "question": "Does your experiment belong in a vibration-free basement or the wild elements?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.2 — Antigravity 4.2."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.4.2 — Antigravity 4.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         }
       ]
     },
@@ -877,7 +1242,34 @@
             ]
           },
           "question": "Should raw experimental data be open to the world immediately?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.1 — Merged — both versions covered this; Antigravity's framing kept."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.1 — Merged — both versions covered this; Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         },
         {
           "id": "xex0022",
@@ -909,7 +1301,29 @@
             ]
           },
           "question": "Do you analyse through a model, or let the data speak for itself?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.2 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.2 — YoBiche.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            }
+          ]
         },
         {
           "id": "xex0023",
@@ -941,7 +1355,29 @@
             ]
           },
           "question": "Do you trust the machine learning, or verify everything it says?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.3 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.3 — YoBiche.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/MachineLearning",
+              "url": "https://www.reddit.com/r/MachineLearning/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            }
+          ]
         },
         {
           "id": "xex0024",
@@ -973,7 +1409,19 @@
             ]
           },
           "question": "Do you prefer the power of massive collaborations or small-lab independence?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.4 — Merged — both versions covered this; Antigravity's framing kept (her 6.1)."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.4 — Merged — both versions covered this; Antigravity's framing kept (her 6.1).",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xex0025",
@@ -1013,7 +1461,19 @@
             ]
           },
           "question": "Do you race the other labs, join them, or do both at once?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.5 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.5.5 — YoBiche.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         }
       ]
     },
@@ -1052,7 +1512,14 @@
             ]
           },
           "question": "Does the credit go to whoever is first, or to the whole team?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.1 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.1 — YoBiche.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            }
+          ]
         },
         {
           "id": "xex0027",
@@ -1084,7 +1551,14 @@
             ]
           },
           "question": "Are you at your best turning a wrench on the beamline or analyzing data at a desk?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.2 — Antigravity 6.2."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.2 — Antigravity 6.2.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            }
+          ]
         },
         {
           "id": "xex0028",
@@ -1116,7 +1590,14 @@
             ]
           },
           "question": "Do you work to confirm theorists' models or to humiliate them with data?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.3 — Antigravity 6.3."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.3 — Antigravity 6.3.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            }
+          ]
         },
         {
           "id": "xex0029",
@@ -1148,7 +1629,14 @@
             ]
           },
           "question": "Do you work in the lab, or out in the field?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.4 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.4 — YoBiche.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            }
+          ]
         },
         {
           "id": "xex0030",
@@ -1180,7 +1668,14 @@
             ]
           },
           "question": "Do you work hands-on at the detector, or run it remotely?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.5 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.5 — YoBiche.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            }
+          ]
         },
         {
           "id": "xex0031",
@@ -1212,7 +1707,14 @@
             ]
           },
           "question": "Do you love the night shift, or endure it?",
-          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.6 — YoBiche."
+          "source": "BRIEFING_EXPERICAPADES_TAXONOMY.md §2.6.6 — YoBiche.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/labrats",
+              "url": "https://www.reddit.com/r/labrats/"
+            }
+          ]
         }
       ]
     }

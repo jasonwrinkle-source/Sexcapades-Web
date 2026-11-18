@@ -46,7 +46,29 @@
               "question": "How should the economy be organized — by the state, the market, or the commons?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.1.1",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -86,7 +108,29 @@
               "question": "What makes a distribution of resources just?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.1.3",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
@@ -135,7 +179,29 @@
               "question": "How should the state manage money and debt?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.2.3",
-              "widget": "diamond"
+              "widget": "diamond",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": "simplex",
@@ -191,7 +257,29 @@
               "question": "How should society divide its finite budget across five vital priorities?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.3.1",
-              "widget": "star-radar"
+              "widget": "star-radar",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": "simplex",
@@ -247,7 +335,39 @@
               "question": "Who can own what, and on what terms?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.3.2",
-              "widget": "star-radar"
+              "widget": "star-radar",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             }
           ]
         },
@@ -285,7 +405,39 @@
               "question": "How much different income levels should pay in federal income tax.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0003)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -317,7 +469,39 @@
               "question": "How corporations are taxed, and whether loopholes and subsidies should close.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0004)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -349,7 +533,39 @@
               "question": "How much the federal government should spend, and whether deficits matter.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0005)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -381,7 +597,39 @@
               "question": "What to do about the federal debt.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0006)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -413,7 +661,50 @@
               "question": "Whether the government should act to reduce the gap between rich and poor, and how.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0078)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ],
+              "popularity": {
+                "score": 88.0,
+                "tier": "High",
+                "sources": [
+                  {
+                    "key": "gallup",
+                    "normalized": 88.0,
+                    "pct": 44.0
+                  }
+                ]
+              }
             }
           ]
         },
@@ -451,7 +742,44 @@
               "question": "Whether the US should use tariffs and what kind of trade deals it should sign.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0007)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/geopolitics",
+                  "url": "https://www.reddit.com/r/geopolitics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -483,7 +811,39 @@
               "question": "Whether the government should actively bring manufacturing and supply chains home.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0008)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -515,7 +875,44 @@
               "question": "How the US should handle economic competition with China.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0009)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/geopolitics",
+                  "url": "https://www.reddit.com/r/geopolitics/"
+                }
+              ]
             }
           ]
         },
@@ -553,7 +950,39 @@
               "question": "Who controls the money supply, and how.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0010)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -585,7 +1014,39 @@
               "question": "Whether crypto should be protected, regulated, or replaced by a government digital currency.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0011)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -617,7 +1078,50 @@
               "question": "Whether the government should act to bring down the prices people pay, and how.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0079)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ],
+              "popularity": {
+                "score": 84.0,
+                "tier": "High",
+                "sources": [
+                  {
+                    "key": "gallup",
+                    "normalized": 84.0,
+                    "pct": 42.0
+                  }
+                ]
+              }
             }
           ]
         },
@@ -655,7 +1159,39 @@
               "question": "Whether the federal government should set a minimum wage, and at what level.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0001)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Economics",
+                  "url": "https://www.reddit.com/r/Economics/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -687,7 +1223,34 @@
               "question": "Workers' right to organize and bargain, and the rules around it.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0002)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -719,7 +1282,34 @@
               "question": "Whether Social Security should be protected, reformed, or phased out.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0012)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -751,7 +1341,34 @@
               "question": "Whether the federal government should run anti-poverty programs.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0013)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -783,7 +1400,34 @@
               "question": "What the government should do about the cost of housing.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0014)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             }
           ]
         }
@@ -831,7 +1475,50 @@
           "question": "Whether health coverage should be public, private, or a mix — and whether it is a right.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0015)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ],
+          "popularity": {
+            "score": 85.0,
+            "tier": "High",
+            "sources": [
+              {
+                "key": "gallup",
+                "normalized": 100.0,
+                "pct": 50.0
+              },
+              {
+                "key": "pew",
+                "normalized": 81.0,
+                "pct": 68.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -863,7 +1550,34 @@
           "question": "Whether the government should cap or negotiate drug prices.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0016)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -903,7 +1617,34 @@
           "question": "Whether Medicare should be protected, expanded, or replaced.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0017)",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -935,7 +1676,34 @@
           "question": "How the government should respond to mental illness and the opioid epidemic.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0018)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -967,7 +1735,34 @@
           "question": "Whether the government should make child care affordable.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0019)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -999,7 +1794,34 @@
           "question": "Whether workers should get guaranteed paid time off to care for family or recover from illness.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0020)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1031,7 +1853,34 @@
           "question": "Whether the government can require vaccines or other public-health measures.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0021)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         }
       ]
     },
@@ -1069,7 +1918,50 @@
           "question": "Whether climate change is a crisis and what the government should do about emissions.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0022)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ],
+          "popularity": {
+            "score": 51.0,
+            "tier": "High",
+            "sources": [
+              {
+                "key": "gallup",
+                "normalized": 58.0,
+                "pct": 29.0
+              },
+              {
+                "key": "pew",
+                "normalized": 48.8,
+                "pct": 41.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -1101,7 +1993,34 @@
           "question": "Whether the government should expand, restrict, or phase out oil, gas, and coal.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0023)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1133,7 +2052,34 @@
           "question": "Whether nuclear energy has a place in the energy mix.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0024)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1165,7 +2111,34 @@
           "question": "How far and how fast the government should push solar, wind, and other renewables.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0025)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1197,7 +2170,34 @@
           "question": "Whether the government should promote or mandate electric vehicles.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0026)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1229,7 +2229,34 @@
           "question": "Who pays for pollution, and whether overburdened communities get special protection.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0027)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1261,7 +2288,34 @@
           "question": "Who owns and manages public lands, and how wildlife and nature are protected.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0028)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1293,7 +2347,34 @@
           "question": "What the government should do for farmers and the food system.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0029)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         }
       ]
     },
@@ -1331,7 +2412,34 @@
           "question": "How the southern border should be secured.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0030)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1363,7 +2471,34 @@
           "question": "Whether and how unauthorized immigrants should be removed.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0031)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1395,7 +2530,34 @@
           "question": "How many legal immigrants the US should admit, and through which channels.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0032)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1427,7 +2589,34 @@
           "question": "How asylum claims should be handled.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0033)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1459,7 +2648,34 @@
           "question": "Whether long-term unauthorized residents and Dreamers should get a path to citizenship.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0034)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1491,7 +2707,34 @@
           "question": "Whether children born in the US to unauthorized immigrants are citizens.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0035)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1523,7 +2766,34 @@
           "question": "Whether local governments may limit cooperation with federal immigration enforcement.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0036)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         }
       ]
     },
@@ -1586,6 +2856,23 @@
               "axes": [
                 "Economic",
                 "Authority"
+              ],
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                }
               ]
             },
             {
@@ -1635,7 +2922,24 @@
               "question": "Who should decide, and how — executive, experts, assembly, or consensus?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.2.2",
-              "widget": "quad-sliders"
+              "widget": "quad-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                }
+              ]
             },
             {
               "archetype": "simplex",
@@ -1699,7 +3003,24 @@
               "question": "Which civilizational operating system should govern society?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.4.1",
-              "widget": "hexad-radar"
+              "widget": "hexad-radar",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                }
+              ]
             },
             {
               "approx": "heptagonal legitimacy wheel with radial sliders and central barycenter rendered as heptad-radar; real wheel renderer is follow-up work",
@@ -1772,7 +3093,24 @@
               "question": "Where does the moral authority to govern originate?",
               "risk": false,
               "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.5.1",
-              "widget": "heptad-radar"
+              "widget": "heptad-radar",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                }
+              ]
             }
           ]
         },
@@ -1810,7 +3148,34 @@
               "question": "How easy it should be to vote, and what identification should be required.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0037)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1842,7 +3207,34 @@
               "question": "Whether money in politics should be limited, publicly funded, or unrestricted.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0038)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1874,7 +3266,34 @@
               "question": "Whether the Electoral College should stay, and whether representation should be proportional.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0039)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1906,7 +3325,34 @@
               "question": "Whether elections should use ranked-choice voting and open primaries.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0040)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1938,7 +3384,34 @@
               "question": "Who draws congressional district maps, and whether gerrymandering should end.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0041)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1970,7 +3443,34 @@
               "question": "Whether DC and the territories should get statehood or a different status.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0042)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             }
           ]
         },
@@ -2008,7 +3508,34 @@
               "question": "How big the Supreme Court should be and how it should be checked.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0043)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2040,7 +3567,34 @@
               "question": "What kind of judges should be appointed?",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0044)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2072,7 +3626,34 @@
               "question": "Which level of government should decide — Washington or the states.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0045)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2104,7 +3685,45 @@
               "question": "How big and active the federal government should be.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0046)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ],
+              "popularity": {
+                "score": 51.0,
+                "tier": "High",
+                "sources": [
+                  {
+                    "key": "pew",
+                    "normalized": 51.2,
+                    "pct": 43.0
+                  }
+                ]
+              }
             },
             {
               "archetype": null,
@@ -2136,7 +3755,34 @@
               "question": "How much the federal government should regulate business and the economy.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0047)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             }
           ]
         },
@@ -2174,7 +3820,39 @@
               "question": "What the government may collect and watch, and what privacy rights people have.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0048)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/privacy",
+                  "url": "https://www.reddit.com/r/privacy/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2206,7 +3884,34 @@
               "question": "Whether the government may restrict speech, fund or pressure media, or police content.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0049)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2238,7 +3943,60 @@
               "question": "Whether the government should set rules for artificial intelligence, and how strict.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0081)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Politics Stack Exchange",
+                  "url": "https://politics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/PoliticalDiscussion",
+                  "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/NeutralPolitics",
+                  "url": "https://www.reddit.com/r/NeutralPolitics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/politics",
+                  "url": "https://www.reddit.com/r/politics/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/changemyview",
+                  "url": "https://www.reddit.com/r/changemyview/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/technology",
+                  "url": "https://www.reddit.com/r/technology/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/MachineLearning",
+                  "url": "https://www.reddit.com/r/MachineLearning/"
+                }
+              ],
+              "popularity": {
+                "score": 54.0,
+                "tier": "High",
+                "sources": [
+                  {
+                    "key": "gallup",
+                    "normalized": 60.0,
+                    "pct": 30.0
+                  },
+                  {
+                    "key": "pew",
+                    "normalized": 52.4,
+                    "pct": 44.0
+                  }
+                ]
+              }
             }
           ]
         }
@@ -2278,7 +4036,50 @@
           "question": "Whether and how abortion should be legal and accessible.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0050)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ],
+          "popularity": {
+            "score": 60.0,
+            "tier": "High",
+            "sources": [
+              {
+                "key": "gallup",
+                "normalized": 76.0,
+                "pct": 38.0
+              },
+              {
+                "key": "pew",
+                "normalized": 54.8,
+                "pct": 46.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -2310,7 +4111,34 @@
           "question": "Whether birth control and fertility treatments like IVF should be protected and accessible.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0051)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -2350,7 +4178,34 @@
           "question": "What counts as a marriage and a family, and whether the government may define them.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0052)",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2382,7 +4237,45 @@
           "question": "Whether LGBTQ+ people get equal treatment in law, schools, sports, and health care.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0053)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ],
+          "popularity": {
+            "score": 27.0,
+            "tier": "Low",
+            "sources": [
+              {
+                "key": "pew",
+                "normalized": 27.4,
+                "pct": 23.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -2414,7 +4307,34 @@
           "question": "How far religious freedom extends, and whether it covers acting on beliefs in everyday life.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0054)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2446,7 +4366,45 @@
           "question": "Whether and how the government may regulate firearms.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0055)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ],
+          "popularity": {
+            "score": 54.0,
+            "tier": "High",
+            "sources": [
+              {
+                "key": "pew",
+                "normalized": 53.6,
+                "pct": 45.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -2478,7 +4436,34 @@
           "question": "How police should be funded, trained, and held accountable.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0056)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2510,7 +4495,34 @@
           "question": "Whether the justice system should be reformed, and how harshly crimes should be punished.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0057)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2542,7 +4554,34 @@
           "question": "Whether the state should be able to execute people.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0058)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2574,7 +4613,34 @@
           "question": "Whether drug use should be a crime, a health issue, or a free choice.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0059)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2606,7 +4672,50 @@
           "question": "How the government should respond to crime — crack down on it, or prevent it.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0080)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ],
+          "popularity": {
+            "score": 64.0,
+            "tier": "High",
+            "sources": [
+              {
+                "key": "gallup",
+                "normalized": 70.0,
+                "pct": 35.0
+              },
+              {
+                "key": "pew",
+                "normalized": 61.9,
+                "pct": 52.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -2638,7 +4747,45 @@
           "question": "Whether the government should actively address racial disparities.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0060)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ],
+          "popularity": {
+            "score": 43.0,
+            "tier": "Medium",
+            "sources": [
+              {
+                "key": "pew",
+                "normalized": 42.9,
+                "pct": 36.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -2663,7 +4810,34 @@
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0061)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2688,7 +4862,34 @@
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0062)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2713,7 +4914,34 @@
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0063)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         }
       ]
     },
@@ -2751,7 +4979,34 @@
           "question": "Who chooses a child's school, and how schools are funded.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0064)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2783,7 +5038,34 @@
           "question": "What schools should teach — and what they should not.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0065)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2815,7 +5097,34 @@
           "question": "Whether Washington should have any role in education at all.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0066)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2847,7 +5156,34 @@
           "question": "Who pays for college, and what happens to student debt.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0067)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2879,7 +5215,34 @@
           "question": "Whether the government should fund the arts and humanities.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0068)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            }
+          ]
         }
       ]
     },
@@ -2925,7 +5288,29 @@
           "question": "Can a society have hyperglobalization, national sovereignty, and democratic politics all at once?",
           "risk": false,
           "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.1.2",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -2989,7 +5374,29 @@
           "question": "How should a nation act in the world?",
           "risk": false,
           "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.4.2",
-          "widget": "hexad-radar"
+          "widget": "hexad-radar",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -3054,7 +5461,29 @@
           "question": "What makes a civilization resilient?",
           "risk": false,
           "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.5.2",
-          "widget": "heptad-radar"
+          "widget": "heptad-radar",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3086,7 +5515,39 @@
           "question": "How much to spend on the military, and what it is for.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0069)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3118,7 +5579,39 @@
           "question": "Whether the government can compel military service.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0070)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3143,7 +5636,39 @@
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0071)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3175,7 +5700,39 @@
           "question": "Whether the US should stay in alliances like NATO.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0072)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3207,7 +5764,39 @@
           "question": "How the US should handle China as a rival.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0073)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3239,7 +5828,50 @@
           "question": "What the US position should be in the Middle East, including on Israel.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0074)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ],
+          "popularity": {
+            "score": 70.0,
+            "tier": "High",
+            "sources": [
+              {
+                "key": "gallup",
+                "normalized": 70.0,
+                "pct": 35.0
+              }
+            ]
+          }
         },
         {
           "archetype": null,
@@ -3271,7 +5903,39 @@
           "question": "Whether the US should send aid, intervene abroad, or stay out.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0075)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3303,7 +5967,39 @@
           "question": "Whether the US should keep, modernize, or eliminate nuclear weapons.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0076)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3335,7 +6031,50 @@
           "question": "What the US should do about Iran — its nuclear program, its role in the region, and whether to pressure it or engage it.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0077)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Politics Stack Exchange",
+              "url": "https://politics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/PoliticalDiscussion",
+              "url": "https://www.reddit.com/r/PoliticalDiscussion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/NeutralPolitics",
+              "url": "https://www.reddit.com/r/NeutralPolitics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/politics",
+              "url": "https://www.reddit.com/r/politics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/changemyview",
+              "url": "https://www.reddit.com/r/changemyview/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geopolitics",
+              "url": "https://www.reddit.com/r/geopolitics/"
+            }
+          ],
+          "popularity": {
+            "score": 94.0,
+            "tier": "High",
+            "sources": [
+              {
+                "key": "gallup",
+                "normalized": 94.0,
+                "pct": 47.0
+              }
+            ]
+          }
         }
       ]
     }

@@ -146,7 +146,19 @@
             ]
           },
           "question": "How strongly do you anchor chemical reasoning in strict stoichiometric conservation versus approximate, open-system, or non-stoichiometric defect regimes?",
-          "source": "Gemini revised (new topic — the calibrated monopole baseline; answers the v1 Open Question on monopole calibration in part — see Open Question 2)."
+          "source": "Gemini revised (new topic — the calibrated monopole baseline; answers the v1 Open Question on monopole calibration in part — see Open Question 2).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0002",
@@ -186,7 +198,19 @@
             ]
           },
           "question": "When a chemist draws a line between two atoms, are they depicting a physical feature of the universe, an emergent structural pattern, or a pedagogical shorthand?",
-          "source": "Merged — Gemini 1 (triad) + YoBiche 1.2 (dipole). Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Pattern-Realism as the explicit middle pole."
+          "source": "Merged — Gemini 1 (triad) + YoBiche 1.2 (dipole). Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Pattern-Realism as the explicit middle pole.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0003",
@@ -218,7 +242,19 @@
             ]
           },
           "question": "Are orbitals real, or just math?",
-          "source": "Merged — Gemini 2 + YoBiche 1.3. Same topic; Gemini's detail (STM, the cuprite d-orbital claim) kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to the gap flag."
+          "source": "Merged — Gemini 2 + YoBiche 1.3. Same topic; Gemini's detail (STM, the cuprite d-orbital claim) kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0004",
@@ -274,7 +310,19 @@
             ]
           },
           "question": "Is chemistry fundamentally just applied physics, or does it possess autonomous laws and irreducible entities of its own?",
-          "source": "Merged — Gemini 3 (tetrad) + YoBiche 1.1 (triad). Gemini's tetrad is richer; YoBiche's Pluralism added as a fifth pole. Gemini revised (v2): drops Pluralism, returning the topic to a tetrad on \"quad-compass\" — v2 does NOT follow her there; the pentad is kept. Her \"quad-compass\" assignment does not fit a 5-pole topic. See Open Question 8 — Jason to rule."
+          "source": "Merged — Gemini 3 (tetrad) + YoBiche 1.1 (triad). Gemini's tetrad is richer; YoBiche's Pluralism added as a fifth pole. Gemini revised (v2): drops Pluralism, returning the topic to a tetrad on \"quad-compass\" — v2 does NOT follow her there; the pentad is kept. Her \"quad-compass\" assignment does not fit a 5-pole topic. See Open Question 8 — Jason to rule.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0005",
@@ -306,7 +354,19 @@
             ]
           },
           "question": "Does a molecule possess an inherent three-dimensional shape in isolation, or is molecular geometry an artifact of environmental interaction?",
-          "source": "Gemini 4. Gemini revised (v2): widget canonicalized to the gap flag."
+          "source": "Gemini 4. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0006",
@@ -346,7 +406,19 @@
             ]
           },
           "question": "What is a molecule, really?",
-          "source": "YoBiche 1.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "YoBiche 1.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         }
       ]
     },
@@ -409,7 +481,19 @@
             ]
           },
           "question": "Which periodic table is the right one?",
-          "source": "Merged — Gemini 5 (pentad) + YoBiche 5.1 (triad). Gemini's pentad is richer; YoBiche's triad (Traditional Mendeleev / Left-Step / Alternative Forms) is subsumed — her Traditional is Gemini's Medium-Long Form, her Left-Step is Gemini's Left-Step, her Alternative Forms are Gemini's 3D/Spiral and Property-Cluster poles. Gemini revised (v2): widget canonicalized to \"star-radar\"."
+          "source": "Merged — Gemini 5 (pentad) + YoBiche 5.1 (triad). Gemini's pentad is richer; YoBiche's triad (Traditional Mendeleev / Left-Step / Alternative Forms) is subsumed — her Traditional is Gemini's Medium-Long Form, her Left-Step is Gemini's Left-Step, her Alternative Forms are Gemini's 3D/Spiral and Property-Cluster poles. Gemini revised (v2): widget canonicalized to \"star-radar\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0008",
@@ -450,7 +534,19 @@
             ]
           },
           "question": "Which elements truly belong beneath Scandium and Yttrium in Group 3 of the Periodic Table?",
-          "source": "Gemini 6. Gemini revised (v2): widget canonicalized to the gap flag."
+          "source": "Gemini 6. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0009",
@@ -491,7 +587,19 @@
             ]
           },
           "question": "Where and why does the Periodic Table come to an end — at the limits of nuclear stability or the breakdown of atomic electron shells?",
-          "source": "Gemini 7. Gemini revised (v2): poles reordered with the Island of Stability as the explicit middle (the viable window between the two failure limits), matching the gauge semantics; widget canonicalized to the gap flag."
+          "source": "Gemini 7. Gemini revised (v2): poles reordered with the Island of Stability as the explicit middle (the viable window between the two failure limits), matching the gauge semantics; widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         }
       ]
     },
@@ -538,7 +646,24 @@
             ]
           },
           "question": "Are curved-arrow reaction mechanisms literal depictions of molecular events or merely a syntactic grammar for predicting products?",
-          "source": "Gemini 8. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend."
+          "source": "Gemini 8. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         },
         {
           "id": "xch0011",
@@ -586,7 +711,19 @@
             ]
           },
           "question": "Does theory lead the bench, or the bench lead theory?",
-          "source": "Merged — Gemini 9 (tetrad) + YoBiche 3.1 (triad). Gemini's tetrad is richer; YoBiche's Symbiotic third pole is preserved as the Synergistic Loop, and Gemini adds Self-Driving Labs as a fourth pole. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-sliders\"."
+          "source": "Merged — Gemini 9 (tetrad) + YoBiche 3.1 (triad). Gemini's tetrad is richer; YoBiche's Symbiotic third pole is preserved as the Synergistic Loop, and Gemini adds Self-Driving Labs as a fourth pole. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-sliders\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0012",
@@ -626,7 +763,24 @@
             ]
           },
           "question": "Which form of evidence provides the gold standard of proof for a molecule's identity and structure?",
-          "source": "Gemini 10. Gemini revised (v2): widget canonicalized to \"triangle\"."
+          "source": "Gemini 10. Gemini revised (v2): widget canonicalized to \"triangle\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         },
         {
           "id": "xch0013",
@@ -666,7 +820,19 @@
             ]
           },
           "question": "Is \"chemical intuition\" a vital form of tacit expertise or a romanticized form of cognitive bias that data science should replace?",
-          "source": "Gemini 11. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Explainable Cheminformatics as the explicit middle pole."
+          "source": "Gemini 11. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Explainable Cheminformatics as the explicit middle pole.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0014",
@@ -698,7 +864,19 @@
             ]
           },
           "question": "Do discoveries come from accidents or from plans?",
-          "source": "YoBiche 3.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "YoBiche 3.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         }
       ]
     },
@@ -753,7 +931,19 @@
             ]
           },
           "question": "Is chemistry an autonomous creative powerhouse, the central hub of all sciences, or increasingly a service provider to neighboring fields?",
-          "source": "Merged — Gemini 12 (tetrad) + YoBiche 2.2 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Central vs Service) is subsumed into its first and third poles. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes."
+          "source": "Merged — Gemini 12 (tetrad) + YoBiche 2.2 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Central vs Service) is subsumed into its first and third poles. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0016",
@@ -809,7 +999,19 @@
             ]
           },
           "question": "Which branch is home?",
-          "source": "Merged — Gemini 13 (pentad) + YoBiche 2.1 (pentad). The same five branches; Gemini's culture descriptions kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to \"star-radar\"."
+          "source": "Merged — Gemini 13 (pentad) + YoBiche 2.1 (pentad). The same five branches; Gemini's culture descriptions kept, YoBiche's plain framing kept in the question. Gemini revised (v2): widget canonicalized to \"star-radar\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0017",
@@ -857,7 +1059,24 @@
             ]
           },
           "question": "Does multi-step natural product total synthesis remain the pinnacle of chemical achievement, or is it an inefficient relic of 20th-century hero-worship?",
-          "source": "Gemini 14. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-sliders\"."
+          "source": "Gemini 14. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-sliders\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         },
         {
           "id": "xch0018",
@@ -889,7 +1108,19 @@
             ]
           },
           "question": "What counts as a \"good\" chemical reaction — one that unlocks a novel bond disconnection on a milligram scale, or one that is robust, safe, and scalable?",
-          "source": "Gemini 15. Gemini revised (v2): widget canonicalized to the gap flag."
+          "source": "Gemini 15. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0019",
@@ -921,7 +1152,19 @@
             ]
           },
           "question": "Do you do chemistry to understand, or to make?",
-          "source": "YoBiche 2.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "YoBiche 2.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         }
       ]
     },
@@ -976,7 +1219,19 @@
             ]
           },
           "question": "Should environmental sustainability constrain fundamental reaction discovery from day one, or be addressed downstream during industrial optimization?",
-          "source": "Merged — Gemini 16 (tetrad) + YoBiche 4.1 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Synthetic vs Green) is subsumed — her Synthetic is Gemini's Pragmatic Sustainability and Unfettered Inquiry poles, her Green is Gemini's Strict Green-By-Design. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes."
+          "source": "Merged — Gemini 16 (tetrad) + YoBiche 4.1 (dipole). Gemini's tetrad is richer; YoBiche's dipole (Synthetic vs Green) is subsumed — her Synthetic is Gemini's Pragmatic Sustainability and Unfettered Inquiry poles, her Green is Gemini's Strict Green-By-Design. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0021",
@@ -1016,7 +1271,19 @@
             ]
           },
           "question": "Where is the healthy boundary between institutional safety compliance, competence-based mentorship, and frontier hazard tolerance?",
-          "source": "Merged — Gemini 17 (triad) + YoBiche 4.2 (dipole). Gemini's triad is richer; YoBiche's dipole (Safety vs Discovery) is subsumed — her Safety is Gemini's Zero-Harm, her Discovery is Gemini's Frontier Risk, and Gemini adds Competence-Based as the third pole. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Competence-Based as the explicit middle pole. This answers the flag v1 left open — if Jason reads it as a LINE, flip it; her revision flips it."
+          "source": "Merged — Gemini 17 (triad) + YoBiche 4.2 (dipole). Gemini's triad is richer; YoBiche's dipole (Safety vs Discovery) is subsumed — her Safety is Gemini's Zero-Harm, her Discovery is Gemini's Frontier Risk, and Gemini adds Competence-Based as the third pole. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Competence-Based as the explicit middle pole. This answers the flag v1 left open — if Jason reads it as a LINE, flip it; her revision flips it.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0022",
@@ -1056,7 +1323,19 @@
             ]
           },
           "question": "How does the public see chemistry?",
-          "source": "YoBiche 4.3. (Distinct from 5.4: this topic is how the public SEES chemistry; 5.4 is what chemists should DO about it.) Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "YoBiche 4.3. (Distinct from 5.4: this topic is how the public SEES chemistry; 5.4 is what chemists should DO about it.) Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0023",
@@ -1096,7 +1375,19 @@
             ]
           },
           "question": "How should the chemical community respond to widespread public \"chemophobia\" and the legacy of environmental contamination?",
-          "source": "Gemini 18. Gemini revised (v2): widget canonicalized to \"triangle\"."
+          "source": "Gemini 18. Gemini revised (v2): widget canonicalized to \"triangle\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0024",
@@ -1128,7 +1419,19 @@
             ]
           },
           "question": "Should chemical synthesis data and AI-driven molecular generators be restricted to prevent dual-use weapons proliferation, or kept open for scientific progress?",
-          "source": "Gemini 19. Gemini revised (v2): widget canonicalized to the gap flag."
+          "source": "Gemini 19. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         }
       ]
     },
@@ -1167,7 +1470,19 @@
             ]
           },
           "question": "Is the chemical universe better understood through the lens of ultimate thermodynamic stability or the transient pathways of kinetic trapping?",
-          "source": "Gemini 20. Gemini revised (v2): widget canonicalized to the gap flag."
+          "source": "Gemini 20. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0026",
@@ -1202,7 +1517,24 @@
             ]
           },
           "question": "In your preferred reaction design and mechanistic intuition, do you gravitate toward electron-rich donor chemistry, electron-deficient acceptor activation, amphoteric/ambiphilic \"switch\" reagents, or inert/non-coordinating regimes?",
-          "source": "Gemini revised (new topic — the donor/acceptor dyad; the \"xy-switchbox\" donor/acceptor mapping is RULED fine by Jason, 2026-11-15: the switchbox covers donor/acceptor role pairs, not just give/receive)."
+          "source": "Gemini revised (new topic — the donor/acceptor dyad; the \"xy-switchbox\" donor/acceptor mapping is RULED fine by Jason, 2026-11-15: the switchbox covers donor/acceptor role pairs, not just give/receive).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         },
         {
           "id": "xch0027",
@@ -1242,7 +1574,19 @@
             ]
           },
           "question": "Can complex chemical emergence and the origins of life be understood by studying purified reactions in isolation, or only through messy, coupled reaction networks?",
-          "source": "Gemini 21. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Systems Chemistry as the explicit middle pole."
+          "source": "Gemini 21. Gemini revised (v2): re-tagged TRIANGLE → LINE; poles reordered with Systems Chemistry as the explicit middle pole.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0028",
@@ -1282,7 +1626,24 @@
             ]
           },
           "question": "Which catalytic paradigm holds the greatest promise for the future of sustainable chemical manufacturing and molecular control?",
-          "source": "Gemini 22. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend."
+          "source": "Gemini 22. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         },
         {
           "id": "xch0029",
@@ -1314,7 +1675,24 @@
             ]
           },
           "question": "Does the frontier of molecular design lie in forging stronger, more complex covalent frameworks or choreographing reversible non-covalent assemblies?",
-          "source": "Gemini 23. Gemini revised (v2): widget canonicalized to the gap flag."
+          "source": "Gemini 23. Gemini revised (v2): widget canonicalized to the gap flag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         }
       ]
     },
@@ -1361,7 +1739,24 @@
             ]
           },
           "question": "Should chemists prioritize strict IUPAC systematic nomenclature, intuitive historical names, or machine-readable graph identifiers?",
-          "source": "Gemini 24. Gemini revised (v2): widget canonicalized to \"triangle\"."
+          "source": "Gemini 24. Gemini revised (v2): widget canonicalized to \"triangle\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         },
         {
           "id": "xch0031",
@@ -1409,7 +1804,19 @@
             ]
           },
           "question": "What is the most effective pedagogical sequence for introducing students to the molecular world without overwhelming them?",
-          "source": "Gemini 25. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes."
+          "source": "Gemini 25. Gemini revised (v2): widget corrected from \"diamond\" to \"quad-compass\" — the tetrad is genuinely two crossed axes.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0032",
@@ -1449,7 +1856,19 @@
             ]
           },
           "question": "Does modern chemical publishing reward superficial substrate-scope proliferation at the expense of deep mechanistic understanding and reproducibility?",
-          "source": "Gemini 26. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend."
+          "source": "Gemini 26. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the triad is multi-affinity, not a closed blend.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0033",
@@ -1489,7 +1908,19 @@
             ]
           },
           "question": "Do you value teaching, research, or both equally?",
-          "source": "YoBiche 6.1. Gemini revised (v2): dropped this topic; v2 restores it with its LINE tag — a remap must not silently delete taxonomy."
+          "source": "YoBiche 6.1. Gemini revised (v2): dropped this topic; v2 restores it with its LINE tag — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0034",
@@ -1521,7 +1952,19 @@
             ]
           },
           "question": "Do you work alone or together?",
-          "source": "YoBiche 6.2. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "YoBiche 6.2. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0035",
@@ -1553,7 +1996,19 @@
             ]
           },
           "question": "Do you publish openly, or patent and protect?",
-          "source": "YoBiche 6.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "YoBiche 6.3. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0036",
@@ -1585,7 +2040,19 @@
             ]
           },
           "question": "Do you work with your hands, or let machines do it?",
-          "source": "YoBiche 6.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "YoBiche 6.4. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         }
       ]
     },
@@ -1640,7 +2107,19 @@
             ]
           },
           "question": "Which chemical energy paradigm will prove most transformative in decarbonizing global industry and energy infrastructure?",
-          "source": "Gemini 27. Gemini revised (v2): widget canonicalized to \"diamond\"."
+          "source": "Gemini 27. Gemini revised (v2): widget canonicalized to \"diamond\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0038",
@@ -1680,7 +2159,19 @@
             ]
           },
           "question": "Are reticular crystalline frameworks (MOFs/COFs) the future of tailored materials, or do scalable polymers and adaptive soft matter hold the real-world edge?",
-          "source": "Gemini 28. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the three material classes are independent affinities, not a zero-sum blend. The TRIANGLE tag is kept (three independent corners); the correction is to the widget, not the tag."
+          "source": "Gemini 28. Gemini revised (v2): widget corrected from \"triangle\" to \"trilinear-sliders\" — the three material classes are independent affinities, not a zero-sum blend. The TRIANGLE tag is kept (three independent corners); the correction is to the widget, not the tag.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         },
         {
           "id": "xch0039",
@@ -1728,7 +2219,24 @@
             ]
           },
           "question": "Which strategic paradigm is most effective for navigating astronomical chemical space to discover transformative medicines?",
-          "source": "Gemini 29. Gemini revised (v2): widget canonicalized to \"diamond\"."
+          "source": "Gemini 29. Gemini revised (v2): widget canonicalized to \"diamond\".",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/OrganicChemistry",
+              "url": "https://www.reddit.com/r/OrganicChemistry/"
+            }
+          ]
         },
         {
           "id": "xch0040",
@@ -1760,7 +2268,19 @@
             ]
           },
           "question": "Is the chemical toolkit of life assembled abundantly in interstellar space, or does it require rare, specialized planetary geochemistry?",
-          "source": "Gemini 30. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy."
+          "source": "Gemini 30. Gemini revised (v2): dropped this topic; v2 restores it — a remap must not silently delete taxonomy.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Chemistry Stack Exchange",
+              "url": "https://chemistry.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/chemistry",
+              "url": "https://www.reddit.com/r/chemistry/"
+            }
+          ]
         }
       ]
     }

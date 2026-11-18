@@ -38,7 +38,24 @@
               "question": "Is God one being in three persons, and what does that mean for how we know God?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0001)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -70,7 +87,24 @@
               "question": "Does the Holy Spirit proceed from the Father alone, or from the Father and the Son?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0002)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -95,7 +129,24 @@
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0058)",
               "type": "single",
-              "widget": "monopole-slider"
+              "widget": "monopole-slider",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -135,7 +186,24 @@
               "question": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0077)",
-              "widget": "trilinear-line"
+              "widget": "trilinear-line",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             }
           ]
         },
@@ -181,7 +249,24 @@
               "question": "Who is Jesus Christ — truly God, truly man, or both — and how do the two natures relate?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0003)",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -213,7 +298,19 @@
               "question": "Was Jesus conceived by the Holy Spirit and born of the Virgin Mary?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0004)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -245,7 +342,19 @@
               "question": "Did Christ truly rise bodily from the dead, and what does his resurrection mean for ours?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0005)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             }
           ]
         },
@@ -283,7 +392,24 @@
               "question": "How did God make the world — in six days, over ages, or is the manner not defined?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0006)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -308,7 +434,34 @@
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0007)",
               "type": "single",
-              "widget": "monopole-slider"
+              "widget": "monopole-slider",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -348,7 +501,24 @@
               "question": "What happened to human nature in the Fall — is Adam's guilt inherited, or only its effects?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0008)",
-              "widget": "trilinear-line"
+              "widget": "trilinear-line",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             }
           ]
         },
@@ -394,7 +564,34 @@
               "question": "Has the Messiah come, or is he still to come — and who is he?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0060)",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": "simplex",
@@ -434,7 +631,34 @@
               "question": "What is God's covenant — with Israel, with all who believe, or with humanity?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0061)",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -474,7 +698,24 @@
               "question": "Is circumcision a required sign of the covenant?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0072)",
-              "widget": "trilinear-line"
+              "widget": "trilinear-line",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -506,7 +747,24 @@
               "question": "Is divine covenantal election restricted to an ethnic/ancestral lineage, or open universally to all humanity?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0081)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -538,7 +796,34 @@
               "question": "Have later divine covenants replaced, abrogated, or fulfilled prior covenants made with earlier communities?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0082)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -570,7 +855,19 @@
               "question": "Does the physical territory of the Holy Land / Jerusalem possess an enduring, unique divine holiness and covenantal status?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0085)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             }
           ]
         },
@@ -616,7 +913,49 @@
               "question": "Which Abrahamic faith carries the true covenant — Judaism, Christianity, or Islam?",
               "risk": false,
               "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.1.1",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                }
+              ]
             },
             {
               "archetype": "simplex",
@@ -680,7 +1019,24 @@
               "question": "What are the six articles of Islamic faith?",
               "risk": false,
               "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.3.1",
-              "widget": "hexad-radar"
+              "widget": "hexad-radar",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": "simplex",
@@ -752,7 +1108,24 @@
               "question": "Which of the seven archangels and planetary spheres governs your spiritual life?",
               "risk": false,
               "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.4.1",
-              "widget": "heptad-radar"
+              "widget": "heptad-radar",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "approx": "regular octagon deformation polygon rendered as octad-radar; real octagon-deformation renderer is follow-up work",
@@ -833,7 +1206,39 @@
               "question": "Which covenantal manifestation of Abraham anchors your faith?",
               "risk": false,
               "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.5.1",
-              "widget": "octad-radar"
+              "widget": "octad-radar",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                }
+              ]
             }
           ]
         }
@@ -877,7 +1282,24 @@
               "question": "Is Scripture alone the rule of faith, or Scripture together with Tradition?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0009)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": "simplex",
@@ -917,7 +1339,24 @@
               "question": "Which books count as Scripture — the Tanakh, the Christian Bible, or the Qur'an?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0010)",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -949,7 +1388,24 @@
               "question": "Is Scripture without error in everything it affirms, or only in what God intended to teach for salvation?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0011)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -981,7 +1437,34 @@
               "question": "Who interprets Scripture rightly — the Church's Magisterium, the Church as a whole, or Scripture itself?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0012)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Biblical Hermeneutics Stack Exchange",
+                  "url": "https://hermeneutics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/AcademicBiblical",
+                  "url": "https://www.reddit.com/r/AcademicBiblical/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1013,7 +1496,24 @@
               "question": "Is Tradition a second, co-equal source of revelation alongside Scripture, or only a subordinate witness?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0013)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/theology",
+                  "url": "https://www.reddit.com/r/theology/"
+                }
+              ]
             },
             {
               "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
@@ -1062,7 +1562,34 @@
               "question": "How should scripture be read?",
               "risk": false,
               "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.2.1",
-              "widget": "diamond"
+              "widget": "diamond",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Biblical Hermeneutics Stack Exchange",
+                  "url": "https://hermeneutics.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/AcademicBiblical",
+                  "url": "https://www.reddit.com/r/AcademicBiblical/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/AskBibleScholars",
+                  "url": "https://www.reddit.com/r/AskBibleScholars/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             }
           ]
         },
@@ -1108,7 +1635,24 @@
               "question": "What is the Torah — God's revealed law, given at Sinai, written and oral?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0062)",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1140,7 +1684,24 @@
               "question": "What is the Qur'an — God's literal word, revealed to Muhammad?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0063)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1180,7 +1741,19 @@
               "question": "Is halakha — Jewish law from Torah and rabbinic tradition — binding?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0065)",
-              "widget": "trilinear-line"
+              "widget": "trilinear-line",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1205,7 +1778,19 @@
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0066)",
               "type": "single",
-              "widget": "monopole-slider"
+              "widget": "monopole-slider",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                }
+              ]
             }
           ]
         },
@@ -1243,7 +1828,19 @@
               "question": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0014)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1283,7 +1880,19 @@
               "question": "Which councils are authoritative — all twenty-one, only the seven, or none as a rule over Scripture?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0015)",
-              "widget": "trilinear-line"
+              "widget": "trilinear-line",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1315,7 +1924,19 @@
               "question": "Must bishops stand in unbroken succession from the apostles, or is succession doctrinal fidelity?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0016)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1355,7 +1976,19 @@
               "question": "Who may be ordained, in what orders, and must priests be celibate?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0017)",
-              "widget": "trilinear-line"
+              "widget": "trilinear-line",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1387,7 +2020,19 @@
               "question": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0074)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                }
+              ]
             }
           ]
         },
@@ -1433,7 +2078,24 @@
               "question": "Has prophecy ended, and is there a final prophet after Jesus?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0064)",
-              "widget": "triangle"
+              "widget": "triangle",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -1465,7 +2127,19 @@
               "question": "Are divine prophets protected by God from committing major sins, errors, or moral failure (Ismah)?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0078)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                }
+              ]
             }
           ]
         }
@@ -1505,7 +2179,19 @@
           "question": "What is the religious community — one visible communion, or the people of God wherever they gather?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0025)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -1545,7 +2231,19 @@
           "question": "Who governs the Church — bishops, presbyteries of elders, or the congregation itself?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0026)",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1585,7 +2283,19 @@
           "question": "How should members relate to practitioners of other Abrahamic faiths?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0076)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1617,7 +2327,19 @@
           "question": "May women be ordained to the priesthood and pastorate, or is ordination reserved to men?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0027)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1642,7 +2364,19 @@
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0028)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1682,7 +2416,19 @@
           "question": "What happens to one who leaves the faith — are they still a member?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0073)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -1722,7 +2468,19 @@
           "question": "How does one join the community, and is identity matrilineal, by faith, or by confession?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0075)",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1754,7 +2512,19 @@
           "question": "Should religious leadership be chosen by communal consultation or by divine designation?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0079)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         }
       ]
     },
@@ -1792,7 +2562,24 @@
           "question": "Are we justified by faith alone, or by faith and works together in grace?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0018)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1832,7 +2619,24 @@
           "question": "Does grace compel, enable, or cooperate with the human will — and can it be resisted?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0019)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1872,7 +2676,24 @@
           "question": "Does God elect unconditionally, elect to salvation only, or elect on the basis of foreseen faith?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0020)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -1912,7 +2733,24 @@
           "question": "How does Christ's death save — by satisfying divine justice, by ransom and victory, or both?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0021)",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1944,7 +2782,24 @@
           "question": "Can salvation be lost once received, or do true believers persevere to the end?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0022)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1976,7 +2831,24 @@
           "question": "How is a person forgiven — by repentance, prayer, and good deeds?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0069)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2008,7 +2880,24 @@
           "question": "Is there a purification after death for those who die in God's grace but imperfectly purified?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0023)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2048,7 +2937,24 @@
           "question": "Should Mary and the saints be venerated and asked for intercession, or is Christ alone the mediator?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0024)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2088,7 +2994,24 @@
           "question": "How is a person made right with God?",
           "risk": false,
           "source": "BRIEFING_FORESCAPADES_TAXONOMY.md §3.1.2",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         }
       ]
     },
@@ -2126,7 +3049,19 @@
           "question": "How many sacraments did Christ institute — seven, or two?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0029)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2166,7 +3101,19 @@
           "question": "Who should be baptized, how, and what does Baptism do — regenerate, seal, or symbolize?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0030)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2206,7 +3153,19 @@
           "question": "Is Christ truly present in the bread and wine, spiritually present to faith, or is the meal a memorial only?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0031)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2238,7 +3197,19 @@
           "question": "Must sins be confessed to a priest who absolves, or is confession made to God directly?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0032)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2263,7 +3234,19 @@
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0059)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2295,7 +3278,29 @@
           "question": "Should worship follow a set liturgy, or be free and extemporaneous?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0046)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2335,7 +3340,19 @@
           "question": "May images of Christ and the saints be set up and venerated in worship?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0047)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2367,7 +3384,29 @@
           "question": "What music belongs in worship — chant, hymns, or contemporary song?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0048)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2399,7 +3438,19 @@
           "question": "Must daily communication with God follow standardized, obligatory daily prayer liturgies?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0049)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2431,7 +3482,19 @@
           "question": "Have the miraculous gifts of the Spirit ceased, or do they continue today?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0050)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2456,7 +3519,19 @@
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0051)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2488,7 +3563,49 @@
           "question": "Are there prescribed communal fasts, or is fasting a voluntary private discipline?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0052)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Islam Stack Exchange",
+              "url": "https://islam.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/islam",
+              "url": "https://www.reddit.com/r/islam/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Mi Yodeya (Judaism Stack Exchange)",
+              "url": "https://judaism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Judaism",
+              "url": "https://www.reddit.com/r/Judaism/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -2528,7 +3645,49 @@
           "question": "Which day is holy — Shabbat, Sunday, or Friday?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0068)",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Islam Stack Exchange",
+              "url": "https://islam.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/islam",
+              "url": "https://www.reddit.com/r/islam/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Mi Yodeya (Judaism Stack Exchange)",
+              "url": "https://judaism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Judaism",
+              "url": "https://www.reddit.com/r/Judaism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -2560,7 +3719,49 @@
           "question": "Is physical journeying to a specific geographical holy sanctuary mandatory for every able believer?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0084)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Islam Stack Exchange",
+              "url": "https://islam.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/islam",
+              "url": "https://www.reddit.com/r/islam/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Mi Yodeya (Judaism Stack Exchange)",
+              "url": "https://judaism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Judaism",
+              "url": "https://www.reddit.com/r/Judaism/"
+            }
+          ]
         }
       ]
     },
@@ -2602,7 +3803,19 @@
               "question": "What is marriage — a covenant of one man and one woman, or of two people?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0033)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2634,7 +3847,19 @@
               "question": "May a marriage be dissolved, and may a divorced person remarry?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0034)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2666,7 +3891,19 @@
               "question": "Is artificial contraception permitted within marriage, or must every marital act remain open to life?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0035)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2698,7 +3935,19 @@
               "question": "May a man have more than one wife?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0067)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2730,7 +3979,19 @@
               "question": "Is sexual expression reserved to marriage between a man and a woman, or can same-sex relationships be affirmed?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0037)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             }
           ]
         },
@@ -2768,7 +4029,19 @@
               "question": "Is abortion ever permitted, and if so, in what circumstances?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0036)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2793,7 +4066,19 @@
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0038)",
               "type": "single",
-              "widget": "monopole-slider"
+              "widget": "monopole-slider",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2825,7 +4110,19 @@
               "question": "May the state put a person to death as punishment?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0039)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2857,7 +4154,19 @@
               "question": "May Christians bear arms and wage war in a just cause, or is war always evil?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0040)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             }
           ]
         },
@@ -2895,7 +4204,19 @@
               "question": "Must Christians give a tenth of their income, or give proportionately as they are able?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0043)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2927,7 +4248,19 @@
               "question": "Is gambling morally acceptable in moderation, or opposed as destructive stewardship?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0044)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -2959,7 +4292,24 @@
               "question": "Is the charging or paying of financial interest on loans strictly prohibited as usury, or ethically permitted?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0083)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             }
           ]
         },
@@ -2997,7 +4347,29 @@
               "question": "Is drinking alcohol forbidden, or is moderation the rule?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0041)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -3029,7 +4401,39 @@
               "question": "How strictly must Sunday be kept — a day of worship and rest, or a day of worship only?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0042)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Christianity",
+                  "url": "https://www.reddit.com/r/Christianity/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -3054,7 +4458,19 @@
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0045)",
               "type": "single",
-              "widget": "monopole-slider"
+              "widget": "monopole-slider",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -3094,7 +4510,19 @@
               "question": "How should one dress modestly — and is covering the head required?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0070)",
-              "widget": "trilinear-line"
+              "widget": "trilinear-line",
+              "communities": [
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/DebateReligion",
+                  "url": "https://www.reddit.com/r/DebateReligion/"
+                }
+              ]
             },
             {
               "archetype": null,
@@ -3126,7 +4554,34 @@
               "question": "What may be eaten — are kosher and halal dietary laws binding?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0071)",
-              "widget": "linear-sliders"
+              "widget": "linear-sliders",
+              "communities": [
+                {
+                  "network": "Stack Exchange",
+                  "name": "Mi Yodeya (Judaism Stack Exchange)",
+                  "url": "https://judaism.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/Judaism",
+                  "url": "https://www.reddit.com/r/Judaism/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Islam Stack Exchange",
+                  "url": "https://islam.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/islam",
+                  "url": "https://www.reddit.com/r/islam/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
+                }
+              ]
             }
           ]
         }
@@ -3166,7 +4621,24 @@
           "question": "Will Christ return openly in glory to judge the living and the dead?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0053)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3198,7 +4670,24 @@
           "question": "Is there a literal thousand-year earthly reign of Christ before the Last Judgment?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0054)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -3238,7 +4727,24 @@
           "question": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0080)",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Islam Stack Exchange",
+              "url": "https://islam.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/islam",
+              "url": "https://www.reddit.com/r/islam/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3270,7 +4776,24 @@
           "question": "Is hell an eternal state of separation from God, freely chosen by persisting in sin?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0055)",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3295,7 +4818,24 @@
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0056)",
           "type": "single",
-          "widget": "monopole-slider"
+          "widget": "monopole-slider",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -3335,7 +4875,24 @@
           "question": "What happens to the soul between death and the resurrection — purification, a foretaste, or heaven and hell at once?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0057)",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/religion",
+              "url": "https://www.reddit.com/r/religion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/DebateReligion",
+              "url": "https://www.reddit.com/r/DebateReligion/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/theology",
+              "url": "https://www.reddit.com/r/theology/"
+            }
+          ]
         }
       ]
     }
