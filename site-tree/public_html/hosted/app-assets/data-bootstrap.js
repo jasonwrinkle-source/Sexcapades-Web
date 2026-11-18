@@ -6208,7 +6208,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference octagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -6264,7 +6264,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference heptagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -6320,7 +6320,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference hexagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -6376,7 +6376,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference pentagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -6446,7 +6446,7 @@ const TAXONOMY_CATEGORIES = [
                     const maxR = Math.max(r0, r1, r2, r3);
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
-                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Outer Reference Frame (Diamond Outline)
                     D += `<polygon points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
                     // Orthogonal Crosshairs
@@ -6506,7 +6506,7 @@ const TAXONOMY_CATEGORIES = [
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
                     const gradId = `tri-grad-${A}`;
 
-                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${(4 * triH / 3).toFixed(1)}" data-tag-height="${(4 * triH / 3).toFixed(1)}">`;
                     D += `<defs><linearGradient id="${gradId}" x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${V1.x.toFixed(1)}" y2="${V1.y.toFixed(1)}" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/><stop offset="50%" stop-color="#ef4444" stop-opacity="0.35"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/></linearGradient></defs>`;
                     D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="url(#${gradId})" stroke="rgba(255,255,255,0.45)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
                     D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
@@ -20596,7 +20596,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference octagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -20652,7 +20652,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference heptagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -20708,7 +20708,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference hexagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -20764,7 +20764,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference pentagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -20834,7 +20834,7 @@ const TAXONOMY_CATEGORIES = [
                     const maxR = Math.max(r0, r1, r2, r3);
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
-                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Outer Reference Frame (Diamond Outline)
                     D += `<polygon points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
                     // Orthogonal Crosshairs
@@ -20894,7 +20894,7 @@ const TAXONOMY_CATEGORIES = [
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
                     const gradId = `tri-grad-${A}`;
 
-                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${(4 * triH / 3).toFixed(1)}" data-tag-height="${(4 * triH / 3).toFixed(1)}">`;
                     D += `<defs><linearGradient id="${gradId}" x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${V1.x.toFixed(1)}" y2="${V1.y.toFixed(1)}" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/><stop offset="50%" stop-color="#ef4444" stop-opacity="0.35"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/></linearGradient></defs>`;
                     D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="url(#${gradId})" stroke="rgba(255,255,255,0.45)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
                     D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
@@ -26606,26 +26606,33 @@ const TAXONOMY_CATEGORIES = [
                         let I = sxIsReversed ? g - S + C : S + C, P = (sxIsReversed ? m(g - S + C / 2) : m(S + C / 2)).point;
                         l.dataset.labelX = P.x.toFixed(2), l.dataset.labelY = P.y.toFixed(2);
                         const L = !k && !l.classList.contains("imported-child"), T = l.classList.contains("imported-child"), F = l.classList.contains("subcategory-node"), scFrozenNode = Boolean(scCtx && qn[l.dataset.layoutKey] && scCtx.frozenBranches.has(qn[l.dataset.layoutKey].branch)), N = L || T ? sxSixSpace : n, _ = Number.parseFloat(l.dataset.iconDistanceOverride), D = F ? g : Number.isFinite(_) ? _ : I + N + A, R = e => {
+                            // N-POLE WIDGETS (2026-11-18): the widget is tangent to the icon, so when the settle moves the icon outward the widget must follow by the same delta to stay tangent. The delta is the current icon centre minus the design icon centre (zero on the first call, e === D).
+                            const sxSettleDx = m(e).point.x - m(D).point.x, sxSettleDy = m(e).point.y - m(D).point.y;
                             const n = m(e).point, i = E ? e + A + (L ? 6 : t) : I, a = w.map(e => {
                                 const t = Number(e.dataset.controlScale) || 1, n = Number(e.dataset.tagWidth) || 48, i = Number(e.dataset.tagHeight) || 20, a = Boolean(Nt && Nt.id === l.dataset.layoutKey && Nt.direction === e.dataset.direction);
+                                // N-POLE WIDGETS (2026-11-18): the on-map n-pole shapes (triangle, tetrad, pentad, hexad, heptad, octad, compass) are drawn by Ka in absolute map coordinates, already tangent to the icon — they are NOT rating tags, so the active-control 320x40 blow-up does not apply; their tagWidth/tagHeight (emitted by Ka) is their true bounding extent, used only for the collision obstacle.
+                                const sxNpole = ["triangle", "tetrad", "pentad", "hexad", "heptad", "octad", "compass", "quad-compass"].includes(e.dataset.direction);
                                 return {
                                     control: e,
                                     scale: t,
                                     tagWidth: n,
                                     tagHeight: i,
-                                    width: a ? 320 * t : n,
-                                    height: a ? 40 * t : i
+                                    width: a && !sxNpole ? 320 * t : n,
+                                    height: a && !sxNpole ? 40 * t : i
                                 };
                             }), r = a.length ? Math.max(...a.map(e => e.width)) : 0, s = i + r / 2, c = m(s), d = c.x < 0, u = d ? -c.x : c.x, p = d ? -c.y : c.y, h = 180 * Math.atan2(p, u) / Math.PI, g = -p, f = u, y = a.length > 1 ? Math.max(...a.map(e => e.height / 2)) + 4 : 0, b = a.map(e => {
                                 const t = Number(e.control.dataset.baseCx), n = Number(e.control.dataset.baseCy), i = Number(e.control.dataset.baseAngle) || 0, r = e.control.classList.contains("group-match-control") || 1 === a.length ? 0 : y, s = 0 === Number(e.control.dataset.index) ? 1 : -1 /* POLE-INDEX SIDE (2026-11-17): first pole above the midline, the rest below — was a literal "give" name test, so vanilla pole keys all landed on the same side */, l = c.point.x + g * r * s, d = c.point.y + f * r * s;
+                                // N-POLE WIDGETS (2026-11-18): Ka already placed the shape tangent to the icon in absolute coordinates; the settle must NOT re-seat it at the tag station (which used the 48-unit default width and put the centroid ~1500 units inside the icon) nor rotate it by the path angle (it is already correctly oriented). Keep the Ka centre and orientation, shifted by the icon's settle delta (sxSettleDx/sxSettleDy) so the widget follows the icon and stays tangent when the icon settles outward; the shape stays as the collision obstacle at that position.
+                                const sxNpole = ["triangle", "tetrad", "pentad", "hexad", "heptad", "octad", "compass", "quad-compass"].includes(e.control.dataset.direction);
+                                const sxPx = sxNpole ? t + sxSettleDx : l, sxPy = sxNpole ? n + sxSettleDy : d, sxRot = sxNpole ? 0 : h - i;
                                 return {
                                     ...e,
                                     baseCx: t,
                                     baseCy: n,
-                                    px: l,
-                                    py: d,
-                                    rotation: h - i,
-                                    shape: o(l, d, e.width, e.height, h)
+                                    px: sxPx,
+                                    py: sxPy,
+                                    rotation: sxRot,
+                                    shape: o(sxPx, sxPy, e.width, e.height, h)
                                 };
                             }), v = [];
                             return $ && E && v.push(o(n.x, n.y, E, E)), b.forEach(e => v.push(e.shape)), {
@@ -28519,6 +28526,11 @@ const TAXONOMY_CATEGORIES = [
             p1: 0,
             p2: 0,
             p3: 0,
+            // Shape = pole values as ratios to the max (max = 1). Saved
+            // whenever the values are non-zero, so the intensity slider can
+            // restore the same shape after being taken to 0 (where the
+            // values themselves are all 0 and the shape would be lost).
+            shape: null,
             activeVertex: null,
             isDragging: !1,
             dragFromZero: !1,
@@ -29115,6 +29127,13 @@ const TAXONOMY_CATEGORIES = [
                         sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.p1 * ratio)));
                         sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.p2 * ratio)));
                         sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.p3 * ratio)));
+                    } else if (sxTetradState.shape) {
+                        // Raising from 0: restore the saved shape instead of
+                        // setting every pole equal (which would lose it).
+                        sxTetradState.p0 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[0] * val)));
+                        sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[1] * val)));
+                        sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[2] * val)));
+                        sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[3] * val)));
                     } else {
                         sxTetradState.p0 = val; sxTetradState.p1 = val; sxTetradState.p2 = val; sxTetradState.p3 = val;
                     }
@@ -29139,6 +29158,10 @@ const TAXONOMY_CATEGORIES = [
         let sxPentadState = {
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
+            // Shape = pole values as ratios to the max (max = 1). Saved
+            // whenever the values are non-zero, so the intensity slider can
+            // restore the same shape after being taken to 0.
+            shape: null,
             activeVertex: null,
             isDragging: !1,
             dragFromZero: !1,
@@ -29388,6 +29411,12 @@ const TAXONOMY_CATEGORIES = [
                         for (let k = 0; k < 5; k++) {
                             sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState[`p${k}`] * ratio)));
                         }
+                    } else if (sxPentadState.shape) {
+                        // Raising from 0: restore the saved shape instead of
+                        // setting every pole equal (which would lose it).
+                        for (let k = 0; k < 5; k++) {
+                            sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState.shape[k] * val)));
+                        }
                     } else {
                         for (let k = 0; k < 5; k++) {
                             sxPentadState[`p${k}`] = val;
@@ -29413,6 +29442,10 @@ const TAXONOMY_CATEGORIES = [
         let sxHexadState = {
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
+            // Shape = pole values as ratios to the max (max = 1). Saved
+            // whenever the values are non-zero, so the intensity slider can
+            // restore the same shape after being taken to 0.
+            shape: null,
             activeVertex: null,
             isDragging: !1,
             dragFromZero: !1,
@@ -29665,6 +29698,12 @@ const TAXONOMY_CATEGORIES = [
                         for (let k = 0; k < 6; k++) {
                             sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState[`p${k}`] * ratio)));
                         }
+                    } else if (sxHexadState.shape) {
+                        // Raising from 0: restore the saved shape instead of
+                        // setting every pole equal (which would lose it).
+                        for (let k = 0; k < 6; k++) {
+                            sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState.shape[k] * val)));
+                        }
                     } else {
                         for (let k = 0; k < 6; k++) {
                             sxHexadState[`p${k}`] = val;
@@ -29690,6 +29729,10 @@ const TAXONOMY_CATEGORIES = [
         let sxHeptadState = {
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
+            // Shape = pole values as ratios to the max (max = 1). Saved
+            // whenever the values are non-zero, so the intensity slider can
+            // restore the same shape after being taken to 0.
+            shape: null,
             activeVertex: null,
             isDragging: !1,
             dragFromZero: !1,
@@ -29945,6 +29988,12 @@ const TAXONOMY_CATEGORIES = [
                         for (let k = 0; k < 7; k++) {
                             sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState[`p${k}`] * ratio)));
                         }
+                    } else if (sxHeptadState.shape) {
+                        // Raising from 0: restore the saved shape instead of
+                        // setting every pole equal (which would lose it).
+                        for (let k = 0; k < 7; k++) {
+                            sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState.shape[k] * val)));
+                        }
                     } else {
                         for (let k = 0; k < 7; k++) {
                             sxHeptadState[`p${k}`] = val;
@@ -29973,6 +30022,10 @@ const TAXONOMY_CATEGORIES = [
         let sxOctadState = {
             topicId: null,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
+            // Shape = pole values as ratios to the max (max = 1). Saved
+            // whenever the values are non-zero, so the intensity slider can
+            // restore the same shape after being taken to 0.
+            shape: null,
             activeVertex: null,
             isDragging: !1,
             dragFromZero: !1,
@@ -30230,6 +30283,12 @@ const TAXONOMY_CATEGORIES = [
                         const ratio = val / maxCur;
                         for (let k = 0; k < 8; k++) {
                             sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState[`p${k}`] * ratio)));
+                        }
+                    } else if (sxOctadState.shape) {
+                        // Raising from 0: restore the saved shape instead of
+                        // setting every pole equal (which would lose it).
+                        for (let k = 0; k < 8; k++) {
+                            sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState.shape[k] * val)));
                         }
                     } else {
                         for (let k = 0; k < 8; k++) {
@@ -30996,6 +31055,7 @@ const TAXONOMY_CATEGORIES = [
                 sxOctadState.p7 = ratings[7];
 
                 const maxR = Math.max(...ratings);
+                if (maxR > 0) sxOctadState.shape = ratings.map(v => v / maxR);
                 if (octadIntensity) octadIntensity.value = String(Math.round(maxR));
                 if (octadIntensityOut) octadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -31025,6 +31085,7 @@ const TAXONOMY_CATEGORIES = [
                 sxHeptadState.p6 = ratings[6];
 
                 const maxR = Math.max(...ratings);
+                if (maxR > 0) sxHeptadState.shape = ratings.map(v => v / maxR);
                 if (heptadIntensity) heptadIntensity.value = String(Math.round(maxR));
                 if (heptadIntensityOut) heptadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -31053,6 +31114,7 @@ const TAXONOMY_CATEGORIES = [
                 sxHexadState.p5 = ratings[5];
 
                 const maxR = Math.max(...ratings);
+                if (maxR > 0) sxHexadState.shape = ratings.map(v => v / maxR);
                 if (hexadIntensity) hexadIntensity.value = String(Math.round(maxR));
                 if (hexadIntensityOut) hexadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -31080,6 +31142,7 @@ const TAXONOMY_CATEGORIES = [
                 sxPentadState.p4 = ratings[4];
 
                 const maxR = Math.max(...ratings);
+                if (maxR > 0) sxPentadState.shape = ratings.map(v => v / maxR);
                 if (pentadIntensity) pentadIntensity.value = String(Math.round(maxR));
                 if (pentadIntensityOut) pentadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -31105,10 +31168,22 @@ const TAXONOMY_CATEGORIES = [
                 const r3 = rec[k3 + "Known"] ? rec[k3] : 0;
 
                 const pt = sxCompassPointFromValues(r0, r1, r2, r3);
+                const allZero = !r0 && !r1 && !r2 && !r3;
+                const keepPoint = allZero && sxCompassState.topicId === id &&
+                    typeof sxCompassState.u === "number" && typeof sxCompassState.v === "number";
                 sxCompassState.topicId = id;
-                sxCompassState.u = pt.u;
-                sxCompassState.v = pt.v;
-                sxCompassState.intensity = pt.intensity;
+                if (keepPoint) {
+                    // All stored values are zero (intensity 0): the point
+                    // cannot be recovered from the values, so keep the point
+                    // the user set instead of resetting to the centre —
+                    // otherwise the point jumps to the middle and is lost
+                    // when the intensity is raised again.
+                    sxCompassState.intensity = 0;
+                } else {
+                    sxCompassState.u = pt.u;
+                    sxCompassState.v = pt.v;
+                    sxCompassState.intensity = pt.intensity;
+                }
 
                 if (compassIntensity) compassIntensity.value = String(Math.round(pt.intensity));
                 if (compassIntensityOut) compassIntensityOut.textContent = String(Math.round(pt.intensity));
@@ -31141,6 +31216,7 @@ const TAXONOMY_CATEGORIES = [
                 sxTetradState.p3 = r3;
 
                 const maxR = Math.max(r0, r1, r2, r3);
+                if (maxR > 0) sxTetradState.shape = [r0 / maxR, r1 / maxR, r2 / maxR, r3 / maxR];
                 if (tetradIntensity) tetradIntensity.value = String(Math.round(maxR));
                 if (tetradIntensityOut) tetradIntensityOut.textContent = String(Math.round(maxR));
 
@@ -31181,6 +31257,14 @@ const TAXONOMY_CATEGORIES = [
                         w0 = abs0 / sumAbs;
                         w1 = abs1 / sumAbs;
                         w2 = abs2 / sumAbs;
+                    } else if (sxTriState.topicId === id && (sxTriState.w0 + sxTriState.w1 + sxTriState.w2) > 0) {
+                        // All stored ratings are zero (intensity 0): the balance
+                        // cannot be recovered from the ratings, so keep the
+                        // weights the user set instead of resetting to the
+                        // centroid — otherwise the puck jumps to the middle
+                        // and the balance is lost when the intensity is
+                        // raised again.
+                        w0 = sxTriState.w0; w1 = sxTriState.w1; w2 = sxTriState.w2;
                     }
                 }
                 sxTriState.topicId = id;
