@@ -1529,6 +1529,8 @@ details.scene-phase ul {
 .profile-archetype-results{display:grid;gap:10px;margin-top:12px}
 .profile-archetype-results:empty{display:none}
 .profile-archetype-row{border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--paper-2)}
+.profile-archetype-row[data-ui-tooltip]{cursor:help}
+.profile-archetype-row[data-ui-tooltip]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .profile-archetype-row-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .profile-archetype-name{font:750 18px/1.2 "Barlow Condensed",sans-serif}
 .profile-archetype-score{font:800 18px/1 "Source Sans 3",sans-serif;color:var(--green)}

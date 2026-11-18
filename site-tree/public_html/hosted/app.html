@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-18_0959" name="sexcapades-build"/>
-<meta content="release-5.0-1118-0959" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-18_0959", "version": "5.0", "channel": "release"} -->
+<meta content="2026-11-18_1348" name="sexcapades-build"/>
+<meta content="release-5.0-1118-1348" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-18_1348", "version": "5.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -349,7 +349,7 @@ if ('serviceWorker' in navigator) {
 .mark-tri-slider-label{font-size:9px;text-transform:uppercase;color:#64748b;font-weight:600;}
 input[type=range].mark-tri-intensity{writing-mode:vertical-lr;direction:rtl;width:44px;height:120px;padding:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
 .mark-tri-intensity::-webkit-slider-runnable-track{width:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(180deg,var(--green-deep),var(--curious),var(--red-deep))}
-.mark-tri-intensity::-webkit-slider-thumb{width:20px;height:20px;appearance:none;-webkit-appearance:none;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073}
+.mark-tri-intensity::-webkit-slider-thumb{width:20px;height:20px;appearance:none;-webkit-appearance:none;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073;margin-left:-6px}
 .mark-tri-intensity::-moz-range-track{width:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(180deg,var(--green-deep),var(--curious),var(--red-deep))}
 .mark-tri-intensity::-moz-range-thumb{width:15px;height:15px;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073}
 .mark-tri-intensity:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
@@ -1849,8 +1849,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sex.Capades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 5.0 · Build 2026-11-18_0959</span>
-<span class="app-about-version app-about-buildtag">release-5.0-1118-0959</span>
+<span class="app-about-version">Version 5.0 · Build 2026-11-18_1348</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1118-1348</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
@@ -2975,14 +2975,15 @@ window.__sxProgressWidget=function(refs){
 <button id="newBlankProfile" role="menuitem" type="button">New profile</button>
 <button id="newListProfile" role="menuitem" type="button">New profile in Hot list</button>
 <button id="importProfileChoice" role="menuitem" type="button">Scan or Import</button>
-<button aria-expanded="false" aria-haspopup="menu" id="loadSampleProfileChoice" role="menuitem" type="button">Load sample profile…</button>
+<button aria-expanded="false" aria-haspopup="menu" id="loadArchetypeChoice" role="menuitem" type="button">Archetypes…</button>
+<button aria-expanded="false" aria-haspopup="menu" id="loadSampleProfileChoice" role="menuitem" type="button">Samples…</button>
 <button aria-expanded="false" aria-haspopup="menu" id="loadSavedProfileChoice" role="menuitem" type="button">Load saved profile…</button>
 </div>
 <div aria-label="Load saved profile" class="profile-add-menu profile-saved-menu" hidden="" id="profileSavedMenu" role="menu">
 <button class="saved-menu-back" id="backToProfileAddMenuFromSaved" role="menuitem" type="button">‹ Back</button>
 <div class="saved-profile-rows" id="profileSavedRows"></div>
 </div>
-<div aria-label="Load sample profile" class="profile-add-menu profile-sample-menu" hidden="" id="profileSampleMenu" role="menu">
+<div aria-label="Samples" class="profile-add-menu profile-sample-menu" hidden="" id="profileSampleMenu" role="menu">
 <button class="sample-menu-back" id="backToProfileAddMenu" role="menuitem" type="button">‹ Back</button>
 <button class="sample-profile-choice" data-sample-count="28" data-sample-name="Alex" data-sample-profile="alex" role="menuitem" type="button"><img alt="" decoding="async" loading="lazy" src="images/img-8.webp"/><strong>Alex</strong><small>28 rated topics</small></button>
 <button class="sample-profile-choice" data-sample-count="55" data-sample-name="Jordan" data-sample-profile="jordan" role="menuitem" type="button"><img alt="" decoding="async" loading="lazy" src="images/img-9.webp"/><strong>Jordan</strong><small>55 rated topics</small></button>
@@ -2991,6 +2992,27 @@ window.__sxProgressWidget=function(refs){
 <button class="sample-profile-choice" data-sample-count="180" data-sample-name="Riley" data-sample-profile="riley" role="menuitem" type="button"><img alt="" decoding="async" loading="lazy" src="images/img-12.webp"/><strong>Riley</strong><small>180 rated topics</small></button>
 <button class="sample-profile-choice" data-sample-count="164" data-sample-name="Adam Peasant" data-sample-profile="adam" role="menuitem" type="button"><img alt="" decoding="async" loading="lazy" src="images/img-13.webp"/><strong>Adam Peasant</strong><small>164 rated topics</small></button>
 <button class="sample-profile-choice" data-sample-count="246" data-sample-name="Eve Vale" data-sample-profile="eve" role="menuitem" type="button"><img alt="" decoding="async" loading="lazy" src="images/avatar-eve-portrait.webp"/><strong>Eve Vale</strong><small>246 rated topics</small></button>
+</div>
+<div aria-label="Archetypes" class="profile-add-menu profile-sample-menu" hidden="" id="profileArchetypeMenu" role="menu">
+<button class="sample-menu-back" id="backToProfileAddMenuFromArchetypes" role="menuitem" type="button">‹ Back</button>
+<button class="sample-profile-choice" data-sample-count="39" data-sample-name="Sadist" data-sample-profile="sadist" role="menuitem" type="button"><strong>Sadist</strong><small>39 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="37" data-sample-name="Masochist" data-sample-profile="masochist" role="menuitem" type="button"><strong>Masochist</strong><small>37 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="32" data-sample-name="Rope Bunny" data-sample-profile="rope-bunny" role="menuitem" type="button"><strong>Rope Bunny</strong><small>32 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="32" data-sample-name="Rigger" data-sample-profile="rigger" role="menuitem" type="button"><strong>Rigger</strong><small>32 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="32" data-sample-name="Brat" data-sample-profile="brat" role="menuitem" type="button"><strong>Brat</strong><small>32 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="33" data-sample-name="Brat Tamer" data-sample-profile="brat-tamer" role="menuitem" type="button"><strong>Brat Tamer</strong><small>33 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="34" data-sample-name="Dominant" data-sample-profile="dominant" role="menuitem" type="button"><strong>Dominant</strong><small>34 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="33" data-sample-name="Service Submissive" data-sample-profile="service-submissive" role="menuitem" type="button"><strong>Service Submissive</strong><small>33 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="30" data-sample-name="Exhibitionist" data-sample-profile="exhibitionist" role="menuitem" type="button"><strong>Exhibitionist</strong><small>30 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="31" data-sample-name="Voyeur" data-sample-profile="voyeur" role="menuitem" type="button"><strong>Voyeur</strong><small>31 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="34" data-sample-name="Degradee" data-sample-profile="degradee" role="menuitem" type="button"><strong>Degradee</strong><small>34 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="34" data-sample-name="Degrader" data-sample-profile="degrader" role="menuitem" type="button"><strong>Degrader</strong><small>34 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="30" data-sample-name="Primal" data-sample-profile="primal" role="menuitem" type="button"><strong>Primal</strong><small>30 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="32" data-sample-name="Prey" data-sample-profile="prey" role="menuitem" type="button"><strong>Prey</strong><small>32 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="30" data-sample-name="Switch" data-sample-profile="switch" role="menuitem" type="button"><strong>Switch</strong><small>30 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="29" data-sample-name="Cuckold" data-sample-profile="cuckold" role="menuitem" type="button"><strong>Cuckold</strong><small>29 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="33" data-sample-name="Sensation Seeker" data-sample-profile="sensation-seeker" role="menuitem" type="button"><strong>Sensation Seeker</strong><small>33 rated topics</small></button>
+<button class="sample-profile-choice" data-sample-count="34" data-sample-name="Edge Player" data-sample-profile="edge-player" role="menuitem" type="button"><strong>Edge Player</strong><small>34 rated topics</small></button>
 </div>
 <section aria-labelledby="layoutEditorTitle" class="layout-editor" hidden="" id="layoutEditor">
 <header class="layout-editor-head"><h2 id="layoutEditorTitle">Layout editor</h2><label class="le-power-toggle" data-ui-tooltip="Power user: reveal the Advanced controls in every section at once. Turn off to collapse them all again."><input id="layoutPowerUser" type="checkbox"/><span>Power user</span></label><span class="layout-editor-winbtns"><button aria-expanded="true" aria-label="Minimise layout editor" class="layout-editor-minimise-btn" data-ui-tooltip="Collapse the panel to a slim status strip so the map — and the kink cloud being worked on — is fully visible. An Anneal run keeps going; Expand brings every control and receipt back." id="layoutEditorMinimise" type="button">−</button><button aria-label="Fullscreen" aria-pressed="false" class="layout-editor-fullscreen-btn" data-ui-tooltip="Expand the editor to fill the screen for serious tuning work." id="layoutFullscreen" type="button">⛶</button><button aria-label="Close layout editor" class="layout-editor-close" id="layoutEditorClose" type="button">×</button></span></header>
