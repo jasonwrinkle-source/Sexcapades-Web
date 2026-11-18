@@ -173,7 +173,7 @@
         },
         {
           "id": "xqu0002",
-          "name": "Wavefunction Ontology",
+          "name": "Wavefunction",
           "risk": false,
           "poles": [
             {
@@ -205,7 +205,7 @@
         },
         {
           "id": "xqu0003",
-          "name": "The Measurement Problem",
+          "name": "Measurement",
           "risk": false,
           "poles": [
             {
@@ -277,7 +277,7 @@
         },
         {
           "id": "xqu0005",
-          "name": "Locality vs. Realism",
+          "name": "Bell's theorem",
           "risk": false,
           "poles": [
             {
@@ -364,7 +364,7 @@
         },
         {
           "id": "xqu0007",
-          "name": "Spacetime Primacy",
+          "name": "Spacetime",
           "risk": false,
           "poles": [
             {
@@ -428,7 +428,7 @@
         },
         {
           "id": "xqu0009",
-          "name": "Singularity Resolution",
+          "name": "Singularities",
           "risk": false,
           "poles": [
             {
@@ -460,7 +460,7 @@
         },
         {
           "id": "xqu0010",
-          "name": "Grand Unification",
+          "name": "Theory scope",
           "risk": false,
           "poles": [
             {
@@ -492,7 +492,7 @@
         },
         {
           "id": "xqu0011",
-          "name": "The Scale of Ambition",
+          "name": "Ambition",
           "risk": false,
           "poles": [
             {
@@ -531,7 +531,7 @@
       "topics": [
         {
           "id": "xqu0012",
-          "name": "Cosmic Origin",
+          "name": "Cosmic origin",
           "risk": false,
           "poles": [
             {
@@ -571,7 +571,7 @@
         },
         {
           "id": "xqu0013",
-          "name": "Dark Matter Identity",
+          "name": "Dark matter",
           "risk": false,
           "poles": [
             {
@@ -603,7 +603,7 @@
         },
         {
           "id": "xqu0014",
-          "name": "Dark Energy: Constant vs. Dynamical",
+          "name": "Dark energy",
           "risk": false,
           "poles": [
             {
@@ -675,7 +675,7 @@
         },
         {
           "id": "xqu0016",
-          "name": "The Multiverse",
+          "name": "Universes",
           "risk": false,
           "poles": [
             {
@@ -707,7 +707,7 @@
         },
         {
           "id": "xqu0017",
-          "name": "The Arrow of Time",
+          "name": "Arrow of time",
           "risk": false,
           "poles": [
             {
@@ -739,7 +739,7 @@
         },
         {
           "id": "xqu0018",
-          "name": "The Ontology of Time",
+          "name": "Time",
           "risk": false,
           "poles": [
             {
@@ -778,7 +778,7 @@
       "topics": [
         {
           "id": "xqu0019",
-          "name": "The Micro-Macro Spectrum",
+          "name": "Micro-macro",
           "risk": false,
           "poles": [
             {
@@ -818,7 +818,7 @@
         },
         {
           "id": "xqu0020",
-          "name": "Information: Fundamental vs. Derived",
+          "name": "Information",
           "risk": false,
           "poles": [
             {
@@ -850,7 +850,7 @@
         },
         {
           "id": "xqu0021",
-          "name": "Realism vs. Instrumentalism",
+          "name": "Theory status",
           "risk": false,
           "poles": [
             {
@@ -889,7 +889,7 @@
       "topics": [
         {
           "id": "xqu0022",
-          "name": "Symmetry: Fundamental vs. Broken",
+          "name": "Symmetry",
           "risk": false,
           "poles": [
             {
@@ -953,7 +953,7 @@
         },
         {
           "id": "xqu0024",
-          "name": "The Anthropic Principle",
+          "name": "Anthropic principle",
           "risk": false,
           "poles": [
             {
@@ -985,7 +985,7 @@
         },
         {
           "id": "xqu0025",
-          "name": "Beauty as Guide: Trust vs. Distrust",
+          "name": "Beauty",
           "risk": false,
           "poles": [
             {
@@ -1017,7 +1017,7 @@
         },
         {
           "id": "xqu0026",
-          "name": "Black Hole Information Paradox",
+          "name": "Black hole information",
           "risk": false,
           "poles": [
             {
@@ -1064,7 +1064,7 @@
       "topics": [
         {
           "id": "xqu0027",
-          "name": "The Theorist's Method",
+          "name": "Theorist's method",
           "risk": false,
           "poles": [
             {
@@ -1096,7 +1096,7 @@
         },
         {
           "id": "xqu0028",
-          "name": "Mathematics: Discovered vs. Invented",
+          "name": "Mathematics",
           "risk": false,
           "poles": [
             {
@@ -1128,7 +1128,7 @@
         },
         {
           "id": "xqu0029",
-          "name": "Theory vs. Phenomenology",
+          "name": "Research focus",
           "risk": false,
           "poles": [
             {
@@ -1160,7 +1160,7 @@
         },
         {
           "id": "xqu0030",
-          "name": "Solitude vs. Collaboration",
+          "name": "Working style",
           "risk": false,
           "poles": [
             {

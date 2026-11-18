@@ -125,7 +125,7 @@
       "topics": [
         {
           "id": "xvo0001",
-          "name": "Vocation: Calling vs Career vs Job",
+          "name": "Vocation",
           "risk": false,
           "poles": [
             {
@@ -165,7 +165,7 @@
         },
         {
           "id": "xvo0002",
-          "name": "Service: Others vs Self vs The Work",
+          "name": "Service",
           "risk": false,
           "poles": [
             {
@@ -212,7 +212,7 @@
       "topics": [
         {
           "id": "xvo0003",
-          "name": "Hustle vs Balance",
+          "name": "Effort",
           "risk": false,
           "poles": [
             {
@@ -244,7 +244,7 @@
         },
         {
           "id": "xvo0004",
-          "name": "Content vs Ambitious",
+          "name": "Drive",
           "risk": false,
           "poles": [
             {
@@ -308,7 +308,7 @@
         },
         {
           "id": "xvo0006",
-          "name": "Generalist vs Specialist",
+          "name": "Breadth",
           "risk": false,
           "poles": [
             {
@@ -347,7 +347,7 @@
       "topics": [
         {
           "id": "xvo0007",
-          "name": "Remote vs Hybrid vs Office",
+          "name": "Workplace",
           "risk": false,
           "poles": [
             {
@@ -387,7 +387,7 @@
         },
         {
           "id": "xvo0008",
-          "name": "Solo vs Team",
+          "name": "Working style",
           "risk": false,
           "poles": [
             {
@@ -419,7 +419,7 @@
         },
         {
           "id": "xvo0009",
-          "name": "Structured vs Flexible Hours",
+          "name": "Hours",
           "risk": false,
           "poles": [
             {
@@ -458,7 +458,7 @@
       "topics": [
         {
           "id": "xvo0010",
-          "name": "Hierarchy vs Flat",
+          "name": "Structure",
           "risk": false,
           "poles": [
             {
@@ -490,7 +490,7 @@
         },
         {
           "id": "xvo0011",
-          "name": "Autonomy vs Direction",
+          "name": "Freedom",
           "risk": false,
           "poles": [
             {
@@ -657,7 +657,7 @@
       "topics": [
         {
           "id": "xvo0015",
-          "name": "Pay vs Perks",
+          "name": "Compensation",
           "risk": false,
           "poles": [
             {
@@ -689,7 +689,7 @@
         },
         {
           "id": "xvo0016",
-          "name": "Security vs Upside",
+          "name": "Risk",
           "risk": false,
           "poles": [
             {

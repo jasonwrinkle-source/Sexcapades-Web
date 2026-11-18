@@ -165,7 +165,7 @@
         },
         {
           "id": "xsi0002",
-          "name": "Discovery vs Verification",
+          "name": "Purpose",
           "risk": false,
           "poles": [
             {
@@ -197,7 +197,7 @@
         },
         {
           "id": "xsi0003",
-          "name": "The Computational Experiment",
+          "name": "Computational experiment",
           "risk": false,
           "poles": [
             {
@@ -229,7 +229,7 @@
         },
         {
           "id": "xsi0004",
-          "name": "Fidelity vs Speed",
+          "name": "Tradeoff",
           "risk": false,
           "poles": [
             {
@@ -380,7 +380,7 @@
         },
         {
           "id": "xsi0008",
-          "name": "First-Principles vs Empirical",
+          "name": "Forces",
           "risk": false,
           "poles": [
             {
@@ -412,7 +412,7 @@
         },
         {
           "id": "xsi0009",
-          "name": "Classical vs Quantum Simulators",
+          "name": "Simulators",
           "risk": false,
           "poles": [
             {
@@ -444,7 +444,7 @@
         },
         {
           "id": "xsi0010",
-          "name": "Continuum vs Discrete",
+          "name": "Continuity",
           "risk": false,
           "poles": [
             {
@@ -476,7 +476,7 @@
         },
         {
           "id": "xsi0011",
-          "name": "Deterministic vs Stochastic",
+          "name": "Predictability",
           "risk": false,
           "poles": [
             {
@@ -515,7 +515,7 @@
       "topics": [
         {
           "id": "xsi0012",
-          "name": "Multi-Scale Bridging",
+          "name": "Multi-scale bridging",
           "risk": false,
           "poles": [
             {
@@ -547,7 +547,7 @@
         },
         {
           "id": "xsi0013",
-          "name": "Symplectic vs Adaptive Steppers",
+          "name": "Integration",
           "risk": false,
           "poles": [
             {
@@ -579,7 +579,7 @@
         },
         {
           "id": "xsi0014",
-          "name": "Spatial Discretization",
+          "name": "Spatial discretization",
           "risk": false,
           "poles": [
             {
@@ -619,7 +619,7 @@
         },
         {
           "id": "xsi0015",
-          "name": "Resolution vs Domain Size",
+          "name": "Scope",
           "risk": false,
           "poles": [
             {
@@ -651,7 +651,7 @@
         },
         {
           "id": "xsi0016",
-          "name": "Convergence: Strict vs Pragmatic",
+          "name": "Convergence",
           "risk": false,
           "poles": [
             {
@@ -690,7 +690,7 @@
       "topics": [
         {
           "id": "xsi0017",
-          "name": "HPC vs Hardware You Control",
+          "name": "Hardware",
           "risk": false,
           "poles": [
             {
@@ -722,7 +722,7 @@
         },
         {
           "id": "xsi0018",
-          "name": "Processor Architecture",
+          "name": "Processor",
           "risk": false,
           "poles": [
             {
@@ -762,7 +762,7 @@
         },
         {
           "id": "xsi0019",
-          "name": "Language: Performance vs Productivity",
+          "name": "Language",
           "risk": false,
           "poles": [
             {
@@ -794,7 +794,7 @@
         },
         {
           "id": "xsi0020",
-          "name": "PINNs vs Traditional Solvers",
+          "name": "Solvers",
           "risk": false,
           "poles": [
             {
@@ -865,7 +865,7 @@
       "topics": [
         {
           "id": "xsi0022",
-          "name": "Error Bars: Honest vs Optimistic",
+          "name": "Error bars",
           "risk": false,
           "poles": [
             {
@@ -897,7 +897,7 @@
         },
         {
           "id": "xsi0023",
-          "name": "Reproducibility: Code vs Results",
+          "name": "Reproducibility",
           "risk": false,
           "poles": [
             {
@@ -929,7 +929,7 @@
         },
         {
           "id": "xsi0024",
-          "name": "Black Box: Trust vs Verify",
+          "name": "Black box",
           "risk": false,
           "poles": [
             {
@@ -1000,7 +1000,7 @@
       "topics": [
         {
           "id": "xsi0026",
-          "name": "Legacy Code: Maintain vs Rewrite",
+          "name": "Legacy code",
           "risk": false,
           "poles": [
             {
@@ -1032,7 +1032,7 @@
         },
         {
           "id": "xsi0027",
-          "name": "Specialist vs Generalist",
+          "name": "Breadth",
           "risk": false,
           "poles": [
             {
@@ -1064,7 +1064,7 @@
         },
         {
           "id": "xsi0028",
-          "name": "Theory vs Implementation",
+          "name": "Starting point",
           "risk": false,
           "poles": [
             {
@@ -1096,7 +1096,7 @@
         },
         {
           "id": "xsi0029",
-          "name": "Physicist vs Research Software Engineer",
+          "name": "Role",
           "risk": false,
           "poles": [
             {

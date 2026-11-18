@@ -125,7 +125,7 @@
       "topics": [
         {
           "id": "xma0001",
-          "name": "Understanding vs Performance",
+          "name": "Applied goal",
           "risk": false,
           "poles": [
             {
@@ -157,7 +157,7 @@
         },
         {
           "id": "xma0002",
-          "name": "Materials Discovery",
+          "name": "Materials discovery",
           "risk": false,
           "poles": [
             {
@@ -189,7 +189,7 @@
         },
         {
           "id": "xma0003",
-          "name": "Technology Readiness",
+          "name": "TRL horizon",
           "risk": false,
           "poles": [
             {
@@ -221,7 +221,7 @@
         },
         {
           "id": "xma0004",
-          "name": "Fundamental vs Applied",
+          "name": "Orientation",
           "risk": false,
           "poles": [
             {
@@ -308,7 +308,7 @@
         },
         {
           "id": "xma0006",
-          "name": "Miniaturization: Continue vs Plateau",
+          "name": "Miniaturization",
           "risk": false,
           "poles": [
             {
@@ -340,7 +340,7 @@
         },
         {
           "id": "xma0007",
-          "name": "Reliability vs Performance",
+          "name": "Tradeoff",
           "risk": false,
           "poles": [
             {
@@ -427,7 +427,7 @@
         },
         {
           "id": "xma0009",
-          "name": "NISQ vs Fault-Tolerant",
+          "name": "Quantum strategy",
           "risk": false,
           "poles": [
             {
@@ -459,7 +459,7 @@
         },
         {
           "id": "xma0010",
-          "name": "Quantum Computing vs Quantum Sensing",
+          "name": "Quantum application",
           "risk": false,
           "poles": [
             {
@@ -491,7 +491,7 @@
         },
         {
           "id": "xma0011",
-          "name": "Quantum Hype vs Reality",
+          "name": "Expectations",
           "risk": false,
           "poles": [
             {
@@ -530,7 +530,7 @@
       "topics": [
         {
           "id": "xma0012",
-          "name": "Energy: Fusion vs Fission vs Renewables",
+          "name": "Energy",
           "risk": false,
           "poles": [
             {
@@ -570,7 +570,7 @@
         },
         {
           "id": "xma0013",
-          "name": "Fusion Energy",
+          "name": "Fusion",
           "risk": false,
           "poles": [
             {
@@ -602,7 +602,7 @@
         },
         {
           "id": "xma0014",
-          "name": "Baseload Clean Energy",
+          "name": "Baseload",
           "risk": false,
           "poles": [
             {
@@ -634,7 +634,7 @@
         },
         {
           "id": "xma0015",
-          "name": "Energy Storage",
+          "name": "Energy storage",
           "risk": false,
           "poles": [
             {
@@ -666,7 +666,7 @@
         },
         {
           "id": "xma0016",
-          "name": "Efficiency vs Cost",
+          "name": "Optimization",
           "risk": false,
           "poles": [
             {
@@ -705,7 +705,7 @@
       "topics": [
         {
           "id": "xma0017",
-          "name": "Materials: Natural vs Engineered",
+          "name": "Materials",
           "risk": false,
           "poles": [
             {
@@ -737,7 +737,7 @@
         },
         {
           "id": "xma0018",
-          "name": "2D Materials: Revolution vs Hype",
+          "name": "2D materials",
           "risk": false,
           "poles": [
             {
@@ -833,7 +833,7 @@
         },
         {
           "id": "xma0021",
-          "name": "Nanofabrication: Top-Down vs Bottom-Up",
+          "name": "Nanofabrication",
           "risk": false,
           "poles": [
             {
@@ -865,7 +865,7 @@
         },
         {
           "id": "xma0022",
-          "name": "Semiconductor Architecture",
+          "name": "Semiconductors",
           "risk": false,
           "poles": [
             {
@@ -936,7 +936,7 @@
         },
         {
           "id": "xma0024",
-          "name": "Medical Physics: Therapy vs Diagnostics",
+          "name": "Medical physics",
           "risk": false,
           "poles": [
             {
@@ -968,7 +968,7 @@
         },
         {
           "id": "xma0025",
-          "name": "Imaging: Resolution vs Dose",
+          "name": "Imaging",
           "risk": false,
           "poles": [
             {
@@ -1000,7 +1000,7 @@
         },
         {
           "id": "xma0026",
-          "name": "Industry vs Academia",
+          "name": "Sector",
           "risk": false,
           "poles": [
             {
@@ -1032,7 +1032,7 @@
         },
         {
           "id": "xma0027",
-          "name": "Professional Identity",
+          "name": "Identity",
           "risk": false,
           "poles": [
             {
@@ -1064,7 +1064,7 @@
         },
         {
           "id": "xma0028",
-          "name": "Intellectual Property: Patent vs Publish",
+          "name": "Intellectual property",
           "risk": false,
           "poles": [
             {
@@ -1096,7 +1096,7 @@
         },
         {
           "id": "xma0029",
-          "name": "The Triumph",
+          "name": "Triumph",
           "risk": false,
           "poles": [
             {

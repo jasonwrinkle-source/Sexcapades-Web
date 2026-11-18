@@ -190,7 +190,7 @@
         },
         {
           "id": "xch0003",
-          "name": "Orbitals: Real vs Mathematical Artifact",
+          "name": "Orbitals",
           "risk": false,
           "poles": [
             {
@@ -222,7 +222,7 @@
         },
         {
           "id": "xch0004",
-          "name": "Reductionism vs Chemical Autonomy",
+          "name": "Chemistry's status",
           "risk": false,
           "poles": [
             {
@@ -502,7 +502,7 @@
       "topics": [
         {
           "id": "xch0010",
-          "name": "Mechanism Inference",
+          "name": "Mechanisms",
           "risk": false,
           "poles": [
             {
@@ -542,7 +542,7 @@
         },
         {
           "id": "xch0011",
-          "name": "Computation vs Experiment",
+          "name": "Experimentation",
           "risk": false,
           "poles": [
             {
@@ -590,7 +590,7 @@
         },
         {
           "id": "xch0012",
-          "name": "Structural Elucidation",
+          "name": "Structure proof",
           "risk": false,
           "poles": [
             {
@@ -630,7 +630,7 @@
         },
         {
           "id": "xch0013",
-          "name": "Intuition vs Data",
+          "name": "Discovery method",
           "risk": false,
           "poles": [
             {
@@ -670,7 +670,7 @@
         },
         {
           "id": "xch0014",
-          "name": "Serendipity vs Design",
+          "name": "Discovery source",
           "risk": false,
           "poles": [
             {
@@ -709,7 +709,7 @@
       "topics": [
         {
           "id": "xch0015",
-          "name": "Chemistry's Identity",
+          "name": "Chemistry's identity",
           "risk": false,
           "poles": [
             {
@@ -813,7 +813,7 @@
         },
         {
           "id": "xch0017",
-          "name": "Total Synthesis",
+          "name": "Total synthesis",
           "risk": false,
           "poles": [
             {
@@ -861,7 +861,7 @@
         },
         {
           "id": "xch0018",
-          "name": "Discovery vs Process Chemistry",
+          "name": "Good chemistry",
           "risk": false,
           "poles": [
             {
@@ -893,7 +893,7 @@
         },
         {
           "id": "xch0019",
-          "name": "Pure vs Applied Chemistry",
+          "name": "Chemistry's purpose",
           "risk": false,
           "poles": [
             {
@@ -932,7 +932,7 @@
       "topics": [
         {
           "id": "xch0020",
-          "name": "Green Chemistry",
+          "name": "Sustainability",
           "risk": false,
           "poles": [
             {
@@ -980,7 +980,7 @@
         },
         {
           "id": "xch0021",
-          "name": "Lab Safety",
+          "name": "Lab risk",
           "risk": false,
           "poles": [
             {
@@ -1139,7 +1139,7 @@
       "topics": [
         {
           "id": "xch0025",
-          "name": "Thermodynamic vs Kinetic Control",
+          "name": "Control",
           "risk": false,
           "poles": [
             {
@@ -1171,7 +1171,7 @@
         },
         {
           "id": "xch0026",
-          "name": "Donor–Acceptor Roles",
+          "name": "Reactivity roles",
           "type": "give_receive",
           "risk": false,
           "give_label": "X-Axis (Give / Electron-Pair Donor)",
@@ -1286,7 +1286,7 @@
         },
         {
           "id": "xch0029",
-          "name": "Molecular Design",
+          "name": "Assembly",
           "risk": false,
           "poles": [
             {
@@ -1325,7 +1325,7 @@
       "topics": [
         {
           "id": "xch0030",
-          "name": "Chemical Nomenclature",
+          "name": "Nomenclature",
           "risk": false,
           "poles": [
             {
@@ -1365,7 +1365,7 @@
         },
         {
           "id": "xch0031",
-          "name": "Chemistry Pedagogy",
+          "name": "Pedagogy",
           "risk": false,
           "poles": [
             {
@@ -1413,7 +1413,7 @@
         },
         {
           "id": "xch0032",
-          "name": "Publication Culture",
+          "name": "Publication culture",
           "risk": false,
           "poles": [
             {
@@ -1453,7 +1453,7 @@
         },
         {
           "id": "xch0033",
-          "name": "Teaching vs Research vs Teacher-Scholar",
+          "name": "Academic life",
           "risk": false,
           "poles": [
             {
@@ -1493,7 +1493,7 @@
         },
         {
           "id": "xch0034",
-          "name": "Solitude vs Collaboration",
+          "name": "Working style",
           "risk": false,
           "poles": [
             {
@@ -1525,7 +1525,7 @@
         },
         {
           "id": "xch0035",
-          "name": "Publish vs Patent",
+          "name": "Dissemination",
           "risk": false,
           "poles": [
             {
@@ -1557,7 +1557,7 @@
         },
         {
           "id": "xch0036",
-          "name": "Hands-On vs Automated",
+          "name": "Lab method",
           "risk": false,
           "poles": [
             {
@@ -1644,7 +1644,7 @@
         },
         {
           "id": "xch0038",
-          "name": "Materials Chemistry",
+          "name": "Materials",
           "risk": false,
           "poles": [
             {
@@ -1684,7 +1684,7 @@
         },
         {
           "id": "xch0039",
-          "name": "Drug Discovery",
+          "name": "Drug discovery",
           "risk": false,
           "poles": [
             {
@@ -1732,7 +1732,7 @@
         },
         {
           "id": "xch0040",
-          "name": "Astrochemistry",
+          "name": "Origins",
           "risk": false,
           "poles": [
             {

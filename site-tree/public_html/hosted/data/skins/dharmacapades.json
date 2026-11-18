@@ -65,7 +65,7 @@
             ]
           },
           "id": "xdh0002",
-          "name": "Samsara: Escape vs Engage vs Accept",
+          "name": "Samsara",
           "poles": [
             {
               "key": "escape",
@@ -416,7 +416,7 @@
             ]
           },
           "id": "xdh0009",
-          "name": "Moksha vs Nirvana vs Union with the Dao",
+          "name": "Liberation",
           "poles": [
             {
               "key": "moksha",
@@ -452,7 +452,7 @@
             ]
           },
           "id": "xdh0010",
-          "name": "Sudden vs Gradual Enlightenment",
+          "name": "Enlightenment",
           "poles": [
             {
               "key": "sudden",
@@ -484,7 +484,7 @@
             ]
           },
           "id": "xdh0011",
-          "name": "Self vs No-Self",
+          "name": "Selfhood",
           "poles": [
             {
               "key": "atman",
@@ -579,7 +579,7 @@
             ]
           },
           "id": "xdh0013",
-          "name": "Meditation: Concentration vs Insight",
+          "name": "Meditation",
           "poles": [
             {
               "key": "samatha",
@@ -611,7 +611,7 @@
             ]
           },
           "id": "xdh0014",
-          "name": "Tantra: Left-hand vs Right-hand",
+          "name": "Tantra",
           "poles": [
             {
               "key": "left-hand",
@@ -643,7 +643,7 @@
             ]
           },
           "id": "xdh0015",
-          "name": "Kundalini: Awakening vs Danger",
+          "name": "Kundalini",
           "poles": [
             {
               "key": "awakening",
@@ -755,7 +755,7 @@
             ]
           },
           "id": "xdh0017",
-          "name": "Wu Wei vs You Wei",
+          "name": "Action",
           "poles": [
             {
               "key": "wu-wei",
@@ -906,7 +906,7 @@
             ]
           },
           "id": "xdh0020",
-          "name": "Brahman: Personal vs Impersonal",
+          "name": "Brahman",
           "poles": [
             {
               "key": "saguna",
@@ -942,7 +942,7 @@
             ]
           },
           "id": "xdh0021",
-          "name": "The Buddha",
+          "name": "Buddha",
           "poles": [
             {
               "key": "historical-buddha",
@@ -1025,7 +1025,7 @@
             ]
           },
           "id": "xdh0023",
-          "name": "Precepts: Rules vs Guidelines",
+          "name": "Precepts",
           "poles": [
             {
               "key": "strict-rules",
@@ -1057,7 +1057,7 @@
             ]
           },
           "id": "xdh0024",
-          "name": "Compassion vs Wisdom",
+          "name": "Two wings",
           "poles": [
             {
               "key": "karuna",
@@ -1096,7 +1096,7 @@
             ]
           },
           "id": "xdh0025",
-          "name": "Guru: Essential vs Optional",
+          "name": "Guru",
           "poles": [
             {
               "key": "essential",
@@ -1128,7 +1128,7 @@
             ]
           },
           "id": "xdh0026",
-          "name": "Sangha: Monastic vs Lay",
+          "name": "Sangha",
           "poles": [
             {
               "key": "monastic",
@@ -1160,7 +1160,7 @@
             ]
           },
           "id": "xdh0027",
-          "name": "Tradition: Orthodox vs Eclectic",
+          "name": "Tradition",
           "poles": [
             {
               "key": "orthodox",
@@ -1192,7 +1192,7 @@
             ]
           },
           "id": "xdh0028",
-          "name": "Grasthi vs Sannyasa",
+          "name": "Way of life",
           "poles": [
             {
               "key": "grasthi",
