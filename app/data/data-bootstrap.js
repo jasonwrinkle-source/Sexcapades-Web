@@ -12881,9 +12881,10 @@ const TAXONOMY_CATEGORIES = [
             profileDirty: {},
             profileUuids: {},
             profileSampleFlags: {},
+            profileSkins: {},
             droppedKeys: {},
             curveBends: {}
-        }), {profileRecords: Ye, profileNameRecords: Xe, ratingSources: Ze, annotations: Qe, fantasyOnly: Je, alreadyTried: et, profileNotes: tt, profileAbout: nt, profileTerms: it, importedChildren: at, profileGenders: rt, profilePronouns: pz = {}, profileSexualities: ot, profileRoles: st, profileAges: lt, profileLocations: ct, profilePhotos: dt, profileContacts: ut, profileVeils: vpt, profileVeilEnabled: vht, loaderStates: gt, profileCompletionTimes: mt, profileComparisons: ft, profileDirty: yt, profileUuids: profileUuids, profileSampleFlags: sampleProfileFlags, droppedKeys: droppedKeyRecords, curveBends: bt} = Ve, vt = ze("profile", Ye), wt = ze("profile name", Xe), kt = {
+        }), {profileRecords: Ye, profileNameRecords: Xe, ratingSources: Ze, annotations: Qe, fantasyOnly: Je, alreadyTried: et, profileNotes: tt, profileAbout: nt, profileTerms: it, importedChildren: at, profileGenders: rt, profilePronouns: pz = {}, profileSexualities: ot, profileRoles: st, profileAges: lt, profileLocations: ct, profilePhotos: dt, profileContacts: ut, profileVeils: vpt, profileVeilEnabled: vht, loaderStates: gt, profileCompletionTimes: mt, profileComparisons: ft, profileDirty: yt, profileUuids: profileUuids, profileSampleFlags: sampleProfileFlags, profileSkins: profileSkins, droppedKeys: droppedKeyRecords, curveBends: bt} = Ve, vt = ze("profile", Ye), wt = ze("profile name", Xe), kt = {
             outline: "List rating",
             kinktest: "KinkTest.co.uk",
             checklist: "Yes / No / Maybe"
@@ -13059,15 +13060,18 @@ const TAXONOMY_CATEGORIES = [
         // (vpt), veil-enabled (vht), imported children (at), loader state
         // (gt), completion times (mt), annotations (Qe), fantasy-only
         // (Je), already-tried (et), notes (tt), per-profile colors (tn),
-        // comparisons (ft), dirty flags (yt). The legacy nets lists
-        // (pt/ht, profileNets/profileNetEnabled) were removed in Fix 1,
-        // item 5: no code ever wrote or read an entry in either.
+        // comparisons (ft), dirty flags (yt), skin (profileSkins — the
+        // skin a profile belongs to; Jw() shows a tab only for the
+        // current skin, and close/move enumerate it like any other list).
+        // The legacy nets lists (pt/ht, profileNets/profileNetEnabled)
+        // were removed in Fix 1, item 5: no code ever wrote or read an
+        // entry in either.
         // Deliberately NOT on this list: droppedKeyRecords — the import
         // path's dropped-key records are import-path behavior, so the
         // import create writes them itself and close/move carry them as
         // documented path extras; and curveBends (bt), whose keys are
         // map-node ids, not profile ids.
-        const SX_PROFILE_FIELDS = [ Ye, Ze, Xe, profileUuids, sampleProfileFlags, rt, pz, ot, st, lt, ct, dt, ut, nt, it, vpt, vht, at, gt, mt, Qe, Je, et, tt, tn, ft, yt ];
+        const SX_PROFILE_FIELDS = [ Ye, Ze, Xe, profileUuids, sampleProfileFlags, rt, pz, ot, st, lt, ct, dt, ut, nt, it, vpt, vht, at, gt, mt, Qe, Je, et, tt, tn, ft, yt, profileSkins ];
         // The object-valued subset of SX_PROFILE_FIELDS that the create
         // paths initialize to {} for a fresh profile: ratings, rating
         // sources, annotations, fantasy-only, already-tried, notes,
@@ -22451,7 +22455,7 @@ const TAXONOMY_CATEGORIES = [
                 }); /* DIMFIX F1 (extends HUB-BACKBONE): rating-presence for the hub dim, computed from ACTUAL ratings over the active context (groups: rated-in-any source), never routed through the Net visibility filter t() — with Net off t() passes every topic, so an allImported-based stamp can never fire for ordinary profiles. The source resolution mirrors t()'s cascade minus its Net gates (no ht / netEnabled filtering) and minus its threshold. hbCtx is the Finding C guard (owner-ruled 2026-10-23): a context with no ratings anywhere flags nothing, so a zero-rating profile stands at full register. */
                 let r = Math.max(0, 560 - h.length);
                 return h.slice().filter(e => function(e, t = Mt) {
-                    return !Object.keys(vt).length || !(!t || !vt[t]) && (!(!$n || !$n.has(catId(e.name))) || !Ia(t) || Ma(e, t));
+                    return !Object.keys(vt).length || window.__SX_FORCE_UNRATED_TREE || !(!t || !vt[t]) && (!(!$n || !$n.has(catId(e.name))) || !Ia(t) || Ma(e, t));
                 }(e)).map(e => {
                     const i = catId(e.name), o = rn.has(e.name), s = DETAIL_CAPS[mapDetailLevel], l = !En && !$n && Number.isFinite(s), c = G(e.subcategories?.length ? (e.parentTopics || []).map(e => ({
                         id: Wn(e),
@@ -25568,7 +25572,7 @@ const TAXONOMY_CATEGORIES = [
                         parentId: i ? Un(e.name, i.name) : null
                     };
                 });
-            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint)) return n(In, `<g>${oa()}${function(e) {
+            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint && !window.__SX_FORCE_UNRATED_TREE)) return n(In, `<g>${oa()}${function(e) {
                 const t = 1.75 * ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, t, "center"), i = Za.fitAttr(e, n, "center", t);
                 return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${Hi(e)}</text>`;
             }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`), 
@@ -25583,6 +25587,10 @@ const TAXONOMY_CATEGORIES = [
                 qn[e.id] = e;
             });
             const d = SX_SOLVER_FACADE.build(), u = "all" === Pt ? [] : ri();
+            /* Skin switch (2026-11-17): the unrated-tree flag is one-shot
+               per paint, like the boot-chunk arm — consumed here, right
+               after the solve that used it, so no later paint sees it. */
+            window.__SX_FORCE_UNRATED_TREE = false;
             SX_SOLVER_FACADE.tidy(d);
             yield;
             window.__sxNodesStart && window.__sxNodesStart(d.branches.reduce((s, e) => s + 1 + (e.topics || []).reduce((s2, t) => s2 + 1 + ((t.children || []).length), 0), 0)), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — node band start */);
@@ -38244,7 +38252,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // with the auto-create select-existing path.
             sxTeardownMatchTabs();
             return vt[o] = {}, Ze[o] = {}, Qe[o] = {}, Je[o] = {}, et[o] = {}, tt[o] = {}, at[o] = {}, 
-            gt[o] = {}, mt[o] = {}, wt[o] = a, rt[o] = [ "couple" ], ot[o] = [ "mixed" ], st[o] = [], 
+            gt[o] = {}, mt[o] = {}, wt[o] = a, profileSkins[o] = window.__SX_ACTIVE_SKIN || "sexcapades", rt[o] = [ "couple" ], ot[o] = [ "mixed" ], st[o] = [], 
             lt[o] = "", ct[o] = "", dt[o] = [], ut[o] = {}, pz[o] = "", nt[o] = "", it[o] = "", vpt[o] = 50, 
             vht[o] = !1, ft[o] = {
                 kind: "group",
@@ -39862,6 +39870,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 profileName: n || wt[e] || "Profile",
                 profileUuid: profileUuids[e] || (profileUuids[e] = makeProfileUuid()),
                 sampleProfile: Boolean(sampleProfileFlags[e]),
+                /* Skin tag (2026-11-17): rides the export so a Remember
+                   restore or a re-import keeps the profile on its own
+                   skin. Additive only — the format version is unchanged
+                   and loaders ignore unknown fields. */
+                skin: profileSkins[e] || void 0,
                 gender: bb(rt[e]),
                 pronouns: String(pz[e] || ""),
                 sexuality: iv(ot[e]),
@@ -46542,7 +46555,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }
         function Jw() {
             sxTabLabelSeen = {};
-            const t = Object.keys(vt).filter(e => Boolean(wt[e]));
+            /* Skin tabs (2026-11-17): show only this skin's profiles.
+               Untagged = legacy, shows everywhere; unknown skin =
+               fail-open, shows everything. Profiles for other skins stay
+               in memory (no data deleted) — their tabs reappear on
+               switch-back, when the restore seam re-activates the
+               remembered one. */
+            const sxCurSkin = window.__SX_ACTIVE_SKIN || null;
+            const t = Object.keys(vt).filter(e => Boolean(wt[e]) && (!profileSkins[e] || !sxCurSkin || profileSkins[e] === sxCurSkin));
             Mt && !vt[Mt] && (Mt = null), It && !vt[It] && (It = null), document.documentElement.style.setProperty("--active-profile-color", Mt && vt[Mt] ? la(Mt) : "var(--focus)");
             const i = Yi(), r = Boolean(Kd()), o = i.length > 1, s = an && o, l = o || r, c = s || r, d = t.map(e => {
                 sxNormalizePairName(e);
@@ -46617,6 +46637,51 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 });
             }), Ct = !1) : It === e && (It = Mt), Jw(), Mr(), Ih();
         }
+        /* Skin switch: clear the profiles off the viewport, keep them in
+           memory (2026-11-17). A skin switch swaps the taxonomy, widgets
+           and layout but never touched profile state, so the old skin's
+           profile kept driving the new skin's map. The clear remembers
+           the outgoing skin's active profile + comparison set per skin,
+           then mirrors the viewport-clear half of nk() WITHOUT its data
+           deletion (no Reflect.deleteProperty — the profiles stay in
+           vt/wt/notes/veils/drafts, and the dirty flags + beforeunload
+           guard survive). The restore re-activates the remembered
+           profile on switch-back via Js(). Tabs are NOT hidden — Jw()
+           still lists every profile in memory, just not active; that is
+           the mechanism by which profiles "reappear". */
+        let sxSkinActiveProfile = Object.create(null);
+        window.__SX_CLEAR_VIEWPORT_PROFILES = function (outgoingSkinId) {
+            try {
+                sxSkinActiveProfile[outgoingSkinId] = { activeId: Mt, comparisonIds: Array.from(en) };
+                sxSel(null, "clear");
+                Mt = null, It = null, Nt = null, Lt = null, Pt = "all", Tt = "", kn = !0, xn = null, Sn = "all",
+                rn.clear(), on.clear(), h.forEach(e => {
+                    rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
+                        const s = Un(e.name, t.name);
+                        un.set(s, "all"), on.add(s);
+                    }), e.topics.forEach(e => {
+                        un.set(Wn(e), "all"), on.add(Wn(e));
+                    });
+                }), Ct = !1, Jw(), Mr(), Ih();
+            } catch (_) {}
+        };
+        window.__SX_RESTORE_VIEWPORT_PROFILES = function (incomingSkinId) {
+            try {
+                const remembered = sxSkinActiveProfile[incomingSkinId];
+                if (remembered && remembered.activeId && vt[remembered.activeId]) {
+                    Js(remembered.activeId);
+                    if (remembered.comparisonIds && remembered.comparisonIds.length > 1)
+                        sxSel(remembered.comparisonIds, "set");
+                }
+                /* Rebuild the tabs in all cases: with no remembered
+                   profile this hides the old skin's tabs under the new
+                   skin's filter (Jw() is the only tab render), and with
+                   a restored comparison set it re-shows the match icons
+                   — Js's own Jw runs before the set is re-applied, so
+                   without this the bowtie/circle-dot buttons stay gone. */
+                Jw();
+            } catch (_) {}
+        };
         function ik(e) {
             const t = "profile-" + (Hn(e) || "untitled");
             let n = t, i = 2;
@@ -47291,6 +47356,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 kind: "group",
                 pairOp: "straight" === e.pairOp ? "straight" : "bowtie"
             }), Object.keys(a).forEach(e => Ke.add(e)),
+            /* Skin tag (2026-11-17): the skin this profile belongs to —
+               the incoming file's own tag when it carries one (a Remember
+               restore or a re-imported export), else the skin on screen
+               right now. Jw() shows a tab only for the current skin
+               (untagged = legacy, shows everywhere). */
+            profileSkins[c] = "string" == typeof e.skin && e.skin ? e.skin : window.__SX_ACTIVE_SKIN || "sexcapades",
             la(c);
             importProfileRatings(c, e), ingestProfileSections(c, e, noteDropped, !1), e.ratingSources && "object" == typeof e.ratingSources && Object.keys(e.ratingSources).forEach(k => {
                 r.has(k) || noteDropped(k, "ratingSources", e.ratingSources[k]);
