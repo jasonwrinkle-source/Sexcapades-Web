@@ -104,7 +104,7 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
   - Taoism — Natural flow, spontaneity, simplicity, harmony with the Dao.
   - Buddhism — Emptiness, compassion, liberation from suffering.
 
-#### 1.6 The Eight Trigrams / Bagua (8-Pole Octad $\Delta^7$)
+#### 1.6 Archetypal energies (8-Pole Octad $\Delta^7$)
 - **Poles (in the traditional order):**
   - `Pole 0`: **Heaven (Qian)** — Creative, strong, initiating.
   - `Pole 1`: **Lake (Dui)** — Joyful, open, receptive.
@@ -118,7 +118,7 @@ Under the **Taxopolemics** engine, Eastern religious positions are mapped to the
 - **Optimal Widget:** Octad / 8-axis radial wheel. The fifth canonical octad in the Flexcapades family.
 - **Note:** The Bagua is the archetypal energy balance of the I Ching. Eight trigrams, exactly the engine cap.
 
-- **Hovertip:** **The Eight Trigrams / Bagua** [OCTAD — simplex]
+- **Hovertip:** **Archetypal energies** [OCTAD — simplex]
   - Issue: Which archetypal energies do you balance?
   - Heaven (Qian) — Creative, strong, initiating.
   - Lake (Dui) — Joyful, open, receptive.

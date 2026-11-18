@@ -103,7 +103,7 @@ A fundamental problem in public finance: how a society allocates its finite disc
 - **Optimal Widget**: **Regular Pentagram Multi-Affinity Widget** with simplex sum constraint ($\sum_{i=0}^4 w_i = 100\%$) and total budget intensity slider.
 - **Hovertip:** **Civic Resource Allocation Pentad** [PENTAD — simplex] — Issue: How should society divide its finite budget across five vital priorities? | Healthcare & Social Welfare — Universal health, pensions, disability support, homelessness prevention. | Infrastructure & Clean Energy — High-speed rail, smart grid, nuclear and solar, water networks. | Education, Science & Frontier R&D — Free higher education, fundamental physics, fusion, space. | Defense, Border Security & Resilience — Armed forces, intelligence, deterrents, cybersecurity. | Ecology, Climate & Biodiversity — Rewilding, carbon capture, ocean restoration, regenerative agriculture.
 
-#### 3.3.2 Theories of Property & Ownership Pentad
+#### 3.3.2 Who owns what Pentad
 - **Poles**:
   - `Apex 0`: **Private Absolute (Allodial / Capitalist)** — Alienable individual title with unlimited accumulation rights.
   - `Pole 1`: **State Owned (Nationalized / Public)** — Managed by government ministries for the public interest.
@@ -111,7 +111,7 @@ A fundamental problem in public finance: how a society allocates its finite disc
   - `Pole 3`: **Usufruct (Possession by Use)** — Property rights exist only so long as land or capital is actively utilized.
   - `Pole 4`: **Open-Access / Copyleft (Digital Commons)** — Non-rivalrous commons where information and technology cannot be locked by patents.
 - **Optimal Widget**: Regular Pentagram.
-- **Hovertip:** **Theories of Property & Ownership Pentad** [PENTAD — simplex] — Issue: Who can own what, and on what terms? | Private Absolute — Alienable individual title with unlimited accumulation rights. | State Owned — Managed by government ministries for the public interest. | Common Pool Resource — Self-governed by community user groups under nested rules. | Usufruct — Property rights exist only while land or capital is actively used. | Open-Access / Copyleft — Non-rivalrous commons where information cannot be locked by patents.
+- **Hovertip:** **Who owns what Pentad** [PENTAD — simplex] — Issue: Who can own what, and on what terms? | Private Absolute — Alienable individual title with unlimited accumulation rights. | State Owned — Managed by government ministries for the public interest. | Common Pool Resource — Self-governed by community user groups under nested rules. | Usufruct — Property rights exist only while land or capital is actively used. | Open-Access / Copyleft — Non-rivalrous commons where information cannot be locked by patents.
 
 ---
 
