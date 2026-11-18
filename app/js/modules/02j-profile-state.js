@@ -32,9 +32,10 @@
             profileDirty: {},
             profileUuids: {},
             profileSampleFlags: {},
+            profileSkins: {},
             droppedKeys: {},
             curveBends: {}
-        }), {profileRecords: Ye, profileNameRecords: Xe, ratingSources: Ze, annotations: Qe, fantasyOnly: Je, alreadyTried: et, profileNotes: tt, profileAbout: nt, profileTerms: it, importedChildren: at, profileGenders: rt, profilePronouns: pz = {}, profileSexualities: ot, profileRoles: st, profileAges: lt, profileLocations: ct, profilePhotos: dt, profileContacts: ut, profileVeils: vpt, profileVeilEnabled: vht, loaderStates: gt, profileCompletionTimes: mt, profileComparisons: ft, profileDirty: yt, profileUuids: profileUuids, profileSampleFlags: sampleProfileFlags, droppedKeys: droppedKeyRecords, curveBends: bt} = Ve, vt = ze("profile", Ye), wt = ze("profile name", Xe), kt = {
+        }), {profileRecords: Ye, profileNameRecords: Xe, ratingSources: Ze, annotations: Qe, fantasyOnly: Je, alreadyTried: et, profileNotes: tt, profileAbout: nt, profileTerms: it, importedChildren: at, profileGenders: rt, profilePronouns: pz = {}, profileSexualities: ot, profileRoles: st, profileAges: lt, profileLocations: ct, profilePhotos: dt, profileContacts: ut, profileVeils: vpt, profileVeilEnabled: vht, loaderStates: gt, profileCompletionTimes: mt, profileComparisons: ft, profileDirty: yt, profileUuids: profileUuids, profileSampleFlags: sampleProfileFlags, profileSkins: profileSkins, droppedKeys: droppedKeyRecords, curveBends: bt} = Ve, vt = ze("profile", Ye), wt = ze("profile name", Xe), kt = {
             outline: "List rating",
             kinktest: "KinkTest.co.uk",
             checklist: "Yes / No / Maybe"

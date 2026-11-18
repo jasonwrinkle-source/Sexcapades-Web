@@ -1175,6 +1175,27 @@
     }, 100);
   }
 
+  /* Skin-switch paint flag (2026-11-17): a switch is a fresh boot into
+     the new skin, so each paint in the switch paints the full unrated
+     map. The flag covers both layers that otherwise hide it: the
+     paint's no-profile early return (which would install the "Select a
+     profile" placeholder — profiles exist in memory but none is active
+     for this skin) and the solver's branch filter (which builds zero
+     branches in that same state). One-shot per paint: the paint
+     consumes it right after its solve, so no later paint sees it.
+     (The boot-chunk arm cannot cover this: a layout import paints
+     through the chunked apply path, and the chunk flag makes the arm
+     consumer refuse it.) The 10s backstop clears a flag no paint
+     consumed (e.g. a layout import that skipped its repaint because
+     the settings were unchanged); the generation guard keeps an older
+     backstop from clearing a newer switch's flag. */
+  var sxSwitchFlagGen = 0;
+  function sxArmSwitchPaint() {
+    window.__SX_FORCE_UNRATED_TREE = true;
+    var g = ++sxSwitchFlagGen;
+    setTimeout(function () { if (sxSwitchFlagGen === g) window.__SX_FORCE_UNRATED_TREE = false; }, 10000);
+  }
+
   function loadSkin(skinId, displayName) {
     if (skinId === "sexcapades") {
       /* Gate follows the skin (2026-11-16): switching to Sexcapades
@@ -1184,20 +1205,29 @@
          gate moment. The gate returns with ?verified=1&skin=sexcapades,
          and the boot below restores the selection. */
       if (!hasGatePass()) { redirectToGateForSkin("sexcapades"); return Promise.resolve("sexcapades"); }
+      /* Skin switch (2026-11-17): clear the old skin's profiles off the
+         viewport (kept in memory — they restore on switch-back). */
+      if (typeof window.__SX_CLEAR_VIEWPORT_PROFILES === "function") window.__SX_CLEAR_VIEWPORT_PROFILES(activeSkin);
       restoreSexcapades();
       setBrand("sexcapades");
+      sxArmSwitchPaint();
       return Promise.resolve(rerender()).then(function () {
+        /* Switch-back restores the remembered Sexcapades profile, if any. */
+        if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
         /* Switch-back re-applies the Sexcapades layout (with the user's
            saved defaults merged over it): without this the map would keep
            the previous skin's layout settings. A URL hash layout is a
            boot-time instruction only — an explicit switch selects the
            skin's defaults. A failed fetch leaves the current layout. */
         return sexcapadesData().then(function (data) {
+          /* The layout import repaints: arm it too, so it paints the
+             full map rather than the no-profile placeholder. */
+          sxArmSwitchPaint();
           applySexcapadesLayout(data);
           applyTerms("sexcapades", data);
           return "sexcapades";
         }).catch(function () { applyTerms("sexcapades", null); return "sexcapades"; });
-      });
+      }, function (err) { window.__SX_FORCE_UNRATED_TREE = false; throw err; });
     }
     var url = SKIN_DIR + skinId + ".json";
     var p = cache[skinId]
@@ -1207,13 +1237,22 @@
           return r.json();
         }).then(function (data) { cache[skinId] = data; return data; });
     return p.then(function (data) {
+      /* Skin switch (2026-11-17): clear the old skin's profiles off the
+         viewport (kept in memory — they restore on switch-back). */
+      if (typeof window.__SX_CLEAR_VIEWPORT_PROFILES === "function") window.__SX_CLEAR_VIEWPORT_PROFILES(activeSkin);
       applySkin(data);
       setBrand(skinId, displayName || data.name);
+      sxArmSwitchPaint();
       return Promise.resolve(rerender()).then(function () {
+        /* Switch-back restores the remembered profile for this skin, if any. */
+        if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES(skinId);
+        /* The layout import repaints: arm it too, so it paints the
+           full map rather than the no-profile placeholder. */
+        sxArmSwitchPaint();
         applyDefaultLayout(data);
         applyTerms(skinId, data);
         return skinId;
-      });
+      }, function (err) { window.__SX_FORCE_UNRATED_TREE = false; throw err; });
     });
   }
 

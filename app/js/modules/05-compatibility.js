@@ -1157,7 +1157,7 @@
             // with the auto-create select-existing path.
             sxTeardownMatchTabs();
             return vt[o] = {}, Ze[o] = {}, Qe[o] = {}, Je[o] = {}, et[o] = {}, tt[o] = {}, at[o] = {}, 
-            gt[o] = {}, mt[o] = {}, wt[o] = a, rt[o] = [ "couple" ], ot[o] = [ "mixed" ], st[o] = [], 
+            gt[o] = {}, mt[o] = {}, wt[o] = a, profileSkins[o] = window.__SX_ACTIVE_SKIN || "sexcapades", rt[o] = [ "couple" ], ot[o] = [ "mixed" ], st[o] = [], 
             lt[o] = "", ct[o] = "", dt[o] = [], ut[o] = {}, pz[o] = "", nt[o] = "", it[o] = "", vpt[o] = 50, 
             vht[o] = !1, ft[o] = {
                 kind: "group",

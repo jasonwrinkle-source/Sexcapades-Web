@@ -559,6 +559,11 @@
                 profileName: n || wt[e] || "Profile",
                 profileUuid: profileUuids[e] || (profileUuids[e] = makeProfileUuid()),
                 sampleProfile: Boolean(sampleProfileFlags[e]),
+                /* Skin tag (2026-11-17): rides the export so a Remember
+                   restore or a re-import keeps the profile on its own
+                   skin. Additive only — the format version is unchanged
+                   and loaders ignore unknown fields. */
+                skin: profileSkins[e] || void 0,
                 gender: bb(rt[e]),
                 pronouns: String(pz[e] || ""),
                 sexuality: iv(ot[e]),

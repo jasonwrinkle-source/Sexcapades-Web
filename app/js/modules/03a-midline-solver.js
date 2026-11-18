@@ -25,7 +25,7 @@
                 }); /* DIMFIX F1 (extends HUB-BACKBONE): rating-presence for the hub dim, computed from ACTUAL ratings over the active context (groups: rated-in-any source), never routed through the Net visibility filter t() — with Net off t() passes every topic, so an allImported-based stamp can never fire for ordinary profiles. The source resolution mirrors t()'s cascade minus its Net gates (no ht / netEnabled filtering) and minus its threshold. hbCtx is the Finding C guard (owner-ruled 2026-10-23): a context with no ratings anywhere flags nothing, so a zero-rating profile stands at full register. */
                 let r = Math.max(0, 560 - h.length);
                 return h.slice().filter(e => function(e, t = Mt) {
-                    return !Object.keys(vt).length || !(!t || !vt[t]) && (!(!$n || !$n.has(catId(e.name))) || !Ia(t) || Ma(e, t));
+                    return !Object.keys(vt).length || window.__SX_FORCE_UNRATED_TREE || !(!t || !vt[t]) && (!(!$n || !$n.has(catId(e.name))) || !Ia(t) || Ma(e, t));
                 }(e)).map(e => {
                     const i = catId(e.name), o = rn.has(e.name), s = DETAIL_CAPS[mapDetailLevel], l = !En && !$n && Number.isFinite(s), c = G(e.subcategories?.length ? (e.parentTopics || []).map(e => ({
                         id: Wn(e),

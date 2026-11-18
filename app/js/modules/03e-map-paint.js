@@ -192,7 +192,7 @@
                         parentId: i ? Un(e.name, i.name) : null
                     };
                 });
-            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint)) return n(In, `<g>${oa()}${function(e) {
+            }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint && !window.__SX_FORCE_UNRATED_TREE)) return n(In, `<g>${oa()}${function(e) {
                 const t = 1.75 * ea.photoRadius, n = Za.fitWithin(e, 22 * mapFontScale(), 15, t, "center"), i = Za.fitAttr(e, n, "center", t);
                 return `<text x="900" y="600" text-anchor="middle" class="center-label" pointer-events="none" style="font-size:${n.toFixed(2)}px"${i}>${Hi(e)}</text>`;
             }("Select a profile")}<text x="900" y="640" text-anchor="middle" class="center-sub" pointer-events="none">tap a profile tab to begin</text></g>`), 
@@ -207,6 +207,10 @@
                 qn[e.id] = e;
             });
             const d = SX_SOLVER_FACADE.build(), u = "all" === Pt ? [] : ri();
+            /* Skin switch (2026-11-17): the unrated-tree flag is one-shot
+               per paint, like the boot-chunk arm — consumed here, right
+               after the solve that used it, so no later paint sees it. */
+            window.__SX_FORCE_UNRATED_TREE = false;
             SX_SOLVER_FACADE.tidy(d);
             yield;
             window.__sxNodesStart && window.__sxNodesStart(d.branches.reduce((s, e) => s + 1 + (e.topics || []).reduce((s2, t) => s2 + 1 + ((t.children || []).length), 0), 0)), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — node band start */);

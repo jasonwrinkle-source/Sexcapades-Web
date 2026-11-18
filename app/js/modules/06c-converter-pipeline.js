@@ -662,6 +662,12 @@
                 kind: "group",
                 pairOp: "straight" === e.pairOp ? "straight" : "bowtie"
             }), Object.keys(a).forEach(e => Ke.add(e)),
+            /* Skin tag (2026-11-17): the skin this profile belongs to —
+               the incoming file's own tag when it carries one (a Remember
+               restore or a re-imported export), else the skin on screen
+               right now. Jw() shows a tab only for the current skin
+               (untagged = legacy, shows everywhere). */
+            profileSkins[c] = "string" == typeof e.skin && e.skin ? e.skin : window.__SX_ACTIVE_SKIN || "sexcapades",
             la(c);
             importProfileRatings(c, e), ingestProfileSections(c, e, noteDropped, !1), e.ratingSources && "object" == typeof e.ratingSources && Object.keys(e.ratingSources).forEach(k => {
                 r.has(k) || noteDropped(k, "ratingSources", e.ratingSources[k]);

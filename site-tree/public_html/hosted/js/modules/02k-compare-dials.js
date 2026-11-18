@@ -20,15 +20,18 @@
         // (vpt), veil-enabled (vht), imported children (at), loader state
         // (gt), completion times (mt), annotations (Qe), fantasy-only
         // (Je), already-tried (et), notes (tt), per-profile colors (tn),
-        // comparisons (ft), dirty flags (yt). The legacy nets lists
-        // (pt/ht, profileNets/profileNetEnabled) were removed in Fix 1,
-        // item 5: no code ever wrote or read an entry in either.
+        // comparisons (ft), dirty flags (yt), skin (profileSkins — the
+        // skin a profile belongs to; Jw() shows a tab only for the
+        // current skin, and close/move enumerate it like any other list).
+        // The legacy nets lists (pt/ht, profileNets/profileNetEnabled)
+        // were removed in Fix 1, item 5: no code ever wrote or read an
+        // entry in either.
         // Deliberately NOT on this list: droppedKeyRecords — the import
         // path's dropped-key records are import-path behavior, so the
         // import create writes them itself and close/move carry them as
         // documented path extras; and curveBends (bt), whose keys are
         // map-node ids, not profile ids.
-        const SX_PROFILE_FIELDS = [ Ye, Ze, Xe, profileUuids, sampleProfileFlags, rt, pz, ot, st, lt, ct, dt, ut, nt, it, vpt, vht, at, gt, mt, Qe, Je, et, tt, tn, ft, yt ];
+        const SX_PROFILE_FIELDS = [ Ye, Ze, Xe, profileUuids, sampleProfileFlags, rt, pz, ot, st, lt, ct, dt, ut, nt, it, vpt, vht, at, gt, mt, Qe, Je, et, tt, tn, ft, yt, profileSkins ];
         // The object-valued subset of SX_PROFILE_FIELDS that the create
         // paths initialize to {} for a fresh profile: ratings, rating
         // sources, annotations, fantasy-only, already-tried, notes,

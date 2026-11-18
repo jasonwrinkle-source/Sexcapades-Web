@@ -2909,7 +2909,14 @@
         }
         function Jw() {
             sxTabLabelSeen = {};
-            const t = Object.keys(vt).filter(e => Boolean(wt[e]));
+            /* Skin tabs (2026-11-17): show only this skin's profiles.
+               Untagged = legacy, shows everywhere; unknown skin =
+               fail-open, shows everything. Profiles for other skins stay
+               in memory (no data deleted) — their tabs reappear on
+               switch-back, when the restore seam re-activates the
+               remembered one. */
+            const sxCurSkin = window.__SX_ACTIVE_SKIN || null;
+            const t = Object.keys(vt).filter(e => Boolean(wt[e]) && (!profileSkins[e] || !sxCurSkin || profileSkins[e] === sxCurSkin));
             Mt && !vt[Mt] && (Mt = null), It && !vt[It] && (It = null), document.documentElement.style.setProperty("--active-profile-color", Mt && vt[Mt] ? la(Mt) : "var(--focus)");
             const i = Yi(), r = Boolean(Kd()), o = i.length > 1, s = an && o, l = o || r, c = s || r, d = t.map(e => {
                 sxNormalizePairName(e);
@@ -2984,6 +2991,51 @@
                 });
             }), Ct = !1) : It === e && (It = Mt), Jw(), Mr(), Ih();
         }
+        /* Skin switch: clear the profiles off the viewport, keep them in
+           memory (2026-11-17). A skin switch swaps the taxonomy, widgets
+           and layout but never touched profile state, so the old skin's
+           profile kept driving the new skin's map. The clear remembers
+           the outgoing skin's active profile + comparison set per skin,
+           then mirrors the viewport-clear half of nk() WITHOUT its data
+           deletion (no Reflect.deleteProperty — the profiles stay in
+           vt/wt/notes/veils/drafts, and the dirty flags + beforeunload
+           guard survive). The restore re-activates the remembered
+           profile on switch-back via Js(). Tabs are NOT hidden — Jw()
+           still lists every profile in memory, just not active; that is
+           the mechanism by which profiles "reappear". */
+        let sxSkinActiveProfile = Object.create(null);
+        window.__SX_CLEAR_VIEWPORT_PROFILES = function (outgoingSkinId) {
+            try {
+                sxSkinActiveProfile[outgoingSkinId] = { activeId: Mt, comparisonIds: Array.from(en) };
+                sxSel(null, "clear");
+                Mt = null, It = null, Nt = null, Lt = null, Pt = "all", Tt = "", kn = !0, xn = null, Sn = "all",
+                rn.clear(), on.clear(), h.forEach(e => {
+                    rn.add(e.name), un.set(catId(e.name), "all"), (e.subcategories || []).forEach(t => {
+                        const s = Un(e.name, t.name);
+                        un.set(s, "all"), on.add(s);
+                    }), e.topics.forEach(e => {
+                        un.set(Wn(e), "all"), on.add(Wn(e));
+                    });
+                }), Ct = !1, Jw(), Mr(), Ih();
+            } catch (_) {}
+        };
+        window.__SX_RESTORE_VIEWPORT_PROFILES = function (incomingSkinId) {
+            try {
+                const remembered = sxSkinActiveProfile[incomingSkinId];
+                if (remembered && remembered.activeId && vt[remembered.activeId]) {
+                    Js(remembered.activeId);
+                    if (remembered.comparisonIds && remembered.comparisonIds.length > 1)
+                        sxSel(remembered.comparisonIds, "set");
+                }
+                /* Rebuild the tabs in all cases: with no remembered
+                   profile this hides the old skin's tabs under the new
+                   skin's filter (Jw() is the only tab render), and with
+                   a restored comparison set it re-shows the match icons
+                   — Js's own Jw runs before the set is re-applied, so
+                   without this the bowtie/circle-dot buttons stay gone. */
+                Jw();
+            } catch (_) {}
+        };
         function ik(e) {
             const t = "profile-" + (Hn(e) || "untitled");
             let n = t, i = 2;
