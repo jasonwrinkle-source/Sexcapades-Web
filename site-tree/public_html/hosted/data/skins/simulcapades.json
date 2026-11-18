@@ -161,7 +161,19 @@
             ]
           },
           "question": "What is a simulation — a kind of theory, a kind of experiment, or a third pillar of its own?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0002",
@@ -193,7 +205,19 @@
             ]
           },
           "question": "Do you simulate to discover new physics, or to verify what you already think is true?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0003",
@@ -225,7 +249,19 @@
             ]
           },
           "question": "Is a simulation a real experiment, or is \"experiment\" just a metaphor for a calculation?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0004",
@@ -257,7 +293,19 @@
             ]
           },
           "question": "Do you prioritize uncompromising physical fidelity or high-throughput computational speed?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0005",
@@ -289,7 +337,19 @@
             ]
           },
           "question": "Is a simulation validated by matching lab data or by mathematical convergence?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0006",
@@ -321,7 +381,19 @@
             ]
           },
           "question": "How much inherent trust do you place in simulation results?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.6"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.6",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         }
       ]
     },
@@ -376,7 +448,24 @@
             ]
           },
           "question": "Which computational physics methodology is your primary weapon?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xsi0008",
@@ -408,7 +497,24 @@
             ]
           },
           "question": "Do you calculate forces from first principles or fit empirical potential functions?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xsi0009",
@@ -440,7 +546,24 @@
             ]
           },
           "question": "Will strongly correlated quantum systems be solved by classical algorithms or quantum hardware?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xsi0010",
@@ -472,7 +595,24 @@
             ]
           },
           "question": "Is the world continuous or discrete — and does your simulation treat it that way?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xsi0011",
@@ -504,7 +644,24 @@
             ]
           },
           "question": "Is your simulation a clockwork or a dice roll?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         }
       ]
     },
@@ -543,7 +700,19 @@
             ]
           },
           "question": "Do you couple multi-scale models concurrently or pass parameters hierarchically?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.1"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0013",
@@ -575,7 +744,19 @@
             ]
           },
           "question": "Do you prioritize symplectic geometric conservation or high-order adaptive accuracy?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.2"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0014",
@@ -615,7 +796,19 @@
             ]
           },
           "question": "How do you discretize physical space?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.3"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0015",
@@ -647,7 +840,19 @@
             ]
           },
           "question": "Do you resolve the fine detail or cover the whole system?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.4"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         },
         {
           "id": "xsi0016",
@@ -679,7 +884,19 @@
             ]
           },
           "question": "Do you prove convergence, or just check it looks right?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.5"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.5",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         }
       ]
     },
@@ -718,7 +935,19 @@
             ]
           },
           "question": "Do you run on national supercomputers or on hardware you control?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.1"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xsi0018",
@@ -758,7 +987,19 @@
             ]
           },
           "question": "Is your physics algorithm better suited for high-memory CPUs, dense streaming GPUs, or quantum hardware?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.2"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xsi0019",
@@ -790,7 +1031,24 @@
             ]
           },
           "question": "Do you build upon 40-year-old Fortran monoliths or modern modular scientific languages?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.3"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Stack Overflow",
+              "url": "https://stackoverflow.com/"
+            }
+          ]
         },
         {
           "id": "xsi0020",
@@ -822,7 +1080,24 @@
             ]
           },
           "question": "Will deep learning neural operators replace traditional numerical solvers?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.4"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xsi0021",
@@ -854,7 +1129,24 @@
             ]
           },
           "question": "Do you trust machine-learned interatomic potentials for new physics discovery?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.5"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.5",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/MachineLearning",
+              "url": "https://www.reddit.com/r/MachineLearning/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            }
+          ]
         }
       ]
     },
@@ -893,7 +1185,24 @@
             ]
           },
           "question": "Do your error bars tell the truth, or tell the story you want?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.1"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xsi0023",
@@ -925,7 +1234,24 @@
             ]
           },
           "question": "Does reproducibility mean sharing your code, or getting the same answer independently?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.2"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xsi0024",
@@ -957,7 +1283,24 @@
             ]
           },
           "question": "Do you trust the solver, or do you verify it first?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.3"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/science",
+              "url": "https://www.reddit.com/r/science/"
+            }
+          ]
         },
         {
           "id": "xsi0025",
@@ -989,7 +1332,24 @@
             ]
           },
           "question": "Should simulation source code and input decks be fully open upon publication?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.4"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askscience",
+              "url": "https://www.reddit.com/r/askscience/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         }
       ]
     },
@@ -1028,7 +1388,14 @@
             ]
           },
           "question": "Do you maintain the legacy code or rewrite it?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.1"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/SimulationTheory",
+              "url": "https://www.reddit.com/r/SimulationTheory/"
+            }
+          ]
         },
         {
           "id": "xsi0027",

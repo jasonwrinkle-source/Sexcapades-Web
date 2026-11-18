@@ -177,7 +177,29 @@
             ]
           },
           "question": "What is mathematics, at bottom?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.1 — Abstracapades 1.1 (the pentad is more complete than Axiomcapades' triad, which drops Logicism and Structuralism)."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.1 — Abstracapades 1.1 (the pentad is more complete than Axiomcapades' triad, which drops Logicism and Structuralism).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/logic",
+              "url": "https://www.reddit.com/r/logic/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            }
+          ]
         },
         {
           "id": "xth0002",
@@ -217,7 +239,29 @@
             ]
           },
           "question": "Where does mathematical structure ultimately reside?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.2 — Axiomcapades 1.2 (Abstracapades did not cover this)."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.2 — Axiomcapades 1.2 (Abstracapades did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/CategoryTheory",
+              "url": "https://www.reddit.com/r/CategoryTheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/logic",
+              "url": "https://www.reddit.com/r/logic/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Proof Assistants Stack Exchange",
+              "url": "https://proofassistants.stackexchange.com/"
+            }
+          ]
         },
         {
           "id": "xth0003",
@@ -249,7 +293,29 @@
             ]
           },
           "question": "Is proof by contradiction genuine knowledge?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.3 — Axiomcapades 1.3 (the LEM detail; Abstracapades 2.1 is the same topic in plainer form)."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.3 — Axiomcapades 1.3 (the LEM detail; Abstracapades 2.1 is the same topic in plainer form).",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/logic",
+              "url": "https://www.reddit.com/r/logic/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Proof Assistants Stack Exchange",
+              "url": "https://proofassistants.stackexchange.com/"
+            }
+          ]
         },
         {
           "id": "xth0004",
@@ -281,7 +347,24 @@
             ]
           },
           "question": "Is math discovered or invented?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.4 — Abstracapades 1.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.4 — Abstracapades 1.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0005",
@@ -313,7 +396,24 @@
             ]
           },
           "question": "Is reality made of mathematics, or is mathematics made by human minds?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.5 — Axiomcapades 1.4."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.5 — Axiomcapades 1.4.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0006",
@@ -345,7 +445,24 @@
             ]
           },
           "question": "Is infinity a thing, or just a direction?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.6 — Abstracapades 1.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.6 — Abstracapades 1.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            }
+          ]
         }
       ]
     },
@@ -384,7 +501,24 @@
             ]
           },
           "question": "Do you submerge problems in abstract machinery or crack them with direct ingenuity?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.1 — Axiomcapades 2.1."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.1 — Axiomcapades 2.1.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/CategoryTheory",
+              "url": "https://www.reddit.com/r/CategoryTheory/"
+            }
+          ]
         },
         {
           "id": "xth0008",
@@ -416,7 +550,24 @@
             ]
           },
           "question": "Are you captivated by universal abstractions or exceptional concrete gems?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.2 — Axiomcapades 2.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.2 — Axiomcapades 2.2.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/CategoryTheory",
+              "url": "https://www.reddit.com/r/CategoryTheory/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0009",
@@ -448,7 +599,24 @@
             ]
           },
           "question": "How abstract should math be?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.3 — Abstracapades 5.1."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.3 — Abstracapades 5.1.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/CategoryTheory",
+              "url": "https://www.reddit.com/r/CategoryTheory/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0010",
@@ -488,7 +656,24 @@
             ]
           },
           "question": "What is the highest form of mathematical beauty in a proof?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.4 — Axiomcapades 2.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.4 — Axiomcapades 2.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            }
+          ]
         },
         {
           "id": "xth0011",
@@ -520,7 +705,24 @@
             ]
           },
           "question": "Do you think in pictures or in symbols?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.5 — Abstracapades 5.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.5 — Abstracapades 5.2.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/VisualMath",
+              "url": "https://www.reddit.com/r/VisualMath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geometry",
+              "url": "https://www.reddit.com/r/geometry/"
+            }
+          ]
         },
         {
           "id": "xth0012",
@@ -552,7 +754,24 @@
             ]
           },
           "question": "Do you trust mathematical intuition?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.6 — Abstracapades 5.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.6 — Abstracapades 5.3.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            }
+          ]
         }
       ]
     },
@@ -607,7 +826,34 @@
             ]
           },
           "question": "Where does your primary mathematical heart dwell?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.1 — Axiomcapades 3.1 (the tetrad adds Number Theory, which Abstracapades' triad omitted)."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.1 — Axiomcapades 3.1 (the tetrad adds Number Theory, which Abstracapades' triad omitted).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/puremathematics",
+              "url": "https://www.reddit.com/r/puremathematics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/numbertheory",
+              "url": "https://www.reddit.com/r/numbertheory/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/geometry",
+              "url": "https://www.reddit.com/r/geometry/"
+            }
+          ]
         },
         {
           "id": "xth0014",
@@ -632,7 +878,24 @@
             ]
           },
           "question": "How strong is your passion for the finite and discrete?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.2 — Axiomcapades 3.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.2 — Axiomcapades 3.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Mathematics Stack Exchange",
+              "url": "https://math.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0015",
@@ -664,7 +927,24 @@
             ]
           },
           "question": "Do you live in the discrete world or the continuous one?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.3 — Abstracapades 4.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.3 — Abstracapades 4.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/RealAnalysis",
+              "url": "https://www.reddit.com/r/RealAnalysis/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0016",
@@ -696,7 +976,19 @@
             ]
           },
           "question": "The skin-defining divide — where do you stand?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.4 — Abstracapades 4.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.4 — Abstracapades 4.3.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/puremathematics",
+              "url": "https://www.reddit.com/r/puremathematics/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         }
       ]
     },
@@ -735,7 +1027,29 @@
             ]
           },
           "question": "Is the Four Color Theorem proved?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.1 — Abstracapades 2.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.1 — Abstracapades 2.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Theoretical Computer Science Stack Exchange",
+              "url": "https://cstheory.stackexchange.com/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Proof Assistants Stack Exchange",
+              "url": "https://proofassistants.stackexchange.com/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0018",
@@ -767,7 +1081,29 @@
             ]
           },
           "question": "Does absolute certainty require interactive proof assistants?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.2 — Axiomcapades 4.1."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.2 — Axiomcapades 4.1.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Proof Assistants Stack Exchange",
+              "url": "https://proofassistants.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/leanprover",
+              "url": "https://www.reddit.com/r/leanprover/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Coq",
+              "url": "https://www.reddit.com/r/Coq/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Theoretical Computer Science Stack Exchange",
+              "url": "https://cstheory.stackexchange.com/"
+            }
+          ]
         },
         {
           "id": "xth0019",
@@ -807,7 +1143,24 @@
             ]
           },
           "question": "How do you relate to the Axiom of Choice?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.3 — Axiomcapades 4.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.3 — Axiomcapades 4.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/logic",
+              "url": "https://www.reddit.com/r/logic/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            }
+          ]
         },
         {
           "id": "xth0020",
@@ -839,7 +1192,24 @@
             ]
           },
           "question": "Do you slay famous open problems or build new mathematical worlds?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.4 — Axiomcapades 4.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.4 — Axiomcapades 4.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/numbertheory",
+              "url": "https://www.reddit.com/r/numbertheory/"
+            }
+          ]
         },
         {
           "id": "xth0021",
@@ -871,7 +1241,24 @@
             ]
           },
           "question": "Do you trust formal rigor, or mathematical intuition?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.5 — Abstracapades 2.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.5 — Abstracapades 2.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            }
+          ]
         }
       ]
     },
@@ -910,7 +1297,24 @@
             ]
           },
           "question": "What makes good math — a beautiful proof, or a powerful theorem?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.1 — Abstracapades 3.1."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.1 — Abstracapades 3.1.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            }
+          ]
         },
         {
           "id": "xth0023",
@@ -942,7 +1346,19 @@
             ]
           },
           "question": "Do you value simple results or deep ones?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.2 — Abstracapades 3.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.2 — Abstracapades 3.2.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            }
+          ]
         },
         {
           "id": "xth0024",
@@ -974,7 +1390,24 @@
             ]
           },
           "question": "Is beauty in math a guide to truth, or just a pleasure?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.3 — Abstracapades 3.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.3 — Abstracapades 3.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0025",
@@ -1006,7 +1439,29 @@
             ]
           },
           "question": "Is pure math untainted because it has no application, or miraculous because it secretly mirrors physics?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.4 — Axiomcapades 5.1."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.4 — Axiomcapades 5.1.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Philosophy Stack Exchange",
+              "url": "https://philosophy.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xth0026",
@@ -1038,7 +1493,29 @@
             ]
           },
           "question": "Should pure math be guided by internal consistency or physical insight?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.5 — Axiomcapades 5.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.5 — Axiomcapades 5.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         }
       ]
     },
@@ -1077,7 +1554,24 @@
             ]
           },
           "question": "How do you pursue the mathematical life?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.1 — Axiomcapades 6.1 (the vivid Erdős/Perelman framing of Abstracapades 6.1's Collaboration vs Solitude)."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.1 — Axiomcapades 6.1 (the vivid Erdős/Perelman framing of Abstracapades 6.1's Collaboration vs Solitude).",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/academia",
+              "url": "https://www.reddit.com/r/academia/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "MathOverflow",
+              "url": "https://mathoverflow.net/"
+            }
+          ]
         },
         {
           "id": "xth0028",
@@ -1109,7 +1603,24 @@
             ]
           },
           "question": "How do you explore mathematics?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.2 — Axiomcapades 6.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.2 — Axiomcapades 6.2.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/LaTeX",
+              "url": "https://www.reddit.com/r/LaTeX/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Mathematica",
+              "url": "https://www.reddit.com/r/Mathematica/"
+            }
+          ]
         },
         {
           "id": "xth0029",
@@ -1141,7 +1652,19 @@
             ]
           },
           "question": "What is the ultimate reward of pure mathematics?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.3 — Axiomcapades 6.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.3 — Axiomcapades 6.3.",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/academia",
+              "url": "https://www.reddit.com/r/academia/"
+            }
+          ]
         },
         {
           "id": "xth0030",
@@ -1173,7 +1696,24 @@
             ]
           },
           "question": "Do you publish fast, or perfect first?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.4 — Abstracapades 6.2."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.4 — Abstracapades 6.2.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Academia Stack Exchange",
+              "url": "https://academia.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/academia",
+              "url": "https://www.reddit.com/r/academia/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/AskAcademia",
+              "url": "https://www.reddit.com/r/AskAcademia/"
+            }
+          ]
         },
         {
           "id": "xth0031",
@@ -1205,7 +1745,29 @@
             ]
           },
           "question": "Do you value teaching or research more?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.5 — Abstracapades 6.3."
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.5 — Abstracapades 6.3.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Academia Stack Exchange",
+              "url": "https://academia.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/academia",
+              "url": "https://www.reddit.com/r/academia/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/AskAcademia",
+              "url": "https://www.reddit.com/r/AskAcademia/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/GradSchool",
+              "url": "https://www.reddit.com/r/GradSchool/"
+            }
+          ]
         }
       ]
     }

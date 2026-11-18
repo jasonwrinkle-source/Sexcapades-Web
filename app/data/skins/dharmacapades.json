@@ -43,7 +43,29 @@
           "question": "How do you understand karma?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.1",
-          "widget": "trilinear-line"
+          "widget": "trilinear-line",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -83,7 +105,29 @@
           "question": "What do you do about the cycle of rebirth?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.2",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -123,7 +167,19 @@
           "question": "What is Buddhism to you?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.3",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -171,7 +227,19 @@
           "question": "How do you balance duty, wealth, pleasure, and liberation?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.4",
-          "widget": "diamond"
+          "widget": "diamond",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -211,7 +279,24 @@
           "question": "How do you balance social duty, natural spontaneity, and spiritual detachment?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.5",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/taoism",
+              "url": "https://www.reddit.com/r/taoism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -291,7 +376,14 @@
           "question": "Which archetypal energies do you balance?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.6",
-          "widget": "octad-radar"
+          "widget": "octad-radar",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/taoism",
+              "url": "https://www.reddit.com/r/taoism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -331,7 +423,19 @@
           "question": "Which guna dominates your temperament and practice?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.7",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -387,7 +491,19 @@
           "question": "Which element do you work with most — in your body, your practice, your cosmology?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §1.8",
-          "widget": "star-radar"
+          "widget": "star-radar",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         }
       ]
     },
@@ -434,7 +550,29 @@
           "question": "What is liberation?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §2.1",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -466,7 +604,29 @@
           "question": "Does awakening come all at once, or piece by piece?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §2.2",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -498,7 +658,29 @@
           "question": "Is there a self, or isn't there? The core metaphysical divide.",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §2.3",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         }
       ]
     },
@@ -561,7 +743,34 @@
           "question": "Which dimension of yoga do you practice?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.1",
-          "widget": "star-radar"
+          "widget": "star-radar",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/yoga",
+              "url": "https://www.reddit.com/r/yoga/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -593,7 +802,24 @@
           "question": "Do you meditate to calm the mind, or to see through it?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.2",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Meditation",
+              "url": "https://www.reddit.com/r/Meditation/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -625,7 +851,29 @@
           "question": "Which tantra — the one that breaks the rules, or the one that works within them?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.3",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -657,7 +905,24 @@
           "question": "Is kundalini awakening or danger — or both?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.4",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/yoga",
+              "url": "https://www.reddit.com/r/yoga/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -737,7 +1002,19 @@
           "question": "How much do you emphasize each limb of the Path?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.5",
-          "widget": "octad-radar"
+          "widget": "octad-radar",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -769,7 +1046,29 @@
           "question": "Do you act by effortless alignment or deliberate striving?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.6",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": "simplex",
@@ -833,7 +1132,24 @@
           "question": "Which yoga is your path?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §3.7",
-          "widget": "hexad-radar"
+          "widget": "hexad-radar",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/yoga",
+              "url": "https://www.reddit.com/r/yoga/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         }
       ]
     },
@@ -888,7 +1204,29 @@
           "question": "What is the divine — or is there one?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §4.1",
-          "widget": "diamond"
+          "widget": "diamond",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -920,7 +1258,19 @@
           "question": "How do you conceive the ultimate — as a person, or as a principle?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §4.2",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -960,7 +1310,19 @@
           "question": "Who — or what — is the Buddha?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §4.3",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         }
       ]
     },
@@ -1007,7 +1369,29 @@
           "question": "Which school's non-violence do you hold?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §5.1",
-          "widget": "triangle"
+          "widget": "triangle",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1039,7 +1423,19 @@
           "question": "Are the ethical precepts commandments, or compass points?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §5.2",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1071,7 +1467,19 @@
           "question": "The two wings of the bodhisattva path — which do you emphasize?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §5.3",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         }
       ]
     },
@@ -1110,7 +1518,29 @@
           "question": "Do you need a guru?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.1",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1142,7 +1572,19 @@
           "question": "Where do you practice — in the monastery, or in the marketplace?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.2",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1174,7 +1616,29 @@
           "question": "Do you stay in one school, or borrow across them?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.3",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         },
         {
           "archetype": null,
@@ -1206,7 +1670,29 @@
           "question": "Do you live as a householder or a renouncer?",
           "risk": false,
           "source": "BRIEFING_DHARMACAPADES_TAXONOMY.md §6.4",
-          "widget": "linear-sliders"
+          "widget": "linear-sliders",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Buddhism Stack Exchange",
+              "url": "https://buddhism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Buddhism",
+              "url": "https://www.reddit.com/r/Buddhism/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Hinduism Stack Exchange",
+              "url": "https://hinduism.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/hinduism",
+              "url": "https://www.reddit.com/r/hinduism/"
+            }
+          ]
         }
       ]
     }

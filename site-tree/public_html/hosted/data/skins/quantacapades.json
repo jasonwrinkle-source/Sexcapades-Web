@@ -169,7 +169,19 @@
             ]
           },
           "question": "What is the true nature of the quantum state?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.1 — Both versions (Antigravity 1.1; YoBiche's tetrad) — Antigravity's framing kept."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.1 — Both versions (Antigravity 1.1; YoBiche's tetrad) — Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0002",
@@ -201,7 +213,19 @@
             ]
           },
           "question": "Is the wavefunction physical reality or human ignorance?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.2 — Antigravity 1.2 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.2 — Antigravity 1.2 (YoBiche did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0003",
@@ -241,7 +265,19 @@
             ]
           },
           "question": "What happens when you measure?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.3 — YoBiche (Antigravity 1.3 covered the same ground as a dipole — Objective Collapse vs. Pure Unitary Decoherence — folded into this triad)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.3 — YoBiche (Antigravity 1.3 covered the same ground as a dipole — Objective Collapse vs. Pure Unitary Decoherence — folded into this triad).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0004",
@@ -273,7 +309,19 @@
             ]
           },
           "question": "Is the universe deterministic or intrinsically random?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.4 — Both versions (Antigravity 5.2; YoBiche's dipole) — Antigravity's framing kept."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.4 — Both versions (Antigravity 5.2; YoBiche's dipole) — Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0005",
@@ -305,7 +353,19 @@
             ]
           },
           "question": "Faced with Bell's inequality, do you abandon locality or counterfactual realism?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.5 — Both versions (Antigravity 1.4; YoBiche's dipole) — Antigravity's framing kept."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.1.5 — Both versions (Antigravity 1.4; YoBiche's dipole) — Antigravity's framing kept.",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         }
       ]
     },
@@ -360,7 +420,19 @@
             ]
           },
           "question": "How will quantum gravity be solved?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.1 — Antigravity 2.1 (YoBiche had this as a dipole; the tetrad is richer)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.1 — Antigravity 2.1 (YoBiche had this as a dipole; the tetrad is richer).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0007",
@@ -392,7 +464,19 @@
             ]
           },
           "question": "Is spacetime fundamental or an emergent collective phenomenon?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.2 — Both versions (Antigravity 2.2; YoBiche's dipole)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.2 — Both versions (Antigravity 2.2; YoBiche's dipole).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0008",
@@ -424,7 +508,19 @@
             ]
           },
           "question": "Do superpartners exist in nature?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.3 — Antigravity 2.3 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.3 — Antigravity 2.3 (YoBiche did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0009",
@@ -456,7 +552,19 @@
             ]
           },
           "question": "Do quantum effects prevent gravitational singularities?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.4 — Antigravity 2.4 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.4 — Antigravity 2.4 (YoBiche did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0010",
@@ -488,7 +596,19 @@
             ]
           },
           "question": "Do you chase unification, or work scale by scale?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.5 — YoBiche (Antigravity did not cover this as a separate topic; her 6.2 is the companion TOE vs. EFT topic)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.5 — YoBiche (Antigravity did not cover this as a separate topic; her 6.2 is the companion TOE vs. EFT topic).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0011",
@@ -520,7 +640,19 @@
             ]
           },
           "question": "Is a final Theory of Everything achievable?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.6 — Antigravity 6.2 (YoBiche's 2.5 is the companion GUT vs. EFT topic — GUT unifies three forces, TOE unifies all four; a person can believe in one and not the other)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.2.6 — Antigravity 6.2 (YoBiche's 2.5 is the companion GUT vs. EFT topic — GUT unifies three forces, TOE unifies all four; a person can believe in one and not the other).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         }
       ]
     },
@@ -567,7 +699,19 @@
             ]
           },
           "question": "How did the universe begin — or did it?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.1 — YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.1 — YoBiche (Antigravity did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         },
         {
           "id": "xqu0013",
@@ -599,7 +743,19 @@
             ]
           },
           "question": "Is dark matter missing mass or missing gravity?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.2 — Both versions (Antigravity 3.4; YoBiche's dipole)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.2 — Both versions (Antigravity 3.4; YoBiche's dipole).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         },
         {
           "id": "xqu0014",
@@ -631,7 +787,19 @@
             ]
           },
           "question": "Is dark energy a constant of nature or a changing field?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.3 — YoBiche (Antigravity did not cover this; her 3.3 is the companion question of why $\\Lambda$ has its value)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.3 — YoBiche (Antigravity did not cover this; her 3.3 is the companion question of why $\\Lambda$ has its value).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         },
         {
           "id": "xqu0015",
@@ -671,7 +839,19 @@
             ]
           },
           "question": "What explains the cosmological constant?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.4 — Antigravity 3.3 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.4 — Antigravity 3.3 (YoBiche did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         },
         {
           "id": "xqu0016",
@@ -703,7 +883,19 @@
             ]
           },
           "question": "Are there other universes?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.5 — YoBiche (Antigravity did not cover this as a separate topic; the multiverse appears as a pole in her 3.3)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.5 — YoBiche (Antigravity did not cover this as a separate topic; the multiverse appears as a pole in her 3.3).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         },
         {
           "id": "xqu0017",
@@ -735,7 +927,19 @@
             ]
           },
           "question": "Why does time have a direction?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.6 — Antigravity 3.2 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.6 — Antigravity 3.2 (YoBiche did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         },
         {
           "id": "xqu0018",
@@ -767,7 +971,19 @@
             ]
           },
           "question": "Does time flow, or is reality an unchanging 4D block?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.7 — Both versions (Antigravity 3.1; YoBiche's dipole)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.3.7 — Both versions (Antigravity 3.1; YoBiche's dipole).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Physics",
+              "url": "https://www.reddit.com/r/Physics/"
+            }
+          ]
         }
       ]
     },
@@ -814,7 +1030,19 @@
             ]
           },
           "question": "Where does fundamental physical reality live?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.1 — Antigravity 4.3 (YoBiche had this as a dipole — Reductionism vs. Emergence; the triad adds Duality)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.1 — Antigravity 4.3 (YoBiche had this as a dipole — Reductionism vs. Emergence; the triad adds Duality).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0020",
@@ -846,7 +1074,29 @@
             ]
           },
           "question": "Is information the stuff of reality, or just a way of describing it?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.2 — YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.2 — YoBiche (Antigravity did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Quantum Computing Stack Exchange",
+              "url": "https://quantumcomputing.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/QuantumComputing",
+              "url": "https://www.reddit.com/r/QuantumComputing/"
+            }
+          ]
         },
         {
           "id": "xqu0021",
@@ -878,7 +1128,19 @@
             ]
           },
           "question": "Do physical theories describe reality, or just predict observations?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.3 — YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.4.3 — YoBiche (Antigravity did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         }
       ]
     },
@@ -917,7 +1179,19 @@
             ]
           },
           "question": "Is symmetry the foundation, or is its breaking where the action is?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.1 — YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.1 — YoBiche (Antigravity did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0023",
@@ -949,7 +1223,19 @@
             ]
           },
           "question": "Is fine-tuning a crisis or a fact of nature?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.2 — Both versions (Antigravity 4.2; YoBiche's dipole)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.2 — Both versions (Antigravity 4.2; YoBiche's dipole).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0024",
@@ -981,7 +1267,19 @@
             ]
           },
           "question": "Is anthropic reasoning legitimate physics?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.3 — YoBiche (Antigravity did not cover this as a separate topic; the anthropic multiverse appears as a pole in her 3.4)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.3 — YoBiche (Antigravity did not cover this as a separate topic; the anthropic multiverse appears as a pole in her 3.4).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0025",
@@ -1013,7 +1311,19 @@
             ]
           },
           "question": "Should beauty or falsifiability guide theoretical physics?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.4 — Merged (Antigravity 4.1 framed it as Beauty vs. Falsifiability; YoBiche as Trust vs. Distrust of beauty — the same axis, both framings kept)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.4 — Merged (Antigravity 4.1 framed it as Beauty vs. Falsifiability; YoBiche as Trust vs. Distrust of beauty — the same axis, both framings kept).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            }
+          ]
         },
         {
           "id": "xqu0026",
@@ -1053,7 +1363,29 @@
             ]
           },
           "question": "What is the fate of black hole information?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.5 — Antigravity 5.1 (YoBiche did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.5.5 — Antigravity 5.1 (YoBiche did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Physics Stack Exchange",
+              "url": "https://physics.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/quantum",
+              "url": "https://www.reddit.com/r/quantum/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Quantum Computing Stack Exchange",
+              "url": "https://quantumcomputing.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/QuantumComputing",
+              "url": "https://www.reddit.com/r/QuantumComputing/"
+            }
+          ]
         }
       ]
     },
@@ -1124,7 +1456,19 @@
             ]
           },
           "question": "Is mathematics discovered or invented?",
-          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.2 — YoBiche (Antigravity did not cover this)."
+          "source": "BRIEFING_QUANTACAPADES_TAXONOMY.md §2.6.2 — YoBiche (Antigravity did not cover this).",
+          "communities": [
+            {
+              "network": "Stack Exchange",
+              "name": "Mathematics Stack Exchange",
+              "url": "https://math.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/math",
+              "url": "https://www.reddit.com/r/math/"
+            }
+          ]
         },
         {
           "id": "xqu0029",
