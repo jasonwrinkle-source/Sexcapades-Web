@@ -380,6 +380,13 @@
            Kinkiness is 1 - popularity, from the same value. */
         function sxTopicPopularity(idOrLabel, labelFallback) {
             const key = String(idOrLabel || "");
+            /* Skin popularity (vanilla): a topic carrying a scored
+               popularity object in its skin file returns its score
+               (0-100) as a 0-1 value. */
+            if (typeof window !== "undefined" && window.__SX_POPULARITY_FOR_TOPIC) {
+                const sp = window.__SX_POPULARITY_FOR_TOPIC(key);
+                if (sp && Number.isFinite(sp.score)) return sp.score / 100;
+            }
             const lb = topicLabelById[key];
             if (lb) {
                 const p = H(lb);

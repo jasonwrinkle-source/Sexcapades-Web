@@ -2570,6 +2570,29 @@
         }
         function popularitySourceStats(e, t) {
             const n = "Category" === e.kind ? h.find(t => t.name === e.branch)?.topics || [] : "Subcategory" === e.kind ? mo(e) : [ e.label ], i = "Category" === e.kind || "Subcategory" === e.kind, a = Math.max(1, n.length), r = [], o = n.map(B).filter(Number.isFinite), s = o.map(E), l = o.length ? o.reduce((e, t) => e + t, 0) / o.length : null, c = go(o);
+            /* Skin popularity (vanilla): a Polis topic carrying a scored
+               popularity object contributes Gallup and/or Pew rows,
+               weighted by sample size (Gallup 0.235, Pew 0.765) — the
+               same weighting as the score itself. */
+            if (!i && typeof window !== "undefined" && window.__SX_POPULARITY_FOR_TOPIC) {
+                const sp = window.__SX_POPULARITY_FOR_TOPIC(e.id);
+                if (sp && Array.isArray(sp.sources)) {
+                    const srcMeta = {
+                        gallup: { name: "Gallup — Poll Social Series, Oct 2026 (n=1,200)", weight: .235, pctLabel: "said \u201cextremely important\u201d" },
+                        pew: { name: "Pew Research Center — American Trends Panel, Sept–Oct 2026 (n=3,917 registered voters)", weight: .765, pctLabel: "said \u201cvery important\u201d" }
+                    };
+                    sp.sources.forEach(s => {
+                        const m = srcMeta[s.key];
+                        if (!m || !Number.isFinite(s.normalized)) return;
+                        r.push({
+                            name: m.name,
+                            value: `${Number(s.normalized).toFixed(1)} / 100`,
+                            uncertainty: `${s.pct}% ${m.pctLabel}`,
+                            weight: m.weight
+                        });
+                    });
+                }
+            }
                 r.push({
                     name: "FetLife",
                     value: Number.isFinite(l) ? i ? `${Math.round(l).toLocaleString()} average kinksters across ${o.length} kinks` : `${Math.round(l).toLocaleString()} kinksters` : "No matched count",
@@ -2643,7 +2666,21 @@
             r.textContent = e, o.textContent = t, a.append(r, o), i.append(a), Kr.append(i);
         }
         function ko(e) {
-            const t = e.dataset.network, i = e.dataset.topic, a = ce(i, t), r = "fetlife" === t ? "FetLife" : "discord" === t ? "Discord" : "Reddit";
+            const t = e.dataset.network, i = e.dataset.topic;
+            /* Skin communities (vanilla): when the trigger carries a skin
+               topic id, list that topic's communities on this network
+               from its skin file. Otherwise the hardcoded Sexcapades maps. */
+            let a;
+            const skinId = e.dataset.skinTopicId;
+            if (skinId && typeof window !== "undefined" && window.__SX_COMMUNITIES_FOR_TOPIC) {
+                const all = window.__SX_COMMUNITIES_FOR_TOPIC(skinId) || [];
+                const key = String(t || "").toLowerCase();
+                a = all.filter(c => String(c.network || "").toLowerCase().replace(/\s+/g, "") === key)
+                    .map(c => ({ name: c.name, scope: c.network, url: c.url }));
+            } else {
+                a = ce(i, t);
+            }
+            const r = "fetlife" === t ? "FetLife" : "discord" === t ? "Discord" : "stackexchange" === t ? "Stack Exchange" : "Reddit";
             if (!a.length) return void oo();
             if (no === e && !Ur.hidden) return void oo();
             oo(), ro(), no = e, e.setAttribute("aria-expanded", "true"), Gr.textContent = `${r} communities for ${i}`,
@@ -6115,26 +6152,76 @@
             }).catch(function (e) { __sxErrLog("histogram-submit", e); }));
             const p = Ir[r.label];
             Br.hidden = !p, p ? Br.href = p : Br.removeAttribute("href"), oo(), function(e) {
+                /* Skin communities (vanilla): the topic's own communities
+                   from its skin file, grouped by network. A vanilla topic
+                   with none hides the whole community block. A topic with
+                   no skin entry (Sexcapades) keeps the hardcoded maps. */
+                const skinComms = typeof window !== "undefined" && window.__SX_COMMUNITIES_FOR_TOPIC
+                    ? window.__SX_COMMUNITIES_FOR_TOPIC(r.id) : null;
+                const isVanilla = typeof window !== "undefined" && window.__SX_SKIN_PREFIX && "sex" !== window.__SX_SKIN_PREFIX;
                 let t = !1;
-                [ {
-                    key: "fetlife",
-                    trigger: jr
-                }, {
-                    key: "reddit",
-                    trigger: qr
-                }, {
-                    key: "discord",
-                    trigger: Hr
-                } ].forEach(n => {
-                    const i = ce(e, n.key), a = n.trigger;
-                    a.style.removeProperty("display"), a.hidden = !i.length, a.dataset.network = n.key,
-                    a.dataset.topic = e, a.setAttribute("aria-expanded", "false"), i.length && (t = !0);
-                }), Wr.hidden = t, Wr.textContent = t ? "" : "Reddit, FetLife, Discord: no dedicated community found";
-            }(r.label), ro(), n(zr, (o.sources || []).map(e => {
-                const t = Be[e];
-                return `<a href="${t.url}" target="_blank" rel="noopener noreferrer">${t.label}</a>`;
-            }).join(""));
-            const h = tt[Vi()]?.[e] || [], aftercareNote = "Connection & aftercare" === r.branch;
+                if (skinComms && skinComms.length) {
+                    const byNet = {}, order = [];
+                    skinComms.forEach(c => {
+                        const k = String(c.network || "").toLowerCase().replace(/\s+/g, "");
+                        if (!k) return;
+                        if (!byNet[k]) { byNet[k] = []; order.push(k); }
+                        byNet[k].push(c);
+                    });
+                    const displayName = { reddit: "Reddit", stackexchange: "Stack Exchange", discord: "Discord", fetlife: "FetLife" };
+                    const triggers = [ jr, qr, Hr ];
+                    triggers.forEach(a => { a.hidden = !0; });
+                    order.slice(0, 3).forEach((k, idx) => {
+                        const a = triggers[idx];
+                        a.style.removeProperty("display"), a.hidden = !1, a.dataset.network = k,
+                        a.dataset.topic = e, a.dataset.skinTopicId = r.id,
+                        a.textContent = "Discuss on " + (displayName[k] || k),
+                        a.setAttribute("aria-expanded", "false"), t = !0;
+                    });
+                    Wr.hidden = !0, Wr.textContent = "";
+                } else if (isVanilla) {
+                    [ jr, qr, Hr ].forEach(a => { a.hidden = !0; });
+                    Wr.hidden = !0, Wr.textContent = "";
+                } else {
+                    [ {
+                        key: "fetlife",
+                        trigger: jr
+                    }, {
+                        key: "reddit",
+                        trigger: qr
+                    }, {
+                        key: "discord",
+                        trigger: Hr
+                    } ].forEach(n => {
+                        const i = ce(e, n.key), a = n.trigger;
+                        a.style.removeProperty("display"), a.hidden = !i.length, a.dataset.network = n.key,
+                        a.dataset.topic = e, a.removeAttribute("data-skin-topic-id"),
+                        a.textContent = "Discuss on " + ("fetlife" === n.key ? "FetLife" : "discord" === n.key ? "Discord" : "Reddit"),
+                        a.setAttribute("aria-expanded", "false"), i.length && (t = !0);
+                    }), Wr.hidden = t, Wr.textContent = t ? "" : "Reddit, FetLife, Discord: no dedicated community found";
+                }
+            }(r.label), ro(), n(zr, function() {
+                /* Included from, skinned per skin: on a vanilla topic it
+                   lists the networks the topic's communities came from
+                   (each skin shows its own source labels). Sexcapades
+                   keeps the survey/checklist sources. */
+                const skinComms = typeof window !== "undefined" && window.__SX_COMMUNITIES_FOR_TOPIC
+                    ? window.__SX_COMMUNITIES_FOR_TOPIC(r.id) : null;
+                if (skinComms && skinComms.length) {
+                    const netHome = { reddit: "https://www.reddit.com/", stackexchange: "https://stackexchange.com/", discord: "https://discord.com/" };
+                    const seen = {}, order = [];
+                    skinComms.forEach(c => {
+                        const k = String(c.network || "").toLowerCase().replace(/\s+/g, "");
+                        if (k && !seen[k]) { seen[k] = !0; order.push(k); }
+                    });
+                    const label = { reddit: "Reddit", stackexchange: "Stack Exchange", discord: "Discord", fetlife: "FetLife" };
+                    return order.map(k => `<a href="${netHome[k] || "#"}" target="_blank" rel="noopener noreferrer">${label[k] || k}</a>`).join("");
+                }
+                return (o.sources || []).map(e => {
+                    const t = Be[e];
+                    return `<a href="${t.url}" target="_blank" rel="noopener noreferrer">${t.label}</a>`;
+                }).join("");
+            }()), Vr.hidden = !zr.innerHTML;            const h = tt[Vi()]?.[e] || [], aftercareNote = "Connection & aftercare" === r.branch;
             Zr.maxLength = aftercareNote ? 1600 : 800, Zr.placeholder = aftercareNote ? "Describe your aftercare needs: touch or space, reassurance, water or food, cleanup, medication or accessibility needs, check-in timing, and anything to avoid…" : "Add a note for this topic…", __sxClosestAction(Zr, "markNoteField")?.classList.toggle("is-aftercare-note", aftercareNote);
             Zr.value = h.join(" ");
             Yr.hidden = !0;

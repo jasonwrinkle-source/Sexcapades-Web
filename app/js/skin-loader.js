@@ -321,6 +321,8 @@
     var desc = {};
     var poleLines = {};
     var meterTopics = {};
+    var communities = {};
+    var popularity = {};
     var count = 0;
     data.categories.forEach(function (cat) {
       var all = (cat.topics || []).slice();
@@ -345,6 +347,11 @@
           poleLines[t.id] = lines;
         }
         if (t.meter) meterTopics[t.id] = t.meter;
+        /* Community + popularity (vanilla skins): per-topic communities
+           and Polis popularity scores live on the skin topic objects.
+           Published as registries keyed by topic id for the placard. */
+        if (t.communities && t.communities.length) communities[t.id] = t.communities;
+        if (t.popularity) popularity[t.id] = t.popularity;
         count += 1;
       });
     });
@@ -352,6 +359,8 @@
     window.__SX_SKIN_DESCRIPTIONS = desc;
     window.__SX_POLE_LINES = poleLines;
     window.__SX_METER = { default: data.meter || null, topics: meterTopics };
+    window.__SX_SKIN_COMMUNITIES = communities;
+    window.__SX_SKIN_POPULARITY = popularity;
     return count;
   }
 
@@ -368,6 +377,21 @@
     if (!m) return null;
     if (topicId && m.topics && m.topics[topicId]) return m.topics[topicId];
     return m.default || null;
+  };
+
+  /* Community + popularity lookups. __SX_COMMUNITIES_FOR_TOPIC returns
+     the topic's community list, or null. __SX_POPULARITY_FOR_TOPIC
+     returns the topic's popularity object, or null. Both read the
+     registries registerWidgets builds from the active skin's topics. */
+  window.__SX_COMMUNITIES_FOR_TOPIC = function (topicId) {
+    var reg = window.__SX_SKIN_COMMUNITIES;
+    if (reg && reg[topicId]) return reg[topicId];
+    return null;
+  };
+  window.__SX_POPULARITY_FOR_TOPIC = function (topicId) {
+    var reg = window.__SX_SKIN_POPULARITY;
+    if (reg && reg[topicId]) return reg[topicId];
+    return null;
   };
 
   /* Sexcapades seam: sexcapades.json carries the 17 higher-pole topics'
