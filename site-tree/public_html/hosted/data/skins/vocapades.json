@@ -161,7 +161,29 @@
             ]
           },
           "question": "Is your work a calling, a career, or a job?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 1.1"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 1.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0002",
@@ -201,7 +223,29 @@
             ]
           },
           "question": "Who is the work for?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 1.2"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 1.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         }
       ]
     },
@@ -240,7 +284,29 @@
             ]
           },
           "question": "Do you push, or do you pace yourself? The big one.",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.1"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0004",
@@ -272,7 +338,29 @@
             ]
           },
           "question": "Are you satisfied where you are, or always reaching?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.2"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0005",
@@ -304,7 +392,29 @@
             ]
           },
           "question": "Do you want a steady job, or a bet?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.3"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0006",
@@ -336,7 +446,29 @@
             ]
           },
           "question": "Are you a generalist or a specialist?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.4"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 2.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         }
       ]
     },
@@ -383,7 +515,29 @@
             ]
           },
           "question": "Where do you do your best work?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.1"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0008",
@@ -415,7 +569,29 @@
             ]
           },
           "question": "Do you work best alone, or with others?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.2"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0009",
@@ -447,7 +623,29 @@
             ]
           },
           "question": "When do you work — on the clock, or on your own rhythm?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.3"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 3.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         }
       ]
     },
@@ -486,7 +684,29 @@
             ]
           },
           "question": "How should work be organized?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.1"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0011",
@@ -518,7 +738,29 @@
             ]
           },
           "question": "How much freedom do you want in how you work?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.2"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0012",
@@ -558,7 +800,29 @@
             ]
           },
           "question": "How should a manager manage?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.3"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0013",
@@ -590,7 +854,29 @@
             ]
           },
           "question": "Who should own the workplace?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.4"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0014",
@@ -646,7 +932,29 @@
             ]
           },
           "question": "What shape does your working life take?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.5"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 4.5",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         }
       ]
     },
@@ -685,7 +993,29 @@
             ]
           },
           "question": "What matters more — the number, or the package?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.1"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0016",
@@ -717,7 +1047,29 @@
             ]
           },
           "question": "Do you want safety, or potential?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.2"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0017",
@@ -749,7 +1101,29 @@
             ]
           },
           "question": "How much do you need to be seen for what you do?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.3"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0018",
@@ -797,7 +1171,29 @@
             ]
           },
           "question": "What anchors your career?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.4"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 5.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         }
       ]
     },
@@ -836,7 +1232,29 @@
             ]
           },
           "question": "Is your work your identity, or just something you do?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.1"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0020",
@@ -868,7 +1286,29 @@
             ]
           },
           "question": "How separate is work from life — and should it be?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.2"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         },
         {
           "id": "xvo0021",
@@ -900,7 +1340,29 @@
             ]
           },
           "question": "Do you work to retire, or do you work because the work is the point?",
-          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.3"
+          "source": "BRIEFING_VOCAPADES_TAXONOMY.md §2, topic 6.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/careerchange",
+              "url": "https://www.reddit.com/r/careerchange/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/findapath",
+              "url": "https://www.reddit.com/r/findapath/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/jobs",
+              "url": "https://www.reddit.com/r/jobs/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/careerguidance",
+              "url": "https://www.reddit.com/r/careerguidance/"
+            }
+          ]
         }
       ]
     }

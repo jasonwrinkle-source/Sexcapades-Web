@@ -153,7 +153,19 @@
             ]
           },
           "question": "How much do you want art to look like the world vs. depart from it?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.1"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Art",
+              "url": "https://www.reddit.com/r/Art/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/photography",
+              "url": "https://www.reddit.com/r/photography/"
+            }
+          ]
         },
         {
           "id": "xae0002",
@@ -185,7 +197,14 @@
             ]
           },
           "question": "Do you trust the old masters or the new edge?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.2"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Art",
+              "url": "https://www.reddit.com/r/Art/"
+            }
+          ]
         },
         {
           "id": "xae0003",
@@ -225,7 +244,19 @@
             ]
           },
           "question": "What is a photograph for?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.3"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/photography",
+              "url": "https://www.reddit.com/r/photography/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Art",
+              "url": "https://www.reddit.com/r/Art/"
+            }
+          ]
         },
         {
           "id": "xae0004",
@@ -257,7 +288,14 @@
             ]
           },
           "question": "Do you prefer art you can feel or art that's seamless?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.4"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Art",
+              "url": "https://www.reddit.com/r/Art/"
+            }
+          ]
         }
       ]
     },
@@ -296,7 +334,14 @@
             ]
           },
           "question": "Do you listen for the lyrics or the sound?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.1"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/musictheory",
+              "url": "https://www.reddit.com/r/musictheory/"
+            }
+          ]
         },
         {
           "id": "xae0006",
@@ -328,7 +373,14 @@
             ]
           },
           "question": "The room or the record?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.2"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/musictheory",
+              "url": "https://www.reddit.com/r/musictheory/"
+            }
+          ]
         },
         {
           "id": "xae0007",
@@ -368,7 +420,14 @@
             ]
           },
           "question": "Where does your ear live?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.3"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/musictheory",
+              "url": "https://www.reddit.com/r/musictheory/"
+            }
+          ]
         }
       ]
     },
@@ -407,7 +466,14 @@
             ]
           },
           "question": "Do you read for the story or the sentence?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.1"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/literature",
+              "url": "https://www.reddit.com/r/literature/"
+            }
+          ]
         },
         {
           "id": "xae0009",
@@ -439,7 +505,14 @@
             ]
           },
           "question": "What carries a story for you — what happens, or who it happens to?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.2"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/literature",
+              "url": "https://www.reddit.com/r/literature/"
+            }
+          ]
         },
         {
           "id": "xae0010",
@@ -471,7 +544,14 @@
             ]
           },
           "question": "Which medium do you prefer for story?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.3"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/literature",
+              "url": "https://www.reddit.com/r/literature/"
+            }
+          ]
         }
       ]
     },
@@ -510,7 +590,14 @@
             ]
           },
           "question": "Attitudes toward makeup, grooming, cosmetic procedures, enhancement.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.1"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/fashion",
+              "url": "https://www.reddit.com/r/fashion/"
+            }
+          ]
         },
         {
           "id": "xae0012",
@@ -542,7 +629,14 @@
             ]
           },
           "question": "How much is enough, on the body?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.2"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/fashion",
+              "url": "https://www.reddit.com/r/fashion/"
+            }
+          ]
         },
         {
           "id": "xae0013",
@@ -574,7 +668,14 @@
             ]
           },
           "question": "Do you dress to say something, or to belong?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.3"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/fashion",
+              "url": "https://www.reddit.com/r/fashion/"
+            }
+          ]
         }
       ]
     },
@@ -613,7 +714,14 @@
             ]
           },
           "question": "Glass and steel, or stone and arch?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.1"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/architecture",
+              "url": "https://www.reddit.com/r/architecture/"
+            }
+          ]
         },
         {
           "id": "xae0015",
@@ -645,7 +753,14 @@
             ]
           },
           "question": "How much stuff does a room need to feel like home?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.2"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/architecture",
+              "url": "https://www.reddit.com/r/architecture/"
+            }
+          ]
         },
         {
           "id": "xae0016",
@@ -677,7 +792,14 @@
             ]
           },
           "question": "Which landscapes move you — the skyline or the wilderness?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.3"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/architecture",
+              "url": "https://www.reddit.com/r/architecture/"
+            }
+          ]
         }
       ]
     },
@@ -724,7 +846,24 @@
             ]
           },
           "question": "Where do you place your taste — the canon, the mainstream, or the gutter?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.1"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/philosophy",
+              "url": "https://www.reddit.com/r/philosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Art",
+              "url": "https://www.reddit.com/r/Art/"
+            }
+          ]
         },
         {
           "id": "xae0018",
@@ -756,7 +895,19 @@
             ]
           },
           "question": "When the canon and your gut disagree, who wins?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.2"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/philosophy",
+              "url": "https://www.reddit.com/r/philosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            }
+          ]
         },
         {
           "id": "xae0019",
@@ -788,7 +939,19 @@
             ]
           },
           "question": "The meta-aesthetic stance — the one that predicts most of the others.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.3"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/philosophy",
+              "url": "https://www.reddit.com/r/philosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            }
+          ]
         },
         {
           "id": "xae0020",
@@ -828,7 +991,24 @@
             ]
           },
           "question": "Do you love kitsch, love it ironically, or not at all?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.4"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/philosophy",
+              "url": "https://www.reddit.com/r/philosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Art",
+              "url": "https://www.reddit.com/r/Art/"
+            }
+          ]
         },
         {
           "id": "xae0021",
@@ -876,7 +1056,19 @@
             ]
           },
           "question": "What kind of beauty moves you?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.5"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.5",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/philosophy",
+              "url": "https://www.reddit.com/r/philosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            }
+          ]
         },
         {
           "id": "xae0022",
@@ -908,7 +1100,24 @@
             ]
           },
           "question": "Do you prefer imperfection or flawlessness?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.6"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.6",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/philosophy",
+              "url": "https://www.reddit.com/r/philosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Art",
+              "url": "https://www.reddit.com/r/Art/"
+            }
+          ]
         }
       ]
     },
@@ -947,7 +1156,14 @@
             ]
           },
           "question": "Do you want the weird restaurant or the safe place? The classic friends-compatibility axis.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.1"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0024",
@@ -979,7 +1195,14 @@
             ]
           },
           "question": "How much heat do you want? Spice tolerance as a preference axis.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.2"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0025",
@@ -1019,7 +1242,14 @@
             ]
           },
           "question": "What register of food do you live in?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.3"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0026",
@@ -1075,7 +1305,14 @@
             ]
           },
           "question": "The five basic tastes, as a five-pole star. How much do you seek each one?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.4"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0027",
@@ -1147,7 +1384,14 @@
             ]
           },
           "question": "What do you eat — and what won't you?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.5"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.5",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0028",
@@ -1172,7 +1416,14 @@
             ]
           },
           "question": "How strictly do you follow keto?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.6"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.6",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0029",
@@ -1204,7 +1455,14 @@
             ]
           },
           "question": "Do you prefer to cook, or to be cooked for?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.7"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.7",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0030",
@@ -1236,7 +1494,14 @@
             ]
           },
           "question": "Is food fuel or feast?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.8"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.8",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            }
+          ]
         },
         {
           "id": "xae0031",
@@ -1268,7 +1533,24 @@
             ]
           },
           "question": "Do you cook by tradition or by experiment?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.9"
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.9",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/Cooking",
+              "url": "https://www.reddit.com/r/Cooking/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/philosophy",
+              "url": "https://www.reddit.com/r/philosophy/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/askphilosophy",
+              "url": "https://www.reddit.com/r/askphilosophy/"
+            }
+          ]
         }
       ]
     }

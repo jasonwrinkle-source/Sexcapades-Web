@@ -177,7 +177,24 @@
             ]
           },
           "question": "Where do you see AI's impact landing?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.1"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/MachineLearning",
+              "url": "https://www.reddit.com/r/MachineLearning/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Stack Overflow",
+              "url": "https://stackoverflow.com/"
+            }
+          ]
         },
         {
           "id": "xte0002",
@@ -209,7 +226,24 @@
             ]
           },
           "question": "How much autonomy should AI have?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.2"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/MachineLearning",
+              "url": "https://www.reddit.com/r/MachineLearning/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Stack Overflow",
+              "url": "https://stackoverflow.com/"
+            }
+          ]
         },
         {
           "id": "xte0003",
@@ -241,7 +275,24 @@
             ]
           },
           "question": "Should AI weights be open or guarded?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.3"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/MachineLearning",
+              "url": "https://www.reddit.com/r/MachineLearning/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Stack Overflow",
+              "url": "https://stackoverflow.com/"
+            }
+          ]
         }
       ]
     },
@@ -280,7 +331,19 @@
             ]
           },
           "question": "The classic tradeoff — what do you give up, and what do you get?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.1"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/privacy",
+              "url": "https://www.reddit.com/r/privacy/"
+            }
+          ]
         },
         {
           "id": "xte0005",
@@ -312,7 +375,19 @@
             ]
           },
           "question": "Do you trust the companies that hold your data?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.2"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/privacy",
+              "url": "https://www.reddit.com/r/privacy/"
+            }
+          ]
         },
         {
           "id": "xte0006",
@@ -344,7 +419,19 @@
             ]
           },
           "question": "When safety and freedom conflict, which wins?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.3"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/privacy",
+              "url": "https://www.reddit.com/r/privacy/"
+            }
+          ]
         },
         {
           "id": "xte0007",
@@ -376,7 +463,19 @@
             ]
           },
           "question": "Do you own your computing or rent it?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.4"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/privacy",
+              "url": "https://www.reddit.com/r/privacy/"
+            }
+          ]
         }
       ]
     },
@@ -415,7 +514,14 @@
             ]
           },
           "question": "How much of your day lives behind a screen?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.1"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0009",
@@ -447,7 +553,14 @@
             ]
           },
           "question": "How interruptible are you?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.2"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0010",
@@ -487,7 +600,14 @@
             ]
           },
           "question": "Do you step away from the screen, and how often?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.3"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         }
       ]
     },
@@ -534,7 +654,14 @@
             ]
           },
           "question": "What do you think of social media?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.1"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0012",
@@ -566,7 +693,14 @@
             ]
           },
           "question": "Where do your real relationships live?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.2"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0013",
@@ -598,7 +732,14 @@
             ]
           },
           "question": "How do you participate online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.3"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0014",
@@ -630,7 +771,24 @@
             ]
           },
           "question": "Are you open to emotional or intimate connections with synthetic agents?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.4"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.4",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/MachineLearning",
+              "url": "https://www.reddit.com/r/MachineLearning/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Stack Overflow",
+              "url": "https://stackoverflow.com/"
+            }
+          ]
         }
       ]
     },
@@ -669,7 +827,14 @@
             ]
           },
           "question": "Do you use your real name online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.1"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0016",
@@ -701,7 +866,14 @@
             ]
           },
           "question": "How do you present yourself online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.2"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0017",
@@ -733,7 +905,14 @@
             ]
           },
           "question": "What happens to your data when you die?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.3"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         }
       ]
     },
@@ -772,7 +951,24 @@
             ]
           },
           "question": "Does automation take your job, or give you your life back?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.1"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.1",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/MachineLearning",
+              "url": "https://www.reddit.com/r/MachineLearning/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Stack Overflow",
+              "url": "https://stackoverflow.com/"
+            }
+          ]
         },
         {
           "id": "xte0019",
@@ -812,7 +1008,14 @@
             ]
           },
           "question": "Would you enhance yourself with technology?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.2"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.2",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         },
         {
           "id": "xte0020",
@@ -844,7 +1047,14 @@
             ]
           },
           "question": "Should we build faster, or pump the brakes?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.3"
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.3",
+          "communities": [
+            {
+              "network": "Reddit",
+              "name": "r/technology",
+              "url": "https://www.reddit.com/r/technology/"
+            }
+          ]
         }
       ]
     }
