@@ -44528,7 +44528,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             $y && $y.pointerId === e.pointerId && ($y = null, my.classList.remove("is-dragging"));
         };
         my.addEventListener("pointerup", Ry), my.addEventListener("pointercancel", Ry);
-        const Oy = e.byId("profileLoadMenu"), By = e.byId("profileAddMenu"), jy = e.byId("profileSampleMenu");
+        const Oy = e.byId("profileLoadMenu"), By = e.byId("profileAddMenu"), jy = e.byId("profileSampleMenu"), jyA = e.byId("profileArchetypeMenu");
         let qy = null, Hy = null, Wy = [], Uy = "", Gy = [], Ky = 0, zy = null, Vy = null, jY = null, Yy = null, Xy = null;
         // Pair-tab load target (2026-10-27): set by ww when the import
         // dialog is opened from a pair tab's Load menu, cleared when
@@ -46084,8 +46084,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const top = scored.slice(0, 5);
             const rows = top.map((s, i) => {
                 const drivers = s.drivers.length ? `<p class="profile-archetype-drivers">Closest on: ${s.drivers.map(Hi).join(", ")}</p>` : "";
-                const about = s.about ? `<p class="profile-archetype-about">${Hi(s.about)}</p>` : "";
-                return `<div class="profile-archetype-row"><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${Hi(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}${about}</div>`;
+                // The definition is a hover tip on the row (shared
+                // data-ui-tooltip popup), not inline text — it
+                // cluttered the list. data-tooltip-tap-first lets
+                // touch users tap once to read it; tabindex lets
+                // keyboard users focus the row and read it the same way.
+                const tip = s.about ? ` data-ui-tooltip="${Hi(s.about)}" data-tooltip-name="${Hi(s.name)}" data-tooltip-tap-first tabindex="0"` : "";
+                return `<div class="profile-archetype-row"${tip}><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${Hi(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}</div>`;
             }).join("");
             const best = top[0];
             resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
@@ -46195,12 +46200,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         function xw() {
             By.hidden = !0;
             const e = tl.querySelector("[data-add-profile]");
-            e && !jy.hidden && e.setAttribute("aria-expanded", "false");
+            e && (!jy.hidden || jyA && !jyA.hidden) && e.setAttribute("aria-expanded", "false");
         }
         function Sw() {
-            jy.hidden = !0, jy.classList.remove("is-submenu");
-            const t = tl.querySelector("[data-add-profile]"), n = e.byId("loadSampleProfileChoice");
-            t && t.setAttribute("aria-expanded", String(!By.hidden)), n && n.setAttribute("aria-expanded", "false");
+            // Closes BOTH submenus: Samples (jy) and Archetypes (jyA).
+            [ jy, jyA ].forEach(menu => menu && (menu.hidden = !0, menu.classList.remove("is-submenu")));
+            const t = tl.querySelector("[data-add-profile]"), n = e.byId("loadSampleProfileChoice"), a = e.byId("loadArchetypeChoice");
+            t && t.setAttribute("aria-expanded", String(!By.hidden)), n && n.setAttribute("aria-expanded", "false"), a && a.setAttribute("aria-expanded", "false");
         }
         function $w(e, t) {
             if (e === Oy && innerWidth <= 620) return e.style.removeProperty("left"), void e.style.removeProperty("top");
@@ -46209,14 +46215,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             e.style.top = Math.max(8, Math.min(innerHeight - i.height - 8, n.bottom + 7)) + "px";
         }
         function Ew() {
-            jy.querySelectorAll("[data-sample-profile]").forEach(e => {
+            [ jy, jyA ].forEach(menu => menu && menu.querySelectorAll("[data-sample-profile]").forEach(e => {
                 const t = e.dataset.sampleProfile, n = e.dataset.sampleName, i = Zy[t];
                 i && !vt[i] && delete Zy[t];
                 const a = Boolean(Zy[t] && vt[Zy[t]] || ek(n) || ek(`${n} (sample)`));
                 e.disabled = a, e.setAttribute("aria-disabled", String(a));
                 const r = e.querySelector("small");
                 r && (r.textContent = a ? "Loaded" : `${e.dataset.sampleCount} rated topics`);
-            });
+            }));
         }
         function Aw() {
             if (!Yy) {
@@ -46232,7 +46238,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         const Cw = {};
         function Mw(e) {
             if (!Cw[e]) {
-                const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
+                const t = jy.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`) || jyA && jyA.querySelector(`[data-sample-profile="${CSS.escape(e)}"] img`), n = t && (t.currentSrc || t.src);
                 Cw[e] = n ? fetch(n).then(e => {
                     if (!e.ok) throw new Error("The bundled sample photo could not be opened.");
                     return e.blob();
@@ -46252,28 +46258,28 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             return Cw[e];
         }
-        function Iw(t = {}) {
-            kw();
-            const n = tl.querySelector("[data-add-profile]"), i = e.byId("loadSampleProfileChoice");
-            if (!n || By.hidden) return;
-            Ew(), jy.hidden = !1, jy.classList.add("is-submenu"), n.setAttribute("aria-expanded", "true"), 
+        function Iw(t = {}, menu = jy, trigger = _w) {
+            kw(), Sw();
+            const n = tl.querySelector("[data-add-profile]"), i = trigger;
+            if (!n || By.hidden || !menu) return;
+            Ew(), menu.hidden = !1, menu.classList.add("is-submenu"), n.setAttribute("aria-expanded", "true"), 
             i.setAttribute("aria-expanded", "true");
-            const a = i.getBoundingClientRect(), r = jy.offsetWidth, o = jy.offsetHeight;
+            const a = i.getBoundingClientRect(), r = menu.offsetWidth, o = menu.offsetHeight;
             let s, l;
             if (innerWidth <= 620) {
                 s = Math.max(8, Math.min(innerWidth - r - 8, a.left));
                 const e = a.bottom + 6, t = a.top - o - 6;
                 l = e + o <= innerHeight - 8 ? e : t >= 8 ? t : Math.max(8, innerHeight - o - 8);
             } else s = Math.max(8, Math.min(innerWidth - r - 8, a.right + 6)), l = Math.max(8, Math.min(innerHeight - o - 8, a.top));
-            if (jy.style.left = s + "px", jy.style.top = l + "px", t.focus) {
-                const e = jy.querySelector("[data-sample-profile]:not(:disabled)");
+            if (menu.style.left = s + "px", menu.style.top = l + "px", t.focus) {
+                const e = menu.querySelector("[data-sample-profile]:not(:disabled)");
                 e && e.focus({
                     preventScroll: !0
                 });
             }
         }
         function Pw(e) {
-            kw(), jy.hidden ? By.hidden ? (By.hidden = !1, e.setAttribute("aria-expanded", "true"), 
+            kw(), jy.hidden && (!jyA || jyA.hidden) ? By.hidden ? (By.hidden = !1, e.setAttribute("aria-expanded", "true"), 
             $w(By, e), By.querySelector("button").focus({
                 preventScroll: !0
             })) : xw() : Sw();
@@ -46285,7 +46291,31 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const sxOrigin = qy && vt[qy] ? qy : null;
             kw(), Ax(e.dataset.profileConverter, e.dataset.converterMode || "auto", sxOrigin);
         })), e.byId("importProfileFromTab") && (e.byId("importProfileFromTab").onclick = ww);
-        const Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("importProfileChoice"), _w = e.byId("loadSampleProfileChoice");
+        // Loads one entry from either the Samples or the Archetypes
+        // submenu (both carry [data-sample-profile] buttons; the
+        // loader is the same for archetypes and samples).
+        async function sxSampleMenuClick(menu, e) {
+            const t = __sxClosestAction(e.target, "sampleProfile");
+            if (!t || !menu.contains(t) || t.disabled) return;
+            const n = t.dataset.sampleProfile, i = t.dataset.sampleName, a = Number(t.dataset.sampleCount), r = t.querySelector("small");
+            t.disabled = !0, r && (r.textContent = "Loading…"), Sw(), xw();
+            try {
+                const [e, t] = await Promise.all([ Aw(), Mw(n) ]), r = e && e[n];
+                if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
+                const o = JSON.parse(JSON.stringify(r.payload));
+                o.profileName = i, o.sampleProfile = !0, !t || Array.isArray(o.photos) && o.photos.length || (o.photos = [ t ]);
+                const s = wx(o, {
+                    autoSelect: !0
+                });
+                Zy[n] = s, Ew();
+            } catch (e) {
+                t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
+                    tone: "error",
+                    persistent: !0
+                });
+            }
+        }
+        const Tw = e.byId("newBlankProfile"), Fw = e.byId("newListProfile"), Nw = e.byId("importProfileChoice"), _w = e.byId("loadSampleProfileChoice"), _wA = e.byId("loadArchetypeChoice");
         e.byId("makeOwnMapButton") && e.byId("makeOwnMapButton").addEventListener("click", () => {
             Vy = null, bw(null);
         });
@@ -46315,7 +46345,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Dw && (t.clear(Dw), Dw = 0);
         }, Ow = () => {
             Rw(), Dw = t.setTimeout(() => {
-                By.matches(":hover") || jy.matches(":hover") || Sw();
+                By.matches(":hover") || jy.matches(":hover") || jyA && jyA.matches(":hover") || Sw();
             }, 180);
         };
         _w.addEventListener("pointerenter", () => {
@@ -46324,33 +46354,24 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             e.preventDefault(), Iw({
                 focus: !0
             });
+        }), _wA && _wA.addEventListener("pointerenter", () => {
+            Rw(), Iw({}, jyA, _wA);
+        }), _wA && _wA.addEventListener("focus", () => Iw({}, jyA, _wA)), _wA && _wA.addEventListener("click", e => {
+            e.preventDefault(), Iw({
+                focus: !0
+            }, jyA, _wA);
         }), By.addEventListener("pointerleave", Ow), By.addEventListener("pointerenter", Rw), 
         jy.addEventListener("pointerleave", Ow), jy.addEventListener("pointerenter", Rw), 
+        jyA && jyA.addEventListener("pointerleave", Ow), jyA && jyA.addEventListener("pointerenter", Rw), 
         e.byId("backToProfileAddMenu") && e.byId("backToProfileAddMenu").addEventListener("click", () => {
             Sw(), _w.focus({
                 preventScroll: !0
             });
-        }), jy.addEventListener("click", async e => {
-            const t = __sxClosestAction(e.target, "sampleProfile");
-            if (!t || !jy.contains(t) || t.disabled) return;
-            const n = t.dataset.sampleProfile, i = t.dataset.sampleName, a = Number(t.dataset.sampleCount), r = t.querySelector("small");
-            t.disabled = !0, r && (r.textContent = "Loading…"), Sw(), xw();
-            try {
-                const [e, t] = await Promise.all([ Aw(), Mw(n) ]), r = e && e[n];
-                if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
-                const o = JSON.parse(JSON.stringify(r.payload));
-                o.profileName = i, o.sampleProfile = !0, !t || Array.isArray(o.photos) && o.photos.length || (o.photos = [ t ]);
-                const s = wx(o, {
-                    autoSelect: !0
-                });
-                Zy[n] = s, Ew();
-            } catch (e) {
-                t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
-                    tone: "error",
-                    persistent: !0
-                });
-            }
-        }), vm && (vm.onclick = () => {
+        }), e.byId("backToProfileAddMenuFromArchetypes") && e.byId("backToProfileAddMenuFromArchetypes").addEventListener("click", () => {
+            Sw(), _wA && _wA.focus({
+                preventScroll: !0
+            });
+        }), jy.addEventListener("click", e => sxSampleMenuClick(jy, e)), jyA && jyA.addEventListener("click", e => sxSampleMenuClick(jyA, e)), vm && (vm.onclick = () => {
             const t = wf, n = e.byId("rememberProfileCheckbox2x"), i = window.Sexcapades2xRememberProfiles;
             t && n && n.checked && i && i.saveNow && i.saveNow() ? (wf = null, Ui(ym), nk(t)) : tS("Could not save this profile on this device. Keep it open and try again.", {
                 tone: "error",
@@ -46364,9 +46385,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }), ym.addEventListener("cancel", Lw), window.__sxOnPtr( e => {
             Oy.hidden || Oy.contains(e.target) || __sxClosestAction(e.target, "profileLoad") || kw(), 
             By.hidden || By.contains(e.target) || __sxClosestAction(e.target, "addProfile") || xw(), 
-            jy.hidden || jy.contains(e.target) || __sxClosestAction(e.target, "addProfile") || Sw();
+            (jy.hidden || jy.contains(e.target)) && (!jyA || jyA.hidden || jyA.contains(e.target)) || __sxClosestAction(e.target, "addProfile") || Sw();
         }, !0), window.__sxOnKey( e => {
-            "Escape" === e.key && (Oy.hidden || kw(), By.hidden || xw(), jy.hidden || Sw());
+            "Escape" === e.key && (Oy.hidden || kw(), By.hidden || xw(), jy.hidden || Sw(), !jyA || jyA.hidden || Sw());
         }), e.byId("closeTestResultLoader").onclick = () => Ui(kg), kg.addEventListener("click", e => {
             e.target === kg && performance.now() - 0 > 500 && Ui(kg);
         }), e.byId("closeProfileDetails").onclick = () => "about" === gw ? Ui(_g) : cw(), 
