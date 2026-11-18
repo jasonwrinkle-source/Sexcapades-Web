@@ -1563,20 +1563,21 @@
                 let n;
                 const personId = t.person || Mt || (window.Sexcapades2xProfiles ? window.Sexcapades2xProfiles.getIds()[0] : null);
                 if ("profile" === e) n = Ww(personId); else if ("viewport" === e) n = Qu(personId, t.visibleIds, t.displayName || ""); else if ("export" === e) n = Ju(personId, t.visibleIds, Boolean(t.includeProfileInfo), t.displayName || "", Boolean(t.blind)); else if ("sync-card" === e) n = serializeSyncCard(personId, t.visibleIds, t.displayName || "", Boolean(t.includeProfileInfo), Boolean(t.blind)); else {
-                    if ("compact" === e) return this.validate("compact", function(e, t = tu(e), n = !0, i = !1) {
-                        const a = e => !t || t.has(e), r = Rv(ut[e]), o = Object.values(at[e] || {}).filter(e => a(e.id)), s = new Map(o.map((e, t) => [ e.id, t ])), l = e => hu.has(e) ? hu.get(e) : cu.length + s.get(e), c = e => Number.isFinite(Number(e)) ? Math.round(Number(e)) : null, d = Object.entries(vt[e] || {}).filter(([e, t]) => !isCatId(e) && a(e) && t && Number.isInteger(l(e)) && (Number.isFinite(Number(t.give)) || Number.isFinite(Number(t.receive)))).map(([e, t]) => [ l(e), c(t.give), c(t.receive) ]), u = Object.entries(Qe[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), "favorite" === t ? 1 : "notinterested" === t ? 3 : 2 ]), p = Object.keys(Je[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), h = Object.keys(et[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), g = n ? Object.entries(tt[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), Array.isArray(t) ? t.join(" ") : String(t || "") ]).filter(e => e[1]) : [], m = o.map(e => [ e.label, hu.get(e.parentId) ]).filter(e => Number.isInteger(e[1])), f = bb(rt[e]), j = String(pz[e] || ""), y = iv(ot[e]), b = Gb(st[e]), v = Xv(lt[e]), w = Zv(ct[e]), k = String(nt[e] || ""), x = String(it[e] || ""), S = {
+                    if ("compact" === e) return this.validate("compact", function(e, t = tu(e), n = !0, i = !1, strip = !1) {
+                        const keepId = n && !strip;
+                        const a = e => !t || t.has(e), r = Rv(ut[e]), o = Object.values(at[e] || {}).filter(e => a(e.id)), s = new Map(o.map((e, t) => [ e.id, t ])), l = e => hu.has(e) ? hu.get(e) : cu.length + s.get(e), c = e => Number.isFinite(Number(e)) ? Math.round(Number(e)) : null, d = Object.entries(vt[e] || {}).filter(([e, t]) => !isCatId(e) && a(e) && t && Number.isInteger(l(e)) && (Number.isFinite(Number(t.give)) || Number.isFinite(Number(t.receive)))).map(([e, t]) => [ l(e), c(t.give), c(t.receive) ]), u = Object.entries(Qe[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), "favorite" === t ? 1 : "notinterested" === t ? 3 : 2 ]), p = Object.keys(Je[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), h = Object.keys(et[e] || {}).filter(e => a(e) && Number.isInteger(l(e))).map(e => l(e)), g = keepId ? Object.entries(tt[e] || {}).filter(([e]) => a(e) && Number.isInteger(l(e))).map(([e, t]) => [ l(e), Array.isArray(t) ? t.join(" ") : String(t || "") ]).filter(e => e[1]) : [], m = o.map(e => [ e.label, hu.get(e.parentId) ]).filter(e => Number.isInteger(e[1])), f = bb(rt[e]), j = String(pz[e] || ""), y = iv(ot[e]), b = Gb(st[e]), v = Xv(lt[e]), w = Zv(ct[e]), k = String(nt[e] || ""), x = String(it[e] || ""), S = {
                             a: "sexcapades",
                             v: 7,
                             n: n ? wt[e] || "Profile" : "Shared profile",
                             r: d
                         };
-                        i && (S.k = 1), n && f.length && (S.g = f), n && j && (S.p = j), n && y.length && (S.s = y), n && b.length && (S.w = b), 
-                        n && v && (S.y = v), n && w && (S.l = w), n && Ov(r) && (S.c = r), n && k && (S.b = k), 
-                        n && x && (S.u = x), n && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
+                        i && (S.k = 1), keepId && f.length && (S.g = f), keepId && j && (S.p = j), keepId && y.length && (S.s = y), keepId && b.length && (S.w = b), 
+                        keepId && v && (S.y = v), keepId && w && (S.l = w), keepId && Ov(r) && (S.c = r), keepId && k && (S.b = k), 
+                        keepId && x && (S.u = x), keepId && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
                         u.length && (S.m = u), p.length && (S.h = p), h.length && (S.i = h), g.length && (S.t = g);
-                        const $ = n ? St(mt[e]) : {};
+                        const $ = keepId ? St(mt[e]) : {};
                         return Object.keys($).length && (S.q = $), S;
-                    }(t.person, t.allowedIds, !1 !== t.includeProfileInfo, Boolean(t.blind)));
+                    }(t.person, t.allowedIds, !1 !== t.includeProfileInfo, Boolean(t.blind), Boolean(t.stripIdentity)));
                     if ("bundle" === e) n = function(e, t, n = {}) {
                         return Ku(e, t.map(e => Ww(e)), n);
                     }(t.bundleKind, t.ids || [], t.extra || {}); else {

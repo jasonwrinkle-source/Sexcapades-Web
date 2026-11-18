@@ -66,7 +66,7 @@
             }
             return new Uint8Array(n);
         }
-        async function Ru(e, t = tu(e), n = !0, i = !1) {
+        async function Ru(e, t = tu(e), n = !0, i = !1, a = !1) {
             return async function(e) {
                 const t = (new TextEncoder).encode(e);
                 if ("function" != typeof CompressionStream) return "SCP2J:" + gu(t);
@@ -82,14 +82,15 @@
                     }
                     return t;
                 }(new Uint8Array(await new Response(n).arrayBuffer()));
-            }(JSON.stringify(function(e, t = tu(e), n = !0, i = !1) {
+            }(JSON.stringify(function(e, t = tu(e), n = !0, i = !1, a = !1) {
                 return yx.serialize("compact", {
                     person: e,
                     allowedIds: t,
                     includeProfileInfo: n,
-                    blind: i
+                    blind: i,
+                    stripIdentity: a
                 });
-            }(e, t, n, i)));
+            }(e, t, n, i, a)));
         }
         // ===== OVERSIZE UNIFIED FRAMEWORK (Rank 13, ruled 2026-10-30) =====
         // One common core for EVERY surface, plus per-surface
@@ -100,7 +101,7 @@
         // capacities below are the surfaces' existing physical
         // limits, named here and NOT changed by this framework: the
         // document page holds 2 scan codes, the Sync card tries 2
-        // codes then 4, the QR sheet is unbounded, and a share-link
+        // codes, then 4, then 5, the QR sheet is unbounded, and a share-link
         // token is bounded by the format itself (see
         // sxShareLinkMaxTokenLength). The two image shrink-to-fit
         // paths (the attached-photo 400px cap in Xu, the map-raster
@@ -128,7 +129,7 @@
         function sxOversizeDocumentDialog(neededPieces) {
             return `PDF complete, but it has no scan codes: this profile is too large for document scan codes (it needs ${neededPieces} and the page holds 2), so none are printed — partial codes could never be scanned back in. For scannable codes, use Export QR codes: the numbered QR sheet holds every piece.`;
         }
-        // Sync card: try 2 codes, then 4, then throw. The throw states
+        // Sync card: try 2 codes, then 4, then 5, then throw. The throw states
         // the measured size of the data that would not fit and names
         // the alternative; it does NOT claim a 700-character piece
         // count — the card's fit check is QR version capacity at two
@@ -138,7 +139,7 @@
         // card callers (op/lp) surface it in the export dialog
         // instead of their generic failure text.
         function sxOversizeCardMessage(payloadLength) {
-            return `This profile is too large for the reliable two-code or four-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size or 4 codes at the small size. No partial card was made. ${sxOversizeAlt()}`;
+            return `This profile is too large for the reliable two-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, 4 codes at the small size, or 5 codes. No partial card was made. ${sxOversizeAlt()}`;
         }
         // Share link: measured limit plus alternative. The limit is
         // derived from the format itself, not invented: a token is 9
@@ -188,11 +189,11 @@
                 length: a
             }, (e, r) => `SCP4:${i}:${r + 1}:${a}:${n.slice(r * s, (r + 1) * s)}`);
         }
-        function ju(e, t) {
+        function ju(e, t, r) {
             if (!window.QRCode || "function" != typeof QRCode.create) return !1;
             try {
                 return e.forEach(e => QRCode.create(e, {
-                    errorCorrectionLevel: "H",
+                    errorCorrectionLevel: r || "H",
                     version: t
                 })), !0;
             } catch (e) {
@@ -689,7 +690,7 @@
             h.strokeRect(f, 36, y, y), h.textBaseline = "top", h.fillStyle = "#d7bd55", h.font = `700 25px ${l}`, 
             h.fillText("SYNC CARD · FRONT", 72, 58), h.fillStyle = g, h.font = `700 56px ${l}`, 
             eu(h, o, 72, 98, 760, 62, 2), await c(28, "Building card front", "Creating the scan-to-import code…");
-            const b = "https://sexcapades.io/#app/scan", v = await qu(b, 720);
+            const b = "https://" + (window.__SX_SKIN_PREFIX || "sex") + ".capades.io/#app/scan", v = await qu(b, 720);
             h.fillStyle = "#fff", h.fillRect(76, 236, 748, 748), h.imageSmoothingEnabled = !1, 
             h.drawImage(v, 100, 260, 700, 700), h.imageSmoothingEnabled = !0, h.textAlign = "center", 
             h.fillStyle = g, h.font = `700 32px ${l}`, h.fillText("Scan to import this card", 450, 996), 
@@ -708,24 +709,36 @@
                 vcard: k
             };
             await c(52, "Checking card size", "Seeing whether this profile fits a Sync card…");
-            const sxCardEncoded = await Ru(e, u, i, a), sxCardFit = function(e) {
+            const sxCardEncoded = await Ru(e, u, i, a, !0), sxCardFit = function(e) {
                 const t = chunkPayload(e, {
                     chunkCount: 2
                 });
-                if (ju(t, 18)) return {
+                if (ju(t, 18, "M")) return {
                     parts: t,
                     size: 600,
                     columns: 1,
-                    maxVersion: 18
+                    maxVersion: 18,
+                    errorCorrectionLevel: "M"
                 };
                 const n = chunkPayload(e, {
                     chunkCount: 4
                 });
-                if (ju(n, 15)) return {
+                if (ju(n, 15, "M")) return {
                     parts: n,
                     size: 450,
                     columns: 2,
-                    maxVersion: 15
+                    maxVersion: 15,
+                    errorCorrectionLevel: "M"
+                };
+                const a = chunkPayload(e, {
+                    chunkCount: 5
+                });
+                if (ju(a, 15, "M")) return {
+                    parts: a,
+                    size: 360,
+                    columns: 2,
+                    maxVersion: 15,
+                    errorCorrectionLevel: "M"
                 };
                 throw new Error(sxOversizeCardMessage(e.length));
             }(sxCardEncoded);
@@ -749,7 +762,7 @@
             for (let e = 0; e < I.length; e++) await c(58 + Math.round(22 * (e + 1) / I.length), "Building profile codes", `Creating profile code ${e + 1} of ${I.length}…`), 
             P.push(await qu(I[e], 900, {
                 version: M.maxVersion,
-                errorCorrectionLevel: "H"
+                errorCorrectionLevel: M.errorCorrectionLevel
             })), await new Promise(e => t.setTimeout(e, 0));
             const L = P.length, T = M.columns, F = Math.ceil(L / T), N = M.size, _ = 2 === L ? 0 : 48, D = N + 58, R = Math.max(650, Math.min(780, C + 34)), O = R + 56;
             $.fillStyle = g, $.textAlign = "left", $.font = `700 32px ${l}`, $.fillText("Profile data", 72, R), 
@@ -762,10 +775,21 @@
             });
             const B = Math.max(O + F * D + 20, R + 120);
             if (B <= 1980) {
-                $.textAlign = "left", $.fillStyle = g, $.font = `700 32px ${l}`, $.fillText("Notes:", 72, B), 
+                // Freed space (2026-11-17): when the profile needs
+                // fewer than the maximum codes, the back has room
+                // below the codes. Print the card hypermap there (the
+                // map decoration) so the space is not left blank, with
+                // the Notes lines to its right. The Contact block is
+                // already at the top of the back.
+                const mapAvail = 2010 - B - 8, mapSize = Math.min(mapAvail, 280);
+                let notesX = 72;
+                if (mapSize >= 180) {
+                    $.imageSmoothingEnabled = !1, $.drawImage(d, 72, B + 8, mapSize, mapSize), $.imageSmoothingEnabled = !0, $.strokeStyle = "#59645d", $.lineWidth = 3, $.strokeRect(72, B + 8, mapSize, mapSize), notesX = 72 + mapSize + 24;
+                }
+                $.textAlign = "left", $.fillStyle = g, $.font = `700 32px ${l}`, $.fillText("Notes:", notesX, B), 
                 $.strokeStyle = "white" === s ? "rgba(21,24,22,.32)" : "rgba(237,242,238,.32)", 
                 $.lineWidth = 2, $.setLineDash([ 5, 12 ]);
-                for (let e = B + 72; e <= 2010; e += 88) $.beginPath(), $.moveTo(72, e), $.lineTo(1128, e), 
+                for (let e = B + 72; e <= 2010; e += 88) $.beginPath(), $.moveTo(e < B + 8 + mapSize && mapSize >= 180 ? notesX : 72, e), $.lineTo(1128, e), 
                 $.stroke();
                 $.setLineDash([]);
             }
