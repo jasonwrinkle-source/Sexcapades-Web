@@ -43846,7 +43846,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Mm.disabled = !Sf, renderExportPhotoPicker();
         }
         function Yf() {
-            Im && (Im.textContent = String(Mm.value.length) + "/1500 characters");
+            Im && (Im.textContent = String(Mm.value.length) + "/975 characters");
         }
         function Xf() {
             const t = [ ...Tm.querySelectorAll("[data-lowres-photo]") ], n = Pf.size;
@@ -43930,7 +43930,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             $f = Boolean(Cm.checked);
         }), Mm.addEventListener("input", Yf), km.querySelectorAll("[data-profile-export]").forEach(t => t.addEventListener("click", () => {
             const n = kf, i = new Set(xf), a = t.dataset.profileExport, r = Boolean(Sf), o = Boolean($f), s = (km.querySelector("input[name=exportBackground]:checked") || {}).value || "black", l = "a4" === (e.byId("syncCardPaperSize") || {}).value ? "a4" : "letter", c = selectedExportPhotos();
-            zf(), n && vt[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 1500)), 
+            zf(), n && vt[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 975)), 
             "qr" === a ? pp(n, {
                 includeProfileInfo: r,
                 blind: o,
@@ -45970,7 +45970,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             sm.textContent = "Check the age and try again." + (jY ? ` Then your ${jY} opens.` : ""), void (Kg.focus(), jY && sm.scrollIntoView({ block: "nearest" }));
             rw("profileDetailsNameField", "profileDetailsNameError", !1), rw("profileDetailsGenderField", "profileDetailsGenderError", !1), rw("profileDetailsSexualityField", "profileDetailsSexualityError", !1);
             if (sm.textContent = "", u.error) return sm.textContent = u.error + (jY ? ` Then your ${jY} opens.` : ""), void (u.field.focus(), jY && sm.scrollIntoView({ block: "nearest" }));
-            const p = u.contact, h = im.value.trim().slice(0, 1500), g = rm.value.trim().slice(0, 1500), m = ek(n), q = Pz.value.trim().slice(0, 60);
+            const p = u.contact, h = im.value.trim().slice(0, 975), g = rm.value.trim().slice(0, 325), m = ek(n), q = Pz.value.trim().slice(0, 60);
             if (!nameWasBlank && m && m !== l) return sm.textContent = `${n} already has a profile.` + (jY ? ` Then your ${jY} opens.` : ""), Hg.focus(), 
             void (Hg.select(), jY && sm.scrollIntoView({ block: "nearest" }));
             const sxEditVy = id => { const b = Vy; Vy = null, jY = null, b && b(id); };
