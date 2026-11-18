@@ -149,7 +149,7 @@
             Mm.disabled = !Sf, renderExportPhotoPicker();
         }
         function Yf() {
-            Im && (Im.textContent = String(Mm.value.length) + "/1500 characters");
+            Im && (Im.textContent = String(Mm.value.length) + "/975 characters");
         }
         function Xf() {
             const t = [ ...Tm.querySelectorAll("[data-lowres-photo]") ], n = Pf.size;
@@ -233,7 +233,7 @@
             $f = Boolean(Cm.checked);
         }), Mm.addEventListener("input", Yf), km.querySelectorAll("[data-profile-export]").forEach(t => t.addEventListener("click", () => {
             const n = kf, i = new Set(xf), a = t.dataset.profileExport, r = Boolean(Sf), o = Boolean($f), s = (km.querySelector("input[name=exportBackground]:checked") || {}).value || "black", l = "a4" === (e.byId("syncCardPaperSize") || {}).value ? "a4" : "letter", c = selectedExportPhotos();
-            zf(), n && vt[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 1500)), 
+            zf(), n && vt[n] && (r && (nt[n] = String(Mm.value || "").trim().slice(0, 975)), 
             "qr" === a ? pp(n, {
                 includeProfileInfo: r,
                 blind: o,
@@ -2163,12 +2163,38 @@
                 try { pair = engine.pair(user, arch, {}); } catch (err) { pair = null; }
                 if (!pair || !pair.play || !pair.coverage) return;
                 const shared = pair.coverage.shared || 0;
-                const headline = pair.play.headline;
-                if (!shared || !Number.isFinite(headline)) return;
+                if (!shared) return;
+                // Identity score — "which archetype am I?": same-flank
+                // similarity over the shared set (both rated, not
+                // limit-blocked, not fantasy). The old score was the
+                // pair engine's Play match score, which measures
+                // whether both sides rated the crossed flanks at all,
+                // not agreement — so every archetype scored 100.
+                // Multi-pole topics use their agreement fraction
+                // (already a same-position comparison); two-pole
+                // topics compare each flank with itself (give with
+                // give, receive with receive), skipping a flank
+                // either side left unrated.
+                const identityAgreements = [];
+                (pair.topics || []).forEach(rec => {
+                    if (!rec || !rec.ratings || !rec.ratings.a || !rec.ratings.b) return;
+                    if ((rec.limiters || []).length) return;
+                    if (((rec.flags || {}).fantasyBy || []).length) return;
+                    const ra = rec.ratings.a, rb = rec.ratings.b;
+                    if (!(ra.giveKnown || ra.receiveKnown || ra.polesKnown || ra.lineKnown) || !(rb.giveKnown || rb.receiveKnown || rb.polesKnown || rb.lineKnown)) return;
+                    if (null != rec.agreement) { identityAgreements.push(rec.agreement); return; }
+                    const diffs = [];
+                    if (ra.giveKnown && rb.giveKnown) diffs.push(Math.abs(ra.give - rb.give));
+                    if (ra.receiveKnown && rb.receiveKnown) diffs.push(Math.abs(ra.receive - rb.receive));
+                    if (!diffs.length) return;
+                    identityAgreements.push(1 - diffs.reduce((s, v) => s + v, 0) / (200 * diffs.length));
+                });
+                if (!identityAgreements.length) return;
+                const identityScore = Math.round(100 * identityAgreements.reduce((s, v) => s + v, 0) / identityAgreements.length);
                 const matchDrivers = (pair.play.lists && pair.play.lists.matches ? pair.play.lists.matches : []).map(r => r.label).filter(Boolean);
                 const curiousDrivers = (pair.play.lists && pair.play.lists.curiousAbout ? pair.play.lists.curiousAbout : []).map(r => r.label).filter(Boolean);
                 const drivers = matchDrivers.concat(curiousDrivers.filter(l => !matchDrivers.includes(l))).slice(0, 3);
-                scored.push({ key: key, name: entry.name || key, about: entry.about || "", score: Math.round(headline), shared: shared, drivers: drivers });
+                scored.push({ key: key, name: entry.name || key, about: entry.about || "", score: identityScore, shared: shared, drivers: drivers });
             });
             if (!scored.length) {
                 resultsEl.innerHTML = `<p class="profile-archetype-note">No shared topics yet — rate a few of the topics these archetypes cover and try again.</p>`;
@@ -2182,7 +2208,7 @@
                 return `<div class="profile-archetype-row"><div class="profile-archetype-row-top"><span class="profile-archetype-name">${i + 1}. ${Hi(s.name)}</span><span class="profile-archetype-score">${s.score}%</span></div>${drivers}${about}</div>`;
             }).join("");
             const best = top[0];
-            resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · ${Hi(best.name)} leads at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
+            resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
         }
 
         let fw = !1;
@@ -2247,7 +2273,7 @@
             sm.textContent = "Check the age and try again." + (jY ? ` Then your ${jY} opens.` : ""), void (Kg.focus(), jY && sm.scrollIntoView({ block: "nearest" }));
             rw("profileDetailsNameField", "profileDetailsNameError", !1), rw("profileDetailsGenderField", "profileDetailsGenderError", !1), rw("profileDetailsSexualityField", "profileDetailsSexualityError", !1);
             if (sm.textContent = "", u.error) return sm.textContent = u.error + (jY ? ` Then your ${jY} opens.` : ""), void (u.field.focus(), jY && sm.scrollIntoView({ block: "nearest" }));
-            const p = u.contact, h = im.value.trim().slice(0, 1500), g = rm.value.trim().slice(0, 1500), m = ek(n), q = Pz.value.trim().slice(0, 60);
+            const p = u.contact, h = im.value.trim().slice(0, 975), g = rm.value.trim().slice(0, 325), m = ek(n), q = Pz.value.trim().slice(0, 60);
             if (!nameWasBlank && m && m !== l) return sm.textContent = `${n} already has a profile.` + (jY ? ` Then your ${jY} opens.` : ""), Hg.focus(), 
             void (Hg.select(), jY && sm.scrollIntoView({ block: "nearest" }));
             const sxEditVy = id => { const b = Vy; Vy = null, jY = null, b && b(id); };
