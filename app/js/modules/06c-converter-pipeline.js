@@ -540,7 +540,7 @@
         function importProfileRatings(c, e) {
             applyProfileRatings(c, e.ratings, { source: (topic, flank, supplying) => {
                 const i = e.ratingSources && e.ratingSources[topic] && e.ratingSources[topic][supplying || flank];
-                return "string" == typeof i && i.trim() ? i : "unknown";
+                return "string" == typeof i && i.trim() ? i : "manual";
             } });
         }
         // Fix 1, item 2: the section ingestions rk used to write

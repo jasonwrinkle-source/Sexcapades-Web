@@ -6184,12 +6184,14 @@
             }) || i?.delete(n.branch);
         }
         function Eo(e, t) {
-            return Object.values(Ze[e]?.[t] || {}).includes("manual");
+            const n = Ze[e]?.[t];
+            return n && Object.keys(n).length ? Object.values(n).includes("manual") : !0;
         }
         function Ao(e, t, n) {
-            return Ze[e]?.[t]?.[n] || null;
+            return Ze[e]?.[t]?.[n] || "manual";
         }
         function Co(e, t, n, i) {
+            if ("manual" === i) return Mo(e, t, n);
             Ze[e] || (Ze[e] = {}), Ze[e][t] || (Ze[e][t] = {}), Ze[e][t][n] = i;
         }
         function Mo(e, t, n) {

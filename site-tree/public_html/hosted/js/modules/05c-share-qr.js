@@ -544,9 +544,10 @@
                     const k = idk(e);
                     if (t && !t.has(k)) return;
                     const r = "number" == typeof a ? [ "give", "receive" ] : Object.keys(a || {});
-                    r.length && (n[k] = {}, r.forEach(t => {
-                        n[k][t] = "string" == typeof i[k]?.[t] ? i[k][t] : "string" == typeof i[e]?.[t] ? i[e][t] : "unknown";
-                    }));
+                    r.length && r.forEach(t => {
+                        const s = "string" == typeof i[k]?.[t] ? i[k][t] : "string" == typeof i[e]?.[t] ? i[e][t] : null;
+                        s && "manual" !== s && ((n[k] || (n[k] = {}))[t] = s);
+                    });
                 }), n;
             }(e, t), o = i(Qe[e]), s = i(Je[e]), l = i(et[e]), c = i(tt[e]), d = i(at[e]), u = [], p = [], h = [], g = [], m = [], f = [];
             const out = (t.forEach(t => {
