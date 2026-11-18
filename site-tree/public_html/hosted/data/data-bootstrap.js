@@ -39428,7 +39428,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // capacities below are the surfaces' existing physical
         // limits, named here and NOT changed by this framework: the
         // document page holds 2 scan codes, the Sync card tries 2
-        // codes, then 4, then 5, the QR sheet is unbounded, and a share-link
+        // codes, then 3, then 4, then 5, the QR sheet is unbounded, and a share-link
         // token is bounded by the format itself (see
         // sxShareLinkMaxTokenLength). The two image shrink-to-fit
         // paths (the attached-photo 400px cap in Xu, the map-raster
@@ -39456,7 +39456,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function sxOversizeDocumentDialog(neededPieces) {
             return `PDF complete, but it has no scan codes: this profile is too large for document scan codes (it needs ${neededPieces} and the page holds 2), so none are printed — partial codes could never be scanned back in. For scannable codes, use Export QR codes: the numbered QR sheet holds every piece.`;
         }
-        // Sync card: try 2 codes, then 4, then 5, then throw. The throw states
+        // Sync card: try 2 codes, then 3, then 4, then 5, then throw. The throw states
         // the measured size of the data that would not fit and names
         // the alternative; it does NOT claim a 700-character piece
         // count — the card's fit check is QR version capacity at two
@@ -39466,7 +39466,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // card callers (op/lp) surface it in the export dialog
         // instead of their generic failure text.
         function sxOversizeCardMessage(payloadLength) {
-            return `This profile is too large for the reliable two-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, 4 codes at the small size, or 5 codes. No partial card was made. ${sxOversizeAlt()}`;
+            return `This profile is too large for the reliable two-code, three-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, or 3, 4, or 5 codes at the small size. No partial card was made. ${sxOversizeAlt()}`;
         }
         // Share link: measured limit plus alternative. The limit is
         // derived from the format itself, not invented: a token is 9
@@ -40045,6 +40045,16 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     parts: t,
                     size: 600,
                     columns: 1,
+                    maxVersion: 18,
+                    errorCorrectionLevel: "M"
+                };
+                const r = chunkPayload(e, {
+                    chunkCount: 3
+                });
+                if (ju(r, 18, "M")) return {
+                    parts: r,
+                    size: 450,
+                    columns: 2,
                     maxVersion: 18,
                     errorCorrectionLevel: "M"
                 };
@@ -42210,7 +42220,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // dialog (bw in "about" mode) — the same template and behavior as
         // any user profile's About dialog. Her contact email lives in the
         // profile contact field (ut), her bio in the About Me field (nt) and
-        // her note in the Terms of Service field (it). The record is removed
+        // her note in the Terms of Engagement field (it). The record is removed
         // when the dialog closes, so she never becomes a profile tab, is
         // never counted as a user profile, and collects no ratings (all
         // zeros). The old custom YoBitch popup (yobitchAbout/yobitchAboutExtras
@@ -48306,9 +48316,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                             n: n ? wt[e] || "Profile" : "Shared profile",
                             r: d
                         };
+                        // Sync card (strip, not blind): the bio and terms ride truncated
+                        // to the card budget (2026-11-17, ruled 3:1, v18, ~1300 combined:
+                        // bio 975, terms 325). A blind card stays anonymous — no bio or
+                        // terms. Everything else stays stripped.
                         i && (S.k = 1), keepId && f.length && (S.g = f), keepId && j && (S.p = j), keepId && y.length && (S.s = y), keepId && b.length && (S.w = b), 
                         keepId && v && (S.y = v), keepId && w && (S.l = w), keepId && Ov(r) && (S.c = r), keepId && k && (S.b = k), 
-                        keepId && x && (S.u = x), keepId && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
+                        keepId && x && (S.u = x), strip && !i && k && (S.b = k.slice(0, 975)), strip && !i && x && (S.u = x.slice(0, 325)), keepId && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
                         u.length && (S.m = u), p.length && (S.h = p), h.length && (S.i = h), g.length && (S.t = g);
                         const $ = keepId ? St(mt[e]) : {};
                         return Object.keys($).length && (S.q = $), S;
