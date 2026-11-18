@@ -92,6 +92,29 @@
     }
     return "sex";
   }
+  /* Per-skin PWA manifest (2026-11-18, rainbow build): each skin
+     installs under its own name with its own icon. The manifest files
+     live at /manifests/<prefix>.json (new filenames, so no stale-cache
+     serving — the shared /icons/icon-*.png URLs are cached per-origin
+     for 7 days and precached cache-first by the service worker). The
+     app's static <link> points at the shared Flex manifest; this swaps
+     it to the active skin's manifest on boot and on every skin switch,
+     and swaps the apple-touch-icon the same way. A missing link or an
+     unknown skin falls back to the shared manifest (Flex). The icon
+     URLs in the manifests carry ?v=<build> (stamped at packaging);
+     the apple-touch-icon swap is unstamped (new filename, first fetch
+     is fresh — a future icon change needs a stamp; follow-up). */
+  function setManifestForSkin(skinId) {
+    var prefix = skinPrefixFor(skinId);
+    try {
+      var link = document.querySelector('link[rel="manifest"]');
+      if (link) link.setAttribute("href", "/manifests/" + prefix + ".json");
+    } catch (e) { /* keep the shared manifest */ }
+    try {
+      var touch = document.querySelector('link[rel="apple-touch-icon"]');
+      if (touch) touch.setAttribute("href", "/icons/skins/" + prefix + "-apple-touch.png");
+    } catch (e) { /* keep the shared apple-touch-icon */ }
+  }
   function bootShouldOpenMenu(hostname) {
     var host = (hostname || "").toLowerCase();
     return host === "flex.capades.io" || host === "capades.io";
@@ -279,6 +302,7 @@
     window.__SX_SKIN_TOPIC_COUNT = count;
     window.__SX_ACTIVE_SKIN = data.skin;
     window.__SX_SKIN_PREFIX = skinPrefixFor(data.skin);
+    setManifestForSkin(data.skin);
     activeSkin = data.skin;
     setAboutDescription(data.name, data.about);
     setSamples(data.samples);
@@ -392,6 +416,7 @@
     window.__SX_SKIN_TOPIC_COUNT = SEXCAPADES_TOPIC_COUNT;
     window.__SX_ACTIVE_SKIN = "sexcapades";
     window.__SX_SKIN_PREFIX = "sex";
+    setManifestForSkin("sexcapades");
     activeSkin = "sexcapades";
     setAboutDescription("Sex.Capades.IO", null);
     /* Re-register the sexcapades.json widget configs (same seam as boot):
@@ -1284,6 +1309,12 @@
      the Sexcapades boot apply — the layout apply needs both); if the
      engine never becomes ready, or the skin file fails to load, the
      Sexcapades seam runs instead so the map still boots. */
+  /* Set the PWA manifest for the boot skin immediately (before the
+     skin JSON fetch resolves), so the install prompt sees the right
+     manifest from the start; applySkin / restoreSexcapades re-assert
+     it on every switch, and the failure paths below correct it if the
+     boot skin fails to load. */
+  setManifestForSkin(skinFromUrl() || skinForHostname(window.location.hostname));
   (function bootSkin() {
     var fromUrl = skinFromUrl();
     var boot = fromUrl || skinForHostname(window.location.hostname);
@@ -1299,6 +1330,7 @@
           if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin not applied: engine not ready");
           registerSexcapadesWidgets();
           setBrand("sexcapades");
+          setManifestForSkin("sexcapades");
         }
         return;
       }
@@ -1306,6 +1338,7 @@
       loadSkin(boot).catch(function (err) {
         if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin failed, staying on Sexcapades:", err);
         registerSexcapadesWidgets();
+        setManifestForSkin("sexcapades");
       });
     }, 100);
   })();

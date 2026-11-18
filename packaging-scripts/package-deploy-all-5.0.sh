@@ -66,6 +66,32 @@ fi
 touch "$SW_STAGED"
 echo "   Service worker stamped: sexcapades-v$BUILD_NUM"
 
+echo "2b. Stamping PWA manifest icon versions (?v=$BUILD_NUM)..."
+# Per-skin manifests + the shared manifest carry ?v=__SX_CACHE__ in
+# their icon URLs (same token as the SW cache name); the packager
+# replaces it with the build number so a future icon change fetches
+# fresh instead of serving the 7-day HTTP cache / SW cache-first copy.
+MANIFEST_STAGED="$STAGING/capades.io/public_html/manifest.json"
+MANIFESTS_DIR="$STAGING/capades.io/public_html/manifests"
+MANIFEST_COUNT=$(ls "$MANIFESTS_DIR"/*.json 2>/dev/null | wc -l)
+if [ "$MANIFEST_COUNT" != "16" ]; then
+  echo "ERROR: expected 16 per-skin manifests, found $MANIFEST_COUNT"
+  exit 1
+fi
+for m in "$MANIFEST_STAGED" "$MANIFESTS_DIR"/*.json; do
+  [ -f "$m" ] || continue
+  sed -i "s/__SX_CACHE__/$BUILD_NUM/g" "$m"
+  if grep -q '__SX_CACHE__' "$m"; then
+    echo "ERROR: manifest stamp failed (literal __SX_CACHE__ left in $m)"
+    exit 1
+  fi
+  if ! grep -q "v=$BUILD_NUM" "$m"; then
+    echo "ERROR: manifest lacks build-stamped icon URLs: $m"
+    exit 1
+  fi
+done
+echo "   PWA manifests stamped: 16 per-skin + shared, ?v=$BUILD_NUM"
+
 HOSTED="$STAGING/capades.io/public_html/hosted"
 
 echo "3. Staging and Bundling App..."
@@ -230,6 +256,42 @@ SW_CACHE=$(tar -xzOf "$OUTFILE" capades.io/public_html/sw.js 2>/dev/null | grep 
 if [ "$SW_CACHE" != "sexcapades-v$BUILD_NUM" ]; then
   fail "packaged sw.js cache name '${SW_CACHE:-none}' != sexcapades-v$BUILD_NUM"
 fi
+
+# PWA manifests + per-skin icons (rainbow build): every packaged
+# manifest must carry build-stamped icon URLs and no literal token;
+# all 16 per-skin manifests and all 32 per-skin icons must be present.
+MANIFEST_COUNT_PKG=$(echo "$LISTING" | grep -c '^capades.io/public_html/manifests/.*\.json$' || true)
+if [ "$MANIFEST_COUNT_PKG" != "16" ]; then
+  fail "packaged per-skin manifest count $MANIFEST_COUNT_PKG != 16"
+fi
+for mp in $(echo "$LISTING" | grep '^capades.io/public_html/manifests/.*\.json$' || true); do
+  MJ=$(tar -xzOf "$OUTFILE" "$mp" 2>/dev/null || true)
+  if [ -z "$MJ" ]; then fail "packaged manifest unreadable: $mp"; continue; fi
+  if printf '%s' "$MJ" | grep -q '__SX_CACHE__'; then fail "packaged manifest carries literal __SX_CACHE__: $mp"; fi
+  if ! printf '%s' "$MJ" | grep -q "v=$BUILD_NUM"; then fail "packaged manifest lacks build-stamped icon URLs: $mp"; fi
+done
+SMJ=$(tar -xzOf "$OUTFILE" capades.io/public_html/manifest.json 2>/dev/null || true)
+if [ -z "$SMJ" ]; then
+  fail "packaged shared manifest.json missing or unreadable"
+elif ! printf '%s' "$SMJ" | grep -q '/icons/skins/flex-512.png'; then
+  fail "packaged shared manifest does not point at the new Flex icons"
+elif printf '%s' "$SMJ" | grep -q '/icons/icon-512.png'; then
+  fail "packaged shared manifest still references the old icon path"
+elif printf '%s' "$SMJ" | grep -q '__SX_CACHE__'; then
+  fail "packaged shared manifest carries literal __SX_CACHE__"
+fi
+SWJ=$(tar -xzOf "$OUTFILE" capades.io/public_html/sw.js 2>/dev/null || true)
+if ! printf '%s' "$SWJ" | grep -q "/icons/skins/flex-512.png?v=$BUILD_NUM"; then
+  fail "packaged sw.js precache lacks the stamped Flex 512 icon URL"
+fi
+if ! printf '%s' "$SWJ" | grep -q "/icons/skins/flex-192.png?v=$BUILD_NUM"; then
+  fail "packaged sw.js precache lacks the stamped Flex 192 icon URL"
+fi
+for p in sex flex polis fores chem aesth experi dharma matter philo praxi quanta simul tech theori voca; do
+  for s in 192 512; do
+    echo "$LISTING" | grep -qx "capades.io/public_html/icons/skins/$p-$s.png" || fail "missing per-skin icon: $p-$s.png"
+  done
+done
 
 SHELL_REFS=$(tar -xzOf "$OUTFILE" capades.io/public_html/hosted/app.html 2>/dev/null | grep -oE '"/hosted/app-assets/[^"]+"' || true)
 for ref in $SHELL_REFS; do

@@ -1,1 +1,35 @@
-{"background_color":"#0b1014","categories":["lifestyle","social"],"description":"One engine. Fifteen hypermaps. Map what matters, compare with a partner, and discover where you overlap.","display":"standalone","icons":[{"purpose":"any","sizes":"192x192","src":"/icons/icon-192.png","type":"image/png"},{"purpose":"any","sizes":"512x512","src":"/icons/icon-512.png","type":"image/png"},{"purpose":"maskable","sizes":"512x512","src":"/icons/icon-512.png","type":"image/png"}],"name":"Flexcapades","orientation":"any","scope":"/","short_name":"Flexcapades","start_url":"/","theme_color":"#0b1014"}
+{
+  "name": "Flexcapades",
+  "short_name": "Flexcapades",
+  "description": "One engine. Fifteen hypermaps. Map what matters, compare with a partner, and discover where you overlap.",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1014",
+  "theme_color": "#0b1014",
+  "start_url": "/",
+  "scope": "/",
+  "categories": [
+    "lifestyle",
+    "social"
+  ],
+  "icons": [
+    {
+      "src": "/icons/skins/flex-192.png?v=__SX_CACHE__",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/skins/flex-512.png?v=__SX_CACHE__",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/skins/flex-512.png?v=__SX_CACHE__",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

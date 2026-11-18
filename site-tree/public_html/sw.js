@@ -15,8 +15,16 @@ var CORE_URLS = [
   '/hosted/quickstart.html',
   '/hosted/guide.html',
   '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  /* Per-skin icons (2026-11-18, rainbow build): the precache carries
+     the Flex icons the shared manifest references, at their new
+     filenames, stamped ?v=<build> (same __SX_CACHE__ token as the
+     cache name — the packager replaces it with the build number).
+     The old /icons/icon-192.png + /icons/icon-512.png are no longer
+     precached: no manifest references them, and their unversioned
+     URLs are the stale-icon trap (7-day HTTP cache + cache-first
+     precache). The files stay on disk for old installs. */
+  '/icons/skins/flex-192.png?v=__SX_CACHE__',
+  '/icons/skins/flex-512.png?v=__SX_CACHE__'
 ];
 
 // API / analytics endpoints: network-first, fail silently offline.
