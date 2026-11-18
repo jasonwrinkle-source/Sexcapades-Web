@@ -732,7 +732,7 @@
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-octad-control${actCls}" data-id="${e}" data-direction="octad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference octagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -788,7 +788,7 @@
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-heptad-control${actCls}" data-id="${e}" data-direction="heptad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference heptagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -844,7 +844,7 @@
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-hexad-control${actCls}" data-id="${e}" data-direction="hexad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference hexagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -900,7 +900,7 @@
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? f.map((k, i) => `${y[i] || k}: ${Math.round(ratings[i])}`).join(", ") : "Unrated";
 
-                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-pentad-control${actCls}" data-id="${e}" data-direction="pentad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Reference pentagon outline
                     const polyRef = P.map(pt => `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`).join(" ");
                     D += `<polygon points="${polyRef}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
@@ -970,7 +970,7 @@
                     const maxR = Math.max(r0, r1, r2, r3);
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
-                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Outer Reference Frame (Diamond Outline)
                     D += `<polygon points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="${1.2 * m}"/>`;
                     // Orthogonal Crosshairs
@@ -1030,7 +1030,7 @@
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}` : "Unrated";
                     const gradId = `tri-grad-${A}`;
 
-                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}">`;
+                    D += `<g class="direction-control map-triad-control${actCls}" data-id="${e}" data-direction="triangle" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${(4 * triH / 3).toFixed(1)}" data-tag-height="${(4 * triH / 3).toFixed(1)}">`;
                     D += `<defs><linearGradient id="${gradId}" x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${V1.x.toFixed(1)}" y2="${V1.y.toFixed(1)}" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/><stop offset="50%" stop-color="#ef4444" stop-opacity="0.35"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/></linearGradient></defs>`;
                     D += `<polygon class="map-triangle-frame" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="url(#${gradId})" stroke="rgba(255,255,255,0.45)" stroke-width="${1.8 * m}" stroke-linejoin="round"/>`;
                     D += `<line x1="${V0.x.toFixed(1)}" y1="${V0.y.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="rgba(255,255,255,0.2)" stroke-width="${1 * m}" stroke-dasharray="${3 * m},${3 * m}"/>`;
