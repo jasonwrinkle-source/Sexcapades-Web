@@ -555,11 +555,27 @@ __sxInit(function () {
       it.setAttribute("aria-checked", it.getAttribute("data-skin") === skin ? "true" : "false");
     });
   }
+  /* Skin id -> subdomain prefix (2026-11-18, Jason): picking a skin
+     from this menu navigates to that skin's subdomain instead of the
+     in-app loader.load() switch — a plain page navigation, which
+     always works. The map is the inverse of HOSTNAME_SKINS in
+     app/js/skin-loader.js (a lookup, NOT a string-strip — stripping
+     "capades" gives the wrong prefix for Philoscapades, Vocapades,
+     and Expericapades). */
+  var SKIN_SUBDOMAIN = { sexcapades: "sex", poliscapades: "polis", forescapades: "fores", philoscapades: "philo", aesthcapades: "aesth", vocapades: "voca", techcapades: "tech", dharmacapades: "dharma", theoricapades: "theori", praxicapades: "praxi", quantacapades: "quanta", expericapades: "experi", simulcapades: "simul", mattercapades: "matter", chemcapades: "chem" };
   function choose(item) {
     if (!item) return;
     var skin = item.getAttribute("data-skin");
     closeMenu();
     var loader = window.FlexcapadesSkins;
+    var prefix = SKIN_SUBDOMAIN[skin];
+    if (prefix) {
+      /* Already on this skin — nothing to do (avoids a pointless reload). */
+      if (loader && typeof loader.active === "function" && loader.active() === skin) return;
+      window.location.href = "https://" + prefix + ".capades.io/";
+      return;
+    }
+    /* No prefix in the map — fall back to the in-app load. */
     if (skin === "sexcapades") {
       if (loader && loader.active() !== "sexcapades") {
         loader.load("sexcapades").then(function () {
