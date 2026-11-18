@@ -1571,9 +1571,13 @@
                             n: n ? wt[e] || "Profile" : "Shared profile",
                             r: d
                         };
+                        // Sync card (strip, not blind): the bio and terms ride truncated
+                        // to the card budget (2026-11-17, ruled 3:1, v18, ~1300 combined:
+                        // bio 975, terms 325). A blind card stays anonymous — no bio or
+                        // terms. Everything else stays stripped.
                         i && (S.k = 1), keepId && f.length && (S.g = f), keepId && j && (S.p = j), keepId && y.length && (S.s = y), keepId && b.length && (S.w = b), 
                         keepId && v && (S.y = v), keepId && w && (S.l = w), keepId && Ov(r) && (S.c = r), keepId && k && (S.b = k), 
-                        keepId && x && (S.u = x), keepId && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
+                        keepId && x && (S.u = x), strip && !i && k && (S.b = k.slice(0, 975)), strip && !i && x && (S.u = x.slice(0, 325)), keepId && (S.e = av(vpt[e]), vht[e] && (S.f = 1), S.j = av(vpt[e]), vht[e] && (S.z = 1)), m.length && (S.d = m), 
                         u.length && (S.m = u), p.length && (S.h = p), h.length && (S.i = h), g.length && (S.t = g);
                         const $ = keepId ? St(mt[e]) : {};
                         return Object.keys($).length && (S.q = $), S;

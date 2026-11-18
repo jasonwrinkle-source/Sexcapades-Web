@@ -101,7 +101,7 @@
         // capacities below are the surfaces' existing physical
         // limits, named here and NOT changed by this framework: the
         // document page holds 2 scan codes, the Sync card tries 2
-        // codes, then 4, then 5, the QR sheet is unbounded, and a share-link
+        // codes, then 3, then 4, then 5, the QR sheet is unbounded, and a share-link
         // token is bounded by the format itself (see
         // sxShareLinkMaxTokenLength). The two image shrink-to-fit
         // paths (the attached-photo 400px cap in Xu, the map-raster
@@ -129,7 +129,7 @@
         function sxOversizeDocumentDialog(neededPieces) {
             return `PDF complete, but it has no scan codes: this profile is too large for document scan codes (it needs ${neededPieces} and the page holds 2), so none are printed — partial codes could never be scanned back in. For scannable codes, use Export QR codes: the numbered QR sheet holds every piece.`;
         }
-        // Sync card: try 2 codes, then 4, then 5, then throw. The throw states
+        // Sync card: try 2 codes, then 3, then 4, then 5, then throw. The throw states
         // the measured size of the data that would not fit and names
         // the alternative; it does NOT claim a 700-character piece
         // count — the card's fit check is QR version capacity at two
@@ -139,7 +139,7 @@
         // card callers (op/lp) surface it in the export dialog
         // instead of their generic failure text.
         function sxOversizeCardMessage(payloadLength) {
-            return `This profile is too large for the reliable two-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, 4 codes at the small size, or 5 codes. No partial card was made. ${sxOversizeAlt()}`;
+            return `This profile is too large for the reliable two-code, three-code, four-code, or five-code Sync card layout: its scan-code data is ${payloadLength} characters long, too long for 2 codes at the large size, or 3, 4, or 5 codes at the small size. No partial card was made. ${sxOversizeAlt()}`;
         }
         // Share link: measured limit plus alternative. The limit is
         // derived from the format itself, not invented: a token is 9
@@ -718,6 +718,16 @@
                     parts: t,
                     size: 600,
                     columns: 1,
+                    maxVersion: 18,
+                    errorCorrectionLevel: "M"
+                };
+                const r = chunkPayload(e, {
+                    chunkCount: 3
+                });
+                if (ju(r, 18, "M")) return {
+                    parts: r,
+                    size: 450,
+                    columns: 2,
                     maxVersion: 18,
                     errorCorrectionLevel: "M"
                 };

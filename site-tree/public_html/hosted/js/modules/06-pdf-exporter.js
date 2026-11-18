@@ -48,7 +48,7 @@
         // dialog (bw in "about" mode) — the same template and behavior as
         // any user profile's About dialog. Her contact email lives in the
         // profile contact field (ut), her bio in the About Me field (nt) and
-        // her note in the Terms of Service field (it). The record is removed
+        // her note in the Terms of Engagement field (it). The record is removed
         // when the dialog closes, so she never becomes a profile tab, is
         // never counted as a user profile, and collects no ratings (all
         // zeros). The old custom YoBitch popup (yobitchAbout/yobitchAboutExtras
