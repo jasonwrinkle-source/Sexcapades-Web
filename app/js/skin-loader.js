@@ -789,26 +789,42 @@
   window.__SX_SET_SETTER_PANEL = setSceneSetterPanel;
 
   function rebuildSampleMenu(samples) {
-    /* Rebuild the archetypes-and-samples menu from the active skin's
-       samples. Two labeled groups (Jason, 2026-11-16): "Archetypes"
-       first, then "Samples" — and the Samples group is rendered ONLY
-       when the skin has samples (Sexcapades has Adam/Eve; the vanilla
-       skins have none, so their menus show Archetypes only). The group
-       is the entry's `kind` ("sample" vs anything else = archetype).
-       The static HTML buttons are the Sexcapades set (the parse-time
-       fallback); every skin-set rebuilds them. The click handler in
-       06d is delegated on the menu element and matches
+    /* Rebuild the archetypes and samples menus from the active skin's
+       samples — two separate submenus (Jason, 2026-11-18): archetype
+       entries go into #profileArchetypeMenu, sample entries
+       (kind === "sample") ONLY into #profileSampleMenu, so the Samples
+       menu never shows archetypes. Each menu IS its group now, so no
+       in-menu headings. The Samples entry/submenu shows ONLY when the
+       skin has samples (Jason, 2026-11-18 — Sexcapades, Adam/Eve, for
+       now; there are no samples yet for other maps, so on vanilla
+       skins the entry does not show). The rebuild runs per skin (boot
+       and every skin switch), so each skin's Archetypes menu holds
+       that skin's own archetypes (Sexcapades 18; vanilla skins 4–8
+       each). The static HTML buttons are the Sexcapades set (the
+       parse-time fallback); every skin-set rebuilds them. The click
+       handler in 06d is delegated on each menu element and matches
        [data-sample-profile], and Ew() re-queries the buttons on every
        open, so rebuilt buttons behave exactly like the static ones.
        The <strong> is the archetype label (the profile's name IS its
        archetype) or the sample's name (Adam Peasant, Eve Vale — real
        people, not archetypes). An <img> is included only when the
        sample carries a photo (Adam/Eve only — archetypes have none;
-       Mw() resolves null without one and the load skips photos). */
+       Mw() resolves null without one and the load skips photos). If
+       #profileArchetypeMenu is absent (older HTML), fall back to the
+       old single-menu layout with both labeled groups in
+       #profileSampleMenu — and the Samples entry stays, since it is
+       the only way to reach the archetypes there. */
     var menu = document.getElementById("profileSampleMenu");
+    var archMenu = document.getElementById("profileArchetypeMenu");
+    var sampleEntry = document.getElementById("loadSampleProfileChoice");
     if (!menu) return;
     menu.querySelectorAll(".sample-profile-choice, .sample-profile-item, .sample-menu-group").forEach(function (b) { b.remove(); });
-    if (!samples || typeof samples !== "object") return;
+    if (archMenu) archMenu.querySelectorAll(".sample-profile-choice, .sample-profile-item, .sample-menu-group").forEach(function (b) { b.remove(); });
+    function hideSamplesEntry() {
+      if (sampleEntry) { sampleEntry.hidden = true; sampleEntry.setAttribute("aria-expanded", "false"); }
+      if (!menu.hidden) { menu.hidden = true; menu.classList.remove("is-submenu"); }
+    }
+    if (!samples || typeof samples !== "object") { if (archMenu) hideSamplesEntry(); return; }
     var archetypes = [], samplesList = [];
     Object.keys(samples).forEach(function (key) {
       var entry = samples[key];
@@ -816,12 +832,14 @@
       if (entry.kind === "sample") samplesList.push(key);
       else archetypes.push(key);
     });
-    function addGroup(heading, keys) {
+    function addGroup(target, heading, keys) {
       if (!keys.length) return;
-      var label = document.createElement("div");
-      label.className = "sample-menu-group";
-      label.textContent = heading;
-      menu.appendChild(label);
+      if (heading) {
+        var label = document.createElement("div");
+        label.className = "sample-menu-group";
+        label.textContent = heading;
+        target.appendChild(label);
+      }
       keys.forEach(function (key) {
         var entry = samples[key];
         var count = entry.count || Object.keys(entry.payload.ratings).length;
@@ -874,11 +892,19 @@
           });
           if (links.childNodes.length) item.appendChild(links);
         }
-        menu.appendChild(item);
+        target.appendChild(item);
       });
     }
-    addGroup("Archetypes", archetypes);
-    addGroup("Samples", samplesList);
+    if (archMenu) {
+      addGroup(archMenu, null, archetypes);
+      addGroup(menu, null, samplesList);
+      if (!samplesList.length) hideSamplesEntry();
+      else if (sampleEntry) sampleEntry.hidden = false;
+    } else {
+      addGroup(menu, "Archetypes", archetypes);
+      addGroup(menu, "Samples", samplesList);
+      if (sampleEntry) sampleEntry.hidden = false;
+    }
   }
 
   function setBrand(skinId, displayName) {
