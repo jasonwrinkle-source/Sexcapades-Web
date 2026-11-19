@@ -714,11 +714,12 @@
 
                     const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
-                    const maxR = Math.max(...ratings);
+                    const maxR = sxSignedIntensity(ratings);
+                    const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
-                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
                         return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
                     });
 
@@ -771,11 +772,12 @@
 
                     const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
-                    const maxR = Math.max(...ratings);
+                    const maxR = sxSignedIntensity(ratings);
+                    const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
-                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
                         return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
                     });
 
@@ -828,11 +830,12 @@
 
                     const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
-                    const maxR = Math.max(...ratings);
+                    const maxR = sxSignedIntensity(ratings);
+                    const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
-                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
                         return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
                     });
 
@@ -885,11 +888,12 @@
 
                     const ratings = f.map(k => (t[k + "Known"] ? t[k] : 0));
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
-                    const maxR = Math.max(...ratings);
+                    const maxR = sxSignedIntensity(ratings);
+                    const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
-                        const dk = Math.max(0, Math.min(100, Math.abs(ratings[k]))) / 100;
+                        const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
                         return { x: cx + (pt.x - cx) * dk, y: cy + (pt.y - cy) * dk };
                     });
 
@@ -952,10 +956,11 @@
                     const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"] || t[f[3] + "Known"]);
 
                     // Radar diamond deformation: vertex scale 0 to 1
-                    const d0 = Math.max(0, Math.min(100, Math.abs(r0))) / 100;
-                    const d1 = Math.max(0, Math.min(100, Math.abs(r1))) / 100;
-                    const d2 = Math.max(0, Math.min(100, Math.abs(r2))) / 100;
-                    const d3 = Math.max(0, Math.min(100, Math.abs(r3))) / 100;
+                    const maxAbsT = Math.max(Math.abs(r0), Math.abs(r1), Math.abs(r2), Math.abs(r3));
+                    const d0 = maxAbsT > 0 ? Math.abs(r0) / maxAbsT : 0;
+                    const d1 = maxAbsT > 0 ? Math.abs(r1) / maxAbsT : 0;
+                    const d2 = maxAbsT > 0 ? Math.abs(r2) / maxAbsT : 0;
+                    const d3 = maxAbsT > 0 ? Math.abs(r3) / maxAbsT : 0;
 
                     const S0 = { x: cx + (P0.x - cx) * d0, y: cy + (P0.y - cy) * d0 };
                     const S1 = { x: cx + (P1.x - cx) * d1, y: cy + (P1.y - cy) * d1 };
@@ -965,7 +970,7 @@
                     const isAct = Boolean(Nt && Nt.id === e);
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}, ${y[3]}: ${Math.round(r3)}` : "Unrated";
-                    const maxR = Math.max(r0, r1, r2, r3);
+                    const maxR = sxSignedIntensity([r0, r1, r2, r3]);
                     const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
 
                     D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
@@ -1015,14 +1020,14 @@
                     const r1 = t[f[1] + "Known"] ? t[f[1]] : 0;
                     const r2 = t[f[2] + "Known"] ? t[f[2]] : 0;
                     const isKnown = Boolean(t[f[0] + "Known"] || t[f[1] + "Known"] || t[f[2] + "Known"]);
-                    const m0 = Math.max(0, r0), m1 = Math.max(0, r1), m2 = Math.max(0, r2);
+                    const m0 = Math.abs(r0), m1 = Math.abs(r1), m2 = Math.abs(r2);
                     const tot = m0 + m1 + m2;
                     const w0 = tot > 0 ? m0 / tot : 1/3;
                     const w1 = tot > 0 ? m1 / tot : 1/3;
                     const w2 = tot > 0 ? m2 / tot : 1/3;
                     const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
                     const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
-                    const maxR = Math.max(r0, r1, r2);
+                    const maxR = sxSignedIntensity([r0, r1, r2]);
                     const puckColor = isKnown ? zi(maxR) : Ga.FALLBACK_COLOR;
                     const isAct = Boolean(Nt && Nt.id === e);
                     const actCls = isAct ? " active-rating" : "";

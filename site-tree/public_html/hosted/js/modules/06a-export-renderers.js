@@ -226,7 +226,7 @@
             var _pp = await apLoadAndPrep(e), o = _pp.o, v = _pp.v, f = _pp.f, y = _pp.y, g = _pp.g, b = _pp.b;
             apEmbedMetadata(v, t, a, n, i);
             var S = document.createElement("div");
-            S.style.cssText = "position:fixed;left:-99999px;top:0;visibility:hidden;";
+            S.style.cssText = "position:fixed;left:-99999px;top:0;";
             var $, E, A = document.importNode(o, !0);
             S.appendChild(A), document.body.appendChild(S);
             apInlineStyles(A);

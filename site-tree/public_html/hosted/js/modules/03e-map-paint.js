@@ -2939,10 +2939,27 @@
             // horizontal pole labels — a band above the top vertex and a
             // two-line band below the base — so no label ever runs
             // diagonally along an edge, cramped against the fill.
+            // Regular N-gon ruling (2026-11-19): the triangle is
+            // EQUILATERAL — one uniform scale on both axes, the same
+            // discipline the tetrad/radar widgets get from their circle
+            // geometry. (The old fractional-x vertices made a tall
+            // isosceles: on the 240px popup canvas the sides measured
+            // 167px against a 110px base.) The side is set by whichever
+            // of the label-banded height or the canvas width runs out
+            // first, and the triangle is centred in what remains.
+            const top = 36, bottom = 46, sidePad = 16;
+            const availH = Math.max(0, height - top - bottom);
+            let side = availH * 2 / Math.sqrt(3);
+            const maxSide = Math.max(0, width - 2 * sidePad);
+            if (side > maxSide) side = maxSide;
+            const triH = side * Math.sqrt(3) / 2;
+            const apexY = top + (availH - triH) / 2;
+            const baseY = apexY + triH;
+            const cx = width / 2, half = side / 2;
             return {
-                V0: { x: width * 0.27, y: height - 46 },
-                V1: { x: width / 2, y: 36 },
-                V2: { x: width * 0.73, y: height - 46 }
+                V0: { x: cx - half, y: baseY },
+                V1: { x: cx, y: apexY },
+                V2: { x: cx + half, y: baseY }
             };
         }
 
@@ -3016,6 +3033,34 @@
             sxRecordPoleLabelRect(canvas, lines.join(" "), ccx - half, topY, blockW, blockH, 0, key, text, ccx, topY + blockH / 2, blockW, blockH);
         }
 
+
+        // Signed-intensity model (2026-11-19, Jason's ruling): for the
+        // radar/tetrad families the intensity of a pole vector is its
+        // strongest value WITH its sign — negative intensity is aversion
+        // to the topic as a whole, while the proportions (each value over
+        // the signed intensity) describe the blend. Draws render the
+        // proportions at the widget's fixed frame, so sweeping intensity
+        // rescales the stored numbers without moving the shape.
+        function sxSignedIntensity(vals) {
+            let best = 0;
+            for (let i = 0; i < vals.length; i++) {
+                const v = Number(vals[i]) || 0;
+                if (Math.abs(v) > Math.abs(best)) best = v;
+            }
+            return best;
+        }
+        // Triad intensity, matching the placard's derivation: the sign of
+        // the sum carried on the magnitude of the absolute sum, so a
+        // mixed-sign vector keeps its magnitude when the sum cancels.
+        function sxTriSignedIntensity(vals) {
+            let sum = 0, sumAbs = 0;
+            for (let i = 0; i < vals.length; i++) {
+                const v = Number(vals[i]) || 0;
+                sum += v; sumAbs += Math.abs(v);
+            }
+            if (!sumAbs) return 0;
+            return sum < 0 ? -sumAbs : sumAbs;
+        }
         function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
             if (!canvas) return;
             const ctx = canvas.getContext("2d");
@@ -3282,17 +3327,18 @@
             ctx.setLineDash([]);
 
             // 3. Deformed Polygon from active ratings
-            const s0 = Math.max(0, Math.min(100, Math.abs(state.p0))) / 100;
-            const s1 = Math.max(0, Math.min(100, Math.abs(state.p1))) / 100;
-            const s2 = Math.max(0, Math.min(100, Math.abs(state.p2))) / 100;
-            const s3 = Math.max(0, Math.min(100, Math.abs(state.p3))) / 100;
+            const tetMaxAbs = Math.max(Math.abs(state.p0), Math.abs(state.p1), Math.abs(state.p2), Math.abs(state.p3));
+            const s0 = tetMaxAbs > 0 ? Math.abs(state.p0) / tetMaxAbs : 0;
+            const s1 = tetMaxAbs > 0 ? Math.abs(state.p1) / tetMaxAbs : 0;
+            const s2 = tetMaxAbs > 0 ? Math.abs(state.p2) / tetMaxAbs : 0;
+            const s3 = tetMaxAbs > 0 ? Math.abs(state.p3) / tetMaxAbs : 0;
 
             const V0 = { x: cx, y: cy - r * s0 };
             const V1 = { x: cx + r * s1, y: cy };
             const V2 = { x: cx, y: cy + r * s2 };
             const V3 = { x: cx - r * s3, y: cy };
 
-            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3);
+            const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3]);
             const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
 
             // Filled shape
@@ -3404,7 +3450,7 @@
         }
 
         function sxCompassValuesFromPoint(u, v, intensity) {
-            const I = Math.max(0, Math.min(100, intensity));
+            const I = Math.max(-100, Math.min(100, intensity));
             const vals = [
                 Math.round((1 - u) * (1 - v) * I),
                 Math.round(u * (1 - v) * I),
@@ -3417,16 +3463,16 @@
             const residual = Math.round(I) - (vals[0] + vals[1] + vals[2] + vals[3]);
             if (residual !== 0) {
                 let maxIdx = 0;
-                for (let k = 1; k < 4; k++) if (vals[k] > vals[maxIdx]) maxIdx = k;
-                vals[maxIdx] = Math.max(0, Math.min(100, vals[maxIdx] + residual));
+                for (let k = 1; k < 4; k++) if (Math.abs(vals[k]) > Math.abs(vals[maxIdx])) maxIdx = k;
+                vals[maxIdx] = Math.max(-100, Math.min(100, vals[maxIdx] + residual));
             }
             return vals;
         }
 
         function sxCompassPointFromValues(r0, r1, r2, r3) {
-            const vals = [r0, r1, r2, r3].map(n => Math.max(0, Math.min(100, Number(n) || 0)));
-            const I = Math.min(100, vals[0] + vals[1] + vals[2] + vals[3]);
-            if (I <= 0) return { u: 0.5, v: 0.5, intensity: 0 };
+            const vals = [r0, r1, r2, r3].map(n => Math.max(-100, Math.min(100, Number(n) || 0)));
+            const I = Math.max(-100, Math.min(100, vals[0] + vals[1] + vals[2] + vals[3]));
+            if (I === 0) return { u: 0.5, v: 0.5, intensity: 0 };
             return {
                 u: Math.max(0, Math.min(1, (vals[1] + vals[2]) / I)),
                 v: Math.max(0, Math.min(1, (vals[2] + vals[3]) / I)),
@@ -3616,7 +3662,7 @@
                 evt.stopPropagation();
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
                 const scale = (100 + step) / 100;
-                sxCompassState.intensity = Math.max(0, Math.min(100, Math.round(sxCompassState.intensity * scale)));
+                sxCompassState.intensity = Math.max(-100, Math.min(100, Math.round(sxCompassState.intensity * scale)));
                 if (slider) slider.value = String(Math.round(sxCompassState.intensity));
                 const out = e.byId("markCompassIntensityOut");
                 out && (out.textContent = String(Math.round(sxCompassState.intensity)));
@@ -3629,7 +3675,7 @@
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    sxCompassState.intensity = Math.max(0, Math.min(100, Number(slider.value)));
+                    sxCompassState.intensity = Math.max(-100, Math.min(100, Number(slider.value)));
                     const out = e.byId("markCompassIntensityOut");
                     out && (out.textContent = String(Math.round(sxCompassState.intensity)));
                     if (Qr) {
@@ -3752,7 +3798,7 @@
                     else if (v === 3) sxTetradState.p3 = val;
                 }
 
-                const maxVal = Math.max(sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3);
+                const maxVal = sxSignedIntensity([sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markTetradIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -3792,11 +3838,11 @@
                 evt.stopPropagation();
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
                 const scale = (100 + step) / 100;
-                sxTetradState.p0 = Math.max(0, Math.min(100, Math.round(sxTetradState.p0 * scale)));
-                sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.p1 * scale)));
-                sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.p2 * scale)));
-                sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.p3 * scale)));
-                const maxVal = Math.max(sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3);
+                sxTetradState.p0 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p0 * scale)));
+                sxTetradState.p1 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p1 * scale)));
+                sxTetradState.p2 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p2 * scale)));
+                sxTetradState.p3 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p3 * scale)));
+                const maxVal = sxSignedIntensity([sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markTetradIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -3813,20 +3859,20 @@
                     const out = e.byId("markTetradIntensityOut");
                     out && (out.textContent = String(Math.round(val)));
                     // Scale existing distribution to match max intensity
-                    const maxCur = Math.max(sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3);
-                    if (maxCur > 0) {
+                    const maxCur = sxSignedIntensity([sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3]);
+                    if (maxCur !== 0) {
                         const ratio = val / maxCur;
-                        sxTetradState.p0 = Math.max(0, Math.min(100, Math.round(sxTetradState.p0 * ratio)));
-                        sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.p1 * ratio)));
-                        sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.p2 * ratio)));
-                        sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.p3 * ratio)));
+                        sxTetradState.p0 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p0 * ratio)));
+                        sxTetradState.p1 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p1 * ratio)));
+                        sxTetradState.p2 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p2 * ratio)));
+                        sxTetradState.p3 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p3 * ratio)));
                     } else if (sxTetradState.shape) {
                         // Raising from 0: restore the saved shape instead of
                         // setting every pole equal (which would lose it).
-                        sxTetradState.p0 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[0] * val)));
-                        sxTetradState.p1 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[1] * val)));
-                        sxTetradState.p2 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[2] * val)));
-                        sxTetradState.p3 = Math.max(0, Math.min(100, Math.round(sxTetradState.shape[3] * val)));
+                        sxTetradState.p0 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[0] * val)));
+                        sxTetradState.p1 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[1] * val)));
+                        sxTetradState.p2 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[2] * val)));
+                        sxTetradState.p3 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[3] * val)));
                     } else {
                         sxTetradState.p0 = val; sxTetradState.p1 = val; sxTetradState.p2 = val; sxTetradState.p3 = val;
                     }
@@ -3912,12 +3958,13 @@
             ctx.setLineDash([]);
 
             // 3. Deformed Polygon from active ratings
+            const sxMaxAbs = Math.abs(sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4]));
             const s = [
-                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100
+                (sxMaxAbs > 0 ? Math.abs(state.p0) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p1) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p2) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p3) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p4) / sxMaxAbs : 0)
             ];
 
             const polyPts = vertices.map((v, k) => ({
@@ -3925,7 +3972,7 @@
                 y: cy + (v.y - cy) * s[k]
             }));
 
-            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4);
+            const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4]);
             const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
 
             // Filled shape
@@ -4038,7 +4085,7 @@
                     sxPentadState[`p${v}`] = val;
                 }
 
-                const maxVal = Math.max(sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4);
+                const maxVal = sxSignedIntensity([sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markPentadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4080,9 +4127,9 @@
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
                 const scale = (100 + step) / 100;
                 for (let k = 0; k < 5; k++) {
-                    sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState[`p${k}`] * scale)));
+                    sxPentadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxPentadState[`p${k}`] * scale)));
                 }
-                const maxVal = Math.max(sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4);
+                const maxVal = sxSignedIntensity([sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markPentadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4098,17 +4145,17 @@
                     const val = Number(slider.value);
                     const out = e.byId("markPentadIntensityOut");
                     out && (out.textContent = String(Math.round(val)));
-                    const maxCur = Math.max(sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4);
-                    if (maxCur > 0) {
+                    const maxCur = sxSignedIntensity([sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4]);
+                    if (maxCur !== 0) {
                         const ratio = val / maxCur;
                         for (let k = 0; k < 5; k++) {
-                            sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState[`p${k}`] * ratio)));
+                            sxPentadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxPentadState[`p${k}`] * ratio)));
                         }
                     } else if (sxPentadState.shape) {
                         // Raising from 0: restore the saved shape instead of
                         // setting every pole equal (which would lose it).
                         for (let k = 0; k < 5; k++) {
-                            sxPentadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxPentadState.shape[k] * val)));
+                            sxPentadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxPentadState.shape[k] * val)));
                         }
                     } else {
                         for (let k = 0; k < 5; k++) {
@@ -4196,13 +4243,14 @@
             ctx.setLineDash([]);
 
             // 3. Deformed Polygon from active ratings
+            const sxMaxAbs = Math.abs(sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5]));
             const s = [
-                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p5))) / 100
+                (sxMaxAbs > 0 ? Math.abs(state.p0) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p1) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p2) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p3) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p4) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p5) / sxMaxAbs : 0)
             ];
 
             const polyPts = vertices.map((v, k) => ({
@@ -4210,7 +4258,7 @@
                 y: cy + (v.y - cy) * s[k]
             }));
 
-            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4, state.p5);
+            const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5]);
             const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
 
             // Filled shape
@@ -4325,7 +4373,7 @@
                     sxHexadState[`p${v}`] = val;
                 }
 
-                const maxVal = Math.max(sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5);
+                const maxVal = sxSignedIntensity([sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markHexadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4367,9 +4415,9 @@
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
                 const scale = (100 + step) / 100;
                 for (let k = 0; k < 6; k++) {
-                    sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState[`p${k}`] * scale)));
+                    sxHexadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHexadState[`p${k}`] * scale)));
                 }
-                const maxVal = Math.max(sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5);
+                const maxVal = sxSignedIntensity([sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markHexadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4385,17 +4433,17 @@
                     const val = Number(slider.value);
                     const out = e.byId("markHexadIntensityOut");
                     out && (out.textContent = String(Math.round(val)));
-                    const maxCur = Math.max(sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5);
-                    if (maxCur > 0) {
+                    const maxCur = sxSignedIntensity([sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5]);
+                    if (maxCur !== 0) {
                         const ratio = val / maxCur;
                         for (let k = 0; k < 6; k++) {
-                            sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState[`p${k}`] * ratio)));
+                            sxHexadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHexadState[`p${k}`] * ratio)));
                         }
                     } else if (sxHexadState.shape) {
                         // Raising from 0: restore the saved shape instead of
                         // setting every pole equal (which would lose it).
                         for (let k = 0; k < 6; k++) {
-                            sxHexadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHexadState.shape[k] * val)));
+                            sxHexadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHexadState.shape[k] * val)));
                         }
                     } else {
                         for (let k = 0; k < 6; k++) {
@@ -4483,14 +4531,15 @@
             ctx.setLineDash([]);
 
             // 3. Deformed Polygon from active ratings
+            const sxMaxAbs = Math.abs(sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6]));
             const s = [
-                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p5))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p6))) / 100
+                (sxMaxAbs > 0 ? Math.abs(state.p0) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p1) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p2) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p3) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p4) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p5) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p6) / sxMaxAbs : 0)
             ];
 
             const polyPts = vertices.map((v, k) => ({
@@ -4498,7 +4547,7 @@
                 y: cy + (v.y - cy) * s[k]
             }));
 
-            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6);
+            const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6]);
             const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
 
             // Filled shape
@@ -4615,7 +4664,7 @@
                     sxHeptadState[`p${v}`] = val;
                 }
 
-                const maxVal = Math.max(sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6);
+                const maxVal = sxSignedIntensity([sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markHeptadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4657,9 +4706,9 @@
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
                 const scale = (100 + step) / 100;
                 for (let k = 0; k < 7; k++) {
-                    sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState[`p${k}`] * scale)));
+                    sxHeptadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHeptadState[`p${k}`] * scale)));
                 }
-                const maxVal = Math.max(sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6);
+                const maxVal = sxSignedIntensity([sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markHeptadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4675,17 +4724,17 @@
                     const val = Number(slider.value);
                     const out = e.byId("markHeptadIntensityOut");
                     out && (out.textContent = String(Math.round(val)));
-                    const maxCur = Math.max(sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6);
-                    if (maxCur > 0) {
+                    const maxCur = sxSignedIntensity([sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6]);
+                    if (maxCur !== 0) {
                         const ratio = val / maxCur;
                         for (let k = 0; k < 7; k++) {
-                            sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState[`p${k}`] * ratio)));
+                            sxHeptadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHeptadState[`p${k}`] * ratio)));
                         }
                     } else if (sxHeptadState.shape) {
                         // Raising from 0: restore the saved shape instead of
                         // setting every pole equal (which would lose it).
                         for (let k = 0; k < 7; k++) {
-                            sxHeptadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxHeptadState.shape[k] * val)));
+                            sxHeptadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHeptadState.shape[k] * val)));
                         }
                     } else {
                         for (let k = 0; k < 7; k++) {
@@ -4776,15 +4825,16 @@
             ctx.setLineDash([]);
 
             // 3. Deformed Polygon from active ratings
+            const sxMaxAbs = Math.abs(sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6, state.p7]));
             const s = [
-                Math.max(0, Math.min(100, Math.abs(state.p0))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p1))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p2))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p3))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p4))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p5))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p6))) / 100,
-                Math.max(0, Math.min(100, Math.abs(state.p7))) / 100
+                (sxMaxAbs > 0 ? Math.abs(state.p0) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p1) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p2) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p3) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p4) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p5) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p6) / sxMaxAbs : 0),
+                (sxMaxAbs > 0 ? Math.abs(state.p7) / sxMaxAbs : 0)
             ];
 
             const polyPts = vertices.map((v, k) => ({
@@ -4792,7 +4842,7 @@
                 y: cy + (v.y - cy) * s[k]
             }));
 
-            const maxVal = Math.max(state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6, state.p7);
+            const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6, state.p7]);
             const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
 
             // Filled shape
@@ -4911,7 +4961,7 @@
                     sxOctadState[`p${v}`] = val;
                 }
 
-                const maxVal = Math.max(sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7);
+                const maxVal = sxSignedIntensity([sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markOctadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4953,9 +5003,9 @@
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
                 const scale = (100 + step) / 100;
                 for (let k = 0; k < 8; k++) {
-                    sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState[`p${k}`] * scale)));
+                    sxOctadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxOctadState[`p${k}`] * scale)));
                 }
-                const maxVal = Math.max(sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7);
+                const maxVal = sxSignedIntensity([sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7]);
                 if (slider) slider.value = String(Math.round(maxVal));
                 const out = e.byId("markOctadIntensityOut");
                 if (out) out.textContent = String(Math.round(maxVal));
@@ -4971,17 +5021,17 @@
                     const val = Number(slider.value);
                     const out = e.byId("markOctadIntensityOut");
                     out && (out.textContent = String(Math.round(val)));
-                    const maxCur = Math.max(sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7);
-                    if (maxCur > 0) {
+                    const maxCur = sxSignedIntensity([sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7]);
+                    if (maxCur !== 0) {
                         const ratio = val / maxCur;
                         for (let k = 0; k < 8; k++) {
-                            sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState[`p${k}`] * ratio)));
+                            sxOctadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxOctadState[`p${k}`] * ratio)));
                         }
                     } else if (sxOctadState.shape) {
                         // Raising from 0: restore the saved shape instead of
                         // setting every pole equal (which would lose it).
                         for (let k = 0; k < 8; k++) {
-                            sxOctadState[`p${k}`] = Math.max(0, Math.min(100, Math.round(sxOctadState.shape[k] * val)));
+                            sxOctadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxOctadState.shape[k] * val)));
                         }
                     } else {
                         for (let k = 0; k < 8; k++) {
@@ -5040,6 +5090,11 @@
             const isTetrad = !isCompass && Boolean(shape.tetrad || (shape.keys && shape.keys.length === 4));
             const isTriad = Boolean(shape.triangle || (shape.keys && shape.keys.length === 3));
             const is2Pole = !isOctad && !isHeptad && !isHexad && !isPentad && !isTetrad && !isTriad;
+            // The xy-switchbox has no intensity dimension at all (its two
+            // axes are signed already): the generic intensity slider and
+            // wheel must not rescale its values.
+            const isSwitch = is2Pole && !isCompass && !shape.single;
+            if (slider) slider.disabled = isSwitch;
 
             badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
 
@@ -5071,11 +5126,25 @@
                 pId = freshPid();
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                const maxVal = Math.max(...vals, 0);
-                // Compass intensity is the SUM of the four quadrant values, not the max.
-                const sliderVal = isCompass ? (vals[0] + vals[1] + vals[2] + vals[3]) : maxVal;
-                slider && (slider.value = String(Math.round(sliderVal)));
-                sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
+                const maxVal = sxSignedIntensity(vals);
+                // Compass intensity is the SUM of the four quadrant values;
+                // the triad's is the signed sum too, matching the placard;
+                // the radar/tetrad families use the signed strongest value.
+                const sliderVal = isCompass ? (vals[0] + vals[1] + vals[2] + vals[3]) : isTriad ? sxTriSignedIntensity(vals) : maxVal;
+                if (!isSwitch) {
+                    // The derived intensity can exceed the slider's static
+                    // ±100 range (triad sums reach ±300, compass sums ±400):
+                    // widen the range to cover it before assigning, or the
+                    // element silently clamps and misreads the stored blend
+                    // (Adam readback defect, finisher 2026-11-19).
+                    if (slider) {
+                        const lim = Math.max(100, Math.abs(Math.round(sliderVal)));
+                        slider.min = String(-lim);
+                        slider.max = String(lim);
+                        slider.value = String(Math.round(sliderVal));
+                    }
+                    sliderOut && (sliderOut.textContent = String(Math.round(sliderVal)));
+                }
                 syncReadouts();
 
                 if (isCompass) {
@@ -5112,7 +5181,7 @@
                     const sumAbs = Math.abs(vals[0]) + Math.abs(vals[1]) + Math.abs(vals[2]);
                     const nw = sumAbs > 0 ? [Math.abs(vals[0]) / sumAbs, Math.abs(vals[1]) / sumAbs, Math.abs(vals[2]) / sumAbs] : [1 / 3, 1 / 3, 1 / 3];
                     sxDrawTriangleWidget(canvas, shape, {
-                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: maxVal
+                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal
                     });
                 } else {
                     sxDrawSwitchboxWidget(canvas, shape, {
@@ -5185,7 +5254,8 @@
                     const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
                     const curRec = ca(topicId, pId);
                     const oldVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                    const intensity = Math.max(...oldVals, 70);
+                    let intensity = sxTriSignedIntensity(oldVals);
+                    if (!intensity) intensity = 70;
                     To(topicId, keys[0], Math.round(w0 * intensity), !1, pId);
                     To(topicId, keys[1], Math.round(w1 * intensity), !1, pId);
                     To(topicId, keys[2], Math.round(w2 * intensity), !1, pId);
@@ -5234,12 +5304,13 @@
                 pId = freshPid();
                 evt.preventDefault();
                 evt.stopPropagation();
+                if (isSwitch) return;
                 const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
                 const scale = (100 + step) / 100;
                 const curRec = ca(topicId, pId);
                 keys.forEach(k => {
                     const oldV = curRec[k + "Known"] ? curRec[k] : 0;
-                    To(topicId, k, Math.max(0, Math.min(100, Math.round(oldV * scale))), !1, pId);
+                    To(topicId, k, Math.max(-100, Math.min(100, Math.round(oldV * scale))), !1, pId);
                 });
                 Mr();
                 redraw();
@@ -5253,31 +5324,45 @@
                     const targetVal = Number(slider.value);
                     const curRec = ca(topicId, pId);
                     const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                    const maxCur = Math.max(...vals, 0);
+                    if (isSwitch) return;
                     if (isCompass) {
                         // Compass intensity is the SUM: rescale so the four
                         // values sum to the target, point unchanged.
                         const sumCur = vals[0] + vals[1] + vals[2] + vals[3];
-                        if (sumCur > 0) {
+                        if (sumCur !== 0) {
                             const ratio = targetVal / sumCur;
                             keys.forEach((k, idx) => {
-                                To(topicId, k, Math.max(0, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
+                                To(topicId, k, Math.max(-100, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
                             });
                         } else {
                             // No ratings yet: start at the center point
                             keys.forEach(k => {
-                                To(topicId, k, Math.max(0, Math.min(100, Math.round(targetVal / 4))), !1, pId);
+                                To(topicId, k, Math.max(-100, Math.min(100, Math.round(targetVal / 4))), !1, pId);
                             });
                         }
-                    } else if (maxCur > 0) {
-                        const ratio = targetVal / maxCur;
-                        keys.forEach((k, idx) => {
-                            To(topicId, k, Math.max(0, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
-                        });
                     } else {
-                        keys.forEach(k => {
-                            To(topicId, k, targetVal, !1, pId);
-                        });
+                        // Rescale the whole vector by the ratio to the
+                        // current signed intensity (signed strongest for
+                        // the radar/tetrad families, signed sum for the
+                        // triad), so flipping the slider's sign flips every
+                        // pole with it — aversion keeps the proportions.
+                        const curInt = isTriad ? sxTriSignedIntensity(vals) : sxSignedIntensity(vals);
+                        if (curInt !== 0) {
+                            const ratio = targetVal / curInt;
+                            keys.forEach((k, idx) => {
+                                To(topicId, k, Math.max(-100, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
+                            });
+                        } else if (isTriad) {
+                            // From zero, a triad starts as equal thirds of
+                            // the target (the placard's proportions model).
+                            keys.forEach(k => {
+                                To(topicId, k, Math.round(targetVal / 3), !1, pId);
+                            });
+                        } else {
+                            keys.forEach(k => {
+                                To(topicId, k, targetVal, !1, pId);
+                            });
+                        }
                     }
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
@@ -5777,8 +5862,8 @@
                 sxOctadState.p6 = ratings[6];
                 sxOctadState.p7 = ratings[7];
 
-                const maxR = Math.max(...ratings);
-                if (maxR > 0) sxOctadState.shape = ratings.map(v => v / maxR);
+                const maxR = sxSignedIntensity(ratings);
+                if (maxR !== 0) sxOctadState.shape = ratings.map(v => v / maxR);
                 if (octadIntensity) octadIntensity.value = String(Math.round(maxR));
                 if (octadIntensityOut) octadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -5807,8 +5892,8 @@
                 sxHeptadState.p5 = ratings[5];
                 sxHeptadState.p6 = ratings[6];
 
-                const maxR = Math.max(...ratings);
-                if (maxR > 0) sxHeptadState.shape = ratings.map(v => v / maxR);
+                const maxR = sxSignedIntensity(ratings);
+                if (maxR !== 0) sxHeptadState.shape = ratings.map(v => v / maxR);
                 if (heptadIntensity) heptadIntensity.value = String(Math.round(maxR));
                 if (heptadIntensityOut) heptadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -5836,8 +5921,8 @@
                 sxHexadState.p4 = ratings[4];
                 sxHexadState.p5 = ratings[5];
 
-                const maxR = Math.max(...ratings);
-                if (maxR > 0) sxHexadState.shape = ratings.map(v => v / maxR);
+                const maxR = sxSignedIntensity(ratings);
+                if (maxR !== 0) sxHexadState.shape = ratings.map(v => v / maxR);
                 if (hexadIntensity) hexadIntensity.value = String(Math.round(maxR));
                 if (hexadIntensityOut) hexadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -5864,8 +5949,8 @@
                 sxPentadState.p3 = ratings[3];
                 sxPentadState.p4 = ratings[4];
 
-                const maxR = Math.max(...ratings);
-                if (maxR > 0) sxPentadState.shape = ratings.map(v => v / maxR);
+                const maxR = sxSignedIntensity(ratings);
+                if (maxR !== 0) sxPentadState.shape = ratings.map(v => v / maxR);
                 if (pentadIntensity) pentadIntensity.value = String(Math.round(maxR));
                 if (pentadIntensityOut) pentadIntensityOut.textContent = String(Math.round(maxR));
 
@@ -5938,8 +6023,8 @@
                 sxTetradState.p2 = r2;
                 sxTetradState.p3 = r3;
 
-                const maxR = Math.max(r0, r1, r2, r3);
-                if (maxR > 0) sxTetradState.shape = [r0 / maxR, r1 / maxR, r2 / maxR, r3 / maxR];
+                const maxR = sxSignedIntensity([r0, r1, r2, r3]);
+                if (maxR !== 0) sxTetradState.shape = [r0 / maxR, r1 / maxR, r2 / maxR, r3 / maxR];
                 if (tetradIntensity) tetradIntensity.value = String(Math.round(maxR));
                 if (tetradIntensityOut) tetradIntensityOut.textContent = String(Math.round(maxR));
 
