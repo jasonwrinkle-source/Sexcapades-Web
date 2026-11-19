@@ -14,6 +14,26 @@ ErrorDocument 404 /404.html
 
 # Clean URLs for SEO (rewrite /app -> /hosted/app.html, etc.)
 RewriteEngine On
+
+# Root link-preview fix (2026-11-18): serve the real page per hostname at
+# the root, so link-preview crawlers (which do not run JavaScript) read the
+# correct static preview tags instead of the router page's Flexcapades tags.
+#   capades.io/       -> engine.html (TaxoPolemics preview tags)
+#   flex.capades.io/  -> picker.html (Flexcapades picker preview tags)
+# Root path ONLY (^$ in this folder): every other path is untouched, and
+# every other hostname still reaches the router (index.html) exactly as
+# today — including www.capades.io / www.flex.capades.io, which the router
+# sends to the gate. Internal rewrite ([L], no redirect): the address bar
+# keeps the root URL and the query string is preserved automatically.
+# Same destinations as the router's JavaScript routes (capades.io ->
+# /engine.html, flex.capades.io -> /picker.html), so browser behaviour is
+# unchanged apart from the address bar showing / instead of /engine.html
+# or /picker.html.
+RewriteCond %{HTTP_HOST} ^capades\.io$ [NC]
+RewriteRule ^$ /engine.html [L]
+RewriteCond %{HTTP_HOST} ^flex\.capades\.io$ [NC]
+RewriteRule ^$ /picker.html [L]
+
 RewriteRule ^favicon\.ico$ /hosted/favicon.ico [L]
 RewriteRule ^app/?$ /hosted/app.html [L]
 RewriteRule ^guide/?$ /hosted/guide.html [L]
