@@ -28435,10 +28435,15 @@ const TAXONOMY_CATEGORIES = [
 
         function sxGetTriVertices(width, height) {
             // Pole 0 (Red, bottom-left), Pole 1 (Green, top center / middle position), Pole 2 (Blue, bottom-right)
+            // Label margins (2026-11-18, placard triad fix): the triangle
+            // sits INSIDE the canvas with room left OUTSIDE it for
+            // horizontal pole labels — a band above the top vertex and a
+            // two-line band below the base — so no label ever runs
+            // diagonally along an edge, cramped against the fill.
             return {
-                V0: { x: 28, y: height - 24 },
-                V1: { x: width / 2, y: 22 },
-                V2: { x: width - 28, y: height - 24 }
+                V0: { x: width * 0.27, y: height - 46 },
+                V1: { x: width / 2, y: 36 },
+                V2: { x: width * 0.73, y: height - 46 }
             };
         }
 
@@ -28462,6 +28467,56 @@ const TAXONOMY_CATEGORIES = [
             return { w0, w1, w2 };
         }
 
+        function sxWrapLabelLines(ctx, text, maxWidth) {
+            // Greedy word wrap at the shared pole-label font; a single
+            // over-long word is hard-split so it can never overflow.
+            const words = String(text || "").split(/\s+/).filter(Boolean);
+            const lines = [];
+            let cur = "";
+            const pushWord = (w) => {
+                while (ctx.measureText(w).width > maxWidth && w.length > 1) {
+                    let cut = 1;
+                    while (cut < w.length && ctx.measureText(w.slice(0, cut + 1)).width <= maxWidth) cut++;
+                    lines.push(w.slice(0, cut));
+                    w = w.slice(cut);
+                }
+                if (w) {
+                    const trial = cur ? cur + " " + w : w;
+                    if (ctx.measureText(trial).width <= maxWidth || !cur) cur = trial;
+                    else { lines.push(cur); cur = w; }
+                }
+            };
+            words.forEach(pushWord);
+            if (cur) lines.push(cur);
+            return lines.length ? lines : [""];
+        }
+        function sxDrawTriPoleLabel(ctx, canvas, cx, cy, text, color, key, maxWidth, above) {
+            // Horizontal exterior triad label (2026-11-18): never rotated,
+            // never along an edge. `above` stacks the wrapped block so it
+            // ends just above the vertex; otherwise it starts just below
+            // it. The block is centred on the vertex x, clamped to its
+            // own half of the canvas, and recorded as one axis-aligned
+            // rect (angle 0) for the hover hit-test.
+            if (!ctx || !canvas || !text) return;
+            ctx.save();
+            ctx.font = SX_POLE_LABEL_FONT;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const lines = sxWrapLabelLines(ctx, text, Math.max(30, maxWidth));
+            const lineH = 11;
+            const blockW = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
+            const half = blockW / 2;
+            const ccx = Math.max(half + 3, Math.min(canvas.width - half - 3, cx));
+            const blockH = lines.length * lineH;
+            const topY = above ? (cy - 14 - blockH) : (cy + 14);
+            ctx.fillStyle = color;
+            lines.forEach((ln, i) => {
+                ctx.fillText(ln, ccx, topY + i * lineH + lineH / 2);
+            });
+            ctx.restore();
+            sxRecordPoleLabelRect(canvas, lines.join(" "), ccx - half, topY, blockW, blockH, 0, key, text, ccx, topY + blockH / 2, blockW, blockH);
+        }
+
         function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
             if (!canvas) return;
             const ctx = canvas.getContext("2d");
@@ -28479,7 +28534,16 @@ const TAXONOMY_CATEGORIES = [
             const maxY = Math.ceil(Math.max(V0.y, V1.y, V2.y));
             const bw = maxX - minX, bh = maxY - minY;
 
-            if (bw > 0 && bh > 0 && Math.abs(det) > 1e-5) {
+            // 1. Barycentric RGB color gradient fill — cached per canvas
+            // (2026-11-18, puck-drag smoothness): the gradient depends
+            // only on canvas size + intensity brightness, never on the
+            // puck position, so rebuilding it pixel-by-pixel on every
+            // pointermove was the drag jank. Rebuild only when the key
+            // (size x rounded intensity) changes; otherwise reuse.
+            const absInt = Math.abs(typeof intensity === "number" ? intensity : 0);
+            const gradKey = width + "x" + height + "x" + Math.round(absInt);
+            let grad = canvas.__sxTriGradient;
+            if ((!grad || grad.key !== gradKey) && bw > 0 && bh > 0 && Math.abs(det) > 1e-5) {
                 const offCanvas = document.createElement("canvas");
                 offCanvas.width = bw;
                 offCanvas.height = bh;
@@ -28488,7 +28552,6 @@ const TAXONOMY_CATEGORIES = [
                 const data = imgData.data;
 
                 // Intensity scales gradient brightness/intensity (clamped -100 to 100)
-                const absInt = Math.abs(typeof intensity === "number" ? intensity : 0);
                 const br = 0.28 + 0.72 * (absInt / 100);
 
                 for (let y = minY; y < maxY; y++) {
@@ -28517,7 +28580,10 @@ const TAXONOMY_CATEGORIES = [
                     }
                 }
                 offCtx.putImageData(imgData, 0, 0);
+                grad = canvas.__sxTriGradient = { key: gradKey, img: offCanvas, minX: minX, minY: minY };
+            }
 
+            if (grad && grad.img) {
                 ctx.save();
                 ctx.beginPath();
                 ctx.moveTo(V0.x, V0.y);
@@ -28525,7 +28591,7 @@ const TAXONOMY_CATEGORIES = [
                 ctx.lineTo(V2.x, V2.y);
                 ctx.closePath();
                 ctx.clip();
-                ctx.drawImage(offCanvas, minX, minY);
+                ctx.drawImage(grad.img, grad.minX, grad.minY);
                 ctx.restore();
             }
 
@@ -28580,13 +28646,21 @@ const TAXONOMY_CATEGORIES = [
             ctx.strokeStyle = "#ffffff";
             ctx.stroke();
 
-            // 4. Pole labels (matching RGB colors) — tangent-rotated (T5).
+            // 4. Pole labels (matching RGB colors) — horizontal and
+            // EXTERIOR to the triangle (2026-11-18): the old shared
+            // tangent rotation ran the long bottom labels diagonally
+            // along the edges, cramped against the fill. Green sits in
+            // one wrapped block above the top vertex; red and blue sit
+            // in wrapped blocks below their base vertices, each clamped
+            // to its own half of the canvas so they never overlap.
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 3);
-            const triCx = (V0.x + V1.x + V2.x) / 3, triCy = (V0.y + V1.y + V2.y) / 3;
-            [V0, V1, V2].forEach((V, idx) => {
-                sxDrawPoleLabel(ctx, canvas, V.x, V.y, Math.atan2(V.y - triCy, V.x - triCx), labels[idx], ["#ef4444", "#22c55e", "#3b82f6"][idx], shape && shape.keys && shape.keys[idx]);
-            });
+            const triCols = ["#ef4444", "#22c55e", "#3b82f6"];
+            const triKeys = shape && shape.keys;
+            sxDrawTriPoleLabel(ctx, canvas, V1.x, V1.y, labels[1], triCols[1], triKeys && triKeys[1], width - 24, true);
+            const triHalfW = width / 2 - 14;
+            sxDrawTriPoleLabel(ctx, canvas, V0.x, V0.y, labels[0], triCols[0], triKeys && triKeys[0], triHalfW, false);
+            sxDrawTriPoleLabel(ctx, canvas, V2.x, V2.y, labels[2], triCols[2], triKeys && triKeys[2], triHalfW, false);
 
             // 5. Active point puck position
             const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
@@ -28609,7 +28683,7 @@ const TAXONOMY_CATEGORIES = [
             ctx.stroke();
         }
 
-        function sxApplyTriRatings(topicId) {
+        function sxApplyTriRatings(topicId, skipSync) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 3) return;
@@ -28620,7 +28694,13 @@ const TAXONOMY_CATEGORIES = [
             To(topicId, shape.keys[0], v0, !1);
             To(topicId, shape.keys[1], v1, !1);
             To(topicId, shape.keys[2], v2, !0);
-            sxSyncMarkRatings(topicId);
+            // During a drag the caller passes skipSync: the full placard
+            // re-sync re-derives the weights from the stored INTEGER
+            // ratings and redraws the triangle a second time, so the
+            // puck fought the pointer in quantized jumps on every move.
+            // Live drags write the ratings only; the drag-end call (no
+            // skipSync) does the one full sync.
+            if (!skipSync) sxSyncMarkRatings(topicId);
         }
 
         function sxClearTriRatings(topicId) {
@@ -30523,8 +30603,17 @@ const TAXONOMY_CATEGORIES = [
                         p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3]
                     });
                 } else if (isTriad) {
+                    // 2026-11-18 (puck-drag smoothness): the weights must
+                    // sum to 1 — the draw places the puck at w0*V0 +
+                    // w1*V1 + w2*V2, so the old raw vals/100 (summing to
+                    // intensity/100, e.g. 0.7) dragged the puck toward the
+                    // canvas origin, and let it jump whenever the
+                    // intensity changed mid-drag. Normalised by absolute
+                    // value, mirroring the placard's derivation.
+                    const sumAbs = Math.abs(vals[0]) + Math.abs(vals[1]) + Math.abs(vals[2]);
+                    const nw = sumAbs > 0 ? [Math.abs(vals[0]) / sumAbs, Math.abs(vals[1]) / sumAbs, Math.abs(vals[2]) / sumAbs] : [1 / 3, 1 / 3, 1 / 3];
                     sxDrawTriangleWidget(canvas, shape, {
-                        x: 0, y: 0, w0: vals[0]/100, w1: vals[1]/100, w2: vals[2]/100, intensity: maxVal
+                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: maxVal
                     });
                 } else {
                     sxDrawSwitchboxWidget(canvas, shape, {
@@ -30752,7 +30841,24 @@ const TAXONOMY_CATEGORIES = [
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
-                    sxApplyTriRatings(Qr);
+                    // Live drag (2026-11-18): the puck follows the pointer
+                    // from sxTriState alone — cheap text updates for the
+                    // three readout values, and the rating write coalesced
+                    // to one per animation frame, WITHOUT the full placard
+                    // re-sync (that re-derived the weights from stored
+                    // integers and redrew the triangle a second time, so
+                    // the puck jumped in quantized steps on every move).
+                    // The full sync runs once, on drag end (stopDrag).
+                    const v0El = e.byId("markTriVal0"), v1El = e.byId("markTriVal1"), v2El = e.byId("markTriVal2");
+                    if (v0El) v0El.textContent = String(Math.round(sxTriState.w0 * sxTriState.intensity));
+                    if (v1El) v1El.textContent = String(Math.round(sxTriState.w1 * sxTriState.intensity));
+                    if (v2El) v2El.textContent = String(Math.round(sxTriState.w2 * sxTriState.intensity));
+                    if (!sxTriState.__sxApplyRaf) {
+                        sxTriState.__sxApplyRaf = requestAnimationFrame(() => {
+                            sxTriState.__sxApplyRaf = 0;
+                            if (Qr) sxApplyTriRatings(Qr, true);
+                        });
+                    }
                 }
             };
 
@@ -30769,6 +30875,10 @@ const TAXONOMY_CATEGORIES = [
                 if (sxTriState.isDragging) {
                     sxTriState.isDragging = !1;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                    // Flush any coalesced live write, then the one full
+                    // placard sync for the finished drag.
+                    if (sxTriState.__sxApplyRaf) { cancelAnimationFrame(sxTriState.__sxApplyRaf); sxTriState.__sxApplyRaf = 0; }
+                    if (Qr) sxApplyTriRatings(Qr);
                 }
             };
             canvas.addEventListener("pointerup", stopDrag);
@@ -33001,6 +33111,28 @@ const TAXONOMY_CATEGORIES = [
                 }
             }), sxApplyOutlineSearch(), ws();
         }
+        /* Hot List skin rebuild (2026-11-18, gate → Hot List defect):
+           the bundle boots the #app/list route (Ms → Cs below) from the
+           Sexcapades taxonomy BEFORE the skin loader swaps in the boot
+           skin — and the loader's rerender() repaints only the map, so
+           a Hot List opened straight from the gate kept Sexcapades
+           topics even after the skin loaded (live-verified: Dharma boot
+           showed 18 Sexcapades branches / 381 rows with the skin active
+           and the header already reading "0 of 28"). The loader calls
+           this hook after every skin load and switch-back: if the Hot
+           List dialog is open it rebuilds it from the CURRENT taxonomy
+           (Cs reads the live categories array), with fresh-open
+           semantics — no preserveDisclosure, so it lands exactly as a
+           list opened after the skin loaded does. A no-op when the
+           dialog is closed (later opens build fresh via Ms). Ratings
+           live in profile state, not in the rows, so a rebuild keeps
+           them; timer and dialog state are untouched (this is Cs, not
+           Ms). */
+        window.__SX_REBUILD_OUTLINE = function () {
+            if (!Do || !Do.open) return false;
+            Cs();
+            return true;
+        };
         function Ms(n = Vi()) {
             p("quickstart_started");
             const i = n === Et;
