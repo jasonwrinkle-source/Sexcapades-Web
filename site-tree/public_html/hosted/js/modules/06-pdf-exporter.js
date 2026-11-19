@@ -11,7 +11,7 @@
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
         const xp = Boolean((navigator.maxTouchPoints || 0) > 0 && window.matchMedia && window.matchMedia("(pointer: coarse)").matches), Sp = !Object.keys(wt).length || kp || xp;
-        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
+        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, radarDragState = null, sxWidgetWheelPending = null, sxMapTriMemory = {}, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
             x: 0,
             y: 0
         }, qp = null, Hp = 0, Wp = 0, Up = 0, Gp = !1, Kp = Sp ? "lite" : "gpu", zp = Sp, Vp = null, Yp = null, Xp = 0, Zp = 0, Qp = 0;
@@ -747,8 +747,19 @@
         let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
             if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), triDragState && triDragState.pointerId === e.pointerId) {
+                const t = triDragState;
                 triDragState = null;
                 Mr();
+                sxMapPlacardSync(t.id);
+                checkMilestoneTransition(Vi(), t.prevRated);
+                return;
+            }
+            if (radarDragState && radarDragState.pointerId === e.pointerId) {
+                const t = radarDragState;
+                radarDragState = null;
+                Mr();
+                sxMapPlacardSync(t.id);
+                checkMilestoneTransition(Vi(), t.prevRated);
                 return;
             }
             if (Pp && Pp.pointerId === e.pointerId) {
@@ -925,7 +936,353 @@
             if (!__sxClosestAction(e.target, "directionControl")) return;
             const t = Gh(e.relatedTarget);
             t ? Uh(t) : qh();
-        }), Cn.addEventListener("wheel", e => {
+        });
+        // On-map n-pole widget interactivity (Build 2026-11-18): helpers for
+        // the triad live intensity, radar drag math, live DOM patching, the
+        // widget wheel, and the gesture-end placard sync. All rating writes
+        // go through the rating setter (never a direct store write); during
+        // a drag/wheel burst writes use the no-repaint flag and the widget
+        // DOM is patched live; one full repaint + placard sync + milestone
+        // check happen at gesture end.
+        function sxMapTriMemoryFor(topicId) {
+            // In-memory triad gesture state (session-only, never stored):
+            // the live intensity + weights, mirroring the placard's
+            // in-memory triad state. It is what carries the intensity
+            // through the all-zero crossing, where the stored ratings round
+            // to 0 and can no longer say whether the intensity was +1 or -1.
+            return sxMapTriMemory[topicId] || null;
+        }
+        function sxMapTriRemember(topicId, intensity, w0, w1, w2) {
+            sxMapTriMemory[topicId] = { intensity, w0, w1, w2 };
+        }
+        function sxMapTriIntensity(topicId) {
+            // Live triad intensity: the placard's in-memory intensity when
+            // it is open for this topic; else derived from the stored
+            // ratings exactly as the placard sync does (signed sum of
+            // absolute values); when the stored ratings are all zero, the
+            // map's own gesture memory (if any) carries the intensity
+            // through the zero crossing. Returns 0 when nothing is known;
+            // callers apply the drag-start 70 default where it belongs.
+            if (Qr === topicId && sxTriState.topicId === topicId) return sxTriState.intensity;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length !== 3) return 0;
+            const rec = da(topicId, Vi());
+            const r0 = rec && rec[shape.keys[0] + "Known"] ? rec[shape.keys[0]] : 0;
+            const r1 = rec && rec[shape.keys[1] + "Known"] ? rec[shape.keys[1]] : 0;
+            const r2 = rec && rec[shape.keys[2] + "Known"] ? rec[shape.keys[2]] : 0;
+            const sumAbs = Math.abs(r0) + Math.abs(r1) + Math.abs(r2);
+            if (sumAbs > 0) return (r0 + r1 + r2 < 0 ? -1 : 1) * sumAbs;
+            const mem = sxMapTriMemoryFor(topicId);
+            return mem ? mem.intensity : 0;
+        }
+        function sxMapTriWeights(topicId) {
+            // Barycentric weights from the stored ratings; when all stored
+            // ratings are zero, keep the placard's in-memory weights if the
+            // placard is open for this topic, else the map's own gesture
+            // memory, else the centroid.
+            const shape = Ge(topicId);
+            const w = { w0: 1 / 3, w1: 1 / 3, w2: 1 / 3 };
+            if (!shape || !shape.keys || shape.keys.length !== 3) return w;
+            const rec = da(topicId, Vi());
+            const a0 = rec && rec[shape.keys[0] + "Known"] ? Math.abs(rec[shape.keys[0]]) : 0;
+            const a1 = rec && rec[shape.keys[1] + "Known"] ? Math.abs(rec[shape.keys[1]]) : 0;
+            const a2 = rec && rec[shape.keys[2] + "Known"] ? Math.abs(rec[shape.keys[2]]) : 0;
+            const sum = a0 + a1 + a2;
+            if (sum > 0) { w.w0 = a0 / sum; w.w1 = a1 / sum; w.w2 = a2 / sum; }
+            else if (Qr === topicId && sxTriState.topicId === topicId && (sxTriState.w0 + sxTriState.w1 + sxTriState.w2) > 0) {
+                w.w0 = sxTriState.w0; w.w1 = sxTriState.w1; w.w2 = sxTriState.w2;
+            } else {
+                const mem = sxMapTriMemoryFor(topicId);
+                if (mem && (mem.w0 + mem.w1 + mem.w2) > 0) { w.w0 = mem.w0; w.w1 = mem.w1; w.w2 = mem.w2; }
+            }
+            return w;
+        }
+        function sxMapPlacardSync(topicId) {
+            // Gesture-end placard sync: only when the placard is open for
+            // this same topic; the sync re-derives the placard widget state
+            // (sliders/capsule/puck/point + pole tips) from stored ratings.
+            if (!topicId) return;
+            try {
+                if (Qr === topicId && Pr && !Pr.hidden && typeof sxSyncMarkRatings === "function") sxSyncMarkRatings(topicId);
+            } catch (err) { __sxErrLog("map-placard-sync", err); }
+        }
+        function sxMapPatchTriLive(topicId, v0, v1, v2, bary, values, intensity) {
+            // Live DOM patch for the on-map triangle: puck position/fill,
+            // vertex-dot emphasis by weight, gradient brightness by
+            // |intensity| (mirrors the placard draw's brightness rule).
+            const ctl = In.querySelector(`.map-triad-control[data-id="${CSS.escape(topicId)}"]`);
+            if (!ctl) return;
+            const puck = ctl.querySelector(".map-triangle-puck");
+            if (puck) {
+                const px = bary.w0 * v0.x + bary.w1 * v1.x + bary.w2 * v2.x;
+                const py = bary.w0 * v0.y + bary.w1 * v1.y + bary.w2 * v2.y;
+                puck.setAttribute("cx", px.toFixed(1));
+                puck.setAttribute("cy", py.toFixed(1));
+                puck.setAttribute("fill", zi(Math.max(values[0], values[1], values[2])));
+            }
+            const dots = ctl.querySelectorAll("circle:not(.map-triangle-puck)");
+            dots.forEach((dot, k) => {
+                const w = [bary.w0, bary.w1, bary.w2][k];
+                if (w === undefined) return;
+                dot.setAttribute("fill-opacity", (0.3 + 0.7 * w).toFixed(2));
+            });
+            const br = 0.28 + 0.72 * (Math.abs(intensity) / 100);
+            ctl.querySelectorAll("linearGradient stop").forEach(stop => {
+                if (!stop.dataset.sxBaseOp) stop.dataset.sxBaseOp = stop.getAttribute("stop-opacity") || "0.35";
+                stop.setAttribute("stop-opacity", (parseFloat(stop.dataset.sxBaseOp) * br).toFixed(2));
+            });
+        }
+        function sxMapPatchRadarLive(topicId, type, cx, cy, vertices, values) {
+            // Live DOM patch for an on-map radar: deformed polygon points
+            // + vertex dots moved to the deformed positions. Creates the
+            // deformed polygon if the paint never emitted one (all-zero
+            // start: pentad/tetrad only emit it when some value > 0).
+            const ctl = In.querySelector(`.map-${type}-control[data-id="${CSS.escape(topicId)}"]`);
+            if (!ctl) return;
+            const pts = vertices.map((v, k) => {
+                const d = Math.max(0, Math.min(100, Math.abs(values[k] || 0))) / 100;
+                return { x: cx + (v.x - cx) * d, y: cy + (v.y - cy) * d };
+            });
+            const ptsStr = pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+            let def = ctl.querySelector("polygon[fill-opacity]");
+            const maxV = Math.max(...values.map(v => Math.abs(v || 0)), 0);
+            if (!def) {
+                const hit = ctl.querySelector(".direction-hit");
+                if (!hit) return;
+                def = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                def.setAttribute("fill-opacity", "0.55");
+                def.setAttribute("stroke", "#ffffff");
+                def.setAttribute("stroke-width", "1.4");
+                hit.parentNode.insertBefore(def, hit);
+            }
+            def.setAttribute("points", ptsStr);
+            def.setAttribute("fill", zi(maxV));
+            const dots = ctl.querySelectorAll("circle");
+            dots.forEach((dot, k) => {
+                if (!pts[k]) return;
+                dot.setAttribute("cx", pts[k].x.toFixed(1));
+                dot.setAttribute("cy", pts[k].y.toFixed(1));
+            });
+        }
+        function sxMapClientToLocal(e, el) {
+            // Convert a pointer event's client coords into an SVG element's
+            // own local space. The element's getScreenCTM includes every
+            // ancestor transform, including its control group's own
+            // translate/rotate. The map-root conversion
+            // (__sxScreenCtm(In)) lands in the camera group's space, which
+            // is NOT a control's local space when the control carries a
+            // non-identity transform — quad-compass controls do (a
+            // translate of several hundred local units), so a root-space
+            // pointer measured against local-space vertices read ~30% off
+            // (drag-from-zero gave 100/40/40/40 instead of 80/25/25/25).
+            // Controls with an identity transform are unaffected: the two
+            // conversions agree there. Returns null when the element has
+            // no CTM (callers fall back to the root conversion).
+            try {
+                const ctm = el && el.getScreenCTM ? el.getScreenCTM() : null;
+                if (!ctm) return null;
+                const pt = Cn.createSVGPoint();
+                pt.x = e.clientX; pt.y = e.clientY;
+                return pt.matrixTransform(ctm.inverse());
+            } catch (err) { __sxErrLog("client-to-local", err); return null; }
+        }
+        function sxMapRadarVertices(hitEl, type) {
+            // Reference vertices (in key order: Ka emits vertex k for key
+            // k) from a radar hit polygon's points attribute, with angles.
+            const poly = hitEl.classList.contains(`map-${type}-hit`) ? hitEl : hitEl.querySelector(`.map-${type}-hit`);
+            if (!poly) return null;
+            const ctl = poly.closest(".direction-control");
+            const cx = ctl ? parseFloat(ctl.dataset.baseCx) : NaN;
+            const cy = ctl ? parseFloat(ctl.dataset.baseCy) : NaN;
+            if (!Number.isFinite(cx) || !Number.isFinite(cy)) return null;
+            const ptsAttr = poly.getAttribute("points") || "";
+            const vertices = ptsAttr.trim().split(/\s+/).map(pair => {
+                const parts = pair.split(",");
+                const x = Number(parts[0]), y = Number(parts[1]);
+                return { x, y, angle: Math.atan2(y - cy, x - cx) };
+            }).filter(v => Number.isFinite(v.x) && Number.isFinite(v.y));
+            if (!vertices.length) return null;
+            return { cx, cy, vertices, r: Math.hypot(vertices[0].x - cx, vertices[0].y - cy), poly };
+        }
+        function sxMapRadarDragStart(e, hitEl, type) {
+            // Tap/drag-a-vertex start, mirroring the placard bind pattern:
+            // closest-axis pick with a 22px screen handle made scale-aware,
+            // drag-from-zero polygon init (dragged = value, others = base =
+            // max(20, value/2), lock once value > base).
+            const topicId = hitEl.dataset.id;
+            if (!topicId) return false;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 3) return false;
+            const geom = sxMapRadarVertices(hitEl, type);
+            if (!geom || geom.vertices.length !== shape.keys.length || !(geom.r > 0)) return false;
+            const { cx, cy, vertices, r, poly } = geom;
+            const pt = Cn.createSVGPoint();
+            pt.x = e.clientX; pt.y = e.clientY;
+            // Pointer in the hit polygon's own local space (see the helper:
+            // the map-root conversion is the wrong space when the control
+            // carries its own transform, as quad-compass controls do).
+            const mapPt = sxMapClientToLocal(e, poly) || pt.matrixTransform(__sxScreenCtm(In).inverse());
+            const rec = da(topicId, Vi());
+            const values = shape.keys.map(k => {
+                const v = rec && rec[k + "Known"] ? rec[k] : 0;
+                return Math.max(0, Math.min(100, Math.round(v || 0)));
+            });
+            const isAllZero = values.every(v => !v);
+            let handleRadius = 22;
+            try {
+                // 22 screen px expressed in the polygon's local units, so
+                // the closest-axis handle is a real on-screen distance.
+                // (Dividing by the map-root scale instead made it ~0.5px
+                // on screen — drags still worked on-axis, but a tap
+                // slightly off-axis would pick no axis at all.)
+                const ctm = poly.getScreenCTM();
+                const scale = ctm ? Math.hypot(ctm.a, ctm.b) : 0;
+                if (scale > 0) handleRadius = 22 / scale;
+            } catch (err) { __sxErrLog("radar-handle-scale", err); }
+            const active = sxFindClosestAxis(mapPt.x, mapPt.y, cx, cy, vertices, isAllZero ? null : values, handleRadius);
+            const angle = vertices[active].angle;
+            const dot = (mapPt.x - cx) * Math.cos(angle) + (mapPt.y - cy) * Math.sin(angle);
+            const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+            let dragFromZero = false, vertexLocked = false, base = 0;
+            if (isAllZero && val > 0) {
+                dragFromZero = true;
+                base = Math.max(20, Math.round(val / 2));
+                for (let k = 0; k < values.length; k++) values[k] = (k === active) ? val : base;
+                if (val > base) vertexLocked = true;
+                shape.keys.forEach((k, i) => To(topicId, k, values[i], !1));
+            } else {
+                values[active] = val;
+                To(topicId, shape.keys[active], val, !1);
+            }
+            radarDragState = {
+                pointerId: e.pointerId, id: topicId, type,
+                cx, cy, vertices, r, activeVertex: active,
+                dragFromZero, vertexLocked, base, values,
+                prevRated: cs(Vi()).rated
+            };
+            sxMapPatchRadarLive(topicId, type, cx, cy, vertices, values);
+            return true;
+        }
+        function sxMapRadarDragMove(e) {
+            // Returns true when the event was consumed by an active radar
+            // drag (including a stale-geometry cancel).
+            if (!radarDragState || radarDragState.pointerId !== e.pointerId) return false;
+            const st = radarDragState;
+            // Staleness guard: a repaint/settle mid-drag re-emits the hit
+            // polygon; if the reference vertices moved, cancel the drag
+            // rather than writing against stale geometry.
+            const hit = In.querySelector(`.map-${st.type}-hit[data-id="${CSS.escape(st.id)}"]`);
+            if (!hit) { radarDragState = null; return true; }
+            const live = (hit.getAttribute("points") || "").trim().split(/\s+/).map(pair => {
+                const parts = pair.split(",");
+                return { x: Number(parts[0]), y: Number(parts[1]) };
+            });
+            let stale = live.length !== st.vertices.length;
+            if (!stale) for (let k = 0; k < live.length; k++) {
+                if (Math.abs(live[k].x - st.vertices[k].x) > 0.01 || Math.abs(live[k].y - st.vertices[k].y) > 0.01) { stale = true; break; }
+            }
+            if (stale) { radarDragState = null; return true; }
+            const shape = Ge(st.id);
+            if (!shape || !shape.keys || shape.keys.length !== st.vertices.length) { radarDragState = null; return true; }
+            const pt = Cn.createSVGPoint();
+            pt.x = e.clientX; pt.y = e.clientY;
+            const mapPt = sxMapClientToLocal(e, hit) || pt.matrixTransform(__sxScreenCtm(In).inverse());
+            if (st.dragFromZero && !st.vertexLocked) {
+                st.activeVertex = sxClosestVertexByAngle(mapPt.x, mapPt.y, st.cx, st.cy, st.vertices);
+            }
+            const v = st.activeVertex;
+            const angle = st.vertices[v].angle;
+            const dot = (mapPt.x - st.cx) * Math.cos(angle) + (mapPt.y - st.cy) * Math.sin(angle);
+            const val = Math.max(0, Math.min(100, Math.round((dot / st.r) * 100)));
+            if (st.dragFromZero && !st.vertexLocked && val > 0) {
+                const base = Math.max(20, Math.round(val / 2));
+                st.base = base;
+                for (let k = 0; k < st.values.length; k++) st.values[k] = (k === v) ? val : base;
+                if (val > base) st.vertexLocked = true;
+                shape.keys.forEach((k, i) => To(st.id, k, st.values[i], !1));
+            } else {
+                st.values[v] = val;
+                To(st.id, shape.keys[v], val, !1);
+            }
+            sxMapPatchRadarLive(st.id, st.type, st.cx, st.cy, st.vertices, st.values);
+            return true;
+        }
+        function sxMapScheduleWidgetRepaint(topicId, prevRated) {
+            // One trailing full repaint 150ms after the last wheel event in
+            // a burst, then the placard sync + milestone check. The
+            // previous-rated count is the burst's first (pre-write) count.
+            if (sxWidgetWheelPending) {
+                sxWidgetWheelPending.topicId = topicId;
+                try { window.clearTimeout(sxWidgetWheelPending.timer); } catch (_) {}
+            } else {
+                sxWidgetWheelPending = { topicId, prevRated, timer: 0 };
+            }
+            sxWidgetWheelPending.timer = window.setTimeout(() => {
+                const pending = sxWidgetWheelPending;
+                sxWidgetWheelPending = null;
+                if (!pending) return;
+                Mr();
+                sxMapPlacardSync(pending.topicId);
+                checkMilestoneTransition(Vi(), pending.prevRated);
+            }, 150);
+        }
+        function sxMapWidgetWheel(e) {
+            // Delegated widget wheel: returns true when the wheel was
+            // consumed by an on-map n-pole widget (or swallowed on a frozen
+            // map), false to let the existing zoom path run. Runs before any
+            // zoom/debounce state is touched; routing is positional per
+            // event, so leaving the widget releases back to zoom with no
+            // capture state. Mid-drag wheels route the same way; the drag
+            // re-anchors from the pointer on its next move.
+            const tgt = e.target;
+            const wHit = tgt && tgt.closest ? tgt.closest(".map-triangle-hit, .map-tetrad-hit, .map-pentad-hit, .map-hexad-hit, .map-heptad-hit, .map-octad-hit, .map-triangle-puck, .map-triad-control, .map-tetrad-control, .map-pentad-control, .map-hexad-control, .map-heptad-control, .map-octad-control") : null;
+            if (!wHit) return false;
+            e.preventDefault();
+            if (mn.staticMap) return true;
+            const ctl = wHit.closest ? wHit.closest(".direction-control") : null;
+            const topicId = (ctl && ctl.dataset.id) || wHit.dataset.id;
+            const direction = (ctl && ctl.dataset.direction) || wHit.dataset.direction;
+            if (!topicId || !direction) return true;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys) return true;
+            const step = (e.shiftKey ? 1 : 5) * (e.deltaY < 0 ? 1 : -1);
+            const prevRated = cs(Vi()).rated;
+            const rec = da(topicId, Vi());
+            if (direction === "triangle" && shape.keys.length === 3) {
+                const w = sxMapTriWeights(topicId);
+                // Wheel steps from the live intensity (no 70 default here:
+                // the wheel must step through zero to the opposite sign,
+                // which the gesture memory makes possible).
+                const intensity = Math.max(-100, Math.min(100, sxMapTriIntensity(topicId) + step));
+                const v0r = Math.round(w.w0 * intensity);
+                const v1r = Math.round(w.w1 * intensity);
+                const v2r = Math.round(w.w2 * intensity);
+                To(topicId, shape.keys[0], v0r, !1);
+                To(topicId, shape.keys[1], v1r, !1);
+                To(topicId, shape.keys[2], v2r, !1);
+                sxMapTriRemember(topicId, intensity, w.w0, w.w1, w.w2);
+                const hit = In.querySelector(`.map-triangle-hit[data-id="${CSS.escape(topicId)}"]`);
+                if (hit) {
+                    const vv = [{ x: +hit.dataset.v0x, y: +hit.dataset.v0y }, { x: +hit.dataset.v1x, y: +hit.dataset.v1y }, { x: +hit.dataset.v2x, y: +hit.dataset.v2y }];
+                    sxMapPatchTriLive(topicId, vv[0], vv[1], vv[2], w, [v0r, v1r, v2r], intensity);
+                }
+            } else if (["tetrad", "pentad", "hexad", "heptad", "octad"].indexOf(direction) >= 0) {
+                const scale = (100 + step) / 100;
+                const values = shape.keys.map(k => {
+                    const v = rec && rec[k + "Known"] ? rec[k] : 0;
+                    return Math.max(0, Math.min(100, Math.round(v * scale)));
+                });
+                shape.keys.forEach((k, i) => To(topicId, k, values[i], !1));
+                const geom = sxMapRadarVertices(In.querySelector(`.map-${direction}-hit[data-id="${CSS.escape(topicId)}"]`) || wHit, direction);
+                if (geom && geom.vertices.length === shape.keys.length) sxMapPatchRadarLive(topicId, direction, geom.cx, geom.cy, geom.vertices, values);
+            } else {
+                return true;
+            }
+            sxMapScheduleWidgetRepaint(topicId, prevRated);
+            return true;
+        }
+        Cn.addEventListener("wheel", e => {
+            if (sxMapWidgetWheel(e)) return;
             e.preventDefault();
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
@@ -962,7 +1319,8 @@
             }();
         }, {
             passive: !1
-        }), Cn.addEventListener("pointerdown", e => {
+        });
+        Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
             Cn && Cn.classList.remove("is-camera-moving");
@@ -996,7 +1354,12 @@
                 const topicId = octadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "octad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending): the drag
+                    // starts here; the placard still opens by
+                    // double-tapping the node. The old Pi() call was dead
+                    // (never assigned as a function) and is removed, not
+                    // left guarded.
+                    sxMapRadarDragStart(e, octadHit, "octad");
                 }
                 return;
             }
@@ -1005,7 +1368,8 @@
                 const topicId = heptadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "heptad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    sxMapRadarDragStart(e, heptadHit, "heptad");
                 }
                 return;
             }
@@ -1014,7 +1378,8 @@
                 const topicId = hexadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "hexad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    sxMapRadarDragStart(e, hexadHit, "hexad");
                 }
                 return;
             }
@@ -1023,7 +1388,8 @@
                 const topicId = pentadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "pentad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    sxMapRadarDragStart(e, pentadHit, "pentad");
                 }
                 return;
             }
@@ -1032,7 +1398,10 @@
                 const topicId = tetradHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "tetrad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    // Quad-compass topics render as this tetrad diamond
+                    // (same drag-a-vertex behaviour; keys in vertex order).
+                    sxMapRadarDragStart(e, tetradHit, "tetrad");
                 }
                 return;
             }
@@ -1048,22 +1417,34 @@
                     const v2 = { x: v2x, y: v2y };
                     const pt = Cn.createSVGPoint();
                     pt.x = e.clientX, pt.y = e.clientY;
-                    const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                    // Pointer in the triangle hit polygon's own local
+                    // space (same mixed-space trap as the radar drag:
+                    // the map-root conversion is wrong when the control
+                    // carries its own transform).
+                    const mapPt = sxMapClientToLocal(e, triHit) || pt.matrixTransform(__sxScreenCtm(In).inverse());
                     const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
                     const shape = Ge(topicId);
+                    // Live intensity (placard memory, else signed sum of
+                    // stored absolute values, else gesture memory); 0
+                    // defaults to 70, the placard's drag-start rule. The
+                    // old hardcoded 80 is gone.
+                    const intensity = sxMapTriIntensity(topicId) || 70;
                     if (shape && shape.keys && shape.keys.length === 3) {
-                        const intensity = 80;
                         const v0r = Math.round(bary.w0 * intensity);
                         const v1r = Math.round(bary.w1 * intensity);
                         const v2r = Math.round(bary.w2 * intensity);
                         To(topicId, shape.keys[0], v0r, !1);
                         To(topicId, shape.keys[1], v1r, !1);
                         To(topicId, shape.keys[2], v2r, !1);
+                        sxMapPatchTriLive(topicId, v0, v1, v2, bary, [v0r, v1r, v2r], intensity);
+                        sxMapTriRemember(topicId, intensity, bary.w0, bary.w1, bary.w2);
                     }
                     triDragState = {
                         pointerId: e.pointerId,
                         id: topicId,
-                        v0: v0, v1: v1, v2: v2
+                        v0: v0, v1: v1, v2: v2,
+                        intensity: intensity,
+                        prevRated: cs(Vi()).rated
                     };
                 }
                 return;
@@ -1179,7 +1560,7 @@
                 direction: l.dataset.direction,
                 value: _o(l, No(l, e.clientX, e.clientY))
             })) : (Gp || (fh = yh()), rh(e.pointerId), eh.size >= 2 ? (io(), oh(), Mp = null, 
-            Ip = null, Pp = null, Lp = null, Tp = null, eo = null, Fp = null, Sq = null, yn && xr(!0), 
+            Ip = null, Pp = null, Lp = null, Tp = null, eo = null, Fp = null, Sq = null, triDragState = null, radarDragState = null, yn && xr(!0), 
             void Mh()) : void (__sxClosestAction(e.target, "categoryLabel") || (Cp = !0, jp = {
                 x: e.clientX,
                 y: e.clientY
@@ -1194,7 +1575,7 @@
                 x: e.clientX,
                 y: e.clientY
             }), eh.size >= 2) {
-                Mp = null, Pp = null, Lp = null, qp || Mh();
+                Mp = null, Pp = null, Lp = null, triDragState = null, radarDragState = null, qp || Mh();
                 const e = Ch();
                 if (!qp || !e) return;
                 return noteFitUserCamera(), $p = Math.max(1e-9, Math.min(Eh(), qp.scale * (e.distance / qp.distance))), 
@@ -1233,30 +1614,37 @@
                 y: e.clientY
             }));
             if (triDragState && triDragState.pointerId === e.pointerId) {
+                const st = triDragState;
+                // Staleness guard: a repaint/settle mid-drag re-emits the
+                // hit polygon; if the vertices moved, cancel the drag
+                // rather than writing against stale geometry.
+                const triHitNow = In.querySelector(`.map-triangle-hit[data-id="${CSS.escape(st.id)}"]`);
+                let triStale = !triHitNow;
+                if (triHitNow) {
+                    const liveVs = [[+triHitNow.dataset.v0x, +triHitNow.dataset.v0y], [+triHitNow.dataset.v1x, +triHitNow.dataset.v1y], [+triHitNow.dataset.v2x, +triHitNow.dataset.v2y]];
+                    const stVs = [st.v0, st.v1, st.v2];
+                    for (let k = 0; k < 3; k++) if (Math.abs(liveVs[k][0] - stVs[k].x) > 0.01 || Math.abs(liveVs[k][1] - stVs[k].y) > 0.01) { triStale = true; break; }
+                }
+                if (triStale) { triDragState = null; return; }
                 const pt = Cn.createSVGPoint();
                 pt.x = e.clientX, pt.y = e.clientY;
-                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
-                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, triDragState.v0, triDragState.v1, triDragState.v2);
-                const shape = Ge(triDragState.id);
+                const mapPt = sxMapClientToLocal(e, triHitNow) || pt.matrixTransform(__sxScreenCtm(In).inverse());
+                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, st.v0, st.v1, st.v2);
+                const shape = Ge(st.id);
                 if (shape && shape.keys && shape.keys.length === 3) {
-                    const intensity = 80;
+                    const intensity = st.intensity;
                     const v0r = Math.round(bary.w0 * intensity);
                     const v1r = Math.round(bary.w1 * intensity);
                     const v2r = Math.round(bary.w2 * intensity);
-                    To(triDragState.id, shape.keys[0], v0r, !1);
-                    To(triDragState.id, shape.keys[1], v1r, !1);
-                    To(triDragState.id, shape.keys[2], v2r, !1);
-                    const puck = In.querySelector(`.map-triangle-puck[data-id="${CSS.escape(triDragState.id)}"]`);
-                    if (puck) {
-                        const px = bary.w0 * triDragState.v0.x + bary.w1 * triDragState.v1.x + bary.w2 * triDragState.v2.x;
-                        const py = bary.w0 * triDragState.v0.y + bary.w1 * triDragState.v1.y + bary.w2 * triDragState.v2.y;
-                        puck.setAttribute("cx", px.toFixed(1));
-                        puck.setAttribute("cy", py.toFixed(1));
-                        puck.setAttribute("fill", zi(Math.max(v0r, v1r, v2r)));
-                    }
+                    To(st.id, shape.keys[0], v0r, !1);
+                    To(st.id, shape.keys[1], v1r, !1);
+                    To(st.id, shape.keys[2], v2r, !1);
+                    sxMapPatchTriLive(st.id, st.v0, st.v1, st.v2, bary, [v0r, v1r, v2r], intensity);
+                    sxMapTriRemember(st.id, intensity, bary.w0, bary.w1, bary.w2);
                 }
                 return;
             }
+            if (sxMapRadarDragMove(e)) return;
             if (eo && eo.pointerId === e.pointerId) {
                 if (eo.longPressed) return;
                 if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10) {
@@ -1282,11 +1670,11 @@
         }), Cn.addEventListener("pointerup", Kh), Cn.addEventListener("pointercancel", Kh), 
         /* Build 2026-10-18_1305: viewport lockup fix. Kh was only registered on the map SVG, so a pointerup/pointercancel delivered anywhere else never cleaned up the gesture state — the pointer stayed in the active-pointer map (eh) forever, every later press read as a phantom extra finger (all tap branches require exactly one active pointer, and pan is unreachable in the multi-pointer path), and only wheel zoom, which never consults eh, kept working. The exposed path: a touch long-press on the center node opens the modal About dialog (sh via Wi/showModal) while the finger is still down — the touch branch takes no pointer capture — so the release lands on the dialog, not the SVG. Rescue: window-level capture listeners run the same Kh cleanup whenever the map owns the pointer (tracked in eh or any gesture state) but the release lands outside the map; lostpointercapture on the SVG cleans up the same way if capture is lost mid-gesture. In-map releases are untouched (Cn.contains guard) and Kh is idempotent, so normal gestures behave exactly as before. */
         window.addEventListener("pointerup", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), window.addEventListener("pointercancel", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), Cn.addEventListener("lostpointercapture", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
         }), Cn.addEventListener("touchstart", e => {
             if (mn.staticMap || 1 !== e.touches.length || !e.target.closest || !__sxClosestAction(e.target, "centerHit")) return;
             const n = e.touches[0];

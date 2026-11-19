@@ -686,6 +686,15 @@
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
+                // On-map pole tips (Build 2026-11-18): each pole label
+                // carries the exact pole line the placard shows for the
+                // same pole (same helper), so the shared tooltip popup
+                // shows byte-identical text on the map and the placard.
+                // Labels are focusable so keyboard focus shows the tip too.
+                const sxPoleTipAttrs = k => {
+                    const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
+                    return (tip ? ` data-ui-tooltip="${Hi(tip)}" data-tooltip-name="${Hi(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
+                };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:
                     // Regular octagon deformation polygon
@@ -733,14 +742,15 @@
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${octCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-octad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-octad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.heptad) {
                     // 7-Pole Heptad Widget on Hypermap:
@@ -789,14 +799,15 @@
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${heptCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-heptad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-heptad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.hexad) {
                     // 6-Pole Hexad Widget on Hypermap:
@@ -845,14 +856,15 @@
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${hexCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-hexad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-hexad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.pentad) {
                     // 5-Pole Pentad Widget on Hypermap:
@@ -903,14 +915,15 @@
                     P.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3 * m}" fill="${pentColors[k]}" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit polygon
+                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"/>`;
                     // Pole labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + Math.cos(pt.phi) * 8 * m;
                         const ly = pt.y + Math.sin(pt.phi) * 8 * m;
-                        D += `<text class="map-pentad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                        D += `<text class="map-pentad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
                     });
-                    // Hit polygon
-                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
                     D += `</g>`;
                 } else if ($.tetrad) {
                     // 4-Pole Tetrad Widget on Hypermap:
@@ -970,13 +983,14 @@
                     D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#eab308" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    // Labels
-                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
                     // Hit area
-                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a corner to set that pole." tabindex="0"/>`;
+                    // Labels
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(0)} x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(1)} x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(2)} x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(3)} x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
                     D += `</g>`;
                 } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
@@ -1025,15 +1039,16 @@
                     D += `<circle cx="${V0.x.toFixed(1)}" cy="${V0.y.toFixed(1)}" r="${3.5 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     // Labels offset outward from each vertex
                     const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
                     const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
                     const l2x = V2.x + nx * 9 * m, l2y = V2.y + ny * 9 * m;
-                    D += `<text class="map-triangle-label" x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
-                    D += `<text class="map-triangle-label" x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
-                    D += `<text class="map-triangle-label" x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
                     D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
-                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     D += `</g>`;
                 } else {
                     f.forEach((k, idx) => {
