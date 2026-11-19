@@ -599,6 +599,22 @@
     return null;
   }
 
+  /* Rebuild the open Hot List after a skin swap (2026-11-18, gate →
+     Hot List defect): rerender() above repaints only the map, so a
+     Hot List built at boot from the Sexcapades taxonomy — the
+     #app/list boot route runs before this loader swaps the boot skin
+     in — kept Sexcapades topics after the skin loaded. The bundle's
+     __SX_REBUILD_OUTLINE hook (03d-outline.js) rebuilds the open
+     dialog from the current taxonomy; a no-op when it is closed, and
+     guarded here so an older bundle without the hook still loads
+     skins fine. Called at the end of both loadSkin paths, after the
+     layout apply, so the list rebuilds exactly once per swap. */
+  function rebuildOutlineIfOpen() {
+    try {
+      if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
+    } catch (e) { /* the list keeps its pre-swap rows; the map is unaffected */ }
+  }
+
   function setAboutDescription(displayName, aboutText) {
     /* Per-skin About description (2026-11-16): the skin JSON's `about`
        field holds the full description as the user reads it (name
@@ -1449,8 +1465,9 @@
           sxArmSwitchPaint();
           applySexcapadesLayout(data);
           applyTerms("sexcapades", data);
+          rebuildOutlineIfOpen();
           return "sexcapades";
-        }).catch(function () { applyTerms("sexcapades", null); return "sexcapades"; });
+        }).catch(function () { applyTerms("sexcapades", null); rebuildOutlineIfOpen(); return "sexcapades"; });
       }, function (err) { window.__SX_FORCE_UNRATED_TREE = false; throw err; });
     }
     var url = SKIN_DIR + skinId + ".json";
@@ -1475,6 +1492,7 @@
         sxArmSwitchPaint();
         applyDefaultLayout(data);
         applyTerms(skinId, data);
+        rebuildOutlineIfOpen();
         return skinId;
       }, function (err) { window.__SX_FORCE_UNRATED_TREE = false; throw err; });
     });

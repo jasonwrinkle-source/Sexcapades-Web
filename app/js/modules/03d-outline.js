@@ -951,6 +951,28 @@
                 }
             }), sxApplyOutlineSearch(), ws();
         }
+        /* Hot List skin rebuild (2026-11-18, gate → Hot List defect):
+           the bundle boots the #app/list route (Ms → Cs below) from the
+           Sexcapades taxonomy BEFORE the skin loader swaps in the boot
+           skin — and the loader's rerender() repaints only the map, so
+           a Hot List opened straight from the gate kept Sexcapades
+           topics even after the skin loaded (live-verified: Dharma boot
+           showed 18 Sexcapades branches / 381 rows with the skin active
+           and the header already reading "0 of 28"). The loader calls
+           this hook after every skin load and switch-back: if the Hot
+           List dialog is open it rebuilds it from the CURRENT taxonomy
+           (Cs reads the live categories array), with fresh-open
+           semantics — no preserveDisclosure, so it lands exactly as a
+           list opened after the skin loaded does. A no-op when the
+           dialog is closed (later opens build fresh via Ms). Ratings
+           live in profile state, not in the rows, so a rebuild keeps
+           them; timer and dialog state are untouched (this is Cs, not
+           Ms). */
+        window.__SX_REBUILD_OUTLINE = function () {
+            if (!Do || !Do.open) return false;
+            Cs();
+            return true;
+        };
         function Ms(n = Vi()) {
             p("quickstart_started");
             const i = n === Et;
