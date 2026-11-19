@@ -4,7 +4,11 @@
  * 
  * Handles:
  * 1. Survey upserts: POST action=survey, uuid, ratings, app_version, app_build
- * 2. Funnel events: POST action=event, uuid, event_type, utm_source
+ * 2. Funnel events: POST action=event, uuid, event_type, utm_source, skin
+ *    (skin = the skin id the event fired under, e.g. "sexcapades" or
+ *    "poliscapades"; added 2026-11-18 so events can be told apart per skin.
+ *    Old clients send no skin and the column stays NULL; old servers
+ *    ignore the extra field — the field is optional on both sides.)
  * 
  * Privacy: No IP logging, no PII, no fingerprinting. UUID is random per-browser.
  * SQLite upsert: repeat submissions update the same record.
@@ -53,6 +57,7 @@ $db->exec('CREATE TABLE IF NOT EXISTS events (
     uuid TEXT,
     event_type TEXT,
     utm_source TEXT,
+    skin TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )');
 
@@ -75,6 +80,10 @@ if (!in_array('elapsed_seconds', $eventCols, true)) {
 }
 if (!in_array('topic_count', $eventCols, true)) {
     $db->exec('ALTER TABLE events ADD COLUMN topic_count INTEGER');
+}
+// Migration: add skin to events so events can be told apart per skin (2026-11-18)
+if (!in_array('skin', $eventCols, true)) {
+    $db->exec('ALTER TABLE events ADD COLUMN skin TEXT');
 }
 
 // Migration: add profile_uuid to surveys for per-profile analytics (Jason 2026-10-14)
@@ -218,14 +227,23 @@ if ($action === 'survey') {
     // Sanitize UTM (max 128 chars)
     $utmSource = substr($utmSource, 0, 128);
 
+    // Skin id (per-skin analytics, 2026-11-18): optional, never fails the
+    // request. Kept to lowercase letters/digits/hyphens, max 32 chars;
+    // anything else (or nothing at all) stores as an empty string.
+    $skin = strtolower(substr(trim($input['skin'] ?? ''), 0, 32));
+    if ($skin !== '' && !preg_match('/^[a-z0-9-]+$/', $skin)) {
+        $skin = '';
+    }
+
     // Optional session stats payload (topic_count, elapsed_seconds)
     $elapsedSeconds = isset($input['elapsed_seconds']) ? max(0, intval($input['elapsed_seconds'])) : null;
     $statTopicCount = isset($input['topic_count']) ? max(0, intval($input['topic_count'])) : null;
     
-    $stmt = $db->prepare('INSERT INTO events (uuid, event_type, utm_source, elapsed_seconds, topic_count) VALUES (:uuid, :event_type, :utm_source, :elapsed_seconds, :topic_count)');
+    $stmt = $db->prepare('INSERT INTO events (uuid, event_type, utm_source, skin, elapsed_seconds, topic_count) VALUES (:uuid, :event_type, :utm_source, :skin, :elapsed_seconds, :topic_count)');
     $stmt->bindValue(':uuid', $uuid, SQLITE3_TEXT);
     $stmt->bindValue(':event_type', $eventType, SQLITE3_TEXT);
     $stmt->bindValue(':utm_source', $utmSource, SQLITE3_TEXT);
+    $stmt->bindValue(':skin', $skin, SQLITE3_TEXT);
     $stmt->bindValue(':elapsed_seconds', $elapsedSeconds, $elapsedSeconds === null ? SQLITE3_NULL : SQLITE3_INTEGER);
     $stmt->bindValue(':topic_count', $statTopicCount, $statTopicCount === null ? SQLITE3_NULL : SQLITE3_INTEGER);
     $stmt->execute();

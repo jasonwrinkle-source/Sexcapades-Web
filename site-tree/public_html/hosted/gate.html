@@ -2012,12 +2012,33 @@
           }
         }
 
+        /* Per-skin analytics (2026-11-18): the gate-passed event carries
+           the current skin id. Resolved from the gate's own skin prefix
+           (hostname, with the ?skin= override — see the GATE_SKINS block
+           below; this function runs after that block, so the prefix is
+           set), falling back to the hostname directly so the field is
+           never missing. A vanilla skin sends no gate-passed event at
+           all (no gate to pass), so in practice this is "sexcapades";
+           the field is here so the record is complete and the bundle's
+           gate-passed event and this one share the same shape. */
+        var GATE_SKIN_IDS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+        function gateAnalyticsSkin() {
+          try {
+            if (typeof gateSkinPrefix === "string" && GATE_SKIN_IDS[gateSkinPrefix]) return GATE_SKIN_IDS[gateSkinPrefix];
+            var host = window.location.hostname.toLowerCase();
+            if (host === "sexcapades.io" || host === "www.sexcapades.io") return "sexcapades";
+            if (/\.capades\.io$/.test(host) && GATE_SKIN_IDS[host.split(".")[0]]) return GATE_SKIN_IDS[host.split(".")[0]];
+          } catch (e) { /* default below */ }
+          return "sexcapades";
+        }
+
         function sendGatePassedEvent() {
           var payload = JSON.stringify({
             action: 'event',
             uuid: getBrowserUuid(),
             event_type: 'gate_passed',
-            utm_source: getStoredUtmSource()
+            utm_source: getStoredUtmSource(),
+            skin: gateAnalyticsSkin()
           });
 
           if (navigator.sendBeacon) {
