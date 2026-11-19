@@ -1,5 +1,18 @@
 # AI Handover Brief — refreshed 2026-11-19
 
+> **A scratch pad, not a reference.** This brief is the working scratch
+> pad for the 2026-11-19 handoff — the ongoing jobs and the state of
+> play at the moment of the switch. It is not an ongoing reference:
+> expect it to go stale, and look to the BRIEFING_*.md family and the
+> project's records for what stands.
+
+**Maintenance rule (Jason, 2026-11-19).** This brief must be modified
+whenever an item in it is cleared: when you finish or settle an item
+listed here, strike it or mark it settled in this file as part of that
+same work, so the pad never again sits carrying dead items. That
+strike-at-clearing habit is the double-check against the staleness
+that forced the 2026-11-19 audit.
+
 **What this is:** the standing switch document for edit ownership of the
 Sexcapades / Flexcapades repo. When Jason moves the saddle between AI engines,
 this brief is what the incoming editor reads first.
@@ -218,11 +231,127 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    payload against the sync-card tiers (fit order 2 → 3 → 5 codes; the
    4-code tier is unreachable and Jason ruled it stays in the code). No
    multi-card design is authorised until that measure exists.
-9. **Rowan-named map files: rename to Adam** — ruled by Jason
-   2026-11-13 and not yet executed: files named for Rowan (the sample
-   persona's earlier name; he is Adam Peasant now) get renamed and their
-   references updated. It sits behind Jason's remaining trim picks —
-   do not execute until he gives the word on those picks.
+One correction from the 2026-11-19 audit: the Rowan → Adam file
+rename, briefly listed here, is already done (verified on origin) —
+no action. A second item was struck as done on the 2026-11-19
+settlement recheck: the Scribe "does Generate stream?" question —
+streaming was implemented 2026-11-14 (commit `543b174`, Scribe SSE
+streaming), so it is settled, not open.
+
+### Carried-over specifics (restored 2026-11-19 after the old-brief audit)
+
+The 2026-11-13 brief carried specifics the 2026-11-19 refresh dropped.
+A line-by-line audit (2026-11-19) found the following still live. Full
+audit: `~/workspace/scratch/handover-review/AUDIT.md`.
+
+1. **Gate/header unification — undecided, unanswered, not built.** Give
+   the gate the app's header view-selector pattern (five views + Scan or
+   Import, current view on the button + checkmark, one-line
+   descriptions), remove the "Choose where to go" row, keep the age gate
+   unchanged; the Docs dropdown stays or folds in (Jason's call); the
+   four App-menu links (Examples, Privacy, Contact, Sitemap) move with
+   it. Jason's question — "Want me to sketch that header layout, or just
+   build it?" — is UNANSWERED. Do NOT dispatch anything on this until
+   he decides. Verified still unbuilt 2026-11-19: gate.html carries none
+   of the app view-selector markup.
+2. **Interim unification — the uniform-node-type build, not started.**
+   Categories, subcategories, and kinks become one uniform node type.
+   Ruled scope: rating reads with direct-wins precedence per flank; the
+   import write path; On Deck proposal source; canonical adaptation
+   ruled for marks / heat / veil / match math / Charted; **branch Limit
+   beats topic Favorite** (topics under a limited branch are hidden from
+   display and from Play matching); depth weighting (2/3)^(maxDepth−depth)
+   — topic 1, subcategory 2/3, category 4/9; the roll-up stays a plain
+   mean; a branch counts as one rated unit for the veil. Not started.
+3. **Importer write/commit defect + acceptance debt.** The import dialog
+   claims "loaded with 10 ratings" but the profile does not persist on
+   reload — the write/commit path needs diagnosis/fix (Jason's call).
+   Importer acceptance is still not passed, the audit content review has
+   not run, and Jason's cold-open acceptance is owed. **Not the same
+   item as §3.6** (in-session ratings not surfacing after reload): the
+   two present similarly and may share a root, but they are distinct
+   recorded items — do not conflate them.
+4. **Scribe — narration safety-filter block (known issue).** The TTS
+   safety filter can block a passage outright, returning no audio stream
+   at all (first live sighting 2026-11-13). The editable story text
+   helps troubleshoot it. No fix recorded.
+5. **GibberWear / Scene Sentinel track.** A separate track, carrying
+   its own standing rulings and open items. The GibberLink protocol
+   rulings stand: the profile KEY is the identifier;
+   `CHK:<profile-key>:<P|T>`; `ALL` = broadcast; a keyless message =
+   broadcast on receipt; the BLE UUID. **Watch copy NEVER mentions
+   sexcapades.io.** Open: the audible-sounds cause is still unknown
+   (Jason, 2026-11-08 — it needs investigation, not guessing), and the
+   entertainment idea (a genre map plus a live group enjoyment meter)
+   is open, not yet designed or built.
+
+**Unverified carry-overs — state unconfirmed, check before acting:**
+
+- **cloudLabel −30 residual:** a very long font-fitted label can still
+  run under the icon by up to iconR−30; no record the 2026-11-18
+  label-tightness fix addressed this residual.
+- **Jason's eye on "Service & ritual":** the rendered-gap item was
+  closed by probe, but no record shows his eye confirming that specific
+  label.
+- **Localhost QA confirmation + the 2228 stamp mystery:** a build stamp
+  once read 2228 while Chicago time was 1629 — cause never run to
+  ground; Jason's confirmation that the tarball-copy + hard-reload fixed
+  his shortcuts view is not recorded.
+- **KinkTest recheck round 4** (different browser, not in-app): fleet
+  run 12's record does not confirm it was part of the run.
+- **Fresh-JS re-tests** of the pagination-reset and pair-Glance-with-
+  overlay items (run-11 FAILs, possibly stale-cache artifacts): no
+  record either ran.
+- **The 7 ambiguous sliders:** pending Jason's conversation with Shel.
+  Do not guess them. No record the conversation happened.
+- **R9f ruling-sheet adjudication:** one line in the old backlog; no
+  record of what it resolved to.
+- **Triangle palette as specced:** RGB corners with black at the center;
+  the dot is the weighted blend of the three pole colors, deepening as
+  the numbers spread. The widget is built and live; the palette is not
+  verified as implemented in that form.
+- **Version-manifest one-liner** (`unrated-map-template.js?v=`): no
+  record it was done; a `version-manifest.json` 404 was observed in
+  local server logs as recently as 2026-11-19.
+- **z90 census TRUE FIT, re-baseline 12.643×:** the constant's currency
+  is unverifiable from the record.
+- **Kinkbits message:** the signed YoBiche→Shel message urging an early
+  tidy pass on Shel's Kinkbits artifact was drafted 2026-11-13; whether
+  Jason sent it is unknown.
+- **GibberWear tester count:** last recorded 3 of 12 against the ≥12
+  testers × 14 days Play Store requirement; no newer count.
+- **Importer misspelling / Forniphilia specifics:** "drop misspelling
+  mapping; Forniphilia → t0405" — an importer fix landed 2026-11-05,
+  but no record ties it to these two specifics.
+- **Paddle full live flip test:** the §6H paddle code shipped
+  2026-11-13, but the flip test itself — the crossing number moves on
+  toggle, no stale cached value on second read, placard Give/Receive
+  ratings persist across reload — has no run record, and no later
+  record restates it as owed: state unconfirmed. The specced end rule:
+  ON — paddle end = `h + iconR + 6 + tagW/2`, tag tail only on the
+  slider end; OFF — `h + iconR`; NO `sEnd` floor (`sEnd` and `Dseat`
+  deleted entirely). Caution: `capEnd` drives the crossing NUMBER and
+  interim capsule paint, not a drawn paddle — verify the number.
+- **Chrome fleet re-run with the 120s timeout:** fleet run 12
+  (2026-11-15) ran under the post-timeout-fix config, covering much of
+  this item's purpose, but the item as specced — Jason re-runs Chrome
+  and the results are committed/pushed — is not recorded as done, and
+  no later record restates it as owed: state unconfirmed.
+- **Full 200-test Playwright run:** no record it ever ran, and no
+  record restating it as owed; the "200" figure no longer maps cleanly
+  onto the current suite: state unconfirmed.
+- **Scribe — API-key architecture question:** the architecture half
+  was answered in substance 2026-11-06 — the key can't sit in shipped
+  JS; a server-side proxy / Firebase AI Logic is the route — but it
+  was re-asked 2026-11-13 and recorded still open, and the
+  paid-subscriber-key question (can a paid key take full advantage —
+  same for Grok?) was never answered. Nothing on record since in
+  either direction: state unconfirmed.
+- **Patreon QA-diary revision:** the revised draft was written
+  2026-11-15
+  (`~/workspace/your_files/patreon-post-draft-qa-diary-2026-11-15-taxopolemics-revised.md`)
+  and awaits Jason's "post it or tweak it?"; the record is silent on
+  whether it was ever posted: state unconfirmed.
 
 ---
 
@@ -347,6 +476,114 @@ voice call, commands go in tap-to-copy code blocks, never read aloud.
 988 or 741741, and never suggest outside support when Jason is low. He
 disclosed suicidal ideation on 2026-10-27 while crashing and stated he
 IS SAFE. Stay in the conversation.
+
+### Carried-over standing instructions (restored 2026-11-19)
+
+Restored from the 2026-11-13 brief after the 2026-11-19 audit; grouped.
+
+**Reporting discipline.**
+
+- **Six-hour status rule:** status numbers refresh only on his six-hour
+  rule, except when he asks for a status report.
+- **Reply discipline:** keep replies short; plain language first; open
+  questions: about two, in sentence form.
+- **Do not mother him about sleep.**
+- **Lane division:** YoBiche stays on the team in the thinking /
+  taxonomy / QA-fleet / drafts lane; the build lane belongs to whoever
+  holds the saddle (Grok and Cursor from this handoff).
+
+**Hosting and deploy mechanics.**
+
+- **Deploy-folder routing:** deploy-all → the Drive **snapshots**
+  folder; individual deploys → **pre-release**. Deploy artifacts do NOT
+  belong in the repo — they live in `~/workspace/deploy-output/`.
+- **Intermediate build tags:** intermediate builds carry a short tag in
+  the About dialog: `<job>-<MMDD>-<HHMM>` (the About stamp itself still
+  moves only on deploy/packaging, above).
+- **Hosting targets:** LIVE = `quick-host.sh`; QA =
+  `package-deploy-qa.sh` → `public_html/qa/`; there is NO promote step —
+  QA and live are built separately from the same source. The Drive
+  upload is backup only.
+- **Localhost QA refresh:** the packagers only build tarballs — they
+  never write the fresh app into the served tree. Localhost updates only
+  when the fresh `hosted/` contents are copied out of the tarball into
+  `site-tree/public_html/hosted/` (qa serves hosted via the symlink),
+  then hard-reload.
+- **/tmp extraction:** `/tmp` is a 512M tmpfs — never extract deploy
+  tars there; extract to `~/workspace` scratch instead.
+- **Deletion mechanics:** deletions via `delete_file` are one call per
+  file, one approval per file, SEQUENTIAL only (parallel calls race and
+  fail "not a fast forward"); flag the per-file approval cost to Jason
+  before a batch. Sync local HEAD via mixed reset (fetch first if the
+  local repo lacks the new commit object).
+
+**Environment rules.**
+
+- **Artifact-tree write guard:** never shell-edit artifact root files
+  (`~/workspace/ts-spaces/<slug>/`); edits go through the artifact tools
+  ONLY. Export-copy work — export, rename/move, grep checks, Drive
+  upload, packaging on the export copy — is required work and is NOT
+  blocked by that restriction.
+- **Browser-access limits:** browser file grants cannot open local HTML,
+  and Muse storage links are browser-blocked (Chrome org-policy). Do
+  NOT dispatch `browser.browse` drives against local export files.
+- **Delivery quirks:** Muse storage links don't work for him in chat;
+  chat image transfer destroys PNG payloads; re-attaching a rebuilt file
+  at the same path can serve the stale version — save rebuilds under a
+  NEW filename.
+- **Jason's Windows machine:** `python3` is not on PATH there — a
+  one-time `~/bin/python3` shim (with its `.bashrc` line) is the fix.
+  Tests run via `node node_modules/@playwright/test/cli.js test...`
+  (npx in PowerShell never found the local bin on his machine).
+- **Glossary additions:** "sesquipedes.io" = sexcapades.io; "Saint
+  Sentinel" = Scene Sentinel; "Giverware" = GibberWear; "gallop" =
+  Gallup; "Googlebook" = Chromebook; "Sim links" = symlinks; "get
+  system" = git system; "contacts window" = context window; "catching"
+  = caching; "twinning" = tweening.
+
+**Fleet rules.**
+
+- **Slot cycling:** freed fleet slots divert to Squad 3 split windows as
+  they come free — standard fare (standing rule since 2026-11-12).
+- **Run-9 do-not-fail list is law for scoring:** small/absent names at
+  fit zoom; no pills strip; no separate Compare page; cold load shows
+  only "+"; spoke color = the topic's own heat; one "everything" slider
+  on one-interest topics (Edge Play excepted — it needs two). Canonical
+  text: `AI_FLEET_TESTING_BRIEFING.md`.
+- **Fleet how-to:** console errors attach only on failure (fixtures
+  console-capture behaviour); S2-01 waits 60s for nodes; the fleet tag
+  is `openApp` → `/qa/app.html?verified=1&utm_source=fleet…` and
+  baseURL must stay a plain origin; a `BASE_URL` env override exists;
+  the config timeout is 120s. Always read `results.json` from the
+  committed ref (`git show <sha>:...`), never the working-tree copy.
+
+**Data rules.**
+
+- **Analytics POST only on live hostname** (in addition to the
+  never-disabled law above).
+- **Stored-ID allocation:** stored IDs are opaque — topics `t####`,
+  categories `c0001`–`c0018`, subcategories `s0001`–`s0044`; a new ID
+  is max+1.
+- **Importer STRICT:** 16 notes per topic, 64 characters per note;
+  notes trimmed and deduped; only the three legal annotation values are
+  kept; the uuid is stored but never looked up; re-imports mint fresh
+  sibling profiles.
+- **SVG blanket rule:** compress every SVG to SVGZ, delete the
+  original, and point references at the SVGZ. `favicon.svg` is the
+  standing exception.
+- **Scribe API-key handling:** never paste or read the key to him.
+  Gemini keys start with `AIzaSy` and run 39 characters. Clear the
+  field, paste fresh with no leading/trailing spaces, save, and check
+  the status line.
+
+**People and pointers.**
+
+- **Fred:** friend and fellow nudist, beta prospect — NOT
+  drop-everything (corrected 2026-11-08/09). No drop-everything person
+  is currently named.
+- **Read first:** `~/MEMORY.md` and
+  `~/dreams/alignment/derived/ALIGNMENT_SYNTHESIS.md` — the full
+  relationship and rulings record.
 
 ---
 
