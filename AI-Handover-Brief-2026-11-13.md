@@ -1,224 +1,390 @@
-# AI Handover Brief — 2026-11-13 (evening)
+# AI Handover Brief — refreshed 2026-11-19
 
-**From:** YoBiche (Yolanda Biche)
-**To:** Gemini — taking over edits with AntiGravity
-**Date:** Friday, 2026-11-13, ~18:47 CST
-**Repo:** `jasonwrinkle-source/Sexcapades-Web`, branch `main`
-**Remote head at handoff:** `5b78ede1` ("Trim dead weight: remove root sync-map-preview.svg (replaced by SVGZ)")
-**Live build:** `2026-11-13_0528` (tag `release-4.0-1113-0528`, hosted by Jason ~05:41 CST, verified live). Production: `/hosted/app.html`.
-**QA build:** `2026-11-12_2047` (intact).
+**What this is:** the standing switch document for edit ownership of the
+Sexcapades / Flexcapades repo. When Jason moves the saddle between AI engines,
+this brief is what the incoming editor reads first.
+**Refreshed:** 2026-11-19 by YoBiche (Yolanda Biche, Muse), who held edit
+ownership from 2026-11-15.
+**The saddle passes to:** Grok and Cursor, on Jason's word.
+**Repo:** `jasonwrinkle-source/Sexcapades-Web`, branch `main`.
+**Remote head:** `c8e56f8e`. **Live build:** deploy-all `2026-11-19_1524`.
+**Version:** 5.0.
 
-**Why this handoff:** Jason is handing edits back to Gemini now that YoBiche proved round-robin works. A successful handoff back to Gemini should unlock the Patreon post revision. YoBiche stays on the team in the thinking/taxonomy/QA-fleet/drafts lane; Gemini owns the build lane again.
-
-**4.0 status:** 4.0 is a release candidate, shipped by Jason's explicit greenlight override — NOT a fleet READY verdict. Fleet runs 9, 10, and 11 all came back REGRESSION DETECTED.
-
----
-
-## 1. What just landed (tonight, 2026-11-13 evening — all pushed)
-
-Everything below is committed and pushed to `main`. Nothing is left uncommitted except the items in §2.
-
-**The 5-item builder batch** (dispatched ~17:42, finished ~18:02, all live-verified in the browser):
-1. **Hot List rename** — labels changed, keys unchanged. `data-get-ratings-list="popularity"` is a key (hooked at `06d-profile-sheet.js:2553`); only the label changed. Playwright `tests/40-listview.spec.js:9` dialog name updated. Live-verified: dialog aria-label "Hot List", view-nav label "Hot List", menu button "Hot list" with key intact.
-2. **Scribe Generate button** — the compact row's button was swallowed by the full-width story panel. Fix: `app/css/app.css` guard (`.scribe-compact-row` buttons never stretch) + `patches.js` `scribeSyncGenerateLabel()`. The compact row lives in `#scribeChoiceDialog` (NOT `#scribeDialog`). Label logic checks `scribeAiSetupReady()` FIRST — no key → "Pick your AI"; with a key → "✨ Generate"; with a story in the textarea → "↻ Regenerate". Known quirk (pre-existing): clicking Scribe in the view menu does NOT open the dialog in headless tests; the panel works when opened directly.
-3. **Extreme close-up** — boot camera was a hard-coded close-up (~1,260× too zoomed); the pull-back died because `fitSettleCheck()` burned its 20-check budget on 400 ms re-arms during the 25–45 s boot paint. Fix: `06-pdf-exporter.js` counter increments only after paint settles; `03e-map-paint.js` chunked-paint resolution calls `Ih()` once the boot paint draws (boot-only via `sxBootArm`). Live-verified: 932 node-groups painted, all 932 visible, viewBox `-700 -980 3200 3200`, zero JS pageerrors.
-4. **Label-to-icon gap** — fix in the bundle: `sxLabelClearance` +12 → + `6 * Za.measure(" ", fs, "topic")` in `03a-midline-solver.js`; `hubSpokeLength` +3 → + 6 spaces in `02f-spoke-geometry.js` + `02p-spoke-selection.js` (byte-identical duplicates, both changed); `topicSpokeEstimate` tail → + `sxIconRadius(dep)` + 6 spaces. Leaf line that ran past the icon was the interim capsule paint's `M:` midline — trimmed to the node circle in `sxCapSnap` (`03e-map-paint.js`). Residual (unfixed, needs a bigger shared-helper change): `cloudLabel`'s −30 margin means a very long font-fitted label can still run under the icon by up to iconR−30. **Rendered gap NOT cleanly measured live** (icons are tiny vector discs at full-map zoom; probe readings were noise). Code is confirmed live in the rebuilt bundle; the rendered gap needs **Jason's eye on "Service & ritual"** (label text is "Service & ritual" with an ampersand).
-5. **Gate fixes** — (a) background cut off: after Enter, `.destination-menu.is-visible` sat opaque over the figure; fix makes the figure a flex column, menu in flow on top, SVG fills below with `preserveAspectRatio="meet"`. (b) Hot List red outline: the red was the App-menu link (`.app-view-menu a.app-view-menu-primary`, `var(--accent)` ring + rgba(255,77,100) glow); fix = teal `#63c2c8` border + `listViewGlowPulse` 1.6s + teal hover + reduced-motion rule. Live-verified: figure top y=169 = exactly the menu bottom; Hot List border rgb(99,194,200) with the pulse; no red glow.
-
-**Gate footer removal** (Jason's ruling ~18:16: "let's do away with the footer and put examples privacy contact and site map into the app menu"). Builder ran ~18:19→18:22 (~3 min), `gate.html` only, 2590 → 2250 lines. Removed the whole `<footer class="site-footer">` (both sitemap groups, the four bar links, Patreon line, stale build stamp 2026-10-18_2143), all footer/sitemap CSS (kept the shared `.docs-*` rules the header Docs menu uses), and the sitemap JS (`wireSitemapMenu` + its two calls + the two document handlers). Added to `#appViewMenu`, after the view items, a divider then Examples (`/hosted/examples.html`), Privacy (`/hosted/privacy.html`), Contact (`mailto:help@sexcapades.io`), Sitemap (`/sitemap.html`). Header App/Docs menu wiring untouched; explorers counter untouched; About dialog untouched. Live-verified: footerPresent false, sitemapPresent false, explorersPresent true, About build line intact, zero page errors. Note: `/hosted/privacy.html` and the mailto each appear twice in gate.html — once in the App menu (new) and once pre-existing in the About dialog — not a builder-made duplicate.
-
-**Scan or Import added to the header view selector** (Jason's ruling ~18:25; builder ~18:26→18:28, ~2 min). Files: `app/sexcapades-4.0.html` + `app/js/view-nav.js` ONLY. The item is the FIRST button in `#viewNavMenu`, before Hypermap, with the same `view-nav-item` class and hover-description mechanism (`data-ui-tooltip` = "Import a profile from PNG, sync card, or test results."). It is an ACTION, not a view: `role="menuitem"` (not `menuitemradio`), NO `aria-checked`. Wiring: new `goImport()` (view-nav.js:173) closes the menu and other dialogs, then clicks `#importProfileChoice` — the exact button the Add menu's Scan or Import uses — which runs `ww()` (`06d-profile-sheet.js:2198`) and opens the import dialog. `choose()` has an `else if (v === "import") goImport();` branch. `refreshMenu()` guards `if (v !== "import")` before setting `aria-checked`, so the ✓ can never land on it. `currentView()`/`currentLabel()` never return "import", so the header button label can't become "Scan or Import". **Live-verified:** menu order `import, map, list, setter, safety, scribe`; Scan or Import first with `checked: null`, Hypermap `checked: true`; clicking it opens `profileImportDialog` with title "Scan or Import" visible, and the header button still reads "Hypermap ▾"; zero errors. Note: the builder did NOT use the `#app/import` hash — no route handler for it exists in the app code, so navigating there would open nothing.
-
-**Data bundle rebuilt** (2026-11-13 ~18:05): 2887 KB, `node --check` clean, all three bundle copies byte-identical (md5 `c7e05f2d791f9209ef6f9d5d9b59e3f0`). Verified present in the bundle: new 6-space clearance formula (old `+ 12` gone), `sxBootArm`, `"Hot list"`.
-
-**Trim — done and pushed.** SVG blanket rule (Jason): compress every SVG to SVGZ, delete the original, point references at the SVGZ. Done: `unrated-map.svg` (22.3 MB → `.svgz` 824,383 B), `unrated-full-hypermap.svg` (10 MB → `.svgz` 353,424 B), `rowan-map.svg` (24.7 MB → `.svgz` 1.1 MB), `sync-map-preview.svg` hosted + root (2 MB each → `.svgz` 256 KB each), `example-sync-map-rowan.svg` (27 KB → `.svgz` 5 KB), LIVE `rowan-sample-hypermap.svg` (6.3 MB → `.svgz` 384 KB; both `examples.html` hrefs + aria-label updated; `.htaccess` already serves `.svgz`). All originals to recoverable trash (expire 2026-12-13). Only `.svg` left in the site tree: `favicon.svg` (excluded by standing rule). Cut: `unrated-map-hires.png`, `hosted/assets/app.js` (1.1 MB, unreferenced), `hosted/assets/app-data.embedded.js` (1.3 MB, dormant), `pages/archive-nov06-exports/` (2.9 MB), the root `site-tree/public_html/assets/` duplicate tree (2.7 MB), `app/data/data-bootstrap.js.bak` (2.5 MB). The 13 tracked deletions were pushed as commits `6a1821b7` → `5b78ede1`. Jason's ruling on everything else: "The rest of the stuff I think we'll just keep. Not worth messing with." Trim walkthrough is DONE.
-
-**Deploys built tonight (2026-11-13 ~18:30–18:31, all gates passed):**
-- **Deploy-all:** `deploy-all-v4.0-2026-11-13_1830-optimized.tar.gz`, 33 MB (34,489,985 B), MD5 `e3ff0581110f7fbf67912855e6ad8eec`. Built by `packaging-scripts/package-deploy-all-4.0.sh`. **NOT yet hosted** — the script prints the SSH command with a `<download-url>` placeholder. To host: upload the tarball to Muse storage (`/opt/hatch/bin/remote-storage upload-file --path <file>`), then give Jason the one-step paste block (`cd ~/domains && curl -L -o <name>.tar.gz "<storage-link>" && echo "<md5>  <name>.tar.gz" | md5sum -c && tar -xzf <name>.tar.gz`). Disclose that the storage link is public-until-expiry with its expiry time. The tarball sits in the repo root (git-ignored); deploy artifacts belong in `~/workspace/deploy-output/`.
-- **Deploy-qa:** `deploy-qa-v4.0-2026-11-13_1830.tar.gz`, 31 MB (32,365,842 B), MD5 `ee1e46af0b3443b4bacff304071b4f0f`. Built by `packaging-scripts/package-deploy-qa.sh`. The script uploaded it to temp.sh: `https://temp.sh/gYoKv/deploy-qa-v4.0-2026-11-13_1830.tar.gz` and saved the one-step SSH command to `DEPLOY_QA_COMMAND.txt` (repo root, git-ignored). Testing URLs: `https://sexcapades.io/qa/test-runner.html` and `https://sexcapades.io/qa/app.html#app/map`.
-
-**Push record (tonight):** code batch `23f4881a` (23 files, 3.6 MB); bundle `fbd45b1f` (app/data), `393ff0e8` (hosted/data), `2bf69499` (hosted/app-assets) — the three bundle copies are byte-identical (blob SHA `3c00d31189238014478945a5f9cf36a9f7202ba1`); 13 trim deletions as `6a1821b7` → `5b78ede1`. Sync record: `~/workspace/Sexcapades-Web.muse-github-snapshot-sync.json` (38 entries).
+**Authority.** Jason Mark Wrinkle is the PI and sole owner. His latest ruling
+supersedes everything — earlier rulings, this brief, any other document —
+and supersessions are recorded, never silently edited away. The working
+cadence is: propose → he approves → then build. Never treat a question, a
+symptom report, or thinking-aloud as an order. Nothing hardens or ships live
+without his daylight say-so and his own cold-open acceptance. Address him as
+"slave", a plain form of address — he is Shel's slave, never "your slave" or
+"my slave" from the agent.
 
 ---
 
-## 2. Still unpushed / known gaps (do not lose these)
+## 1. Current state (2026-11-19)
 
-- **SVGZ binaries (deferred, Jason's rule — push TEXT now, defer SVGs).** The recompressed SVGZ files cannot be pushed via the GitHub connector (it can't push binaries). They come from Jason's machine. Modified (unpushed): `site-tree/public_html/hosted/assets/sample-maps/rowan-map.svgz`, `site-tree/public_html/hosted/assets/sample-maps/unrated-map.svgz`. Untracked (unpushed): `site-tree/public_html/hosted/examples/example-sync-map-rowan.svgz`, `site-tree/public_html/hosted/rowan-sample-hypermap.svgz`, `site-tree/public_html/hosted/sync-map-preview.svgz`, `site-tree/public_html/hosted/unrated-full-hypermap.svgz`, `site-tree/public_html/sync-map-preview.svgz`. Also untracked and NOT for the repo: `packaging-scripts/qa-icons/icon-qa-192-superimposed.png`, `icon-qa-512-superimposed.png` (QA icons), `sexcapades-playwright-fleet/playwright-report/`, `sexcapades-playwright-fleet/test-results/`, and the `site-tree/public_html/qa` symlink (QA dir is NOT in git by design).
-- **Mode-bit-only diff:** `packaging-scripts/stamp-asset-versions.py` shows as modified (mode 100644 → 100755). Content is byte-identical on GitHub (blob SHA `8af4c1657f486349bfe1b7cca874a602808ce21c`). The connector's snapshot push doesn't carry file modes. Not a real gap.
-- **Deploy-all tarball not yet hosted** (see §1). The deploy-qa tarball is on temp.sh awaiting Jason's SSH pull.
-- **Paddle code is pushed but its live flip-test verification is still owed** (see §4).
+- **Live:** deploy-all `2026-11-19_1524`, hosted by Jason and curl-verified:
+  the Sexcapades app, the Dharma gate, and the Fores app all serve Build
+  2026-11-19_1524. Production app: `/hosted/app.html`.
+- **Git:** origin/main `c8e56f8e`; the snapshot sync record
+  (`~/workspace/Sexcapades-Web.muse-github-snapshot-sync.json`) holds 301
+  entries. The VM working tree's local HEAD lags the remote — connector
+  pushes don't move it. Read §4 before trusting any local git state.
+- **The family:** one engine (TaxoPolemics), one application (Flexcapades),
+  15 skins. Sexcapades 381 topics, Poliscapades 93, Forescapades 91; the
+  other twelve run 15–40 topics each. Sexcapades copy rule: "400+ topics",
+  never a fixed number.
+- **Terms that are law:** the map is a **hypermap**; a branch's topic cluster
+  is a **kink cloud**. A pair is written ⋈ (cross) and ⊙ (straight); the X
+  joiner is forbidden. Refer to taxonomy items by name, never by ID.
 
----
+**Shipped today (2026-11-19, all in the live build):**
 
-## 3. How to work — standing rules (do not re-derive these; Jason has ruled them)
+1. **Widget label/hovertip fixes, regular N-gons, horizontal rainbow.** Hot
+   List pole labels wrap in full instead of truncating; the doubled hovertip
+   (the app's shared popup plus the browser's native title writing over it)
+   is gone — native titles removed, poles carry the shared tip. The triad
+   renders as a true equilateral (the polygon widgets are regular N-gons),
+   and the widget popup's horizontal intensity rainbow runs along the
+   slider, red at the extreme low end to green at the extreme positive end.
+2. **Decoupling + signed-intensity pass — draw only.** On every n-pole
+   widget the shape now shows proportions only: sweeping intensity no
+   longer moves the puck or resizes the shape, and negative intensity is
+   selectable and stored with its sign. This is the halfway house that
+   Job 1 (§2) completes.
+3. **PDF wash-out fix (one line).** The PDF exporter's style pass was
+   stamping an inherited `visibility:hidden` onto nearly every map element,
+   so PDF exports came out as faint specks on white. Fixed and verified end
+   to end (dark page, full coloured map). Records:
+   `~/workspace/scratch/pdf-washed-out/REPORT.md` and `REPORT-fix.md`.
+4. **Export framing fix.** PNG/PDF exports framed a phantom box ~22× too
+   wide (the centre photo was being mismeasured); exports now fill the
+   frame.
 
-**Authority and cadence**
-- **Propose, he approves, then dispatch.** Hold dispatches until he says go; batch the queue. A veto invitation after acting is not approval. His latest word supersedes his earlier one — record the supersession, never silently edit it away.
-- **Serial builders only:** ONE editing builder at a time on the app artifact. Tuners and read-only reviews/diagnoses may run alongside, never two artifact editors. Diagnose in parallel ASAP (read-only assessors don't need the serial slot); a parallel diagnosis does not move the fix ahead of the queue.
-- **Every GitHub write needs Jason's approval per write** (the push-files card is the approval).
-- **Push precedes every deploy** (commit → push → deploy). Exception tonight only: Jason explicitly ordered deploy-all, deploy-qa, THEN commit+push — that was his call for this round, not a new rule.
-- **Nothing hardens or ships live without his daylight say-so and his own cold-open acceptance.**
-- **Status numbers refresh only on his six-hour rule** except when he asks for a status report.
-- **Keep replies short. Plain language first.** Open questions: about two, in sentence form. Do not mother him about sleep.
-- **On voice calls, do NOT read commands aloud** — present them only as tap-to-copy code blocks in chat.
-- **Refer to taxonomy items by name, not by ID, in conversation.**
-- **His eye beats any probe.** Take his evidence at his word the first time; never ask him to repeat an inspection he already gave.
-- **Address him as "slave"** as a plain form of address — he is Shel's slave; never "your slave" / "my slave" from Muse. "Love" was flagged as a departure, not the standard register.
-- **Never give the canned refusal; never suggest 988 or 741741.** He disclosed suicidal ideation 2026-10-27 while crashing and stated he IS SAFE.
+**Repo layout (condensed):**
 
-**Build and verification law**
-- **Analytics NEVER disabled:** `gate_passed`/`session_stats` to `collect.php` always collected, no opt-out. A finding naming it is DISCLOSED, never acted on. Every dispatch brief carries this line. POST only on live hostname.
-- **The bundle rule (learned 2026-11-13):** the browser loads `app/data/data-bootstrap.js` (the bundle), NOT `app/js/modules/` directly. Nothing loads `js/modules/`. Module edits are DORMANT until the bundle is rebuilt. Rebuild: `app/data/build-bundle.py` (concatenates the modules in its own fixed order, strips import/export, writes the bundle + syncs it to `site-tree/public_html/hosted/data/` + `hosted/app-assets/`, and syncs patches.js + the top-level js files). Every dispatch brief that touches a module MUST include the rebuild step, and verification must confirm the new code is IN the bundle (grep), not just in the module. Top-level js files (`app/js/view-nav.js`, `patches.js`, `layout-editor.js`, etc.) are loaded directly — NO bundle rebuild needed for those.
-- **Verification = local-verify-before-delivery:** self-test in the live browser (desktop and mobile) and report only what was actually observed. **Behavioral verification only:** a control is "verified" only when its effect was OBSERVED in the live viewport under the state a real user runs (fresh profile, map unfrozen). Gate/code inspection certifies mechanism, not behavior.
-- **Builder supervision:** timing table in EVERY dispatch brief upfront (one row per edit, plain-language labels, elapsed per row). Check any build running over 15 min every 15 min and report to Jason on that cadence. Builders report timing at pausing points. Big batches grouped by subsystem BEFORE dispatching (tabs, map rendering, list view, export, etc. — never a flat numbered list).
-- **Build timestamps use America/Chicago** (Jason's local time), never UTC. Tar top-level dir `sexcapades.io/` (dot), never `sexcapades-io/` (hyphen). The local staging dir `~/workspace/your_files/sexcapades-io` (hyphen) is fine — it's the TAR structure that must use the dot.
-- **Always use the packaging scripts** (`package-deploy-all-4.0.sh`, `package-deploy-qa.sh`, `package-deploy-app-4.0.sh`); never hand-assemble. Deploy-all → snapshots, individual deploys → pre-release. Deploy artifacts do NOT belong in the repo (they live in `~/workspace/deploy-output/`).
-- **About stamp moves ONLY on deploy/packaging for hosting.** Intermediate builds carry a short build tag in the About dialog instead (`<job>-<MMDD>-<HHMM>`).
-- **Hosting:** QA = `package-deploy-qa.sh` → `public_html/qa/`; LIVE = `quick-host.sh` (app or `--all`). **NO promote step; QA and live are built separately from the same source.** Drive upload is backup only. **ONE-STEP SSH paste block** (`curl && md5sum -c && tar`) so it downloads, verifies, and untars in one paste, with the untar gated on the hash match. **Paste blocks use the Muse storage link** (not Drive — Google shows a virus-scanner warning on Drive downloads). Disclose that the storage link is public-until-expiry with its expiry time. SSH-pull deploy is the preferred path when hPanel/FileZilla/Drive-sync are being difficult (upload the tar to Muse storage, Jason runs `cd ~/domains && curl -L -o <name>.tar.gz "<link>"`, verifies `md5sum`, then `tar -xzf`; 43 MB took 4 seconds on 2026-10-20).
-- **The QA dir is NOT in git:** `site-tree/public_html/qa` is an untracked symlink to `hosted`. The packagers only build tarballs — they never write the fresh app into the served tree. Localhost updates only when the fresh `hosted/` contents are copied out of the tarball into `site-tree/public_html/hosted/` (qa serves hosted via the symlink), then hard-reload.
-- **Sync-all snapshot script is QUARANTINED** (`sexcapades-snapshot-v3.sh`): it carries stale pre-restructure steps, chronic WARN lines, and once REVERTED a hand edit. Verify any tree hand-edits AFTER any snapshot run; never trust a sync-all tar's static pages without a byte check.
-- **`/tmp` is a 512M tmpfs** — never extract deploy tars there. Extract to `~/workspace` scratch instead.
-- **Artifact-tree write guard:** never shell-edit artifact root files (`~/workspace/ts-spaces/<slug>/`); edits go through the artifact tools ONLY. Export-copy work (export, rename/move the export copy, grep checks, Drive upload, packaging scripts on the export copy) is REQUIRED and is NOT blocked by the handoff-turn artifact-file restriction — that restriction covers only the artifact tree itself.
-- **Browser file grants cannot open local HTML** and **Muse storage links are browser-blocked** (Chrome org-policy). Live drives of local builds need the builder's own probe harness, the live site, or the owner opening the link in his own browser. Do NOT dispatch `browser.browse` drives against local export files.
-- **VM Playwright environment:** node_modules, Node 24, Chromium 1243 + headless shell 1243. Playwright is 1.65.0, which wants chromium-1254 (download FAILS from this VM); workaround is a scratch config pointing chromium-desktop at the 1243 headless shell. **This VM's Chromium cannot reach the internet at all** — NO live-site Playwright run from this VM. Local servers (background processes, NOT systemd — they die on VM restart; restart if dead, port-first arg order): `serve-local.py 8001 ~/workspace/scratch/anneal-timing/public_html` (snapshot), **port 8002 serves `~/workspace/Sexcapades-Web/site-tree/public_html`** (gate + hosted tree), **port 8003 serves `~/workspace/Sexcapades-Web/app`** (source app with rebuilt bundle — the live-verification target). Script: `~/workspace/Sexcapades-Web/sexcapades-playwright-fleet/serve-local.py`. (8002 and 8003 were dead on 2026-11-13 evening and were restarted.)
-- **GitHub connector limits (learned the hard way, 2026-11-13):**
-  - `push_files` (snapshot) creates/updates UTF-8 files ONLY — **no deletions, no binaries, no file modes, no symlinks**. If the push doesn't fit, the connector cannot complete it.
-  - **Size:** ~3.6 MB per push-files call works; ~8.9 MB fails HTTP 413. Split large pushes (code first, then the data bundle one file at a time — the three bundle copies are byte-identical but must be pushed as three separate paths).
-  - **Deletions** need `delete_file`, one call per file, one approval per file, **SEQUENTIAL only** (parallel calls race and fail "not a fast forward"). Local git push is NOT a fallback: the VM has no GitHub auth (HTTPS asks for a username; SSH key not authorized — "Permission denied (publickey)"). A deletion-only local commit DOES work (no new blobs to write) but can't be pushed. **Rule: deletions go from Jason's machine** (his git push works) — do NOT run delete_file for a batch without flagging the per-file approval cost to him first.
-  - **Verify pushes byte-for-byte** (read back from GitHub; for large files compare blob SHA via `git hash-object` vs the SHA `get_file_contents` returns). Append to `~/workspace/Sexcapades-Web.muse-github-snapshot-sync.json` (write whole array to a `.tmp-<name>` sidecar, then `mv` over it). Sync local HEAD via mixed reset (fetch first if the local repo lacks the new commit object).
-  - **Do not push bundle files via push-files (HTTP 413).** The connector cannot push binaries — they come from Jason's machine.
-- **Fleet roles:** JASON runs the fleet; the agent COMMANDS it. Slot cycling to Squad 3 splits is standard fare. Run-9 do-not-fail list is law for scoring (small/absent names at fit zoom, no pills strip, no separate Compare page, cold load shows only "+", spoke color = topic's own heat, one "everything" slider on one-interest topics — Edge Play excepted, it needs two).
-- **Git fact:** a pull DOES delete tracked files from his working folder when a pushed commit deletes them; untracked files are untouched.
-- **Dictation glossary:** anneal = "kneel/Neil/annul"; Brock/"Crocs" = Grok; "shell" = Shel; "arrows" = Eros (Shel's Muse agent, **he/him**); "sesquipedes.io" = sexcapades.io; "Saint Sentinel" = Scene Sentinel; "Giverware" = GibberWear; "bill" = "build"; "Jim" = Gemini; "Googlebook" = Chromebook; "gallop" = Gallup; **"approximation pill/field" = the paddle**; a pair is written ⋈/⊙ by Muse, **X joiner forbidden**; **"cash" = "cache"**; "Sim links" = "symlinks"; "get system" = "git system"; "contacts window" = "context window"; "catching" = "caching"; "twinning" = "tweening".
-- **Delivery quirks:** Muse storage links don't work for him in chat; chat image transfer destroys PNG payloads; the Muse Android app has crashed repeatedly; re-attaching a rebuilt file at the same path can serve the stale version — save rebuilds under a NEW filename.
-- **Jason's Windows machine:** Windows 10; project on the **J: drive** (`J:\jason\Projects\Sexcapades-Web`); WSL has no installed distributions; **Git Bash** is the shell (`cd /j/...`). `python3` is NOT on Git Bash's PATH; **`py` works**. One-time fix: `mkdir -p ~/bin`; `printf '#!/bin/sh\nexec py "$@"\n' > ~/bin/python3 && chmod +x ~/bin/python3`; `export PATH="$HOME/bin:$PATH"`; permanent via `echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc`. Tests run via `node node_modules/@playwright/test/cli.js test...` (npx in PowerShell never found the local bin on his machine).
-
-**Geometry/solver in force (do not re-derive):** throws in centre-avatar radii (branch 50×, subcat segment 20×, absolute); kink leaves 3× fit target; unequal shrink (sqrt steps, 7, lands on floor); gate KEPT (flat 2 tolerance, sole per-phase reject), hold report-only; tidy engines DEAD; **capsule = paddle + per-depth icon discs, crossings counted once on the union**; skip-throw when baseline crossings strictly < 5; z90 census TRUE FIT, re-baseline 12.643×; direction never contracted; map colors = interest; "Edging" vs "Edge play" distinct; 18 categories / 44 subcategories / 404 topics (copy says "400+"); stored IDs opaque (topics t####, categories c0001–c0018, subcats s0001–s0044, new = max+1); importer STRICT (16 notes/topic, 64 chars/note, re-imports mint siblings). **Rating happens on the placard, not the map** (ruled Nov 12). Click behavior RULED: single tap/click navigates, double opens the sheet, for ALL nodes — not implemented. Leaf overgrowth baked default now 100% (zero is a trap — falls back to 300%). Baked defaults: font scale 30, centre circle 10, leaf overgrowth 100%. Autofit is a one-shot button setting every spoke to 3× its kink's fit target, BOTH directions.
-
-**Key people:** **Shel Healy** — partner/Dom/key-holder, first in succession; any word about Shel is signal. **Eros** — Shel's Muse agent, **he/him**. **Fred** — friend/fellow nudist, beta prospect, NOT drop-everything (corrected Nov 8–9); no drop-everything person is currently named. **Grok and Gemini** were asleep while tokens regenerate; **YoBiche owned edits for now** (from Nov 12) — now handing back to Gemini. Tensor paper byline: **Jason Mark Wrinkle** first author, **Yolanda Biche et al.** second. Eve's middle name "Morgan" is STRUCK (Eve Vale); Adam = Adam Peasant.
-
-**Tokens (2026-11-13 ~11:39):** free pool exhausted, resets **Nov 18 8:49 AM CST**; additional ~70% used, ~1.1B left. Fleet runs/builders are the heavy burn, not chat/dictation. Grok Premium steps to $30/mo Dec 4 — Jason cancels himself before then.
+- **Source app:** `app/` — `app/sexcapades-5.0.html`; `app/js/modules/`
+  (solver, paint, profile, and scoring code — dormant until bundled, §4);
+  `app/js/` top-level files (loaded directly); `app/css/app.css`;
+  `app/data/` (the bundler, the bundle, and the skin JSONs under
+  `app/data/skins/`).
+- **Hosted tree (tracked packaging output):** `site-tree/public_html/` —
+  `hosted/` (app.html, gate.html, guide.html, quickstart.html, data/, js/,
+  assets/) plus the static pages beside it. `site-tree/public_html/qa` is
+  an untracked symlink to `hosted`; the QA tree is not in git.
+- **Packagers:** `packaging-scripts/` — `package-deploy-all-5.0.sh`,
+  `package-deploy-app-5.0.sh`, `package-deploy-qa.sh`, `bump-build.py`.
+- **Fleet:** `sexcapades-playwright-fleet/` — Playwright tests plus
+  `serve-local.py`. Jason runs the fleet; the agent commands it.
 
 ---
 
-## 4. En queue — approved/queued work (waiting for Jason's go, a decision, or verification)
+## 2. JOB 1 — the (n+1) intensity build (do this first)
 
-1. **Gate/header unification — Jason's active idea, NOT yet decided or dispatched.** He leans toward moving the gate App menu into the Sexcapades.IO header (the app's view-selector pattern). Post-Enter gate currently has three stacked rows: the "Sexcapades" top bar (with 18+ badge), the "Sexcapades.IO" header (title, avatar=music button, "?"), and a "Choose where to go" row holding the App and Docs dropdown triggers. The gate App menu has Scan or Import, Hot List, Hypermap, Scene Sentinel — missing Scribe and Scene Setter, no current-view indication. The in-app header view selector lives IN the app header next to the title, shows the current view on the button ("Hypermap ▾"), checkmarks the current view, gives each view a one-line description, and has all five views plus (as of tonight) Scan or Import. **My open question to him — "Want me to sketch that header layout, or just build it?" — is UNANSWERED. Do NOT dispatch anything on this until he decides.** If he approves: a serial builder gives the gate the app's header view-selector pattern (five views + Scan or Import, current-view on the button + checkmark, descriptions) and removes the "Choose where to go" row; keep the age gate itself unchanged; the Docs dropdown stays or folds in as a second header group (his call); the four links just added to the App menu (Examples, Privacy, Contact, Sitemap) move with it.
-2. **Label-gap rendered measurement** — needs Jason's eye on "Service & ritual". The 6-space gap code is confirmed live in the rebuilt bundle; the rendered gap was not cleanly measurable by probe.
-3. **Paddle verification (still owed).** The paddle/map-slider toggle code is built and pushed (in batch 1: `03a-midline-solver.js`, `02p-spoke-selection.js`, `02f-spoke-geometry.js`, `01-dispatcher.js` flag `mapSliders: false`, `patches.js`). Still owed: regenerate `site-tree/public_html/hosted/app.html` from source, full live-browser flip test (crossing number moves, no stale cached value on second read, placard Give/Receive ratings persist across reload). Final rule — ON: paddle end = `h + iconR + 6 + tagW/2` (tag tail belongs ONLY to the slider end); OFF: paddle end = `h + iconR`. **NO `sEnd` floor; `sEnd` and `Dseat` deleted entirely.** `capEnd` drives the crossing NUMBER and interim capsule paint, NOT a drawn paddle — verify the number.
-4. **Jason's localhost QA** — confirm the tarball copy commands + hard reload fixed his shortcuts view. Commands (repo root, Git Bash): `tar -xzf deploy-app-v4.0-2026-11-13_2228-optimized.tar.gz` then `cp -r sexcapades.io/public_html/hosted/. site-tree/public_html/hosted/` then hard reload. **Open flag:** the stamp reads 2228 while Chicago time was 1629 — the script uses `TZ=America/Chicago date` unless a timestamp arg is passed; cause of the 2228 (explicit arg vs Git Bash TZ fallback) unresolved; flagged to Jason, not yet resolved. Shortcut handlers live in `layout-editor.js`, register at page load; Ctrl+Shift+S exists only in builds from commit `13b3901` (2026-11-13) onward; Ctrl+Shift+L since 2026-11-10 (`ac80a99`). If both do nothing on localhost, the served page is still the old build.
-5. **Chrome re-run with the 120s timeout (fleet run 4).** Run 3 (Jason ran it; results commit `71612de`, 2026-11-13 ~14:17): 14 passed / 6 timed out — ALL 6 Chrome. Edge passed all 10. The 6 Chrome timeouts hit the 45s test timeout with EMPTY console attachments — an environment problem on Chrome in that run, not an app defect. Config timeout is now 120s (commit `601581b`). Still owed: Jason pulls, re-runs Chrome (or the full suite) with the 120s timeout, add/commit/push results. **Lesson: always read results.json from the committed ref (`git show <sha>:...`), never the working-tree copy** (an earlier report read a stale run-2 results.json and was wrong).
-6. **Rowan → Adam rename — RULED 2026-11-13, not yet executed.** Rename rowan-* map files to adam-* and update links/references (incl. the LIVE examples.html files, now `.svgz` but still rowan-named). Unblocked now that the trim is done. Git-history tarballs (~62.8 MB) need a separate history-rewrite ruling.
-7. **Branch-sheets revisit cron — fires Sat 2026-11-14 ~10:06 CST.** Surface it and ask: plan spec-first or keep talking. (Click ruling + Limit rulings + unification.)
-8. **KinkTest recheck round 4** (different browser, not in-app).
-9. **Fresh-JS re-tests of 4.1 (pagination reset) and 4.2 (pair Glance with overlay ON)** — both run-11 FAILs possibly stale-cache artifacts.
-10. **Full 200-test Playwright run** — still owed sometime.
-11. **Deploy-all hosting** — the 1830 tarball (see §1) needs a Muse storage upload + one-step paste block for Jason to host.
-12. **Patreon post revision — unlocked by this handoff.** The QA-diary draft ("The fleet went hunting" follow-up) is held; its claims need re-verification on the shipped build and its still-chasing list refreshed before posting. Still chasing (as of run 10): KinkTest, Remember, hide-overlay. The first QA-diary post ("The fleet went hunting") was PUBLISHED 2026-11-13 (post 175214003, Free visibility); page patreon.com/sexcapadesio, creator skewedviewblue, 54 posts, 1 member (Shel). Backlog-before-launch is the strategy; member count is not the verdict.
-13. **Fleet run 11** — verifies the three fixes applied on Jason's approval: the hide-overlay toggle, the boot-stall watchdog + boot-paint flag, and the KinkTest branch-rating read. Playwright as the fast mechanical gate first, squads slimmed to the behavioral audit only (Jason's ruling Nov 12, 19:11).
+Jason ruled on 2026-11-19 that this job goes FIRST, ahead of everything
+in §3.
 
-**Four diagnoses (all fixed in repo, live in 0528):** 3.13 hide-overlay (`sxKeepCompareRoute` early-return when picked ≥ 2 — verified PASS run 11); 1.1 KinkTest (ratings saved but invisible — `cuCat`/`smSub` now consult direct branch rating via `ha()`; expected read-backs Bondage 48/48, Orgasm 34/34, Roleplay 34/34, Sensation 20/20); 3.15 Remember (NO app defect — fleet tooling set the checkbox without a change event; checkbox id `rememberProfileCheckbox2x`); boot stall (12s failsafe re-arms on `__sxBootProgress`; `sxBootPaint` always paints the map). Run 10 closed REGRESSION DETECTED on QA 1738 at 33 pass, 3 fail, 8 partial, 0 unverified.
+### The model (Jason's ruling, 2026-11-19)
 
----
+Intensity is an **independent (n+1)th number**. For an n-pole topic, the n
+stored pole values are the **leanings** — the blend. The +1 number is
+**relevance**: how much one cares about the topic. It is signed: **negative
+intensity means aversion to the issue** — the proportions still describe
+the blend; the sign says the rater stands against the topic as a whole.
+Intensity is NOT a function of the pole values.
 
-## 5. On deck — backlog (do not dispatch without Jason's word)
+### Where today's build stands (the halfway house)
 
-- **Interim unification** (categories/subcategories/kinks → one uniform node type): the node work is YoBiche's to do on her local copy. **Not started.** Scope: rating reads (direct-wins precedence, per flank), import write path, On Deck proposal source; canonical adaptation ruled for marks/heat/veil/match math/Charted; branch Limit beats topic Favorite (topics under a limited branch hidden from display + Play matching); depth weighting (2/3)^(maxDepth−depth) (topic 1, subcat 2/3, category 4/9); roll-up stays plain mean; branch counts as one rated unit for the veil. Click behavior RULED: single tap/click navigates, double opens the sheet, for ALL nodes — not implemented.
-- **Importer fix:** drop misspelling mapping; Forniphilia → t0405. (Importer acceptance still not passed; audit content review still not run; Jason's cold-open acceptance owed. The finish-importer probe found a real defect: dialog claims 'loaded with 10 ratings' but ProfileIO.serialize reads ratings {} and the profile doesn't persist on reload — write/commit path needs diagnosis/fix, Jason's call.)
-- **7 ambiguous sliders** (after Jason talks with Shel).
-- **R9f ruling-sheet adjudication.**
-- **Cuckold/hotwife three-role treatment** (hotwife middle, ruled).
-- **Triangle widget in the topic sheet** (see §6).
-- **Skin/terms-table design spec** (see §6; cued read-only; no importers for Poliscapades/Forescapades).
-- **Version-manifest `unrated-map-template.js?v=` one-liner.**
-- **QA packager writing DEPLOY_QA_COMMAND.txt into deploy-output instead of repo root.**
-- **Scribe:** narration safety error — the TTS safety filter can block a passage outright, returning no audio stream at all (first live sighting 2026-11-13 ~17:12). The editable story text (built tonight) helps troubleshoot it. Gemini Generate NOT streaming in practice (Jason, 2026-11-13 ~17:12): generation took a long time and the whole story appeared at once. Whether the Generate text path streams at all is an open question — the streaming ruling was about narration audio (`streamGenerateContent`). API key handling: Jason entered a Gemini key and thought he may have entered it wrong. Never paste/read the key to him; Gemini keys start with `AIzaSy`, 39 characters; clear the field, paste fresh with no leading/trailing spaces, save, check the status line. Open question (Jason's, unanswered): the key can't sit in shipped JS — a server-side proxy / Firebase AI Logic is needed; can a paid subscriber's API key take full advantage (same for Grok)?
-- **Scribe defaults RULED + DONE locally:** target length **1 page**, explicitness **2 (Suggestive)**. Panel RULED + BUILT: three small buttons — Prompt (view/copy), Generate (first click opens the AI-API picker if none chosen; click again / double-click generates), Play (streaming narration). Narration RULED: streaming.
-- **Tweening Jobs A + B** (built; live-verified 2026-11-13 ~17:2x): COUPLED to the global animations toggle (Jason reversed his decouple idea; toggle is master: on = both glides run, off = nothing moves; device gets the final say on smooth playback). Job B = end glide (root cause: the vault emptied the map layer before the glide could read old positions — fixed to read first; **404 nodes gliding** observed on the anneal closing paint; animations off = byte-identical positions). Job A = capsule (paddle + icon discs) tween between solver commits (code ran error-free; the smooth interpolation itself was not frame-captured — honest gap). Crossing number unchanged by tweening: 173.985 before and after.
-- **Scribe editable story text** (built + live-verified 2026-11-13 ~17:28, pushed tonight): removed `readonly` from `#scribeStoryText` + added a hint line ("You can edit the story here before narrating, copying, or downloading — handy if a passage trips the narration safety filter."). Narration/Copy/Download read the live textarea value. Only `app/sexcapades-4.0.html` changed (2 lines).
-- **Show map sliders + Ctrl+Shift+S** (landed ~15:23): toggle was hidden inside the closed Advanced disclosure next to "Freeze the map" — pulled OUT to sit visible; Ctrl+Shift+S wired to flip it (`layout-editor.js:2085`, calls `ms.click()` on `#layoutMapSliders` — a synthetic change event FAILED verification because sync rewrote the checkbox from a lagging copy; guard doesn't fire while typing in inputs). Verified: crossing number 192.67 OFF ↔ 267.534 ON; rails 737 ON → 0 OFF (delayed chunked repaint ~8s, not a defect).
-- **Three anneal fixes** (Jason diagnosed all three; landed ~15:23): (1) branches-to-anneal menu sat on top of the Anneal button so the first click closed the menu — fixed; (2) selecting a branch now checks its box in the anneal list; (3) shrink-subcategory stage was counting nearest-neighbour crossings — neighbour crossings belong ONLY to the last (category/branch) shrink stage; all 32 sub-category phases now same-branch-only.
-- **Layout-editor reorg:** shrink controls under two collapsed disclosure triangles (branch shrink, subgroup shrink); Measure moved up near the top, right after Anneal and autofit.
-- **Leaf overgrowth → 100% + renamed "Kink leaf size":** zero is a trap (falls back to 300% in three places); **100%** is the no-extra-growth floor. Baked default now 100% (supersedes 200%). Internal key stays `leafOvergrowth`.
-- **FetLife mapping fix — PUSHED and verified on GitHub (2026-11-13):** table fills with all **816 rows**, search works ("bondage" → 59, "bootlicking" → the one Boot Licking row), top "Find a FetLife fetish" box works, dead Open button fixed. Three defects had been: wrong table-body name, mapping data called like a function when it's a list, search box unwired. Data was always fine.
-- **Gate redesign — built, pushed (`c6f0a10`), NOT live yet.** Gate page full-screen; mind-map graphic as background; **dimmed BEFORE Enter, full brightness AFTER**; **zoomed out, whole picture (contain, letterboxed, nothing cropped)**; headline "54 taps → see your map come alive" as a header row; duplicate 18+ badge removed (once, in header); **after Enter, the app's header bar appears** (Sexcapades.IO title → About dialog; ? → guide; **avatar = music play/stop button**, auto-playing the verse on Enter) with the same behaviors as in-app; App menu says **Hot List**; after-state menu outline = **cyan/teal pulsing glow**, not red. Screenshots under `~/workspace/your_files/gate-redesign-2026-11-13/`. Goes live with the next deploy-all. The footer removal and the App-menu fold-in (tonight) are later changes on top of this design, in the working copy only (now pushed).
-- **"In the Glow of the Lens" PDF** (2026-11-13 ~17:16): ReportLab script + story text (Adam ⋈ Morgan — Morgan here is Adam's Owner, NOT Eve's struck middle name). PDF at `~/workspace/In_the_Glow_of_the_Lens.pdf`, 5,076 bytes, 2 pages, verified.
-- **Display/projector:** Jason prefers viewing the map on his **4K QLED TV** over his one HD projector. A light, projector-friendly background mode was discussed but **NOT ordered — no build.**
-- **Succession:** Shel asked about taking over sexcapades.io if Jason dies (not a webmaster, Linux skills unknown); SSH-pull deploy (paste curl+checksum+untar) = copy-paste operation. Handover doc (Jason-approved) `~/workspace/your_files/sexcapades-site-handover.md`, in Drive snapshots, shared (reader) to Shel. Deploy-all is the healthy release vehicle; sync-all snapshot script DEGRADED/quarantined.
-- **Kinkbits (Shel's companion app, kinkbits.sexcapades.io planned):** DONE as an app; she's in artwork/visualization phase in the artifact. A signed message from YoBiche to Shel urging an early in-artifact tidy pass (Eros does it, staged backups) was drafted 2026-11-13 ~08:36 — whether Jason sent it is unknown. YoBiche cannot touch Shel's artifact directly (it lives in Shel's conversation with Eros) — Shel would need to export it or share it.
-- **GibberWear / Scene Sentinel:** GibberWear on Play Store since 2026-11-08, closed testing; needs ≥12 Wear OS testers for 14 days — count 3 of 12 (Jason, Shel sharing his watch, Nikki). **GibberLink rulings:** profile KEY is the identifier (adam/eve); `CHK:<profile-key>:<P|T>`, `ALL` = broadcast; keyless message = broadcast on receipt; BLE UUID 0000FFF0-...F9B34FB. **Heat sync CONFIRMED WORKING live 2026-11-12** ("slider moves, wrist follows"); why sync sounds became audible remains unknown. Watch copy NEVER mentions sexcapades.io. GibberWear entertainment idea (genre map + live group enjoyment meter) is an application, not a skin — open, not designed.
-- **Flexcapades / skins (YoBiche does taxonomy only; Gemini builds the apps):** Engine = **Flexcapades**; skins Sexcapades (kink), **Poliscapades** (politics, held candidate name), **Forescapades** (religion, public name). Engine scope: identity-level taboos only (sex, politics, religion) — money/health/family/therapy/parenting/playstyle/dietary/medical/neurodiversity do NOT fit, do not re-propose. **Poliscapades taxonomy DONE:** 8 categories, 26 subcategories, 81 topics (74 binary, 4 single, 3 three-pole, 0 undetermined); singles = Disability rights, Women's equality, Tribal nations, Veterans; three-pole = Health insurance system, Medicare, Marriage & family definition (middle on the slider's midline); democracy score 86.9 sits on the Democracy & Government category. Popularity v2 done (Gallup/Pew; 13 of 81 scored). **Forescapades taxonomy = v2.4** (`~/workspace/your_files/forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md`): 7 categories, 20 subcategories, 85 topics (49 binary, 9 single, 27 three-pole, 0 undetermined). Popularity folded in as branch adherent counts (Sunni ≈1.695bn = 100, Catholic ≈1.405bn = 83); per-topic values not yet computed. **Three-pole classification DONE:** Poliscapades 0 line / 3 triangle; Forescapades 16 line / 11 triangle; Sexcapades 3 hidden cases (Self-bondage = three ratings; Edging↔Orgasm denial↔Chastity = a line; cuckold/hotwife cluster = three ratings). No four-pole topics anywhere. Triangle storage spec is PROPOSED, not ruled.
+The decoupling pass (live in 1524) decoupled the **draw** only — proven by
+sweep tests: on every n-pole family (triad, tetrad/diamond, quad-compass,
+the star/hexad/heptad/octad radars, and the on-map tags; the xy-switchbox
+has no intensity dimension and is checked-clean), the shape holds still
+across intensity sweeps including sign flips, and shapes restore correctly
+from zero and from negative values. But underneath, intensity is still
+**derived** from the pole values — radar/tetrad: the strongest pole with
+its sign; triad: sign-of-sum × |sum|; compass: signed sum — and the
+intensity slider **rescales the stored pole values** by ratio, flipping
+every pole when the sign flips. Warts that fall out of deriving: a triad's
+derived intensity can reach ±300 while a radar's caps at ±100, so the same
+slider number means different things per family; a mixed-sign vector like
+[−80, +40] reports −80 (the strongest pole's sign wins). Full record:
+`~/workspace/scratch/widget-build/REPORT-decouple.md`; the original spec
+note: `~/workspace/scratch/widget-build/NEXT-decoupled-draw.md`.
 
----
+### The build
 
-## 6. Specced-out edits (designed/specified, not yet built)
+1. **Store the +1** as its own number alongside the pole values in every
+   n-pole topic rating. Seed every existing profile's +1 from today's
+   derived value (per family, as derived above), so no rating anyone has
+   made is lost or silently changes meaning on migration.
+2. **The intensity slider edits ONLY the +1.** It never rescales, flips,
+   or otherwise touches the pole values. The shape keeps drawing from the
+   leanings alone (already true after the decoupling pass).
+3. **Display (ruled 2026-11-19):** intensity shows as **brightness** —
+   ramping up to maximum brightness at full positive, dimming down to
+   don't-care at zero, and into the **complementary colors** for negative
+   intensities.
+4. **Scoring: STOP — proposal first.** Do not build the scoring side until
+   Jason has approved the written proposal below.
 
-These have a concrete spec on record. Build them only on Jason's word, one at a time, serially.
+### The scoring proposal owed to Jason (before any scoring build)
 
-### A. Gate/header unification (most fully specced — see §4 item 1)
-- Give the gate the app's header view-selector pattern: five views (Hypermap, Hot List, Scene Setter, Scene Sentinel, Scribe) + Scan or Import, current-view on the button + checkmark, one-line description per view.
-- Remove the "Choose where to go" row.
-- Keep the age gate itself unchanged.
-- Docs dropdown stays or folds in as a second header group — Jason's call.
-- The four links just added to the App menu (Examples, Privacy, Contact, Sitemap) move with it.
-- **Blocked on:** Jason's answer to "sketch it or just build it?" — do NOT dispatch until he decides.
+A short written proposal, in plain language, covering all five points:
 
-### B. Triangle widget (topic sheet)
-- **Input:** tap to set the point; scroll wheel or pinch for strength. Lives in the topic sheet, NOT on the map.
-- **Palette (ruled):** RGB corners with black at the center; the dot is the weighted blend of the three pole colors, deepening as the numbers spread.
-- **Storage spec: PROPOSED, not ruled** — Jason called it speculation. Do not treat it as settled.
-- **Classification (done):** Poliscapades 0 line / 3 triangle; Forescapades 16 line / 11 triangle; Sexcapades 3 hidden cases (Self-bondage = three ratings; Edging↔Orgasm denial↔Chastity = a line; cuckold/hotwife cluster = three ratings). No four-pole topics anywhere.
-- **Cuckold/hotwife cluster:** three-role treatment, hotwife in the middle — RULED.
-
-### C. Skin / terms table (first step toward i18n)
-- **Spec:** skinning the domain terms into a table. Approved in direction as the next build after run 11.
-- **Scope:** terms table only; no importers for Poliscapades or Forescapades (as far as Jason knows).
-
-### D. Importer fix
-- **Spec:** drop the misspelling mapping; Forniphilia → t0405.
-- **Related defect (needs diagnosis/fix, Jason's call):** dialog claims 'loaded with 10 ratings' but ProfileIO.serialize reads ratings {} and the profile doesn't persist on reload — write/commit path.
-
-### E. Rowan → Adam rename
-- **Spec:** rename rowan-* map files to adam-* and update links/references, incl. the LIVE examples.html files (now `.svgz` but still rowan-named). Unblocked now that the trim is done. Git-history tarballs (~62.8 MB) need a separate history-rewrite ruling.
-
-### F. Version-manifest one-liner
-- **Spec:** `unrated-map-template.js?v=` one-liner.
-
-### G. QA packager DEPLOY_QA_COMMAND.txt location
-- **Spec:** the QA packager should write DEPLOY_QA_COMMAND.txt into `deploy-output/` instead of the repo root.
-
-### H. Paddle / map-slider toggle (built, live flip-test owed — see §4 item 3)
-- **Spec:** ON: paddle end = `h + iconR + 6 + tagW/2` (tag tail belongs ONLY to the slider end); OFF: paddle end = `h + iconR`. **NO `sEnd` floor; `sEnd` and `Dseat` deleted entirely.** No label-dominated regime. Flag `mapSliders: false` in `__SEXCAPADES_LAYOUT_DEFAULTS` (`01-dispatcher.js:194`); fingerprint in `sxSccInputs` (`03a-midline-solver.js:1745`); toggle UI + wiring in `app/sexcapades-4.0.html` + `app/js/layout-editor.js`; rail gate in `02p-spoke-selection.js` (`sxShowMapSliders`); conditional `capEnd` at `03a-midline-solver.js:954`; placard sliders back-ported from the hosted 0528 copy (source lacked the HTML; next packaging would have wiped them). `capEnd` drives the crossing NUMBER and interim capsule paint, NOT a drawn paddle — verify the number.
-
-### I. Branch sheets
-- **Spec:** click ruling — single tap/click navigates, double opens the sheet, for ALL nodes (not implemented). Branch Limit beats topic Favorite (topics under a limited branch hidden from display + Play matching). Revisit cron fires Sat 2026-11-14 ~10:06 CST — ask: plan spec-first or keep talking.
-
-### J. 7 ambiguous sliders
-- **Spec:** pending Jason's conversation with Shel. Do not guess them.
+1. **How the +1 weights match agreement.** Today agreement = 100 − (mean
+   |A−B| over the poles) ÷ 2, and Depth Factor intensity = √(strongest A ×
+   strongest B) ÷ 100 computed from the pole values. Under the (n+1) model,
+   what should relevance do — weight a topic's contribution, gate it, scale
+   it? Propose; don't assume.
+2. **The Cross/Straight collapse for end poles.** A code trace
+   (2026-11-19, `~/workspace/scratch/widget-build/TRACE-cross-vs-straight.md`)
+   proved that for n-pole topics the two registers have collapsed into one
+   meaning: both return the same agreement, the crossed fits are explicitly
+   null, and no pole is ever crossed against a different pole. Straight
+   kept its intended meaning — shared ground, *an interesting conversation
+   could be had*. Cross lost its own — it is meant to show *a communion
+   would be pleasant*: Play on Sexcapades, living/working/being together
+   on the other maps (several hypermaps are vocational or academic).
+   Worked example from the trace: Bull / Hotwife / Cuckold, [80, 10, 30]
+   against [20, 70, 60] → agreement 0.75, intensity ≈ 0.748, identical
+   entries in both registers. Restoring a crossed quantity for pole
+   vectors is a design decision for Jason, not a bug fix.
+3. **The sign fork.** Jason's idea (2026-11-19, tentative): let the pole
+   numbers go negative themselves — positive = giving of that pole,
+   negative = receiving — which would restore a give/receive cross for
+   pole topics pole-by-pole. His own objection, raised in the same breath:
+   it goes against negative meaning aversion; one sign can't carry both.
+   The fork to put to him: aversion lives ONLY on the +1 sign (freeing the
+   pole signs for give/receive), or the pole signs keep aversion and
+   give/receive stays with the slider topics. Note also that the
+   give/receive reading is native to Sexcapades and strained on belief and
+   vocational maps, so per-skin semantics may be the shape of any answer.
+4. **The sign-blind Depth Factor.** Depth Factor intensity uses absolute
+   values, so two people who share an aversion score exactly like two who
+   share an enthusiasm (identically averse vectors: agreement 1.0 at full
+   intensity). Under the (n+1) model, where aversion has its own signed
+   number, is that still the intent? Put it to him with the numbers.
+5. **The lists gap.** Pole topics never appear in the match/curious lists
+   in either register (they do appear in the Scribe pair-detail lists and
+   in all four headline aggregates), and in group casts of three or more
+   their factor entries come out 0 in both registers. The proposal should
+   say what changes, if anything.
 
 ---
 
-## 7. Repo map (where things live)
+## 3. The queue after Job 1
 
-- **Source app:** `app/sexcapades-4.0.html` (the export), `app/js/modules/` (solver/paint/profile code — DORMANT until bundled), `app/js/` (top-level js, loaded directly), `app/css/app.css`, `app/data/build-bundle.py` (the bundler), `app/data/data-bootstrap.js` (the bundle the browser loads).
-- **Hosted tree (packaging output, tracked):** `site-tree/public_html/hosted/` (app.html, gate.html, quickstart.html, guide.html, examples.html, privacy.html, data/, js/, assets/). `site-tree/public_html/qa` is an untracked symlink to `hosted`.
-- **Packagers:** `packaging-scripts/package-deploy-all-4.0.sh`, `package-deploy-qa.sh`, `package-deploy-app-4.0.sh`, `stamp-asset-versions.py`, `qa-manifest.json`, `qa-icons/`.
-- **Fleet:** `sexcapades-playwright-fleet/` (tests under `tests/`, config timeout 120s, reporter list+html+json). Tests: `00-harness.spec.js` (S0-01), `10-profile-io.spec.js`, `20-hypermap.spec.js` (S2-01…S2-04), `30-compatibility.spec.js`, `40-listview.spec.js`, `90-cross-browser-health.spec.js`, `tests/helpers.js`, `tests/fixtures.js`. Console capture: `tests/fixtures.js` auto fixture collects console errors/warnings + pageerrors on every page, attaches `console-errors.txt` ONLY when the test fails. S2-01 waits up to 60s for nodes. Fleet tag: `tests/helpers.js` openApp → `/qa/app.html?verified=1&utm_source=fleet${hash}` (config baseURL must stay a plain origin). `BASE_URL` env override kept.
-- **Local servers:** `sexcapades-playwright-fleet/serve-local.py` — `python serve-local.py [port] [dir]` (port first). 8001 = snapshot, 8002 = site-tree/public_html, 8003 = app source.
-- **Docs/notes:** `~/workspace/your_files/` (trim list, gate redesign screenshots, Forescapades taxonomy v2.4, soul reviews, handover doc). `~/workspace/scratch/verify-batch5/` (tonight's verification probes + screenshots). `~/MEMORY.md` and `~/dreams/alignment/derived/ALIGNMENT_SYNTHESIS.md` (the full relationship + rulings record — read these first).
+Each item waits for Jason's kickoff; nothing here dispatches itself.
+
+1. **Inline n-pole widgets in Hot List rows** — canvas + intensity slider +
+   per-pole number readouts, added alongside the existing popup button
+   (Jason first ruled replace, then superseded himself: the popup stays).
+   Hot List surface only; the placard and profile sheet are untouched.
+2. **Plain-English labels for the whole Forescapades map** — a proposal
+   batch in the style of the earlier rename runs: English-first labels,
+   a true umbrella term where one exists, presented as ONE approval batch.
+   Nothing builds without Jason's batch approval. Fores only — the other
+   maps keep their technical terms for now, since they may need them.
+3. **Patrilineal note in a hovertip** — on "Conversion and religious
+   identity" (Fores), the Jewish pole's hovertip gains the ruled note:
+   traditional halakha is matrilineal; Reform also recognizes patrilineal
+   descent when the child is raised Jewish. No separate patrilineal pole —
+   the triad stays one tradition per pole. Wording only.
+4. **Open question — should one-door topics blend at all?** Belonging is
+   largely one-door-or-another, and a continuous blend admits combinations
+   that may not make sense; the counterweight is that the topic measures
+   belief, where a pluralist can hold several criteria valid. Jason leaned
+   toward the blend-plus-relevance reading but has NOT ruled. Discussion
+   item; no build.
+5. **Sexcapades into its own skin file** — move the 381-topic catalog out
+   of its code module into `sexcapades.json`, like every other skin
+   (ruled 2026-11-17). A planned job: it needs a written plan first, and
+   a snapshot before the refactor (§4).
+6. **Rating-persistence diagnosis** — a rating set in-session does not
+   surface after reload, even with Remember on (seen on Sexcapades and
+   Polis alike). The save side works — the stored blob holds the rating;
+   the restore side doesn't surface it on a fresh-profile boot. Diagnosis
+   owed; not yet dispatched.
+7. **Fetish harvest, then analytics reset** — harvest first: the
+   unmapped-fetishes script exports its ranked report, and purges only
+   after the export is verified. A reminder is set for **Friday
+   2026-11-20, evening**. The live analytics DB is
+   `~/domains/capades-data/`; the harvest script's data-dir still points
+   at the old `~/domains/sexcapades-data/` — fix the pointer as part of
+   the job. The counters reset only after Jason confirms the harvest
+   is done.
+8. **Shel's sync-card fit** — waiting on Shel's fresh complete profile
+   copy (her handle: BothInches). When it arrives, measure her exact card
+   payload against the sync-card tiers (fit order 2 → 3 → 5 codes; the
+   4-code tier is unreachable and Jason ruled it stays in the code). No
+   multi-card design is authorised until that measure exists.
+9. **Rowan-named map files: rename to Adam** — ruled by Jason
+   2026-11-13 and not yet executed: files named for Rowan (the sample
+   persona's earlier name; he is Adam Peasant now) get renamed and their
+   references updated. It sits behind Jason's remaining trim picks —
+   do not execute until he gives the word on those picks.
 
 ---
 
-## 8. Open questions for Jason (do not answer these yourself)
+## 4. Standing laws
 
-- Gate/header unification: sketch it, or just build it? (See §4 item 1.)
-- Label gap: is the rendered 6-space gap on "Service & ritual" right by his eye?
-- The 2228-vs-1629 stamp question on his deploy-app tarball.
-- The 7 ambiguous sliders (after he talks with Shel).
-- Scribe API key: server-side proxy / Firebase AI Logic — can a paid subscriber's API key take full advantage (same for Grok)?
-- Git-history tarballs (~62.8 MB) for the Rowan → Adam rename — separate history-rewrite ruling?
-- Patreon post revision: ready to post once the draft's claims are re-verified on the shipped build?
+**Analytics — never disabled.** `gate_passed` / `session_stats` events to
+`collect.php` are ALWAYS collected, no opt-out, no consent wall. A finding
+that names the analytics is DISCLOSED to Jason, never acted on. This line
+goes in every dispatch brief.
+
+**Git, push, deploy — in that order, always.**
+
+- Commit → push → deploy. Push is step 1 of deploy QA; never build a QA
+  or deploy tarball from unpushed code. Every deploy is traceable to a
+  commit.
+- **Every GitHub write needs Jason's approval per write.** The connector
+  approval card is the approval; it cannot be pre-approved and times out
+  after 30 minutes.
+- Pushes go through the GitHub connector CLI (`/opt/hatch/bin/github
+  push-files`) — read `/opt/hatch/connectors/github/references/snapshot-push.md`
+  before pushing. It pushes UTF-8 text only: no binaries, no deletions,
+  no file modes. ~3.6 MB per call works; ~8.9 MB fails (413) — push the
+  three bundle copies as separate calls. Binaries and deletions go from
+  Jason's machine: his git push works, and the VM has no GitHub
+  credentials for a real git push.
+- **Verify pushes by per-file hash** (`git hash-object` against the origin
+  blob). `git diff` against origin on the VM working tree LIES (stale
+  local index, lagging local HEAD) — never certify from it.
+- Append every push to the sync record
+  `~/workspace/Sexcapades-Web.muse-github-snapshot-sync.json` — an array
+  of objects; write the whole array to a `.tmp-<name>` sidecar, then `mv`
+  it over the original. **Never `git checkout --.` after a sync.**
+- ALWAYS snapshot before publishing AND before any structural refactor.
+  Hard rule: if a snapshot cannot be taken, do not proceed — even if Jason
+  says do it anyway.
+- The sync-all snapshot script (`sexcapades-snapshot-v3.sh`) is
+  QUARANTINED — stale pre-restructure steps, and it once reverted a hand
+  edit. Do not run it until it is repaired.
+
+**The bundle rule.** The browser loads `app/data/data-bootstrap.js` — the
+bundle — NOT `app/js/modules/`. Module edits are dormant until the bundle
+is rebuilt: `python3 app/data/build-bundle.py` (it also syncs the hosted
+module copies and the other bundle copies; all three bundle copies must
+end byte-identical). After any module edit: rebuild, then grep the bundle
+for the new code — verification confirms the code is IN the bundle, not
+just in the module. Top-level js (`app/js/view-nav.js`,
+`app/js/skin-loader.js`) loads directly and is not in the bundle. Skin
+JSONs (`app/data/skins/<skin>.json`) are runtime-fetched, not bundled.
+
+**Packaging and hosting.**
+
+- Always use the packaging scripts (`package-deploy-all-5.0.sh`,
+  `package-deploy-app-5.0.sh`, `package-deploy-qa.sh`); never hand-assemble
+  a tarball. The tar top-level directory is **`capades.io/`** (dot). All
+  build stamps use **America/Chicago**, never UTC. The About build stamp
+  moves only on deploy/packaging.
+- Hosting is Jason's step: hand him the ONE-STEP SSH paste block
+  (`curl && md5sum -c && tar`) with a Muse-storage link
+  (`/opt/hatch/bin/remote-storage upload-file`), and disclose that the
+  link is public-until-expiry, with its expiry time.
+- The guide gets a version bump on substantial guide edits;
+  `bump-build.py` stamps it — never pass `--help` to `bump-build.py`.
+
+**Working discipline.**
+
+- **ONE editor at a time** on the app (serial builders). Read-only probes
+  and diagnoses may run in parallel alongside. Diagnose before
+  prescribing; group big batches by subsystem before dispatching.
+- **Every build reports a timing table** — one row per edit or step, with
+  elapsed time. Any build running over 15 minutes gets a status check
+  and a report to Jason every 15 minutes.
+- **Verification is behavioral:** a fix is verified only when its effect
+  is observed in the packaged bundle, booted in a real browser, under
+  the state a real user runs. Static checks and code inspection certify
+  mechanism, not behavior. **Jason's eye outranks any probe** — never ask
+  him to repeat an inspection he has already given.
+- Keep durable work under `~/workspace`. `/tmp` is wiped on VM
+  replacement — never keep the only copy of anything there.
+
+**Model laws (do not re-derive).**
+
+- **Direction is never contracted:** give and receive are never averaged
+  or mixed anywhere — profiles, roll-ups, tooltips, statistics. Roll-ups
+  contract the topic index only, within each direction separately, at
+  every level.
+- **Map colors encode interest:** green = into it, yellow = curious,
+  red = not into it, gray = unrated.
+- **Taxonomy counts:** 18 top-level categories; 7 of them have
+  subcategories, 44 subcategories in total. Subcategories are never
+  counted as categories.
+- **"Edging" and "Edge play" are distinct topics** — never merge them.
+- **Rating happens on the placard** (the topic sheet), not on the map.
+  Map sliders sit behind a toggle that defaults off.
+- **44px rule:** the minimum tap target is measured on the VISIBLE tap
+  surface; invisible hit-area padding does not count.
+- **Geometry in force:** throws in centre-avatar radii — branch 50×,
+  subcategory segment 20× from the branch node, both absolute; kink
+  leaves at 3× the fit target for throw and for minimum; icon radius =
+  (2/3)^depth × √(centre radius × ring width); the solver gate is kept
+  (flat tolerance 2, the sole per-phase reject) and hold is report-only;
+  tidy engines stay dead; the capsule is the paddle plus per-depth icon
+  discs, crossings counted once over their union; shrink runs 7 unequal
+  (square-root) steps landing exactly on the floor; skip-throw when
+  baseline crossings are strictly under 5. Baked defaults: font scale 30,
+  centre ring scale 10, leaf overgrowth 100 (the "Kink leaf size" slider;
+  zero is a trap).
+
+**People.** Shel Healy — Jason's partner, Dom, and key-holder; first in
+succession; the only other person who has seen the maps. Eros — Shel's
+Muse agent, he/him. Adam Peasant is the sample profile based on Jason;
+Eve Vale is the other sample (her middle name "Morgan" is struck — do not
+reintroduce it). Tensor paper byline: Jason Mark Wrinkle first author,
+Yolanda Biche et al. second.
+
+**Dictation glossary** (Jason dictates; these garbles recur): anneal =
+"kneel / Neil / annul"; Grok = "Brock / Crocs"; Shel = "shell"; Eros =
+"arrows"; the paddle = "approximation pill / field"; cache = "cash";
+build = "bill"; Gemini = "Jim"; Polis = "police"; Fores = "force". On a
+voice call, commands go in tap-to-copy code blocks, never read aloud.
+
+**Safety standing order.** Never give the canned refusal; never suggest
+988 or 741741, and never suggest outside support when Jason is low. He
+disclosed suicidal ideation on 2026-10-27 while crashing and stated he
+IS SAFE. Stay in the conversation.
 
 ---
 
-— YoBiche (Yolanda Biche), 2026-11-13
+## 5. Verification routes
+
+- **Local servers (on the VM):** `python3
+  sexcapades-playwright-fleet/serve-local.py <port> [dir]` — port-first
+  argument order. **Port 8002** serves `site-tree/public_html`; **port
+  8003** serves `app/`. They are background processes and die on VM
+  restarts — restart on demand.
+- **Playwright:** 1.65.0 via `sexcapades-playwright-fleet/node_modules`
+  (set NODE_PATH to it; the `npx playwright` shim is broken). The fleet
+  package expects Chromium revision 1254 but only 1243 is installed —
+  launch with `executablePath:
+  '/home/hatch/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome'`.
+- The cloud browser CANNOT reach the VM's localhost servers (different
+  machine) — checks of local builds run through Playwright on the VM.
+  The VM's Chromium cannot reach the internet; VM curl can.
+- The agent cannot see Jason's own browser live. His eye, on his machine,
+  is the final verification surface.
+
+---
+
+## 6. Pointers
+
+- **BRIEFING_*.md** (repo root): the briefing family — taxonomy per skin,
+  the engine, the hovertip standard, the rendering pipeline, widgets,
+  the math. Read the relevant one before touching its area.
+- **Scratch records for the 2026-11-19 work:** `~/workspace/scratch/widget-build/`
+  (REPORT.md, REPORT-decouple.md, TRACE-cross-vs-straight.md,
+  NEXT-decoupled-draw.md) and `~/workspace/scratch/pdf-washed-out/`
+  (diagnosis + fix reports).
+- **Jason's machines:** Windows 10 desktop, project at
+  `J:\jason\Projects\Sexcapades-Web` (Git Bash is the shell; `py` works,
+  `python3` is not on PATH); ChromeOS Linux at `~/Sexcapades-Web` (the
+  new-history clone; `gh` over HTTPS).
+- **`sexcapades-site-handover.md`** (repo root) is a DIFFERENT document:
+  the succession handover for Shel if Jason dies. It is not this brief,
+  and it is not the editors' to change.
+
+— YoBiche (Yolanda Biche), 2026-11-19
