@@ -710,7 +710,11 @@ __sxInit(function () {
     var path = pathFor(row);
     if (!path) return;
     var label = row.querySelector(".outline-topic-label");
-    if (label && label.title !== path) label.title = path;
+    /* No native title on the topic name (2026-11-19): the name already
+       shows the shared description popup on hover, and a browser title
+       would arrive ~a second later and overlap it. The path itself
+       stays visible as the .sx-path-line under the name. */
+    if (label && label.title) label.removeAttribute("title");
     var copy = row.querySelector(".outline-topic-copy");
     if (!copy) return;
     var line = copy.querySelector(":scope > .sx-path-line");

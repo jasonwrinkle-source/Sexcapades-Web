@@ -362,7 +362,15 @@
                     const a = Zn(e, t), r = Qn(e, n), o = e => String(e || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ");
                     return a && o(a) !== o(r) ? `${"receive" === t ? "Receive" : "Give"}: ${a}` : "";
                 }(e.id, n, t) : "";
-                l && (r.dataset.ratingTooltip = l, r.setAttribute("data-tooltip-tap-first", ""), s.title = l);
+                // Hovertip for EVERY pole, not just give/receive pairs
+                // (2026-11-19): the placard's pole line is the first
+                // source (skin topics carry a "Label — text" line per
+                // pole); fall back to the pole's full label so the tip
+                // always names the whole pole. No native title here —
+                // the shared popup is this row's one tooltip, and a
+                // title would arrive late and overlap it.
+                const tip = l || (typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, n) : null) || (o ? "" : s.textContent);
+                tip && (r.dataset.ratingTooltip = tip, r.setAttribute("data-tooltip-tap-first", ""));
                 const c = document.createElement("input");
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = n, 
                 c.setAttribute("aria-label", `${e.label}, ${s.textContent}${l ? `: ${l.replace(/^[^:]+:\s*/, "")}` : ""}`);

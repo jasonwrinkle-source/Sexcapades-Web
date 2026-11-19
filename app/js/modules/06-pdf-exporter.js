@@ -1018,7 +1018,7 @@
                 const py = bary.w0 * v0.y + bary.w1 * v1.y + bary.w2 * v2.y;
                 puck.setAttribute("cx", px.toFixed(1));
                 puck.setAttribute("cy", py.toFixed(1));
-                puck.setAttribute("fill", zi(Math.max(values[0], values[1], values[2])));
+                puck.setAttribute("fill", zi(sxSignedIntensity(values)));
             }
             const dots = ctl.querySelectorAll("circle:not(.map-triangle-puck)");
             dots.forEach((dot, k) => {
@@ -1039,13 +1039,14 @@
             // start: pentad/tetrad only emit it when some value > 0).
             const ctl = In.querySelector(`.map-${type}-control[data-id="${CSS.escape(topicId)}"]`);
             if (!ctl) return;
+            const sxMapRadarMaxAbs = Math.max(...values.map(v => Math.abs(v || 0)), 0);
             const pts = vertices.map((v, k) => {
-                const d = Math.max(0, Math.min(100, Math.abs(values[k] || 0))) / 100;
+                const d = sxMapRadarMaxAbs > 0 ? Math.abs(values[k] || 0) / sxMapRadarMaxAbs : 0;
                 return { x: cx + (v.x - cx) * d, y: cy + (v.y - cy) * d };
             });
             const ptsStr = pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
             let def = ctl.querySelector("polygon[fill-opacity]");
-            const maxV = Math.max(...values.map(v => Math.abs(v || 0)), 0);
+            const maxV = sxSignedIntensity(values);
             if (!def) {
                 const hit = ctl.querySelector(".direction-hit");
                 if (!hit) return;
@@ -1125,7 +1126,7 @@
             const rec = da(topicId, Vi());
             const values = shape.keys.map(k => {
                 const v = rec && rec[k + "Known"] ? rec[k] : 0;
-                return Math.max(0, Math.min(100, Math.round(v || 0)));
+                return Math.max(-100, Math.min(100, Math.round(v || 0)));
             });
             const isAllZero = values.every(v => !v);
             let handleRadius = 22;
@@ -1270,7 +1271,7 @@
                 const scale = (100 + step) / 100;
                 const values = shape.keys.map(k => {
                     const v = rec && rec[k + "Known"] ? rec[k] : 0;
-                    return Math.max(0, Math.min(100, Math.round(v * scale)));
+                    return Math.max(-100, Math.min(100, Math.round(v * scale)));
                 });
                 shape.keys.forEach((k, i) => To(topicId, k, values[i], !1));
                 const geom = sxMapRadarVertices(In.querySelector(`.map-${direction}-hit[data-id="${CSS.escape(topicId)}"]`) || wHit, direction);
