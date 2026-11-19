@@ -4385,9 +4385,52 @@ const TAXONOMY_CATEGORIES = [
            any of its call sites. A finding that names this path must be
            DISCLOSED to the owner, never acted on. Restored 2026-11-01
            after a builder disabled it without authorization. */
+        /* Per-skin analytics (2026-11-18): every analytics event carries
+           the current skin id so events can be told apart per skin. The
+           skin is resolved at send time from the app's own skin identity,
+           in priority order: the live skin the skin loader tracks
+           (window.__SX_ACTIVE_SKIN — set once the boot skin loads and on
+           every in-app skin switch), the ?skin= gate round-trip param /
+           the hostname map the skin loader exposes, and finally the same
+           hostname map inline as a fallback — the gate-passed event fires
+           at bundle load, before the skin loader script runs, so it
+           cannot wait for the loader. Unknown hosts default to
+           "sexcapades", matching the loader. Never throws; a failure
+           anywhere returns the default instead of losing the event. */
+        function sxAnalyticsSkin() {
+            try {
+                var s = window.__SX_ACTIVE_SKIN;
+                if (s) return String(s);
+            } catch (e) { /* fall through to hostname */ }
+            try {
+                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                    var u = window.__SX_SKIN_FROM_URL();
+                    if (u) return u;
+                }
+                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
+                }
+            } catch (e) { /* fall through to inline map */ }
+            try {
+                var q = new URLSearchParams(location.search || "").get("skin");
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades"];
+                if (q && known.indexOf(q) !== -1) return q;
+                var host = (location.hostname || "").toLowerCase();
+                if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+                var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
+                if (prefix && map[prefix]) return map[prefix];
+            } catch (e) { /* default below */ }
+            return "sexcapades";
+        }
         function sxSendAnalytics(e, t) {
             /* Counted hosts: sexcapades.io, www, capades.io, *.capades.io. Localhost/staging stay blocked. */
             if (!/^(www\.)?sexcapades\.io$|^([^.]+\.)*capades\.io$/.test(location.hostname)) return;
+            /* Per-skin analytics: stamp the current skin on every event
+               payload here, at the one shared send point, so gate_passed,
+               session_stats, quickstart_* and scan_started all carry it
+               without touching their call sites. */
+            try { if (e && typeof e === "object" && !e.skin) e.skin = sxAnalyticsSkin(); } catch (err) { __sxErrLog("analytics-skin", err); }
             try {
                 if ("sent" === sessionStorage.getItem(t)) return;
             } catch (e) { __sxErrLog("storage", e); }
@@ -6177,6 +6220,15 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
+                // On-map pole tips (Build 2026-11-18): each pole label
+                // carries the exact pole line the placard shows for the
+                // same pole (same helper), so the shared tooltip popup
+                // shows byte-identical text on the map and the placard.
+                // Labels are focusable so keyboard focus shows the tip too.
+                const sxPoleTipAttrs = k => {
+                    const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
+                    return (tip ? ` data-ui-tooltip="${Hi(tip)}" data-tooltip-name="${Hi(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
+                };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:
                     // Regular octagon deformation polygon
@@ -6224,14 +6276,15 @@ const TAXONOMY_CATEGORIES = [
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${octCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-octad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-octad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.heptad) {
                     // 7-Pole Heptad Widget on Hypermap:
@@ -6280,14 +6333,15 @@ const TAXONOMY_CATEGORIES = [
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${heptCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-heptad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-heptad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.hexad) {
                     // 6-Pole Hexad Widget on Hypermap:
@@ -6336,14 +6390,15 @@ const TAXONOMY_CATEGORIES = [
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${hexCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-hexad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-hexad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.pentad) {
                     // 5-Pole Pentad Widget on Hypermap:
@@ -6394,14 +6449,15 @@ const TAXONOMY_CATEGORIES = [
                     P.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3 * m}" fill="${pentColors[k]}" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit polygon
+                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"/>`;
                     // Pole labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + Math.cos(pt.phi) * 8 * m;
                         const ly = pt.y + Math.sin(pt.phi) * 8 * m;
-                        D += `<text class="map-pentad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                        D += `<text class="map-pentad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
                     });
-                    // Hit polygon
-                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
                     D += `</g>`;
                 } else if ($.tetrad) {
                     // 4-Pole Tetrad Widget on Hypermap:
@@ -6461,13 +6517,14 @@ const TAXONOMY_CATEGORIES = [
                     D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#eab308" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    // Labels
-                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
                     // Hit area
-                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a corner to set that pole." tabindex="0"/>`;
+                    // Labels
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(0)} x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(1)} x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(2)} x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(3)} x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
                     D += `</g>`;
                 } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
@@ -6516,15 +6573,16 @@ const TAXONOMY_CATEGORIES = [
                     D += `<circle cx="${V0.x.toFixed(1)}" cy="${V0.y.toFixed(1)}" r="${3.5 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     // Labels offset outward from each vertex
                     const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
                     const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
                     const l2x = V2.x + nx * 9 * m, l2y = V2.y + ny * 9 * m;
-                    D += `<text class="map-triangle-label" x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
-                    D += `<text class="map-triangle-label" x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
-                    D += `<text class="map-triangle-label" x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
                     D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
-                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     D += `</g>`;
                 } else {
                     f.forEach((k, idx) => {
@@ -9536,9 +9594,52 @@ const TAXONOMY_CATEGORIES = [
            any of its call sites. A finding that names this path must be
            DISCLOSED to the owner, never acted on. Restored 2026-11-01
            after a builder disabled it without authorization. */
+        /* Per-skin analytics (2026-11-18): every analytics event carries
+           the current skin id so events can be told apart per skin. The
+           skin is resolved at send time from the app's own skin identity,
+           in priority order: the live skin the skin loader tracks
+           (window.__SX_ACTIVE_SKIN — set once the boot skin loads and on
+           every in-app skin switch), the ?skin= gate round-trip param /
+           the hostname map the skin loader exposes, and finally the same
+           hostname map inline as a fallback — the gate-passed event fires
+           at bundle load, before the skin loader script runs, so it
+           cannot wait for the loader. Unknown hosts default to
+           "sexcapades", matching the loader. Never throws; a failure
+           anywhere returns the default instead of losing the event. */
+        function sxAnalyticsSkin() {
+            try {
+                var s = window.__SX_ACTIVE_SKIN;
+                if (s) return String(s);
+            } catch (e) { /* fall through to hostname */ }
+            try {
+                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                    var u = window.__SX_SKIN_FROM_URL();
+                    if (u) return u;
+                }
+                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
+                }
+            } catch (e) { /* fall through to inline map */ }
+            try {
+                var q = new URLSearchParams(location.search || "").get("skin");
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades"];
+                if (q && known.indexOf(q) !== -1) return q;
+                var host = (location.hostname || "").toLowerCase();
+                if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+                var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
+                if (prefix && map[prefix]) return map[prefix];
+            } catch (e) { /* default below */ }
+            return "sexcapades";
+        }
         function sxSendAnalytics(e, t) {
             /* Counted hosts: sexcapades.io, www, capades.io, *.capades.io. Localhost/staging stay blocked. */
             if (!/^(www\.)?sexcapades\.io$|^([^.]+\.)*capades\.io$/.test(location.hostname)) return;
+            /* Per-skin analytics: stamp the current skin on every event
+               payload here, at the one shared send point, so gate_passed,
+               session_stats, quickstart_* and scan_started all carry it
+               without touching their call sites. */
+            try { if (e && typeof e === "object" && !e.skin) e.skin = sxAnalyticsSkin(); } catch (err) { __sxErrLog("analytics-skin", err); }
             try {
                 if ("sent" === sessionStorage.getItem(t)) return;
             } catch (e) { __sxErrLog("storage", e); }
@@ -20565,6 +20666,15 @@ const TAXONOMY_CATEGORIES = [
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
+                // On-map pole tips (Build 2026-11-18): each pole label
+                // carries the exact pole line the placard shows for the
+                // same pole (same helper), so the shared tooltip popup
+                // shows byte-identical text on the map and the placard.
+                // Labels are focusable so keyboard focus shows the tip too.
+                const sxPoleTipAttrs = k => {
+                    const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
+                    return (tip ? ` data-ui-tooltip="${Hi(tip)}" data-tooltip-name="${Hi(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
+                };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:
                     // Regular octagon deformation polygon
@@ -20612,14 +20722,15 @@ const TAXONOMY_CATEGORIES = [
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${octCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-octad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-octad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-octad-hit" data-id="${e}" data-direction="octad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Octad 8-pole dynamic. ${ariaTxt}"><title>${e} (Octad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.heptad) {
                     // 7-Pole Heptad Widget on Hypermap:
@@ -20668,14 +20779,15 @@ const TAXONOMY_CATEGORIES = [
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${heptCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-heptad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-heptad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-heptad-hit" data-id="${e}" data-direction="heptad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Heptad 7-pole dynamic. ${ariaTxt}"><title>${e} (Heptad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.hexad) {
                     // 6-Pole Hexad Widget on Hypermap:
@@ -20724,14 +20836,15 @@ const TAXONOMY_CATEGORIES = [
                     S.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3.5 * m}" fill="${hexCols[k]}" stroke="#ffffff" stroke-width="${1 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit Target
+                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
                     // Labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-hexad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += `<text class="map-hexad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
                     });
-                    // Hit Target
-                    D += `<polygon class="direction-hit map-hexad-hit" data-id="${e}" data-direction="hexad" points="${polyRef}" fill="transparent" cursor="pointer" role="slider" aria-label="${e}, Hexad 6-pole dynamic. ${ariaTxt}"><title>${e} (Hexad): ${ariaTxt}</title></polygon>`;
                     D += `</g>`;
                 } else if ($.pentad) {
                     // 5-Pole Pentad Widget on Hypermap:
@@ -20782,14 +20895,15 @@ const TAXONOMY_CATEGORIES = [
                     P.forEach((pt, k) => {
                         D += `<circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${3 * m}" fill="${pentColors[k]}" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     });
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    // Hit polygon
+                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a vertex to set that pole." tabindex="0"/>`;
                     // Pole labels
                     P.forEach((pt, k) => {
                         const lx = pt.x + Math.cos(pt.phi) * 8 * m;
                         const ly = pt.y + Math.sin(pt.phi) * 8 * m;
-                        D += `<text class="map-pentad-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                        D += `<text class="map-pentad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
                     });
-                    // Hit polygon
-                    D += `<polygon class="direction-hit map-pentad-hit" data-id="${e}" data-direction="pentad" points="${polyRef}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
                     D += `</g>`;
                 } else if ($.tetrad) {
                     // 4-Pole Tetrad Widget on Hypermap:
@@ -20849,13 +20963,14 @@ const TAXONOMY_CATEGORIES = [
                     D += `<circle cx="${P1.x.toFixed(1)}" cy="${P1.y.toFixed(1)}" r="${3 * m}" fill="#eab308" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${P2.x.toFixed(1)}" cy="${P2.y.toFixed(1)}" r="${3 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${P3.x.toFixed(1)}" cy="${P3.y.toFixed(1)}" r="${3 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
-                    // Labels
-                    D += `<text class="map-tetrad-label" x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label" x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
                     // Hit area
-                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Tap to rate on placard." tabindex="0"/>`;
+                    D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a corner to set that pole." tabindex="0"/>`;
+                    // Labels
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(0)} x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(1)} x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(2)} x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
+                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(3)} x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
                     D += `</g>`;
                 } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
@@ -20904,15 +21019,16 @@ const TAXONOMY_CATEGORIES = [
                     D += `<circle cx="${V0.x.toFixed(1)}" cy="${V0.y.toFixed(1)}" r="${3.5 * m}" fill="#ef4444" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V1.x.toFixed(1)}" cy="${V1.y.toFixed(1)}" r="${3.5 * m}" fill="#22c55e" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
                     D += `<circle cx="${V2.x.toFixed(1)}" cy="${V2.y.toFixed(1)}" r="${3.5 * m}" fill="#3b82f6" stroke="#ffffff" stroke-width="${0.8 * m}"/>`;
+                    // Hit Target first: pole labels paint on top so they stay hoverable for their tips.
+                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     // Labels offset outward from each vertex
                     const l0x = V0.x - nx * 9 * m, l0y = V0.y - ny * 9 * m;
                     const l1x = V1.x + p * 12 * m, l1y = V1.y + h * 12 * m;
                     const l2x = V2.x + nx * 9 * m, l2y = V2.y + ny * 9 * m;
-                    D += `<text class="map-triangle-label" x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
-                    D += `<text class="map-triangle-label" x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
-                    D += `<text class="map-triangle-label" x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
+                    D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
                     D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
-                    D += `<polygon class="direction-hit map-triangle-hit" data-id="${e}" data-direction="triangle" data-v0x="${V0.x.toFixed(1)}" data-v0y="${V0.y.toFixed(1)}" data-v1x="${V1.x.toFixed(1)}" data-v1y="${V1.y.toFixed(1)}" data-v2x="${V2.x.toFixed(1)}" data-v2y="${V2.y.toFixed(1)}" points="${V0.x.toFixed(1)},${V0.y.toFixed(1)} ${V1.x.toFixed(1)},${V1.y.toFixed(1)} ${V2.x.toFixed(1)},${V2.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag to adjust triad balance." tabindex="0"/>`;
                     D += `</g>`;
                 } else {
                     f.forEach((k, idx) => {
@@ -42366,7 +42482,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         // Enable camera animations for compatible hardware (any system without prefers-reduced-motion)
         Bt = Boolean(!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
         const xp = Boolean((navigator.maxTouchPoints || 0) > 0 && window.matchMedia && window.matchMedia("(pointer: coarse)").matches), Sp = !Object.keys(wt).length || kp || xp;
-        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
+        let $p = fp, Ep = 900 - 900 * fp, Ap = 620 - 620 * fp, Cp = !1, Sq = null, Mp = null, Ip = null, Pp = null, Lp = null, Tp = null, Fp = null, Np = null, _p = null, triDragState = null, radarDragState = null, sxWidgetWheelPending = null, sxMapTriMemory = {}, Dp = 0, Rp = 0, Op = 0, Bp = 0, jp = {
             x: 0,
             y: 0
         }, qp = null, Hp = 0, Wp = 0, Up = 0, Gp = !1, Kp = Sp ? "lite" : "gpu", zp = Sp, Vp = null, Yp = null, Xp = 0, Zp = 0, Qp = 0;
@@ -43102,8 +43218,19 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
             if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), triDragState && triDragState.pointerId === e.pointerId) {
+                const t = triDragState;
                 triDragState = null;
                 Mr();
+                sxMapPlacardSync(t.id);
+                checkMilestoneTransition(Vi(), t.prevRated);
+                return;
+            }
+            if (radarDragState && radarDragState.pointerId === e.pointerId) {
+                const t = radarDragState;
+                radarDragState = null;
+                Mr();
+                sxMapPlacardSync(t.id);
+                checkMilestoneTransition(Vi(), t.prevRated);
                 return;
             }
             if (Pp && Pp.pointerId === e.pointerId) {
@@ -43280,7 +43407,353 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (!__sxClosestAction(e.target, "directionControl")) return;
             const t = Gh(e.relatedTarget);
             t ? Uh(t) : qh();
-        }), Cn.addEventListener("wheel", e => {
+        });
+        // On-map n-pole widget interactivity (Build 2026-11-18): helpers for
+        // the triad live intensity, radar drag math, live DOM patching, the
+        // widget wheel, and the gesture-end placard sync. All rating writes
+        // go through the rating setter (never a direct store write); during
+        // a drag/wheel burst writes use the no-repaint flag and the widget
+        // DOM is patched live; one full repaint + placard sync + milestone
+        // check happen at gesture end.
+        function sxMapTriMemoryFor(topicId) {
+            // In-memory triad gesture state (session-only, never stored):
+            // the live intensity + weights, mirroring the placard's
+            // in-memory triad state. It is what carries the intensity
+            // through the all-zero crossing, where the stored ratings round
+            // to 0 and can no longer say whether the intensity was +1 or -1.
+            return sxMapTriMemory[topicId] || null;
+        }
+        function sxMapTriRemember(topicId, intensity, w0, w1, w2) {
+            sxMapTriMemory[topicId] = { intensity, w0, w1, w2 };
+        }
+        function sxMapTriIntensity(topicId) {
+            // Live triad intensity: the placard's in-memory intensity when
+            // it is open for this topic; else derived from the stored
+            // ratings exactly as the placard sync does (signed sum of
+            // absolute values); when the stored ratings are all zero, the
+            // map's own gesture memory (if any) carries the intensity
+            // through the zero crossing. Returns 0 when nothing is known;
+            // callers apply the drag-start 70 default where it belongs.
+            if (Qr === topicId && sxTriState.topicId === topicId) return sxTriState.intensity;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length !== 3) return 0;
+            const rec = da(topicId, Vi());
+            const r0 = rec && rec[shape.keys[0] + "Known"] ? rec[shape.keys[0]] : 0;
+            const r1 = rec && rec[shape.keys[1] + "Known"] ? rec[shape.keys[1]] : 0;
+            const r2 = rec && rec[shape.keys[2] + "Known"] ? rec[shape.keys[2]] : 0;
+            const sumAbs = Math.abs(r0) + Math.abs(r1) + Math.abs(r2);
+            if (sumAbs > 0) return (r0 + r1 + r2 < 0 ? -1 : 1) * sumAbs;
+            const mem = sxMapTriMemoryFor(topicId);
+            return mem ? mem.intensity : 0;
+        }
+        function sxMapTriWeights(topicId) {
+            // Barycentric weights from the stored ratings; when all stored
+            // ratings are zero, keep the placard's in-memory weights if the
+            // placard is open for this topic, else the map's own gesture
+            // memory, else the centroid.
+            const shape = Ge(topicId);
+            const w = { w0: 1 / 3, w1: 1 / 3, w2: 1 / 3 };
+            if (!shape || !shape.keys || shape.keys.length !== 3) return w;
+            const rec = da(topicId, Vi());
+            const a0 = rec && rec[shape.keys[0] + "Known"] ? Math.abs(rec[shape.keys[0]]) : 0;
+            const a1 = rec && rec[shape.keys[1] + "Known"] ? Math.abs(rec[shape.keys[1]]) : 0;
+            const a2 = rec && rec[shape.keys[2] + "Known"] ? Math.abs(rec[shape.keys[2]]) : 0;
+            const sum = a0 + a1 + a2;
+            if (sum > 0) { w.w0 = a0 / sum; w.w1 = a1 / sum; w.w2 = a2 / sum; }
+            else if (Qr === topicId && sxTriState.topicId === topicId && (sxTriState.w0 + sxTriState.w1 + sxTriState.w2) > 0) {
+                w.w0 = sxTriState.w0; w.w1 = sxTriState.w1; w.w2 = sxTriState.w2;
+            } else {
+                const mem = sxMapTriMemoryFor(topicId);
+                if (mem && (mem.w0 + mem.w1 + mem.w2) > 0) { w.w0 = mem.w0; w.w1 = mem.w1; w.w2 = mem.w2; }
+            }
+            return w;
+        }
+        function sxMapPlacardSync(topicId) {
+            // Gesture-end placard sync: only when the placard is open for
+            // this same topic; the sync re-derives the placard widget state
+            // (sliders/capsule/puck/point + pole tips) from stored ratings.
+            if (!topicId) return;
+            try {
+                if (Qr === topicId && Pr && !Pr.hidden && typeof sxSyncMarkRatings === "function") sxSyncMarkRatings(topicId);
+            } catch (err) { __sxErrLog("map-placard-sync", err); }
+        }
+        function sxMapPatchTriLive(topicId, v0, v1, v2, bary, values, intensity) {
+            // Live DOM patch for the on-map triangle: puck position/fill,
+            // vertex-dot emphasis by weight, gradient brightness by
+            // |intensity| (mirrors the placard draw's brightness rule).
+            const ctl = In.querySelector(`.map-triad-control[data-id="${CSS.escape(topicId)}"]`);
+            if (!ctl) return;
+            const puck = ctl.querySelector(".map-triangle-puck");
+            if (puck) {
+                const px = bary.w0 * v0.x + bary.w1 * v1.x + bary.w2 * v2.x;
+                const py = bary.w0 * v0.y + bary.w1 * v1.y + bary.w2 * v2.y;
+                puck.setAttribute("cx", px.toFixed(1));
+                puck.setAttribute("cy", py.toFixed(1));
+                puck.setAttribute("fill", zi(Math.max(values[0], values[1], values[2])));
+            }
+            const dots = ctl.querySelectorAll("circle:not(.map-triangle-puck)");
+            dots.forEach((dot, k) => {
+                const w = [bary.w0, bary.w1, bary.w2][k];
+                if (w === undefined) return;
+                dot.setAttribute("fill-opacity", (0.3 + 0.7 * w).toFixed(2));
+            });
+            const br = 0.28 + 0.72 * (Math.abs(intensity) / 100);
+            ctl.querySelectorAll("linearGradient stop").forEach(stop => {
+                if (!stop.dataset.sxBaseOp) stop.dataset.sxBaseOp = stop.getAttribute("stop-opacity") || "0.35";
+                stop.setAttribute("stop-opacity", (parseFloat(stop.dataset.sxBaseOp) * br).toFixed(2));
+            });
+        }
+        function sxMapPatchRadarLive(topicId, type, cx, cy, vertices, values) {
+            // Live DOM patch for an on-map radar: deformed polygon points
+            // + vertex dots moved to the deformed positions. Creates the
+            // deformed polygon if the paint never emitted one (all-zero
+            // start: pentad/tetrad only emit it when some value > 0).
+            const ctl = In.querySelector(`.map-${type}-control[data-id="${CSS.escape(topicId)}"]`);
+            if (!ctl) return;
+            const pts = vertices.map((v, k) => {
+                const d = Math.max(0, Math.min(100, Math.abs(values[k] || 0))) / 100;
+                return { x: cx + (v.x - cx) * d, y: cy + (v.y - cy) * d };
+            });
+            const ptsStr = pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+            let def = ctl.querySelector("polygon[fill-opacity]");
+            const maxV = Math.max(...values.map(v => Math.abs(v || 0)), 0);
+            if (!def) {
+                const hit = ctl.querySelector(".direction-hit");
+                if (!hit) return;
+                def = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                def.setAttribute("fill-opacity", "0.55");
+                def.setAttribute("stroke", "#ffffff");
+                def.setAttribute("stroke-width", "1.4");
+                hit.parentNode.insertBefore(def, hit);
+            }
+            def.setAttribute("points", ptsStr);
+            def.setAttribute("fill", zi(maxV));
+            const dots = ctl.querySelectorAll("circle");
+            dots.forEach((dot, k) => {
+                if (!pts[k]) return;
+                dot.setAttribute("cx", pts[k].x.toFixed(1));
+                dot.setAttribute("cy", pts[k].y.toFixed(1));
+            });
+        }
+        function sxMapClientToLocal(e, el) {
+            // Convert a pointer event's client coords into an SVG element's
+            // own local space. The element's getScreenCTM includes every
+            // ancestor transform, including its control group's own
+            // translate/rotate. The map-root conversion
+            // (__sxScreenCtm(In)) lands in the camera group's space, which
+            // is NOT a control's local space when the control carries a
+            // non-identity transform — quad-compass controls do (a
+            // translate of several hundred local units), so a root-space
+            // pointer measured against local-space vertices read ~30% off
+            // (drag-from-zero gave 100/40/40/40 instead of 80/25/25/25).
+            // Controls with an identity transform are unaffected: the two
+            // conversions agree there. Returns null when the element has
+            // no CTM (callers fall back to the root conversion).
+            try {
+                const ctm = el && el.getScreenCTM ? el.getScreenCTM() : null;
+                if (!ctm) return null;
+                const pt = Cn.createSVGPoint();
+                pt.x = e.clientX; pt.y = e.clientY;
+                return pt.matrixTransform(ctm.inverse());
+            } catch (err) { __sxErrLog("client-to-local", err); return null; }
+        }
+        function sxMapRadarVertices(hitEl, type) {
+            // Reference vertices (in key order: Ka emits vertex k for key
+            // k) from a radar hit polygon's points attribute, with angles.
+            const poly = hitEl.classList.contains(`map-${type}-hit`) ? hitEl : hitEl.querySelector(`.map-${type}-hit`);
+            if (!poly) return null;
+            const ctl = poly.closest(".direction-control");
+            const cx = ctl ? parseFloat(ctl.dataset.baseCx) : NaN;
+            const cy = ctl ? parseFloat(ctl.dataset.baseCy) : NaN;
+            if (!Number.isFinite(cx) || !Number.isFinite(cy)) return null;
+            const ptsAttr = poly.getAttribute("points") || "";
+            const vertices = ptsAttr.trim().split(/\s+/).map(pair => {
+                const parts = pair.split(",");
+                const x = Number(parts[0]), y = Number(parts[1]);
+                return { x, y, angle: Math.atan2(y - cy, x - cx) };
+            }).filter(v => Number.isFinite(v.x) && Number.isFinite(v.y));
+            if (!vertices.length) return null;
+            return { cx, cy, vertices, r: Math.hypot(vertices[0].x - cx, vertices[0].y - cy), poly };
+        }
+        function sxMapRadarDragStart(e, hitEl, type) {
+            // Tap/drag-a-vertex start, mirroring the placard bind pattern:
+            // closest-axis pick with a 22px screen handle made scale-aware,
+            // drag-from-zero polygon init (dragged = value, others = base =
+            // max(20, value/2), lock once value > base).
+            const topicId = hitEl.dataset.id;
+            if (!topicId) return false;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < 3) return false;
+            const geom = sxMapRadarVertices(hitEl, type);
+            if (!geom || geom.vertices.length !== shape.keys.length || !(geom.r > 0)) return false;
+            const { cx, cy, vertices, r, poly } = geom;
+            const pt = Cn.createSVGPoint();
+            pt.x = e.clientX; pt.y = e.clientY;
+            // Pointer in the hit polygon's own local space (see the helper:
+            // the map-root conversion is the wrong space when the control
+            // carries its own transform, as quad-compass controls do).
+            const mapPt = sxMapClientToLocal(e, poly) || pt.matrixTransform(__sxScreenCtm(In).inverse());
+            const rec = da(topicId, Vi());
+            const values = shape.keys.map(k => {
+                const v = rec && rec[k + "Known"] ? rec[k] : 0;
+                return Math.max(0, Math.min(100, Math.round(v || 0)));
+            });
+            const isAllZero = values.every(v => !v);
+            let handleRadius = 22;
+            try {
+                // 22 screen px expressed in the polygon's local units, so
+                // the closest-axis handle is a real on-screen distance.
+                // (Dividing by the map-root scale instead made it ~0.5px
+                // on screen — drags still worked on-axis, but a tap
+                // slightly off-axis would pick no axis at all.)
+                const ctm = poly.getScreenCTM();
+                const scale = ctm ? Math.hypot(ctm.a, ctm.b) : 0;
+                if (scale > 0) handleRadius = 22 / scale;
+            } catch (err) { __sxErrLog("radar-handle-scale", err); }
+            const active = sxFindClosestAxis(mapPt.x, mapPt.y, cx, cy, vertices, isAllZero ? null : values, handleRadius);
+            const angle = vertices[active].angle;
+            const dot = (mapPt.x - cx) * Math.cos(angle) + (mapPt.y - cy) * Math.sin(angle);
+            const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+            let dragFromZero = false, vertexLocked = false, base = 0;
+            if (isAllZero && val > 0) {
+                dragFromZero = true;
+                base = Math.max(20, Math.round(val / 2));
+                for (let k = 0; k < values.length; k++) values[k] = (k === active) ? val : base;
+                if (val > base) vertexLocked = true;
+                shape.keys.forEach((k, i) => To(topicId, k, values[i], !1));
+            } else {
+                values[active] = val;
+                To(topicId, shape.keys[active], val, !1);
+            }
+            radarDragState = {
+                pointerId: e.pointerId, id: topicId, type,
+                cx, cy, vertices, r, activeVertex: active,
+                dragFromZero, vertexLocked, base, values,
+                prevRated: cs(Vi()).rated
+            };
+            sxMapPatchRadarLive(topicId, type, cx, cy, vertices, values);
+            return true;
+        }
+        function sxMapRadarDragMove(e) {
+            // Returns true when the event was consumed by an active radar
+            // drag (including a stale-geometry cancel).
+            if (!radarDragState || radarDragState.pointerId !== e.pointerId) return false;
+            const st = radarDragState;
+            // Staleness guard: a repaint/settle mid-drag re-emits the hit
+            // polygon; if the reference vertices moved, cancel the drag
+            // rather than writing against stale geometry.
+            const hit = In.querySelector(`.map-${st.type}-hit[data-id="${CSS.escape(st.id)}"]`);
+            if (!hit) { radarDragState = null; return true; }
+            const live = (hit.getAttribute("points") || "").trim().split(/\s+/).map(pair => {
+                const parts = pair.split(",");
+                return { x: Number(parts[0]), y: Number(parts[1]) };
+            });
+            let stale = live.length !== st.vertices.length;
+            if (!stale) for (let k = 0; k < live.length; k++) {
+                if (Math.abs(live[k].x - st.vertices[k].x) > 0.01 || Math.abs(live[k].y - st.vertices[k].y) > 0.01) { stale = true; break; }
+            }
+            if (stale) { radarDragState = null; return true; }
+            const shape = Ge(st.id);
+            if (!shape || !shape.keys || shape.keys.length !== st.vertices.length) { radarDragState = null; return true; }
+            const pt = Cn.createSVGPoint();
+            pt.x = e.clientX; pt.y = e.clientY;
+            const mapPt = sxMapClientToLocal(e, hit) || pt.matrixTransform(__sxScreenCtm(In).inverse());
+            if (st.dragFromZero && !st.vertexLocked) {
+                st.activeVertex = sxClosestVertexByAngle(mapPt.x, mapPt.y, st.cx, st.cy, st.vertices);
+            }
+            const v = st.activeVertex;
+            const angle = st.vertices[v].angle;
+            const dot = (mapPt.x - st.cx) * Math.cos(angle) + (mapPt.y - st.cy) * Math.sin(angle);
+            const val = Math.max(0, Math.min(100, Math.round((dot / st.r) * 100)));
+            if (st.dragFromZero && !st.vertexLocked && val > 0) {
+                const base = Math.max(20, Math.round(val / 2));
+                st.base = base;
+                for (let k = 0; k < st.values.length; k++) st.values[k] = (k === v) ? val : base;
+                if (val > base) st.vertexLocked = true;
+                shape.keys.forEach((k, i) => To(st.id, k, st.values[i], !1));
+            } else {
+                st.values[v] = val;
+                To(st.id, shape.keys[v], val, !1);
+            }
+            sxMapPatchRadarLive(st.id, st.type, st.cx, st.cy, st.vertices, st.values);
+            return true;
+        }
+        function sxMapScheduleWidgetRepaint(topicId, prevRated) {
+            // One trailing full repaint 150ms after the last wheel event in
+            // a burst, then the placard sync + milestone check. The
+            // previous-rated count is the burst's first (pre-write) count.
+            if (sxWidgetWheelPending) {
+                sxWidgetWheelPending.topicId = topicId;
+                try { window.clearTimeout(sxWidgetWheelPending.timer); } catch (_) {}
+            } else {
+                sxWidgetWheelPending = { topicId, prevRated, timer: 0 };
+            }
+            sxWidgetWheelPending.timer = window.setTimeout(() => {
+                const pending = sxWidgetWheelPending;
+                sxWidgetWheelPending = null;
+                if (!pending) return;
+                Mr();
+                sxMapPlacardSync(pending.topicId);
+                checkMilestoneTransition(Vi(), pending.prevRated);
+            }, 150);
+        }
+        function sxMapWidgetWheel(e) {
+            // Delegated widget wheel: returns true when the wheel was
+            // consumed by an on-map n-pole widget (or swallowed on a frozen
+            // map), false to let the existing zoom path run. Runs before any
+            // zoom/debounce state is touched; routing is positional per
+            // event, so leaving the widget releases back to zoom with no
+            // capture state. Mid-drag wheels route the same way; the drag
+            // re-anchors from the pointer on its next move.
+            const tgt = e.target;
+            const wHit = tgt && tgt.closest ? tgt.closest(".map-triangle-hit, .map-tetrad-hit, .map-pentad-hit, .map-hexad-hit, .map-heptad-hit, .map-octad-hit, .map-triangle-puck, .map-triad-control, .map-tetrad-control, .map-pentad-control, .map-hexad-control, .map-heptad-control, .map-octad-control") : null;
+            if (!wHit) return false;
+            e.preventDefault();
+            if (mn.staticMap) return true;
+            const ctl = wHit.closest ? wHit.closest(".direction-control") : null;
+            const topicId = (ctl && ctl.dataset.id) || wHit.dataset.id;
+            const direction = (ctl && ctl.dataset.direction) || wHit.dataset.direction;
+            if (!topicId || !direction) return true;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys) return true;
+            const step = (e.shiftKey ? 1 : 5) * (e.deltaY < 0 ? 1 : -1);
+            const prevRated = cs(Vi()).rated;
+            const rec = da(topicId, Vi());
+            if (direction === "triangle" && shape.keys.length === 3) {
+                const w = sxMapTriWeights(topicId);
+                // Wheel steps from the live intensity (no 70 default here:
+                // the wheel must step through zero to the opposite sign,
+                // which the gesture memory makes possible).
+                const intensity = Math.max(-100, Math.min(100, sxMapTriIntensity(topicId) + step));
+                const v0r = Math.round(w.w0 * intensity);
+                const v1r = Math.round(w.w1 * intensity);
+                const v2r = Math.round(w.w2 * intensity);
+                To(topicId, shape.keys[0], v0r, !1);
+                To(topicId, shape.keys[1], v1r, !1);
+                To(topicId, shape.keys[2], v2r, !1);
+                sxMapTriRemember(topicId, intensity, w.w0, w.w1, w.w2);
+                const hit = In.querySelector(`.map-triangle-hit[data-id="${CSS.escape(topicId)}"]`);
+                if (hit) {
+                    const vv = [{ x: +hit.dataset.v0x, y: +hit.dataset.v0y }, { x: +hit.dataset.v1x, y: +hit.dataset.v1y }, { x: +hit.dataset.v2x, y: +hit.dataset.v2y }];
+                    sxMapPatchTriLive(topicId, vv[0], vv[1], vv[2], w, [v0r, v1r, v2r], intensity);
+                }
+            } else if (["tetrad", "pentad", "hexad", "heptad", "octad"].indexOf(direction) >= 0) {
+                const scale = (100 + step) / 100;
+                const values = shape.keys.map(k => {
+                    const v = rec && rec[k + "Known"] ? rec[k] : 0;
+                    return Math.max(0, Math.min(100, Math.round(v * scale)));
+                });
+                shape.keys.forEach((k, i) => To(topicId, k, values[i], !1));
+                const geom = sxMapRadarVertices(In.querySelector(`.map-${direction}-hit[data-id="${CSS.escape(topicId)}"]`) || wHit, direction);
+                if (geom && geom.vertices.length === shape.keys.length) sxMapPatchRadarLive(topicId, direction, geom.cx, geom.cy, geom.vertices, values);
+            } else {
+                return true;
+            }
+            sxMapScheduleWidgetRepaint(topicId, prevRated);
+            return true;
+        }
+        Cn.addEventListener("wheel", e => {
+            if (sxMapWidgetWheel(e)) return;
             e.preventDefault();
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
@@ -43317,7 +43790,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }();
         }, {
             passive: !1
-        }), Cn.addEventListener("pointerdown", e => {
+        });
+        Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
             Cn && Cn.classList.remove("is-camera-moving");
@@ -43351,7 +43825,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const topicId = octadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "octad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending): the drag
+                    // starts here; the placard still opens by
+                    // double-tapping the node. The old Pi() call was dead
+                    // (never assigned as a function) and is removed, not
+                    // left guarded.
+                    sxMapRadarDragStart(e, octadHit, "octad");
                 }
                 return;
             }
@@ -43360,7 +43839,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const topicId = heptadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "heptad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    sxMapRadarDragStart(e, heptadHit, "heptad");
                 }
                 return;
             }
@@ -43369,7 +43849,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const topicId = hexadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "hexad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    sxMapRadarDragStart(e, hexadHit, "hexad");
                 }
                 return;
             }
@@ -43378,7 +43859,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const topicId = pentadHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "pentad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    sxMapRadarDragStart(e, pentadHit, "pentad");
                 }
                 return;
             }
@@ -43387,7 +43869,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const topicId = tetradHit.dataset.id;
                 if (topicId) {
                     Nt = { id: topicId, direction: "tetrad" };
-                    if (typeof Pi === "function") Pi(topicId);
+                    // Tap = set only (owner decision pending); see octad.
+                    // Quad-compass topics render as this tetrad diamond
+                    // (same drag-a-vertex behaviour; keys in vertex order).
+                    sxMapRadarDragStart(e, tetradHit, "tetrad");
                 }
                 return;
             }
@@ -43403,22 +43888,34 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     const v2 = { x: v2x, y: v2y };
                     const pt = Cn.createSVGPoint();
                     pt.x = e.clientX, pt.y = e.clientY;
-                    const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
+                    // Pointer in the triangle hit polygon's own local
+                    // space (same mixed-space trap as the radar drag:
+                    // the map-root conversion is wrong when the control
+                    // carries its own transform).
+                    const mapPt = sxMapClientToLocal(e, triHit) || pt.matrixTransform(__sxScreenCtm(In).inverse());
                     const bary = sxPointToBarycentric(mapPt.x, mapPt.y, v0, v1, v2);
                     const shape = Ge(topicId);
+                    // Live intensity (placard memory, else signed sum of
+                    // stored absolute values, else gesture memory); 0
+                    // defaults to 70, the placard's drag-start rule. The
+                    // old hardcoded 80 is gone.
+                    const intensity = sxMapTriIntensity(topicId) || 70;
                     if (shape && shape.keys && shape.keys.length === 3) {
-                        const intensity = 80;
                         const v0r = Math.round(bary.w0 * intensity);
                         const v1r = Math.round(bary.w1 * intensity);
                         const v2r = Math.round(bary.w2 * intensity);
                         To(topicId, shape.keys[0], v0r, !1);
                         To(topicId, shape.keys[1], v1r, !1);
                         To(topicId, shape.keys[2], v2r, !1);
+                        sxMapPatchTriLive(topicId, v0, v1, v2, bary, [v0r, v1r, v2r], intensity);
+                        sxMapTriRemember(topicId, intensity, bary.w0, bary.w1, bary.w2);
                     }
                     triDragState = {
                         pointerId: e.pointerId,
                         id: topicId,
-                        v0: v0, v1: v1, v2: v2
+                        v0: v0, v1: v1, v2: v2,
+                        intensity: intensity,
+                        prevRated: cs(Vi()).rated
                     };
                 }
                 return;
@@ -43534,7 +44031,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 direction: l.dataset.direction,
                 value: _o(l, No(l, e.clientX, e.clientY))
             })) : (Gp || (fh = yh()), rh(e.pointerId), eh.size >= 2 ? (io(), oh(), Mp = null, 
-            Ip = null, Pp = null, Lp = null, Tp = null, eo = null, Fp = null, Sq = null, yn && xr(!0), 
+            Ip = null, Pp = null, Lp = null, Tp = null, eo = null, Fp = null, Sq = null, triDragState = null, radarDragState = null, yn && xr(!0), 
             void Mh()) : void (__sxClosestAction(e.target, "categoryLabel") || (Cp = !0, jp = {
                 x: e.clientX,
                 y: e.clientY
@@ -43549,7 +44046,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 x: e.clientX,
                 y: e.clientY
             }), eh.size >= 2) {
-                Mp = null, Pp = null, Lp = null, qp || Mh();
+                Mp = null, Pp = null, Lp = null, triDragState = null, radarDragState = null, qp || Mh();
                 const e = Ch();
                 if (!qp || !e) return;
                 return noteFitUserCamera(), $p = Math.max(1e-9, Math.min(Eh(), qp.scale * (e.distance / qp.distance))), 
@@ -43588,30 +44085,37 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 y: e.clientY
             }));
             if (triDragState && triDragState.pointerId === e.pointerId) {
+                const st = triDragState;
+                // Staleness guard: a repaint/settle mid-drag re-emits the
+                // hit polygon; if the vertices moved, cancel the drag
+                // rather than writing against stale geometry.
+                const triHitNow = In.querySelector(`.map-triangle-hit[data-id="${CSS.escape(st.id)}"]`);
+                let triStale = !triHitNow;
+                if (triHitNow) {
+                    const liveVs = [[+triHitNow.dataset.v0x, +triHitNow.dataset.v0y], [+triHitNow.dataset.v1x, +triHitNow.dataset.v1y], [+triHitNow.dataset.v2x, +triHitNow.dataset.v2y]];
+                    const stVs = [st.v0, st.v1, st.v2];
+                    for (let k = 0; k < 3; k++) if (Math.abs(liveVs[k][0] - stVs[k].x) > 0.01 || Math.abs(liveVs[k][1] - stVs[k].y) > 0.01) { triStale = true; break; }
+                }
+                if (triStale) { triDragState = null; return; }
                 const pt = Cn.createSVGPoint();
                 pt.x = e.clientX, pt.y = e.clientY;
-                const mapPt = pt.matrixTransform(__sxScreenCtm(In).inverse());
-                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, triDragState.v0, triDragState.v1, triDragState.v2);
-                const shape = Ge(triDragState.id);
+                const mapPt = sxMapClientToLocal(e, triHitNow) || pt.matrixTransform(__sxScreenCtm(In).inverse());
+                const bary = sxPointToBarycentric(mapPt.x, mapPt.y, st.v0, st.v1, st.v2);
+                const shape = Ge(st.id);
                 if (shape && shape.keys && shape.keys.length === 3) {
-                    const intensity = 80;
+                    const intensity = st.intensity;
                     const v0r = Math.round(bary.w0 * intensity);
                     const v1r = Math.round(bary.w1 * intensity);
                     const v2r = Math.round(bary.w2 * intensity);
-                    To(triDragState.id, shape.keys[0], v0r, !1);
-                    To(triDragState.id, shape.keys[1], v1r, !1);
-                    To(triDragState.id, shape.keys[2], v2r, !1);
-                    const puck = In.querySelector(`.map-triangle-puck[data-id="${CSS.escape(triDragState.id)}"]`);
-                    if (puck) {
-                        const px = bary.w0 * triDragState.v0.x + bary.w1 * triDragState.v1.x + bary.w2 * triDragState.v2.x;
-                        const py = bary.w0 * triDragState.v0.y + bary.w1 * triDragState.v1.y + bary.w2 * triDragState.v2.y;
-                        puck.setAttribute("cx", px.toFixed(1));
-                        puck.setAttribute("cy", py.toFixed(1));
-                        puck.setAttribute("fill", zi(Math.max(v0r, v1r, v2r)));
-                    }
+                    To(st.id, shape.keys[0], v0r, !1);
+                    To(st.id, shape.keys[1], v1r, !1);
+                    To(st.id, shape.keys[2], v2r, !1);
+                    sxMapPatchTriLive(st.id, st.v0, st.v1, st.v2, bary, [v0r, v1r, v2r], intensity);
+                    sxMapTriRemember(st.id, intensity, bary.w0, bary.w1, bary.w2);
                 }
                 return;
             }
+            if (sxMapRadarDragMove(e)) return;
             if (eo && eo.pointerId === e.pointerId) {
                 if (eo.longPressed) return;
                 if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10) {
@@ -43637,11 +44141,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }), Cn.addEventListener("pointerup", Kh), Cn.addEventListener("pointercancel", Kh), 
         /* Build 2026-10-18_1305: viewport lockup fix. Kh was only registered on the map SVG, so a pointerup/pointercancel delivered anywhere else never cleaned up the gesture state — the pointer stayed in the active-pointer map (eh) forever, every later press read as a phantom extra finger (all tap branches require exactly one active pointer, and pan is unreachable in the multi-pointer path), and only wheel zoom, which never consults eh, kept working. The exposed path: a touch long-press on the center node opens the modal About dialog (sh via Wi/showModal) while the finger is still down — the touch branch takes no pointer capture — so the release lands on the dialog, not the SVG. Rescue: window-level capture listeners run the same Kh cleanup whenever the map owns the pointer (tracked in eh or any gesture state) but the release lands outside the map; lostpointercapture on the SVG cleans up the same way if capture is lost mid-gesture. In-map releases are untouched (Cn.contains guard) and Kh is idempotent, so normal gestures behave exactly as before. */
         window.addEventListener("pointerup", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), window.addEventListener("pointercancel", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && !Cn.contains(e.target) && Kh(e);
         }, !0), Cn.addEventListener("lostpointercapture", e => {
-            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
+            (eh.has(e.pointerId) || [ Pp, Lp, Tp, Fp, Ip, Mp, eo, yn, triDragState, radarDragState ].some(t => t && t.pointerId === e.pointerId)) && Kh(e);
         }), Cn.addEventListener("touchstart", e => {
             if (mn.staticMap || 1 !== e.touches.length || !e.target.closest || !__sxClosestAction(e.target, "centerHit")) return;
             const n = e.touches[0];
@@ -45992,6 +46496,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 });
             }(Hy), e.byId("profileDetailsTitle").textContent = "About Profile", _g.querySelector(".dialog-head p").textContent = `Profile: ${wt[Hy] || "Profile"}`) : (e.byId("profileDetailsTitle").textContent = Hy ? "Edit profile" : "New profile", 
             _g.querySelector(".dialog-head p").textContent = Hy ? `Profile: ${wt[Hy] || "Profile"}` : "Name the profile and choose the identity language used by the scene builder.");
+            if ("about" === gw && Hy) sxSyncLocalSampleBtn();
         }
         // Profile-to-archetype projection (2026-11-17): match the profile
         // open in this dialog against every archetype in the current skin,
@@ -46096,6 +46601,83 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
         }
 
+        // Local samples (2026-11-18, Jason): "Add current profile as a
+        // local sample" on the profile About view saves the open profile
+        // on this device so it appears in the Samples menu and loads back
+        // later — a chapter roster. The profile is serialized with the
+        // same full-profile serializer the export path uses, then the
+        // skin loader stores it per-skin (its store + menu rebuild) and
+        // the button flips to "Update local sample" while a sample with
+        // this name exists on this skin. Photos are stripped before
+        // saving: they travel as data URLs and would eat the ~5MB
+        // localStorage quota for a roster; the menu shows the name, which
+        // is what makes a sample recognizable. noFlash is set so the
+        // sample loader's validity check (name + count + noFlash) passes
+        // exactly like a built-in sample. A profile with no ratings
+        // cannot be a sample — there is nothing to load back.
+        function sxLocalSampleSkin() { return window.__SX_ACTIVE_SKIN || "sexcapades"; }
+        function sxLocalSampleBtn() { return e.byId("addLocalSampleBtn"); }
+        function sxLocalSampleExists(name) {
+            try {
+                var api = window.__SX_LOCAL_SAMPLES;
+                if (!api || typeof api.list !== "function") return false;
+                var list = api.list(sxLocalSampleSkin()) || {};
+                var want = String(name || "").trim().toLowerCase();
+                return Object.keys(list).some(function (k) { return String((list[k] || {}).name || "").trim().toLowerCase() === want; });
+            } catch (err) { return false; }
+        }
+        function sxSyncLocalSampleBtn() {
+            var btn = sxLocalSampleBtn();
+            if (!btn) return;
+            if (!Hy || !vt[Hy]) { btn.hidden = true; return; }
+            btn.hidden = false;
+            var rated = Object.keys(vt[Hy] || {}).length;
+            btn.disabled = rated < 1;
+            btn.textContent = sxLocalSampleExists(wt[Hy]) ? "Update local sample" : "Add as local sample";
+        }
+        function sxSaveLocalSample() {
+            if (!Hy || !vt[Hy]) return;
+            var name = String(wt[Hy] || "").trim() || "Profile";
+            var payload;
+            try {
+                payload = yx.serialize("profile", { person: Hy });
+            } catch (err) {
+                tS("Could not read this profile to save it as a sample.", { tone: "error", persistent: true });
+                return;
+            }
+            if (!payload || !payload.ratings || !Object.keys(payload.ratings).length) {
+                tS("Rate at least one topic first — a sample needs ratings to load back.", { tone: "error", persistent: true });
+                return;
+            }
+            payload.photos = [];
+            payload.noFlash = true;
+            var entry = { kind: "sample", name: name, count: Object.keys(payload.ratings).length, payload: payload };
+            var api = window.__SX_LOCAL_SAMPLES;
+            if (!api || typeof api.save !== "function") {
+                tS("Local samples are not available right now — reload and try again.", { tone: "error", persistent: true });
+                return;
+            }
+            var saved;
+            try { saved = api.save(sxLocalSampleSkin(), entry); } catch (err) { saved = null; }
+            if (!saved) {
+                tS("This device could not store the sample — browser storage may be full.", { tone: "error", persistent: true });
+                return;
+            }
+            tS(saved.updated ? "Updated the local sample for " + name + "." : "Saved " + name + " as a local sample — find it in the Samples menu.");
+            sxSyncLocalSampleBtn();
+            Ew();
+        }
+        function sxRemoveLocalSample(key) {
+            var api = window.__SX_LOCAL_SAMPLES;
+            if (!api || typeof api.remove !== "function") return;
+            var removedName;
+            try { removedName = api.remove(sxLocalSampleSkin(), key); } catch (err) { removedName = false; }
+            if (removedName) {
+                tS("Removed " + removedName + " from local samples.");
+                sxSyncLocalSampleBtn();
+                Ew();
+            }
+        }
         let fw = !1;
         function yw() {
             var t = e.byId("profileIndependentTip");
@@ -46371,7 +46953,17 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             Sw(), _wA && _wA.focus({
                 preventScroll: !0
             });
-        }), jy.addEventListener("click", e => sxSampleMenuClick(jy, e)), jyA && jyA.addEventListener("click", e => sxSampleMenuClick(jyA, e)), vm && (vm.onclick = () => {
+        }), jy.addEventListener("click", e => sxSampleMenuClick(jy, e)), jyA && jyA.addEventListener("click", e => sxSampleMenuClick(jyA, e)),
+        // Local-sample removal (2026-11-18): the Remove button under a
+        // local sample in the Samples menu. It is not a sample-load
+        // action, so the loader above ignores it; this listener handles
+        // it separately.
+        jy.addEventListener("click", e => {
+            const t = e.target && e.target.closest ? e.target.closest("[data-remove-local-sample]") : null;
+            if (!t) return;
+            e.stopPropagation();
+            sxRemoveLocalSample(t.getAttribute("data-remove-local-sample"));
+        }), vm && (vm.onclick = () => {
             const t = wf, n = e.byId("rememberProfileCheckbox2x"), i = window.Sexcapades2xRememberProfiles;
             t && n && n.checked && i && i.saveNow && i.saveNow() ? (wf = null, Ui(ym), nk(t)) : tS("Could not save this profile on this device. Keep it open and try again.", {
                 tone: "error",
@@ -46395,7 +46987,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             e.preventDefault(), "about" === gw ? Ui(_g) : cw();
         }), e.byId("profileDialogEdit").onclick = () => {
             Hy && (mw("edit"), requestAnimationFrame(() => Hg.focus()));
-        }, e.byId("profileArchetypeBtn") && e.byId("profileArchetypeBtn").addEventListener("click", sxArchetypeProjection), e.byId("keepEditingProfileDetails").onclick = lw, e.byId("discardProfileDetails").onclick = sw, 
+        }, e.byId("addLocalSampleBtn") && e.byId("addLocalSampleBtn").addEventListener("click", sxSaveLocalSample), e.byId("profileArchetypeBtn") && e.byId("profileArchetypeBtn").addEventListener("click", sxArchetypeProjection), e.byId("keepEditingProfileDetails").onclick = lw, e.byId("discardProfileDetails").onclick = sw, 
         wm.addEventListener("cancel", e => {
             e.preventDefault(), lw();
         }), e.byId("saveProfileDetails").onclick = () => vw(), e.byId("saveActiveProfile").onclick = () => {
