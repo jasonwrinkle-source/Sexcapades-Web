@@ -155,9 +155,52 @@
            any of its call sites. A finding that names this path must be
            DISCLOSED to the owner, never acted on. Restored 2026-11-01
            after a builder disabled it without authorization. */
+        /* Per-skin analytics (2026-11-18): every analytics event carries
+           the current skin id so events can be told apart per skin. The
+           skin is resolved at send time from the app's own skin identity,
+           in priority order: the live skin the skin loader tracks
+           (window.__SX_ACTIVE_SKIN — set once the boot skin loads and on
+           every in-app skin switch), the ?skin= gate round-trip param /
+           the hostname map the skin loader exposes, and finally the same
+           hostname map inline as a fallback — the gate-passed event fires
+           at bundle load, before the skin loader script runs, so it
+           cannot wait for the loader. Unknown hosts default to
+           "sexcapades", matching the loader. Never throws; a failure
+           anywhere returns the default instead of losing the event. */
+        function sxAnalyticsSkin() {
+            try {
+                var s = window.__SX_ACTIVE_SKIN;
+                if (s) return String(s);
+            } catch (e) { /* fall through to hostname */ }
+            try {
+                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                    var u = window.__SX_SKIN_FROM_URL();
+                    if (u) return u;
+                }
+                if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+                    return window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
+                }
+            } catch (e) { /* fall through to inline map */ }
+            try {
+                var q = new URLSearchParams(location.search || "").get("skin");
+                var known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades"];
+                if (q && known.indexOf(q) !== -1) return q;
+                var host = (location.hostname || "").toLowerCase();
+                if (host === "sexcapades.io" || host === "www.sexcapades.io" || host === "flex.capades.io" || host === "capades.io") return "sexcapades";
+                var map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+                var prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
+                if (prefix && map[prefix]) return map[prefix];
+            } catch (e) { /* default below */ }
+            return "sexcapades";
+        }
         function sxSendAnalytics(e, t) {
             /* Counted hosts: sexcapades.io, www, capades.io, *.capades.io. Localhost/staging stay blocked. */
             if (!/^(www\.)?sexcapades\.io$|^([^.]+\.)*capades\.io$/.test(location.hostname)) return;
+            /* Per-skin analytics: stamp the current skin on every event
+               payload here, at the one shared send point, so gate_passed,
+               session_stats, quickstart_* and scan_started all carry it
+               without touching their call sites. */
+            try { if (e && typeof e === "object" && !e.skin) e.skin = sxAnalyticsSkin(); } catch (err) { __sxErrLog("analytics-skin", err); }
             try {
                 if ("sent" === sessionStorage.getItem(t)) return;
             } catch (e) { __sxErrLog("storage", e); }
