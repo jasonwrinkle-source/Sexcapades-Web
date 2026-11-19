@@ -46,6 +46,108 @@
      exists, even before the first skin JSON arrives. */
   if (!window.SEXCAPADES_SAMPLE_PROFILES || typeof window.SEXCAPADES_SAMPLE_PROFILES !== "object") window.SEXCAPADES_SAMPLE_PROFILES = {};
 
+  /* ---- Local samples (2026-11-18, Jason) ----
+     "Add current profile as a local sample" saves the loaded profile on
+     this device so it appears in the Samples menu and loads back later —
+     a chapter roster: a local Democratic chapter puts its main members'
+     Polis profiles in as samples to share amongst the chapter. The sync
+     card (QR) stays the transfer piece between devices; this store is
+     local-only and never leaves the device. Storage is one localStorage
+     key, "sexcapades_local_samples": { v: 1, skins: { <skinId>:
+     { <key>: <sample entry> } } } — per-skin, so a Polis sample never
+     shows on Sexcapades or any other skin. An entry is shaped exactly
+     like a built-in skin-JSON sample (kind "sample", name, count,
+     payload) plus local: true, so the existing menu rebuild and the
+     existing sample loader in 06d accept it unchanged. Photos are NOT
+     carried (the bundle strips them before saving): profile photos are
+     data URLs that would eat the ~5MB localStorage quota for a roster.
+     Saving a profile whose name already has a local sample on this skin
+     UPDATES that entry in place (same key, fresh ratings) instead of
+     piling up duplicates. Keys are "local-<time36>-<rand>" — never a
+     profile id, so two profiles with the same name still cannot clash
+     with a built-in sample key. */
+  var LOCAL_SAMPLES_KEY = "sexcapades_local_samples";
+  function readLocalSamplesStore() {
+    try {
+      var raw = localStorage.getItem(LOCAL_SAMPLES_KEY);
+      if (!raw) return { v: 1, skins: {} };
+      var parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object" || !parsed.skins || typeof parsed.skins !== "object") return { v: 1, skins: {} };
+      return parsed;
+    } catch (e) { return { v: 1, skins: {} }; }
+  }
+  function writeLocalSamplesStore(store) {
+    try {
+      localStorage.setItem(LOCAL_SAMPLES_KEY, JSON.stringify(store));
+      return true;
+    } catch (e) { return false; }
+  }
+  function localSamplesFor(skinId) {
+    var store = readLocalSamplesStore();
+    var per = store.skins[String(skinId || "sexcapades")] || {};
+    var out = {};
+    Object.keys(per).forEach(function (k) {
+      var entry = per[k];
+      if (entry && entry.kind === "sample" && entry.payload && entry.payload.ratings) out[k] = entry;
+    });
+    return out;
+  }
+  function currentSkinId() {
+    return window.__SX_ACTIVE_SKIN || activeSkin || "sexcapades";
+  }
+  function mergeLocalSamplesInto(target) {
+    var locals = localSamplesFor(currentSkinId());
+    Object.keys(locals).forEach(function (k) { target[k] = locals[k]; });
+    return locals;
+  }
+  function refreshSampleMenuWithLocals() {
+    var target = window.SEXCAPADES_SAMPLE_PROFILES;
+    if (!target || typeof target !== "object") return;
+    var cacheEntry = cache[currentSkinId()];
+    var skinSamples = (cacheEntry && cacheEntry.samples) || {};
+    Object.keys(target).forEach(function (k) { delete target[k]; });
+    if (skinSamples && typeof skinSamples === "object") {
+      Object.keys(skinSamples).forEach(function (k) { target[k] = skinSamples[k]; });
+    }
+    mergeLocalSamplesInto(target);
+    rebuildSampleMenu(target);
+  }
+  window.__SX_LOCAL_SAMPLES = {
+    list: function (skinId) { return localSamplesFor(skinId || currentSkinId()); },
+    save: function (skinId, entry) {
+      if (!entry || !entry.name || !entry.payload || !entry.payload.ratings) return null;
+      var skin = String(skinId || currentSkinId());
+      var store = readLocalSamplesStore();
+      if (!store.skins[skin] || typeof store.skins[skin] !== "object") store.skins[skin] = {};
+      var per = store.skins[skin];
+      var nameKey = String(entry.name).trim().toLowerCase();
+      var existingKey = null;
+      Object.keys(per).forEach(function (k) {
+        if (per[k] && String(per[k].name || "").trim().toLowerCase() === nameKey) existingKey = k;
+      });
+      var key = existingKey || ("local-" + Date.now().toString(36) + "-" + Math.floor(Math.random() * 1296).toString(36));
+      var updated = Boolean(existingKey);
+      var saved = JSON.parse(JSON.stringify(entry));
+      saved.local = true;
+      per[key] = saved;
+      if (!writeLocalSamplesStore(store)) return null;
+      if (skin === currentSkinId()) refreshSampleMenuWithLocals();
+      return { key: key, updated: updated };
+    },
+    remove: function (skinId, key) {
+      var skin = String(skinId || currentSkinId());
+      var store = readLocalSamplesStore();
+      var per = store.skins[skin];
+      if (!per || !per[key]) return false;
+      var name = per[key].name || key;
+      delete per[key];
+      if (!writeLocalSamplesStore(store)) return false;
+      if (skin === currentSkinId()) refreshSampleMenuWithLocals();
+      return name;
+    },
+    refresh: refreshSampleMenuWithLocals
+  };
+
   /* Paint generation (boot-race fix, 2026-11-16): the taxonomy array is
      swapped in place, so a chunked paint already in flight keeps the
      old branch geometry while reading the new taxonomy — and throws on
@@ -435,6 +537,34 @@
        live tree in place, so restoring the snapshot object itself would
        hand back already-mutated nodes. */
     JSON.parse(JSON.stringify(original)).forEach(function (c) { cats.push(c); });
+    /* The JSON round-trip above strips the non-enumerable toString the
+       boot overlay attached to every topic object (and that mergedTopic
+       attaches for vanilla skins): a bare topic object stringifies as
+       "[object Object]". The outline, map, and match surfaces all
+       coerce topic objects to strings (row labels, path lines, note
+       captions, aria-labels), so without it every Hot List row reads
+       "[object Object]" after a skin round-trip (1,143 occurrences:
+       381 rows x label + path line + note caption, plus thousands
+       more in aria-labels/titles). Re-attach the same name coercion
+       to every topic object in the restored tree — flat list,
+       subcategory lists, and parent lists (the JSON clone duplicates
+       shared references, so walk all three; the Set skips repeats). */
+    var sxRestoredTopics = new Set();
+    function sxReattachTopicToString(list) {
+      (list || []).forEach(function (t) {
+        if (!t || typeof t !== "object" || sxRestoredTopics.has(t)) return;
+        sxRestoredTopics.add(t);
+        Object.defineProperty(t, "toString", {
+          value: function () { return this.name; },
+          enumerable: false
+        });
+      });
+    }
+    cats.forEach(function (c) {
+      sxReattachTopicToString(c.topics);
+      sxReattachTopicToString(c.parentTopics);
+      (c.subcategories || []).forEach(function (sub) { sxReattachTopicToString(sub.topics); });
+    });
     window.__SX_SKIN_WIDGETS = {};
     window.__SX_SKIN_DESCRIPTIONS = {};
     window.__SX_SKIN_TOPIC_COUNT = SEXCAPADES_TOPIC_COUNT;
@@ -511,14 +641,18 @@
        first): the samples swap rides the same generation, so no second
        mid-paint swap can reintroduce the race the boot-race fix closed.
        A skin with no `samples` section leaves the menu empty — honest,
-       not stale. */
+       not stale. Local samples (2026-11-18) merge in after the skin's
+       own: only the ACTIVE skin's locals, so a Polis sample never shows
+       on another skin. The rebuild reads the merged set, so locals show
+       alongside the built-ins. */
     var target = window.SEXCAPADES_SAMPLE_PROFILES;
     if (!target || typeof target !== "object") { window.SEXCAPADES_SAMPLE_PROFILES = {}; target = window.SEXCAPADES_SAMPLE_PROFILES; }
     Object.keys(target).forEach(function (k) { delete target[k]; });
     if (samples && typeof samples === "object") {
       Object.keys(samples).forEach(function (k) { target[k] = samples[k]; });
     }
-    rebuildSampleMenu(samples);
+    mergeLocalSamplesInto(target);
+    rebuildSampleMenu(target);
   }
 
   var scribePanelOriginal = null;
@@ -867,6 +1001,21 @@
         small.textContent = count + " rated topics";
         btn.appendChild(small);
         item.appendChild(btn);
+        /* Local sample (2026-11-18): a Remove button under the load
+           button, so a chapter roster doesn't accumulate junk. It sits
+           OUTSIDE the load <button> (a button inside a button is
+           invalid HTML) and carries its own data key; the click handler
+           lives in 06d next to the sample loader, which also owns the
+           toast. */
+        if (entry.local) {
+          var removeBtn = document.createElement("button");
+          removeBtn.className = "sample-local-remove";
+          removeBtn.type = "button";
+          removeBtn.setAttribute("data-remove-local-sample", key);
+          removeBtn.setAttribute("aria-label", "Remove " + (entry.name || key) + " from local samples");
+          removeBtn.textContent = "Remove from samples";
+          item.appendChild(removeBtn);
+        }
         /* Archetype about + learn-more links (2026-11-17): the skin JSON
            carries `about` (1-3 sentences) and `links` per archetype.
            They render UNDER the button, not inside it — a link inside a

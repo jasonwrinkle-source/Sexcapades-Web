@@ -2112,6 +2112,7 @@
                 });
             }(Hy), e.byId("profileDetailsTitle").textContent = "About Profile", _g.querySelector(".dialog-head p").textContent = `Profile: ${wt[Hy] || "Profile"}`) : (e.byId("profileDetailsTitle").textContent = Hy ? "Edit profile" : "New profile", 
             _g.querySelector(".dialog-head p").textContent = Hy ? `Profile: ${wt[Hy] || "Profile"}` : "Name the profile and choose the identity language used by the scene builder.");
+            if ("about" === gw && Hy) sxSyncLocalSampleBtn();
         }
         // Profile-to-archetype projection (2026-11-17): match the profile
         // open in this dialog against every archetype in the current skin,
@@ -2216,6 +2217,83 @@
             resultsEl.innerHTML = rows + `<p class="profile-archetype-note">Compared against ${scored.length} archetype${1 === scored.length ? "" : "s"} · your closest archetype is ${Hi(best.name)} at ${best.score}% on ${best.shared} shared topic${1 === best.shared ? "" : "s"} · you rated ${userRated} topic${1 === userRated ? "" : "s"}.</p>`;
         }
 
+        // Local samples (2026-11-18, Jason): "Add current profile as a
+        // local sample" on the profile About view saves the open profile
+        // on this device so it appears in the Samples menu and loads back
+        // later — a chapter roster. The profile is serialized with the
+        // same full-profile serializer the export path uses, then the
+        // skin loader stores it per-skin (its store + menu rebuild) and
+        // the button flips to "Update local sample" while a sample with
+        // this name exists on this skin. Photos are stripped before
+        // saving: they travel as data URLs and would eat the ~5MB
+        // localStorage quota for a roster; the menu shows the name, which
+        // is what makes a sample recognizable. noFlash is set so the
+        // sample loader's validity check (name + count + noFlash) passes
+        // exactly like a built-in sample. A profile with no ratings
+        // cannot be a sample — there is nothing to load back.
+        function sxLocalSampleSkin() { return window.__SX_ACTIVE_SKIN || "sexcapades"; }
+        function sxLocalSampleBtn() { return e.byId("addLocalSampleBtn"); }
+        function sxLocalSampleExists(name) {
+            try {
+                var api = window.__SX_LOCAL_SAMPLES;
+                if (!api || typeof api.list !== "function") return false;
+                var list = api.list(sxLocalSampleSkin()) || {};
+                var want = String(name || "").trim().toLowerCase();
+                return Object.keys(list).some(function (k) { return String((list[k] || {}).name || "").trim().toLowerCase() === want; });
+            } catch (err) { return false; }
+        }
+        function sxSyncLocalSampleBtn() {
+            var btn = sxLocalSampleBtn();
+            if (!btn) return;
+            if (!Hy || !vt[Hy]) { btn.hidden = true; return; }
+            btn.hidden = false;
+            var rated = Object.keys(vt[Hy] || {}).length;
+            btn.disabled = rated < 1;
+            btn.textContent = sxLocalSampleExists(wt[Hy]) ? "Update local sample" : "Add as local sample";
+        }
+        function sxSaveLocalSample() {
+            if (!Hy || !vt[Hy]) return;
+            var name = String(wt[Hy] || "").trim() || "Profile";
+            var payload;
+            try {
+                payload = yx.serialize("profile", { person: Hy });
+            } catch (err) {
+                tS("Could not read this profile to save it as a sample.", { tone: "error", persistent: true });
+                return;
+            }
+            if (!payload || !payload.ratings || !Object.keys(payload.ratings).length) {
+                tS("Rate at least one topic first — a sample needs ratings to load back.", { tone: "error", persistent: true });
+                return;
+            }
+            payload.photos = [];
+            payload.noFlash = true;
+            var entry = { kind: "sample", name: name, count: Object.keys(payload.ratings).length, payload: payload };
+            var api = window.__SX_LOCAL_SAMPLES;
+            if (!api || typeof api.save !== "function") {
+                tS("Local samples are not available right now — reload and try again.", { tone: "error", persistent: true });
+                return;
+            }
+            var saved;
+            try { saved = api.save(sxLocalSampleSkin(), entry); } catch (err) { saved = null; }
+            if (!saved) {
+                tS("This device could not store the sample — browser storage may be full.", { tone: "error", persistent: true });
+                return;
+            }
+            tS(saved.updated ? "Updated the local sample for " + name + "." : "Saved " + name + " as a local sample — find it in the Samples menu.");
+            sxSyncLocalSampleBtn();
+            Ew();
+        }
+        function sxRemoveLocalSample(key) {
+            var api = window.__SX_LOCAL_SAMPLES;
+            if (!api || typeof api.remove !== "function") return;
+            var removedName;
+            try { removedName = api.remove(sxLocalSampleSkin(), key); } catch (err) { removedName = false; }
+            if (removedName) {
+                tS("Removed " + removedName + " from local samples.");
+                sxSyncLocalSampleBtn();
+                Ew();
+            }
+        }
         let fw = !1;
         function yw() {
             var t = e.byId("profileIndependentTip");
@@ -2491,7 +2569,17 @@
             Sw(), _wA && _wA.focus({
                 preventScroll: !0
             });
-        }), jy.addEventListener("click", e => sxSampleMenuClick(jy, e)), jyA && jyA.addEventListener("click", e => sxSampleMenuClick(jyA, e)), vm && (vm.onclick = () => {
+        }), jy.addEventListener("click", e => sxSampleMenuClick(jy, e)), jyA && jyA.addEventListener("click", e => sxSampleMenuClick(jyA, e)),
+        // Local-sample removal (2026-11-18): the Remove button under a
+        // local sample in the Samples menu. It is not a sample-load
+        // action, so the loader above ignores it; this listener handles
+        // it separately.
+        jy.addEventListener("click", e => {
+            const t = e.target && e.target.closest ? e.target.closest("[data-remove-local-sample]") : null;
+            if (!t) return;
+            e.stopPropagation();
+            sxRemoveLocalSample(t.getAttribute("data-remove-local-sample"));
+        }), vm && (vm.onclick = () => {
             const t = wf, n = e.byId("rememberProfileCheckbox2x"), i = window.Sexcapades2xRememberProfiles;
             t && n && n.checked && i && i.saveNow && i.saveNow() ? (wf = null, Ui(ym), nk(t)) : tS("Could not save this profile on this device. Keep it open and try again.", {
                 tone: "error",
@@ -2515,7 +2603,7 @@
             e.preventDefault(), "about" === gw ? Ui(_g) : cw();
         }), e.byId("profileDialogEdit").onclick = () => {
             Hy && (mw("edit"), requestAnimationFrame(() => Hg.focus()));
-        }, e.byId("profileArchetypeBtn") && e.byId("profileArchetypeBtn").addEventListener("click", sxArchetypeProjection), e.byId("keepEditingProfileDetails").onclick = lw, e.byId("discardProfileDetails").onclick = sw, 
+        }, e.byId("addLocalSampleBtn") && e.byId("addLocalSampleBtn").addEventListener("click", sxSaveLocalSample), e.byId("profileArchetypeBtn") && e.byId("profileArchetypeBtn").addEventListener("click", sxArchetypeProjection), e.byId("keepEditingProfileDetails").onclick = lw, e.byId("discardProfileDetails").onclick = sw, 
         wm.addEventListener("cancel", e => {
             e.preventDefault(), lw();
         }), e.byId("saveProfileDetails").onclick = () => vw(), e.byId("saveActiveProfile").onclick = () => {
