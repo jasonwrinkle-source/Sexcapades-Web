@@ -39,7 +39,9 @@ def bump(build_num=None, channel="release", files=None):
             os.path.join(root, "app", "sexcapades-5.0.html"),
             os.path.join(root, "site-tree", "public_html", "hosted", "app.html"),
             os.path.join(root, "app", "guide.html"),
-            os.path.join(root, "site-tree", "public_html", "hosted", "guide.html")
+            os.path.join(root, "site-tree", "public_html", "hosted", "guide.html"),
+            os.path.join(root, "app", "gate.html"),
+            os.path.join(root, "site-tree", "public_html", "hosted", "gate.html")
         ]
 
     for fpath in files:
@@ -63,6 +65,20 @@ def bump(build_num=None, channel="release", files=None):
         # this <p>); the app patterns above no-op on the guide files.
         content = re.sub(r'<p class="about-version">Version [0-9]+\.[0-9]+ · (?:QA )?Build [^<]*</p>',
                          f'<p class="about-version">Version {VERSION} · {label} {build_num}</p>', content, count=1)
+        # Gate About stamp (both gate copies): the gate's version lines
+        # are <p class="app-about-version">, not the app's <span> and not
+        # the guide's <p class="about-version">. Version and build-tag
+        # lines share the class, so they need separate patterns — the
+        # version regex must not eat the tag line (and vice versa). The
+        # gate was never stamped before (frozen at 2026-11-13_0528);
+        # adding it to the default list covers the deploy-app and
+        # deploy-all packagers, which invoke this script with its
+        # default file list. The QA script passes an explicit list of
+        # only app.html, so the gate is not in the QA channel.
+        content = re.sub(r'<p class="app-about-version">Version [0-9]+\.[0-9]+ · (?:QA )?Build [^<]*</p>',
+                         f'<p class="app-about-version">Version {VERSION} · {label} {build_num}</p>', content, count=1)
+        content = re.sub(r'<p class="app-about-version">(?:release|qa)-[^<]*</p>',
+                         f'<p class="app-about-version">{build_tag}</p>', content, count=1)
 
         with open(fpath, "w", encoding="utf-8") as fh:
             fh.write(content)
