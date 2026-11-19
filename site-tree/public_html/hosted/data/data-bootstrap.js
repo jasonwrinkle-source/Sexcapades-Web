@@ -38834,7 +38834,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     try {
                         t = l.inverse();
                     } catch (e) { __sxErrLog("matrix-inverse", e); }
-                    t && In.querySelectorAll("path,text,circle,ellipse,rect,line,polyline,polygon,image,use").forEach(e => {
+                    t && In.querySelectorAll("path,text,circle,ellipse,rect,line,polyline,polygon,use").forEach(e => {
                         if (e.matches(i) || __sxClosestAction(e, "hiddenState") || __sxClosestAction(e, i)) return;
                         const n = getComputedStyle(e), l = Number(n.opacity);
                         if ("none" !== n.display && "hidden" !== n.visibility && 0 !== l && ("none" !== n.fill && "rgba(0, 0, 0, 0)" !== n.fill && "transparent" !== n.fill || "none" !== n.stroke && "rgba(0, 0, 0, 0)" !== n.stroke && "transparent" !== n.stroke)) try {
@@ -40218,7 +40218,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 if (c = p.canvas, !h) throw new Error("This browser could not allocate the export canvas.");
                 !function(e, t) {
                     const n = t.naturalWidth || 3600, i = t.naturalHeight || 3600;
-                    e.drawImage(t, 0, 0, n, i, -3060, -3060, 9720, 9720);
+                    e.drawImage(t, 0, 0, n, i, 0, 0, 3600, 3600);
                 }(h, l);
                 const m = t.background || "black";
                 !function(e, t, n, i = "black", a = !1) {
@@ -40639,7 +40639,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (!o || "svg" !== o.tagName.toLowerCase()) throw new Error("Invalid vector data for PDF.");
             var s = (o.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number), l = parseFloat(o.getAttribute("width")) || (4 === s.length ? s[2] : 2880), c = parseFloat(o.getAttribute("height")) || (4 === s.length ? s[3] : 2880);
             l > 0 && c > 0 || (l = 2880, c = 2880);
-            var d = 4 === s.length ? s[0] : 0, u = 4 === s.length ? s[1] : 0, p = 4 === s.length ? s[2] : l, h = 4 === s.length ? s[3] : c, g = p / 2.7, m = h / 2.7, f = d + (p - g) / 2, y = u + (h - m) / 2;
+            var d = 4 === s.length ? s[0] : 0, u = 4 === s.length ? s[1] : 0, p = 4 === s.length ? s[2] : l, h = 4 === s.length ? s[3] : c, g = p, m = h, f = d + (p - g) / 2, y = u + (h - m) / 2;
             o.setAttribute("viewBox", f + " " + y + " " + g + " " + m);
             var b = 210, v = new r({
                 unit: "mm",
