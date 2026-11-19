@@ -1294,7 +1294,7 @@
                     try {
                         t = l.inverse();
                     } catch (e) { __sxErrLog("matrix-inverse", e); }
-                    t && In.querySelectorAll("path,text,circle,ellipse,rect,line,polyline,polygon,image,use").forEach(e => {
+                    t && In.querySelectorAll("path,text,circle,ellipse,rect,line,polyline,polygon,use").forEach(e => {
                         if (e.matches(i) || __sxClosestAction(e, "hiddenState") || __sxClosestAction(e, i)) return;
                         const n = getComputedStyle(e), l = Number(n.opacity);
                         if ("none" !== n.display && "hidden" !== n.visibility && 0 !== l && ("none" !== n.fill && "rgba(0, 0, 0, 0)" !== n.fill && "transparent" !== n.fill || "none" !== n.stroke && "rgba(0, 0, 0, 0)" !== n.stroke && "transparent" !== n.stroke)) try {

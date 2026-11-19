@@ -462,7 +462,7 @@
                 if (c = p.canvas, !h) throw new Error("This browser could not allocate the export canvas.");
                 !function(e, t) {
                     const n = t.naturalWidth || 3600, i = t.naturalHeight || 3600;
-                    e.drawImage(t, 0, 0, n, i, -3060, -3060, 9720, 9720);
+                    e.drawImage(t, 0, 0, n, i, 0, 0, 3600, 3600);
                 }(h, l);
                 const m = t.background || "black";
                 !function(e, t, n, i = "black", a = !1) {

@@ -5,7 +5,7 @@
             if (!o || "svg" !== o.tagName.toLowerCase()) throw new Error("Invalid vector data for PDF.");
             var s = (o.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number), l = parseFloat(o.getAttribute("width")) || (4 === s.length ? s[2] : 2880), c = parseFloat(o.getAttribute("height")) || (4 === s.length ? s[3] : 2880);
             l > 0 && c > 0 || (l = 2880, c = 2880);
-            var d = 4 === s.length ? s[0] : 0, u = 4 === s.length ? s[1] : 0, p = 4 === s.length ? s[2] : l, h = 4 === s.length ? s[3] : c, g = p / 2.7, m = h / 2.7, f = d + (p - g) / 2, y = u + (h - m) / 2;
+            var d = 4 === s.length ? s[0] : 0, u = 4 === s.length ? s[1] : 0, p = 4 === s.length ? s[2] : l, h = 4 === s.length ? s[3] : c, g = p, m = h, f = d + (p - g) / 2, y = u + (h - m) / 2;
             o.setAttribute("viewBox", f + " " + y + " " + g + " " + m);
             var b = 210, v = new r({
                 unit: "mm",
