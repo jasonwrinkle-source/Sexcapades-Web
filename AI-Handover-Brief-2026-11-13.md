@@ -97,6 +97,12 @@ without his daylight say-so and his own cold-open acceptance. Address him as
 Jason ruled on 2026-11-19 that this job goes FIRST, ahead of everything
 in §3.
 
+**Local build, 2026-11-19.** Steps 1–3 are in the working tree: the +1
+is stored beside the poles, seeded from the old derivation, and the
+intensity slider writes only that number. Brightness ramps to full at
+±100, dims at zero, and negative intensity paints complementary
+colors. Scoring is not changed. The proposal below is waiting.
+
 ### The model (Jason's ruling, 2026-11-19)
 
 Intensity is an **independent (n+1)th number**. For an n-pole topic, the n
@@ -182,6 +188,43 @@ A short written proposal, in plain language, covering all five points:
    in all four headline aggregates), and in group casts of three or more
    their factor entries come out 0 in both registers. The proposal should
    say what changes, if anything.
+
+### Proposed answers (2026-11-19) — not built, waiting on Jason
+
+The storage half is in the local build: the +1 is its own number, seeded
+from today's derivation so existing sliders do not jump, and the slider
+no longer rewrites pole numbers. Scoring still reads the poles exactly
+as it did. These five answers are the proposal, not a change.
+
+1. **Weight, don't gate.** Multiply a topic's contribution by the
+   smaller of the two people's |intensity| / 100. A don't-care (0) on
+   either side drops that topic out of the match. A gate (ignore the
+   topic below some cutoff) throws away a real gradient; a scale keeps
+   it.
+2. **Straight is a similar role. Cross is a complementary role.**
+   Jason, 2026-11-19: for a role widget such as Bull / Hotwife /
+   Cuckold, a straight match means both people lean the same role, and
+   a cross-match means each is leaning a role that complements the
+   other's. Two bulls score high straight and low cross. A bull and a
+   hotwife score high cross and low straight. The old collapsed 0.75
+   on both registers goes away. The two relevances (each person's
+   intensity on the topic) still weight how much that agreement
+   counts. The rest of this proposal he called a good start. Not built.
+3. **Aversion lives only on the +1.** Pole numbers stay the blend,
+   non-negative shares. One sign cannot mean both "against the topic"
+   and "the receiving role." Give/receive stays on the two-ended
+   slider topics. Belief and vocational maps do not grow a
+   give/receive reading on their poles.
+4. **Depth Factor stops being sign-blind.** Same-sign intensities
+   reinforce; opposite signs cancel. Both +80 → factor 0.8, shared
+   enthusiasm. Both −80 → factor 0.8, shared aversion, marked as
+   aversion so it does not read as enthusiasm to do the thing. +80
+   against −80 → factor 0.
+5. **Pole topics join the match and curious lists**, weighted like
+   any other topic by the blend agreement and the smaller relevance.
+   In a group of three or more their factor stops coming out 0 and
+   uses the same formula as the pair. Scribe's pair-detail lists and
+   the four headline aggregates stay as they are.
 
 ---
 
@@ -293,65 +336,68 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
 - **Jason's eye on "Service & ritual":** the rendered-gap item was
   closed by probe, but no record shows his eye confirming that specific
   label.
-- **Localhost QA confirmation + the 2228 stamp mystery:** a build stamp
-  once read 2228 while Chicago time was 1629 — cause never run to
-  ground; Jason's confirmation that the tarball-copy + hard-reload fixed
-  his shortcuts view is not recorded.
-- **KinkTest recheck round 4** (different browser, not in-app): fleet
-  run 12's record does not confirm it was part of the run.
-- **Fresh-JS re-tests** of the pagination-reset and pair-Glance-with-
-  overlay items (run-11 FAILs, possibly stale-cache artifacts): no
-  record either ran.
-- **The 7 ambiguous sliders:** pending Jason's conversation with Shel.
-  Do not guess them. No record the conversation happened.
-- **R9f ruling-sheet adjudication:** one line in the old backlog; no
-  record of what it resolved to.
-- **Triangle palette as specced:** RGB corners with black at the center;
-  the dot is the weighted blend of the three pole colors, deepening as
-  the numbers spread. The widget is built and live; the palette is not
-  verified as implemented in that form.
-- **Version-manifest one-liner** (`unrated-map-template.js?v=`): no
-  record it was done; a `version-manifest.json` 404 was observed in
-  local server logs as recently as 2026-11-19.
+- **2228 stamp — settled 2026-11-19.** The stamp was UTC against a
+  Chicago clock (16:29 Chicago + 6h = 22:29). `bump-build.py` now
+  stamps America/Chicago.
+- **Shortcuts view — still unnamed.** The record never names a screen.
+  Jason (2026-11-19) asked what it is. Nearest older notes: the clean
+  URLs `/quickstart`, `/compare`, `/privacy` were dead until
+  `.htaccess` lived in `public_html`; the guide also mentions Notes,
+  About Me, and contact shortcuts, and four optional test shortcuts.
+  Do not invent a screen. Leave this until he names one, or drop it.
+- **KinkTest recheck round 4 — settled 2026-11-19.** Jason: forget it.
+- **Fresh-JS re-tests — ran 2026-11-19 on local build
+  2026-11-19_1624, awaiting Jason's confirm.** Pagination-reset: Sex
+  acts read "3 of 27 shown", Next pass advanced it to "6 of 27 shown",
+  a trip to the map and back returned "3 of 27 shown". Pair glance
+  with overlay: Adam Peasant + Eve Vale on `#app/compare`; the three
+  center rings and the glance tooltip agreed — Hot topics together
+  57% / 67, Curiosity? 20% / 24, Not topics 23% / 27.
+- **The 7 ambiguous sliders:** still pending Shel. Do not guess.
+  Current labels, give first: Nyotaimori "lie as platter / eat from
+  body"; Hotwife is not a live topic (leftover "be the hotwife /
+  watch"; live row is the triad Bull / Hotwife / Cuckold, t0281, no
+  slider); Growth / shrinking has no slider (pole hint big / small,
+  both aliases "size contrast"); Size contrast has no slider (pole
+  hint plays big / plays small); Surrogacy has no slider (catalog
+  already says the carrier gives and the intended parent receives;
+  pole hint surrogate / parent); Siblings "be the sister / be the
+  brother"; Superheroes "be the hero / be the villain".
+- **R9f — still open, checked 2026-11-19.** Not applied. t0051 is
+  still "Pain"; t0252 is still "Sadism". The old ruling was rename
+  Pain to Sadomasochism, retire t0252, Sadism → give / Masochism →
+  receive, Emotional Sadism untouched.
+- **Triangle palette — still open, checked 2026-11-19.** Not the
+  spec. `sxDrawTriangleWidget` uses barycentric corners red / green /
+  blue; the center is the mix, not black, and it does not deepen as
+  the pole numbers spread.
+- **Version-manifest — settled 2026-11-19.** Present on a packaged
+  tree at `/hosted/app-assets/version-manifest.json`. The local 404
+  was the file missing from git; the package writes it. Live
+  sex.capades.io serves build 2026-11-19_1524 there.
 - **z90 census TRUE FIT, re-baseline 12.643×:** the constant's currency
   is unverifiable from the record.
-- **Kinkbits message:** the signed YoBiche→Shel message urging an early
-  tidy pass on Shel's Kinkbits artifact was drafted 2026-11-13; whether
-  Jason sent it is unknown.
-- **GibberWear tester count:** last recorded 3 of 12 against the ≥12
-  testers × 14 days Play Store requirement; no newer count.
-- **Importer misspelling / Forniphilia specifics:** "drop misspelling
-  mapping; Forniphilia → t0405" — an importer fix landed 2026-11-05,
-  but no record ties it to these two specifics.
-- **Paddle full live flip test:** the §6H paddle code shipped
-  2026-11-13, but the flip test itself — the crossing number moves on
-  toggle, no stale cached value on second read, placard Give/Receive
-  ratings persist across reload — has no run record, and no later
-  record restates it as owed: state unconfirmed. The specced end rule:
-  ON — paddle end = `h + iconR + 6 + tagW/2`, tag tail only on the
-  slider end; OFF — `h + iconR`; NO `sEnd` floor (`sEnd` and `Dseat`
-  deleted entirely). Caution: `capEnd` drives the crossing NUMBER and
-  interim capsule paint, not a drawn paddle — verify the number.
-- **Chrome fleet re-run with the 120s timeout:** fleet run 12
-  (2026-11-15) ran under the post-timeout-fix config, covering much of
-  this item's purpose, but the item as specced — Jason re-runs Chrome
-  and the results are committed/pushed — is not recorded as done, and
-  no later record restates it as owed: state unconfirmed.
-- **Full 200-test Playwright run:** no record it ever ran, and no
-  record restating it as owed; the "200" figure no longer maps cleanly
-  onto the current suite: state unconfirmed.
-- **Scribe — API-key architecture question:** the architecture half
-  was answered in substance 2026-11-06 — the key can't sit in shipped
-  JS; a server-side proxy / Firebase AI Logic is the route — but it
-  was re-asked 2026-11-13 and recorded still open, and the
-  paid-subscriber-key question (can a paid key take full advantage —
-  same for Grok?) was never answered. Nothing on record since in
-  either direction: state unconfirmed.
-- **Patreon QA-diary revision:** the revised draft was written
-  2026-11-15
-  (`~/workspace/your_files/patreon-post-draft-qa-diary-2026-11-15-taxopolemics-revised.md`)
-  and awaits Jason's "post it or tweak it?"; the record is silent on
-  whether it was ever posted: state unconfirmed.
+- **Kinkbits message — settled 2026-11-19.** Jason sent it.
+- **GibberWear tester count — still open.** Jason 2026-11-19: still
+  at 3 of 12, and the 14-day bar is not met.
+- **Importer misspelling / Forniphilia — settled 2026-11-19.**
+  Forniphilia maps to t0405. Formiphilia and Formicophilia still map
+  to t0120 on purpose. No separate misspelling function.
+- **Paddle formula — code matches, live flip not run (2026-11-19).**
+  `capEnd` is `h + iconR + 6 + tagW/2` with map sliders, else
+  `h + iconR`. No `sEnd` floor in the solver. The live flip (crossing
+  number moves, no stale second read, placard ratings survive reload)
+  has still not been run.
+- **Chrome fleet re-run — deferred 2026-11-19.** Jason: remind later,
+  and bring an expanded test suite when that reminder comes. Do not
+  re-ask as a bare re-run of the old suite.
+- **Full 200-test Playwright run — settled 2026-11-19, figure
+  obsolete.** The fleet has 12 test/describe lines across six files.
+  No KinkTest, pagination, or Glance specs live there.
+- **Scribe "use my key" — parked 2026-11-19.** Jason is skipping the
+  whole use-my-key thing for now. Possible later perk once there are
+  Patreon subscribers. Do not build it.
+- **Patreon QA-diary — settled 2026-11-19.** Jason: drop it.
 
 ---
 

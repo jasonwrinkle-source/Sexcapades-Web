@@ -1246,7 +1246,7 @@
             if (!topicId || !direction) return true;
             const shape = Ge(topicId);
             if (!shape || !shape.keys) return true;
-            const step = (e.shiftKey ? 1 : 5) * (e.deltaY < 0 ? 1 : -1);
+            const step = (e.shiftKey ? 10 : 50) * (e.deltaY < 0 ? 1 : -1);
             const prevRated = cs(Vi()).rated;
             const rec = da(topicId, Vi());
             if (direction === "triangle" && shape.keys.length === 3) {

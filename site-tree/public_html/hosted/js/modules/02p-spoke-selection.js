@@ -695,6 +695,55 @@
                     const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
                     return (tip ? ` data-ui-tooltip="${Hi(tip)}" data-tooltip-name="${Hi(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
                 };
+                // Pole names follow the tangent of the widget's circumscribing
+                // circle, flipped into (-90, 90] so none reads upside down.
+                // The triangle keeps its own horizontal labels.
+                const sxMapTangentRotate = (cx0, cy0, lx, ly) => {
+                    let d = Math.atan2(ly - cy0, lx - cx0) * 180 / Math.PI + 90;
+                    while (d > 90) d -= 180;
+                    while (d <= -90) d += 180;
+                    const x = Number(lx).toFixed(1), y = Number(ly).toFixed(1);
+                    return ` transform="rotate(${d.toFixed(1)} ${x} ${y})"`;
+                };
+                // A name longer than the gap to the next pole wraps onto
+                // more lines. Extra lines stack outward along the radius.
+                const sxMapWrapPole = (name, fontPx, slotPx) => {
+                    const words = String(name || "").split(/\s+/).filter(Boolean);
+                    if (!words.length) return [""];
+                    const ctx = Za._context;
+                    if (!ctx) return [words.join(" ")];
+                    ctx.font = `700 ${fontPx}px system-ui, sans-serif`;
+                    const width = s => ctx.measureText(s).width;
+                    const maxW = Math.max(fontPx * 3.2, slotPx);
+                    if (width(words.join(" ")) <= maxW) return [words.join(" ")];
+                    const lines = [];
+                    let cur = "";
+                    words.forEach(w => {
+                        const trial = cur ? cur + " " + w : w;
+                        if (width(trial) <= maxW || !cur) cur = trial;
+                        else { lines.push(cur); cur = w; }
+                    });
+                    if (cur) lines.push(cur);
+                    return lines.length ? lines.slice(0, 4) : [""];
+                };
+                const sxMapPoleLabel = (cls, k, lx, ly, cx0, cy0, fill, fontPx, rawName, nPoles) => {
+                    const labelR = Math.hypot(lx - cx0, ly - cy0) || 1;
+                    const lines = sxMapWrapPole(rawName, fontPx, labelR * 2 * Math.PI / nPoles * 0.78);
+                    const phi = Math.atan2(ly - cy0, lx - cx0);
+                    let d = phi * 180 / Math.PI + 90;
+                    while (d > 90) d -= 180;
+                    while (d <= -90) d += 180;
+            const extra = (lines.length - 1) / 2 * fontPx * 1.05;
+            const ax = lx + Math.cos(phi) * extra, ay = ly + Math.sin(phi) * extra;
+            const x = ax.toFixed(1), y = ay.toFixed(1);
+            const start = -(lines.length - 1) / 2 * 1.05;
+            let body = "";
+            lines.forEach((ln, i) => {
+                const dy = (i === 0 ? start : 1.05).toFixed(2);
+                body += `<tspan x="${x}" dy="${dy}em">${Hi(ln)}</tspan>`;
+            });
+                    return `<text class="${cls}"${sxPoleTipAttrs(k)} x="${x}" y="${y}" transform="rotate(${d.toFixed(1)} ${x} ${y})" text-anchor="middle" dominant-baseline="middle" fill="${fill}" style="font-size:${fontPx}px;font-weight:700;">${body}</text>`;
+                };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:
                     // Regular octagon deformation polygon
@@ -716,7 +765,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -750,7 +799,7 @@
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-octad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += sxMapPoleLabel("map-octad-label", k, lx, ly, cx, cy, octCols[k], 5 * m, y[k] || f[k], 8);
                     });
                     D += `</g>`;
                 } else if ($.heptad) {
@@ -774,7 +823,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -808,7 +857,7 @@
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-heptad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += sxMapPoleLabel("map-heptad-label", k, lx, ly, cx, cy, heptCols[k], 5.2 * m, y[k] || f[k], 7);
                     });
                     D += `</g>`;
                 } else if ($.hexad) {
@@ -832,7 +881,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -866,7 +915,7 @@
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-hexad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += sxMapPoleLabel("map-hexad-label", k, lx, ly, cx, cy, hexCols[k], 5.5 * m, y[k] || f[k], 6);
                     });
                     D += `</g>`;
                 } else if ($.pentad) {
@@ -890,7 +939,7 @@
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -926,7 +975,7 @@
                     P.forEach((pt, k) => {
                         const lx = pt.x + Math.cos(pt.phi) * 8 * m;
                         const ly = pt.y + Math.sin(pt.phi) * 8 * m;
-                        D += `<text class="map-pentad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                        D += sxMapPoleLabel("map-pentad-label", k, lx, ly, cx, cy, pentColors[k], 6.5 * m, y[k] || f[k], 5);
                     });
                     D += `</g>`;
                 } else if ($.tetrad) {
@@ -971,7 +1020,7 @@
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}, ${y[3]}: ${Math.round(r3)}` : "Unrated";
                     const maxR = sxSignedIntensity([r0, r1, r2, r3]);
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Outer Reference Frame (Diamond Outline)
@@ -992,10 +1041,15 @@
                     // Hit area
                     D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a corner to set that pole." tabindex="0"/>`;
                     // Labels
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(0)} x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(1)} x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(2)} x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(3)} x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
+                    const tLabs = [
+                        [P0.x + p * 8 * m, P0.y + h * 8 * m, "#22c55e", 0],
+                        [P1.x + nx * 8 * m, P1.y + ny * 8 * m, "#eab308", 1],
+                        [P2.x - p * 8 * m, P2.y - h * 8 * m, "#ef4444", 2],
+                        [P3.x - nx * 8 * m, P3.y - ny * 8 * m, "#3b82f6", 3]
+                    ];
+                    tLabs.forEach(([lx, ly, col, k]) => {
+                        D += sxMapPoleLabel("map-tetrad-label", k, lx, ly, cx, cy, col, 6.5 * m, y[k], 4);
+                    });
                     D += `</g>`;
                 } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics

@@ -10,553 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #080d11;
-      --surface: #10171d;
-      --surface-strong: #151e25;
-      --text: #f3f7f9;
-      --muted: #aebbc2;
-      --line: #2b3841;
-      --cyan: #47d8f4;
-      --cyan-bright: #75e5fa;
-      --cyan-ink: #041317;
-      --green: #4be29b;
-      --yellow: #ffd064;
-      --red: #ff657b;
-      --step: #1a252c;
-      --shadow: 0 20px 70px rgba(0, 0, 0, .38);
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #0d1419;
-        --surface: #151e24;
-        --surface-strong: #1a252c;
-        --text: #f6f9fa;
-        --muted: #bac5ca;
-        --line: #35444e;
-        --cyan: #5ddcf5;
-        --cyan-bright: #7de6fa;
-        --cyan-ink: #041317;
-        --green: #55e5a2;
-        --yellow: #ffd36d;
-        --red: #ff6f83;
-        --step: #202c34;
-        --shadow: 0 20px 70px rgba(0, 0, 0, .34);
-      }
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-width: 0;
-      background:
-        radial-gradient(circle at 82% 8%, color-mix(in srgb, var(--cyan) 10%, transparent), transparent 30rem),
-        var(--bg);
-      color: var(--text);
-      font-family: "IBM Plex Sans", sans-serif;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: inherit; }
-
-    .page {
-      width: min(1100px, calc(100% - 40px));
-      margin: 0 auto;
-      padding: clamp(38px, 6vw, 76px) 0 max(38px, env(safe-area-inset-bottom));
-    }
-
-    .intro {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 290px;
-      gap: clamp(32px, 6vw, 74px);
-      align-items: center;
-      padding-bottom: clamp(38px, 6vw, 66px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin: 0 0 16px;
-      color: var(--cyan);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 24px;
-      height: 2px;
-      background: currentColor;
-    }
-
-    h1 {
-      max-width: 740px;
-      margin: 0;
-      font-size: clamp(2.35rem, 6.6vw, 5rem);
-      line-height: .98;
-      letter-spacing: -.055em;
-      font-weight: 700;
-    }
-
-    .lede {
-      max-width: 670px;
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: clamp(1.04rem, 2.2vw, 1.28rem);
-      line-height: 1.55;
-    }
-
-    .lede strong { color: var(--text); font-weight: 600; }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 28px;
-    }
-
-    .button {
-      display: inline-flex;
-      min-height: 52px;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 13px 20px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-      color: var(--text);
-      font-weight: 700;
-      text-decoration: none;
-      transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
-    }
-
-    .button.primary {
-      border-color: var(--cyan-bright);
-      background: var(--cyan-bright);
-      color: var(--cyan-ink);
-      box-shadow: 0 10px 30px color-mix(in srgb, var(--cyan) 25%, transparent);
-    }
-
-    .button svg { width: 17px; height: 17px; flex: 0 0 auto; }
-    .button:hover { border-color: var(--cyan); transform: translateY(-1px); }
-    .button:focus-visible, .text-link:focus-visible, .guide-link:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
-
-    .dropdown {
-      position: relative;
-      display: inline-flex;
-    }
-
-    .dropdown-trigger {
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .dropdown-trigger .caret {
-      width: 15px;
-      height: 15px;
-      transition: transform .18s ease;
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: calc(100% + 6px);
-      left: 0;
-      z-index: 20;
-      min-width: 100%;
-      width: max-content;
-      max-width: min(280px, 88vw);
-      padding: 6px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface-strong);
-      box-shadow: var(--shadow);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-4px);
-      pointer-events: none;
-      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
-    }
-
-    .dropdown.open .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .dropdown.open .dropdown-trigger .caret { transform: rotate(180deg); }
-
-    @media (hover: hover) {
-      .dropdown:hover .dropdown-menu,
-      .dropdown:focus-within .dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-
-      .dropdown:hover .dropdown-trigger .caret,
-      .dropdown:focus-within .dropdown-trigger .caret { transform: rotate(180deg); }
-    }
-
-    .dropdown-menu a {
-      display: flex;
-      align-items: center;
-      min-height: 44px;
-      padding: 10px 14px;
-      border-radius: 6px;
-      color: var(--text);
-      font-weight: 600;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .dropdown-menu a:hover { background: color-mix(in srgb, var(--cyan) 14%, transparent); color: var(--cyan-bright); }
-    .dropdown-menu a:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
-
-    .map-mark {
-      position: relative;
-      width: 270px;
-      aspect-ratio: 1;
-      margin-inline: auto;
-      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .16));
-    }
-
-    .map-mark svg { display: block; width: 100%; height: 100%; overflow: visible; }
-    .map-mark .orbit { stroke: var(--line); }
-    .map-mark .spoke { stroke: color-mix(in srgb, var(--cyan) 60%, var(--line)); }
-    .map-mark .core { fill: var(--surface-strong); stroke: var(--cyan); }
-    .map-mark .node { fill: var(--surface-strong); stroke-width: 4; }
-    .map-mark .node.cyan { stroke: var(--cyan); }
-    .map-mark .node.green { stroke: var(--green); }
-    .map-mark .node.yellow { stroke: var(--yellow); }
-    .map-mark .node.red { stroke: var(--red); }
-
-    .steps-section { padding: clamp(36px, 5vw, 58px) 0 0; }
-
-    .section-heading {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 22px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(1.65rem, 3vw, 2.25rem);
-      line-height: 1.1;
-      letter-spacing: -.035em;
-    }
-
-    .time {
-      margin: 0;
-      color: var(--muted);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: .82rem;
-      font-weight: 500;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .step {
-      position: relative;
-      padding: 30px 30px 32px 0;
-    }
-
-    .step + .step {
-      padding-left: 30px;
-      border-left: 1px solid var(--line);
-    }
-
-    .step-number {
-      display: inline-grid;
-      width: 38px;
-      height: 38px;
-      place-items: center;
-      margin-bottom: 22px;
-      border-radius: 50%;
-      background: var(--step);
-      color: var(--cyan);
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 600;
-    }
-
-    .step h3 {
-      margin: 0 0 10px;
-      font-size: 1.14rem;
-      line-height: 1.25;
-    }
-
-    .step p { margin: 0; color: var(--muted); font-size: .96rem; }
-    .step p + p { margin-top: 12px; }
-    .step ul { margin: 12px 0 0; padding-left: 1.15rem; color: var(--muted); font-size: .96rem; }
-    .step li + li { margin-top: 6px; }
-
-    .important-note {
-      margin-left: .5rem;
-      padding-left: 12px;
-      border-left: 3px solid var(--yellow);
-      font-size: .9em;
-    }
-
-    .take-results-heading { margin: 2px 0 0; font-size: .95rem; line-height: 1.3; white-space: nowrap; }
-    .take-results-heading a { color: var(--cyan); text-underline-offset: 3px; }
-
-    .build-tag { font-family: "IBM Plex Mono", monospace; font-size: .78rem; }
-
-    .completion-cta {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      width: min(100%, 900px);
-      margin: 24px auto 0;
-    }
-
-    .button.next-step {
-      width: 100%;
-      min-height: 68px;
-      padding: 17px 28px;
-      font-size: 1.12rem;
-      letter-spacing: -.01em;
-    }
-
-    .button.next-step svg { width: 20px; height: 20px; }
-
-    .text-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 16px;
-      color: var(--cyan);
-      font-weight: 700;
-      text-underline-offset: 4px;
-      text-decoration-thickness: 1px;
-    }
-
-    .guide-link {
-      color: var(--cyan);
-      font-weight: 700;
-      text-underline-offset: 3px;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px 16px;
-      margin-top: 16px;
-    }
-
-    .legend-item { display: inline-flex; align-items: center; gap: 7px; color: var(--text); font-size: .86rem; font-weight: 600; }
-    .dot { width: 9px; height: 9px; border-radius: 50%; }
-    .dot.green { background: var(--green); }
-    .dot.yellow { background: var(--yellow); }
-    .dot.red { background: var(--red); }
-
-    .normalization-tip {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 18px;
-      align-items: baseline;
-      margin-top: 18px;
-      padding: 20px 22px;
-      background: var(--surface);
-      border-radius: 10px;
-    }
-
-    .normalization-tip .mini-label { margin: 0; white-space: nowrap; }
-    .normalization-tip p:last-child { margin: 0; color: var(--muted); }
-
-    .quick-tips {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 18px;
-      align-items: start;
-      margin-top: 10px;
-      padding: 20px 22px;
-      background: var(--surface);
-      border-radius: 10px;
-    }
-
-    .quick-tips .mini-label { margin: 2px 0 0; white-space: nowrap; }
-    .quick-tips ul { margin: 0; padding-left: 1.15rem; color: var(--muted); }
-    .quick-tips li + li { margin-top: 5px; }
-
-    .payoff {
-      padding: clamp(42px, 6vw, 68px) 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .payoff-intro {
-      display: grid;
-      grid-template-columns: .72fr 1.28fr;
-      gap: 30px;
-      align-items: end;
-      margin-bottom: 24px;
-    }
-
-    .payoff-intro p {
-      max-width: 620px;
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .output-examples {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .output-example { padding: 24px 28px 26px 0; }
-    .output-example + .output-example { padding-left: 28px; border-left: 1px solid var(--line); }
-    .output-example h3 { margin: 0 0 10px; font-size: 1.08rem; }
-    .output-example > p:last-child { margin: 0; color: var(--muted); }
-    .output-example ul { margin: 0; padding-left: 1.2rem; color: var(--muted); }
-    .output-example li + li { margin-top: 7px; }
-
-    .bottom {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 18px;
-      padding-top: 18px;
-    }
-
-    .privacy, .more {
-      padding: 24px 26px;
-      background: var(--surface);
-    }
-
-    .privacy { border-radius: 14px 4px 4px 14px; }
-    .more { border-radius: 4px 14px 14px 4px; }
-
-    .mini-label {
-      margin: 0 0 8px;
-      color: var(--cyan);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: .75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    .privacy h2, .more h2 { font-size: 1.25rem; letter-spacing: -.02em; }
-    .privacy p, .more p { margin: 9px 0 0; color: var(--muted); }
-    .privacy strong { color: var(--text); }
-
-    .resource-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 18px;
-      margin-top: 12px;
-    }
-
-    .resource-links a {
-      color: var(--text);
-      font-weight: 700;
-      text-underline-offset: 4px;
-    }
-
-    .fine-print {
-      margin: 20px 0 0;
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding-top: 26px;
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    footer p { margin: 0; }
-    footer a { color: var(--cyan); font-weight: 600; text-underline-offset: 4px; }
-
-    .footer-help {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 18px;
-      align-items: center;
-    }
-
-    .site-counter {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 8px;
-      padding: 7px 12px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      color: var(--text);
-      white-space: nowrap;
-    }
-
-    .site-counter-number {
-      min-width: 2ch;
-      color: var(--cyan-bright);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 1.05rem;
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .site-counter-label { color: var(--muted); font-size: .82rem; }
-
-    @media (max-width: 760px) {
-      .page { width: min(100% - 28px, 660px); padding-top: 30px; }
-      .intro { grid-template-columns: 1fr; gap: 28px; }
-      .map-mark { width: min(220px, 64vw); grid-row: 1; }
-      .intro-copy { grid-row: 2; }
-      h1 { font-size: clamp(2.45rem, 13vw, 4rem); }
-      .actions { display: grid; grid-template-columns: 1fr; }
-      .button { width: 100%; }
-      .dropdown { width: 100%; }
-      .dropdown-menu { left: 0; right: 0; width: auto; max-width: none; }
-      .section-heading { align-items: flex-end; }
-      .steps { grid-template-columns: 1fr; }
-      .step { padding: 24px 4px 26px; }
-      .step + .step { padding-left: 4px; border-left: 0; border-top: 1px solid var(--line); }
-      .step-number { margin-bottom: 14px; }
-      .completion-cta { grid-template-columns: 1fr; }
-      .normalization-tip, .quick-tips { grid-template-columns: 1fr; gap: 6px; padding: 18px; }
-      .payoff-intro { grid-template-columns: 1fr; gap: 10px; align-items: start; }
-      .output-examples { grid-template-columns: 1fr; }
-      .output-example { padding: 22px 4px 24px; }
-      .output-example + .output-example { padding-left: 4px; border-left: 0; border-top: 1px solid var(--line); }
-      .bottom { grid-template-columns: 1fr; gap: 10px; }
-      .privacy, .more { border-radius: 10px; padding: 22px; }
-      footer { align-items: flex-start; flex-direction: column; gap: 6px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: .01ms !important; }
-    }
-  </style>
+  <link rel="stylesheet" href="quickstart-assets/quickstart.css"/>
 <script src="/hosted/js/docs-skin.js"></script>
-<style>[data-sx-vanilla-only]{display:none}</style>
+
 </head>
 <body>
   <main class="page">
@@ -566,20 +22,20 @@
         <h1 id="intro-title">Find what clicks—in about 20 minutes.</h1>
         <p class="lede" data-sx-sex-only><strong>Sexcapades maps ~400 kinks.</strong> You rate each one for giving and for receiving; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.</p><p class="lede" data-sx-vanilla-only><strong>This map covers its topics.</strong> You rate each one on its poles; when a partner rates theirs, the app overlays your two maps and colors every topic by how you match.</p>
         <div class="actions">
-          <a class="button primary" href="https://sexcapades.io/#app/listview" rel="noopener noreferrer">
+          <a class="button primary" href="/#app/listview" rel="noopener noreferrer">
             Start in the Hot list
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <a class="button" href="https://sexcapades.io/hosted/app.html#app/import" rel="noopener noreferrer">Compare hypermaps</a>
+          <a class="button" href="/hosted/app.html#app/import" rel="noopener noreferrer">Compare hypermaps</a>
           <div class="dropdown" id="start-dropdown">
             <button class="button dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="start-menu">
               Start
               <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="dropdown-menu" id="start-menu" role="menu">
-              <a href="https://sexcapades.io/#app/listview" rel="noopener noreferrer" role="menuitem">Hot list</a>
-              <a href="https://sexcapades.io/hosted/app.html#app/import" rel="noopener noreferrer" role="menuitem">Import Hypermap</a>
-              <a href="https://sexcapades.io/#app/scan" rel="noopener noreferrer" role="menuitem">Scan</a>
+              <a href="/#app/listview" rel="noopener noreferrer" role="menuitem">Hot list</a>
+              <a href="/hosted/app.html#app/import" rel="noopener noreferrer" role="menuitem">Import Hypermap</a>
+              <a href="/#app/scan" rel="noopener noreferrer" role="menuitem">Scan</a>
             </div>
           </div>
         </div>
@@ -616,7 +72,7 @@
           <p>The list is a three-level outline. <strong>Indentation shows the hierarchy:</strong> categories sit at the left edge, subcategories indent one level, and individual kinks indent furthest. At every level, items are ordered by popularity — the most-rated category, subcategory, or kink comes first.</p>
           <p>7 of the 18 categories split into subcategories (44 in total). A <strong>›</strong> beside a name means it is collapsed; tap it and the arrow turns down (<strong>⌄</strong>) as its contents expand in place.</p>
           <p><strong>Already have a sync card?</strong> Use Scan in the app to import it — from the physical card or a QR photo someone sends you. You can also upload any exported file directly (SVG, PNG, PDF, or sync card).</p>
-          <a class="text-link" href="https://sexcapades.io/#app/listview" rel="noopener noreferrer">Go to the Hot list <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="/#app/listview" rel="noopener noreferrer">Go to the Hot list <span aria-hidden="true">→</span></a>
         </article>
 
         <article class="step">
@@ -644,7 +100,7 @@
       </div>
 
       <div class="completion-cta" aria-label="Choose your next step">
-        <a class="button primary next-step" href="https://sexcapades.io/hosted/app.html#app/import" rel="noopener noreferrer">
+        <a class="button primary next-step" href="/hosted/app.html#app/import" rel="noopener noreferrer">
           Compare Hypermaps
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -689,13 +145,13 @@
       </div>
 
       <aside class="quick-tips" aria-label="What you can do with your results">
-        <h3 class="take-results-heading"><a href="https://sexcapades.io/hosted/guide.html#share-and-export" rel="noopener noreferrer">Take your results with you.</a></h3>
+        <h3 class="take-results-heading"><a href="/hosted/guide.html#share-and-export" rel="noopener noreferrer">Take your results with you.</a></h3>
         <ul>
-          <li><a class="guide-link" href="https://sexcapades.io/#guide#sharing-and-export" rel="noopener noreferrer"><strong>SVG (recommended)</strong></a> — preferred for a crisp, scalable map that matches the app viewport.</li>
-          <li><a class="guide-link" href="https://sexcapades.io/#guide#sharing-and-export" rel="noopener noreferrer"><strong>PNG</strong></a> — best for sharing online and archiving; your profile is embedded, so keeping the PNG keeps your profile.</li>
-          <li><a class="guide-link" href="https://sexcapades.io/#guide#sharing-and-export" rel="noopener noreferrer"><strong>PDF</strong></a> — best for printing or sharing as a fixed document.</li>
-          <li><a class="guide-link" href="https://sexcapades.io/#guide#sharing-and-export" rel="noopener noreferrer"><strong>Sync cards</strong></a> — best for handing to someone in person; they scan the QR with the app to import your profile.</li>
-          <li class="important-note"><a class="guide-link" href="https://sexcapades.io/#guide#sharing-safely" rel="noopener noreferrer"><strong>Important:</strong></a> Chat apps (WhatsApp, Telegram, Discord, etc.) strip a PNG’s embedded profile data when it’s sent as a photo. To share an importable profile, send the actual file by email attachment, file share, or AirDrop—not as a chat-app image.</li>
+          <li><a class="guide-link" href="/#guide#sharing-and-export" rel="noopener noreferrer"><strong>SVG (recommended)</strong></a> — preferred for a crisp, scalable map that matches the app viewport.</li>
+          <li><a class="guide-link" href="/#guide#sharing-and-export" rel="noopener noreferrer"><strong>PNG</strong></a> — best for sharing online and archiving; your profile is embedded, so keeping the PNG keeps your profile.</li>
+          <li><a class="guide-link" href="/#guide#sharing-and-export" rel="noopener noreferrer"><strong>PDF</strong></a> — best for printing or sharing as a fixed document.</li>
+          <li><a class="guide-link" href="/#guide#sharing-and-export" rel="noopener noreferrer"><strong>Sync cards</strong></a> — best for handing to someone in person; they scan the QR with the app to import your profile.</li>
+          <li class="important-note"><a class="guide-link" href="/#guide#sharing-safely" rel="noopener noreferrer"><strong>Important:</strong></a> Chat apps (WhatsApp, Telegram, Discord, etc.) strip a PNG’s embedded profile data when it’s sent as a photo. To share an importable profile, send the actual file by email attachment, file share, or AirDrop—not as a chat-app image.</li>
         </ul>
       </aside>
     </section>
@@ -711,8 +167,8 @@
         <p class="mini-label">Keep exploring</p>
         <h2>More Sexcapades</h2>
         <div class="resource-links">
-          <a href="https://sexcapades.io/#app" rel="noopener noreferrer">Full app</a>
-          <a href="https://sexcapades.io/#guide" rel="noopener noreferrer">Full guide</a>
+          <a href="/#app" rel="noopener noreferrer">Full app</a>
+          <a href="/#guide" rel="noopener noreferrer">Full guide</a>
         </div>
       </div>
     </section>
@@ -722,8 +178,8 @@
     <footer>
       <div class="footer-help">
         <p>Need a hand?</p>
-        <a href="https://sexcapades.io/hosted/faq.html">FAQ &amp; Troubleshooting</a>
-        <p>Confused by a term? See the <a href="https://sexcapades.io/hosted/glossary.html">Sexcapades Glossary</a>.</p>
+        <a href="/hosted/faq.html">FAQ &amp; Troubleshooting</a>
+        <p>Confused by a term? See the <a href="/hosted/glossary.html">Sexcapades Glossary</a>.</p>
         <a href="mailto:help@sexcapades.io" data-sx-sex-only>✉️ help@sexcapades.io</a>
         <p class="build-tag">Build 2026-10-19_1256</p>
       </div>
@@ -731,96 +187,9 @@
     </footer>
   </main>
 
-  <script>
-    (function () {
-      var counter = document.querySelector('.site-counter');
-      if (!counter) return;
+  <script defer="" src="quickstart-assets/quickstart.js"></script>
 
-      var host = window.location.hostname.toLowerCase();
-      if (host !== 'sexcapades.io' && host !== 'www.sexcapades.io') return;
-
-      var number = counter.querySelector('.site-counter-number');
-      var uuid = null;
-
-      try {
-        uuid = window.localStorage.getItem('sexcapades_visitor_uuid');
-        if (!uuid) {
-          uuid = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-            ? crypto.randomUUID()
-            : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (character) {
-                var random = Math.random() * 16 | 0;
-                var value = character === 'x' ? random : (random & 0x3 | 0x8);
-                return value.toString(16);
-              });
-          window.localStorage.setItem('sexcapades_visitor_uuid', uuid);
-        }
-      } catch (error) {
-        uuid = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-          ? crypto.randomUUID()
-          : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (character) {
-              var random = Math.random() * 16 | 0;
-              var value = character === 'x' ? random : (random & 0x3 | 0x8);
-              return value.toString(16);
-            });
-      }
-
-      fetch('counter.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-        body: 'uuid=' + encodeURIComponent(uuid),
-        cache: 'no-store',
-        credentials: 'same-origin'
-      })
-        .then(function (response) {
-          if (!response.ok) throw new Error('Counter unavailable');
-          return response.json();
-        })
-        .then(function (data) {
-          if (data && typeof data.visitors === 'number') {
-            number.textContent = data.visitors.toLocaleString();
-          }
-        })
-        .catch(function () {});
-    })();
-  </script>
-
-  <script>
-    (function () {
-      var dropdown = document.getElementById('start-dropdown');
-      if (!dropdown) return;
-
-      var trigger = dropdown.querySelector('.dropdown-trigger');
-
-      function setOpen(open) {
-        dropdown.classList.toggle('open', open);
-        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      }
-
-      function isOpen() {
-        return dropdown.classList.contains('open');
-      }
-
-      trigger.addEventListener('click', function (event) {
-        event.stopPropagation();
-        setOpen(!isOpen());
-      });
-
-      document.addEventListener('click', function (event) {
-        if (isOpen() && !dropdown.contains(event.target)) setOpen(false);
-      });
-
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && isOpen()) {
-          setOpen(false);
-          trigger.focus();
-        }
-      });
-
-      dropdown.querySelectorAll('.dropdown-menu a').forEach(function (link) {
-        link.addEventListener('click', function () { setOpen(false); });
-      });
-    })();
-  </script>
+  
 
 <div class="visitor-odometer-wrap" style="text-align:center;margin:20px 0;">
   <div class="visitor-odometer" title="Unique visitors to Sexcapades" style="display:inline-flex;align-items:center;gap:8px;font-size:0.85rem;color:#a6bbb7;">
@@ -828,16 +197,8 @@
     <span style="opacity:0.7;">explorers</span>
   </div>
 </div>
-<style>
-.visitor-odometer-wrap .odometer-digit{width:22px;height:32px;background:#0c191a;border:1px solid #253839;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#55dc9a;}
-</style>
-<script>
-(function(){var c=document.getElementById('odometer-digits-QS');if(!c)return;
-function render(n){try{var s=String(n).padStart(6,'0');c.innerHTML='';for(var i=0;i<s.length;i++){var d=document.createElement('div');d.className='odometer-digit';d.textContent=s[i];c.appendChild(d);}}catch(e){}}
-try{
-fetch('/hosted/api/collect.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_stats'})}).then(function(r){return r.json();}).then(function(d){render((d&&d.unique_visitors)||0);}).catch(function(){render(0);});
-}catch(e){render(0);}})();
-</script>
+
+
 
 </body>
 </html>

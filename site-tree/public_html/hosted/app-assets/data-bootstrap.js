@@ -20678,6 +20678,55 @@ const TAXONOMY_CATEGORIES = [
                     const tip = (typeof sxPoleLine === "function") ? sxPoleLine(e, f[k]) : null;
                     return (tip ? ` data-ui-tooltip="${Hi(tip)}" data-tooltip-name="${Hi(y[k] || f[k])}" data-tooltip-tap-first` : "") + ` tabindex="0"`;
                 };
+                // Pole names follow the tangent of the widget's circumscribing
+                // circle, flipped into (-90, 90] so none reads upside down.
+                // The triangle keeps its own horizontal labels.
+                const sxMapTangentRotate = (cx0, cy0, lx, ly) => {
+                    let d = Math.atan2(ly - cy0, lx - cx0) * 180 / Math.PI + 90;
+                    while (d > 90) d -= 180;
+                    while (d <= -90) d += 180;
+                    const x = Number(lx).toFixed(1), y = Number(ly).toFixed(1);
+                    return ` transform="rotate(${d.toFixed(1)} ${x} ${y})"`;
+                };
+                // A name longer than the gap to the next pole wraps onto
+                // more lines. Extra lines stack outward along the radius.
+                const sxMapWrapPole = (name, fontPx, slotPx) => {
+                    const words = String(name || "").split(/\s+/).filter(Boolean);
+                    if (!words.length) return [""];
+                    const ctx = Za._context;
+                    if (!ctx) return [words.join(" ")];
+                    ctx.font = `700 ${fontPx}px system-ui, sans-serif`;
+                    const width = s => ctx.measureText(s).width;
+                    const maxW = Math.max(fontPx * 3.2, slotPx);
+                    if (width(words.join(" ")) <= maxW) return [words.join(" ")];
+                    const lines = [];
+                    let cur = "";
+                    words.forEach(w => {
+                        const trial = cur ? cur + " " + w : w;
+                        if (width(trial) <= maxW || !cur) cur = trial;
+                        else { lines.push(cur); cur = w; }
+                    });
+                    if (cur) lines.push(cur);
+                    return lines.length ? lines.slice(0, 4) : [""];
+                };
+                const sxMapPoleLabel = (cls, k, lx, ly, cx0, cy0, fill, fontPx, rawName, nPoles) => {
+                    const labelR = Math.hypot(lx - cx0, ly - cy0) || 1;
+                    const lines = sxMapWrapPole(rawName, fontPx, labelR * 2 * Math.PI / nPoles * 0.78);
+                    const phi = Math.atan2(ly - cy0, lx - cx0);
+                    let d = phi * 180 / Math.PI + 90;
+                    while (d > 90) d -= 180;
+                    while (d <= -90) d += 180;
+            const extra = (lines.length - 1) / 2 * fontPx * 1.05;
+            const ax = lx + Math.cos(phi) * extra, ay = ly + Math.sin(phi) * extra;
+            const x = ax.toFixed(1), y = ay.toFixed(1);
+            const start = -(lines.length - 1) / 2 * 1.05;
+            let body = "";
+            lines.forEach((ln, i) => {
+                const dy = (i === 0 ? start : 1.05).toFixed(2);
+                body += `<tspan x="${x}" dy="${dy}em">${Hi(ln)}</tspan>`;
+            });
+                    return `<text class="${cls}"${sxPoleTipAttrs(k)} x="${x}" y="${y}" transform="rotate(${d.toFixed(1)} ${x} ${y})" text-anchor="middle" dominant-baseline="middle" fill="${fill}" style="font-size:${fontPx}px;font-weight:700;">${body}</text>`;
+                };
                 if ($.octad) {
                     // 8-Pole Octad Widget on Hypermap:
                     // Regular octagon deformation polygon
@@ -20699,7 +20748,7 @@ const TAXONOMY_CATEGORIES = [
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -20733,7 +20782,7 @@ const TAXONOMY_CATEGORIES = [
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-octad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${octCols[k]}" style="font-size:${5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += sxMapPoleLabel("map-octad-label", k, lx, ly, cx, cy, octCols[k], 5 * m, y[k] || f[k], 8);
                     });
                     D += `</g>`;
                 } else if ($.heptad) {
@@ -20757,7 +20806,7 @@ const TAXONOMY_CATEGORIES = [
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -20791,7 +20840,7 @@ const TAXONOMY_CATEGORIES = [
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-heptad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${heptCols[k]}" style="font-size:${5.2 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += sxMapPoleLabel("map-heptad-label", k, lx, ly, cx, cy, heptCols[k], 5.2 * m, y[k] || f[k], 7);
                     });
                     D += `</g>`;
                 } else if ($.hexad) {
@@ -20815,7 +20864,7 @@ const TAXONOMY_CATEGORIES = [
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -20849,7 +20898,7 @@ const TAXONOMY_CATEGORIES = [
                     P.forEach((pt, k) => {
                         const lx = pt.x + (pt.x - cx) * 0.28;
                         const ly = pt.y + (pt.y - cy) * 0.28;
-                        D += `<text class="map-hexad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="${hexCols[k]}" style="font-size:${5.5 * m}px;font-weight:700;">${(y[k] || f[k]).slice(0, 10)}</text>`;
+                        D += sxMapPoleLabel("map-hexad-label", k, lx, ly, cx, cy, hexCols[k], 5.5 * m, y[k] || f[k], 6);
                     });
                     D += `</g>`;
                 } else if ($.pentad) {
@@ -20873,7 +20922,7 @@ const TAXONOMY_CATEGORIES = [
                     const isKnown = f.some(k => Boolean(t[k + "Known"]));
                     const maxR = sxSignedIntensity(ratings);
                     const maxAbsR = Math.max(...ratings.map(v => Math.abs(v)));
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     const S = P.map((pt, k) => {
                         const dk = maxAbsR > 0 ? Math.abs(ratings[k]) / maxAbsR : 0;
@@ -20909,7 +20958,7 @@ const TAXONOMY_CATEGORIES = [
                     P.forEach((pt, k) => {
                         const lx = pt.x + Math.cos(pt.phi) * 8 * m;
                         const ly = pt.y + Math.sin(pt.phi) * 8 * m;
-                        D += `<text class="map-pentad-label"${sxPoleTipAttrs(k)} x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="${pentColors[k]}">${Hi(y[k] || f[k])}</text>`;
+                        D += sxMapPoleLabel("map-pentad-label", k, lx, ly, cx, cy, pentColors[k], 6.5 * m, y[k] || f[k], 5);
                     });
                     D += `</g>`;
                 } else if ($.tetrad) {
@@ -20954,7 +21003,7 @@ const TAXONOMY_CATEGORIES = [
                     const actCls = isAct ? " active-rating" : "";
                     const ariaTxt = isKnown ? `${y[0]}: ${Math.round(r0)}, ${y[1]}: ${Math.round(r1)}, ${y[2]}: ${Math.round(r2)}, ${y[3]}: ${Math.round(r3)}` : "Unrated";
                     const maxR = sxSignedIntensity([r0, r1, r2, r3]);
-                    const fillCol = isKnown ? zi(maxR) : "rgba(103, 232, 249, 0.45)";
+                    const fillCol = isKnown ? sxIntensityRGB(61, 168, 116, t.intensityKnown ? t.intensity : maxR) : "rgba(103, 232, 249, 0.45)";
 
                     D += `<g class="direction-control map-tetrad-control${actCls}" data-id="${e}" data-direction="tetrad" data-base-cx="${cx.toFixed(1)}" data-base-cy="${cy.toFixed(1)}" data-control-scale="${m}" data-tag-width="${spanW.toFixed(1)}" data-tag-height="${spanW.toFixed(1)}">`;
                     // Outer Reference Frame (Diamond Outline)
@@ -20975,10 +21024,15 @@ const TAXONOMY_CATEGORIES = [
                     // Hit area
                     D += `<polygon class="direction-hit map-tetrad-hit" data-id="${e}" data-direction="tetrad" points="${P0.x.toFixed(1)},${P0.y.toFixed(1)} ${P1.x.toFixed(1)},${P1.y.toFixed(1)} ${P2.x.toFixed(1)},${P2.y.toFixed(1)} ${P3.x.toFixed(1)},${P3.y.toFixed(1)}" fill="transparent" pointer-events="all" style="cursor:crosshair" role="slider" aria-label="${Hi(y.join(' / '))}: ${ariaTxt}. Drag a corner to set that pole." tabindex="0"/>`;
                     // Labels
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(0)} x="${(P0.x + p * 8 * m).toFixed(1)}" y="${(P0.y + h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#22c55e">${Hi(y[0])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(1)} x="${(P1.x + nx * 8 * m).toFixed(1)}" y="${(P1.y + ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#eab308">${Hi(y[1])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(2)} x="${(P2.x - p * 8 * m).toFixed(1)}" y="${(P2.y - h * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#ef4444">${Hi(y[2])}</text>`;
-                    D += `<text class="map-tetrad-label"${sxPoleTipAttrs(3)} x="${(P3.x - nx * 8 * m).toFixed(1)}" y="${(P3.y - ny * 8 * m).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${6.5 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[3])}</text>`;
+                    const tLabs = [
+                        [P0.x + p * 8 * m, P0.y + h * 8 * m, "#22c55e", 0],
+                        [P1.x + nx * 8 * m, P1.y + ny * 8 * m, "#eab308", 1],
+                        [P2.x - p * 8 * m, P2.y - h * 8 * m, "#ef4444", 2],
+                        [P3.x - nx * 8 * m, P3.y - ny * 8 * m, "#3b82f6", 3]
+                    ];
+                    tLabs.forEach(([lx, ly, col, k]) => {
+                        D += sxMapPoleLabel("map-tetrad-label", k, lx, ly, cx, cy, col, 6.5 * m, y[k], 4);
+                    });
                     D += `</g>`;
                 } else if ($.triangle) {
                     // 2D Barycentric Triangle on Hypermap for Triad Topics
@@ -28221,16 +28275,17 @@ const TAXONOMY_CATEGORIES = [
         };
 
         /* --- Widget approachability: one shared pole-label system (T5/T6/T3/T7) ---
-           Every polygon widget draws its pole names the same way: rotated to
-           the tangent of the circumscribing circle at the vertex (tangent =
-           vertex angle + 90°, normalised to (-90, 90] so no label is ever
-           upside-down), centred 13px out from the vertex along the vertex
-           direction, in one font (bold 9px system-ui). The rotated bounding
-           box is clamped inside the canvas so long names never clip. Each
-           drawn label is recorded on canvas.__sxLabelRects (axis-aligned
-           box + angle + pole key + full name) for the canvas hover
-           hit-test (seam B). Compass corners stay horizontal (ruled) and
-           are recorded, not redrawn. */
+           Every polygon widget except the triangle draws its pole names
+           the same way: rotated to the tangent of the circumscribing
+           circle at the vertex (tangent = vertex angle + 90°, normalised
+           to (-90, 90] so no label is ever upside-down), centred 13px out
+           from the vertex along the vertex direction, in one font (bold
+           9px system-ui). A long name slides along that tangent to stay
+           on the canvas; it steps inward only when the tangent cannot
+           save it. The triangle keeps horizontal labels outside its
+           vertices. Each drawn label is recorded on canvas.__sxLabelRects
+           (axis-aligned box + angle + pole key + full name) for the
+           canvas hover hit-test (seam B). */
         const SX_POLE_LABEL_FONT = "bold 9px system-ui, sans-serif";
         const SX_POLE_LABEL_OFFSET = 13;
         function sxNormTangentDeg(deg) {
@@ -28261,7 +28316,7 @@ const TAXONOMY_CATEGORIES = [
                 th: (th !== undefined ? Math.round(th * 10) / 10 : Math.round(h * 10) / 10)
             });
         }
-        function sxDrawPoleLabelAt(ctx, canvas, ax, ay, angleDeg, text, color, key, name) {
+        function sxDrawPoleLabelAt(ctx, canvas, ax, ay, angleDeg, text, color, key, name, radialRad, maxWidth) {
             if (!ctx || !canvas || !text) return;
             const W = canvas.width, H = canvas.height;
             const theta = (angleDeg * Math.PI) / 180;
@@ -28269,24 +28324,63 @@ const TAXONOMY_CATEGORIES = [
             ctx.font = SX_POLE_LABEL_FONT;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            const tw = ctx.measureText(text).width;
-            const th = 9;
+            // A name longer than the gap to the next pole wraps, and the
+            // extra lines stack outward so they stay on their own slot.
+            let lines = [text];
+            if (maxWidth > 0 && ctx.measureText(text).width > maxWidth) lines = sxWrapPoleLines(ctx, text, maxWidth);
+            const lineH = 11;
+            const tw = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
+            const th = lines.length * lineH;
+            if (lines.length > 1 && typeof radialRad === "number") {
+                const extra = (lines.length - 1) * lineH / 2;
+                ax += Math.cos(radialRad) * extra;
+                ay += Math.sin(radialRad) * extra;
+            }
             const c = Math.abs(Math.cos(theta)), s = Math.abs(Math.sin(theta));
             const bw = tw * c + th * s, bh = tw * s + th * c;
-            ax = Math.max(bw / 2 + 2, Math.min(W - bw / 2 - 2, ax));
-            ay = Math.max(bh / 2 + 2, Math.min(H - bh / 2 - 2, ay));
+            const pad = 2;
+            if (typeof radialRad === "number") {
+                // Stay on the circumcircle. Slide along the tangent first
+                // so a long name moves sideways around the rim. Only the
+                // leftover, the part the tangent cannot fix, steps inward.
+                const ux = Math.cos(radialRad), uy = Math.sin(radialRad);
+                const tx = -uy, ty = ux;
+                const overflow = (x, y) => ({
+                    dx: x < bw / 2 + pad ? bw / 2 + pad - x : x > W - bw / 2 - pad ? W - bw / 2 - pad - x : 0,
+                    dy: y < bh / 2 + pad ? bh / 2 + pad - y : y > H - bh / 2 - pad ? H - bh / 2 - pad - y : 0
+                });
+                let corr = overflow(ax, ay);
+                const slide = corr.dx * tx + corr.dy * ty;
+                ax += tx * slide;
+                ay += ty * slide;
+                corr = overflow(ax, ay);
+                const inward = corr.dx * ux + corr.dy * uy;
+                if (inward < 0) { ax += ux * inward; ay += uy * inward; }
+                corr = overflow(ax, ay);
+                ax += corr.dx;
+                ay += corr.dy;
+            } else {
+                ax = Math.max(bw / 2 + pad, Math.min(W - bw / 2 - pad, ax));
+                ay = Math.max(bh / 2 + pad, Math.min(H - bh / 2 - pad, ay));
+            }
             ctx.translate(ax, ay);
             ctx.rotate(theta);
             ctx.fillStyle = color;
-            ctx.fillText(text, 0, 0);
+            // Line 0 sits at the top of the rotated text, so the name
+            // reads in order. The block center was already shifted outward.
+            lines.forEach((ln, i) => {
+                ctx.fillText(ln, 0, (i - (lines.length - 1) / 2) * lineH);
+            });
             ctx.restore();
-            sxRecordPoleLabelRect(canvas, text, ax - bw / 2, ay - bh / 2, bw, bh, angleDeg, key, name, ax, ay, tw, th);
+            sxRecordPoleLabelRect(canvas, lines.join(" "), ax - bw / 2, ay - bh / 2, bw, bh, angleDeg, key, name, ax, ay, tw, th);
         }
-        function sxDrawPoleLabel(ctx, canvas, vx, vy, angleRad, text, color, key) {
+        function sxDrawPoleLabel(ctx, canvas, vx, vy, angleRad, text, color, key, name, nPoles, radius) {
             if (!ctx || !canvas || !text) return;
             const tangentDeg = sxNormTangentDeg((angleRad * 180) / Math.PI + 90);
             const dx = Math.cos(angleRad), dy = Math.sin(angleRad);
-            sxDrawPoleLabelAt(ctx, canvas, vx + dx * SX_POLE_LABEL_OFFSET, vy + dy * SX_POLE_LABEL_OFFSET, tangentDeg, text, color, key, text);
+            const labelR = (Number(radius) || 0) + SX_POLE_LABEL_OFFSET;
+            const slot = nPoles >= 3 && labelR > 0 ? Math.max(36, labelR * 2 * Math.PI / nPoles * 0.82) : 0;
+            sxDrawPoleLabelAt(ctx, canvas, vx + dx * SX_POLE_LABEL_OFFSET, vy + dy * SX_POLE_LABEL_OFFSET, tangentDeg, text, color, key, name || text, angleRad, slot);
         }
         function sxPoleLabels(shape, n) {
             // Label, else pole key, else "" — never a "Pole N" fallback (T7).
@@ -28494,6 +28588,22 @@ const TAXONOMY_CATEGORIES = [
             return { w0, w1, w2 };
         }
 
+        function sxWrapPoleLines(ctx, text, maxWidth) {
+            // Break on spaces only. A single long word stays whole so a
+            // name is never cut mid-letter just to fit the slot.
+            const words = String(text || "").split(/\s+/).filter(Boolean);
+            if (!words.length) return [""];
+            if (ctx.measureText(words.join(" ")).width <= maxWidth) return [words.join(" ")];
+            const lines = [];
+            let cur = "";
+            words.forEach(w => {
+                const trial = cur ? cur + " " + w : w;
+                if (ctx.measureText(trial).width <= maxWidth || !cur) cur = trial;
+                else { lines.push(cur); cur = w; }
+            });
+            if (cur) lines.push(cur);
+            return lines;
+        }
         function sxWrapLabelLines(ctx, text, maxWidth) {
             // Greedy word wrap at the shared pole-label font; a single
             // over-long word is hard-split so it can never overflow.
@@ -28572,7 +28682,88 @@ const TAXONOMY_CATEGORIES = [
             if (!sumAbs) return 0;
             return sum < 0 ? -sumAbs : sumAbs;
         }
+        // (n+1) intensity (Jason, 2026-11-19). The pole numbers are the
+        // leanings. `intensity` on the rating object is the extra number:
+        // relevance, signed, negative meaning aversion to the topic as a
+        // whole. Missing on old ratings: seed it from today's derivation
+        // (compass = sum, triad = signed absolute sum, radar = signed
+        // strongest) so the slider still reads the number it read before.
+        // The slider writes only this field. Scoring is unchanged until
+        // the written proposal is approved.
+        function sxFamilyOf(shape) {
+            if (!shape || shape.single) return null;
+            const widget = shape.widget || "";
+            if (widget === "xy-switchbox" || widget === "monopole-slider" || widget === "trilinear-sliders") return null;
+            if (widget === "quad-compass") return "compass";
+            if (widget === "triangle" || shape.triangle) return "triad";
+            const n = (shape.keys || []).length;
+            if (n >= 4 || shape.tetrad || shape.pentad || shape.hexad || shape.heptad || shape.octad) return "radar";
+            if (n === 3) return "triad";
+            return null;
+        }
+        function sxDerivedFromVals(vals, family) {
+            if (family === "compass") {
+                let s = 0;
+                for (let i = 0; i < vals.length; i++) s += Number(vals[i]) || 0;
+                return Math.round(s);
+            }
+            if (family === "triad") return Math.round(sxTriSignedIntensity(vals));
+            return Math.round(sxSignedIntensity(vals));
+        }
+        function sxPersistIntensity(topicId, value, profileId) {
+            const v = Math.max(-400, Math.min(400, Math.round(Number(value) || 0)));
+            To(topicId, "intensity", v, !1, profileId || null);
+            return v;
+        }
+        function sxWidenIntensitySlider(slider, value) {
+            if (!slider) return;
+            const lim = Math.max(100, Math.abs(Math.round(Number(value) || 0)));
+            slider.min = String(-lim);
+            slider.max = String(lim);
+            slider.value = String(Math.round(Number(value) || 0));
+        }
+        // Brightness ramps with |intensity| up to full at ±100. Zero is
+        // the dim don't-care floor. Negative uses each channel's complement.
+        function sxIntensityRGB(r, g, b, intensity) {
+            const v = Number(intensity) || 0;
+            const mag = Math.min(1, Math.abs(v) / 100);
+            const br = 0.28 + 0.72 * mag;
+            let R = r, G = g, B = b;
+            if (v < 0) { R = 255 - r; G = 255 - g; B = 255 - b; }
+            return "rgb(" + Math.round(R * br) + "," + Math.round(G * br) + "," + Math.round(B * br) + ")";
+        }
+        const sxIntensitySeeded = new Set;
+        function sxSeedProfileIntensities(profileId) {
+            if (!profileId || sxIntensitySeeded.has(profileId) || typeof vt === "undefined" || !vt[profileId]) return;
+            sxIntensitySeeded.add(profileId);
+            const bag = vt[profileId];
+            Object.keys(bag).forEach(topicId => {
+                const raw = bag[topicId];
+                if (!raw || typeof raw !== "object" || Object.prototype.hasOwnProperty.call(raw, "intensity")) return;
+                const shape = Ge(topicId, profileId);
+                const family = sxFamilyOf(shape);
+                if (!family) return;
+                const keys = shape.keys || [];
+                const rec = ca(topicId, profileId);
+                if (!keys.some(k => rec[k + "Known"])) return;
+                const vals = keys.map(k => rec[k + "Known"] ? rec[k] : 0);
+                sxPersistIntensity(topicId, sxDerivedFromVals(vals, family), profileId);
+            });
+        }
+        function sxAdoptIntensity(state, rec, derived, slider, sliderOut, topicId, profileId) {
+            let intensity;
+            if (rec && rec.intensityKnown) intensity = Math.round(Number(rec.intensity) || 0);
+            else {
+                intensity = Math.round(Number(derived) || 0);
+                if (intensity && topicId) sxPersistIntensity(topicId, intensity, profileId);
+            }
+            if (state) state.intensity = intensity;
+            sxWidenIntensitySlider(slider, intensity);
+            if (sliderOut) sliderOut.textContent = String(Math.round(intensity));
+            return intensity;
+        }
         function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
+            if (typeof intensity !== "number" && weights && typeof weights.intensity === "number") intensity = weights.intensity;
             if (!canvas) return;
             const ctx = canvas.getContext("2d");
             if (!ctx) return;
@@ -28595,8 +28786,9 @@ const TAXONOMY_CATEGORIES = [
             // puck position, so rebuilding it pixel-by-pixel on every
             // pointermove was the drag jank. Rebuild only when the key
             // (size x rounded intensity) changes; otherwise reuse.
-            const absInt = Math.abs(typeof intensity === "number" ? intensity : 0);
-            const gradKey = width + "x" + height + "x" + Math.round(absInt);
+            const sxIntSigned = typeof intensity === "number" ? intensity : 0;
+            const absInt = Math.abs(sxIntSigned);
+            const gradKey = width + "x" + height + "x" + Math.round(sxIntSigned);
             let grad = canvas.__sxTriGradient;
             if ((!grad || grad.key !== gradKey) && bw > 0 && bh > 0 && Math.abs(det) > 1e-5) {
                 const offCanvas = document.createElement("canvas");
@@ -28606,8 +28798,11 @@ const TAXONOMY_CATEGORIES = [
                 const imgData = offCtx.createImageData(bw, bh);
                 const data = imgData.data;
 
-                // Intensity scales gradient brightness/intensity (clamped -100 to 100)
-                const br = 0.28 + 0.72 * (absInt / 100);
+                // Intensity scales gradient brightness. Full at ±100.
+                // Negative intensity paints each pole's complement.
+                const br = 0.28 + 0.72 * Math.min(1, absInt / 100);
+                const sxNeg = (typeof intensity === "number" ? intensity : 0) < 0;
+                const sxPoleRGB = [[240, 35, 45], [25, 225, 70], [35, 70, 245]].map(c => sxNeg ? c.map(ch => 255 - ch) : c);
 
                 for (let y = minY; y < maxY; y++) {
                     for (let x = minX; x < maxX; x++) {
@@ -28620,12 +28815,12 @@ const TAXONOMY_CATEGORIES = [
                             const nw0 = sum > 0 ? cw0 / sum : 1/3;
                             const nw1 = sum > 0 ? cw1 / sum : 1/3;
                             const nw2 = sum > 0 ? cw2 / sum : 1/3;
-                            // Pole 0 = Red (#ef4444: 239, 68, 68)
-                            // Pole 1 = Green (#22c55e: 34, 197, 94) - Middle position
-                            // Pole 2 = Blue (#3b82f6: 59, 130, 246)
-                            const r = (nw0 * 240 + nw1 * 25 + nw2 * 35) * br;
-                            const g = (nw0 * 35 + nw1 * 225 + nw2 * 70) * br;
-                            const b = (nw0 * 45 + nw1 * 70 + nw2 * 245) * br;
+                            // Pole 0 = Red, pole 1 = Green, pole 2 = Blue.
+                            // Negative intensity has already swapped each
+                            // pole to its complement.
+                            const r = (nw0 * sxPoleRGB[0][0] + nw1 * sxPoleRGB[1][0] + nw2 * sxPoleRGB[2][0]) * br;
+                            const g = (nw0 * sxPoleRGB[0][1] + nw1 * sxPoleRGB[1][1] + nw2 * sxPoleRGB[2][1]) * br;
+                            const b = (nw0 * sxPoleRGB[0][2] + nw1 * sxPoleRGB[1][2] + nw2 * sxPoleRGB[2][2]) * br;
                             const idx = ((y - minY) * bw + (x - minX)) * 4;
                             data[idx] = Math.round(r);
                             data[idx + 1] = Math.round(g);
@@ -28743,9 +28938,12 @@ const TAXONOMY_CATEGORIES = [
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 3) return;
             const { w0, w1, w2, intensity } = sxTriState;
-            const v0 = Math.round(w0 * intensity);
-            const v1 = Math.round(w1 * intensity);
-            const v2 = Math.round(w2 * intensity);
+            // Leanings are the weights on a 0–100 scale. Intensity is stored
+            // beside them and is not baked back into the pole numbers.
+            const v0 = Math.round(w0 * 100);
+            const v1 = Math.round(w1 * 100);
+            const v2 = Math.round(w2 * 100);
+            sxPersistIntensity(topicId, intensity);
             To(topicId, shape.keys[0], v0, !1);
             To(topicId, shape.keys[1], v1, !1);
             To(topicId, shape.keys[2], v2, !0);
@@ -28762,6 +28960,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 3) return;
+            Fo(topicId, "intensity", !1);
             Fo(topicId, shape.keys[0], !1);
             Fo(topicId, shape.keys[1], !1);
             Fo(topicId, shape.keys[2], !0);
@@ -28771,6 +28970,7 @@ const TAXONOMY_CATEGORIES = [
         // --- 4-Pole Tetrad Radar / Diamond Deformation State & Widget ---
         let sxTetradState = {
             topicId: null,
+            intensity: 0,
             p0: 0,
             p1: 0,
             p2: 0,
@@ -28850,7 +29050,7 @@ const TAXONOMY_CATEGORIES = [
             const V3 = { x: cx - r * s3, y: cy };
 
             const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3]);
-            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
 
             // Filled shape
             ctx.beginPath();
@@ -28892,7 +29092,7 @@ const TAXONOMY_CATEGORIES = [
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 4);
             [P0, P1, P2, P3].forEach((P, idx) => {
-                sxDrawPoleLabel(ctx, canvas, P.x, P.y, Math.atan2(P.y - cy, P.x - cx), labels[idx], ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx], shape && shape.keys && shape.keys[idx]);
+                sxDrawPoleLabel(ctx, canvas, P.x, P.y, Math.atan2(P.y - cy, P.x - cx), labels[idx], ["#22c55e", "#eab308", "#ef4444", "#3b82f6"][idx], shape && shape.keys && shape.keys[idx], labels[idx], 4, r);
             });
         }
 
@@ -28900,6 +29100,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
+            sxPersistIntensity(topicId, sxTetradState.intensity);
             To(topicId, shape.keys[0], Math.round(sxTetradState.p0), !1);
             To(topicId, shape.keys[1], Math.round(sxTetradState.p1), !1);
             To(topicId, shape.keys[2], Math.round(sxTetradState.p2), !1);
@@ -28911,6 +29112,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
+            Fo(topicId, "intensity", !1);
             Fo(topicId, shape.keys[0], !1);
             Fo(topicId, shape.keys[1], !1);
             Fo(topicId, shape.keys[2], !1);
@@ -29004,8 +29206,14 @@ const TAXONOMY_CATEGORIES = [
             const v = (state && typeof state.v === "number") ? state.v : 0.5;
             const px = x0 + u * s, py = y0 + v * s;
 
-            // 1. Tinted quadrant backgrounds
-            const tints = ["rgba(34, 197, 94, 0.10)", "rgba(234, 179, 8, 0.10)", "rgba(239, 68, 68, 0.10)", "rgba(59, 130, 246, 0.10)"];
+            // 1. Tinted quadrant backgrounds. Brightness follows the stored
+            // intensity; a negative intensity uses each quadrant's complement.
+            const sxBr = 0.28 + 0.72 * Math.min(1, Math.abs(Number(state && state.intensity) || 0) / 100);
+            const sxNeg = (Number(state && state.intensity) || 0) < 0;
+            const sxQuad = sxNeg
+                ? [[221, 58, 161], [21, 76, 247], [16, 187, 187], [196, 125, 209]]
+                : [[34, 197, 94], [234, 179, 8], [239, 68, 68], [59, 130, 246]];
+            const tints = sxQuad.map(c => "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (0.10 * sxBr).toFixed(3) + ")");
             ctx.fillStyle = tints[0]; ctx.fillRect(x0, y0, s / 2, s / 2);
             ctx.fillStyle = tints[1]; ctx.fillRect(cx, y0, s / 2, s / 2);
             ctx.fillStyle = tints[2]; ctx.fillRect(cx, cy, s / 2, s / 2);
@@ -29056,30 +29264,21 @@ const TAXONOMY_CATEGORIES = [
                 ctx.restore();
             }
 
-            // 5. Corner labels (short forms, corner colors) — horizontal,
-            // per the compass ruling (Q1); recorded for hover (seam B).
-            // The full label is the hover name; the short form is drawn.
+            // 5. Corner labels ride the tangent of the square's
+            // circumscribing circle (Jason, 2026-11-19). The short form
+            // is drawn; the full label is the hover name.
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 4);
             const short = labels.map(l => sxCompassShortLabel(l));
-            ctx.font = SX_POLE_LABEL_FONT;
-            const sxCornerW = (t) => ctx.measureText(t).width;
-            // Top-left
-            ctx.textAlign = "left"; ctx.textBaseline = "bottom";
-            ctx.fillStyle = SX_COMPASS_COLORS[0]; ctx.fillText(short[0], x0, y0 - 4);
-            sxRecordPoleLabelRect(canvas, short[0], x0, y0 - 13, sxCornerW(short[0]), 9, 0, shape && shape.keys && shape.keys[0], labels[0]);
-            // Top-right
-            ctx.textAlign = "right"; ctx.textBaseline = "bottom";
-            ctx.fillStyle = SX_COMPASS_COLORS[1]; ctx.fillText(short[1], x1, y0 - 4);
-            sxRecordPoleLabelRect(canvas, short[1], x1 - sxCornerW(short[1]), y0 - 13, sxCornerW(short[1]), 9, 0, shape && shape.keys && shape.keys[1], labels[1]);
-            // Bottom-right
-            ctx.textAlign = "right"; ctx.textBaseline = "top";
-            ctx.fillStyle = SX_COMPASS_COLORS[2]; ctx.fillText(short[2], x1, y1 + 4);
-            sxRecordPoleLabelRect(canvas, short[2], x1 - sxCornerW(short[2]), y1 + 4, sxCornerW(short[2]), 9, 0, shape && shape.keys && shape.keys[2], labels[2]);
-            // Bottom-left
-            ctx.textAlign = "left"; ctx.textBaseline = "top";
-            ctx.fillStyle = SX_COMPASS_COLORS[3]; ctx.fillText(short[3], x0, y1 + 4);
-            sxRecordPoleLabelRect(canvas, short[3], x0, y1 + 4, sxCornerW(short[3]), 9, 0, shape && shape.keys && shape.keys[3], labels[3]);
+            const corners = [
+                { x: x0, y: y0 },
+                { x: x1, y: y0 },
+                { x: x1, y: y1 },
+                { x: x0, y: y1 }
+            ];
+            corners.forEach((corner, idx) => {
+                sxDrawPoleLabel(ctx, canvas, corner.x, corner.y, Math.atan2(corner.y - cy, corner.x - cx), short[idx], SX_COMPASS_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 4, Math.hypot(x0 - cx, y0 - cy));
+            });
 
             // 6. Draggable point puck (same pattern as the triangle widget)
             ctx.beginPath();
@@ -29099,7 +29298,10 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
-            const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, sxCompassState.intensity);
+            // The point is the leaning, stored at a fixed 100 scale so a
+            // later intensity change does not move the four pole numbers.
+            const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
+            sxPersistIntensity(topicId, sxCompassState.intensity);
             To(topicId, shape.keys[0], vals[0], !1);
             To(topicId, shape.keys[1], vals[1], !1);
             To(topicId, shape.keys[2], vals[2], !1);
@@ -29111,6 +29313,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
+            Fo(topicId, "intensity", !1);
             Fo(topicId, shape.keys[0], !1);
             Fo(topicId, shape.keys[1], !1);
             Fo(topicId, shape.keys[2], !1);
@@ -29171,28 +29374,27 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
-                const scale = (100 + step) / 100;
-                sxCompassState.intensity = Math.max(-100, Math.min(100, Math.round(sxCompassState.intensity * scale)));
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxCompassState.intensity) || 0) + step)));
                 if (slider) slider.value = String(Math.round(sxCompassState.intensity));
                 const out = e.byId("markCompassIntensityOut");
                 out && (out.textContent = String(Math.round(sxCompassState.intensity)));
                 if (Qr) {
+                    sxPersistIntensity(Qr, sxCompassState.intensity);
                     const shape = Ge(Qr);
                     sxDrawCompassWidget(canvas, shape, sxCompassState);
-                    sxApplyCompassRatings(Qr);
                 }
             }, { passive: false });
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    sxCompassState.intensity = Math.max(-100, Math.min(100, Number(slider.value)));
+                    sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
                     const out = e.byId("markCompassIntensityOut");
                     out && (out.textContent = String(Math.round(sxCompassState.intensity)));
                     if (Qr) {
+                        sxPersistIntensity(Qr, sxCompassState.intensity);
                         const shape = Ge(Qr);
                         sxDrawCompassWidget(canvas, shape, sxCompassState);
-                        sxApplyCompassRatings(Qr);
                     }
                 });
             }
@@ -29343,20 +29545,15 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("pointerup", stopDrag);
             canvas.addEventListener("pointercancel", stopDrag);
 
-            // Wheel scales all 4 poles proportionally
+            // Wheel steps the stored intensity. The poles stay put.
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
-                const scale = (100 + step) / 100;
-                sxTetradState.p0 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p0 * scale)));
-                sxTetradState.p1 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p1 * scale)));
-                sxTetradState.p2 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p2 * scale)));
-                sxTetradState.p3 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p3 * scale)));
-                const maxVal = sxSignedIntensity([sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3]);
-                if (slider) slider.value = String(Math.round(maxVal));
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                sxTetradState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxTetradState.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(sxTetradState.intensity));
                 const out = e.byId("markTetradIntensityOut");
-                if (out) out.textContent = String(Math.round(maxVal));
+                if (out) out.textContent = String(Math.round(sxTetradState.intensity));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawTetradWidget(canvas, shape, sxTetradState);
@@ -29366,27 +29563,10 @@ const TAXONOMY_CATEGORIES = [
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    const val = Number(slider.value);
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    sxTetradState.intensity = val;
                     const out = e.byId("markTetradIntensityOut");
-                    out && (out.textContent = String(Math.round(val)));
-                    // Scale existing distribution to match max intensity
-                    const maxCur = sxSignedIntensity([sxTetradState.p0, sxTetradState.p1, sxTetradState.p2, sxTetradState.p3]);
-                    if (maxCur !== 0) {
-                        const ratio = val / maxCur;
-                        sxTetradState.p0 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p0 * ratio)));
-                        sxTetradState.p1 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p1 * ratio)));
-                        sxTetradState.p2 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p2 * ratio)));
-                        sxTetradState.p3 = Math.max(-100, Math.min(100, Math.round(sxTetradState.p3 * ratio)));
-                    } else if (sxTetradState.shape) {
-                        // Raising from 0: restore the saved shape instead of
-                        // setting every pole equal (which would lose it).
-                        sxTetradState.p0 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[0] * val)));
-                        sxTetradState.p1 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[1] * val)));
-                        sxTetradState.p2 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[2] * val)));
-                        sxTetradState.p3 = Math.max(-100, Math.min(100, Math.round(sxTetradState.shape[3] * val)));
-                    } else {
-                        sxTetradState.p0 = val; sxTetradState.p1 = val; sxTetradState.p2 = val; sxTetradState.p3 = val;
-                    }
+                    out && (out.textContent = String(val));
                     if (Qr) {
                         const shape = Ge(Qr);
                         sxDrawTetradWidget(canvas, shape, sxTetradState);
@@ -29407,6 +29587,7 @@ const TAXONOMY_CATEGORIES = [
         // --- 5-Pole Pentad Radar / Star Deformation State & Widget ---
         let sxPentadState = {
             topicId: null,
+            intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
             // Shape = pole values as ratios to the max (max = 1). Saved
             // whenever the values are non-zero, so the intensity slider can
@@ -29484,7 +29665,7 @@ const TAXONOMY_CATEGORIES = [
             }));
 
             const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4]);
-            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
 
             // Filled shape
             ctx.beginPath();
@@ -29516,7 +29697,7 @@ const TAXONOMY_CATEGORIES = [
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 5);
             vertices.forEach((v, idx) => {
-                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_PENTAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_PENTAD_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 5, r);
             });
         }
 
@@ -29524,6 +29705,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 5) return;
+            sxPersistIntensity(topicId, sxPentadState.intensity);
             To(topicId, shape.keys[0], Math.round(sxPentadState.p0), !1);
             To(topicId, shape.keys[1], Math.round(sxPentadState.p1), !1);
             To(topicId, shape.keys[2], Math.round(sxPentadState.p2), !1);
@@ -29536,6 +29718,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 5) return;
+            Fo(topicId, "intensity", !1);
             Fo(topicId, shape.keys[0], !1);
             Fo(topicId, shape.keys[1], !1);
             Fo(topicId, shape.keys[2], !1);
@@ -29635,15 +29818,11 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
-                const scale = (100 + step) / 100;
-                for (let k = 0; k < 5; k++) {
-                    sxPentadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxPentadState[`p${k}`] * scale)));
-                }
-                const maxVal = sxSignedIntensity([sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4]);
-                if (slider) slider.value = String(Math.round(maxVal));
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                sxPentadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxPentadState.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(sxPentadState.intensity));
                 const out = e.byId("markPentadIntensityOut");
-                if (out) out.textContent = String(Math.round(maxVal));
+                if (out) out.textContent = String(Math.round(sxPentadState.intensity));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawPentadWidget(canvas, shape, sxPentadState);
@@ -29653,26 +29832,10 @@ const TAXONOMY_CATEGORIES = [
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    const val = Number(slider.value);
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    sxPentadState.intensity = val;
                     const out = e.byId("markPentadIntensityOut");
-                    out && (out.textContent = String(Math.round(val)));
-                    const maxCur = sxSignedIntensity([sxPentadState.p0, sxPentadState.p1, sxPentadState.p2, sxPentadState.p3, sxPentadState.p4]);
-                    if (maxCur !== 0) {
-                        const ratio = val / maxCur;
-                        for (let k = 0; k < 5; k++) {
-                            sxPentadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxPentadState[`p${k}`] * ratio)));
-                        }
-                    } else if (sxPentadState.shape) {
-                        // Raising from 0: restore the saved shape instead of
-                        // setting every pole equal (which would lose it).
-                        for (let k = 0; k < 5; k++) {
-                            sxPentadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxPentadState.shape[k] * val)));
-                        }
-                    } else {
-                        for (let k = 0; k < 5; k++) {
-                            sxPentadState[`p${k}`] = val;
-                        }
-                    }
+                    out && (out.textContent = String(val));
                     if (Qr) {
                         const shape = Ge(Qr);
                         sxDrawPentadWidget(canvas, shape, sxPentadState);
@@ -29692,6 +29855,7 @@ const TAXONOMY_CATEGORIES = [
 
         let sxHexadState = {
             topicId: null,
+            intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
             // Shape = pole values as ratios to the max (max = 1). Saved
             // whenever the values are non-zero, so the intensity slider can
@@ -29770,7 +29934,7 @@ const TAXONOMY_CATEGORIES = [
             }));
 
             const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5]);
-            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
 
             // Filled shape
             ctx.beginPath();
@@ -29802,7 +29966,7 @@ const TAXONOMY_CATEGORIES = [
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 6);
             vertices.forEach((v, idx) => {
-                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_HEXAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_HEXAD_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 6, r);
             });
         }
 
@@ -29810,6 +29974,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 6) return;
+            sxPersistIntensity(topicId, sxHexadState.intensity);
             To(topicId, shape.keys[0], Math.round(sxHexadState.p0), !1);
             To(topicId, shape.keys[1], Math.round(sxHexadState.p1), !1);
             To(topicId, shape.keys[2], Math.round(sxHexadState.p2), !1);
@@ -29823,6 +29988,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 6) return;
+            Fo(topicId, "intensity", !1);
             Fo(topicId, shape.keys[0], !1);
             Fo(topicId, shape.keys[1], !1);
             Fo(topicId, shape.keys[2], !1);
@@ -29923,15 +30089,11 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
-                const scale = (100 + step) / 100;
-                for (let k = 0; k < 6; k++) {
-                    sxHexadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHexadState[`p${k}`] * scale)));
-                }
-                const maxVal = sxSignedIntensity([sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5]);
-                if (slider) slider.value = String(Math.round(maxVal));
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                sxHexadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxHexadState.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(sxHexadState.intensity));
                 const out = e.byId("markHexadIntensityOut");
-                if (out) out.textContent = String(Math.round(maxVal));
+                if (out) out.textContent = String(Math.round(sxHexadState.intensity));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawHexadWidget(canvas, shape, sxHexadState);
@@ -29941,26 +30103,10 @@ const TAXONOMY_CATEGORIES = [
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    const val = Number(slider.value);
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    sxHexadState.intensity = val;
                     const out = e.byId("markHexadIntensityOut");
-                    out && (out.textContent = String(Math.round(val)));
-                    const maxCur = sxSignedIntensity([sxHexadState.p0, sxHexadState.p1, sxHexadState.p2, sxHexadState.p3, sxHexadState.p4, sxHexadState.p5]);
-                    if (maxCur !== 0) {
-                        const ratio = val / maxCur;
-                        for (let k = 0; k < 6; k++) {
-                            sxHexadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHexadState[`p${k}`] * ratio)));
-                        }
-                    } else if (sxHexadState.shape) {
-                        // Raising from 0: restore the saved shape instead of
-                        // setting every pole equal (which would lose it).
-                        for (let k = 0; k < 6; k++) {
-                            sxHexadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHexadState.shape[k] * val)));
-                        }
-                    } else {
-                        for (let k = 0; k < 6; k++) {
-                            sxHexadState[`p${k}`] = val;
-                        }
-                    }
+                    out && (out.textContent = String(val));
                     if (Qr) {
                         const shape = Ge(Qr);
                         sxDrawHexadWidget(canvas, shape, sxHexadState);
@@ -29980,6 +30126,7 @@ const TAXONOMY_CATEGORIES = [
 
         let sxHeptadState = {
             topicId: null,
+            intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
             // Shape = pole values as ratios to the max (max = 1). Saved
             // whenever the values are non-zero, so the intensity slider can
@@ -30059,7 +30206,7 @@ const TAXONOMY_CATEGORIES = [
             }));
 
             const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6]);
-            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
 
             // Filled shape
             ctx.beginPath();
@@ -30091,7 +30238,7 @@ const TAXONOMY_CATEGORIES = [
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 7);
             vertices.forEach((v, idx) => {
-                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_HEPTAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_HEPTAD_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 7, r);
             });
         }
 
@@ -30099,6 +30246,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 7) return;
+            sxPersistIntensity(topicId, sxHeptadState.intensity);
             To(topicId, shape.keys[0], Math.round(sxHeptadState.p0), !1);
             To(topicId, shape.keys[1], Math.round(sxHeptadState.p1), !1);
             To(topicId, shape.keys[2], Math.round(sxHeptadState.p2), !1);
@@ -30113,6 +30261,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 7) return;
+            Fo(topicId, "intensity", !1);
             Fo(topicId, shape.keys[0], !1);
             Fo(topicId, shape.keys[1], !1);
             Fo(topicId, shape.keys[2], !1);
@@ -30214,15 +30363,11 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
-                const scale = (100 + step) / 100;
-                for (let k = 0; k < 7; k++) {
-                    sxHeptadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHeptadState[`p${k}`] * scale)));
-                }
-                const maxVal = sxSignedIntensity([sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6]);
-                if (slider) slider.value = String(Math.round(maxVal));
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                sxHeptadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxHeptadState.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(sxHeptadState.intensity));
                 const out = e.byId("markHeptadIntensityOut");
-                if (out) out.textContent = String(Math.round(maxVal));
+                if (out) out.textContent = String(Math.round(sxHeptadState.intensity));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawHeptadWidget(canvas, shape, sxHeptadState);
@@ -30232,26 +30377,10 @@ const TAXONOMY_CATEGORIES = [
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    const val = Number(slider.value);
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    sxHeptadState.intensity = val;
                     const out = e.byId("markHeptadIntensityOut");
-                    out && (out.textContent = String(Math.round(val)));
-                    const maxCur = sxSignedIntensity([sxHeptadState.p0, sxHeptadState.p1, sxHeptadState.p2, sxHeptadState.p3, sxHeptadState.p4, sxHeptadState.p5, sxHeptadState.p6]);
-                    if (maxCur !== 0) {
-                        const ratio = val / maxCur;
-                        for (let k = 0; k < 7; k++) {
-                            sxHeptadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHeptadState[`p${k}`] * ratio)));
-                        }
-                    } else if (sxHeptadState.shape) {
-                        // Raising from 0: restore the saved shape instead of
-                        // setting every pole equal (which would lose it).
-                        for (let k = 0; k < 7; k++) {
-                            sxHeptadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxHeptadState.shape[k] * val)));
-                        }
-                    } else {
-                        for (let k = 0; k < 7; k++) {
-                            sxHeptadState[`p${k}`] = val;
-                        }
-                    }
+                    out && (out.textContent = String(val));
                     if (Qr) {
                         const shape = Ge(Qr);
                         sxDrawHeptadWidget(canvas, shape, sxHeptadState);
@@ -30274,6 +30403,7 @@ const TAXONOMY_CATEGORIES = [
         // ==========================================
         let sxOctadState = {
             topicId: null,
+            intensity: 0,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
             // Shape = pole values as ratios to the max (max = 1). Saved
             // whenever the values are non-zero, so the intensity slider can
@@ -30354,7 +30484,7 @@ const TAXONOMY_CATEGORIES = [
             }));
 
             const maxVal = sxSignedIntensity([state.p0, state.p1, state.p2, state.p3, state.p4, state.p5, state.p6, state.p7]);
-            const polyCol = maxVal > 0 ? zi(maxVal) : "rgba(103, 232, 249, 0.6)";
+            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
 
             // Filled shape
             ctx.beginPath();
@@ -30386,7 +30516,7 @@ const TAXONOMY_CATEGORIES = [
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 8);
             vertices.forEach((v, idx) => {
-                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_OCTAD_COLORS[idx], shape && shape.keys && shape.keys[idx]);
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], SX_OCTAD_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 8, r);
             });
         }
 
@@ -30394,6 +30524,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 8) return;
+            sxPersistIntensity(topicId, sxOctadState.intensity);
             To(topicId, shape.keys[0], Math.round(sxOctadState.p0), !1);
             To(topicId, shape.keys[1], Math.round(sxOctadState.p1), !1);
             To(topicId, shape.keys[2], Math.round(sxOctadState.p2), !1);
@@ -30409,6 +30540,7 @@ const TAXONOMY_CATEGORIES = [
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 8) return;
+            Fo(topicId, "intensity", !1);
             Fo(topicId, shape.keys[0], !1);
             Fo(topicId, shape.keys[1], !1);
             Fo(topicId, shape.keys[2], !1);
@@ -30511,15 +30643,11 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
-                const scale = (100 + step) / 100;
-                for (let k = 0; k < 8; k++) {
-                    sxOctadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxOctadState[`p${k}`] * scale)));
-                }
-                const maxVal = sxSignedIntensity([sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7]);
-                if (slider) slider.value = String(Math.round(maxVal));
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                sxOctadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxOctadState.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(sxOctadState.intensity));
                 const out = e.byId("markOctadIntensityOut");
-                if (out) out.textContent = String(Math.round(maxVal));
+                if (out) out.textContent = String(Math.round(sxOctadState.intensity));
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawOctadWidget(canvas, shape, sxOctadState);
@@ -30529,26 +30657,10 @@ const TAXONOMY_CATEGORIES = [
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    const val = Number(slider.value);
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    sxOctadState.intensity = val;
                     const out = e.byId("markOctadIntensityOut");
-                    out && (out.textContent = String(Math.round(val)));
-                    const maxCur = sxSignedIntensity([sxOctadState.p0, sxOctadState.p1, sxOctadState.p2, sxOctadState.p3, sxOctadState.p4, sxOctadState.p5, sxOctadState.p6, sxOctadState.p7]);
-                    if (maxCur !== 0) {
-                        const ratio = val / maxCur;
-                        for (let k = 0; k < 8; k++) {
-                            sxOctadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxOctadState[`p${k}`] * ratio)));
-                        }
-                    } else if (sxOctadState.shape) {
-                        // Raising from 0: restore the saved shape instead of
-                        // setting every pole equal (which would lose it).
-                        for (let k = 0; k < 8; k++) {
-                            sxOctadState[`p${k}`] = Math.max(-100, Math.min(100, Math.round(sxOctadState.shape[k] * val)));
-                        }
-                    } else {
-                        for (let k = 0; k < 8; k++) {
-                            sxOctadState[`p${k}`] = val;
-                        }
-                    }
+                    out && (out.textContent = String(val));
                     if (Qr) {
                         const shape = Ge(Qr);
                         sxDrawOctadWidget(canvas, shape, sxOctadState);
@@ -30635,13 +30747,16 @@ const TAXONOMY_CATEGORIES = [
 
             const redraw = () => {
                 pId = freshPid();
+                sxSeedProfileIntensities(pId);
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const maxVal = sxSignedIntensity(vals);
-                // Compass intensity is the SUM of the four quadrant values;
-                // the triad's is the signed sum too, matching the placard;
-                // the radar/tetrad families use the signed strongest value.
-                const sliderVal = isCompass ? (vals[0] + vals[1] + vals[2] + vals[3]) : isTriad ? sxTriSignedIntensity(vals) : maxVal;
+                // The slider reads the stored +1. A rating that has never
+                // stored one is seeded from the old derivation so the
+                // number on the slider does not jump.
+                const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
+                const derived = isSwitch ? 0 : sxDerivedFromVals(vals, family);
+                const sliderVal = !isSwitch && curRec.intensityKnown ? Math.round(Number(curRec.intensity) || 0) : derived;
                 if (!isSwitch) {
                     // The derived intensity can exceed the slider's static
                     // ±100 range (triad sums reach ±300, compass sums ±400):
@@ -30660,26 +30775,27 @@ const TAXONOMY_CATEGORIES = [
 
                 if (isCompass) {
                     const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
+                    pt.intensity = sliderVal;
                     sxDrawCompassWidget(canvas, shape, pt);
                 } else if (isOctad) {
                     sxDrawOctadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7]
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal
                     });
                 } else if (isHeptad) {
                     sxDrawHeptadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6]
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal
                     });
                 } else if (isHexad) {
                     sxDrawHexadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5]
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal
                     });
                 } else if (isPentad) {
                     sxDrawPentadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4]
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal
                     });
                 } else if (isTetrad) {
                     sxDrawTetradWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3]
+                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal
                     });
                 } else if (isTriad) {
                     // 2026-11-18 (puck-drag smoothness): the weights must
@@ -30751,11 +30867,7 @@ const TAXONOMY_CATEGORIES = [
                 } else if (isCompass) {
                     const sq = sxGetCompassSquare(canvas.width, canvas.height);
                     const { u, v } = sxCompassPointToUV(px, py, sq);
-                    const curRec = ca(topicId, pId);
-                    const oldVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                    let intensity = oldVals[0] + oldVals[1] + oldVals[2] + oldVals[3];
-                    if (!intensity) intensity = 70;
-                    const vals = sxCompassValuesFromPoint(u, v, intensity);
+                    const vals = sxCompassValuesFromPoint(u, v, 100);
                     keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
@@ -30763,13 +30875,9 @@ const TAXONOMY_CATEGORIES = [
                 } else if (isTriad) {
                     const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                     const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                    const curRec = ca(topicId, pId);
-                    const oldVals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
-                    let intensity = sxTriSignedIntensity(oldVals);
-                    if (!intensity) intensity = 70;
-                    To(topicId, keys[0], Math.round(w0 * intensity), !1, pId);
-                    To(topicId, keys[1], Math.round(w1 * intensity), !1, pId);
-                    To(topicId, keys[2], Math.round(w2 * intensity), !1, pId);
+                    To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
+                    To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
+                    To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -30816,13 +30924,12 @@ const TAXONOMY_CATEGORIES = [
                 evt.preventDefault();
                 evt.stopPropagation();
                 if (isSwitch) return;
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
-                const scale = (100 + step) / 100;
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
                 const curRec = ca(topicId, pId);
-                keys.forEach(k => {
-                    const oldV = curRec[k + "Known"] ? curRec[k] : 0;
-                    To(topicId, k, Math.max(-100, Math.min(100, Math.round(oldV * scale))), !1, pId);
-                });
+                const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
+                const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
+                sxPersistIntensity(topicId, cur + step, pId);
                 Mr();
                 redraw();
                 const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
@@ -30832,49 +30939,9 @@ const TAXONOMY_CATEGORIES = [
             if (slider) {
                 slider.oninput = () => {
                     pId = freshPid();
-                    const targetVal = Number(slider.value);
-                    const curRec = ca(topicId, pId);
-                    const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                     if (isSwitch) return;
-                    if (isCompass) {
-                        // Compass intensity is the SUM: rescale so the four
-                        // values sum to the target, point unchanged.
-                        const sumCur = vals[0] + vals[1] + vals[2] + vals[3];
-                        if (sumCur !== 0) {
-                            const ratio = targetVal / sumCur;
-                            keys.forEach((k, idx) => {
-                                To(topicId, k, Math.max(-100, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
-                            });
-                        } else {
-                            // No ratings yet: start at the center point
-                            keys.forEach(k => {
-                                To(topicId, k, Math.max(-100, Math.min(100, Math.round(targetVal / 4))), !1, pId);
-                            });
-                        }
-                    } else {
-                        // Rescale the whole vector by the ratio to the
-                        // current signed intensity (signed strongest for
-                        // the radar/tetrad families, signed sum for the
-                        // triad), so flipping the slider's sign flips every
-                        // pole with it — aversion keeps the proportions.
-                        const curInt = isTriad ? sxTriSignedIntensity(vals) : sxSignedIntensity(vals);
-                        if (curInt !== 0) {
-                            const ratio = targetVal / curInt;
-                            keys.forEach((k, idx) => {
-                                To(topicId, k, Math.max(-100, Math.min(100, Math.round(vals[idx] * ratio))), !1, pId);
-                            });
-                        } else if (isTriad) {
-                            // From zero, a triad starts as equal thirds of
-                            // the target (the placard's proportions model).
-                            keys.forEach(k => {
-                                To(topicId, k, Math.round(targetVal / 3), !1, pId);
-                            });
-                        } else {
-                            keys.forEach(k => {
-                                To(topicId, k, targetVal, !1, pId);
-                            });
-                        }
-                    }
+                    // The slider edits only the stored +1. Pole numbers stay.
+                    sxPersistIntensity(topicId, Number(slider.value), pId);
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
                     row && Ss(row);
@@ -30886,6 +30953,7 @@ const TAXONOMY_CATEGORIES = [
 
             if (clearBtn) {
                 clearBtn.onclick = () => {
+                    Fo(topicId, "intensity", !1, pId);
                     keys.forEach((k, idx) => Fo(topicId, k, idx === keys.length - 1, pId));
                     redraw();
                     const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
@@ -30983,28 +31051,28 @@ const TAXONOMY_CATEGORIES = [
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 1 : 5) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
                 const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
-                sxTriState.intensity = Math.max(-100, Math.min(100, Math.round(current + step)));
+                sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(current + step)));
                 if (slider) slider.value = String(Math.round(sxTriState.intensity));
                 const out = e.byId("markTriangleIntensityOut");
                 out && (out.textContent = String(Math.round(sxTriState.intensity)));
                 if (Qr) {
+                    sxPersistIntensity(Qr, sxTriState.intensity);
                     const shape = Ge(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
-                    sxApplyTriRatings(Qr);
                 }
             }, { passive: false });
 
             if (slider) {
                 slider.addEventListener("input", () => {
-                    sxTriState.intensity = Number(slider.value);
+                    sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
                     const out = e.byId("markTriangleIntensityOut");
                     out && (out.textContent = String(Math.round(sxTriState.intensity)));
                     if (Qr) {
+                        sxPersistIntensity(Qr, sxTriState.intensity);
                         const shape = Ge(Qr);
                         sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
-                        sxApplyTriRatings(Qr);
                     }
                 });
             }
@@ -31271,6 +31339,7 @@ const TAXONOMY_CATEGORIES = [
         }
 
         function sxSyncMarkRatings(id) {
+            sxSeedProfileIntensities(Vi());
             const give = e.byId("markGive"), recv = e.byId("markReceive"), giveOut = e.byId("markGiveOut"), recvOut = e.byId("markReceiveOut"), giveLabel = e.byId("markGiveLabel"), recvLabel = e.byId("markReceiveLabel"), recvRow = e.byId("markReceiveRow");
             const role3 = e.byId("markRole3"), role3Out = e.byId("markRole3Out"), role3Label = e.byId("markRole3Label"), role3Row = e.byId("markRole3Row");
             const role4 = e.byId("markRole4"), role4Out = e.byId("markRole4Out"), role4Label = e.byId("markRole4Label"), role4Row = e.byId("markRole4Row");
@@ -31375,8 +31444,7 @@ const TAXONOMY_CATEGORIES = [
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxOctadState.shape = ratings.map(v => v / maxR);
-                if (octadIntensity) octadIntensity.value = String(Math.round(maxR));
-                if (octadIntensityOut) octadIntensityOut.textContent = String(Math.round(maxR));
+                sxAdoptIntensity(sxOctadState, rec, maxR, octadIntensity, octadIntensityOut, id, Vi());
 
                 const poleEls = [octadPole0, octadPole1, octadPole2, octadPole3, octadPole4, octadPole5, octadPole6, octadPole7];
                 const valEls = [octadVal0, octadVal1, octadVal2, octadVal3, octadVal4, octadVal5, octadVal6, octadVal7];
@@ -31405,8 +31473,7 @@ const TAXONOMY_CATEGORIES = [
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxHeptadState.shape = ratings.map(v => v / maxR);
-                if (heptadIntensity) heptadIntensity.value = String(Math.round(maxR));
-                if (heptadIntensityOut) heptadIntensityOut.textContent = String(Math.round(maxR));
+                sxAdoptIntensity(sxHeptadState, rec, maxR, heptadIntensity, heptadIntensityOut, id, Vi());
 
                 const poleEls = [heptadPole0, heptadPole1, heptadPole2, heptadPole3, heptadPole4, heptadPole5, heptadPole6];
                 const valEls = [heptadVal0, heptadVal1, heptadVal2, heptadVal3, heptadVal4, heptadVal5, heptadVal6];
@@ -31434,8 +31501,7 @@ const TAXONOMY_CATEGORIES = [
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxHexadState.shape = ratings.map(v => v / maxR);
-                if (hexadIntensity) hexadIntensity.value = String(Math.round(maxR));
-                if (hexadIntensityOut) hexadIntensityOut.textContent = String(Math.round(maxR));
+                sxAdoptIntensity(sxHexadState, rec, maxR, hexadIntensity, hexadIntensityOut, id, Vi());
 
                 const poleEls = [hexadPole0, hexadPole1, hexadPole2, hexadPole3, hexadPole4, hexadPole5];
                 const valEls = [hexadVal0, hexadVal1, hexadVal2, hexadVal3, hexadVal4, hexadVal5];
@@ -31462,8 +31528,7 @@ const TAXONOMY_CATEGORIES = [
 
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxPentadState.shape = ratings.map(v => v / maxR);
-                if (pentadIntensity) pentadIntensity.value = String(Math.round(maxR));
-                if (pentadIntensityOut) pentadIntensityOut.textContent = String(Math.round(maxR));
+                sxAdoptIntensity(sxPentadState, rec, maxR, pentadIntensity, pentadIntensityOut, id, Vi());
 
                 const poleEls = [pentadPole0, pentadPole1, pentadPole2, pentadPole3, pentadPole4];
                 const valEls = [pentadVal0, pentadVal1, pentadVal2, pentadVal3, pentadVal4];
@@ -31491,21 +31556,13 @@ const TAXONOMY_CATEGORIES = [
                 const keepPoint = allZero && sxCompassState.topicId === id &&
                     typeof sxCompassState.u === "number" && typeof sxCompassState.v === "number";
                 sxCompassState.topicId = id;
-                if (keepPoint) {
-                    // All stored values are zero (intensity 0): the point
-                    // cannot be recovered from the values, so keep the point
-                    // the user set instead of resetting to the centre —
-                    // otherwise the point jumps to the middle and is lost
-                    // when the intensity is raised again.
-                    sxCompassState.intensity = 0;
-                } else {
+                if (!keepPoint) {
                     sxCompassState.u = pt.u;
                     sxCompassState.v = pt.v;
-                    sxCompassState.intensity = pt.intensity;
                 }
-
-                if (compassIntensity) compassIntensity.value = String(Math.round(pt.intensity));
-                if (compassIntensityOut) compassIntensityOut.textContent = String(Math.round(pt.intensity));
+                // Stored intensity wins. The sum of the pole numbers is only
+                // the seed for a rating that has never stored one.
+                sxAdoptIntensity(sxCompassState, rec, keepPoint ? 0 : pt.intensity, compassIntensity, compassIntensityOut, id, Vi());
 
                 if (compassPole0) { compassPole0.textContent = shape.labels[0] || k0; compassPole0.style.color = SX_COMPASS_COLORS[0]; sxSetPoleTip(compassPole0, id, k0); }
                 if (compassPole1) { compassPole1.textContent = shape.labels[1] || k1; compassPole1.style.color = SX_COMPASS_COLORS[1]; sxSetPoleTip(compassPole1, id, k1); }
@@ -31536,8 +31593,7 @@ const TAXONOMY_CATEGORIES = [
 
                 const maxR = sxSignedIntensity([r0, r1, r2, r3]);
                 if (maxR !== 0) sxTetradState.shape = [r0 / maxR, r1 / maxR, r2 / maxR, r3 / maxR];
-                if (tetradIntensity) tetradIntensity.value = String(Math.round(maxR));
-                if (tetradIntensityOut) tetradIntensityOut.textContent = String(Math.round(maxR));
+                sxAdoptIntensity(sxTetradState, rec, maxR, tetradIntensity, tetradIntensityOut, id, Vi());
 
                 if (tetradPole0) { tetradPole0.textContent = shape.labels[0] || k0; tetradPole0.style.color = "#22c55e"; sxSetPoleTip(tetradPole0, id, k0); }
                 if (tetradPole1) { tetradPole1.textContent = shape.labels[1] || k1; tetradPole1.style.color = "#eab308"; sxSetPoleTip(tetradPole1, id, k1); }
@@ -31590,10 +31646,7 @@ const TAXONOMY_CATEGORIES = [
                 sxTriState.w0 = w0;
                 sxTriState.w1 = w1;
                 sxTriState.w2 = w2;
-                sxTriState.intensity = intensity;
-
-                if (triIntensity) triIntensity.value = String(Math.round(intensity));
-                if (triIntensityOut) triIntensityOut.textContent = String(Math.round(intensity));
+                intensity = sxAdoptIntensity(sxTriState, rec, intensity, triIntensity, triIntensityOut, id, Vi());
 
                 if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; sxSetPoleTip(triPole0, id, k0); }
                 if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; sxSetPoleTip(triPole1, id, k1); }
@@ -32126,7 +32179,7 @@ const TAXONOMY_CATEGORIES = [
                 r = pid;
                 if (typeof Jw === "function") Jw();
             }
-            const o = Io(r), s = Math.max(-100, Math.min(100, Number(n)));
+            const o = Io(r), s = "intensity" === t ? Math.max(-400, Math.min(400, Math.round(Number(n) || 0))) : Math.max(-100, Math.min(100, Number(n)));
             if (Ge(e, r).single) {
                 const t = o[e], n = "number" != typeof t || Number(t) !== s;
                 return o[e] = s, Co(r, e, "give", "manual"), Co(r, e, "receive", "manual"), n && zt(r),
@@ -32500,6 +32553,47 @@ const TAXONOMY_CATEGORIES = [
                 e.total > 0 && e.rated === e.total && ys();
             }, 160);
         }
+        /* Hot List ladder (Jason, 2026-11-19): the tick marks are one
+           pass of the list — the top 3 topics in every category — and
+           the time is that many topics at the same 20 seconds each
+           (54 topics, 18 categories, ~18 min on Sexcapades). Each skin
+           uses its own category count and its own topic total, so
+           Poliscapades does not keep the Sexcapades "400+ · ~134m" mark.
+           Sexcapades itself keeps the "400+" full-map label. */
+        let sxLadderKey = "";
+        function sxPaintOutlineLadder() {
+            const track = qo && qo.parentElement;
+            if (!track) return;
+            const total = window.__SX_SKIN_TOPIC_COUNT || 403;
+            const cats = Math.max(1, (h && h.length) || 18);
+            const key = total + ":" + cats;
+            if (key === sxLadderKey) return;
+            sxLadderKey = key;
+            track.querySelectorAll(".outline-ladder-mark").forEach(el => el.remove());
+            const step = cats * 3, mins = n => Math.round(n / 3);
+            const marks = [];
+            for (let n = step; n < total; n += step) {
+                const m = mins(n);
+                marks.push({ label: `${n} · ~${m}m`, title: `${n} topics · ~${m} min`, left: (100 * n / total).toFixed(3) + "%" });
+            }
+            const fm = mins(total);
+            marks.push(total === 403
+                ? { label: "400+ · ~134m", title: "Full map · 400+ topics · ~134 min", full: true }
+                : { label: `${total} · ~${fm}m`, title: `Full list · ${total} topics · ~${fm} min`, full: true });
+            marks.forEach((m, i) => {
+                const s = document.createElement("span");
+                s.setAttribute("aria-hidden", "true");
+                s.className = "outline-ladder-mark" + (m.full ? " outline-ladder-full" : i === 0 ? " outline-ladder-first" : "");
+                s.dataset.label = m.label;
+                s.title = m.title;
+                if (!m.full) s.style.left = m.left;
+                track.appendChild(s);
+            });
+        }
+        window.__SX_SYNC_OUTLINE_LADDER = function () {
+            sxLadderKey = "";
+            sxPaintOutlineLadder();
+        };
         function ws() {
             if (!Go || Go !== Et && !vt[Go]) return;
             const e = cs(Go), t = e.total > 0 && e.rated === e.total, n = t && !Jo;
@@ -32509,10 +32603,12 @@ const TAXONOMY_CATEGORIES = [
             /* Flexcapades: topic total follows the active skin (403 = Sexcapades
                copy, unchanged; a loaded skin sets window.__SX_SKIN_TOPIC_COUNT). */
             const T = window.__SX_SKIN_TOPIC_COUNT || 403, a = Math.min(100, e.rated / T * 100), r = xt(ps()), o = Zo ? `${r} paused${ZoAuto ? " \u2014 tab hidden" : ""}` : `${r} elapsed`;
+            sxPaintOutlineLadder();
+            const sxCats = Math.max(1, (h && h.length) || 18), sxStep = sxCats * 3;
             Bo.textContent = window.__sxOnDeck ? `${window.__sxOnDeckTotal(Go)} topics on deck` : `${e.rated} of ${T} topics rated`, jo.textContent = o, qo.style.width = a + "%",
             qo.parentElement.setAttribute("aria-valuemin", "0"), qo.parentElement.setAttribute("aria-valuemax", String(T)),
             qo.parentElement.setAttribute("aria-valuenow", String(Math.min(T, e.rated))),
-            qo.parentElement.setAttribute("aria-label", 403 === T ? `${e.rated} of 403 topics rated; tick marks every 54 topics (3 per category across 18 categories), up to 403 for Full map` : `${e.rated} of ${T} topics rated`),
+            qo.parentElement.setAttribute("aria-label", `${e.rated} of ${T} topics rated; tick marks every ${sxStep} topics (3 per category across ${sxCats} categories), up to ${T}`);
             n && vs();
         }
         function ks(e) {
@@ -33234,6 +33330,7 @@ const TAXONOMY_CATEGORIES = [
         window.__SX_REBUILD_OUTLINE = function () {
             if (!Do || !Do.open) return false;
             Cs();
+            if (typeof window.__SX_SYNC_OUTLINE_LADDER === "function") window.__SX_SYNC_OUTLINE_LADDER();
             return true;
         };
         function Ms(n = Vi()) {
@@ -33245,7 +33342,7 @@ const TAXONOMY_CATEGORIES = [
             Yo = 1e3 * (a?.durationSeconds || 0), Zo = Jo, Qo = Boolean(a?.timerRan) || !Zo, 
             Vo = Zo ? 0 : Date.now(), !Jo && Zo && (Zo = !1, Vo = Date.now(), Qo = !0), Uo.checked = !1, 
             e.byId("doneOutlineButton").textContent = i ? "Create profile from ratings" : "Submit what you’ve got", 
-            pw(!i), Cs(), hs(), Zo || (Xo = t.setInterval(ws, 1e3));
+            pw(!i), Cs(), hs(), sxPaintOutlineLadder(), ws(), Zo || (Xo = t.setInterval(ws, 1e3));
             const o = e.byId("outlineQuickstartTip");
             o && (o.hidden = is), Wi(Do), Ro.scrollTop = 0, Ro.scrollLeft = 0, requestAnimationFrame(() => (Ro.scrollTop = 0, Ro.scrollLeft = 0, Do.querySelector("summary")?.focus()));
         }
@@ -43950,7 +44047,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (!topicId || !direction) return true;
             const shape = Ge(topicId);
             if (!shape || !shape.keys) return true;
-            const step = (e.shiftKey ? 1 : 5) * (e.deltaY < 0 ? 1 : -1);
+            const step = (e.shiftKey ? 10 : 50) * (e.deltaY < 0 ? 1 : -1);
             const prevRated = cs(Vi()).rated;
             const rec = da(topicId, Vi());
             if (direction === "triangle" && shape.keys.length === 3) {

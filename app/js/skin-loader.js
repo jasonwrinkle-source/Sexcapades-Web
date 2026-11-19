@@ -612,6 +612,9 @@
   function rebuildOutlineIfOpen() {
     try {
       if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
+      /* The tick marks live in the header, not the topic rows, so they
+         move even when the list itself is closed. */
+      if (typeof window.__SX_SYNC_OUTLINE_LADDER === "function") window.__SX_SYNC_OUTLINE_LADDER();
     } catch (e) { /* the list keeps its pre-swap rows; the map is unaffected */ }
   }
 

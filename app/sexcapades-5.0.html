@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-19_1402" name="sexcapades-build"/>
-<meta content="release-5.0-1119-1402" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-19_1402", "version": "5.0", "channel": "release"} -->
+<meta content="2026-11-19_1624" name="sexcapades-build"/>
+<meta content="release-5.0-1119-1624" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-19_1624", "version": "5.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -69,7 +69,7 @@ if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){
         box.id = 'ageGateStorageError';
         box.setAttribute('role', 'alert');
         box.style.cssText = 'min-height:100dvh;place-items:center;padding:24px;background:#151816;color:#eff2ec;font:18px/1.5 system-ui,sans-serif;text-align:center';
-        box.innerHTML = '<div style="max-width:620px"><h1 style="font-size:30px;margin:0 0 12px">Age verification could not be saved</h1><p style="margin:0 0 12px">Your browser is blocking site storage, so Sexcapades cannot confirm that the age gate was completed.</p><p style="margin:0 0 20px">Allow site storage for sexcapades.io, leave private browsing, or continue for this visit without saving profiles.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button id="ageGateRetry" type="button" style="border:1px solid #63c2c8;border-radius:8px;padding:11px 16px;background:transparent;color:#eff2ec;font:inherit;font-weight:700;cursor:pointer">Retry storage</button><button id="ageGateContinue" type="button" style="border:0;border-radius:8px;padding:11px 16px;background:#63c2c8;color:#102022;font:inherit;font-weight:700;cursor:pointer">Continue without saving</button></div><p id="ageGateRetryStatus" aria-live="polite" style="min-height:1.5em;margin:14px 0 0"></p><p style="margin:8px 0 0"><a href="https://sexcapades.io/" rel="noopener" style="color:#63c2c8;font-weight:700" target="_blank">Return to age verification</a></p></div>';
+        box.innerHTML = '<div style="max-width:620px"><h1 style="font-size:30px;margin:0 0 12px">Age verification could not be saved</h1><p style="margin:0 0 12px">Your browser is blocking site storage, so Sexcapades cannot confirm that the age gate was completed.</p><p style="margin:0 0 20px">Allow site storage for sexcapades.io, leave private browsing, or continue for this visit without saving profiles.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button id="ageGateRetry" type="button" style="border:1px solid #63c2c8;border-radius:8px;padding:11px 16px;background:transparent;color:#eff2ec;font:inherit;font-weight:700;cursor:pointer">Retry storage</button><button id="ageGateContinue" type="button" style="border:0;border-radius:8px;padding:11px 16px;background:#63c2c8;color:#102022;font:inherit;font-weight:700;cursor:pointer">Continue without saving</button></div><p id="ageGateRetryStatus" aria-live="polite" style="min-height:1.5em;margin:14px 0 0"></p><p style="margin:8px 0 0"><a href="/hosted/gate.html" rel="noopener" style="color:#63c2c8;font-weight:700" target="_blank">Return to age verification</a></p></div>';
         document.body.appendChild(box);
         document.getElementById('ageGateContinue').addEventListener('click', continueWithoutSaving);
         document.getElementById('ageGateRetry').addEventListener('click', function () {
@@ -117,8 +117,8 @@ if(typeof window.__sxErrLog!=="function"){window.__sxErrLog=function(where,err){
       var returnParams = new URLSearchParams(window.location.search || '');
       returnParams.set('verified', '1');
       returnParams.set('gate_attempt', '1');
-      var returnUrl = window.location.origin + window.location.pathname + '?' + returnParams.toString() + (window.location.hash || '');
-      window.location.replace('https://sexcapades.io/?return=' + encodeURIComponent(returnUrl));
+      var returnUrl = window.location.pathname + '?' + returnParams.toString() + (window.location.hash || '');
+      window.location.replace('/hosted/gate.html?return=' + encodeURIComponent(returnUrl));
     })();
   </script>
 <script>
@@ -1025,7 +1025,7 @@ window.__sxProgressWidget=function(refs){
 <div class="glance-popover-head"><strong>At a glance</strong><button aria-label="Close at a glance" class="glance-popover-close" id="closeGlanceNumbers" type="button">×</button></div>
 <div class="glance-ring-summary" id="glanceRingSummary"></div>
 <p class="glance-ring-note" id="glanceRingNote">Touch a number for the full topic list.</p>
-<a class="glance-guide-link" href="https://sexcapades.io/#app" rel="noopener" target="_blank">Open the Syncing Sexcapades Guide</a>
+<a class="glance-guide-link" href="/hosted/guide.html" rel="noopener" target="_blank">Open the Syncing Sexcapades Guide</a>
 </div>
 <div aria-label="Rating details" class="glance-tooltip" hidden="" id="glanceTooltip" role="dialog"><div class="glance-popover-head"><strong id="glanceTooltipTitle"></strong><button aria-label="Close rating details" class="glance-popover-close" id="closeGlanceTooltip" type="button">×</button></div><div class="glance-tooltip-text" id="glanceTooltipText"></div><div class="glance-tooltip-copy"><button class="action-btn" id="copyGlanceTopics" type="button">Copy green-branch summary</button><span aria-live="polite" class="copy-status" id="glanceCopyStatus" role="status"></span></div></div>
 </header>
@@ -1854,8 +1854,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sex.Capades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 5.0 · Build 2026-11-19_1402</span>
-<span class="app-about-version app-about-buildtag">release-5.0-1119-1402</span>
+<span class="app-about-version">Version 5.0 · Build 2026-11-19_1624</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1119-1624</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
