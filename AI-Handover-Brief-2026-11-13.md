@@ -97,11 +97,14 @@ without his daylight say-so and his own cold-open acceptance. Address him as
 Jason ruled on 2026-11-19 that this job goes FIRST, ahead of everything
 in §3.
 
-**Local build, 2026-11-19.** Steps 1–3 are in the working tree: the +1
-is stored beside the poles, seeded from the old derivation, and the
+**Local build, 2026-11-19.** Steps 1–3 are in the tree: the +1 is
+stored beside the poles, seeded from the old derivation, and the
 intensity slider writes only that number. Brightness ramps to full at
 ±100, dims at zero, and negative intensity paints complementary
-colors. Scoring is not changed. The proposal below is waiting.
+colors. Scoring now uses that number. Similar roles score straight;
+complementary roles score cross. The smaller relevance weights how
+much the topic counts, and a shared aversion is marked rather than
+listed as something to do.
 
 ### The model (Jason's ruling, 2026-11-19)
 
@@ -143,8 +146,9 @@ note: `~/workspace/scratch/widget-build/NEXT-decoupled-draw.md`.
    ramping up to maximum brightness at full positive, dimming down to
    don't-care at zero, and into the **complementary colors** for negative
    intensities.
-4. **Scoring: STOP — proposal first.** Do not build the scoring side until
-   Jason has approved the written proposal below.
+4. **Scoring.** Built 2026-11-19 from the proposal below, after Jason
+   called it a good start and defined straight as a similar role and
+   cross as a complementary role.
 
 ### The scoring proposal owed to Jason (before any scoring build)
 
@@ -189,12 +193,12 @@ A short written proposal, in plain language, covering all five points:
    their factor entries come out 0 in both registers. The proposal should
    say what changes, if anything.
 
-### Proposed answers (2026-11-19) — not built, waiting on Jason
+### Proposed answers (2026-11-19) — built
 
-The storage half is in the local build: the +1 is its own number, seeded
-from today's derivation so existing sliders do not jump, and the slider
-no longer rewrites pole numbers. Scoring still reads the poles exactly
-as it did. These five answers are the proposal, not a change.
+The +1 is its own number, seeded from today's derivation so existing
+sliders do not jump, and the slider no longer rewrites pole numbers.
+Scoring weights a role topic by the smaller relevance and splits
+straight (similar role) from cross (complementary role).
 
 1. **Weight, don't gate.** Multiply a topic's contribution by the
    smaller of the two people's |intensity| / 100. A don't-care (0) on
@@ -209,7 +213,7 @@ as it did. These five answers are the proposal, not a change.
    hotwife score high cross and low straight. The old collapsed 0.75
    on both registers goes away. The two relevances (each person's
    intensity on the topic) still weight how much that agreement
-   counts. The rest of this proposal he called a good start. Not built.
+   counts. The rest of this proposal he called a good start. Built.
 3. **Aversion lives only on the +1.** Pole numbers stay the blend,
    non-negative shares. One sign cannot mean both "against the topic"
    and "the receiving role." Give/receive stays on the two-ended

@@ -3123,8 +3123,8 @@
         // whole. Missing on old ratings: seed it from today's derivation
         // (compass = sum, triad = signed absolute sum, radar = signed
         // strongest) so the slider still reads the number it read before.
-        // The slider writes only this field. Scoring is unchanged until
-        // the written proposal is approved.
+        // The slider writes only this field. Scoring reads this number
+        // as relevance and does not fold it back into the poles.
         function sxFamilyOf(shape) {
             if (!shape || shape.single) return null;
             const widget = shape.widget || "";

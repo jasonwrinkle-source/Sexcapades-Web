@@ -350,7 +350,7 @@
                 const i = [], pair = sxPairByIds(e, t, sxSettings);
                 if (!pair) return i;
                 pair.topics.forEach(rec => {
-                    if ("match" !== rec.outcome) return;
+                    if ("match" !== rec.outcome || rec.poleRole) return;
                     const s = qn[rec.id];
                     if (!s) return;
                     const d = [ e, t ].filter(x => "favorite" === Oa(rec.id, x)).map(x => rd(x)), u = d.length > 0, p = cd(rec.id, [ e, t ]), l = rec.bestFit ? sxRouteRecord(rec.bestFit, rec.id) : null, c = rec.strength || 0;
@@ -378,12 +378,22 @@
                 // in the detail and does NOT gate inclusion — this does
                 // not define a "match" threshold.
                 pair.topics.forEach(rec => {
-                    if (null == rec.agreement || "not-topics" !== rec.outcome) return;
+                    // Role topics stay in this detail list. A shared
+                    // aversion, an opposed pair, or a don't-care is not
+                    // enthusiasm, so those stay out. Strength is the
+                    // stored relevance, not a pole magnitude. A line
+                    // topic keeps the older strongest-stance test.
+                    if (rec.poleRole) {
+                        if (rec.sharedAversion || rec.relevanceOpposed || !(rec.poleIntensity > 0)) return;
+                        if (!(rec.intensityA > 35) || !(rec.intensityB > 35)) return;
+                    } else {
+                        if (null == rec.agreement || "not-topics" !== rec.outcome) return;
+                        const aStrong = sxStrongestPole(rec.id, e), bStrong = sxStrongestPole(rec.id, t);
+                        if (null == aStrong || null == bStrong) return;
+                        if (Math.abs(aStrong) <= 35 || Math.abs(bStrong) <= 35) return;
+                    }
                     const s = qn[rec.id];
                     if (!s) return;
-                    const aStrong = sxStrongestPole(rec.id, e), bStrong = sxStrongestPole(rec.id, t);
-                    if (null == aStrong || null == bStrong) return;
-                    if (Math.abs(aStrong) <= 35 || Math.abs(bStrong) <= 35) return;
                     const c = (rec.poleIntensity || 0) * 100, p = cd(rec.id, [ e, t ]), fav = [ e, t ].filter(x => "favorite" === Oa(rec.id, x)).map(x => rd(x)), u = fav.length > 0;
                     i.push({
                         id: rec.id,
@@ -406,7 +416,7 @@
                 const o = [], pair = sxPairByIds(e, t, sxSettings);
                 if (!pair) return o;
                 pair.topics.forEach(rec => {
-                    if (n.has(rec.id) || "curious-fit" !== rec.outcome) return;
+                    if (n.has(rec.id) || rec.poleRole || "curious-fit" !== rec.outcome) return;
                     const d = qn[rec.id];
                     if (!d) return;
                     const y = [ e, t ].some(x => "favorite" === Oa(rec.id, x)), b = cd(rec.id, [ e, t ]), l = rec.bestFit ? sxRouteRecord(rec.bestFit, rec.id) : null, g = rec.strength || 0;
@@ -429,12 +439,18 @@
                 // both-strong guard below is belt-and-braces. Score is
                 // the same Depth Factor intensity as the strong list.
                 pair.topics.forEach(rec => {
-                    if (n.has(rec.id) || null == rec.agreement || "not-topics" !== rec.outcome) return;
+                    if (n.has(rec.id)) return;
+                    if (rec.poleRole) {
+                        if (rec.sharedAversion || rec.relevanceOpposed || !(rec.poleIntensity > 0)) return;
+                        if (rec.intensityA > 35 && rec.intensityB > 35) return;
+                    } else {
+                        if (null == rec.agreement || "not-topics" !== rec.outcome) return;
+                        const aStrong = sxStrongestPole(rec.id, e), bStrong = sxStrongestPole(rec.id, t);
+                        if (null == aStrong || null == bStrong) return;
+                        if (Math.abs(aStrong) > 35 && Math.abs(bStrong) > 35) return;
+                    }
                     const d = qn[rec.id];
                     if (!d) return;
-                    const aStrong = sxStrongestPole(rec.id, e), bStrong = sxStrongestPole(rec.id, t);
-                    if (null == aStrong || null == bStrong) return;
-                    if (Math.abs(aStrong) > 35 && Math.abs(bStrong) > 35) return;
                     const g = (rec.poleIntensity || 0) * 100, y = [ e, t ].some(x => "favorite" === Oa(rec.id, x)), b = cd(rec.id, [ e, t ]);
                     o.push({
                         id: rec.id,
@@ -1081,13 +1097,18 @@
                 // never reach here; a 0 is a rating — an all-zero vector
                 // counts.)
                 if (!e && !t) {
-                    const k = Object.keys(n).filter(j => Number.isFinite(Number(n[j])));
+                    // `intensity` is the (n+1) relevance, not a pole.
+                    const k = Object.keys(n).filter(j => "intensity" !== j && Number.isFinite(Number(n[j])));
                     if (k.length) {
                         const p = {};
                         k.forEach(j => { p[j] = Number(n[j]); });
                         r.poles = p;
                         r.polesKnown = !0;
                     }
+                }
+                if (Object.prototype.hasOwnProperty.call(n, "intensity") && Number.isFinite(Number(n.intensity))) {
+                    r.intensity = Number(n.intensity);
+                    r.intensityKnown = !0;
                 }
                 return r;
             }
@@ -1167,6 +1188,15 @@
             // A 0 is a rating — an all-zero vector counts as rated.
             const poles = raw.polesKnown ? raw.poles : null;
             const line = raw.lineKnown ? raw.line : null;
+            // Relevance is the stored +1. Old ratings have no key yet:
+            // seed it the same way the slider does, so the score does
+            // not jump the first time a profile is opened.
+            let intensity = raw.intensityKnown ? raw.intensity : null;
+            let intensityKnown = Boolean(raw.intensityKnown);
+            if (!intensityKnown && poles) {
+                const seeded = sxSeedTopicIntensity(id, poles);
+                if (null != seeded) { intensity = seeded; intensityKnown = !0; }
+            }
             // Strongest stance: the signed pole affinity with the largest
             // absolute value (for a line topic, the scalar itself). Used
             // for the Depth Factor intensity and Personal KF.
@@ -1189,6 +1219,8 @@
                 polesKnown: Boolean(raw.polesKnown),
                 line: line,
                 lineKnown: Boolean(raw.lineKnown),
+                intensity: intensity,
+                intensityKnown: intensityKnown,
                 strongest: strongest,
                 limitScope: sxAnnoScope(profile, id, meta, "limit"),
                 notInterested: Boolean(sxAnnoScope(profile, id, meta, "notinterested")),
@@ -1227,12 +1259,67 @@
             }
             return null;
         }
-        // Depth Factor intensity for a multi-pole topic: the geometric
-        // mean over members of each member's strongest stance ÷100.
-        // (Absolute values — opposite signs still have intensity.)
+        // Depth Factor for a line topic that has no stored relevance:
+        // geometric mean of the two strongest stances. Pole topics do
+        // not use this; their relevance is the stored +1.
         function sxPoleIntensity(a, b) {
             if (!a || !b || null == a.strongest || null == b.strongest) return 0;
             return Math.sqrt(Math.abs(a.strongest) * Math.abs(b.strongest)) / 100;
+        }
+        // Seed a missing +1 from the leanings. Compass sums the four
+        // values, a triad carries the sign of the sum on the absolute
+        // sum, and every other polygon uses the strongest value with
+        // its sign. Same numbers the intensity slider shows on first open.
+        function sxSeedTopicIntensity(id, poles) {
+            const vals = Object.keys(poles).map(k => Number(poles[k]) || 0);
+            if (!vals.length) return null;
+            let family = null;
+            if (typeof Ge === "function" && typeof sxFamilyOf === "function") family = sxFamilyOf(Ge(id));
+            if (family && typeof sxDerivedFromVals === "function") return sxDerivedFromVals(vals, family);
+            if (3 === vals.length && typeof sxTriSignedIntensity === "function") return Math.round(sxTriSignedIntensity(vals));
+            if (vals.length >= 4 && typeof sxSignedIntensity === "function") return Math.round(sxSignedIntensity(vals));
+            return null;
+        }
+        // Role overlap for an n-pole topic. Shares are the non-negative
+        // pole numbers, each divided by their sum. Straight is the
+        // similar role (sum of shareA × shareB). Cross is the
+        // complementary role (1 − straight) when both people put some
+        // weight on the topic. Both empty: straight 1, cross 0. Only
+        // one empty: both 0 — an empty blend is not a complement.
+        function sxRoleOverlap(polesA, polesB) {
+            if (!polesA || !polesB) return null;
+            const keys = [ ...new Set([ ...Object.keys(polesA), ...Object.keys(polesB) ]) ];
+            if (keys.length < 2) return null;
+            const mass = poles => {
+                let s = 0;
+                const m = {};
+                keys.forEach(k => {
+                    const v = Math.max(0, Number(poles[k]) || 0);
+                    m[k] = v;
+                    s += v;
+                });
+                return { m: m, s: s };
+            };
+            const A = mass(polesA), B = mass(polesB);
+            if (A.s <= 0 && B.s <= 0) return { straight: 1, cross: 0 };
+            if (A.s <= 0 || B.s <= 0) return { straight: 0, cross: 0 };
+            let straight = 0;
+            keys.forEach(k => { straight += A.m[k] / A.s * (B.m[k] / B.s); });
+            return { straight: straight, cross: 1 - straight };
+        }
+        // How much a topic counts: the smaller |intensity| / 100.
+        // A 0 on either side drops it. Opposite signs cancel. Both
+        // negative is a real factor, marked aversion so it is not
+        // read as enthusiasm to do the thing.
+        function sxRelevancePair(iA, iB) {
+            if (null == iA || null == iB || !Number.isFinite(iA) || !Number.isFinite(iB)) return { factor: 0, aversion: !1, opposed: !1 };
+            if (0 === iA || 0 === iB) return { factor: 0, aversion: !1, opposed: !1 };
+            if (iA > 0 !== iB > 0) return { factor: 0, aversion: !1, opposed: !0 };
+            return {
+                factor: Math.min(1, Math.min(Math.abs(iA), Math.abs(iB)) / 100),
+                aversion: iA < 0 && iB < 0,
+                opposed: !1
+            };
         }
         function sxSides(td, heat) {
             const T = sxClamp(35 - heat, 0, 85);
@@ -1542,12 +1629,39 @@
                    entries are the agreement and agreement ×
                    intensity exactly.) */
                 const agreement = sxPoleAgreement(a, b);
-                if (null != agreement) {
-                    const intensity = sxPoleIntensity(a, b);
+                const role = a.polesKnown && b.polesKnown ? sxRoleOverlap(a.poles, b.poles) : null;
+                if (role) {
+                    // Play reads the complementary role. Straight reads
+                    // the similar role. Relevance weights both, and a
+                    // shared aversion weights neither as something to do.
+                    const rel = sxRelevancePair(a.intensity, b.intensity);
+                    const weight = rel.aversion ? 0 : rel.factor;
+                    rec.poleRole = !0;
+                    rec.agreement = role.straight;
+                    rec.roleStraight = role.straight;
+                    rec.roleCross = role.cross;
+                    rec.poleIntensity = rel.factor;
+                    rec.sharedAversion = rel.aversion;
+                    rec.relevanceOpposed = rel.opposed;
+                    rec.intensityA = a.intensity;
+                    rec.intensityB = b.intensity;
+                    rec.crossEntry = role.cross * weight;
+                    rec.straightEntry = role.straight * weight;
+                    rec.crossFitGive = null;
+                    rec.crossFitReceive = null;
+                    rec.playMSEntry = rec.crossEntry;
+                    rec.playKFEntry = rec.crossEntry;
+                } else if (null != agreement) {
+                    const rel = a.intensityKnown && b.intensityKnown ? sxRelevancePair(a.intensity, b.intensity) : null;
+                    const intensity = rel ? rel.aversion ? 0 : rel.factor : sxPoleIntensity(a, b);
                     rec.agreement = agreement;
                     rec.poleIntensity = intensity;
+                    rec.sharedAversion = Boolean(rel && rel.aversion);
+                    rec.relevanceOpposed = Boolean(rel && rel.opposed);
+                    rec.intensityA = a.intensity;
+                    rec.intensityB = b.intensity;
                     rec.crossFitGive = null, rec.crossFitReceive = null;
-                    rec.playMSEntry = agreement;
+                    rec.playMSEntry = agreement * (rel ? intensity : 1);
                     rec.playKFEntry = agreement * intensity;
                 } else {
                     const gvA = sxRawVal(a, "give"), rvA = sxRawVal(a, "receive"), gvB = sxRawVal(b, "give"), rvB = sxRawVal(b, "receive"),
@@ -1584,16 +1698,41 @@
                 } else if (rec.clashes.length) rec.outcome = "conflict";
                 else if (rec.shed || anyPos(sA) || anyPos(sB)) rec.outcome = "one-sided";
                 else rec.outcome = "not-topics";
+                // A role topic joins the play lists from the complementary
+                // role, not from give/receive flanks (it has none). Two
+                // people on the same pole stay out of play; they land in
+                // the straight register below. Shared aversion and a
+                // don't-care stay out of both "do this" lists.
+                if (rec.poleRole) {
+                    const Ta = sxClamp(35 - heatA, 0, 85), Tb = sxClamp(35 - heatB, 0, 85);
+                    const iA = a.intensity, iB = b.intensity;
+                    rec.strength = null;
+                    rec.bestFit = null;
+                    if (rec.sharedAversion || rec.relevanceOpposed || !(iA > 0 && iB > 0) || !(rec.roleCross > 0)) rec.outcome = "not-topics";
+                    else if (iA > Ta && iB > Tb && rec.roleCross >= .5) {
+                        rec.outcome = "match";
+                        rec.strength = Math.round(rec.roleCross * rec.poleIntensity * 100);
+                    } else {
+                        rec.outcome = "curious-fit";
+                        rec.strength = Math.round(rec.roleCross * rec.poleIntensity * 100);
+                    }
+                }
                 rec.playOutcome = fantasy ? "fantasy-excluded" : rec.outcome;
                 if ("conflict" === rec.outcome) rec.mismatchShape = `opposed — ${rec.clashes[0].against}`;
                 if ("one-sided" === rec.outcome) rec.mismatchShape = sxOneSidedShape(sA, sB, nameA, nameB);
+                if (rec.poleRole && rec.sharedAversion) rec.mismatchShape = "shared aversion";
+                if (rec.poleRole && rec.relevanceOpposed) {
+                    rec.outcome = "conflict";
+                    rec.playOutcome = fantasy ? "fantasy-excluded" : "conflict";
+                    rec.mismatchShape = "opposed";
+                }
                 if ("match" === rec.outcome || "curious-fit" === rec.outcome) rec.countClass = fantasy ? "fantasy" : "match";
                 else if (fantasy && ((a.fantasyScope && (anyPos(sB) || rec.fits.length)) || (b.fantasyScope && (anyPos(sA) || rec.fits.length)))) rec.countClass = "fantasy";
                 if (!rec.countClass && (a.triedScope || b.triedScope)) rec.countClass = "experience";
                 // countClass "soft-no" is assigned by the teaser selection
                 // pass after the topic loop, so the ring counts (via the MOVEs) and
                 // the popover Teasers sections always share one selected set.
-                rec.hotContribution = !rec.countClass ? 0 : "experience" === rec.countClass || "soft-no" === rec.countClass ? 25 : rec.bestFit ? rec.bestFit.strength : rec.fits.length ? Math.max(...rec.fits.map(f => f.strength)) : 0;
+                rec.hotContribution = !rec.countClass ? 0 : "experience" === rec.countClass || "soft-no" === rec.countClass ? 25 : rec.bestFit ? rec.bestFit.strength : null != rec.strength ? rec.strength : rec.fits.length ? Math.max(...rec.fits.map(f => f.strength)) : 0;
             });
             /* Straight register (Job 1, raw straight sum): same-direction
                 products from the crossed records' own ratings, computed beside the
@@ -1608,7 +1747,10 @@
                 const ra = rec.ratings.a, rb = rec.ratings.b,
                     giveGive = ra.giveKnown && rb.giveKnown ? ra.give * rb.give : null,
                     recvRecv = ra.receiveKnown && rb.receiveKnown ? ra.receive * rb.receive : null,
-                    sum = null == giveGive && null == recvRecv ? null : (giveGive || 0) + (recvRecv || 0),
+                    // A role topic's straight sum is the similar-role
+                    // overlap times the smaller relevance. Give/receive
+                    // topics keep their flank products.
+                    sum = rec.poleRole ? rec.straightEntry > 0 ? rec.straightEntry * 100 : null : null == giveGive && null == recvRecv ? null : (giveGive || 0) + (recvRecv || 0),
                     // Multi-pole comparison (ruled 2026-11-16): a pole
                     // vector or a line scalar counts as rated here too,
                     // so a shared multi-pole topic is "shared" in the
@@ -1619,7 +1761,7 @@
                 if (rec.limiters.length) status = "limit-blocked", straightLimitBlocked++;
                 else if (!(aRated && bRated)) status = "invisible", aRated !== bRated && straightOneSided++;
                 else status = "shared", straightShared++;
-                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null };
+                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null, roleStraight: null != rec.roleStraight ? rec.roleStraight : null, roleCross: null != rec.roleCross ? rec.roleCross : null, sharedAversion: Boolean(rec.sharedAversion) };
                 straightTopics.push(srec), straightById[rec.id] = srec;
             });
             const straightList = straightTopics.filter(s => "shared" === s.status && null != s.sum && s.sum > 0).sort((x, y) => (y.sum || 0) - (x.sum || 0) || x.label.localeCompare(y.label)),
@@ -1900,6 +2042,23 @@
                         return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
                     }), pCMax = Math.max(...pCs);
                     rec.parlayMSEntry = pCMax > 0 ? sxPlayGeoMean(pCs.map(v => v / pCMax)) : 0;
+                    // Role topics have no give/receive cross term, so the
+                    // block above records 0. Use the same pair formula
+                    // the two-person score uses: geometric mean of each
+                    // pair's cross × relevance, and the same for straight.
+                    const polePairs = pairs.map(pr => pr.topicsById[id]).filter(pr => pr && pr.poleRole);
+                    if (polePairs.length) {
+                        // Each pair already applied cross × relevance and
+                        // straight × relevance. The group keeps the
+                        // strongest of those pair scores, the same max
+                        // rule the give/receive group fit uses, so one
+                        // same-role pair does not wipe a real complement.
+                        const maxOf = vals => vals.reduce((m, v) => v > m ? v : m, 0);
+                        rec.playKFEntry = maxOf(polePairs.map(pr => pr.crossEntry || 0));
+                        rec.playMSEntry = maxOf(polePairs.map(pr => pr.crossEntry || 0));
+                        rec.parlayKFEntry = maxOf(polePairs.map(pr => pr.straightEntry || 0));
+                        rec.parlayMSEntry = maxOf(polePairs.map(pr => pr.straightEntry || 0));
+                    }
                 }
             });
             /* Teaser bump, group level (Jason 2026-10-25). Standalone group
