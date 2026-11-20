@@ -20,7 +20,7 @@ this brief is what the incoming editor reads first.
 ownership from 2026-11-15.
 **The saddle passes to:** Grok and Cursor, on Jason's word.
 **Repo:** `jasonwrinkle-source/Sexcapades-Web`, branch `main`.
-**Remote head:** past `c8e56f8e`; the repo About stamp is `2026-11-19_2321` (`131cdcf`). **Live build:** sex.capades.io curl-verified `2026-11-19_2321` on 2026-11-19. The apex sexcapades.io is still `2026-11-16_0253`.
+**Remote head:** past `c8e56f8e`; the repo About stamp is `2026-11-19_2321` (`131cdcf`). **Live build:** sex.capades.io About says `2026-11-19_2321`. Confirm a deploy with that one line on `https://sex.capades.io/hosted/app.html`.
 **Version:** 5.0.
 
 **Authority.** Jason Mark Wrinkle is the PI and sole owner. His latest ruling
@@ -36,17 +36,11 @@ without his daylight say-so and his own cold-open acceptance. Address him as
 
 ## 1. Current state (2026-11-19)
 
-- **Live:** sex.capades.io is curl-verified at deploy-all
-  `2026-11-19_2321` (checked 2026-11-19 after the FTP extract). App,
-  guide, and gate About stamps, `sw.js` cache
-  `sexcapades-v2026-11-19_2321`, and
-  `/hosted/app-assets/version-manifest.json` all say `2321`. The Fores
-  skin serves "Where the Holy Spirit comes from" and the patrilineal
-  sentence. Production app: `https://sex.capades.io/hosted/app.html`.
-  Jason put the tarball in `~/domains` himself after Litterbox and
-  temp.sh both returned HTTP 500. The apex `https://sexcapades.io/`
-  was not updated: its app is still Build `2026-11-16_0253`,
-  last-modified 2026-11-16. The local package remains
+- **Live:** sex.capades.io About says Build `2026-11-19_2321`. The
+  check is that one line on `https://sex.capades.io/hosted/app.html`.
+  Jason FTP'd the tarball into `~/domains` and extracted it after
+  Litterbox and temp.sh both returned HTTP 500. The local package
+  remains
   `deploy-output/deploy-all-v5.0-2026-11-19_2321-optimized.tar.gz`
   (MD5 `33ee27b48bd14957bc29c89392d10254`). Do not re-run the packager
   for this same tree; that bumps the About stamp.
@@ -481,8 +475,7 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
 - **Version-manifest — settled 2026-11-19.** Present on a packaged
   tree at `/hosted/app-assets/version-manifest.json`. The local 404
   was the file missing from git; the package writes it. Live
-  sex.capades.io serves build 2026-11-19_2321 there (re-checked
-  2026-11-19).
+  sex.capades.io serves build 2026-11-19_2321 there.
 - **z90 census TRUE FIT, re-baseline 12.643×:** the constant's currency
   is unverifiable from the record.
 - **Kinkbits message — settled 2026-11-19.** Jason sent it.
@@ -661,8 +654,8 @@ Restored from the 2026-11-13 brief after the 2026-11-19 audit; grouped.
   temporary host (72h). temp.sh is the fallback for deploy-app,
   deploy-all, and QA. temp.sh returns the file only on POST. On
   2026-11-19 night both hosts returned HTTP 500. Jason FTP'd the `2321`
-  tarball into `~/domains` and extracted it there; sex.capades.io then
-  served that build. The apex sexcapades.io host did not.
+  tarball into `~/domains` and extracted it there. Confirm it with the
+  About line on `https://sex.capades.io/hosted/app.html`.
 - **Localhost refresh:** edit `app/`, then run
   `python3 app/data/build-bundle.py`. That rewrites the served bundle,
   the stylesheet, the shell scripts the page loads, and
