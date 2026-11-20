@@ -63,7 +63,7 @@
                 "issue": "Does the Holy Spirit proceed from the Father alone, or from the Father and the Son?",
                 "poles": [
                   {
-                    "label": "Filioque (Father and Son)",
+                    "label": "From the Father and the Son",
                     "text": "The Spirit proceeds from the Father and the Son (*filioque*)"
                   },
                   {
@@ -73,11 +73,11 @@
                 ]
               },
               "id": "xfo0008",
-              "name": "The Holy Spirit and the filioque",
+              "name": "Where the Holy Spirit comes from",
               "poles": [
                 {
                   "key": "filioque-father-and-son",
-                  "label": "Filioque (Father and Son)"
+                  "label": "From the Father and the Son"
                 },
                 {
                   "key": "father-alone",
@@ -162,7 +162,7 @@
                     "text": "Real attributes of God, their meaning consigned to God or interpreted allegorically"
                   },
                   {
-                    "label": "Affirmed literally (Bila Kayfa)",
+                    "label": "Affirmed as real, without explaining how",
                     "text": "Affirmed literally as stated, without asking how (Bila Kayfa)"
                   }
                 ]
@@ -170,7 +170,12 @@
               "id": "xfo0083",
               "name": "Anthropomorphism and divine attributes",
               "poleReading": "antipodal",
-              "poleEnemies": [["purely-allegorical", "affirmed-literally-bila-kayfa"]],
+              "poleEnemies": [
+                [
+                  "purely-allegorical",
+                  "affirmed-literally-bila-kayfa"
+                ]
+              ],
               "poles": [
                 {
                   "key": "purely-allegorical",
@@ -182,7 +187,7 @@
                 },
                 {
                   "key": "affirmed-literally-bila-kayfa",
-                  "label": "Affirmed literally (Bila Kayfa)"
+                  "label": "Affirmed as real, without explaining how"
                 }
               ],
               "question": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
@@ -473,11 +478,11 @@
                 "issue": "What happened to human nature in the Fall — is Adam's guilt inherited, or only its effects?",
                 "poles": [
                   {
-                    "label": "Original sin inherited",
+                    "label": "Sin and guilt inherited from Adam",
                     "text": "Original sin inherited, with guilt, removed by Baptism"
                   },
                   {
-                    "label": "Ancestral sin inherited",
+                    "label": "The damage of Adam's sin, not his guilt",
                     "text": "Ancestral sin inherited as corruption and inclination, without inherited personal guilt"
                   },
                   {
@@ -489,15 +494,24 @@
               "id": "xfo0014",
               "name": "Human nature and the Fall",
               "poleReading": "antipodal",
-              "poleEnemies": [["original-sin-inherited", "no-inherited-sin"], ["ancestral-sin-inherited", "no-inherited-sin"]],
+              "poleEnemies": [
+                [
+                  "original-sin-inherited",
+                  "no-inherited-sin"
+                ],
+                [
+                  "ancestral-sin-inherited",
+                  "no-inherited-sin"
+                ]
+              ],
               "poles": [
                 {
                   "key": "original-sin-inherited",
-                  "label": "Original sin inherited"
+                  "label": "Sin and guilt inherited from Adam"
                 },
                 {
                   "key": "ancestral-sin-inherited",
-                  "label": "Ancestral sin inherited"
+                  "label": "The damage of Adam's sin, not his guilt"
                 },
                 {
                   "key": "no-inherited-sin",
@@ -692,7 +706,16 @@
               "id": "xfo0078",
               "name": "Circumcision",
               "poleReading": "antipodal",
-              "poleEnemies": [["required-covenant-sign", "required-or-recommended-practice"], ["required-covenant-sign", "not-required"]],
+              "poleEnemies": [
+                [
+                  "required-covenant-sign",
+                  "required-or-recommended-practice"
+                ],
+                [
+                  "required-covenant-sign",
+                  "not-required"
+                ]
+              ],
               "poles": [
                 {
                   "key": "required-covenant-sign",
@@ -745,7 +768,7 @@
                 ]
               },
               "id": "xfo0087",
-              "name": "Covenantal Chosenness",
+              "name": "Who the covenant is for",
               "poles": [
                 {
                   "key": "particular-hereditary-covenant",
@@ -794,7 +817,7 @@
                 ]
               },
               "id": "xfo0088",
-              "name": "Supersession of prior covenants",
+              "name": "Does a new revelation replace the older ones",
               "poles": [
                 {
                   "key": "prior-covenants-remain-perpetually-valid",
@@ -907,21 +930,21 @@
                 ]
               },
               "id": "xfo0001",
-              "name": "The Abrahamic Trinity of Faiths",
+              "name": "The three faiths of Abraham",
               "poleReading": "same",
               "poleEnemies": [],
               "poles": [
                 {
                   "key": "judaism-yahwism-covenant-of-the-torah",
-                  "label": "Judaism (Yahwism / Covenant of the Torah)"
+                  "label": "Judaism"
                 },
                 {
                   "key": "christianity-christology-incarnate-logos",
-                  "label": "Christianity (Christology / Incarnate Logos)"
+                  "label": "Christianity"
                 },
                 {
                   "key": "islam-tawhid-final-prophethood",
-                  "label": "Islam (Tawhid / Final Prophethood)"
+                  "label": "Islam"
                 }
               ],
               "question": "Which Abrahamic faith carries the true covenant — Judaism, Christianity, or Islam?",
@@ -977,59 +1000,59 @@
                 "issue": "What are the six articles of Islamic faith?",
                 "poles": [
                   {
-                    "label": "Belief in Allah (Tawhid)",
+                    "label": "Belief in God",
                     "text": "The transcendent One, absolute oneness."
                   },
                   {
-                    "label": "Belief in the Angels (Malaikah)",
+                    "label": "Belief in the angels",
                     "text": "Heavenly messengers."
                   },
                   {
-                    "label": "Belief in the Holy Books (Kutub)",
+                    "label": "Belief in the holy books",
                     "text": "The written word, revealed scripture."
                   },
                   {
-                    "label": "Belief in the Prophets (Anbiya)",
+                    "label": "Belief in the prophets",
                     "text": "Earthly messengers."
                   },
                   {
-                    "label": "Belief in the Last Day (Qiyamah)",
+                    "label": "Belief in the Last Day",
                     "text": "Resurrection and judgment."
                   },
                   {
-                    "label": "Belief in Divine Predestination (Qadar)",
+                    "label": "Belief in God's decree",
                     "text": "God's will and decree."
                   }
                 ]
               },
               "id": "xfo0004",
-              "name": "The Six Pillars of Iman",
+              "name": "The six beliefs of Islam",
               "poleReading": "complement",
               "poleEnemies": [],
               "poles": [
                 {
                   "key": "belief-in-allah-tawhid",
-                  "label": "Belief in Allah (Tawhid)"
+                  "label": "Belief in God"
                 },
                 {
                   "key": "belief-in-the-angels-malaikah",
-                  "label": "Belief in the Angels (Malaikah)"
+                  "label": "Belief in the angels"
                 },
                 {
                   "key": "belief-in-the-holy-books-kutub",
-                  "label": "Belief in the Holy Books (Kutub)"
+                  "label": "Belief in the holy books"
                 },
                 {
                   "key": "belief-in-the-prophets-anbiya",
-                  "label": "Belief in the Prophets (Anbiya)"
+                  "label": "Belief in the prophets"
                 },
                 {
                   "key": "belief-in-the-last-day-qiyamah",
-                  "label": "Belief in the Last Day (Qiyamah)"
+                  "label": "Belief in the Last Day"
                 },
                 {
                   "key": "belief-in-divine-predestination-qadar",
-                  "label": "Belief in Divine Predestination (Qadar)"
+                  "label": "Belief in God's decree"
                 }
               ],
               "question": "What are the six articles of Islamic faith?",
@@ -1090,7 +1113,7 @@
                 ]
               },
               "id": "xfo0005",
-              "name": "The Seven Spheres",
+              "name": "The seven planetary angels",
               "poleReading": "complement",
               "poleEnemies": [],
               "poles": [
@@ -1192,35 +1215,35 @@
               "poles": [
                 {
                   "key": "brit-milah-the-flesh-covenant-foreskin",
-                  "label": "Brit Milah (The Flesh Covenant / Foreskin)"
+                  "label": "The circumcision covenant"
                 },
                 {
                   "key": "halakha-the-way-mitzvot",
-                  "label": "Halakha (The Way / Mitzvot)"
+                  "label": "Jewish law"
                 },
                 {
                   "key": "kabbalah-the-secret-chariot-ein-sof",
-                  "label": "Kabbalah (The Secret Chariot / Ein Sof)"
+                  "label": "Jewish mysticism"
                 },
                 {
                   "key": "gospel-of-grace-pauline-faith",
-                  "label": "Gospel of Grace (Pauline Faith)"
+                  "label": "Paul's gospel of grace"
                 },
                 {
                   "key": "eucharistic-mystery-sacramental-real-presence",
-                  "label": "Eucharistic Mystery (Sacramental Real Presence)"
+                  "label": "Christ's real presence in communion"
                 },
                 {
                   "key": "orthodox-christology-the-incarnate-word",
-                  "label": "Orthodox Christology (The Incarnate Word)"
+                  "label": "Christ as God in the flesh"
                 },
                 {
                   "key": "tawhid-absolute-uncompromising-monotheism",
-                  "label": "Tawhid (Absolute Uncompromising Monotheism)"
+                  "label": "God is one"
                 },
                 {
                   "key": "tasawwuf-sufi-mystic-fana",
-                  "label": "Tasawwuf (Sufi Mystic Fana)"
+                  "label": "Sufi mysticism"
                 }
               ],
               "question": "Which covenantal manifestation of Abraham anchors your faith?",
@@ -1544,11 +1567,11 @@
                 "issue": "How should scripture be read?",
                 "poles": [
                   {
-                    "label": "Peshat / Literal",
+                    "label": "The literal sense",
                     "text": "Historical-grammatical plain reading."
                   },
                   {
-                    "label": "Remez / Allegorical",
+                    "label": "The hinted sense",
                     "text": "Typological and Christological shadow-meaning."
                   },
                   {
@@ -1562,25 +1585,25 @@
                 ]
               },
               "id": "xfo0003",
-              "name": "Biblical Hermeneutics",
+              "name": "How Scripture is read",
               "poleReading": "complement",
               "poleEnemies": [],
               "poles": [
                 {
                   "key": "peshat-literal",
-                  "label": "Peshat / Literal"
+                  "label": "The literal sense"
                 },
                 {
                   "key": "remez-allegorical",
-                  "label": "Remez / Allegorical"
+                  "label": "The hinted sense"
                 },
                 {
                   "key": "derash-moral-tropological",
-                  "label": "Derash / Moral (Tropological)"
+                  "label": "The moral sense"
                 },
                 {
                   "key": "sod-anagogical-mystical",
-                  "label": "Sod / Anagogical (Mystical)"
+                  "label": "The mystical sense"
                 }
               ],
               "question": "How should scripture be read?",
@@ -1749,9 +1772,14 @@
                 ]
               },
               "id": "xfo0071",
-              "name": "Halakha (Jewish law)",
+              "name": "Jewish law",
               "poleReading": "antipodal",
-              "poleEnemies": [["binding-law", "guide-interpreted-by-conscience"]],
+              "poleEnemies": [
+                [
+                  "binding-law",
+                  "guide-interpreted-by-conscience"
+                ]
+              ],
               "poles": [
                 {
                   "key": "binding-law",
@@ -1789,17 +1817,17 @@
                 "issue": "Is sharia — Islamic law from Qur'an, Sunnah, and scholarship — binding?",
                 "poles": [
                   {
-                    "label": "Sharia (Islamic law)",
+                    "label": "Islamic law",
                     "text": "Sharia is God's binding law, from Qur'an, Sunnah, and scholarship"
                   }
                 ]
               },
               "id": "xfo0072",
-              "name": "Sharia (Islamic law)",
+              "name": "Islamic law",
               "poles": [
                 {
                   "key": "sharia-islamic-law",
-                  "label": "Sharia (Islamic law)"
+                  "label": "Islamic law"
                 }
               ],
               "question": "Is sharia — Islamic law from Qur'an, Sunnah, and scholarship — binding?",
@@ -1832,7 +1860,7 @@
                 "issue": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
                 "poles": [
                   {
-                    "label": "Papal primacy of jurisdiction",
+                    "label": "The pope governs the whole church",
                     "text": "Papal primacy of jurisdiction, infallible when defining ex cathedra"
                   },
                   {
@@ -1846,7 +1874,7 @@
               "poles": [
                 {
                   "key": "papal-primacy-of-jurisdiction",
-                  "label": "Papal primacy of jurisdiction"
+                  "label": "The pope governs the whole church"
                 },
                 {
                   "key": "no-papal-jurisdiction",
@@ -1890,9 +1918,18 @@
                 ]
               },
               "id": "xfo0021",
-              "name": "Ecumenical councils",
+              "name": "Church-wide councils",
               "poleReading": "antipodal",
-              "poleEnemies": [["twenty-one-councils", "councils-may-err"], ["seven-councils-only", "councils-may-err"]],
+              "poleEnemies": [
+                [
+                  "twenty-one-councils",
+                  "councils-may-err"
+                ],
+                [
+                  "seven-councils-only",
+                  "councils-may-err"
+                ]
+              ],
               "poles": [
                 {
                   "key": "twenty-one-councils",
@@ -1990,7 +2027,12 @@
               "id": "xfo0023",
               "name": "Ordination and the priesthood",
               "poleReading": "antipodal",
-              "poleEnemies": [["sacramental-priesthood", "no-priesthood"]],
+              "poleEnemies": [
+                [
+                  "sacramental-priesthood",
+                  "no-priesthood"
+                ]
+              ],
               "poles": [
                 {
                   "key": "sacramental-priesthood",
@@ -2028,25 +2070,25 @@
                 "issue": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
                 "poles": [
                   {
-                    "label": "Imamate is a principle of faith",
+                    "label": "The Imam's leadership is a matter of faith",
                     "text": "Imamate is a principle of faith; Twelve Imams are divinely designated and infallible"
                   },
                   {
-                    "label": "No Imamate",
+                    "label": "No Imam's leadership",
                     "text": "No Imamate; leadership by consensus or election"
                   }
                 ]
               },
               "id": "xfo0080",
-              "name": "Imamate (Shia)",
+              "name": "Leadership by the Imam",
               "poles": [
                 {
                   "key": "imamate-is-a-principle-of-faith",
-                  "label": "Imamate is a principle of faith"
+                  "label": "The Imam's leadership is a matter of faith"
                 },
                 {
                   "key": "no-imamate",
-                  "label": "No Imamate"
+                  "label": "No Imam's leadership"
                 }
               ],
               "question": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
@@ -2147,7 +2189,7 @@
                 ]
               },
               "id": "xfo0084",
-              "name": "Prophetic Infallibility",
+              "name": "Can a prophet be wrong",
               "poles": [
                 {
                   "key": "complete-sinlessness-and-infallibility",
@@ -2233,15 +2275,15 @@
             "issue": "Who governs the Church — bishops, presbyteries of elders, or the congregation itself?",
             "poles": [
               {
-                "label": "Episcopal",
+                "label": "Bishops",
                 "text": "Episcopal — bishops govern"
               },
               {
-                "label": "Presbyterian",
+                "label": "Elders",
                 "text": "Presbyterian — elders in graded assemblies govern"
               },
               {
-                "label": "Congregational",
+                "label": "The local congregation",
                 "text": "Congregational / decentralised — each community governs itself, led by its teachers"
               }
             ]
@@ -2253,15 +2295,15 @@
           "poles": [
             {
               "key": "episcopal",
-              "label": "Episcopal"
+              "label": "Bishops"
             },
             {
               "key": "presbyterian",
-              "label": "Presbyterian"
+              "label": "Elders"
             },
             {
               "key": "congregational",
-              "label": "Congregational"
+              "label": "The local congregation"
             }
           ],
           "question": "Who governs the Church — bishops, presbyteries of elders, or the congregation itself?",
@@ -2303,7 +2345,12 @@
           "id": "xfo0082",
           "name": "Interfaith relations / other religions",
           "poleReading": "antipodal",
-          "poleEnemies": [["other-religions-are-valid-paths", "strict-exclusivity"]],
+          "poleEnemies": [
+            [
+              "other-religions-are-valid-paths",
+              "strict-exclusivity"
+            ]
+          ],
           "poles": [
             {
               "key": "other-religions-are-valid-paths",
@@ -2438,7 +2485,12 @@
           "id": "xfo0079",
           "name": "Apostasy and leaving the faith",
           "poleReading": "antipodal",
-          "poleEnemies": [["still-a-member", "excluded-penalty-severe"]],
+          "poleEnemies": [
+            [
+              "still-a-member",
+              "excluded-penalty-severe"
+            ]
+          ],
           "poles": [
             {
               "key": "still-a-member",
@@ -2477,15 +2529,15 @@
             "poles": [
               {
                 "label": "Matrilineal descent or formal conversion",
-                "text": "Matrilineal descent or formal conversion under halakha"
+                "text": "Matrilineal descent or formal conversion under halakha. Traditional halakha is matrilineal; Reform also recognizes patrilineal descent when the child is raised Jewish."
               },
               {
                 "label": "Baptism / faith in Christ",
                 "text": "Baptism / faith in Christ"
               },
               {
-                "label": "Shahada and practice",
-                "text": "Shahada and practice"
+                "label": "The declaration of faith, and the practice",
+                "text": "The declaration of faith, and the practice"
               }
             ]
           },
@@ -2504,7 +2556,7 @@
             },
             {
               "key": "shahada-and-practice",
-              "label": "Shahada and practice"
+              "label": "The declaration of faith, and the practice"
             }
           ],
           "question": "How does one join the community, and is identity matrilineal, by faith, or by confession?",
@@ -2637,7 +2689,7 @@
                 "text": "Grace alone converts, but it can be resisted"
               },
               {
-                "label": "Prevenient grace",
+                "label": "Grace that comes first",
                 "text": "Prevenient grace enables a free response; man cooperates"
               }
             ]
@@ -2645,7 +2697,12 @@
           "id": "xfo0025",
           "name": "Grace",
           "poleReading": "antipodal",
-          "poleEnemies": [["irresistible-grace", "resistible-grace"]],
+          "poleEnemies": [
+            [
+              "irresistible-grace",
+              "resistible-grace"
+            ]
+          ],
           "poles": [
             {
               "key": "irresistible-grace",
@@ -2657,7 +2714,7 @@
             },
             {
               "key": "prevenient-grace",
-              "label": "Prevenient grace"
+              "label": "Grace that comes first"
             }
           ],
           "question": "Does grace compel, enable, or cooperate with the human will — and can it be resisted?",
@@ -2704,7 +2761,12 @@
           "id": "xfo0026",
           "name": "Predestination and election",
           "poleReading": "antipodal",
-          "poleEnemies": [["unconditional-election-and-reprobation", "election-conditioned-on-foreknowledge"]],
+          "poleEnemies": [
+            [
+              "unconditional-election-and-reprobation",
+              "election-conditioned-on-foreknowledge"
+            ]
+          ],
           "poles": [
             {
               "key": "unconditional-election-and-reprobation",
@@ -2747,11 +2809,11 @@
             "issue": "How does Christ's death save — by satisfying divine justice, by ransom and victory, or both?",
             "poles": [
               {
-                "label": "Satisfaction (vicarious atonement)",
+                "label": "Christ paid the debt",
                 "text": "Christ's death satisfies divine justice, bearing our sins"
               },
               {
-                "label": "Ransom (Christus Victor)",
+                "label": "Christ defeated the powers",
                 "text": "Christ's death ransoms us and destroys death, restoring human nature"
               },
               {
@@ -2767,11 +2829,11 @@
           "poles": [
             {
               "key": "satisfaction-vicarious-atonement",
-              "label": "Satisfaction (vicarious atonement)"
+              "label": "Christ paid the debt"
             },
             {
               "key": "ransom-christus-victor",
-              "label": "Ransom (Christus Victor)"
+              "label": "Christ defeated the powers"
             },
             {
               "key": "repentance-and-good-deeds",
@@ -2969,7 +3031,16 @@
           "id": "xfo0030",
           "name": "Mary and the saints",
           "poleReading": "antipodal",
-          "poleEnemies": [["venerated-and-invoked", "christ-alone-mediator"], ["honoured-not-invoked", "christ-alone-mediator"]],
+          "poleEnemies": [
+            [
+              "venerated-and-invoked",
+              "christ-alone-mediator"
+            ],
+            [
+              "honoured-not-invoked",
+              "christ-alone-mediator"
+            ]
+          ],
           "poles": [
             {
               "key": "venerated-and-invoked",
@@ -3026,21 +3097,21 @@
             ]
           },
           "id": "xfo0002",
-          "name": "The Christian Trilemma of Justification",
+          "name": "How a person is made right with God",
           "poleReading": "same",
           "poleEnemies": [],
           "poles": [
             {
               "key": "sola-fide-faith-alone",
-              "label": "Sola Fide (Faith Alone)"
+              "label": "Faith alone"
             },
             {
               "key": "sacramental-synergy-works-sacraments",
-              "label": "Sacramental Synergy (Works & Sacraments)"
+              "label": "Faith together with the sacraments"
             },
             {
               "key": "theosis-deification-by-grace",
-              "label": "Theosis (Deification by Grace)"
+              "label": "Becoming like God by grace"
             }
           ],
           "question": "How is a person made right with God?",
@@ -3137,7 +3208,12 @@
           "id": "xfo0036",
           "name": "Baptism",
           "poleReading": "antipodal",
-          "poleEnemies": [["infant-baptism-regenerates", "believers-baptism-by-immersion"]],
+          "poleEnemies": [
+            [
+              "infant-baptism-regenerates",
+              "believers-baptism-by-immersion"
+            ]
+          ],
           "poles": [
             {
               "key": "infant-baptism-regenerates",
@@ -3191,7 +3267,16 @@
           "id": "xfo0037",
           "name": "The Lord's Supper",
           "poleReading": "antipodal",
-          "poleEnemies": [["truly-present-body-and-blood", "memorial-and-symbol-only"], ["spiritually-present-to-faith", "memorial-and-symbol-only"]],
+          "poleEnemies": [
+            [
+              "truly-present-body-and-blood",
+              "memorial-and-symbol-only"
+            ],
+            [
+              "spiritually-present-to-faith",
+              "memorial-and-symbol-only"
+            ]
+          ],
           "poles": [
             {
               "key": "truly-present-body-and-blood",
@@ -3279,7 +3364,7 @@
             ]
           },
           "id": "xfo0065",
-          "name": "The Eucharist",
+          "name": "Holy communion",
           "poles": [
             {
               "key": "frequency-and-administration-of-the-eucharist",
@@ -3372,7 +3457,7 @@
                 "text": "Images are permitted but not worshipped or venerated"
               },
               {
-                "label": "Aniconism (no images)",
+                "label": "No images",
                 "text": "No images of God (or the Prophet) at all; aniconism"
               }
             ]
@@ -3380,7 +3465,16 @@
           "id": "xfo0053",
           "name": "Icons and images in worship",
           "poleReading": "antipodal",
-          "poleEnemies": [["venerated-images", "aniconism-no-images"], ["images-permitted-not-venerated", "aniconism-no-images"]],
+          "poleEnemies": [
+            [
+              "venerated-images",
+              "aniconism-no-images"
+            ],
+            [
+              "images-permitted-not-venerated",
+              "aniconism-no-images"
+            ]
+          ],
           "poles": [
             {
               "key": "venerated-images",
@@ -3392,7 +3486,7 @@
             },
             {
               "key": "aniconism-no-images",
-              "label": "Aniconism (no images)"
+              "label": "No images"
             }
           ],
           "question": "May images of Christ and the saints be set up and venerated in worship?",
@@ -4338,7 +4432,7 @@
                 ]
               },
               "id": "xfo0089",
-              "name": "Usury and interest (riba)",
+              "name": "Interest on a loan",
               "poles": [
                 {
                   "key": "absolute-prohibition-on-interest",
@@ -4554,7 +4648,16 @@
               "id": "xfo0076",
               "name": "Modesty and dress",
               "poleReading": "antipodal",
-              "poleEnemies": [["modesty-and-head-covering-required", "no-dress-code-prescribed"], ["modesty-required-no-covering", "no-dress-code-prescribed"]],
+              "poleEnemies": [
+                [
+                  "modesty-and-head-covering-required",
+                  "no-dress-code-prescribed"
+                ],
+                [
+                  "modesty-required-no-covering",
+                  "no-dress-code-prescribed"
+                ]
+              ],
               "poles": [
                 {
                   "key": "modesty-and-head-covering-required",
@@ -4757,7 +4860,7 @@
             "issue": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
             "poles": [
               {
-                "label": "12th Imam from Occultation",
+                "label": "The twelfth Imam returns from hiding",
                 "text": "Specific historical 12th Imam emerging from Occultation"
               },
               {
@@ -4765,19 +4868,19 @@
                 "text": "Future descendant of Muhammad born in end times"
               },
               {
-                "label": "Rejection of the Mahdi",
+                "label": "No such guide",
                 "text": "Rejection of Mahdi concept"
               }
             ]
           },
           "id": "xfo0086",
-          "name": "The coming of the Mahdi",
+          "name": "The awaited guide",
           "poleReading": "same",
           "poleEnemies": [],
           "poles": [
             {
               "key": "12th-imam-from-occultation",
-              "label": "12th Imam from Occultation"
+              "label": "The twelfth Imam returns from hiding"
             },
             {
               "key": "future-descendant-of-muhammad",
@@ -4785,7 +4888,7 @@
             },
             {
               "key": "rejection-of-the-mahdi",
-              "label": "Rejection of the Mahdi"
+              "label": "No such guide"
             }
           ],
           "question": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",

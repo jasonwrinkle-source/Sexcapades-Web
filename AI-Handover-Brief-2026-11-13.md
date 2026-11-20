@@ -273,22 +273,77 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    A click updates the row and leaves the map paint until the list closes.
    Placard and profile sheet untouched. In the repo on main; not in the
    uploaded 2026-11-19_2046 package.
-2. **Plain-English labels for the whole Forescapades map** — a proposal
-   batch in the style of the earlier rename runs: English-first labels,
-   a true umbrella term where one exists, presented as ONE approval batch.
-   Nothing builds without Jason's batch approval. Fores only — the other
-   maps keep their technical terms for now, since they may need them.
-3. **Patrilineal note in a hovertip** — on "Conversion and religious
-   identity" (Fores), the Jewish pole's hovertip gains the ruled note:
-   traditional halakha is matrilineal; Reform also recognizes patrilineal
-   descent when the child is raised Jewish. No separate patrilineal pole —
-   the triad stays one tradition per pole. Wording only.
+2. ~~**Plain-English labels for the whole Forescapades map**~~ — settled
+   2026-11-19. Jason approved the batch. The 16 jargon topic titles and
+   the pole labels in that batch are now the English umbrellas in
+   `forescapades.json`. The other topic titles stay. Technical terms
+   remain in the hovertip notes. Fores only.
+3. ~~**Patrilineal note in a hovertip**~~ — settled 2026-11-19. On
+   "Conversion and religious identity" (Fores), the Jewish pole's hovertip
+   says traditional halakha is matrilineal, and Reform also recognizes
+   patrilineal descent when the child is raised Jewish. No separate
+   patrilineal pole. The triad stays one tradition per pole.
 4. ~~**One-door topics**~~ — settled 2026-11-19. They keep the blend.
    Relevance carries the weight. No build.
-5. **Sexcapades into its own skin file** — move the 381-topic catalog out
-   of its code module into `sexcapades.json`, like every other skin
-   (ruled 2026-11-17). A planned job: it needs a written plan first, and
-   a snapshot before the refactor (§4).
+5. **Sexcapades into its own skin file** — ruled 2026-11-17. Plan written
+   2026-11-19 below. Not started. The next editor does the move. Snapshot
+   first (§4). If the snapshot cannot be taken, stop. Do not run
+   `sexcapades-snapshot-v3.sh` (quarantined).
+
+   **What is true today.** `02b-taxonomy-data.js` is the boot catalog:
+   18 categories, 381 topics (`id`, `name`, `risk`, and where present
+   `give_label`, `receive_label`, `note`, plus subcategories on 7
+   categories). `02i-taxonomy-catalog.js` turns that into the live tree
+   (`loadTaxonomy`) and then keeps going: display-name map `m`,
+   `topicRecords`, `topicLabelById`, `legacyTopicIdByOpaque`. Those are
+   not the catalog. Do not delete 02i, and do not read it whole.
+   `app/data/skins/sexcapades.json` is not the catalog. It holds the 17
+   higher-pole widget topics, plus `samples`, `scribe`, `sceneSetter`,
+   `meter`, and `defaultLayout`. `registerSexcapadesWidgets()` registers
+   those 17 and does not replace the category array.
+   `defaultLayout.positions` repeats topic ids as baked coordinates. A
+   walk of every `"id": "t…"` counts those twice. They are layout, not
+   topics. Leave `defaultLayout` in place.
+
+   **What done means.** Sexcapades boots from `sexcapades.json` the way
+   Fores boots from `forescapades.json`. Topic ids stay `t0002` and up.
+   Ratings, imports, and pole readings key off those ids. The outline
+   copy stays "400+" and `SEXCAPADES_TOPIC_COUNT` stays 403. Do not
+   "correct" 403 to 381. Do not split the bundle. Do not `json.dump` the
+   whole skin; the file is large and a reformat hides the real diff.
+   Edit `app/data/skins/sexcapades.json` only, then
+   `python3 app/data/build-bundle.py` so the hosted copy is the same
+   file.
+
+   **How to do it, in order.**
+   1. Snapshot. Then stop if it failed.
+   2. Script the merge. Do not open 02b or the JSON in the editor.
+      Match topics by id. Start from the 17 widget topics already in
+      the JSON (keep `poles`, `hovertip`, `widget`, `question`,
+      `poleReading`, `poleEnemies`, `archetype`). Fill in every other
+      topic from 02b, including subcategory membership. Carry
+      `give_label`, `receive_label`, `note`, and `risk`. Emit the shape
+      `mergedCategory` already understands: `subcategories[].topics`,
+      and `parentTopics` where the category has parents. Keep the JSON's
+      other top-level keys byte for byte.
+   3. Check the script's output before wiring it: 381 unique topic ids,
+      same set as 02b, zero id changes, the 17 widget topics still have
+      their poles, `defaultLayout` still present.
+   4. Point Sexcapades boot at that file through the same category swap
+      the other skins use (`applySkin` / `mergedCategory`), and keep
+      widget registration. `restoreSexcapades()` must clone the JSON
+      tree, not the old 02b tree, and must still reattach `toString` so
+      a Fores round-trip does not paint `[object Object]`.
+   5. Leave `m`, `topicRecords`, and `legacyTopicIdByOpaque` alone.
+      `m` renames short catalog names for display (`Nylon` →
+      `NylonLegs & Feet`). Baking those display names into `name` and
+      deleting `m` breaks every `m[name]` lookup. A later pass can retire
+      them. This pass does not.
+   6. Prove it in the browser, then stop 02b from being the boot source.
+      One ordinary give/receive topic still shows both labels. One
+      n-pole topic still draws (BDSM archetypes). Switch to Fores and
+      back. Hot List rows still show names. Only then is 02b allowed to
+      stop feeding `loadTaxonomy`. Do not delete 02i.
 6. **Rating-persistence diagnosis** — a rating set in-session does not
    surface after reload, even with Remember on (seen on Sexcapades and
    Polis alike). The save side works — the stored blob holds the rating;
