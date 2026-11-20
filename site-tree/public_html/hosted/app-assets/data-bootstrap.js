@@ -36890,7 +36890,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const rel = sxRelevanceGroup(rated.map(m => m.intensity));
             const reading = meta && meta.poleReading;
             const cross = !reading || "complement" === reading ? sxBestRoleProduct(rows) : 0;
-            const enemy = "antipodal" === reading || "trilemma" === reading ? sxGroupEnemy(rows, keys, meta.poleEnemies) : 0;
+            // Opposite interest on a same-pole widget is the argument
+            // (Jason 2026-11-19). The overlap moves to the feud. A
+            // stored far pole is unchanged.
+            const enemy = "same" === reading && rel.opposed ? straight : ("antipodal" === reading || "trilemma" === reading ? sxGroupEnemy(rows, keys, meta.poleEnemies) : 0);
             return {
                 straight: straight, cross: cross, enemy: enemy,
                 factor: rel.factor, debate: sxDebateFactor(rated.map(m => m.intensity)),
@@ -37207,26 +37210,27 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 const agreement = sxPoleAgreement(a, b);
                 const role = a.polesKnown && b.polesKnown ? sxPoleMatch(meta, a.poles, b.poles) : null;
                 if (role) {
-                    // Play reads the complementary role. Straight reads
-                    // the similar role. Relevance weights both, and a
-                    // shared aversion weights neither as something to do.
-                    // Circle minus reads the stored enemy pairs, and its
-                    // weight keeps opposite signs (that is the argument).
+                    // Play reads the complementary role. The talk reads
+                    // the similar role. A shared no stays a talk. Opposite
+                    // interest on a same-pole widget is the argument, so
+                    // that overlap moves to the feud and leaves the talk.
+                    // Play still drops a shared no and a sign split.
                     const rel = sxRelevancePair(a.intensity, b.intensity);
-                    const weight = rel.aversion ? 0 : rel.factor;
+                    const playWeight = rel.aversion || rel.opposed ? 0 : rel.factor;
+                    const talkWeight = rel.opposed ? 0 : rel.factor;
                     rec.poleRole = !0;
                     rec.agreement = role.straight;
                     rec.roleStraight = role.straight;
                     rec.roleCross = role.cross;
-                    rec.roleEnemy = role.enemy;
+                    rec.roleEnemy = meta && "same" === meta.poleReading && rel.opposed ? role.straight : role.enemy;
                     rec.debateIntensity = sxDebateFactor([ a.intensity, b.intensity ]);
                     rec.poleIntensity = rel.factor;
                     rec.sharedAversion = rel.aversion;
                     rec.relevanceOpposed = rel.opposed;
                     rec.intensityA = a.intensity;
                     rec.intensityB = b.intensity;
-                    rec.crossEntry = role.cross * weight;
-                    rec.straightEntry = role.straight * weight;
+                    rec.crossEntry = role.cross * playWeight;
+                    rec.straightEntry = role.straight * talkWeight;
                     rec.crossFitGive = null;
                     rec.crossFitReceive = null;
                     rec.playMSEntry = rec.crossEntry;
@@ -37658,22 +37662,23 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     });
                     if (poleMembers.length >= 3) {
                         const gRole = sxGroupRoleScore(poleMembers, meta);
-                        const weight = gRole.aversion || gRole.opposed ? 0 : gRole.factor;
+                        const playWeight = gRole.aversion || gRole.opposed ? 0 : gRole.factor;
+                        const talkWeight = gRole.opposed ? 0 : gRole.factor;
                         rec.roleStraight = gRole.straight;
                         rec.roleCross = gRole.cross;
                         rec.roleEnemy = gRole.enemy;
                         rec.sharedAversion = gRole.aversion;
-                        rec.playKFEntry = gRole.cross * weight;
-                        rec.playMSEntry = gRole.cross * weight;
-                        rec.parlayKFEntry = gRole.straight * weight;
-                        rec.parlayMSEntry = gRole.straight * weight;
+                        rec.playKFEntry = gRole.cross * playWeight;
+                        rec.playMSEntry = gRole.cross * playWeight;
+                        rec.parlayKFEntry = gRole.straight * talkWeight;
+                        rec.parlayMSEntry = gRole.straight * talkWeight;
                         rec.debateKFEntry = gRole.enemy * gRole.debate;
                         rec.debateMSEntry = gRole.enemy;
                         const strong = poleMembers.every(m => m.intensity > sxClamp(35 - m.heat, 0, 85));
-                        if (gRole.aversion || gRole.opposed || !(weight > 0) || !(gRole.cross > 0)) rec.playOutcome = "mismatched";
+                        if (gRole.aversion || gRole.opposed || !(playWeight > 0) || !(gRole.cross > 0)) rec.playOutcome = "mismatched";
                         else {
                             rec.playOutcome = strong && gRole.cross >= .5 ? "match" : "curious-fit";
-                            rec.strength = Math.round(gRole.cross * weight * 100);
+                            rec.strength = Math.round(gRole.cross * playWeight * 100);
                         }
                     }
                 }
@@ -37971,7 +37976,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     if (null != s.agreement) return {
                         id: s.id,
                         entryKF: s.agreement * (null != s.poleIntensity ? s.poleIntensity : 0),
-                        entryMS: s.agreement,
+                        // The overlap is drawn only when the interest
+                        // counts. A zero or a sign split leaves this at
+                        // 0. A shared no still counts: its factor is the
+                        // smaller absolute intensity.
+                        entryMS: s.poleIntensity > 0 ? s.agreement : 0,
                         consideredKF: !0,
                         consideredMS: !0
                     };

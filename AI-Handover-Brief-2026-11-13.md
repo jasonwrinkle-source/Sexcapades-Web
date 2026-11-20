@@ -251,10 +251,14 @@ straight (similar role) from cross (complementary role).
    noes multiply into an agreement. A topic that is only a split
    scores 0 in the talk and stays in the denominator. When one
    flank agrees and the other splits, the talk lights from the
-   agreement and the argument lights from the split. Still open,
-   not ruled: whether a shared no should be silence instead of a
-   talk, and whether opposite interest on a same pole becomes the
-   argument or a cancelled talk.
+   agreement and the argument lights from the split. Jason,
+   2026-11-19, four rulings: a shared no stays a talk. Opposite
+   interest on a same pole is the argument, for a pair and for a
+   group, and that overlap leaves the talk. The talk ring is drawn
+   only when the interest counts, so a zero or a shrug no longer
+   fills it from the overlap alone. One-door topics keep the blend,
+   with relevance carrying the weight. Two-pole lines stay
+   unstamped until a line is named as a feud.
 
 ---
 
