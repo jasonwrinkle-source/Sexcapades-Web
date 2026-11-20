@@ -151,7 +151,8 @@
             draftSaveTimers[e] = t.setTimeout(() => {
                 delete draftSaveTimers[e];
                 const n = window.SexcapadesRuntime.DOM.byId("rememberProfileCheckbox2x"), i = window.Sexcapades2xRememberProfiles;
-                n && n.checked && i && "function" == typeof i.saveNow && i.saveNow() && Vt(e);
+                const shouldSave = i && (typeof i.isEnabled === "function" ? i.isEnabled() : (n && n.checked));
+                shouldSave && "function" == typeof i.saveNow && i.saveNow() && Vt(e);
             }, 500));
         }
         function Ut(e) {

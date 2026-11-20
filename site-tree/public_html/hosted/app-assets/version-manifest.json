@@ -1,0 +1,23 @@
+{
+  "build": "2026-11-19_1624",
+  "files": [
+    { "url": "/hosted/app-assets/app.css?v=2026-11-19_1624", "as": "style" },
+    { "url": "/hosted/app-assets/app.js?v=2026-11-19_1624", "as": "script" },
+    { "url": "/hosted/app-assets/vendor/qrcode.min.js?v=2026-11-19_1624", "as": "script" },
+    { "url": "/hosted/app-assets/data-bootstrap.js?v=2026-11-19_1624", "as": "script" },
+    { "url": "/hosted/app-assets/unrated-map-template.js?v=2026-11-19_1624", "as": "script" },
+    { "url": "/hosted/app-assets/images/guide-avatar.jpg", "as": "image" },
+    { "url": "/hosted/app-assets/images/hanky-chart.jpg", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-1.jpg", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-2.jpg", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-3.jpg", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-4.jpg", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-5.jpg", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-anon.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-eve.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/avatar-eve-portrait.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/img-13.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/img-14.webp", "as": "image" },
+    { "url": "/hosted/app-assets/images/deknotter-icon.webp", "as": "image" }
+  ]
+}

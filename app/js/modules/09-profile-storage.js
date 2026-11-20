@@ -15,14 +15,21 @@ __sxInit(function () {
     return window.Sexcapades2xProfiles || null;
   }
 
-  function readStoredProfiles() {
+  var storageEverLoaded = false;
+
+  function readStoredProfilePayload() {
     try {
       var stored = localStorage.getItem(storageKey);
-      return stored && JSON.parse(stored).profiles || {};
+      return (stored && JSON.parse(stored)) || null;
     } catch (error) {
       if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
-      return {};
+      return null;
     }
+  }
+
+  function readStoredProfiles() {
+    var payload = readStoredProfilePayload();
+    return (payload && payload.profiles) || {};
   }
 
   function readRememberFlag() {
@@ -117,9 +124,12 @@ __sxInit(function () {
 
   function writeStoredProfiles(profiles, duringUnload) {
     try {
+      var api = profilesApi();
+      var activeId = api && typeof api.getActiveId === "function" ? api.getActiveId() : null;
       localStorage.setItem(storageKey, JSON.stringify({
         v: 1,
         savedAt: Date.now(),
+        activeProfileId: activeId,
         profiles: profiles
       }));
       return true;
@@ -135,18 +145,20 @@ __sxInit(function () {
     if (!api) return false;
 
     try {
-      var storedValue = localStorage.getItem(storageKey);
-      var storedProfiles = storedValue && JSON.parse(storedValue).profiles || {};
+      var payload = readStoredProfilePayload();
+      var storedProfiles = (payload && payload.profiles) || {};
       var currentProfiles = api.getAll();
       var changed = false;
       var savedAt = Date.now();
 
-      Object.keys(storedProfiles).forEach(function (profileId) {
-        if (!Object.prototype.hasOwnProperty.call(currentProfiles, profileId)) {
-          delete storedProfiles[profileId];
-          changed = true;
-        }
-      });
+      if (storageEverLoaded) {
+        Object.keys(storedProfiles).forEach(function (profileId) {
+          if (!Object.prototype.hasOwnProperty.call(currentProfiles, profileId)) {
+            delete storedProfiles[profileId];
+            changed = true;
+          }
+        });
+      }
 
       Object.keys(currentProfiles).forEach(function (profileId) {
         var profile = currentProfiles[profileId];
@@ -192,7 +204,7 @@ __sxInit(function () {
     flush: flushStoredProfiles,
     isEnabled: function () {
       var control = checkbox();
-      return Boolean(rememberEnabled && control && control.checked);
+      return Boolean(rememberEnabled && (!control || control.checked));
     }
   };
 
@@ -203,9 +215,13 @@ __sxInit(function () {
       showRestoreError(1);
       return 0;
     }
-    var storedProfiles = readStoredProfiles();
+    storageEverLoaded = true;
+    var payload = readStoredProfilePayload();
+    var storedProfiles = (payload && payload.profiles) || {};
+    var preferredActiveId = (payload && payload.activeProfileId) || null;
     var loaded = 0;
     var failed = 0;
+    var restoredIds = [];
     try {
       var rawStored = localStorage.getItem(storageKey);
       if (rawStored) JSON.parse(rawStored);
@@ -222,9 +238,14 @@ __sxInit(function () {
         return;
       }
       try {
-        if (api.has(profileId)) return;
-        if (api.importData(profileId, data)) {
+        if (api.has(profileId)) {
+          restoredIds.push(profileId);
+          return;
+        }
+        var imported = api.importData(profileId, data);
+        if (imported) {
           loaded++;
+          restoredIds.push(typeof imported === "string" ? imported : profileId);
         } else {
           failed++;
           if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " could not be restored (importData returned false)."));
@@ -234,6 +255,16 @@ __sxInit(function () {
         if (typeof __sxErrLog === "function") __sxErrLog("profile-import", error);
       }
     });
+
+    if (restoredIds.length > 0 && typeof api.activate === "function") {
+      var targetId = (preferredActiveId && restoredIds.indexOf(preferredActiveId) !== -1)
+        ? preferredActiveId
+        : restoredIds[0];
+      if (targetId) {
+        api.activate(targetId);
+      }
+    }
+
     if (failed) showRestoreError(failed);
     return loaded;
   }

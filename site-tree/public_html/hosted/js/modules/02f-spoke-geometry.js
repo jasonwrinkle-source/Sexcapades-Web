@@ -105,8 +105,8 @@
              */
             function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
                 const stemBase = Math.min(baseWidth, 18);
-                // Pronounced bulbous trumpet flare strictly localized to parent circle (u -> 0)
-                const bulbousFlare = Math.max(0, baseWidth - stemBase) * Math.exp(-Math.pow(u / 0.08, 2));
+                // 4x as bulbous flare, tapering 4x farther out (u / 0.32)
+                const bulbousFlare = 4 * Math.max(0, baseWidth - stemBase) * Math.exp(-Math.pow(u / 0.32, 2));
                 const stemWidth = tipWidth + (stemBase - tipWidth) * Math.exp(-1.8 * u);
                 return stemWidth + bulbousFlare;
             }
@@ -131,7 +131,7 @@
              * @returns {{x:number, y:number, r:number}} Circle {center x, center y, radius} in map units.
              */
             function buildTipCircle(x0, y0, x1, y1, iconSize) {
-                const tipSeg = segment(x0, y0, x1, y1), tipR = Math.max(12, (Number(iconSize) || 48) / 2), tipBack = Math.max(0, tipR - 1.5);
+                const tipSeg = segment(x0, y0, x1, y1), tipR = Math.max(12, (Number(iconSize) || 48) / 2), tipBack = Math.max(0, tipR);
                 return {
                     x: x1 + tipSeg.ux * tipBack,
                     y: y1 + tipSeg.uy * tipBack,
@@ -306,11 +306,18 @@
                 const p = SAMPLES;
                 const spokeLen = Math.hypot(dx, dy) || 1;
                 const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
-                const innerFlare = 2.5;
+                const innerFlare = 10;
+                function innerAt(frac) {
+                    const baseInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.32, 2));
+                    if (frac <= nameFrac) return baseInner;
+                    // Exponential taper each side after the topic name
+                    const t = (frac - nameFrac) / Math.max(0.01, 1 - nameFrac);
+                    return Math.max(0.5, baseInner * Math.exp(-3.5 * t));
+                }
                 const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
                     const frac = si / p;
-                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.08, 2));
+                    const curInner = innerAt(frac);
                     const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
                     const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
                     const b = baseX + dx * frac, v = baseY + dy * frac;
@@ -320,8 +327,8 @@
                     f.push(`${(b + nx * curInner).toFixed(2)} ${(v + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
-                const curInner0 = innerHalf + innerFlare;
-                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.08, 2));
+                const curInner0 = innerAt(0);
+                const curInner1 = innerAt(1);
                 const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
                 const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {
@@ -370,7 +377,7 @@
                 const v = [], w = [];
                 for (let si = p; si >= 0; si--) {
                     const frac = si / p;
-                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const curInner = innerAt(frac);
                     const px = baseX + dx * frac, py = baseY + dy * frac;
                     v.push(`${(px - nx * curInner).toFixed(2)} ${(py - ny * curInner).toFixed(2)}`);
                     w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
@@ -436,11 +443,11 @@
                 // buildTipCircle / buildBaseCircle construction.
                 const tc = buildTipCircle(0, 0, 100, 0, 48);
                 check("buildTipCircle: radius is iconSize / 2", tc.r === 24);
-                check("buildTipCircle: center is endpoint + unit * (r - 1.5)", Math.abs(tc.x - 122.5) < 1e-9 && Math.abs(tc.y) < 1e-9);
+                check("buildTipCircle: center is endpoint + unit * r", Math.abs(tc.x - 124) < 1e-9 && Math.abs(tc.y) < 1e-9);
                 const tcDefault = buildTipCircle(0, 0, 0, 50);
-                check("buildTipCircle: default icon size 48", tcDefault.r === 24 && Math.abs(tcDefault.x) < 1e-9 && Math.abs(tcDefault.y - 72.5) < 1e-9);
+                check("buildTipCircle: default icon size 48", tcDefault.r === 24 && Math.abs(tcDefault.x) < 1e-9 && Math.abs(tcDefault.y - 74) < 1e-9);
                 const tcMin = buildTipCircle(0, 0, 10, 0, 10);
-                check("buildTipCircle: radius clamps to >= 12", tcMin.r === 12 && Math.abs(tcMin.x - 20.5) < 1e-9);
+                check("buildTipCircle: radius clamps to >= 12", tcMin.r === 12 && Math.abs(tcMin.x - 22) < 1e-9);
                 const bc0 = buildBaseCircle(3, 4, 30);
                 check("buildBaseCircle: passes {x, y, r} through", bc0.x === 3 && bc0.y === 4 && bc0.r === 30);
                 // taperedPath tip arc (horizontal spoke, tip circle from buildTipCircle).

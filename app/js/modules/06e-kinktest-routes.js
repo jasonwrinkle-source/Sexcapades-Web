@@ -1090,6 +1090,20 @@
                     return !1;
                 }
             },
+            activate: function(e) {
+                try {
+                    if (!e || !vt[e]) return !1;
+                    if (typeof Js === "function") Js(e);
+                    else if (typeof ak === "function") ak(e);
+                    return !0;
+                } catch (err) {
+                    __sxErrLog("profile-activate", err);
+                    return !1;
+                }
+            },
+            getActiveId: function() {
+                return Mt || null;
+            },
             isDirty: function(e) {
                 try {
                     return !(void 0 === yt || !yt[e]);
@@ -1187,9 +1201,9 @@
                         // the throwaway id.
                         SX_PROFILE_FIELDS.forEach(e => {
                             Object.prototype.hasOwnProperty.call(e, r) ? e[o] = e[r] : delete e[o], Reflect.deleteProperty(e, r);
-                        }), Object.prototype.hasOwnProperty.call(droppedKeyRecords, r) ? (droppedKeyRecords[o] = droppedKeyRecords[r], Reflect.deleteProperty(droppedKeyRecords, r)) : delete droppedKeyRecords[o], t && (Mt = o), n && (It = o);
+                        }), Object.prototype.hasOwnProperty.call(droppedKeyRecords, r) ? (droppedKeyRecords[o] = droppedKeyRecords[r], Reflect.deleteProperty(droppedKeyRecords, r)) : delete droppedKeyRecords[o], (t || (opts && opts.autoSelect)) && (Mt = o), (n || (opts && opts.autoSelect)) && (It = o);
                     }
-                    return Vt(o), Jw(), Mt === o && (Mr({
+                    return Vt(o), Jw(), (Mt === o || (opts && opts.autoSelect)) && (Mt = o, It = o, Mr({
                         animate: !1,
                         forceRepaint: !0
                     }), Ih()), o;

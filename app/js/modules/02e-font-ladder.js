@@ -102,7 +102,8 @@
         // or the font large.
         function sxIconRadius(depth) {
             const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
-            return Math.max(Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
+            const mult = (depth === 2) ? 3 : 1;
+            return Math.max(mult * Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
         }
         function sxIconDiameter(depth) {
             return 2 * sxIconRadius(depth);

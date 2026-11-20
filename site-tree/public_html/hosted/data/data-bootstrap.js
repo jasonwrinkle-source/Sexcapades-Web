@@ -5359,7 +5359,8 @@ const TAXONOMY_CATEGORIES = [
         // or the font large.
         function sxIconRadius(depth) {
             const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
-            return Math.max(Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
+            const mult = (depth === 2) ? 3 : 1;
+            return Math.max(mult * Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
         }
         function sxIconDiameter(depth) {
             return 2 * sxIconRadius(depth);
@@ -5622,8 +5623,8 @@ const TAXONOMY_CATEGORIES = [
              */
             function flareAt(u, baseWidth, tipWidth, nameFrac = 0.35) {
                 const stemBase = Math.min(baseWidth, 18);
-                // Pronounced bulbous trumpet flare strictly localized to parent circle (u -> 0)
-                const bulbousFlare = Math.max(0, baseWidth - stemBase) * Math.exp(-Math.pow(u / 0.08, 2));
+                // 4x as bulbous flare, tapering 4x farther out (u / 0.32)
+                const bulbousFlare = 4 * Math.max(0, baseWidth - stemBase) * Math.exp(-Math.pow(u / 0.32, 2));
                 const stemWidth = tipWidth + (stemBase - tipWidth) * Math.exp(-1.8 * u);
                 return stemWidth + bulbousFlare;
             }
@@ -5648,7 +5649,7 @@ const TAXONOMY_CATEGORIES = [
              * @returns {{x:number, y:number, r:number}} Circle {center x, center y, radius} in map units.
              */
             function buildTipCircle(x0, y0, x1, y1, iconSize) {
-                const tipSeg = segment(x0, y0, x1, y1), tipR = Math.max(12, (Number(iconSize) || 48) / 2), tipBack = Math.max(0, tipR - 1.5);
+                const tipSeg = segment(x0, y0, x1, y1), tipR = Math.max(12, (Number(iconSize) || 48) / 2), tipBack = Math.max(0, tipR);
                 return {
                     x: x1 + tipSeg.ux * tipBack,
                     y: y1 + tipSeg.uy * tipBack,
@@ -5823,11 +5824,18 @@ const TAXONOMY_CATEGORIES = [
                 const p = SAMPLES;
                 const spokeLen = Math.hypot(dx, dy) || 1;
                 const nameFrac = nameLength > 0 ? Math.max(0.15, Math.min(0.65, (nameLength + 14) / spokeLen)) : 0.35;
-                const innerFlare = 2.5;
+                const innerFlare = 10;
+                function innerAt(frac) {
+                    const baseInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.32, 2));
+                    if (frac <= nameFrac) return baseInner;
+                    // Exponential taper each side after the topic name
+                    const t = (frac - nameFrac) / Math.max(0.01, 1 - nameFrac);
+                    return Math.max(0.5, baseInner * Math.exp(-3.5 * t));
+                }
                 const h = [], g = [], m = [], f = [];
                 for (let si = 0; si <= p; si++) {
                     const frac = si / p;
-                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.08, 2));
+                    const curInner = innerAt(frac);
                     const outerW = flareAt(frac, baseWidth, tipWidth, nameFrac);
                     const y = Math.max(curInner + 1.5, stripeHalf + outerW / 2);
                     const b = baseX + dx * frac, v = baseY + dy * frac;
@@ -5837,8 +5845,8 @@ const TAXONOMY_CATEGORIES = [
                     f.push(`${(b + nx * curInner).toFixed(2)} ${(v + ny * curInner).toFixed(2)}`);
                 }
                 baseCircle && baseCircle.r > 0 && Math.hypot(baseX - baseCircle.x, baseY - baseCircle.y) < DEEP_START_FRACTION * baseCircle.r && (baseCircle = null);
-                const curInner0 = innerHalf + innerFlare;
-                const curInner1 = innerHalf + innerFlare * Math.exp(-Math.pow(1 / 0.08, 2));
+                const curInner0 = innerAt(0);
+                const curInner1 = innerAt(1);
                 const y0 = Math.max(curInner0 + 1.5, stripeHalf + flareAt(0, baseWidth, tipWidth, nameFrac) / 2);
                 const yE = Math.max(curInner1 + 1.5, stripeHalf + flareAt(1, baseWidth, tipWidth, nameFrac) / 2);
                 if (baseCircle && baseCircle.r > 0) {
@@ -5887,7 +5895,7 @@ const TAXONOMY_CATEGORIES = [
                 const v = [], w = [];
                 for (let si = p; si >= 0; si--) {
                     const frac = si / p;
-                    const curInner = innerHalf + innerFlare * Math.exp(-Math.pow(frac / 0.72, 2));
+                    const curInner = innerAt(frac);
                     const px = baseX + dx * frac, py = baseY + dy * frac;
                     v.push(`${(px - nx * curInner).toFixed(2)} ${(py - ny * curInner).toFixed(2)}`);
                     w.push(`${(px + nx * curInner).toFixed(2)} ${(py + ny * curInner).toFixed(2)}`);
@@ -5953,11 +5961,11 @@ const TAXONOMY_CATEGORIES = [
                 // buildTipCircle / buildBaseCircle construction.
                 const tc = buildTipCircle(0, 0, 100, 0, 48);
                 check("buildTipCircle: radius is iconSize / 2", tc.r === 24);
-                check("buildTipCircle: center is endpoint + unit * (r - 1.5)", Math.abs(tc.x - 122.5) < 1e-9 && Math.abs(tc.y) < 1e-9);
+                check("buildTipCircle: center is endpoint + unit * r", Math.abs(tc.x - 124) < 1e-9 && Math.abs(tc.y) < 1e-9);
                 const tcDefault = buildTipCircle(0, 0, 0, 50);
-                check("buildTipCircle: default icon size 48", tcDefault.r === 24 && Math.abs(tcDefault.x) < 1e-9 && Math.abs(tcDefault.y - 72.5) < 1e-9);
+                check("buildTipCircle: default icon size 48", tcDefault.r === 24 && Math.abs(tcDefault.x) < 1e-9 && Math.abs(tcDefault.y - 74) < 1e-9);
                 const tcMin = buildTipCircle(0, 0, 10, 0, 10);
-                check("buildTipCircle: radius clamps to >= 12", tcMin.r === 12 && Math.abs(tcMin.x - 20.5) < 1e-9);
+                check("buildTipCircle: radius clamps to >= 12", tcMin.r === 12 && Math.abs(tcMin.x - 22) < 1e-9);
                 const bc0 = buildBaseCircle(3, 4, 30);
                 check("buildBaseCircle: passes {x, y, r} through", bc0.x === 3 && bc0.y === 4 && bc0.r === 30);
                 // taperedPath tip arc (horizontal spoke, tip circle from buildTipCircle).
@@ -13111,7 +13119,8 @@ const TAXONOMY_CATEGORIES = [
             draftSaveTimers[e] = t.setTimeout(() => {
                 delete draftSaveTimers[e];
                 const n = window.SexcapadesRuntime.DOM.byId("rememberProfileCheckbox2x"), i = window.Sexcapades2xRememberProfiles;
-                n && n.checked && i && "function" == typeof i.saveNow && i.saveNow() && Vt(e);
+                const shouldSave = i && (typeof i.isEnabled === "function" ? i.isEnabled() : (n && n.checked));
+                shouldSave && "function" == typeof i.saveNow && i.saveNow() && Vt(e);
             }, 500));
         }
         function Ut(e) {
@@ -19305,7 +19314,8 @@ const TAXONOMY_CATEGORIES = [
         // or the font large.
         function sxIconRadius(depth) {
             const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
-            return Math.max(Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
+            const mult = (depth === 2) ? 3 : 1;
+            return Math.max(mult * Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
         }
         function sxIconDiameter(depth) {
             return 2 * sxIconRadius(depth);
@@ -52094,6 +52104,20 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     return !1;
                 }
             },
+            activate: function(e) {
+                try {
+                    if (!e || !vt[e]) return !1;
+                    if (typeof Js === "function") Js(e);
+                    else if (typeof ak === "function") ak(e);
+                    return !0;
+                } catch (err) {
+                    __sxErrLog("profile-activate", err);
+                    return !1;
+                }
+            },
+            getActiveId: function() {
+                return Mt || null;
+            },
             isDirty: function(e) {
                 try {
                     return !(void 0 === yt || !yt[e]);
@@ -52191,9 +52215,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         // the throwaway id.
                         SX_PROFILE_FIELDS.forEach(e => {
                             Object.prototype.hasOwnProperty.call(e, r) ? e[o] = e[r] : delete e[o], Reflect.deleteProperty(e, r);
-                        }), Object.prototype.hasOwnProperty.call(droppedKeyRecords, r) ? (droppedKeyRecords[o] = droppedKeyRecords[r], Reflect.deleteProperty(droppedKeyRecords, r)) : delete droppedKeyRecords[o], t && (Mt = o), n && (It = o);
+                        }), Object.prototype.hasOwnProperty.call(droppedKeyRecords, r) ? (droppedKeyRecords[o] = droppedKeyRecords[r], Reflect.deleteProperty(droppedKeyRecords, r)) : delete droppedKeyRecords[o], (t || (opts && opts.autoSelect)) && (Mt = o), (n || (opts && opts.autoSelect)) && (It = o);
                     }
-                    return Vt(o), Jw(), Mt === o && (Mr({
+                    return Vt(o), Jw(), (Mt === o || (opts && opts.autoSelect)) && (Mt = o, It = o, Mr({
                         animate: !1,
                         forceRepaint: !0
                     }), Ih()), o;
@@ -53155,14 +53179,21 @@ __sxInit(function () {
     return window.Sexcapades2xProfiles || null;
   }
 
-  function readStoredProfiles() {
+  var storageEverLoaded = false;
+
+  function readStoredProfilePayload() {
     try {
       var stored = localStorage.getItem(storageKey);
-      return stored && JSON.parse(stored).profiles || {};
+      return (stored && JSON.parse(stored)) || null;
     } catch (error) {
       if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
-      return {};
+      return null;
     }
+  }
+
+  function readStoredProfiles() {
+    var payload = readStoredProfilePayload();
+    return (payload && payload.profiles) || {};
   }
 
   function readRememberFlag() {
@@ -53257,9 +53288,12 @@ __sxInit(function () {
 
   function writeStoredProfiles(profiles, duringUnload) {
     try {
+      var api = profilesApi();
+      var activeId = api && typeof api.getActiveId === "function" ? api.getActiveId() : null;
       localStorage.setItem(storageKey, JSON.stringify({
         v: 1,
         savedAt: Date.now(),
+        activeProfileId: activeId,
         profiles: profiles
       }));
       return true;
@@ -53275,18 +53309,20 @@ __sxInit(function () {
     if (!api) return false;
 
     try {
-      var storedValue = localStorage.getItem(storageKey);
-      var storedProfiles = storedValue && JSON.parse(storedValue).profiles || {};
+      var payload = readStoredProfilePayload();
+      var storedProfiles = (payload && payload.profiles) || {};
       var currentProfiles = api.getAll();
       var changed = false;
       var savedAt = Date.now();
 
-      Object.keys(storedProfiles).forEach(function (profileId) {
-        if (!Object.prototype.hasOwnProperty.call(currentProfiles, profileId)) {
-          delete storedProfiles[profileId];
-          changed = true;
-        }
-      });
+      if (storageEverLoaded) {
+        Object.keys(storedProfiles).forEach(function (profileId) {
+          if (!Object.prototype.hasOwnProperty.call(currentProfiles, profileId)) {
+            delete storedProfiles[profileId];
+            changed = true;
+          }
+        });
+      }
 
       Object.keys(currentProfiles).forEach(function (profileId) {
         var profile = currentProfiles[profileId];
@@ -53332,7 +53368,7 @@ __sxInit(function () {
     flush: flushStoredProfiles,
     isEnabled: function () {
       var control = checkbox();
-      return Boolean(rememberEnabled && control && control.checked);
+      return Boolean(rememberEnabled && (!control || control.checked));
     }
   };
 
@@ -53343,9 +53379,13 @@ __sxInit(function () {
       showRestoreError(1);
       return 0;
     }
-    var storedProfiles = readStoredProfiles();
+    storageEverLoaded = true;
+    var payload = readStoredProfilePayload();
+    var storedProfiles = (payload && payload.profiles) || {};
+    var preferredActiveId = (payload && payload.activeProfileId) || null;
     var loaded = 0;
     var failed = 0;
+    var restoredIds = [];
     try {
       var rawStored = localStorage.getItem(storageKey);
       if (rawStored) JSON.parse(rawStored);
@@ -53362,9 +53402,14 @@ __sxInit(function () {
         return;
       }
       try {
-        if (api.has(profileId)) return;
-        if (api.importData(profileId, data)) {
+        if (api.has(profileId)) {
+          restoredIds.push(profileId);
+          return;
+        }
+        var imported = api.importData(profileId, data);
+        if (imported) {
           loaded++;
+          restoredIds.push(typeof imported === "string" ? imported : profileId);
         } else {
           failed++;
           if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " could not be restored (importData returned false)."));
@@ -53374,6 +53419,16 @@ __sxInit(function () {
         if (typeof __sxErrLog === "function") __sxErrLog("profile-import", error);
       }
     });
+
+    if (restoredIds.length > 0 && typeof api.activate === "function") {
+      var targetId = (preferredActiveId && restoredIds.indexOf(preferredActiveId) !== -1)
+        ? preferredActiveId
+        : restoredIds[0];
+      if (targetId) {
+        api.activate(targetId);
+      }
+    }
+
     if (failed) showRestoreError(failed);
     return loaded;
   }

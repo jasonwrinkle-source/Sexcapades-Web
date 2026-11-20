@@ -326,7 +326,11 @@
     var out = { id: cat.id, name: cat.name };
     var subs = cat.subcategories || [];
     if (subs.length) {
-      absorb(cat.parentTopics);
+      if (Array.isArray(cat.parentTopics) && cat.parentTopics.length > 0) {
+        var pbefore = topics.length;
+        absorb(cat.parentTopics);
+        out.parentTopics = topics.slice(pbefore);
+      }
       out.subcategories = subs.map(function (sub) {
         var before = topics.length;
         absorb(sub.topics);
@@ -534,14 +538,16 @@
   }
 
   function restoreSexcapades() {
-    if (!original) return;
     bumpPaintGen();
     var cats = taxonomyCategories();
     cats.length = 0;
-    /* Fresh clones of the pristine snapshot: the paint/solver mutate the
-       live tree in place, so restoring the snapshot object itself would
-       hand back already-mutated nodes. */
-    JSON.parse(JSON.stringify(original)).forEach(function (c) { cats.push(c); });
+    var sexData = cache["sexcapades"];
+    if (sexData && Array.isArray(sexData.categories)) {
+      var merged = sexData.categories.map(mergedCategory);
+      merged.forEach(function (c) { cats.push(c); });
+    } else if (original) {
+      JSON.parse(JSON.stringify(original)).forEach(function (c) { cats.push(c); });
+    }
     /* The JSON round-trip above strips the non-enumerable toString the
        boot overlay attached to every topic object (and that mergedTopic
        attaches for vanilla skins): a bare topic object stringifies as
