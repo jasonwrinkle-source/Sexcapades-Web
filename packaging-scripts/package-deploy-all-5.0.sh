@@ -159,16 +159,24 @@ EOF
 echo "5. Optimizing Gate..."
 python3 "$OPTIMIZER" "$GATE_EXPORT" "$WORK/gate" gate.html gate-assets gate
 rm -f "$HOSTED/gate.html"
-rm -rf "$HOSTED/gate-assets"
 cp "$WORK/gate/gate.html" "$HOSTED/gate.html"
-cp -r "$WORK/gate/gate-assets" "$HOSTED/"
+# The live gate is already split. The optimizer then emits no gate.css
+# or gate.js, and replacing the asset directory would drop the files
+# the page still loads. Replace the assets only when extraction
+# actually produced them.
+if [ -f "$WORK/gate/gate-assets/gate.css" ] || [ -f "$WORK/gate/gate-assets/gate.js" ]; then
+  rm -rf "$HOSTED/gate-assets"
+  cp -r "$WORK/gate/gate-assets" "$HOSTED/"
+fi
 
 echo "6. Optimizing Quickstart..."
 python3 "$OPTIMIZER" "$QS_EXPORT" "$WORK/qs" quickstart.html quickstart-assets quickstart
 rm -f "$HOSTED/quickstart.html"
-rm -rf "$HOSTED/quickstart-assets"
 cp "$WORK/qs/quickstart.html" "$HOSTED/quickstart.html"
-cp -r "$WORK/qs/quickstart-assets" "$HOSTED/"
+if [ -f "$WORK/qs/quickstart-assets/quickstart.css" ] || [ -f "$WORK/qs/quickstart-assets/quickstart.js" ]; then
+  rm -rf "$HOSTED/quickstart-assets"
+  cp -r "$WORK/qs/quickstart-assets" "$HOSTED/"
+fi
 
 echo "7. Optimizing Guide..."
 python3 "$OPTIMIZER" "$GUIDE_EXPORT" "$WORK/guide" guide.html guide-assets guide
