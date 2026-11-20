@@ -423,11 +423,13 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
      limit, every descendant topic is hard-excluded from Play matching,
      negotiation, FetLife recommendations, and displayed pairs, strictly
      overriding child Favorites and adding `is-hidden` to map nodes.
-   - **Phase 3: Importer & On Deck Integration (Next).**
-     Update third-party importers (`06b-fetlife-importer.js`,
-     `06c-converter-pipeline.js`) to target uniform parent node IDs when
-     broad categories arrive. Update `__sxOnDeckMembers` in `03d-outline.js`
-     so parent nodes function as first-class On Deck proposal targets.
+   - **Phase 3: Importer & On Deck Integration (Completed 2026-11-20).**
+     Updated third-party importers (`06b-fetlife-importer.js`,
+     `06c-converter-pipeline.js`, `06e-kinktest-routes.js`) to target
+     uniform parent node IDs (`isCatId(id)` and `isSubId(id)`) when broad
+     categories arrive. Updated `__sxOnDeckIndex` and `__sxOnDeckMembers`
+     in `03d-outline.js` so category and subcategory nodes function as
+     first-class On Deck proposal targets across all proposal tiers.
 3. **Importer write/commit defect + acceptance debt.** The import dialog
    claims "loaded with 10 ratings" but the profile does not persist on
    reload — the write/commit path needs diagnosis/fix (Jason's call).

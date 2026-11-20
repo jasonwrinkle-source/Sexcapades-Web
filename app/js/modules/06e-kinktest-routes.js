@@ -1131,7 +1131,7 @@
                     if (!e || !vt[e] || !t || "object" != typeof t || Array.isArray(t)) return !1;
                     const n = {};
                     Object.entries(t).forEach(([e, t]) => {
-                        if (!Ke.has(e)) return;
+                        if (!Ke.has(e) && !isCatId(e) && !isSubId(e)) return;
                         if (Number.isFinite(Number(t))) n[e] = Math.max(-100, Math.min(100, Number(t))); else if (t && "object" == typeof t) {
                             const i = {};
                             [ "give", "receive" ].forEach(e => {

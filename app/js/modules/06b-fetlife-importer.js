@@ -219,7 +219,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             } : null;
         }
         function sx(e, t, n, i) {
-            Ke.has(t) && (e[t] || (e[t] = {
+            (Ke.has(t) || isCatId(t) || isSubId(t)) && (e[t] || (e[t] = {
                 give: [],
                 receive: []
             }), e[t][n].push(Math.max(-100, Math.min(100, i))));
@@ -895,9 +895,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             function rate(normalized, matchResult, item, acc) {
                 const A = normalized.baseTerm, C = normalized.qualifier, M = matchResult.match, I = matchResult.resolved, P = I.id, b = (e, n, i) => {
-                    !Ke.has(e) && !acc.children[e] || (acc.ratings[e] || (acc.ratings[e] = {}), acc.ratings[e][n] = i);
+                    !Ke.has(e) && !isCatId(e) && !isSubId(e) && !acc.children[e] || (acc.ratings[e] || (acc.ratings[e] = {}), acc.ratings[e][n] = i);
                 }, v = (e, t) => {
-                    (Ke.has(e) || acc.children[e]) && t && (acc.notes[e] || (acc.notes[e] = []), acc.notes[e].includes(t) || acc.notes[e].push(t));
+                    (Ke.has(e) || isCatId(e) || isSubId(e) || acc.children[e]) && t && (acc.notes[e] || (acc.notes[e] = []), acc.notes[e].includes(t) || acc.notes[e].push(t));
                 }, L = sectionFromQualifier(C) || item.section || SECTION_KINDS.into, T = directionFromQualifier(C), F = T || item.dirDefault;
                 let N = F ? F.direction : M.direction || "both", _ = L.value, D = L.mark || null;
                 // Slug-gap fix: when P names no current topic (not a
@@ -907,7 +907,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 // acc.notApplied, name it in the warnings, and return !1
                 // so run() excludes it from the matched / mapped counts
                 // and no success line is rendered for it.
-                if (!Ke.has(P) && !acc.children[P]) {
+                if (!Ke.has(P) && !isCatId(P) && !isSubId(P) && !acc.children[P]) {
                     const droppedList = acc.notApplied || (acc.notApplied = []);
                     droppedList.some(e => e.term === A && e.target === P) || droppedList.push({
                         term: A,

@@ -32892,13 +32892,35 @@ const TAXONOMY_CATEGORIES = [
             const t = new Map;
             h.forEach(n => {
                 const i = catId(n.name);
-                (n.topics || []).forEach(e => {
-                    const a = Wn(e), r = Vn(n, e);
+                t.set(i, {
+                    id: i,
+                    label: n.name,
+                    branch: n.name,
+                    kind: "Category",
+                    catId: i,
+                    subId: null
+                });
+                (n.subcategories || []).forEach(s => {
+                    const sId = Un(n.name, s.name);
+                    t.set(sId, {
+                        id: sId,
+                        label: s.name,
+                        branch: n.name,
+                        kind: "Subcategory",
+                        parentId: i,
+                        catId: i,
+                        subId: sId,
+                        topics: (s.topics || []).map(sxName)
+                    });
+                });
+                (n.topics || []).forEach(top => {
+                    const a = Wn(top), r = Vn(n, top);
                     t.set(a, {
                         id: a,
-                        label: e,
+                        label: top,
                         branch: n.name,
                         kind: "Topic",
+                        parentId: r ? Un(n.name, r.name) : null,
                         catId: i,
                         subId: r ? Un(n.name, r.name) : null
                     });
@@ -32930,30 +32952,30 @@ const TAXONOMY_CATEGORIES = [
             };
             if (!e || e !== Et && !vt[e]) return t;
             const n = __sxOnDeckIndex(e), i = new Set(Object.values(gt[e] || {}).flatMap(f => (f && f.categoryHits) || [])), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
-            n.forEach((n, s) => {
-                if ("limit" === a[s]) return;
+            n.forEach((node, s) => {
+                if ("limit" === a[s] || ja(s, e)) return;
                 const l = ca(s, e), c = Ge(s, e);
                 if (!l.giveKnown && !l.receiveKnown) {
-                    if (i.size && (i.has(n.catId) || n.subId && i.has(n.subId))) return void t.tier1.push(s);
+                    if (i.size && (i.has(s) || i.has(node.catId) || node.subId && i.has(node.subId))) return void t.tier1.push(s);
                     if (a[s] || r[s] || o[s]) t.tier2.push(s);
                     return;
                 }
                 if (!c.single && l.giveKnown !== l.receiveKnown) return void t.direction.push(s);
-                const d = c.single ? l.giveKnown ? [ "give" ] : [] : [ "give", "receive" ].filter(e => l[e + "Known"]);
-                if (d.length && d.every(t => {
-                    const n = Ao(e, s, t);
-                    if (!n || "manual" === n || !(n in __sxSeedValues)) return !1;
-                    const i = __sxSeedValues[n];
-                    return null === i || i.includes(Math.round("give" === t ? l.give : l.receive));
+                const d = c.single ? l.giveKnown ? [ "give" ] : [] : [ "give", "receive" ].filter(fl => l[fl + "Known"]);
+                if (d.length && d.every(fl => {
+                    const src = Ao(e, s, fl);
+                    if (!src || "manual" === src || !(src in __sxSeedValues)) return !1;
+                    const seed = __sxSeedValues[src];
+                    return null === seed || seed.includes(Math.round("give" === fl ? l.give : l.receive));
                 })) return void t.tier3.push(s);
-                d.some(t => {
-                    const n = Ao(e, s, t);
-                    return n && "manual" !== n && n in __sxSeedValues;
+                d.some(fl => {
+                    const src = Ao(e, s, fl);
+                    return src && "manual" !== src && src in __sxSeedValues;
                 }) && t.unreviewed.push(s);
             });
             const s = (e, t) => {
                 const i = sxTopicPopularity(e, n.get(e)?.label), a = sxTopicPopularity(t, n.get(t)?.label), r = (null === i ? Number.NEGATIVE_INFINITY : i) - (null === a ? Number.NEGATIVE_INFINITY : a);
-                return r ? -r : String(n.get(e).label).localeCompare(String(n.get(t).label));
+                return r ? -r : String(n.get(e)?.label || "").localeCompare(String(n.get(t)?.label || ""));
             };
             return t.tier1.sort(s), t.tier2.sort(s), t.direction.sort(s), t.tier3.sort(s), t.unreviewed.sort(s), t;
         }
@@ -42534,7 +42556,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             } : null;
         }
         function sx(e, t, n, i) {
-            Ke.has(t) && (e[t] || (e[t] = {
+            (Ke.has(t) || isCatId(t) || isSubId(t)) && (e[t] || (e[t] = {
                 give: [],
                 receive: []
             }), e[t][n].push(Math.max(-100, Math.min(100, i))));
@@ -43210,9 +43232,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             function rate(normalized, matchResult, item, acc) {
                 const A = normalized.baseTerm, C = normalized.qualifier, M = matchResult.match, I = matchResult.resolved, P = I.id, b = (e, n, i) => {
-                    !Ke.has(e) && !acc.children[e] || (acc.ratings[e] || (acc.ratings[e] = {}), acc.ratings[e][n] = i);
+                    !Ke.has(e) && !isCatId(e) && !isSubId(e) && !acc.children[e] || (acc.ratings[e] || (acc.ratings[e] = {}), acc.ratings[e][n] = i);
                 }, v = (e, t) => {
-                    (Ke.has(e) || acc.children[e]) && t && (acc.notes[e] || (acc.notes[e] = []), acc.notes[e].includes(t) || acc.notes[e].push(t));
+                    (Ke.has(e) || isCatId(e) || isSubId(e) || acc.children[e]) && t && (acc.notes[e] || (acc.notes[e] = []), acc.notes[e].includes(t) || acc.notes[e].push(t));
                 }, L = sectionFromQualifier(C) || item.section || SECTION_KINDS.into, T = directionFromQualifier(C), F = T || item.dirDefault;
                 let N = F ? F.direction : M.direction || "both", _ = L.value, D = L.mark || null;
                 // Slug-gap fix: when P names no current topic (not a
@@ -43222,7 +43244,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 // acc.notApplied, name it in the warnings, and return !1
                 // so run() excludes it from the matched / mapped counts
                 // and no success line is rendered for it.
-                if (!Ke.has(P) && !acc.children[P]) {
+                if (!Ke.has(P) && !isCatId(P) && !isSubId(P) && !acc.children[P]) {
                     const droppedList = acc.notApplied || (acc.notApplied = []);
                     droppedList.some(e => e.term === A && e.target === P) || droppedList.push({
                         term: A,
@@ -48818,7 +48840,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
                     id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
-                if (!Ke.has(id) && !isSubId(id)) return;
+                if (!Ke.has(id) && !isCatId(id) && !isSubId(id)) return;
                 const topicName = getTopicName(id);
                 if (Ge(id, c).single) {
                     const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
@@ -49676,7 +49698,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     const t = {}, n = {}, i = {}, a = {}, r = {}, o = {}, s = {}, sxNotes = {}, l = [], c = [], d = [], sxSug = [];
                     let u = 0, p = 0, h = !1;
                     const g = (e, n, i) => {
-                        !Ke.has(e) && !s[e] || (t[e] || (t[e] = {}), t[e][n] = i);
+                        !Ke.has(e) && !isCatId(e) && !isSubId(e) && !s[e] || (t[e] || (t[e] = {}), t[e][n] = i);
                     }, m = (e, t, h, m) => {
                         const f = ck(e);
                         if (!f) return;
@@ -52227,7 +52249,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     if (!e || !vt[e] || !t || "object" != typeof t || Array.isArray(t)) return !1;
                     const n = {};
                     Object.entries(t).forEach(([e, t]) => {
-                        if (!Ke.has(e)) return;
+                        if (!Ke.has(e) && !isCatId(e) && !isSubId(e)) return;
                         if (Number.isFinite(Number(t))) n[e] = Math.max(-100, Math.min(100, Number(t))); else if (t && "object" == typeof t) {
                             const i = {};
                             [ "give", "receive" ].forEach(e => {

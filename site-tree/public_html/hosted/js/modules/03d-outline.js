@@ -449,13 +449,35 @@
             const t = new Map;
             h.forEach(n => {
                 const i = catId(n.name);
-                (n.topics || []).forEach(e => {
-                    const a = Wn(e), r = Vn(n, e);
+                t.set(i, {
+                    id: i,
+                    label: n.name,
+                    branch: n.name,
+                    kind: "Category",
+                    catId: i,
+                    subId: null
+                });
+                (n.subcategories || []).forEach(s => {
+                    const sId = Un(n.name, s.name);
+                    t.set(sId, {
+                        id: sId,
+                        label: s.name,
+                        branch: n.name,
+                        kind: "Subcategory",
+                        parentId: i,
+                        catId: i,
+                        subId: sId,
+                        topics: (s.topics || []).map(sxName)
+                    });
+                });
+                (n.topics || []).forEach(top => {
+                    const a = Wn(top), r = Vn(n, top);
                     t.set(a, {
                         id: a,
-                        label: e,
+                        label: top,
                         branch: n.name,
                         kind: "Topic",
+                        parentId: r ? Un(n.name, r.name) : null,
                         catId: i,
                         subId: r ? Un(n.name, r.name) : null
                     });
@@ -487,30 +509,30 @@
             };
             if (!e || e !== Et && !vt[e]) return t;
             const n = __sxOnDeckIndex(e), i = new Set(Object.values(gt[e] || {}).flatMap(f => (f && f.categoryHits) || [])), a = Qe[e] || {}, r = Je[e] || {}, o = et[e] || {};
-            n.forEach((n, s) => {
-                if ("limit" === a[s]) return;
+            n.forEach((node, s) => {
+                if ("limit" === a[s] || ja(s, e)) return;
                 const l = ca(s, e), c = Ge(s, e);
                 if (!l.giveKnown && !l.receiveKnown) {
-                    if (i.size && (i.has(n.catId) || n.subId && i.has(n.subId))) return void t.tier1.push(s);
+                    if (i.size && (i.has(s) || i.has(node.catId) || node.subId && i.has(node.subId))) return void t.tier1.push(s);
                     if (a[s] || r[s] || o[s]) t.tier2.push(s);
                     return;
                 }
                 if (!c.single && l.giveKnown !== l.receiveKnown) return void t.direction.push(s);
-                const d = c.single ? l.giveKnown ? [ "give" ] : [] : [ "give", "receive" ].filter(e => l[e + "Known"]);
-                if (d.length && d.every(t => {
-                    const n = Ao(e, s, t);
-                    if (!n || "manual" === n || !(n in __sxSeedValues)) return !1;
-                    const i = __sxSeedValues[n];
-                    return null === i || i.includes(Math.round("give" === t ? l.give : l.receive));
+                const d = c.single ? l.giveKnown ? [ "give" ] : [] : [ "give", "receive" ].filter(fl => l[fl + "Known"]);
+                if (d.length && d.every(fl => {
+                    const src = Ao(e, s, fl);
+                    if (!src || "manual" === src || !(src in __sxSeedValues)) return !1;
+                    const seed = __sxSeedValues[src];
+                    return null === seed || seed.includes(Math.round("give" === fl ? l.give : l.receive));
                 })) return void t.tier3.push(s);
-                d.some(t => {
-                    const n = Ao(e, s, t);
-                    return n && "manual" !== n && n in __sxSeedValues;
+                d.some(fl => {
+                    const src = Ao(e, s, fl);
+                    return src && "manual" !== src && src in __sxSeedValues;
                 }) && t.unreviewed.push(s);
             });
             const s = (e, t) => {
                 const i = sxTopicPopularity(e, n.get(e)?.label), a = sxTopicPopularity(t, n.get(t)?.label), r = (null === i ? Number.NEGATIVE_INFINITY : i) - (null === a ? Number.NEGATIVE_INFINITY : a);
-                return r ? -r : String(n.get(e).label).localeCompare(String(n.get(t).label));
+                return r ? -r : String(n.get(e)?.label || "").localeCompare(String(n.get(t)?.label || ""));
             };
             return t.tier1.sort(s), t.tier2.sort(s), t.direction.sort(s), t.tier3.sort(s), t.unreviewed.sort(s), t;
         }

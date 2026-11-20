@@ -245,7 +245,7 @@
                 } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
                     id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
-                if (!Ke.has(id) && !isSubId(id)) return;
+                if (!Ke.has(id) && !isCatId(id) && !isSubId(id)) return;
                 const topicName = getTopicName(id);
                 if (Ge(id, c).single) {
                     const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
@@ -1103,7 +1103,7 @@
                     const t = {}, n = {}, i = {}, a = {}, r = {}, o = {}, s = {}, sxNotes = {}, l = [], c = [], d = [], sxSug = [];
                     let u = 0, p = 0, h = !1;
                     const g = (e, n, i) => {
-                        !Ke.has(e) && !s[e] || (t[e] || (t[e] = {}), t[e][n] = i);
+                        !Ke.has(e) && !isCatId(e) && !isSubId(e) && !s[e] || (t[e] || (t[e] = {}), t[e][n] = i);
                     }, m = (e, t, h, m) => {
                         const f = ck(e);
                         if (!f) return;
