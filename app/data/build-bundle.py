@@ -104,25 +104,70 @@ for ph in [patches_hosted, patches_hosted_alt, patches_qa]:
         shutil.copyfile(patches_src, ph)
         print(f"[Bundle] Synced patches.js to {ph}")
 
-# Sync app.css to hosted/css/app.css and qa/css/app.css
+# Sync app.css to the served copies. hosted/css is the tree path;
+# hosted/app-assets/app.css is the file app.html actually loads.
 css_src = os.path.join(base_dir, "../css/app.css")
 for ch in [
     os.path.join(base_dir, "../../site-tree/public_html/hosted/css/app.css"),
-    os.path.join(base_dir, "../../site-tree/public_html/qa/css/app.css")
+    os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets/app.css"),
+    os.path.join(base_dir, "../../site-tree/public_html/qa/css/app.css"),
+    os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets/app.css")
 ]:
     if os.path.exists(os.path.dirname(ch)) and os.path.exists(css_src):
         shutil.copyfile(css_src, ch)
         print(f"[Bundle] Synced app.css to {ch}")
 
-# Sync all auxiliary JS files in app/js to site-tree/public_html/hosted/js and qa/js
+# Sync auxiliary JS. hosted/js is the tree path. The shell loads the
+# same files from hosted/app-assets, so that copy is written too.
 js_src_dir = os.path.join(base_dir, "../js")
-for f in ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js"]:
+shell_js = ["view-nav.js", "layout-editor.js", "scene-sentinel.js", "pitch-pitcher.js", "pitch-pitcher-bank.js", "patches.js", "avatar-music.js", "sx-songbook.js", "skin-loader.js"]
+for f in shell_js:
     src_f = os.path.join(js_src_dir, f)
-    for dst_dir in [os.path.join(base_dir, "../../site-tree/public_html/hosted/js"), os.path.join(base_dir, "../../site-tree/public_html/qa/js")]:
+    for dst_dir in [os.path.join(base_dir, "../../site-tree/public_html/hosted/js"), os.path.join(base_dir, "../../site-tree/public_html/qa/js"),
+                    os.path.join(base_dir, "../../site-tree/public_html/hosted/app-assets"), os.path.join(base_dir, "../../site-tree/public_html/qa/app-assets")]:
         dst_f = os.path.join(dst_dir, f)
         if os.path.exists(src_f) and os.path.exists(dst_dir):
             shutil.copyfile(src_f, dst_f)
             print(f"[Bundle] Synced {f} to {dst_dir}/")
+
+# hosted/app.html is the path-rewritten source page. Cache stamps
+# (?v=) already on the served file are kept, so a rebuild does not
+# throw away the browser's cache key.
+def write_hosted_app(src_path, dest_path):
+    if not os.path.exists(src_path) or not os.path.exists(os.path.dirname(dest_path)):
+        return
+    html = open(src_path, encoding="utf-8").read()
+    html = html.replace('href="css/app.css"', 'href="/hosted/app-assets/app.css"')
+    html = html.replace('src="vendor/', 'src="/hosted/app-assets/vendor/')
+    html = html.replace('src="data/', 'src="/hosted/app-assets/')
+    html = html.replace('src="js/', 'src="/hosted/app-assets/')
+    html = html.replace('src="images/', 'src="/hosted/app-assets/images/')
+    if os.path.exists(dest_path):
+        old = open(dest_path, encoding="utf-8").read()
+        stamps = {}
+        for url, ver in re.findall(r'(/hosted/app-assets/[^"\']+?)\?v=([^"\']+)', old):
+            stamps[url] = ver
+        def add(m):
+            url = m.group(0)
+            base = url.split("?")[0]
+            # The served page's ?v= wins. The source page carries its
+            # own older query (data-bootstrap.js?v=4.1.4), and that
+            # must not replace the cache key the browser is using.
+            if base in stamps:
+                return base + "?v=" + stamps[base]
+            return url
+        html = re.sub(r'/hosted/app-assets/[^"\']+', add, html)
+    prev = open(dest_path, encoding="utf-8").read() if os.path.exists(dest_path) else None
+    if prev != html:
+        with open(dest_path, "w", encoding="utf-8") as fh:
+            fh.write(html)
+        print(f"[Bundle] Wrote hosted app shell {dest_path}")
+    else:
+        print(f"[Bundle] Hosted app shell already matches {dest_path}")
+
+write_hosted_app(
+    os.path.join(base_dir, "../sexcapades-5.0.html"),
+    os.path.join(base_dir, "../../site-tree/public_html/hosted/app.html"))
 
 # Sync skin data files (app/data/skins/*.json) to hosted/data/skins/ and qa/data/skins/
 # so a runtime-fetched skin loads in the hosted and QA trees, not just source.

@@ -2159,7 +2159,7 @@
                     pairs.forEach(pr => {
                         const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
                         if (!sr) return;
-                        [ null != sr.giveGive && sr.giveGive > 0 ? sr.giveGive / 100 : null, null != sr.recvRecv && sr.recvRecv > 0 ? sr.recvRecv / 100 : null ].forEach(f => { if (null != f && (null == pMaxFit || f > pMaxFit)) pMaxFit = f; });
+                        [ sxPositiveFlank(sr.giveGive), sxPositiveFlank(sr.recvRecv) ].forEach(f => { if (null != f && (null == pMaxFit || f > pMaxFit)) pMaxFit = f; });
                     });
                     rec.parlayKFEntry = null == pMaxFit ? 0 : pMaxFit / 100 * pGm;
                     const pCs = profiles.map((p2, pi) => {
@@ -2168,8 +2168,8 @@
                             if (pr.i !== pi && pr.j !== pi) return;
                             const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
                             if (!sr) return;
-                            if (null != sr.giveGive && sr.giveGive > 0 && sr.giveGive / 100 > sxGroupEps) giveFit = !0;
-                            if (null != sr.recvRecv && sr.recvRecv > 0 && sr.recvRecv / 100 > sxGroupEps) recvFit = !0;
+                            if ((sxPositiveFlank(sr.giveGive) || 0) > sxGroupEps) giveFit = !0;
+                            if ((sxPositiveFlank(sr.recvRecv) || 0) > sxGroupEps) recvFit = !0;
                         });
                         return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
                     }), pCMax = Math.max(...pCs);
@@ -2182,11 +2182,7 @@
                     pairs.forEach(pr => {
                         const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
                         if (!sr) return;
-                        [ sr.giveGive, sr.recvRecv ].forEach(prod => {
-                            if (null == prod || !(prod < 0)) return;
-                            const f = -prod / 100;
-                            if (null == dMaxFit || f > dMaxFit) dMaxFit = f;
-                        });
+                        [ sxSplitMagnitude(sr.giveGive), sxSplitMagnitude(sr.recvRecv) ].forEach(f => { if (null != f && (null == dMaxFit || f > dMaxFit)) dMaxFit = f; });
                     });
                     rec.debateKFEntry = null == dMaxFit ? 0 : dMaxFit / 100 * pGm;
                     const dCs = profiles.map((p2, pi) => {
@@ -2195,8 +2191,8 @@
                             if (pr.i !== pi && pr.j !== pi) return;
                             const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
                             if (!sr) return;
-                            if (null != sr.giveGive && sr.giveGive < 0 && Math.abs(sr.giveGive / 100) > sxGroupEps) giveFit = !0;
-                            if (null != sr.recvRecv && sr.recvRecv < 0 && Math.abs(sr.recvRecv / 100) > sxGroupEps) recvFit = !0;
+                            if ((sxSplitMagnitude(sr.giveGive) || 0) > sxGroupEps) giveFit = !0;
+                            if ((sxSplitMagnitude(sr.recvRecv) || 0) > sxGroupEps) recvFit = !0;
                         });
                         return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
                     }), dCMax = Math.max(...dCs);
@@ -2465,6 +2461,16 @@
            sxGroupCompute by the same construction and served to
            the same header surface by sxRingValuesForCast (bands /
            seats / lists stay pair-only, unchanged). */
+        // A positive same-flank product is talk. A negative one is
+        // the argument. Both the pair rings and the group entries
+        // read these, so a ruling about which product counts is
+        // edited once.
+        function sxPositiveFlank(product) {
+            return null != product && product > 0 ? product / 100 : null;
+        }
+        function sxSplitMagnitude(product) {
+            return null != product && product < 0 ? -product / 100 : null;
+        }
         function sxStraightInterim(pair) {
             if (!pair || !pair.straight) return { outer: null, inner: null };
             /* Parlay KF / Parlay MS (six-scores provisional build,
@@ -2490,7 +2496,7 @@
                "shared" status already excludes limit-blocked topics,
                which stay OUT even though they could be conversational
                fodder, because they are not conversations to
-               encourage.                Fantasy is INCLUDED in Parlay considered
+               encourage. Fantasy is INCLUDED in Parlay considered
                (unlike Play, where fantasy is out of considered).
                A same-flank split (one person for it, the other
                against it) belongs to circle minus only (Jason
@@ -2528,8 +2534,8 @@
                             fantasyScope: (fl.fantasyBy || []).includes(name) ? "topic" : null
                         }),
                         tdA = mkTd(ra, pair.a), tdB = mkTd(rb, pair.b),
-                        fitG = null != s.giveGive && s.giveGive > 0 ? s.giveGive / 100 : null,
-                        fitR = null != s.recvRecv && s.recvRecv > 0 ? s.recvRecv / 100 : null,
+                        fitG = sxPositiveFlank(s.giveGive),
+                        fitR = sxPositiveFlank(s.recvRecv),
                         sFits = [ fitG, fitR ].filter(v => null != v),
                         maxFit = sFits.length ? Math.max(...sFits) : null,
                         splitOnly = !sFits.length && (s.giveGive < 0 || s.recvRecv < 0),
@@ -2576,8 +2582,8 @@
                             fantasyScope: (fl.fantasyBy || []).includes(name) ? "topic" : null
                         }),
                         tdA = mkTd(ra, pair.a), tdB = mkTd(rb, pair.b),
-                        fitG = null != s.giveGive && s.giveGive < 0 ? -s.giveGive / 100 : null,
-                        fitR = null != s.recvRecv && s.recvRecv < 0 ? -s.recvRecv / 100 : null,
+                        fitG = sxSplitMagnitude(s.giveGive),
+                        fitR = sxSplitMagnitude(s.recvRecv),
                         fits = [ fitG, fitR ].filter(v => null != v),
                         maxFit = fits.length ? Math.max(...fits) : null,
                         totA = sxParlayMemberTotal(tdA), totB = sxParlayMemberTotal(tdB), totMax = Math.max(totA, totB),

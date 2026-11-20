@@ -580,11 +580,13 @@ Restored from the 2026-11-13 brief after the 2026-11-19 audit; grouped.
   `package-deploy-qa.sh` → `public_html/qa/`; there is NO promote step —
   QA and live are built separately from the same source. The Drive
   upload is backup only.
-- **Localhost QA refresh:** the packagers only build tarballs — they
-  never write the fresh app into the served tree. Localhost updates only
-  when the fresh `hosted/` contents are copied out of the tarball into
-  `site-tree/public_html/hosted/` (qa serves hosted via the symlink),
-  then hard-reload.
+- **Localhost refresh:** edit `app/`, then run
+  `python3 app/data/build-bundle.py`. That rewrites the served bundle,
+  the stylesheet, the shell scripts the page loads, and
+  `hosted/app.html` from `app/sexcapades-5.0.html`, keeping the `?v=`
+  stamps already on the served page. The modules stay one concatenated
+  script so they keep their shared scope. The packagers still only
+  build tarballs. qa serves hosted via the symlink.
 - **/tmp extraction:** `/tmp` is a 512M tmpfs — never extract deploy
   tars there; extract to `~/workspace` scratch instead.
 - **Deletion mechanics:** deletions via `delete_file` are one call per
