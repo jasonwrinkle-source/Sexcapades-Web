@@ -20,7 +20,7 @@ this brief is what the incoming editor reads first.
 ownership from 2026-11-15.
 **The saddle passes to:** Grok and Cursor, on Jason's word.
 **Repo:** `jasonwrinkle-source/Sexcapades-Web`, branch `main`.
-**Remote head:** past `c8e56f8e`; the repo About stamp is `2026-11-19_2321` (`131cdcf`). **Live build:** last curl-verified deploy-all is `2026-11-19_1524`. The `2321` package is built and not uploaded.
+**Remote head:** past `c8e56f8e`; the repo About stamp is `2026-11-19_2321` (`131cdcf`). **Live build:** sex.capades.io curl-verified `2026-11-19_2321` on 2026-11-19. The apex sexcapades.io is still `2026-11-16_0253`.
 **Version:** 5.0.
 
 **Authority.** Jason Mark Wrinkle is the PI and sole owner. His latest ruling
@@ -36,18 +36,20 @@ without his daylight say-so and his own cold-open acceptance. Address him as
 
 ## 1. Current state (2026-11-19)
 
-- **Live:** last curl-verified deploy-all is `2026-11-19_1524`. The
-  Sexcapades app, the Dharma gate, and the Fores app were checked at that
-  build. Production app: `/hosted/app.html`. A later `2026-11-19_2046`
-  package was uploaded to Litterbox; whether that Hostinger command was
-  run has not been re-checked. `2026-11-19_2321` is stamped in the repo
-  and packed at
+- **Live:** sex.capades.io is curl-verified at deploy-all
+  `2026-11-19_2321` (checked 2026-11-19 after the FTP extract). App,
+  guide, and gate About stamps, `sw.js` cache
+  `sexcapades-v2026-11-19_2321`, and
+  `/hosted/app-assets/version-manifest.json` all say `2321`. The Fores
+  skin serves "Where the Holy Spirit comes from" and the patrilineal
+  sentence. Production app: `https://sex.capades.io/hosted/app.html`.
+  Jason put the tarball in `~/domains` himself after Litterbox and
+  temp.sh both returned HTTP 500. The apex `https://sexcapades.io/`
+  was not updated: its app is still Build `2026-11-16_0253`,
+  last-modified 2026-11-16. The local package remains
   `deploy-output/deploy-all-v5.0-2026-11-19_2321-optimized.tar.gz`
-  (MD5 `33ee27b48bd14957bc29c89392d10254`). On the night of 2026-11-19
-  Litterbox returned HTTP 500 after receiving that file, and temp.sh
-  returned HTTP 500 even for a tiny file, so `2321` has no download URL
-  and is not on the server. Do not re-run the packager for it; that
-  bumps the About stamp.
+  (MD5 `33ee27b48bd14957bc29c89392d10254`). Do not re-run the packager
+  for this same tree; that bumps the About stamp.
 - **Git:** origin/main is past `c8e56f8e`. The `2321` stamp is `131cdcf`.
   The snapshot sync record
   (`~/workspace/Sexcapades-Web.muse-github-snapshot-sync.json`) holds 301
@@ -287,9 +289,9 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    numbers sit under the pole names. The popup button, the extra per-pole
    sliders, and the separate number row are gone. The wheel sets intensity.
    A click updates the row and leaves the map paint until the list closes.
-   Placard and profile sheet untouched. In the repo on main. Not in the
-   uploaded `2026-11-19_2046` package. It is inside the local `2321`
-   tarball, which has no download URL (see §1).
+   Placard and profile sheet untouched. In the repo on main, and in the
+   `2321` package now serving on sex.capades.io. It was not in the
+   uploaded `2026-11-19_2046` package.
 2. ~~**Plain-English labels for the whole Forescapades map**~~ — settled
    2026-11-19. Jason approved the batch. The 16 jargon topic titles and
    the pole labels in that batch are now the English umbrellas in
@@ -479,7 +481,8 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
 - **Version-manifest — settled 2026-11-19.** Present on a packaged
   tree at `/hosted/app-assets/version-manifest.json`. The local 404
   was the file missing from git; the package writes it. Live
-  sex.capades.io serves build 2026-11-19_1524 there.
+  sex.capades.io serves build 2026-11-19_2321 there (re-checked
+  2026-11-19).
 - **z90 census TRUE FIT, re-baseline 12.643×:** the constant's currency
   is unverifiable from the record.
 - **Kinkbits message — settled 2026-11-19.** Jason sent it.
@@ -657,8 +660,9 @@ Restored from the 2026-11-13 brief after the 2026-11-19 audit; grouped.
   same source. The Drive upload is backup only. Litterbox is the first
   temporary host (72h). temp.sh is the fallback for deploy-app,
   deploy-all, and QA. temp.sh returns the file only on POST. On
-  2026-11-19 night both hosts returned HTTP 500, so the packed `2321`
-  tarball stayed local.
+  2026-11-19 night both hosts returned HTTP 500. Jason FTP'd the `2321`
+  tarball into `~/domains` and extracted it there; sex.capades.io then
+  served that build. The apex sexcapades.io host did not.
 - **Localhost refresh:** edit `app/`, then run
   `python3 app/data/build-bundle.py`. That rewrites the served bundle,
   the stylesheet, the shell scripts the page loads, and
