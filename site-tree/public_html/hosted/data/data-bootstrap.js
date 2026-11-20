@@ -28335,6 +28335,11 @@ const TAXONOMY_CATEGORIES = [
             // extra lines stack outward so they stay on their own slot.
             let lines = [text];
             if (maxWidth > 0 && ctx.measureText(text).width > maxWidth) lines = sxWrapPoleLines(ctx, text, maxWidth);
+            // Hot List only: the pole's number is the last line of the
+            // same rotated label, so it sits under the name. A canvas
+            // without the map (placard, popup) draws the name alone.
+            const sxNum = canvas.__sxPoleValMap && key != null ? canvas.__sxPoleValMap[key] : null;
+            if (sxNum) lines.push(String(sxNum));
             const lineH = 11;
             const tw = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
             const th = lines.length * lineH;
@@ -28647,6 +28652,8 @@ const TAXONOMY_CATEGORIES = [
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             const lines = sxWrapLabelLines(ctx, text, Math.max(30, maxWidth));
+            const sxNum = canvas.__sxPoleValMap && key != null ? canvas.__sxPoleValMap[key] : null;
+            if (sxNum) lines.push(String(sxNum));
             const lineH = 11;
             const blockW = Math.max.apply(null, lines.map(l => ctx.measureText(l).width).concat([1]));
             const half = blockW / 2;
@@ -30685,9 +30692,13 @@ const TAXONOMY_CATEGORIES = [
             }
         }
 
-        window.sxOpenHotListWidgetPopup = function(topicId, profileId) {
-            const dlg = e.byId("hotListWidgetDialog");
+        window.sxOpenHotListWidgetPopup = function(topicId, profileId, root) {
+            const dlg = root || e.byId("hotListWidgetDialog");
             if (!dlg || !topicId) return;
+            // A Hot List row passes its own inline host. The second call
+            // only redraws, so a rating change does not rebind the canvas.
+            if (root && root.__sxRedraw) return void root.__sxRedraw();
+            const pick = (id, sel) => root ? dlg.querySelector(sel) : e.byId(id);
             // Hot List freeze fix (2026-11-15): pId may be the empty-template id
             // on a fresh boot. The first write mints a real profile, so every
             // handler re-resolves the id before reading/writing — otherwise
@@ -30697,16 +30708,18 @@ const TAXONOMY_CATEGORIES = [
             const freshPid = () => (profileId && profileId !== Et) ? profileId : Vi();
             const shape = Ge(topicId, pId);
             const item = qn[topicId] || Xn(topicId) || (at[pId] || {})[topicId] || {};
-            const titleEl = e.byId("hotListWidgetTitle");
-            const badgeEl = e.byId("hotListWidgetBadge");
-            const descEl = e.byId("hotListWidgetDesc");
-            const canvas = e.byId("hotListWidgetCanvas");
-            const slider = e.byId("hotListWidgetIntensity");
-            const sliderOut = e.byId("hotListWidgetIntensityOut");
-            const readoutEl = e.byId("hotListWidgetReadout");
-            const clearBtn = e.byId("hotListWidgetClear");
-            const closeBtn = e.byId("closeHotListWidgetBtn");
-            const doneBtn = e.byId("doneHotListWidgetBtn");
+            const titleEl = pick("hotListWidgetTitle", ".outline-inline-title");
+            const badgeEl = pick("hotListWidgetBadge", ".outline-inline-badge");
+            const descEl = pick("hotListWidgetDesc", ".outline-inline-desc");
+            const canvas = pick("hotListWidgetCanvas", ".outline-inline-canvas");
+            const slider = pick("hotListWidgetIntensity", ".outline-inline-slider");
+            const sliderOut = pick("hotListWidgetIntensityOut", ".outline-inline-out");
+            const readoutEl = pick("hotListWidgetReadout", ".outline-inline-readout");
+            const clearBtn = pick("hotListWidgetClear", ".outline-inline-clear");
+            const closeBtn = pick("closeHotListWidgetBtn", ".outline-inline-close");
+            const doneBtn = pick("doneHotListWidgetBtn", ".outline-inline-done");
+            if (!canvas) return;
+            if (root) canvas.__sxInline = true;
 
             const label = item.label || item.name || topicId;
             titleEl && (titleEl.textContent = label);
@@ -30757,6 +30770,11 @@ const TAXONOMY_CATEGORIES = [
                 sxSeedProfileIntensities(pId);
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
+                if (canvas.__sxInline) {
+                    const map = {};
+                    keys.forEach((k) => { if (curRec[k + "Known"]) map[k] = String(Math.round(curRec[k])); });
+                    canvas.__sxPoleValMap = map;
+                }
                 const maxVal = sxSignedIntensity(vals);
                 // The slider reads the stored +1. A rating that has never
                 // stored one is seeded from the old derivation so the
@@ -30827,6 +30845,24 @@ const TAXONOMY_CATEGORIES = [
 
             redraw();
 
+            // The inline row sits on top of the map. Repainting the map
+            // on every click (Mr) is what made the widget feel late: the
+            // list already covers the map, and closing the list paints it.
+            // Ss would also draw this same canvas a second time.
+            const paintRow = () => {
+                if (root) return;
+                const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
+                row && Ss(row);
+            };
+            const finishGesture = () => {
+                if (root) {
+                    try { ws(); } catch (err) {}
+                    return;
+                }
+                Mr();
+                paintRow();
+            };
+
             let activeIdx = null, isDragging = false;
 
             // Hot List popup meter line + pole tips (2026-11-16): the
@@ -30834,7 +30870,7 @@ const TAXONOMY_CATEGORIES = [
             // line lives in the widget stage (above the canvas); the
             // hover topic is refreshed on every open because the canvas
             // is persistent while the bind is once-only (dataset guard).
-            sxSetMeterLine(e.byId("hotListWidgetStage"), topicId);
+            sxSetMeterLine(pick("hotListWidgetStage", ".outline-inline-widget"), topicId);
             canvas.__sxHoverTopicId = topicId;
             sxBindPoleHover(canvas, () => isDragging);
             const onPointer = (evt) => {
@@ -30869,16 +30905,14 @@ const TAXONOMY_CATEGORIES = [
                         To(topicId, keys[activeIdx], val, !1, pId);
                     }
                     redraw();
-                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                    row && Ss(row);
+                    paintRow();
                 } else if (isCompass) {
                     const sq = sxGetCompassSquare(canvas.width, canvas.height);
                     const { u, v } = sxCompassPointToUV(px, py, sq);
                     const vals = sxCompassValuesFromPoint(u, v, 100);
                     keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
                     redraw();
-                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                    row && Ss(row);
+                    paintRow();
                 } else if (isTriad) {
                     const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                     const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
@@ -30886,8 +30920,7 @@ const TAXONOMY_CATEGORIES = [
                     To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
                     To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
                     redraw();
-                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                    row && Ss(row);
+                    paintRow();
                 } else if (is2Pole && !shape.single) {
                     const cx = canvas.width / 2, cy = canvas.height / 2;
                     const r = Math.min(cx, cy) - 22;
@@ -30898,8 +30931,7 @@ const TAXONOMY_CATEGORIES = [
                     To(topicId, "give", g, !1, pId);
                     To(topicId, "receive", recv, !1, pId);
                     redraw();
-                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                    row && Ss(row);
+                    paintRow();
                 }
             };
 
@@ -30915,9 +30947,7 @@ const TAXONOMY_CATEGORIES = [
                     isDragging = false;
                     activeIdx = null;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch(e) {}
-                    Mr();
-                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                    row && Ss(row);
+                    finishGesture();
                 }
             };
 
@@ -30926,7 +30956,12 @@ const TAXONOMY_CATEGORIES = [
             canvas.onpointerup = onUp;
             canvas.onpointercancel = onUp;
 
-            canvas.onwheel = (evt) => {
+            // Wheel sets intensity. On the Hot List the listener is the
+            // whole widget, so the vertical slider and the canvas share
+            // it, and the list does not scroll underneath. The popup
+            // keeps the listener on its canvas and still repaints the
+            // map; the Hot List does not, because the list covers it.
+            const onWheel = (evt) => {
                 pId = freshPid();
                 evt.preventDefault();
                 evt.stopPropagation();
@@ -30937,11 +30972,17 @@ const TAXONOMY_CATEGORIES = [
                 const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
                 const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
                 sxPersistIntensity(topicId, cur + step, pId);
-                Mr();
                 redraw();
-                const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                row && Ss(row);
+                if (root) {
+                    clearTimeout(root.__sxWheelWs);
+                    root.__sxWheelWs = setTimeout(() => { try { ws(); } catch (err) {} }, 200);
+                } else {
+                    Mr();
+                    paintRow();
+                }
             };
+            if (root) root.onwheel = onWheel;
+            else canvas.onwheel = onWheel;
 
             if (slider) {
                 slider.oninput = () => {
@@ -30950,24 +30991,27 @@ const TAXONOMY_CATEGORIES = [
                     // The slider edits only the stored +1. Pole numbers stay.
                     sxPersistIntensity(topicId, Number(slider.value), pId);
                     redraw();
-                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                    row && Ss(row);
+                    paintRow();
                 };
                 slider.onchange = () => {
-                    Mr();
+                    finishGesture();
                 };
             }
 
             if (clearBtn) {
                 clearBtn.onclick = () => {
                     Fo(topicId, "intensity", !1, pId);
-                    keys.forEach((k, idx) => Fo(topicId, k, idx === keys.length - 1, pId));
+                    keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
                     redraw();
-                    const row = Ro && Ro.querySelector(`.outline-row[data-outline-id="${CSS.escape(topicId)}"]`);
-                    row && Ss(row);
+                    if (root) finishGesture();
+                    else paintRow();
                 };
             }
 
+            if (root) {
+                root.__sxRedraw = redraw;
+                return;
+            }
             const closeDialog = () => {
                 try { dlg.close(); } catch (e) { dlg.hidden = true; }
                 Mr();
@@ -32647,6 +32691,8 @@ const TAXONOMY_CATEGORIES = [
                 o.dataset.hasNote = String(t), o.title = n, o.setAttribute("aria-label", t ? `Tap to edit note for ${e}: ${l}` : `Add note for ${e}`);
             }
             s && document.activeElement !== s && (s.value = l);
+            const inline = e.querySelector(".outline-inline-widget");
+            inline && inline.__sxRedraw && inline.__sxRedraw();
         }
         function $s(e, t) {
             return Array.from(e.querySelectorAll(".outline-row[data-outline-parent]")).filter(e => e.dataset.outlineParent === t);
@@ -32701,17 +32747,12 @@ const TAXONOMY_CATEGORIES = [
             const h = document.createElement("div");
             h.className = "outline-rating-group";
             if (i.octad || i.heptad || i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
-                const wBtn = document.createElement("button");
-                wBtn.type = "button";
-                wBtn.className = "outline-widget-btn";
-                wBtn.dataset.outlineWidgetLaunch = e.id;
-                const sym = i.octad ? "✵ 8-Pole Octad" : i.heptad ? "⯁ 7-Pole Heptad" : i.hexad ? "⬡ 6-Pole Hexad" : i.pentad ? "★ 5-Pole Pentad" : i.tetrad ? "◆ 4-Pole Tetrad" : "▲ 3-Pole Triad";
-                wBtn.innerHTML = `<span class="outline-widget-glyph">${sym}</span>`;
-                wBtn.title = `Open interactive ${sym} widget pop-up for ${e.label}`;
-                wBtn.setAttribute("aria-label", `Open interactive ${sym} widget pop-up for ${e.label}`);
-                h.append(wBtn);
-            }
-            (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
+                const inline = document.createElement("div");
+                inline.className = "outline-inline-widget";
+                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider" type="range" min="-100" max="100" step="1" value="0" aria-label="Intensity"><output class="outline-inline-out">0</output></label><button class="outline-inline-clear" type="button">Clear</button>';
+                h.append(inline);
+                typeof window.sxOpenHotListWidgetPopup === "function" && window.sxOpenHotListWidgetPopup(e.id, t, inline);
+            } else (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
                 const r = document.createElement("label"), o = !i.single && "give" === i.labels[0] && "receive" === i.labels[1];
                 r.className = "outline-rating";
                 const s = document.createElement("span");
@@ -32736,7 +32777,8 @@ const TAXONOMY_CATEGORIES = [
                 c.setAttribute("aria-label", `${e.label}, ${s.textContent}${l ? `: ${l.replace(/^[^:]+:\s*/, "")}` : ""}`);
                 const d = document.createElement("output");
                 r.append(s, c, d), h.append(r);
-            }), n.append(h);
+            });
+            n.append(h);
             const g = document.createElement("label");
             g.className = "outline-note-editor", g.hidden = !0;
             const m = document.createElement("span");
@@ -33718,16 +33760,6 @@ const TAXONOMY_CATEGORIES = [
             const n = Number(t.dataset.milestoneStartRated);
             delete t.dataset.milestoneStartRated, os.add(getOutlineRow(t).dataset.outlineId), checkMilestoneTransition(Go, n);
         }), Ro.addEventListener("click", e => {
-            const wBtn = e.target.closest && e.target.closest(".outline-widget-btn");
-            if (wBtn) {
-                e.preventDefault();
-                e.stopPropagation();
-                const topicId = wBtn.dataset.outlineWidgetLaunch;
-                if (topicId && typeof window.sxOpenHotListWidgetPopup === "function") {
-                    window.sxOpenHotListWidgetPopup(topicId, Go);
-                }
-                return;
-            }
             const t = __sxClosestAction(e.target, "outlineNote");
             if (t && Go) {
                 const e = getOutlineRow(t), n = e.querySelector(".outline-note-editor"), i = n.hidden;

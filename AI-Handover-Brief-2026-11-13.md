@@ -266,10 +266,13 @@ straight (similar role) from cross (complementary role).
 
 Each item waits for Jason's kickoff; nothing here dispatches itself.
 
-1. **Inline n-pole widgets in Hot List rows** — canvas + intensity slider +
-   per-pole number readouts, added alongside the existing popup button
-   (Jason first ruled replace, then superseded himself: the popup stays).
-   Hot List surface only; the placard and profile sheet are untouched.
+1. ~~**Inline n-pole widgets in Hot List rows**~~ — settled 2026-11-19. The
+   Hot List row shows the canvas and a vertical intensity slider. Pole
+   numbers sit under the pole names. The popup button, the extra per-pole
+   sliders, and the separate number row are gone. The wheel sets intensity.
+   A click updates the row and leaves the map paint until the list closes.
+   Placard and profile sheet untouched. In the repo on main; not in the
+   uploaded 2026-11-19_2046 package.
 2. **Plain-English labels for the whole Forescapades map** — a proposal
    batch in the style of the earlier rename runs: English-first labels,
    a true umbrella term where one exists, presented as ONE approval batch.
@@ -280,12 +283,8 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    traditional halakha is matrilineal; Reform also recognizes patrilineal
    descent when the child is raised Jewish. No separate patrilineal pole —
    the triad stays one tradition per pole. Wording only.
-4. **Open question — should one-door topics blend at all?** Belonging is
-   largely one-door-or-another, and a continuous blend admits combinations
-   that may not make sense; the counterweight is that the topic measures
-   belief, where a pluralist can hold several criteria valid. Jason leaned
-   toward the blend-plus-relevance reading but has NOT ruled. Discussion
-   item; no build.
+4. ~~**One-door topics**~~ — settled 2026-11-19. They keep the blend.
+   Relevance carries the weight. No build.
 5. **Sexcapades into its own skin file** — move the 381-topic catalog out
    of its code module into `sexcapades.json`, like every other skin
    (ruled 2026-11-17). A planned job: it needs a written plan first, and

@@ -330,6 +330,8 @@
                 o.dataset.hasNote = String(t), o.title = n, o.setAttribute("aria-label", t ? `Tap to edit note for ${e}: ${l}` : `Add note for ${e}`);
             }
             s && document.activeElement !== s && (s.value = l);
+            const inline = e.querySelector(".outline-inline-widget");
+            inline && inline.__sxRedraw && inline.__sxRedraw();
         }
         function $s(e, t) {
             return Array.from(e.querySelectorAll(".outline-row[data-outline-parent]")).filter(e => e.dataset.outlineParent === t);
@@ -384,17 +386,12 @@
             const h = document.createElement("div");
             h.className = "outline-rating-group";
             if (i.octad || i.heptad || i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
-                const wBtn = document.createElement("button");
-                wBtn.type = "button";
-                wBtn.className = "outline-widget-btn";
-                wBtn.dataset.outlineWidgetLaunch = e.id;
-                const sym = i.octad ? "✵ 8-Pole Octad" : i.heptad ? "⯁ 7-Pole Heptad" : i.hexad ? "⬡ 6-Pole Hexad" : i.pentad ? "★ 5-Pole Pentad" : i.tetrad ? "◆ 4-Pole Tetrad" : "▲ 3-Pole Triad";
-                wBtn.innerHTML = `<span class="outline-widget-glyph">${sym}</span>`;
-                wBtn.title = `Open interactive ${sym} widget pop-up for ${e.label}`;
-                wBtn.setAttribute("aria-label", `Open interactive ${sym} widget pop-up for ${e.label}`);
-                h.append(wBtn);
-            }
-            (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
+                const inline = document.createElement("div");
+                inline.className = "outline-inline-widget";
+                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider" type="range" min="-100" max="100" step="1" value="0" aria-label="Intensity"><output class="outline-inline-out">0</output></label><button class="outline-inline-clear" type="button">Clear</button>';
+                h.append(inline);
+                typeof window.sxOpenHotListWidgetPopup === "function" && window.sxOpenHotListWidgetPopup(e.id, t, inline);
+            } else (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
                 const r = document.createElement("label"), o = !i.single && "give" === i.labels[0] && "receive" === i.labels[1];
                 r.className = "outline-rating";
                 const s = document.createElement("span");
@@ -419,7 +416,8 @@
                 c.setAttribute("aria-label", `${e.label}, ${s.textContent}${l ? `: ${l.replace(/^[^:]+:\s*/, "")}` : ""}`);
                 const d = document.createElement("output");
                 r.append(s, c, d), h.append(r);
-            }), n.append(h);
+            });
+            n.append(h);
             const g = document.createElement("label");
             g.className = "outline-note-editor", g.hidden = !0;
             const m = document.createElement("span");
@@ -1401,16 +1399,6 @@
             const n = Number(t.dataset.milestoneStartRated);
             delete t.dataset.milestoneStartRated, os.add(getOutlineRow(t).dataset.outlineId), checkMilestoneTransition(Go, n);
         }), Ro.addEventListener("click", e => {
-            const wBtn = e.target.closest && e.target.closest(".outline-widget-btn");
-            if (wBtn) {
-                e.preventDefault();
-                e.stopPropagation();
-                const topicId = wBtn.dataset.outlineWidgetLaunch;
-                if (topicId && typeof window.sxOpenHotListWidgetPopup === "function") {
-                    window.sxOpenHotListWidgetPopup(topicId, Go);
-                }
-                return;
-            }
             const t = __sxClosestAction(e.target, "outlineNote");
             if (t && Go) {
                 const e = getOutlineRow(t), n = e.querySelector(".outline-note-editor"), i = n.hidden;
