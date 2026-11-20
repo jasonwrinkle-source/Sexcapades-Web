@@ -244,7 +244,17 @@ straight (similar role) from cross (complementary role).
    no commune; the feud is the named enemy pairs, and a trilemma's
    feud is every pair of its poles. Each of the 170 n-pole widgets
    stores `poleReading` and `poleEnemies`. Two-pole lines are left
-   unstamped.
+   unstamped. Jason, 2026-11-19: on a give-and-receive topic, a
+   same-flank split (one person for that flank, the other against
+   it) feeds circle minus only. The talk counts a positive
+   same-flank product, a shared yes or a shared no, because two
+   noes multiply into an agreement. A topic that is only a split
+   scores 0 in the talk and stays in the denominator. When one
+   flank agrees and the other splits, the talk lights from the
+   agreement and the argument lights from the split. Still open,
+   not ruled: whether a shared no should be silence instead of a
+   talk, and whether opposite interest on a same pole becomes the
+   argument or a cancelled talk.
 
 ---
 

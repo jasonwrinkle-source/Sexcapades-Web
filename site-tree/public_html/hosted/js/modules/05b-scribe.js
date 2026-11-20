@@ -2139,12 +2139,14 @@
                        records' straight register (pr.straight.byId) —
                        give-fit = give x give / 100, receive-fit =
                        receive x receive / 100, each in [-100, 100].
-                       Parlay KF fit = the max straight fit over all
-                       member pairs (signed max rule, as for pairs);
+                       Parlay KF fit = the max positive straight fit
+                       over all member pairs. A same-flank split is
+                       circle minus only, so a negative product never
+                       raises the talk and never counts as its ground.
                        Parlay MS binary fit per member = 1 per
                        direction type (give-give / receive-receive) in
                        which any pair involving that member has a
-                       straight term with |term| > epsilon, epsilon
+                       positive straight term above epsilon, epsilon
                        from the GROUP heat (sxGroupEps, arithmetic
                        mean of member heats at formation). Group-max-
                        zero topics contribute zero and STAY in the
@@ -2157,7 +2159,7 @@
                     pairs.forEach(pr => {
                         const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
                         if (!sr) return;
-                        [ null != sr.giveGive ? sr.giveGive / 100 : null, null != sr.recvRecv ? sr.recvRecv / 100 : null ].forEach(f => { if (null != f && (null == pMaxFit || f > pMaxFit)) pMaxFit = f; });
+                        [ null != sr.giveGive && sr.giveGive > 0 ? sr.giveGive / 100 : null, null != sr.recvRecv && sr.recvRecv > 0 ? sr.recvRecv / 100 : null ].forEach(f => { if (null != f && (null == pMaxFit || f > pMaxFit)) pMaxFit = f; });
                     });
                     rec.parlayKFEntry = null == pMaxFit ? 0 : pMaxFit / 100 * pGm;
                     const pCs = profiles.map((p2, pi) => {
@@ -2166,8 +2168,8 @@
                             if (pr.i !== pi && pr.j !== pi) return;
                             const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
                             if (!sr) return;
-                            if (null != sr.giveGive && Math.abs(sr.giveGive / 100) > sxGroupEps) giveFit = !0;
-                            if (null != sr.recvRecv && Math.abs(sr.recvRecv / 100) > sxGroupEps) recvFit = !0;
+                            if (null != sr.giveGive && sr.giveGive > 0 && sr.giveGive / 100 > sxGroupEps) giveFit = !0;
+                            if (null != sr.recvRecv && sr.recvRecv > 0 && sr.recvRecv / 100 > sxGroupEps) recvFit = !0;
                         });
                         return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
                     }), pCMax = Math.max(...pCs);
@@ -2488,20 +2490,17 @@
                "shared" status already excludes limit-blocked topics,
                which stay OUT even though they could be conversational
                fodder, because they are not conversations to
-               encourage. Fantasy is INCLUDED in Parlay considered
-               (unlike Play, where fantasy is out of considered), and
-               debate topics (negative fit) count in numerator and
-               denominator alike. SIGN DIVERGENCE — PROVISIONAL,
-               flagged open, NOT settled: Parlay MS counts both kinds
-               of ground (binary fit uses |term|, so common ground and
-               debate ground both count as conversational fodder),
-               while Parlay KF keeps the sign via the signed max fit
-               factor (max rule: max(-100, 80) = 80 — max is positive
-               if ANY direction is positive; negative only if BOTH
-               directions are negative, least negative). No band
-               counting is used in either number. This function is
-               the pair path; group casts use the group construction
-               in sxGroupCompute, on this same table and basis. */
+               encourage.                Fantasy is INCLUDED in Parlay considered
+               (unlike Play, where fantasy is out of considered).
+               A same-flank split (one person for it, the other
+               against it) belongs to circle minus only (Jason
+               2026-11-19). The talk counts a positive product: a
+               shared yes, or a shared no, since two noes multiply
+               to an agreement. A topic that is only a split scores
+               0 and stays in the denominator. No band counting is
+               used in either number. This function is the pair
+               path; group casts use the group construction in
+               sxGroupCompute, on this same table and basis. */
             const sxParlayEps = sxPlayEpsilon(pair.heat ? [ pair.heat.a, pair.heat.b ] : []),
                 recs = pair.straight.topics.map(s => {
                     if ("shared" !== s.status) return { id: s.id, entryKF: null, entryMS: null, consideredKF: !1, consideredMS: !1 };
@@ -2529,17 +2528,18 @@
                             fantasyScope: (fl.fantasyBy || []).includes(name) ? "topic" : null
                         }),
                         tdA = mkTd(ra, pair.a), tdB = mkTd(rb, pair.b),
-                        fitG = null != s.giveGive ? s.giveGive / 100 : null,
-                        fitR = null != s.recvRecv ? s.recvRecv / 100 : null,
+                        fitG = null != s.giveGive && s.giveGive > 0 ? s.giveGive / 100 : null,
+                        fitR = null != s.recvRecv && s.recvRecv > 0 ? s.recvRecv / 100 : null,
                         sFits = [ fitG, fitR ].filter(v => null != v),
                         maxFit = sFits.length ? Math.max(...sFits) : null,
+                        splitOnly = !sFits.length && (s.giveGive < 0 || s.recvRecv < 0),
                         totA = sxParlayMemberTotal(tdA), totB = sxParlayMemberTotal(tdB), totMax = Math.max(totA, totB),
                         gm = totMax > 0 ? sxPlayGeoMean([ totA / totMax, totB / totMax ]) : 0,
-                        binFit = (null != fitG && Math.abs(fitG) > sxParlayEps ? 1 : 0) + (null != fitR && Math.abs(fitR) > sxParlayEps ? 1 : 0),
+                        binFit = (null != fitG && fitG > sxParlayEps ? 1 : 0) + (null != fitR && fitR > sxParlayEps ? 1 : 0),
                         cA = binFit + sxParlayTableFlags(tdA), cB = binFit + sxParlayTableFlags(tdB), cMax = Math.max(cA, cB);
                     return {
                         id: s.id,
-                        entryKF: null == maxFit ? null : maxFit / 100 * gm,
+                        entryKF: null == maxFit ? splitOnly ? 0 : null : maxFit / 100 * gm,
                         entryMS: cMax > 0 ? sxPlayGeoMean([ cA / cMax, cB / cMax ]) : 0,
                         consideredKF: !0,
                         consideredMS: !0
