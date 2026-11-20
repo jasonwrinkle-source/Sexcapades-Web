@@ -1160,6 +1160,11 @@
                 const c = (profiles[k].importedChildren || {})[id];
                 if (c) { m = c; break; }
             }
+            if (m && !m.poleReading && typeof window !== "undefined" && window.__SX_POLE_READINGS && window.__SX_POLE_READINGS[id]) {
+                const row = window.__SX_POLE_READINGS[id];
+                m.poleReading = row.reading;
+                m.poleEnemies = row.enemies || [];
+            }
             return !m || "Category" === m.kind ? null : m;
         }
         function sxAnnoScope(profile, id, meta, value) {
@@ -1301,24 +1306,145 @@
                 return { m: m, s: s };
             };
             const A = mass(polesA), B = mass(polesB);
-            if (A.s <= 0 && B.s <= 0) return { straight: 1, cross: 0 };
-            if (A.s <= 0 || B.s <= 0) return { straight: 0, cross: 0 };
+            if (A.s <= 0 && B.s <= 0) return { straight: 1, cross: 0, shareA: {}, shareB: {} };
+            if (A.s <= 0 || B.s <= 0) return { straight: 0, cross: 0, shareA: {}, shareB: {} };
+            const shareA = {}, shareB = {};
             let straight = 0;
-            keys.forEach(k => { straight += A.m[k] / A.s * (B.m[k] / B.s); });
-            return { straight: straight, cross: 1 - straight };
+            keys.forEach(k => {
+                shareA[k] = A.m[k] / A.s;
+                shareB[k] = B.m[k] / B.s;
+                straight += shareA[k] * shareB[k];
+            });
+            return { straight: straight, cross: 1 - straight, shareA: shareA, shareB: shareB };
+        }
+        // Circle-minus weight. Opposite signs are the argument, so they
+        // still count. A 0 on either side drops the topic. The Play
+        // factor (sxRelevancePair) stays the one that cancels opposite
+        // signs; this one is only for the debate rings.
+        function sxDebateFactor(vals) {
+            if (!vals.length || vals.some(v => null == v || !Number.isFinite(v) || 0 === v)) return 0;
+            return Math.min(1, Math.min(...vals.map(v => Math.abs(v))) / 100);
+        }
+        // How much of a stored feud the two people cover. Each named
+        // enemy pair adds both directions (A on one pole, B on the other).
+        function sxEnemyOverlap(shareA, shareB, enemies) {
+            let e = 0;
+            (enemies || []).forEach(pair => {
+                if (!pair || pair.length < 2) return;
+                const i = pair[0], j = pair[1], ai = shareA[i] || 0, aj = shareA[j] || 0, bi = shareB[i] || 0, bj = shareB[j] || 0;
+                e += ai * bj + aj * bi;
+            });
+            return e > 1 ? 1 : e;
+        }
+        // The widget's stored reading decides which overlap is a commune
+        // and which is an argument. No reading keeps the old cross
+        // (every other pole is a complement). Complement keeps that
+        // cross. Same poles are talk only. Antipodal and trilemma put
+        // the feud on enemy and do not treat the other poles as partners.
+        function sxPoleMatch(meta, polesA, polesB) {
+            const base = sxRoleOverlap(polesA, polesB);
+            if (!base) return null;
+            const reading = meta && meta.poleReading;
+            if (!reading || "complement" === reading) return { straight: base.straight, cross: base.cross, enemy: 0 };
+            if ("same" === reading) return { straight: base.straight, cross: 0, enemy: 0 };
+            return { straight: base.straight, cross: 0, enemy: sxEnemyOverlap(base.shareA, base.shareB, meta.poleEnemies) };
+        }
+        // Group feud: the strongest way two different people sit on the
+        // two poles of one stored enemy pair.
+        function sxGroupEnemy(rows, keys, enemies) {
+            if (!enemies || !enemies.length || rows.some(r => !r)) return 0;
+            const idx = {};
+            keys.forEach((k, j) => { idx[k] = j; });
+            let best = 0;
+            enemies.forEach(pair => {
+                const ia = idx[pair[0]], ib = idx[pair[1]];
+                if (null == ia || null == ib) return;
+                for (let p = 0; p < rows.length; p++) for (let q = 0; q < rows.length; q++) {
+                    if (p === q) continue;
+                    const prod = rows[p][ia] * rows[q][ib];
+                    if (prod > best) best = prod;
+                }
+            });
+            return best > 1 ? 1 : best;
         }
         // How much a topic counts: the smaller |intensity| / 100.
         // A 0 on either side drops it. Opposite signs cancel. Both
         // negative is a real factor, marked aversion so it is not
         // read as enthusiasm to do the thing.
         function sxRelevancePair(iA, iB) {
-            if (null == iA || null == iB || !Number.isFinite(iA) || !Number.isFinite(iB)) return { factor: 0, aversion: !1, opposed: !1 };
-            if (0 === iA || 0 === iB) return { factor: 0, aversion: !1, opposed: !1 };
-            if (iA > 0 !== iB > 0) return { factor: 0, aversion: !1, opposed: !0 };
+            return sxRelevanceGroup([ iA, iB ]);
+        }
+        // Same relevance rule for a whole cast: the smaller |intensity|
+        // wins, a 0 drops the topic, opposite signs cancel, and every
+        // member negative is shared aversion.
+        function sxRelevanceGroup(vals) {
+            if (!vals.length || vals.some(v => null == v || !Number.isFinite(v) || 0 === v)) return { factor: 0, aversion: !1, opposed: !1 };
+            const pos = vals[0] > 0;
+            if (vals.some(v => v > 0 !== pos)) return { factor: 0, aversion: !1, opposed: !0 };
             return {
-                factor: Math.min(1, Math.min(Math.abs(iA), Math.abs(iB)) / 100),
-                aversion: iA < 0 && iB < 0,
+                factor: Math.min(1, Math.min(...vals.map(v => Math.abs(v))) / 100),
+                aversion: vals.every(v => v < 0),
                 opposed: !1
+            };
+        }
+        // One person's leanings as shares of the same pole list.
+        // A vector with no positive weight fills no role.
+        function sxShareRow(poles, keys) {
+            let s = 0;
+            const raw = keys.map(k => {
+                const v = Math.max(0, Number(poles[k]) || 0);
+                s += v;
+                return v;
+            });
+            if (s <= 0) return null;
+            return raw.map(v => v / s);
+        }
+        // Best way to give every pole a different person. The score is
+        // the product of those shares, so a missing role scores 0 and a
+        // pure one-person-per-role cast scores 1.
+        function sxBestRoleProduct(rows) {
+            const n = rows.length, k = n && rows[0] ? rows[0].length : 0;
+            if (!k || n < k || rows.some(r => !r)) return 0;
+            let best = 0;
+            const used = new Array(n).fill(!1);
+            const walk = (pole, prod) => {
+                if (prod <= best) return;
+                if (pole === k) return void (best = prod);
+                for (let p = 0; p < n; p++) {
+                    if (used[p] || rows[p][pole] <= 0) continue;
+                    used[p] = !0;
+                    walk(pole + 1, prod * rows[p][pole]);
+                    used[p] = !1;
+                }
+            };
+            return walk(0, 1), best;
+        }
+        // Group role score. Straight is high when every member leans the
+        // same pole. Cross is high only when the cast covers every pole,
+        // each with a different person. Two bulls and a hotwife cover
+        // two poles, so both numbers stay low. Bull, hotwife, and cuckold
+        // cover all three, so cross is high.
+        function sxGroupRoleScore(members, meta) {
+            const rated = (members || []).filter(m => m && m.poles);
+            const empty = { straight: 0, cross: 0, enemy: 0, factor: 0, debate: 0, aversion: !1, opposed: !1 };
+            if (rated.length < 2) return empty;
+            const keys = [ ...new Set(rated.flatMap(m => Object.keys(m.poles))) ];
+            if (keys.length < 2) return empty;
+            const rows = rated.map(m => sxShareRow(m.poles, keys));
+            let straight = 0;
+            if (rows.every(Boolean)) keys.forEach((k, j) => {
+                let mn = 1;
+                rows.forEach(r => { mn = Math.min(mn, r[j]); });
+                if (mn > straight) straight = mn;
+            });
+            const rel = sxRelevanceGroup(rated.map(m => m.intensity));
+            const reading = meta && meta.poleReading;
+            const cross = !reading || "complement" === reading ? sxBestRoleProduct(rows) : 0;
+            const enemy = "antipodal" === reading || "trilemma" === reading ? sxGroupEnemy(rows, keys, meta.poleEnemies) : 0;
+            return {
+                straight: straight, cross: cross, enemy: enemy,
+                factor: rel.factor, debate: sxDebateFactor(rated.map(m => m.intensity)),
+                aversion: rel.aversion, opposed: rel.opposed
             };
         }
         function sxSides(td, heat) {
@@ -1629,17 +1755,21 @@
                    entries are the agreement and agreement ×
                    intensity exactly.) */
                 const agreement = sxPoleAgreement(a, b);
-                const role = a.polesKnown && b.polesKnown ? sxRoleOverlap(a.poles, b.poles) : null;
+                const role = a.polesKnown && b.polesKnown ? sxPoleMatch(meta, a.poles, b.poles) : null;
                 if (role) {
                     // Play reads the complementary role. Straight reads
                     // the similar role. Relevance weights both, and a
                     // shared aversion weights neither as something to do.
+                    // Circle minus reads the stored enemy pairs, and its
+                    // weight keeps opposite signs (that is the argument).
                     const rel = sxRelevancePair(a.intensity, b.intensity);
                     const weight = rel.aversion ? 0 : rel.factor;
                     rec.poleRole = !0;
                     rec.agreement = role.straight;
                     rec.roleStraight = role.straight;
                     rec.roleCross = role.cross;
+                    rec.roleEnemy = role.enemy;
+                    rec.debateIntensity = sxDebateFactor([ a.intensity, b.intensity ]);
                     rec.poleIntensity = rel.factor;
                     rec.sharedAversion = rel.aversion;
                     rec.relevanceOpposed = rel.opposed;
@@ -1761,7 +1891,7 @@
                 if (rec.limiters.length) status = "limit-blocked", straightLimitBlocked++;
                 else if (!(aRated && bRated)) status = "invisible", aRated !== bRated && straightOneSided++;
                 else status = "shared", straightShared++;
-                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null, roleStraight: null != rec.roleStraight ? rec.roleStraight : null, roleCross: null != rec.roleCross ? rec.roleCross : null, sharedAversion: Boolean(rec.sharedAversion) };
+                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null, roleStraight: null != rec.roleStraight ? rec.roleStraight : null, roleCross: null != rec.roleCross ? rec.roleCross : null, roleEnemy: null != rec.roleEnemy ? rec.roleEnemy : null, debateIntensity: null != rec.debateIntensity ? rec.debateIntensity : null, sharedAversion: Boolean(rec.sharedAversion) };
                 straightTopics.push(srec), straightById[rec.id] = srec;
             });
             const straightList = straightTopics.filter(s => "shared" === s.status && null != s.sum && s.sum > 0).sort((x, y) => (y.sum || 0) - (x.sum || 0) || x.label.localeCompare(y.label)),
@@ -2042,22 +2172,61 @@
                         return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
                     }), pCMax = Math.max(...pCs);
                     rec.parlayMSEntry = pCMax > 0 ? sxPlayGeoMean(pCs.map(v => v / pCMax)) : 0;
-                    // Role topics have no give/receive cross term, so the
-                    // block above records 0. Use the same pair formula
-                    // the two-person score uses: geometric mean of each
-                    // pair's cross × relevance, and the same for straight.
-                    const polePairs = pairs.map(pr => pr.topicsById[id]).filter(pr => pr && pr.poleRole);
-                    if (polePairs.length) {
-                        // Each pair already applied cross × relevance and
-                        // straight × relevance. The group keeps the
-                        // strongest of those pair scores, the same max
-                        // rule the give/receive group fit uses, so one
-                        // same-role pair does not wipe a real complement.
-                        const maxOf = vals => vals.reduce((m, v) => v > m ? v : m, 0);
-                        rec.playKFEntry = maxOf(polePairs.map(pr => pr.crossEntry || 0));
-                        rec.playMSEntry = maxOf(polePairs.map(pr => pr.crossEntry || 0));
-                        rec.parlayKFEntry = maxOf(polePairs.map(pr => pr.straightEntry || 0));
-                        rec.parlayMSEntry = maxOf(polePairs.map(pr => pr.straightEntry || 0));
+                    // Circle minus for a give/receive topic: the same
+                    // Parlay shape, counting only the negative same-flank
+                    // products (one person for it, the other against it)
+                    // and keeping them as positive magnitudes.
+                    let dMaxFit = null;
+                    pairs.forEach(pr => {
+                        const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
+                        if (!sr) return;
+                        [ sr.giveGive, sr.recvRecv ].forEach(prod => {
+                            if (null == prod || !(prod < 0)) return;
+                            const f = -prod / 100;
+                            if (null == dMaxFit || f > dMaxFit) dMaxFit = f;
+                        });
+                    });
+                    rec.debateKFEntry = null == dMaxFit ? 0 : dMaxFit / 100 * pGm;
+                    const dCs = profiles.map((p2, pi) => {
+                        let giveFit = !1, recvFit = !1;
+                        pairs.forEach(pr => {
+                            if (pr.i !== pi && pr.j !== pi) return;
+                            const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
+                            if (!sr) return;
+                            if (null != sr.giveGive && sr.giveGive < 0 && Math.abs(sr.giveGive / 100) > sxGroupEps) giveFit = !0;
+                            if (null != sr.recvRecv && sr.recvRecv < 0 && Math.abs(sr.recvRecv / 100) > sxGroupEps) recvFit = !0;
+                        });
+                        return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
+                    }), dCMax = Math.max(...dCs);
+                    rec.debateMSEntry = dCMax > 0 ? sxPlayGeoMean(dCs.map(v => v / dCMax)) : 0;
+                    // A pair keeps its own complement. A cast of three or
+                    // more is scored as one combo: cross counts only when
+                    // every pole has its own person, straight only when
+                    // every person leans the same pole. The best pair no
+                    // longer stands in for the group.
+                    const poleMembers = [];
+                    if (profiles.length >= 3) gTd.forEach((d, pi) => {
+                        if (d && d.polesKnown) poleMembers.push({ poles: d.poles, intensity: d.intensity, heat: (opts.heat || [])[pi] || 0 });
+                    });
+                    if (poleMembers.length >= 3) {
+                        const gRole = sxGroupRoleScore(poleMembers, meta);
+                        const weight = gRole.aversion || gRole.opposed ? 0 : gRole.factor;
+                        rec.roleStraight = gRole.straight;
+                        rec.roleCross = gRole.cross;
+                        rec.roleEnemy = gRole.enemy;
+                        rec.sharedAversion = gRole.aversion;
+                        rec.playKFEntry = gRole.cross * weight;
+                        rec.playMSEntry = gRole.cross * weight;
+                        rec.parlayKFEntry = gRole.straight * weight;
+                        rec.parlayMSEntry = gRole.straight * weight;
+                        rec.debateKFEntry = gRole.enemy * gRole.debate;
+                        rec.debateMSEntry = gRole.enemy;
+                        const strong = poleMembers.every(m => m.intensity > sxClamp(35 - m.heat, 0, 85));
+                        if (gRole.aversion || gRole.opposed || !(weight > 0) || !(gRole.cross > 0)) rec.playOutcome = "mismatched";
+                        else {
+                            rec.playOutcome = strong && gRole.cross >= .5 ? "match" : "curious-fit";
+                            rec.strength = Math.round(gRole.cross * weight * 100);
+                        }
                     }
                 }
             });
@@ -2148,13 +2317,22 @@
             };
             parlay.headlineText = sxHeadlineText(parlay.headline, msParlayAggG.counted, msParlayAggG.considered);
             parlay.kfHeadlineText = sxHeadlineText(parlay.kinkFactor, kfParlayAggG.counted, kfParlayAggG.considered);
+            const msDebateAggG = sxPlayWeightedPct(topics, r => r.debateMSEntry, r => !r.groupLimited && r.groupSharedMajority),
+                kfDebateAggG = sxPlayWeightedPct(topics, r => r.debateKFEntry, r => !r.groupLimited && r.groupSharedMajority),
+                debate = {
+                    considered: msDebateAggG.considered, counted: msDebateAggG.counted,
+                    headline: msDebateAggG.pct, kinkFactor: kfDebateAggG.pct,
+                    label: sxTerm("parlayMS"), kfLabel: sxTerm("parlayKF")
+                };
+            debate.headlineText = sxHeadlineText(debate.headline, msDebateAggG.counted, msDebateAggG.considered);
+            debate.kfHeadlineText = sxHeadlineText(debate.kinkFactor, kfDebateAggG.counted, kfDebateAggG.considered);
             const hot = topics.filter(r => !r.groupLimited).map(r => ({
                 id: r.id, label: r.label,
                 score: pairs.reduce((sum, pr) => sum + (pr.topicsById[r.id] ? pr.topicsById[r.id].hotContribution : 0), 0)
             })).filter(r => r.score > 0).sort((x, y) => y.score - x.score || x.label.localeCompare(y.label));
             return {
                 engine: "sync-1.1", pairs: pairs, topics: topics, topicsById: topicsById,
-                play: play, conversation: conversation, parlay: parlay, hotTopics: hot, hotTopicsTop10: hot.slice(0, 10)
+                play: play, conversation: conversation, parlay: parlay, debate: debate, hotTopics: hot, hotTopicsTop10: hot.slice(0, 10)
             };
         }
         /* ===== Two-ring scores (O5 + O6, ruled 2026-10-29) =====
@@ -2371,6 +2549,53 @@
                 kfAggS = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
             return { outer: msAggS.pct, inner: kfAggS.pct };
         }
+        // Circle-minus rings, the same shape as circle dot. A stored
+        // enemy pair fills from how much the two people sit on those
+        // far poles. A give/receive topic fills from the negative
+        // same-flank products, kept as positive magnitudes so the arc
+        // can draw them. Shared topics with no argument stay in the
+        // denominator, so an all-agreement pair scores low.
+        function sxDebateInterim(pair) {
+            if (!pair || !pair.straight) return { outer: null, inner: null };
+            const eps = sxPlayEpsilon(pair.heat ? [ pair.heat.a, pair.heat.b ] : []),
+                recs = pair.straight.topics.map(s => {
+                    if ("shared" !== s.status) return { id: s.id, entryKF: null, entryMS: null, consideredKF: !1, consideredMS: !1 };
+                    if (null != s.roleEnemy) return {
+                        id: s.id,
+                        entryKF: s.roleEnemy * (null != s.debateIntensity ? s.debateIntensity : 0),
+                        entryMS: s.roleEnemy,
+                        consideredKF: !0,
+                        consideredMS: !0
+                    };
+                    const rec = pair.topicsById ? pair.topicsById[s.id] : null, fl = rec ? rec.flags || {} : {},
+                        ra = rec ? rec.ratings.a : null, rb = rec ? rec.ratings.b : null,
+                        mkTd = (r, name) => ({
+                            rated: !!(r && (r.giveKnown || r.receiveKnown)),
+                            favorite: (fl.favoriteBy || []).includes(name),
+                            triedScope: (fl.triedBy || []).includes(name) ? "topic" : null,
+                            fantasyScope: (fl.fantasyBy || []).includes(name) ? "topic" : null
+                        }),
+                        tdA = mkTd(ra, pair.a), tdB = mkTd(rb, pair.b),
+                        fitG = null != s.giveGive && s.giveGive < 0 ? -s.giveGive / 100 : null,
+                        fitR = null != s.recvRecv && s.recvRecv < 0 ? -s.recvRecv / 100 : null,
+                        fits = [ fitG, fitR ].filter(v => null != v),
+                        maxFit = fits.length ? Math.max(...fits) : null,
+                        totA = sxParlayMemberTotal(tdA), totB = sxParlayMemberTotal(tdB), totMax = Math.max(totA, totB),
+                        gm = totMax > 0 ? sxPlayGeoMean([ totA / totMax, totB / totMax ]) : 0,
+                        binFit = (null != fitG && fitG > eps ? 1 : 0) + (null != fitR && fitR > eps ? 1 : 0),
+                        cA = binFit + sxParlayTableFlags(tdA), cB = binFit + sxParlayTableFlags(tdB), cMax = Math.max(cA, cB);
+                    return {
+                        id: s.id,
+                        entryKF: null == maxFit ? 0 : maxFit / 100 * gm,
+                        entryMS: cMax > 0 ? sxPlayGeoMean([ cA / cMax, cB / cMax ]) : 0,
+                        consideredKF: !0,
+                        consideredMS: !0
+                    };
+                }),
+                msAgg = sxPlayWeightedPct(recs, r => r.entryMS, r => r.consideredMS),
+                kfAgg = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
+            return { outer: msAgg.pct, inner: kfAgg.pct };
+        }
         /* Domain-terms skinning (first i18n step, 2026-11-15): the active
            skin's words, resolved by the skin loader into
            window.__SX_TERMS (the loader owns the table; see
@@ -2405,6 +2630,14 @@
                away on every render. The one consumer of group Charted,
                the dialog readback, calls sxGroupCharted directly, so
                the pass runs exactly once, only when the dialog opens. */
+            if ("minus" === pairOp) {
+                if (!isPair) {
+                    const deb = grp.debate;
+                    return { outerLabel: sxTerm("parlayMS"), outer: deb ? deb.headline : null, innerLabel: sxTerm("parlayKF"), inner: deb ? deb.kinkFactor : null };
+                }
+                const di = sxDebateInterim(pair);
+                return { outerLabel: sxTerm("parlayMS"), outer: di.outer, innerLabel: sxTerm("parlayKF"), inner: di.inner };
+            }
             if ("straight" === pairOp) {
                 if (!isPair) {
                     /* Group Parlay (group-Parlay fix, 2026-10-30):
@@ -2440,7 +2673,7 @@
            in the profile tab strip or below it for individual, group,
            or match tabs — ring numbers live only in the header Avatar
            rings. The ring value providers stay for the header paint. */
-        window.__sxRings = { personalCharted: sxPersonalCharted, groupCharted: sxGroupCharted, straightInterim: sxStraightInterim, ringValuesForProfile: sxRingValuesForProfile, ringValuesForCast: sxRingValuesForCast, topicShares: sxTopicShares };
+            window.__sxRings = { personalCharted: sxPersonalCharted, groupCharted: sxGroupCharted, straightInterim: sxStraightInterim, debateInterim: sxDebateInterim, ringValuesForProfile: sxRingValuesForProfile, ringValuesForCast: sxRingValuesForCast, topicShares: sxTopicShares };
         function sxProfileById(id) {
             return {
                 id: id, name: wt[id] || "Profile",

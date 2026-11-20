@@ -18650,7 +18650,9 @@ const TAXONOMY_CATEGORIES = [
                         branch: t.name,
                         kind: "Topic",
                         risk: Boolean(((t.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
-                        parentId: i ? Un(t.name, i.name) : null
+                        parentId: i ? Un(t.name, i.name) : null,
+                        poleReading: n.poleReading || null,
+                        poleEnemies: Array.isArray(n.poleEnemies) ? n.poleEnemies : null
                     };
                 }
             }
@@ -25754,7 +25756,9 @@ const TAXONOMY_CATEGORIES = [
                         branch: e.name,
                         kind: "Topic",
                         risk: Boolean(t && t.risk),
-                        parentId: i ? Un(e.name, i.name) : null
+                        parentId: i ? Un(e.name, i.name) : null,
+                        poleReading: t && t.poleReading || null,
+                        poleEnemies: t && Array.isArray(t.poleEnemies) ? t.poleEnemies : null
                     };
                 });
             }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint && !window.__SX_FORCE_UNRATED_TREE)) return n(In, `<g>${oa()}${function(e) {
@@ -25820,7 +25824,7 @@ const TAXONOMY_CATEGORIES = [
                         const sxTab = sxCurrentTab();
                         if (sxTab) {
                             const sxTabCtx = sxTabContext(sxTab);
-                            if (sxTabCtx && sxTabCtx.profiles && sxTabCtx.profiles.length >= 2) return sxRingValuesForCast(sxTabCtx.profiles, "circledot" === sxTab.kind ? "straight" : undefined);
+                            if (sxTabCtx && sxTabCtx.profiles && sxTabCtx.profiles.length >= 2) return sxRingValuesForCast(sxTabCtx.profiles, "circledot" === sxTab.kind ? "straight" : "circleminus" === sxTab.kind ? "minus" : undefined);
                         }
                     } catch (err) { __sxErrLog("sx-header-match-rings", err); }
                     const rec = Mt && ft[Mt] ? ft[Mt] : null;
@@ -25834,8 +25838,10 @@ const TAXONOMY_CATEGORIES = [
                 if (sxInnerEl) { const a = sxArc(sxHdrVals && sxHdrVals.inner); sxInnerEl.style.strokeDasharray = `${a} ${100 - a}`; sxInnerEl.style.opacity = sxHdrVals && null != sxHdrVals.inner ? "1" : "0"; }
                 if (sxCapEl) sxCapEl.textContent = sxHdrVals ? `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)} · ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}` : "";
                 if (sxCtl && sxHdrVals) { const t2 = `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}; ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`; sxCtl.setAttribute("aria-label", `Open Charted details. ${t2}`); sxCtl.dataset.uiTooltip = t2; }
+                else if (sxCtl) sxCtl.setAttribute("aria-label", "Open Charted details."), delete sxCtl.dataset.uiTooltip;
                 const sxRingSvg = e.byId("headerHorizonRing");
                 if (sxRingSvg && sxHdrVals) sxRingSvg.setAttribute("aria-label", `Open Charted details. ${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}, ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`);
+                else if (sxRingSvg) sxRingSvg.setAttribute("aria-label", "Open Charted details.");
                 /* HEADER-HUG (2026-11-02, owner's order): the header rings hug
                    the avatar and each other the way the center node's rings
                    hug the center node — bands tiled close with one small even
@@ -25981,7 +25987,8 @@ const TAXONOMY_CATEGORIES = [
                 // pair's relation glyph sitting on each seam between
                 // neighbours (N members → N−1 seams, one glyph per seam,
                 // every seam carrying the pair's one recorded operation:
-                // ⋈ for a cross pairing, ⊙ for a straight pairing).
+                // ⋈ for a cross pairing, ⊙ for a straight pairing,
+                // ⊖ for a circle-minus pairing).
                 // Per-seam differing relations have no record to read —
                 // a group stores exactly one pairOp — so mixed-relation
                 // seams are not defined and none are invented here. The
@@ -26046,7 +26053,7 @@ const TAXONOMY_CATEGORIES = [
                 }
                 const sxCenterPhotos = `<g clip-path="url(#centerPhotoClip)">${e.map((e, t) => aa(e, r[t], "center-photo")).join("")}</g>`;
                 if (sxSplitIds.length < 2) return sxCenterPhotos;
-                const sxSplitOp = "straight" === sxSplitGrp.pairOp ? "straight" : "bowtie", sxSplitGlyph = "straight" === sxSplitOp ? "⊙" : "⋈", sxSeamPlate = Math.max(120, ea.photoRadius * .17), sxSeamW = t / a, sxSeams = [];
+                const sxSplitOp = sxNormalizePairOp(sxSplitGrp.pairOp), sxSplitGlyph = sxPairJoin(sxSplitOp).trim(), sxSeamPlate = Math.max(120, ea.photoRadius * .17), sxSeamW = t / a, sxSeams = [];
                 for (let sxK = 1; sxK < a; sxK++) {
                     const sxSeamX = n + sxK * sxSeamW;
                     sxSeams.push(`<g class="center-split-seam"><circle cx="${sxSeamX.toFixed(1)}" cy="620" r="${sxSeamPlate.toFixed(1)}"/><text x="${sxSeamX.toFixed(1)}" y="620" style="font-size:${(sxSeamPlate * 1.05).toFixed(0)}px" text-anchor="middle" dominant-baseline="middle">${sxSplitGlyph}</text></g>`);
@@ -26112,7 +26119,7 @@ const TAXONOMY_CATEGORIES = [
             const sxPairTapers = function() {
                 if (Rt) return null;
                 const tab = sxCurrentTab();
-                if (!tab) return null;
+                if (!tab || "circleminus" === tab.kind) return null;
                 const ctx = sxTabContext(tab), ids = ctx ? ctx.ids : tab.ids;
                 if (!ids || 2 !== ids.length) return null;
                 const pair = sxPairByIds(ids[0], ids[1]);
@@ -32098,7 +32105,9 @@ const TAXONOMY_CATEGORIES = [
                 label: sxName(i),
                 branch: n.name,
                 kind: "Topic",
-                risk: Boolean(((n.topics || []).find(topic => sxName(topic) === sxName(i)) || {}).risk)
+                risk: Boolean(((n.topics || []).find(topic => sxName(topic) === sxName(i)) || {}).risk),
+                poleReading: i && i.poleReading || null,
+                poleEnemies: i && Array.isArray(i.poleEnemies) ? i.poleEnemies : null
             }, !0))), t) {
                 if (qn[e] = t, Nt = null, "Category" === t.kind) {
                     if (wn = !1, rn.has(t.branch)) return rn.delete(t.branch), Lt = null, void Mr();
@@ -33514,7 +33523,7 @@ const TAXONOMY_CATEGORIES = [
                 }
             };
         })();
-        let Ns = null, _s = null, Ds = null, Rs = null, Os = 0;
+        let Ns = null, _s = null, Ds = null, Rs = null, Os = 0, sxOutlineLastEl = null, sxOutlineLastTime = 0, sxOutlineLastX = 0, sxOutlineLastY = 0;
         /* Canvas pole-label hover hook (widget approachability): a canvas
            has no DOM node per pole, so the paint module calls this with
            the canvas as anchor, the pole's full label as name, and its
@@ -33623,12 +33632,22 @@ const TAXONOMY_CATEGORIES = [
             const n = e.target instanceof Element ? __sxClosestAction(e.target, "outlineDescTriggerRich") : null;
             if (!n) return Ks(), void js();
             if (("mouse" === e.pointerType || "pen" === e.pointerType) && 0 !== e.button) return;
+            const sxOutlineNow = performance.now();
+            if (sxOutlineLastEl === n && sxOutlineNow - sxOutlineLastTime < 520 && Math.hypot(e.clientX - sxOutlineLastX, e.clientY - sxOutlineLastY) < 60) {
+                sxOutlineLastTime = 0, sxOutlineLastEl = null, Ks(), zs(n), Ws(n, {
+                    x: e.clientX,
+                    y: e.clientY,
+                    pointerType: e.pointerType || "touch"
+                });
+                return;
+            }
             Ks();
             const i = {
                 pointerId: e.pointerId,
                 trigger: n,
                 startX: e.clientX,
                 startY: e.clientY,
+                t: sxOutlineNow,
                 longPressed: !1,
                 timer: 0
             };
@@ -33641,12 +33660,23 @@ const TAXONOMY_CATEGORIES = [
             }, 520), Ds = i;
         }), window.addEventListener("pointermove", e => {
             const t = Ds;
-            if (t && t.pointerId === e.pointerId) return t.longPressed ? (_s = Ts(e), void Fs.position(_s, Ns)) : void (Math.hypot(e.clientX - t.startX, e.clientY - t.startY) > 9 && Ks());
+            if (t && t.pointerId === e.pointerId) return t.longPressed ? (_s = Ts(e), void Fs.position(_s, Ns)) : void (Math.hypot(e.clientX - t.startX, e.clientY - t.startY) > ("touch" === e.pointerType || "pen" === e.pointerType ? 28 : 9) && Ks());
         }, !0), window.addEventListener("pointerup", e => {
             const n = Ds;
-            n && n.pointerId === e.pointerId && (n.timer && t.clear(n.timer), n.longPressed && zs(n.trigger), 
+            n && n.pointerId === e.pointerId && (n.timer && t.clear(n.timer), n.longPressed ? zs(n.trigger) : (sxOutlineLastEl = n.trigger, sxOutlineLastTime = performance.now(), sxOutlineLastX = e.clientX, sxOutlineLastY = e.clientY), 
             Ds = null);
-        }, !0), window.addEventListener("pointercancel", Ks, !0), Ro.addEventListener("contextmenu", e => {
+        }, !0), window.addEventListener("pointercancel", e => {
+            const n = Ds;
+            if (n && (!e.pointerId || n.pointerId === e.pointerId) && !n.longPressed && n.t && performance.now() - n.t >= 400 && Math.hypot((e.clientX || n.startX) - n.startX, (e.clientY || n.startY) - n.startY) <= 28) {
+                n.timer && t.clear(n.timer), n.longPressed = !0, zs(n.trigger), Ws(n.trigger, {
+                    x: n.startX,
+                    y: n.startY,
+                    pointerType: "touch"
+                }), Ds = null;
+                return;
+            }
+            Ks();
+        }, !0), Ro.addEventListener("contextmenu", e => {
             const t = __sxClosestAction(e.target, "outlineDescTriggerRich");
             t && Rs === t && (e.preventDefault(), e.stopPropagation());
         }, !0), Ro.addEventListener("click", e => {
@@ -33954,10 +33984,16 @@ const TAXONOMY_CATEGORIES = [
             if (nl && Fs.visibleFor(nl) && !nl.contains(e.target) && sl(), "mouse" === e.pointerType) return;
             const t = e.target.closest && __sxClosestAction(e.target, "uiTooltipHover");
             t && cl(t, !0, Ts(e));
-        }, !0), document.addEventListener("pointerdown", e => {
+        }, !0),         document.addEventListener("pointerdown", e => {
             if ("mouse" === e.pointerType) return;
             const el = __sxClosestAction(e.target, "tooltipTapFirst");
             if (!el) return;
+            // A touch on a map node used to die here: the first tap
+            // showed the little tooltip and stopImmediatePropagation
+            // kept the hold and the second tap from ever reaching the
+            // map, so the About and note sheet never opened. Map nodes
+            // keep that gesture. Buttons elsewhere still tap-to-show.
+            if (el.closest && el.closest("#mapSvg")) return;
             const useCard = Boolean(el.dataset && el.dataset.uiTooltip), useOutline = !useCard && Boolean(Gs(el));
             if (!useCard && !useOutline) return;
             const n = performance.now();
@@ -36574,6 +36610,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 const c = (profiles[k].importedChildren || {})[id];
                 if (c) { m = c; break; }
             }
+            if (m && !m.poleReading && typeof window !== "undefined" && window.__SX_POLE_READINGS && window.__SX_POLE_READINGS[id]) {
+                const row = window.__SX_POLE_READINGS[id];
+                m.poleReading = row.reading;
+                m.poleEnemies = row.enemies || [];
+            }
             return !m || "Category" === m.kind ? null : m;
         }
         function sxAnnoScope(profile, id, meta, value) {
@@ -36715,24 +36756,145 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 return { m: m, s: s };
             };
             const A = mass(polesA), B = mass(polesB);
-            if (A.s <= 0 && B.s <= 0) return { straight: 1, cross: 0 };
-            if (A.s <= 0 || B.s <= 0) return { straight: 0, cross: 0 };
+            if (A.s <= 0 && B.s <= 0) return { straight: 1, cross: 0, shareA: {}, shareB: {} };
+            if (A.s <= 0 || B.s <= 0) return { straight: 0, cross: 0, shareA: {}, shareB: {} };
+            const shareA = {}, shareB = {};
             let straight = 0;
-            keys.forEach(k => { straight += A.m[k] / A.s * (B.m[k] / B.s); });
-            return { straight: straight, cross: 1 - straight };
+            keys.forEach(k => {
+                shareA[k] = A.m[k] / A.s;
+                shareB[k] = B.m[k] / B.s;
+                straight += shareA[k] * shareB[k];
+            });
+            return { straight: straight, cross: 1 - straight, shareA: shareA, shareB: shareB };
+        }
+        // Circle-minus weight. Opposite signs are the argument, so they
+        // still count. A 0 on either side drops the topic. The Play
+        // factor (sxRelevancePair) stays the one that cancels opposite
+        // signs; this one is only for the debate rings.
+        function sxDebateFactor(vals) {
+            if (!vals.length || vals.some(v => null == v || !Number.isFinite(v) || 0 === v)) return 0;
+            return Math.min(1, Math.min(...vals.map(v => Math.abs(v))) / 100);
+        }
+        // How much of a stored feud the two people cover. Each named
+        // enemy pair adds both directions (A on one pole, B on the other).
+        function sxEnemyOverlap(shareA, shareB, enemies) {
+            let e = 0;
+            (enemies || []).forEach(pair => {
+                if (!pair || pair.length < 2) return;
+                const i = pair[0], j = pair[1], ai = shareA[i] || 0, aj = shareA[j] || 0, bi = shareB[i] || 0, bj = shareB[j] || 0;
+                e += ai * bj + aj * bi;
+            });
+            return e > 1 ? 1 : e;
+        }
+        // The widget's stored reading decides which overlap is a commune
+        // and which is an argument. No reading keeps the old cross
+        // (every other pole is a complement). Complement keeps that
+        // cross. Same poles are talk only. Antipodal and trilemma put
+        // the feud on enemy and do not treat the other poles as partners.
+        function sxPoleMatch(meta, polesA, polesB) {
+            const base = sxRoleOverlap(polesA, polesB);
+            if (!base) return null;
+            const reading = meta && meta.poleReading;
+            if (!reading || "complement" === reading) return { straight: base.straight, cross: base.cross, enemy: 0 };
+            if ("same" === reading) return { straight: base.straight, cross: 0, enemy: 0 };
+            return { straight: base.straight, cross: 0, enemy: sxEnemyOverlap(base.shareA, base.shareB, meta.poleEnemies) };
+        }
+        // Group feud: the strongest way two different people sit on the
+        // two poles of one stored enemy pair.
+        function sxGroupEnemy(rows, keys, enemies) {
+            if (!enemies || !enemies.length || rows.some(r => !r)) return 0;
+            const idx = {};
+            keys.forEach((k, j) => { idx[k] = j; });
+            let best = 0;
+            enemies.forEach(pair => {
+                const ia = idx[pair[0]], ib = idx[pair[1]];
+                if (null == ia || null == ib) return;
+                for (let p = 0; p < rows.length; p++) for (let q = 0; q < rows.length; q++) {
+                    if (p === q) continue;
+                    const prod = rows[p][ia] * rows[q][ib];
+                    if (prod > best) best = prod;
+                }
+            });
+            return best > 1 ? 1 : best;
         }
         // How much a topic counts: the smaller |intensity| / 100.
         // A 0 on either side drops it. Opposite signs cancel. Both
         // negative is a real factor, marked aversion so it is not
         // read as enthusiasm to do the thing.
         function sxRelevancePair(iA, iB) {
-            if (null == iA || null == iB || !Number.isFinite(iA) || !Number.isFinite(iB)) return { factor: 0, aversion: !1, opposed: !1 };
-            if (0 === iA || 0 === iB) return { factor: 0, aversion: !1, opposed: !1 };
-            if (iA > 0 !== iB > 0) return { factor: 0, aversion: !1, opposed: !0 };
+            return sxRelevanceGroup([ iA, iB ]);
+        }
+        // Same relevance rule for a whole cast: the smaller |intensity|
+        // wins, a 0 drops the topic, opposite signs cancel, and every
+        // member negative is shared aversion.
+        function sxRelevanceGroup(vals) {
+            if (!vals.length || vals.some(v => null == v || !Number.isFinite(v) || 0 === v)) return { factor: 0, aversion: !1, opposed: !1 };
+            const pos = vals[0] > 0;
+            if (vals.some(v => v > 0 !== pos)) return { factor: 0, aversion: !1, opposed: !0 };
             return {
-                factor: Math.min(1, Math.min(Math.abs(iA), Math.abs(iB)) / 100),
-                aversion: iA < 0 && iB < 0,
+                factor: Math.min(1, Math.min(...vals.map(v => Math.abs(v))) / 100),
+                aversion: vals.every(v => v < 0),
                 opposed: !1
+            };
+        }
+        // One person's leanings as shares of the same pole list.
+        // A vector with no positive weight fills no role.
+        function sxShareRow(poles, keys) {
+            let s = 0;
+            const raw = keys.map(k => {
+                const v = Math.max(0, Number(poles[k]) || 0);
+                s += v;
+                return v;
+            });
+            if (s <= 0) return null;
+            return raw.map(v => v / s);
+        }
+        // Best way to give every pole a different person. The score is
+        // the product of those shares, so a missing role scores 0 and a
+        // pure one-person-per-role cast scores 1.
+        function sxBestRoleProduct(rows) {
+            const n = rows.length, k = n && rows[0] ? rows[0].length : 0;
+            if (!k || n < k || rows.some(r => !r)) return 0;
+            let best = 0;
+            const used = new Array(n).fill(!1);
+            const walk = (pole, prod) => {
+                if (prod <= best) return;
+                if (pole === k) return void (best = prod);
+                for (let p = 0; p < n; p++) {
+                    if (used[p] || rows[p][pole] <= 0) continue;
+                    used[p] = !0;
+                    walk(pole + 1, prod * rows[p][pole]);
+                    used[p] = !1;
+                }
+            };
+            return walk(0, 1), best;
+        }
+        // Group role score. Straight is high when every member leans the
+        // same pole. Cross is high only when the cast covers every pole,
+        // each with a different person. Two bulls and a hotwife cover
+        // two poles, so both numbers stay low. Bull, hotwife, and cuckold
+        // cover all three, so cross is high.
+        function sxGroupRoleScore(members, meta) {
+            const rated = (members || []).filter(m => m && m.poles);
+            const empty = { straight: 0, cross: 0, enemy: 0, factor: 0, debate: 0, aversion: !1, opposed: !1 };
+            if (rated.length < 2) return empty;
+            const keys = [ ...new Set(rated.flatMap(m => Object.keys(m.poles))) ];
+            if (keys.length < 2) return empty;
+            const rows = rated.map(m => sxShareRow(m.poles, keys));
+            let straight = 0;
+            if (rows.every(Boolean)) keys.forEach((k, j) => {
+                let mn = 1;
+                rows.forEach(r => { mn = Math.min(mn, r[j]); });
+                if (mn > straight) straight = mn;
+            });
+            const rel = sxRelevanceGroup(rated.map(m => m.intensity));
+            const reading = meta && meta.poleReading;
+            const cross = !reading || "complement" === reading ? sxBestRoleProduct(rows) : 0;
+            const enemy = "antipodal" === reading || "trilemma" === reading ? sxGroupEnemy(rows, keys, meta.poleEnemies) : 0;
+            return {
+                straight: straight, cross: cross, enemy: enemy,
+                factor: rel.factor, debate: sxDebateFactor(rated.map(m => m.intensity)),
+                aversion: rel.aversion, opposed: rel.opposed
             };
         }
         function sxSides(td, heat) {
@@ -37043,17 +37205,21 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                    entries are the agreement and agreement ×
                    intensity exactly.) */
                 const agreement = sxPoleAgreement(a, b);
-                const role = a.polesKnown && b.polesKnown ? sxRoleOverlap(a.poles, b.poles) : null;
+                const role = a.polesKnown && b.polesKnown ? sxPoleMatch(meta, a.poles, b.poles) : null;
                 if (role) {
                     // Play reads the complementary role. Straight reads
                     // the similar role. Relevance weights both, and a
                     // shared aversion weights neither as something to do.
+                    // Circle minus reads the stored enemy pairs, and its
+                    // weight keeps opposite signs (that is the argument).
                     const rel = sxRelevancePair(a.intensity, b.intensity);
                     const weight = rel.aversion ? 0 : rel.factor;
                     rec.poleRole = !0;
                     rec.agreement = role.straight;
                     rec.roleStraight = role.straight;
                     rec.roleCross = role.cross;
+                    rec.roleEnemy = role.enemy;
+                    rec.debateIntensity = sxDebateFactor([ a.intensity, b.intensity ]);
                     rec.poleIntensity = rel.factor;
                     rec.sharedAversion = rel.aversion;
                     rec.relevanceOpposed = rel.opposed;
@@ -37175,7 +37341,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 if (rec.limiters.length) status = "limit-blocked", straightLimitBlocked++;
                 else if (!(aRated && bRated)) status = "invisible", aRated !== bRated && straightOneSided++;
                 else status = "shared", straightShared++;
-                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null, roleStraight: null != rec.roleStraight ? rec.roleStraight : null, roleCross: null != rec.roleCross ? rec.roleCross : null, sharedAversion: Boolean(rec.sharedAversion) };
+                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null, roleStraight: null != rec.roleStraight ? rec.roleStraight : null, roleCross: null != rec.roleCross ? rec.roleCross : null, roleEnemy: null != rec.roleEnemy ? rec.roleEnemy : null, debateIntensity: null != rec.debateIntensity ? rec.debateIntensity : null, sharedAversion: Boolean(rec.sharedAversion) };
                 straightTopics.push(srec), straightById[rec.id] = srec;
             });
             const straightList = straightTopics.filter(s => "shared" === s.status && null != s.sum && s.sum > 0).sort((x, y) => (y.sum || 0) - (x.sum || 0) || x.label.localeCompare(y.label)),
@@ -37456,22 +37622,61 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
                     }), pCMax = Math.max(...pCs);
                     rec.parlayMSEntry = pCMax > 0 ? sxPlayGeoMean(pCs.map(v => v / pCMax)) : 0;
-                    // Role topics have no give/receive cross term, so the
-                    // block above records 0. Use the same pair formula
-                    // the two-person score uses: geometric mean of each
-                    // pair's cross × relevance, and the same for straight.
-                    const polePairs = pairs.map(pr => pr.topicsById[id]).filter(pr => pr && pr.poleRole);
-                    if (polePairs.length) {
-                        // Each pair already applied cross × relevance and
-                        // straight × relevance. The group keeps the
-                        // strongest of those pair scores, the same max
-                        // rule the give/receive group fit uses, so one
-                        // same-role pair does not wipe a real complement.
-                        const maxOf = vals => vals.reduce((m, v) => v > m ? v : m, 0);
-                        rec.playKFEntry = maxOf(polePairs.map(pr => pr.crossEntry || 0));
-                        rec.playMSEntry = maxOf(polePairs.map(pr => pr.crossEntry || 0));
-                        rec.parlayKFEntry = maxOf(polePairs.map(pr => pr.straightEntry || 0));
-                        rec.parlayMSEntry = maxOf(polePairs.map(pr => pr.straightEntry || 0));
+                    // Circle minus for a give/receive topic: the same
+                    // Parlay shape, counting only the negative same-flank
+                    // products (one person for it, the other against it)
+                    // and keeping them as positive magnitudes.
+                    let dMaxFit = null;
+                    pairs.forEach(pr => {
+                        const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
+                        if (!sr) return;
+                        [ sr.giveGive, sr.recvRecv ].forEach(prod => {
+                            if (null == prod || !(prod < 0)) return;
+                            const f = -prod / 100;
+                            if (null == dMaxFit || f > dMaxFit) dMaxFit = f;
+                        });
+                    });
+                    rec.debateKFEntry = null == dMaxFit ? 0 : dMaxFit / 100 * pGm;
+                    const dCs = profiles.map((p2, pi) => {
+                        let giveFit = !1, recvFit = !1;
+                        pairs.forEach(pr => {
+                            if (pr.i !== pi && pr.j !== pi) return;
+                            const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
+                            if (!sr) return;
+                            if (null != sr.giveGive && sr.giveGive < 0 && Math.abs(sr.giveGive / 100) > sxGroupEps) giveFit = !0;
+                            if (null != sr.recvRecv && sr.recvRecv < 0 && Math.abs(sr.recvRecv / 100) > sxGroupEps) recvFit = !0;
+                        });
+                        return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
+                    }), dCMax = Math.max(...dCs);
+                    rec.debateMSEntry = dCMax > 0 ? sxPlayGeoMean(dCs.map(v => v / dCMax)) : 0;
+                    // A pair keeps its own complement. A cast of three or
+                    // more is scored as one combo: cross counts only when
+                    // every pole has its own person, straight only when
+                    // every person leans the same pole. The best pair no
+                    // longer stands in for the group.
+                    const poleMembers = [];
+                    if (profiles.length >= 3) gTd.forEach((d, pi) => {
+                        if (d && d.polesKnown) poleMembers.push({ poles: d.poles, intensity: d.intensity, heat: (opts.heat || [])[pi] || 0 });
+                    });
+                    if (poleMembers.length >= 3) {
+                        const gRole = sxGroupRoleScore(poleMembers, meta);
+                        const weight = gRole.aversion || gRole.opposed ? 0 : gRole.factor;
+                        rec.roleStraight = gRole.straight;
+                        rec.roleCross = gRole.cross;
+                        rec.roleEnemy = gRole.enemy;
+                        rec.sharedAversion = gRole.aversion;
+                        rec.playKFEntry = gRole.cross * weight;
+                        rec.playMSEntry = gRole.cross * weight;
+                        rec.parlayKFEntry = gRole.straight * weight;
+                        rec.parlayMSEntry = gRole.straight * weight;
+                        rec.debateKFEntry = gRole.enemy * gRole.debate;
+                        rec.debateMSEntry = gRole.enemy;
+                        const strong = poleMembers.every(m => m.intensity > sxClamp(35 - m.heat, 0, 85));
+                        if (gRole.aversion || gRole.opposed || !(weight > 0) || !(gRole.cross > 0)) rec.playOutcome = "mismatched";
+                        else {
+                            rec.playOutcome = strong && gRole.cross >= .5 ? "match" : "curious-fit";
+                            rec.strength = Math.round(gRole.cross * weight * 100);
+                        }
                     }
                 }
             });
@@ -37562,13 +37767,22 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             };
             parlay.headlineText = sxHeadlineText(parlay.headline, msParlayAggG.counted, msParlayAggG.considered);
             parlay.kfHeadlineText = sxHeadlineText(parlay.kinkFactor, kfParlayAggG.counted, kfParlayAggG.considered);
+            const msDebateAggG = sxPlayWeightedPct(topics, r => r.debateMSEntry, r => !r.groupLimited && r.groupSharedMajority),
+                kfDebateAggG = sxPlayWeightedPct(topics, r => r.debateKFEntry, r => !r.groupLimited && r.groupSharedMajority),
+                debate = {
+                    considered: msDebateAggG.considered, counted: msDebateAggG.counted,
+                    headline: msDebateAggG.pct, kinkFactor: kfDebateAggG.pct,
+                    label: sxTerm("parlayMS"), kfLabel: sxTerm("parlayKF")
+                };
+            debate.headlineText = sxHeadlineText(debate.headline, msDebateAggG.counted, msDebateAggG.considered);
+            debate.kfHeadlineText = sxHeadlineText(debate.kinkFactor, kfDebateAggG.counted, kfDebateAggG.considered);
             const hot = topics.filter(r => !r.groupLimited).map(r => ({
                 id: r.id, label: r.label,
                 score: pairs.reduce((sum, pr) => sum + (pr.topicsById[r.id] ? pr.topicsById[r.id].hotContribution : 0), 0)
             })).filter(r => r.score > 0).sort((x, y) => y.score - x.score || x.label.localeCompare(y.label));
             return {
                 engine: "sync-1.1", pairs: pairs, topics: topics, topicsById: topicsById,
-                play: play, conversation: conversation, parlay: parlay, hotTopics: hot, hotTopicsTop10: hot.slice(0, 10)
+                play: play, conversation: conversation, parlay: parlay, debate: debate, hotTopics: hot, hotTopicsTop10: hot.slice(0, 10)
             };
         }
         /* ===== Two-ring scores (O5 + O6, ruled 2026-10-29) =====
@@ -37785,6 +37999,53 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 kfAggS = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
             return { outer: msAggS.pct, inner: kfAggS.pct };
         }
+        // Circle-minus rings, the same shape as circle dot. A stored
+        // enemy pair fills from how much the two people sit on those
+        // far poles. A give/receive topic fills from the negative
+        // same-flank products, kept as positive magnitudes so the arc
+        // can draw them. Shared topics with no argument stay in the
+        // denominator, so an all-agreement pair scores low.
+        function sxDebateInterim(pair) {
+            if (!pair || !pair.straight) return { outer: null, inner: null };
+            const eps = sxPlayEpsilon(pair.heat ? [ pair.heat.a, pair.heat.b ] : []),
+                recs = pair.straight.topics.map(s => {
+                    if ("shared" !== s.status) return { id: s.id, entryKF: null, entryMS: null, consideredKF: !1, consideredMS: !1 };
+                    if (null != s.roleEnemy) return {
+                        id: s.id,
+                        entryKF: s.roleEnemy * (null != s.debateIntensity ? s.debateIntensity : 0),
+                        entryMS: s.roleEnemy,
+                        consideredKF: !0,
+                        consideredMS: !0
+                    };
+                    const rec = pair.topicsById ? pair.topicsById[s.id] : null, fl = rec ? rec.flags || {} : {},
+                        ra = rec ? rec.ratings.a : null, rb = rec ? rec.ratings.b : null,
+                        mkTd = (r, name) => ({
+                            rated: !!(r && (r.giveKnown || r.receiveKnown)),
+                            favorite: (fl.favoriteBy || []).includes(name),
+                            triedScope: (fl.triedBy || []).includes(name) ? "topic" : null,
+                            fantasyScope: (fl.fantasyBy || []).includes(name) ? "topic" : null
+                        }),
+                        tdA = mkTd(ra, pair.a), tdB = mkTd(rb, pair.b),
+                        fitG = null != s.giveGive && s.giveGive < 0 ? -s.giveGive / 100 : null,
+                        fitR = null != s.recvRecv && s.recvRecv < 0 ? -s.recvRecv / 100 : null,
+                        fits = [ fitG, fitR ].filter(v => null != v),
+                        maxFit = fits.length ? Math.max(...fits) : null,
+                        totA = sxParlayMemberTotal(tdA), totB = sxParlayMemberTotal(tdB), totMax = Math.max(totA, totB),
+                        gm = totMax > 0 ? sxPlayGeoMean([ totA / totMax, totB / totMax ]) : 0,
+                        binFit = (null != fitG && fitG > eps ? 1 : 0) + (null != fitR && fitR > eps ? 1 : 0),
+                        cA = binFit + sxParlayTableFlags(tdA), cB = binFit + sxParlayTableFlags(tdB), cMax = Math.max(cA, cB);
+                    return {
+                        id: s.id,
+                        entryKF: null == maxFit ? 0 : maxFit / 100 * gm,
+                        entryMS: cMax > 0 ? sxPlayGeoMean([ cA / cMax, cB / cMax ]) : 0,
+                        consideredKF: !0,
+                        consideredMS: !0
+                    };
+                }),
+                msAgg = sxPlayWeightedPct(recs, r => r.entryMS, r => r.consideredMS),
+                kfAgg = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
+            return { outer: msAgg.pct, inner: kfAgg.pct };
+        }
         /* Domain-terms skinning (first i18n step, 2026-11-15): the active
            skin's words, resolved by the skin loader into
            window.__SX_TERMS (the loader owns the table; see
@@ -37819,6 +38080,14 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                away on every render. The one consumer of group Charted,
                the dialog readback, calls sxGroupCharted directly, so
                the pass runs exactly once, only when the dialog opens. */
+            if ("minus" === pairOp) {
+                if (!isPair) {
+                    const deb = grp.debate;
+                    return { outerLabel: sxTerm("parlayMS"), outer: deb ? deb.headline : null, innerLabel: sxTerm("parlayKF"), inner: deb ? deb.kinkFactor : null };
+                }
+                const di = sxDebateInterim(pair);
+                return { outerLabel: sxTerm("parlayMS"), outer: di.outer, innerLabel: sxTerm("parlayKF"), inner: di.inner };
+            }
             if ("straight" === pairOp) {
                 if (!isPair) {
                     /* Group Parlay (group-Parlay fix, 2026-10-30):
@@ -37854,7 +38123,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
            in the profile tab strip or below it for individual, group,
            or match tabs — ring numbers live only in the header Avatar
            rings. The ring value providers stay for the header paint. */
-        window.__sxRings = { personalCharted: sxPersonalCharted, groupCharted: sxGroupCharted, straightInterim: sxStraightInterim, ringValuesForProfile: sxRingValuesForProfile, ringValuesForCast: sxRingValuesForCast, topicShares: sxTopicShares };
+            window.__sxRings = { personalCharted: sxPersonalCharted, groupCharted: sxGroupCharted, straightInterim: sxStraightInterim, debateInterim: sxDebateInterim, ringValuesForProfile: sxRingValuesForProfile, ringValuesForCast: sxRingValuesForCast, topicShares: sxTopicShares };
         function sxProfileById(id) {
             return {
                 id: id, name: wt[id] || "Profile",
@@ -38016,6 +38285,60 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 sx: pair
             };
         }
+        function DdMinus(e, heat) {
+            // Circle-minus adapter, the DdStraight analog for ⊖ pairs.
+            // Give/receive arguments are the negative same-flank
+            // products, stored as positive magnitudes so the map can
+            // paint them. Pole topics stay off the map; their feud is
+            // the header rings, the same way circle dot leaves pole
+            // topics uncolored and reads them from the rings.
+            const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
+                n = {}, i = {}, a = {}, r = {}, o = {};
+            if (pair && pair.straight) pair.straight.topics.forEach(srec => {
+                if ("shared" !== srec.status || null != srec.roleEnemy) return;
+                const v = {};
+                null != srec.giveGive && srec.giveGive < 0 && (v.give = -srec.giveGive / 100), null != srec.recvRecv && srec.recvRecv < 0 && (v.receive = -srec.recvRecv / 100);
+                if (!Object.keys(v).length) return;
+                n[srec.id] = v;
+                const rec = pair.topicsById[srec.id];
+                rec && rec.flags.favoriteBy.length === e.length && (i[srec.id] = "favorite"),
+                rec && rec.flags.fantasyBy.length && (a[srec.id] = !0), rec && rec.flags.triedBy.length && (r[srec.id] = !0),
+                e.forEach(p => {
+                    const t = (p.importedChildren || {})[srec.id];
+                    t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
+                });
+            });
+            return {
+                ratings: n,
+                marks: i,
+                fantasyFlags: a,
+                triedFlags: r,
+                children: o,
+                matchDetails: {},
+                percent: 0,
+                noScore: !0,
+                things: 0,
+                clicks: 0,
+                limits: pair && pair.straight ? pair.straight.coverage.limitBlocked : 0,
+                results: {
+                    matches: [],
+                    curiousAbout: [],
+                    mismatched: []
+                },
+                sx: pair
+            };
+        }
+        function sxNormalizePairOp(pairOp) {
+            return "straight" === pairOp ? "straight" : "minus" === pairOp ? "minus" : "bowtie";
+        }
+        function sxPairJoin(pairOp) {
+            return "straight" === pairOp ? " ⊙ " : "minus" === pairOp ? " ⊖ " : " ⋈ ";
+        }
+        function sxMatchKindMeta(kind) {
+            if ("circledot" === kind) return { label: "Straight Talk", glyph: "⊙", term: "" };
+            if ("circleminus" === kind) return { label: "Circle minus", glyph: "⊖", term: "" };
+            return { label: sxTerm("krossmatch"), glyph: "⋈", term: "krossmatch" };
+        }
         // Blocker stage (owner rulings, 2026-10-27): a recompute reads
         // the LIVE source profiles, never the frozen mint-time copies —
         // n.sourceProfiles is refreshed from live state below whenever
@@ -38075,7 +38398,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 net: av(vpt[id]),
                 netEnabled: Boolean(vht[id])
             }));
-            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : Dd(n.sourceProfiles, null, (n.sourceIds || []).map(id => sxHeatFor(id)));
+            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : Dd(n.sourceProfiles, null, (n.sourceIds || []).map(id => sxHeatFor(id)));
             const freshBase = {
                 ratings: Pd(a.ratings),
                 marks: Pd(a.marks),
@@ -38119,7 +38442,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const n = ft[e];
             if (!n || "group" !== n.kind || !sxPairBase[e] || !Array.isArray(n.sourceProfiles) || n.sourceProfiles.length < 2) return;
             const heat = Array.isArray(n.sxHeat) && n.sxHeat.length === n.sourceProfiles.length ? n.sxHeat.slice() : (n.sourceIds || []).map(id => sxHeatFor(id));
-            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heat) : Dd(n.sourceProfiles, null, heat);
+            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heat) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heat) : Dd(n.sourceProfiles, null, heat);
             sxPairUserApply(e, a), vt[e] = a.ratings, Ze[e] = Object.fromEntries(Object.keys(a.ratings).map(e => [ e, {
                 give: "group",
                 receive: "group"
@@ -38368,7 +38691,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const el = tab && tab.section ? tab.section.querySelector("[data-sx-pair-line]") : null;
             if (!el) return;
             const names = ctx ? ctx.profiles.map((p, i) => p.name || `Profile ${i + 1}`) : [];
-            names.length >= 2 ? (el.textContent = names.join("circledot" === tab.kind ? " ⊙ " : " ⋈ "), el.hidden = !1) : (el.textContent = "", el.hidden = !0);
+            names.length >= 2 ? (el.textContent = names.join(sxPairJoin("circledot" === tab.kind ? "straight" : "circleminus" === tab.kind ? "minus" : "bowtie")), el.hidden = !1) : (el.textContent = "", el.hidden = !0);
         }
         /* ===== Match tabs (SURFACES): the compare surfaces live in tabs in
            the #profileTabs strip, keyed by kind + cast. A match tab is not a
@@ -38389,13 +38712,16 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         function sxMatchIconsHtml() {
             if (!sxMatchIconsVisible()) return "";
-            return `<button type="button" class="profile-match-btn" data-sx-match-open="circledot" aria-label="Open Straight Talk for the selected profiles" title="Straight Talk">⊙</button><button type="button" class="profile-match-btn" data-sx-match-open="bowtie" data-sx-term="krossmatch" aria-label="Open ${sxTerm("krossmatch")} for the selected profiles" title="${sxTerm("krossmatch")}">⋈</button>`;
+            return [ "circledot", "bowtie", "circleminus" ].map(kind => {
+                const m = sxMatchKindMeta(kind), term = m.term ? ` data-sx-term="${m.term}"` : "";
+                return `<button type="button" class="profile-match-btn" data-sx-match-open="${kind}" aria-label="Open ${m.label} for the selected profiles" title="${m.label}"${term}>${m.glyph}</button>`;
+            }).join("");
         }
         function sxMatchTabsHtml() {
             const reg = sxTabsReg();
             return [ ...reg.tabs.values() ].map(tab => {
-                const active = reg.stageOn && reg.active === tab.key, label = "circledot" === tab.kind ? "Straight Talk" : sxTerm("krossmatch"), glyph = "circledot" === tab.kind ? "⊙" : "⋈";
-                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${label} match tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}><span aria-hidden="true">${glyph}</span> ${label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${label} tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}>×</button></span>`;
+                const active = reg.stageOn && reg.active === tab.key, m = sxMatchKindMeta(tab.kind), term = m.term ? ` data-sx-term="${m.term}"` : "";
+                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${m.label} match tab"${term}><span aria-hidden="true">${m.glyph}</span> ${m.label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${m.label} tab"${term}>×</button></span>`;
             }).join("");
         }
         function sxCurrentTab() {
@@ -38613,7 +38939,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // legacy results assembly survives ONLY as the 4+-profile
             // group presentation (carve-out: no N-map layout is invented
             // for 4+); it stays hidden for 2- and 3-profile casts.
-            sec.innerHTML = "circledot" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp="" data-sx-term="playMode,conversationMode"></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>`;
+            sec.innerHTML = "bowtie" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp="" data-sx-term="playMode,conversationMode"></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>`;
             stage.appendChild(sec), tab.section = sec;
         }
         /* Straight bands (Job 2, ruled equal thirds over the per-topic
@@ -38681,9 +39007,19 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                status of those values is unchanged; only where they
                are painted moved. */
         }
+        function sxRenderMinusTab(tab) {
+            const ctx = sxTabContext(tab);
+            sxRenderPairLine(tab, ctx);
+            const pk = tab.section.querySelector("[data-sx-picker]");
+            pk && (pk.innerHTML = sxPickerHtml());
+            const st = tab.section.querySelector("[data-sx-stamp]");
+            st && (st.textContent = "");
+            tab.buckets = sxEmptyBuckets(), sxUpdateMatchRings(tab);
+        }
         function sxRenderMatchTab(tab) {
             if (!tab || !tab.section) return;
             if ("circledot" === tab.kind) return void sxRenderStraightTab(tab);
+            if ("circleminus" === tab.kind) return void sxRenderMinusTab(tab);
             const ctx = sxTabContext(tab);
             sxCtx = ctx, sxRenderPairLine(tab, ctx);
             const pk = tab.section.querySelector("[data-sx-picker]"), rs = tab.section.querySelector(".sx-match-results");
@@ -38745,7 +39081,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // pairs — the default below preserves their dedup exactly,
             // and a ⊙ open can never select a ⋈ group (or vice versa).
             if (!ids || ids.length < 2) return null;
-            const want = new Set(ids), wantOp = "straight" === pairOp ? "straight" : "bowtie";
+            const want = new Set(ids), wantOp = sxNormalizePairOp(pairOp);
             for (const id of Object.keys(ft)) {
                 const rec = ft[id];
                 if (!rec || "group" !== rec.kind || (rec.pairOp || "bowtie") !== wantOp || !vt[id] || !Array.isArray(rec.sourceIds)) continue;
@@ -38807,6 +39143,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (existing) return sxTeardownMatchTabs(), sxcv.mode = "conversation", Js(existing), !0;
             return sxcv.mode = "conversation", qd = cast.slice(), Zd("straight");
         }
+        function sxAutoCreateMinus(castIds, fresh) {
+            const cast = (castIds || []).filter(id => vt[id]);
+            if (cast.length < 2) return !1;
+            const existing = fresh ? null : sxFindGroupForCast(cast, "minus");
+            if (existing) return sxTeardownMatchTabs(), sxcv.mode = "minus", Js(existing), !0;
+            return sxcv.mode = "minus", qd = cast.slice(), Zd("minus");
+        }
         function sxOpenMatchTab(kind) {
             const ctx = sxCompareContext();
             if (!ctx) return;
@@ -38818,6 +39161,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // end.
             if ("bowtie" === kind && sxAutoCreateBowtie(ctx.ids, !0)) return;
             if ("circledot" === kind && sxAutoCreateStraight(ctx.ids, !0)) return;
+            if ("circleminus" === kind && sxAutoCreateMinus(ctx.ids, !0)) return;
             const reg = sxTabsReg(), key = kind + "|" + (ctx.saved ? "group:" + Mt : ctx.ids.join(","));
             let tab = reg.tabs.get(key);
             tab || (tab = {
@@ -38843,10 +39187,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // — 3+ profiles — and those activate exactly as before.)
             if ("bowtie" === tab.kind && sxAutoCreateBowtie(tab.ids)) return;
             if ("circledot" === tab.kind && sxAutoCreateStraight(tab.ids)) return;
+            if ("circleminus" === tab.kind && sxAutoCreateMinus(tab.ids)) return;
             // Mode follows the tab (2026-10-26): ⋈ Krossmatch activates in
             // Play, ⊙ Straight Talk in Conversation. There is no in-tab
-            // mode switch anymore.
-            sxcv.mode = "circledot" === tab.kind ? "conversation" : "play";
+            // mode switch anymore. ⊖ keeps its own mode and paints no score.
+            sxcv.mode = "circledot" === tab.kind ? "conversation" : "circleminus" === tab.kind ? "minus" : "play";
             // Match-tab fix (2026-10-26): activation PAINTS the map —
             // the tab-strip path previously rendered chrome only, so the
             // map kept whatever the last paint produced (the blank area
@@ -39018,7 +39363,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // kind drives the name join below (⋈ vs ⊙), the pairOp
             // field on the group record, and — through that field —
             // Rd's compute dispatch.
-            const sxPairOp = "straight" === pairOp ? "straight" : "bowtie";
+            const sxPairOp = sxNormalizePairOp(pairOp);
             const t = (qd.length ? qd : Xi()).filter(e => vt[e]);
             if (t.length < 2) return !1;
             const n = t.map(e => ({
@@ -39036,7 +39381,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 netEnabled: Boolean(vht[e])
             })), i = function(e) {
                 const t = e.map(e => String(wt[e] || "").trim()), n = t.map(e => (e.match(/[\p{L}\p{N}]/u) || [ "?" ])[0].toLocaleUpperCase()), i = new Set(n).size < n.length;
-                return t.map((e, t) => i ? e.replace(/[^\p{L}\p{N}]/gu, "").slice(0, 2).replace(/^./u, e => e.toLocaleUpperCase()) || n[t] : n[t]).join("straight" === sxPairOp ? " ⊙ " : " ⋈ ").slice(0, 40);
+                return t.map((e, t) => i ? e.replace(/[^\p{L}\p{N}]/gu, "").slice(0, 2).replace(/^./u, e => e.toLocaleUpperCase()) || n[t] : n[t]).join(sxPairJoin(sxPairOp)).slice(0, 40);
             }(t);
             // Duplicate names (owner ruling, 2026-10-27): a forked pair
             // keeps the CLEAN feeder name — no version suffix is baked
@@ -40749,7 +41094,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // against (Rd, sxRefreshGroupOwn and Kd all require the
             // source snapshots this payload does not carry).
             const sxPairRec = ft[e];
-            sxPairRec && "group" === sxPairRec.kind && (out.pairKind = "group", out.pairOp = "straight" === sxPairRec.pairOp ? "straight" : "bowtie");
+            sxPairRec && "group" === sxPairRec.kind && (out.pairKind = "group", out.pairOp = sxNormalizePairOp(sxPairRec.pairOp));
             return out;
         }
         function Ju(e, t, n = !1, i = "", a = !1) {
@@ -43706,6 +44051,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }
         let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
+            sxNoteHoldRelease(e);
             if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), triDragState && triDragState.pointerId === e.pointerId) {
                 const t = triDragState;
                 triDragState = null;
@@ -43777,6 +44123,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     to = !1;
                 }, 120);
                 if (n.longPressed) return;
+                // A phone ends a long-press with pointercancel just
+                // before the 520ms timer. A finger that stayed put
+                // still gets the hover tip.
+                if ("pointercancel" === e.type) {
+                    const held = n.startTime ? performance.now() - n.startTime : 0, moved = Math.hypot((e.clientX || n.startX) - n.startX, (e.clientY || n.startY) - n.startY);
+                    if (held >= 400 && moved < 28) sxShowTopicTip(n.id, n.startX, n.startY, e.pointerType, n.tipEl);
+                    return;
+                }
 
                 const now = performance.now();
                 const timeDiff = now - sxLastNodeTapTime;
@@ -43804,6 +44158,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     sxLastNodeTapTime = 0;
                     sxLastNodeTapId = null;
                     sxLastDoubleTime = now;
+                    window.__sxStopFocusZoom && window.__sxStopFocusZoom();
 
                     const targetNodeId = cat ? cat.id : sid;
                     if (typeof xo === "function") {
@@ -43846,7 +44201,9 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     }
                     selectSpokeNode(n.id, !0);
                     if (typeof Th === "function") Th(sid, branch);
-                }, 280);
+                // Wait out the double-tap window before zooming, so the
+                // second tap still lands on the topic it started on.
+                }, 520);
                 return;
             }
             if (Ip && Ip.pointerId === e.pointerId) {
@@ -44281,6 +44638,81 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         }, {
             passive: !1
         });
+        // Tap zooms. A hold shows the same tip a mouse hover shows.
+        // A second tap opens the About and note sheet. A finger that
+        // drifts a little, or a long-press the browser ends itself,
+        // still counts as the hold. A widget's first tap still sets
+        // the rating; its second tap opens the sheet.
+        let sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sxNoteTapY = 0;
+        function sxNoteSlop(e) {
+            return e && ("touch" === e.pointerType || "pen" === e.pointerType) ? 28 : 10;
+        }
+        function sxClearNoteHold() {
+            sxNoteHold && sxNoteHold.timer && t.clear(sxNoteHold.timer), sxNoteHold = null;
+        }
+        function sxOpenTopicNote(id, x, y, focusNote) {
+            if (!id || "function" != typeof xo) return;
+            if (sxPendingNodeTapTimer) {
+                try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                sxPendingNodeTapTimer = null;
+            }
+            window.__sxStopFocusZoom && window.__sxStopFocusZoom();
+            "function" == typeof sl && sl();
+            xo(id, x, y, focusNote ? { focusNote: !0 } : void 0);
+        }
+        function sxShowTopicTip(id, x, y, pointerType, fromEl) {
+            if (sxPendingNodeTapTimer) {
+                try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                sxPendingNodeTapTimer = null;
+            }
+            window.__sxStopFocusZoom && window.__sxStopFocusZoom();
+            const touch = "touch" === pointerType || "pen" === pointerType;
+            let el = fromEl && fromEl.closest && fromEl.closest("[data-ui-tooltip]");
+            if (!el && id && In) {
+                const group = In.querySelector(`.node-group[data-layout-key="${CSS.escape(id)}"]`);
+                el = group && group.querySelector("[data-ui-tooltip]");
+            }
+            const point = { x: x, y: y, pointerType: pointerType || "touch" };
+            if (el && "function" == typeof cl) return void cl(el, touch, point);
+            const rec = id && (qn[id] || ("function" == typeof Xn ? Xn(id) : null));
+            const text = rec && "function" == typeof lo ? lo(rec) : "";
+            window.__SX_TIP_SHOW && window.__SX_TIP_SHOW(el || In, rec && rec.label || "Topic", text, x, y);
+        }
+        function sxWidgetNoteOnDown(e, topicId) {
+            if (!topicId) return !1;
+            const now = performance.now(), dist = Math.hypot(e.clientX - sxNoteTapX, e.clientY - sxNoteTapY);
+            if (e.detail >= 2 || sxNoteTapId === topicId && now - sxNoteTapTime < 520 && dist < 60) {
+                sxClearNoteHold(), sxNoteTapTime = 0, sxNoteTapId = null, sxOpenTopicNote(topicId, e.clientX, e.clientY, !1);
+                return !0;
+            }
+            sxClearNoteHold();
+            const hold = {
+                pointerId: e.pointerId,
+                id: topicId,
+                x: e.clientX,
+                y: e.clientY,
+                t: now,
+                moved: !1,
+                fired: !1,
+                timer: 0
+            };
+            hold.el = e.target;
+            return hold.timer = t.setTimeout(() => {
+                sxNoteHold === hold && !hold.moved && (hold.fired = !0, sxShowTopicTip(hold.id, hold.x, hold.y, e.pointerType, hold.el));
+            }, 520), sxNoteHold = hold, !1;
+        }
+        function sxNoteHoldMove(e) {
+            const n = sxNoteHold;
+            n && n.pointerId === e.pointerId && !n.fired && !n.moved && Math.hypot(e.clientX - n.x, e.clientY - n.y) >= sxNoteSlop(e) && (n.moved = !0, sxClearNoteHold());
+        }
+        function sxNoteHoldRelease(e) {
+            const n = sxNoteHold;
+            if (!n || n.pointerId !== e.pointerId) return;
+            const i = n.fired, a = n.moved, r = performance.now() - n.t;
+            if (sxClearNoteHold(), i) return;
+            if ("pointercancel" === e.type && !a && r >= 400) return sxNoteTapTime = 0, sxNoteTapId = null, void sxShowTopicTip(n.id, n.x, n.y, e.pointerType, n.el);
+            a || "pointerup" !== e.type || (sxNoteTapTime = performance.now(), sxNoteTapId = n.id, sxNoteTapX = e.clientX, sxNoteTapY = e.clientY);
+        }
         Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
@@ -44310,6 +44742,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
             const heptadHit = __sxClosestAction(e.target, "heptadHit") || (e.target.closest && e.target.closest(".map-heptad-hit, .map-heptad-control"));
             const octadHit = __sxClosestAction(e.target, "octadHit") || (e.target.closest && e.target.closest(".map-octad-hit, .map-octad-control"));
+            const sxWidgetNoteHit = octadHit || heptadHit || hexadHit || pentadHit || tetradHit || triHit;
+            if (sxWidgetNoteHit && 1 === eh.size && sxWidgetNoteOnDown(e, sxWidgetNoteHit.dataset && sxWidgetNoteHit.dataset.id)) return;
             if (octadHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = octadHit.dataset.id;
@@ -44493,11 +44927,16 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const i = Cn.createSVGPoint();
                 i.x = e.clientX, i.y = e.clientY;
                 const a = i.matrixTransform(__sxScreenCtm(In).inverse());
+                if (sxPendingNodeTapTimer) {
+                    try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                    sxPendingNodeTapTimer = null;
+                }
                 return eo = {
                     pointerId: e.pointerId,
                     id: n,
                     startX: e.clientX,
                     startY: e.clientY,
+                    startTime: performance.now(),
                     startLocalX: a.x,
                     startLocalY: a.y,
                     startBend: Number(bt[n]) || 0,
@@ -44505,9 +44944,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     spoke: s.classList.contains("concept-hit") || s.classList.contains("topic-stem") || s.classList.contains("category-icon-hit"),
                     curveNx: Number(o && o.dataset.nx) || 0,
                     curveNy: Number(o && o.dataset.ny) || 0,
-                    longPressed: !1
+                    longPressed: !1,
+                    tipEl: s.closest?.("[data-ui-tooltip]") || s
                 }, io(), void (Jr = t.setTimeout(() => {
-                    eo && eo.pointerId === e.pointerId && (eo.longPressed = !0, to = !0, xo(n, eo.startX, eo.startY, { focusNote: !0 }));
+                    eo && eo.pointerId === e.pointerId && (eo.longPressed = !0, to = !0, sxShowTopicTip(n, eo.startX, eo.startY, e.pointerType, eo.tipEl));
                 }, 520));
             }
             return l && 1 === eh.size ? (e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
@@ -44532,6 +44972,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             })));
         }), Cn.addEventListener("pointermove", e => {
             if (!eh.has(e.pointerId)) return;
+            sxNoteHoldMove(e);
             if (eh.set(e.pointerId, {
                 x: e.clientX,
                 y: e.clientY
@@ -44608,7 +45049,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (sxMapRadarDragMove(e)) return;
             if (eo && eo.pointerId === e.pointerId) {
                 if (eo.longPressed) return;
-                if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10) {
+                if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= sxNoteSlop(e)) {
                     io();
                     eo = null;
                     Cp = !0;
@@ -47492,71 +47933,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
         };
         const Bw = e.byId("appAboutDialog");
         e.byId("openAppAbout") && e.byId("openAppAbout").addEventListener("click", () => {
-            (function() {
-                const n = Math.round(window.innerWidth), i = Math.round(window.innerHeight), a = Math.round(screen.width || 0), r = Math.round(screen.height || 0), o = window.devicePixelRatio || 1, s = Math.min(n, i) >= 320 && Math.max(n, i) >= 480, l = {
-                    pass: s,
-                    value: "Viewport " + n + " × " + i + " CSS px · screen " + a + " × " + r + " CSS px · " + o + "× pixel density (" + Math.round(a * o) + " × " + Math.round(r * o) + " device px)",
-                    detail: s ? "Meets the 320 × 480 CSS-pixel minimum." : "The usable viewport is below 320 × 480 CSS pixels. Rotate the device, maximize the window, or use a larger screen."
-                }, c = function() {
-                    const e = navigator.userAgent || "", t = navigator.userAgentData && navigator.userAgentData.brands;
-                    if (Array.isArray(t)) {
-                        const e = t.find(e => /Microsoft Edge/i.test(e.brand)) || t.find(e => /Google Chrome/i.test(e.brand)) || t.find(e => /Opera/i.test(e.brand)) || t.find(e => /Chromium/i.test(e.brand));
-                        if (e) return {
-                            key: /Edge/i.test(e.brand) ? "edge" : /Opera/i.test(e.brand) ? "opera" : "chrome",
-                            name: "Chromium" === e.brand ? "Chromium" : e.brand,
-                            version: e.version,
-                            major: parseInt(e.version, 10)
-                        };
-                    }
-                    const n = [ [ "edge", "Microsoft Edge", /(?:EdgA|EdgiOS|Edg)\/([\d.]+)/ ], [ "opera", "Opera", /(?:OPR|Opera)\/([\d.]+)/ ], [ "samsung", "Samsung Internet", /SamsungBrowser\/([\d.]+)/ ], [ "firefox", "Firefox", /(?:Firefox|FxiOS)\/([\d.]+)/ ], [ "chrome", "Google Chrome", /(?:Chrome|CriOS)\/([\d.]+)/ ], [ "safari", "Safari", /Version\/([\d.]+).*Safari/ ] ];
-                    for (const [t, i, a] of n) {
-                        const n = e.match(a);
-                        if (n) return {
-                            key: t,
-                            name: i,
-                            version: n[1],
-                            major: parseInt(n[1], 10)
-                        };
-                    }
-                    return {
-                        key: "unknown",
-                        name: "Unrecognized browser",
-                        version: "not reported",
-                        major: 0
-                    };
-                }(), d = {
-                    chrome: 90,
-                    edge: 90,
-                    firefox: 90,
-                    safari: 15,
-                    opera: 76,
-                    samsung: 15
-                }[c.key], u = Boolean(d && c.major >= d), p = {
-                    pass: u,
-                    value: c.name + " " + c.version,
-                    detail: u ? "Meets the minimum supported version (" + d + "+)." : d ? "Version " + d + " or newer is required. Update " + c.name + " to use the hypermap reliably." : "This browser could not be verified. Use a current version of Chrome, Edge, Firefox, Safari, Opera, or Samsung Internet."
-                }, h = Number(navigator.deviceMemory), g = Number.isFinite(h) && h > 0, m = !g || h >= 2, f = {
-                    pass: m,
-                    value: g ? h + " GB (browser estimate)" : "Not reported by this browser",
-                    detail: g ? m ? "Meets the 2 GB minimum." : "Less than the 2 GB minimum was reported. The hypermap may stutter, reload, or fail to open large profiles." : "The memory API is optional, so its absence does not block the app."
-                }, y = navigator.userAgentData && "boolean" == typeof navigator.userAgentData.mobile ? navigator.userAgentData.mobile : /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || ""), b = navigator.maxTouchPoints || 0, v = {
-                    screen: l,
-                    browser: p,
-                    memory: f,
-                    device: {
-                        pass: !0,
-                        value: (y ? "Mobile" : "Desktop") + " · " + (b ? b + " touch point" + (1 === b ? "" : "s") : "no touch input reported"),
-                        detail: y ? "The responsive mobile layout is supported." : "The desktop layout is supported."
-                    }
-                };
-                Object.entries(v).forEach(([t, n]) => function(t, n) {
-                    const i = e.one('[data-check="' + t + '"]');
-                    i && (i.dataset.state = n.pass ? "pass" : "fail", i.querySelector(".system-check-badge").textContent = n.pass ? "PASS" : "FAIL", 
-                    i.querySelector("[data-check-value]").textContent = n.value, i.querySelector("[data-check-detail]").textContent = n.detail);
-                }(t, n));
-                const w = Object.values(v).filter(e => !e.pass).length, k = e.byId("systemCheckSummary");
-                k && (k.dataset.state = w ? "fail" : "pass", k.textContent = w ? w + " requirement" + (1 === w ? "" : "s") + " need attention" : "All 4 checks passed");
-            })(), Wi(Bw), requestAnimationFrame(() => e.byId("closeAppAbout").focus());
+            Wi(Bw), requestAnimationFrame(() => e.byId("closeAppAbout").focus());
         }), e.byId("closeAppAbout") && e.byId("closeAppAbout").addEventListener("click", () => Ui(Bw)), Bw.addEventListener("click", e => {
             e.target === Bw && Ui(Bw);
         }), e.byId("closeCompletionCelebration") && e.byId("closeCompletionCelebration").addEventListener("click", fs), e.byId("dismissCompletionCelebration") && e.byId("dismissCompletionCelebration").addEventListener("click", fs), 
@@ -47900,7 +48277,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             // the correction for the persist path like any edit.
             const rec = ft[e];
             if (!rec || "group" !== rec.kind || !wt[e] || !String(wt[e]).includes("⊗")) return;
-            wt[e] = String(wt[e]).split("⊗").join("straight" === rec.pairOp ? "⊙" : "⋈"), zt(e);
+            wt[e] = String(wt[e]).split("⊗").join(sxPairJoin(sxNormalizePairOp(rec.pairOp)).trim()), zt(e);
         }
         // Duplicate tab labels (owner ruling, 2026-10-27): same-name
         // tabs are told apart by a dash-plus-number suffix on the TAB
@@ -48717,7 +49094,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             vht[c] = Boolean(null != e.veilEnabled ? e.veilEnabled : e.netEnabled), at[c] = a, gt[c] = e.loaderState && "object" == typeof e.loaderState ? e.loaderState : {}, 
             mt[c] = St(e.completionTimes), delete ft[c], "group" === e.pairKind && (ft[c] = {
                 kind: "group",
-                pairOp: "straight" === e.pairOp ? "straight" : "bowtie"
+                pairOp: sxNormalizePairOp(e.pairOp)
             }), Object.keys(a).forEach(e => Ke.add(e)),
             /* Skin tag (2026-11-17): the skin this profile belongs to —
                the incoming file's own tag when it carries one (a Remember

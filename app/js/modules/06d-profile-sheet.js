@@ -2618,71 +2618,7 @@
         };
         const Bw = e.byId("appAboutDialog");
         e.byId("openAppAbout") && e.byId("openAppAbout").addEventListener("click", () => {
-            (function() {
-                const n = Math.round(window.innerWidth), i = Math.round(window.innerHeight), a = Math.round(screen.width || 0), r = Math.round(screen.height || 0), o = window.devicePixelRatio || 1, s = Math.min(n, i) >= 320 && Math.max(n, i) >= 480, l = {
-                    pass: s,
-                    value: "Viewport " + n + " × " + i + " CSS px · screen " + a + " × " + r + " CSS px · " + o + "× pixel density (" + Math.round(a * o) + " × " + Math.round(r * o) + " device px)",
-                    detail: s ? "Meets the 320 × 480 CSS-pixel minimum." : "The usable viewport is below 320 × 480 CSS pixels. Rotate the device, maximize the window, or use a larger screen."
-                }, c = function() {
-                    const e = navigator.userAgent || "", t = navigator.userAgentData && navigator.userAgentData.brands;
-                    if (Array.isArray(t)) {
-                        const e = t.find(e => /Microsoft Edge/i.test(e.brand)) || t.find(e => /Google Chrome/i.test(e.brand)) || t.find(e => /Opera/i.test(e.brand)) || t.find(e => /Chromium/i.test(e.brand));
-                        if (e) return {
-                            key: /Edge/i.test(e.brand) ? "edge" : /Opera/i.test(e.brand) ? "opera" : "chrome",
-                            name: "Chromium" === e.brand ? "Chromium" : e.brand,
-                            version: e.version,
-                            major: parseInt(e.version, 10)
-                        };
-                    }
-                    const n = [ [ "edge", "Microsoft Edge", /(?:EdgA|EdgiOS|Edg)\/([\d.]+)/ ], [ "opera", "Opera", /(?:OPR|Opera)\/([\d.]+)/ ], [ "samsung", "Samsung Internet", /SamsungBrowser\/([\d.]+)/ ], [ "firefox", "Firefox", /(?:Firefox|FxiOS)\/([\d.]+)/ ], [ "chrome", "Google Chrome", /(?:Chrome|CriOS)\/([\d.]+)/ ], [ "safari", "Safari", /Version\/([\d.]+).*Safari/ ] ];
-                    for (const [t, i, a] of n) {
-                        const n = e.match(a);
-                        if (n) return {
-                            key: t,
-                            name: i,
-                            version: n[1],
-                            major: parseInt(n[1], 10)
-                        };
-                    }
-                    return {
-                        key: "unknown",
-                        name: "Unrecognized browser",
-                        version: "not reported",
-                        major: 0
-                    };
-                }(), d = {
-                    chrome: 90,
-                    edge: 90,
-                    firefox: 90,
-                    safari: 15,
-                    opera: 76,
-                    samsung: 15
-                }[c.key], u = Boolean(d && c.major >= d), p = {
-                    pass: u,
-                    value: c.name + " " + c.version,
-                    detail: u ? "Meets the minimum supported version (" + d + "+)." : d ? "Version " + d + " or newer is required. Update " + c.name + " to use the hypermap reliably." : "This browser could not be verified. Use a current version of Chrome, Edge, Firefox, Safari, Opera, or Samsung Internet."
-                }, h = Number(navigator.deviceMemory), g = Number.isFinite(h) && h > 0, m = !g || h >= 2, f = {
-                    pass: m,
-                    value: g ? h + " GB (browser estimate)" : "Not reported by this browser",
-                    detail: g ? m ? "Meets the 2 GB minimum." : "Less than the 2 GB minimum was reported. The hypermap may stutter, reload, or fail to open large profiles." : "The memory API is optional, so its absence does not block the app."
-                }, y = navigator.userAgentData && "boolean" == typeof navigator.userAgentData.mobile ? navigator.userAgentData.mobile : /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || ""), b = navigator.maxTouchPoints || 0, v = {
-                    screen: l,
-                    browser: p,
-                    memory: f,
-                    device: {
-                        pass: !0,
-                        value: (y ? "Mobile" : "Desktop") + " · " + (b ? b + " touch point" + (1 === b ? "" : "s") : "no touch input reported"),
-                        detail: y ? "The responsive mobile layout is supported." : "The desktop layout is supported."
-                    }
-                };
-                Object.entries(v).forEach(([t, n]) => function(t, n) {
-                    const i = e.one('[data-check="' + t + '"]');
-                    i && (i.dataset.state = n.pass ? "pass" : "fail", i.querySelector(".system-check-badge").textContent = n.pass ? "PASS" : "FAIL", 
-                    i.querySelector("[data-check-value]").textContent = n.value, i.querySelector("[data-check-detail]").textContent = n.detail);
-                }(t, n));
-                const w = Object.values(v).filter(e => !e.pass).length, k = e.byId("systemCheckSummary");
-                k && (k.dataset.state = w ? "fail" : "pass", k.textContent = w ? w + " requirement" + (1 === w ? "" : "s") + " need attention" : "All 4 checks passed");
-            })(), Wi(Bw), requestAnimationFrame(() => e.byId("closeAppAbout").focus());
+            Wi(Bw), requestAnimationFrame(() => e.byId("closeAppAbout").focus());
         }), e.byId("closeAppAbout") && e.byId("closeAppAbout").addEventListener("click", () => Ui(Bw)), Bw.addEventListener("click", e => {
             e.target === Bw && Ui(Bw);
         }), e.byId("closeCompletionCelebration") && e.byId("closeCompletionCelebration").addEventListener("click", fs), e.byId("dismissCompletionCelebration") && e.byId("dismissCompletionCelebration").addEventListener("click", fs), 
@@ -3026,7 +2962,7 @@
             // the correction for the persist path like any edit.
             const rec = ft[e];
             if (!rec || "group" !== rec.kind || !wt[e] || !String(wt[e]).includes("⊗")) return;
-            wt[e] = String(wt[e]).split("⊗").join("straight" === rec.pairOp ? "⊙" : "⋈"), zt(e);
+            wt[e] = String(wt[e]).split("⊗").join(sxPairJoin(sxNormalizePairOp(rec.pairOp)).trim()), zt(e);
         }
         // Duplicate tab labels (owner ruling, 2026-10-27): same-name
         // tabs are told apart by a dash-plus-number suffix on the TAB

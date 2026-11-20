@@ -189,7 +189,9 @@
                         branch: e.name,
                         kind: "Topic",
                         risk: Boolean(t && t.risk),
-                        parentId: i ? Un(e.name, i.name) : null
+                        parentId: i ? Un(e.name, i.name) : null,
+                        poleReading: t && t.poleReading || null,
+                        poleEnemies: t && Array.isArray(t.poleEnemies) ? t.poleEnemies : null
                     };
                 });
             }), window.__sxLoad && window.__sxLoad(12 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — topic index */), (!(c || Mt && vt[Mt]) && !sxBootPaint && !window.__SX_FORCE_UNRATED_TREE)) return n(In, `<g>${oa()}${function(e) {
@@ -255,7 +257,7 @@
                         const sxTab = sxCurrentTab();
                         if (sxTab) {
                             const sxTabCtx = sxTabContext(sxTab);
-                            if (sxTabCtx && sxTabCtx.profiles && sxTabCtx.profiles.length >= 2) return sxRingValuesForCast(sxTabCtx.profiles, "circledot" === sxTab.kind ? "straight" : undefined);
+                            if (sxTabCtx && sxTabCtx.profiles && sxTabCtx.profiles.length >= 2) return sxRingValuesForCast(sxTabCtx.profiles, "circledot" === sxTab.kind ? "straight" : "circleminus" === sxTab.kind ? "minus" : undefined);
                         }
                     } catch (err) { __sxErrLog("sx-header-match-rings", err); }
                     const rec = Mt && ft[Mt] ? ft[Mt] : null;
@@ -269,8 +271,10 @@
                 if (sxInnerEl) { const a = sxArc(sxHdrVals && sxHdrVals.inner); sxInnerEl.style.strokeDasharray = `${a} ${100 - a}`; sxInnerEl.style.opacity = sxHdrVals && null != sxHdrVals.inner ? "1" : "0"; }
                 if (sxCapEl) sxCapEl.textContent = sxHdrVals ? `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)} · ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}` : "";
                 if (sxCtl && sxHdrVals) { const t2 = `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}; ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`; sxCtl.setAttribute("aria-label", `Open Charted details. ${t2}`); sxCtl.dataset.uiTooltip = t2; }
+                else if (sxCtl) sxCtl.setAttribute("aria-label", "Open Charted details."), delete sxCtl.dataset.uiTooltip;
                 const sxRingSvg = e.byId("headerHorizonRing");
                 if (sxRingSvg && sxHdrVals) sxRingSvg.setAttribute("aria-label", `Open Charted details. ${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}, ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`);
+                else if (sxRingSvg) sxRingSvg.setAttribute("aria-label", "Open Charted details.");
                 /* HEADER-HUG (2026-11-02, owner's order): the header rings hug
                    the avatar and each other the way the center node's rings
                    hug the center node — bands tiled close with one small even
@@ -416,7 +420,8 @@
                 // pair's relation glyph sitting on each seam between
                 // neighbours (N members → N−1 seams, one glyph per seam,
                 // every seam carrying the pair's one recorded operation:
-                // ⋈ for a cross pairing, ⊙ for a straight pairing).
+                // ⋈ for a cross pairing, ⊙ for a straight pairing,
+                // ⊖ for a circle-minus pairing).
                 // Per-seam differing relations have no record to read —
                 // a group stores exactly one pairOp — so mixed-relation
                 // seams are not defined and none are invented here. The
@@ -481,7 +486,7 @@
                 }
                 const sxCenterPhotos = `<g clip-path="url(#centerPhotoClip)">${e.map((e, t) => aa(e, r[t], "center-photo")).join("")}</g>`;
                 if (sxSplitIds.length < 2) return sxCenterPhotos;
-                const sxSplitOp = "straight" === sxSplitGrp.pairOp ? "straight" : "bowtie", sxSplitGlyph = "straight" === sxSplitOp ? "⊙" : "⋈", sxSeamPlate = Math.max(120, ea.photoRadius * .17), sxSeamW = t / a, sxSeams = [];
+                const sxSplitOp = sxNormalizePairOp(sxSplitGrp.pairOp), sxSplitGlyph = sxPairJoin(sxSplitOp).trim(), sxSeamPlate = Math.max(120, ea.photoRadius * .17), sxSeamW = t / a, sxSeams = [];
                 for (let sxK = 1; sxK < a; sxK++) {
                     const sxSeamX = n + sxK * sxSeamW;
                     sxSeams.push(`<g class="center-split-seam"><circle cx="${sxSeamX.toFixed(1)}" cy="620" r="${sxSeamPlate.toFixed(1)}"/><text x="${sxSeamX.toFixed(1)}" y="620" style="font-size:${(sxSeamPlate * 1.05).toFixed(0)}px" text-anchor="middle" dominant-baseline="middle">${sxSplitGlyph}</text></g>`);
@@ -547,7 +552,7 @@
             const sxPairTapers = function() {
                 if (Rt) return null;
                 const tab = sxCurrentTab();
-                if (!tab) return null;
+                if (!tab || "circleminus" === tab.kind) return null;
                 const ctx = sxTabContext(tab), ids = ctx ? ctx.ids : tab.ids;
                 if (!ids || 2 !== ids.length) return null;
                 const pair = sxPairByIds(ids[0], ids[1]);
@@ -6533,7 +6538,9 @@
                 label: sxName(i),
                 branch: n.name,
                 kind: "Topic",
-                risk: Boolean(((n.topics || []).find(topic => sxName(topic) === sxName(i)) || {}).risk)
+                risk: Boolean(((n.topics || []).find(topic => sxName(topic) === sxName(i)) || {}).risk),
+                poleReading: i && i.poleReading || null,
+                poleEnemies: i && Array.isArray(i.poleEnemies) ? i.poleEnemies : null
             }, !0))), t) {
                 if (qn[e] = t, Nt = null, "Category" === t.kind) {
                     if (wn = !1, rn.has(t.branch)) return rn.delete(t.branch), Lt = null, void Mr();

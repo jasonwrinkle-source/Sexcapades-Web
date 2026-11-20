@@ -248,7 +248,9 @@
                         branch: t.name,
                         kind: "Topic",
                         risk: Boolean(((t.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
-                        parentId: i ? Un(t.name, i.name) : null
+                        parentId: i ? Un(t.name, i.name) : null,
+                        poleReading: n.poleReading || null,
+                        poleEnemies: Array.isArray(n.poleEnemies) ? n.poleEnemies : null
                     };
                 }
             }

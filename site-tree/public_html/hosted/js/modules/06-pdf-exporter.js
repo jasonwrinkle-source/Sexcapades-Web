@@ -746,6 +746,7 @@
         }
         let sxLastNodeTapTime = 0, sxLastNodeTapId = null, sxLastNodeTapX = 0, sxLastNodeTapY = 0, sxPendingNodeTapTimer = null, sxSingleTapTimeout = 0, sxLastDoubleTime = 0;
         function Kh(e) {
+            sxNoteHoldRelease(e);
             if (eh.delete(e.pointerId), Cp = !1, qp = null, io(), Gp && xh(), triDragState && triDragState.pointerId === e.pointerId) {
                 const t = triDragState;
                 triDragState = null;
@@ -817,6 +818,14 @@
                     to = !1;
                 }, 120);
                 if (n.longPressed) return;
+                // A phone ends a long-press with pointercancel just
+                // before the 520ms timer. A finger that stayed put
+                // still gets the hover tip.
+                if ("pointercancel" === e.type) {
+                    const held = n.startTime ? performance.now() - n.startTime : 0, moved = Math.hypot((e.clientX || n.startX) - n.startX, (e.clientY || n.startY) - n.startY);
+                    if (held >= 400 && moved < 28) sxShowTopicTip(n.id, n.startX, n.startY, e.pointerType, n.tipEl);
+                    return;
+                }
 
                 const now = performance.now();
                 const timeDiff = now - sxLastNodeTapTime;
@@ -844,6 +853,7 @@
                     sxLastNodeTapTime = 0;
                     sxLastNodeTapId = null;
                     sxLastDoubleTime = now;
+                    window.__sxStopFocusZoom && window.__sxStopFocusZoom();
 
                     const targetNodeId = cat ? cat.id : sid;
                     if (typeof xo === "function") {
@@ -886,7 +896,9 @@
                     }
                     selectSpokeNode(n.id, !0);
                     if (typeof Th === "function") Th(sid, branch);
-                }, 280);
+                // Wait out the double-tap window before zooming, so the
+                // second tap still lands on the topic it started on.
+                }, 520);
                 return;
             }
             if (Ip && Ip.pointerId === e.pointerId) {
@@ -1321,6 +1333,81 @@
         }, {
             passive: !1
         });
+        // Tap zooms. A hold shows the same tip a mouse hover shows.
+        // A second tap opens the About and note sheet. A finger that
+        // drifts a little, or a long-press the browser ends itself,
+        // still counts as the hold. A widget's first tap still sets
+        // the rating; its second tap opens the sheet.
+        let sxNoteHold = null, sxNoteTapTime = 0, sxNoteTapId = null, sxNoteTapX = 0, sxNoteTapY = 0;
+        function sxNoteSlop(e) {
+            return e && ("touch" === e.pointerType || "pen" === e.pointerType) ? 28 : 10;
+        }
+        function sxClearNoteHold() {
+            sxNoteHold && sxNoteHold.timer && t.clear(sxNoteHold.timer), sxNoteHold = null;
+        }
+        function sxOpenTopicNote(id, x, y, focusNote) {
+            if (!id || "function" != typeof xo) return;
+            if (sxPendingNodeTapTimer) {
+                try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                sxPendingNodeTapTimer = null;
+            }
+            window.__sxStopFocusZoom && window.__sxStopFocusZoom();
+            "function" == typeof sl && sl();
+            xo(id, x, y, focusNote ? { focusNote: !0 } : void 0);
+        }
+        function sxShowTopicTip(id, x, y, pointerType, fromEl) {
+            if (sxPendingNodeTapTimer) {
+                try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                sxPendingNodeTapTimer = null;
+            }
+            window.__sxStopFocusZoom && window.__sxStopFocusZoom();
+            const touch = "touch" === pointerType || "pen" === pointerType;
+            let el = fromEl && fromEl.closest && fromEl.closest("[data-ui-tooltip]");
+            if (!el && id && In) {
+                const group = In.querySelector(`.node-group[data-layout-key="${CSS.escape(id)}"]`);
+                el = group && group.querySelector("[data-ui-tooltip]");
+            }
+            const point = { x: x, y: y, pointerType: pointerType || "touch" };
+            if (el && "function" == typeof cl) return void cl(el, touch, point);
+            const rec = id && (qn[id] || ("function" == typeof Xn ? Xn(id) : null));
+            const text = rec && "function" == typeof lo ? lo(rec) : "";
+            window.__SX_TIP_SHOW && window.__SX_TIP_SHOW(el || In, rec && rec.label || "Topic", text, x, y);
+        }
+        function sxWidgetNoteOnDown(e, topicId) {
+            if (!topicId) return !1;
+            const now = performance.now(), dist = Math.hypot(e.clientX - sxNoteTapX, e.clientY - sxNoteTapY);
+            if (e.detail >= 2 || sxNoteTapId === topicId && now - sxNoteTapTime < 520 && dist < 60) {
+                sxClearNoteHold(), sxNoteTapTime = 0, sxNoteTapId = null, sxOpenTopicNote(topicId, e.clientX, e.clientY, !1);
+                return !0;
+            }
+            sxClearNoteHold();
+            const hold = {
+                pointerId: e.pointerId,
+                id: topicId,
+                x: e.clientX,
+                y: e.clientY,
+                t: now,
+                moved: !1,
+                fired: !1,
+                timer: 0
+            };
+            hold.el = e.target;
+            return hold.timer = t.setTimeout(() => {
+                sxNoteHold === hold && !hold.moved && (hold.fired = !0, sxShowTopicTip(hold.id, hold.x, hold.y, e.pointerType, hold.el));
+            }, 520), sxNoteHold = hold, !1;
+        }
+        function sxNoteHoldMove(e) {
+            const n = sxNoteHold;
+            n && n.pointerId === e.pointerId && !n.fired && !n.moved && Math.hypot(e.clientX - n.x, e.clientY - n.y) >= sxNoteSlop(e) && (n.moved = !0, sxClearNoteHold());
+        }
+        function sxNoteHoldRelease(e) {
+            const n = sxNoteHold;
+            if (!n || n.pointerId !== e.pointerId) return;
+            const i = n.fired, a = n.moved, r = performance.now() - n.t;
+            if (sxClearNoteHold(), i) return;
+            if ("pointercancel" === e.type && !a && r >= 400) return sxNoteTapTime = 0, sxNoteTapId = null, void sxShowTopicTip(n.id, n.x, n.y, e.pointerType, n.el);
+            a || "pointerup" !== e.type || (sxNoteTapTime = performance.now(), sxNoteTapId = n.id, sxNoteTapX = e.clientX, sxNoteTapY = e.clientY);
+        }
         Cn.addEventListener("pointerdown", e => {
             if (mn.staticMap) return;
             if (Xp) { cancelAnimationFrame(Xp); Xp = 0; }
@@ -1350,6 +1437,8 @@
             const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
             const heptadHit = __sxClosestAction(e.target, "heptadHit") || (e.target.closest && e.target.closest(".map-heptad-hit, .map-heptad-control"));
             const octadHit = __sxClosestAction(e.target, "octadHit") || (e.target.closest && e.target.closest(".map-octad-hit, .map-octad-control"));
+            const sxWidgetNoteHit = octadHit || heptadHit || hexadHit || pentadHit || tetradHit || triHit;
+            if (sxWidgetNoteHit && 1 === eh.size && sxWidgetNoteOnDown(e, sxWidgetNoteHit.dataset && sxWidgetNoteHit.dataset.id)) return;
             if (octadHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = octadHit.dataset.id;
@@ -1533,11 +1622,16 @@
                 const i = Cn.createSVGPoint();
                 i.x = e.clientX, i.y = e.clientY;
                 const a = i.matrixTransform(__sxScreenCtm(In).inverse());
+                if (sxPendingNodeTapTimer) {
+                    try { window.clearTimeout(sxPendingNodeTapTimer); } catch (_) {}
+                    sxPendingNodeTapTimer = null;
+                }
                 return eo = {
                     pointerId: e.pointerId,
                     id: n,
                     startX: e.clientX,
                     startY: e.clientY,
+                    startTime: performance.now(),
                     startLocalX: a.x,
                     startLocalY: a.y,
                     startBend: Number(bt[n]) || 0,
@@ -1545,9 +1639,10 @@
                     spoke: s.classList.contains("concept-hit") || s.classList.contains("topic-stem") || s.classList.contains("category-icon-hit"),
                     curveNx: Number(o && o.dataset.nx) || 0,
                     curveNy: Number(o && o.dataset.ny) || 0,
-                    longPressed: !1
+                    longPressed: !1,
+                    tipEl: s.closest?.("[data-ui-tooltip]") || s
                 }, io(), void (Jr = t.setTimeout(() => {
-                    eo && eo.pointerId === e.pointerId && (eo.longPressed = !0, to = !0, xo(n, eo.startX, eo.startY, { focusNote: !0 }));
+                    eo && eo.pointerId === e.pointerId && (eo.longPressed = !0, to = !0, sxShowTopicTip(n, eo.startX, eo.startY, e.pointerType, eo.tipEl));
                 }, 520));
             }
             return l && 1 === eh.size ? (e.preventDefault(), e.stopPropagation(), rh(e.pointerId), 
@@ -1572,6 +1667,7 @@
             })));
         }), Cn.addEventListener("pointermove", e => {
             if (!eh.has(e.pointerId)) return;
+            sxNoteHoldMove(e);
             if (eh.set(e.pointerId, {
                 x: e.clientX,
                 y: e.clientY
@@ -1648,7 +1744,7 @@
             if (sxMapRadarDragMove(e)) return;
             if (eo && eo.pointerId === e.pointerId) {
                 if (eo.longPressed) return;
-                if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= 10) {
+                if (Math.hypot(e.clientX - eo.startX, e.clientY - eo.startY) >= sxNoteSlop(e)) {
                     io();
                     eo = null;
                     Cp = !0;

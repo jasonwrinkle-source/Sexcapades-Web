@@ -285,6 +285,8 @@
         {
           "id": "xma0005",
           "name": "The Four Domains",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -428,6 +430,8 @@
         {
           "id": "xma0008",
           "name": "Quantum Computing Architecture Quartet",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -647,6 +651,8 @@
         {
           "id": "xma0012",
           "name": "Energy",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1369,6 +1375,8 @@
         {
           "id": "xma0029",
           "name": "Triumph",
+          "poleReading": "antipodal",
+          "poleEnemies": [["paper", "product"]],
           "risk": false,
           "poles": [
             {

@@ -209,6 +209,8 @@
         {
           "id": "xae0003",
           "name": "Photo purpose",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -385,6 +387,8 @@
         {
           "id": "xae0007",
           "name": "Music taste",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -811,6 +815,8 @@
         {
           "id": "xae0017",
           "name": "Culture",
+          "poleReading": "antipodal",
+          "poleEnemies": [["high", "low"]],
           "risk": false,
           "poles": [
             {
@@ -956,6 +962,8 @@
         {
           "id": "xae0020",
           "name": "Kitsch & Camp",
+          "poleReading": "antipodal",
+          "poleEnemies": [["sincere-enjoyment", "ironic-appreciation"]],
           "risk": false,
           "poles": [
             {
@@ -1013,6 +1021,8 @@
         {
           "id": "xae0021",
           "name": "Theories of Beauty",
+          "poleReading": "antipodal",
+          "poleEnemies": [["classical-harmony", "grotesque"]],
           "risk": false,
           "poles": [
             {
@@ -1207,6 +1217,8 @@
         {
           "id": "xae0025",
           "name": "Dining",
+          "poleReading": "antipodal",
+          "poleEnemies": [["comfort", "fine"]],
           "risk": false,
           "poles": [
             {
@@ -1254,6 +1266,8 @@
         {
           "id": "xae0026",
           "name": "Five Tastes",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1317,6 +1331,8 @@
         {
           "id": "xae0027",
           "name": "Dietary Identity",
+          "poleReading": "antipodal",
+          "poleEnemies": [["carnivore", "fruitarian"]],
           "risk": false,
           "poles": [
             {

@@ -126,6 +126,8 @@
         {
           "id": "xqu0001",
           "name": "Quantum Interpretations",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -230,6 +232,8 @@
         {
           "id": "xqu0003",
           "name": "Measurement",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -377,6 +381,8 @@
         {
           "id": "xqu0006",
           "name": "The Quantum Gravity Crossroads",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -664,6 +670,8 @@
         {
           "id": "xqu0012",
           "name": "Cosmic origin",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -804,6 +812,8 @@
         {
           "id": "xqu0015",
           "name": "The Cosmological Constant Trilemma",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -995,6 +1005,8 @@
         {
           "id": "xqu0019",
           "name": "Micro-macro",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1328,6 +1340,8 @@
         {
           "id": "xqu0026",
           "name": "Black hole information",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {

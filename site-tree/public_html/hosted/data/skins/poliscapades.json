@@ -29,6 +29,8 @@
               },
               "id": "xpo0001",
               "name": "Economic Structure",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "the-state-command-redistribution",
@@ -91,6 +93,8 @@
               },
               "id": "xpo0003",
               "name": "Theories of Distributive Justice Triad",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "need-marxian-welfare",
@@ -158,6 +162,8 @@
               },
               "id": "xpo0006",
               "name": "Macroeconomic Policy",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "modern-monetary-theory-mmt",
@@ -232,6 +238,8 @@
               },
               "id": "xpo0007",
               "name": "Civic Resource Allocation Pentad",
+              "poleReading": "complement",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "healthcare-social-welfare",
@@ -310,6 +318,8 @@
               },
               "id": "xpo0008",
               "name": "Who owns what",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "private-absolute-allodial-capitalist",
@@ -1458,6 +1468,8 @@
           },
           "id": "xpo0029",
           "name": "Health insurance system",
+          "poleReading": "antipodal",
+          "poleEnemies": [["single-payer", "free-market"]],
           "poles": [
             {
               "key": "single-payer",
@@ -1600,6 +1612,8 @@
           },
           "id": "xpo0031",
           "name": "Medicare",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "protect-and-expand",
@@ -2831,6 +2845,8 @@
               },
               "id": "xpo0004",
               "name": "The Classic Political Compass Tetrad",
+              "poleReading": "antipodal",
+              "poleEnemies": [["authoritarian-left-state-socialism", "libertarian-right-anarcho-capitalism-minarchism"], ["authoritarian-right-traditionalist-fascist", "libertarian-left-democratic-confederalism-anarcho-syndicalism"]],
               "poles": [
                 {
                   "key": "authoritarian-left-state-socialism",
@@ -2901,6 +2917,8 @@
               },
               "id": "xpo0005",
               "name": "Decision Ecology",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "executive-mandate-decisive-sovereign",
@@ -2974,6 +2992,8 @@
               },
               "id": "xpo0009",
               "name": "Macro Political Matrix Hexad",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "free-market-capitalism",
@@ -3060,6 +3080,8 @@
               },
               "id": "xpo0011",
               "name": "Seven Theories of Political Legitimacy",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "divine-right-cosmic-order",
@@ -4161,6 +4183,8 @@
           },
           "id": "xpo0067",
           "name": "Marriage & Family",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "marriage-equality-for-all",
@@ -5271,6 +5295,8 @@
           },
           "id": "xpo0002",
           "name": "Rodrik's Trilemma",
+          "poleReading": "trilemma",
+          "poleEnemies": [["hyperglobalization", "national-sovereignty"], ["hyperglobalization", "democratic-politics"], ["national-sovereignty", "democratic-politics"]],
           "poles": [
             {
               "key": "hyperglobalization",
@@ -5345,6 +5371,8 @@
           },
           "id": "xpo0010",
           "name": "Grand Strategy",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "realpolitik-hegemony",
@@ -5428,6 +5456,8 @@
           },
           "id": "xpo0012",
           "name": "Civilizational Resilience",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "energy-density-grid-security",

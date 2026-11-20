@@ -1206,7 +1206,7 @@
                 }
             };
         })();
-        let Ns = null, _s = null, Ds = null, Rs = null, Os = 0;
+        let Ns = null, _s = null, Ds = null, Rs = null, Os = 0, sxOutlineLastEl = null, sxOutlineLastTime = 0, sxOutlineLastX = 0, sxOutlineLastY = 0;
         /* Canvas pole-label hover hook (widget approachability): a canvas
            has no DOM node per pole, so the paint module calls this with
            the canvas as anchor, the pole's full label as name, and its
@@ -1315,12 +1315,22 @@
             const n = e.target instanceof Element ? __sxClosestAction(e.target, "outlineDescTriggerRich") : null;
             if (!n) return Ks(), void js();
             if (("mouse" === e.pointerType || "pen" === e.pointerType) && 0 !== e.button) return;
+            const sxOutlineNow = performance.now();
+            if (sxOutlineLastEl === n && sxOutlineNow - sxOutlineLastTime < 520 && Math.hypot(e.clientX - sxOutlineLastX, e.clientY - sxOutlineLastY) < 60) {
+                sxOutlineLastTime = 0, sxOutlineLastEl = null, Ks(), zs(n), Ws(n, {
+                    x: e.clientX,
+                    y: e.clientY,
+                    pointerType: e.pointerType || "touch"
+                });
+                return;
+            }
             Ks();
             const i = {
                 pointerId: e.pointerId,
                 trigger: n,
                 startX: e.clientX,
                 startY: e.clientY,
+                t: sxOutlineNow,
                 longPressed: !1,
                 timer: 0
             };
@@ -1333,12 +1343,23 @@
             }, 520), Ds = i;
         }), window.addEventListener("pointermove", e => {
             const t = Ds;
-            if (t && t.pointerId === e.pointerId) return t.longPressed ? (_s = Ts(e), void Fs.position(_s, Ns)) : void (Math.hypot(e.clientX - t.startX, e.clientY - t.startY) > 9 && Ks());
+            if (t && t.pointerId === e.pointerId) return t.longPressed ? (_s = Ts(e), void Fs.position(_s, Ns)) : void (Math.hypot(e.clientX - t.startX, e.clientY - t.startY) > ("touch" === e.pointerType || "pen" === e.pointerType ? 28 : 9) && Ks());
         }, !0), window.addEventListener("pointerup", e => {
             const n = Ds;
-            n && n.pointerId === e.pointerId && (n.timer && t.clear(n.timer), n.longPressed && zs(n.trigger), 
+            n && n.pointerId === e.pointerId && (n.timer && t.clear(n.timer), n.longPressed ? zs(n.trigger) : (sxOutlineLastEl = n.trigger, sxOutlineLastTime = performance.now(), sxOutlineLastX = e.clientX, sxOutlineLastY = e.clientY), 
             Ds = null);
-        }, !0), window.addEventListener("pointercancel", Ks, !0), Ro.addEventListener("contextmenu", e => {
+        }, !0), window.addEventListener("pointercancel", e => {
+            const n = Ds;
+            if (n && (!e.pointerId || n.pointerId === e.pointerId) && !n.longPressed && n.t && performance.now() - n.t >= 400 && Math.hypot((e.clientX || n.startX) - n.startX, (e.clientY || n.startY) - n.startY) <= 28) {
+                n.timer && t.clear(n.timer), n.longPressed = !0, zs(n.trigger), Ws(n.trigger, {
+                    x: n.startX,
+                    y: n.startY,
+                    pointerType: "touch"
+                }), Ds = null;
+                return;
+            }
+            Ks();
+        }, !0), Ro.addEventListener("contextmenu", e => {
             const t = __sxClosestAction(e.target, "outlineDescTriggerRich");
             t && Rs === t && (e.preventDefault(), e.stopPropagation());
         }, !0), Ro.addEventListener("click", e => {
@@ -1646,10 +1667,16 @@
             if (nl && Fs.visibleFor(nl) && !nl.contains(e.target) && sl(), "mouse" === e.pointerType) return;
             const t = e.target.closest && __sxClosestAction(e.target, "uiTooltipHover");
             t && cl(t, !0, Ts(e));
-        }, !0), document.addEventListener("pointerdown", e => {
+        }, !0),         document.addEventListener("pointerdown", e => {
             if ("mouse" === e.pointerType) return;
             const el = __sxClosestAction(e.target, "tooltipTapFirst");
             if (!el) return;
+            // A touch on a map node used to die here: the first tap
+            // showed the little tooltip and stopImmediatePropagation
+            // kept the hold and the second tap from ever reaching the
+            // map, so the About and note sheet never opened. Map nodes
+            // keep that gesture. Buttons elsewhere still tap-to-show.
+            if (el.closest && el.closest("#mapSvg")) return;
             const useCard = Boolean(el.dataset && el.dataset.uiTooltip), useOutline = !useCard && Boolean(Gs(el));
             if (!useCard && !useOutline) return;
             const n = performance.now();

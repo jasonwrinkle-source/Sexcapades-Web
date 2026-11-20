@@ -26,6 +26,8 @@
           },
           "id": "xdh0001",
           "name": "Karma",
+          "poleReading": "antipodal",
+          "poleEnemies": [["literal", "no-karma"]],
           "poles": [
             {
               "key": "literal",
@@ -88,6 +90,8 @@
           },
           "id": "xdh0002",
           "name": "Samsara",
+          "poleReading": "antipodal",
+          "poleEnemies": [["escape", "engage"]],
           "poles": [
             {
               "key": "escape",
@@ -150,6 +154,8 @@
           },
           "id": "xdh0003",
           "name": "Buddhism",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "religion",
@@ -206,6 +212,8 @@
           },
           "id": "xdh0004",
           "name": "The Four Purusharthas",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "dharma",
@@ -262,6 +270,8 @@
           },
           "id": "xdh0005",
           "name": "The Three Teachings / San Jiao",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "confucianism",
@@ -339,6 +349,8 @@
           },
           "id": "xdh0006",
           "name": "Archetypal energies",
+          "poleReading": "antipodal",
+          "poleEnemies": [["heaven-qian", "earth-kun"], ["fire-li", "water-kan"], ["thunder-zhen", "wind-xun"], ["lake-dui", "mountain-gen"]],
           "poles": [
             {
               "key": "heaven-qian",
@@ -406,6 +418,8 @@
           },
           "id": "xdh0007",
           "name": "The Three Gunas",
+          "poleReading": "antipodal",
+          "poleEnemies": [["sattva", "tamas"]],
           "poles": [
             {
               "key": "sattva",
@@ -466,6 +480,8 @@
           },
           "id": "xdh0008",
           "name": "The Five Mahabhutas",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "earth-prithvi",
@@ -533,6 +549,8 @@
           },
           "id": "xdh0009",
           "name": "Liberation",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "moksha",
@@ -718,6 +736,8 @@
           },
           "id": "xdh0012",
           "name": "Yoga: Five Dimensions",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "physical",
@@ -965,6 +985,8 @@
           },
           "id": "xdh0016",
           "name": "The Noble Eightfold Path",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "right-view",
@@ -1103,6 +1125,8 @@
           },
           "id": "xdh0018",
           "name": "The Six Classical Yogas",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "raja-yoga",
@@ -1183,6 +1207,8 @@
           },
           "id": "xdh0019",
           "name": "The Divine: Four Quadrants",
+          "poleReading": "antipodal",
+          "poleEnemies": [["personal-theism", "atheism-materialism"], ["impersonal-theism", "atheism-materialism"], ["non-theistic-spirituality", "atheism-materialism"], ["personal-theism", "impersonal-theism"]],
           "poles": [
             {
               "key": "personal-theism",
@@ -1293,6 +1319,8 @@
           },
           "id": "xdh0021",
           "name": "Buddha",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "historical-buddha",
@@ -1352,6 +1380,8 @@
           },
           "id": "xdh0022",
           "name": "Ahimsa: Three Schools",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "jain",

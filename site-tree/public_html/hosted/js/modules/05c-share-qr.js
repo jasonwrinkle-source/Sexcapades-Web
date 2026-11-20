@@ -634,7 +634,7 @@
             // against (Rd, sxRefreshGroupOwn and Kd all require the
             // source snapshots this payload does not carry).
             const sxPairRec = ft[e];
-            sxPairRec && "group" === sxPairRec.kind && (out.pairKind = "group", out.pairOp = "straight" === sxPairRec.pairOp ? "straight" : "bowtie");
+            sxPairRec && "group" === sxPairRec.kind && (out.pairKind = "group", out.pairOp = sxNormalizePairOp(sxPairRec.pairOp));
             return out;
         }
         function Ju(e, t, n = !1, i = "", a = !1) {

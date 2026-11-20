@@ -126,6 +126,8 @@
         {
           "id": "xph0001",
           "name": "The Agrippan Trilemma",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -183,6 +185,8 @@
         {
           "id": "xph0002",
           "name": "Epistemic Grounds",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -248,6 +252,8 @@
         {
           "id": "xph0003",
           "name": "Theories of Truth",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -313,6 +319,8 @@
         {
           "id": "xph0015",
           "name": "The Epistemological Octad",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -417,6 +425,8 @@
         {
           "id": "xph0004",
           "name": "The Mind-Body Ontology Matrix",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -482,6 +492,8 @@
         {
           "id": "xph0005",
           "name": "Free Will",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -547,6 +559,8 @@
         {
           "id": "xph0006",
           "name": "The Ontology of Universals",
+          "poleReading": "antipodal",
+          "poleEnemies": [["platonic-realism", "nominalism"]],
           "risk": false,
           "poles": [
             {
@@ -604,6 +618,8 @@
         {
           "id": "xph0007",
           "name": "The Metaphysics of Time",
+          "poleReading": "antipodal",
+          "poleEnemies": [["presentism", "eternalism"]],
           "risk": false,
           "poles": [
             {
@@ -668,6 +684,8 @@
         {
           "id": "xph0008",
           "name": "The Grand Normative Ethical Quartet",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -733,6 +751,8 @@
         {
           "id": "xph0009",
           "name": "Meta-Ethics Compass",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -798,6 +818,8 @@
         {
           "id": "xph0010",
           "name": "Intrinsic Value",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -870,6 +892,8 @@
         {
           "id": "xph0011",
           "name": "The Consciousness Spectrum",
+          "poleReading": "antipodal",
+          "poleEnemies": [["illusionism", "cosmopsychism"]],
           "risk": false,
           "poles": [
             {
@@ -950,6 +974,8 @@
         {
           "id": "xph0012",
           "name": "Responses to the Absurd",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1038,6 +1064,8 @@
         {
           "id": "xph0013",
           "name": "The Four Theories of Justice",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1103,6 +1131,8 @@
         {
           "id": "xph0014",
           "name": "Seven Theories of Truth",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {

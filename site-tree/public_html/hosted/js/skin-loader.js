@@ -297,6 +297,8 @@
     if (t.give_label) topic.give_label = t.give_label;
     if (t.receive_label) topic.receive_label = t.receive_label;
     if (t.note) topic.note = t.note;
+    if (t.poleReading) topic.poleReading = t.poleReading;
+    if (Array.isArray(t.poleEnemies)) topic.poleEnemies = t.poleEnemies;
     Object.defineProperty(topic, "toString", {
       value: function () { return this.name; },
       enumerable: false
@@ -425,6 +427,7 @@
     var meterTopics = {};
     var communities = {};
     var popularity = {};
+    var readings = {};
     var count = 0;
     data.categories.forEach(function (cat) {
       var all = (cat.topics || []).slice();
@@ -454,6 +457,7 @@
            Published as registries keyed by topic id for the placard. */
         if (t.communities && t.communities.length) communities[t.id] = t.communities;
         if (t.popularity) popularity[t.id] = t.popularity;
+        if (t.poleReading) readings[t.id] = { reading: t.poleReading, enemies: t.poleEnemies || [] };
         count += 1;
       });
     });
@@ -463,6 +467,7 @@
     window.__SX_METER = { default: data.meter || null, topics: meterTopics };
     window.__SX_SKIN_COMMUNITIES = communities;
     window.__SX_SKIN_POPULARITY = popularity;
+    window.__SX_POLE_READINGS = readings;
     return count;
   }
 

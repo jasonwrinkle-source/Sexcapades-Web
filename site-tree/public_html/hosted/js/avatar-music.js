@@ -58,6 +58,7 @@
     /* match-bowtie live via the active match tab; match-circledot GAP by design; ring rows still reserved */
     "match-bowtie":    { slug: "the-explainer/e1/verse-cast-compare.mp3", label: "Krossmatch" },
     "match-circledot": { slug: null, label: "Straight Talk" },
+    "match-circleminus": { slug: null, label: "Circle minus" },
     "ring-hot-topics": { slug: null, label: "Hot Topics" },
     "ring-curiosity":  { slug: null, label: "Curiosity?" },
     "ring-not-topics": { slug: null, label: "Not topics" }
@@ -225,7 +226,12 @@
         if (ringListing) return "ring-" + ringListing.getAttribute("data-sx-ring-display");
       } else if (entry.matchTab) {
         var matchTab = document.querySelector("#profileTabs .sx-match-tab.is-active");
-        if (matchTab) return matchTab.getAttribute("data-sx-match-kind") === "circledot" ? "match-circledot" : "match-bowtie";
+        if (matchTab) {
+          var matchKind = matchTab.getAttribute("data-sx-match-kind");
+          if (matchKind === "circledot") return "match-circledot";
+          if (matchKind === "circleminus") return "match-circleminus";
+          return "match-bowtie";
+        }
       }
     }
     return "hypermap";

@@ -169,6 +169,8 @@
               },
               "id": "xfo0083",
               "name": "Anthropomorphism and divine attributes",
+              "poleReading": "antipodal",
+              "poleEnemies": [["purely-allegorical", "affirmed-literally-bila-kayfa"]],
               "poles": [
                 {
                   "key": "purely-allegorical",
@@ -232,6 +234,8 @@
               },
               "id": "xfo0009",
               "name": "The person of Christ",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "true-god-and-true-man",
@@ -484,6 +488,8 @@
               },
               "id": "xfo0014",
               "name": "Human nature and the Fall",
+              "poleReading": "antipodal",
+              "poleEnemies": [["original-sin-inherited", "no-inherited-sin"], ["ancestral-sin-inherited", "no-inherited-sin"]],
               "poles": [
                 {
                   "key": "original-sin-inherited",
@@ -547,6 +553,8 @@
               },
               "id": "xfo0066",
               "name": "The Messiah",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "messiah-not-yet-come",
@@ -614,6 +622,8 @@
               },
               "id": "xfo0067",
               "name": "The covenant",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "covenant-with-israel-eternal",
@@ -681,6 +691,8 @@
               },
               "id": "xfo0078",
               "name": "Circumcision",
+              "poleReading": "antipodal",
+              "poleEnemies": [["required-covenant-sign", "required-or-recommended-practice"], ["required-covenant-sign", "not-required"]],
               "poles": [
                 {
                   "key": "required-covenant-sign",
@@ -896,6 +908,8 @@
               },
               "id": "xfo0001",
               "name": "The Abrahamic Trinity of Faiths",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "judaism-yahwism-covenant-of-the-torah",
@@ -990,6 +1004,8 @@
               },
               "id": "xfo0004",
               "name": "The Six Pillars of Iman",
+              "poleReading": "complement",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "belief-in-allah-tawhid",
@@ -1075,6 +1091,8 @@
               },
               "id": "xfo0005",
               "name": "The Seven Spheres",
+              "poleReading": "complement",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "michael-sun-sol",
@@ -1169,6 +1187,8 @@
               },
               "id": "xfo0006",
               "name": "The Abrahamic Covenant",
+              "poleReading": "complement",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "brit-milah-the-flesh-covenant-foreskin",
@@ -1322,6 +1342,8 @@
               },
               "id": "xfo0016",
               "name": "The canon",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "the-canon-is-the-tanakh",
@@ -1541,6 +1563,8 @@
               },
               "id": "xfo0003",
               "name": "Biblical Hermeneutics",
+              "poleReading": "complement",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "peshat-literal",
@@ -1618,6 +1642,8 @@
               },
               "id": "xfo0068",
               "name": "The Torah",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "written-and-oral-torah-eternal",
@@ -1724,6 +1750,8 @@
               },
               "id": "xfo0071",
               "name": "Halakha (Jewish law)",
+              "poleReading": "antipodal",
+              "poleEnemies": [["binding-law", "guide-interpreted-by-conscience"]],
               "poles": [
                 {
                   "key": "binding-law",
@@ -1863,6 +1891,8 @@
               },
               "id": "xfo0021",
               "name": "Ecumenical councils",
+              "poleReading": "antipodal",
+              "poleEnemies": [["twenty-one-councils", "councils-may-err"], ["seven-councils-only", "councils-may-err"]],
               "poles": [
                 {
                   "key": "twenty-one-councils",
@@ -1959,6 +1989,8 @@
               },
               "id": "xfo0023",
               "name": "Ordination and the priesthood",
+              "poleReading": "antipodal",
+              "poleEnemies": [["sacramental-priesthood", "no-priesthood"]],
               "poles": [
                 {
                   "key": "sacramental-priesthood",
@@ -2061,6 +2093,8 @@
               },
               "id": "xfo0070",
               "name": "Prophecy and the final prophet",
+              "poleReading": "same",
+              "poleEnemies": [],
               "poles": [
                 {
                   "key": "prophecy-ended-with-hebrew-prophets",
@@ -2214,6 +2248,8 @@
           },
           "id": "xfo0032",
           "name": "Religious governance",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "episcopal",
@@ -2266,6 +2302,8 @@
           },
           "id": "xfo0082",
           "name": "Interfaith relations / other religions",
+          "poleReading": "antipodal",
+          "poleEnemies": [["other-religions-are-valid-paths", "strict-exclusivity"]],
           "poles": [
             {
               "key": "other-religions-are-valid-paths",
@@ -2399,6 +2437,8 @@
           },
           "id": "xfo0079",
           "name": "Apostasy and leaving the faith",
+          "poleReading": "antipodal",
+          "poleEnemies": [["still-a-member", "excluded-penalty-severe"]],
           "poles": [
             {
               "key": "still-a-member",
@@ -2451,6 +2491,8 @@
           },
           "id": "xfo0081",
           "name": "Conversion and religious identity",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "matrilineal-descent-or-formal-conversion",
@@ -2602,6 +2644,8 @@
           },
           "id": "xfo0025",
           "name": "Grace",
+          "poleReading": "antipodal",
+          "poleEnemies": [["irresistible-grace", "resistible-grace"]],
           "poles": [
             {
               "key": "irresistible-grace",
@@ -2659,6 +2703,8 @@
           },
           "id": "xfo0026",
           "name": "Predestination and election",
+          "poleReading": "antipodal",
+          "poleEnemies": [["unconditional-election-and-reprobation", "election-conditioned-on-foreknowledge"]],
           "poles": [
             {
               "key": "unconditional-election-and-reprobation",
@@ -2716,6 +2762,8 @@
           },
           "id": "xfo0027",
           "name": "The atonement",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "satisfaction-vicarious-atonement",
@@ -2920,6 +2968,8 @@
           },
           "id": "xfo0030",
           "name": "Mary and the saints",
+          "poleReading": "antipodal",
+          "poleEnemies": [["venerated-and-invoked", "christ-alone-mediator"], ["honoured-not-invoked", "christ-alone-mediator"]],
           "poles": [
             {
               "key": "venerated-and-invoked",
@@ -2977,6 +3027,8 @@
           },
           "id": "xfo0002",
           "name": "The Christian Trilemma of Justification",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "sola-fide-faith-alone",
@@ -3084,6 +3136,8 @@
           },
           "id": "xfo0036",
           "name": "Baptism",
+          "poleReading": "antipodal",
+          "poleEnemies": [["infant-baptism-regenerates", "believers-baptism-by-immersion"]],
           "poles": [
             {
               "key": "infant-baptism-regenerates",
@@ -3136,6 +3190,8 @@
           },
           "id": "xfo0037",
           "name": "The Lord's Supper",
+          "poleReading": "antipodal",
+          "poleEnemies": [["truly-present-body-and-blood", "memorial-and-symbol-only"], ["spiritually-present-to-faith", "memorial-and-symbol-only"]],
           "poles": [
             {
               "key": "truly-present-body-and-blood",
@@ -3323,6 +3379,8 @@
           },
           "id": "xfo0053",
           "name": "Icons and images in worship",
+          "poleReading": "antipodal",
+          "poleEnemies": [["venerated-images", "aniconism-no-images"], ["images-permitted-not-venerated", "aniconism-no-images"]],
           "poles": [
             {
               "key": "venerated-images",
@@ -3628,6 +3686,8 @@
           },
           "id": "xfo0074",
           "name": "The holy day",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "shabbat",
@@ -4493,6 +4553,8 @@
               },
               "id": "xfo0076",
               "name": "Modesty and dress",
+              "poleReading": "antipodal",
+              "poleEnemies": [["modesty-and-head-covering-required", "no-dress-code-prescribed"], ["modesty-required-no-covering", "no-dress-code-prescribed"]],
               "poles": [
                 {
                   "key": "modesty-and-head-covering-required",
@@ -4710,6 +4772,8 @@
           },
           "id": "xfo0086",
           "name": "The coming of the Mahdi",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "12th-imam-from-occultation",
@@ -4858,6 +4922,8 @@
           },
           "id": "xfo0063",
           "name": "The intermediate state",
+          "poleReading": "same",
+          "poleEnemies": [],
           "poles": [
             {
               "key": "purification-before-heaven",

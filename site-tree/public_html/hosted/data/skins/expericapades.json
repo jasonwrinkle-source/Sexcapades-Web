@@ -234,6 +234,8 @@
         {
           "id": "xex0003",
           "name": "Scale",
+          "poleReading": "antipodal",
+          "poleEnemies": [["big-science", "tabletop-precision"]],
           "risk": false,
           "poles": [
             {
@@ -296,6 +298,8 @@
         {
           "id": "xex0004",
           "name": "The Three Frontiers of Empirical Physics",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -517,6 +521,8 @@
         {
           "id": "xex0008",
           "name": "The Four Detection Modalities",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -582,6 +588,8 @@
         {
           "id": "xex0009",
           "name": "Detector design",
+          "poleReading": "antipodal",
+          "poleEnemies": [["general", "specialized"]],
           "risk": false,
           "poles": [
             {
@@ -1094,6 +1102,8 @@
         {
           "id": "xex0019",
           "name": "The Four Laboratory Extremes",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1426,6 +1436,8 @@
         {
           "id": "xex0025",
           "name": "Collaboration",
+          "poleReading": "antipodal",
+          "poleEnemies": [["competition", "collaboration"]],
           "risk": false,
           "poles": [
             {

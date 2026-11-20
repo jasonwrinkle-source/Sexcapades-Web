@@ -126,6 +126,8 @@
         {
           "id": "xte0001",
           "name": "AI Impact",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -565,6 +567,8 @@
         {
           "id": "xte0010",
           "name": "Digital Detox",
+          "poleReading": "antipodal",
+          "poleEnemies": [["detox-regularly", "never-detox"]],
           "risk": false,
           "poles": [
             {
@@ -619,6 +623,8 @@
         {
           "id": "xte0011",
           "name": "Social Media",
+          "poleReading": "antipodal",
+          "poleEnemies": [["love", "hate"]],
           "risk": false,
           "poles": [
             {
@@ -973,6 +979,8 @@
         {
           "id": "xte0019",
           "name": "Transhumanism",
+          "poleReading": "antipodal",
+          "poleEnemies": [["embrace-enhancement", "reject-enhancement"]],
           "risk": false,
           "poles": [
             {

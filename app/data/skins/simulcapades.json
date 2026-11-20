@@ -126,6 +126,8 @@
         {
           "id": "xsi0001",
           "name": "The Three Pillars: What Is a Simulation?",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -405,6 +407,8 @@
         {
           "id": "xsi0007",
           "name": "Computational Methods",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -761,6 +765,8 @@
         {
           "id": "xsi0014",
           "name": "Spatial discretization",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -952,6 +958,8 @@
         {
           "id": "xsi0018",
           "name": "Processor",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {

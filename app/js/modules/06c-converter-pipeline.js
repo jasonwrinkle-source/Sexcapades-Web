@@ -660,7 +660,7 @@
             vht[c] = Boolean(null != e.veilEnabled ? e.veilEnabled : e.netEnabled), at[c] = a, gt[c] = e.loaderState && "object" == typeof e.loaderState ? e.loaderState : {}, 
             mt[c] = St(e.completionTimes), delete ft[c], "group" === e.pairKind && (ft[c] = {
                 kind: "group",
-                pairOp: "straight" === e.pairOp ? "straight" : "bowtie"
+                pairOp: sxNormalizePairOp(e.pairOp)
             }), Object.keys(a).forEach(e => Ke.add(e)),
             /* Skin tag (2026-11-17): the skin this profile belongs to —
                the incoming file's own tag when it carries one (a Remember

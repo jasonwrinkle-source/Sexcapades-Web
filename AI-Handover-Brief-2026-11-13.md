@@ -214,6 +214,8 @@ straight (similar role) from cross (complementary role).
    on both registers goes away. The two relevances (each person's
    intensity on the topic) still weight how much that agreement
    counts. The rest of this proposal he called a good start. Built.
+   Which other poles are the complement is the widget's stored
+   reading (point 6), not "every other pole."
 3. **Aversion lives only on the +1.** Pole numbers stay the blend,
    non-negative shares. One sign cannot mean both "against the topic"
    and "the receiving role." Give/receive stays on the two-ended
@@ -226,9 +228,23 @@ straight (similar role) from cross (complementary role).
    against −80 → factor 0.
 5. **Pole topics join the match and curious lists**, weighted like
    any other topic by the blend agreement and the smaller relevance.
-   In a group of three or more their factor stops coming out 0 and
-   uses the same formula as the pair. Scribe's pair-detail lists and
-   the four headline aggregates stay as they are.
+   A pair still scores person to person. A cast of three or more
+   scores as one combo: cross is high only when every role has its
+   own person (bull, hotwife, and cuckold), and two bulls plus a
+   hotwife score low. Straight is high only when every person leans
+   the same role. Scribe's pair-detail lists and the four headline
+   aggregates stay as they are.
+6. **Three operations, stored on the widget.** Circle dot is talk
+   with someone on your pole. Bowtie is the commune, and only a
+   widget stored as complement treats the other poles as partners.
+   Circle minus is the argument with a stored far pole; its rings
+   use the same Parlay shape as circle dot, and opposite signs still
+   count because the disagreement is the point. A same-pole widget
+   has no commune and no feud. An antipodal or trilemma widget has
+   no commune; the feud is the named enemy pairs, and a trilemma's
+   feud is every pair of its poles. Each of the 170 n-pole widgets
+   stores `poleReading` and `poleEnemies`. Two-pole lines are left
+   unstamped.
 
 ---
 

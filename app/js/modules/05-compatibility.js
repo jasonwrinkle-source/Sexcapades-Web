@@ -117,6 +117,60 @@
                 sx: pair
             };
         }
+        function DdMinus(e, heat) {
+            // Circle-minus adapter, the DdStraight analog for ⊖ pairs.
+            // Give/receive arguments are the negative same-flank
+            // products, stored as positive magnitudes so the map can
+            // paint them. Pole topics stay off the map; their feud is
+            // the header rings, the same way circle dot leaves pole
+            // topics uncolored and reads them from the rings.
+            const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
+                n = {}, i = {}, a = {}, r = {}, o = {};
+            if (pair && pair.straight) pair.straight.topics.forEach(srec => {
+                if ("shared" !== srec.status || null != srec.roleEnemy) return;
+                const v = {};
+                null != srec.giveGive && srec.giveGive < 0 && (v.give = -srec.giveGive / 100), null != srec.recvRecv && srec.recvRecv < 0 && (v.receive = -srec.recvRecv / 100);
+                if (!Object.keys(v).length) return;
+                n[srec.id] = v;
+                const rec = pair.topicsById[srec.id];
+                rec && rec.flags.favoriteBy.length === e.length && (i[srec.id] = "favorite"),
+                rec && rec.flags.fantasyBy.length && (a[srec.id] = !0), rec && rec.flags.triedBy.length && (r[srec.id] = !0),
+                e.forEach(p => {
+                    const t = (p.importedChildren || {})[srec.id];
+                    t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
+                });
+            });
+            return {
+                ratings: n,
+                marks: i,
+                fantasyFlags: a,
+                triedFlags: r,
+                children: o,
+                matchDetails: {},
+                percent: 0,
+                noScore: !0,
+                things: 0,
+                clicks: 0,
+                limits: pair && pair.straight ? pair.straight.coverage.limitBlocked : 0,
+                results: {
+                    matches: [],
+                    curiousAbout: [],
+                    mismatched: []
+                },
+                sx: pair
+            };
+        }
+        function sxNormalizePairOp(pairOp) {
+            return "straight" === pairOp ? "straight" : "minus" === pairOp ? "minus" : "bowtie";
+        }
+        function sxPairJoin(pairOp) {
+            return "straight" === pairOp ? " ⊙ " : "minus" === pairOp ? " ⊖ " : " ⋈ ";
+        }
+        function sxMatchKindMeta(kind) {
+            if ("circledot" === kind) return { label: "Straight Talk", glyph: "⊙", term: "" };
+            if ("circleminus" === kind) return { label: "Circle minus", glyph: "⊖", term: "" };
+            return { label: sxTerm("krossmatch"), glyph: "⋈", term: "krossmatch" };
+        }
         // Blocker stage (owner rulings, 2026-10-27): a recompute reads
         // the LIVE source profiles, never the frozen mint-time copies —
         // n.sourceProfiles is refreshed from live state below whenever
@@ -176,7 +230,7 @@
                 net: av(vpt[id]),
                 netEnabled: Boolean(vht[id])
             }));
-            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : Dd(n.sourceProfiles, null, (n.sourceIds || []).map(id => sxHeatFor(id)));
+            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, (n.sourceIds || []).map(id => sxHeatFor(id))) : Dd(n.sourceProfiles, null, (n.sourceIds || []).map(id => sxHeatFor(id)));
             const freshBase = {
                 ratings: Pd(a.ratings),
                 marks: Pd(a.marks),
@@ -220,7 +274,7 @@
             const n = ft[e];
             if (!n || "group" !== n.kind || !sxPairBase[e] || !Array.isArray(n.sourceProfiles) || n.sourceProfiles.length < 2) return;
             const heat = Array.isArray(n.sxHeat) && n.sxHeat.length === n.sourceProfiles.length ? n.sxHeat.slice() : (n.sourceIds || []).map(id => sxHeatFor(id));
-            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heat) : Dd(n.sourceProfiles, null, heat);
+            const a = "straight" === n.pairOp ? DdStraight(n.sourceProfiles, heat) : "minus" === n.pairOp ? DdMinus(n.sourceProfiles, heat) : Dd(n.sourceProfiles, null, heat);
             sxPairUserApply(e, a), vt[e] = a.ratings, Ze[e] = Object.fromEntries(Object.keys(a.ratings).map(e => [ e, {
                 give: "group",
                 receive: "group"
@@ -469,7 +523,7 @@
             const el = tab && tab.section ? tab.section.querySelector("[data-sx-pair-line]") : null;
             if (!el) return;
             const names = ctx ? ctx.profiles.map((p, i) => p.name || `Profile ${i + 1}`) : [];
-            names.length >= 2 ? (el.textContent = names.join("circledot" === tab.kind ? " ⊙ " : " ⋈ "), el.hidden = !1) : (el.textContent = "", el.hidden = !0);
+            names.length >= 2 ? (el.textContent = names.join(sxPairJoin("circledot" === tab.kind ? "straight" : "circleminus" === tab.kind ? "minus" : "bowtie")), el.hidden = !1) : (el.textContent = "", el.hidden = !0);
         }
         /* ===== Match tabs (SURFACES): the compare surfaces live in tabs in
            the #profileTabs strip, keyed by kind + cast. A match tab is not a
@@ -490,13 +544,16 @@
         }
         function sxMatchIconsHtml() {
             if (!sxMatchIconsVisible()) return "";
-            return `<button type="button" class="profile-match-btn" data-sx-match-open="circledot" aria-label="Open Straight Talk for the selected profiles" title="Straight Talk">⊙</button><button type="button" class="profile-match-btn" data-sx-match-open="bowtie" data-sx-term="krossmatch" aria-label="Open ${sxTerm("krossmatch")} for the selected profiles" title="${sxTerm("krossmatch")}">⋈</button>`;
+            return [ "circledot", "bowtie", "circleminus" ].map(kind => {
+                const m = sxMatchKindMeta(kind), term = m.term ? ` data-sx-term="${m.term}"` : "";
+                return `<button type="button" class="profile-match-btn" data-sx-match-open="${kind}" aria-label="Open ${m.label} for the selected profiles" title="${m.label}"${term}>${m.glyph}</button>`;
+            }).join("");
         }
         function sxMatchTabsHtml() {
             const reg = sxTabsReg();
             return [ ...reg.tabs.values() ].map(tab => {
-                const active = reg.stageOn && reg.active === tab.key, label = "circledot" === tab.kind ? "Straight Talk" : sxTerm("krossmatch"), glyph = "circledot" === tab.kind ? "⊙" : "⋈";
-                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${label} match tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}><span aria-hidden="true">${glyph}</span> ${label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${label} tab"${"circledot" === tab.kind ? "" : " data-sx-term=\"krossmatch\""}>×</button></span>`;
+                const active = reg.stageOn && reg.active === tab.key, m = sxMatchKindMeta(tab.kind), term = m.term ? ` data-sx-term="${m.term}"` : "";
+                return `<span class="sx-match-tab${active ? " is-active" : ""}" data-sx-match-kind="${tab.kind}"><button type="button" role="tab" class="profile-tab-button sx-match-tab-btn${active ? " is-active" : ""}" data-sx-match-tab-btn="${Hi(tab.key)}" aria-selected="${active}" aria-label="${m.label} match tab"${term}><span aria-hidden="true">${m.glyph}</span> ${m.label}</button><button type="button" class="profile-tab-close" data-sx-match-close="${Hi(tab.key)}" aria-label="Close ${m.label} tab"${term}>×</button></span>`;
             }).join("");
         }
         function sxCurrentTab() {
@@ -714,7 +771,7 @@
             // legacy results assembly survives ONLY as the 4+-profile
             // group presentation (carve-out: no N-map layout is invented
             // for 4+); it stays hidden for 2- and 3-profile casts.
-            sec.innerHTML = "circledot" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp="" data-sx-term="playMode,conversationMode"></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>`;
+            sec.innerHTML = "bowtie" === tab.kind ? `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div><div class="sx-match-results" data-sx-legacy="" hidden=""></div>` : `<div class="sx-pair-line" data-sx-pair-line="" hidden=""></div><div data-sx-picker=""></div><div class="sx-stamp" data-sx-stamp="" data-sx-term="playMode,conversationMode"></div><div data-sx-rings=""></div><div data-sx-ring-listing=""></div>`;
             stage.appendChild(sec), tab.section = sec;
         }
         /* Straight bands (Job 2, ruled equal thirds over the per-topic
@@ -782,9 +839,19 @@
                status of those values is unchanged; only where they
                are painted moved. */
         }
+        function sxRenderMinusTab(tab) {
+            const ctx = sxTabContext(tab);
+            sxRenderPairLine(tab, ctx);
+            const pk = tab.section.querySelector("[data-sx-picker]");
+            pk && (pk.innerHTML = sxPickerHtml());
+            const st = tab.section.querySelector("[data-sx-stamp]");
+            st && (st.textContent = "");
+            tab.buckets = sxEmptyBuckets(), sxUpdateMatchRings(tab);
+        }
         function sxRenderMatchTab(tab) {
             if (!tab || !tab.section) return;
             if ("circledot" === tab.kind) return void sxRenderStraightTab(tab);
+            if ("circleminus" === tab.kind) return void sxRenderMinusTab(tab);
             const ctx = sxTabContext(tab);
             sxCtx = ctx, sxRenderPairLine(tab, ctx);
             const pk = tab.section.querySelector("[data-sx-picker]"), rs = tab.section.querySelector(".sx-match-results");
@@ -846,7 +913,7 @@
             // pairs — the default below preserves their dedup exactly,
             // and a ⊙ open can never select a ⋈ group (or vice versa).
             if (!ids || ids.length < 2) return null;
-            const want = new Set(ids), wantOp = "straight" === pairOp ? "straight" : "bowtie";
+            const want = new Set(ids), wantOp = sxNormalizePairOp(pairOp);
             for (const id of Object.keys(ft)) {
                 const rec = ft[id];
                 if (!rec || "group" !== rec.kind || (rec.pairOp || "bowtie") !== wantOp || !vt[id] || !Array.isArray(rec.sourceIds)) continue;
@@ -908,6 +975,13 @@
             if (existing) return sxTeardownMatchTabs(), sxcv.mode = "conversation", Js(existing), !0;
             return sxcv.mode = "conversation", qd = cast.slice(), Zd("straight");
         }
+        function sxAutoCreateMinus(castIds, fresh) {
+            const cast = (castIds || []).filter(id => vt[id]);
+            if (cast.length < 2) return !1;
+            const existing = fresh ? null : sxFindGroupForCast(cast, "minus");
+            if (existing) return sxTeardownMatchTabs(), sxcv.mode = "minus", Js(existing), !0;
+            return sxcv.mode = "minus", qd = cast.slice(), Zd("minus");
+        }
         function sxOpenMatchTab(kind) {
             const ctx = sxCompareContext();
             if (!ctx) return;
@@ -919,6 +993,7 @@
             // end.
             if ("bowtie" === kind && sxAutoCreateBowtie(ctx.ids, !0)) return;
             if ("circledot" === kind && sxAutoCreateStraight(ctx.ids, !0)) return;
+            if ("circleminus" === kind && sxAutoCreateMinus(ctx.ids, !0)) return;
             const reg = sxTabsReg(), key = kind + "|" + (ctx.saved ? "group:" + Mt : ctx.ids.join(","));
             let tab = reg.tabs.get(key);
             tab || (tab = {
@@ -944,10 +1019,11 @@
             // — 3+ profiles — and those activate exactly as before.)
             if ("bowtie" === tab.kind && sxAutoCreateBowtie(tab.ids)) return;
             if ("circledot" === tab.kind && sxAutoCreateStraight(tab.ids)) return;
+            if ("circleminus" === tab.kind && sxAutoCreateMinus(tab.ids)) return;
             // Mode follows the tab (2026-10-26): ⋈ Krossmatch activates in
             // Play, ⊙ Straight Talk in Conversation. There is no in-tab
-            // mode switch anymore.
-            sxcv.mode = "circledot" === tab.kind ? "conversation" : "play";
+            // mode switch anymore. ⊖ keeps its own mode and paints no score.
+            sxcv.mode = "circledot" === tab.kind ? "conversation" : "circleminus" === tab.kind ? "minus" : "play";
             // Match-tab fix (2026-10-26): activation PAINTS the map —
             // the tab-strip path previously rendered chrome only, so the
             // map kept whatever the last paint produced (the blank area
@@ -1119,7 +1195,7 @@
             // kind drives the name join below (⋈ vs ⊙), the pairOp
             // field on the group record, and — through that field —
             // Rd's compute dispatch.
-            const sxPairOp = "straight" === pairOp ? "straight" : "bowtie";
+            const sxPairOp = sxNormalizePairOp(pairOp);
             const t = (qd.length ? qd : Xi()).filter(e => vt[e]);
             if (t.length < 2) return !1;
             const n = t.map(e => ({
@@ -1137,7 +1213,7 @@
                 netEnabled: Boolean(vht[e])
             })), i = function(e) {
                 const t = e.map(e => String(wt[e] || "").trim()), n = t.map(e => (e.match(/[\p{L}\p{N}]/u) || [ "?" ])[0].toLocaleUpperCase()), i = new Set(n).size < n.length;
-                return t.map((e, t) => i ? e.replace(/[^\p{L}\p{N}]/gu, "").slice(0, 2).replace(/^./u, e => e.toLocaleUpperCase()) || n[t] : n[t]).join("straight" === sxPairOp ? " ⊙ " : " ⋈ ").slice(0, 40);
+                return t.map((e, t) => i ? e.replace(/[^\p{L}\p{N}]/gu, "").slice(0, 2).replace(/^./u, e => e.toLocaleUpperCase()) || n[t] : n[t]).join(sxPairJoin(sxPairOp)).slice(0, 40);
             }(t);
             // Duplicate names (owner ruling, 2026-10-27): a forked pair
             // keeps the CLEAN feeder name — no version suffix is baked

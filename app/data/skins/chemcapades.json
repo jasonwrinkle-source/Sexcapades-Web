@@ -163,6 +163,8 @@
         {
           "id": "xch0002",
           "name": "The Reality of the Chemical Bond",
+          "poleReading": "antipodal",
+          "poleEnemies": [["strict-physical-realist", "pure-instrumentalist"], ["pattern-realist", "pure-instrumentalist"]],
           "risk": false,
           "poles": [
             {
@@ -259,6 +261,8 @@
         {
           "id": "xch0004",
           "name": "Chemistry's status",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -371,6 +375,8 @@
         {
           "id": "xch0006",
           "name": "What Is a Molecule?",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -430,6 +436,8 @@
         {
           "id": "xch0007",
           "name": "The Periodic Table",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -498,6 +506,8 @@
         {
           "id": "xch0008",
           "name": "Group 3 Membership",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -551,6 +561,8 @@
         {
           "id": "xch0009",
           "name": "The End of the Periodic Table",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -611,6 +623,8 @@
         {
           "id": "xch0010",
           "name": "Mechanisms",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -668,6 +682,8 @@
         {
           "id": "xch0011",
           "name": "Experimentation",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -728,6 +744,8 @@
         {
           "id": "xch0012",
           "name": "Structure proof",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -785,6 +803,8 @@
         {
           "id": "xch0013",
           "name": "Discovery method",
+          "poleReading": "antipodal",
+          "poleEnemies": [["artisanal-chemical-intuition", "black-box-high-throughput-empiricism"]],
           "risk": false,
           "poles": [
             {
@@ -888,6 +908,8 @@
         {
           "id": "xch0015",
           "name": "Chemistry's identity",
+          "poleReading": "antipodal",
+          "poleEnemies": [["the-central-science", "a-service-enabling-discipline"], ["the-creative-inventive-science", "dissolving-boundaries"]],
           "risk": false,
           "poles": [
             {
@@ -948,6 +970,8 @@
         {
           "id": "xch0016",
           "name": "The Five Branches",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1016,6 +1040,8 @@
         {
           "id": "xch0017",
           "name": "Total synthesis",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1176,6 +1202,8 @@
         {
           "id": "xch0020",
           "name": "Sustainability",
+          "poleReading": "antipodal",
+          "poleEnemies": [["strict-green-by-design", "unfettered-fundamental-inquiry"]],
           "risk": false,
           "poles": [
             {
@@ -1236,6 +1264,8 @@
         {
           "id": "xch0021",
           "name": "Lab risk",
+          "poleReading": "antipodal",
+          "poleEnemies": [["zero-harm-institutional-compliance", "frontier-risk-acceptance"]],
           "risk": false,
           "poles": [
             {
@@ -1288,6 +1318,8 @@
         {
           "id": "xch0022",
           "name": "Chemistry in the Public Eye",
+          "poleReading": "antipodal",
+          "poleEnemies": [["dangerous", "useful"]],
           "risk": false,
           "poles": [
             {
@@ -1340,6 +1372,8 @@
         {
           "id": "xch0023",
           "name": "Chemophobia",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1539,6 +1573,8 @@
         {
           "id": "xch0027",
           "name": "Systems Chemistry",
+          "poleReading": "antipodal",
+          "poleEnemies": [["pure-compound-isolationism", "prebiotic-geochemical-realism"]],
           "risk": false,
           "poles": [
             {
@@ -1591,6 +1627,8 @@
         {
           "id": "xch0028",
           "name": "Catalysis",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1704,6 +1742,8 @@
         {
           "id": "xch0030",
           "name": "Nomenclature",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1761,6 +1801,8 @@
         {
           "id": "xch0031",
           "name": "Pedagogy",
+          "poleReading": "antipodal",
+          "poleEnemies": [["traditional-macroscopic-first", "conceptual-qualitative-reasoning"], ["atoms-first-approach", "context-problem-based-learning"]],
           "risk": false,
           "poles": [
             {
@@ -1821,6 +1863,8 @@
         {
           "id": "xch0032",
           "name": "Publication culture",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1873,6 +1917,8 @@
         {
           "id": "xch0033",
           "name": "Academic life",
+          "poleReading": "antipodal",
+          "poleEnemies": [["teaching-first", "research-first"]],
           "risk": false,
           "poles": [
             {
@@ -2064,6 +2110,8 @@
         {
           "id": "xch0037",
           "name": "Chemical Energy Storage",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -2124,6 +2172,8 @@
         {
           "id": "xch0038",
           "name": "Materials",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -2176,6 +2226,8 @@
         {
           "id": "xch0039",
           "name": "Drug discovery",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {

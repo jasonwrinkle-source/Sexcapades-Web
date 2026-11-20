@@ -126,6 +126,8 @@
         {
           "id": "xpr0001",
           "name": "Levins' Grand Model Trilemma",
+          "poleReading": "trilemma",
+          "poleEnemies": [["generality", "realism"], ["generality", "precision"], ["realism", "precision"]],
           "risk": false,
           "poles": [
             {
@@ -386,6 +388,8 @@
         {
           "id": "xpr0006",
           "name": "The Computational Architecture Quartet",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -590,6 +594,8 @@
         {
           "id": "xpr0010",
           "name": "The Applied Domain Star",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -758,6 +764,8 @@
         {
           "id": "xpr0013",
           "name": "The Epistemic Uncertainty Quartet",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -823,6 +831,8 @@
         {
           "id": "xpr0014",
           "name": "The Inverse Problem",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {

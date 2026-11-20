@@ -126,6 +126,8 @@
         {
           "id": "xth0001",
           "name": "Foundations of Mathematics",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -204,6 +206,8 @@
         {
           "id": "xth0002",
           "name": "Foundations",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -621,6 +625,8 @@
         {
           "id": "xth0010",
           "name": "Erdős's \"The Book\": Proof Aesthetics",
+          "poleReading": "same",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -783,6 +789,8 @@
         {
           "id": "xth0013",
           "name": "The Quadrivium of Pure Mathematics",
+          "poleReading": "complement",
+          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1108,6 +1116,8 @@
         {
           "id": "xth0019",
           "name": "Axiom of Choice (AC) Stance",
+          "poleReading": "antipodal",
+          "poleEnemies": [["unconditional-acceptance-zfc", "defiant-rejection-constructive-determinacy"]],
           "risk": false,
           "poles": [
             {
