@@ -32,26 +32,44 @@ else
   exit 1
 fi
 
-echo "Uploading $TARBALL ($(stat -c %s "$TAR_PATH" | awk '{print int($1/1024/1024)"MB"}')) to temporary storage (Litterbox 72h)..."
-# || true: set -e would otherwise stop on a curl failure before the fallback.
+echo "Uploading $TARBALL ($(stat -c %s "$TAR_PATH" | awk '{print int($1/1024/1024)"MB"}')) to temporary storage..."
+# Try Litterbox (72h) first
 URL=$(curl -4 -s -F "reqtype=fileupload" -F "time=72h" -F "fileToUpload=@$TAR_PATH" https://litterbox.catbox.moe/resources/internals/api.php || true)
 URL=$(printf '%s' "$URL" | tr -d '\r' | head -1)
 HOST_NOTE="valid 72 hours"
 
-if [[ "$URL" =~ ^https?:// ]]; then
+if [[ "$URL" =~ ^https?://.*catbox\.moe ]]; then
   echo "Uploaded to Litterbox: $URL"
   DEPLOY_CMD="cd ~/domains && curl -L -o $TARBALL \"$URL\" && echo \"$MD5  $TARBALL\" | md5sum -c && tar -xzf $TARBALL"
 else
-  echo "Litterbox did not return a URL. Trying temp.sh fallback..."
-  URL=$(curl -s -F "file=@$TAR_PATH" https://temp.sh/upload || true)
+  echo "Litterbox did not return a valid URL. Trying Catbox..."
+  URL=$(curl -s -F "reqtype=fileupload" -F "fileToUpload=@$TAR_PATH" https://catbox.moe/user/api.php || true)
   URL=$(printf '%s' "$URL" | tr -d '\r' | head -1)
-  if [[ ! "$URL" =~ ^https://temp\.sh/ ]]; then
-    echo "Upload error: temp.sh did not return a URL."
-    exit 1
+  if [[ "$URL" =~ ^https?://files\.catbox\.moe ]]; then
+    echo "Uploaded to Catbox: $URL"
+    HOST_NOTE="Catbox permanent mirror"
+    DEPLOY_CMD="cd ~/domains && curl -L -o $TARBALL \"$URL\" && echo \"$MD5  $TARBALL\" | md5sum -c && tar -xzf $TARBALL"
+  else
+    echo "Catbox did not return a valid URL. Trying Uguu..."
+    UGUU_RESP=$(curl -s -F "files[]=@$TAR_PATH" https://uguu.se/upload.php || true)
+    URL=$(echo "$UGUU_RESP" | jq -r '.files[0].url // empty' 2>/dev/null || true)
+    if [[ "$URL" =~ ^https?://.*uguu\.se ]]; then
+      echo "Uploaded to Uguu: $URL"
+      HOST_NOTE="Uguu (3h temporary)"
+      DEPLOY_CMD="cd ~/domains && curl -L -o $TARBALL \"$URL\" && echo \"$MD5  $TARBALL\" | md5sum -c && tar -xzf $TARBALL"
+    else
+      echo "Uguu did not return a valid URL. Trying temp.sh fallback..."
+      URL=$(curl -s -F "file=@$TAR_PATH" https://temp.sh/upload || true)
+      URL=$(printf '%s' "$URL" | tr -d '\r' | head -1)
+      if [[ ! "$URL" =~ ^https://temp\.sh/ ]]; then
+        echo "Upload error: all hosters failed to return a URL."
+        exit 1
+      fi
+      echo "Uploaded to temp.sh: $URL"
+      HOST_NOTE="temp.sh; download with POST"
+      DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TARBALL \"$URL\" && echo \"$MD5  $TARBALL\" | md5sum -c && tar -xzf $TARBALL"
+    fi
   fi
-  echo "Uploaded to temp.sh: $URL"
-  HOST_NOTE="temp.sh; download with POST"
-  DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TARBALL \"$URL\" && echo \"$MD5  $TARBALL\" | md5sum -c && tar -xzf $TARBALL"
 fi
 mkdir -p "$DIR/deploy-output"
 if [ "$MODE" = "all" ]; then
