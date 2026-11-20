@@ -19677,12 +19677,17 @@ const TAXONOMY_CATEGORIES = [
             }
             return i.length ? i.reduce((e, t) => e + t, 0) / i.length : null;
         }
-        function pa(e, t, n) {
+        function pa(e, t, n, w) {
             let i = 0, a = 0;
-            return e.forEach(e => {
-                const r = n(e);
-                null != r && (i += r, a++);
-            }), a ? Math.max(-100, Math.min(100, i / a)) : null;
+            e.forEach((item, idx) => {
+                const r = n(item);
+                if (null != r) {
+                    const weight = (Array.isArray(w) && Number.isFinite(w[idx])) ? w[idx] : 1;
+                    i += r * weight;
+                    a += weight;
+                }
+            });
+            return a ? Math.max(-100, Math.min(100, i / a)) : null;
         }
         function ha(e, t, n) {
             const i = ca(e, t);
@@ -19695,12 +19700,12 @@ const TAXONOMY_CATEGORIES = [
             return pa(ga(e, t), t, e => ua(e, t));
         }
         function smSub(e, t, n, i) {
-            // KinkTest fix (1.1): a direct rating on the subcategory
-            // itself wins over the roll-up of its topics, mirroring da().
+            // Interim unification: direct rating per flank wins
             if (i) {
                 const direct = ha(i, t, n);
                 if (null != direct) return direct;
             }
+            // Child topics sit at depth 3; depth weight = 1.0
             const a = (e?.topics || []).map(Wn).concat(i ? ai(i, t) : []);
             return pa(a, t, e => ha(e, t, n));
         }
@@ -19709,25 +19714,51 @@ const TAXONOMY_CATEGORIES = [
             return null;
         }
         function cuCat(e, t, n) {
-            const s = e.subcategories || [], u = [];
-            if (!s.length) ga(e, t).forEach(x => u.push(ha(x, t, n))); else {
-                (e.parentTopics || []).forEach(l => u.push(ha(Wn(l), t, n)));
-                s.forEach(g => u.push(smSub(g, t, n, Un(e.name, g.name))));
-                const d = new Set(s.map(g => Un(e.name, g.name)));
-                Object.values(at[t] || {}).filter(x => x.branch === e.name && !d.has(x.parentId)).forEach(x => u.push(ha(x.id, t, n)));
-            }
-            const k = u.filter(v => null != v);
-            // KinkTest fix (1.1): a direct rating on the branch itself
-            // wins over the roll-up of its children, mirroring da().
+            // Interim unification: direct rating per flank wins over roll-up
             const direct = ha(catId(e.name), t, n);
-            if (null != direct) return {
-                value: direct,
-                rated: 0,
-                total: u.length
-            };
+            if (null != direct) {
+                const totalChildren = (e.subcategories || []).length + (e.parentTopics || []).length;
+                return {
+                    value: direct,
+                    rated: 1,
+                    total: totalChildren || 1
+                };
+            }
+            const s = e.subcategories || [], u = [], weights = [];
+            if (!s.length) {
+                ga(e, t).forEach(x => {
+                    u.push(ha(x, t, n));
+                    weights.push(1); // depth 3/leaf topics have weight 1
+                });
+            } else {
+                // Parent topics hanging directly off category: depth 2 (weight 2/3)
+                (e.parentTopics || []).forEach(l => {
+                    u.push(ha(Wn(l), t, n));
+                    weights.push(2 / 3);
+                });
+                // Subcategories: depth 2 (weight 2/3)
+                s.forEach(g => {
+                    u.push(smSub(g, t, n, Un(e.name, g.name)));
+                    weights.push(2 / 3);
+                });
+                const d = new Set(s.map(g => Un(e.name, g.name)));
+                Object.values(at[t] || {}).filter(x => x.branch === e.name && !d.has(x.parentId)).forEach(x => {
+                    u.push(ha(x.id, t, n));
+                    weights.push(1);
+                });
+            }
+            let weightedSum = 0, totalWeight = 0, ratedCount = 0;
+            u.forEach((val, idx) => {
+                if (null != val) {
+                    const w = weights[idx] || 1;
+                    weightedSum += val * w;
+                    totalWeight += w;
+                    ratedCount++;
+                }
+            });
             return {
-                value: k.length ? Math.max(-100, Math.min(100, k.reduce((a, b) => a + b, 0) / k.length)) : null,
-                rated: k.length,
+                value: totalWeight > 0 ? Math.max(-100, Math.min(100, weightedSum / totalWeight)) : null,
+                rated: ratedCount,
                 total: u.length
             };
         }

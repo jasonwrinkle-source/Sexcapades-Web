@@ -398,7 +398,7 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
    build it?" — is UNANSWERED. Do NOT dispatch anything on this until
    he decides. Verified still unbuilt 2026-11-19: gate.html carries none
    of the app view-selector markup.
-2. **Interim unification — the uniform-node-type build, not started.**
+2. **Interim unification — the uniform-node-type build.**
    Categories, subcategories, and kinks become one uniform node type.
    Ruled scope: rating reads with direct-wins precedence per flank; the
    import write path; On Deck proposal source; canonical adaptation
@@ -406,7 +406,26 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
    beats topic Favorite** (topics under a limited branch are hidden from
    display and from Play matching); depth weighting (2/3)^(maxDepth−depth)
    — topic 1, subcategory 2/3, category 4/9; the roll-up stays a plain
-   mean; a branch counts as one rated unit for the veil. Not started.
+   mean; a branch counts as one rated unit for the veil.
+
+   **Phased Implementation Plan (Jason approval 2026-11-20):**
+   - **Phase 1: Rating Model & Roll-Up Precedence (In Progress).**
+     Unify `da()`, `ca()`, `cuCat()`, and `smSub()` in `02o-ratings-scales.js`
+     so categories, subcategories, and topics share uniform evaluation.
+     Implement per-flank direct-wins (`give` direct wins over `give` roll-up,
+     while untouched `receive` continues rolling up from children).
+     Apply depth weighting `(2/3)^(maxDepth - depth)` in branch and
+     subcategory weighted roll-ups. Ensure veil counts 1 unit per rated branch.
+   - **Phase 2: Compatibility & Limits Override.**
+     Wire "branch Limit beats topic Favorite" in `05-compatibility.js`:
+     when a branch has a hard limit, every descendant topic is hard-excluded
+     from Play matching, negotiation, and displayed pairs, overriding child
+     Favorites.
+   - **Phase 3: Importer & On Deck Integration.**
+     Update third-party importers (`06b-fetlife-importer.js`,
+     `06c-converter-pipeline.js`) to target uniform parent node IDs when
+     broad categories arrive. Update `__sxOnDeckMembers` in `03d-outline.js`
+     so parent nodes function as first-class On Deck proposal targets.
 3. **Importer write/commit defect + acceptance debt.** The import dialog
    claims "loaded with 10 ratings" but the profile does not persist on
    reload — the write/commit path needs diagnosis/fix (Jason's call).
