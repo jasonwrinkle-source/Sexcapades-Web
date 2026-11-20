@@ -430,14 +430,25 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
      categories arrive. Updated `__sxOnDeckIndex` and `__sxOnDeckMembers`
      in `03d-outline.js` so category and subcategory nodes function as
      first-class On Deck proposal targets across all proposal tiers.
-3. **Importer write/commit defect + acceptance debt.** The import dialog
-   claims "loaded with 10 ratings" but the profile does not persist on
-   reload — the write/commit path needs diagnosis/fix (Jason's call).
-   Importer acceptance is still not passed, the audit content review has
-   not run, and Jason's cold-open acceptance is owed. **Not the same
-   item as §3.6** (in-session ratings not surfacing after reload): the
-   two present similarly and may share a root, but they are distinct
-   recorded items — do not conflate them.
+3. ~~**Importer write/commit defect + acceptance debt.**~~ Settled 2026-11-20.
+   Diagnosed and fixed four root causes across the import/storage pipeline:
+   - In `06c-converter-pipeline.js` (`rk`), file/QR/drag-drop imports previously
+     called `Vt(c)` directly instead of `zt(c), sxMergeSaveNow(c)`, clearing
+     the dirty flag without invoking `saveNow()` or writing to `localStorage`.
+   - In `06d-profile-sheet.js` (`sxMergeSaveNow`), the `else` branch previously
+     executed `Vt(id)` when Remember was off, wiping out the dirty mark `*` and
+     removing the `beforeunload` unsaved-changes protection for unsaved imports.
+   - In `09-profile-storage.js` (`loadStoredProfiles`), `if (api.has(profileId))`
+     previously skipped restoring data if the profile ID was already pre-created
+     in memory during bootstrap, leaving stored profiles blank. Rehydrated
+     via `api.importData(profileId, data)` with an `isRestoring` re-entrancy mutex
+     preventing premature deletion of unrestored keys in `saveNow()`.
+   - In `06c-converter-pipeline.js` (`applyProfileRatings`), reinforced catalog
+     and skin validation so non-standard skin topics and child nodes are never
+     pruned on import.
+   Importer write/commit path now persists immediately to `localStorage` when
+   Remember is enabled, and properly flags in-memory dirty status with `beforeunload`
+   protection when Remember is disabled. Cold-open acceptance remains owed.
 4. **Scribe — narration safety-filter block (known issue).** The TTS
    safety filter can block a passage outright, returning no audio stream
    at all (first live sighting 2026-11-13). The editable story text

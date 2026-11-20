@@ -683,7 +683,10 @@
             if (!id || !vt[id]) return;
             try {
                 const cb = e.byId("rememberProfileCheckbox2x"), rp = window.Sexcapades2xRememberProfiles;
-                if (cb && cb.checked && rp && "function" == typeof rp.saveNow) rp.saveNow() && Vt(id); else Vt(id);
+                const shouldSave = rp && (typeof rp.isEnabled === "function" ? rp.isEnabled() : (cb && cb.checked));
+                if (shouldSave && "function" == typeof rp.saveNow) {
+                    if (rp.saveNow()) Vt(id);
+                }
             } catch (err) { __sxErrLog("sx-merge-save", err); }
         }
         const Zy = {};

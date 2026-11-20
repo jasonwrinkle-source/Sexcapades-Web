@@ -46159,7 +46159,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (!id || !vt[id]) return;
             try {
                 const cb = e.byId("rememberProfileCheckbox2x"), rp = window.Sexcapades2xRememberProfiles;
-                if (cb && cb.checked && rp && "function" == typeof rp.saveNow) rp.saveNow() && Vt(id); else Vt(id);
+                const shouldSave = rp && (typeof rp.isEnabled === "function" ? rp.isEnabled() : (cb && cb.checked));
+                if (shouldSave && "function" == typeof rp.saveNow) {
+                    if (rp.saveNow()) Vt(id);
+                }
             } catch (err) { __sxErrLog("sx-merge-save", err); }
         }
         const Zy = {};
@@ -48840,7 +48843,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
                     id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
-                if (!Ke.has(id) && !isCatId(id) && !isSubId(id)) return;
+                if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) {
+                    if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") {
+                        try { window.__SX_SKIN_LAYOUT_SYNC(); } catch (_) {}
+                    }
+                    if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) return;
+                }
                 const topicName = getTopicName(id);
                 if (Ge(id, c).single) {
                     const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
@@ -49285,7 +49293,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 noFlash: !0 === e.noFlash,
                 hasAttentionState: p,
                 attentionState: e.importAttention
-            }), Vt(c), Lo(c) && Mr(), Ig(""), xg.textContent = "", n.quiet || (o !== i && tS(`Imported as ${o}`), 
+            }), zt(c), sxMergeSaveNow(c), Lo(c) && Mr(), Ig(""), xg.textContent = "", n.quiet || (o !== i && tS(`Imported as ${o}`),
             od(c).length && t.setTimeout(() => bw(c), 0)), u ? tS(`Blind import kept ${u.kept} mutual ${1 === u.kept ? "match" : "matches"} across the ${u.groupSize}-profile comparison group and permanently discarded ${u.discarded} non-matching incoming ${1 === u.discarded ? "topic" : "topics"} from memory. The shared file is unchanged.`, {
                 persistent: !0
             }) : !0 === e.blind && tS("This profile was set up for a blind comparison, but no comparison group was selected first, so the full profile was loaded instead. To do a blind comparison: select the profiles you want to compare first, then import this file again.", {
@@ -53284,6 +53292,7 @@ __sxInit(function () {
   }
 
   var storageEverLoaded = false;
+  var isRestoring = false;
 
   function readStoredProfilePayload() {
     try {
@@ -53408,7 +53417,7 @@ __sxInit(function () {
   }
 
   function saveNow(duringUnload) {
-    if (!rememberEnabled) return false;
+    if (!rememberEnabled || isRestoring) return false;
     var api = profilesApi();
     if (!api) return false;
 
@@ -53483,58 +53492,62 @@ __sxInit(function () {
       showRestoreError(1);
       return 0;
     }
-    storageEverLoaded = true;
-    var payload = readStoredProfilePayload();
-    var storedProfiles = (payload && payload.profiles) || {};
-    var preferredActiveId = (payload && payload.activeProfileId) || null;
+    if (isRestoring) return 0;
+    isRestoring = true;
     var loaded = 0;
     var failed = 0;
     var restoredIds = [];
     try {
-      var rawStored = localStorage.getItem(storageKey);
-      if (rawStored) JSON.parse(rawStored);
-    } catch (error) {
-      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
-      failed++;
-    }
-    Object.keys(storedProfiles).forEach(function (profileId) {
-      var entry = storedProfiles[profileId];
-      var data = entry && typeof entry === "object" && "data" in entry ? entry.data : entry;
-      if (!data) {
-        failed++;
-        if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " has no data to restore."));
-        return;
-      }
+      var payload = readStoredProfilePayload();
+      var storedProfiles = (payload && payload.profiles) || {};
+      var preferredActiveId = (payload && payload.activeProfileId) || null;
       try {
-        if (api.has(profileId)) {
-          restoredIds.push(profileId);
+        var rawStored = localStorage.getItem(storageKey);
+        if (rawStored) JSON.parse(rawStored);
+      } catch (error) {
+        if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+        failed++;
+      }
+      Object.keys(storedProfiles).forEach(function (profileId) {
+        var entry = storedProfiles[profileId];
+        var data = entry && typeof entry === "object" && "data" in entry ? entry.data : entry;
+        if (!data) {
+          failed++;
+          if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " has no data to restore."));
           return;
         }
-        var imported = api.importData(profileId, data);
-        if (imported) {
-          loaded++;
-          restoredIds.push(typeof imported === "string" ? imported : profileId);
-        } else {
+        try {
+          var imported = api.importData(profileId, data);
+          if (imported) {
+            loaded++;
+            restoredIds.push(typeof imported === "string" ? imported : profileId);
+          } else {
+            failed++;
+            if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " could not be restored (importData returned false)."));
+          }
+        } catch (error) {
           failed++;
-          if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " could not be restored (importData returned false)."));
+          if (typeof __sxErrLog === "function") __sxErrLog("profile-import", error);
         }
-      } catch (error) {
-        failed++;
-        if (typeof __sxErrLog === "function") __sxErrLog("profile-import", error);
-      }
-    });
+      });
 
-    if (restoredIds.length > 0 && typeof api.activate === "function") {
-      var targetId = (preferredActiveId && restoredIds.indexOf(preferredActiveId) !== -1)
-        ? preferredActiveId
-        : restoredIds[0];
-      if (targetId) {
-        api.activate(targetId);
+      storageEverLoaded = true;
+
+      if (restoredIds.length > 0 && typeof api.activate === "function") {
+        var targetId = (preferredActiveId && restoredIds.indexOf(preferredActiveId) !== -1)
+          ? preferredActiveId
+          : restoredIds[0];
+        if (targetId) {
+          api.activate(targetId);
+        }
       }
+
+      if (failed) showRestoreError(failed);
+      return loaded;
+    } finally {
+      isRestoring = false;
+      syncSavedMenu();
     }
-
-    if (failed) showRestoreError(failed);
-    return loaded;
   }
 
   function savedMenuEl() { return SexcapadesRuntime.DOM.byId("profileSavedMenu"); }

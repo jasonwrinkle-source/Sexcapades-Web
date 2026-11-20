@@ -245,7 +245,12 @@
                 } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
                     id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
                 }
-                if (!Ke.has(id) && !isCatId(id) && !isSubId(id)) return;
+                if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) {
+                    if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") {
+                        try { window.__SX_SKIN_LAYOUT_SYNC(); } catch (_) {}
+                    }
+                    if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) return;
+                }
                 const topicName = getTopicName(id);
                 if (Ge(id, c).single) {
                     const candidates = "number" == typeof rating ? [ [ "give", rating ] ] : rating && "object" == typeof rating ? [ [ "give", rating.give ], [ "receive", rating.receive ] ] : [];
@@ -690,7 +695,7 @@
                 noFlash: !0 === e.noFlash,
                 hasAttentionState: p,
                 attentionState: e.importAttention
-            }), Vt(c), Lo(c) && Mr(), Ig(""), xg.textContent = "", n.quiet || (o !== i && tS(`Imported as ${o}`), 
+            }), zt(c), sxMergeSaveNow(c), Lo(c) && Mr(), Ig(""), xg.textContent = "", n.quiet || (o !== i && tS(`Imported as ${o}`),
             od(c).length && t.setTimeout(() => bw(c), 0)), u ? tS(`Blind import kept ${u.kept} mutual ${1 === u.kept ? "match" : "matches"} across the ${u.groupSize}-profile comparison group and permanently discarded ${u.discarded} non-matching incoming ${1 === u.discarded ? "topic" : "topics"} from memory. The shared file is unchanged.`, {
                 persistent: !0
             }) : !0 === e.blind && tS("This profile was set up for a blind comparison, but no comparison group was selected first, so the full profile was loaded instead. To do a blind comparison: select the profiles you want to compare first, then import this file again.", {

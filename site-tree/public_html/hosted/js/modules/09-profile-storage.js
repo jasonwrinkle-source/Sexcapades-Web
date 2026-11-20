@@ -16,6 +16,7 @@ __sxInit(function () {
   }
 
   var storageEverLoaded = false;
+  var isRestoring = false;
 
   function readStoredProfilePayload() {
     try {
@@ -140,7 +141,7 @@ __sxInit(function () {
   }
 
   function saveNow(duringUnload) {
-    if (!rememberEnabled) return false;
+    if (!rememberEnabled || isRestoring) return false;
     var api = profilesApi();
     if (!api) return false;
 
@@ -215,58 +216,62 @@ __sxInit(function () {
       showRestoreError(1);
       return 0;
     }
-    storageEverLoaded = true;
-    var payload = readStoredProfilePayload();
-    var storedProfiles = (payload && payload.profiles) || {};
-    var preferredActiveId = (payload && payload.activeProfileId) || null;
+    if (isRestoring) return 0;
+    isRestoring = true;
     var loaded = 0;
     var failed = 0;
     var restoredIds = [];
     try {
-      var rawStored = localStorage.getItem(storageKey);
-      if (rawStored) JSON.parse(rawStored);
-    } catch (error) {
-      if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
-      failed++;
-    }
-    Object.keys(storedProfiles).forEach(function (profileId) {
-      var entry = storedProfiles[profileId];
-      var data = entry && typeof entry === "object" && "data" in entry ? entry.data : entry;
-      if (!data) {
-        failed++;
-        if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " has no data to restore."));
-        return;
-      }
+      var payload = readStoredProfilePayload();
+      var storedProfiles = (payload && payload.profiles) || {};
+      var preferredActiveId = (payload && payload.activeProfileId) || null;
       try {
-        if (api.has(profileId)) {
-          restoredIds.push(profileId);
+        var rawStored = localStorage.getItem(storageKey);
+        if (rawStored) JSON.parse(rawStored);
+      } catch (error) {
+        if (typeof __sxErrLog === "function") __sxErrLog("profile-storage", error);
+        failed++;
+      }
+      Object.keys(storedProfiles).forEach(function (profileId) {
+        var entry = storedProfiles[profileId];
+        var data = entry && typeof entry === "object" && "data" in entry ? entry.data : entry;
+        if (!data) {
+          failed++;
+          if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " has no data to restore."));
           return;
         }
-        var imported = api.importData(profileId, data);
-        if (imported) {
-          loaded++;
-          restoredIds.push(typeof imported === "string" ? imported : profileId);
-        } else {
+        try {
+          var imported = api.importData(profileId, data);
+          if (imported) {
+            loaded++;
+            restoredIds.push(typeof imported === "string" ? imported : profileId);
+          } else {
+            failed++;
+            if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " could not be restored (importData returned false)."));
+          }
+        } catch (error) {
           failed++;
-          if (typeof __sxErrLog === "function") __sxErrLog("profile-import", new Error("Stored profile " + profileId + " could not be restored (importData returned false)."));
+          if (typeof __sxErrLog === "function") __sxErrLog("profile-import", error);
         }
-      } catch (error) {
-        failed++;
-        if (typeof __sxErrLog === "function") __sxErrLog("profile-import", error);
-      }
-    });
+      });
 
-    if (restoredIds.length > 0 && typeof api.activate === "function") {
-      var targetId = (preferredActiveId && restoredIds.indexOf(preferredActiveId) !== -1)
-        ? preferredActiveId
-        : restoredIds[0];
-      if (targetId) {
-        api.activate(targetId);
+      storageEverLoaded = true;
+
+      if (restoredIds.length > 0 && typeof api.activate === "function") {
+        var targetId = (preferredActiveId && restoredIds.indexOf(preferredActiveId) !== -1)
+          ? preferredActiveId
+          : restoredIds[0];
+        if (targetId) {
+          api.activate(targetId);
+        }
       }
+
+      if (failed) showRestoreError(failed);
+      return loaded;
+    } finally {
+      isRestoring = false;
+      syncSavedMenu();
     }
-
-    if (failed) showRestoreError(failed);
-    return loaded;
   }
 
   function savedMenuEl() { return SexcapadesRuntime.DOM.byId("profileSavedMenu"); }
