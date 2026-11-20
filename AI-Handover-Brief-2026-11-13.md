@@ -20,7 +20,7 @@ this brief is what the incoming editor reads first.
 ownership from 2026-11-15.
 **The saddle passes to:** Grok and Cursor, on Jason's word.
 **Repo:** `jasonwrinkle-source/Sexcapades-Web`, branch `main`.
-**Remote head:** `c8e56f8e`. **Live build:** deploy-all `2026-11-19_1524`.
+**Remote head:** past `c8e56f8e`; the repo About stamp is `2026-11-19_2321` (`131cdcf`). **Live build:** last curl-verified deploy-all is `2026-11-19_1524`. The `2321` package is built and not uploaded.
 **Version:** 5.0.
 
 **Authority.** Jason Mark Wrinkle is the PI and sole owner. His latest ruling
@@ -36,10 +36,20 @@ without his daylight say-so and his own cold-open acceptance. Address him as
 
 ## 1. Current state (2026-11-19)
 
-- **Live:** deploy-all `2026-11-19_1524`, hosted by Jason and curl-verified:
-  the Sexcapades app, the Dharma gate, and the Fores app all serve Build
-  2026-11-19_1524. Production app: `/hosted/app.html`.
-- **Git:** origin/main `c8e56f8e`; the snapshot sync record
+- **Live:** last curl-verified deploy-all is `2026-11-19_1524`. The
+  Sexcapades app, the Dharma gate, and the Fores app were checked at that
+  build. Production app: `/hosted/app.html`. A later `2026-11-19_2046`
+  package was uploaded to Litterbox; whether that Hostinger command was
+  run has not been re-checked. `2026-11-19_2321` is stamped in the repo
+  and packed at
+  `deploy-output/deploy-all-v5.0-2026-11-19_2321-optimized.tar.gz`
+  (MD5 `33ee27b48bd14957bc29c89392d10254`). On the night of 2026-11-19
+  Litterbox returned HTTP 500 after receiving that file, and temp.sh
+  returned HTTP 500 even for a tiny file, so `2321` has no download URL
+  and is not on the server. Do not re-run the packager for it; that
+  bumps the About stamp.
+- **Git:** origin/main is past `c8e56f8e`. The `2321` stamp is `131cdcf`.
+  The snapshot sync record
   (`~/workspace/Sexcapades-Web.muse-github-snapshot-sync.json`) holds 301
   entries. The VM working tree's local HEAD lags the remote — connector
   pushes don't move it. Read §4 before trusting any local git state.
@@ -86,7 +96,13 @@ without his daylight say-so and his own cold-open acceptance. Address him as
   assets/) plus the static pages beside it. `site-tree/public_html/qa` is
   an untracked symlink to `hosted`; the QA tree is not in git.
 - **Packagers:** `packaging-scripts/` — `package-deploy-all-5.0.sh`,
-  `package-deploy-app-5.0.sh`, `package-deploy-qa.sh`, `bump-build.py`.
+  `package-deploy-app-5.0.sh`, `package-deploy-qa.sh`, `quick-host.sh`,
+  `bump-build.py`. `quick-host.sh` is deploy-app; `quick-host.sh --all`
+  is deploy-all. Both try Litterbox (72h) first. If curl fails or the
+  reply is not a URL, they upload the same tarball to temp.sh. A
+  Litterbox link is fetched with `curl -L`. A temp.sh link is fetched
+  with `curl -L -X POST`, which is what returns the file.
+  `package-deploy-qa.sh` already had that fallback.
 - **Fleet:** `sexcapades-playwright-fleet/` — Playwright tests plus
   `serve-local.py`. Jason runs the fleet; the agent commands it.
 
@@ -271,8 +287,9 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    numbers sit under the pole names. The popup button, the extra per-pole
    sliders, and the separate number row are gone. The wheel sets intensity.
    A click updates the row and leaves the map paint until the list closes.
-   Placard and profile sheet untouched. In the repo on main; not in the
-   uploaded 2026-11-19_2046 package.
+   Placard and profile sheet untouched. In the repo on main. Not in the
+   uploaded `2026-11-19_2046` package. It is inside the local `2321`
+   tarball, which has no download URL (see §1).
 2. ~~**Plain-English labels for the whole Forescapades map**~~ — settled
    2026-11-19. Jason approved the batch. The 16 jargon topic titles and
    the pole labels in that batch are now the English umbrellas in
@@ -634,10 +651,14 @@ Restored from the 2026-11-13 brief after the 2026-11-19 audit; grouped.
 - **Intermediate build tags:** intermediate builds carry a short tag in
   the About dialog: `<job>-<MMDD>-<HHMM>` (the About stamp itself still
   moves only on deploy/packaging, above).
-- **Hosting targets:** LIVE = `quick-host.sh`; QA =
-  `package-deploy-qa.sh` → `public_html/qa/`; there is NO promote step —
-  QA and live are built separately from the same source. The Drive
-  upload is backup only.
+- **Hosting targets:** LIVE = `quick-host.sh` (deploy-app, or `--all`
+  for deploy-all); QA = `package-deploy-qa.sh` → `public_html/qa/`;
+  there is NO promote step — QA and live are built separately from the
+  same source. The Drive upload is backup only. Litterbox is the first
+  temporary host (72h). temp.sh is the fallback for deploy-app,
+  deploy-all, and QA. temp.sh returns the file only on POST. On
+  2026-11-19 night both hosts returned HTTP 500, so the packed `2321`
+  tarball stayed local.
 - **Localhost refresh:** edit `app/`, then run
   `python3 app/data/build-bundle.py`. That rewrites the served bundle,
   the stylesheet, the shell scripts the page loads, and
