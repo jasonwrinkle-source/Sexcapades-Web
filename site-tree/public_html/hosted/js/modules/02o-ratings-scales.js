@@ -1422,8 +1422,13 @@
             return av(e);
         }
         function Ca(e, t = {}, n = {}) {
-            if (n && "favorite" === n[e]) return 100;
-            if (n && ("limit" === n[e] || "notinterested" === n[e])) return -100;
+            const info = qn[e] || Xn(e);
+            const isBranchLimited = !(!info || "Category" === info.kind) && Boolean(
+                (info.parentId && n && "limit" === n[info.parentId]) ||
+                (info.branch && n && "limit" === n[catId(info.branch)])
+            );
+            if (n && ("limit" === n[e] || "notinterested" === n[e] || isBranchLimited)) return -100;
+            if (n && "favorite" === n[e] && !isBranchLimited) return 100;
             const i = t && t[e], a = [];
             return "number" == typeof i && Number.isFinite(Number(i)) ? a.push(Number(i)) : i && "object" == typeof i && [ "give", "receive" ].forEach(e => {
                 Object.prototype.hasOwnProperty.call(i, e) && Number.isFinite(Number(i[e])) && a.push(Number(i[e]));
@@ -1560,12 +1565,27 @@
             for (let t = 0; t < n.length; t++) for (let a = t + 1; a < n.length; a++) i.push(La(e, n[t], n[a]));
             return i.includes("mismatch") ? "mismatch" : i.includes("mutual") ? "mutual" : i.includes("explore") ? "explore" : "other";
         }
+        function sxIsBranchLimited(e, t = Vi()) {
+            const grp = Kd();
+            const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);
+            const i = qn[e] || Xn(e) || (at[t] || {})[e];
+            if (!i || "Category" === i.kind) return !1;
+            const catNodeId = i.branch ? catId(i.branch) : null;
+            const subNodeId = i.parentId || null;
+            return pIds.some(pid => {
+                const ann = Qe[pid];
+                if (!ann) return !1;
+                if (subNodeId && ann[subNodeId] === "limit") return !0;
+                if (catNodeId && ann[catNodeId] === "limit") return !0;
+                return !1;
+            });
+        }
         function RaSingle(e, t) {
             // Classify a topic by a single profile's own ratings for individual-tab filters.
             // "mutual" = Want to do (green): strong want in either direction.
             // "explore" = Curious about (yellow): moderate interest.
             // "mismatch" = Mismatched (red): strong aversion or hard limit.
-            if ("limit" === Qe[t]?.[e]) return "mismatch";
+            if ("limit" === Qe[t]?.[e] || Ba(e, t, "limit")) return "mismatch";
             const r = Pa(e, t), s = 35;
             if ((r.giveKnown && r.give > s) || (r.receiveKnown && r.receive > s)) return "mutual";
             if ((r.giveKnown && r.give <= -s) || (r.receiveKnown && r.receive <= -s)) return "mismatch";
@@ -1573,15 +1593,34 @@
             return "other";
         }
         function Oa(e, t) {
+            const i = qn[e] || Xn(e) || (at[t] || {})[e];
+            const isBranchLimited = !(!i || "Category" === i.kind) && Boolean(
+                (i.parentId && Qe[t]?.[i.parentId] === "limit") ||
+                (i.branch && Qe[t]?.[catId(i.branch)] === "limit")
+            );
+            if (isBranchLimited) return "limit";
             const n = Qe[t]?.[e];
-            if (n) return n;
-            const i = qn[e];
-            return i && "Category" !== i.kind && (i.parentId && Qe[t]?.[i.parentId] || Qe[t]?.[catId(i.branch)]) || null;
+            if (n) {
+                if ("favorite" === n && isBranchLimited) return "limit";
+                return n;
+            }
+            return i && "Category" !== i.kind && (i.parentId && Qe[t]?.[i.parentId] || (i.branch && Qe[t]?.[catId(i.branch)])) || null;
         }
         function Ba(e, t, n) {
-            if (Qe[t]?.[e] === n) return !0;
-            const i = qn[e];
-            return !(!i || "Category" === i.kind) && Boolean(i.parentId && Qe[t]?.[i.parentId] === n || Qe[t]?.[catId(i.branch)] === n);
+            const i = qn[e] || Xn(e) || (at[t] || {})[e];
+            const isBranchLimited = !(!i || "Category" === i.kind) && Boolean(
+                (i.parentId && Qe[t]?.[i.parentId] === "limit") ||
+                (i.branch && Qe[t]?.[catId(i.branch)] === "limit")
+            );
+            if (isBranchLimited) {
+                if ("limit" === n) return !0;
+                if ("favorite" === n) return !1;
+            }
+            if (Qe[t]?.[e] === n) {
+                if ("favorite" === n && (Qe[t]?.[e] === "limit" || isBranchLimited)) return !1;
+                return !0;
+            }
+            return !(!i || "Category" === i.kind) && Boolean(i.parentId && Qe[t]?.[i.parentId] === n || (i.branch && Qe[t]?.[catId(i.branch)] === n));
         }
         function ja(e, t) {
             return Ba(e, t, "limit") || Ba(e, t, "notinterested");

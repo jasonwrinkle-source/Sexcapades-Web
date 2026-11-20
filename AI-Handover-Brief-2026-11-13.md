@@ -409,19 +409,21 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
    mean; a branch counts as one rated unit for the veil.
 
    **Phased Implementation Plan (Jason approval 2026-11-20):**
-   - **Phase 1: Rating Model & Roll-Up Precedence (In Progress).**
-     Unify `da()`, `ca()`, `cuCat()`, and `smSub()` in `02o-ratings-scales.js`
+   - **Phase 1: Rating Model & Roll-Up Precedence (Completed 2026-11-20).**
+     Unified `da()`, `ca()`, `cuCat()`, and `smSub()` in `02o-ratings-scales.js`
      so categories, subcategories, and topics share uniform evaluation.
-     Implement per-flank direct-wins (`give` direct wins over `give` roll-up,
+     Implemented per-flank direct-wins (`give` direct wins over `give` roll-up,
      while untouched `receive` continues rolling up from children).
-     Apply depth weighting `(2/3)^(maxDepth - depth)` in branch and
-     subcategory weighted roll-ups. Ensure veil counts 1 unit per rated branch.
-   - **Phase 2: Compatibility & Limits Override.**
-     Wire "branch Limit beats topic Favorite" in `05-compatibility.js`:
-     when a branch has a hard limit, every descendant topic is hard-excluded
-     from Play matching, negotiation, and displayed pairs, overriding child
-     Favorites.
-   - **Phase 3: Importer & On Deck Integration.**
+     Applied depth weighting `(2/3)^(maxDepth - depth)` in branch and
+     subcategory weighted roll-ups. Ensured veil counts 1 unit per rated branch.
+   - **Phase 2: Compatibility & Limits Override (Completed 2026-11-20).**
+     Wired "branch Limit beats topic Favorite" across matching, negotiation,
+     and display (`02o-ratings-scales.js`, `05b-scribe.js`, `03e-map-paint.js`,
+     `03d-outline.js`). When a branch (category or subcategory) has a hard
+     limit, every descendant topic is hard-excluded from Play matching,
+     negotiation, FetLife recommendations, and displayed pairs, strictly
+     overriding child Favorites and adding `is-hidden` to map nodes.
+   - **Phase 3: Importer & On Deck Integration (Next).**
      Update third-party importers (`06b-fetlife-importer.js`,
      `06c-converter-pipeline.js`) to target uniform parent node IDs when
      broad categories arrive. Update `__sxOnDeckMembers` in `03d-outline.js`

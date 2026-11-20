@@ -1890,14 +1890,17 @@
                     if (!t || !vt[t]) return [];
                     const n = [];
                     h.forEach(e => e.topics.forEach(e => {
-                        const i = Wn(e), a = ca(i, t), r = "favorite" === Qe[t]?.[i], o = Math.max(a.giveKnown ? a.give : -101, a.receiveKnown ? a.receive : -101, r ? 101 : -101), s = de(e, "fetlife");
+                        const i = Wn(e);
+                        if (ja(i, t)) return;
+                        const a = ca(i, t), r = Ba(i, t, "favorite"), o = Math.max(a.giveKnown ? a.give : -101, a.receiveKnown ? a.receive : -101, r ? 101 : -101), s = de(e, "fetlife");
                         o > 0 && s && s.url && n.push({
                             label: e,
                             score: o,
                             community: s
                         });
                     })), ri().forEach(e => {
-                        const i = ca(e.id, t), a = "favorite" === Qe[t]?.[e.id], r = Math.max(i.giveKnown ? i.give : -101, i.receiveKnown ? i.receive : -101, a ? 101 : -101), o = de(e.label, "fetlife");
+                        if (ja(e.id, t)) return;
+                        const i = ca(e.id, t), a = Ba(e.id, t, "favorite"), r = Math.max(i.giveKnown ? i.give : -101, i.receiveKnown ? i.receive : -101, a ? 101 : -101), o = de(e.label, "fetlife");
                         r > 0 && o && o.url && n.push({
                             label: e.label,
                             score: r,

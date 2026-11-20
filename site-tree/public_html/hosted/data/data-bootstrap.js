@@ -19833,8 +19833,13 @@ const TAXONOMY_CATEGORIES = [
             return av(e);
         }
         function Ca(e, t = {}, n = {}) {
-            if (n && "favorite" === n[e]) return 100;
-            if (n && ("limit" === n[e] || "notinterested" === n[e])) return -100;
+            const info = qn[e] || Xn(e);
+            const isBranchLimited = !(!info || "Category" === info.kind) && Boolean(
+                (info.parentId && n && "limit" === n[info.parentId]) ||
+                (info.branch && n && "limit" === n[catId(info.branch)])
+            );
+            if (n && ("limit" === n[e] || "notinterested" === n[e] || isBranchLimited)) return -100;
+            if (n && "favorite" === n[e] && !isBranchLimited) return 100;
             const i = t && t[e], a = [];
             return "number" == typeof i && Number.isFinite(Number(i)) ? a.push(Number(i)) : i && "object" == typeof i && [ "give", "receive" ].forEach(e => {
                 Object.prototype.hasOwnProperty.call(i, e) && Number.isFinite(Number(i[e])) && a.push(Number(i[e]));
@@ -19971,12 +19976,27 @@ const TAXONOMY_CATEGORIES = [
             for (let t = 0; t < n.length; t++) for (let a = t + 1; a < n.length; a++) i.push(La(e, n[t], n[a]));
             return i.includes("mismatch") ? "mismatch" : i.includes("mutual") ? "mutual" : i.includes("explore") ? "explore" : "other";
         }
+        function sxIsBranchLimited(e, t = Vi()) {
+            const grp = Kd();
+            const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);
+            const i = qn[e] || Xn(e) || (at[t] || {})[e];
+            if (!i || "Category" === i.kind) return !1;
+            const catNodeId = i.branch ? catId(i.branch) : null;
+            const subNodeId = i.parentId || null;
+            return pIds.some(pid => {
+                const ann = Qe[pid];
+                if (!ann) return !1;
+                if (subNodeId && ann[subNodeId] === "limit") return !0;
+                if (catNodeId && ann[catNodeId] === "limit") return !0;
+                return !1;
+            });
+        }
         function RaSingle(e, t) {
             // Classify a topic by a single profile's own ratings for individual-tab filters.
             // "mutual" = Want to do (green): strong want in either direction.
             // "explore" = Curious about (yellow): moderate interest.
             // "mismatch" = Mismatched (red): strong aversion or hard limit.
-            if ("limit" === Qe[t]?.[e]) return "mismatch";
+            if ("limit" === Qe[t]?.[e] || Ba(e, t, "limit")) return "mismatch";
             const r = Pa(e, t), s = 35;
             if ((r.giveKnown && r.give > s) || (r.receiveKnown && r.receive > s)) return "mutual";
             if ((r.giveKnown && r.give <= -s) || (r.receiveKnown && r.receive <= -s)) return "mismatch";
@@ -19984,15 +20004,34 @@ const TAXONOMY_CATEGORIES = [
             return "other";
         }
         function Oa(e, t) {
+            const i = qn[e] || Xn(e) || (at[t] || {})[e];
+            const isBranchLimited = !(!i || "Category" === i.kind) && Boolean(
+                (i.parentId && Qe[t]?.[i.parentId] === "limit") ||
+                (i.branch && Qe[t]?.[catId(i.branch)] === "limit")
+            );
+            if (isBranchLimited) return "limit";
             const n = Qe[t]?.[e];
-            if (n) return n;
-            const i = qn[e];
-            return i && "Category" !== i.kind && (i.parentId && Qe[t]?.[i.parentId] || Qe[t]?.[catId(i.branch)]) || null;
+            if (n) {
+                if ("favorite" === n && isBranchLimited) return "limit";
+                return n;
+            }
+            return i && "Category" !== i.kind && (i.parentId && Qe[t]?.[i.parentId] || (i.branch && Qe[t]?.[catId(i.branch)])) || null;
         }
         function Ba(e, t, n) {
-            if (Qe[t]?.[e] === n) return !0;
-            const i = qn[e];
-            return !(!i || "Category" === i.kind) && Boolean(i.parentId && Qe[t]?.[i.parentId] === n || Qe[t]?.[catId(i.branch)] === n);
+            const i = qn[e] || Xn(e) || (at[t] || {})[e];
+            const isBranchLimited = !(!i || "Category" === i.kind) && Boolean(
+                (i.parentId && Qe[t]?.[i.parentId] === "limit") ||
+                (i.branch && Qe[t]?.[catId(i.branch)] === "limit")
+            );
+            if (isBranchLimited) {
+                if ("limit" === n) return !0;
+                if ("favorite" === n) return !1;
+            }
+            if (Qe[t]?.[e] === n) {
+                if ("favorite" === n && (Qe[t]?.[e] === "limit" || isBranchLimited)) return !1;
+                return !0;
+            }
+            return !(!i || "Category" === i.kind) && Boolean(i.parentId && Qe[t]?.[i.parentId] === n || (i.branch && Qe[t]?.[catId(i.branch)] === n));
         }
         function ja(e, t) {
             return Ba(e, t, "limit") || Ba(e, t, "notinterested");
@@ -26269,6 +26308,7 @@ const TAXONOMY_CATEGORIES = [
                     !o && A && A.has(r) && !Eo(Vi(), r) && E.push("import-updated"), !o && C && C.has(r) && !Eo(Vi(), r) && E.push("import-newest");
                     const M = n.allImported.some(e => Ra(e.id) === Pt);
                     "all" === Pt || o || x === Pt || M || E.push("is-hidden"), !Tt || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt) || n.allImported.some(e => String(e.label || "").toLowerCase().includes(Tt)) || E.push("is-dim");
+                    if (sxIsBranchLimited(r, D)) E.push("is-hidden");
                     o && n.unratedHub && E.push("is-unrated"); /* DIMFIX F2 (was HUB-BACKBONE W4): the dim reads the F1 rating-presence flag, not the Net-filtered allImported list; the dedicated class (never is-dim) keeps selection/focus precedence clean */
                     !o && !Rt && Kd() && !sxTopicKnownInOpenGroup(r) && E.push("is-unrated");
                     const I = null !== Dt && (r === Dt || dCat === Dt || t.children.some(e => e.child.id === Dt));
@@ -26415,6 +26455,7 @@ const TAXONOMY_CATEGORIES = [
                         const M = Rt ? "var(--green)" : null === E ? Te($.lineColor) : zi(E), I = Rt ? "var(--green)" : null === A ? Te($.lineColor) : zi(A), P = Rt ? "var(--green)" : null === w ? Te($.lineColor) : zi(w), L = Oe(n.label, i.name), T = sxIconDiameter(3), F = T / 2, N = p.icon.x, _ = p.icon.y, R = Boolean(Tt && (String(n.label || "").toLowerCase().includes(Tt) || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt))), O = [ "node-group", o ? "subcategory-topic" : "imported-child" ];
                         !Rt && (Qi() || Kd()) && qa(n.id, Je) && O.push("is-fantasy-only"), !Rt && (Qi() || Kd()) && qa(n.id, et) && O.push("is-already-tried"), 
                         C && C.has(n.id) && !Eo(Vi(), n.id) && O.push("import-newest"), "all" !== Pt && Ra(n.id) !== Pt && O.push("is-hidden"), 
+                        sxIsBranchLimited(n.id, D) && O.push("is-hidden"),
                         Tt && !R && O.push("is-dim"), Kd() && !sxTopicKnownInOpenGroup(n.id) && O.push("is-unrated");
                         const B = null !== Dt && (n.id === Dt || r === Dt || dCat === Dt);
                         Dt && !B && O.push("is-dim"), Dt && n.id === Dt && O.push("is-preview");
@@ -34292,14 +34333,17 @@ const TAXONOMY_CATEGORIES = [
                     if (!t || !vt[t]) return [];
                     const n = [];
                     h.forEach(e => e.topics.forEach(e => {
-                        const i = Wn(e), a = ca(i, t), r = "favorite" === Qe[t]?.[i], o = Math.max(a.giveKnown ? a.give : -101, a.receiveKnown ? a.receive : -101, r ? 101 : -101), s = de(e, "fetlife");
+                        const i = Wn(e);
+                        if (ja(i, t)) return;
+                        const a = ca(i, t), r = Ba(i, t, "favorite"), o = Math.max(a.giveKnown ? a.give : -101, a.receiveKnown ? a.receive : -101, r ? 101 : -101), s = de(e, "fetlife");
                         o > 0 && s && s.url && n.push({
                             label: e,
                             score: o,
                             community: s
                         });
                     })), ri().forEach(e => {
-                        const i = ca(e.id, t), a = "favorite" === Qe[t]?.[e.id], r = Math.max(i.giveKnown ? i.give : -101, i.receiveKnown ? i.receive : -101, a ? 101 : -101), o = de(e.label, "fetlife");
+                        if (ja(e.id, t)) return;
+                        const i = ca(e.id, t), a = Ba(e.id, t, "favorite"), r = Math.max(i.giveKnown ? i.give : -101, i.receiveKnown ? i.receive : -101, a ? 101 : -101), o = de(e.label, "fetlife");
                         r > 0 && o && o.url && n.push({
                             label: e.label,
                             score: r,
@@ -36692,6 +36736,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         function sxAnnoScope(profile, id, meta, value) {
             const a = profile.annotations || {};
+            // Interim unification: Branch Limit beats topic Favorite.
+            // If checking "favorite", a branch (category or subcategory) limit strictly overrides and cancels it.
+            if ("favorite" === value) {
+                if (a[id] === "limit") return null;
+                if (meta && meta.branch && a[catId(meta.branch)] === "limit") return null;
+                if (meta && meta.parentId && a[meta.parentId] === "limit") return null;
+            }
             if (a[id] === value) return "topic";
             if (meta && meta.parentId && a[meta.parentId] === value) return "subcategory";
             if (meta && meta.branch && a[catId(meta.branch)] === value) return "category";

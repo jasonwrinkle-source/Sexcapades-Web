@@ -1169,6 +1169,13 @@
         }
         function sxAnnoScope(profile, id, meta, value) {
             const a = profile.annotations || {};
+            // Interim unification: Branch Limit beats topic Favorite.
+            // If checking "favorite", a branch (category or subcategory) limit strictly overrides and cancels it.
+            if ("favorite" === value) {
+                if (a[id] === "limit") return null;
+                if (meta && meta.branch && a[catId(meta.branch)] === "limit") return null;
+                if (meta && meta.parentId && a[meta.parentId] === "limit") return null;
+            }
             if (a[id] === value) return "topic";
             if (meta && meta.parentId && a[meta.parentId] === value) return "subcategory";
             if (meta && meta.branch && a[catId(meta.branch)] === value) return "category";
