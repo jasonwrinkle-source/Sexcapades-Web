@@ -8,3 +8,6 @@ DEPLOY_QA_COMMAND.txt
 DEPLOY_ALL_COMMAND.txt
 deploy-output/
 site-tree/public_html/qa
+sexcapades-playwright-fleet/
+test-results/
+playwright-report/
