@@ -45212,6 +45212,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     id = "t0426"; // Subsumed base 1/2-pole restraint topics remapped to 8-pole containment octad
                 } else if (id === "t0201" || id === "t0202" || id === "t0203" || id === "t0204" || id === "t0208" || id === "t0209" || id === "t0210" || id === "t0211" || id === "t0213" || id === "t0218" || id === "t0220" || id === "t0222" || id === "t0231") {
                     id = "t0427"; // Subsumed base 1/2-pole anatomical topics remapped to 8-pole somatic octad
+                } else if (id === "t0254" || id === "t0256") {
+                    id = "t0255"; // Duplicate crying topics (Crying, Tears) removed 2026-11-21, remapped to Dacryphilia (kept *philia name)
+                } else if (id === "t0342") {
+                    id = "t0350"; // Duplicate Enemas removed 2026-11-21, remapped to Klismaphilia (kept *philia name)
                 }
                 if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) {
                     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") {
