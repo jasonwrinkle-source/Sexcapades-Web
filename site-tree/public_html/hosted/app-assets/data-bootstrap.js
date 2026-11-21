@@ -25810,27 +25810,51 @@ const TAXONOMY_CATEGORIES = [];
                 const line = window.__SX_POLE_LINE_FOR(topicId, key);
                 if (line) return line;
             }
-            if ((key === "give" || key === "receive") && typeof Ge === "function") {
+            if (typeof Ge === "function") {
                 const shape = Ge(topicId);
-                const idx = key === "give" ? 0 : 1;
-                const verb = shape && shape.labels && shape.labels[idx];
-                if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
-                let name = "";
-                const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
-                if (rec) name = rec.label || rec.name || "";
-                if (!name) {
-                    const t = e.byId("markMenuTitle");
-                    if (t) name = t.textContent.replace(/\s*\(tray\)\s*$/i, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+                if (key === "give" || key === "receive") {
+                    const idx = key === "give" ? 0 : 1;
+                    const verb = shape && shape.labels && shape.labels[idx];
+                    if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
+                    let name = "";
+                    const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
+                    if (rec) name = rec.label || rec.name || "";
+                    if (!name) {
+                        const t = e.byId("markMenuTitle");
+                        if (t) name = t.textContent.replace(/\s*\(tray\)\s*$/i, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+                    }
+                    return (key === "give" ? "Give — " : "Receive — ") + (name || topicId);
                 }
-                return (key === "give" ? "Give — " : "Receive — ") + (name || topicId);
+                if (shape && shape.keys && shape.labels) {
+                    const idx = shape.keys.indexOf(key);
+                    if (idx !== -1 && shape.labels[idx]) return shape.labels[idx];
+                    if (shape.poleKeys) {
+                        const pIdx = shape.poleKeys.indexOf(key);
+                        if (pIdx !== -1 && shape.labels[pIdx]) return shape.labels[pIdx];
+                    }
+                }
             }
             return null;
         }
         function sxSetPoleTip(el, topicId, key) {
             if (!el) return;
             const line = sxPoleLine(topicId, key);
-            if (line) el.setAttribute("data-ui-tooltip", line);
-            else el.removeAttribute("data-ui-tooltip");
+            if (line) {
+                el.setAttribute("data-ui-tooltip", line);
+                const sep = line.indexOf(" — ");
+                const name = sep !== -1 ? line.slice(0, sep).trim() : (el.textContent?.trim() || key);
+                const def = sep !== -1 ? line.slice(sep + 3).trim() : line;
+                el.setAttribute("data-tooltip-name", name);
+                el.setAttribute("data-tooltip-definition", def);
+                el.setAttribute("data-tooltip-tap-first", "");
+                el.dataset.ratingTooltip = line;
+            } else {
+                el.removeAttribute("data-ui-tooltip");
+                el.removeAttribute("data-tooltip-name");
+                el.removeAttribute("data-tooltip-definition");
+                el.removeAttribute("data-tooltip-tap-first");
+                delete el.dataset.ratingTooltip;
+            }
         }
         function sxSetMeterLine(wrap, topicId) {
             // T9: one short line in the widget wrap stating what is being
@@ -28055,7 +28079,7 @@ const TAXONOMY_CATEGORIES = [];
             // A Hot List row passes its own inline host. The second call
             // only redraws, so a rating change does not rebind the canvas.
             if (root && root.__sxRedraw) return void root.__sxRedraw();
-            const pick = (id, sel) => root ? dlg.querySelector(sel) : e.byId(id);
+            const pick = (id, sel) => root ? (dlg.matches && dlg.matches(sel) ? dlg : dlg.querySelector(sel)) : e.byId(id);
             // Hot List freeze fix (2026-11-15): pId may be the empty-template id
             // on a fresh boot. The first write mints a real profile, so every
             // handler re-resolves the id before reading/writing — otherwise
@@ -28293,6 +28317,14 @@ const TAXONOMY_CATEGORIES = [];
             };
 
             const onDown = (evt) => {
+                const hit = sxHitPoleLabel(canvas, evt);
+                if (hit && evt.pointerType !== "mouse") {
+                    const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
+                    if (line) {
+                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                        return;
+                    }
+                }
                 isDragging = true;
                 activeIdx = null;
                 try { canvas.setPointerCapture(evt.pointerId); } catch(e) {}
@@ -29136,7 +29168,7 @@ const TAXONOMY_CATEGORIES = [];
             if (i.octad || i.heptad || i.hexad || i.pentad || i.tetrad || i.triangle || i.triple) {
                 const inline = document.createElement("div");
                 inline.className = "outline-inline-widget";
-                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider" type="range" min="-100" max="100" step="1" value="0" aria-label="Intensity"><output class="outline-inline-out">0</output></label><button class="outline-inline-clear" type="button">Clear</button>';
+                inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider" type="range" min="-100" max="100" step="1" value="0" aria-label="Intensity"><output class="outline-inline-out">0</output></label><button class="outline-inline-clear" type="button">Clear</button><div class="outline-inline-readout mark-triangle-readout"></div>';
                 h.append(inline);
                 typeof window.sxOpenHotListWidgetPopup === "function" && window.sxOpenHotListWidgetPopup(e.id, t, inline);
             } else if (i.widget === "trilinear-line") {
@@ -29151,18 +29183,31 @@ const TAXONOMY_CATEGORIES = [];
                     sp.className = `outline-trilinear-pole ${poleClasses[idx]}`;
                     sp.textContent = p;
                     const poleKey = (i.poleKeys && i.poleKeys[idx]) || (i.keys && i.keys[idx]);
-                    const pTip = typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, poleKey) : null;
-                    if (pTip) {
-                        sp.dataset.ratingTooltip = pTip;
+                    if (typeof sxSetPoleTip === "function") sxSetPoleTip(sp, e.id, poleKey);
+                    if (!sp.getAttribute("data-ui-tooltip") && p) {
+                        const fallbackTip = (typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, poleKey) : null) || p;
+                        const sep = fallbackTip.indexOf(" — ");
+                        const tipName = sep !== -1 ? fallbackTip.slice(0, sep).trim() : p;
+                        const tipDef = sep !== -1 ? fallbackTip.slice(sep + 3).trim() : fallbackTip;
+                        sp.setAttribute("data-ui-tooltip", fallbackTip);
+                        sp.setAttribute("data-tooltip-name", tipName);
+                        sp.setAttribute("data-tooltip-definition", tipDef);
                         sp.setAttribute("data-tooltip-tap-first", "");
+                        sp.dataset.ratingTooltip = fallbackTip;
                     }
+                    sp.tabIndex = 0;
                     poleBar.appendChild(sp);
                 });
                 const sliderRow = document.createElement("div");
                 sliderRow.className = "outline-trilinear-slider-row";
+                const sliderAria = `${e.label}: -100 ${triParts[0]}, 0 ${triParts[1]}, +100 ${triParts[2]}`;
+                sliderRow.setAttribute("data-ui-tooltip", sliderAria);
+                sliderRow.setAttribute("data-tooltip-name", e.label);
+                sliderRow.setAttribute("data-tooltip-definition", `Spectrum: ${triParts[0]} (-100) … ${triParts[1]} (0) … ${triParts[2]} (+100)`);
+                sliderRow.setAttribute("data-tooltip-tap-first", "");
                 const c = document.createElement("input");
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = "line",
-                c.setAttribute("aria-label", `${e.label}: -100 ${triParts[0]}, 0 ${triParts[1]}, +100 ${triParts[2]}`);
+                c.setAttribute("aria-label", sliderAria);
                 const d = document.createElement("output");
                 sliderRow.append(c, d);
                 r.append(poleBar, sliderRow), h.append(r);
@@ -29185,7 +29230,19 @@ const TAXONOMY_CATEGORIES = [];
                 // the shared popup is this row's one tooltip, and a
                 // title would arrive late and overlap it.
                 const tip = l || (typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, n) : null) || (o ? "" : s.textContent);
-                tip && (r.dataset.ratingTooltip = tip, r.setAttribute("data-tooltip-tap-first", ""));
+                if (tip) {
+                    r.dataset.ratingTooltip = tip;
+                    r.setAttribute("data-tooltip-tap-first", "");
+                    r.setAttribute("data-ui-tooltip", tip);
+                    const sep = tip.indexOf(" — ");
+                    if (sep !== -1) {
+                        r.setAttribute("data-tooltip-name", tip.slice(0, sep).trim());
+                        r.setAttribute("data-tooltip-definition", tip.slice(sep + 3).trim());
+                    } else {
+                        r.setAttribute("data-tooltip-name", s.textContent);
+                        r.setAttribute("data-tooltip-definition", tip);
+                    }
+                }
                 const c = document.createElement("input");
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = n, 
                 c.setAttribute("aria-label", `${e.label}, ${s.textContent}${l ? `: ${l.replace(/^[^:]+:\s*/, "")}` : ""}`);
@@ -29827,11 +29884,11 @@ const TAXONOMY_CATEGORIES = [];
                 }
                 if (!target || target === "sexcapades") {
                     const q = new URLSearchParams(location.search || "").get("skin");
-                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades"];
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades", "nouscapades"];
                     if (q && known.indexOf(q) !== -1) target = q;
                     else {
                         const host = (location.hostname || "").toLowerCase();
-                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
                         const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
                         if (prefix && map[prefix]) target = map[prefix];
                     }
@@ -30046,9 +30103,20 @@ const TAXONOMY_CATEGORIES = [];
            "Label — text" line as the definition. */
         window.__SX_TIP_SHOW = function (anchorEl, name, text, clientX, clientY) {
             if (!anchorEl) return;
+            let tipName = name || "Details";
+            let tipDef = text || "";
+            if (tipDef) {
+                const sep = tipDef.indexOf(" — ");
+                if (sep !== -1) {
+                    if (!name || name === "Details" || tipDef.startsWith(name + " — ")) {
+                        tipName = tipDef.slice(0, sep).trim();
+                        tipDef = tipDef.slice(sep + 3).trim();
+                    }
+                }
+            }
             Fs.show(anchorEl, {
-                name: name || "Details",
-                definition: text || "",
+                name: tipName,
+                definition: tipDef,
                 value: "",
                 point: (Number.isFinite(clientX) && Number.isFinite(clientY)) ? { x: clientX, y: clientY, pointerType: "mouse" } : null
             });

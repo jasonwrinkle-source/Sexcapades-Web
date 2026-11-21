@@ -181,27 +181,51 @@
                 const line = window.__SX_POLE_LINE_FOR(topicId, key);
                 if (line) return line;
             }
-            if ((key === "give" || key === "receive") && typeof Ge === "function") {
+            if (typeof Ge === "function") {
                 const shape = Ge(topicId);
-                const idx = key === "give" ? 0 : 1;
-                const verb = shape && shape.labels && shape.labels[idx];
-                if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
-                let name = "";
-                const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
-                if (rec) name = rec.label || rec.name || "";
-                if (!name) {
-                    const t = e.byId("markMenuTitle");
-                    if (t) name = t.textContent.replace(/\s*\(tray\)\s*$/i, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+                if (key === "give" || key === "receive") {
+                    const idx = key === "give" ? 0 : 1;
+                    const verb = shape && shape.labels && shape.labels[idx];
+                    if (verb && verb !== "give" && verb !== "receive") return (key === "give" ? "Give — " : "Receive — ") + verb;
+                    let name = "";
+                    const rec = (typeof qn !== "undefined" && qn[topicId]) || null;
+                    if (rec) name = rec.label || rec.name || "";
+                    if (!name) {
+                        const t = e.byId("markMenuTitle");
+                        if (t) name = t.textContent.replace(/\s*\(tray\)\s*$/i, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+                    }
+                    return (key === "give" ? "Give — " : "Receive — ") + (name || topicId);
                 }
-                return (key === "give" ? "Give — " : "Receive — ") + (name || topicId);
+                if (shape && shape.keys && shape.labels) {
+                    const idx = shape.keys.indexOf(key);
+                    if (idx !== -1 && shape.labels[idx]) return shape.labels[idx];
+                    if (shape.poleKeys) {
+                        const pIdx = shape.poleKeys.indexOf(key);
+                        if (pIdx !== -1 && shape.labels[pIdx]) return shape.labels[pIdx];
+                    }
+                }
             }
             return null;
         }
         function sxSetPoleTip(el, topicId, key) {
             if (!el) return;
             const line = sxPoleLine(topicId, key);
-            if (line) el.setAttribute("data-ui-tooltip", line);
-            else el.removeAttribute("data-ui-tooltip");
+            if (line) {
+                el.setAttribute("data-ui-tooltip", line);
+                const sep = line.indexOf(" — ");
+                const name = sep !== -1 ? line.slice(0, sep).trim() : (el.textContent?.trim() || key);
+                const def = sep !== -1 ? line.slice(sep + 3).trim() : line;
+                el.setAttribute("data-tooltip-name", name);
+                el.setAttribute("data-tooltip-definition", def);
+                el.setAttribute("data-tooltip-tap-first", "");
+                el.dataset.ratingTooltip = line;
+            } else {
+                el.removeAttribute("data-ui-tooltip");
+                el.removeAttribute("data-tooltip-name");
+                el.removeAttribute("data-tooltip-definition");
+                el.removeAttribute("data-tooltip-tap-first");
+                delete el.dataset.ratingTooltip;
+            }
         }
         function sxSetMeterLine(wrap, topicId) {
             // T9: one short line in the widget wrap stating what is being

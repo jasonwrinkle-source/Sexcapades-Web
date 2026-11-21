@@ -1930,7 +1930,7 @@
             // A Hot List row passes its own inline host. The second call
             // only redraws, so a rating change does not rebind the canvas.
             if (root && root.__sxRedraw) return void root.__sxRedraw();
-            const pick = (id, sel) => root ? dlg.querySelector(sel) : e.byId(id);
+            const pick = (id, sel) => root ? (dlg.matches && dlg.matches(sel) ? dlg : dlg.querySelector(sel)) : e.byId(id);
             // Hot List freeze fix (2026-11-15): pId may be the empty-template id
             // on a fresh boot. The first write mints a real profile, so every
             // handler re-resolves the id before reading/writing — otherwise
@@ -2168,6 +2168,14 @@
             };
 
             const onDown = (evt) => {
+                const hit = sxHitPoleLabel(canvas, evt);
+                if (hit && evt.pointerType !== "mouse") {
+                    const line = sxPoleLine(canvas.__sxHoverTopicId || Qr, hit.key);
+                    if (line) {
+                        window.__SX_TIP_SHOW(canvas, hit.name || hit.text, line, evt.clientX, evt.clientY);
+                        return;
+                    }
+                }
                 isDragging = true;
                 activeIdx = null;
                 try { canvas.setPointerCapture(evt.pointerId); } catch(e) {}

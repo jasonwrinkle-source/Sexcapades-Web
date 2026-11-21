@@ -1542,6 +1542,10 @@ details.scene-phase ul {
 
 /* Widget tighter bounding & trilinear slider 3-pole track positioning */
 .outline-inline-widget{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;width:fit-content;max-width:100%;margin:4px 0 2px;padding:6px 10px;border:1px solid rgba(56,189,248,.35);border-radius:8px;background:rgba(15,23,42,.35)}
+.outline-inline-readout{display:flex;justify-content:space-around;background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:4px;font-size:11px;color:#cbd5e1;flex-wrap:wrap;gap:6px;width:100%;margin-top:4px;}
+.outline-inline-readout .mark-tri-stat{display:inline-flex;align-items:center;gap:3px;cursor:help;}
+.outline-inline-readout .mark-tri-stat span{cursor:help;font-weight:600;}
+.outline-inline-readout .mark-tri-stat span:hover{text-decoration:underline;}
 .outline-rating-trilinear{display:flex!important;flex-direction:column!important;width:100%!important;min-width:260px;max-width:480px;gap:3px!important;padding:2px 0;}
 .outline-trilinear-poles{display:flex;justify-content:space-between;align-items:flex-end;position:relative;width:calc(100% - 3.8ch);margin:0 0 2px 0;padding:0 2px;font-size:11px;line-height:1.2;}
 .outline-trilinear-pole{cursor:help;transition:opacity 0.15s ease;}
