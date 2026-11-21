@@ -350,20 +350,26 @@
      widget string, so the flags only feed the map-spoke taper paths.
      A LINE triad gets no triangle flag — it is not a triangle. */
   function widgetConfig(topic) {
+    if (!topic || (!topic.widget && (!topic.poles || !topic.poles.length))) {
+      return null;
+    }
     var poles = topic.poles || [];
     var keys = poles.map(function (p) { return p.key; });
     var labels = poles.map(function (p) { return p.label; });
     var cfg = {
       single: topic.widget === "monopole-slider",
-      widget: topic.widget,
-      keys: keys,
-      labels: labels
+      widget: topic.widget || (poles.length === 1 ? "monopole-slider" : "xy-switchbox"),
+      keys: keys.length ? keys : ["give", "receive"],
+      labels: labels.length ? labels : ["give", "receive"]
     };
     if (topic.widget === "monopole-slider") {
       cfg.keys = ["give"];
       cfg.labels = ["everything"];
     }
-    if (topic.widget === "xy-switchbox") cfg.keys = ["give", "receive"];
+    if (topic.widget === "xy-switchbox") {
+      if (!cfg.keys || !cfg.keys.length) cfg.keys = ["give", "receive"];
+      if (!cfg.labels || !cfg.labels.length) cfg.labels = ["give", "receive"];
+    }
     /* LINE triad: one scalar on a single track, stored under the single key
        "line" — NOT under the first pole's key (the bind writes via
        keys[0], and a line position of -100 means "fully the left pole",
@@ -439,7 +445,8 @@
         all = all.concat(sub.topics || []);
       });
       all.forEach(function (t) {
-        widgets[t.id] = widgetConfig(t);
+        var wc = widgetConfig(t);
+        if (wc) widgets[t.id] = wc;
         if (t.hovertip) desc[t.name] = formatHovertip(t);
         /* Widget approachability: per-pole hovertip lines ("Label — text"),
            keyed by topic id then pole key; the placard attaches them to the

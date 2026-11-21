@@ -2555,11 +2555,14 @@
             const i = function(e) {
                 if ("Category" === e.kind || "Subcategory" === e.kind) return "";
                 const t = Ge(e.id, Vi());
-                if (t.single) return "";
+                if (!t || t.single) return "";
                 const n = Zn(e.id, "give"), i = Zn(e.id, "receive");
                 if (!n || !i) return "";
-                const a = e => e.charAt(0).toUpperCase() + e.slice(1), r = Qn(e.id);
-                return `${a(t.labels[0])} ${r} — ${n}. ${a(t.labels[1])} ${r} — ${i}.`;
+                const a = s => (s && typeof s === "string") ? (s.charAt(0).toUpperCase() + s.slice(1)) : "";
+                const r = Qn(e.id);
+                const l0 = (t.labels && t.labels[0]) || "Give";
+                const l1 = (t.labels && t.labels[1]) || "Receive";
+                return `${a(l0)} ${r} — ${n}. ${a(l1)} ${r} — ${i}.`;
             }(e);
             return i ? `${i} ${n}` : n;
         }
