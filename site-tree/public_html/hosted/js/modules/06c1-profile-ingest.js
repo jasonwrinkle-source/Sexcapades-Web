@@ -517,6 +517,11 @@
                         }
                     }
                 }
+                // The (n+1) intensity is not a flank, so the exact-key
+                // copy above never moves it; carry it explicitly when
+                // the payload rates it (line topics included — their
+                // stored intensity counts like any other topic's).
+                if (!("intensity" in incoming) && flanks.indexOf("give") === -1 && rating && Number.isFinite(Number(rating.intensity))) incoming.intensity = clamp(Math.round(Number(rating.intensity)));
                 if (!Object.keys(incoming).length) throw new Error(`This profile contains an unreadable rating for "${topicName}"`);
                 const applied = {};
                 let anyBlocked = !1;
