@@ -24,6 +24,7 @@ parts = [
     "02k-compare-dials.js",
     "02l-deknotter-session.js",
     "02m-fit-targets.js",
+    "02n1-deknotter-diagnostics.js",
     "02n-deknotter-cascade.js",
     "02o-ratings-scales.js",
     "02p-spoke-selection.js",
@@ -72,11 +73,11 @@ for p in parts:
         with open(path, encoding="utf-8") as f:
             code = f.read()
 
-        # Strip ES module import lines safely
-        code = re.sub(r'^\s*import\s+.*?;\s*', '', code, flags=re.MULTILINE)
+        # Strip ES module import lines safely (including multiline imports)
+        code = re.sub(r'^\s*import\s+(?:(?:(?:\*\s+as\s+\w+)|(?:\{[\s\S]*?\}|\w+)(?:\s*,\s*(?:\{[\s\S]*?\}|\*\s+as\s+\w+))?)\s+from\s+)?[\'"][^\'"]+[\'"]\s*;?[^\S\r\n]*\r?\n?', '', code, flags=re.MULTILINE)
 
-        # Strip export keywords from export const, export function, export class, etc.
-        code = re.sub(r'\bexport\s+(const|let|var|function|class)\s+', r'\1 ', code)
+        # Strip export keywords from export const, export function, export async function, export class, etc.
+        code = re.sub(r'\bexport\s+(?:default\s+)?(?:(async)\s+)?(const|let|var|function|class)\s+', lambda m: (m.group(1) + ' ' if m.group(1) else '') + m.group(2) + ' ', code)
         # Strip standalone export { ... }
         code = re.sub(r'^\s*export\s*\{[^}]*\}\s*;?', '', code, flags=re.MULTILINE)
 

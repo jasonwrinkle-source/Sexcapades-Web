@@ -808,11 +808,16 @@
       // (no state change, no cascade).
       if(typeof dk.measureCloud==="function"){
         var preCloud=null,preOk=false;
-        try{preCloud=await dk.measureCloud(name);preOk=preCloud!=null&&Number.isFinite(Number(preCloud))}catch(e){preOk=false}
+        try{
+          var ownCross = await dk.measureCloud(name);
+          var adjCross = typeof window.__sxCrossingStagedCloud === "function" ? window.__sxCrossingStagedCloud(name, true) : null;
+          preCloud = (adjCross != null && Number.isFinite(adjCross)) ? Math.max(Number(ownCross||0), Number(adjCross)) : ownCross;
+          preOk=preCloud!=null&&Number.isFinite(Number(preCloud));
+        }catch(e){preOk=false}
         if(preOk&&Number(preCloud)===0){
           dkReceipt=null;dkPhaseLines=[];
           if(statusEl){
-            statusEl.innerHTML="<p><b>"+dkEsc(name)+"</b> is already at its floor — its crossing number is 0, so the DeKnotter has nothing to untie in this cloud. A run would take several seconds and change nothing.</p><p><button class=\"le-anneal-choice\" id=\"layoutDeknotterRunAnyway\" type=\"button\">Run anyway</button><button class=\"le-anneal-choice\" id=\"layoutDeknotterSkip\" type=\"button\">Stop</button></p>";
+            statusEl.innerHTML="<p><b>"+dkEsc(name)+"</b> is already at its floor — its crossing number is 0 (both own-cloud and with nearest neighbors), so the DeKnotter has nothing to untie in this cloud. A run would take several seconds and change nothing.</p><p><button class=\"le-anneal-choice\" id=\"layoutDeknotterRunAnyway\" type=\"button\">Run anyway</button><button class=\"le-anneal-choice\" id=\"layoutDeknotterSkip\" type=\"button\">Stop</button></p>";
             var runBtn=document.getElementById("layoutDeknotterRunAnyway"),skipBtn=document.getElementById("layoutDeknotterSkip");
             if(skipBtn)skipBtn.addEventListener("click",function(){if(statusEl)statusEl.innerHTML="<p><b>"+dkEsc(name)+"</b> — DeKnotter stopped: the cloud is already at its floor, and nothing was changed.</p>"});
             if(runBtn)runBtn.addEventListener("click",function(){runDeknotterCascade(name)});
@@ -976,7 +981,16 @@
       function annealRunOrderHtml(){if(!isMultiAnneal)return "";var h="<p><b>Run order \u2014 highest crossing first (crossing measured at run start):</b></p>";runOrder.forEach(function(n,idx){h+="<p>"+(idx+1)+". "+dkEsc(n)+" \u2014 crossing "+dkFmtLead(startCrossing[n])+"</p>"});return h}
       function annealRunOrderDetailsHtml(){if(!isMultiAnneal)return "";var items=runOrder.map(function(n,idx){return "<p>"+(idx+1)+". "+dkEsc(n)+" \u2014 crossing "+dkFmtLead(startCrossing[n])+"</p>"}).join("");return dkReceiptDetails("loop:order","le-receipt-l2","<b>Run order \u2014 highest crossing first ("+runOrder.length+")</b>",items,false)}
       if(isMultiAnneal){
-        for(var mi=0;mi<names.length;mi++){if(startCrossing[names[mi]]==null&&typeof dk.measureCloud==="function"){try{var mvCross=await dk.measureCloud(names[mi]);startCrossing[names[mi]]=(mvCross!=null&&Number.isFinite(Number(mvCross)))?Number(mvCross):null}catch(e){startCrossing[names[mi]]=null}}}
+        for(var mi=0;mi<names.length;mi++){
+          if(startCrossing[names[mi]]==null&&typeof dk.measureCloud==="function"){
+            try{
+              var mvCross=await dk.measureCloud(names[mi]);
+              var mvAdj=typeof window.__sxCrossingStagedCloud==="function"?window.__sxCrossingStagedCloud(names[mi],true):null;
+              var effCross=(mvAdj!=null&&Number.isFinite(mvAdj))?Math.max(Number(mvCross||0),Number(mvAdj)):mvCross;
+              startCrossing[names[mi]]=(effCross!=null&&Number.isFinite(Number(effCross)))?Number(effCross):null;
+            }catch(e){startCrossing[names[mi]]=null}
+          }
+        }
         runOrder=names.map(function(n,idx){return{name:n,idx:idx,val:startCrossing[n]}}).sort(function(a,b){var av=a.val==null?-Infinity:a.val,bv=b.val==null?-Infinity:b.val;return bv!==av?bv-av:a.idx-b.idx}).map(function(o){return o.name});
       }
       var loopIntro=isMultiAnneal?(subset?("<p><b>"+dkEsc(loopTitle)+"</b> \u2014 running the "+names.length+" picked branches in decreasing crossing order, highest first. Cancel stops the whole loop.</p>"):("<p><b>Anneal all</b> \u2014 running every branch in decreasing crossing order, highest first ("+names.length+" branches). Cancel stops the whole loop.</p>")):(subset?("<p><b>"+dkEsc(loopTitle)+"</b> — running the "+names.length+" picked branch"+(names.length===1?"":"es")+" in branch order: "+names.map(function(n){return dkEsc(n)}).join(", ")+". Cancel stops the whole loop.</p>"):("<p><b>Anneal all</b> — running every branch in order ("+names.length+" branches). Cancel stops the whole loop.</p>"));

@@ -11624,90 +11624,28 @@ const TAXONOMY_CATEGORIES = [];
             });
         }
 
-        // DeKnotter cascade driver (E5, ASSESSMENT §3.4, §3.7, §5.6,
-        // §5.8, §5.11): one full run for one branch, driven entirely
-        // through the bundle layout API — never the editor shell's
-        // collect()/apply — so no intermediate state is broadcast to
-        // other windows mid-run. Sequence: subcategory-label check →
-        // precondition staging → snapshot + double baseline → throw
-        // (branch x50, subcategories x20, kinks autofit to
-        // three times their kink (fit) length — full cascade
-        // armed, ONE applyPhase commit) →
-        // FINE-TUNE (ruled 2026-10-29): when the
-        // cascade baseline (measured twice, above) is strictly below
-        // 5, zero included, the throw is SKIPPED — a staging-and-
-        // arming commit lands the throw's staged values and full
-        // arming minus its length changes, the shrink ladders run
-        // from the branch's current lengths under the per-phase
-        // gate only (flat GATE_TOL 2; the fine-tune margin and the
-        // onset margin were deleted Phase 4, 2026-11-04 — the
-        // skip-throw under 5 is unchanged), and the branch ladder
-        // descends to a
-        // label-fit floor instead of stopping at the pre-run length
-        // → ruled shrink sequence (Jason,
-        // 2026-10-24 adjustment: subcategory nodes first, then the
-        // branch itself, each level descending a square-root-step ladder of
-        // committed sub-solves toward its label-fit floor under the
-        // per-phase gate (flat 2) — a level's ladder halts when that
-        // gate trips, and the cascade proceeds to the
-        // next level; there is NO kink shrink stage in the cascade —
-        // kinks keep their thrown autofit room (3x the kink
-        // length, 2026-11-01); the kink shrink to
-        // label length is a separate one-time driver normalization,
-        // deknotter.shrinkKinksToLabel) → scoped same-branch GROWTH
-        // (ruled 2026-10-28: grow-branch then grow-subcats ratio
-        // patches, dominance-gated, laddered at 1.25x steps to a 3x
-        // cumulative target — see stepGrowth in dkRunCascade) → a
-        // CONSTRUCTED final patch (§3.7: arm maps and staged values
-        // back to their exact pre-run values, the onset-held length
-        // overrides carried into per-item length overrides exactly
-        // as they stand after the ladders, fit registrations
-        // cleared) → the
-        // E2 gate on the branch's own-cloud crossing number (Q4:
-        // repointed from the local xAreaCross area, which is now
-        // reported secondary only), exact-float improve-or-hold.
-        // Q2 adds a per-phase gate on the same record.cloud
-        // readout; its trip consequence is back-up-a-step (ruled
-        // 2026-10-28, all phases): the tripping step is discarded,
-        // the last-kept phase snapshot is restored, that level's
-        // ladder stops, and the cascade continues — only the final
-        // gate still reverts a whole run. Any other failure or
-        // exception restores the
-        // pre-run snapshot through restore() and verifies the restore
-        // canonically; every exit path ends the run context and
-        // leaves the branch's fit registry empty.
+        // 02n1-deknotter-diagnostics.js — DeKnotter Diagnostic & Witness Utilities
+        // Extracted from 02n-deknotter-cascade.js for modularity, clean maintenance,
+        // and reduced token cost. Contains layout math helpers, delivered radii calculations,
+        // camera/viewport diagnostics, painted geometry inspectors, and witness frame evaluators.
+
         function dkMedian(values) {
             if (!values.length) return null;
             const sorted = values.slice().sort((a, b) => a - b), mid = sorted.length >> 1;
             return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
         }
+
         function dkRange(values) {
             return values.length ? [ Math.min.apply(null, values), Math.max.apply(null, values) ] : null;
         }
-        // Q2 staged shrink ladder (Phase Q2): the cascade's fit
-        // movement descends in small steps, never in one chop from a
-        // thrown radius to the label-fit floor. SHRINK STEP (ruled
-        // 2026-11-02, Jason — supersedes the 2026-11-01 uniform
-        // 10%-of-current step): the steps are UNEQUAL, large at
-        // first then small toward the end, with each step's size in
-        // proportion to the SQUARE ROOT of the steps remaining at
-        // that step (the first step is weighted sqrt(N), the next
-        // sqrt(N-1), …, the last sqrt(1)). The step count is FIXED
-        // at DK_SHRINK_STEPS_FIXED = 7 for every descent, so the
-        // largest step is sqrt(7) ≈ 2.65 times the smallest and the
-        // final stage lands exactly on the floor: a 100 → 30 descent
-        // drops about 14, 13, 12, 10, 9, 7, 5. Logarithmic steps
-        // were considered and REJECTED in the same ruling — no
-        // logarithmic option exists here. This one computation is
-        // shared by the subcategory ladder and the branch ladder,
-        // on the normal (throw) path and on the skip-throw-under-5
-        // path alike. An item already at or below its floor never
-        // grows — it holds.
+
         const DK_SHRINK_STEPS_FIXED = 7, DK_LADDER_MAX_STAGES = 512;
+
         function dkLadderSteps(from, to) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to) || !(to > 0)) return 0;
             return DK_SHRINK_STEPS_FIXED;
         }
+
         function dkLadderValue(from, to, stage, stages) {
             if (!Number.isFinite(from) || !Number.isFinite(to) || !(from > to)) return from;
             const n = Number.isFinite(stages) && stages > 0 ? Math.floor(stages) : DK_SHRINK_STEPS_FIXED, s = Number.isFinite(stage) ? Math.floor(stage) : 0;
@@ -11718,39 +11656,18 @@ const TAXONOMY_CATEGORIES = [];
             for (let i = 0; i < s; i++) cum += Math.sqrt(n - i);
             return from - (from - to) * (cum / total);
         }
-        // Q2: one phase record's fit-deviation count, out of its
-        // limiter-hit slice — surfaced per phase and totalled into
-        // the run report so the receipt lead can carry it.
+
         function dkFitDeviationCount(entries) {
             let n = 0;
             return (entries || []).forEach(e => {
                 e && "fit-deviation" === e.type && n++;
             }), n;
         }
-        // One rendered item's delivered radius: the distance from its
-        // hub at which the draw path places the item, recomputed with
-        // the draw path's own arithmetic (topicSpokeEstimate,
-        // subcategory hub floors via hubSpokeLength, per-item
-        // length-override multipliers; children ride Ar's drawn
-        // radius — solved radius times their kink multiplier,
-        // extended by Ar's label-clearance loop, as Ar paints it).
-        // A phase's
-        // delivered ratio is post-phase delivered ÷ pre-run delivered
-        // on this same measure.
+
         function dkDeliveredItemRadius(item) {
             if (!item) return NaN;
             if (item.child) {
                 const ko = mn.kinkOverrides && item.child.id ? mn.kinkOverrides[item.child.id] : null;
-                // ONE GEOMETRY SOURCE (divergence fix, 2026-11-02):
-                // the delivered radius of a static child is the
-                // radius Ar's paint actually draws — the solved
-                // radius (with the parent's childCloudRadius
-                // fallback Ar uses) times the kink multiplier,
-                // extended by Ar's label-clearance loop when the
-                // spoke is too short for its label. This reading
-                // used the unextended solved radius, so the
-                // ladders and receipts stepped on lengths the
-                // paint never drew.
                 let r = (Number(item.cloudRadius) || Number(item.childCloudRadius) || 270) * (ko && Number(ko.length) > 0 ? Number(ko.length) : 1);
                 r = sxLabelClearance(r, item.child.label);
                 return r;
@@ -11774,10 +11691,7 @@ const TAXONOMY_CATEGORIES = [];
             if (h < minReqSpoke) h = minReqSpoke;
             return h;
         }
-        // Delivered radii for every currently rendered item of one
-        // branch, keyed by stable identity, plus the branch's own
-        // delivered spoke radius (yr() on the taxonomy branch object,
-        // whose _spokeAdjust20 the last solve left in place).
+
         function dkDeliveredRadii(branchName) {
             const items = {};
             dkFitBranchItems(branchName).forEach(w => {
@@ -11786,11 +11700,7 @@ const TAXONOMY_CATEGORIES = [];
             const branchObj = h.find(b => b.name === branchName);
             return { items: items, branch: branchObj ? yr(branchObj) : NaN };
         }
-        // Taxonomy facts for one branch: its subcategory labels, the
-        // topic IDs of every kink in it (gen-2 topics and subcategory
-        // children alike — entry.topics is the full union), and the
-        // total item count (topics + subcategory hubs) that the
-        // coverage record compares the rendered/acted-on count to.
+
         function dkBranchTaxonomy(branchName) {
             const entry = h.find(b => b.name === branchName);
             if (!entry) return null;
@@ -11809,15 +11719,7 @@ const TAXONOMY_CATEGORIES = [];
             });
             return { entry: entry, subLabels: subLabels, kinkIds: kinkIds, total: kinkIds.length + subLabels.length };
         }
-        // SOLVER-METRICS REFACTOR (F4): dkRunCascade is a thin
-        // orchestrator over named phase steps — stepLabelCheck,
-        // stepPreconditions, stepBaseline, the shared phase runner
-        // (runPhase), stepThrow, stepOnsetSetup, stepShrinkLadders,
-        // stepGrowth, stepFinalPatch, then the final gate in the orchestrator.
-        // Each step closes over the shared run state (report above
-        // all) and returns its piece; the phase order and the
-        // phase-boundary yields inside runPhase are unchanged, so
-        // the busy readout still paints between phases.
+
         function dkBakeGate(report) {
             try {
                 const sumNb = o => o ? Object.keys(o).reduce((a, k) => a + (Number(o[k]) || 0), 0) : 0;
@@ -11825,44 +11727,41 @@ const TAXONOMY_CATEGORIES = [];
                 report.bakeGate = { metric: "crossingnumber-total", baseline: bkBase, final: bkFin, delta: bkFin - bkBase, limit: SX_SCORE.BAKE_GATE_LIMIT, pass: bkFin - bkBase < SX_SCORE.BAKE_GATE_LIMIT };
             } catch (e) { report.bakeGate = null; }
         }
+
         function tallyFitDev(report) {
             return report.phases.reduce((s, p) => s + (p && p.fitDeviationCount || 0), 0);
         }
+
         function clearBranchFit(dk, name) {
             Object.keys(dk.fitTargets()).forEach(k => {
                 "revision" !== k && k.split("|")[1] === name && dk.clearFitTarget(k);
             });
         }
-        function diagRound(v) {
-            return null == v || !Number.isFinite(Number(v)) ? null : Math.round(100 * Number(v)) / 100;
-        }
-        function diagCameraText(cam, label) {
-            return label + ": scale " + (cam && null != cam.scale ? cam.scale : "\u2014") + " \u00b7 translate " + (cam && null != cam.tx ? cam.tx : "\u2014") + ", " + (cam && null != cam.ty ? cam.ty : "\u2014");
-        }
+
         function yieldNow() {
             return new Promise(r => { let done = false; const fin = () => { if (!done) { done = true; r(); } }; requestAnimationFrame(() => requestAnimationFrame(fin)); setTimeout(fin, 60); });
         }
-        let lastKeptSnapshot;
-        function captureKept(dk, refreshKeptFit, name) {
-            lastKeptSnapshot = dk.snapshot(), refreshKeptFit(dk, name);
+
+        function diagRound(v) {
+            return null == v || !Number.isFinite(Number(v)) ? null : Math.round(100 * Number(v)) / 100;
         }
-        let witnessFrameSeq;
-        let witnessLastFrame;
-        function witnessFrame(event, phase, radii, witnessSubs, name, report, dk) {
-            const frame = { i: witnessFrameSeq++, event: event, phase: phase || null, subs: witnessSubs(radii || dkDeliveredRadii(name), dk) };
-            return witnessLastFrame = frame, report.witness.frames.length < 600 && report.witness.frames.push(frame), dkLog.push({ type: "witness-frame", event: event, phase: frame.phase, subs: frame.subs }), frame;
+
+        function diagCameraText(cam, label) {
+            return label + ": scale " + (cam && null != cam.scale ? cam.scale : "\u2014") + " \u00b7 translate " + (cam && null != cam.tx ? cam.tx : "\u2014") + ", " + (cam && null != cam.ty ? cam.ty : "\u2014");
         }
-        function witnessRestore(event, phase, witnessSubs, name, report, witnessJudge, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
-            const before = witnessLastFrame, after = witnessFrame(event, phase, null, witnessSubs, name, report, dk);
-            return witnessJudge(event, phase, witnessTrippingLabel, before, after, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report);
+
+        let witnessFrameSeq = 0;
+        let witnessLastFrame = null;
+        let throwBracketBefore = null;
+        let diagPrePaintHub = null;
+
+        function resetWitnessState() {
+            witnessFrameSeq = 0;
+            witnessLastFrame = null;
+            throwBracketBefore = null;
+            diagPrePaintHub = null;
         }
-        let lastKeptFit;
-        function refreshKeptFit(dk, name) {
-            const fit = {}, all = dk.fitTargets();
-            Object.keys(all).forEach(k => {
-                "revision" !== k && k.split("|")[1] === name && (fit[k] = all[k]);
-            }), lastKeptFit = fit;
-        }
+
         function witnessSubs(radii, dk) {
             const subs = {}, snap = dk.snapshot(), ov = snap && snap.subcatOverrides ? snap.subcatOverrides : {};
             return Object.keys(radii && radii.items || {}).forEach(k => {
@@ -11871,14 +11770,27 @@ const TAXONOMY_CATEGORIES = [];
                 subs[label] = { d: Number.isFinite(d) ? Math.round(d * 1e4) / 1e4 : null, o: ov[label] && Number(ov[label].length) > 0 ? Number(ov[label].length) : null };
             }), subs;
         }
-        function witnessPaintedFrame(stage, operation, dkPaintedGeometry, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg) {
+
+        function witnessFrame(event, phase, radii, witnessSubsFn, name, report, dk) {
+            const subsFn = witnessSubsFn || witnessSubs;
+            const frame = { i: witnessFrameSeq++, event: event, phase: phase || null, subs: subsFn(radii || dkDeliveredRadii(name), dk) };
+            return witnessLastFrame = frame, report.witness.frames.length < 600 && report.witness.frames.push(frame), dkLog.push({ type: "witness-frame", event: event, phase: frame.phase, subs: frame.subs }), frame;
+        }
+
+        function witnessRestore(event, phase, witnessSubsFn, name, report, witnessJudgeFn, witnessTrippingLabel, dk, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP) {
+            const before = witnessLastFrame, after = witnessFrame(event, phase, null, witnessSubsFn, name, report, dk);
+            return (witnessJudgeFn || witnessJudge)(event, phase, witnessTrippingLabel, before, after, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report);
+        }
+
+        function witnessPaintedFrame(stage, operation, dkPaintedGeometryFn, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
             try {
-                const g = dkPaintedGeometry(stage, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg);
+                const g = (dkPaintedGeometryFn || dkPaintedGeometry)(stage, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax, dkPaintedStemSegFn || dkPaintedStemSeg);
                 g.operation = operation || null;
                 dkLog.push({ type: "witness-painted-frame", stage: stage, operation: g.operation, source: g.source, blitActive: g.blitActive, subs: g.subs });
                 return g;
             } catch (e) { return null; }
         }
+
         function diagClosingLines(snap) {
             if (!snap.closingPaint) return [];
             const cp = snap.closingPaint, lines = [ "closing-paint mode: " + cp.mode ];
@@ -11887,35 +11799,26 @@ const TAXONOMY_CATEGORIES = [];
             lines.push(diagCameraText(snap.camera, "camera at DIAG-03"));
             return lines;
         }
-        async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshot, report, name, tax, diagCaptureFields) {
+
+        async function diagPause(code, label, extra, diagAcceptCtx, opts, diagSnapshotFn, report, name, tax, diagCaptureFields) {
             if (!diagAcceptCtx || !opts || "function" != typeof opts.onDiagPause) return;
-            const snap = diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields);
+            const snap = (diagSnapshotFn || diagSnapshot)(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields);
             (report.diag || (report.diag = [])).push(snap);
             dkLog.push({ type: "anneal-diag", code: code, phase: snap.phase, branch: name, text: snap.text });
             try { console.log("[" + code + "] " + snap.text, snap); } catch (e) {}
             try { await opts.onDiagPause(snap); } catch (e) {}
         }
-        let throwBracketBefore;
-        async function throwBracketPoint(code, throwBracketFullPaint, throwBracketSnapshot, opts, name, dkPaintedNodeCentre, tax, report) {
+
+        async function throwBracketPoint(code, throwBracketFullPaintFn, throwBracketSnapshotFn, opts, name, dkPaintedNodeCentreFn, tax, report) {
             const stamp = code + ":first-throw";
             const label = "THROW-BEFORE" === code ? "pre-throw full paint \u2192 stepThrow" : "stepThrow \u2192 post-throw full paint";
-            const paintInfo = await throwBracketFullPaint(stamp, name, dkPaintedNodeCentre, tax);
-            const snap = throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report);
+            const paintInfo = await (throwBracketFullPaintFn || throwBracketFullPaint)(stamp, name, dkPaintedNodeCentreFn || dkPaintedNodeCentre, tax);
+            const snap = (throwBracketSnapshotFn || throwBracketSnapshot)(code, label, stamp, paintInfo, name, tax, report);
             if ("THROW-BEFORE" === code) throwBracketBefore = snap;
             if (opts && "function" == typeof opts.onThrowBracketPause) { try { await opts.onThrowBracketPause(snap); } catch (e) {} }
             return snap;
         }
-        let mark;
-        async function stepFineTuneArm(snapshot, staged, name, tax, runPhase, report, opts, dk, preDelivered, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
-            mark = dkLog.length;
-            const armPatch = dkDeepCloneLayout(snapshot);
-            staged.forEach(s => {
-                armPatch[s.key] = s.to;
-            }), armPatch.branchSpokeAutoShrink[name] = !0, tax.subLabels.forEach(l => {
-                armPatch.subcatSpokeAutoShrink[l] = !0;
-            }), await runPhase("fine-tune-arm", armPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP), report.fineTune.armPhase = "fine-tune-arm";
-            await focusThrowedActiveNode(name);
-            }
+
         async function focusThrowedActiveNode(name) {
             try {
                 if (window.sxPaintPromise) {
@@ -11939,7 +11842,6 @@ const TAXONOMY_CATEGORIES = [];
                         }
                     }
                 }
-                // Fall back to the thrown branch itself if no active node is selected
                 if (!activeKey && name) {
                     activeKey = typeof catId === "function" ? catId(name) : name;
                 }
@@ -11951,11 +11853,11 @@ const TAXONOMY_CATEGORIES = [];
                         window.__sxFocusBranch(name);
                     }
                 } finally {
-                    // Let the frame settle before resetting no-anim flag
                     setTimeout(() => { window.__sxNoCameraAnim = false; }, 50);
                 }
             } catch (_) {}
         }
+
         function diagText(snap) {
             const f = v => null == v ? "\u2014" : String(v);
             let t = snap.code + " \u00b7 " + snap.label + " \u00b7 branch " + snap.branch + " \u00b7 phase " + f(snap.phase) + " \u00b7 crossing last-kept " + f(diagRound(snap.crossingBefore)) + " \u2192 tripped " + f(diagRound(snap.crossingAfter)) + " \u00b7 branch delivered radius " + f(snap.storedBranchRadius);
@@ -11966,6 +11868,7 @@ const TAXONOMY_CATEGORIES = [];
             if (snap.hubLines && snap.hubLines.length) t += "\n" + snap.hubLines.join("\n");
             return t;
         }
+
         function witnessFinalJudge(transition, beforeFrame, afterFrame, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
             if (!beforeFrame || !afterFrame) return null;
             const flung = [];
@@ -11977,6 +11880,7 @@ const TAXONOMY_CATEGORIES = [];
             const rec = { transition: transition, flung: flung, wholesale: flung.length > 1 || flung.some(f => f.toThrown) };
             return dkLog.push(Object.assign({ type: "witness-final-transition" }, rec)), rec;
         }
+
         function diagCaptureView() {
             const view = { viewBox: null, transform: null, sceneTransform: null, bbox: null };
             try {
@@ -11988,6 +11892,7 @@ const TAXONOMY_CATEGORIES = [];
             } catch (e) {}
             return view;
         }
+
         function witnessJudge(event, phase, trippingLabel, beforeFrame, afterFrame, witnessThrown, WITNESS_EPS, WITNESS_ONE_STEP, report) {
             if (!witnessThrown || !beforeFrame || !afterFrame) return null;
             const wholesale = [], steppedBack = [];
@@ -12000,244 +11905,8 @@ const TAXONOMY_CATEGORIES = [];
             const rec = { event: event, phase: phase || null, tripping: trippingLabel || null, wholesale: wholesale, steppedBack: steppedBack, wholesaleDiscard: wholesale.some(w => w.label !== trippingLabel) || wholesale.length > 1 };
             return report.witness.events.push(rec), dkLog.push(Object.assign({ type: "witness-event" }, rec)), rec;
         }
-        function dkPaintedGeometry(stage, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg) {
-            const centre = { x: pr.centerX, y: pr.centerY };
-            const branchKey = catId(name), branchPt = dkPaintedNodeCentre(branchKey);
-            const subs = {};
-            tax.subLabels.forEach(l => {
-                const key = Un(name, l), pt = dkPaintedNodeCentre(key);
-                if (!pt || !branchPt) { subs[l] = { branchR: null, seg: null, absR: null, stemSeg: dkPaintedStemSeg(key), source: pt ? pt.source : "missing" }; return; }
-                const r2 = v => Math.round(v * 100) / 100;
-                subs[l] = { branchR: r2(Math.hypot(branchPt.x - centre.x, branchPt.y - centre.y)), seg: r2(Math.hypot(pt.x - branchPt.x, pt.y - branchPt.y)), absR: r2(Math.hypot(pt.x - centre.x, pt.y - centre.y)), stemSeg: dkPaintedStemSeg(key), source: pt.source, x: r2(pt.x), y: r2(pt.y) };
-            });
-            return { stage: stage || null, centre: centre, branchPt: branchPt ? { x: Math.round(branchPt.x * 100) / 100, y: Math.round(branchPt.y * 100) / 100, source: branchPt.source } : null, subs: subs, blitActive: !!blitSess, source: branchPt ? branchPt.source : "missing" };
-        }
-        function stepLabelCheck() {
-            // (1) LABEL CHECK (§5.11): subcategory state maps are
-            // keyed by BARE label, so a label borne by two branches is
-            // armed in both by any per-branch cascade. Checked across
-            // the whole taxonomy; duplicates are reported, and the run
-            // may still proceed on that understanding.
-            const labelCounts = {};
-            h.forEach(b => (b.subcategories || []).forEach(s => {
-                labelCounts[s.name] = (labelCounts[s.name] || 0) + 1;
-            }));
-            const duplicates = Object.keys(labelCounts).filter(l => labelCounts[l] > 1).sort();
-                return duplicates;
-            }
-        function diagCamera() {
-            const cam = { scale: null, tx: null, ty: null };
-            try {
-                if ("number" == typeof $p && Number.isFinite($p)) cam.scale = $p;
-                if ("number" == typeof Ep && Number.isFinite(Ep)) cam.tx = Ep;
-                if ("number" == typeof Ap && Number.isFinite(Ap)) cam.ty = Ap;
-            } catch (e) {}
-            if (null == cam.scale || null == cam.tx || null == cam.ty) try {
-                const vp = document.getElementById("viewport"), tr = vp ? vp.getAttribute("transform") : null, m = tr ? /translate\(\s*([-\d.eE+]+)[ ,]+([-\d.eE+]+)\s*\)\s*scale\(\s*([-\d.eE+]+)\s*\)/.exec(tr) : null;
-                if (m) { if (null == cam.tx) cam.tx = Number(m[1]); if (null == cam.ty) cam.ty = Number(m[2]); if (null == cam.scale) cam.scale = Number(m[3]); }
-            } catch (e) {}
-            return { scale: diagRound(cam.scale), tx: diagRound(cam.tx), ty: diagRound(cam.ty) };
-        }
-        function restoreKept(forFinal, dk, snapshot, name) {
-            if (typeof dkCtx !== "undefined" && dkCtx) {
-                dkCtx.isRestoring = !0;
-                dkCtx.phaseStartedAt = 0;
-            }
-            try {
-                dk.restore(lastKeptSnapshot || snapshot);
-            } finally {
-                if (typeof dkCtx !== "undefined" && dkCtx) dkCtx.isRestoring = !1;
-            }
-            // The final phase deliberately cleared this
-            // branch's fit registrations before committing;
-            // a backed-up final restores the kept LAYOUT
-            // only and never re-arms what the final patch
-            // disarmed. Every other phase restores its kept
-            // fit registrations with its layout.
-            if (!forFinal && lastKeptFit) {
-                clearBranchFit(dk, name);
-                Object.keys(lastKeptFit).forEach(k => dk.setFitTarget(k, lastKeptFit[k]));
-            }
-        }
-        function diagHubIdentity(name) {
-            const out = { matches: 0, exitClone: null, hasTextPath: null };
-            try {
-                const key = catId(name), all = document.querySelectorAll('[data-layout-key="' + key + '"]');
-                out.matches = all.length;
-                const grp = document.querySelector('[data-layout-key="' + key + '"]');
-                if (grp) {
-                    out.exitClone = grp.classList.contains("layout-exit-clone");
-                    const lab = grp.querySelector(".category-label");
-                    out.hasTextPath = !!(lab && lab.querySelector("textPath"));
-                }
-            } catch (e) {}
-            return out;
-        }
-        function stepPreconditions(api, report) {
-            // (2) PRECONDITIONS (§5.6): the choreography assumes
-            // collision mode 'grow', staggerDensity off (it makes
-            // yr() ignore the branch length override entirely),
-            // and the branch fully rendered (expandAll). A
-            // violated value is STAGED: recorded here, written by
-            // the throw commit below, covered by the pre-run
-            // snapshot taken next, and restored by the final
-            // patch or by a revert. Never proceeded on silently.
-            const before = api.get(), staged = [];
-            "grow" !== before.collision && staged.push({ key: "collision", from: before.collision, to: "grow" }), !1 !== before.staggerDensity && staged.push({ key: "staggerDensity", from: before.staggerDensity, to: !1 }), !0 !== before.expandAll && staged.push({ key: "expandAll", from: before.expandAll, to: !0 });
-            report.preconditionsStaged = staged;
-                return staged;
-            }
-        function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
-            if (!beforeG || !afterG) return null;
-            const flung = [];
-            Object.keys(afterG.subs || {}).forEach(label => {
-                const b = beforeG.subs[label], a = afterG.subs[label], t = witnessThrown ? witnessThrown[label] : null;
-                if (!b || !a) return;
-                [ "seg", "absR", "branchR" ].forEach(metric => {
-                    const bv = b[metric], av = a[metric];
-                    if (null == bv || null == av || !(bv > 0)) return;
-                    av > bv * WITNESS_ONE_STEP && flung.push({ label: label, metric: metric, before: bv, after: av, thrown: "seg" === metric && t && null != t.d ? t.d : null, toThrown: "seg" === metric && !!(t && null != t.d && t.d > 0 && av >= t.d * (1 - WITNESS_EPS)) });
-                });
-            });
-            const segFlung = flung.filter(f => "seg" === f.metric || "absR" === f.metric);
-            const rec = { transition: transition, operation: operation || null, flung: flung, wholesale: segFlung.length > 1 || flung.some(f => f.toThrown) };
-            return dkLog.push(Object.assign({ type: "witness-painted-transition" }, rec)), rec;
-        }
-        function dkPaintedStemSeg(key) {
-            // Painted stem cross-check: the subcategory group's
-            // own stem / hit path is emitted as M <parent point>
-            // L <child point>; its endpoint distance is the
-            // segment as actually drawn, independent of node
-            // centres. Tapered bands are bands, not centrelines,
-            // so they are not parsed here.
-            try {
-                const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
-                if (!el) return null;
-                const path = el.querySelector(":scope > .topic-stem, :scope > .concept-hit");
-                const d = path && path.getAttribute("d");
-                if (!d) return null;
-                const nums = (String(d).match(/-?\d*\.?\d+(?:e[+-]?\d+)?/gi) || []).map(Number).filter(Number.isFinite);
-                if (nums.length < 4) return null;
-                const x1 = nums[0], y1 = nums[1], x2 = nums[nums.length - 2], y2 = nums[nums.length - 1];
-                const len = Math.hypot(x2 - x1, y2 - y1);
-                return Number.isFinite(len) && len > 0 ? Math.round(len * 100) / 100 : null;
-            } catch (e) { return null; }
-        }
-        async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentre, tax) {
-            let preHub = null;
-            try { const pre = dkPaintedGeometry("throwbracket-pre:" + stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
-            let mode = "skipped-no-capture";
-            try {
-                const allNames = new Set(h.map(b => b.name)), cap = scCaptureFrozen(allNames), centres = scCaptureDeliveredCenters(allNames, { paintComposition: !0 });
-                if (cap && cap.branches && cap.branches.size && centres && centres.size) {
-                    mode = "freeze-replay";
-                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-throwbracket-paint-blit-end", e); }
-                    scCtx = { targetBranches: new Set, ringBranches: new Set, recomputeBranches: new Set, frozenBranches: allNames, boundaryLog: [], dropped: { optimiser: 0, relief: 0, clamp: 0 }, fallback: null, policy: "contained", opClass: "anneal-closing-paint", reliefPass: 0, r6Abort: !1, capture: cap, centers: centres }, sgHoldBlitStart = !0;
-                    let paintRes = null;
-                    try { paintRes = Mr({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-throwbracket-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
-                    try {
-                        if (paintRes && "function" == typeof paintRes.then) await Promise.race([ paintRes, new Promise(r => setTimeout(r, 900)) ]);
-                        else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);
-                    } catch (e) {}
-                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-throwbracket-paint-blit-end", e); }
-                }
-            } catch (e) { try { scCtx = null, sgHoldBlitStart = !1; } catch (_) {} }
-            return { mode: mode, prePaintHubSeat: preHub };
-        }
-        function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
-            const fit = (() => { try { return dk.fitTargets(); } catch (e) { return {}; } })();
-            let sec = null;
-            try { sec = (dkLastBranches || []).find(s => s && s.entry && s.entry.branch && s.entry.branch.name === name) || null; } catch (e) {}
-            const rows = [];
-            tax.subLabels.forEach(l => {
-                const key = "subcat|" + name + "|" + l;
-                let solveR = null;
-                try { const t = sec && (sec.topics || []).find(t => t && t.topic && t.topic.isSubcategory && t.topic.label === l); if (t && null != t.cloudRadius) solveR = diagRound(t.cloudRadius); } catch (e) {}
-                const ovW = patch && patch.subcatOverrides && patch.subcatOverrides[l] && null != patch.subcatOverrides[l].length ? diagRound(patch.subcatOverrides[l].length) : mn.subcatOverrides && mn.subcatOverrides[l] && null != mn.subcatOverrides[l].length ? diagRound(mn.subcatOverrides[l].length) : null;
-                rows.push({ key: key, label: l, fitTargetSet: null != fit[key] ? diagRound(fit[key]) : null, overrideWritten: ovW, solveRadius: solveR, deliveredRadius: diagRound(now && now.items ? now.items[key] : null), composedSegment: diagRound(now && now.items ? now.items[key] : null) });
-            });
-            const gateTol = null != prevCloud && null != record.cloud && Number.isFinite(prevCloud) && Number.isFinite(record.cloud) ? SX_SCORE.GATE_TOL : null;
-            const gate = { prev: diagRound(prevCloud), cloud: diagRound(record.cloud), tolerance: diagRound(gateTol), threshold: null != gateTol && null != prevCloud ? diagRound(prevCloud + gateTol) : null, verdict: null == gateTol || null == record.cloud ? "n/a" : record.cloud > prevCloud + gateTol ? "trip" : "pass" };
-            let onsetReading = null;
-            try { const m = "function" == typeof window.__sxCrossingMeasure ? window.__sxCrossingMeasure() : null, v = m && m.clouds ? Number(m.clouds[name]) : NaN; onsetReading = Number.isFinite(v) ? diagRound(v) : null; } catch (e) {}
-            const onsetBase = report.onset && null != report.onset.baseline ? report.onset.baseline : null;
-            const onset = { baseline: diagRound(onsetBase), reading: onsetReading, margin: null, verdict: "n/a" };
-            const entry = { type: "registry-snapshot", stageStamp: stamp, runPhaseOrdinal: ordinal, phase: phaseName, branch: name, cloud: diagRound(record.cloud), gate: gate, onset: onset, subs: rows };
-            record.registrySnapshot = entry, (report.registrySnapshots || (report.registrySnapshots = [])).push(entry), dkLog.push(entry);
-            return entry;
-        }
-        async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentre, tax, report) {
-            let preHub = null;
-            try { const pre = dkPaintedGeometry("ondemand-pre:" + stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
-            let mode = "skipped-no-capture";
-            try {
-                const allNames = new Set(h.map(b => b.name)), cap = scCaptureFrozen(allNames), centres = scCaptureDeliveredCenters(allNames, { paintComposition: !0 });
-                if (cap && cap.branches && cap.branches.size && centres && centres.size) {
-                    mode = "freeze-replay";
-                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-ondemand-paint-blit-end", e); }
-                    scCtx = { targetBranches: new Set, ringBranches: new Set, recomputeBranches: new Set, frozenBranches: allNames, boundaryLog: [], dropped: { optimiser: 0, relief: 0, clamp: 0 }, fallback: null, policy: "contained", opClass: "anneal-closing-paint", reliefPass: 0, r6Abort: !1, capture: cap, centers: centres }, sgHoldBlitStart = !0;
-                    let paintRes = null;
-                    try { paintRes = Mr({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-ondemand-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
-                    try {
-                        if (paintRes && "function" == typeof paintRes.then) await Promise.race([ paintRes, new Promise(r => setTimeout(r, 900)) ]);
-                        else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);
-                    } catch (e) {}
-                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-ondemand-paint-blit-end", e); }
-                }
-            } catch (e) { try { scCtx = null, sgHoldBlitStart = !1; } catch (_) {} }
-            let painted = null;
-            try { painted = dkPaintedGeometry("ondemand:" + stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) {}
-            const stored = dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera(), subs = {};
-            if (painted && painted.subs) Object.keys(painted.subs).forEach(l => { subs[l] = { seg: painted.subs[l].seg, absR: painted.subs[l].absR, stored: diagRound(stored.items ? stored.items["subcat|" + name + "|" + l] : null) }; });
-            const rec = { type: "ondemand-full-paint", stageStamp: stamp, runPhaseOrdinal: paintOrdinal, phase: phaseName, branch: name, mode: mode, opClass: "anneal-closing-paint", bbox: view.bbox, viewBox: view.viewBox, storedBranchRadius: diagRound(stored.branch), paintedBranchPt: painted ? painted.branchPt : null, branchRadius: painted && painted.branchPt ? diagRound(Math.hypot(painted.branchPt.x - pr.centerX, painted.branchPt.y - pr.centerY)) : null, subs: subs, prePaintHubSeat: preHub, camera: cam, atChicago: new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }) };
-            (report.onDemandPaints || (report.onDemandPaints = [])).push(rec), dkLog.push(rec);
-            try { console.log("[ANNEAL-ONDEMAND-PAINT] " + stamp + " \u00b7 " + phaseName + " \u00b7 mode " + mode + " \u00b7 bbox " + (view.bbox ? view.bbox.width + "\u00d7" + view.bbox.height : "\u2014"), rec); } catch (e) {}
-            return rec;
-        }
-        let snapshot;
-        async function stepBaseline(dk, report, name) {
-            snapshot = dk.snapshot();
-            report.baseline.first = await dk.measureCloud(name), report.baseline.second = await dk.measureCloud(name), report.baseline.variance = Math.abs(report.baseline.first - report.baseline.second);
-            // STAGED SCORING (ruled 2026-11-02, Jason): the SAME
-            // pre-run geometry also measured under the shrink-stage
-            // composition (same-branch plus radial neighbours), so
-            // the final gate — which judges after the switch —
-            // compares like with like: descent and judge agree at
-            // every stage. baseline.first above stays the run-start
-            // (same-branch-only) value the per-phase gate chain and
-            // the fine-tune decision read.
-            try {
-                const adjBase = sxCrossingStagedCloud(name, !0);
-                null != adjBase && Number.isFinite(adjBase) && (report.baseline.adjacentFirst = adjBase, report.stagedScoring.baselineAdjacent = adjBase);
-            } catch (e) {}
-            // Q4: every NEIGHBOR cloud's crossing number at
-            // baseline, reported-not-gated (the annealed branch
-            // itself is excluded; its values are
-            // baseline/finalCloud). The baseline's former
-            // secondary xAreaCross readout was removed with the
-            // area observation (M1); its commented-out copy was
-            // deleted with the rest in 2026-10-30.
-            try {
-                const allBase = await dk.measureCloudsAll(), nb = {};
-                Object.keys(allBase).forEach(k => {
-                    k !== name && (nb[k] = allBase[k]);
-                }), report.neighbors.baseline = nb;
-            } catch (e) {}
-            const preDelivered = dkDeliveredRadii(name);
-            report.coverage.actedOn = Object.keys(preDelivered.items).length;
-                return preDelivered;
-            }
+
         function dkPaintedNodeCentre(key) {
-            // Painted sources ONLY: the icon's rendered centre
-            // through its own CTM chain, or the node's painted
-            // stem endpoint. data-layout-x/y is NEVER
-            // substituted — elsewhere in this bundle those
-            // attributes are documented as holding rest-era
-            // values for vault-resident branches, so a dataset
-            // read could report stale positions as if painted.
-            // When neither painted source reads, the node is
-            // missing and its frame records not-observed for
-            // that node (the judge skips null metrics).
             try {
                 const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)') || In.querySelector('[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
                 if (!el) return null;
@@ -12269,7 +11938,160 @@ const TAXONOMY_CATEGORIES = [];
                 return null;
             } catch (e) { return null; }
         }
-        function diag00Capture(pre, name, tax, report) {
+
+        function dkPaintedStemSeg(key) {
+            try {
+                const el = In.querySelector('.node-group[data-layout-key="' + CSS.escape(key) + '"]:not(.layout-exit-clone)');
+                if (!el) return null;
+                const path = el.querySelector(":scope > .topic-stem, :scope > .concept-hit");
+                const d = path && path.getAttribute("d");
+                if (!d) return null;
+                const nums = (String(d).match(/-?\d*\.?\d+(?:e[+-]?\d+)?/gi) || []).map(Number).filter(Number.isFinite);
+                if (nums.length < 4) return null;
+                const x1 = nums[0], y1 = nums[1], x2 = nums[nums.length - 2], y2 = nums[nums.length - 1];
+                const len = Math.hypot(x2 - x1, y2 - y1);
+                return Number.isFinite(len) && len > 0 ? Math.round(len * 100) / 100 : null;
+            } catch (e) { return null; }
+        }
+
+        function dkPaintedGeometry(stage, name, dkPaintedNodeCentreFn, tax, dkPaintedStemSegFn) {
+            const centre = { x: pr.centerX, y: pr.centerY };
+            const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
+            const stemSeg = dkPaintedStemSegFn || dkPaintedStemSeg;
+            const branchKey = catId(name), branchPt = nodeCentre(branchKey);
+            const subs = {};
+            tax.subLabels.forEach(l => {
+                const key = Un(name, l), pt = nodeCentre(key);
+                if (!pt || !branchPt) { subs[l] = { branchR: null, seg: null, absR: null, stemSeg: stemSeg(key), source: pt ? pt.source : "missing" }; return; }
+                const r2 = v => Math.round(v * 100) / 100;
+                subs[l] = { branchR: r2(Math.hypot(branchPt.x - centre.x, branchPt.y - centre.y)), seg: r2(Math.hypot(pt.x - branchPt.x, pt.y - branchPt.y)), absR: r2(Math.hypot(pt.x - centre.x, pt.y - centre.y)), stemSeg: stemSeg(key), source: pt.source, x: r2(pt.x), y: r2(pt.y) };
+            });
+            return { stage: stage || null, centre: centre, branchPt: branchPt ? { x: Math.round(branchPt.x * 100) / 100, y: Math.round(branchPt.y * 100) / 100, source: branchPt.source } : null, subs: subs, blitActive: !!blitSess, source: branchPt ? branchPt.source : "missing" };
+        }
+
+        function diagCamera() {
+            const cam = { scale: null, tx: null, ty: null };
+            try {
+                if ("number" == typeof $p && Number.isFinite($p)) cam.scale = $p;
+                if ("number" == typeof Ep && Number.isFinite(Ep)) cam.tx = Ep;
+                if ("number" == typeof Ap && Number.isFinite(Ap)) cam.ty = Ap;
+            } catch (e) {}
+            if (null == cam.scale || null == cam.tx || null == cam.ty) try {
+                const vp = document.getElementById("viewport"), tr = vp ? vp.getAttribute("transform") : null, m = tr ? /translate\(\s*([-\d.eE+]+)[ ,]+([-\d.eE+]+)\s*\)\s*scale\(\s*([-\d.eE+]+)\s*\)/.exec(tr) : null;
+                if (m) { if (null == cam.tx) cam.tx = Number(m[1]); if (null == cam.ty) cam.ty = Number(m[2]); if (null == cam.scale) cam.scale = Number(m[3]); }
+            } catch (e) {}
+            return { scale: diagRound(cam.scale), tx: diagRound(cam.tx), ty: diagRound(cam.ty) };
+        }
+
+        function diagHubIdentity(name) {
+            const out = { matches: 0, exitClone: null, hasTextPath: null };
+            try {
+                const key = catId(name), all = document.querySelectorAll('[data-layout-key="' + key + '"]');
+                out.matches = all.length;
+                const grp = document.querySelector('[data-layout-key="' + key + '"]');
+                if (grp) {
+                    out.exitClone = grp.classList.contains("layout-exit-clone");
+                    const lab = grp.querySelector(".category-label");
+                    out.hasTextPath = !!(lab && lab.querySelector("textPath"));
+                }
+            } catch (e) {}
+            return out;
+        }
+
+        function witnessPaintedJudge(transition, operation, beforeG, afterG, witnessThrown, WITNESS_ONE_STEP, WITNESS_EPS) {
+            if (!beforeG || !afterG) return null;
+            const flung = [];
+            Object.keys(afterG.subs || {}).forEach(label => {
+                const b = beforeG.subs[label], a = afterG.subs[label], t = witnessThrown ? witnessThrown[label] : null;
+                if (!b || !a) return;
+                [ "seg", "absR", "branchR" ].forEach(metric => {
+                    const bv = b[metric], av = a[metric];
+                    if (null == bv || null == av || !(bv > 0)) return;
+                    av > bv * WITNESS_ONE_STEP && flung.push({ label: label, metric: metric, before: bv, after: av, thrown: "seg" === metric && t && null != t.d ? t.d : null, toThrown: "seg" === metric && !!(t && null != t.d && t.d > 0 && av >= t.d * (1 - WITNESS_EPS)) });
+                });
+            });
+            const segFlung = flung.filter(f => "seg" === f.metric || "absR" === f.metric);
+            const rec = { transition: transition, operation: operation || null, flung: flung, wholesale: segFlung.length > 1 || flung.some(f => f.toThrown) };
+            return dkLog.push(Object.assign({ type: "witness-painted-transition" }, rec)), rec;
+        }
+
+        async function throwBracketFullPaint(stamp, name, dkPaintedNodeCentreFn, tax) {
+            let preHub = null;
+            const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
+            try { const pre = dkPaintedGeometry("throwbracket-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
+            let mode = "skipped-no-capture";
+            try {
+                const allNames = new Set(h.map(b => b.name)), cap = scCaptureFrozen(allNames), centres = scCaptureDeliveredCenters(allNames, { paintComposition: !0 });
+                if (cap && cap.branches && cap.branches.size && centres && centres.size) {
+                    mode = "freeze-replay";
+                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-throwbracket-paint-blit-end", e); }
+                    scCtx = { targetBranches: new Set, ringBranches: new Set, recomputeBranches: new Set, frozenBranches: allNames, boundaryLog: [], dropped: { optimiser: 0, relief: 0, clamp: 0 }, fallback: null, policy: "contained", opClass: "anneal-closing-paint", reliefPass: 0, r6Abort: !1, capture: cap, centers: centres }, sgHoldBlitStart = !0;
+                    let paintRes = null;
+                    try { paintRes = Mr({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-throwbracket-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
+                    try {
+                        if (paintRes && "function" == typeof paintRes.then) await Promise.race([ paintRes, new Promise(r => setTimeout(r, 900)) ]);
+                        else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);
+                    } catch (e) {}
+                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-throwbracket-paint-blit-end", e); }
+                }
+            } catch (e) { try { scCtx = null, sgHoldBlitStart = !1; } catch (_) {} }
+            return { mode: mode, prePaintHubSeat: preHub };
+        }
+
+        function diagRegistrySnapshot(stamp, ordinal, phaseName, patch, record, now, prevCloud, dk, name, tax, report) {
+            const fit = (() => { try { return dk.fitTargets(); } catch (e) { return {}; } })();
+            let sec = null;
+            try { sec = (dkLastBranches || []).find(s => s && s.entry && s.entry.branch && s.entry.branch.name === name) || null; } catch (e) {}
+            const rows = [];
+            tax.subLabels.forEach(l => {
+                const key = "subcat|" + name + "|" + l;
+                let solveR = null;
+                try { const t = sec && (sec.topics || []).find(t => t && t.topic && t.topic.isSubcategory && t.topic.label === l); if (t && null != t.cloudRadius) solveR = diagRound(t.cloudRadius); } catch (e) {}
+                const ovW = patch && patch.subcatOverrides && patch.subcatOverrides[l] && null != patch.subcatOverrides[l].length ? diagRound(patch.subcatOverrides[l].length) : mn.subcatOverrides && mn.subcatOverrides[l] && null != mn.subcatOverrides[l].length ? diagRound(mn.subcatOverrides[l].length) : null;
+                rows.push({ key: key, label: l, fitTargetSet: null != fit[key] ? diagRound(fit[key]) : null, overrideWritten: ovW, solveRadius: solveR, deliveredRadius: diagRound(now && now.items ? now.items[key] : null), composedSegment: diagRound(now && now.items ? now.items[key] : null) });
+            });
+            const gateTol = null != prevCloud && null != record.cloud && Number.isFinite(prevCloud) && Number.isFinite(record.cloud) ? SX_SCORE.GATE_TOL : null;
+            const gate = { prev: diagRound(prevCloud), cloud: diagRound(record.cloud), tolerance: diagRound(gateTol), threshold: null != gateTol && null != prevCloud ? diagRound(prevCloud + gateTol) : null, verdict: null == gateTol || null == record.cloud ? "n/a" : record.cloud > prevCloud + gateTol ? "trip" : "pass" };
+            let onsetReading = null;
+            try { const m = "function" == typeof window.__sxCrossingMeasure ? window.__sxCrossingMeasure() : null, v = m && m.clouds ? Number(m.clouds[name]) : NaN; onsetReading = Number.isFinite(v) ? diagRound(v) : null; } catch (e) {}
+            const onsetBase = report.onset && null != report.onset.baseline ? report.onset.baseline : null;
+            const onset = { baseline: diagRound(onsetBase), reading: onsetReading, margin: null, verdict: "n/a" };
+            const entry = { type: "registry-snapshot", stageStamp: stamp, runPhaseOrdinal: ordinal, phase: phaseName, branch: name, cloud: diagRound(record.cloud), gate: gate, onset: onset, subs: rows };
+            record.registrySnapshot = entry, (report.registrySnapshots || (report.registrySnapshots = [])).push(entry), dkLog.push(entry);
+            return entry;
+        }
+
+        async function diagOnDemandPaint(stamp, paintOrdinal, phaseName, name, dkPaintedNodeCentreFn, tax, report) {
+            let preHub = null;
+            const nodeCentre = dkPaintedNodeCentreFn || dkPaintedNodeCentre;
+            try { const pre = dkPaintedGeometry("ondemand-pre:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); preHub = pre ? pre.branchPt : null; } catch (e) {}
+            let mode = "skipped-no-capture";
+            try {
+                const allNames = new Set(h.map(b => b.name)), cap = scCaptureFrozen(allNames), centres = scCaptureDeliveredCenters(allNames, { paintComposition: !0 });
+                if (cap && cap.branches && cap.branches.size && centres && centres.size) {
+                    mode = "freeze-replay";
+                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-ondemand-paint-blit-end", e); }
+                    scCtx = { targetBranches: new Set, ringBranches: new Set, recomputeBranches: new Set, frozenBranches: allNames, boundaryLog: [], dropped: { optimiser: 0, relief: 0, clamp: 0 }, fallback: null, policy: "contained", opClass: "anneal-closing-paint", reliefPass: 0, r6Abort: !1, capture: cap, centers: centres }, sgHoldBlitStart = !0;
+                    let paintRes = null;
+                    try { paintRes = Mr({ animate: !1, forceRepaint: !0, __sxDiagFullPaint: !0 }); } catch (e) { __sxErrLog("layout-ondemand-paint", e); } finally { scCtx = null, sgHoldBlitStart = !1; }
+                    try {
+                        if (paintRes && "function" == typeof paintRes.then) await Promise.race([ paintRes, new Promise(r => setTimeout(r, 900)) ]);
+                        else if ("undefined" != typeof sxPaintPromise && sxPaintPromise && "function" == typeof sxPaintPromise.then) await Promise.race([ sxPaintPromise, new Promise(r => setTimeout(r, 900)) ]);
+                    } catch (e) {}
+                    try { blitSess && blitEndSession(); } catch (e) { __sxErrLog("layout-ondemand-paint-blit-end", e); }
+                }
+            } catch (e) { try { scCtx = null, sgHoldBlitStart = !1; } catch (_) {} }
+            let painted = null;
+            try { painted = dkPaintedGeometry("ondemand:" + stamp, name, nodeCentre, tax, dkPaintedStemSeg); } catch (e) {}
+            const stored = dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera(), subs = {};
+            if (painted && painted.subs) Object.keys(painted.subs).forEach(l => { subs[l] = { seg: painted.subs[l].seg, absR: painted.subs[l].absR, stored: diagRound(stored.items ? stored.items["subcat|" + name + "|" + l] : null) }; });
+            const rec = { type: "ondemand-full-paint", stageStamp: stamp, runPhaseOrdinal: paintOrdinal, phase: phaseName, branch: name, mode: mode, opClass: "anneal-closing-paint", bbox: view.bbox, viewBox: view.viewBox, storedBranchRadius: diagRound(stored.branch), paintedBranchPt: painted ? painted.branchPt : null, branchRadius: painted && painted.branchPt ? diagRound(Math.hypot(painted.branchPt.x - pr.centerX, painted.branchPt.y - pr.centerY)) : null, subs: subs, prePaintHubSeat: preHub, camera: cam, atChicago: new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }) };
+            (report.onDemandPaints || (report.onDemandPaints = [])).push(rec), dkLog.push(rec);
+            try { console.log("[ANNEAL-ONDEMAND-PAINT] " + stamp + " \u00b7 " + phaseName + " \u00b7 mode " + mode + " \u00b7 bbox " + (view.bbox ? view.bbox.width + "\u00d7" + view.bbox.height : "\u2014"), rec); } catch (e) {}
+            return rec;
+        }
+
+        function diag00Capture(pre, name, tax, report, snapshot) {
             const stamp = "ANNEAL-DIAG-00:pre-run:ord-0", r2 = diagRound;
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = pre || dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -12313,7 +12135,8 @@ const TAXONOMY_CATEGORIES = [];
             try { console.log("[ANNEAL-DIAG-00] " + snap.text, snap); } catch (e) {}
             return snap;
         }
-        function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report) {
+
+        function throwBracketSnapshot(code, label, stamp, paintInfo, name, tax, report, snapshot) {
             const r2 = diagRound, hf = v => null == v || !Number.isFinite(Number(v)) ? "\u2014" : String(Math.round(100 * Number(v)) / 100), hubR = pt => pt && Number.isFinite(Number(pt.x)) && Number.isFinite(Number(pt.y)) ? hf(Math.hypot(Number(pt.x) - pr.centerX, Number(pt.y) - pr.centerY)) : "\u2014";
             const painted = (() => { try { return dkPaintedGeometry(stamp, name, dkPaintedNodeCentre, tax, dkPaintedStemSeg); } catch (e) { return null; } })();
             const stored = dkDeliveredRadii(name), view = diagCaptureView(), cam = diagCamera();
@@ -12372,7 +12195,7 @@ const TAXONOMY_CATEGORIES = [];
             try { console.log("[" + code + "] " + snap.text, snap); } catch (e) {}
             return snap;
         }
-        let diagPrePaintHub;
+
         function diagSnapshot(code, label, extra, name, tax, diagAcceptCtx, diagCaptureFields) {
             const stored = dkDeliveredRadii(name);
             let painted = null;
@@ -12383,42 +12206,19 @@ const TAXONOMY_CATEGORIES = [];
             Object.keys(stored.items || {}).forEach(k => { const parts = k.split("|"); if ("subcat" === parts[0]) storedSubs[parts[parts.length - 1]] = diagRound(stored.items[k]); });
             const snap = { code: code, label: label, branch: name, phase: diagAcceptCtx ? diagAcceptCtx.phase : null, crossingBefore: diagAcceptCtx ? diagAcceptCtx.crossingBefore : null, crossingAfter: diagAcceptCtx ? diagAcceptCtx.crossingAfter : null, storedBranchRadius: diagRound(stored.branch), storedSubs: storedSubs, paintedBranchPt: painted ? painted.branchPt : null, paintedSubs: subs, view: diagCaptureView(), atChicago: new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }) };
             snap.closingPaint = null, snap.camera = null, snap.closingLines = [];
-            // CAPTURE FIELDS (diagnostic-only, ruled
-            // 2026-11-01, per CENTRE-CAPTURE-DIAGNOSIS.md):
-            // at DIAG-03, carry the closing-paint capture's
-            // per-item fields for this branch — registry
-            // cloudRadius / cloudAngle and the override
-            // multiplier as held at the capture moment, with
-            // the composed radius and centre — plus each
-            // subcategory's painted measurement source
-            // (already on paintedSubs above), so the next
-            // live drive can close the per-item spread
-            // between the capture-time sectors and the
-            // closing solve's sectors. Read-only.
+
             snap.captureItems = null, snap.captureLines = [];
             if ("ANNEAL-DIAG-03" === code) {
                 const cf = v => null == v || !Number.isFinite(Number(v)) ? "\u2014" : String(Math.round(1e5 * Number(v)) / 1e5), items = {};
                 if (diagCaptureFields) diagCaptureFields.forEach((fld, k) => { fld && fld.branch === name && (items[k] = fld); });
                 snap.captureItems = items;
-                // The summary line is unconditional at
-                // DIAG-03: a missing or empty capture is
-                // stated, never silent.
                 snap.captureLines.push("capture fields at the capture moment: " + (diagCaptureFields ? diagCaptureFields.size + " items captured \u00b7 " + Object.keys(items).length + " on this branch" : "unavailable"));
                 Object.keys(subs).forEach(l => {
                     const f = Object.keys(items).map(k => items[k]).find(v => v && "subcat" === v.kind && v.label === l);
                     f && snap.captureLines.push("capture " + l + ": cloudRadius " + cf(f.cloudRadius) + " \u00b7 cloudAngle " + cf(f.cloudAngle) + " \u00b7 override " + cf(f.override) + " \u00b7 composed radius " + cf(f.radius) + " \u00b7 centre " + cf(f.centre.x) + ", " + cf(f.centre.y) + " \u00b7 painted source " + (subs[l].source || "\u2014"));
                 });
             }
-            // HUB LOGGING (diagnostic-only, ruled 2026-11-01,
-            // per HUB-SIDE-DIAGNOSIS.md): the painted hub seat
-            // (paintedBranchPt — on the snapshot object all
-            // along, printed in no strip), the pre-paint hub
-            // seat stashed at DIAG-02, the hub group's
-            // label-path length and data-icon-distance-
-            // override as they stand at this pause, and the
-            // closing solve's sector angle with its yr()
-            // inputs — so the hub seat is attributable on the
-            // next live drive. Read-only.
+
             snap.hubSeat = null, snap.hubLines = [];
             try {
                 const hf = v => null == v || !Number.isFinite(Number(v)) ? "\u2014" : String(Math.round(100 * Number(v)) / 100), hubR = pt => pt && Number.isFinite(Number(pt.x)) && Number.isFinite(Number(pt.y)) ? hf(Math.hypot(Number(pt.x) - pr.centerX, Number(pt.y) - pr.centerY)) : "\u2014";
@@ -12451,6 +12251,163 @@ const TAXONOMY_CATEGORIES = [];
             }
             snap.text = diagText(snap);
             return snap;
+        }
+
+        // DeKnotter cascade driver (E5, ASSESSMENT §3.4, §3.7, §5.6,
+        // §5.8, §5.11): one full run for one branch, driven entirely
+        // through the bundle layout API — never the editor shell's
+        // collect()/apply — so no intermediate state is broadcast to
+        // other windows mid-run. Sequence: subcategory-label check →
+        // precondition staging → snapshot + double baseline → throw
+        // (branch x50, subcategories x20, kinks autofit to
+        // three times their kink (fit) length — full cascade
+        // armed, ONE applyPhase commit) →
+        // FINE-TUNE (ruled 2026-10-29): when the
+        // cascade baseline (measured twice, above) is strictly below
+        // 5, zero included, the throw is SKIPPED — a staging-and-
+        // arming commit lands the throw's staged values and full
+        // arming minus its length changes, the shrink ladders run
+        // from the branch's current lengths under the per-phase
+        // gate only (flat GATE_TOL 2; the fine-tune margin and the
+        // onset margin were deleted Phase 4, 2026-11-04 — the
+        // skip-throw under 5 is unchanged), and the branch ladder
+        // descends to a
+        // label-fit floor instead of stopping at the pre-run length
+        // → ruled shrink sequence (Jason,
+        // 2026-10-24 adjustment: subcategory nodes first, then the
+        // branch itself, each level descending a square-root-step ladder of
+        // committed sub-solves toward its label-fit floor under the
+        // per-phase gate (flat 2) — a level's ladder halts when that
+        // gate trips, and the cascade proceeds to the
+        // next level; there is NO kink shrink stage in the cascade —
+        // kinks keep their thrown autofit room (3x the kink
+        // length, 2026-11-01); the kink shrink to
+        // label length is a separate one-time driver normalization,
+        // deknotter.shrinkKinksToLabel) → scoped same-branch GROWTH
+        // (ruled 2026-10-28: grow-branch then grow-subcats ratio
+        // patches, dominance-gated, laddered at 1.25x steps to a 3x
+        // cumulative target — see stepGrowth in dkRunCascade) → a
+        // CONSTRUCTED final patch (§3.7: arm maps and staged values
+        // back to their exact pre-run values, the onset-held length
+        // overrides carried into per-item length overrides exactly
+        // as they stand after the ladders, fit registrations
+        // cleared) → the
+        // E2 gate on the branch's own-cloud crossing number (Q4:
+        // repointed from the local xAreaCross area, which is now
+        // reported secondary only), exact-float improve-or-hold.
+        // Q2 adds a per-phase gate on the same record.cloud
+        // readout; its trip consequence is back-up-a-step (ruled
+        // 2026-10-28, all phases): the tripping step is discarded,
+        // the last-kept phase snapshot is restored, that level's
+        // ladder stops, and the cascade continues — only the final
+        // gate still reverts a whole run. Any other failure or
+        // exception restores the
+        // pre-run snapshot through restore() and verifies the restore
+        // canonically; every exit path ends the run context and
+        // leaves the branch's fit registry empty.
+
+        let lastKeptSnapshot;
+        function captureKept(dk, refreshKeptFit, name) {
+            lastKeptSnapshot = dk.snapshot(), refreshKeptFit(dk, name);
+        }
+        let lastKeptFit;
+        function refreshKeptFit(dk, name) {
+            const fit = {}, all = dk.fitTargets();
+            Object.keys(all).forEach(k => {
+                "revision" !== k && k.split("|")[1] === name && (fit[k] = all[k]);
+            }), lastKeptFit = fit;
+        }
+        let mark;
+        async function stepFineTuneArm(snapshot, staged, name, tax, runPhase, report, opts, dk, preDelivered, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
+            mark = dkLog.length;
+            const armPatch = dkDeepCloneLayout(snapshot);
+            staged.forEach(s => {
+                armPatch[s.key] = s.to;
+            }), armPatch.branchSpokeAutoShrink[name] = !0, tax.subLabels.forEach(l => {
+                armPatch.subcatSpokeAutoShrink[l] = !0;
+            }), await runPhase("fine-tune-arm", armPatch, mark, opts, dk, name, preDelivered, tax, report, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP), report.fineTune.armPhase = "fine-tune-arm";
+            await focusThrowedActiveNode(name);
+        }
+        function stepLabelCheck() {
+            // (1) LABEL CHECK (§5.11): subcategory state maps are
+            // keyed by BARE label, so a label borne by two branches is
+            // armed in both by any per-branch cascade. Checked across
+            // the whole taxonomy; duplicates are reported, and the run
+            // may still proceed on that understanding.
+            const labelCounts = {};
+            h.forEach(b => (b.subcategories || []).forEach(s => {
+                labelCounts[s.name] = (labelCounts[s.name] || 0) + 1;
+            }));
+            const duplicates = Object.keys(labelCounts).filter(l => labelCounts[l] > 1).sort();
+                return duplicates;
+            }
+        function restoreKept(forFinal, dk, snapshot, name) {
+            if (typeof dkCtx !== "undefined" && dkCtx) {
+                dkCtx.isRestoring = !0;
+                dkCtx.phaseStartedAt = 0;
+            }
+            try {
+                dk.restore(lastKeptSnapshot || snapshot);
+            } finally {
+                if (typeof dkCtx !== "undefined" && dkCtx) dkCtx.isRestoring = !1;
+            }
+            // The final phase deliberately cleared this
+            // branch's fit registrations before committing;
+            // a backed-up final restores the kept LAYOUT
+            // only and never re-arms what the final patch
+            // disarmed. Every other phase restores its kept
+            // fit registrations with its layout.
+            if (!forFinal && lastKeptFit) {
+                clearBranchFit(dk, name);
+                Object.keys(lastKeptFit).forEach(k => dk.setFitTarget(k, lastKeptFit[k]));
+            }
+        }
+        function stepPreconditions(api, report) {
+            // (2) PRECONDITIONS (§5.6): the choreography assumes
+            // collision mode 'grow', staggerDensity off (it makes
+            // yr() ignore the branch length override entirely),
+            // and the branch fully rendered (expandAll). A
+            // violated value is STAGED: recorded here, written by
+            // the throw commit below, covered by the pre-run
+            // snapshot taken next, and restored by the final
+            // patch or by a revert. Never proceeded on silently.
+            const before = api.get(), staged = [];
+            "grow" !== before.collision && staged.push({ key: "collision", from: before.collision, to: "grow" }), !1 !== before.staggerDensity && staged.push({ key: "staggerDensity", from: before.staggerDensity, to: !1 }), !0 !== before.expandAll && staged.push({ key: "expandAll", from: before.expandAll, to: !0 });
+            report.preconditionsStaged = staged;
+            return staged;
+        }
+        let snapshot;
+        async function stepBaseline(dk, report, name) {
+            snapshot = dk.snapshot();
+            report.baseline.first = await dk.measureCloud(name), report.baseline.second = await dk.measureCloud(name), report.baseline.variance = Math.abs(report.baseline.first - report.baseline.second);
+            // STAGED SCORING (ruled 2026-11-02, Jason): the SAME
+            // pre-run geometry also measured under the shrink-stage
+            // composition (same-branch plus radial neighbours), so
+            // the final gate — which judges after the switch —
+            // compares like with like: descent and judge agree at
+            // every stage. baseline.first above stays the run-start
+            // (same-branch-only) value the per-phase gate chain and
+            // the fine-tune decision read.
+            try {
+                const adjBase = sxCrossingStagedCloud(name, !0);
+                null != adjBase && Number.isFinite(adjBase) && (report.baseline.adjacentFirst = adjBase, report.stagedScoring.baselineAdjacent = adjBase);
+            } catch (e) {}
+            // Q4: every NEIGHBOR cloud's crossing number at
+            // baseline, reported-not-gated (the annealed branch
+            // itself is excluded; its values are
+            // baseline/finalCloud). The baseline's former
+            // secondary xAreaCross readout was removed with the
+            // area observation (M1); its commented-out copy was
+            // deleted with the rest in 2026-10-30.
+            try {
+                const allBase = await dk.measureCloudsAll(), nb = {};
+                Object.keys(allBase).forEach(k => {
+                    k !== name && (nb[k] = allBase[k]);
+                }), report.neighbors.baseline = nb;
+            } catch (e) {}
+            const preDelivered = dkDeliveredRadii(name);
+            report.coverage.actedOn = Object.keys(preDelivered.items).length;
+            return preDelivered;
         }
         function stepOnsetSetup(name, fineTuneActive, report) {
             // COLLISION-ONSET RULE (Jason, 2026-10-24): the
@@ -12887,7 +12844,9 @@ const TAXONOMY_CATEGORIES = [];
             // throw rather than repeating blind. Every check is
             // recorded in dkLog and on report.throwRepeat
             // (fields added only) for the receipt.
-            const throwBefore = report.baseline && Number.isFinite(report.baseline.first) ? report.baseline.first : null;
+            const throwBefore = (report.fineTune && Number.isFinite(report.fineTune.baseline))
+                ? report.fineTune.baseline
+                : (report.baseline && Number.isFinite(report.baseline.first) ? report.baseline.first : null);
             const throwRec = { before: throwBefore, attempts: [], throws: 0, substantial: !1, finalAfter: null };
             report.throwRepeat = throwRec;
             for (let attempt = 1; attempt <= 1 + SX_SCORE.THROW_REPEAT_MAX_EXTRA; attempt++) {
@@ -13567,7 +13526,8 @@ const TAXONOMY_CATEGORIES = [];
             // the final patch's measurement and the final gate)
             // uses the new composition through measureCloud.
             if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
-                sxAnnealStageCtx.adjacent = !0, report.stagedScoring.adjacentFromPhase = "fit-branch-1";
+                sxAnnealStageCtx.adjacent = !0;
+                if (!report.stagedScoring.adjacentFromPhase) report.stagedScoring.adjacentFromPhase = "fit-branch-1";
                 dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "branch-shrink-entry" });
                 try {
                     const rebased = await dk.measureCloud(name);
@@ -13598,6 +13558,7 @@ const TAXONOMY_CATEGORIES = [];
                 return { branchBackedOut: branchBackedOut, gateRejected: branchGateRejected };
             }
         async function dkRunCascade(branchName, opts) {
+            resetWitnessState();
             const api = window.__SEXCAPADES_LAYOUT_API, dk = api.deknotter, name = null == branchName ? "" : String(branchName), tax = dkBranchTaxonomy(name);
             // F4 STEP 1a — label check (see the §5.11 note inside).
             const duplicates = stepLabelCheck();
@@ -14077,6 +14038,16 @@ const TAXONOMY_CATEGORIES = [];
                 const fineTuneActive = Number.isFinite(baselineForThrow) && baselineForThrow < SX_SCORE.FINE_TUNE_BELOW;
                 report.fineTune = { active: fineTuneActive, baseline: baselineForThrow, selfBaseline: report.baseline.first, below: SX_SCORE.FINE_TUNE_BELOW, margin: null, armPhase: null, holds: [], branchFloor: null };
                 fineTuneActive && dkLog.push({ type: "fine-tune-skip-throw", branch: name, baseline: baselineForThrow, below: SX_SCORE.FINE_TUNE_BELOW });
+                if (!fineTuneActive) {
+                    if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
+                        sxAnnealStageCtx.adjacent = !0;
+                        report.stagedScoring.adjacentFromPhase = "throw";
+                        dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "throw-entry" });
+                    }
+                    if (Number.isFinite(baselineForThrow)) {
+                        prevPhaseCloud = baselineForThrow;
+                    }
+                }
                 // FINE-TUNE STAGING-AND-ARMING COMMIT (skip path,
                 // ruling 6 — full arming mirroring the throw minus
                 // length changes): the throw commit is what normally
@@ -37183,15 +37154,19 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             });
             e.all("[data-copy-novelai]").forEach(e => e.textContent = "Copy"), t.textContent = s ? "Copied" : "Retry";
         }));
-        const xu = "https://sexcapades.io", Su = [ `Found this kink comparison tool. Want to compare hypermaps? ${xu}`, `I mapped all my kinks on this thing. Dying to see how we overlap — compare hypermaps? ${xu}`, `Ever wondered where your kinks line up with someone else’s? Compare hypermaps? ${xu}`, `I put my whole sex life on a map. Compare hypermaps? Let’s see what happens: ${xu}`, `This site maps your kinks and compares them with a partner’s. Compare hypermaps? ${xu}`, `What if you could see exactly where your desires overlap with someone? Compare hypermaps? ${xu}`, `I wonder how compatible we really are… compare hypermaps? Let’s find out: ${xu}`, `Map your kinks, compare with mine. Compare hypermaps? ${xu}` ];
+        function sxOpenerUrl() {
+            const prefix = window.__SX_SKIN_PREFIX || (typeof window.__sxGetSkin === "function" ? window.__sxGetSkin() : null) || "sex";
+            return "https://" + prefix + ".capades.io";
+        }
+        const Su = [ `Found this comparison tool. Want to compare hypermaps?`, `I mapped my stances on this thing. Dying to see how we overlap — compare hypermaps?`, `Ever wondered where our views line up with someone else’s? Compare hypermaps?`, `I put my whole map together. Compare hypermaps? Let’s see what happens:`, `This site maps stances and compares them with a partner’s. Compare hypermaps?`, `What if you could see exactly where your views overlap with someone? Compare hypermaps?`, `I wonder how compatible we really are… compare hypermaps? Let’s find out:`, `Map your views, compare with mine. Compare hypermaps?` ];
         let $u = -1;
         function Eu() {
             e.byId("openerMessage").value = function() {
                 let e = Math.floor(Math.random() * Su.length);
                 Su.length > 1 && e === $u && (e = (e + 1 + Math.floor(Math.random() * (Su.length - 1))) % Su.length), 
                 $u = e;
-                const t = Su[e];
-                return t.includes(xu) ? t : `${t} ${xu}`;
+                const t = Su[e], url = sxOpenerUrl();
+                return `${t} ${url}`;
             }(), e.byId("openerCopyStatus").textContent = "";
         }
 
@@ -49140,7 +49115,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                         if (dkCtx) dkCtx.isRestoring = false;
                     }
                 },
-                measureCloud(branch) {
+                measureCloud(branch, adjacent) {
                     // STAGED SCORING (ruled 2026-11-02, Jason): during
                     // an active cascade run, the run branch's judged
                     // score is the staged score (see
@@ -49148,8 +49123,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     // other branch, and every read outside a run —
                     // keeps the standing readout below, unchanged.
                     if (sxAnnealStageCtx && branch === sxAnnealStageCtx.branch) {
-                        const stagedVal = sxCrossingStagedCloud(branch, sxAnnealStageCtx.adjacent);
+                        const useAdj = adjacent !== undefined ? !!adjacent : sxAnnealStageCtx.adjacent;
+                        const stagedVal = sxCrossingStagedCloud(branch, useAdj);
                         if (null != stagedVal && Number.isFinite(stagedVal)) return Promise.resolve(stagedVal);
+                    }
+                    if (adjacent && typeof window.__sxCrossingStagedCloud === "function") {
+                        const adjVal = window.__sxCrossingStagedCloud(branch, true);
+                        if (null != adjVal && Number.isFinite(adjVal)) return Promise.resolve(adjVal);
                     }
                     return sxCrossingCloudsReadout(branch, "deknotter.measureCloud: LayoutMetrics.defs.crossingnumber.clouds is unavailable");
                 },

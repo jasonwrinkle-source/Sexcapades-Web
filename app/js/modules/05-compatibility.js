@@ -1894,14 +1894,18 @@
             });
             e.all("[data-copy-novelai]").forEach(e => e.textContent = "Copy"), t.textContent = s ? "Copied" : "Retry";
         }));
-        const xu = "https://sexcapades.io", Su = [ `Found this kink comparison tool. Want to compare hypermaps? ${xu}`, `I mapped all my kinks on this thing. Dying to see how we overlap — compare hypermaps? ${xu}`, `Ever wondered where your kinks line up with someone else’s? Compare hypermaps? ${xu}`, `I put my whole sex life on a map. Compare hypermaps? Let’s see what happens: ${xu}`, `This site maps your kinks and compares them with a partner’s. Compare hypermaps? ${xu}`, `What if you could see exactly where your desires overlap with someone? Compare hypermaps? ${xu}`, `I wonder how compatible we really are… compare hypermaps? Let’s find out: ${xu}`, `Map your kinks, compare with mine. Compare hypermaps? ${xu}` ];
+        function sxOpenerUrl() {
+            const prefix = window.__SX_SKIN_PREFIX || (typeof window.__sxGetSkin === "function" ? window.__sxGetSkin() : null) || "sex";
+            return "https://" + prefix + ".capades.io";
+        }
+        const Su = [ `Found this comparison tool. Want to compare hypermaps?`, `I mapped my stances on this thing. Dying to see how we overlap — compare hypermaps?`, `Ever wondered where our views line up with someone else’s? Compare hypermaps?`, `I put my whole map together. Compare hypermaps? Let’s see what happens:`, `This site maps stances and compares them with a partner’s. Compare hypermaps?`, `What if you could see exactly where your views overlap with someone? Compare hypermaps?`, `I wonder how compatible we really are… compare hypermaps? Let’s find out:`, `Map your views, compare with mine. Compare hypermaps?` ];
         let $u = -1;
         function Eu() {
             e.byId("openerMessage").value = function() {
                 let e = Math.floor(Math.random() * Su.length);
                 Su.length > 1 && e === $u && (e = (e + 1 + Math.floor(Math.random() * (Su.length - 1))) % Su.length), 
                 $u = e;
-                const t = Su[e];
-                return t.includes(xu) ? t : `${t} ${xu}`;
+                const t = Su[e], url = sxOpenerUrl();
+                return `${t} ${url}`;
             }(), e.byId("openerCopyStatus").textContent = "";
         }

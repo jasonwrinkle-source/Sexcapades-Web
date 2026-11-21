@@ -948,7 +948,7 @@
                         if (dkCtx) dkCtx.isRestoring = false;
                     }
                 },
-                measureCloud(branch) {
+                measureCloud(branch, adjacent) {
                     // STAGED SCORING (ruled 2026-11-02, Jason): during
                     // an active cascade run, the run branch's judged
                     // score is the staged score (see
@@ -956,8 +956,13 @@
                     // other branch, and every read outside a run —
                     // keeps the standing readout below, unchanged.
                     if (sxAnnealStageCtx && branch === sxAnnealStageCtx.branch) {
-                        const stagedVal = sxCrossingStagedCloud(branch, sxAnnealStageCtx.adjacent);
+                        const useAdj = adjacent !== undefined ? !!adjacent : sxAnnealStageCtx.adjacent;
+                        const stagedVal = sxCrossingStagedCloud(branch, useAdj);
                         if (null != stagedVal && Number.isFinite(stagedVal)) return Promise.resolve(stagedVal);
+                    }
+                    if (adjacent && typeof window.__sxCrossingStagedCloud === "function") {
+                        const adjVal = window.__sxCrossingStagedCloud(branch, true);
+                        if (null != adjVal && Number.isFinite(adjVal)) return Promise.resolve(adjVal);
                     }
                     return sxCrossingCloudsReadout(branch, "deknotter.measureCloud: LayoutMetrics.defs.crossingnumber.clouds is unavailable");
                 },
