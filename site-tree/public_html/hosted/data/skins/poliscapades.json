@@ -2392,8 +2392,8 @@
                 "text": "A wall and hard enforcement"
               },
               {
-                "label": "Technology, agents & pathways",
-                "text": "technology, agents, and legal pathways."
+                "label": "Technology & agents",
+                "text": "Technology and agents."
               }
             ]
           },
@@ -2406,7 +2406,7 @@
             },
             {
               "key": "technology-agents-pathways",
-              "label": "Technology, agents & pathways"
+              "label": "Technology & agents"
             }
           ],
           "question": "How the southern border should be secured.",
