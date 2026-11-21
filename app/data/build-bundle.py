@@ -42,6 +42,7 @@ parts = [
     "05b1-sync-compute.js",
     "05b-scribe.js",
     "05-compatibility.js",
+    "05d-scene-setter.js",
     "05c-share-qr.js",
     "06a-export-renderers.js",
     "06b-fetlife-importer.js",
