@@ -334,11 +334,12 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
      2. Validated with automated test that `mergedCategory` parses all 18 categories and produces exactly 381 unique topic records matching 02b.
      3. Retained all 17 multi-pole widget configs, hovertip poles, notes, give/receive labels, risk flags, and `defaultLayout`.
 
-   - **Phase 2: Asynchronous Boot Seam & Unified Skin Lifecycle (In Progress 2026-11-20).**
+   - **Phase 2: Asynchronous Boot Seam & Unified Skin Lifecycle (Completed 2026-11-20).**
      1. Unified `loadSkin("sexcapades")`: replaced `restoreSexcapades()` bypass with `applySkin(data)` so Sexcapades swaps taxonomy symmetrically with vanilla skins.
      2. Unified `bootSkin()`: removed the early return special-case on `"sexcapades"`; all domains now boot through `skin-loader.js` fetching `data/skins/<skin>.json` across network in parallel with `data-bootstrap.js` stream loading.
      3. Added `TaxonomyLoader.loadTaxonomy` readiness guard in `skin-loader.js` poll loop, preventing TypeError race condition during initial script streaming.
      4. Hot List route `#app/list` defers via `__SX_PENDING_OUTLINE_BOOT` until the active skin JSON is applied.
+     5. Exposed `window.__SX_BOOT_SKIN_READY` Promise resolving to active skin ID upon boot completion.
 
    - **Phase 3: Metadata Parity & DOM Island Consolidation.**
      1. Move `<script id="popularityData">` (FetLife counts) and `<script id="prevalenceData">` into `sexcapades.json` (`popularity` and `prevalence` keys), matching how vanilla skins package popularity.
