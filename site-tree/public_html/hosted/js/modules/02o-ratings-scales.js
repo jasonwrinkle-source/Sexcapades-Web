@@ -903,8 +903,12 @@
         // or the font large.
         function sxIconRadius(depth) {
             const R = Number(ea && ea.photoRadius), base = Number.isFinite(R) && R > 0 ? R : eaBase.photoRadius;
-            const mult = (depth === 1) ? 2.5 : (depth === 2) ? 3 : 1;
-            return Math.max(mult * Math.pow(2 / 3, depth) * Math.sqrt(base * midlineStrokeWidth()), 12 * mapFontScale());
+            if (depth <= 0) return base;
+            // Gen-1 icon radius is 1/3 of center avatar radius (~1/3 diameter of avatar disc).
+            // Sub-icons decay gently with (3/4)^(depth - 1), preserving readable leaf icons (~28-30px screen size).
+            const gen1Radius = base / 3;
+            const r = gen1Radius * Math.pow(3 / 4, depth - 1);
+            return Math.max(r, 12 * mapFontScale());
         }
         function sxIconDiameter(depth) {
             return 2 * sxIconRadius(depth);
