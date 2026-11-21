@@ -150,7 +150,95 @@
         // set maps to the neutral anonymous avatar too until one is made. The sample
         // profiles' menu portraits are those profiles' own icons, not generic
         // avatars — never substitute them here.
+        function sxMakeArchetypePhoto(name, skinId) {
+            name = String(name || "Archetype").trim();
+            skinId = String(skinId || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades").toLowerCase();
+            var bg1 = "#1e293b", bg2 = "#0f172a", fg = "#f8fafc", accent = "#38bdf8";
+            if (skinId.includes("fores")) { bg1 = "#1e293b"; bg2 = "#0c1524"; accent = "#eab308"; fg = "#fef08a"; }
+            else if (skinId.includes("sex")) { bg1 = "#2e1065"; bg2 = "#0f051d"; accent = "#ec4899"; fg = "#fbcfe8"; }
+            else if (skinId.includes("dharma")) { bg1 = "#451a03"; bg2 = "#1c0a00"; accent = "#f59e0b"; fg = "#fde68a"; }
+            else if (skinId.includes("philo")) { bg1 = "#14532d"; bg2 = "#052e16"; accent = "#84cc16"; fg = "#d9f99d"; }
+            else if (skinId.includes("chem") || skinId.includes("matter")) { bg1 = "#164e63"; bg2 = "#082f49"; accent = "#06b6d4"; fg = "#a5f3fc"; }
+            else if (skinId.includes("quanta") || skinId.includes("theori")) { bg1 = "#312e81"; bg2 = "#1e1b4b"; accent = "#a855f7"; fg = "#e9d5ff"; }
+            else if (skinId.includes("polis")) { bg1 = "#1e3a8a"; bg2 = "#0f172a"; accent = "#3b82f6"; fg = "#bfdbfe"; }
+            else if (skinId.includes("aesth")) { bg1 = "#701a75"; bg2 = "#2e0854"; accent = "#f43f5e"; fg = "#fecdd3"; }
+
+            var parts = name.split(/\s+/).filter(Boolean);
+            var initials = parts.length >= 2 ? (parts[0][0] + parts[1][0]).toUpperCase() : name.slice(0, 2).toUpperCase();
+            var lower = name.toLowerCase();
+            var symbolSvg = "";
+
+            if (lower.includes("creed") || lower.includes("baptist") || lower.includes("catholic") || lower.includes("orthodox") || lower.includes("lutheran") || lower.includes("methodist") || lower.includes("christian") || lower.includes("faith")) {
+                symbolSvg = '<path d="M256 120 V392 M180 200 H332" stroke="' + accent + '" stroke-width="24" stroke-linecap="round"/>' +
+                            '<circle cx="256" cy="200" r="44" fill="none" stroke="' + fg + '" stroke-width="8" stroke-dasharray="6 8" opacity="0.8"/>';
+            } else if (lower.includes("buddhism") || lower.includes("zen") || lower.includes("dharma")) {
+                symbolSvg = '<circle cx="256" cy="240" r="72" fill="none" stroke="' + accent + '" stroke-width="16"/>' +
+                            '<circle cx="256" cy="240" r="24" fill="' + fg + '"/>' +
+                            '<path d="M256 168 V312 M184 240 H328 M205 189 L307 291 M205 291 L307 189" stroke="' + accent + '" stroke-width="10"/>';
+            } else if (lower.includes("sadist") || lower.includes("degrader") || lower.includes("edge")) {
+                symbolSvg = '<path d="M256 130 C270 200 320 230 320 280 C320 330 290 370 256 370 C222 370 192 330 192 280 C192 230 242 200 256 130 Z" fill="' + accent + '" opacity="0.85"/>' +
+                            '<path d="M256 220 C265 250 285 270 285 300 C285 325 270 345 256 345 C242 345 227 325 227 300 C227 270 247 250 256 220 Z" fill="' + fg + '"/>';
+            } else if (lower.includes("dominant") || lower.includes("brat tamer") || lower.includes("rigger")) {
+                symbolSvg = '<path d="M176 340 L160 210 L216 270 L256 160 L296 270 L352 210 L336 340 Z" fill="' + accent + '" stroke="' + fg + '" stroke-width="12" stroke-linejoin="round"/>' +
+                            '<circle cx="160" cy="195" r="10" fill="' + fg + '"/><circle cx="256" cy="145" r="12" fill="' + fg + '"/><circle cx="352" cy="195" r="10" fill="' + fg + '"/>';
+            } else if (lower.includes("submissive") || lower.includes("masochist") || lower.includes("prey") || lower.includes("bunny")) {
+                symbolSvg = '<path d="M256 140 C320 140 340 180 340 250 C340 330 256 370 256 370 C256 370 172 330 172 250 C172 180 192 140 256 140 Z" fill="none" stroke="' + accent + '" stroke-width="16"/>' +
+                            '<circle cx="256" cy="245" r="32" fill="' + fg + '" opacity="0.9"/>';
+            } else if (lower.includes("switch")) {
+                symbolSvg = '<path d="M256 150 A90 90 0 0 1 256 330 A45 45 0 0 1 256 240 A45 45 0 0 0 256 150 Z" fill="' + accent + '"/>' +
+                            '<path d="M256 150 A90 90 0 0 0 256 330 A45 45 0 0 0 256 240 A45 45 0 0 1 256 150 Z" fill="' + fg + '"/>' +
+                            '<circle cx="256" cy="195" r="12" fill="' + bg2 + '"/><circle cx="256" cy="285" r="12" fill="' + bg1 + '"/>';
+            } else if (lower.includes("chemist") || lower.includes("physic") || lower.includes("science")) {
+                symbolSvg = '<ellipse cx="256" cy="240" rx="90" ry="36" fill="none" stroke="' + accent + '" stroke-width="12" transform="rotate(30 256 240)"/>' +
+                            '<ellipse cx="256" cy="240" rx="90" ry="36" fill="none" stroke="' + accent + '" stroke-width="12" transform="rotate(-30 256 240)"/>' +
+                            '<circle cx="256" cy="240" r="18" fill="' + fg + '"/>';
+            } else {
+                symbolSvg = '<circle cx="256" cy="240" r="85" fill="none" stroke="' + accent + '" stroke-width="8" stroke-dasharray="14 10"/>' +
+                            '<text x="256" y="260" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="700" fill="' + fg + '" text-anchor="middle" dominant-baseline="middle">' + initials + '</text>';
+            }
+
+            var labelText = name.length > 20 ? name.slice(0, 18) + '…' : name;
+            var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">' +
+                      '<defs>' +
+                      '<radialGradient id="arcBg" cx="50%" cy="40%" r="65%">' +
+                      '<stop offset="0%" stop-color="' + bg1 + '"/>' +
+                      '<stop offset="100%" stop-color="' + bg2 + '"/>' +
+                      '</radialGradient>' +
+                      '<linearGradient id="arcRim" x1="0%" y1="0%" x2="100%" y2="100%">' +
+                      '<stop offset="0%" stop-color="' + accent + '" stop-opacity="0.9"/>' +
+                      '<stop offset="100%" stop-color="' + accent + '" stop-opacity="0.3"/>' +
+                      '</linearGradient>' +
+                      '</defs>' +
+                      '<rect width="512" height="512" fill="url(#arcBg)"/>' +
+                      '<circle cx="256" cy="256" r="236" fill="none" stroke="url(#arcRim)" stroke-width="14"/>' +
+                      '<circle cx="256" cy="256" r="218" fill="none" stroke="' + fg + '" stroke-width="2" opacity="0.3"/>' +
+                      symbolSvg +
+                      '<text x="256" y="440" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="600" fill="' + fg + '" text-anchor="middle" letter-spacing="1" opacity="0.92">' +
+                      labelText +
+                      '</text>' +
+                      '</svg>';
+
+            return {
+                data: "data:image/svg+xml;utf8," + encodeURIComponent(svg),
+                width: 512,
+                height: 512,
+                cropX: .5,
+                cropY: .5,
+                cropZoom: 1,
+                cropReady: !0
+            };
+        }
+        if (typeof window !== "undefined") window.__sxMakeArchetypePhoto = sxMakeArchetypePhoto;
+
+        // Anonymous center avatar for a profile with no stored photo:
+        // For archetype and sample profiles with no stored human portrait,
+        // render an archetype symbol/picture rather than a generic human face.
         function sxAnonAvatarPhoto(e) {
+            if ((sampleProfileFlags && sampleProfileFlags[e]) || (typeof window !== "undefined" && window.SEXCAPADES_SAMPLE_PROFILES && window.SEXCAPADES_SAMPLE_PROFILES[e] && window.SEXCAPADES_SAMPLE_PROFILES[e].kind !== "sample")) {
+                const name = (Xe && Xe[e]) || (typeof window !== "undefined" && window.SEXCAPADES_SAMPLE_PROFILES && window.SEXCAPADES_SAMPLE_PROFILES[e] && window.SEXCAPADES_SAMPLE_PROFILES[e].name) || e;
+                const skin = (profileSkins && profileSkins[e]) || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+                return sxMakeArchetypePhoto(name, skin);
+            }
             const n = bb(rt[e]), a = "assets/avatar-anon.webp";
             const src = n.length && n.every(e => [ "man", "trans-man", "intersex-man" ].includes(e)) ? a : n.length && n.every(e => [ "woman", "trans-woman", "intersex-woman" ].includes(e)) ? a : a;
             return {

@@ -434,7 +434,14 @@
                 const sxCenterIds = sxSplitIds.length >= 2 ? sxSplitIds : function() {
                     const e = Xi();
                     return Qi() && e.length >= 2 ? e : Mt && vt[Mt] ? [ Mt ] : [];
-                }(), e = sxCenterIds.slice(0, 8).map(e => (dt[e] || [])[0] || sxAnonAvatarPhoto(e));
+                }(), e = sxCenterIds.slice(0, 8).map(e => {
+                    const photo = (dt[e] || [])[0];
+                    if (photo && photo.data && !photo.data.includes("avatar-anon.webp")) return photo;
+                    if (sampleProfileFlags && sampleProfileFlags[e]) {
+                        return (typeof sxMakeArchetypePhoto === "function" ? sxMakeArchetypePhoto((Xe && Xe[e]) || e, profileSkins && profileSkins[e]) : sxAnonAvatarPhoto(e));
+                    }
+                    return photo || sxAnonAvatarPhoto(e);
+                });
                 if (!e.length) return "";
                 const t = 2 * ea.photoRadius, n = 900 - t / 2, i = 620 - t / 2, a = e.length, r = [];
                 if (sxSplitIds.length >= 2) {
