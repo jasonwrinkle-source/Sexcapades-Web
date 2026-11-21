@@ -1,16 +1,16 @@
-# U2 — One Engine, Many Maps
+# U2 — One Engine, Many Hypermaps
 **Treatment:** E1 Treatment (Extended)
-**Brief:** The family song: many doors, one house. Each skin named by its full web address in the verses.
+**Brief:** The family song: many doors, one house. Each skin named in the verses.
 
 [Verse]
 It started with a spark and grew to a flame
 So many doors but the house is the same
-Dharmacapades dot io to find your path
-Chemcapades dot io to do the math
-Expericapades dot io for the null result
-Quantacapades dot io for the quantum pulse
-Philoscapades dot io asks the ancient why
-Theoricapades dot io looks up at the sky
+Dharmacapades to find your path
+Chemcapades to do the math
+Expericapades for the null result
+Quantacapades for the quantum pulse
+Philoscapades asks the ancient why
+Theoricapades looks up at the sky
 
 [Chorus]
 The engine doesn't care what the conversation's about
@@ -21,14 +21,14 @@ From the stars in the sky to the thoughts in your head
 TaxoPolemics hears what is said
 
 [Verse]
-Praxicapades dot io for the work you do
-Vocapades dot io finds the fit for you
-Simulcapades dot io asks what is real
-Techcapades dot io and the tools you feel
-Mattercapades dot io weighs the ground we walk
-Aesthcapades dot io shapes the way we talk
-Forescapades dot io for the faith you hold
-Poliscapades dot io where the truth is told
+Praxicapades for the work you do
+Vocapades finds the fit for you
+Simulcapades asks what is real
+Techcapades and the tools you feel
+Mattercapades weighs the ground we walk
+Aesthcapades shapes the way we talk
+Forescapades for the faith you hold
+Poliscapades where the truth is told
 
 [Chorus]
 The engine doesn't care what the conversation's about
@@ -39,9 +39,9 @@ From the stars in the sky to the thoughts in your head
 TaxoPolemics hears what is said
 
 [Bridge]
-Nouscapades dot io asks what makes a mind
+Nouscapades asks what makes a mind
 The frog and the robot and what they find
-And sex dot capades dot io where it began
+And Sexcapades where it began
 Desire and limits drawn up in a plan
 So many ways to look in the glass
 So many ways to let the truth pass
@@ -57,7 +57,7 @@ TaxoPolemics hears what is said
 [Outro]
 One house, many doors
 Mine and theirs and his and yours
- flex dot capades dot io
+Flexcapades
 That's the place to go
 One engine
-Many maps
+Many hypermaps
