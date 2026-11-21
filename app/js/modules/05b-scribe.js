@@ -1092,6 +1092,14 @@
                 if (Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
                     r.line = Number(n.line);
                     r.lineKnown = !0;
+                    // A line topic's stored (n+1) intensity rides
+                    // alongside the scalar and counts like any other
+                    // topic's; this return used to drop it, so a line
+                    // topic's relevance fell back to its stance size.
+                    if (Object.prototype.hasOwnProperty.call(n, "intensity") && Number.isFinite(Number(n.intensity))) {
+                        r.intensity = Number(n.intensity);
+                        r.intensityKnown = !0;
+                    }
                     return r;
                 }
                 // Multi-pole topic: per-pole affinities under the pole
@@ -2302,6 +2310,43 @@
                             rec.playOutcome = strong && gRole.cross >= .5 ? "match" : "curious-fit";
                             rec.strength = Math.round(gRole.cross * playWeight * 100);
                         }
+                    }
+                    /* Line topics in a cast: no flanks and no poles,
+                       so every construction above leaves their entries
+                       at zero. Score the cast as one combo on the line
+                       itself, in the pair entries' own shapes:
+                       agreement from the holders' span (the pair
+                       formula's n-holder form, 1 - span / 200),
+                       relevance capped by the least-caring holder (a
+                       stored intensity where one is carried, else the
+                       stance's own size), feud from the strongest
+                       holders on opposite sides of zero. Shared
+                       aversion zeroes Play, opposed relevance zeroes
+                       Parlay, exactly as for poles. */
+                    const lineMembers = [];
+                    gTd.forEach((d, pi) => {
+                        if (d && d.lineKnown) lineMembers.push(d);
+                    });
+                    if (lineMembers.length >= 2) {
+                        const lVals = lineMembers.map(d => d.line),
+                            lSpan = Math.max(...lVals) - Math.min(...lVals),
+                            lAgree = Math.max(0, 1 - lSpan / 200),
+                            lCares = lineMembers.map(d => null != d.intensity ? d.intensity : Math.abs(d.line)),
+                            lFactor = Math.min(...lCares.map(v => Math.abs(v))) / 100,
+                            lAllStored = lineMembers.every(d => d.intensityKnown),
+                            lAllNeg = lineMembers.every(d => d.intensityKnown && d.intensity < 0),
+                            lOpposed = lineMembers.some(d => d.intensityKnown && d.intensity < 0) && lineMembers.some(d => d.intensityKnown && d.intensity > 0),
+                            lPosMax = Math.max(0, ...lVals), lNegMag = Math.max(0, ...lVals.map(v => -v)),
+                            lFeud = lPosMax * lNegMag / 10000,
+                            lDebate = sxDebateFactor(lCares);
+                        rec.lineAgreement = lAgree;
+                        rec.lineFeud = lFeud;
+                        rec.playKFEntry = lAgree * (lAllNeg ? 0 : lFactor);
+                        rec.playMSEntry = lAgree * (lAllStored ? (lAllNeg ? 0 : lFactor) : 1);
+                        rec.parlayKFEntry = lAgree * (lOpposed ? 0 : lFactor);
+                        rec.parlayMSEntry = lAgree * (lOpposed ? 0 : lFactor);
+                        rec.debateKFEntry = lFeud * lDebate;
+                        rec.debateMSEntry = lFeud;
                     }
                 }
             });

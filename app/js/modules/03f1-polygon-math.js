@@ -495,6 +495,13 @@
             Object.keys(bag).forEach(topicId => {
                 const raw = bag[topicId];
                 if (!raw || typeof raw !== "object" || Object.prototype.hasOwnProperty.call(raw, "intensity")) return;
+                // Line topics have no widget family below; their
+                // derivation is the stance's own size, so seed |line|
+                // and a line topic carries its (n+1) like any other.
+                if (Number.isFinite(Number(raw.line))) {
+                    sxPersistIntensity(topicId, Math.abs(Number(raw.line)), profileId);
+                    return;
+                }
                 const shape = Ge(topicId, profileId);
                 const family = sxFamilyOf(shape);
                 if (!family) return;
