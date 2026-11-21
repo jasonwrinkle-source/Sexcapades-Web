@@ -2,7 +2,7 @@
   "skin": "theoricapades",
   "meter": "position",
   "name": "Theoricapades",
-  "about": "Theoricapades is an interactive hypermap for rating and visualizing where you stand on the foundations of mathematics — what is true, what counts as proof, what is beautiful — and comparing your positions with another person's, claim by claim, on the same picture. Build a personal profile, see where your mathematics meets and where it parts, use Scribe to set out the proof you'd give, and Scene Setter to plan the conversation that settles it — all in the same shared vocabulary.",
+  "about": "Theoricapades is an interactive hypermap for rating and visualizing where you stand on the foundations of mathematics \u2014 what is true, what counts as proof, what is beautiful \u2014 and comparing your positions with another person's, claim by claim, on the same picture. Build a personal profile, see where your mathematics meets and where it parts, use Scribe to set out the proof you'd give, and Scene Setter to plan the conversation that settles it \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Pure & Theoretical Mathematics — what math is, what makes it true, and how you live as a mathematician",
+  "domain": "Pure & Theoretical Mathematics \u2014 what math is, what makes it true, and how you live as a mathematician",
   "categories": [
     {
       "id": "xthc01",
@@ -126,8 +126,6 @@
         {
           "id": "xth0001",
           "name": "Foundations of Mathematics",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -179,7 +177,7 @@
             ]
           },
           "question": "What is mathematics, at bottom?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.1 — Abstracapades 1.1 (the pentad is more complete than Axiomcapades' triad, which drops Logicism and Structuralism).",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 1.1 \u2014 Abstracapades 1.1 (the pentad is more complete than Axiomcapades' triad, which drops Logicism and Structuralism).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -206,8 +204,6 @@
         {
           "id": "xth0002",
           "name": "Foundations",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -243,7 +239,7 @@
             ]
           },
           "question": "Where does mathematical structure ultimately reside?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.2 — Axiomcapades 1.2 (Abstracapades did not cover this).",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 1.2 \u2014 Axiomcapades 1.2 (Abstracapades did not cover this).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -277,12 +273,16 @@
               "label": "Classical Logic"
             },
             {
+              "key": "classical-constructively-careful",
+              "label": "Classical, constructively careful"
+            },
+            {
               "key": "constructive-logic",
               "label": "Constructive Logic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is proof by contradiction genuine knowledge?",
             "poles": [
@@ -291,13 +291,17 @@
                 "text": "LEM holds; proof by contradiction is fully valid."
               },
               {
+                "label": "Classical, constructively careful",
+                "text": "Classical logic, with constructive proofs preferred where they exist."
+              },
+              {
                 "label": "Constructive Logic",
                 "text": "LEM rejected; existence requires an explicit witness."
               }
             ]
           },
           "question": "Is proof by contradiction genuine knowledge?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.3 — Axiomcapades 1.3 (the LEM detail; Abstracapades 2.1 is the same topic in plainer form).",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 1.3 \u2014 Axiomcapades 1.3 (the LEM detail; Abstracapades 2.1 is the same topic in plainer form).",
           "communities": [
             {
               "network": "Reddit",
@@ -331,12 +335,16 @@
               "label": "Discovered"
             },
             {
+              "key": "invented-then-discovered",
+              "label": "Invented, then discovered"
+            },
+            {
               "key": "invented",
               "label": "Invented"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is math discovered or invented?",
             "poles": [
@@ -345,13 +353,17 @@
                 "text": "Math is out there; we find it."
               },
               {
+                "label": "Invented, then discovered",
+                "text": "We invent the systems; their consequences are discovered."
+              },
+              {
                 "label": "Invented",
                 "text": "Math is made up by humans."
               }
             ]
           },
           "question": "Is math discovered or invented?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.4 — Abstracapades 1.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 1.4 \u2014 Abstracapades 1.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -380,12 +392,16 @@
               "label": "Radical Mathematical Realism"
             },
             {
+              "key": "structural-realism",
+              "label": "Structural realism"
+            },
+            {
               "key": "epistemic-anti-realism",
               "label": "Epistemic Anti-Realism"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is reality made of mathematics, or is mathematics made by human minds?",
             "poles": [
@@ -394,13 +410,17 @@
                 "text": "Our universe literally is a mathematical structure."
               },
               {
+                "label": "Structural realism",
+                "text": "Reality has mathematical structure; whether it is one stays open."
+              },
+              {
                 "label": "Epistemic Anti-Realism",
                 "text": "Mathematics is a human cognitive language and mapping tool."
               }
             ]
           },
           "question": "Is reality made of mathematics, or is mathematics made by human minds?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.5 — Axiomcapades 1.4.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 1.5 \u2014 Axiomcapades 1.4.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -429,12 +449,16 @@
               "label": "Actual infinity"
             },
             {
+              "key": "working-actual-infinity",
+              "label": "Working actual infinity"
+            },
+            {
               "key": "potential-infinity",
               "label": "Potential infinity"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is infinity a thing, or just a direction?",
             "poles": [
@@ -443,13 +467,17 @@
                 "text": "A completed thing (Cantor)."
               },
               {
+                "label": "Working actual infinity",
+                "text": "Completed infinities used as tools, without committing to their existence."
+              },
+              {
                 "label": "Potential infinity",
                 "text": "A process, never finished (Aristotle)."
               }
             ]
           },
           "question": "Is infinity a thing, or just a direction?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 1.6 — Abstracapades 1.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 1.6 \u2014 Abstracapades 1.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -505,7 +533,7 @@
             ]
           },
           "question": "Do you submerge problems in abstract machinery or crack them with direct ingenuity?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.1 — Axiomcapades 2.1.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 2.1 \u2014 Axiomcapades 2.1.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -554,7 +582,7 @@
             ]
           },
           "question": "Are you captivated by universal abstractions or exceptional concrete gems?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.2 — Axiomcapades 2.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 2.2 \u2014 Axiomcapades 2.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -583,12 +611,16 @@
               "label": "High abstraction"
             },
             {
+              "key": "problem-pitched",
+              "label": "Problem-pitched"
+            },
+            {
               "key": "low-abstraction",
               "label": "Low abstraction"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How abstract should math be?",
             "poles": [
@@ -597,13 +629,17 @@
                 "text": "Category theory, the general."
               },
               {
+                "label": "Problem-pitched",
+                "text": "Abstraction pitched to the problem, no higher."
+              },
+              {
                 "label": "Low abstraction",
                 "text": "Concrete computation, the particular."
               }
             ]
           },
           "question": "How abstract should math be?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.3 — Abstracapades 5.1.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 2.3 \u2014 Abstracapades 5.1.",
           "communities": [
             {
               "network": "Reddit",
@@ -624,9 +660,7 @@
         },
         {
           "id": "xth0010",
-          "name": "Erdős's \"The Book\": Proof Aesthetics",
-          "poleReading": "same",
-          "poleEnemies": [],
+          "name": "Erd\u0151s's \"The Book\": Proof Aesthetics",
           "risk": false,
           "poles": [
             {
@@ -662,7 +696,7 @@
             ]
           },
           "question": "What is the highest form of mathematical beauty in a proof?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.4 — Axiomcapades 2.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 2.4 \u2014 Axiomcapades 2.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -711,7 +745,7 @@
             ]
           },
           "question": "Do you think in pictures or in symbols?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.5 — Abstracapades 5.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 2.5 \u2014 Abstracapades 5.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -740,12 +774,16 @@
               "label": "Trust"
             },
             {
+              "key": "trust-but-verify",
+              "label": "Trust, but verify"
+            },
+            {
               "key": "distrust",
               "label": "Distrust"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you trust mathematical intuition?",
             "poles": [
@@ -754,13 +792,17 @@
                 "text": "Intuition guides you right."
               },
               {
+                "label": "Trust, but verify",
+                "text": "Intuition leads; proof checks its work."
+              },
+              {
                 "label": "Distrust",
                 "text": "Intuition misleads; only proof counts."
               }
             ]
           },
           "question": "Do you trust mathematical intuition?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 2.6 — Abstracapades 5.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 2.6 \u2014 Abstracapades 5.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -789,8 +831,6 @@
         {
           "id": "xth0013",
           "name": "The Quadrivium of Pure Mathematics",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -834,7 +874,7 @@
             ]
           },
           "question": "Where does your primary mathematical heart dwell?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.1 — Axiomcapades 3.1 (the tetrad adds Number Theory, which Abstracapades' triad omitted).",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 3.1 \u2014 Axiomcapades 3.1 (the tetrad adds Number Theory, which Abstracapades' triad omitted).",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -881,12 +921,12 @@
             "poles": [
               {
                 "label": "Affinity",
-                "text": "Graphs, posets, extremal combinatorics, partition theory (rate 0–100)."
+                "text": "Graphs, posets, extremal combinatorics, partition theory (rate 0\u2013100)."
               }
             ]
           },
           "question": "How strong is your passion for the finite and discrete?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.2 — Axiomcapades 3.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 3.2 \u2014 Axiomcapades 3.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -935,7 +975,7 @@
             ]
           },
           "question": "Do you live in the discrete world or the continuous one?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.3 — Abstracapades 4.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 3.3 \u2014 Abstracapades 4.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -964,18 +1004,26 @@
               "label": "Pure"
             },
             {
+              "key": "use-inspired-basic-research-pasteur-s-quadrant",
+              "label": "Use-Inspired Basic Research (Pasteur's Quadrant)"
+            },
+            {
               "key": "applied",
               "label": "Applied"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
-            "issue": "The skin-defining divide — where do you stand?",
+            "issue": "The skin-defining divide \u2014 where do you stand?",
             "poles": [
               {
                 "label": "Pure",
                 "text": "Math for its own sake."
+              },
+              {
+                "label": "Use-Inspired Basic Research (Pasteur's Quadrant)",
+                "text": "Basic research chosen for the uses it serves \u2014 Stokes' quadrant."
               },
               {
                 "label": "Applied",
@@ -983,8 +1031,8 @@
               }
             ]
           },
-          "question": "The skin-defining divide — where do you stand?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 3.4 — Abstracapades 4.3.",
+          "question": "The skin-defining divide \u2014 where do you stand?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 3.4 \u2014 Abstracapades 4.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -1003,7 +1051,7 @@
     {
       "id": "xthc04",
       "name": "Proof & Verification",
-      "about": "What counts as a proof — computer-checked, human-consented, or rigorously closed.",
+      "about": "What counts as a proof \u2014 computer-checked, human-consented, or rigorously closed.",
       "topics": [
         {
           "id": "xth0017",
@@ -1015,12 +1063,16 @@
               "label": "Accept"
             },
             {
+              "key": "accept-with-audit",
+              "label": "Accept, with audit"
+            },
+            {
               "key": "reject",
               "label": "Reject"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is the Four Color Theorem proved?",
             "poles": [
@@ -1029,13 +1081,17 @@
                 "text": "A computer-assisted proof is a real proof."
               },
               {
+                "label": "Accept, with audit",
+                "text": "Computer proofs count, when the computation can be audited."
+              },
+              {
                 "label": "Reject",
                 "text": "If a human can't check it, it isn't a proof."
               }
             ]
           },
           "question": "Is the Four Color Theorem proved?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.1 — Abstracapades 2.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 4.1 \u2014 Abstracapades 2.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1089,7 +1145,7 @@
             ]
           },
           "question": "Does absolute certainty require interactive proof assistants?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.2 — Axiomcapades 4.1.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 4.2 \u2014 Axiomcapades 4.1.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1116,8 +1172,6 @@
         {
           "id": "xth0019",
           "name": "Axiom of Choice (AC) Stance",
-          "poleReading": "antipodal",
-          "poleEnemies": [["unconditional-acceptance-zfc", "defiant-rejection-constructive-determinacy"]],
           "risk": false,
           "poles": [
             {
@@ -1153,7 +1207,7 @@
             ]
           },
           "question": "How do you relate to the Axiom of Choice?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.3 — Axiomcapades 4.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 4.3 \u2014 Axiomcapades 4.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1182,12 +1236,16 @@
               "label": "Conjecture Solver"
             },
             {
+              "key": "solve-by-building",
+              "label": "Solve by building"
+            },
+            {
               "key": "theory-builder",
               "label": "Theory Builder"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you slay famous open problems or build new mathematical worlds?",
             "poles": [
@@ -1196,13 +1254,17 @@
                 "text": "Hunts white whales: Riemann, BSD, Goldbach."
               },
               {
+                "label": "Solve by building",
+                "text": "Attack famous problems by building the theory that dissolves them."
+              },
+              {
                 "label": "Theory Builder",
                 "text": "Develops new conceptual languages where old problems dissolve."
               }
             ]
           },
           "question": "Do you slay famous open problems or build new mathematical worlds?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.4 — Axiomcapades 4.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 4.4 \u2014 Axiomcapades 4.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1231,12 +1293,16 @@
               "label": "Rigor"
             },
             {
+              "key": "intuition-guided-rigor",
+              "label": "Intuition-guided rigor"
+            },
+            {
               "key": "intuition",
               "label": "Intuition"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you trust formal rigor, or mathematical intuition?",
             "poles": [
@@ -1245,13 +1311,17 @@
                 "text": "Formal proof, no gaps."
               },
               {
+                "label": "Intuition-guided rigor",
+                "text": "Rigor as the standard, intuition as the guide."
+              },
+              {
                 "label": "Intuition",
                 "text": "Insight, the feel of it."
               }
             ]
           },
           "question": "Do you trust formal rigor, or mathematical intuition?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 4.5 — Abstracapades 2.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 4.5 \u2014 Abstracapades 2.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1294,7 +1364,7 @@
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
-            "issue": "What makes good math — a beautiful proof, or a powerful theorem?",
+            "issue": "What makes good math \u2014 a beautiful proof, or a powerful theorem?",
             "poles": [
               {
                 "label": "Elegance",
@@ -1306,8 +1376,8 @@
               }
             ]
           },
-          "question": "What makes good math — a beautiful proof, or a powerful theorem?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.1 — Abstracapades 3.1.",
+          "question": "What makes good math \u2014 a beautiful proof, or a powerful theorem?",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 5.1 \u2014 Abstracapades 3.1.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1356,7 +1426,7 @@
             ]
           },
           "question": "Do you value simple results or deep ones?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.2 — Abstracapades 3.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 5.2 \u2014 Abstracapades 3.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -1380,12 +1450,16 @@
               "label": "Essential"
             },
             {
+              "key": "beauty-as-a-clue",
+              "label": "Beauty as a clue"
+            },
+            {
               "key": "incidental",
               "label": "Incidental"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is beauty in math a guide to truth, or just a pleasure?",
             "poles": [
@@ -1394,13 +1468,17 @@
                 "text": "Beauty is a sign of truth."
               },
               {
+                "label": "Beauty as a clue",
+                "text": "Beauty is evidence to weigh, not a verdict."
+              },
+              {
                 "label": "Incidental",
                 "text": "Beauty is a nice bonus."
               }
             ]
           },
           "question": "Is beauty in math a guide to truth, or just a pleasure?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.3 — Abstracapades 3.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 5.3 \u2014 Abstracapades 3.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1429,12 +1507,16 @@
               "label": "Proud Inutility (Hardy's Apology)"
             },
             {
+              "key": "pleased-when-it-applies",
+              "label": "Pleased when it applies"
+            },
+            {
               "key": "unreasonable-effectiveness-wigner",
               "label": "Unreasonable Effectiveness (Wigner)"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is pure math untainted because it has no application, or miraculous because it secretly mirrors physics?",
             "poles": [
@@ -1443,13 +1525,17 @@
                 "text": "Pure math is noble precisely because it has no base applications."
               },
               {
+                "label": "Pleased when it applies",
+                "text": "Purity prized; applicability received as a pleasant surprise."
+              },
+              {
                 "label": "Unreasonable Effectiveness",
                 "text": "Esoteric pure math mysteriously anticipates the laws of nature."
               }
             ]
           },
           "question": "Is pure math untainted because it has no application, or miraculous because it secretly mirrors physics?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.4 — Axiomcapades 5.1.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 5.4 \u2014 Axiomcapades 5.1.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1483,12 +1569,16 @@
               "label": "Autonomous Self-Reference"
             },
             {
+              "key": "autonomous-physically-nourished",
+              "label": "Autonomous, physically nourished"
+            },
+            {
               "key": "physical-symbiosis",
               "label": "Physical Symbiosis"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Should pure math be guided by internal consistency or physical insight?",
             "poles": [
@@ -1497,13 +1587,17 @@
                 "text": "Math answers only to its own internal logic."
               },
               {
+                "label": "Autonomous, physically nourished",
+                "text": "Mathematics answers to its own logic, fed by physical insight."
+              },
+              {
                 "label": "Physical Symbiosis",
                 "text": "Breakthroughs are fertilized by quantum field theory and relativity."
               }
             ]
           },
           "question": "Should pure math be guided by internal consistency or physical insight?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 5.5 — Axiomcapades 5.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 5.5 \u2014 Axiomcapades 5.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1532,7 +1626,7 @@
     {
       "id": "xthc06",
       "name": "The Mathematical Life",
-      "about": "How you live as a mathematician — alone or together, chalk or computer, teaching or research.",
+      "about": "How you live as a mathematician \u2014 alone or together, chalk or computer, teaching or research.",
       "topics": [
         {
           "id": "xth0027",
@@ -1541,21 +1635,29 @@
           "poles": [
             {
               "key": "hyper-collaborative-itinerant-erdos-mode",
-              "label": "Hyper-Collaborative / Itinerant (Erdős Mode)"
+              "label": "Hyper-Collaborative / Itinerant (Erd\u0151s Mode)"
+            },
+            {
+              "key": "collaborative-with-retreats",
+              "label": "Collaborative with retreats"
             },
             {
               "key": "ascetic-monastic-solitude-perelman-grothendieck-mode",
               "label": "Ascetic Monastic Solitude (Perelman / Grothendieck Mode)"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How do you pursue the mathematical life?",
             "poles": [
               {
-                "label": "Hyper-Collaborative / Itinerant (Erdős)",
+                "label": "Hyper-Collaborative / Itinerant (Erd\u0151s)",
                 "text": "Hundreds of coauthors, constant dialogue, math in coffee houses."
+              },
+              {
+                "label": "Collaborative with retreats",
+                "text": "Itinerant collaboration, with monastic stretches to finish."
               },
               {
                 "label": "Ascetic Monastic Solitude (Perelman)",
@@ -1564,7 +1666,7 @@
             ]
           },
           "question": "How do you pursue the mathematical life?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.1 — Axiomcapades 6.1 (the vivid Erdős/Perelman framing of Abstracapades 6.1's Collaboration vs Solitude).",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 6.1 \u2014 Axiomcapades 6.1 (the vivid Erd\u0151s/Perelman framing of Abstracapades 6.1's Collaboration vs Solitude).",
           "communities": [
             {
               "network": "Reddit",
@@ -1613,7 +1715,7 @@
             ]
           },
           "question": "How do you explore mathematics?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.2 — Axiomcapades 6.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 6.2 \u2014 Axiomcapades 6.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -1662,7 +1764,7 @@
             ]
           },
           "question": "What is the ultimate reward of pure mathematics?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.3 — Axiomcapades 6.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 6.3 \u2014 Axiomcapades 6.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -1686,12 +1788,16 @@
               "label": "Publish quickly"
             },
             {
+              "key": "publish-then-perfect",
+              "label": "Publish, then perfect"
+            },
+            {
               "key": "polish-forever",
               "label": "Polish forever"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you publish fast, or perfect first?",
             "poles": [
@@ -1700,13 +1806,17 @@
                 "text": "Get it out."
               },
               {
+                "label": "Publish, then perfect",
+                "text": "Get it out; polish in the open."
+              },
+              {
                 "label": "Polish forever",
                 "text": "Perfect it first."
               }
             ]
           },
           "question": "Do you publish fast, or perfect first?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.4 — Abstracapades 6.2.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 6.4 \u2014 Abstracapades 6.2.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1735,12 +1845,16 @@
               "label": "Teaching"
             },
             {
+              "key": "research-led-teaching",
+              "label": "Research-led teaching"
+            },
+            {
               "key": "research",
               "label": "Research"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you value teaching or research more?",
             "poles": [
@@ -1749,13 +1863,17 @@
                 "text": "Passing it on."
               },
               {
+                "label": "Research-led teaching",
+                "text": "Research first, taught as it is made."
+              },
+              {
                 "label": "Research",
                 "text": "Pushing it forward."
               }
             ]
           },
           "question": "Do you value teaching or research more?",
-          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md §2, topic 6.5 — Abstracapades 6.3.",
+          "source": "BRIEFING_THEORICAPADES_TAXONOMY.md \u00a72, topic 6.5 \u2014 Abstracapades 6.3.",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -3787,10 +3905,10 @@
     "theo-formalism": {
       "name": "Formalism",
       "count": 28,
-      "about": "Formalism holds that mathematics is the manipulation of symbols according to formal rules — a game played with marks on paper, in Hilbert's image. Mathematical statements do not need to refer to abstract objects to be meaningful; their meaning lies in the rules that govern them.",
+      "about": "Formalism holds that mathematics is the manipulation of symbols according to formal rules \u2014 a game played with marks on paper, in Hilbert's image. Mathematical statements do not need to refer to abstract objects to be meaningful; their meaning lies in the rules that govern them.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Formalism in the Philosophy of Mathematics",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Formalism in the Philosophy of Mathematics",
           "url": "https://plato.stanford.edu/entries/formalism-mathematics/"
         }
       ],
@@ -3816,19 +3934,23 @@
           },
           "xth0003": {
             "classical-logic": 85,
-            "constructive-logic": -60
+            "constructive-logic": -60,
+            "classical-constructively-careful": -45
           },
           "xth0004": {
             "discovered": -50,
-            "invented": 80
+            "invented": 80,
+            "invented-then-discovered": -30
           },
           "xth0005": {
             "radical-mathematical-realism": -60,
-            "epistemic-anti-realism": 70
+            "epistemic-anti-realism": 70,
+            "structural-realism": -30
           },
           "xth0006": {
             "actual-infinity": 70,
-            "potential-infinity": -40
+            "potential-infinity": -40,
+            "working-actual-infinity": -10
           },
           "xth0007": {
             "the-rising-sea": 40,
@@ -3840,7 +3962,8 @@
           },
           "xth0009": {
             "high-abstraction": 70,
-            "low-abstraction": -50
+            "low-abstraction": -50,
+            "problem-pitched": -20
           },
           "xth0010": {
             "luminous-simplicity-the-book": 30,
@@ -3853,7 +3976,8 @@
           },
           "xth0012": {
             "trust": 0,
-            "distrust": 50
+            "distrust": 50,
+            "trust-but-verify": 50
           },
           "xth0013": {
             "algebra-symmetry": 60,
@@ -3868,11 +3992,13 @@
           },
           "xth0016": {
             "pure": 80,
-            "applied": -40
+            "applied": -40,
+            "use-inspired-basic-research-pasteur-s-quadrant": -20
           },
           "xth0017": {
             "accept": 70,
-            "reject": -60
+            "reject": -60,
+            "accept-with-audit": -30
           },
           "xth0018": {
             "machine-checked-formalization": 80,
@@ -3885,11 +4011,13 @@
           },
           "xth0020": {
             "conjecture-solver": 20,
-            "theory-builder": 60
+            "theory-builder": 60,
+            "solve-by-building": 60
           },
           "xth0021": {
             "rigor": 90,
-            "intuition": -50
+            "intuition": -50,
+            "intuition-guided-rigor": -40
           },
           "xth0022": {
             "elegance": 40,
@@ -3901,15 +4029,18 @@
           },
           "xth0024": {
             "essential": 20,
-            "incidental": 30
+            "incidental": 30,
+            "beauty-as-a-clue": 90
           },
           "xth0025": {
             "proud-inutility-hardy-s-apology": 60,
-            "unreasonable-effectiveness-wigner": -20
+            "unreasonable-effectiveness-wigner": -20,
+            "pleased-when-it-applies": 20
           },
           "xth0026": {
             "autonomous-self-reference": 80,
-            "physical-symbiosis": -50
+            "physical-symbiosis": -50,
+            "autonomous-physically-nourished": -30
           },
           "xth0028": {
             "traditional-chalkboard": -10,
@@ -3925,10 +4056,10 @@
     "theo-intuitionism": {
       "name": "Intuitionism",
       "count": 28,
-      "about": "Intuitionism, founded by L. E. J. Brouwer, holds that mathematics is a mental construction: a statement is true only when we can construct a proof of it. Because truth requires construction, intuitionists reject the law of excluded middle for infinite domains — a claim is not true merely because its negation fails.",
+      "about": "Intuitionism, founded by L. E. J. Brouwer, holds that mathematics is a mental construction: a statement is true only when we can construct a proof of it. Because truth requires construction, intuitionists reject the law of excluded middle for infinite domains \u2014 a claim is not true merely because its negation fails.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Intuitionism in the Philosophy of Mathematics",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Intuitionism in the Philosophy of Mathematics",
           "url": "https://plato.stanford.edu/entries/intuitionism/"
         }
       ],
@@ -3954,19 +4085,23 @@
           },
           "xth0003": {
             "classical-logic": -90,
-            "constructive-logic": 95
+            "constructive-logic": 95,
+            "classical-constructively-careful": -85
           },
           "xth0004": {
             "discovered": -60,
-            "invented": 85
+            "invented": 85,
+            "invented-then-discovered": -45
           },
           "xth0005": {
             "radical-mathematical-realism": -80,
-            "epistemic-anti-realism": 85
+            "epistemic-anti-realism": 85,
+            "structural-realism": -65
           },
           "xth0006": {
             "actual-infinity": -80,
-            "potential-infinity": 90
+            "potential-infinity": 90,
+            "working-actual-infinity": -70
           },
           "xth0007": {
             "the-rising-sea": -30,
@@ -3978,7 +4113,8 @@
           },
           "xth0009": {
             "high-abstraction": -50,
-            "low-abstraction": 60
+            "low-abstraction": 60,
+            "problem-pitched": -10
           },
           "xth0010": {
             "luminous-simplicity-the-book": 60,
@@ -3991,7 +4127,8 @@
           },
           "xth0012": {
             "trust": 70,
-            "distrust": -50
+            "distrust": -50,
+            "trust-but-verify": -20
           },
           "xth0013": {
             "algebra-symmetry": 20,
@@ -4006,11 +4143,13 @@
           },
           "xth0016": {
             "pure": 60,
-            "applied": -20
+            "applied": -20,
+            "use-inspired-basic-research-pasteur-s-quadrant": 20
           },
           "xth0017": {
             "accept": -30,
-            "reject": 50
+            "reject": 50,
+            "accept-with-audit": 20
           },
           "xth0018": {
             "machine-checked-formalization": 30,
@@ -4023,11 +4162,13 @@
           },
           "xth0020": {
             "conjecture-solver": 40,
-            "theory-builder": 30
+            "theory-builder": 30,
+            "solve-by-building": 90
           },
           "xth0021": {
             "rigor": 60,
-            "intuition": 80
+            "intuition": 80,
+            "intuition-guided-rigor": 80
           },
           "xth0022": {
             "elegance": 60,
@@ -4039,15 +4180,18 @@
           },
           "xth0024": {
             "essential": 50,
-            "incidental": 0
+            "incidental": 0,
+            "beauty-as-a-clue": 50
           },
           "xth0025": {
             "proud-inutility-hardy-s-apology": 40,
-            "unreasonable-effectiveness-wigner": -10
+            "unreasonable-effectiveness-wigner": -10,
+            "pleased-when-it-applies": 50
           },
           "xth0026": {
             "autonomous-self-reference": 60,
-            "physical-symbiosis": -30
+            "physical-symbiosis": -30,
+            "autonomous-physically-nourished": 10
           },
           "xth0028": {
             "traditional-chalkboard": 50,
@@ -4063,10 +4207,10 @@
     "theo-platonism": {
       "name": "Platonism",
       "count": 28,
-      "about": "Platonism in mathematics holds that numbers, sets, and other mathematical objects exist independently of us, in an abstract realm outside space and time. Mathematical truths are discovered, not invented — we find out what is true of these objects, much as we find out what is true of the physical world.",
+      "about": "Platonism in mathematics holds that numbers, sets, and other mathematical objects exist independently of us, in an abstract realm outside space and time. Mathematical truths are discovered, not invented \u2014 we find out what is true of these objects, much as we find out what is true of the physical world.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Platonism in the Philosophy of Mathematics",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Platonism in the Philosophy of Mathematics",
           "url": "https://plato.stanford.edu/entries/platonism-mathematics/"
         }
       ],
@@ -4092,19 +4236,23 @@
           },
           "xth0003": {
             "classical-logic": 80,
-            "constructive-logic": -40
+            "constructive-logic": -40,
+            "classical-constructively-careful": -20
           },
           "xth0004": {
             "discovered": 95,
-            "invented": -85
+            "invented": -85,
+            "invented-then-discovered": -80
           },
           "xth0005": {
             "radical-mathematical-realism": 80,
-            "epistemic-anti-realism": -70
+            "epistemic-anti-realism": -70,
+            "structural-realism": -50
           },
           "xth0006": {
             "actual-infinity": 90,
-            "potential-infinity": -60
+            "potential-infinity": -60,
+            "working-actual-infinity": -50
           },
           "xth0007": {
             "the-rising-sea": 50,
@@ -4116,7 +4264,8 @@
           },
           "xth0009": {
             "high-abstraction": 60,
-            "low-abstraction": -30
+            "low-abstraction": -30,
+            "problem-pitched": 10
           },
           "xth0010": {
             "luminous-simplicity-the-book": 50,
@@ -4129,7 +4278,8 @@
           },
           "xth0012": {
             "trust": 60,
-            "distrust": -30
+            "distrust": -30,
+            "trust-but-verify": 10
           },
           "xth0013": {
             "algebra-symmetry": 40,
@@ -4144,11 +4294,13 @@
           },
           "xth0016": {
             "pure": 85,
-            "applied": -50
+            "applied": -50,
+            "use-inspired-basic-research-pasteur-s-quadrant": -35
           },
           "xth0017": {
             "accept": 40,
-            "reject": -20
+            "reject": -20,
+            "accept-with-audit": 40
           },
           "xth0018": {
             "machine-checked-formalization": 40,
@@ -4161,11 +4313,13 @@
           },
           "xth0020": {
             "conjecture-solver": 50,
-            "theory-builder": 40
+            "theory-builder": 40,
+            "solve-by-building": 90
           },
           "xth0021": {
             "rigor": 70,
-            "intuition": 50
+            "intuition": 50,
+            "intuition-guided-rigor": 80
           },
           "xth0022": {
             "elegance": 70,
@@ -4177,15 +4331,18 @@
           },
           "xth0024": {
             "essential": 80,
-            "incidental": -40
+            "incidental": -40,
+            "beauty-as-a-clue": -20
           },
           "xth0025": {
             "proud-inutility-hardy-s-apology": 50,
-            "unreasonable-effectiveness-wigner": 50
+            "unreasonable-effectiveness-wigner": 50,
+            "pleased-when-it-applies": 100
           },
           "xth0026": {
             "autonomous-self-reference": 60,
-            "physical-symbiosis": 20
+            "physical-symbiosis": 20,
+            "autonomous-physically-nourished": 60
           },
           "xth0028": {
             "traditional-chalkboard": 30,
@@ -4204,7 +4361,7 @@
       "about": "Logicism holds that mathematics reduces to logic: mathematical truths are logical truths, and mathematical concepts can be defined in purely logical terms. Associated with Frege and Russell, it treats arithmetic as a branch of logic rather than a separate science of its own objects.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Logicism and Neo-Logicism",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Logicism and Neo-Logicism",
           "url": "https://plato.stanford.edu/entries/logicism/"
         }
       ],
@@ -4230,19 +4387,23 @@
           },
           "xth0003": {
             "classical-logic": 85,
-            "constructive-logic": -50
+            "constructive-logic": -50,
+            "classical-constructively-careful": -35
           },
           "xth0004": {
             "discovered": 60,
-            "invented": -30
+            "invented": -30,
+            "invented-then-discovered": 10
           },
           "xth0005": {
             "radical-mathematical-realism": 30,
-            "epistemic-anti-realism": -20
+            "epistemic-anti-realism": -20,
+            "structural-realism": 50
           },
           "xth0006": {
             "actual-infinity": 60,
-            "potential-infinity": -30
+            "potential-infinity": -30,
+            "working-actual-infinity": 10
           },
           "xth0007": {
             "the-rising-sea": 30,
@@ -4254,7 +4415,8 @@
           },
           "xth0009": {
             "high-abstraction": 65,
-            "low-abstraction": -40
+            "low-abstraction": -40,
+            "problem-pitched": -5
           },
           "xth0010": {
             "luminous-simplicity-the-book": 40,
@@ -4267,7 +4429,8 @@
           },
           "xth0012": {
             "trust": -10,
-            "distrust": 60
+            "distrust": 60,
+            "trust-but-verify": 30
           },
           "xth0013": {
             "algebra-symmetry": 50,
@@ -4282,11 +4445,13 @@
           },
           "xth0016": {
             "pure": 70,
-            "applied": -30
+            "applied": -30,
+            "use-inspired-basic-research-pasteur-s-quadrant": 0
           },
           "xth0017": {
             "accept": 60,
-            "reject": -40
+            "reject": -40,
+            "accept-with-audit": 0
           },
           "xth0018": {
             "machine-checked-formalization": 70,
@@ -4299,11 +4464,13 @@
           },
           "xth0020": {
             "conjecture-solver": 30,
-            "theory-builder": 70
+            "theory-builder": 70,
+            "solve-by-building": 60
           },
           "xth0021": {
             "rigor": 95,
-            "intuition": -60
+            "intuition": -60,
+            "intuition-guided-rigor": -55
           },
           "xth0022": {
             "elegance": 50,
@@ -4315,15 +4482,18 @@
           },
           "xth0024": {
             "essential": 60,
-            "incidental": -20
+            "incidental": -20,
+            "beauty-as-a-clue": 20
           },
           "xth0025": {
             "proud-inutility-hardy-s-apology": 40,
-            "unreasonable-effectiveness-wigner": 20
+            "unreasonable-effectiveness-wigner": 20,
+            "pleased-when-it-applies": 80
           },
           "xth0026": {
             "autonomous-self-reference": 70,
-            "physical-symbiosis": -20
+            "physical-symbiosis": -20,
+            "autonomous-physically-nourished": 10
           },
           "xth0028": {
             "traditional-chalkboard": 0,
