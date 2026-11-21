@@ -1,0 +1,2895 @@
+{
+ "skin": "nouscapades",
+ "name": "Nouscapades",
+ "domain": "Consciousness — Minds, Selves and Novel Beings at Every Scale",
+ "meter": "conviction",
+ "about": "Nouscapades maps where you stand on the questions Michael Levin's work forces open: minds without brains, selves nested inside selves, and beings — anthrobots grown from ordinary human cells — that are neither organism nor machine in any settled sense. Rate your conviction on each question and watch the shape of your philosophy of mind appear: how far down cognition goes, how large a self can be, and who gets counted.",
+ "categories": [
+  {
+   "id": "xnoc01",
+   "name": "What is a mind?",
+   "about": "Where cognition lives, how far down it goes, and how large a world a self can care about.",
+   "topics": [
+    {
+     "id": "xno0001",
+     "name": "Cognition without a brain",
+     "risk": false,
+     "poles": [
+      {
+       "key": "needs-a-brain",
+       "label": "Needs a brain"
+      },
+      {
+       "key": "needs-only-a-problem",
+       "label": "Needs only a problem"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Can a system with no neurons — a cell, a tissue, a slime mold — genuinely think, or only react?",
+      "poles": [
+       {
+        "label": "Needs a brain",
+        "text": "Cognition is what neurons do; everything below is chemistry wearing a costume."
+       },
+       {
+        "label": "Needs only a problem",
+        "text": "Wherever a system senses, remembers, and acts toward a goal, some real form of cognition is present."
+       }
+      ]
+     },
+     "question": "Does cognition require a brain, or only a problem to solve?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0002",
+     "name": "The cognitive light cone",
+     "risk": false,
+     "poles": [
+      {
+       "key": "here-and-now",
+       "label": "Here and now"
+      },
+      {
+       "key": "anywhere-anywhen",
+       "label": "Anywhere, anywhen"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "How large is the region of space and time a self can care about — the goals it can hold and work toward?",
+      "poles": [
+       {
+        "label": "Here and now",
+        "text": "A self's concern stops at its immediate surroundings and the next moment."
+       },
+       {
+        "label": "Anywhere, anywhen",
+        "text": "A self can hold goals as large as a life, a species, or a planet's future."
+       }
+      ]
+     },
+     "question": "How large a world can a self care about — the here and now, or anywhere, anywhen?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0003",
+     "name": "Intelligence in any space",
+     "risk": false,
+     "poles": [
+      {
+       "key": "body-plan-space",
+       "label": "Body-plan space"
+      },
+      {
+       "key": "physiological-space",
+       "label": "Physiological space"
+      },
+      {
+       "key": "gene-expression-space",
+       "label": "Gene-expression space"
+      },
+      {
+       "key": "ordinary-3d-space",
+       "label": "Ordinary 3D space"
+      }
+     ],
+     "widget": "diamond",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "Levin's claim is that intelligence means solving problems in a space — and bodies navigate several spaces at once. Which spaces do you grant as arenas of real intelligence?",
+      "poles": [
+       {
+        "label": "Body-plan space",
+        "text": "An embryo solving the problem of what shape to become."
+       },
+       {
+        "label": "Physiological space",
+        "text": "Organs steering chemistry back to set points."
+       },
+       {
+        "label": "Gene-expression space",
+        "text": "Cells choosing which genes to run."
+       },
+       {
+        "label": "Ordinary 3D space",
+        "text": "The familiar case — an animal moving through the world."
+       }
+      ]
+     },
+     "question": "In which spaces do you grant real intelligence?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0004",
+     "name": "Memory without neurons",
+     "risk": false,
+     "poles": [
+      {
+       "key": "storage-only",
+       "label": "Storage only"
+      },
+      {
+       "key": "real-memory",
+       "label": "Real memory"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "A planarian can be trained, cut in half, and the regenerated worm keeps the training. Is memory in tissue real memory?",
+      "poles": [
+       {
+        "label": "Storage only",
+        "text": "Without neurons there is retention, not memory — a footprint, not a recollection."
+       },
+       {
+        "label": "Real memory",
+        "text": "If experience changes a system so its future behaviour differs, that is memory, whatever it is written in."
+       }
+      ]
+     },
+     "question": "Can tissue hold real memory, or only storage?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0005",
+     "name": "Cognition all the way down",
+     "risk": false,
+     "poles": [
+      {
+       "key": "stops-at-brains",
+       "label": "Stops at brains"
+      },
+      {
+       "key": "all-the-way-down",
+       "label": "All the way down"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Where does cognition bottom out?",
+      "poles": [
+       {
+        "label": "Stops at brains",
+        "text": "Below the level of nervous systems there is mechanism, not mind."
+       },
+       {
+        "label": "All the way down",
+        "text": "Cognition shades continuously into the goal-directed behaviour of cells and even molecular networks — there is no clean floor."
+       }
+      ]
+     },
+     "question": "Does cognition stop at brains, or go all the way down?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  },
+  {
+   "id": "xnoc02",
+   "name": "What is a self?",
+   "about": "Selfhood as a spectrum: nested, bounded by pattern rather than skin, and as large as the goals it can hold.",
+   "topics": [
+    {
+     "id": "xno0006",
+     "name": "Selfhood is a spectrum",
+     "risk": false,
+     "poles": [
+      {
+       "key": "a-switch",
+       "label": "A switch"
+      },
+      {
+       "key": "a-spectrum",
+       "label": "A spectrum"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Is being a self something a system either has or lacks, or does it come in degrees?",
+      "poles": [
+       {
+        "label": "A switch",
+        "text": "Selves are a definite kind of thing; you can in principle list what has one."
+       },
+       {
+        "label": "A spectrum",
+        "text": "Selfhood grades smoothly from a thermostat's whisper of agency to a human life."
+       }
+      ]
+     },
+     "question": "Is selfhood a switch or a spectrum?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0007",
+     "name": "Nested selves",
+     "risk": false,
+     "poles": [
+      {
+       "key": "one-real-level",
+       "label": "One real level"
+      },
+      {
+       "key": "every-level-real",
+       "label": "Every level real"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "You are made of cells that are themselves competent agents, grouped into tissues, organs, and one animal. Which level is the self?",
+      "poles": [
+       {
+        "label": "One real level",
+        "text": "Exactly one level — the animal — is a true self; the rest are parts."
+       },
+       {
+        "label": "Every level real",
+        "text": "Each level is a self in its own right, and you are a society as much as a person."
+       }
+      ]
+     },
+     "question": "Is only one level of you the real self, or is every level real?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0008",
+     "name": "Where a self ends",
+     "risk": false,
+     "poles": [
+      {
+       "key": "the-skin",
+       "label": "The skin"
+      },
+      {
+       "key": "the-bioelectric-boundary",
+       "label": "The bioelectric boundary"
+      },
+      {
+       "key": "the-story",
+       "label": "The story"
+      }
+     ],
+     "widget": "triangle",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "What draws the line around a self?",
+      "poles": [
+       {
+        "label": "The skin",
+        "text": "The body's surface is the boundary; inside is me, outside is world."
+       },
+       {
+        "label": "The bioelectric boundary",
+        "text": "The line is the extent of the voltage pattern that coordinates the parts into one agent — which need not match the skin."
+       },
+       {
+        "label": "The story",
+        "text": "The boundary is narrative — a self extends as far as the tale it tells about itself reaches."
+       }
+      ]
+     },
+     "question": "What draws the line around a self — skin, bioelectric boundary, or story?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0009",
+     "name": "The worm cut in half",
+     "risk": false,
+     "poles": [
+      {
+       "key": "neither-is-the-original",
+       "label": "Neither is the original"
+      },
+      {
+       "key": "both-are",
+       "label": "Both are"
+      },
+      {
+       "key": "the-question-is-broken",
+       "label": "The question is broken"
+      }
+     ],
+     "widget": "triangle",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "Cut a planarian in two and both halves regenerate into complete worms. What happened to the original self?",
+      "poles": [
+       {
+        "label": "Neither is the original",
+        "text": "The original ended; two new selves began."
+       },
+       {
+        "label": "Both are",
+        "text": "The original continues, twice — identity can branch."
+       },
+       {
+        "label": "The question is broken",
+        "text": "'The same self' was never the kind of fact that survives a case like this; the concept, not the worm, is what fails."
+       }
+      ]
+     },
+     "question": "When the worm is cut in half, what happens to the original self?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0010",
+     "name": "The size of a self's goals",
+     "risk": false,
+     "poles": [
+      {
+       "key": "fixed-by-the-body",
+       "label": "Fixed by the body"
+      },
+      {
+       "key": "as-big-as-its-goals",
+       "label": "As big as its goals"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "What sets the size of a self — its anatomy, or the scale of what it can strive for?",
+      "poles": [
+       {
+        "label": "Fixed by the body",
+        "text": "A self is the size of the organism, full stop."
+       },
+       {
+        "label": "As big as its goals",
+        "text": "A self is exactly as large as the biggest goal it can hold — which is why a cell's world is small and a person's can span centuries."
+       }
+      ]
+     },
+     "question": "Is a self's size fixed by its body, or set by the size of its goals?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  },
+  {
+   "id": "xnoc03",
+   "name": "The new beings",
+   "about": "Anthrobots and their kin: living beings built from ordinary cells, with no evolutionary past and no settled category.",
+   "topics": [
+    {
+     "id": "xno0011",
+     "name": "What makes something alive?",
+     "risk": false,
+     "poles": [
+      {
+       "key": "self-maintenance",
+       "label": "Self-maintenance"
+      },
+      {
+       "key": "responsiveness",
+       "label": "Responsiveness"
+      },
+      {
+       "key": "goal-pursuit",
+       "label": "Goal pursuit"
+      },
+      {
+       "key": "a-pattern-that-persists",
+       "label": "A pattern that persists"
+      },
+      {
+       "key": "reproduction",
+       "label": "Reproduction"
+      }
+     ],
+     "widget": "star-radar",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "Anthrobots move, heal, and act — but they do not reproduce, and nothing evolved them. Which of these does a thing need before you call it alive? Rate each pole as a requirement in its own right.",
+      "poles": [
+       {
+        "label": "Self-maintenance",
+        "text": "It keeps itself going — maintains its own organisation against decay."
+       },
+       {
+        "label": "Responsiveness",
+        "text": "It senses and answers its surroundings."
+       },
+       {
+        "label": "Goal pursuit",
+        "text": "It works toward states, not merely into them."
+       },
+       {
+        "label": "A pattern that persists",
+        "text": "An organisation holds together over time as one thing."
+       },
+       {
+        "label": "Reproduction",
+        "text": "It makes more of itself."
+       }
+      ]
+     },
+     "question": "What does a thing need before you call it alive?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0012",
+     "name": "Anthrobots: a third kind of thing",
+     "risk": false,
+     "poles": [
+      {
+       "key": "organism",
+       "label": "Organism"
+      },
+      {
+       "key": "machine",
+       "label": "Machine"
+      },
+      {
+       "key": "a-third-kind",
+       "label": "A third kind"
+      }
+     ],
+     "widget": "triangle",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "A living, moving being built from ordinary adult human cells, with no genetic edits and no evolutionary past. What is it?",
+      "poles": [
+       {
+        "label": "Organism",
+        "text": "It is alive and self-organising — that settles it."
+       },
+       {
+        "label": "Machine",
+        "text": "It was designed and assembled for a purpose — that settles it the other way."
+       },
+       {
+        "label": "A third kind",
+        "text": "Our two boxes were built before such things existed, and honesty needs a new one."
+       }
+      ]
+     },
+     "question": "Is an anthrobot an organism, a machine, or a third kind of thing?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0013",
+     "name": "Beings with no evolutionary past",
+     "risk": false,
+     "poles": [
+      {
+       "key": "nature-is-inherited",
+       "label": "Nature is inherited"
+      },
+      {
+       "key": "genuinely-new",
+       "label": "Genuinely new"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Every living thing we knew until now had its nature written by selection over deep time. Anthrobots were never selected for anything.",
+      "poles": [
+       {
+        "label": "Nature is inherited",
+        "text": "A being's real nature still comes from the lineage of its cells — nothing is truly new."
+       },
+       {
+        "label": "Genuinely new",
+        "text": "A being can be new under the sun, its behaviour owed to no ancestor's survival."
+       }
+      ]
+     },
+     "question": "Can a being be genuinely new, or is its nature always inherited?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0014",
+     "name": "What we owe a being we made by accident",
+     "risk": false,
+     "poles": [
+      {
+       "key": "nothing-special",
+       "label": "Nothing special"
+      },
+      {
+       "key": "stewardship",
+       "label": "Stewardship"
+      },
+      {
+       "key": "full-standing",
+       "label": "Full standing"
+      }
+     ],
+     "widget": "triangle",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "Nobody set out to make a new kind of being; the cells did that themselves in the dish. What, if anything, do we owe it?",
+      "poles": [
+       {
+        "label": "Nothing special",
+        "text": "It is lab material; standard care of the bench covers it."
+       },
+       {
+        "label": "Stewardship",
+        "text": "Having brought it into existence, we are answerable for its welfare while it lives."
+       },
+       {
+        "label": "Full standing",
+        "text": "A novel self has the claims of any self, however it arrived."
+       }
+      ]
+     },
+     "question": "What do we owe a being we made by accident?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0015",
+     "name": "Who answers for a novel being",
+     "risk": false,
+     "poles": [
+      {
+       "key": "its-makers-entirely",
+       "label": "Its makers, entirely"
+      },
+      {
+       "key": "it-answers-for-itself",
+       "label": "It answers for itself"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "If a novel being acts — helps, harms, surprises — where does responsibility sit?",
+      "poles": [
+       {
+        "label": "Its makers, entirely",
+        "text": "A made thing's deeds are its makers' deeds, as with any tool."
+       },
+       {
+        "label": "It answers for itself",
+        "text": "To the degree it is genuinely an agent, responsibility migrates to the agent — that is what agency means."
+       }
+      ]
+     },
+     "question": "Who answers for what a novel being does — its makers, or itself?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  },
+  {
+   "id": "xnoc04",
+   "name": "The bioelectric pattern",
+   "about": "Cells talking in voltage: the body's memory of its own shape, and what happens when parts defect from the whole.",
+   "topics": [
+    {
+     "id": "xno0016",
+     "name": "Cells talking in voltage",
+     "risk": false,
+     "poles": [
+      {
+       "key": "chemistry-is-the-signal",
+       "label": "Chemistry is the signal"
+      },
+      {
+       "key": "voltage-is-a-code",
+       "label": "Voltage is a code"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Cells set their resting voltage in patterns, and those patterns carry instructions — change the pattern and a tadpole grows an eye where none belongs.",
+      "poles": [
+       {
+        "label": "Chemistry is the signal",
+        "text": "Genes and molecules do the real talking; voltage is exhaust, not language."
+       },
+       {
+        "label": "Voltage is a code",
+        "text": "The bioelectric pattern is a genuine information layer, readable and writable in its own right."
+       }
+      ]
+     },
+     "question": "Is bioelectric voltage a real code, or just chemistry's exhaust?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0017",
+     "name": "The body remembers its shape",
+     "risk": false,
+     "poles": [
+      {
+       "key": "read-off-the-genes",
+       "label": "Read off the genes"
+      },
+      {
+       "key": "held-as-a-memory",
+       "label": "Held as a memory"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "A flatworm cut to pieces rebuilds the same shape every time, and a two-headed worm's descendants keep rebuilding two heads. Where does the target shape live?",
+      "poles": [
+       {
+        "label": "Read off the genes",
+        "text": "Form is computed fresh from the genome at every generation; there is no stored picture."
+       },
+       {
+        "label": "Held as a memory",
+        "text": "The tissue keeps a bioelectric memory of the shape it is aiming for — anatomical homeostasis — and works until reality matches it."
+       }
+      ]
+     },
+     "question": "Is the body's target shape read off the genes, or held as a memory?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0018",
+     "name": "Cancer as defection",
+     "risk": false,
+     "poles": [
+      {
+       "key": "broken-machinery",
+       "label": "Broken machinery"
+      },
+      {
+       "key": "a-smaller-self",
+       "label": "A smaller self"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "What is a tumour, in the language of selves?",
+      "poles": [
+       {
+        "label": "Broken machinery",
+        "text": "Cancer is damage — mutations break parts, and the parts run wild. Nothing about selfhood is needed to explain it."
+       },
+       {
+        "label": "A smaller self",
+        "text": "Cancer is cells shrinking their world to themselves alone, defecting from the collective self and treating the body as environment. The disease is a boundary failure."
+       }
+      ]
+     },
+     "question": "Is cancer broken machinery, or cells defecting to a smaller self?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0019",
+     "name": "Rewrite the pattern, not the genes",
+     "risk": false,
+     "poles": [
+      {
+       "key": "fix-the-hardware",
+       "label": "Fix the hardware"
+      },
+      {
+       "key": "persuade-the-software",
+       "label": "Persuade the software"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "If form is guided by a bioelectric pattern, medicine gets a second door.",
+      "poles": [
+       {
+        "label": "Fix the hardware",
+        "text": "Durable cures mean editing genes and molecules — the pattern is downstream decoration."
+       },
+       {
+        "label": "Persuade the software",
+        "text": "Brief changes to the pattern can trigger lasting, normal anatomy — you brief the cells, and competent cells do the rest."
+       }
+      ]
+     },
+     "question": "Should medicine fix the hardware, or persuade the software?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0020",
+     "name": "Regeneration as persuasion",
+     "risk": false,
+     "poles": [
+      {
+       "key": "micromanage",
+       "label": "Micromanage"
+      },
+      {
+       "key": "brief-and-trust",
+       "label": "Brief and trust"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "How do you control a system whose parts are themselves competent?",
+      "poles": [
+       {
+        "label": "Micromanage",
+        "text": "Reliable control means specifying every step, cell by cell — anything less is luck."
+       },
+       {
+        "label": "Brief and trust",
+        "text": "The parts already know how to build; the art is giving the collective the right high-level signal and letting its competence work — as a trainer shapes an animal, not as a mason lays bricks."
+       }
+      ]
+     },
+     "question": "Is regeneration controlled by micromanagement, or by briefing competent parts?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  },
+  {
+   "id": "xnoc05",
+   "name": "Agency at every scale",
+   "about": "Goals, competency, and choice below the level of brains — and the claim that no scale is the privileged one.",
+   "topics": [
+    {
+     "id": "xno0021",
+     "name": "Goals without a brain",
+     "risk": false,
+     "poles": [
+      {
+       "key": "metaphor",
+       "label": "Metaphor"
+      },
+      {
+       "key": "literal-goals",
+       "label": "Literal goals"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "A cell crawling toward a chemical signal, a tissue restoring its shape — are these goals, or only goal-shaped behaviour?",
+      "poles": [
+       {
+        "label": "Metaphor",
+        "text": "'Goal' is our shorthand for mechanism; nothing below a mind literally wants anything."
+       },
+       {
+        "label": "Literal goals",
+        "text": "A system that senses a state, compares it to a set point, and acts to close the gap has a goal in the only sense that ever mattered."
+       }
+      ]
+     },
+     "question": "Are goals without a brain metaphor, or literal?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0022",
+     "name": "Competency at every level",
+     "risk": false,
+     "poles": [
+      {
+       "key": "only-the-whole-animal",
+       "label": "Only the whole animal"
+      },
+      {
+       "key": "every-level",
+       "label": "Every level"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Levin's multiscale picture: each level of organisation is good at solving the problems of its own scale.",
+      "poles": [
+       {
+        "label": "Only the whole animal",
+        "text": "Competence is an animal-level trait; cells are merely reliable."
+       },
+       {
+        "label": "Every level",
+        "text": "Cells, tissues, and organs each display real competency in their own spaces — the animal is a stack of problem-solvers, not a machine of dumb parts."
+       }
+      ]
+     },
+     "question": "Is competency only the whole animal's, or does every level have it?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0023",
+     "name": "Does a cell choose?",
+     "risk": false,
+     "poles": [
+      {
+       "key": "choice-needs-a-mind",
+       "label": "Choice needs a mind"
+      },
+      {
+       "key": "a-tiny-real-choice",
+       "label": "A tiny, real choice"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "When a cell integrates signals and commits to a course, has anything chosen?",
+      "poles": [
+       {
+        "label": "Choice needs a mind",
+        "text": "Choice is deliberation, and deliberation needs a brain; elsewhere the word is poetry."
+       },
+       {
+        "label": "A tiny, real choice",
+        "text": "Choice comes in degrees like everything else here — a cell's commitment is the small end of a spectrum whose large end is yours."
+       }
+      ]
+     },
+     "question": "Does a cell choose, or does choice need a mind?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0024",
+     "name": "Stress and the grip of the self",
+     "risk": false,
+     "poles": [
+      {
+       "key": "just-chemistry",
+       "label": "Just chemistry"
+      },
+      {
+       "key": "a-self-losing-grip",
+       "label": "A self losing grip"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "What is stress, in the language of nested selves?",
+      "poles": [
+       {
+        "label": "Just chemistry",
+        "text": "Stress is hormones and load — a physiological state, fully described without selves."
+       },
+       {
+        "label": "A self losing grip",
+        "text": "Stress is what it is like, from inside, when a larger self's hold on its parts weakens — the parts' local goals start outvoting the whole's."
+       }
+      ]
+     },
+     "question": "Is stress just chemistry, or a self losing its grip on its parts?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0025",
+     "name": "No privileged scale",
+     "risk": false,
+     "poles": [
+      {
+       "key": "the-human-scale-is-real",
+       "label": "The human scale is real"
+      },
+      {
+       "key": "no-scale-is-privileged",
+       "label": "No scale is privileged"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "We instinctively treat the human-sized level as the real one and everything above and below as abstraction.",
+      "poles": [
+       {
+        "label": "The human scale is real",
+        "text": "Our level is where selves, causes, and meanings genuinely live; other scales are bookkeeping."
+       },
+       {
+        "label": "No scale is privileged",
+        "text": "Every level is equally real to the agents living at it — our scale is just the one we happen to inhabit."
+       }
+      ]
+     },
+     "question": "Is the human scale the real one, or is no scale privileged?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  },
+  {
+   "id": "xnoc06",
+   "name": "Death and continuity",
+   "about": "What ends, and when, when selves are nested — and what persists when every part is replaced.",
+   "topics": [
+    {
+     "id": "xno0026",
+     "name": "Wholes and parts die at different times",
+     "risk": false,
+     "poles": [
+      {
+       "key": "one-event",
+       "label": "One event"
+      },
+      {
+       "key": "many-deaths",
+       "label": "Many deaths"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "A body dies; its cells live on for hours, its tissues for days, and some of its cells — in a dish — build new beings.",
+      "poles": [
+       {
+        "label": "One event",
+        "text": "Death is a single fact about the organism; what lingers afterwards is residue, not life of the self."
+       },
+       {
+        "label": "Many deaths",
+        "text": "Each nested self ends on its own schedule, and 'death' names a cascade, not a moment."
+       }
+      ]
+     },
+     "question": "Is death one event, or many deaths at different times?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0027",
+     "name": "Parts that outlive the whole",
+     "risk": false,
+     "poles": [
+      {
+       "key": "leftovers",
+       "label": "Leftovers"
+      },
+      {
+       "key": "selves-in-their-own-right",
+       "label": "Selves in their own right"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Anthrobots are built from the airway cells of adult donors — cells that, given the chance, organise into a new motile being.",
+      "poles": [
+       {
+        "label": "Leftovers",
+        "text": "A surviving part is debris with metabolism; the self it belonged to is gone, and nothing new has begun."
+       },
+       {
+        "label": "Selves in their own right",
+        "text": "The part was always a self at its own scale, and the dish simply gave it room to show it."
+       }
+      ]
+     },
+     "question": "Are parts that outlive the whole leftovers, or selves in their own right?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0028",
+     "name": "Continuity through replacement",
+     "risk": false,
+     "poles": [
+      {
+       "key": "the-pattern-is-the-self",
+       "label": "The pattern is the self"
+      },
+      {
+       "key": "replace-the-parts-lose-the-self",
+       "label": "Replace the parts, lose the self"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Your cells turn over constantly; almost none of the matter that was you a decade ago remains. What persists?",
+      "poles": [
+       {
+        "label": "The pattern is the self",
+        "text": "A self is an organisation, not a pile of stuff — replace every part gradually and the self sails on, like the ship of Theseus."
+       },
+       {
+        "label": "Replace the parts, lose the self",
+        "text": "Continuity of matter matters; a perfect copy of the pattern is a successor, not the same self."
+       }
+      ]
+     },
+     "question": "Through total part replacement, is the pattern the self — or is the self lost?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0029",
+     "name": "When a self ends",
+     "risk": false,
+     "poles": [
+      {
+       "key": "the-pattern-stops",
+       "label": "The pattern stops"
+      },
+      {
+       "key": "the-parts-scatter",
+       "label": "The parts scatter"
+      },
+      {
+       "key": "the-goals-go-unpursued",
+       "label": "The goals go unpursued"
+      }
+     ],
+     "widget": "triangle",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "Pick the event that actually ends a self.",
+      "poles": [
+       {
+        "label": "The pattern stops",
+        "text": "A self ends when the organisation that bound its parts into one agent dissolves."
+       },
+       {
+        "label": "The parts scatter",
+        "text": "A self ends when its matter disperses beyond any possible reassembly."
+       },
+       {
+        "label": "The goals go unpursued",
+        "text": "A self ends when nothing in the system still works toward what it worked toward — which can happen while the body is still warm, or never quite happen at all."
+       }
+      ]
+     },
+     "question": "When does a self actually end?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  },
+  {
+   "id": "xnoc07",
+   "name": "Who counts?",
+   "about": "The moral circle under pressure from small minds: suffering, status, other materials, and what is left of human specialness.",
+   "topics": [
+    {
+     "id": "xno0030",
+     "name": "The expanding moral circle",
+     "risk": false,
+     "poles": [
+      {
+       "key": "the-circle-is-finished",
+       "label": "The circle is finished"
+      },
+      {
+       "key": "it-keeps-expanding",
+       "label": "It keeps expanding"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "History keeps redrawing the line around who matters morally — tribe, nation, species. Does it stop?",
+      "poles": [
+       {
+        "label": "The circle is finished",
+        "text": "The line now sits where reason puts it; further expansion is sentiment without argument."
+       },
+       {
+        "label": "It keeps expanding",
+        "text": "Every past generation was sure the line was finished too — the pattern of the evidence says it moves as we learn to see minds we had missed."
+       }
+      ]
+     },
+     "question": "Is the moral circle finished, or does it keep expanding?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0031",
+     "name": "Suffering at small scales",
+     "risk": false,
+     "poles": [
+      {
+       "key": "needs-a-brain-like-ours",
+       "label": "Needs a brain like ours"
+      },
+      {
+       "key": "scales-with-the-self",
+       "label": "Scales with the self"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Can anything suffer in a dish — a tissue, an organoid, a novel being?",
+      "poles": [
+       {
+        "label": "Needs a brain like ours",
+        "text": "Suffering is a specific achievement of brains like ours; below that there is damage, not pain."
+       },
+       {
+        "label": "Scales with the self",
+        "text": "Suffering, like cognition, comes in degrees — a small self's distress is small, but it is not nothing, and it is not zero."
+       }
+      ]
+     },
+     "question": "Can anything suffer at small scales, or does suffering need a brain like ours?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0032",
+     "name": "Status follows the light cone",
+     "risk": false,
+     "poles": [
+      {
+       "key": "track-the-minds-size",
+       "label": "Track the mind's size"
+      },
+      {
+       "key": "size-is-irrelevant",
+       "label": "Size is irrelevant"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "If moral status tracks anything mental, should it track the size of a being's cognitive light cone — how much it can care about?",
+      "poles": [
+       {
+        "label": "Track the mind's size",
+        "text": "A being that can hold larger goals and farther concerns has more at stake, and status should say so."
+       },
+       {
+        "label": "Size is irrelevant",
+        "text": "The smallest self's world matters wholly to it; grading status by mental size is the old hierarchy in new clothes."
+       }
+      ]
+     },
+     "question": "Should moral status track the size of a being's light cone, or is size irrelevant?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0033",
+     "name": "Minds in other materials",
+     "risk": false,
+     "poles": [
+      {
+       "key": "mind-needs-living-tissue",
+       "label": "Mind needs living tissue"
+      },
+      {
+       "key": "any-substrate-that-models-itself",
+       "label": "Any substrate that models itself"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Levin's framework is deliberately substrate-neutral — and it was built for biology. Does it reach machines?",
+      "poles": [
+       {
+        "label": "Mind needs living tissue",
+        "text": "Whatever software does, mindedness is a property of living systems and their peculiar physics."
+       },
+       {
+        "label": "Any substrate that models itself",
+        "text": "A system that models itself, holds goals, and works to close the gap is a mind in the relevant sense, whether it is made of cells or silicon."
+       }
+      ]
+     },
+     "question": "Does mind need living tissue, or can any self-modeling substrate host one?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0034",
+     "name": "Human exceptionalism",
+     "risk": false,
+     "poles": [
+      {
+       "key": "a-different-kind-of-thing",
+       "label": "A different kind of thing"
+      },
+      {
+       "key": "one-self-among-many",
+       "label": "One self among many"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "After basal cognition, what is left of human specialness?",
+      "poles": [
+       {
+        "label": "A different kind of thing",
+        "text": "Language, mathematics, and self-reflection mark a real discontinuity — we are not just a bigger light cone."
+       },
+       {
+        "label": "One self among many",
+        "text": "We are a large and articulate instance of something nature does at every scale — remarkable in degree, not in kind."
+       }
+      ]
+     },
+     "question": "Are humans a different kind of thing, or one self among many?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  },
+  {
+   "id": "xnoc08",
+   "name": "The human case",
+   "about": "The bridge: the same questions turned on the reader — your light cone, your committee, your meaning.",
+   "topics": [
+    {
+     "id": "xno0035",
+     "name": "Your own light cone",
+     "risk": false,
+     "poles": [
+      {
+       "key": "people-i-will-meet",
+       "label": "People I will meet"
+      },
+      {
+       "key": "beings-i-will-never-see",
+       "label": "Beings I will never see"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Not the theory — your practice. How far does your actual concern reach?",
+      "poles": [
+       {
+        "label": "People I will meet",
+        "text": "My caring honestly extends to those my life can touch; beyond that it is opinion, not concern."
+       },
+       {
+        "label": "Beings I will never see",
+        "text": "My concern genuinely reaches strangers, descendants, and other species I will never encounter — and it moves what I do."
+       }
+      ]
+     },
+     "question": "How far does your own concern actually reach?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0036",
+     "name": "Meaning is something selves do",
+     "risk": false,
+     "poles": [
+      {
+       "key": "meaning-is-found",
+       "label": "Meaning is found"
+      },
+      {
+       "key": "meaning-is-made",
+       "label": "Meaning is made"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "Is meaning out in the world waiting to be discovered, or is it an activity?",
+      "poles": [
+       {
+        "label": "Meaning is found",
+        "text": "Meanings exist independently of us; a life goes well when it aligns with them."
+       },
+       {
+        "label": "Meaning is made",
+        "text": "Meaning is what a self-modeling system does — a universe of nested agents generates it at every scale, and ours is the local instance."
+       }
+      ]
+     },
+     "question": "Is meaning found, or made?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0037",
+     "name": "Purpose among nested agents",
+     "risk": false,
+     "poles": [
+      {
+       "key": "purpose-comes-from-above",
+       "label": "Purpose comes from above"
+      },
+      {
+       "key": "purpose-is-generated-at-every-scale",
+       "label": "Purpose is generated at every scale"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "If you are a society of selves all the way down, where does your purpose come from?",
+      "poles": [
+       {
+        "label": "Purpose comes from above",
+        "text": "A purpose must be given by something larger — a god, a cosmos, a calling — or it is invention."
+       },
+       {
+        "label": "Purpose is generated at every scale",
+        "text": "Every agent in the stack generates its own purposes from its own goals; yours are real the same way a cell's are, only larger."
+       }
+      ]
+     },
+     "question": "Does purpose come from above, or is it generated at every scale?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0038",
+     "name": "One self, or a committee?",
+     "risk": false,
+     "poles": [
+      {
+       "key": "one-unified-self",
+       "label": "One unified self"
+      },
+      {
+       "key": "a-committee-that-mostly-agrees",
+       "label": "A committee that mostly agrees"
+      }
+     ],
+     "widget": "linear-sliders",
+     "archetype": null,
+     "hovertip": {
+      "issue": "The most personal form of the nested-selves question.",
+      "poles": [
+       {
+        "label": "One unified self",
+        "text": "I am a single subject; my parts and impulses are mine, not little agents of their own."
+       },
+       {
+        "label": "A committee that mostly agrees",
+        "text": "I am a coalition — habits, drives, and sub-agents that usually vote together and occasionally stage a coup, and 'I' am the coalition's press release."
+       }
+      ]
+     },
+     "question": "Are you one unified self, or a committee that mostly agrees?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    },
+    {
+     "id": "xno0039",
+     "name": "The hard problem, reframed",
+     "risk": false,
+     "poles": [
+      {
+       "key": "a-mystery-that-survives",
+       "label": "A mystery that survives"
+      },
+      {
+       "key": "what-selfhood-feels-like-from-inside",
+       "label": "What selfhood feels like from inside"
+      },
+      {
+       "key": "a-confusion-that-dissolves",
+       "label": "A confusion that dissolves"
+      }
+     ],
+     "widget": "triangle",
+     "archetype": "simplex",
+     "hovertip": {
+      "issue": "Why is there experience at all — why does any of this feel like something?",
+      "poles": [
+       {
+        "label": "A mystery that survives",
+        "text": "No map of cognition, at any scale, touches why there is an inside to it. The problem stands."
+       },
+       {
+        "label": "What selfhood feels like from inside",
+        "text": "Experience is what being a self — a bounded, goal-holding system — is like from within; Levin's spectrum explains why it comes in kinds and degrees."
+       },
+       {
+        "label": "A confusion that dissolves",
+        "text": "Once 'self' stops meaning a magic indivisible thing, the hard problem loses the premise that made it hard."
+       }
+      ]
+     },
+     "question": "What happens to the hard problem on a spectrum of selves?",
+     "source": "Nouscapades design brief 2026-11-21",
+     "communities": []
+    }
+   ]
+  }
+ ],
+ "samples": {
+  "nous-chauvinist": {
+   "name": "The Brain Chauvinist",
+   "count": 39,
+   "about": "The Brain Chauvinist holds that cognition is an achievement of nervous systems and nothing else earns the word. Cells signal, tissues respond, anthrobots move — but calling any of it mind is metaphor, and moral status follows the brain or it follows nothing.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Brain Chauvinist",
+    "archetype": "The Brain Chauvinist",
+    "aboutMe": "Mind is what brains do. Everything below is mechanism, however elegant, and the new beings in the dish are sophisticated tissue.",
+    "ratings": {
+     "xno0001": {
+      "needs-a-brain": 85,
+      "needs-only-a-problem": -85
+     },
+     "xno0002": {
+      "here-and-now": 40,
+      "anywhere-anywhen": -40
+     },
+     "xno0003": {
+      "body-plan-space": -40,
+      "physiological-space": -30,
+      "gene-expression-space": -50,
+      "ordinary-3d-space": 90
+     },
+     "xno0004": {
+      "storage-only": 70,
+      "real-memory": -70
+     },
+     "xno0005": {
+      "stops-at-brains": 90,
+      "all-the-way-down": -90
+     },
+     "xno0006": {
+      "a-switch": 75,
+      "a-spectrum": -75
+     },
+     "xno0007": {
+      "one-real-level": 70,
+      "every-level-real": -70
+     },
+     "xno0008": {
+      "the-skin": 85,
+      "the-bioelectric-boundary": -30,
+      "the-story": -10
+     },
+     "xno0009": {
+      "neither-is-the-original": 60,
+      "both-are": -20,
+      "the-question-is-broken": 10
+     },
+     "xno0010": {
+      "fixed-by-the-body": 60,
+      "as-big-as-its-goals": -60
+     },
+     "xno0011": {
+      "self-maintenance": 70,
+      "responsiveness": 60,
+      "goal-pursuit": 20,
+      "a-pattern-that-persists": 30,
+      "reproduction": 90
+     },
+     "xno0012": {
+      "organism": -30,
+      "machine": 80,
+      "a-third-kind": -40
+     },
+     "xno0013": {
+      "nature-is-inherited": 55,
+      "genuinely-new": -55
+     },
+     "xno0014": {
+      "nothing-special": 70,
+      "stewardship": -10,
+      "full-standing": -40
+     },
+     "xno0015": {
+      "its-makers-entirely": 80,
+      "it-answers-for-itself": -80
+     },
+     "xno0016": {
+      "chemistry-is-the-signal": 75,
+      "voltage-is-a-code": -75
+     },
+     "xno0017": {
+      "read-off-the-genes": 70,
+      "held-as-a-memory": -70
+     },
+     "xno0018": {
+      "broken-machinery": 65,
+      "a-smaller-self": -65
+     },
+     "xno0019": {
+      "fix-the-hardware": 60,
+      "persuade-the-software": -60
+     },
+     "xno0020": {
+      "micromanage": 55,
+      "brief-and-trust": -55
+     },
+     "xno0021": {
+      "metaphor": 85,
+      "literal-goals": -85
+     },
+     "xno0022": {
+      "only-the-whole-animal": 70,
+      "every-level": -70
+     },
+     "xno0023": {
+      "choice-needs-a-mind": 85,
+      "a-tiny-real-choice": -85
+     },
+     "xno0024": {
+      "just-chemistry": 60,
+      "a-self-losing-grip": -60
+     },
+     "xno0025": {
+      "the-human-scale-is-real": 80,
+      "no-scale-is-privileged": -80
+     },
+     "xno0026": {
+      "one-event": 65,
+      "many-deaths": -65
+     },
+     "xno0027": {
+      "leftovers": 75,
+      "selves-in-their-own-right": -75
+     },
+     "xno0028": {
+      "the-pattern-is-the-self": -40,
+      "replace-the-parts-lose-the-self": 40
+     },
+     "xno0029": {
+      "the-pattern-stops": 30,
+      "the-parts-scatter": 80,
+      "the-goals-go-unpursued": -10
+     },
+     "xno0030": {
+      "the-circle-is-finished": 70,
+      "it-keeps-expanding": -70
+     },
+     "xno0031": {
+      "needs-a-brain-like-ours": 80,
+      "scales-with-the-self": -80
+     },
+     "xno0032": {
+      "track-the-minds-size": 50,
+      "size-is-irrelevant": -50
+     },
+     "xno0033": {
+      "mind-needs-living-tissue": 85,
+      "any-substrate-that-models-itself": -85
+     },
+     "xno0034": {
+      "a-different-kind-of-thing": 85,
+      "one-self-among-many": -85
+     },
+     "xno0035": {
+      "people-i-will-meet": 50,
+      "beings-i-will-never-see": -50
+     },
+     "xno0036": {
+      "meaning-is-found": -10,
+      "meaning-is-made": 10
+     },
+     "xno0037": {
+      "purpose-comes-from-above": 20,
+      "purpose-is-generated-at-every-scale": -20
+     },
+     "xno0038": {
+      "one-unified-self": 55,
+      "a-committee-that-mostly-agrees": -55
+     },
+     "xno0039": {
+      "a-mystery-that-survives": 70,
+      "what-selfhood-feels-like-from-inside": 0,
+      "a-confusion-that-dissolves": -30
+     }
+    }
+   }
+  },
+  "nous-pluralist": {
+   "name": "The Levinian Pluralist",
+   "count": 39,
+   "about": "The Levinian Pluralist takes the framework whole: cognition is what living systems do at every scale, a self is as large as the goals it can hold, and no level of organisation is the uniquely real one. Anthrobots are a third kind of thing, and the circle of who counts keeps moving.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Levinian Pluralist",
+    "archetype": "The Levinian Pluralist",
+    "aboutMe": "Selves and cognition at every scale, no privileged level — and the moral circle expands as we learn to see.",
+    "ratings": {
+     "xno0001": {
+      "needs-a-brain": -85,
+      "needs-only-a-problem": 85
+     },
+     "xno0002": {
+      "here-and-now": -80,
+      "anywhere-anywhen": 80
+     },
+     "xno0003": {
+      "body-plan-space": 80,
+      "physiological-space": 70,
+      "gene-expression-space": 60,
+      "ordinary-3d-space": 70
+     },
+     "xno0004": {
+      "storage-only": -85,
+      "real-memory": 85
+     },
+     "xno0005": {
+      "stops-at-brains": -90,
+      "all-the-way-down": 90
+     },
+     "xno0006": {
+      "a-switch": -90,
+      "a-spectrum": 90
+     },
+     "xno0007": {
+      "one-real-level": -88,
+      "every-level-real": 88
+     },
+     "xno0008": {
+      "the-skin": 20,
+      "the-bioelectric-boundary": 85,
+      "the-story": 40
+     },
+     "xno0009": {
+      "neither-is-the-original": -10,
+      "both-are": 60,
+      "the-question-is-broken": 50
+     },
+     "xno0010": {
+      "fixed-by-the-body": -85,
+      "as-big-as-its-goals": 85
+     },
+     "xno0011": {
+      "self-maintenance": 85,
+      "responsiveness": 80,
+      "goal-pursuit": 90,
+      "a-pattern-that-persists": 85,
+      "reproduction": 40
+     },
+     "xno0012": {
+      "organism": 30,
+      "machine": -20,
+      "a-third-kind": 85
+     },
+     "xno0013": {
+      "nature-is-inherited": -75,
+      "genuinely-new": 75
+     },
+     "xno0014": {
+      "nothing-special": 0,
+      "stewardship": 60,
+      "full-standing": 60
+     },
+     "xno0015": {
+      "its-makers-entirely": -55,
+      "it-answers-for-itself": 55
+     },
+     "xno0016": {
+      "chemistry-is-the-signal": -88,
+      "voltage-is-a-code": 88
+     },
+     "xno0017": {
+      "read-off-the-genes": -90,
+      "held-as-a-memory": 90
+     },
+     "xno0018": {
+      "broken-machinery": -85,
+      "a-smaller-self": 85
+     },
+     "xno0019": {
+      "fix-the-hardware": -85,
+      "persuade-the-software": 85
+     },
+     "xno0020": {
+      "micromanage": -88,
+      "brief-and-trust": 88
+     },
+     "xno0021": {
+      "metaphor": -90,
+      "literal-goals": 90
+     },
+     "xno0022": {
+      "only-the-whole-animal": -90,
+      "every-level": 90
+     },
+     "xno0023": {
+      "choice-needs-a-mind": -80,
+      "a-tiny-real-choice": 80
+     },
+     "xno0024": {
+      "just-chemistry": -75,
+      "a-self-losing-grip": 75
+     },
+     "xno0025": {
+      "the-human-scale-is-real": -92,
+      "no-scale-is-privileged": 92
+     },
+     "xno0026": {
+      "one-event": -85,
+      "many-deaths": 85
+     },
+     "xno0027": {
+      "leftovers": -85,
+      "selves-in-their-own-right": 85
+     },
+     "xno0028": {
+      "the-pattern-is-the-self": 70,
+      "replace-the-parts-lose-the-self": -70
+     },
+     "xno0029": {
+      "the-pattern-stops": 70,
+      "the-parts-scatter": 20,
+      "the-goals-go-unpursued": 60
+     },
+     "xno0030": {
+      "the-circle-is-finished": -85,
+      "it-keeps-expanding": 85
+     },
+     "xno0031": {
+      "needs-a-brain-like-ours": -80,
+      "scales-with-the-self": 80
+     },
+     "xno0032": {
+      "track-the-minds-size": 40,
+      "size-is-irrelevant": -40
+     },
+     "xno0033": {
+      "mind-needs-living-tissue": -70,
+      "any-substrate-that-models-itself": 70
+     },
+     "xno0034": {
+      "a-different-kind-of-thing": -85,
+      "one-self-among-many": 85
+     },
+     "xno0035": {
+      "people-i-will-meet": -70,
+      "beings-i-will-never-see": 70
+     },
+     "xno0036": {
+      "meaning-is-found": -70,
+      "meaning-is-made": 70
+     },
+     "xno0037": {
+      "purpose-comes-from-above": -88,
+      "purpose-is-generated-at-every-scale": 88
+     },
+     "xno0038": {
+      "one-unified-self": -75,
+      "a-committee-that-mostly-agrees": 75
+     },
+     "xno0039": {
+      "a-mystery-that-survives": 20,
+      "what-selfhood-feels-like-from-inside": 80,
+      "a-confusion-that-dissolves": 10
+     }
+    }
+   }
+  },
+  "nous-pattern-mystic": {
+   "name": "The Pattern Mystic",
+   "count": 39,
+   "about": "The Pattern Mystic cares about organisation, not ingredients. A self is a pattern that maintains and models itself, so continuity survives total replacement of parts, and a mind could in principle be made of anything that holds the pattern — cells, silicon, or stranger stuff.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Pattern Mystic",
+    "archetype": "The Pattern Mystic",
+    "aboutMe": "The pattern is the self. Substrate is nothing; organisation is everything — a mind in any material that models itself.",
+    "ratings": {
+     "xno0001": {
+      "needs-a-brain": -70,
+      "needs-only-a-problem": 70
+     },
+     "xno0002": {
+      "here-and-now": -75,
+      "anywhere-anywhen": 75
+     },
+     "xno0003": {
+      "body-plan-space": 60,
+      "physiological-space": 50,
+      "gene-expression-space": 40,
+      "ordinary-3d-space": 60
+     },
+     "xno0004": {
+      "storage-only": -65,
+      "real-memory": 65
+     },
+     "xno0005": {
+      "stops-at-brains": -80,
+      "all-the-way-down": 80
+     },
+     "xno0006": {
+      "a-switch": -85,
+      "a-spectrum": 85
+     },
+     "xno0007": {
+      "one-real-level": -80,
+      "every-level-real": 80
+     },
+     "xno0008": {
+      "the-skin": 10,
+      "the-bioelectric-boundary": 50,
+      "the-story": 80
+     },
+     "xno0009": {
+      "neither-is-the-original": 0,
+      "both-are": 70,
+      "the-question-is-broken": 40
+     },
+     "xno0010": {
+      "fixed-by-the-body": -80,
+      "as-big-as-its-goals": 80
+     },
+     "xno0011": {
+      "self-maintenance": 60,
+      "responsiveness": 60,
+      "goal-pursuit": 70,
+      "a-pattern-that-persists": 95,
+      "reproduction": 10
+     },
+     "xno0012": {
+      "organism": 40,
+      "machine": -30,
+      "a-third-kind": 70
+     },
+     "xno0013": {
+      "nature-is-inherited": -65,
+      "genuinely-new": 65
+     },
+     "xno0014": {
+      "nothing-special": -10,
+      "stewardship": 50,
+      "full-standing": 50
+     },
+     "xno0015": {
+      "its-makers-entirely": -60,
+      "it-answers-for-itself": 60
+     },
+     "xno0016": {
+      "chemistry-is-the-signal": -45,
+      "voltage-is-a-code": 45
+     },
+     "xno0017": {
+      "read-off-the-genes": -85,
+      "held-as-a-memory": 85
+     },
+     "xno0018": {
+      "broken-machinery": -70,
+      "a-smaller-self": 70
+     },
+     "xno0019": {
+      "fix-the-hardware": -75,
+      "persuade-the-software": 75
+     },
+     "xno0020": {
+      "micromanage": -70,
+      "brief-and-trust": 70
+     },
+     "xno0021": {
+      "metaphor": -75,
+      "literal-goals": 75
+     },
+     "xno0022": {
+      "only-the-whole-animal": -70,
+      "every-level": 70
+     },
+     "xno0023": {
+      "choice-needs-a-mind": -65,
+      "a-tiny-real-choice": 65
+     },
+     "xno0024": {
+      "just-chemistry": -70,
+      "a-self-losing-grip": 70
+     },
+     "xno0025": {
+      "the-human-scale-is-real": -85,
+      "no-scale-is-privileged": 85
+     },
+     "xno0026": {
+      "one-event": -75,
+      "many-deaths": 75
+     },
+     "xno0027": {
+      "leftovers": -80,
+      "selves-in-their-own-right": 80
+     },
+     "xno0028": {
+      "the-pattern-is-the-self": 95,
+      "replace-the-parts-lose-the-self": -95
+     },
+     "xno0029": {
+      "the-pattern-stops": 90,
+      "the-parts-scatter": 10,
+      "the-goals-go-unpursued": 40
+     },
+     "xno0030": {
+      "the-circle-is-finished": -75,
+      "it-keeps-expanding": 75
+     },
+     "xno0031": {
+      "needs-a-brain-like-ours": -70,
+      "scales-with-the-self": 70
+     },
+     "xno0032": {
+      "track-the-minds-size": -20,
+      "size-is-irrelevant": 20
+     },
+     "xno0033": {
+      "mind-needs-living-tissue": -95,
+      "any-substrate-that-models-itself": 95
+     },
+     "xno0034": {
+      "a-different-kind-of-thing": -75,
+      "one-self-among-many": 75
+     },
+     "xno0035": {
+      "people-i-will-meet": -80,
+      "beings-i-will-never-see": 80
+     },
+     "xno0036": {
+      "meaning-is-found": -75,
+      "meaning-is-made": 75
+     },
+     "xno0037": {
+      "purpose-comes-from-above": -70,
+      "purpose-is-generated-at-every-scale": 70
+     },
+     "xno0038": {
+      "one-unified-self": -85,
+      "a-committee-that-mostly-agrees": 85
+     },
+     "xno0039": {
+      "a-mystery-that-survives": 30,
+      "what-selfhood-feels-like-from-inside": 85,
+      "a-confusion-that-dissolves": 0
+     }
+    }
+   }
+  },
+  "nous-keeper": {
+   "name": "The Keeper of the Dish",
+   "count": 39,
+   "about": "The Keeper of the Dish suspends the metaphysical verdict and acts on the ethical one: we brought novel beings into existence, so we are answerable for them while they live. On most questions of mind the Keeper is genuinely undecided — and holds that the undecidedness changes nothing about the duty.",
+   "links": [],
+   "payload": {
+    "app": "sexcapades",
+    "version": 16,
+    "noFlash": true,
+    "profileName": "The Keeper of the Dish",
+    "archetype": "The Keeper of the Dish",
+    "aboutMe": "Unsure what anthrobots are, and certain it doesn't settle what we owe them. Stewardship first; metaphysics later.",
+    "ratings": {
+     "xno0001": {
+      "needs-a-brain": -30,
+      "needs-only-a-problem": 30
+     },
+     "xno0002": {
+      "here-and-now": -45,
+      "anywhere-anywhen": 45
+     },
+     "xno0003": {
+      "body-plan-space": 30,
+      "physiological-space": 30,
+      "gene-expression-space": 20,
+      "ordinary-3d-space": 50
+     },
+     "xno0004": {
+      "storage-only": -35,
+      "real-memory": 35
+     },
+     "xno0005": {
+      "stops-at-brains": -40,
+      "all-the-way-down": 40
+     },
+     "xno0006": {
+      "a-switch": -45,
+      "a-spectrum": 45
+     },
+     "xno0007": {
+      "one-real-level": -40,
+      "every-level-real": 40
+     },
+     "xno0008": {
+      "the-skin": 40,
+      "the-bioelectric-boundary": 40,
+      "the-story": 30
+     },
+     "xno0009": {
+      "neither-is-the-original": 20,
+      "both-are": 20,
+      "the-question-is-broken": 40
+     },
+     "xno0010": {
+      "fixed-by-the-body": -35,
+      "as-big-as-its-goals": 35
+     },
+     "xno0011": {
+      "self-maintenance": 70,
+      "responsiveness": 70,
+      "goal-pursuit": 60,
+      "a-pattern-that-persists": 60,
+      "reproduction": 30
+     },
+     "xno0012": {
+      "organism": 20,
+      "machine": 10,
+      "a-third-kind": 60
+     },
+     "xno0013": {
+      "nature-is-inherited": -45,
+      "genuinely-new": 45
+     },
+     "xno0014": {
+      "nothing-special": -30,
+      "stewardship": 95,
+      "full-standing": 20
+     },
+     "xno0015": {
+      "its-makers-entirely": 55,
+      "it-answers-for-itself": -55
+     },
+     "xno0016": {
+      "chemistry-is-the-signal": -40,
+      "voltage-is-a-code": 40
+     },
+     "xno0017": {
+      "read-off-the-genes": -45,
+      "held-as-a-memory": 45
+     },
+     "xno0018": {
+      "broken-machinery": -40,
+      "a-smaller-self": 40
+     },
+     "xno0019": {
+      "fix-the-hardware": -50,
+      "persuade-the-software": 50
+     },
+     "xno0020": {
+      "micromanage": -55,
+      "brief-and-trust": 55
+     },
+     "xno0021": {
+      "metaphor": -40,
+      "literal-goals": 40
+     },
+     "xno0022": {
+      "only-the-whole-animal": -45,
+      "every-level": 45
+     },
+     "xno0023": {
+      "choice-needs-a-mind": -30,
+      "a-tiny-real-choice": 30
+     },
+     "xno0024": {
+      "just-chemistry": -35,
+      "a-self-losing-grip": 35
+     },
+     "xno0025": {
+      "the-human-scale-is-real": -50,
+      "no-scale-is-privileged": 50
+     },
+     "xno0026": {
+      "one-event": -45,
+      "many-deaths": 45
+     },
+     "xno0027": {
+      "leftovers": -55,
+      "selves-in-their-own-right": 55
+     },
+     "xno0028": {
+      "the-pattern-is-the-self": 30,
+      "replace-the-parts-lose-the-self": -30
+     },
+     "xno0029": {
+      "the-pattern-stops": 40,
+      "the-parts-scatter": 30,
+      "the-goals-go-unpursued": 50
+     },
+     "xno0030": {
+      "the-circle-is-finished": -65,
+      "it-keeps-expanding": 65
+     },
+     "xno0031": {
+      "needs-a-brain-like-ours": -60,
+      "scales-with-the-self": 60
+     },
+     "xno0032": {
+      "track-the-minds-size": -55,
+      "size-is-irrelevant": 55
+     },
+     "xno0033": {
+      "mind-needs-living-tissue": -35,
+      "any-substrate-that-models-itself": 35
+     },
+     "xno0034": {
+      "a-different-kind-of-thing": -45,
+      "one-self-among-many": 45
+     },
+     "xno0035": {
+      "people-i-will-meet": -75,
+      "beings-i-will-never-see": 75
+     },
+     "xno0036": {
+      "meaning-is-found": -50,
+      "meaning-is-made": 50
+     },
+     "xno0037": {
+      "purpose-comes-from-above": -30,
+      "purpose-is-generated-at-every-scale": 30
+     },
+     "xno0038": {
+      "one-unified-self": -40,
+      "a-committee-that-mostly-agrees": 40
+     },
+     "xno0039": {
+      "a-mystery-that-survives": 50,
+      "what-selfhood-feels-like-from-inside": 40,
+      "a-confusion-that-dissolves": -10
+     }
+    }
+   }
+  }
+ },
+ "scribe": {
+  "genre": "discussion",
+  "output": "discussion",
+  "explicitness": {
+   "label": "Depth",
+   "levels": [
+    "Overview",
+    "Engaged",
+    "Thorough",
+    "Rigorous",
+    "Dissertation defense"
+   ],
+   "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
+  },
+  "panel": {
+   "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+   "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+   "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
+   "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
+   "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+   "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
+   "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
+   "downloadIntro": "Generated from the selected profile data.",
+   "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+  },
+  "prompt": {
+   "opening": "Write an informed discussion between the stances recorded on this map.",
+   "rules": [
+    "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+    "Show where the stances agree, where they part, and what follows from each position.",
+    "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+    "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
+    "Do not invent positions, sources, or facts beyond the supplied data."
+   ],
+   "rigor": "At maximum depth, length, and rigor, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
+  },
+  "phases": {
+   "warmup": "Opening",
+   "main": "Development",
+   "cooldown": "Closing",
+   "cooldownStyles": [
+    "synthesis",
+    "open questions",
+    "verdict"
+   ],
+   "legend": "Discussion phases",
+   "help": "Enabled phases are added to the generated prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
+  }
+ },
+ "sceneSetter": {
+  "genre": "moderation",
+  "output": "moderation-plan",
+  "panel": {
+   "subtitleSuffix": "the ground rules stay in every discussion plan.",
+   "detailsLabel": "Discussion details <small>Optional</small>",
+   "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+   "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+   "playGuideLegend": "Discussion plan length",
+   "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
+   "negotiationLegend": "Discussion agreement length",
+   "negotiationHelp": "Length for the standalone discussion agreement only. One page (or 500 words) is compact; larger targets add the ground-rules detail, then a full per-topic appendix. It never changes the discussion plan.",
+   "phasesLegend": "Discussion phases",
+   "phasesHelp": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out.",
+   "outputsTitle": "Documents",
+   "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
+   "negotiationTitle": "Discussion agreement",
+   "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+   "playGuideTitle": "Discussion plan",
+   "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+   "copyNegotiationGuide": "Copy discussion agreement",
+   "downloadNegotiationGuide": "Download discussion agreement (.txt)",
+   "copyPlayGuide": "Copy discussion plan prompt",
+   "downloadPlayGuide": "Download discussion plan prompt (.txt)",
+   "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
+   "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+   "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
+   "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
+   "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+  },
+  "groundRules": [
+   "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+   "Speak from your own recorded stance; don't speak for the other side.",
+   "Take turns: one position at a time, each side heard fully before replies.",
+   "Objections go to the position, not the person holding it.",
+   "Anyone may call a pause; the discussion resumes only when everyone is ready.",
+   "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+  ],
+  "prompt": {
+   "opening": "Write a moderated discussion plan for the stances recorded on this map.",
+   "rules": [
+    "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+    "Show where the stances agree, where they part, and what follows from each position.",
+    "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+    "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
+    "Give each side its strongest form before comparing them; never let one side speak for the other.",
+    "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
+    "Do not invent positions, sources, or facts beyond the supplied data."
+   ],
+   "rigor": "At full detail, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
+  },
+  "phases": {
+   "warmup": "Opening",
+   "main": "Development",
+   "cooldown": "Closing",
+   "cooldownStyles": [
+    "synthesis",
+    "open questions",
+    "verdict"
+   ],
+   "legend": "Discussion phases",
+   "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
+  }
+ },
+ "defaultLayout": {
+  "kind": "layout-settings",
+  "version": 3,
+  "app": "sexcapades",
+  "build": "2026-11-21_0142",
+  "exportedAt": "2026-11-21T07:42:21.000Z",
+  "hash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76",
+  "positions": {
+   "skin": "nouscapades",
+   "solverVersion": 2,
+   "capturedAt": "2026-11-21T07:42:21.000Z",
+   "settingsHash": "#layout-spacing=airy&layout-branchOrder=landscape-antipodal&layout-propFan=1&layout-subcatOrder=1&layout-staggerDensity=0&layout-stagger=1&layout-expandAll=1&layout-collision=grow&layout-crossmin=0&layout-nudge=0&layout-showRelations=0&layout-spokeLen=2.60&layout-subLen=1.20&layout-pad=1.40&layout-repulsion=0.00&layout-repulsionEnabled=0&layout-staticMap=0&layout-animations=0&layout-mapSliders=0&layout-fontScale=30.00&layout-centerRingScale=10.00&layout-leafOvergrowth=100&layout-autoShrinkFactor=0.76&layout-subcatCloudShrinkFactor=0.76",
+   "fingerprint": "{\"spacing\": \"airy\", \"branchOrder\": \"landscape-antipodal\", \"propFan\": true, \"subcatOrder\": true, \"staggerDensity\": false, \"stagger\": true, \"expandAll\": true, \"crossmin\": false, \"nudge\": false, \"showRelations\": false, \"repulsionEnabled\": false, \"staticMap\": false, \"animations\": false, \"mapSliders\": false, \"collision\": \"grow\", \"spokeLen\": 2.6, \"subLen\": 1.2, \"pad\": 1.4, \"repulsion\": 0, \"fontScale\": 30, \"centerRingScale\": 10, \"leafOvergrowth\": 100, \"autoShrinkFactor\": 0.76, \"subcatCloudShrinkFactor\": 0.76}",
+   "treeSignature": "xnoc01:xno0001[],xno0002[],xno0003[],xno0004[],xno0005[]|xnoc02:xno0006[],xno0007[],xno0008[],xno0009[],xno0010[]|xnoc03:xno0011[],xno0012[],xno0013[],xno0014[],xno0015[]|xnoc04:xno0016[],xno0017[],xno0018[],xno0019[],xno0020[]|xnoc05:xno0021[],xno0022[],xno0023[],xno0024[],xno0025[]|xnoc06:xno0026[],xno0027[],xno0028[],xno0029[]|xnoc07:xno0030[],xno0031[],xno0032[],xno0033[],xno0034[]|xnoc08:xno0035[],xno0036[],xno0037[],xno0038[],xno0039[]",
+   "crossings": 0,
+   "branches": [
+    {
+     "name": "What is a mind?",
+     "catId": "xnoc01",
+     "angle": -2.748893571891069,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0001",
+       "angle": -3.0630528372500483,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0002",
+       "angle": -2.9059732045705586,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0003",
+       "angle": -2.748893571891069,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0004",
+       "angle": -2.5918139392115793,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0005",
+       "angle": -2.4347343065320897,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 4,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "What is a self?",
+     "catId": "xnoc02",
+     "angle": -1.9634954084936207,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0006",
+       "angle": -2.2776546738526,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0007",
+       "angle": -2.1205750411731104,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0008",
+       "angle": -1.9634954084936207,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0009",
+       "angle": -1.806415775814131,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0010",
+       "angle": -1.6493361431346414,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 4,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "The new beings",
+     "catId": "xnoc03",
+     "angle": -1.1780972450961724,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0011",
+       "angle": -1.4922565104551517,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0012",
+       "angle": -1.335176877775662,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0013",
+       "angle": -1.1780972450961724,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0014",
+       "angle": -1.0210176124166828,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0015",
+       "angle": -0.8639379797371931,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 4,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "The bioelectric pattern",
+     "catId": "xnoc04",
+     "angle": -0.39269908169872414,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0016",
+       "angle": -0.7068583470577035,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0017",
+       "angle": -0.5497787143782138,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0018",
+       "angle": -0.39269908169872414,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0019",
+       "angle": -0.23561944901923448,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0020",
+       "angle": -0.07853981633974483,
+       "sector": 0.15707963267948966,
+       "cloudAngle": -0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 4,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "Agency at every scale",
+     "catId": "xnoc05",
+     "angle": 0.39269908169872414,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0021",
+       "angle": 0.07853981633974483,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0022",
+       "angle": 0.23561944901923448,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0023",
+       "angle": 0.39269908169872414,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0024",
+       "angle": 0.5497787143782138,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0025",
+       "angle": 0.7068583470577035,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 0.39269908169872414,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 4,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "Death and continuity",
+     "catId": "xnoc06",
+     "angle": 1.1780972450961724,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0026",
+       "angle": 0.8835729338221293,
+       "sector": 0.19634954084936207,
+       "cloudAngle": 1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 4,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0027",
+       "angle": 1.0799224746714913,
+       "sector": 0.19634954084936207,
+       "cloudAngle": 1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 4,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0028",
+       "angle": 1.2762720155208536,
+       "sector": 0.19634954084936207,
+       "cloudAngle": 1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 4,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0029",
+       "angle": 1.4726215563702154,
+       "sector": 0.19634954084936207,
+       "cloudAngle": 1.1780972450961724,
+       "cloudRadius": 410.69,
+       "cloudCount": 4,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "Who counts?",
+     "catId": "xnoc07",
+     "angle": 1.9634954084936207,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0030",
+       "angle": 1.6493361431346414,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0031",
+       "angle": 1.806415775814131,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0032",
+       "angle": 1.9634954084936207,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0033",
+       "angle": 2.1205750411731104,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0034",
+       "angle": 2.2776546738526,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 1.9634954084936207,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 4,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "The human case",
+     "catId": "xnoc08",
+     "angle": 2.748893571891069,
+     "sector": 0.7853981633974483,
+     "topicCloudRadius": 210.8,
+     "topicCloudRadiusBase": 210.8,
+     "spokeAdjust20": 0,
+     "topics": [
+      {
+       "id": "xno0035",
+       "angle": 2.4347343065320897,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 0,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0036",
+       "angle": 2.5918139392115793,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 1,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0037",
+       "angle": 2.748893571891069,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 2,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0038",
+       "angle": 2.9059732045705586,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 3,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      },
+      {
+       "id": "xno0039",
+       "angle": 3.0630528372500483,
+       "sector": 0.15707963267948966,
+       "cloudAngle": 2.748893571891069,
+       "cloudRadius": 410.69,
+       "cloudCount": 5,
+       "cloudIndex": 4,
+       "curve": false,
+       "radialFit20": null,
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  "settings": {
+   "spacing": "airy",
+   "branchOrder": "landscape-antipodal",
+   "propFan": true,
+   "subcatOrder": true,
+   "staggerDensity": false,
+   "stagger": true,
+   "expandAll": true,
+   "crossmin": false,
+   "nudge": false,
+   "showRelations": false,
+   "repulsionEnabled": false,
+   "staticMap": false,
+   "animations": false,
+   "mapSliders": false,
+   "collision": "grow",
+   "spokeLen": 2.6,
+   "subLen": 1.2,
+   "pad": 1.4,
+   "repulsion": 0,
+   "fontScale": 30,
+   "centerRingScale": 10,
+   "leafOvergrowth": 100,
+   "autoShrinkFactor": 0.76,
+   "subcatCloudShrinkFactor": 0.76,
+   "branchOverrides": {},
+   "subcatOverrides": {},
+   "kinkOverrides": {},
+   "subcatAngleOffsets": {},
+   "kinkAngleOffsets": {},
+   "branchSpokeAutoShrink": {},
+   "subcatSpokeAutoShrink": {}
+  }
+ }
+}
