@@ -1179,6 +1179,8 @@
     playKF: { sex: "Play KF", vanilla: "Commune DF" },
     parlayMS: { sex: "Parlay MS", vanilla: "Converse MS" },
     parlayKF: { sex: "Parlay KF", vanilla: "Converse DF" },
+    debateMS: { sex: "Debate MS", vanilla: "Debate MS" },
+    debateKF: { sex: "Debate KF", vanilla: "Debate DF" },
     getRatings: { sex: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife", vanilla: "Hot list", exact: true }
   };
   /* The four skin-specific questionnaire importers, wherever they are

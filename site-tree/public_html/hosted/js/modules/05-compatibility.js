@@ -123,7 +123,10 @@
             // products, stored as positive magnitudes so the map can
             // paint them. Pole topics stay off the map; their feud is
             // the header rings, the same way circle dot leaves pole
-            // topics uncolored and reads them from the rings.
+            // topics uncolored and reads them from the rings. Circle
+            // minus is a measure (ruled 2026-11-21): the adapter also
+            // carries the pair's Debate MS headline and counts, so
+            // the rings and the pair tab answer to a real aggregate.
             const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
             if (pair && pair.straight) pair.straight.topics.forEach(srec => {
@@ -140,6 +143,8 @@
                     t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
                 });
             });
+            const di = pair ? sxDebateInterim(pair) : null, deb = !pair ? grp.debate : null,
+                debateLabels = pair && pair.straight ? pair.straight.topics.filter(s => "shared" === s.status && sxDebateFeud(s) > 0).sort((x, y) => sxDebateFeud(y) - sxDebateFeud(x) || x.label.localeCompare(y.label)).map(s => s.label) : [];
             return {
                 ratings: n,
                 marks: i,
@@ -147,13 +152,13 @@
                 triedFlags: r,
                 children: o,
                 matchDetails: {},
-                percent: 0,
-                noScore: !0,
-                things: 0,
-                clicks: 0,
+                percent: di ? di.outer || 0 : deb ? deb.headline || 0 : 0,
+                noScore: di ? null == di.outer : deb ? null == deb.headline : !0,
+                things: di ? di.considered : deb ? deb.considered : 0,
+                clicks: di ? di.counted : deb ? deb.counted : 0,
                 limits: pair && pair.straight ? pair.straight.coverage.limitBlocked : 0,
                 results: {
-                    matches: [],
+                    matches: debateLabels,
                     curiousAbout: [],
                     mismatched: []
                 },
@@ -808,6 +813,36 @@
                 topics: lists[ringOrder[i]].map(s => s.label)
             }));
         }
+        /* Circle-minus buckets (ruled 2026-11-21): the minus tab's
+           rings sort the pair's shared topics by what circle minus
+           measures — a topic carrying a split (sxDebateFeud) and no
+           shared ground is Debate; a topic with both a split and
+           shared ground is Mixed; shared ground with no split is
+           Common ground. Ring slots keep the crossed tab's order:
+           green, yellow, red. Membership is display-only, read off
+           the straight register exactly as the straight bands are. */
+        function sxMinusBuckets(pair) {
+            const base = sxEmptyBuckets(), agree = [], mixed = [], debate = [];
+            if (pair && pair.straight) pair.straight.topics.forEach(s => {
+                if ("shared" !== s.status) return;
+                const feud = sxDebateFeud(s),
+                    hasAgree = (null != s.giveGive && s.giveGive > 0) || (null != s.recvRecv && s.recvRecv > 0) || (null != s.agreement && s.agreement > 0);
+                if (feud > 0 && hasAgree) mixed.push(s);
+                else if (feud > 0) debate.push(s);
+                else if (hasAgree) agree.push(s);
+            });
+            debate.sort((x, y) => sxDebateFeud(y) - sxDebateFeud(x) || x.label.localeCompare(y.label)),
+            mixed.sort((x, y) => x.label.localeCompare(y.label)), agree.sort((x, y) => x.label.localeCompare(y.label));
+            const counts = [ agree.length, mixed.length, debate.length ], shares = uc(counts),
+                names = [ "Common ground", "Mixed", "Debate" ], lists = [ agree, mixed, debate ];
+            return base.map((b, i) => ({
+                ...b,
+                label: names[i],
+                count: counts[i],
+                percent: shares[i],
+                topics: lists[i].map(s => s.label)
+            }));
+        }
         function sxRenderStraightTab(tab) {
             const ctx = sxTabContext(tab);
             sxRenderPairLine(tab, ctx);
@@ -846,7 +881,8 @@
             pk && (pk.innerHTML = sxPickerHtml());
             const st = tab.section.querySelector("[data-sx-stamp]");
             st && (st.textContent = "");
-            tab.buckets = sxEmptyBuckets(), sxUpdateMatchRings(tab);
+            const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {}) : null;
+            tab.buckets = sxMinusBuckets(pair), sxUpdateMatchRings(tab);
         }
         function sxRenderMatchTab(tab) {
             if (!tab || !tab.section) return;
