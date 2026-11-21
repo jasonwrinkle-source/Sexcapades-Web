@@ -1,6 +1,6 @@
 # Universal Set — Style & Treatments
 
-The Universal Set is designed to be the fallback repertoire for every map in the Flexcapades family (Flex.Capades.IO). These songs must be plainspoken, bright, and easily understood on a first hearing. They carry the core mechanics of the engine—TaxoPolemics—in a way that makes sense whether you're mapping desires, politics, or faith.
+The Universal Set is designed to be the fallback repertoire for every hypermap in the Flexcapades family (Flex.Capades.IO). These songs must be plainspoken, bright, and easily understood on a first hearing. They carry the core mechanics of the engine—TaxoPolemics—in a way that makes sense whether you're mapping desires, politics, or faith.
 
 ## E1 Treatment (Extended)
 **Style Prompt:** Bright acoustic pop, clear vocals, upbeat, plainspoken, driving rhythm, anthemic chorus, organic instruments, warm production

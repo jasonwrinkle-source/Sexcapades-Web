@@ -3,7 +3,7 @@
 **Brief:** Cross, Straight, and Circle Minus in plain words.
 
 [Verse]
-When you bring your map and I bring mine
+When you bring your hypermap and I bring mine
 We want to see how the numbers align
 We look for the Cross, what we complete
 In each other, where the two sides meet
@@ -13,7 +13,7 @@ I lean one way and you lean the other
 And that's how we manage to fit one another
 
 [Chorus]
-Three ways two maps can meet
+Three ways two hypermaps can meet
 Three operations to make it complete
 Every meeting gets its own number to read
 And the engine provides all the math that you need
@@ -31,7 +31,7 @@ Where we agree, where the lines run true
 The Straight operation between me and you
 
 [Chorus]
-Three ways two maps can meet
+Three ways two hypermaps can meet
 Three operations to make it complete
 Every meeting gets its own number to read
 And the engine provides all the math that you need
@@ -40,7 +40,7 @@ Let the operations guide us
 
 [Bridge]
 But what about the places where we just don't align?
-Where your map is heading away from mine?
+Where your hypermap is heading away from mine?
 We look for the Circle Minus, where we split apart
 And we price the division right from the start
 It's a gap that is measured, a divide we can trace
@@ -49,7 +49,7 @@ But a deep one is worth a real conversation
 The Circle Minus brings the revelation
 
 [Chorus]
-Three ways two maps can meet
+Three ways two hypermaps can meet
 Three operations to make it complete
 Every meeting gets its own number to read
 And the engine provides all the math that you need
