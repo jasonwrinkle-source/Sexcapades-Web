@@ -1550,21 +1550,17 @@
       "name": "Health & Care",
       "topics": [
         {
-          "archetype": "line",
+          "archetype": null,
           "hovertip": {
             "issue": "Whether health coverage should be public, private, or a mix \u2014 and whether it is a right.",
             "poles": [
               {
-                "label": "Single-payer",
-                "text": "Single-payer / public system"
+                "label": "Private financing",
+                "text": "Affinity for financing care privately, through markets and insurers."
               },
               {
-                "label": "Free-market",
-                "text": "free-market system"
-              },
-              {
-                "label": "Keep and fix the ACA",
-                "text": "keep and fix the ACA."
+                "label": "Guaranteed coverage",
+                "text": "Affinity for coverage as a guaranteed right, whoever pays."
               }
             ]
           },
@@ -1572,22 +1568,18 @@
           "name": "Health insurance system",
           "poles": [
             {
-              "key": "single-payer",
-              "label": "Single-payer"
+              "key": "private-financing",
+              "label": "Private financing"
             },
             {
-              "key": "free-market",
-              "label": "Free-market"
-            },
-            {
-              "key": "keep-and-fix-the-aca",
-              "label": "Keep and fix the ACA"
+              "key": "guaranteed-coverage",
+              "label": "Guaranteed coverage"
             }
           ],
           "question": "Whether health coverage should be public, private, or a mix \u2014 and whether it is a right.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0015)",
-          "widget": "trilinear-line",
+          "widget": "xy-switchbox",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -3501,21 +3493,17 @@
               ]
             },
             {
-              "archetype": "line",
+              "archetype": null,
               "hovertip": {
                 "issue": "Whether the Electoral College should stay, and whether representation should be proportional.",
                 "poles": [
                   {
-                    "label": "Keep the Electoral College",
-                    "text": "Keep the Electoral College"
+                    "label": "Abolish the College",
+                    "text": "Affinity for abolishing the Electoral College."
                   },
                   {
-                    "label": "Reform the College",
-                    "text": "Keep the Electoral College, but allocate electors proportionally."
-                  },
-                  {
-                    "label": "Abolish it, proportional representation",
-                    "text": "abolish it and adopt proportional representation."
+                    "label": "Proportional representation",
+                    "text": "Affinity for allocating representation proportionally."
                   }
                 ]
               },
@@ -3523,22 +3511,18 @@
               "name": "Electoral Systems",
               "poles": [
                 {
-                  "key": "keep-the-electoral-college",
-                  "label": "Keep the Electoral College"
+                  "key": "abolish-the-college",
+                  "label": "Abolish the College"
                 },
                 {
-                  "key": "reform-the-college",
-                  "label": "Reform the College"
-                },
-                {
-                  "key": "abolish-it-proportional-representation",
-                  "label": "Abolish it, proportional representation"
+                  "key": "proportional-representation",
+                  "label": "Proportional representation"
                 }
               ],
               "question": "Whether the Electoral College should stay, and whether representation should be proportional.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0039)",
-              "widget": "trilinear-line",
+              "widget": "xy-switchbox",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3775,21 +3759,17 @@
           "name": "the structure of power",
           "topics": [
             {
-              "archetype": "line",
+              "archetype": null,
               "hovertip": {
                 "issue": "How big the Supreme Court should be and how it should be checked.",
                 "poles": [
                   {
-                    "label": "Expand or reform",
-                    "text": "Expand or reform the Court"
+                    "label": "Change the size",
+                    "text": "Affinity for expanding or otherwise changing the Court's size."
                   },
                   {
-                    "label": "Term limits, no expansion",
-                    "text": "Reform the Court with term limits, without changing its size."
-                  },
-                  {
-                    "label": "Keep it at nine",
-                    "text": "keep it at nine and block expansion."
+                    "label": "Term limits",
+                    "text": "Affinity for term limits for justices."
                   }
                 ]
               },
@@ -3797,22 +3777,18 @@
               "name": "Supreme Court",
               "poles": [
                 {
-                  "key": "expand-or-reform",
-                  "label": "Expand or reform"
+                  "key": "change-the-size",
+                  "label": "Change the size"
                 },
                 {
-                  "key": "term-limits-no-expansion",
-                  "label": "Term limits, no expansion"
-                },
-                {
-                  "key": "keep-it-at-nine",
-                  "label": "Keep it at nine"
+                  "key": "term-limits",
+                  "label": "Term limits"
                 }
               ],
               "question": "How big the Supreme Court should be and how it should be checked.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0043)",
-              "widget": "trilinear-line",
+              "widget": "xy-switchbox",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -6378,21 +6354,17 @@
           }
         },
         {
-          "archetype": "line",
+          "archetype": null,
           "hovertip": {
             "issue": "Whether the US should send aid, intervene abroad, or stay out.",
             "poles": [
               {
-                "label": "Lead and intervene",
-                "text": "Lead and intervene where needed"
+                "label": "Foreign aid",
+                "text": "Affinity for generous foreign aid."
               },
               {
-                "label": "Selective engagement",
-                "text": "Aid and intervene only where vital interests are at stake."
-              },
-              {
-                "label": "Non-intervention",
-                "text": "non-intervention."
+                "label": "Military intervention",
+                "text": "Affinity for intervening militarily abroad."
               }
             ]
           },
@@ -6400,22 +6372,18 @@
           "name": "Foreign Aid",
           "poles": [
             {
-              "key": "lead-and-intervene",
-              "label": "Lead and intervene"
+              "key": "foreign-aid",
+              "label": "Foreign aid"
             },
             {
-              "key": "selective-engagement",
-              "label": "Selective engagement"
-            },
-            {
-              "key": "non-intervention",
-              "label": "Non-intervention"
+              "key": "military-intervention",
+              "label": "Military intervention"
             }
           ],
           "question": "Whether the US should send aid, intervene abroad, or stay out.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0075)",
-          "widget": "trilinear-line",
+          "widget": "xy-switchbox",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -9655,9 +9623,8 @@
             "a-limited-safety-net": -65
           },
           "xpo0029": {
-            "single-payer": 20,
-            "free-market": -70,
-            "keep-and-fix-the-aca": 85
+            "private-financing": -40,
+            "guaranteed-coverage": 85
           },
           "xpo0030": {
             "negotiate-and-cap-prices": 85,
@@ -9714,9 +9681,8 @@
             "disclosure-without-caps": -55
           },
           "xpo0053": {
-            "keep-the-electoral-college": -30,
-            "abolish-it-proportional-representation": 55,
-            "reform-the-college": 15
+            "abolish-the-college": 55,
+            "proportional-representation": 35
           },
           "xpo0059": {
             "strong-federal-standards": 70,
@@ -9788,9 +9754,8 @@
             "palestinian-self-determination": 45
           },
           "xpo0091": {
-            "lead-and-intervene": 60,
-            "non-intervention": -50,
-            "selective-engagement": -10
+            "foreign-aid": 65,
+            "military-intervention": 35
           },
           "xpo0024": {
             "private-crypto": -20,
@@ -9872,9 +9837,8 @@
             "a-limited-safety-net": -15
           },
           "xpo0029": {
-            "single-payer": -85,
-            "free-market": 80,
-            "keep-and-fix-the-aca": -70
+            "private-financing": 75,
+            "guaranteed-coverage": -30
           },
           "xpo0030": {
             "negotiate-and-cap-prices": 30,
@@ -9931,9 +9895,8 @@
             "disclosure-without-caps": -5
           },
           "xpo0053": {
-            "keep-the-electoral-college": 85,
-            "abolish-it-proportional-representation": -85,
-            "reform-the-college": -70
+            "abolish-the-college": -85,
+            "proportional-representation": -60
           },
           "xpo0059": {
             "strong-federal-standards": -50,
@@ -10005,9 +9968,8 @@
             "palestinian-self-determination": -60
           },
           "xpo0091": {
-            "lead-and-intervene": 30,
-            "non-intervention": -20,
-            "selective-engagement": 50
+            "foreign-aid": -10,
+            "military-intervention": 25
           },
           "xpo0024": {
             "private-crypto": 85,
@@ -10089,9 +10051,8 @@
             "a-limited-safety-net": -80
           },
           "xpo0029": {
-            "single-payer": -95,
-            "free-market": 90,
-            "keep-and-fix-the-aca": -85
+            "private-financing": 95,
+            "guaranteed-coverage": -85
           },
           "xpo0030": {
             "negotiate-and-cap-prices": -80,
@@ -10148,9 +10109,8 @@
             "disclosure-without-caps": -45
           },
           "xpo0053": {
-            "keep-the-electoral-college": -40,
-            "abolish-it-proportional-representation": 60,
-            "reform-the-college": 0
+            "abolish-the-college": 45,
+            "proportional-representation": 40
           },
           "xpo0059": {
             "strong-federal-standards": -80,
@@ -10222,9 +10182,8 @@
             "palestinian-self-determination": 30
           },
           "xpo0091": {
-            "lead-and-intervene": -90,
-            "non-intervention": 95,
-            "selective-engagement": -85
+            "foreign-aid": -90,
+            "military-intervention": -90
           },
           "xpo0024": {
             "private-crypto": 100,
@@ -10306,9 +10265,8 @@
             "a-limited-safety-net": -75
           },
           "xpo0029": {
-            "single-payer": 95,
-            "free-market": -90,
-            "keep-and-fix-the-aca": -40
+            "private-financing": -90,
+            "guaranteed-coverage": 95
           },
           "xpo0030": {
             "negotiate-and-cap-prices": 90,
@@ -10365,9 +10323,8 @@
             "disclosure-without-caps": -75
           },
           "xpo0053": {
-            "keep-the-electoral-college": -80,
-            "abolish-it-proportional-representation": 90,
-            "reform-the-college": -70
+            "abolish-the-college": 85,
+            "proportional-representation": 90
           },
           "xpo0059": {
             "strong-federal-standards": 60,
@@ -10439,9 +10396,8 @@
             "palestinian-self-determination": 90
           },
           "xpo0091": {
-            "lead-and-intervene": -70,
-            "non-intervention": 80,
-            "selective-engagement": -50
+            "foreign-aid": 55,
+            "military-intervention": -65
           },
           "xpo0024": {
             "private-crypto": -40,
@@ -10523,9 +10479,8 @@
             "a-limited-safety-net": -90
           },
           "xpo0029": {
-            "single-payer": -95,
-            "free-market": 85,
-            "keep-and-fix-the-aca": -90
+            "private-financing": 80,
+            "guaranteed-coverage": -70
           },
           "xpo0030": {
             "negotiate-and-cap-prices": -70,
@@ -10582,9 +10537,8 @@
             "disclosure-without-caps": 10
           },
           "xpo0053": {
-            "keep-the-electoral-college": 80,
-            "abolish-it-proportional-representation": -80,
-            "reform-the-college": -60
+            "abolish-the-college": -80,
+            "proportional-representation": -65
           },
           "xpo0059": {
             "strong-federal-standards": -90,
@@ -10656,9 +10610,8 @@
             "palestinian-self-determination": -10
           },
           "xpo0091": {
-            "lead-and-intervene": -85,
-            "non-intervention": 90,
-            "selective-engagement": -75
+            "foreign-aid": -90,
+            "military-intervention": -55
           },
           "xpo0024": {
             "private-crypto": 30,

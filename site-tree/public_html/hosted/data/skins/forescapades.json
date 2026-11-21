@@ -3425,8 +3425,12 @@
             "issue": "How often should the Eucharist be celebrated, and who may administer it?",
             "poles": [
               {
-                "label": "Frequency and administration of the Eucharist",
-                "text": "Frequent / weekly celebration by ordained clergy"
+                "label": "Frequent celebration",
+                "text": "Affinity for celebrating the Eucharist frequently \u2014 weekly or more."
+              },
+              {
+                "label": "Lay administration",
+                "text": "Affinity for administration beyond the ordained \u2014 lay presidency or distribution."
               }
             ]
           },
@@ -3434,15 +3438,19 @@
           "name": "The Eucharist",
           "poles": [
             {
-              "key": "frequency-and-administration-of-the-eucharist",
-              "label": "Frequency and administration of the Eucharist"
+              "key": "frequent-celebration",
+              "label": "Frequent celebration"
+            },
+            {
+              "key": "lay-administration",
+              "label": "Lay administration"
             }
           ],
           "question": "How often should the Eucharist be celebrated, and who may administer it?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md \u00a74 (t0059)",
           "type": "single",
-          "widget": "monopole-slider",
+          "widget": "xy-switchbox",
           "communities": [
             {
               "network": "Stack Exchange",
