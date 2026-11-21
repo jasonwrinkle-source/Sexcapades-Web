@@ -248,21 +248,23 @@ echo "Size: $SIZE"
 echo "MD5:  $MD5"
 echo "======================================================================"
 
-echo "6. Uploading to temporary cloud storage (Litterbox 72h)..."
-UPLOAD_URL=$(curl -4 -s -F "reqtype=fileupload" -F "time=72h" -F "fileToUpload=@$OUTFILE" https://litterbox.catbox.moe/resources/internals/api.php || true)
-DEPLOY_CMD=""
+# Direct SSH stream pipe to Hostinger (active method -- ssh is working well)
+DEPLOY_CMD="ssh hostinger \"cd ~/domains && tar -xzf -\" < \"$OUTFILE\""
 
-if [[ "$UPLOAD_URL" =~ ^https?:// ]]; then
-  echo "Uploaded to Litterbox: $UPLOAD_URL"
-  DEPLOY_CMD="cd ~/domains && curl -L -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
-else
-  echo "Trying temp.sh fallback..."
-  UPLOAD_URL=$(curl -s -F "file=@$OUTFILE" https://temp.sh/upload || true)
-  if [[ "$UPLOAD_URL" =~ ^https://temp\.sh/ ]]; then
-    echo "Uploaded to temp.sh: $UPLOAD_URL"
-    DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
-  fi
-fi
+# --- Mirror methods commented out (ssh is working well) ---
+# echo "6. Uploading to temporary cloud storage (Litterbox 72h)..."
+# UPLOAD_URL=$(curl -4 -s -F "reqtype=fileupload" -F "time=72h" -F "fileToUpload=@$OUTFILE" https://litterbox.catbox.moe/resources/internals/api.php || true)
+# if [[ "$UPLOAD_URL" =~ ^https?:// ]]; then
+#   echo "Uploaded to Litterbox: $UPLOAD_URL"
+#   DEPLOY_CMD="cd ~/domains && curl -L -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
+# else
+#   echo "Trying temp.sh fallback..."
+#   UPLOAD_URL=$(curl -s -F "file=@$OUTFILE" https://temp.sh/upload || true)
+#   if [[ "$UPLOAD_URL" =~ ^https://temp\.sh/ ]]; then
+#     echo "Uploaded to temp.sh: $UPLOAD_URL"
+#     DEPLOY_CMD="cd ~/domains && curl -L -X POST -o $TAR_NAME \"$UPLOAD_URL\" && echo \"$MD5  $TAR_NAME\" | md5sum -c && echo \"MD5 OK  $MD5\" && tar -xzf $TAR_NAME && rm $TAR_NAME"
+#   fi
+# fi
 
 if [ -n "$DEPLOY_CMD" ]; then
   echo "$DEPLOY_CMD" > "$OUTDIR/DEPLOY_QA_COMMAND.txt"
