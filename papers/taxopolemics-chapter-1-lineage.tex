@@ -1,0 +1,374 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{TaxoPolemics: A Formal Rhetoric of Disagreement}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Chapter One — Lineage: The Ancestors of a Taxonomy of Argument}
+\author{}
+\date{2026-11-21}
+
+\begin{document}
+\maketitle
+
+\emph{Jason Mark Wrinkle (principal investigator and first author);
+Yolanda Biche et al.~(drafting and computation). Working chapter,
+2026-11-21. Status markers are kept visible: claims about the project's
+own state are dated, and unsettled design questions are named as open
+rather than smoothed over.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{1.1 The claim this chapter
+supports}\label{the-claim-this-chapter-supports}
+
+TaxoPolemics is an engine for mapping disagreement. Given a domain of
+difficult questions, it builds a \emph{hypermap}: a taxonomy of topics,
+each topic articulated into two to eight \emph{poles} --- the stances
+the topic admits --- and each person located in that space by rating,
+per topic, how far they lean toward each pole and, independently, how
+much the question matters to them. Two such profiles can then be
+\emph{compared} by formal operations that distinguish two relations
+ordinary language conflates: whether two people could \textbf{commune}
+(the crossed register) and whether they could \textbf{converse} (the
+straight register).
+
+This chapter argues that the engine is not an orphan. It descends from
+at least five identifiable traditions --- classical stasis theory, the
+modern theory of argument, the design-methods tradition of issue-based
+information systems, the study of classification itself, and the
+psychometrics of attitude --- and that in each case the descent is
+structural, not decorative: the ancestor solved a piece of the same
+problem, and TaxoPolemics inherits both the solution and the problem it
+left behind. A framework that can name its ancestors can also name its
+delta. The final section does so.
+
+\subsubsection{1.2 Stasis theory: the first taxonomy of
+disagreement}\label{stasis-theory-the-first-taxonomy-of-disagreement}
+
+The oldest ancestor is the most direct. In the second century BCE,
+Hermagoras of Temnos founded what the rhetorical tradition calls
+\textbf{stasis theory} (Greek \emph{stasis}, a stand, a position taken
+in a dispute). Stasis theory holds that any controversy, to be argued at
+all, must first be \emph{located}: the disputants must establish what
+kind of question they are actually disagreeing about. The canonical
+system distinguishes four stases --- \textbf{conjecture} (did it
+happen?), \textbf{definition} (what is it?), \textbf{quality} (was it
+right, how serious is it?), and \textbf{procedure} (is this the right
+forum, the right process?). Quintilian and Cicero both transmit the
+doctrine; it structured rhetorical education for over a millennium.
+
+Stasis theory is, in modern vocabulary, a \emph{taxonomy of
+disagreement} --- a claim that disputes have kinds, that the kinds can
+be enumerated, and that identifying the kind is prior to, and more
+valuable than, winning the argument. Every subsequent rhetorical
+treatment of ``finding the real issue'' is downstream of it.
+
+TaxoPolemics inherits the founding conviction --- that the first
+intellectual act in a dispute is locative, not combative --- and changes
+the unit of analysis. Stasis classifies \emph{disputes}; TaxoPolemics
+classifies \emph{stances within topics}, and computes locations for
+\emph{persons}. Where the stasis system asks ``what is this argument
+about?'', the hypermap asks ``on this question, which poles exist, where
+does each person stand among them, and how much does each person care?''
+The ancient system is a diagnostic art exercised by a trained rhetor;
+the modern one is an instrument any two disputants can run on
+themselves. The continuity is the point: both rest on the premise that
+most failed arguments fail because the parties never established what
+they were disagreeing about, and that a shared map of the disagreement
+is a precondition of a productive one.
+
+\subsubsection{1.3 The modern theory of argument: Toulmin, Perelman,
+Burke}\label{the-modern-theory-of-argument-toulmin-perelman-burke}
+
+Three twentieth-century rhetoricians rebuilt the study of argument after
+its long subordination to formal logic, and each contributes a
+load-bearing element.
+
+\textbf{Stephen Toulmin's} \emph{The Uses of Argument} (1958) proposed
+that arguments have a \emph{layout} --- claim, grounds, warrant,
+backing, qualifier, rebuttal --- and, more importantly for our purposes,
+that the force of argumentative terms is \textbf{field-dependent}:
+``probable,'' ``sufficient,'' ``reasonable'' mean different things in
+law, in science, and at the dinner table, and no field-independent logic
+governs them all. The hypermap system is field-dependent in exactly
+Toulmin's sense, and wears the fact on its face: one engine runs sixteen
+domains --- sexuality, politics, Abrahamic faith, chemistry, aesthetics,
+philosophy, and others --- and in each domain the \emph{vocabulary of
+the comparison itself} is re-skinned. The crossed relation is ``Play''
+in the first domain and ``Commune'' in the vanilla domains; the straight
+relation is ``Parlay'' in one and ``Converse'' in the others; the depth
+measure is the Kink Factor in one and the Depth Factor elsewhere. A
+field-independent framework would not need such skinning. TaxoPolemics
+assumes Toulmin was right: the instrument must speak each field's own
+language or it will not be believed in any of them.
+
+\textbf{Chaïm Perelman and Lucie Olbrechts-Tyteca's} \emph{The New
+Rhetoric} (1958) restored \emph{audience} to the centre of argument
+theory: argumentation is the study of the means by which minds gain
+adherence, and its basic data are not propositions but \emph{agreements}
+--- the shared premises, values, and hierarchies from which a particular
+audience can be moved. Their catalogue of the ``starting points of
+argumentation'' is, like stasis, a taxonomy, and like this project, it
+is interested less in who wins than in the prior question of what two
+parties already hold in common. The straight register of the hypermap
+--- the measurement of shared ground, in the same orientation, between
+two profiles --- is Perelman's question rendered computable: not ``can
+these two people persuade each other?'' but the antecedent ``what,
+exactly, do they already agree on, and how strongly?''
+
+\textbf{Kenneth Burke} contributes the project's central distinction. In
+\emph{A Grammar of Motives} (1945) and the \emph{Rhetoric of Motives}
+(1950), Burke argued that rhetoric is rooted in \textbf{identification}:
+persuasion works not by defeating an opponent but by establishing
+consubstantiality --- a sense of shared substance --- across division.
+Identification is the correct ancestor for the crossed register's ruled
+meaning on the vanilla maps: \textbf{communion}. The crossed comparison,
+in which each person's leaning is read against the complementary leaning
+of the other, asks whether two people can be \emph{of one substance} on
+a topic --- can live it, work it, be it together --- as distinct from
+the straight comparison, which asks only whether they would find each
+other interesting to talk to. That the two relations are different
+facts, priced separately by different mathematics (an indefinite form
+for the crossed, a positive-definite one for the straight, as the
+companion paper shows), is the project's central formal claim, and it is
+a Burkean claim before it is a mathematical one.
+
+\subsubsection{1.4 The design-methods tradition: IBIS and the wicked
+problem}\label{the-design-methods-tradition-ibis-and-the-wicked-problem}
+
+The second lineage is not rhetorical but computational, and it is the
+closest technical ancestor. In the 1970s, Horst Rittel --- who had
+already named the class of \textbf{wicked problems}, problems with no
+definitive formulation and no stopping rule --- built, with Werner Kunz,
+the \textbf{Issue-Based Information System (IBIS)}: a notation for
+design deliberation with exactly three node types. An \textbf{Issue} is
+a question under dispute; \textbf{Positions} are the stances one can
+take on it; \textbf{Arguments} support or object to positions. IBIS was
+implemented in software (notably Jeff Conklin's gIBIS in the 1980s) and
+survives today in dialogue-mapping practice.
+
+The resemblance to a hypermap topic is not accidental and should not be
+understated: an IBIS Issue \emph{is} a topic, its Positions \emph{are}
+poles, and the design intent --- externalise the structure of a
+contested question so a group can deliberate over a shared map rather
+than past each other --- is the same intent. TaxoPolemics is IBIS's
+descendant, and the descent specifies the delta with unusual clarity:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Measurement.} IBIS positions are categorical: one adopts a
+  position or one does not. A hypermap pole carries a signed magnitude
+  --- a leaning, -100 to +100 --- so agreement and opposition become
+  matters of degree, and two people who nominally hold ``the same
+  position'' can be shown to hold it at different strengths and in
+  different blends.
+\item
+  \textbf{The (n+1)th coordinate.} IBIS has no representation of
+  \emph{how much an issue matters} to a participant, independent of the
+  position taken on it. TaxoPolemics separates the leanings (n numbers
+  for n poles) from \textbf{intensity} --- a signed relevance
+  coordinate, the (n+1)th number --- as a matter of ruled design
+  (2026-11-19). The separation is the project's single most
+  consequential modelling decision, and \S 1.6 shows it has an independent
+  ancestry in attitude research.
+\item
+  \textbf{Comparison as a first-class operation.} IBIS maps a
+  deliberation; it does not compare two deliberators. The hypermap's
+  pair mathematics --- the tensor product of profiles, its crossed and
+  straight contractions, and the scores they yield --- has no IBIS
+  analogue. IBIS tells a group what the questions are; TaxoPolemics
+  additionally tells two people where they stand relative to each other,
+  with receipts.
+\item
+  \textbf{Generativity of topics.} IBIS issues are authored in the room.
+  Hypermap taxonomies are authored in advance, as \emph{skins} ---
+  curated instruments, one per domain, sharing an engine. The
+  deliberation is therefore instrumented rather than improvised: closer
+  to a psychometric test than to a flip-chart, with the authoring burden
+  (and its responsibilities, treated in Chapter Two) falling on the
+  taxonomy's designer.
+\end{enumerate}
+
+\subsubsection{1.5 Knowledge organization: classification as
+argument}\label{knowledge-organization-classification-as-argument}
+
+The third lineage is the study of classification itself. Geoffrey Bowker
+and Susan Leigh Star's \emph{Sorting Things Out: Classification and Its
+Consequences} (1999) established, for information science, that
+classification systems are neither neutral nor innocent: every taxonomy
+encodes a theory of its domain, renders some distinctions visible and
+others unthinkable, and has consequences for the people sorted by it.
+The field of \textbf{knowledge organization} treats the design of a
+classification --- its categories, its facets, its rules of combination
+--- as scholarly work in its own right, judged by coherence, coverage,
+and candour about its own choices.
+
+A hypermap skin is a classification in exactly this sense, and the
+project accepts the field's discipline. Two of its standing rules are
+knowledge-organization rules. The \textbf{neutral umbrella rule} (ruled
+2026-11-17) governs topics whose names join two stances with an
+ampersand or slash: the joined name must be a \emph{neutral subject term
+covering both sides}, never one of the joined terms itself --- a topic
+may not smuggle a verdict into its own title. And the authoring standard
+for topic descriptions (the \emph{hovertip}: the issue stated neutrally,
+then one line per pole, each stated as its holders would state it) is a
+rule of representational fairness of the kind Bowker and Star demand and
+few production taxonomies observe. That a sexuality taxonomy, a politics
+taxonomy, and a consciousness taxonomy (the sixteenth skin, Nouscapades,
+added 2026-11-21) are built under one set of such rules is itself a
+claim of the work: classification design is portable across domains
+precisely when its fairness rules are stated at the level of the engine,
+not improvised per domain.
+
+\subsubsection{1.6 Attitude research: the independent ancestry of the
+(n+1)
+model}\label{attitude-research-the-independent-ancestry-of-the-n1-model}
+
+The separation of \emph{direction} from \emph{intensity} --- of which
+way a person leans from how much the question matters to them --- was
+arrived at in this project from instrument design (a slider's blend and
+a slider's brightness are different facts, and conflating them corrupts
+both). It is therefore worth recording that social psychology reached
+the same separation from the opposite direction, empirically. The
+\textbf{attitude strength} literature (Krosnick, Petty, and
+collaborators, from the 1990s) established that an attitude's
+\emph{direction and extremity} and its \emph{strength} --- importance,
+certainty, accessibility --- are distinct properties with distinct
+consequences: strong attitudes persist, resist persuasion, and guide
+behaviour; weak ones, however extreme on paper, do not. A poll that
+reports only leanings is therefore systematically misleading, in a way
+the literature can quantify.
+
+TaxoPolemics' (n+1) model is the attitude-strength distinction built
+into the instrument rather than corrected for afterwards: every topic
+rating is a vector of leanings \emph{plus} a signed intensity ---
+positive for caring in favour of the issue's salience, negative for
+active aversion to the issue itself --- displayed as brightness (full at
+maximum positive, dimming to indifference at zero, passing into
+complementary colours below zero). The companion tensor paper states the
+pair mathematics for the two-flank case; the multi-pole generalisation,
+including the open question of how the intensity coordinate should
+weight pair scoring, is stated there as an open problem rather than
+resolved by fiat. An honest lineage includes the note that the project's
+most original modelling decision is also its least finished --- a state
+of affairs Chapter Three's defence treats as a feature of the work's
+stage, not an embarrassment to be hidden.
+
+\subsubsection{1.7 Further kin: deliberative democracy and the map as
+medium}\label{further-kin-deliberative-democracy-and-the-map-as-medium}
+
+Two nearer relations deserve brief acknowledgement. \textbf{Deliberative
+polling} (James Fishkin, from 1988) demonstrated that structured
+exposure to balanced information changes what citizens think in
+measurable, non-random ways --- evidence that disagreement is partly an
+artefact of unstructured encounter, and that instruments can improve it.
+The hypermap is a deliberative instrument in this tradition, though a
+self-administered and pairwise one rather than a convened one. And the
+project's commitment to the map as the primary object --- the ratings
+are drawn as a navigable hypermap, not tabulated as a report ---
+descends from the argument-mapping and information-visualisation
+tradition (and from Tufte's insistence that a display is an argument), a
+commitment Chapter Two treats methodologically: in this system, the
+visualisation is not an illustration of the data but the form in which
+the data is \emph{read}, and several of the project's defects (recorded
+in the companion paper, \S 7) were precisely cases where a display quietly
+stopped being the statistic it claimed to be.
+
+\subsubsection{1.8 The delta, stated}\label{the-delta-stated}
+
+Against these ancestors, the work claims four things as its own:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{A measured stance-space.} Stasis located disputes; IBIS mapped
+  them; neither measured the disputants. The hypermap locates
+  \emph{persons} in a pole space with signed magnitudes, per topic, at
+  scales from two to eight poles.
+\item
+  \textbf{Intensity as an independent coordinate.} The (n+1) model ---
+  leanings plus a signed relevance --- as a ruled, first-class part of
+  the rating, not a derived quantity.
+\item
+  \textbf{Two priced relations.} The crossed and straight comparisons
+  --- communion and conversation --- as distinct mathematical objects
+  (indefinite and positive-definite forms respectively) computed over
+  the same product, where every predecessor system that scores
+  ``compatibility'' at all produces a single number that confuses the
+  two.
+\item
+  \textbf{Receipts.} Every headline number in the system can be
+  \emph{un-contracted} --- opened back into the per-topic components,
+  gates, and settings that produced it. A compatibility figure that
+  cannot show its receipts is a horoscope; the project's founding
+  discipline, stated in the companion paper and enforced throughout its
+  development, is that no number ships without them.
+\end{enumerate}
+
+What the work does \emph{not} claim: that its taxonomies are complete,
+that its scoring definitions are final (the six pair scores stand as
+provisionally ruled definitions, 2026-10-30, pending review), or that
+the instrument has been validated at population scale. Those are the
+subjects of the next two chapters.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\emph{Next: Chapter Two --- Methodology: research through design,
+taxonomy construction, the measurement model, and the evaluation
+regime.}
+
+\end{document}

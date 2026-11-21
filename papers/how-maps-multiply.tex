@@ -1,0 +1,1552 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{How Maps Multiply}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{The Tensor Product of Profiles}
+\author{}
+\date{Revision of 2026-11-21}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\begin{quote}
+\textbf{Revision note --- 2026-11-21.} This revision adds two sections
+and changes nothing in \S \S 1--10 or in Appendix A. \textbf{\S 11} records
+the multi-pole extension as it actually stands in the shipped engine:
+topics of one to eight poles, the agreement score and Depth Factor by
+which pole topics are currently compared, and three findings from the
+code trace of 2026-11-19 --- for pole topics the crossed and straight
+registers presently coincide, the Depth Factor's intensity is
+sign-blind, and pole topics do not yet appear in either register's match
+lists --- all recorded as open, with the owner's tentative distinction
+(crossed as communion, straight as an interesting conversation) marked
+tentative, not ruled. \textbf{\S 12} states the owner's ruling of
+2026-11-19 that intensity is an independent (n+1)th coordinate of a
+topic rating --- relevance, signed, negative for aversion to the issue
+itself --- displayed as brightness; it records that the shipped
+implementation has decoupled the drawing only, that the stored-(n+1)
+build is specified and queued, and that the coordinate's weight in pair
+scoring is an open question reserved to the owner. A currency note: the
+formalism of this paper is the founding domain's, but the same engine
+now runs fifteen live skins (a sixteenth, Nouscapades, was committed to
+the repository today, wiring held), reading the same algebra under
+re-skinned names --- Depth Factor for Kink Factor, Commune for Play,
+Converse for Parlay. {[}Census corrected in this revision on the owner's
+ruling, 2026-11-21: the paper's original count of 403 topics predated
+the phantom-topic cleanup and the removals that followed it. The live
+catalog --- sexcapades.json as served in build 2026-11-21\_0022, 18
+categories and 44 subcategories --- holds \textbf{372 topics}, counted
+structurally from the file the app loads, and every denominator in the
+paper now reads accordingly: 372 topics, 744 components. (An earlier
+draft of this note cited 381, from a unique-id census of the code
+bundle; the structural count of the live taxonomy file governs.){]} The
+Adam Peasant $\bowtie$ Eve Vale recomputation flagged on 2026-11-06 remains
+outstanding and is not touched.
+\end{quote}
+
+\begin{quote}
+\textbf{Revision note --- 2026-11-06.} This revision updates the paper
+to Eve Vale's new 246-rating profile (she was a 10-rating fixture) and
+renames Rowan to Adam Peasant throughout. Eve's middle name `Morgan' is
+struck and deprecated --- she is now Eve Vale. His full name is now Adam
+Peasant (formerly Rowan; the Rowan $\rightarrow$ Adam rename stands, and the surname
+Peasant is now added). Adam Peasant's ratings are unchanged from Rowan's
+(164 ratings), so the Adam Peasant $\bowtie$ Riley headlines are unchanged. The
+Adam Peasant $\bowtie$ Eve Vale shared count is now 135 (was 10) and the
+Play-considered count is 134. The Conversation-gate count, the Play
+match count, and the weighted Play Kink Factor and Play Match Score for
+Adam Peasant $\bowtie$ Eve Vale have NOT been recomputed --- the pair engine
+must be re-run on the new profiles --- and the old-Eve Vale figures are
+recorded in the flag in the worked headlines, not as current values.
+Nothing else in the argument, conclusions, or authorship has changed.
+\end{quote}
+
+\emph{The Tensor Product of Profiles}
+
+\emph{How the Sexcapades sync algorithm works, in the language it
+secretly speaks. Revision working draft, 2026-10-29, from the 2026-10-28
+revision. Prepared for the Samhain review, 2026-10-31.}
+
+\textbf{Authors:} Jason Mark Wrinkle --- principal investigator and
+first author; Yolanda Biche et al.~--- drafting and computation.
+
+\emph{Revision note (working draft, not paper text): this revision,
+worked 2026-10-31, incorporates the 2026-10-30 definitions and namings,
+including the six scores as provisionally ruled for consideration. It
+does not harden interim, provisional, or recommended items into rulings.
+Items marked {[}Flag{]} or {[}Session{]} in this draft are not settled
+here, and the six-score definitions in \S 4 are provisional until the
+review after Saturday. Hierarchical weights and kinkiness composition
+are throughout the contractions, stated at rule level; the worked
+headlines in \S 4 remain hierarchical-only, because no kinkiness fixture
+for those topics is on record and none is invented here. Personal and
+Charted formulas are stated at the level the 2026-10-30 core closure
+supports; open details from that closure are listed in \S 4 and in the
+companion notes, marked as recommendations or as open, not as rulings.
+Appendix A remains HELD for the full review sometime after Saturday.}
+
+\subsection{Definitions index}\label{definitions-index}
+
+\textbf{Profile.} One person's vector: for each of the 372 topics, a
+give value and a receive value, each from -100 to +100, with marks
+bolted on (hard limit, not interested, fantasy only, already tried). 744
+components.
+
+\textbf{Direction complements.} Give and receive are complements, never
+two flavors of one quantity. Nothing in this paper ever adds a person's
+give and receive together. Direction is never contracted into one number
+anywhere in the system, with one explicit exception stated in \S 4: the
+Personal Kink Factor takes the maximum flank per topic, signed, as its
+per-topic direction reading. That maximum is the sole permitted
+contraction over direction, by explicit switch, and it does not license
+any other.
+
+\textbf{Tensor product ($\otimes$).} The full grid of pairwise combinations of
+two profiles, every component of one laid against every component of the
+other. The product stage: everything, before anything decides what
+counts.
+
+\textbf{Krossmatch ($\bowtie$).} The product restricted to matched components:
+each topic paired with itself, each direction paired with its
+complement. The operation of the sync between two people. {[}Session:
+wording to confirm --- Krossmatch as outer product plus swap kernel,
+reading the crossed diagonal.{]}
+
+\textbf{Complement map ($\kappa$).} Re-reads a profile in the crossed frame:
+($\kappa$Q) at topic t, direction d, equals Q at t with the direction swapped.
+The Krossmatch is the first profile laid component-wise against the
+complement of the second.
+
+\textbf{Swap ($\sigma$).} The direction exchange: give exchanges with receive,
+and applying it twice returns home ($\sigma^2$ is the identity).
+
+\textbf{Straight Match ($\odot$).} The product restricted to the parallel
+sector: each topic paired with itself, each direction paired with
+itself. The object of peer likeness. {[}Session: wording to confirm ---
+straight as the same-direction diagonal, inner-product-like.{]}
+
+\textbf{Straight Talk.} The shipped reading of the Straight Match
+between two people: per-topic straight sums, ranked, banded (\S 9).
+
+\textbf{Contraction.} Summing an index away. A contracted index is a
+question answered in aggregate; a free index is an axis the reader still
+gets to see. The product stage builds the outer product; the contraction
+stage reads a diagonal and sums it --- the inner-product-like step.
+Outer and inner are different stages, not different names for one thing.
+{[}Session: wording to confirm.{]}
+
+\textbf{Overlay.} Co-display: both profiles shown together, nothing
+summed. Overlay answers no question; contraction answers one. The
+component table (\S 4) is the zero-contraction reading; an overlay is its
+visual cousin.
+
+\textbf{Gates.} What may count, decided before any sum: hard limits
+(which remove components entirely), the route table (which decides what
+a component counts as), Heat (tonight's threshold), fantasy rules
+(Conversation only), and Veil (which gates what is seen, never what
+counts).
+
+\textbf{Play Match Score (Play MS).} The Play outer number, the outer
+ring on a bowtie tab: the geometric-mean combination stated in \S 4, over
+Play-considered topics, fantasy excluded from numerator and denominator.
+{[}Flag: provisional definition, 2026-10-30, for consideration.{]}
+Formerly called the Match Score in this draft; the Play MS name governs.
+
+\textbf{Personal Kink Factor (Personal KF).} The individual profile's
+Kink Factor, shown as the inner ring on the profile tab. It is a
+whole-map contraction, stated in \S 4: per topic, the maximum flank
+(signed, proportional, epsilon-thresholded) plus the flag sum once,
+hierarchically weighted and kinkiness-composed, additive in shape, over
+all 372 topics, not clamped at 100. {[}Flag: provisional definition,
+2026-10-30, for consideration.{]}
+
+\textbf{Charted.} The individual profile's outer ring on the profile
+tab. It is a coverage and attended share, stated in \S 4: per topic, once,
+binary rated (epsilon-thresholded, either flank) plus the flag sum once,
+hierarchically weighted and kinkiness-composed, over all 372 topics, no
+clamp. Charted is the name used for this ring throughout this revision.
+{[}Flag: provisional definition, 2026-10-30, for consideration.{]}
+
+\textbf{Play Kink Factor (Play KF).} The Play inner number, the inner
+ring on a bowtie tab: the geometric-mean combination stated in \S 4, over
+shared non-limit-blocked topics. {[}Flag: provisional definition,
+2026-10-30, for consideration.{]} The name Play KF supersedes Party KF,
+which is retired and is not used in this revision.
+
+\textbf{Parlay Kink Factor (Parlay KF).} The straight inner number, the
+inner ring on a circledot tab, mirroring Play KF on the Straight Match.
+{[}Flag: provisional definition, 2026-10-30, for consideration.
+``Parlay'' alone means nothing; the full name is always Parlay Kink
+Factor.{]}
+
+\textbf{Parlay Match Score (Parlay MS).} The straight outer number, the
+outer ring on a circledot tab, mirroring Play MS on the Straight Match.
+The name Parlay Match Score is ruled, superseding the provisional
+working name Straight Match Score. Its definition is provisional,
+2026-10-30, for consideration. {[}Flag: provisional definition.{]}
+
+\textbf{Hot Topics.} The partial contraction: sum over people and
+channels, leave the topic index free --- a ranked list per topic (\S 4).
+
+\textbf{Lit sums (S, C).} S = gg + rr, the straight sum, whose
+contraction is resemblance; C = gr + rg, the crossed sum, whose
+contraction is fit (\S 10).
+
+\textbf{Dark sums (K, $\epsilon$).} K = gg - rr, the channel imbalance of a
+resemblance, unchanged when partners are exchanged; $\epsilon$ = gr - rg, the
+orientation of action-flow, which changes sign when partners are
+exchanged (\S 10).
+
+\textbf{Heat as a phase.} A pairing-level angle, declared per session,
+never stored in a profile; only the difference of the two angles enters
+any score (\S 10, provisional in part: whether arousal is a third phase or
+a gain on Heat is open).
+
+\textbf{Initiative.} Bookkeeping at the resolution layer, per live
+channel, not a contraction; a candidate, not built (\S 10, provisional).
+
+\textbf{Hierarchical weights.} Each of the 18 categories carries an
+equal share; within a category, its direct topics and its subcategories
+split that share equally, direct topics being peers of subcategories;
+within a subcategory, its topics split the subcategory's share equally;
+a starburst splits among its topics. Weights apply to sums across
+topics, never to per-topic terms. The solver's energy is not weighted.
+
+\textbf{Kinkiness.} One minus popularity, where popularity is
+prevalence, not acceptability. The effective weight of a topic in a
+calculation is its hierarchical share multiplied by its kinkiness,
+across all calculations, with the solver's energy excluded unless the
+owner says otherwise. Popularity itself is an aggregate over seven
+sources, weighted by statistical strength, stated in \S 4. {[}Flag: the
+strength numbers per source are not ruled, and the aggregated score's
+use as the Popularity List sort key is unverified in implementation;
+this paper states the rule, not a verified implementation.{]}
+
+\subsection{1. A profile is a vector}\label{a-profile-is-a-vector}
+
+Take one person. For every topic in the taxonomy --- 372 of them ---
+they carry two numbers: how much they want to \emph{give} it, and how
+much they want to \emph{receive} it, each on a scale from -100 to +100.
+A profile is therefore a list of 744 numbers: a vector in a
+744-dimensional space, one component per (topic, direction) pair. Bolted
+onto some components are marks --- \emph{hard limit}, \emph{not
+interested}, \emph{fantasy only}, \emph{already tried} --- flags that
+will matter later, when the vector is used.
+
+Nothing about two people has been said yet. A single profile just sits
+there, the way a single vector does: complete, static, and entirely
+about one point of view.
+
+One terminological commitment, made now because everything turns on it:
+the two directions are \emph{complements}, not two flavors of one
+quantity. Nothing in what follows ever adds a person's give and receive
+together. The algebra keeps them separate at every stage, and the one
+operation that would blend them is the one operation the system refuses
+to perform. Direction is never contracted, in a profile, in a pair, or
+in a headline.
+
+\subsection{2. The product: every pairing at
+once}\label{the-product-every-pairing-at-once}
+
+Comparing two people means forming their \textbf{tensor product},
+written with the circled cross: Adam Peasant $\otimes$ Eve Vale. The tensor
+product of two vectors is not a single number and not a single new
+vector --- it is the full grid of pairwise combinations, every component
+of one profile laid against every component of the other.
+
+Most of that grid is meaningless (his rating for rope against her rating
+for latex says nothing). The sync lives on one thin, meaningful slice of
+it: for each topic, the two \emph{live channels} --- his give against
+her receive, and his receive against her give. That slice is a named
+object in its own right: \textbf{the Krossmatch}, written with the
+bowtie --- Adam Peasant $\bowtie$ Eve Vale --- the product restricted to matched
+components, where a topic is paired with itself and a direction paired
+with its complement, never with itself. On each channel sits a raw
+component, the product of the two sides' values. The Krossmatch is the
+complete grid of what could flow between the two people, before anything
+decides what counts. (\S 8 examines the object itself.)
+
+Components then resolve into outcomes. The strength of a pairing is set
+by the \textbf{weaker side}: his 100 against her 51 is a pairing of
+strength 51, because a scene happens at the level both people actually
+reach. Each live channel carries its own intensity, on the /100 scale of
+the ratings, per flank --- the give-to-receive channel and the
+receive-to-give channel are never averaged into one number, because
+direction is never contracted. Each topic resolves, through a fixed
+route table over the two channels' signed values, into one of a small
+set of outcomes: Limit-blocked, Invisible, Match, Curious fit, Conflict,
+One-sided, Apart.
+
+This table of per-topic outcomes is the Krossmatch's component list,
+resolved --- the un-summed, fully detailed truth of the pair. Everything
+else the sync reports is a summary of this table, obtained by
+\emph{contracting} it. Laid out without summing, the same table is an
+overlay: co-display, both profiles shown together, answering no
+question. Contraction is what turns the table into an answer.
+
+\subsection{3. The gates: why the contraction is not a pure
+sum}\label{the-gates-why-the-contraction-is-not-a-pure-sum}
+
+In Einstein's convention, contraction means summing over an index and
+letting it disappear. A naive contraction of the Krossmatch --- just
+count the matches, divide by something, done --- would be dishonest in
+specific, nameable ways, so the sum is \textbf{gated} before it is
+taken:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hard limits remove Krossmatch components entirely.} A limited
+  topic never enters any numerator. It is not averaged away, not
+  outvoted --- in a group it cannot be carried by majority, either. It
+  stands in a visible, named list, outside the arithmetic. For a single
+  person's own rings, a limit-only topic is excluded altogether from
+  that person's calculation, in both rings, while the denominator stays
+  at 372. The scored value therefore drops while the denominator does
+  not shrink. That inconsistency is intentional and accepted: a hard
+  limit carries a penalty in the headline, and the paper does not
+  ``fix'' it by shrinking the denominator. A limit plus another mark is
+  not covered by this rule; the limit-only rule is not extended
+  automatically.
+\item
+  \textbf{The route table decides what a component counts \emph{as}.} A
+  curious fit is not a small match; it is a different outcome class, and
+  which classes enter which sum is a design decision, stated in advance.
+\item
+  \textbf{Heat sets tonight's threshold.} Heat is a state, not a trait
+  --- a slider, bipolar around Neutral, set per person per session and
+  never written into the profile. Raising it lets weaker and
+  wider-gapped components count; lowering it below Neutral sheds curious
+  fits first. Same tensor, different contraction, because the
+  \emph{occasion} changed.
+\item
+  \textbf{Fantasy-only components contract only in Conversation mode.}
+  In Play mode they are excluded; in Conversation they are fuel. Already
+  Tried never changes a component's value at all --- it annotates it,
+  and in the Kink Factor tables it adds as a flag, as \S 4 states.
+\item
+  \textbf{Veil is not a gate on the sum. It is a gate on the observer.}
+  Each owner's Veil projects the Krossmatch onto what that owner is
+  shown: their own veiled territory hides, the partner's shows
+  deliberately as a teaser. Heat decides what counts; Veil decides
+  what's seen.
+\end{itemize}
+
+\subsection{4. The contractions: how one object is read, in pairs and
+alone}\label{the-contractions-how-one-object-is-read-in-pairs-and-alone}
+
+\textbf{The component table itself} is the zero-contraction reading:
+every topic, its outcome, its strength, the gap between the two sides
+displayed rather than penalised. This is what two people actually talk
+through.
+
+\textbf{The six numbers, provisional (2026-10-30).} The six scores are
+three pairs: Personal KF and Charted for one person, Play KF and Play MS
+for a crossed pair, Parlay KF and Parlay MS for a straight pair.
+{[}Flag: every definition in this paragraph is provisional, ruled
+provisionally for consideration, until the review after Saturday. Final
+inclusion tables are deferred.{]} All six are hierarchy-share $\times$
+kinkiness weighted, once, numerator and denominator alike. Kinkiness is
+one minus popularity (\S 4, below). Combination across members is the
+geometric mean. Normalization is by the group maximum, pinned
+2026-10-30: a group-max-zero contribution contributes zero and stays in
+the denominator.
+
+Ground and fit decide what counts. Marks plus fit existence determine
+ground; ground is multiplied by the type of fit, positive or negative.
+Per member, binary fit existence plus the table sum gives the Match
+Score shape, and rated-or-not plus the table sum gives the Kink Factor
+shape, each normalized by the group maximum and combined by geometric
+mean over members. Fit sign sorts ground into common ground (positive)
+or debate ground (negative); both are conversational fodder. {[}Flag:
+sign divergence is provisional, not settled. The maximum rule --- the
+maximum of a negative and a positive fit is the positive; negative only
+if both directions are negative --- is provisional.{]} Debate topics
+count in the Parlay MS numerator and denominator, like Shop talk and
+On-the-fence topics. Bands display sections only; none of the four pair
+numbers refers to banded topics. Peer-ground is dropped; it is not a
+term in these definitions.
+
+Epsilon is the fit and rating threshold. Epsilon = $e_0$ $\times$
+e\^{}(-heat/100), in profile units, with no rescaling; $e_0$ = 1. At $e_0$ = 1
+the range is about 0.37 to 2.72 over heat -100 to +100. A binary fit
+holds where the absolute match term exceeds epsilon. Group heat is the
+arithmetic mean of the individual heats at formation. For a single
+profile, epsilon thresholds a rating, and Charted counts a topic where
+the absolute rating on either flank exceeds epsilon, with epsilon from
+that profile's personal heat. {[}Flag: the epsilon formula and shape are
+under review, not settled; the current shape, $e_0$ = 1, stays in the app.
+An $e_0$ = 10 variant was ordered, stopped, and is not reintroduced without
+a new ruling.{]}
+
+Inclusion tables carry positive entries only, no null or zero entries,
+and no banded topics. The Play table is, for now, copied from the
+Charted table; its final form is deferred. The Parlay table is: Favorite
+1, Tried 1, Fantasy 1 (full 1). Teased does not enter the Parlay table
+--- it is absent, not zero. Favorite was restored to the Parlay table as
+a +1 factor, not zero. {[}Flag: provisional, final inclusion tables
+deferred.{]}
+
+\textbf{Play MS} is the geometric mean over members of the normalized
+(binary fit + table sum), where binary fit per direction holds iff the
+absolute Krossmatch term exceeds epsilon, normalized by the group
+maximum. Play-considered topics are shared, not limit-blocked, and not
+fantasy --- fantasy is excluded from the numerator \emph{and} the
+denominator, so Play asks only about what could actually happen. One
+scalar --- but it is never allowed to travel alone; its weights and
+counts ride with it, because a percentage with its indices hidden is
+exactly how summaries lie. The Krossmatch term is give $\times$ receive
+crossed, normed /100.
+
+\textbf{Play KF} is the maximum fit from the Krossmatch over its two
+directions, times the geometric mean over members of (binary ``rated or
+not'' + table sum), normalized by the group maximum, over shared
+non-limit-blocked topics as denominator.
+
+\textbf{Parlay KF and Parlay MS} are the same shapes on the Straight
+Match, with the Parlay table and the Parlay considered set: shared
+non-limit-blocked topics, limit-blocked out, Fantasy included in the
+Parlay considered set, unlike Play. The Straight Match term is give $\times$
+give, receive $\times$ receive, normed /100. Parlay MS mirrors Play MS; Parlay
+KF mirrors Play KF.
+
+\textbf{Play MS against Play KF.} The two stand in a subset relation, at
+the same Heat: every Play match is counted in Play KF's ground, and
+every Play-considered topic is Play-KF-considered, because
+Play-considered topics are the shared, non-limit-blocked topics minus
+fantasy. The reverse does not hold: fantasy ground counts for Play KF
+and never for Play MS. Heat moves both, but through different channels,
+through epsilon. Same tensor, same Heat, different questions --- and the
+subset relation is what keeps the two answers honest with each other.
+
+\textbf{Hot Topics} is a \emph{partial} contraction: sum over the people
+and the Krossmatch's channels, but leave the topic index free. What
+remains is a vector indexed by topic --- a ranked list of what this
+group, tonight, has the most breadth and strength to talk about. A topic
+limited by anyone is excluded from the ranking outright.
+
+\textbf{Group sync} adds one more gathering rule: members count equally
+and topics count by their hierarchical weight, and a topic carries only
+on a strict majority --- more than half, ties do not count --- while
+limits remain personal and un-votable, and anyone may exit. Everything
+personal is sovereign; everything collective is majority. The group's
+Kink Factor is a Play Kink Factor, gathered under that majority rule,
+normalized by the group maximum; a group-max-zero contribution
+contributes zero and stays in the denominator. In table terms, all four
+pair numbers read the same way: for pairs, hierarchical shares; for
+groups, majority counting. That table rule is stated here as a table
+rule; it is not, by itself, a claim about any other surface. {[}Flag:
+group definitions provisional, as above.{]}
+
+\textbf{Weights.} Every contraction in this section is hierarchically
+weighted, and kinkiness-composed. Each of the 18 categories carries an
+equal share; within a category, its direct topics and its subcategories
+split that share equally, direct topics being peers of subcategories;
+within a subcategory, its topics split the subcategory's share equally;
+a starburst splits among its topics. The weights apply to sums
+\emph{across} topics, never to per-topic terms: a topic's own fit
+intensity, its straight sum, and its crossed sum are computed exactly as
+before, and only their gathering into a headline is weighted. Aggregates
+are weighted; per-topic examples are unweighted. That distinction is
+what keeps the worked arithmetic of \S 8 and \S 10 standing exactly as
+written while the headlines move. The solver's energy is not weighted,
+and kinkiness does not enter it unless the owner says otherwise.
+
+\textbf{Popularity and kinkiness.} Kinkiness is one minus popularity,
+and popularity is prevalence --- how common a thing is --- not
+acceptability. The popularity aggregate is weighted by statistical
+strength over seven sources: the Joyal survey of 2015, with 1,516
+adults, and the Lehmiller survey of 2018, with 4,175 adults, as anchors
+at factor 1.0; FetLife counts, discounted at factor 0.5 and
+log-normalized; Reddit counts, discounted, pending; community ratings as
+one merged discounted source; the project's own survey; and literature
+priors, meaning the written-erotica primary bank plus semantic priors,
+provisional and weakest. Log scaling weight is ln(size) $\times$ factor; the
+prior weight is 0.5 $\times$ ln(5) $\approx$ 0.80, on the log scale. Aggregation is
+ignore-missing: it runs over only the sources with data for a topic,
+renormalized, with missing not counted as zero and a prior-only
+fallback. Automatic submissions when a FetLife import fails (Type 1) are
+excluded from this aggregate entirely. Literature priors are
+provisional, qualitative estimates, never cited as counts, distinct from
+the two published surveys and not double-counting them. The aggregated
+score is also the Popularity List sort key as a rule; whether the
+shipped sort key implements it is unverified and is flagged, not
+asserted. {[}Flag: Reddit counts pending; literature priors
+provisional.{]}
+
+\textbf{Worked headlines, hierarchical-only.} Adam Peasant $\bowtie$ Riley share
+73 topics. Under Conversation gates, 45 count: the flat ratio reads
+62\%, and the hierarchically weighted Play Kink Factor reads 58\% ---
+lower, because the counted topics sit disproportionately in
+lighter-weight branches. Under Play gates, 15 match of 73 considered:
+flat 21\%, weighted Play Match Score 16\%. Adam Peasant $\bowtie$ Eve Vale share
+135 topics. Under Play gates, fantasy sets one topic aside, leaving 134
+considered, with no topics limit-blocked. {[}Flag: the Conversation-gate
+count, the Play match count, and the weighted Play Kink Factor and Play
+Match Score for this pair have not been recomputed for Eve Vale's new
+246-rating profile. They were computed on her old 10-rating profile ---
+Conversation 9 count, flat 90\%, weighted Play Kink Factor 96\%; Play 7
+matches of 9 considered, flat 78\%, weighted Play Match Score 82\% ---
+and those figures are retained here only as a record, not as current
+values. Recomputing them requires running the pair engine on the new
+profiles. The direction of the weighted-vs-flat comparison for the new
+Eve Vale is not stated, because it depends on which topics the new
+counted set falls in.{]} The weights do not change any topic's own
+outcome; they change how much each outcome weighs in the headline. These
+headlines are hierarchical-only, and they predate the provisional
+six-score definitions above; they are not kinkiness-weighted
+recomputations, because no kinkiness fixture for those topics is on
+record, and none is invented here. A kinkiness-weighted headline for
+these pairs would require that fixture first. {[}Flag: these worked
+headlines have not been recomputed under the provisional six-score
+definitions.{]}
+
+\textbf{A single profile, read two ways.} A profile also contracts
+alone, with no second profile taking part. Its inner ring is the
+Personal Kink Factor, and its outer ring is Charted. Both are whole-map
+contractions, and both use the same contributions table, stated here at
+the level the core closure supports.
+
+The basis is the whole map: one person's whole-map positive share in
+either direction, hierarchically weighted and kinkiness-composed. The
+denominator is all 372 topics. Personal counts topics, once, by the
+maximum flank; Charted counts topics, once, by binary rated inclusion.
+The shape is additive expanse, like Charted, not a flank share
+multiplied by an outcome weight.
+
+For each topic, the Personal contribution is the maximum flank (signed,
+proportional, epsilon-thresholded) plus the flag sum once: favorite 1,
+tried +1, fantasy +0.5, curious 0, teased 0. Into-it is the rating
+condition, not a flag. An unrated-but-marked topic has base 0 while its
+flags still count; a limit-only topic counts nothing. A negative maximum
+can pull a topic's contribution negative. Personal is not clamped at
+100. {[}Flag: provisional definition, 2026-10-30, for consideration. The
+maximum-flank rule is the explicit per-topic direction-contraction
+exception stated in the definitions index.{]}
+
+Charted is coverage, an attended share. Per topic, once: binary rated,
+epsilon-thresholded on either flank, plus the flag sum once, with the
+same table. Negatives are taken as absolute value to the binary: Charted
+stays positive, and a negative counts as much as a positive. A
+NotInterested mark alone counts as attended for Charted and adds nothing
+to Personal. A limit plus another mark is excluded altogether, the limit
+winning. The flag sum counts once per topic, not per flank. Charted is
+not clamped.
+
+Open details from the core closure are carried here as open, not as
+settled text. With no recommendation yet: group Charted, where the
+record is individual only; and whether the shipped code counts the flag
+sum per topic or per flank, subject to an editor check this paper does
+not assert.
+
+\textbf{The rings, in one line.} The in-tab Conversation and Play switch
+is removed; mode follows the tab. On a profile tab, the outer ring is
+Charted and the inner ring is the Personal Kink Factor. On a bowtie tab,
+the outer ring is Play Match Score and the inner ring is Play Kink
+Factor. On a circledot tab, there are two rings, arranged to mirror the
+bowtie: the outer ring is Parlay Match Score and the inner ring is
+Parlay Kink Factor, both provisional in definition. In the header, the
+Charted ring takes the former header-ring seat.
+
+\subsection{5. What the language buys, and where it
+stops}\label{what-the-language-buys-and-where-it-stops}
+
+The tensor language is not decoration. It enforces the design's central
+honesty: \textbf{every headline number can be un-contracted.}
+Un-contracting always lands in the same place: the Krossmatch, component
+by component --- the grid of flows is where the receipts live. A score
+is a sum, and a sum can always be opened back into its components ---
+the topics that voted, the gates they passed, the setting stamped on the
+result. A compatibility figure that cannot show its receipts is a
+horoscope; one that can is a measurement.
+
+Where the analogy honestly stops: there is no geometry here. Topics are
+not coordinates on a smooth manifold; there is no distance between
+``rope'' and ``latex,'' no metric tensor in Einstein's sense, nothing
+that transforms covariantly. This is algebra, not differential geometry
+--- a product, a set of gates, and a family of contractions. But that is
+enough. One object, honestly built, read in pairs and alone, with no
+reading allowed to hide how it was summed: that is the whole algorithm,
+and it fits in one line ---
+
+\textbf{profiles multiply; gates decide what may count; contractions
+decide what to ask.}
+
+\subsection{6. The open question: which contractions mean
+something}\label{the-open-question-which-contractions-mean-something}
+
+The product is not a design choice --- two profiles multiply the same
+way regardless of what you intend to ask. All the design freedom lives
+in the contraction: which indices to sum away, and which to leave
+standing. A contracted index is a question answered in aggregate; a free
+index is an axis the reader still gets to see. Every statistic in \S 4 is
+one point in this space --- leave the topic index free and you get Hot
+Topics; contract everything and you get a score. The general question
+the sync poses, for any statistic anyone proposes adding, is simply:
+which indices does it contract, and can its receipts still be shown?
+
+One rule emerges from the cases that work: contract only the indices
+whose variation you are willing to stop seeing --- and never contract an
+index before a reading that needs it. (Jason's amendment, 2026-10-21:
+the obvious candidate counterexample is the hypermap's own coloring ---
+each category and subcategory colored by rolling its rated children up.
+But categories and subcategories carry direction too: the roll-up runs
+\emph{within} each direction, give-children into the parent's give,
+receive into its receive, so the index actually summed is topic alone
+--- children into parent --- while direction stays free and positional
+at every level of the hierarchy. The heat map is therefore not an
+exception to the rule but an instance of it, one level up: a contraction
+over a coarser topic index, direction untouched.) Order matters,
+mathematically and not just presentationally. Sum a profile's give and
+receive components into a single number per topic, and you have
+destroyed, before any role question is asked, exactly the components in
+which roles live.
+
+Roles are the clearest case. A role --- Dominant, Submissive, Rigger,
+Brat --- is a characteristic pattern over the same (topic, direction)
+components a profile carries: in the essay's language, a
+\textbf{prototype vector in the same 744-dimensional space}. Reading a
+person against the roles is then a contraction of one profile against
+each prototype, summing over topic and direction, with the \textbf{role
+index left free}. The result is a spectrum: one number per role, each
+normalized by the person's total rated mass, so it reads as the fraction
+of their rated self whose shape matches that prototype. (Familiar
+horoscope-style role tests print exactly this spectrum with the
+arithmetic hidden; here the arithmetic is the point.) And the partial
+version --- topic index left free --- returns the per-topic
+contributions, so every suggested role arrives with its receipts, as \S 5
+demands of every number in the system.
+
+One distinction of pairing deserves stating, because the formalism has
+exactly two. The sync's Krossmatch pairs direction \emph{crossed} ---
+give against receive --- because it joins two people in complementary
+frames. The role reading pairs direction \emph{straight} --- the
+person's give against the prototype's give --- because a prototype is
+not a partner across the table but a shape in the same frame. Crossed,
+for two people who might meet; straight, for one person held against a
+pattern.
+
+A discovery, recorded the day the object was named (2026-10-21), extends
+the straight pairing to a second employment --- and it arrived as a
+question about conversation. The Conversation readings of \S 4 are
+computed over the Krossmatch: they rank what two people could talk about
+\emph{as prospective partners}. But conversation has two registers.
+\textbf{Crossed conversation} is negotiation talk --- what could happen
+between us. \textbf{Straight conversation} is peer talk --- two riggers
+comparing rope, two submissives comparing being tied --- and it lives in
+exactly the components the Krossmatch discards: give against give,
+receive against receive. Play cannot use that parallel sector; nothing
+flows there. Talk can, because talk needs shared ground, not flow ---
+and shared ground comes in both orientations. The formalism therefore
+has two pairing \emph{kernels}, crossed and straight, and the straight
+kernel two employments: a person against a prototype (the roles above),
+and a person against a person in the peer register. The shipped
+Conversation mode now reads both registers: the crossed register in
+cross matches, and the straight register in straight matches, where it
+is shipped as Straight Talk (\S 9). The prototype employment remains what
+it always was here: a mirror, not a gate --- a reading that contracts a
+single profile, speaks only to that person about themselves, is theirs
+to approve or discard, and never enters the sync between people.
+
+Two honesties attach. First, the prototypes are themselves statistics
+--- hand-authored at first, refinable later from profiles their owners
+donate for exactly that purpose --- and a prototype built from a thin
+cohort carries real uncertainty, which an honest display encodes rather
+than hides. Profiles multiply; prototypes compare; and the choice of
+what to contract remains, as ever, the choice of what to ask.
+
+\subsection{7. The heat map: a contraction up the
+hierarchy}\label{the-heat-map-a-contraction-up-the-hierarchy}
+
+The pair product is not the only contraction in the system. A single
+profile contracts too, every time the hypermap colors a stem --- and
+because categories and subcategories carry direction just as topics do,
+the contraction runs within each direction separately, exactly as \S 6's
+rule requires. No second profile takes part in it; there is no pairing
+here, and no Krossmatch --- one profile, summed against its own
+hierarchy.
+
+The index summed is topic, rolled upward through the hierarchy. A
+subcategory's give value is a per-direction aggregate of its topics'
+give ratings, counting only topics rated in that direction --- unrated
+children are excluded, not zeroed. A category's value is the same
+aggregate taken over its \emph{complete} topic list: it does not average
+its subcategories' averages, so every rated topic votes regardless of
+how the hierarchy groups it. {[}Session: confirm whether each aggregate
+is a mean or a sum --- the exact formula is unverified in this pass and
+must be checked against the code before this paper states it.{]} No one
+rates a subcategory or category directly --- that feature existed once
+and was deprecated, and the map is better without it. Where a stored
+value nevertheless sits at that level, it arrived as coarse import
+residue, and the shipped code does let such a value override the
+children's aggregate for display --- a survival the owner has ruled
+against (see the design notes below): the per-direction aggregation is
+the tapers' universal characteristic, never to be superseded by a stored
+rating, and branch-level import seeds are to be resolved at topic level
+through the suggested-ratings popularity list rather than by standing in
+for their topics.
+
+The aggregate is then read as a color --- continuously, not in bands.
+Exactly zero is the curious yellow, pure. Positive values blend toward
+green in proportion to their size, negative toward red; a stem half with
+no votes at all is gray. The two directions are drawn as the two tapered
+flanks of the stem itself, give on the flank above the spoke's midline,
+receive below --- the same positional grammar the topic level uses. The
+node discs carry no rating color at all. Their color, like the
+midline's, comes from the hanky code --- the old role code, in which the
+color names the interest and the pocket names the direction: left for
+the one who does, right for the one who receives. The app inherits the
+grammar whole: color says what, position says which way. Only the stems
+carry the heat.
+
+The shipped code departs from this clean description in three named
+places, and the paper records them because each is a small failure of
+\S 5's rule --- a number that cannot be unfolded the way it was made.
+First, marks vote: a favorite, a limit, or a not-interested mark injects
+a $\pm$100 vote into the same per-direction aggregate, without itself having
+a direction, and a topic both marked and rated is counted twice --- so a
+hard limit, which everywhere else in this system \emph{removes} a
+component from the arithmetic, here silently drags its parent's color
+red. Second, the spoke's tooltip prints a single ``heat'' figure per
+topic that averages give and receive together first --- the one place in
+the interface where direction is contracted away after all, answering a
+coarser question than the two colors drawn beside it; that combined
+figure is a known violation, ruled to be split per flank, with the give
+taper carrying the give value and the receive taper the receive value.
+Third, the numbers printed in tooltips, tags, and rails come from a
+\emph{second} aggregator with different rules --- unrated children
+dilute it, unanimity forces it to 100, and for subcategories it reads
+only imported children rather than the built-in topics that color the
+stem --- so the map's colors and the map's numbers are two different
+statistics of the same profile, and they can disagree.
+
+None of this invalidates the reading. The stems remain an honest
+contraction: one index summed, within direction, receipts intact. But
+the deviations are the same species as every defect this project has
+found in itself --- a summary that quietly stopped being the summary it
+claimed to be.
+
+\emph{(Owner's design note, 2026-10-21, not yet shipped: the category
+value should also consider its subcategories' averages --- each
+subcategory entering its parent's computation as a unit with its own
+averaged value, rather than the parent reaching past the subcategories
+to a flat aggregate of topics alone. The taxonomy's groupings are real
+structure; the contraction should respect them at every level, not only
+the lowest.)}
+
+\emph{(Owner's ruling on stored ratings, 2026-10-21: direct rating of
+categories and subcategories is a deprecated feature and is not
+returning. The per-direction aggregation over the tapers is the
+universal characteristic of branch color, never superseded by a stored
+value; the code's override is slated for removal, and branch-level
+import seeds resolve at topic level through the suggested-ratings
+popularity list.)}
+
+\emph{(Owner's adjudication of the deviations, 2026-10-21: the map's
+colors and the map's numbers must be one statistic --- two aggregators
+that can disagree are a defect, not a nuance. And a tooltip belongs to a
+flank, not to a spoke: the give taper carries the give value, the
+receive taper the receive value. A single spoke tooltip that contracts
+direction to cover both is not a meaningful object, and its combined
+``heat'' figure has no question it honestly answers.)}
+
+\subsection{8. The Krossmatch}\label{the-krossmatch}
+
+\S 2 named the object in passing; this section examines it, because it is
+the joint the whole paper stands on.
+
+The tensor product of two profiles is everything --- every component of
+one against every component of the other. The Krossmatch is what you get
+by restricting that product along a fixed \textbf{pairing kernel}: the
+topic index is paired with itself, and the direction index is paired
+with its \emph{complement}. Formally, let $\sigma$ be the swap on directions
+--- give exchanges with receive, and applying it twice returns you home:
+$\sigma^2$ is the identity. The kernel is then the identity on topics tensored
+with the swap on directions, and the Krossmatch's components are
+M\_\{t,d\} = P\_\{t,d\} $\cdot$ Q\_\{t,$\sigma$(d)\}: for each topic, each direction,
+one person's value times the other's value in the opposite direction.
+Equivalently, define the \textbf{complement map} $\kappa$, which re-reads a
+profile in the crossed frame --- ($\kappa$Q)\emph{\{t,d\} = Q}\{t,$\sigma$(d)\} ---
+and the Krossmatch is the first profile laid component-wise against the
+complement of the second. The parallel components of the product ---
+give against give, receive against receive --- exist in the product and
+are simply not in the object. (They are not waste: \S 6 records the peer
+register of conversation that reads them.) The Krossmatch is defined by
+what it refuses as much as by what it keeps.
+
+In the language of the definitions index: the Krossmatch is the outer
+product of the two profiles read through the swap kernel along the
+crossed diagonal. The outer product is the product stage; the diagonal
+read and its sum are the contraction stage. {[}Session: wording to
+confirm.{]}
+
+The bowtie definition, as corrected by the owner on 2026-10-26, is
+stated here in his terms, with his caveat kept visible. The bowtie
+\emph{is} a direct product with a kernel applied that swaps give and
+receive on one profile, and the crossed contraction follows: my give
+times your receive, plus my receive times your give. The straight
+reading is the same direct product without the swap, with same-direction
+terms. The owner states this understanding with the caveat, in his own
+words, that he may be using a wrong language there. This paper therefore
+records the definition as stated and flags it for the session to test,
+rather than asserting it as settled mathematics if the mathematics does
+not support the wording. An earlier instruction to sweep direct-product
+language from the paper is withdrawn and is not applied here.
+
+In arithmetic, with no machinery at all: a topic where Adam Peasant
+stands at give 80, receive 10 and Eve Vale at give 20, receive 90
+crosses to 80$\times$90 + 10$\times$20 = 7,400. Make Eve Vale a top instead --- give
+90, receive 20, the same total appetite for the same topic --- and the
+crossing reads 80$\times$20 + 10$\times$90 = 2,500. No rule anywhere says two tops fit
+worse. The multiplication is the rule: when both people lean the same
+way, every product in the sum contains a small factor, and the fit
+starves on its own.
+
+Summed whole, the Krossmatch induces a bilinear form on profiles, B(P,
+Q) = $\Sigma$\_\{t,d\} P\_\{t,d\} $\cdot$ Q\_\{t,$\sigma$(d)\}, and the form has a signature
+worth naming. Rotate the direction plane by 45 degrees, into the
+\textbf{blend} axis --- (give + receive)/$\sqrt{2}$ --- and the
+\textbf{difference} axis --- (give - receive)/$\sqrt{2}$ --- and the form reads
+B = blend$\cdot$blend - difference$\cdot$difference. In direction space, per topic,
+its signature is (1, -1): indefinite, the way spacetime's interval is
+indefinite, though nothing here is a spacetime. The decomposition says
+in one line what the arithmetic example says in numbers: agreement in
+overall appetite adds to a pair's fit; agreement in directional lean
+subtracts from it. Opposites fit --- not as a slogan, but as the
+signature of the only pairing the sync performs.
+
+The summed form is symmetric: exchanging the partners leaves B
+unchanged, because the sum runs over every topic and both directions.
+The flanks are not symmetric --- exchanging the partners swaps the
+give-to-receive channel with the receive-to-give channel --- and \S 10's
+dark sums are exactly the instruments that hear that asymmetry. Symmetry
+of the sum, asymmetry of the channels: both facts, priced separately.
+
+Physicists will recognize the shape of the choice. Indices can be
+contracted through an identity, which pairs each thing with itself, or
+through a pairing tensor, which pairs each thing with its dual ---
+spinor indices are contracted through the antisymmetric $\epsilon$, not through a
+metric, and that choice is what makes a spinor's partner its complement
+rather than its copy. The Krossmatch is the same species of decision,
+made once and made everywhere: directions are contracted through the
+swap, so that each direction's dual is the other. Give has no meaning in
+this algebra except against receive, and the pairing is where that is
+enforced.
+
+Two separations keep the object honest. First, the Krossmatch is
+\textbf{not gated}: it is pure bilinear algebra, the raw grid of flows.
+The weaker-side rule, the route table, the limits, Heat --- \S 3's whole
+apparatus --- are nonlinear semantics applied to its components
+afterward, and conflating the two layers would make the algebra
+impossible to audit. Second, the Krossmatch is \textbf{one of exactly
+two pairing kernels} in the formalism. The other kernel pairs direction
+straight, and it carries two employments: the role reading of \S 6, where
+a prototype is a shape in the same frame rather than a partner in the
+opposite one, and the peer register of conversation, where the product's
+parallel sector is read as shared ground between two people. Everything
+else in the system that looks like a pairing --- the heat map of \S 7 ---
+is no pairing at all, but a single profile summed against itself.
+
+A scope note, for the same reason: as constructed, the Krossmatch is
+pairwise. Group readings (\S 4) gather pair Krossmatches under majority
+rule, and the construction plainly suggests the generalization --- each
+profile crossed against the rest --- but a single group-native object,
+one tensor for \emph{n} profiles, is not claimed here as well-defined.
+The pair object is exact; the group form works theoretically, and the
+paper keeps the distinction visible.
+
+That is the object's power and its limit. It says nothing about what a
+pair should do; it is the complete, un-gated statement of what could
+flow between them, computed by the one arithmetic that refuses,
+structurally, to pretend that wanting the same side is the same as
+fitting. Every verdict the sync delivers is a gated contraction of this
+grid --- and when a verdict is questioned, this is the grid it answers
+to.
+
+\subsection{9. The Straight Match}\label{the-straight-match}
+
+\S 8 closed by separating the Krossmatch from the only other pairing
+kernel in the formalism. This section gives that kernel its object,
+because it has one --- as definite as the Krossmatch, and disjoint from
+it.
+
+Take the product of two profiles and look at one topic at a time. Where
+a topic meets itself, the product's components form a 2$\times$2 block over the
+direction pairs: give against give, give against receive, receive
+against give, receive against receive. The block has exactly two
+sectors. The \textbf{diagonal} --- give against give, receive against
+receive --- pairs each direction with itself: the \emph{parallel}
+sector. The \textbf{anti-diagonal} --- give against receive, receive
+against give --- pairs each direction with its complement: the
+\emph{crossed} sector. The two sectors share no component, and between
+them they exhaust the block: per topic, the product's self-pairing is
+exactly these two sectors and nothing else.
+
+The Krossmatch is the anti-diagonal, kept by the pairing kernel of \S 8:
+identity on topics, swap on directions. The diagonal is kept by the
+mirror-image choice --- identity on topics \emph{and} identity on
+directions, pairing every index with itself through the Kronecker delta,
+where the Krossmatch pairs direction through the swap. The object it
+defines is the \textbf{Straight Match}, written with the circled dot:
+Adam Peasant $\odot$ Eve Vale. Its components are S\_\{t,d\} = P\_\{t,d\} $\cdot$
+Q\_\{t,d\} --- for each topic, each direction, one person's value times
+the other's value \emph{in the same direction}. Algebraists know the
+operation as the Hadamard product: the component-wise product of two
+arrays read in the same frame. Where the Krossmatch lays a profile
+against the complement of another, the Straight Match lays it against
+the other exactly as it stands.
+
+The two objects are one operation viewed twice, and the notation can say
+so: \textbf{P $\bowtie$ Q = P $\odot$ $\kappa$Q} --- the Krossmatch is the Straight Match
+computed with the second profile crossed first, by the complement map of
+\S 8. There is a single primitive here --- multiply matching components
+--- and a single frame choice, straight or crossed, that decides what
+\emph{matching} means. A pairing is a choice of what counts as a match;
+everything else in this section is bookkeeping for that choice. In the
+language of the definitions index: the straight reading is the
+same-direction diagonal, inner-product-like; the crossed reading is the
+outer product through the swap kernel. {[}Session: wording to
+confirm.{]}
+
+Sum each object whole and the bookkeeping pays out in two different
+currencies. The Straight Match contracts to the ordinary inner product
+$\langle$P, Q$\rangle$ --- a positive-definite form, the Euclidean geometry of the
+profile space itself. It is a \emph{similarity} measure, and agreement
+feeds it without exception: two components pointing the same way
+multiply to a positive term whether what is shared is appetite or
+aversion, because in a single frame likeness is likeness --- in lean as
+much as in appetite. The Krossmatch contracts to B(P, Q) of \S 8,
+indefinite, signature (1, -1): agreement in appetite adds, and agreement
+in lean subtracts. Similarity and fit are different facts, and the
+formalism now prices them separately. Two tops carrying \emph{identical}
+maps are the limiting case: maximally similar --- the Straight Match
+reads as high as the scale allows --- and minimally fit, their crossing
+starving on small factors exactly as \S 8's arithmetic showed. A single
+compatibility number would have to call that pair both perfect and
+hopeless. The two pairings decline to confuse the two statements; there
+is a number for each fact.
+
+The Straight Match is no longer idle. \textbf{Straight Talk} is its
+shipped reading between two people, in Conversation mode only and in
+straight matches only, never in Play and never in a crossed match: for
+each shared topic, the straight sum --- give$\times$give plus receive$\times$receive,
+limits excluded, a null sum where neither direction is known on both
+sides --- ranked highest first, ties by topic name, and banded over
+equal thirds of the per-topic range (-20,000 to +20,000): Debate at
+-6,667 and below, On-the-fence from -6,666 to +6,666, Shop talk at
++6,667 and above, no band for a null sum. The rings wear the band names
+with their counts, and a Limits section stands beside them, display
+only. What Straight Talk reads is what two people hold in common, in the
+same orientation --- the conversation register \S 6 discovered in the
+sector the sync had always discarded, now computed in the open.
+Peer-ground is dropped as a term; it is not used in this revision. The
+prototype employment stays where \S 6 put it: a mirror reading against a
+pattern, not a gate, and not a shipped score.
+
+Straight Talk's headline follows \S 4. Debate topics count in the Parlay
+MS numerator and denominator, like Shop talk and On-the-fence topics.
+Bands display sections only; none of the four pair numbers refers to
+banded topics. {[}Flag: provisional, as in \S 4.{]}
+
+Straight Talk's list is banded, not merely ranked. Debate topics join
+the list. The list splits into band sections, Shop talk first, then
+On-the-fence, then Debate, covering the full band ranges, with topics
+ordered within each section by straight sum descending. Limit-blocked
+topics stay out of the sections; their home is the Limits section.
+One-sided topics, with no sum, stay out of the sections as well. This
+paper states the mechanism and the bands; it cites no straight census,
+so no census claim in this section depends on resolving the one-topic
+difference between a paper computation and a live readout for a
+73-shared-topic pair, which remains unresolved in the companion notes.
+
+The straight rings follow \S 4. On a circledot tab, the inner ring is the
+Parlay Kink Factor and the outer ring is the Parlay Match Score, both
+provisional in definition. The Parlay mirror is carried in \S 4 with its
+flags; this section does not harden it by repeating it without those
+flags.
+
+\subsection{10. The Penumbra}\label{the-penumbra}
+
+\S \S 8 and 9 leave no third sector hiding in the product. For each topic,
+the product's 2$\times$2 direction block splits into the diagonal and
+anti-diagonal sectors --- parallel and crossed, disjoint and together
+exhaustive. The penumbra begins one level up, when those components are
+summed. A sum can read a sector with a plus sign, or read it against
+itself; both choices are arithmetically real, and only one of them is
+lit.
+
+Suppress the topic index and write the four products as \emph{gg},
+\emph{rr}, \emph{gr}, and \emph{rg}: give against give, receive against
+receive, give against receive, receive against give. There are four
+independent signed sums. Two are already the paper's working quantities:
+\textbf{S = gg + rr}, the straight sum, whose contraction is
+resemblance; and \textbf{C = gr + rg}, the crossed sum, whose
+contraction is fit. The engine reads this lit pair. The other two are
+\textbf{K = gg - rr}, the channel imbalance of a resemblance, and
+\textbf{$\epsilon$ = gr - rg}, the orientation of action-flow. K is unchanged
+when the partners are exchanged. $\epsilon$ is not: exchanging them exchanges
+\emph{gr} and \emph{rg}, so $\epsilon$ changes sign. It records which way the
+current runs, a fact no symmetric sum can contain.
+
+Darkness, then, is not a property of hidden components. The four
+products sit in the product in plain sight. It is a choice of signs at
+the moment of summation --- which combinations an instrument reads, and
+which it leaves standing unread in the penumbra.
+
+The receipt is arithmetic. Let one person stand at give 80, receive 20,
+and the other at give 30, receive 90. The crossed products are 80 $\times$ 90 =
+7,200 and 30 $\times$ 20 = 600, so C = 7,800 and $\epsilon$ = 6,600. Reverse the
+directional lean --- give 30, receive 90 against give 80, receive 20 ---
+and the same two products change places: C is still 7,800, while $\epsilon$ is
+-6,600. Addition cannot tell the pairs apart; the dark sum can. Same
+crossed fit, opposite action-flow.
+
+K answers a different question. Two people alike chiefly as givers, each
+at give 90 and receive 10, have S = 8,200 and K = 8,000. Two people
+alike chiefly as receivers, each at give 10 and receive 90, have the
+same S and K = -8,000. The straight sum rightly calls the resemblances
+equal. K says that they live in opposite channels --- a distinction peer
+talk would hear immediately, even though no shipped score reports it.
+
+\textbf{Heat as a phase.} The lit sums are timeless: they describe two
+profiles, not the occasion on which the profiles meet. Heat was salvaged
+as a pairing-level weather by scoping it carefully. It does not
+complexify a profile. Saved profiles remain lists of real magnitudes,
+exactly as \S 1 defines them. At a pairing, each person wears one
+\emph{declared} angle for the session --- a garment over the profile,
+not a change to it --- and the pairing is read in the relative angle.
+Under the sesquilinear reading, the lit scores pick up the alignment
+factor cos($\Delta$$\theta$), where $\Delta$$\theta$ is the difference of the two angles. A single
+angle is unobservable alone; only the difference enters any score, which
+is why Heat belongs to the pairing and cannot be stored as one person's
+trait.
+
+The clock is global: one estrus clock per person, with two scales. The
+slow hand is the estrous cycle, turning over weeks. It may be informed
+by a tracker, and it modulates the fast hand --- Heat proper, the
+declared angle of tonight, turning over days. Where a tracker and a
+declaration disagree, the declaration takes precedence: the person is
+the authority on their own state, and a tracker is an informed prior,
+never an imposed reading. At the Clarity seam, the fast hand does not
+glide through zero; desire resets by a jump, sometimes into aversion.
+When one partner has crossed that seam and the other has not, $\Delta$$\theta$
+approaches $\pi$, cos($\Delta$$\theta$) approaches -1, and the pairing \emph{inverts}
+rather than merely cancelling. The shipped Heat slider is the fast
+hand's ancestor: a session-only, declared threshold state, never written
+into a saved profile, reporting the same weather in a coarser
+instrument.
+
+One hand remains undecided, and the section leaves it open on purpose.
+Arousal --- the within-the-evening variable --- might be a third phase:
+then the session garment is a 3-torus, arousal carries an angle of its
+own, and it could invert an alignment by itself. Or arousal might be a
+gain on the heat hand: then the garment is a 2-torus with an amplitude,
+arousal can raise or lower the size of a reading but never reverse its
+sign. The mathematics permits both; which one the body is doing is an
+open question, and the formalism will not pretend otherwise.
+
+\textbf{Initiative.} Not every named quantity in the system is a
+contraction, and Initiative needs no second algebra. It is bookkeeping
+at the resolution layer --- computed only after \S 3's gates have decided
+which channels are live, and attributed per channel rather than summed
+away. For a live channel from a giver to a receiver, define the
+\textbf{surplus} as the giver's give minus the receiver's receive.
+Rectify it: a positive surplus attributes initiative to the giver, whose
+wanting overflows the appetite it meets; a negative surplus attributes
+initiative of the same magnitude to the receiver, whose appetite summons
+the scene. The totals keep their territory partition --- a surplus
+earned on one topic is not cancelled by an opposite surplus on another,
+the way $\epsilon$'s terms cancel. Initiative says \emph{where} each person's
+wanting is doing the driving, topic by topic.
+
+The worked check is the one that forced the distinction. In a
+teacher/student scene, on the discipline channel, let the teacher's give
+be 70 and the student's receive be 95. The surplus is 70 - 95 = -25:
+initiative to the student, 25. The teacher may hold the authority of the
+role entire; the scene's unfolding can still be driven by the student's
+appetite. Authority and initiative are different facts, and this
+bookkeeping is the first instrument in the design that can say so in
+numbers.
+
+Initiative is therefore named and formalized here as a \emph{candidate},
+not built in the app. Two questions remain the owner's to settle before
+it can be more: whether surplus is the right attribution rule at all,
+against the other rules the record sketches; and whether initiative
+earned on Curious-fit channels --- the explorative frontier, where the
+wanting is newest --- should carry extra weight.
+
+\subsection{11. The multi-pole
+extension}\label{the-multi-pole-extension}
+
+\S \S 1--10 are written for the founding domain's topics, each of which
+carries exactly two components --- give and receive --- and the two
+pairing kernels of \S \S 8--9 are exact there. The taxonomy has since grown
+a second species of topic, and this section records how far the
+formalism honestly extends to it, including where it presently does not.
+
+A \textbf{pole topic} carries from one to eight poles --- stances, not
+directions. A triangle topic (three poles) is rated by placing a point
+in the simplex of the three stances; a radar topic (five to eight poles)
+is rated pole by pole, each an independent affinity; a diamond carries
+four. A person's rating of a pole topic is therefore a vector of
+per-pole affinities, each from -100 to +100, and a zero is a rating, not
+an absence. The engine compares two such vectors, as shipped, by
+\textbf{agreement}: 100 minus half the mean absolute difference over the
+poles --- a number that reads as a percentage of sameness of shape. Each
+side also carries a \textbf{Depth Factor} intensity for the topic ---
+the vanilla skins' analogue of the Kink Factor --- defined as the
+largest absolute pole affinity that side holds: how deep the topic goes
+for that person, set by its strongest stance. Pole ratings count as
+ratings everywhere a two-flank rating does, and the straight register's
+considered set includes them.
+
+Three findings from the code trace of 2026-11-19 are recorded here
+because each is a place where the extension falls short of this paper's
+own standard, and the paper's standard is that shortfalls are stated,
+not smoothed.
+
+First, \textbf{the two kernels have not yet been given distinct
+constructions for pole topics.} A pole topic stores one vector per
+person; there is no complement map on stances analogous to \S 8's swap on
+directions, crossed fits for pole topics are null by construction, and
+the straight reading at present substitutes the crossed numbers
+identically. For two-flank topics the crossed and straight objects are
+disjoint sectors of one product, priced by forms of opposite signature;
+for pole topics the two registers currently \emph{coincide}, and the
+distinction the formalism exists to protect is, for this species,
+unimplemented rather than false. The owner's tentative semantics stand
+recorded as tentative: the crossed register as \textbf{communion} ---
+Play in this domain; living, working, and being together in the others
+--- and the straight register as \textbf{an interesting conversation}. A
+construction honouring that distinction for poles is an open design
+problem, and one proposed fork is recorded in \S 12.
+
+Second, \textbf{the Depth Factor's intensity is sign-blind.} Being
+computed from absolute affinities, it rises identically for a shared
+enthusiasm and a shared aversion: two people who both stand at -90 on a
+stance register the same depth as two who stand at +90. \S 9's straight
+form has the same property and there it is \emph{correct} --- in a
+single frame, likeness is likeness, in aversion as in appetite. In an
+intensity that purports to say how deep a topic goes for a pair, the
+discarded sign is a fact the reading should not lose, and the paper
+flags the Depth Factor's present form as a defect against \S 5's rule: a
+number whose receipts, opened, do not show the thing the number was
+taken to mean.
+
+Third, \textbf{pole topics do not yet appear in either register's match
+or curious lists}, though they enter headline aggregates and the
+Scribe's pair readings; and in group readings of three or more, their
+depth entries at present compute to zero. These are implementation gaps,
+recorded as such. A reader of the shipped numbers should know that the
+pole species is counted in the totals and absent from the lists.
+
+\subsection{12. Intensity as an independent
+coordinate}\label{intensity-as-an-independent-coordinate}
+
+The ratings of \S 11 carry one further component, added by the owner's
+ruling of 2026-11-19, which this section states as a model and then,
+separately, as an implementation status --- because the two are not the
+same, and the paper does not pretend otherwise.
+
+\textbf{The model.} For a topic of \emph{n} poles, the leanings are
+\emph{n} numbers: the blend, where the person stands among the stances.
+\textbf{Intensity is an (n+1)th number}, stored alongside the leanings
+and not derived from them: it is the topic's \textbf{relevance} --- how
+much the person cares about the issue at all --- and it is signed.
+Positive intensity is caring in the issue's favour; zero is
+indifference, the don't-care point; negative intensity is \emph{aversion
+to the issue itself}, a stance toward the question rather than within
+it. The display rule was ruled the same day: intensity shows as
+\textbf{brightness} --- full brightness at maximum positive, dimming to
+don't-care at zero, and passing into complementary colours below zero.
+The ruling supersedes the earlier reading, in which intensity was
+computed from the leanings (as the Depth Factor of \S 11 still computes
+it): two people can hold identical blends with utterly different
+relevance, and a formalism that derives the second from the first has
+destroyed, before any question is asked, exactly the component in which
+caring lives --- the same species of error as contracting direction in
+\S 6's rule, one index over.
+
+\textbf{The status.} The implementation is partial, and its partiality
+is specific. The pass shipped on 2026-11-19 decoupled the
+\emph{drawing}: a pole widget's shape now holds still while its
+intensity is swept, where before the shape was the intensity's prisoner.
+But storage still derives intensity from the leanings, and the intensity
+control still rescales stored values --- the halfway house the ruling
+was issued to replace. The full build is specified: intensity stored as
+its own number per topic, existing profiles seeded from the current
+derivation so no one's map changes meaning under them, the intensity
+control editing that number alone. It stands first in the current
+development handover. One question is expressly reserved: \textbf{how
+the (n+1)th coordinate weights pair scoring} --- whether relevance
+multiplies agreement, gates it, or stands beside it as a third reported
+number --- is to be settled by a proposal put to the owner, not assumed
+by the implementers, and this paper records it as open.
+
+\textbf{A fork, recorded.} \S 11's open problem --- a crossed construction
+for poles --- has one proposed route that touches this coordinate. If
+each pole's sign were freed to carry direction (positive for giving,
+negative for receiving, in the founding domain's grammar), a swap-like
+kernel on poles would exist and the crossed register could be built. The
+owner's own objection is recorded with the proposal, because it may be
+fatal: one sign cannot carry both aversion and direction at once. The
+fork is therefore: either aversion lives \emph{only} on the (n+1)th
+coordinate's sign --- freeing the pole signs for direction --- or the
+pole signs keep their present meaning and the crossed construction must
+be found elsewhere. Unruled, and stated here so that whichever way it
+settles, the losing consideration is on the record.
+
+\textbf{Not Heat.} The (n+1)th coordinate is a stored, standing property
+of a person's rating of a topic. It is not \S 10's Heat, which is a
+declared, per-session state of a \emph{pairing}, never written into a
+profile. Relevance is what a person brings; Heat is the weather of the
+occasion on which two profiles meet. The system keeps both, and this
+paper keeps them distinct.
+
+\emph{End of the 2026-11-21 revision: \S \S 11--12 as added above. \S \S 1--10
+and Appendix A stand as revised 2026-11-06. Open items are marked
+{[}Flag{]}, {[}Session{]}, or as recorded findings in place.}
+
+\emph{End of revision working draft, 2026-10-29. Front matter,
+definitions index, and \S \S 1--10 as revised above. Open items are marked
+{[}Flag{]} or {[}Session{]} in place and are listed with status in the
+companion notes for 2026-10-29. No headline in this draft is a
+kinkiness-weighted recomputation, no Personal Kink Factor number is
+asserted, and no group weighted-Kink Factor example is invented.}
+
+\subsection{Appendix A. The six numbers, side by side ---
+HELD}\label{appendix-a.-the-six-numbers-side-by-side-held}
+
+\textbf{HELD appendix, not final.} This appendix is held for the full
+review sometime after Saturday. It is not the interim table for the
+munch, and inclusion here does not harden anything it contains. Items
+marked interim, provisional, or recommendation below stay interim,
+provisional, or recommendation. Where this appendix corrects the held
+two-table document it was copied from, the correction is stated in the
+notes at the end of this appendix, and the paper's ruled values govern.
+
+Source: the held two-table document delivered 2026-10-29, Table 1 (Kink
+Factors) and Table 2 (outer numbers), with its page-3 key and open list,
+as corrected by the 2026-10-30 provisional six-score rulings in \S 4.
+Values are copied from that document, except for the corrections in the
+notes below. The six columns are the six numbers of \S 4: Personal and
+Charted for one person, Play KF and Play Match Score for a crossed pair,
+Parlay KF and Parlay Match Score for a straight pair.
+
+\subsubsection{Table A1. Kink Factors (inner
+rings)}\label{table-a1.-kink-factors-inner-rings}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Row
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Personal Kink Factor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Play Kink Factor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Parlay Kink Factor
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Tab / pair & Profile tab, individual & Bowtie, Play pair & Circledot,
+Conversation pair (straight match) \\
+Status & Provisional (2026-10-30), with open details & Provisional
+(2026-10-30) & Provisional (2026-10-30) \\
+Register & Whole map, individual & Play & Conversation only, not Play \\
+Counted & Per topic: maximum flank (signed, proportional,
+epsilon-thresholded) plus flag sum once, weighted. Not a counted /
+considered ratio --- an additive expanse. Not clamped at 100. &
+Geometric mean over members of (binary rated-or-not + table sum), times
+maximum Krossmatch fit, normalized by group maximum & Same shape on the
+Straight Match, with the Parlay table and considered set \\
+Considered & All 372 topics. Limit-only topics count nothing; the
+denominator stays 372. & Every shared, non-limit-blocked topic, weighted
+& Every shared, non-limit-blocked topic, weighted. Fantasy included. \\
+Rating basis & Maximum flank $\times$ hierarchical share $\times$ kinkiness, per
+topic. A negative maximum can pull a topic negative. & Cross: give $\times$
+receive, normed /100. Binary fit iff \textbar term\textbar{}
+\textgreater{} epsilon. & Straight sums: give $\times$ give + receive $\times$
+receive, normed /100. Binary fit iff \textbar term\textbar{}
+\textgreater{} epsilon. Bands at $\pm$6,667 are display only (see Key
+below). \\
+Limits / one-sided & Limit-only topics count nothing in both rings;
+denominator stays 372 as the penalty for a hard limit. Limit plus
+another mark is excluded altogether. No -1 limit entry in the table. &
+Limit-blocked topics out of considered & Limit-blocked out; one-sided
+topics out of counted; a null sum stays in considered, not counted \\
+Weights / groups & Hierarchical shares $\times$ kinkiness, once. & Hierarchical
+shares $\times$ kinkiness, pairs; strict majority counting, groups, normalized
+by group maximum & Hierarchical shares $\times$ kinkiness, pairs; strict
+majority counting, groups, normalized by group maximum \\
+\end{longtable}
+}
+
+\subsubsection{Table A2. Outer numbers: Charted and the Match
+Scores}\label{table-a2.-outer-numbers-charted-and-the-match-scores}
+
+Each column here is the outer partner of the same-colour column in Table
+A1: Personal with Charted on the profile tab, Play Kink Factor with Play
+Match Score on the bowtie, Parlay Kink Factor with Parlay Match Score on
+the circledot.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Row
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Charted
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Play Match Score
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Parlay Match Score
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Tab / pair & Profile tab, individual, outer ring & Bowtie, Play pair,
+outer & Circledot, Conversation pair, outer \\
+Status & Provisional (2026-10-30), with open details & Provisional
+(2026-10-30) & Name ruled; definition provisional (2026-10-30) \\
+Register & Whole map coverage, individual & Play & Conversation only,
+not Play \\
+Counted & Attended topics: binary rated (epsilon-thresholded, either
+flank) plus flag sum once, weighted. Charted counts topics, not flanks.
+& Geometric mean over members of normalized (binary fit + table sum) &
+Same shape on the Straight Match, with the Parlay table and considered
+set. Debate topics count in numerator and denominator. \\
+Considered & All 372 topics. Limit-only topics count nothing; the
+denominator stays 372. & Play-considered: considered minus fantasy-scope
+topics (fantasy is out of both numerator and denominator) & Every
+shared, non-limit-blocked topic. No fantasy subtraction --- Fantasy is
+included in the Parlay considered set. \\
+Rating basis & Binary, not a percentage. A topic counts when rated
+(epsilon-thresholded) or flagged; negatives count by absolute value to
+binary. Flag weights sit on top (see Shared contributions below). &
+Cross: give $\times$ receive, normed /100. Binary fit iff
+\textbar term\textbar{} \textgreater{} epsilon. & Straight sums, as in
+Parlay Kink Factor, normed /100. \\
+Limits / one-sided & Limit-only topics count nothing in both rings;
+denominator stays 372. & Limit-blocked topics out of considered &
+Limit-blocked out; one-sided topics have no sum and no band \\
+Weights / groups & Hierarchical shares $\times$ kinkiness. Topics, not flanks.
+& Hierarchical shares $\times$ kinkiness, pairs; strict majority counting,
+groups, normalized by group maximum & Hierarchical shares $\times$ kinkiness,
+pairs; strict majority counting, groups, normalized by group maximum \\
+\end{longtable}
+}
+
+\subsubsection{Shared contributions --- Personal and
+Charted}\label{shared-contributions-personal-and-charted}
+
+Same table, per topic, once, times hierarchical share $\times$ kinkiness.
+Multiple flags on one topic all add, once.
+
+\begin{itemize}
+\tightlist
+\item
+  Tried: +1 for the entry.
+\item
+  Fantasy: +0.5.
+\item
+  Teased: 0. Curious: 0. Both were removed from this table.
+\item
+  Favorite: weight 1, counts with an additive flag.
+\item
+  Into it: adds nothing on its own (it is the rating condition, not an
+  additive flag).
+\item
+  Limit: the -1 entry was removed from the table altogether. Limit-only
+  topics count nothing instead (both rings, denominator 372).
+\end{itemize}
+
+In Personal the rating itself is the maximum flank, signed and
+proportional. In Charted the rating counts binary, epsilon-thresholded,
+with these flag weights on top, as a straight sum of the table entries.
+
+\subsubsection{Parlay table}\label{parlay-table}
+
+Positive entries only, no null or zero entries, no banded topics.
+Favorite 1, Tried 1, Fantasy 1 (full 1). Teased does not enter ---
+absent, not zero. The Play table is, for now, copied from the Charted
+table above; its final form is deferred. {[}Flag: provisional, final
+inclusion tables deferred.{]}
+
+\subsubsection{Key --- banded topics}\label{key-banded-topics}
+
+A banded topic is a shared topic with a straight sum: give $\times$ give +
+receive $\times$ receive, ranging from -20,000 to +20,000. Do not take a max.
+
+\begin{itemize}
+\tightlist
+\item
+  Shop talk: at or above +6,667.
+\item
+  On-the-fence: -6,666 to +6,666.
+\item
+  Debate: at or below -6,667.
+\item
+  A null sum has no band.
+\item
+  Limit-blocked topics go to Limits, not to a band.
+\item
+  One-sided topics have no sum and no band.
+\end{itemize}
+
+\subsubsection{Similarities --- and the differences that
+stay}\label{similarities-and-the-differences-that-stay}
+
+Same in both tables: the row set, the limit exclusion, hierarchical
+shares $\times$ kinkiness, strict majority counting for groups in every pair
+column, normalized by the group maximum, the straight bands shared by
+Parlay Kink Factor and Parlay Match Score as display only, and the tab
+and considered base inside each inner / outer pair.
+
+Different, on purpose: individual versus pair shared topics; flanks
+(Personal) versus topics (Charted); an additive expanse versus a
+counted-over-considered ratio; binary rating (Charted) versus percentage
+rating (Personal).
+
+Inside each inner / outer pair the outer ring covers more territory,
+which is why it sits above the inner, not because of any clamping.
+
+\subsubsection{Appendix notes --- corrections to the source document,
+and what stays
+open}\label{appendix-notes-corrections-to-the-source-document-and-what-stays-open}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{O6 source, corrected.} The source document says the kinkiness
+  source is still open, with effective weight applying ``once the
+  kinkiness source is chosen''. That wording is stale and is NOT carried
+  over. The source list is RULED, seven sources: Joyal et al.~2015,
+  Lehmiller 2018, FetLife, Reddit, community ratings, own survey, and
+  literature priors. The strength model is RULED: anchors at factor 1.0,
+  discounted sources at 0.5, log weight ln(size) $\times$ factor, prior weight
+  0.5 $\times$ ln(5) $\approx$ 0.80, ignore-missing aggregation, Type 1 submissions
+  excluded. What remains open is Reddit counts (pending) and the
+  provisional literature priors. Whether the shipped Popularity List
+  sort key implements the aggregate is unverified.
+\item
+  \textbf{Peer-ground, dropped.} Peer-ground was carried in the
+  2026-10-29 draft as an open question. It is DROPPED in the 2026-10-30
+  provisional definitions and is not a term in this revision. Bands
+  display sections only; none of the four pair numbers refers to banded
+  topics.
+\item
+  \textbf{O5 items, as provisionally ruled 2026-10-30.} Across flanks,
+  the maximum flank governs Personal, not a sum; Charted counts a topic
+  once. Unrated plus marked: base 0, flag still counting, limit-only
+  exclusion overriding; a limit plus another mark is excluded
+  altogether. Red flank with a flag: the rating fraction carries the
+  sign, flag additions stay positive, net can go negative. No clamp on
+  Personal or Charted. Charted per-topic flag sum counts topic flags
+  once per topic, rated binary if either flank is rated, subject to an
+  editor check of flank-level against topic-level behaviour in code,
+  which this paper does not assert. With no recommendation yet: group
+  Charted, where the record is individual only.
+\item
+  \textbf{Names and status, kept as flagged.} Parlay Match Score is the
+  ruled name for the straight outer number, superseding Straight Match
+  Score. Play Kink Factor supersedes Party Kink Factor, which is
+  retired. All six definitions are provisional, 2026-10-30, for
+  consideration, until the review after Saturday; final inclusion tables
+  are deferred. The source document's read-across line claiming Party
+  and Parlay ``match on Register family'' is not carried over verbatim,
+  because Play is Play and Parlay is Conversation only --- the registers
+  differ, and the similarity that does hold is inside each inner / outer
+  pair, as stated above.
+\item
+  \textbf{No hardening by inclusion.} Nothing in this appendix changes
+  the status of any item in \S 4 or in the companion notes. The Oct 28
+  revision and draft 4 remain untouched. The Samhain review text is this
+  same Oct 29 draft by path, so this appendix will be in Saturday's
+  review text without any separate repoint.
+\end{enumerate}
+
+\emph{End of Appendix A, held for the full review sometime after
+Saturday.}
+
+\end{document}

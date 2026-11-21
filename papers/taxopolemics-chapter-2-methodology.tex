@@ -1,0 +1,347 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{TaxoPolemics: A Formal Rhetoric of Disagreement}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Chapter Two — Methodology: Building an Instrument for Disagreement}
+\author{}
+\date{2026-11-21}
+
+\begin{document}
+\maketitle
+
+\emph{Jason Mark Wrinkle (principal investigator and first author);
+Yolanda Biche et al.~(drafting and computation). Working chapter,
+2026-11-21. The method described is the method as actually practised;
+where practice falls short of the stated standard, the shortfall is
+recorded rather than edited out.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{2.1 Research through
+design}\label{research-through-design}
+
+This work proceeds by \textbf{research through design}: the knowledge
+claim is carried by an artefact --- the TaxoPolemics engine and its
+sixteen domain taxonomies (``skins'') --- and by the design knowledge
+extracted from building, breaking, and repairing it. The method is
+appropriate to the question. Whether disagreement can be given a
+measured, navigable form is not a proposition that can be settled in the
+abstract; it is settled, if at all, by an instrument that either
+sustains the form under real use across real domains or collapses under
+it. The corpus of the research is therefore the shipped system: one
+engine, sixteen skins (fifteen live at the time of writing; the
+sixteenth, Nouscapades, committed to the repository 2026-11-21 with its
+wiring deliberately held), roughly a thousand authored topics,
+eighty-eight sample profiles, and a development record of several
+hundred dated builds in which every significant design decision was
+ruled, recorded, and --- frequently --- reversed on evidence.
+
+Three consequences of the method are accepted at the outset. First, the
+artefact is the primary text; this dissertation is its commentary, and
+where the two disagree the artefact governs. Second, design decisions in
+this project are made by \emph{ruling} --- a single investigator
+decides, the decision and its date are recorded, and later evidence may
+supersede it, with the supersession itself recorded rather than silently
+edited away. The methodology thus produces an audit trail of judgement,
+not merely of code. Third, evaluation (\S 2.6) is behavioural: claims
+about the instrument are verified by observing it behave under the
+conditions a real user runs, never by inspecting that the code
+\emph{could} behave so.
+
+\subsubsection{2.2 Taxonomy construction}\label{taxonomy-construction}
+
+Each skin is authored, not generated. The construction procedure,
+settled across the first fifteen skins and applied unchanged to the
+sixteenth, is:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Domain delimitation.} The skin's territory is stated in one
+  sentence and policed. (Precedent: Forescapades covers Abrahamic faith
+  specifically, not ``religion'' in general; Nouscapades is restricted
+  to the questions arising from Michael Levin's research programme in
+  basal cognition, with the wider meaning-of-life canon explicitly
+  excluded on the investigator's ruling, 2026-11-21, on the ground that
+  the descriptive register of the source science would be corrupted by
+  importing normative traditions wholesale.)
+\item
+  \textbf{Category structure.} Topics are grouped into categories (seven
+  to eighteen per skin; subcategories where the domain's own structure
+  supplies them, and only there). Depth is a property of the domain, not
+  a target: the engine historically capped taxonomic depth at three
+  levels, and the cap was lifted (2026-11-20) when the formalism was
+  generalised to arbitrary depth.
+\item
+  \textbf{Topic articulation into poles.} Each topic is expressed as a
+  question the domain genuinely contests, articulated into two to eight
+  poles. Two-flank topics in the founding domain carry the complementary
+  pair \emph{give/receive}; general topics carry two opposed stances (a
+  slider), or three to eight stances (triangles, diamonds, and radial
+  widgets). A topic that cannot be articulated into honest poles is not
+  a topic and is removed.
+\item
+  \textbf{The hovertip standard.} Every topic carries a description in a
+  fixed form: the \emph{issue}, stated neutrally; then one line per
+  pole, each stated as that pole's holders would state it. This is the
+  project's principal fairness instrument, applied to friend and foe
+  positions alike.
+\item
+  \textbf{The neutral umbrella rule.} A topic name that joins two
+  stances (by ampersand or slash) must be a neutral subject term
+  covering both, never one of the joined terms. Names are audited
+  against this rule in batches; violations are renamed.
+\item
+  \textbf{The meter word.} Each skin names what its intensity coordinate
+  measures, in its own register --- \emph{interest} in the founding
+  domain, \emph{stance} in politics, \emph{belief} in faith,
+  \emph{taste} in aesthetics, \emph{conviction} in the philosophy of
+  mind (ruled 2026-11-21), and so on. The word is part of the
+  instrument's honesty: it tells the rater what quantity they are
+  reporting.
+\item
+  \textbf{Archetype samples.} Each skin ships with authored sample
+  profiles --- archetypal occupants of its stance-space, each rating
+  every topic --- which serve simultaneously as calibration fixtures for
+  the comparison mathematics, as worked examples for new users, and as
+  the nearest thing the method has to a validation set: if the engine's
+  archetype projection cannot recover a sample's intended archetype from
+  its own ratings, the mathematics, not the sample, is presumed wrong.
+  (This test caught a real defect: the projection once returned nine
+  archetypes tied at 100\% for the founding domain's principal sample,
+  because the underlying pair score discarded sign; the fix --- an
+  identity-framed, same-flank similarity --- restored a discriminating
+  ranking, afterwards confirmed by the investigator as matching his
+  self-knowledge.)
+\end{enumerate}
+
+\subsubsection{2.3 The measurement model}\label{the-measurement-model}
+
+A \textbf{profile} is a vector over the skin's topics. For a two-flank
+topic it carries two signed values (give, receive), each in {[}-100,
++100{]}; for an n-pole topic it carries n signed leanings; and for every
+topic it carries, as a ruled extension (2026-11-19), an independent
+\textbf{intensity} coordinate --- the (n+1)th number --- signed, where
+the sign denotes aversion to the issue itself rather than leaning within
+it. Marks (hard limit, not interested, fantasy only, already tried)
+attach to topics as flags with defined arithmetic roles.
+
+Two disciplines govern everything computed from profiles:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Direction is never contracted.} Give and receive are
+  complements, never flavours of one quantity; no statistic in the
+  system adds them, averages them, or rolls them up into one another, at
+  any level of any hierarchy. (The companion paper records the single
+  explicit exception --- the Personal Kink Factor's per-topic maximum
+  flank, adopted by ruling and flagged in the text as the sole permitted
+  contraction over direction --- and records two historical violations,
+  since repaired, in the founding domain's heat-map tooltips and
+  aggregators. The discipline is stated as a law precisely because the
+  system kept breaking it in small ways, and each break was a small lie
+  told to a user about themselves.)
+\item
+  \textbf{Receipts.} Every aggregate is a \emph{contraction} of a
+  per-topic table, and the table is always recoverable: any headline
+  number can be un-contracted into the topics that voted, the gates they
+  passed, and the settings in force. Statistics that failed this test in
+  development were treated as defects regardless of their plausibility.
+\end{itemize}
+
+Pair comparison forms the \textbf{tensor product} of two profiles and
+reads it through two pairing kernels --- the crossed kernel (Krossmatch,
+$\bowtie$) and the straight kernel (Straight Match, $\odot$) --- under a system of
+\textbf{gates} (hard limits remove components outright and are never
+outvoted; a route table classifies per-topic outcomes; Heat, a
+per-session threshold state, decides what counts tonight; fantasy-only
+material contracts in the conversation register only; the Veil gates
+what an observer is \emph{shown}, never what counts). The formalism, its
+six provisional scores, and its worked examples are the subject of the
+companion paper and are not re-derived here. What belongs to methodology
+is the status discipline: the six score definitions stand as
+\textbf{provisionally ruled} (2026-10-30) --- adopted for use, flagged
+in every document that states them, and not hardened into claims until a
+scheduled review that the press of other work has repeatedly deferred.
+The dissertation reports them as provisional because that is what they
+are.
+
+\subsubsection{2.4 The map as instrument}\label{the-map-as-instrument}
+
+The profile is \emph{read} as a map: topics drawn as nodes around a
+central avatar, categories as branches, ratings as colour on
+direction-split stems, intensity as brightness. This is not decoration.
+The layout problem --- placing up to several hundred rated topics
+legibly around a centre, minimising spoke crossings --- is solved by an
+annealing optimiser (the solver; on the button, \emph{Anneal}) operating
+under geometric laws stated in centre-avatar radii (branch throw 50
+radii, subcategory segment 20, leaf nodes at three times their label-fit
+width), with a per-phase quality gate (a flat tolerance of 2 crossings)
+as the sole reject criterion. Layout quality is a methodological
+variable, not an aesthetic one: a map whose crossings obscure the stems
+is an instrument misreporting its data, and the project treats
+unreadable layouts with the same seriousness as wrong numbers. The
+solver's parameters, the gate, and the rejected alternatives (two
+earlier ``tidy'' engines, ruled dead 2026-11-04 and not revived) are all
+on the record.
+
+\subsubsection{2.5 The comparison registers and their
+semantics}\label{the-comparison-registers-and-their-semantics}
+
+The crossed register answers: \emph{can these two people do this
+together?} --- on the founding map, Play; on the vanilla maps, Commune.
+The straight register answers: \emph{do these two people hold this in
+common, in the same orientation?} --- Parlay on the founding map,
+Converse on the vanilla maps, shipped between persons as Straight Talk.
+The semantics are ruled, and one finding of the work is a
+\emph{negative} result about them: for multi-pole topics, a code trace
+(2026-11-19) established that the two registers have, in the current
+implementation, \textbf{collapsed into one} --- the straight reading of
+a pole topic substitutes the crossed numbers identically, pole topics
+appear in neither register's match lists, and in group comparisons of
+three or more their depth entries compute to zero. The investigator's
+tentative distinction (crossed = communion; straight = an interesting
+conversation) stands recorded as tentative. The dissertation claims the
+\emph{distinction} as a contribution and the \emph{collapse} as an open
+defect; conflating the two would be exactly the kind of overclaim the
+receipts discipline exists to prevent.
+
+\subsubsection{2.6 Evaluation}\label{evaluation}
+
+The instrument is evaluated by four means, in descending order of the
+weight the project gives them:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Behavioural verification.} Every claimed behaviour must be
+  observed operating in the rendered interface, in a fresh profile,
+  under the state a real user runs. Code inspection certifies mechanism,
+  never behaviour; this rule was adopted after a defect class (a map
+  shipped in a frozen state) passed an entire audit fleet whose checks
+  were static. Automated fleets --- browser-driven test squads run
+  against the packaged build, each load tagged so its traffic is
+  excluded from the public counters --- extend the same principle: they
+  report what the viewport did, not what the code says.
+\item
+  \textbf{Calibration fixtures.} The eighty-eight archetype samples
+  (\S 2.2, step 7) function as a regression suite for meaning: known
+  inputs, known intended outputs, run after every change to the
+  comparison mathematics.
+\item
+  \textbf{Case replication across domains.} The strongest structural
+  evidence the project offers is that one engine, unchanged in its
+  mathematics, sustains sixteen independently authored taxonomies across
+  domains as unlike as sexuality, chemistry, and consciousness --- and
+  that domain-specific failures (a widget wrong for a one-door topic; a
+  radar misplaced under the wrong subcategory) were detectable \emph{as}
+  failures because the framework made their wrongness visible.
+\item
+  \textbf{Adoption signals.} Anonymous, always-on counters (a persistent
+  random identifier per browser, the skin in use, gate passage and
+  session events; survey \emph{content}, by contrast, is collected on an
+  opt-out basis, and the distinction is stated in the privacy policy)
+  give the work its only population-scale evidence to date: 262 unique
+  visitors and 193 gate passages recorded by 2026-11-21. These numbers
+  are reported here at their true weight --- evidence that strangers
+  arrive and proceed, not evidence that the instrument improves their
+  arguments. No controlled study of deliberative outcomes has been run;
+  Chapter Three addresses the point directly.
+\end{enumerate}
+
+\subsubsection{2.7 Ethics and consent
+architecture}\label{ethics-and-consent-architecture}
+
+The founding domain made consent a design constraint before it was a
+research-ethics heading, and the architecture generalises. A profile is
+sovereign: its owner's hard limits remove material from every
+computation and cannot be overridden by any majority in group readings.
+The Veil ensures that what a person is \emph{shown} of another's map is
+itself governed. Sync cards --- printed artefacts carrying a compressed
+profile in QR codes, including a deliberately truncated biographical
+field (975 characters) and terms of engagement (325) --- embody the same
+principle physically: a person hands over exactly the profile they
+chose, in a form that cannot be silently expanded. The investigator's
+own profile, and his partner's, are the founding samples; the
+dissertation follows the project's rule that no real person's ratings
+are published as data beyond what they themselves placed in the sample
+set.
+
+\subsubsection{2.8 Limitations of the
+method}\label{limitations-of-the-method}
+
+Stated plainly, because Chapter Three will be asked: the taxonomies are
+single-author instruments, and their pole articulations encode one
+investigator's judgement of where the honest disagreements lie --- the
+hovertip standard disciplines the \emph{statement} of positions but
+cannot neutralise the \emph{selection} of topics. The scoring
+definitions are provisional. The sample corpus is authored, not drawn.
+The audience is, at the time of writing, one paying member and some
+hundreds of visitors. And the development method --- a single
+investigator ruling by recorded fiat, assisted by AI collaborators whose
+contributions are credited in the artefact's own About text ---
+concentrates both the coherence and the blind spots of the work in one
+place. The methodology does not hide these facts; it is, in large part,
+a machine for making them visible.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\emph{Next: Chapter Three --- The Defense: anticipated objections and
+responses.}
+
+\end{document}
