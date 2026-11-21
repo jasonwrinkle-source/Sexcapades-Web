@@ -2,7 +2,7 @@
   "skin": "praxicapades",
   "meter": "practice",
   "name": "Praxicapades",
-  "about": "Praxicapades is an interactive hypermap for rating and visualizing how you model the world — what you compute, what you trust, and how you know a model is good — and comparing your practice with another person's, method by method, on the same picture. Build a personal profile, see where your methods meet and where they part, use Scribe to write the model you'd build, and Scene Setter to plan the review that tests it — all in the same shared vocabulary.",
+  "about": "Praxicapades is an interactive hypermap for rating and visualizing how you model the world \u2014 what you compute, what you trust, and how you know a model is good \u2014 and comparing your practice with another person's, method by method, on the same picture. Build a personal profile, see where your methods meet and where they part, use Scribe to write the model you'd build, and Scene Setter to plan the review that tests it \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,18 +116,16 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Applied Mathematics — how you model the world, how you compute, and what you value in applied work",
+  "domain": "Applied Mathematics \u2014 how you model the world, how you compute, and what you value in applied work",
   "categories": [
     {
       "id": "xprc01",
       "name": "The Art of Modeling",
-      "about": "How you build models of the world — what you prioritize, and whether the world is predictable, continuous, linear, and derivable from first principles.",
+      "about": "How you build models of the world \u2014 what you prioritize, and whether the world is predictable, continuous, linear, and derivable from first principles.",
       "topics": [
         {
           "id": "xpr0001",
           "name": "Levins' Grand Model Trilemma",
-          "poleReading": "trilemma",
-          "poleEnemies": [["generality", "realism"], ["generality", "precision"], ["realism", "precision"]],
           "risk": false,
           "poles": [
             {
@@ -163,7 +161,7 @@
             ]
           },
           "question": "Which vertex of the modeling trilemma do you prioritize when building a model?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.1 — Richard Levins' canonical 1966 trilemma (briefing carries no per-topic Source line for this topic).",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 1.1 \u2014 Richard Levins' canonical 1966 trilemma (briefing carries no per-topic Source line for this topic).",
           "communities": [
             {
               "network": "Reddit",
@@ -192,12 +190,16 @@
               "label": "Deterministic"
             },
             {
+              "key": "laws-with-noise",
+              "label": "Laws with noise"
+            },
+            {
               "key": "stochastic",
               "label": "Stochastic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is the world predictable or random?",
             "poles": [
@@ -206,13 +208,17 @@
                 "text": "Given the inputs, the outputs follow."
               },
               {
+                "label": "Laws with noise",
+                "text": "Deterministic structure, stochastic detail."
+              },
+              {
                 "label": "Stochastic",
                 "text": "You model distributions, not certainties."
               }
             ]
           },
           "question": "Is the world predictable or random?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.2.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 1.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -241,12 +247,16 @@
               "label": "Continuous"
             },
             {
+              "key": "hybrid-models",
+              "label": "Hybrid models"
+            },
+            {
               "key": "discrete",
               "label": "Discrete"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you model with continuous flows or discrete systems?",
             "poles": [
@@ -255,13 +265,17 @@
                 "text": "Differential equations, flows, fields."
               },
               {
+                "label": "Hybrid models",
+                "text": "Continuous where the world flows, discrete where it jumps."
+              },
+              {
                 "label": "Discrete",
                 "text": "Difference equations, networks, agents."
               }
             ]
           },
           "question": "Do you model with continuous flows or discrete systems?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.3.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 1.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -290,12 +304,16 @@
               "label": "Deductive First Principles"
             },
             {
+              "key": "physics-informed-hybrid",
+              "label": "Physics-Informed Hybrid"
+            },
+            {
               "key": "inductive-data-driven-surrogates",
               "label": "Inductive Data-Driven Surrogates"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Should models be derived from conservation laws or learned from data?",
             "poles": [
@@ -304,13 +322,17 @@
                 "text": "Conservation laws; white-box equations."
               },
               {
+                "label": "Physics-Informed Hybrid",
+                "text": "First principles with learned components \u2014 physics-informed machine learning."
+              },
+              {
                 "label": "Inductive Data-Driven Surrogates",
                 "text": "Neural networks, empirical fits; black-box."
               }
             ]
           },
           "question": "Should models be derived from conservation laws or learned from data?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.4.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 1.4.",
           "communities": [
             {
               "network": "Reddit",
@@ -339,12 +361,16 @@
               "label": "Linear Approximations"
             },
             {
+              "key": "linearize-then-check",
+              "label": "Linearize, then check"
+            },
+            {
               "key": "nonlinear-reality",
               "label": "Nonlinear Reality"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you trust linear approximations or insist on full nonlinear dynamics?",
             "poles": [
@@ -353,13 +379,17 @@
                 "text": "Superposition, eigenvalue spectra, closed-form perturbation."
               },
               {
+                "label": "Linearize, then check",
+                "text": "Linear approximations, checked against the nonlinear reality."
+              },
+              {
                 "label": "Nonlinear Reality",
                 "text": "Bifurcations, strange attractors, solitons, chaos."
               }
             ]
           },
           "question": "Do you trust linear approximations or insist on full nonlinear dynamics?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 1.5.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 1.5.",
           "communities": [
             {
               "network": "Reddit",
@@ -383,13 +413,11 @@
     {
       "id": "xprc02",
       "name": "Computation & Method",
-      "about": "How you compute — which architecture, exact or approximate, simulation or theory, optimum or good-enough.",
+      "about": "How you compute \u2014 which architecture, exact or approximate, simulation or theory, optimum or good-enough.",
       "topics": [
         {
           "id": "xpr0006",
           "name": "The Computational Architecture Quartet",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -433,7 +461,7 @@
             ]
           },
           "question": "Which computational architecture is your native weapon?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.1.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 2.1.",
           "communities": [
             {
               "network": "Reddit",
@@ -462,12 +490,16 @@
               "label": "Analytic"
             },
             {
+              "key": "analytic-where-possible",
+              "label": "Analytic where possible"
+            },
+            {
               "key": "numerical",
               "label": "Numerical"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you solve exactly or approximate?",
             "poles": [
@@ -476,13 +508,17 @@
                 "text": "Solve exactly; closed form, pen and paper."
               },
               {
+                "label": "Analytic where possible",
+                "text": "Closed forms where they exist; numerics for the rest."
+              },
+              {
                 "label": "Numerical",
                 "text": "Approximate; algorithms, computers, floating point."
               }
             ]
           },
           "question": "Do you solve exactly or approximate?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.2.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 2.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -506,12 +542,16 @@
               "label": "Simulation"
             },
             {
+              "key": "each-arbitrates-the-other",
+              "label": "Each arbitrates the other"
+            },
+            {
               "key": "theory",
               "label": "Theory"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you trust simulations or theory?",
             "poles": [
@@ -520,13 +560,17 @@
                 "text": "Run it and see; computational experiments."
               },
               {
+                "label": "Each arbitrates the other",
+                "text": "Simulation arbitrated by theory; theory tested by simulation."
+              },
+              {
                 "label": "Theory",
                 "text": "Prove it; the math tells you what happens."
               }
             ]
           },
           "question": "Do you trust simulations or theory?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.3.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 2.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -550,12 +594,16 @@
               "label": "Exact"
             },
             {
+              "key": "heuristic-verified",
+              "label": "Heuristic, verified"
+            },
+            {
               "key": "heuristic",
               "label": "Heuristic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you find the optimum or a good-enough answer?",
             "poles": [
@@ -564,13 +612,17 @@
                 "text": "The true optimum; global, guaranteed."
               },
               {
+                "label": "Heuristic, verified",
+                "text": "Heuristic search with exact checks where they matter."
+              },
+              {
                 "label": "Heuristic",
                 "text": "Good-enough; fast, practical, approximate."
               }
             ]
           },
           "question": "Do you find the optimum or a good-enough answer?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 2.4.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 2.4.",
           "communities": [
             {
               "network": "Reddit",
@@ -594,8 +646,6 @@
         {
           "id": "xpr0010",
           "name": "The Applied Domain Star",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -647,7 +697,7 @@
             ]
           },
           "question": "Which domain calls for your mathematical application?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 3.1.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 3.1.",
           "communities": [
             {
               "network": "Reddit",
@@ -671,18 +721,26 @@
               "label": "Pure"
             },
             {
+              "key": "use-inspired",
+              "label": "Use-inspired"
+            },
+            {
               "key": "applied",
               "label": "Applied"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
-            "issue": "The skin-defining divide — where do you stand, from the applied side?",
+            "issue": "The skin-defining divide \u2014 where do you stand, from the applied side?",
             "poles": [
               {
                 "label": "Pure",
                 "text": "Math for its own sake."
+              },
+              {
+                "label": "Use-inspired",
+                "text": "Pure questions chosen for what they unlock."
               },
               {
                 "label": "Applied",
@@ -690,8 +748,8 @@
               }
             ]
           },
-          "question": "The skin-defining divide — where do you stand, from the applied side?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 3.2.",
+          "question": "The skin-defining divide \u2014 where do you stand, from the applied side?",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 3.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -720,12 +778,16 @@
               "label": "Interdisciplinary"
             },
             {
+              "key": "t-shaped",
+              "label": "T-shaped"
+            },
+            {
               "key": "domain-specific",
               "label": "Domain-Specific"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you work across fields or deep in one?",
             "poles": [
@@ -734,13 +796,17 @@
                 "text": "Borrow methods, cross boundaries."
               },
               {
+                "label": "T-shaped",
+                "text": "Depth in one field, working fluency in the ones it touches."
+              },
+              {
                 "label": "Domain-Specific",
                 "text": "Deep in one field; master its methods and literature."
               }
             ]
           },
           "question": "Do you work across fields or deep in one?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 3.3.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 3.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -764,8 +830,6 @@
         {
           "id": "xpr0013",
           "name": "The Epistemic Uncertainty Quartet",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -809,7 +873,7 @@
             ]
           },
           "question": "What is the primary source of uncertainty in your models?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.1.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 4.1.",
           "communities": [
             {
               "network": "Reddit",
@@ -831,8 +895,6 @@
         {
           "id": "xpr0014",
           "name": "The Inverse Problem",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -868,7 +930,7 @@
             ]
           },
           "question": "Where does your work live on the simulation-inversion spectrum?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.2.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 4.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -892,12 +954,16 @@
               "label": "Bayesian Updating"
             },
             {
+              "key": "both-toolkits",
+              "label": "Both toolkits"
+            },
+            {
               "key": "frequentist-objective-likelihood",
               "label": "Frequentist / Objective Likelihood"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How do you formulate probabilities in your models?",
             "poles": [
@@ -906,13 +972,17 @@
                 "text": "Priors, posteriors, MCMC; quantifying subjective confidence."
               },
               {
+                "label": "Both toolkits",
+                "text": "Bayesian and frequentist methods, chosen per problem."
+              },
+              {
                 "label": "Frequentist / Objective Likelihood",
                 "text": "Confidence intervals, hypothesis testing, objective frequencies."
               }
             ]
           },
           "question": "How do you formulate probabilities in your models?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.3.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 4.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -936,12 +1006,16 @@
               "label": "Big Data"
             },
             {
+              "key": "right-sized-data",
+              "label": "Right-sized data"
+            },
+            {
               "key": "small-data",
               "label": "Small Data"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "More data or better models?",
             "poles": [
@@ -950,13 +1024,17 @@
                 "text": "More data; let the data speak; machine learning, scale."
               },
               {
+                "label": "Right-sized data",
+                "text": "As much data as the model can honestly use."
+              },
+              {
                 "label": "Small Data",
                 "text": "Better models; careful design; insight over volume."
               }
             ]
           },
           "question": "More data or better models?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 4.4.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 4.4.",
           "communities": [
             {
               "network": "Reddit",
@@ -987,12 +1065,16 @@
               "label": "Pure Rigor (Analysis of PDEs)"
             },
             {
+              "key": "rigorous-enough-to-trust",
+              "label": "Rigorous enough to trust"
+            },
+            {
               "key": "pragmatic-engineering-utility",
               "label": "Pragmatic Engineering Utility"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Does applied math require rigorous proofs or working solutions?",
             "poles": [
@@ -1001,13 +1083,17 @@
                 "text": "Sobolev spaces, existence, uniqueness, well-posedness."
               },
               {
+                "label": "Rigorous enough to trust",
+                "text": "As much rigor as the decision riding on it requires."
+              },
+              {
                 "label": "Pragmatic Engineering Utility",
                 "text": "If the plane flies and the bridge stands, the model is valid."
               }
             ]
           },
           "question": "Does applied math require rigorous mathematical proofs or working solutions?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.1.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 5.1.",
           "communities": [
             {
               "network": "Reddit",
@@ -1036,12 +1122,16 @@
               "label": "Elegance"
             },
             {
+              "key": "elegant-because-effective",
+              "label": "Elegant because effective"
+            },
+            {
               "key": "effectiveness",
               "label": "Effectiveness"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you value a beautiful model or an effective one?",
             "poles": [
@@ -1050,13 +1140,17 @@
                 "text": "A beautiful model; clean, spare, insightful."
               },
               {
+                "label": "Elegant because effective",
+                "text": "Elegance valued where it produces effectiveness."
+              },
+              {
                 "label": "Effectiveness",
                 "text": "An effective model; it predicts, it controls, it delivers."
               }
             ]
           },
           "question": "Do you value a beautiful model or an effective one?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.2.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 5.2.",
           "communities": [
             {
               "network": "Reddit",
@@ -1085,12 +1179,16 @@
               "label": "General"
             },
             {
+              "key": "general-method-bespoke-fit",
+              "label": "General method, bespoke fit"
+            },
+            {
               "key": "specific",
               "label": "Specific"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you build general theories or problem-specific solutions?",
             "poles": [
@@ -1099,13 +1197,17 @@
                 "text": "A theory covering many problems; reusable, abstract."
               },
               {
+                "label": "General method, bespoke fit",
+                "text": "General machinery, fitted to the specific case."
+              },
+              {
                 "label": "Specific",
                 "text": "A solution tailored to one problem; bespoke, concrete."
               }
             ]
           },
           "question": "Do you build general theories or problem-specific solutions?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.3.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 5.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -1129,12 +1231,16 @@
               "label": "Occam's Minimalist Toy Model"
             },
             {
+              "key": "as-complex-as-needed",
+              "label": "As complex as needed"
+            },
+            {
               "key": "multi-physics-high-fidelity-ensemble",
               "label": "Multi-Physics High-Fidelity Ensemble"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you prefer illuminating toy models or high-fidelity simulation ensembles?",
             "poles": [
@@ -1143,13 +1249,17 @@
                 "text": "A 2-variable ODE revealing the essential mechanism."
               },
               {
+                "label": "As complex as needed",
+                "text": "The simplest model that still captures the phenomenon."
+              },
+              {
                 "label": "Multi-Physics High-Fidelity Ensemble",
                 "text": "A 50-million variable coupled simulation."
               }
             ]
           },
           "question": "Do you prefer illuminating toy models or high-fidelity simulation ensembles?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.4.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 5.4.",
           "communities": [
             {
               "network": "Reddit",
@@ -1178,12 +1288,16 @@
               "label": "Mechanistic Understanding"
             },
             {
+              "key": "understanding-through-prediction",
+              "label": "Understanding through prediction"
+            },
+            {
               "key": "predictive-supremacy",
               "label": "Predictive Supremacy"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you model to understand mechanisms or to forecast outcomes?",
             "poles": [
@@ -1192,13 +1306,17 @@
                 "text": "Explain why; uncover causality and feedback loops."
               },
               {
+                "label": "Understanding through prediction",
+                "text": "Forecast well enough and the mechanism has to show itself."
+              },
+              {
                 "label": "Predictive Supremacy",
                 "text": "Forecast what happens next; minimize error."
               }
             ]
           },
           "question": "Do you model to understand mechanisms or to forecast outcomes?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 5.5.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 5.5.",
           "communities": [
             {
               "network": "Reddit",
@@ -1217,7 +1335,7 @@
     {
       "id": "xprc06",
       "name": "The Applied Life",
-      "about": "Where you deploy applied mathematics, and how you work — with whom, in what language, for impact or publication.",
+      "about": "Where you deploy applied mathematics, and how you work \u2014 with whom, in what language, for impact or publication.",
       "topics": [
         {
           "id": "xpr0022",
@@ -1229,12 +1347,16 @@
               "label": "Industry, National Labs & Tech Giants"
             },
             {
+              "key": "between-lab-and-campus",
+              "label": "Between lab and campus"
+            },
+            {
               "key": "university-academia",
               "label": "University Academia"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Where do you deploy your applied mathematics?",
             "poles": [
@@ -1243,13 +1365,17 @@
                 "text": "Massive compute, real deadlines, concrete impact."
               },
               {
+                "label": "Between lab and campus",
+                "text": "A career straddling industry labs and the university."
+              },
+              {
                 "label": "University Academia",
                 "text": "Curiosity-driven research, teaching, open publishing."
               }
             ]
           },
           "question": "Where do you deploy your applied mathematics?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.1."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 6.1."
         },
         {
           "id": "xpr0023",
@@ -1261,12 +1387,16 @@
               "label": "Collaboration"
             },
             {
+              "key": "solo-stretches-in-a-team",
+              "label": "Solo stretches in a team"
+            },
+            {
               "key": "solitude",
               "label": "Solitude"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you work with domain experts or alone?",
             "poles": [
@@ -1275,13 +1405,17 @@
                 "text": "Work with domain experts; the team solves it."
               },
               {
+                "label": "Solo stretches in a team",
+                "text": "Collaborative work with protected solo stretches."
+              },
+              {
                 "label": "Solitude",
                 "text": "Work alone; the math is yours."
               }
             ]
           },
           "question": "Do you work with domain experts or alone?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.2."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 6.2."
         },
         {
           "id": "xpr0024",
@@ -1293,12 +1427,16 @@
               "label": "High-Performance Systems Craft"
             },
             {
+              "key": "prototype-then-port",
+              "label": "Prototype, then port"
+            },
+            {
               "key": "rapid-high-level-prototyping",
               "label": "Rapid High-Level Prototyping"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How do you write your numerical code?",
             "poles": [
@@ -1307,13 +1445,17 @@
                 "text": "C++, Fortran, CUDA, MPI clusters."
               },
               {
+                "label": "Prototype, then port",
+                "text": "Prototype fast; port the hot paths to high-performance code."
+              },
+              {
                 "label": "Rapid High-Level Prototyping",
                 "text": "Python, Julia, MATLAB, Jupyter notebooks."
               }
             ]
           },
           "question": "How do you write your numerical code?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.3.",
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 6.3.",
           "communities": [
             {
               "network": "Reddit",
@@ -1337,12 +1479,16 @@
               "label": "The Interdisciplinary Bridge"
             },
             {
+              "key": "bridge-from-the-core",
+              "label": "Bridge from the core"
+            },
+            {
               "key": "methodological-core",
               "label": "Methodological Core"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Are you an interdisciplinary bridge or a pure algorithm specialist?",
             "poles": [
@@ -1351,13 +1497,17 @@
                 "text": "Immersed in a domain; translating questions into math."
               },
               {
+                "label": "Bridge from the core",
+                "text": "A methodological core that reaches across fields."
+              },
+              {
                 "label": "Methodological Core",
                 "text": "Inventing general algorithms and solvers for others to apply."
               }
             ]
           },
           "question": "Are you an interdisciplinary bridge or a pure algorithm specialist?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.4."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 6.4."
         },
         {
           "id": "xpr0026",
@@ -1389,7 +1539,7 @@
             ]
           },
           "question": "Do you value real-world impact or academic publication?",
-          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md §2, topic 6.5."
+          "source": "BRIEFING_PRAXICAPADES_TAXONOMY.md \u00a72, topic 6.5."
         }
       ]
     }
@@ -3342,7 +3492,7 @@
       "about": "Treats probability as a degree of belief and updates it with evidence using Bayes' theorem: start with a prior, fold in new data, and get a posterior. The stance is that all inference is belief revision, and uncertainty should be stated as a probability.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Bayes' Theorem",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Bayes' Theorem",
           "url": "https://plato.stanford.edu/entries/bayes-theorem/"
         }
       ],
@@ -3361,19 +3511,23 @@
           },
           "xpr0002": {
             "deterministic": -40,
-            "stochastic": 80
+            "stochastic": 80,
+            "laws-with-noise": -20
           },
           "xpr0003": {
             "continuous": 50,
-            "discrete": 30
+            "discrete": 30,
+            "hybrid-models": 80
           },
           "xpr0004": {
             "deductive-first-principles": 20,
-            "inductive-data-driven-surrogates": 70
+            "inductive-data-driven-surrogates": 70,
+            "physics-informed-hybrid": 50
           },
           "xpr0005": {
             "linear-approximations": 30,
-            "nonlinear-reality": 50
+            "nonlinear-reality": 50,
+            "linearize-then-check": 80
           },
           "xpr0006": {
             "grid-mesh-pde-solvers": 20,
@@ -3383,15 +3537,18 @@
           },
           "xpr0007": {
             "analytic": 30,
-            "numerical": 70
+            "numerical": 70,
+            "analytic-where-possible": 60
           },
           "xpr0008": {
             "simulation": 60,
-            "theory": 40
+            "theory": 40,
+            "each-arbitrates-the-other": 80
           },
           "xpr0009": {
             "exact": -20,
-            "heuristic": 60
+            "heuristic": 60,
+            "heuristic-verified": 20
           },
           "xpr0010": {
             "physical-continua-geophysical-fluids": 30,
@@ -3402,11 +3559,13 @@
           },
           "xpr0011": {
             "pure": -20,
-            "applied": 60
+            "applied": 60,
+            "use-inspired": 20
           },
           "xpr0012": {
             "interdisciplinary": 70,
-            "domain-specific": 20
+            "domain-specific": 20,
+            "t-shaped": 50
           },
           "xpr0013": {
             "aleatoric-uncertainty": 70,
@@ -3421,35 +3580,43 @@
           },
           "xpr0015": {
             "bayesian-updating": 95,
-            "frequentist-objective-likelihood": -85
+            "frequentist-objective-likelihood": -85,
+            "both-toolkits": -80
           },
           "xpr0016": {
             "big-data": 60,
-            "small-data": 30
+            "small-data": 30,
+            "right-sized-data": 70
           },
           "xpr0017": {
             "pure-rigor-analysis-of-pdes": -20,
-            "pragmatic-engineering-utility": 60
+            "pragmatic-engineering-utility": 60,
+            "rigorous-enough-to-trust": 20
           },
           "xpr0018": {
             "elegance": 40,
-            "effectiveness": 70
+            "effectiveness": 70,
+            "elegant-because-effective": 70
           },
           "xpr0019": {
             "general": 70,
-            "specific": 30
+            "specific": 30,
+            "general-method-bespoke-fit": 60
           },
           "xpr0020": {
             "occam-s-minimalist-toy-model": 50,
-            "multi-physics-high-fidelity-ensemble": 40
+            "multi-physics-high-fidelity-ensemble": 40,
+            "as-complex-as-needed": 90
           },
           "xpr0021": {
             "mechanistic-understanding": 50,
-            "predictive-supremacy": 70
+            "predictive-supremacy": 70,
+            "understanding-through-prediction": 80
           },
           "xpr0022": {
             "industry-national-labs-tech-giants": 30,
-            "university-academia": 60
+            "university-academia": 60,
+            "between-lab-and-campus": 70
           },
           "xpr0026": {
             "impact": 60,
@@ -3464,7 +3631,7 @@
       "about": "Treats probability as the long-run frequency of an outcome if an experiment were repeated many times. Inference runs on significance tests, p-values, and confidence intervals, with no prior beliefs in the calculation.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Interpretations of Probability",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Interpretations of Probability",
           "url": "https://plato.stanford.edu/entries/probability-interpret/"
         }
       ],
@@ -3483,19 +3650,23 @@
           },
           "xpr0002": {
             "deterministic": 40,
-            "stochastic": 60
+            "stochastic": 60,
+            "laws-with-noise": 80
           },
           "xpr0003": {
             "continuous": 60,
-            "discrete": 20
+            "discrete": 20,
+            "hybrid-models": 60
           },
           "xpr0004": {
             "deductive-first-principles": 60,
-            "inductive-data-driven-surrogates": 20
+            "inductive-data-driven-surrogates": 20,
+            "physics-informed-hybrid": 60
           },
           "xpr0005": {
             "linear-approximations": 50,
-            "nonlinear-reality": 40
+            "nonlinear-reality": 40,
+            "linearize-then-check": 90
           },
           "xpr0006": {
             "grid-mesh-pde-solvers": 60,
@@ -3505,15 +3676,18 @@
           },
           "xpr0007": {
             "analytic": 70,
-            "numerical": 40
+            "numerical": 40,
+            "analytic-where-possible": 70
           },
           "xpr0008": {
             "simulation": 30,
-            "theory": 70
+            "theory": 70,
+            "each-arbitrates-the-other": 60
           },
           "xpr0009": {
             "exact": 70,
-            "heuristic": 10
+            "heuristic": 10,
+            "heuristic-verified": 40
           },
           "xpr0010": {
             "physical-continua-geophysical-fluids": 60,
@@ -3524,11 +3698,13 @@
           },
           "xpr0011": {
             "pure": 40,
-            "applied": 40
+            "applied": 40,
+            "use-inspired": 100
           },
           "xpr0012": {
             "interdisciplinary": 30,
-            "domain-specific": 60
+            "domain-specific": 60,
+            "t-shaped": 70
           },
           "xpr0013": {
             "aleatoric-uncertainty": 80,
@@ -3543,35 +3719,43 @@
           },
           "xpr0015": {
             "bayesian-updating": -85,
-            "frequentist-objective-likelihood": 95
+            "frequentist-objective-likelihood": 95,
+            "both-toolkits": -80
           },
           "xpr0016": {
             "big-data": 50,
-            "small-data": 40
+            "small-data": 40,
+            "right-sized-data": 90
           },
           "xpr0017": {
             "pure-rigor-analysis-of-pdes": 70,
-            "pragmatic-engineering-utility": 20
+            "pragmatic-engineering-utility": 20,
+            "rigorous-enough-to-trust": 50
           },
           "xpr0018": {
             "elegance": 50,
-            "effectiveness": 50
+            "effectiveness": 50,
+            "elegant-because-effective": 100
           },
           "xpr0019": {
             "general": 60,
-            "specific": 40
+            "specific": 40,
+            "general-method-bespoke-fit": 80
           },
           "xpr0020": {
             "occam-s-minimalist-toy-model": 70,
-            "multi-physics-high-fidelity-ensemble": 20
+            "multi-physics-high-fidelity-ensemble": 20,
+            "as-complex-as-needed": 50
           },
           "xpr0021": {
             "mechanistic-understanding": 60,
-            "predictive-supremacy": 50
+            "predictive-supremacy": 50,
+            "understanding-through-prediction": 90
           },
           "xpr0022": {
             "industry-national-labs-tech-giants": 20,
-            "university-academia": 70
+            "university-academia": 70,
+            "between-lab-and-campus": 50
           },
           "xpr0026": {
             "impact": 40,
@@ -3600,19 +3784,23 @@
           },
           "xpr0002": {
             "deterministic": 70,
-            "stochastic": -20
+            "stochastic": -20,
+            "laws-with-noise": 10
           },
           "xpr0003": {
             "continuous": 80,
-            "discrete": -30
+            "discrete": -30,
+            "hybrid-models": -10
           },
           "xpr0004": {
             "deductive-first-principles": 95,
-            "inductive-data-driven-surrogates": -80
+            "inductive-data-driven-surrogates": -80,
+            "physics-informed-hybrid": -75
           },
           "xpr0005": {
             "linear-approximations": 20,
-            "nonlinear-reality": 80
+            "nonlinear-reality": 80,
+            "linearize-then-check": 40
           },
           "xpr0006": {
             "grid-mesh-pde-solvers": 80,
@@ -3622,15 +3810,18 @@
           },
           "xpr0007": {
             "analytic": 85,
-            "numerical": 20
+            "numerical": 20,
+            "analytic-where-possible": 35
           },
           "xpr0008": {
             "simulation": -40,
-            "theory": 90
+            "theory": 90,
+            "each-arbitrates-the-other": -30
           },
           "xpr0009": {
             "exact": 80,
-            "heuristic": -40
+            "heuristic": -40,
+            "heuristic-verified": -20
           },
           "xpr0010": {
             "physical-continua-geophysical-fluids": 80,
@@ -3641,11 +3832,13 @@
           },
           "xpr0011": {
             "pure": 70,
-            "applied": -10
+            "applied": -10,
+            "use-inspired": 20
           },
           "xpr0012": {
             "interdisciplinary": 20,
-            "domain-specific": 70
+            "domain-specific": 70,
+            "t-shaped": 50
           },
           "xpr0013": {
             "aleatoric-uncertainty": 30,
@@ -3660,35 +3853,43 @@
           },
           "xpr0015": {
             "bayesian-updating": 20,
-            "frequentist-objective-likelihood": 40
+            "frequentist-objective-likelihood": 40,
+            "both-toolkits": 80
           },
           "xpr0016": {
             "big-data": -40,
-            "small-data": 70
+            "small-data": 70,
+            "right-sized-data": -10
           },
           "xpr0017": {
             "pure-rigor-analysis-of-pdes": 90,
-            "pragmatic-engineering-utility": -50
+            "pragmatic-engineering-utility": -50,
+            "rigorous-enough-to-trust": -40
           },
           "xpr0018": {
             "elegance": 85,
-            "effectiveness": 20
+            "effectiveness": 20,
+            "elegant-because-effective": 35
           },
           "xpr0019": {
             "general": 85,
-            "specific": 10
+            "specific": 10,
+            "general-method-bespoke-fit": 25
           },
           "xpr0020": {
             "occam-s-minimalist-toy-model": 85,
-            "multi-physics-high-fidelity-ensemble": -50
+            "multi-physics-high-fidelity-ensemble": -50,
+            "as-complex-as-needed": -35
           },
           "xpr0021": {
             "mechanistic-understanding": 95,
-            "predictive-supremacy": -30
+            "predictive-supremacy": -30,
+            "understanding-through-prediction": -25
           },
           "xpr0022": {
             "industry-national-labs-tech-giants": -40,
-            "university-academia": 85
+            "university-academia": 85,
+            "between-lab-and-campus": -25
           },
           "xpr0026": {
             "impact": 10,
@@ -3703,7 +3904,7 @@
       "about": "Builds understanding through computation first: simulate the system, watch it behave, and let the numbers guide theory and experiment. For systems too complex or costly to solve on paper or in the lab, the simulation is the primary instrument.",
       "links": [
         {
-          "label": "Nature — Computational Science",
+          "label": "Nature \u2014 Computational Science",
           "url": "https://www.nature.com/subjects/computational-science"
         }
       ],
@@ -3722,19 +3923,23 @@
           },
           "xpr0002": {
             "deterministic": 20,
-            "stochastic": 60
+            "stochastic": 60,
+            "laws-with-noise": 60
           },
           "xpr0003": {
             "continuous": 40,
-            "discrete": 60
+            "discrete": 60,
+            "hybrid-models": 80
           },
           "xpr0004": {
             "deductive-first-principles": 10,
-            "inductive-data-driven-surrogates": 80
+            "inductive-data-driven-surrogates": 80,
+            "physics-informed-hybrid": 30
           },
           "xpr0005": {
             "linear-approximations": -30,
-            "nonlinear-reality": 80
+            "nonlinear-reality": 80,
+            "linearize-then-check": -10
           },
           "xpr0006": {
             "grid-mesh-pde-solvers": 60,
@@ -3744,15 +3949,18 @@
           },
           "xpr0007": {
             "analytic": -30,
-            "numerical": 90
+            "numerical": 90,
+            "analytic-where-possible": -20
           },
           "xpr0008": {
             "simulation": 90,
-            "theory": -30
+            "theory": -30,
+            "each-arbitrates-the-other": -20
           },
           "xpr0009": {
             "exact": -10,
-            "heuristic": 70
+            "heuristic": 70,
+            "heuristic-verified": 20
           },
           "xpr0010": {
             "physical-continua-geophysical-fluids": 70,
@@ -3763,11 +3971,13 @@
           },
           "xpr0011": {
             "pure": -40,
-            "applied": 80
+            "applied": 80,
+            "use-inspired": -20
           },
           "xpr0012": {
             "interdisciplinary": 70,
-            "domain-specific": 30
+            "domain-specific": 30,
+            "t-shaped": 60
           },
           "xpr0013": {
             "aleatoric-uncertainty": 50,
@@ -3782,35 +3992,43 @@
           },
           "xpr0015": {
             "bayesian-updating": 50,
-            "frequentist-objective-likelihood": 20
+            "frequentist-objective-likelihood": 20,
+            "both-toolkits": 70
           },
           "xpr0016": {
             "big-data": 85,
-            "small-data": -30
+            "small-data": -30,
+            "right-sized-data": -15
           },
           "xpr0017": {
             "pure-rigor-analysis-of-pdes": -40,
-            "pragmatic-engineering-utility": 80
+            "pragmatic-engineering-utility": 80,
+            "rigorous-enough-to-trust": -20
           },
           "xpr0018": {
             "elegance": 10,
-            "effectiveness": 85
+            "effectiveness": 85,
+            "elegant-because-effective": 25
           },
           "xpr0019": {
             "general": 30,
-            "specific": 70
+            "specific": 70,
+            "general-method-bespoke-fit": 60
           },
           "xpr0020": {
             "occam-s-minimalist-toy-model": -40,
-            "multi-physics-high-fidelity-ensemble": 90
+            "multi-physics-high-fidelity-ensemble": 90,
+            "as-complex-as-needed": -30
           },
           "xpr0021": {
             "mechanistic-understanding": 20,
-            "predictive-supremacy": 85
+            "predictive-supremacy": 85,
+            "understanding-through-prediction": 35
           },
           "xpr0022": {
             "industry-national-labs-tech-giants": 70,
-            "university-academia": 30
+            "university-academia": 30,
+            "between-lab-and-campus": 60
           },
           "xpr0026": {
             "impact": 70,
@@ -3825,7 +4043,7 @@
       "about": "Optimizes for solutions that work under real constraints: budget, materials, deadlines, and safety margins. The stance is that a good-enough design that ships and holds up beats a perfect design that never leaves the drawing board.",
       "links": [
         {
-          "label": "IEEE Spectrum — Technology and Engineering News",
+          "label": "IEEE Spectrum \u2014 Technology and Engineering News",
           "url": "https://spectrum.ieee.org/"
         }
       ],
@@ -3844,19 +4062,23 @@
           },
           "xpr0002": {
             "deterministic": 30,
-            "stochastic": 40
+            "stochastic": 40,
+            "laws-with-noise": 90
           },
           "xpr0003": {
             "continuous": 40,
-            "discrete": 50
+            "discrete": 50,
+            "hybrid-models": 90
           },
           "xpr0004": {
             "deductive-first-principles": 10,
-            "inductive-data-driven-surrogates": 70
+            "inductive-data-driven-surrogates": 70,
+            "physics-informed-hybrid": 40
           },
           "xpr0005": {
             "linear-approximations": 60,
-            "nonlinear-reality": 40
+            "nonlinear-reality": 40,
+            "linearize-then-check": 80
           },
           "xpr0006": {
             "grid-mesh-pde-solvers": 50,
@@ -3866,15 +4088,18 @@
           },
           "xpr0007": {
             "analytic": 20,
-            "numerical": 80
+            "numerical": 80,
+            "analytic-where-possible": 40
           },
           "xpr0008": {
             "simulation": 70,
-            "theory": 20
+            "theory": 20,
+            "each-arbitrates-the-other": 50
           },
           "xpr0009": {
             "exact": 10,
-            "heuristic": 85
+            "heuristic": 85,
+            "heuristic-verified": 25
           },
           "xpr0010": {
             "physical-continua-geophysical-fluids": 50,
@@ -3885,11 +4110,13 @@
           },
           "xpr0011": {
             "pure": -60,
-            "applied": 90
+            "applied": 90,
+            "use-inspired": -50
           },
           "xpr0012": {
             "interdisciplinary": 80,
-            "domain-specific": 20
+            "domain-specific": 20,
+            "t-shaped": 40
           },
           "xpr0013": {
             "aleatoric-uncertainty": 40,
@@ -3904,35 +4131,43 @@
           },
           "xpr0015": {
             "bayesian-updating": 40,
-            "frequentist-objective-likelihood": 40
+            "frequentist-objective-likelihood": 40,
+            "both-toolkits": 100
           },
           "xpr0016": {
             "big-data": 60,
-            "small-data": 40
+            "small-data": 40,
+            "right-sized-data": 80
           },
           "xpr0017": {
             "pure-rigor-analysis-of-pdes": -70,
-            "pragmatic-engineering-utility": 95
+            "pragmatic-engineering-utility": 95,
+            "rigorous-enough-to-trust": -65
           },
           "xpr0018": {
             "elegance": -20,
-            "effectiveness": 95
+            "effectiveness": 95,
+            "elegant-because-effective": -15
           },
           "xpr0019": {
             "general": 20,
-            "specific": 80
+            "specific": 80,
+            "general-method-bespoke-fit": 40
           },
           "xpr0020": {
             "occam-s-minimalist-toy-model": 40,
-            "multi-physics-high-fidelity-ensemble": 50
+            "multi-physics-high-fidelity-ensemble": 50,
+            "as-complex-as-needed": 90
           },
           "xpr0021": {
             "mechanistic-understanding": 30,
-            "predictive-supremacy": 80
+            "predictive-supremacy": 80,
+            "understanding-through-prediction": 50
           },
           "xpr0022": {
             "industry-national-labs-tech-giants": 80,
-            "university-academia": -30
+            "university-academia": -30,
+            "between-lab-and-campus": -10
           },
           "xpr0026": {
             "impact": 90,
