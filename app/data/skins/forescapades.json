@@ -154,16 +154,16 @@
                 "issue": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
                 "poles": [
                   {
-                    "label": "Purely allegorical",
-                    "text": "Purely allegorical / metaphorical"
+                    "label": "Divine accommodation & spiritual essence",
+                    "text": "God reveals Himself by accommodating His infinite majesty to human speech, yet is wholly spiritual, without body, parts, or passions (Anglican Article I & Westminster Confession)"
                   },
                   {
-                    "label": "Real attributes, meaning deferred",
-                    "text": "Real attributes of God, their meaning consigned to God or interpreted allegorically"
+                    "label": "Purely allegorical / metaphorical",
+                    "text": "Scriptural anthropomorphisms (hand, face, throne) are poetic metaphors expressing divine acts without physical reality"
                   },
                   {
-                    "label": "Affirmed as real, without explaining how",
-                    "text": "Affirmed literally as stated, without asking how (Bila Kayfa)"
+                    "label": "Affirmed literally without inquiry (Bila Kayfa)",
+                    "text": "Attributes affirmed literally as physical realities without human inquiry into how (Islamic Bila Kayfa / anthropomorphic literalism)"
                   }
                 ]
               },
@@ -179,15 +179,15 @@
               "poles": [
                 {
                   "key": "purely-allegorical",
-                  "label": "Purely allegorical"
+                  "label": "Divine accommodation & spiritual essence"
                 },
                 {
                   "key": "real-attributes-meaning-deferred",
-                  "label": "Real attributes, meaning deferred"
+                  "label": "Purely allegorical / metaphorical"
                 },
                 {
                   "key": "affirmed-literally-bila-kayfa",
-                  "label": "Affirmed as real, without explaining how"
+                  "label": "Affirmed literally without inquiry (Bila Kayfa)"
                 }
               ],
               "question": "How should anthropomorphic descriptions of God (hands, face, throne) in scripture be understood?",
@@ -197,18 +197,23 @@
               "communities": [
                 {
                   "network": "Reddit",
-                  "name": "r/religion",
-                  "url": "https://www.reddit.com/r/religion/"
-                },
-                {
-                  "network": "Reddit",
-                  "name": "r/DebateReligion",
-                  "url": "https://www.reddit.com/r/DebateReligion/"
+                  "name": "r/Anglicanism",
+                  "url": "https://www.reddit.com/r/Anglicanism/"
                 },
                 {
                   "network": "Reddit",
                   "name": "r/theology",
                   "url": "https://www.reddit.com/r/theology/"
+                },
+                {
+                  "network": "Stack Exchange",
+                  "name": "Christianity Stack Exchange",
+                  "url": "https://christianity.stackexchange.com/"
+                },
+                {
+                  "network": "Reddit",
+                  "name": "r/religion",
+                  "url": "https://www.reddit.com/r/religion/"
                 }
               ]
             }
@@ -997,31 +1002,31 @@
             {
               "archetype": "simplex",
               "hovertip": {
-                "issue": "What are the six articles of Islamic faith?",
+                "issue": "What are the six articles of Islamic faith (Iman), paralleling the classic creeds of Christendom?",
                 "poles": [
                   {
                     "label": "Belief in God",
-                    "text": "The transcendent One, absolute oneness."
+                    "text": "The transcendent One, absolute oneness (Tawhid)."
                   },
                   {
                     "label": "Belief in the angels",
-                    "text": "Heavenly messengers."
+                    "text": "Heavenly spiritual messengers (Malaikah)."
                   },
                   {
                     "label": "Belief in the holy books",
-                    "text": "The written word, revealed scripture."
+                    "text": "The written word, revealed scripture (Kutub)."
                   },
                   {
                     "label": "Belief in the prophets",
-                    "text": "Earthly messengers."
+                    "text": "Earthly prophetic messengers (Anbiya)."
                   },
                   {
                     "label": "Belief in the Last Day",
-                    "text": "Resurrection and judgment."
+                    "text": "Resurrection, the final Day of Judgment, and the return of the Messiah (Qiyamah)."
                   },
                   {
                     "label": "Belief in God's decree",
-                    "text": "God's will and decree."
+                    "text": "God's sovereign will and eternal decree (Qadar)."
                   }
                 ]
               },
@@ -1298,15 +1303,15 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Is Scripture alone the rule of faith, or Scripture together with Tradition?",
+                "issue": "Is Holy Scripture alone sufficient for salvation (Sola Scriptura), or does it require binding Oral Tradition / Magisterium?",
                 "poles": [
                   {
                     "label": "Text with authoritative tradition",
-                    "text": "The text together with its authoritative tradition (Tradition / Oral Torah / Sunnah)"
+                    "text": "Scripture interpreted through binding Sacred Tradition, Oral Torah, or Sunnah"
                   },
                   {
-                    "label": "Written text alone",
-                    "text": "The written text alone is the supreme rule of faith"
+                    "label": "Scripture alone (Sola Scriptura)",
+                    "text": "Holy Scripture containeth all things necessary to salvation (Article VI); the supreme and sufficient rule of faith interpreted with tradition and reason as subordinate guides (Hooker's Threefold Cord)"
                   }
                 ]
               },
@@ -1319,10 +1324,10 @@
                 },
                 {
                   "key": "written-text-alone",
-                  "label": "Written text alone"
+                  "label": "Scripture alone (Sola Scriptura)"
                 }
               ],
-              "question": "Is Scripture alone the rule of faith, or Scripture together with Tradition?",
+              "question": "Is Holy Scripture alone sufficient for salvation (Sola Scriptura), or does it require binding Oral Tradition / Magisterium?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0009)",
               "widget": "linear-sliders",
@@ -1455,15 +1460,15 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Who interprets Scripture rightly — the Church's Magisterium, the Church as a whole, or Scripture itself?",
+                "issue": "Who interprets Scripture rightly — an infallible Magisterium/hierarchy, or the text itself illumined by the Holy Spirit guided by reason and the creeds?",
                 "poles": [
                   {
                     "label": "The authoritative teachers interpret",
-                    "text": "The authoritative teachers interpret the text (Magisterium / rabbis / scholars)"
+                    "text": "The authoritative hierarchy interprets the text (Magisterium, rabbis, or Islamic ulema)"
                   },
                   {
-                    "label": "The text interprets itself",
-                    "text": "The text interprets itself, the individual believer illumined"
+                    "label": "Scripture interprets Scripture (Analogia Fidei)",
+                    "text": "Scripture interprets itself (the analogy of faith), with the Holy Spirit illuminating the believer and the Church discerning in the light of the historic creeds and reason (Anglican via media)"
                   }
                 ]
               },
@@ -1476,10 +1481,10 @@
                 },
                 {
                   "key": "the-text-interprets-itself",
-                  "label": "The text interprets itself"
+                  "label": "Scripture interprets Scripture (Analogia Fidei)"
                 }
               ],
-              "question": "Who interprets Scripture rightly — the Church's Magisterium, the Church as a whole, or Scripture itself?",
+              "question": "Who interprets Scripture rightly — an infallible Magisterium/hierarchy, or the text itself illumined by the Holy Spirit guided by reason and the creeds?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0012)",
               "widget": "linear-sliders",
@@ -1857,15 +1862,15 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
+                "issue": "Does the Bishop of Rome hold universal supreme jurisdiction over all churches, or has the Bishop of Rome no jurisdiction in national realms (Article XXXVII)?",
                 "poles": [
                   {
-                    "label": "The pope governs the whole church",
-                    "text": "Papal primacy of jurisdiction, infallible when defining ex cathedra"
+                    "label": "Universal papal primacy & infallibility",
+                    "text": "Papal primacy of jurisdiction over the universal Church, infallible when defining ex cathedra"
                   },
                   {
-                    "label": "No papal jurisdiction",
-                    "text": "No papal jurisdiction; the Bishop of Rome is first among equals at most"
+                    "label": "No papal jurisdiction (Article XXXVII)",
+                    "text": "The Bishop of Rome hath no jurisdiction in this realm (Article XXXVII); Christ alone is the universal head, and apostolic governance resides in national episcopal and conciliar bodies"
                   }
                 ]
               },
@@ -1874,14 +1879,14 @@
               "poles": [
                 {
                   "key": "papal-primacy-of-jurisdiction",
-                  "label": "The pope governs the whole church"
+                  "label": "Universal papal jurisdiction"
                 },
                 {
                   "key": "no-papal-jurisdiction",
-                  "label": "No papal jurisdiction"
+                  "label": "No papal jurisdiction (Article XXXVII)"
                 }
               ],
-              "question": "Does the Bishop of Rome hold primacy of jurisdiction over the whole Church, and is he infallible?",
+              "question": "Does the Bishop of Rome hold universal supreme jurisdiction over all churches, or has the Bishop of Rome no jurisdiction in national realms (Article XXXVII)?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0014)",
               "widget": "linear-sliders",
@@ -1901,19 +1906,19 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Which councils are authoritative — all twenty-one, only the seven, or none as a rule over Scripture?",
+                "issue": "Which ecumenical councils are authoritative, and can general councils err?",
                 "poles": [
                   {
-                    "label": "Twenty-one councils",
-                    "text": "Twenty-one councils, confirmed by the Pope, teach authoritatively"
+                    "label": "Twenty-one ecumenical councils",
+                    "text": "Twenty-one councils, confirmed by the Roman Pontiff, teach authoritatively and infallibly"
                   },
                   {
-                    "label": "Seven councils only",
-                    "text": "Only the Seven Ecumenical Councils are received"
+                    "label": "First Seven Ecumenical Councils",
+                    "text": "The Seven historic Ecumenical Councils of the undivided Church define orthodox dogma"
                   },
                   {
-                    "label": "Councils may err",
-                    "text": "General councils may err and are subordinate to Scripture"
+                    "label": "General councils may err (Article XXI)",
+                    "text": "General Councils may err, and sometimes have erred; things ordained by them as necessary to salvation have neither strength nor authority unless taken out of holy Scripture (Article XXI)"
                   }
                 ]
               },
@@ -1937,14 +1942,14 @@
                 },
                 {
                   "key": "seven-councils-only",
-                  "label": "Seven councils only"
+                  "label": "First Seven Councils"
                 },
                 {
                   "key": "councils-may-err",
-                  "label": "Councils may err"
+                  "label": "Councils may err (Article XXI)"
                 }
               ],
-              "question": "Which councils are authoritative — all twenty-one, only the seven, or none as a rule over Scripture?",
+              "question": "Which ecumenical councils are authoritative, and can general councils err?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0015)",
               "widget": "trilinear-line",
@@ -2067,15 +2072,15 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
+                "issue": "Is divine spiritual and temporal governance exercised through an infallible hereditary Imamate, or through the priesthood of all believers and conciliar order?",
                 "poles": [
                   {
-                    "label": "The Imam's leadership is a matter of faith",
-                    "text": "Imamate is a principle of faith; Twelve Imams are divinely designated and infallible"
+                    "label": "Infallible Imamate by divine decree",
+                    "text": "The Imamate is a pillar of faith; infallible hereditary leaders designated to succeed Muhammad"
                   },
                   {
-                    "label": "No Imam's leadership",
-                    "text": "No Imamate; leadership by consensus or election"
+                    "label": "Priesthood of all believers & conciliar order",
+                    "text": "Rejection of infallible personal dynasties; Christ alone is the Supreme Head, and governance is ministerial through the priesthood of all believers and lawful conciliar/episcopal oversight (Protestant & Anglican consensus)"
                   }
                 ]
               },
@@ -2084,14 +2089,14 @@
               "poles": [
                 {
                   "key": "imamate-is-a-principle-of-faith",
-                  "label": "The Imam's leadership is a matter of faith"
+                  "label": "Infallible Imamate by divine decree"
                 },
                 {
                   "key": "no-imamate",
-                  "label": "No Imam's leadership"
+                  "label": "Priesthood of all believers & conciliar order"
                 }
               ],
-              "question": "Is the Imamate a divinely appointed, infallible succession after Muhammad?",
+              "question": "Is divine spiritual and temporal governance exercised through an infallible hereditary Imamate, or through the priesthood of all believers and conciliar order?",
               "risk": false,
               "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0074)",
               "widget": "linear-sliders",
@@ -2629,15 +2634,15 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Are we justified by faith alone, or by faith and works together in grace?",
+            "issue": "How is a person justified before God — by the imputed righteousness of Christ through faith alone (Sola Fide), or by infused grace and meritorious works?",
             "poles": [
               {
-                "label": "Made right by faith alone",
-                "text": "Made right by faith alone, works following but not meriting"
+                "label": "Justified by Faith Alone (Sola Fide)",
+                "text": "We are accounted righteous before God only for the merit of our Lord and Saviour Jesus Christ by faith, and not for our own works or deservings (Article XI: 'Of the Justification of Man'); good works spring necessarily out of a true and lively faith as fruits thereof (Article XII)"
               },
               {
-                "label": "Made right by faith and works",
-                "text": "Made right by faith and works, in God's grace and mercy"
+                "label": "Synergistic Righteousness (Faith and Works)",
+                "text": "Justification is an ongoing process where faith cooperates with infused sacramental grace and meritorious deeds to attain final acceptance before God"
               }
             ]
           },
@@ -2646,14 +2651,14 @@
           "poles": [
             {
               "key": "made-right-by-faith-alone",
-              "label": "Made right by faith alone"
+              "label": "Faith Alone (Sola Fide)"
             },
             {
               "key": "made-right-by-faith-and-works",
-              "label": "Made right by faith and works"
+              "label": "Faith and Meritorious Works"
             }
           ],
-          "question": "Are we justified by faith alone, or by faith and works together in grace?",
+          "question": "How is a person justified before God — by the imputed righteousness of Christ through faith alone (Sola Fide), or by infused grace and meritorious works?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0018)",
           "widget": "linear-sliders",
@@ -2963,15 +2968,15 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Is there a purification after death for those who die in God's grace but imperfectly purified?",
+            "issue": "Is there a purification after death (Purgatory) for imperfectly cleansed souls, or is Christ's sacrifice completely sufficient with the dead resting in Him?",
             "poles": [
               {
-                "label": "Purgatory",
-                "text": "Purgatory — a final purification after death"
+                "label": "Purgatorial Purification",
+                "text": "A temporary post-mortem state of cleansing fire or purification where residual temporal punishment for forgiven sins is satisfied before entering Heaven"
               },
               {
-                "label": "No purgatory",
-                "text": "No purgatory; the dead go to heaven or hell"
+                "label": "No Purgatory / Rest in Christ",
+                "text": "The Romish doctrine concerning Purgatory is a fond thing vainly invented, grounded upon no warranty of Scripture (Article XXII). The believer's sins are fully paid for by Christ, and the faithful departed rest immediately in Him awaiting the resurrection"
               }
             ]
           },
@@ -2980,14 +2985,14 @@
           "poles": [
             {
               "key": "purgatory",
-              "label": "Purgatory"
+              "label": "Purgatorial Purification"
             },
             {
               "key": "no-purgatory",
-              "label": "No purgatory"
+              "label": "No Purgatory / Rest in Christ"
             }
           ],
-          "question": "Is there a purification after death for those who die in God's grace but imperfectly purified?",
+          "question": "Is there a purification after death (Purgatory) for imperfectly cleansed souls, or is Christ's sacrifice completely sufficient with the dead resting in Him?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0023)",
           "widget": "linear-sliders",
@@ -3145,15 +3150,15 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "How many sacraments did Christ institute — seven, or two?",
+            "issue": "How many sacraments were ordained of Christ our Lord in the Gospel — two Dominical Sacraments or seven sacramental rites?",
             "poles": [
               {
-                "label": "Seven sacraments",
-                "text": "Seven sacraments, instituted by Christ"
+                "label": "Seven Sacraments",
+                "text": "Seven sacraments instituted by Christ and the Church (Baptism, Confirmation, Eucharist, Penance, Anointing, Holy Orders, Matrimony)"
               },
               {
-                "label": "Two sacraments (or ordinances)",
-                "text": "Two sacraments (or ordinances): Baptism and the Lord's Supper"
+                "label": "Two Dominical Sacraments",
+                "text": "There are two Sacraments ordained of Christ our Lord in the Gospel: Baptism and the Supper of the Lord (Article XXV). The other five commonly called sacraments are sacramental rites not having the like nature of Sacraments of the Gospel"
               }
             ]
           },
@@ -3162,14 +3167,14 @@
           "poles": [
             {
               "key": "seven-sacraments",
-              "label": "Seven sacraments"
+              "label": "Seven Sacraments"
             },
             {
               "key": "two-sacraments-or-ordinances",
-              "label": "Two sacraments (or ordinances)"
+              "label": "Two Dominical Sacraments (Gospel)"
             }
           ],
-          "question": "How many sacraments did Christ institute — seven, or two?",
+          "question": "How many sacraments were ordained of Christ our Lord in the Gospel — two Dominical Sacraments or seven sacramental rites?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0029)",
           "widget": "linear-sliders",
@@ -3248,19 +3253,19 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "Is Christ truly present in the bread and wine, spiritually present to faith, or is the meal a memorial only?",
+            "issue": "In what manner is Christ present in the Lord's Supper — corporal transubstantiation, spiritual real presence received by faith, or bare memorial?",
             "poles": [
               {
-                "label": "Truly present, body and blood",
-                "text": "Christ truly present, body and blood (transubstantiation / change)"
+                "label": "Corporal presence / Transubstantiation",
+                "text": "Christ's physical body and blood are literally and substantially present under the forms of bread and wine (transubstantiation / substantial change)"
               },
               {
-                "label": "Spiritually present to faith",
-                "text": "Christ spiritually present to faith"
+                "label": "Spiritual Real Presence to Faith",
+                "text": "The Body of Christ is given, taken, and eaten in the Supper only after an heavenly and spiritual manner; the mean whereby it is received is faith (Article XXVIII; Cranmer / Calvin)"
               },
               {
                 "label": "Memorial and symbol only",
-                "text": "Memorial and symbol only"
+                "text": "The elements remain ordinary bread and wine; the Supper is purely a commemorative ordinance in remembrance of Christ's death (Zwinglian memorialism)"
               }
             ]
           },
@@ -3280,18 +3285,18 @@
           "poles": [
             {
               "key": "truly-present-body-and-blood",
-              "label": "Truly present, body and blood"
+              "label": "Corporal presence / Transubstantiation"
             },
             {
               "key": "spiritually-present-to-faith",
-              "label": "Spiritually present to faith"
+              "label": "Spiritual Real Presence to Faith"
             },
             {
               "key": "memorial-and-symbol-only",
               "label": "Memorial and symbol only"
             }
           ],
-          "question": "Is Christ truly present in the bread and wine, spiritually present to faith, or is the meal a memorial only?",
+          "question": "In what manner is Christ present in the Lord's Supper — corporal transubstantiation, spiritual real presence received by faith, or bare memorial?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0031)",
           "widget": "trilinear-line",
@@ -4857,59 +4862,74 @@
         {
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
+            "issue": "Who is the promised eschatological deliverer who will defeat evil, judge the nations, and inaugurate God's eternal Kingdom?",
             "poles": [
               {
-                "label": "The twelfth Imam returns from hiding",
-                "text": "Specific historical 12th Imam emerging from Occultation"
+                "label": "Christ the King in Glory",
+                "text": "The blessed hope of the Church: Jesus Christ returning bodily in power and majesty to judge the living and the dead, consummate the New Creation, and reign as King of Kings (Nicene Creed & 39 Articles)"
               },
               {
-                "label": "Future descendant of Muhammad",
-                "text": "Future descendant of Muhammad born in end times"
+                "label": "The Awaited Mahdi",
+                "text": "An eschatological Islamic redeemer (whether a descendant of Muhammad or the 12th Imam) arising before the final Hour to restore justice and rule the earth"
               },
               {
-                "label": "No such guide",
-                "text": "Rejection of Mahdi concept"
+                "label": "The Davidic Mashiach",
+                "text": "The Jewish expectation of an anointed mortal king from the line of David who gathers the dispersed tribes, rebuilds the Temple, and establishes universal peace on Earth"
               }
             ]
           },
           "id": "xfo0086",
-          "name": "The awaited guide",
+          "name": "The Messiah and the Deliverer",
           "poleReading": "same",
           "poleEnemies": [],
           "poles": [
             {
-              "key": "12th-imam-from-occultation",
-              "label": "The twelfth Imam returns from hiding"
+              "key": "christ-the-messiah-in-glory",
+              "label": "Christ the King in Glory"
             },
             {
-              "key": "future-descendant-of-muhammad",
-              "label": "Future descendant of Muhammad"
+              "key": "the-awaited-mahdi",
+              "label": "The Awaited Mahdi"
             },
             {
-              "key": "rejection-of-the-mahdi",
-              "label": "No such guide"
+              "key": "the-davidic-mashiach",
+              "label": "The Davidic Mashiach"
             }
           ],
-          "question": "Will an eschatological redeemer known as the Mahdi arise before the end of the world to restore justice?",
+          "question": "Who is the promised eschatological deliverer who will defeat evil, judge the nations, and inaugurate God's eternal Kingdom?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0080)",
           "widget": "triangle",
           "communities": [
             {
+              "network": "Reddit",
+              "name": "r/Anglicanism",
+              "url": "https://www.reddit.com/r/Anglicanism/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Reformed",
+              "url": "https://www.reddit.com/r/Reformed/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Christianity",
+              "url": "https://www.reddit.com/r/Christianity/"
+            },
+            {
+              "network": "Stack Exchange",
+              "name": "Christianity Stack Exchange",
+              "url": "https://christianity.stackexchange.com/"
+            },
+            {
+              "network": "Reddit",
+              "name": "r/Judaism",
+              "url": "https://www.reddit.com/r/Judaism/"
+            },
+            {
               "network": "Stack Exchange",
               "name": "Islam Stack Exchange",
               "url": "https://islam.stackexchange.com/"
-            },
-            {
-              "network": "Reddit",
-              "name": "r/islam",
-              "url": "https://www.reddit.com/r/islam/"
-            },
-            {
-              "network": "Reddit",
-              "name": "r/religion",
-              "url": "https://www.reddit.com/r/religion/"
             }
           ]
         },
@@ -5007,19 +5027,19 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What happens to the soul between death and the resurrection — purification, a foretaste, or heaven and hell at once?",
+            "issue": "What is the intermediate state of the soul between bodily death and the final resurrection — purgatorial cleansing, conscious rest in Christ/Paradise, or immediate entry into heaven or hell?",
             "poles": [
               {
-                "label": "Purification before heaven",
-                "text": "Purification before heaven (Purgatory)"
+                "label": "Purgatorial cleansing before heaven",
+                "text": "Purification before heaven in Purgatory"
               },
               {
-                "label": "Foretaste awaiting resurrection",
-                "text": "Foretaste of heaven or hell, awaiting the resurrection"
+                "label": "Conscious rest in Christ awaiting resurrection",
+                "text": "The soul of the believer rests in peace with Christ in Paradise, conscious and comforted, awaiting the bodily resurrection and final consummation (Anglican burial liturgy / historic Reformed view)"
               },
               {
-                "label": "Heaven or hell immediately",
-                "text": "Heaven or hell immediately at death"
+                "label": "Immediate final heaven or hell",
+                "text": "Immediate entrance into the final eternal states of heaven or hell at death"
               }
             ]
           },
@@ -5030,18 +5050,18 @@
           "poles": [
             {
               "key": "purification-before-heaven",
-              "label": "Purification before heaven"
+              "label": "Purgatorial cleansing before heaven"
             },
             {
               "key": "foretaste-awaiting-resurrection",
-              "label": "Foretaste awaiting resurrection"
+              "label": "Conscious rest in Christ awaiting resurrection"
             },
             {
               "key": "heaven-or-hell-immediately",
-              "label": "Heaven or hell immediately"
+              "label": "Immediate final heaven or hell"
             }
           ],
-          "question": "What happens to the soul between death and the resurrection — purification, a foretaste, or heaven and hell at once?",
+          "question": "What is the intermediate state of the soul between bodily death and the final resurrection — purgatorial cleansing, conscious rest in Christ/Paradise, or immediate entry into heaven or hell?",
           "risk": false,
           "source": "forescapades-taxonomy-reconciled-phase2-v2-4-2026-11-11.md §4 (t0057)",
           "widget": "trilinear-line",
@@ -8232,6 +8252,11 @@
             "jesus-will-return-in-glory": 95,
             "jesus-will-not-return": -95
           },
+          "xfo0086": {
+            "christ-the-messiah-in-glory": 95,
+            "the-awaited-mahdi": -90,
+            "the-davidic-mashiach": -80
+          },
           "xfo0061": {
             "hell-is-eternal": 85,
             "hell-is-a-temporary-purification": -60
@@ -8422,6 +8447,11 @@
           "xfo0059": {
             "jesus-will-return-in-glory": 95,
             "jesus-will-not-return": -95
+          },
+          "xfo0086": {
+            "christ-the-messiah-in-glory": 95,
+            "the-awaited-mahdi": -90,
+            "the-davidic-mashiach": -80
           },
           "xfo0061": {
             "hell-is-eternal": 70,
@@ -8618,6 +8648,11 @@
             "jesus-will-return-in-glory": 95,
             "jesus-will-not-return": -95
           },
+          "xfo0086": {
+            "christ-the-messiah-in-glory": 95,
+            "the-awaited-mahdi": -85,
+            "the-davidic-mashiach": -80
+          },
           "xfo0061": {
             "hell-is-eternal": 90,
             "hell-is-a-temporary-purification": -80
@@ -8808,6 +8843,11 @@
           "xfo0059": {
             "jesus-will-return-in-glory": 95,
             "jesus-will-not-return": -95
+          },
+          "xfo0086": {
+            "christ-the-messiah-in-glory": 95,
+            "the-awaited-mahdi": -85,
+            "the-davidic-mashiach": -80
           },
           "xfo0061": {
             "hell-is-eternal": 90,
@@ -9004,6 +9044,11 @@
             "jesus-will-return-in-glory": 95,
             "jesus-will-not-return": -95
           },
+          "xfo0086": {
+            "christ-the-messiah-in-glory": 95,
+            "the-awaited-mahdi": -85,
+            "the-davidic-mashiach": -80
+          },
           "xfo0061": {
             "hell-is-eternal": 90,
             "hell-is-a-temporary-purification": -80
@@ -9195,6 +9240,11 @@
             "jesus-will-return-in-glory": 95,
             "jesus-will-not-return": -95
           },
+          "xfo0086": {
+            "christ-the-messiah-in-glory": 95,
+            "the-awaited-mahdi": -85,
+            "the-davidic-mashiach": -80
+          },
           "xfo0061": {
             "hell-is-eternal": 85,
             "hell-is-a-temporary-purification": -70
@@ -9385,6 +9435,11 @@
           "xfo0059": {
             "jesus-will-return-in-glory": -90,
             "jesus-will-not-return": 85
+          },
+          "xfo0086": {
+            "christ-the-messiah-in-glory": -90,
+            "the-awaited-mahdi": -90,
+            "the-davidic-mashiach": 95
           },
           "xfo0061": {
             "hell-is-eternal": -60,
@@ -9591,9 +9646,9 @@
           },
           "xfo0072": 95,
           "xfo0086": {
-            "12th-imam-from-occultation": -80,
-            "future-descendant-of-muhammad": 85,
-            "rejection-of-the-mahdi": -75
+            "christ-the-messiah-in-glory": -75,
+            "the-awaited-mahdi": 85,
+            "the-davidic-mashiach": -80
           }
         }
       }
