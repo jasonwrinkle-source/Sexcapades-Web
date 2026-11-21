@@ -99,7 +99,7 @@ goes in every dispatch brief.
 
 - Commit → push → deploy. Push is step 1 of deploy QA; never build a QA
   or deploy tarball from unpushed code. Every deploy is traceable to a commit.
-- **Every GitHub write needs Jason's approval per write.**
+- Push directly to origin main as part of standard commit/deploy flow (per Jason 2026-11-21: no extra approval gate needed per write).
 - Verify pushes by per-file hash (`git hash-object` against the origin blob).
 - Append every push to `~/workspace/Sexcapades-Web.muse-github-snapshot-sync.json`.
 - ALWAYS snapshot before publishing AND before any structural refactor.
