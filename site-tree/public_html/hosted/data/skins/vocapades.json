@@ -126,8 +126,6 @@
         {
           "id": "xvo0001",
           "name": "Vocation",
-          "poleReading": "antipodal",
-          "poleEnemies": [["job", "calling"]],
           "risk": false,
           "poles": [
             {
@@ -190,8 +188,6 @@
         {
           "id": "xvo0002",
           "name": "Service",
-          "poleReading": "antipodal",
-          "poleEnemies": [["serve-others", "serve-yourself"]],
           "risk": false,
           "poles": [
             {
@@ -368,7 +364,7 @@
         },
         {
           "id": "xvo0005",
-          "name": "Risk Tolerance",
+          "name": "Career Risk",
           "risk": false,
           "poles": [
             {
@@ -484,8 +480,6 @@
         {
           "id": "xvo0007",
           "name": "Workplace",
-          "poleReading": "antipodal",
-          "poleEnemies": [["remote", "office"]],
           "risk": false,
           "poles": [
             {
@@ -771,8 +765,6 @@
         {
           "id": "xvo0012",
           "name": "Management Philosophy",
-          "poleReading": "antipodal",
-          "poleEnemies": [["command", "laissez-faire"]],
           "risk": false,
           "poles": [
             {
@@ -889,8 +881,6 @@
         {
           "id": "xvo0014",
           "name": "Work Models",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1029,7 +1019,7 @@
         },
         {
           "id": "xvo0016",
-          "name": "Risk",
+          "name": "Compensation Risk",
           "risk": false,
           "poles": [
             {
@@ -1138,8 +1128,6 @@
         {
           "id": "xvo0018",
           "name": "The Four Career Anchors",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
