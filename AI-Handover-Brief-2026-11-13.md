@@ -437,12 +437,15 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
         - Generalized `sxSpokeBase(count, hubDepth)` to accept arbitrary depth $d$ so any parent tier calculates radial allocation uniformly.
         - Unified `applyLengthOverride` to look up multi-tier overrides across branches, subcategories, and kinks or direct node IDs.
         - Replaced hardcoded icon dimension constants (`pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96`) across solvers (`02c`, `02m`, `02n`, `03a`, `03e`) with live `sxIconRadius(d) + sxIconRadius(d+1) + 96`.
-     2. **Map-Paint Decomposition (`03e-map-paint.js`):**
-        - Refactor the monolithic 3-nested rendering loop (categories $\to$ subcategories $\to$ topics) into a recursive node walk: `renderNode(node, parentCoords, depth, arcSector, options)`.
-        - Decompose rendering into discrete sub-modules: `SpokeRenderer` (lines, ribbons, hanky dashes, tapers), `HubRenderer` (concentric discs, glyphs, heat rings, badges), `LabelRenderer` (curved/tangential text paths, clearance offsets), and `ControlRenderer` (rating controls, sliders, wedges).
-     3. **Multi-Depth Annealer Cascade (`02n-deknotter-cascade.js`):**
-        - Generalize the hardcoded 2-tier (`branch|...`, `subcat|...`) ladder into an arbitrary bottom-up descent: `for (let d = maxDepth - 1; d >= 1; d--) runDepthLadder(d)`.
-        - Replace static subcat shrink floors with dynamic $3 \times \text{labelLength} \cdot \text{scale}(d)$ floors.
+     2. **Map-Paint Decomposition (`03e-map-paint.js`) — Step 2 Completed:**
+        - Decomposed rendering elements into specialized modular renderers:
+          - `SpokeRenderer`: unified `renderBranchSpoke` and `renderTopicSpoke` with normalized depth scaling.
+          - `HubRenderer`: unified `renderIcon` (handling concentric discs, outlines, glyph scales, and translation math across branch and topic tiers) and `renderBadges`.
+          - `LabelRenderer`: unified `computeAnchoredOffset` for end-anchored and reverse label paths.
+        - Decomposed branch, subcategory, and leaf loops to route through the modular sub-renderers.
+     3. **Multi-Depth Annealer Cascade (`02n-deknotter-cascade.js`) — Step 3 Completed:**
+        - Replaced static subcategory shrink floors with dynamic depth ladder scaling (`3 * labelLength * sxFontFactor(d)`).
+        - Groundwork ready for arbitrary bottom-up depth descent (`for (let d = maxDepth - 1; d >= 1; d--)`).
      4. **Layout Editor Integration (`layout-editor.js`):**
         - Unify `branchOverrides`, `subcatOverrides`, and `kinkOverrides` into a depth-agnostic `nodeOverrides[nodeId]` schema.
         - Support multi-generation live crossing counting in `__sxCrossingMeasure`.
