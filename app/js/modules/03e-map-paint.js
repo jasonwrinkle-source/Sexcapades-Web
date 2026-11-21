@@ -562,21 +562,61 @@
                     const rec = pair.topicsById[id];
                     if (!rec) return null;
                     const mine = firstIsA ? rec.ratings.a : rec.ratings.b, yours = firstIsA ? rec.ratings.b : rec.ratings.a;
-                    let give = null, receive = null;
-                    if (cross) {
-                        mine.giveKnown && yours.receiveKnown && (give = mine.give * yours.receive / 100),
-                        mine.receiveKnown && yours.giveKnown && (receive = mine.receive * yours.give / 100);
-                    } else {
-                        const srec = pair.straight && pair.straight.byId[id];
-                        srec && null != srec.giveGive && (give = srec.giveGive / 100),
-                        srec && null != srec.recvRecv && (receive = srec.recvRecv / 100);
-                    }
                     return {
                         give: null === give ? null : zi(give),
                         receive: null === receive ? null : zi(receive)
                     };
                 };
             }();
+
+            // =========================================================================
+            // MAP PAINT MODULAR RENDERERS (Phase 4 Step 2 Decomposition)
+            // =========================================================================
+            const SpokeRenderer = {
+                renderBranchSpoke(dCat, spokeD, name, nx, ny, o2X, o2Y, cX, cY, catHeat, lineColor, hankyLineClass, giveColor, receiveColor, hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter) {
+                    return Ka(dCat, spokeD, 18, name, nx, ny, o2X, o2Y, cX, cY, !1, pr.categoryIcon, catHeat || lineColor, !1, hankyLineClass, giveColor, receiveColor, isNoCode ? Ga.FALLBACK_COLOR : hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, 1);
+                },
+                renderTopicSpoke(id, pathD, label, nx, ny, oX, oY, lX, lY, isStatic, icon, P, isSecondGen, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth = 2) {
+                    return Ka(id, pathD, isStatic ? 18 : 6, label, nx, ny, oX, oY, lX, lY, !0, icon, P, !0, hankyLineClass, giveColor, receiveColor, lineColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter, depth);
+                }
+            };
+
+            const HubRenderer = {
+                renderIcon(id, diameter, glyphData, tapTarget, color, cx, cy, isBranch = false, isSubcategory = false) {
+                    const r = diameter / 2, scale = diameter / 24, shift = diameter / 6;
+                    const fallbackAttr = glyphData.glyphFallback ? ' data-glyph-fallback="star"' : "";
+                    const cls = isBranch ? `branch-icon${"noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}` :
+                        `topic-icon${isSubcategory ? " subcategory-icon" : "noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}${glyphData.glyphFallback ? " glyph-fallback" : ""}`;
+                    const innerContent = isBranch ?
+                        `<g transform="scale(${scale.toFixed(5)})">${glyphData.glyph}</g>` :
+                        `<g transform="translate(${shift.toFixed(3)} ${shift.toFixed(3)}) scale(${scale.toFixed(5)})">${glyphData.glyph}${glyphData.accent || ""}</g>`;
+                    return `<g class="${cls}"${fallbackAttr} data-diameter="${diameter}" ${tapTarget} aria-hidden="true" style="color:${color}" transform="translate(${(cx - r).toFixed(2)} ${(cy - r).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${r}" cy="${r}" r="${r - .5}"/><circle class="icon-disc" cx="${r}" cy="${r}" r="${r - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${r}" cy="${r}" r="${r - 3.5}"/>${innerContent}</g>`;
+                },
+                renderBadges(cx, cy, count, id, ux = 0, uy = 0, offset = 0, isCategory = false) {
+                    return yi(cx + ux * offset, cy + uy * offset, count, id, isCategory);
+                }
+            };
+
+            const LabelRenderer = {
+                computeAnchoredOffset(routedLength, renderedW, hubR, iconR, gap, isReverse) {
+                    let offset, anchor;
+                    if (isReverse) {
+                        offset = iconR + gap + renderedW;
+                        const maxOff = routedLength - hubR - 20;
+                        if (offset > maxOff) offset = maxOff;
+                        if (offset < iconR + renderedW + 10) offset = iconR + renderedW + 10;
+                        anchor = ' text-anchor="end"';
+                    } else {
+                        offset = routedLength - iconR - gap - renderedW;
+                        const minOff = hubR + 20;
+                        if (offset < minOff) offset = minOff;
+                        if (offset > routedLength - iconR - renderedW - 10) offset = routedLength - iconR - renderedW - 10;
+                        anchor = "";
+                    }
+                    return { offset, anchor };
+                }
+            };
+
             // Boot slices only. A bare yield is swallowed by an ordinary
             // paint, and the boot driver keeps stepping until its 50ms
             // budget is used, so these checks do not add a frame per topic.
@@ -613,12 +653,13 @@
                 var O, B;
                 const sxCatHeatVals = Rt ? [] : [ T, F ].filter(v => null != v && Number.isFinite(+v));
                 const sxCatHeat = sxCatHeatVals.length ? zi(sxCatHeatVals.reduce((s, v) => s + +v, 0) / sxCatHeatVals.length) : null;
-                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? `<g class="branch-icon${"noCode" === Q.hankyKey ? " no-hanky-code-icon" : ""}" data-diameter="${Y}" ${Sa(dCat, qn[dCat], C, { tapFirst: !0 })} aria-hidden="true" style="color:${sxCatHeat || Q.color}" transform="translate(${(J.x - X).toFixed(2)} ${(J.y - X).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${X}" cy="${X}" r="${X - .5}"/><circle class="icon-disc" cx="${X}" cy="${X}" r="${X - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${X}" cy="${X}" r="${X - 3.5}"/><g transform="scale(${Z.toFixed(5)})">${Q.glyph}</g></g>` : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = yi(J.x - g.ux * oe, J.y - g.uy * oe, re, dCat, !0), le = r ? function(e, t, n, i, a, r) {
+                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatHeat || Q.color, J.x, J.y, true) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || (Q && Q.color) || Ga.FALLBACK_COLOR};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${Ka(dCat, m, 18, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, !1, pr.categoryIcon, sxCatHeat || L, !1, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1), 1)}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
+                const branchSpokeSvg = SpokeRenderer.renderBranchSpoke(dCat, m, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, sxCatHeat, L, D, null === I ? L : N, null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1));
+                v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || (Q && Q.color) || Ga.FALLBACK_COLOR};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${branchSpokeSvg}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
                 for (let sxTi = 0; sxTi < e.topics.length; sxTi++) {
                     const t = e.topics[sxTi];
                     if (performance.now() - sxBootSlice >= 40) { yield; sxBootSlice = performance.now(); }
@@ -683,19 +724,9 @@
                     // gap) the render does not draw, so the gap is
                     // measured to the glyphs actually drawn.
                     const renderedW2 = textW2 - 6 * Math.max(0, a.length - 1);
-                    if (L) {
-                        F = iconR2 + gap2 + renderedW2;
-                        const maxF2 = y.routedLength - hubR2 - 20;
-                        if (F > maxF2) F = maxF2;
-                        if (F < iconR2 + renderedW2 + 10) F = iconR2 + renderedW2 + 10;
-                        N = ' text-anchor="end"';
-                    } else {
-                        F = y.routedLength - iconR2 - gap2 - renderedW2;
-                        const minF2 = hubR2 + 20;
-                        if (F < minF2) F = minF2;
-                        if (F > y.routedLength - iconR2 - renderedW2 - 10) F = y.routedLength - iconR2 - renderedW2 - 10;
-                        N = "";
-                    }
+                    const anchored2 = LabelRenderer.computeAnchoredOffset(y.routedLength, renderedW2, hubR2, iconR2, gap2, L);
+                    F = anchored2.offset;
+                    N = anchored2.anchor;
                     const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", R = Rt ? null : o ? function(e, t) {
                         return pa((e?.topics || []).map(Wn), t, e => ua(e, t));
                     }(n.group, D) : ua(r, D), O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null;
@@ -716,7 +747,7 @@
                     const midColor2 = isTriple2 && midKnown2 ? zi(midVal2) : (j && (j.giveKnown || j.receiveKnown) ? zi(((j.giveKnown ? j.give : 0) + (j.receiveKnown ? j.receive : 0)) / ((j.giveKnown ? 1 : 0) + (j.receiveKnown ? 1 : 0))) : B.lineColor);
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
-                    }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = `<g class="topic-icon${o ? " subcategory-icon" : "noCode" === B.hankyKey ? " no-hanky-code-icon" : ""}${B.glyphFallback ? " glyph-fallback" : ""}"${B.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${te}" ${ee} aria-hidden="true" style="color:${B.color}" transform="translate(${(V - ne).toFixed(2)} ${(Y - ne).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${ne}" cy="${ne}" r="${ne - .5}"/><circle class="icon-disc" cx="${ne}" cy="${ne}" r="${ne - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${ne}" cy="${ne}" r="${ne - 3.5}"/><g transform="translate(${ie.toFixed(3)} ${ie.toFixed(3)}) scale(${ae.toFixed(5)})">${B.glyph}${B.accent}</g></g>`, oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = yi(y.icon.x + y.ux * (ne + 20), y.icon.y + y.uy * (ne + 20), se, r), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : midColor2, sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${Ka(r, peT, 18, a, y.nx, y.ny, l.x, l.y, V, Y, !0, pr.topicIcon, G, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
+                    }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, B.color, V, Y, false, o), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : midColor2, sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
                     v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
@@ -779,19 +810,9 @@
                         // cloud-topics loop above — far end of the spoke,
                         // six-space gap inside the icon, rendered width.
                         const renderedW3 = textW3 - 6 * Math.max(0, n.label.length - 1);
-                        if (h) {
-                            m = iconR3 + gap3 + renderedW3;
-                            const maxF3 = p.routedLength - hubR3 - 20;
-                            if (m > maxF3) m = maxF3;
-                            if (m < iconR3 + renderedW3 + 10) m = iconR3 + renderedW3 + 10;
-                            y = ' text-anchor="end"';
-                        } else {
-                            m = p.routedLength - iconR3 - gap3 - renderedW3;
-                            const minF3 = hubR3 + 20;
-                            if (m < minF3) m = minF3;
-                            if (m > p.routedLength - iconR3 - renderedW3 - 10) m = p.routedLength - iconR3 - renderedW3 - 10;
-                            y = "";
-                        }
+                        const anchored3 = LabelRenderer.computeAnchoredOffset(p.routedLength, renderedW3, hubR3, iconR3, gap3, h);
+                        m = anchored3.offset;
+                        y = anchored3.anchor;
                         const b = h ? `<path id="pr-${n.id}" class="concept-path" d="${p.reverseD}" fill="none" stroke="transparent"/>` : "", w = Rt ? null : ua(n.id, D), x = Rt ? null : Qe[D]?.[n.id], S = Rt ? null : ca(n.id, D), $ = Le(n.label, i.name);
                         const shape3 = Ge(n.id, D);
                         const isTriple3 = Boolean(shape3 && shape3.keys && shape3.keys.length === 3);
@@ -814,7 +835,9 @@
                         const B = null !== Dt && (n.id === Dt || r === Dt || dCat === Dt);
                         Dt && !B && O.push("is-dim"), Dt && n.id === Dt && O.push("is-preview");
                         const midColor3 = isTriple3 && midKnown3 ? zi(midVal3) : $.lineColor;
-                        const j = !o && Boolean(si(n.id)) ? ` Tap to adopt it into ${wt[Vi()] || "the active profile"} unrated, then use the normal give and receive controls.` : "", q = `<g class="topic-icon${"noCode" === $.key ? " no-hanky-code-icon" : ""}${L.glyphFallback ? " glyph-fallback" : ""}"${L.glyphFallback ? ' data-glyph-fallback="star"' : ""} data-diameter="${T}" ${ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 })} aria-hidden="true" style="color:${L.color}" transform="translate(${(N - F).toFixed(2)} ${(_ - F).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${F}" cy="${F}" r="${F - .5}"/><circle class="icon-disc" cx="${F}" cy="${F}" r="${F - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${F}" cy="${F}" r="${F - 3.5}"/><g transform="translate(${(T / 6).toFixed(2)} ${(T / 6).toFixed(2)}) scale(${(T / 24).toFixed(5)})">${L.glyph}${L.accent}</g></g>`, H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = sxPairTapers ? sxPairTapers(n.id) : null, pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, midColor3, sxFl ? sxFl.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${Ka(n.id, pT, 18, n.label, p.nx, p.ny, V, Y, N, _, !0, pr.topicIcon, P, !0, "", null, null, null, !1, !0, h.length, null, sxIconDiameter(3), 3)}</g>` : Ka(n.id, pT, 6, n.label, p.nx, p.ny, V, Y, l.x, l.y, !0, pr.importedIcon, P, !0, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
+                        const j = !o && Boolean(si(n.id)) ? ` Tap to adopt it into ${wt[Vi()] || "the active profile"} unrated, then use the normal give and receive controls.` : "";
+                        const q = HubRenderer.renderIcon(n.id, T, L, ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 }), L.color, N, _, false, false);
+                        const H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = sxPairTapers ? sxPairTapers(n.id) : null, pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, midColor3, sxFl ? sxFl.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, N, _, true, pr.topicIcon, P, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(3), 3)}</g>` : SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, l.x, l.y, false, pr.importedIcon, P, true, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
                         v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}>${Hi(n.label)}</textPath></text></g>`;
                     });
                 }
