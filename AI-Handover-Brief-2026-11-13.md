@@ -430,6 +430,23 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
      categories arrive. Updated `__sxOnDeckIndex` and `__sxOnDeckMembers`
      in `03d-outline.js` so category and subcategory nodes function as
      first-class On Deck proposal targets across all proposal tiers.
+   - **Phase 4: N-Depth Scaling Law & Map-Paint Decomposition (Planned 2026-11-20).**
+     Unify arbitrary N-depth tree layout with the decomposition of `03e-map-paint.js`:
+     1. **Geometric Scaling Law (`02c-layout-solver.js`):**
+        - Gen-1 root radius allocation: $L_1 \approx \frac{1}{3} R_{\text{canvas}}$.
+        - Descendant generation spoke scaling: $L_d = L_1 \cdot (2/3)^{d-1} \cdot \mu_{\text{override}}$.
+        - Icon/hub diameters: $D_1 = 48\text{px}$, $D_2 = 36\text{px}$, $D_d = \max(16\text{px}, 48 \cdot (3/4)^{d-1})$.
+        - Font scale: $\text{fontSize}(d) = \text{baseFont} \cdot (4/5)^{d-1}$.
+        - Angular fan spread: recursive child sector apportioning $\Delta \theta_c = \frac{\Delta \theta_p}{\text{count}} \cdot \text{spreadFactor}$.
+     2. **Map-Paint Decomposition (`03e-map-paint.js`):**
+        - Refactor the monolithic 3-nested rendering loop (categories $\to$ subcategories $\to$ topics) into a recursive node walk: `renderNode(node, parentCoords, depth, arcSector, options)`.
+        - Decompose rendering into discrete sub-modules: `SpokeRenderer` (lines, ribbons, hanky dashes, tapers), `HubRenderer` (concentric discs, glyphs, heat rings, badges), `LabelRenderer` (curved/tangential text paths, clearance offsets), and `ControlRenderer` (rating controls, sliders, wedges).
+     3. **Multi-Depth Annealer Cascade (`02n-deknotter-cascade.js`):**
+        - Generalize the hardcoded 2-tier (`branch|...`, `subcat|...`) ladder into an arbitrary bottom-up descent: `for (let d = maxDepth - 1; d >= 1; d--) runDepthLadder(d)`.
+        - Replace static subcat shrink floors with dynamic $3 \times \text{labelLength} \cdot \text{scale}(d)$ floors.
+     4. **Layout Editor Integration (`layout-editor.js`):**
+        - Unify `branchOverrides`, `subcatOverrides`, and `kinkOverrides` into a depth-agnostic `nodeOverrides[nodeId]` schema.
+        - Support multi-generation live crossing counting in `__sxCrossingMeasure`.
 3. ~~**Importer write/commit defect + acceptance debt.**~~ Settled 2026-11-20.
    Diagnosed and fixed four root causes across the import/storage pipeline:
    - In `06c-converter-pipeline.js` (`rk`), file/QR/drag-drop imports previously
