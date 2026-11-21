@@ -4735,13 +4735,19 @@ const TAXONOMY_CATEGORIES = [];
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }
+        // Glyph-map integrity: when the Sexcapades subcategories exist in h
+        // (i.e. on Sexcapades domain or after Sexcapades skin loads), verify
+        // that Ee covers them. When running an engine boot before skin apply,
+        // or on vanilla skins, skip Sexcapades-specific subcategory checks.
         const _glyphSubNames = new Set;
         h.forEach(_cat => (_cat.subcategories || []).forEach(_sub => _glyphSubNames.add(_sub.name)));
-        for (const _subName of _glyphSubNames) {
-            if (!(_subName in Ee)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" has no entry in the Ee subcategory-glyph map and would fall back to the star glyph`);
-        }
-        for (const _subName of Object.keys(Ee)) {
-            if (!_glyphSubNames.has(_subName)) throw new Error(`Sexcapades glyph check: Ee maps "${_subName}", which is not a subcategory in the taxonomy`);
+        if (_glyphSubNames.size > 0 && _glyphSubNames.has("Flexible ties")) {
+            for (const _subName of _glyphSubNames) {
+                if (!(_subName in Ee)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" has no entry in the Ee subcategory-glyph map and would fall back to the star glyph`);
+            }
+            for (const _subName of Object.keys(Ee)) {
+                if (!_glyphSubNames.has(_subName)) throw new Error(`Sexcapades glyph check: Ee maps "${_subName}", which is not a subcategory in the taxonomy`);
+            }
         }
         function fpSub(topics, branch) {
             const t = new Map;
@@ -8082,13 +8088,19 @@ const TAXONOMY_CATEGORIES = [];
                 if (!(_glyphName in ye)) throw new Error(`Sexcapades glyph check: branch "${_branchName}" lists glyph "${_glyphName}", which is missing from the ye glyph dictionary`);
             }
         }
+        // Glyph-map integrity: when the Sexcapades subcategories exist in h
+        // (i.e. on Sexcapades domain or after Sexcapades skin loads), verify
+        // that Ee covers them. When running an engine boot before skin apply,
+        // or on vanilla skins, skip Sexcapades-specific subcategory checks.
         const _glyphSubNames = new Set;
         h.forEach(_cat => (_cat.subcategories || []).forEach(_sub => _glyphSubNames.add(_sub.name)));
-        for (const _subName of _glyphSubNames) {
-            if (!(_subName in Ee)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" has no entry in the Ee subcategory-glyph map and would fall back to the star glyph`);
-        }
-        for (const _subName of Object.keys(Ee)) {
-            if (!_glyphSubNames.has(_subName)) throw new Error(`Sexcapades glyph check: Ee maps "${_subName}", which is not a subcategory in the taxonomy`);
+        if (_glyphSubNames.size > 0 && _glyphSubNames.has("Flexible ties")) {
+            for (const _subName of _glyphSubNames) {
+                if (!(_subName in Ee)) throw new Error(`Sexcapades glyph check: subcategory "${_subName}" has no entry in the Ee subcategory-glyph map and would fall back to the star glyph`);
+            }
+            for (const _subName of Object.keys(Ee)) {
+                if (!_glyphSubNames.has(_subName)) throw new Error(`Sexcapades glyph check: Ee maps "${_subName}", which is not a subcategory in the taxonomy`);
+            }
         }
         function fpSub(topics, branch) {
             const t = new Map;

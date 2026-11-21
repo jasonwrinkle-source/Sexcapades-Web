@@ -354,6 +354,8 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
      1. Replaced `02b-taxonomy-data.js` with empty catalog export stub (`export const TAXONOMY_CATEGORIES = [];`).
      2. Rebuilt `data-bootstrap.js` via `python3 app/data/build-bundle.py`, dropping bundle size by 127.7 KB down to 3307.8 KB.
      3. Unified symmetric asynchronous skin loading: both vanilla skins and Sexcapades now dynamically load their taxonomies, layouts, and metadata from their respective JSON files via `loadSkin()` and `applySkin()`.
+     4. Guarded Sexcapades glyph-map integrity check in `02g-definitions-ratings.js` and `02i-taxonomy-catalog.js` (and rebuilt `data-bootstrap.js`) so that subcategory assertions only evaluate when Sexcapades subcategories exist (`_glyphSubNames.has("Flexible ties")`), preventing boot-time crashes on vanilla skins or decoupled initial boots.
+     5. Hardened `taxonomyCategories()` and `bootSkin()` in `skin-loader.js` against premature or undefined `TaxonomyLoader.loadTaxonomy()` invocation.
 6. **Rating-persistence diagnosis** — a rating set in-session does not
    surface after reload, even with Remember on (seen on Sexcapades and
    Polis alike). The save side works — the stored blob holds the rating;

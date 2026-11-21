@@ -282,7 +282,11 @@
   }
 
   function taxonomyCategories() {
-    return window.TaxonomyLoader.loadTaxonomy().categories;
+    if (window.TaxonomyLoader && typeof window.TaxonomyLoader.loadTaxonomy === "function") {
+      var tax = window.TaxonomyLoader.loadTaxonomy();
+      if (tax && Array.isArray(tax.categories)) return tax.categories;
+    }
+    return [];
   }
 
   /* Build one category in the post-overlay (merged) shape the paint reads:
@@ -1573,7 +1577,7 @@
       var hook = window.__SEXCAPADES_LAYOUT_TEST;
       var engine = window.FlexcapadesEngine;
       var tl = window.TaxonomyLoader;
-      var taxReady = tl && typeof tl.loadTaxonomy === "function";
+      var taxReady = tl && typeof tl.loadTaxonomy === "function" && tl.loadTaxonomy() && Array.isArray(tl.loadTaxonomy().categories);
       if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map || !taxReady) {
         if (tries >= 300) {
           clearInterval(timer);
