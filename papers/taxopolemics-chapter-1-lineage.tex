@@ -1,66 +1,3 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-
-\title{TaxoPolemics: A Formal Rhetoric of Disagreement}
-\usepackage{etoolbox}
-\makeatletter
-\providecommand{\subtitle}[1]{% add subtitle to \maketitle
-  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
-}
-\makeatother
-\subtitle{Chapter One — Lineage: The Ancestors of a Taxonomy of Argument}
-\author{}
-\date{2026-11-21}
-
-\begin{document}
-\maketitle
-
 \emph{Jason Mark Wrinkle (principal investigator and first author);
 Yolanda Biche et al.~(drafting and computation). Working chapter,
 2026-11-21. Status markers are kept visible: claims about the project's
@@ -69,7 +6,7 @@ rather than smoothed over.}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsubsection{1.1 The claim this chapter
+\section{1.1 The claim this chapter
 supports}\label{the-claim-this-chapter-supports}
 
 TaxoPolemics is an engine for mapping disagreement. Given a domain of
@@ -93,7 +30,7 @@ problem, and TaxoPolemics inherits both the solution and the problem it
 left behind. A framework that can name its ancestors can also name its
 delta. The final section does so.
 
-\subsubsection{1.2 Stasis theory: the first taxonomy of
+\section{1.2 Stasis theory: the first taxonomy of
 disagreement}\label{stasis-theory-the-first-taxonomy-of-disagreement}
 
 The oldest ancestor is the most direct. In the second century BCE,
@@ -128,7 +65,7 @@ most failed arguments fail because the parties never established what
 they were disagreeing about, and that a shared map of the disagreement
 is a precondition of a productive one.
 
-\subsubsection{1.3 The modern theory of argument: Toulmin, Perelman,
+\section{1.3 The modern theory of argument: Toulmin, Perelman,
 Burke}\label{the-modern-theory-of-argument-toulmin-perelman-burke}
 
 Three twentieth-century rhetoricians rebuilt the study of argument after
@@ -184,7 +121,7 @@ for the crossed, a positive-definite one for the straight, as the
 companion paper shows), is the project's central formal claim, and it is
 a Burkean claim before it is a mathematical one.
 
-\subsubsection{1.4 The design-methods tradition: IBIS and the wicked
+\section{1.4 The design-methods tradition: IBIS and the wicked
 problem}\label{the-design-methods-tradition-ibis-and-the-wicked-problem}
 
 The second lineage is not rhetorical but computational, and it is the
@@ -242,7 +179,7 @@ descendant, and the descent specifies the delta with unusual clarity:
   taxonomy's designer.
 \end{enumerate}
 
-\subsubsection{1.5 Knowledge organization: classification as
+\section{1.5 Knowledge organization: classification as
 argument}\label{knowledge-organization-classification-as-argument}
 
 The third lineage is the study of classification itself. Geoffrey Bowker
@@ -273,8 +210,7 @@ claim of the work: classification design is portable across domains
 precisely when its fairness rules are stated at the level of the engine,
 not improvised per domain.
 
-\subsubsection{1.6 Attitude research: the independent ancestry of the
-(n+1)
+\section{1.6 Attitude research: the independent ancestry of the (n+1)
 model}\label{attitude-research-the-independent-ancestry-of-the-n1-model}
 
 The separation of \emph{direction} from \emph{intensity} --- of which
@@ -307,7 +243,7 @@ most original modelling decision is also its least finished --- a state
 of affairs Chapter Three's defence treats as a feature of the work's
 stage, not an embarrassment to be hidden.
 
-\subsubsection{1.7 Further kin: deliberative democracy and the map as
+\section{1.7 Further kin: deliberative democracy and the map as
 medium}\label{further-kin-deliberative-democracy-and-the-map-as-medium}
 
 Two nearer relations deserve brief acknowledgement. \textbf{Deliberative
@@ -327,7 +263,7 @@ the data is \emph{read}, and several of the project's defects (recorded
 in the companion paper, \S 7) were precisely cases where a display quietly
 stopped being the statistic it claimed to be.
 
-\subsubsection{1.8 The delta, stated}\label{the-delta-stated}
+\section{1.8 The delta, stated}\label{the-delta-stated}
 
 Against these ancestors, the work claims four things as its own:
 
@@ -370,5 +306,3 @@ subjects of the next two chapters.
 \emph{Next: Chapter Two --- Methodology: research through design,
 taxonomy construction, the measurement model, and the evaluation
 regime.}
-
-\end{document}

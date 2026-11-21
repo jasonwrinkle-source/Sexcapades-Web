@@ -1,81 +1,3 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{longtable,booktabs,array}
-\newcounter{none} % for unnumbered tables
-\usepackage{calc} % for calculating minipage widths
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-
-\title{How Maps Multiply}
-\usepackage{etoolbox}
-\makeatletter
-\providecommand{\subtitle}[1]{% add subtitle to \maketitle
-  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
-}
-\makeatother
-\subtitle{The Tensor Product of Profiles}
-\author{}
-\date{Revision of 2026-11-21}
-
-\begin{document}
-\maketitle
-
-{
-\setcounter{tocdepth}{3}
-\tableofcontents
-}
 \begin{quote}
 \textbf{Revision note --- 2026-11-21.} This revision adds two sections
 and changes nothing in \S \S 1--10 or in Appendix A. \textbf{\S 11} records
@@ -152,7 +74,7 @@ supports; open details from that closure are listed in \S 4 and in the
 companion notes, marked as recommendations or as open, not as rulings.
 Appendix A remains HELD for the full review sometime after Saturday.}
 
-\subsection{Definitions index}\label{definitions-index}
+\section{Definitions index}\label{definitions-index}
 
 \textbf{Profile.} One person's vector: for each of the 372 topics, a
 give value and a receive value, each from -100 to +100, with marks
@@ -289,7 +211,7 @@ strength numbers per source are not ruled, and the aggregated score's
 use as the Popularity List sort key is unverified in implementation;
 this paper states the rule, not a verified implementation.{]}
 
-\subsection{1. A profile is a vector}\label{a-profile-is-a-vector}
+\section{1. A profile is a vector}\label{a-profile-is-a-vector}
 
 Take one person. For every topic in the taxonomy --- 372 of them ---
 they carry two numbers: how much they want to \emph{give} it, and how
@@ -312,7 +234,7 @@ operation that would blend them is the one operation the system refuses
 to perform. Direction is never contracted, in a profile, in a pair, or
 in a headline.
 
-\subsection{2. The product: every pairing at
+\section{2. The product: every pairing at
 once}\label{the-product-every-pairing-at-once}
 
 Comparing two people means forming their \textbf{tensor product},
@@ -351,7 +273,7 @@ else the sync reports is a summary of this table, obtained by
 overlay: co-display, both profiles shown together, answering no
 question. Contraction is what turns the table into an answer.
 
-\subsection{3. The gates: why the contraction is not a pure
+\section{3. The gates: why the contraction is not a pure
 sum}\label{the-gates-why-the-contraction-is-not-a-pure-sum}
 
 In Einstein's convention, contraction means summing over an index and
@@ -399,7 +321,7 @@ taken:
   what's seen.
 \end{itemize}
 
-\subsection{4. The contractions: how one object is read, in pairs and
+\section{4. The contractions: how one object is read, in pairs and
 alone}\label{the-contractions-how-one-object-is-read-in-pairs-and-alone}
 
 \textbf{The component table itself} is the zero-contraction reading:
@@ -615,7 +537,7 @@ bowtie: the outer ring is Parlay Match Score and the inner ring is
 Parlay Kink Factor, both provisional in definition. In the header, the
 Charted ring takes the former header-ring seat.
 
-\subsection{5. What the language buys, and where it
+\section{5. What the language buys, and where it
 stops}\label{what-the-language-buys-and-where-it-stops}
 
 The tensor language is not decoration. It enforces the design's central
@@ -639,7 +561,7 @@ and it fits in one line ---
 \textbf{profiles multiply; gates decide what may count; contractions
 decide what to ask.}
 
-\subsection{6. The open question: which contractions mean
+\section{6. The open question: which contractions mean
 something}\label{the-open-question-which-contractions-mean-something}
 
 The product is not a design choice --- two profiles multiply the same
@@ -722,7 +644,7 @@ cohort carries real uncertainty, which an honest display encodes rather
 than hides. Profiles multiply; prototypes compare; and the choice of
 what to contract remains, as ever, the choice of what to ask.
 
-\subsection{7. The heat map: a contraction up the
+\section{7. The heat map: a contraction up the
 hierarchy}\label{the-heat-map-a-contraction-up-the-hierarchy}
 
 The pair product is not the only contraction in the system. A single
@@ -817,7 +739,7 @@ receive taper the receive value. A single spoke tooltip that contracts
 direction to cover both is not a meaningful object, and its combined
 ``heat'' figure has no question it honestly answers.)}
 
-\subsection{8. The Krossmatch}\label{the-krossmatch}
+\section{8. The Krossmatch}\label{the-krossmatch}
 
 \S 2 named the object in passing; this section examines it, because it is
 the joint the whole paper stands on.
@@ -930,7 +852,7 @@ fitting. Every verdict the sync delivers is a gated contraction of this
 grid --- and when a verdict is questioned, this is the grid it answers
 to.
 
-\subsection{9. The Straight Match}\label{the-straight-match}
+\section{9. The Straight Match}\label{the-straight-match}
 
 \S 8 closed by separating the Krossmatch from the only other pairing
 kernel in the formalism. This section gives that kernel its object,
@@ -1032,7 +954,7 @@ provisional in definition. The Parlay mirror is carried in \S 4 with its
 flags; this section does not harden it by repeating it without those
 flags.
 
-\subsection{10. The Penumbra}\label{the-penumbra}
+\section{10. The Penumbra}\label{the-penumbra}
 
 \S \S 8 and 9 leave no third sector hiding in the product. For each topic,
 the product's 2$\times$2 direction block splits into the diagonal and
@@ -1142,8 +1064,7 @@ against the other rules the record sketches; and whether initiative
 earned on Curious-fit channels --- the explorative frontier, where the
 wanting is newest --- should carry extra weight.
 
-\subsection{11. The multi-pole
-extension}\label{the-multi-pole-extension}
+\section{11. The multi-pole extension}\label{the-multi-pole-extension}
 
 \S \S 1--10 are written for the founding domain's topics, each of which
 carries exactly two components --- give and receive --- and the two
@@ -1207,7 +1128,7 @@ depth entries at present compute to zero. These are implementation gaps,
 recorded as such. A reader of the shipped numbers should know that the
 pole species is counted in the totals and absent from the lists.
 
-\subsection{12. Intensity as an independent
+\section{12. Intensity as an independent
 coordinate}\label{intensity-as-an-independent-coordinate}
 
 The ratings of \S 11 carry one further component, added by the owner's
@@ -1281,7 +1202,7 @@ companion notes for 2026-10-29. No headline in this draft is a
 kinkiness-weighted recomputation, no Personal Kink Factor number is
 asserted, and no group weighted-Kink Factor example is invented.}
 
-\subsection{Appendix A. The six numbers, side by side ---
+\section{Appendix A. The six numbers, side by side ---
 HELD}\label{appendix-a.-the-six-numbers-side-by-side-held}
 
 \textbf{HELD appendix, not final.} This appendix is held for the full
@@ -1300,7 +1221,7 @@ notes below. The six columns are the six numbers of \S 4: Personal and
 Charted for one person, Play KF and Play Match Score for a crossed pair,
 Parlay KF and Parlay Match Score for a straight pair.
 
-\subsubsection{Table A1. Kink Factors (inner
+\subsection{Table A1. Kink Factors (inner
 rings)}\label{table-a1.-kink-factors-inner-rings}
 
 {\def\LTcaptype{none} % do not increment counter
@@ -1356,7 +1277,7 @@ majority counting, groups, normalized by group maximum \\
 \end{longtable}
 }
 
-\subsubsection{Table A2. Outer numbers: Charted and the Match
+\subsection{Table A2. Outer numbers: Charted and the Match
 Scores}\label{table-a2.-outer-numbers-charted-and-the-match-scores}
 
 Each column here is the outer partner of the same-colour column in Table
@@ -1416,7 +1337,7 @@ pairs; strict majority counting, groups, normalized by group maximum \\
 \end{longtable}
 }
 
-\subsubsection{Shared contributions --- Personal and
+\subsection{Shared contributions --- Personal and
 Charted}\label{shared-contributions-personal-and-charted}
 
 Same table, per topic, once, times hierarchical share $\times$ kinkiness.
@@ -1444,7 +1365,7 @@ In Personal the rating itself is the maximum flank, signed and
 proportional. In Charted the rating counts binary, epsilon-thresholded,
 with these flag weights on top, as a straight sum of the table entries.
 
-\subsubsection{Parlay table}\label{parlay-table}
+\subsection{Parlay table}\label{parlay-table}
 
 Positive entries only, no null or zero entries, no banded topics.
 Favorite 1, Tried 1, Fantasy 1 (full 1). Teased does not enter ---
@@ -1452,7 +1373,7 @@ absent, not zero. The Play table is, for now, copied from the Charted
 table above; its final form is deferred. {[}Flag: provisional, final
 inclusion tables deferred.{]}
 
-\subsubsection{Key --- banded topics}\label{key-banded-topics}
+\subsection{Key --- banded topics}\label{key-banded-topics}
 
 A banded topic is a shared topic with a straight sum: give $\times$ give +
 receive $\times$ receive, ranging from -20,000 to +20,000. Do not take a max.
@@ -1473,7 +1394,7 @@ receive $\times$ receive, ranging from -20,000 to +20,000. Do not take a max.
   One-sided topics have no sum and no band.
 \end{itemize}
 
-\subsubsection{Similarities --- and the differences that
+\subsection{Similarities --- and the differences that
 stay}\label{similarities-and-the-differences-that-stay}
 
 Same in both tables: the row set, the limit exclusion, hierarchical
@@ -1490,8 +1411,8 @@ rating (Personal).
 Inside each inner / outer pair the outer ring covers more territory,
 which is why it sits above the inner, not because of any clamping.
 
-\subsubsection{Appendix notes --- corrections to the source document,
-and what stays
+\subsection{Appendix notes --- corrections to the source document, and
+what stays
 open}\label{appendix-notes-corrections-to-the-source-document-and-what-stays-open}
 
 \begin{enumerate}
@@ -1548,5 +1469,3 @@ open}\label{appendix-notes-corrections-to-the-source-document-and-what-stays-ope
 
 \emph{End of Appendix A, held for the full review sometime after
 Saturday.}
-
-\end{document}

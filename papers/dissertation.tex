@@ -1,0 +1,63 @@
+% TaxoPolemics: A Formal Rhetoric of Disagreement
+% Master dissertation file. This document carries the preamble, title page,
+% and contents; the four papers are separate files, pulled in by \include
+% (each \include starts its paper on a fresh page; \input would paste the
+% file inline instead). Compile with pdflatex (run twice for the contents):
+%   pdflatex dissertation.tex && pdflatex dissertation.tex
+\documentclass[11pt]{report}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs,longtable,array,calc}
+\usepackage{etoolbox}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+
+% Pandoc-generated fragments use \tightlist in their lists.
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\title{TaxoPolemics\\[0.5em]\large A Formal Rhetoric of Disagreement}
+\author{Jason Mark Wrinkle\\[0.3em]\normalsize\textit{with Yolanda Biche et al.}}
+\date{November 21, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent This dissertation presents TaxoPolemics, an engine for mapping
+disagreement: a measured stance-space of topics and poles, an intensity
+coordinate independent of leaning, and two formally distinct comparison
+registers --- communion and conversation --- computed over the tensor
+product of two profiles under a discipline that every headline number can
+be un-contracted into its receipts. Chapter One traces the framework's
+lineage from classical stasis theory through the modern theory of argument,
+issue-based information systems, and knowledge organization. Chapter Two
+states the methodology: research through design, taxonomy construction,
+the measurement model, and the evaluation regime. Chapter Three is the
+companion paper, \textit{How Maps Multiply}, which states the pair
+mathematics of the founding domain. Chapter Four rehearses the defense:
+the strongest anticipated objections, the responses, the concessions, and
+the conditions under which the framework's claims would fall. The six pair
+scores used throughout stand as provisionally ruled definitions
+(2026-10-30) and are flagged as such wherever they appear.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Lineage: The Ancestors of a Taxonomy of Argument}
+\include{taxopolemics-chapter-1-lineage}
+
+\chapter{Methodology: Building an Instrument for Disagreement}
+\include{taxopolemics-chapter-2-methodology}
+
+\chapter{How Maps Multiply: The Tensor Product of Profiles}
+\include{how-maps-multiply}
+
+\chapter{The Defense: Anticipated Objections and Responses}
+\include{taxopolemics-chapter-3-defense}
+
+\end{document}
