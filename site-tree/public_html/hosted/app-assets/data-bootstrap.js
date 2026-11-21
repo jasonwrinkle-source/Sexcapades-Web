@@ -21655,6 +21655,7 @@ const TAXONOMY_CATEGORIES = [];
                 if (mn && mn.staticMap) return;
                 const fitBtn = document.getElementById("mapFit");
                 if (fitBtn) fitBtn.click();
+                else if (typeof window.sxCenterFitViewport === "function") window.sxCenterFitViewport();
                 else if (typeof Ih === "function") Ih();
             }
             x && (x.addEventListener("keydown", e => {
@@ -21663,7 +21664,7 @@ const TAXONOMY_CATEGORIES = [];
                 e.preventDefault(), e.stopPropagation();
                 const now = performance.now();
                 const dist = Math.hypot(e.clientX - sxCenterTapX, e.clientY - sxCenterTapY);
-                const isDbl = e.detail >= 2 || (now - sxCenterTapTime < 450 && dist < 45);
+                const isDbl = e.detail >= 2 || (now - sxCenterTapTime < 520 && dist < 50);
                 if (isDbl) {
                     if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
                     sxCenterTapTime = 0;
@@ -30747,7 +30748,7 @@ const TAXONOMY_CATEGORIES = [];
                 if (t.ctrlKey || t.metaKey) return t.preventDefault(), kl(), void el(c);
                 yl = !1;
                 const now = performance.now();
-                const isDbl = t.detail >= 2 || (now - sxLastTabTapTime < 450 && sxLastTabTapId === c);
+                const isDbl = t.detail >= 2 || (now - sxLastTabTapTime < 520 && sxLastTabTapId === c);
                 if (isDbl) {
                     sxLastTabTapTime = 0;
                     sxLastTabTapId = null;
@@ -30767,7 +30768,9 @@ const TAXONOMY_CATEGORIES = [];
                 t.preventDefault(), t.stopPropagation();
                 sxLastTabTapTime = 0, sxLastTabTapId = null;
                 c !== Mt && Js(c);
-                bw(c, { mode: "about" });
+                if (!(_g && _g.open && Hy === c && "about" === gw)) {
+                    bw(c, { mode: "about" });
+                }
             });
         }
         e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", ev => {
@@ -40335,6 +40338,27 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             const f = sxFitFrame();
             $p = f.scale, Ep = f.x, Ap = f.y, $h(), armFitSettleRefit();
         }
+        window.sxCenterFitViewport = Ih;
+        let sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0, sxCenterPointerSingleTimer = null;
+        function sxCenterAvatarClick(clientX, clientY, isDblHint) {
+            const now = performance.now();
+            const dist = (clientX !== undefined && clientY !== undefined) ? Math.hypot(clientX - sxCenterPointerTapX, clientY - sxCenterPointerTapY) : 0;
+            const isDbl = Boolean(isDblHint) || (now - sxCenterPointerTapTime < 520 && dist < 50);
+            if (isDbl) {
+                if (sxCenterPointerSingleTimer) { clearTimeout(sxCenterPointerSingleTimer); sxCenterPointerSingleTimer = null; }
+                sxCenterPointerTapTime = 0;
+                sh();
+            } else {
+                sxCenterPointerTapTime = now;
+                sxCenterPointerTapX = clientX || 0;
+                sxCenterPointerTapY = clientY || 0;
+                if (sxCenterPointerSingleTimer) clearTimeout(sxCenterPointerSingleTimer);
+                sxCenterPointerSingleTimer = setTimeout(() => {
+                    sxCenterPointerSingleTimer = null;
+                    Ih();
+                }, 280);
+            }
+        }
         function Ph(e, t, n) {
             if (!Number.isFinite(e) || !Number.isFinite(t) || !Number.isFinite(n)) return;
             noteFitUserCamera();
@@ -40751,11 +40775,12 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 return Tp = null, void ("pointerup" === e.type && Fc(t.index, t.target));
             }
             if (Fp && Fp.pointerId === e.pointerId) {
-                const t = Fp;
-                // Center disc tap: single click fits to viewport, double
-                // click opens About Profile (sh). The click listener on
-                // .center-hit arbitrates single vs double tap.
-                return Fp = null, oh(), Dp = performance.now(), void ("pointerup" !== e.type || t.longPressed);
+                const curFp = Fp;
+                Fp = null, oh(), Dp = performance.now();
+                if ("pointerup" === e.type && !curFp.longPressed) {
+                    sxCenterAvatarClick(e.clientX, e.clientY, e.detail >= 2);
+                }
+                return;
             }
             if (yn && yn.pointerId === e.pointerId) return "pointerup" === e.type && kr(yn, Sr(yn, e.clientX, e.clientY)), 
             void xr(!0);
@@ -41753,8 +41778,13 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const e = performance.now();
                 e - Op < 520 ? Rp += 1 : Rp = 1, Op = e, Bp && t.clear(Bp), 3 === Rp ? (Rp = 0, 
                 window.__SEXCAPADES_LAYOUT_UI && window.__SEXCAPADES_LAYOUT_UI.open()) : Bp = t.setTimeout(() => {
-                    1 === Rp && sh(), Rp = 0, Bp = 0;
-                }, 540);
+                    if (2 === Rp) {
+                        sh();
+                    } else if (1 === Rp) {
+                        Ih();
+                    }
+                    Rp = 0, Bp = 0;
+                }, 280);
             }());
         }, {
             passive: !1
@@ -45681,6 +45711,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             });
         }
         function sxCheckSkinCompatibility(e) {
+            if (!e || typeof e !== "object") return;
             const curSkin = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
             const fileSkin = (typeof e.skin === "string" && e.skin.trim()) ? e.skin.trim().toLowerCase() : null;
             const skinTitle = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : "Sexcapades";

@@ -150,6 +150,7 @@
                 if (mn && mn.staticMap) return;
                 const fitBtn = document.getElementById("mapFit");
                 if (fitBtn) fitBtn.click();
+                else if (typeof window.sxCenterFitViewport === "function") window.sxCenterFitViewport();
                 else if (typeof Ih === "function") Ih();
             }
             x && (x.addEventListener("keydown", e => {
@@ -158,7 +159,7 @@
                 e.preventDefault(), e.stopPropagation();
                 const now = performance.now();
                 const dist = Math.hypot(e.clientX - sxCenterTapX, e.clientY - sxCenterTapY);
-                const isDbl = e.detail >= 2 || (now - sxCenterTapTime < 450 && dist < 45);
+                const isDbl = e.detail >= 2 || (now - sxCenterTapTime < 520 && dist < 50);
                 if (isDbl) {
                     if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
                     sxCenterTapTime = 0;

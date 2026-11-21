@@ -379,6 +379,27 @@
             const f = sxFitFrame();
             $p = f.scale, Ep = f.x, Ap = f.y, $h(), armFitSettleRefit();
         }
+        window.sxCenterFitViewport = Ih;
+        let sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0, sxCenterPointerSingleTimer = null;
+        function sxCenterAvatarClick(clientX, clientY, isDblHint) {
+            const now = performance.now();
+            const dist = (clientX !== undefined && clientY !== undefined) ? Math.hypot(clientX - sxCenterPointerTapX, clientY - sxCenterPointerTapY) : 0;
+            const isDbl = Boolean(isDblHint) || (now - sxCenterPointerTapTime < 520 && dist < 50);
+            if (isDbl) {
+                if (sxCenterPointerSingleTimer) { clearTimeout(sxCenterPointerSingleTimer); sxCenterPointerSingleTimer = null; }
+                sxCenterPointerTapTime = 0;
+                sh();
+            } else {
+                sxCenterPointerTapTime = now;
+                sxCenterPointerTapX = clientX || 0;
+                sxCenterPointerTapY = clientY || 0;
+                if (sxCenterPointerSingleTimer) clearTimeout(sxCenterPointerSingleTimer);
+                sxCenterPointerSingleTimer = setTimeout(() => {
+                    sxCenterPointerSingleTimer = null;
+                    Ih();
+                }, 280);
+            }
+        }
         function Ph(e, t, n) {
             if (!Number.isFinite(e) || !Number.isFinite(t) || !Number.isFinite(n)) return;
             noteFitUserCamera();
@@ -795,11 +816,12 @@
                 return Tp = null, void ("pointerup" === e.type && Fc(t.index, t.target));
             }
             if (Fp && Fp.pointerId === e.pointerId) {
-                const t = Fp;
-                // Center disc tap: single click fits to viewport, double
-                // click opens About Profile (sh). The click listener on
-                // .center-hit arbitrates single vs double tap.
-                return Fp = null, oh(), Dp = performance.now(), void ("pointerup" !== e.type || t.longPressed);
+                const curFp = Fp;
+                Fp = null, oh(), Dp = performance.now();
+                if ("pointerup" === e.type && !curFp.longPressed) {
+                    sxCenterAvatarClick(e.clientX, e.clientY, e.detail >= 2);
+                }
+                return;
             }
             if (yn && yn.pointerId === e.pointerId) return "pointerup" === e.type && kr(yn, Sr(yn, e.clientX, e.clientY)), 
             void xr(!0);
@@ -1797,8 +1819,13 @@
                 const e = performance.now();
                 e - Op < 520 ? Rp += 1 : Rp = 1, Op = e, Bp && t.clear(Bp), 3 === Rp ? (Rp = 0, 
                 window.__SEXCAPADES_LAYOUT_UI && window.__SEXCAPADES_LAYOUT_UI.open()) : Bp = t.setTimeout(() => {
-                    1 === Rp && sh(), Rp = 0, Bp = 0;
-                }, 540);
+                    if (2 === Rp) {
+                        sh();
+                    } else if (1 === Rp) {
+                        Ih();
+                    }
+                    Rp = 0, Bp = 0;
+                }, 280);
             }());
         }, {
             passive: !1

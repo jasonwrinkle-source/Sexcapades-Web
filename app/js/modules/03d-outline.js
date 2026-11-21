@@ -1938,7 +1938,7 @@
                 if (t.ctrlKey || t.metaKey) return t.preventDefault(), kl(), void el(c);
                 yl = !1;
                 const now = performance.now();
-                const isDbl = t.detail >= 2 || (now - sxLastTabTapTime < 450 && sxLastTabTapId === c);
+                const isDbl = t.detail >= 2 || (now - sxLastTabTapTime < 520 && sxLastTabTapId === c);
                 if (isDbl) {
                     sxLastTabTapTime = 0;
                     sxLastTabTapId = null;
@@ -1958,7 +1958,9 @@
                 t.preventDefault(), t.stopPropagation();
                 sxLastTabTapTime = 0, sxLastTabTapId = null;
                 c !== Mt && Js(c);
-                bw(c, { mode: "about" });
+                if (!(_g && _g.open && Hy === c && "about" === gw)) {
+                    bw(c, { mode: "about" });
+                }
             });
         }
         e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", ev => {

@@ -590,6 +590,7 @@
             });
         }
         function sxCheckSkinCompatibility(e) {
+            if (!e || typeof e !== "object") return;
             const curSkin = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
             const fileSkin = (typeof e.skin === "string" && e.skin.trim()) ? e.skin.trim().toLowerCase() : null;
             const skinTitle = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : "Sexcapades";
