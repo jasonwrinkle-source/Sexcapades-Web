@@ -264,18 +264,26 @@
               "label": "Hustle / Grind"
             },
             {
+              "key": "bursts-recovery",
+              "label": "Bursts & Recovery"
+            },
+            {
               "key": "balance-rest",
               "label": "Balance / Rest"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you push, or do you pace yourself?",
             "poles": [
               {
                 "label": "Hustle",
                 "text": "Push, grind."
+              },
+              {
+                "label": "Bursts & Recovery",
+                "text": "Sprint hard, then rest fully — effort in seasons."
               },
               {
                 "label": "Balance",
@@ -318,18 +326,26 @@
               "label": "Contentment"
             },
             {
+              "key": "balanced",
+              "label": "Balanced"
+            },
+            {
               "key": "ambition",
               "label": "Ambition"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Are you satisfied where you are, or always reaching?",
             "poles": [
               {
                 "label": "Contentment",
                 "text": "Enough is enough."
+              },
+              {
+                "label": "Balanced",
+                "text": "Content today, still reaching tomorrow."
               },
               {
                 "label": "Ambition",
@@ -372,18 +388,26 @@
               "label": "Safe / Stable"
             },
             {
+              "key": "calculated",
+              "label": "Calculated"
+            },
+            {
               "key": "risky-entrepreneurial",
               "label": "Risky / Entrepreneurial"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you want a steady job, or a bet?",
             "poles": [
               {
                 "label": "Safe",
                 "text": "Stable."
+              },
+              {
+                "label": "Calculated",
+                "text": "Risks taken with the odds counted first."
               },
               {
                 "label": "Risky",
@@ -426,18 +450,26 @@
               "label": "Polymath / Generalist"
             },
             {
+              "key": "unformed",
+              "label": "Unformed"
+            },
+            {
               "key": "deep-specialist",
               "label": "Deep Specialist"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Are you a generalist or a specialist?",
             "poles": [
               {
                 "label": "Generalist",
                 "text": "Wide breadth, connecting dots across fields."
+              },
+              {
+                "label": "Unformed",
+                "text": "No breadth, no depth yet — the map is not drawn."
               },
               {
                 "label": "Specialist",
@@ -549,18 +581,26 @@
               "label": "Solo / Independent"
             },
             {
+              "key": "mixed",
+              "label": "Mixed"
+            },
+            {
               "key": "team-collaborative",
               "label": "Team / Collaborative"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you work best alone, or with others?",
             "poles": [
               {
                 "label": "Solo",
                 "text": "Independent."
+              },
+              {
+                "label": "Mixed",
+                "text": "Solo for depth, team for reach — both, by design."
               },
               {
                 "label": "Team",
@@ -603,18 +643,26 @@
               "label": "Fixed schedule"
             },
             {
+              "key": "core-hours",
+              "label": "Core Hours"
+            },
+            {
               "key": "flexible-async",
               "label": "Flexible / Async"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "When do you work — on the clock, or on your own rhythm?",
             "poles": [
               {
                 "label": "Fixed schedule",
                 "text": "On the clock."
+              },
+              {
+                "label": "Core Hours",
+                "text": "A fixed core with flexible edges."
               },
               {
                 "label": "Flexible",
@@ -664,18 +712,26 @@
               "label": "Hierarchical"
             },
             {
+              "key": "hybrid",
+              "label": "Hybrid"
+            },
+            {
               "key": "flat",
               "label": "Flat"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How should work be organized?",
             "poles": [
               {
                 "label": "Hierarchical",
                 "text": "Clear chain of command."
+              },
+              {
+                "label": "Hybrid",
+                "text": "Teams with a spine — hierarchy only where it earns its keep."
               },
               {
                 "label": "Flat",
@@ -718,18 +774,26 @@
               "label": "Autonomy"
             },
             {
+              "key": "guardrails",
+              "label": "Guardrails"
+            },
+            {
               "key": "direction",
               "label": "Direction"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much freedom do you want in how you work?",
             "poles": [
               {
                 "label": "Autonomy",
                 "text": "Decide for yourself."
+              },
+              {
+                "label": "Guardrails",
+                "text": "Free inside agreed rails."
               },
               {
                 "label": "Direction",
@@ -834,18 +898,26 @@
               "label": "Corporate / Capital Hierarchy"
             },
             {
+              "key": "shared-ownership",
+              "label": "Shared Ownership (ESOP)"
+            },
+            {
               "key": "worker-cooperative-collective",
               "label": "Worker Cooperative / Collective"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Who should own the workplace?",
             "poles": [
               {
                 "label": "Corporate",
                 "text": "Investor-owned, executive command."
+              },
+              {
+                "label": "Shared Ownership (ESOP)",
+                "text": "Employees hold a real stake, short of full cooperative control."
               },
               {
                 "label": "Worker Cooperative",
@@ -1027,18 +1099,26 @@
               "label": "Security"
             },
             {
+              "key": "balanced-package",
+              "label": "Balanced"
+            },
+            {
               "key": "upside",
               "label": "Upside"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you want safety, or potential?",
             "poles": [
               {
                 "label": "Security",
                 "text": "Stable, predictable."
+              },
+              {
+                "label": "Balanced",
+                "text": "Some certainty, some upside."
               },
               {
                 "label": "Upside",
@@ -1081,18 +1161,26 @@
               "label": "Quiet contribution"
             },
             {
+              "key": "selective",
+              "label": "Selective"
+            },
+            {
               "key": "public-recognition",
               "label": "Public recognition"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much do you need to be seen for what you do?",
             "poles": [
               {
                 "label": "Quiet contribution",
                 "text": "The work speaks."
+              },
+              {
+                "label": "Selective",
+                "text": "Seen by the people whose seeing matters."
               },
               {
                 "label": "Public recognition",
@@ -1212,18 +1300,26 @@
               "label": "Job is who I am"
             },
             {
+              "key": "part-of-me",
+              "label": "Part of Me"
+            },
+            {
               "key": "job-is-what-i-do",
               "label": "Job is what I do"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is your work your identity, or just something you do?",
             "poles": [
               {
                 "label": "Job is who I am",
                 "text": "Identity."
+              },
+              {
+                "label": "Part of Me",
+                "text": "Work is part of who I am — not all of it."
               },
               {
                 "label": "Job is what I do",
@@ -1266,18 +1362,26 @@
               "label": "Permeable"
             },
             {
+              "key": "flexible",
+              "label": "Flexible"
+            },
+            {
               "key": "firm",
               "label": "Firm"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How separate is work from life — and should it be?",
             "poles": [
               {
                 "label": "Permeable",
                 "text": "Work bleeds into life."
+              },
+              {
+                "label": "Flexible",
+                "text": "A real wall, with a door in it."
               },
               {
                 "label": "Firm",
@@ -1320,18 +1424,26 @@
               "label": "Retire"
             },
             {
+              "key": "phased-encore",
+              "label": "Phased / Encore"
+            },
+            {
               "key": "work-for-life",
               "label": "Work for life"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you work to retire, or do you work because the work is the point?",
             "poles": [
               {
                 "label": "Retire",
                 "text": "Stop when you can."
+              },
+              {
+                "label": "Phased / Encore",
+                "text": "Wind down gradually — or start a second act."
               },
               {
                 "label": "Work for life",
@@ -3286,26 +3398,32 @@
           },
           "xvo0003": {
             "hustle-grind": 30,
+            "bursts-recovery": 80,
             "balance-rest": 50
           },
           "xvo0004": {
             "contentment": 60,
+            "balanced": 60,
             "ambition": 20
           },
           "xvo0005": {
             "safe-stable": 40,
+            "calculated": 40,
             "risky-entrepreneurial": -20
           },
           "xvo0008": {
             "solo-independent": 20,
+            "mixed": 50,
             "team-collaborative": 70
           },
           "xvo0010": {
             "hierarchical": -30,
+            "hybrid": 10,
             "flat": 60
           },
           "xvo0011": {
             "autonomy": 60,
+            "guardrails": 60,
             "direction": 20
           },
           "xvo0012": {
@@ -3315,6 +3433,7 @@
           },
           "xvo0013": {
             "corporate-capital-hierarchy": -60,
+            "shared-ownership": -30,
             "worker-cooperative-collective": 70
           },
           "xvo0014": {
@@ -3330,10 +3449,12 @@
           },
           "xvo0016": {
             "security": 40,
+            "balanced-package": 70,
             "upside": 10
           },
           "xvo0017": {
             "quiet-contribution": 80,
+            "selective": -10,
             "public-recognition": -30
           },
           "xvo0018": {
@@ -3344,14 +3465,17 @@
           },
           "xvo0019": {
             "job-is-who-i-am": 80,
+            "part-of-me": -30,
             "job-is-what-i-do": -50
           },
           "xvo0020": {
             "permeable": 60,
+            "flexible": 10,
             "firm": -30
           },
           "xvo0021": {
             "retire": -60,
+            "phased-encore": -45,
             "work-for-life": 85
           }
         }
@@ -3382,30 +3506,37 @@
           },
           "xvo0003": {
             "hustle-grind": 85,
+            "bursts-recovery": -35,
             "balance-rest": -50
           },
           "xvo0004": {
             "contentment": -60,
+            "balanced": -50,
             "ambition": 90
           },
           "xvo0005": {
             "safe-stable": -60,
+            "calculated": -30,
             "risky-entrepreneurial": 70
           },
           "xvo0006": {
             "polymath-generalist": 40,
+            "unformed": 100,
             "deep-specialist": 40
           },
           "xvo0008": {
             "solo-independent": 30,
+            "mixed": 70,
             "team-collaborative": 60
           },
           "xvo0010": {
             "hierarchical": 60,
+            "hybrid": 20,
             "flat": -20
           },
           "xvo0011": {
             "autonomy": 50,
+            "guardrails": 80,
             "direction": 30
           },
           "xvo0012": {
@@ -3415,6 +3546,7 @@
           },
           "xvo0013": {
             "corporate-capital-hierarchy": 70,
+            "shared-ownership": -20,
             "worker-cooperative-collective": -50
           },
           "xvo0014": {
@@ -3430,10 +3562,12 @@
           },
           "xvo0016": {
             "security": -20,
+            "balanced-package": -5,
             "upside": 85
           },
           "xvo0017": {
             "quiet-contribution": -50,
+            "selective": -35,
             "public-recognition": 85
           },
           "xvo0018": {
@@ -3444,10 +3578,12 @@
           },
           "xvo0019": {
             "job-is-who-i-am": 70,
+            "part-of-me": -10,
             "job-is-what-i-do": -40
           },
           "xvo0021": {
             "retire": 30,
+            "phased-encore": 90,
             "work-for-life": 40
           }
         }
@@ -3478,14 +3614,17 @@
           },
           "xvo0003": {
             "hustle-grind": -60,
+            "bursts-recovery": -30,
             "balance-rest": 70
           },
           "xvo0004": {
             "contentment": 80,
+            "balanced": -30,
             "ambition": -50
           },
           "xvo0005": {
             "safe-stable": 90,
+            "calculated": -70,
             "risky-entrepreneurial": -80
           },
           "xvo0007": {
@@ -3495,18 +3634,22 @@
           },
           "xvo0008": {
             "solo-independent": 30,
+            "mixed": 80,
             "team-collaborative": 50
           },
           "xvo0009": {
             "fixed-schedule": 70,
+            "core-hours": 50,
             "flexible-async": 20
           },
           "xvo0010": {
             "hierarchical": 50,
+            "hybrid": 50,
             "flat": 0
           },
           "xvo0011": {
             "autonomy": 30,
+            "guardrails": 70,
             "direction": 60
           },
           "xvo0014": {
@@ -3522,10 +3665,12 @@
           },
           "xvo0016": {
             "security": 90,
+            "balanced-package": -50,
             "upside": -60
           },
           "xvo0017": {
             "quiet-contribution": 60,
+            "selective": 40,
             "public-recognition": 0
           },
           "xvo0018": {
@@ -3536,14 +3681,17 @@
           },
           "xvo0019": {
             "job-is-who-i-am": -60,
+            "part-of-me": -40,
             "job-is-what-i-do": 80
           },
           "xvo0020": {
             "permeable": -50,
+            "flexible": -30,
             "firm": 80
           },
           "xvo0021": {
             "retire": 80,
+            "phased-encore": -40,
             "work-for-life": -60
           }
         }
@@ -3579,14 +3727,17 @@
           },
           "xvo0003": {
             "hustle-grind": -80,
+            "bursts-recovery": -70,
             "balance-rest": 90
           },
           "xvo0004": {
             "contentment": 85,
+            "balanced": -45,
             "ambition": -60
           },
           "xvo0005": {
             "safe-stable": 60,
+            "calculated": 0,
             "risky-entrepreneurial": -40
           },
           "xvo0007": {
@@ -3596,18 +3747,22 @@
           },
           "xvo0008": {
             "solo-independent": 60,
+            "mixed": 60,
             "team-collaborative": 20
           },
           "xvo0009": {
             "fixed-schedule": -20,
+            "core-hours": -5,
             "flexible-async": 85
           },
           "xvo0010": {
             "hierarchical": -40,
+            "hybrid": 0,
             "flat": 60
           },
           "xvo0011": {
             "autonomy": 80,
+            "guardrails": 10,
             "direction": -10
           },
           "xvo0014": {
@@ -3623,10 +3778,12 @@
           },
           "xvo0016": {
             "security": 60,
+            "balanced-package": 40,
             "upside": 0
           },
           "xvo0017": {
             "quiet-contribution": 50,
+            "selective": 30,
             "public-recognition": -20
           },
           "xvo0018": {
@@ -3637,14 +3794,17 @@
           },
           "xvo0019": {
             "job-is-who-i-am": -80,
+            "part-of-me": -65,
             "job-is-what-i-do": 85
           },
           "xvo0020": {
             "permeable": -80,
+            "flexible": -70,
             "firm": 90
           },
           "xvo0021": {
             "retire": 70,
+            "phased-encore": -20,
             "work-for-life": -50
           }
         }
@@ -3680,34 +3840,42 @@
           },
           "xvo0003": {
             "hustle-grind": 40,
+            "bursts-recovery": 90,
             "balance-rest": 30
           },
           "xvo0004": {
             "contentment": 60,
+            "balanced": 70,
             "ambition": 30
           },
           "xvo0005": {
             "safe-stable": 50,
+            "calculated": 50,
             "risky-entrepreneurial": 0
           },
           "xvo0006": {
             "polymath-generalist": -50,
+            "unformed": -40,
             "deep-specialist": 90
           },
           "xvo0008": {
             "solo-independent": 70,
+            "mixed": 50,
             "team-collaborative": 20
           },
           "xvo0009": {
             "fixed-schedule": 30,
+            "core-hours": 80,
             "flexible-async": 50
           },
           "xvo0010": {
             "hierarchical": -20,
+            "hybrid": 30,
             "flat": 50
           },
           "xvo0011": {
             "autonomy": 85,
+            "guardrails": -5,
             "direction": -20
           },
           "xvo0012": {
@@ -3728,10 +3896,12 @@
           },
           "xvo0016": {
             "security": 40,
+            "balanced-package": 90,
             "upside": 30
           },
           "xvo0017": {
             "quiet-contribution": 90,
+            "selective": -30,
             "public-recognition": -40
           },
           "xvo0018": {
@@ -3742,10 +3912,12 @@
           },
           "xvo0019": {
             "job-is-who-i-am": 60,
+            "part-of-me": 50,
             "job-is-what-i-do": 10
           },
           "xvo0021": {
             "retire": -20,
+            "phased-encore": 20,
             "work-for-life": 60
           }
         }
@@ -3771,18 +3943,22 @@
           },
           "xvo0003": {
             "hustle-grind": 80,
+            "bursts-recovery": -20,
             "balance-rest": -40
           },
           "xvo0004": {
             "contentment": -40,
+            "balanced": -25,
             "ambition": 85
           },
           "xvo0005": {
             "safe-stable": -80,
+            "calculated": -75,
             "risky-entrepreneurial": 95
           },
           "xvo0006": {
             "polymath-generalist": 80,
+            "unformed": 20,
             "deep-specialist": 0
           },
           "xvo0007": {
@@ -3792,18 +3968,22 @@
           },
           "xvo0008": {
             "solo-independent": 70,
+            "mixed": 70,
             "team-collaborative": 40
           },
           "xvo0009": {
             "fixed-schedule": -60,
+            "core-hours": -45,
             "flexible-async": 85
           },
           "xvo0010": {
             "hierarchical": -60,
+            "hybrid": -40,
             "flat": 80
           },
           "xvo0011": {
             "autonomy": 95,
+            "guardrails": -45,
             "direction": -50
           },
           "xvo0012": {
@@ -3813,6 +3993,7 @@
           },
           "xvo0013": {
             "corporate-capital-hierarchy": -70,
+            "shared-ownership": 10,
             "worker-cooperative-collective": 20
           },
           "xvo0014": {
@@ -3828,6 +4009,7 @@
           },
           "xvo0016": {
             "security": -80,
+            "balanced-package": -75,
             "upside": 95
           },
           "xvo0018": {
@@ -3838,10 +4020,12 @@
           },
           "xvo0019": {
             "job-is-who-i-am": 60,
+            "part-of-me": 10,
             "job-is-what-i-do": -30
           },
           "xvo0020": {
             "permeable": 70,
+            "flexible": -10,
             "firm": -40
           }
         }
