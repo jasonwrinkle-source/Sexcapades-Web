@@ -51,10 +51,11 @@ without his daylight say-so and his own cold-open acceptance. Address him as
    - Phase 1: Categories, subcategories, and topics share uniform evaluation; per-flank direct wins over roll-up.
    - Phase 2: "Branch Limit beats topic Favorite" wired across matching, negotiation, and map display.
    - Phase 3: Importer and On Deck support uniform parent node IDs.
-4. **N-Depth Scaling Law & Map-Paint Decomposition (Steps 1–3 Complete):**
+4. **N-Depth Scaling Law & Map-Paint Decomposition (Steps 1–4 Complete):**
    - Step 1: Live icon depth law ($D_1 \approx \frac{1}{3} D_{\text{avatar}}$, gentle $(3/4)^{d-1}$ decay) and dynamic clearance solvers.
    - Step 2: `03e-map-paint.js` decomposed into modular renderers (`SpokeRenderer`, `HubRenderer`, `LabelRenderer`).
    - Step 3: Multi-depth annealer dynamic depth ladder scaling in `02n-deknotter-cascade.js`.
+   - Step 4: Unified `nodeOverrides[nodeId]` depth-agnostic schema in `layout-editor.js` and multi-generation live crossing counting in `__sxCrossingMeasure`.
 5. **Widget Modularization:**
    - Decomposed `03e-map-paint.js` polygon widgets into `03f-polygon-widgets.js`.
    - Further decomposed shared pole-label tangent math, hit-testing, and barycentric math into `03f1-polygon-math.js`.

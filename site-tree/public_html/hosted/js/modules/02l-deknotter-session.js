@@ -1471,11 +1471,22 @@
             const d = window.__SEXCAPADES_LAYOUT_DEFAULTS, e = d && d.kinkOverrides ? d.kinkOverrides[id] : null, v = e ? Number(e.length) : NaN;
             return v > 0 ? v : 1;
         }
+        function dkBakedNodeBase(id, field) {
+            const d = window.__SEXCAPADES_LAYOUT_DEFAULTS;
+            if (d && d.nodeOverrides && d.nodeOverrides[id]) {
+                const v = Number(d.nodeOverrides[id][field || "length"]);
+                if (v > 0) return v;
+            }
+            if (dkBakedKinkBase(id) > 0) return dkBakedKinkBase(id);
+            if (dkBakedSubBase(id) > 0) return dkBakedSubBase(id);
+            if (dkBakedBranchBase(id) > 0) return dkBakedBranchBase(id);
+            return 1;
+        }
         // Validate one phase patch: for every length override at the
         // branch, subcategory, and kink levels compute ratio = stored /
         // bakedBase and collect the per-level ratios plus every failure.
         function dkValidatePhasePatch(patch, cap) {
-            const ratios = { branch: {}, subcat: {}, kink: {} }, failures = [];
+            const ratios = { branch: {}, subcat: {}, kink: {}, node: {} }, failures = [];
             const check = (map, level, baseFn) => {
                 if (!map || "object" != typeof map) return;
                 Object.keys(map).forEach(key => {
@@ -1496,6 +1507,9 @@
                 check(patch.branchOverrides, "branch", dkBakedBranchBase);
                 check(patch.subcatOverrides, "subcat", dkBakedSubBase);
                 check(patch.kinkOverrides, "kink", dkBakedKinkBase);
+                if (patch.nodeOverrides) {
+                    check(patch.nodeOverrides, "node", dkBakedNodeBase);
+                }
             }
             return { ratios: ratios, failures: failures };
         }
@@ -1507,7 +1521,7 @@
         // booleans, so a container copy is a true copy; scalars go by
         // value. The clone shares no object references with its source,
         // in either direction.
-        const dkEntryMaps = { branchOverrides: 1, subcatOverrides: 1, kinkOverrides: 1, subcatAngleOffsets: 1, kinkAngleOffsets: 1 };
+        const dkEntryMaps = { branchOverrides: 1, subcatOverrides: 1, kinkOverrides: 1, nodeOverrides: 1, subcatAngleOffsets: 1, kinkAngleOffsets: 1 };
         const dkArmMaps = { branchSpokeAutoShrink: 1, subcatSpokeAutoShrink: 1 };
         function dkCloneEntryMap(value) {
             const out = {};

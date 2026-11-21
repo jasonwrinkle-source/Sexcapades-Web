@@ -1017,11 +1017,15 @@
                 // gen-1 spoke path), guarded to pr.centerRadius if
                 // that helper is ever unavailable.
                 const rimR = inn.rim, rimDx = anchor.x - pr.centerX, rimDy = anchor.y - pr.centerY, rimL = Math.hypot(rimDx, rimDy), rimStart = rimL > 1e-9 ? pt(pr.centerX + rimDx / rimL * Math.min(rimR, rimL), pr.centerY + rimDy / rimL * Math.min(rimR, rimL)) : pt(pr.centerX, pr.centerY);
+                const catNodeId = (typeof catId === "function" ? (function(){ try { return catId(cloud); } catch(_){ return cloud; } })() : cloud);
                 geo.spokes.push({
                     seg: [ rimStart, pt(anchor.x, anchor.y) ],
                     bb: null,
                     cloud: cloud,
                     kind: "center",
+                    depth: 1,
+                    gen: 1,
+                    nodeId: catNodeId,
                     entry: null
                 });
                 if ("Connection & aftercare" === cloud) geo.connSpoke = geo.spokes.length - 1;
@@ -1034,15 +1038,21 @@
                             const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
                             const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
                             h = Math.max(h, hubR1 + hubR2 + 96, sxSpokeBase(item.cloudCount, 1)), h = Za.hubSpokeLength(label, u.fontSize, h, hubR1, hubR2);
-                            const ov = mn.subcatOverrides && mn.subcatOverrides[label];
+                            let ov = mn.nodeOverrides && (mn.nodeOverrides[rec.id] || mn.nodeOverrides[label]);
+                            if (!ov && mn.subcatOverrides) ov = mn.subcatOverrides[label];
                             if (ov && typeof ov.length === "number" && ov.length > 0) h *= ov.length;
                         } else {
-                            const ov = mn.kinkOverrides && mn.kinkOverrides[rec.id];
+                            let ov = mn.nodeOverrides && (mn.nodeOverrides[rec.id] || mn.nodeOverrides[label]);
+                            if (!ov && mn.kinkOverrides) ov = mn.kinkOverrides[rec.id];
                             if (ov && typeof ov.length === "number" && ov.length > 0) h *= ov.length;
                         }
                         return h;
                     };
                     const mulOf = () => {
+                        if (mn.nodeOverrides) {
+                            const no = isSub ? (mn.nodeOverrides[rec.id] || mn.nodeOverrides[label]) : mn.nodeOverrides[rec.id];
+                            if (no && typeof no.length === "number" && no.length > 0) return no.length;
+                        }
                         const ov = isSub ? mn.subcatOverrides && mn.subcatOverrides[label] : mn.kinkOverrides && mn.kinkOverrides[rec.id];
                         return ov && typeof ov.length === "number" && ov.length > 0 ? ov.length : 1;
                     };
@@ -1051,22 +1061,31 @@
                         item: item,
                         rec: rec,
                         cloud: cloud,
+                        subcloud: isSub ? label : null,
                         branchEntry: br,
                         anchor: anchor,
                         fan: fan,
                         drawH: drawH,
                         mul: mulOf(),
+                        depth: isSub ? 2 : (item.depth || 2),
+                        gen: isSub ? 2 : (item.depth || 2),
+                        nodeId: rec.id || label,
                         node: null,
                         hubEntry: null,
                         children: [],
                         spokeIx: -1
                     };
                     if (isSub) {
+                        const subNodeId = rec.id || (typeof Un === "function" ? (function(){ try { return Un(cloud, label); } catch(_){ return label; } })() : label);
                         geo.spokes.push({
                             seg: null,
                             bb: null,
                             cloud: cloud,
+                            subcloud: label,
                             kind: "sub",
+                            depth: 2,
+                            gen: 2,
+                            nodeId: subNodeId,
                             entry: entry
                         });
                         entry.spokeIx = geo.spokes.length - 1;
@@ -1080,6 +1099,10 @@
                         const crec = wrap.child;
                         if (!crec || !crec.isStaticTopic) return;
                         const cmul = (() => {
+                            if (mn.nodeOverrides) {
+                                const no = mn.nodeOverrides[crec.id];
+                                if (no && typeof no.length === "number" && no.length > 0) return no.length;
+                            }
                             const ov = mn.kinkOverrides && mn.kinkOverrides[crec.id];
                             return ov && typeof ov.length === "number" && ov.length > 0 ? ov.length : 1;
                         })();
@@ -1088,11 +1111,15 @@
                             item: wrap,
                             rec: crec,
                             cloud: cloud,
+                            subcloud: label,
                             branchEntry: br,
                             parentItem: item,
                             hubEntry: entry,
                             fan: null,
                             mul: cmul,
+                            depth: wrap.depth || 3,
+                            gen: wrap.depth || 3,
+                            nodeId: crec.id || crec.label,
                             topicIx: geo.topics.length
                         };
                         geo.topics.push(centry);
@@ -2067,14 +2094,93 @@
         function sxCrossingMeasure(excl) {
             const ev = sxGetEval(excl);
             if (!ev) return null;
-            const geo = ev.geo, maps = ev.maps, tot = ev.tot, clouds = {};
+            const geo = ev.geo, maps = ev.maps, tot = ev.tot;
+            const clouds = {}, byDepth = {}, byNode = {}, subclouds = {}, generations = {};
+            const N = geo.topics.length;
             const add = (c, v) => { if (c) clouds[c] = (clouds[c] || 0) + v; };
-            geo.topics.forEach(e => { if (undefined === clouds[e.cloud]) clouds[e.cloud] = 0; });
-            geo.spokes.forEach(sp => { if (undefined === clouds[sp.cloud]) clouds[sp.cloud] = 0; });
-            maps.cross.forEach((val, k) => { const v = Math.floor(k / SX_PAIR_STRIDE); add(geo.topics[v] && geo.topics[v].cloud, val); });
-            maps.graze.forEach((val, k) => { const i = Math.floor(k / SX_PAIR_STRIDE), j = k % SX_PAIR_STRIDE; add(geo.topics[i] && geo.topics[i].cloud, val / 2); add(geo.topics[j] && geo.topics[j].cloud, val / 2); });
-            maps.inner.forEach((val, k) => { const N = geo.topics.length, p = Math.floor(k / SX_PAIR_STRIDE), q = k % SX_PAIR_STRIDE, cOf = ix => ix < N ? geo.topics[ix] && geo.topics[ix].cloud : geo.spokes[ix - N] && geo.spokes[ix - N].cloud; add(cOf(p), val); add(cOf(q), val); });
-            return { E: tot.E, crossing: tot.crossing, graze: tot.graze, inner: tot.inner, clouds: Object.assign({}, clouds) };
+            const addDepth = (d, v) => { if (d != null) byDepth[d] = (byDepth[d] || 0) + v; };
+            const addNode = (nid, v) => { if (nid) byNode[nid] = (byNode[nid] || 0) + v; };
+            const addSub = (sc, v) => { if (sc) subclouds[sc] = (subclouds[sc] || 0) + v; };
+            const addGenPair = (d1, d2, v) => {
+                if (d1 != null && d2 != null) {
+                    const k = d1 <= d2 ? (d1 + "_" + d2) : (d2 + "_" + d1);
+                    generations[k] = (generations[k] || 0) + v;
+                }
+            };
+            const itemOf = ix => (ix < N ? geo.topics[ix] : geo.spokes[ix - N]);
+
+            geo.topics.forEach(e => {
+                if (undefined === clouds[e.cloud]) clouds[e.cloud] = 0;
+                if (e.depth != null && undefined === byDepth[e.depth]) byDepth[e.depth] = 0;
+                if (e.nodeId && undefined === byNode[e.nodeId]) byNode[e.nodeId] = 0;
+                if (e.subcloud && undefined === subclouds[e.subcloud]) subclouds[e.subcloud] = 0;
+            });
+            geo.spokes.forEach(sp => {
+                if (undefined === clouds[sp.cloud]) clouds[sp.cloud] = 0;
+                if (sp.depth != null && undefined === byDepth[sp.depth]) byDepth[sp.depth] = 0;
+                if (sp.nodeId && undefined === byNode[sp.nodeId]) byNode[sp.nodeId] = 0;
+                if (sp.subcloud && undefined === subclouds[sp.subcloud]) subclouds[sp.subcloud] = 0;
+            });
+
+            maps.cross.forEach((val, k) => {
+                const v = Math.floor(k / SX_PAIR_STRIDE), o = k % SX_PAIR_STRIDE;
+                const victim = geo.topics[v], obst = itemOf(o);
+                if (victim) {
+                    add(victim.cloud, val);
+                    addDepth(victim.depth, val);
+                    addNode(victim.nodeId, val);
+                    addSub(victim.subcloud, val);
+                    if (obst) addGenPair(victim.depth, obst.depth, val);
+                }
+            });
+            maps.graze.forEach((val, k) => {
+                const i = Math.floor(k / SX_PAIR_STRIDE), j = k % SX_PAIR_STRIDE;
+                const ti = geo.topics[i], tj = geo.topics[j];
+                const half = val / 2;
+                if (ti) {
+                    add(ti.cloud, half);
+                    addDepth(ti.depth, half);
+                    addNode(ti.nodeId, half);
+                    addSub(ti.subcloud, half);
+                }
+                if (tj) {
+                    add(tj.cloud, half);
+                    addDepth(tj.depth, half);
+                    addNode(tj.nodeId, half);
+                    addSub(tj.subcloud, half);
+                }
+                if (ti && tj) addGenPair(ti.depth, tj.depth, val);
+            });
+            maps.inner.forEach((val, k) => {
+                const p = Math.floor(k / SX_PAIR_STRIDE), q = k % SX_PAIR_STRIDE;
+                const ip = itemOf(p), iq = itemOf(q);
+                if (ip) {
+                    add(ip.cloud, val);
+                    addDepth(ip.depth, val);
+                    addNode(ip.nodeId, val);
+                    addSub(ip.subcloud, val);
+                }
+                if (iq) {
+                    add(iq.cloud, val);
+                    addDepth(iq.depth, val);
+                    addNode(iq.nodeId, val);
+                    addSub(iq.subcloud, val);
+                }
+                if (ip && iq) addGenPair(ip.depth, iq.depth, val);
+            });
+
+            return {
+                E: tot.E,
+                crossing: tot.crossing,
+                graze: tot.graze,
+                inner: tot.inner,
+                clouds: Object.assign({}, clouds),
+                byDepth: Object.assign({}, byDepth),
+                byGen: Object.assign({}, byDepth),
+                byNode: Object.assign({}, byNode),
+                subclouds: Object.assign({}, subclouds),
+                generations: Object.assign({}, generations)
+            };
         }
         window.__sxCrossingMeasure = sxCrossingMeasure;
         window.__sxCrossingMeasureExcluded = () => sxCrossingMeasure(!0);

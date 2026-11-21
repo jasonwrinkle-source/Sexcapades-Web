@@ -64,15 +64,15 @@
                     } catch (e) { __sxErrLog("layout-measure", e); }
                 }
                 var subMul = 1, cloudMul = 1, kinkMul = 1;
-                if (e.topic && e.topic.isSubcategory && mn.subcatOverrides) {
-                    var so = mn.subcatOverrides[e.topic.label];
+                if (e.topic && e.topic.isSubcategory) {
+                    var so = (mn.nodeOverrides && (mn.nodeOverrides[e.topic.id] || mn.nodeOverrides[e.topic.label])) || (mn.subcatOverrides && mn.subcatOverrides[e.topic.label]);
                     if (so) {
                         if (typeof so.length === "number" && so.length > 0) subMul = so.length;
                         if (typeof so.cloud === "number" && so.cloud > 0) cloudMul = so.cloud;
                     }
                 }
-                if (e.topic && !e.topic.isSubcategory && mn.kinkOverrides) {
-                    var ko = mn.kinkOverrides[e.topic.id];
+                if (e.topic && !e.topic.isSubcategory) {
+                    var ko = (mn.nodeOverrides && (mn.nodeOverrides[e.topic.id] || mn.nodeOverrides[e.topic.label])) || (mn.kinkOverrides && mn.kinkOverrides[e.topic.id]);
                     if (ko && typeof ko.length === "number" && ko.length > 0) kinkMul = ko.length;
                 }
                 return i * (e.topic && e.topic.isSubcategory ? mn.subLen * subMul : mn.spokeLen * kinkMul) * ("grow" === mn.collision ? 1.22 : "shrink" === mn.collision ? .72 : "off" === mn.collision ? .56 : 1);

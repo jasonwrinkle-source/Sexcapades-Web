@@ -196,7 +196,7 @@ if (typeof window !== "undefined") {
             mapSliders: false,
             collision: "grow", spokeLen: 2.6, subLen: 1.2, pad: 1.4, repulsion: 0,
             fontScale: 30, centerRingScale: 10, leafOvergrowth: 100, autoShrinkFactor: 0.76,
-            subcatCloudShrinkFactor: 0.76, branchOverrides: {}, subcatOverrides: {}, kinkOverrides: {},
+            subcatCloudShrinkFactor: 0.76, branchOverrides: {}, subcatOverrides: {}, kinkOverrides: {}, nodeOverrides: {},
             subcatAngleOffsets: {}, kinkAngleOffsets: {}, branchSpokeAutoShrink: {}, subcatSpokeAutoShrink: {},
             solverMidline: "repulsion"
         };

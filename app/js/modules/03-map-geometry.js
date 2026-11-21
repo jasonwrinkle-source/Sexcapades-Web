@@ -377,13 +377,17 @@
                 }
                 const ov = table ? table[key] : null;
                 if (ov && typeof ov.length === "number" && ov.length > 0) return length * ov.length;
-                if (!table && typeof mn !== "undefined") {
-                    const b = mn.branchOverrides?.[key]?.length;
-                    if (typeof b === "number" && b > 0) return length * b;
-                    const s = mn.subcatOverrides?.[key]?.length;
-                    if (typeof s === "number" && s > 0) return length * s;
-                    const k = mn.kinkOverrides?.[key]?.length;
-                    if (typeof k === "number" && k > 0) return length * k;
+                if (typeof mn !== "undefined") {
+                    const no = mn.nodeOverrides?.[key]?.length;
+                    if (typeof no === "number" && no > 0) return length * no;
+                    if (!table) {
+                        const b = mn.branchOverrides?.[key]?.length;
+                        if (typeof b === "number" && b > 0) return length * b;
+                        const s = mn.subcatOverrides?.[key]?.length;
+                        if (typeof s === "number" && s > 0) return length * s;
+                        const k = mn.kinkOverrides?.[key]?.length;
+                        if (typeof k === "number" && k > 0) return length * k;
+                    }
                 }
             } catch (_) { __sxErrLog("layout-override", _); }
             return length;
