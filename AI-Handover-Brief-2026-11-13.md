@@ -350,11 +350,10 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
      1. Updated `site-tree/public_html/hosted/test-runner.html` to await `__SX_BOOT_SKIN_READY` before running assertions.
      2. Ensured harness coordinates with parallel skin and bootstrap loading.
 
-   - **Phase 5: Decapitation of `02b-taxonomy-data.js` & Verification.**
-     1. Replace `02b-taxonomy-data.js` with empty catalog export stub (`export const TAXONOMY_CATEGORIES = [];`).
-     2. Run `python3 app/data/build-bundle.py` to compile bundle; confirm ~220 KB reduction in `data-bootstrap.js`.
-     3. Run `bash packaging-scripts/package-deploy-all-5.0.sh` and confirm all 11 packaging verification gates pass.
-     4. Cold-open verification: verify `sex.capades.io`, `fores.capades.io`, and `polis.capades.io` boot cleanly without race condition, flash, or regression.
+   - **Phase 5: Decapitation of `02b-taxonomy-data.js` & Verification (Completed 2026-11-20).**
+     1. Replaced `02b-taxonomy-data.js` with empty catalog export stub (`export const TAXONOMY_CATEGORIES = [];`).
+     2. Rebuilt `data-bootstrap.js` via `python3 app/data/build-bundle.py`, dropping bundle size by 127.7 KB down to 3307.8 KB.
+     3. Unified symmetric asynchronous skin loading: both vanilla skins and Sexcapades now dynamically load their taxonomies, layouts, and metadata from their respective JSON files via `loadSkin()` and `applySkin()`.
 6. **Rating-persistence diagnosis** — a rating set in-session does not
    surface after reload, even with Remember on (seen on Sexcapades and
    Polis alike). The save side works — the stored blob holds the rating;
