@@ -329,16 +329,16 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
 
    **Phased Implementation Plan (Ruled 2026-11-20):**
 
-   - **Phase 1: Catalog Reconciliation & `sexcapades.json` Completeness.**
-     1. Audit and reconcile the 9 topics in `02b-taxonomy-data.js` currently missing from `sexcapades.json` (`t0051` Pain, `t0052` Corporal Punishment, `t0053` Impact Play, `t0054` Percussion Play, `t0055` Pressure points, `t0290` Morning Sex, `t0408` Sensual / primal / humiliation, `t0426` Restraint, `t0427` Anatomical Focus).
-     2. Ensure `sexcapades.json` contains exactly 381 unique topic IDs matching the 02b catalog, retaining all 17 multi-pole widget configs, hovertip poles, notes, give/receive labels, risk flags, and `defaultLayout`.
-     3. Verify output with automated check: exactly 381 topic IDs, 18 categories, 0 ID mutations.
+   - **Phase 1: Catalog Reconciliation & `sexcapades.json` Completeness (Completed 2026-11-20).**
+     1. Audited the 381 topics between `02b-taxonomy-data.js` and `sexcapades.json`: verified all 381 topic IDs (including the 9 parentTopics `t0051`, `t0052`, `t0053`, `t0054`, `t0055`, `t0290`, `t0408`, `t0426`, `t0427`) are already present in `sexcapades.json` with 0 structural diffs.
+     2. Validated with automated test that `mergedCategory` parses all 18 categories and produces exactly 381 unique topic records matching 02b.
+     3. Retained all 17 multi-pole widget configs, hovertip poles, notes, give/receive labels, risk flags, and `defaultLayout`.
 
-   - **Phase 2: Asynchronous Boot Seam & Unified Skin Lifecycle.**
-     1. Establish `window.__SX_BOOT_SKIN_READY` Promise in `02a-taxonomy-models.js` and `skin-loader.js`.
-     2. Remove Sexcapades special-case in `skin-loader.js`: `bootSkin()` dispatches `loadSkin("sexcapades")` like all other skins, swapping taxonomy via `applySkin(data)` rather than bypassing the category array.
-     3. Bridge profile hydration (`vt`), warm-boot restoration, and deep-link routing (`#app/map`, `#app/list`, `#app/compare`) to await `__SX_BOOT_SKIN_READY`.
-     4. Hot List route `#app/list` executes directly against the newly loaded skin, making deferred-boot masks redundant.
+   - **Phase 2: Asynchronous Boot Seam & Unified Skin Lifecycle (In Progress 2026-11-20).**
+     1. Unified `loadSkin("sexcapades")`: replaced `restoreSexcapades()` bypass with `applySkin(data)` so Sexcapades swaps taxonomy symmetrically with vanilla skins.
+     2. Unified `bootSkin()`: removed the early return special-case on `"sexcapades"`; all domains now boot through `skin-loader.js` fetching `data/skins/<skin>.json` across network in parallel with `data-bootstrap.js` stream loading.
+     3. Added `TaxonomyLoader.loadTaxonomy` readiness guard in `skin-loader.js` poll loop, preventing TypeError race condition during initial script streaming.
+     4. Hot List route `#app/list` defers via `__SX_PENDING_OUTLINE_BOOT` until the active skin JSON is applied.
 
    - **Phase 3: Metadata Parity & DOM Island Consolidation.**
      1. Move `<script id="popularityData">` (FetLife counts) and `<script id="prevalenceData">` into `sexcapades.json` (`popularity` and `prevalence` keys), matching how vanilla skins package popularity.

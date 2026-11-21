@@ -1068,7 +1068,7 @@
            Ms). */
         function sxIsBootSkinPending() {
             try {
-                const active = window.__SX_ACTIVE_SKIN || "sexcapades";
+                const active = window.__SX_ACTIVE_SKIN || null;
                 let target = "sexcapades";
                 if (typeof window.__SX_SKIN_FROM_URL === "function") {
                     const u = window.__SX_SKIN_FROM_URL();
@@ -1088,7 +1088,7 @@
                         if (prefix && map[prefix]) target = map[prefix];
                     }
                 }
-                return target !== "sexcapades" && active !== target;
+                return active !== target;
             } catch (e) {
                 return false;
             }

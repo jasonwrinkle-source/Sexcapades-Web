@@ -1469,26 +1469,25 @@
       /* Skin switch (2026-11-17): clear the old skin's profiles off the
          viewport (kept in memory — they restore on switch-back). */
       if (typeof window.__SX_CLEAR_VIEWPORT_PROFILES === "function") window.__SX_CLEAR_VIEWPORT_PROFILES(activeSkin);
-      restoreSexcapades();
-      setBrand("sexcapades");
-      sxArmSwitchPaint();
-      return Promise.resolve(rerender()).then(function () {
-        /* Switch-back restores the remembered Sexcapades profile, if any. */
-        if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
-        /* Switch-back re-applies the Sexcapades layout (with the user's
-           saved defaults merged over it): without this the map would keep
-           the previous skin's layout settings. A URL hash layout is a
-           boot-time instruction only — an explicit switch selects the
-           skin's defaults. A failed fetch leaves the current layout. */
-        return sexcapadesData().then(function (data) {
-          /* The layout import repaints: arm it too, so it paints the
-             full map rather than the no-profile placeholder. */
+      var sexPromise = cache["sexcapades"]
+        ? Promise.resolve(cache["sexcapades"])
+        : fetch(SKIN_DIR + "sexcapades.json").then(function (r) {
+            if (!r.ok) throw new Error("skin file not found: data/skins/sexcapades.json");
+            return r.json();
+          }).then(function (data) { cache["sexcapades"] = data; return data; });
+      return sexPromise.then(function (data) {
+        applySkin(data);
+        setBrand("sexcapades", data.name || "Sexcapades");
+        sxArmSwitchPaint();
+        return Promise.resolve(rerender()).then(function () {
+          /* Switch-back restores the remembered Sexcapades profile, if any. */
+          if (typeof window.__SX_RESTORE_VIEWPORT_PROFILES === "function") window.__SX_RESTORE_VIEWPORT_PROFILES("sexcapades");
           sxArmSwitchPaint();
           applySexcapadesLayout(data);
           applyTerms("sexcapades", data);
           rebuildOutlineIfOpen();
           return "sexcapades";
-        }).catch(function () { applyTerms("sexcapades", null); rebuildOutlineIfOpen(); return "sexcapades"; });
+        });
       }, function (err) { window.__SX_FORCE_UNRATED_TREE = false; throw err; });
     }
     var url = SKIN_DIR + skinId + ".json";
@@ -1556,7 +1555,6 @@
   (function bootSkin() {
     var fromUrl = skinFromUrl();
     var boot = fromUrl || skinForHostname(window.location.hostname);
-    if (boot === "sexcapades") { registerSexcapadesWidgets(); setBrand("sexcapades"); return; }
 
     /* Immediately fetch skin JSON across network in parallel with data-bootstrap stream loading. */
     var url = SKIN_DIR + boot + ".json";
@@ -1573,13 +1571,15 @@
       var hook = window.__SEXCAPADES_LAYOUT_TEST;
       var engine = window.FlexcapadesEngine;
       var tl = window.TaxonomyLoader;
-      if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map || !tl || typeof tl.loadTaxonomy !== "function") {
+      var taxReady = tl && typeof tl.loadTaxonomy === "function";
+      if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map || !taxReady) {
         if (tries >= 300) {
           clearInterval(timer);
           if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin layout not applied: engine not ready");
           registerSexcapadesWidgets();
           setBrand("sexcapades");
           setManifestForSkin("sexcapades");
+          window.__SX_BOOT_SKIN_READY = Promise.resolve("sexcapades");
           if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
         }
         return;
@@ -1594,12 +1594,15 @@
           applyDefaultLayout(data);
           applyTerms(boot, data);
           rebuildOutlineIfOpen();
+          window.__SX_BOOT_SKIN_READY = Promise.resolve(boot);
+          return boot;
         });
       }).catch(function (err) {
         if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin failed, staying on Sexcapades:", err);
         registerSexcapadesWidgets();
         setBrand("sexcapades");
         setManifestForSkin("sexcapades");
+        window.__SX_BOOT_SKIN_READY = Promise.resolve("sexcapades");
         if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
       });
     }, 25);
