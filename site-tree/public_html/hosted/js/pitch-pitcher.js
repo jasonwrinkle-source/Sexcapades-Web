@@ -23,7 +23,14 @@
 (function () {
   "use strict";
 
-  var SITE = "https://sexcapades.io";
+  function siteUrl() {
+    try {
+      var prefix = window.__SX_SKIN_PREFIX || (typeof window.__sxGetSkin === "function" ? window.__sxGetSkin() : null) || "sex";
+      return "https://" + String(prefix).toLowerCase() + ".capades.io";
+    } catch (e) {
+      return "https://sex.capades.io";
+    }
+  }
   var BUCKET_LABELS = {
     1: "Service & care", 2: "Sensation", 3: "Power exchange · giving",
     4: "Power exchange · receiving", 5: "Bondage & restraint",
@@ -197,7 +204,7 @@
         breadth: breadth,
         role_words: roleWords,
         looking_for: lookingFor || "",
-        compare_line: "Compare hypermaps with me: " + SITE,
+        compare_line: "Compare hypermaps with me: " + siteUrl(),
         one_liner: oneLiner || ""
       },
       ratedCount: rows.length,
