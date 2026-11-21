@@ -32,9 +32,9 @@ else
   exit 1
 fi
 
-# Direct SSH stream pipe to Hostinger (active method -- ssh is working well)
-DEPLOY_CMD="ssh hostinger \"cd ~/domains && tar -xzf -\" < \"$TAR_PATH\""
-HOST_NOTE="direct SSH stream pipe"
+# Direct SCP and SSH unpack on Hostinger (reliable transfer)
+DEPLOY_CMD="scp \"$TAR_PATH\" hostinger:~/domains/ && ssh hostinger \"cd ~/domains && tar -xzf $TARBALL && rm $TARBALL\""
+HOST_NOTE="direct SCP + SSH unpack"
 URL="ssh://hostinger"
 
 # --- Mirror methods commented out (ssh is working well) ---
