@@ -422,6 +422,8 @@
     setSamples(data.samples);
     setScribe(data.scribe);
     setSceneSetter(data.sceneSetter);
+    if (data.popularity) window.__SEXCAPADES_POPULARITY_DATA = data.popularity;
+    if (data.prevalence) window.__SEXCAPADES_PREVALENCE = data.prevalence;
     /* Register the new category names in the solver's expanded-branch set,
        or frBuildTree skips every topic as collapsed (bare spokes). */
     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") window.__SX_SKIN_LAYOUT_SYNC();

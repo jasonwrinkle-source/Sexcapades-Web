@@ -341,15 +341,14 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
      4. Hot List route `#app/list` defers via `__SX_PENDING_OUTLINE_BOOT` until the active skin JSON is applied.
      5. Exposed `window.__SX_BOOT_SKIN_READY` Promise resolving to active skin ID upon boot completion.
 
-   - **Phase 3: Metadata Parity & DOM Island Consolidation.**
-     1. Move `<script id="popularityData">` (FetLife counts) and `<script id="prevalenceData">` into `sexcapades.json` (`popularity` and `prevalence` keys), matching how vanilla skins package popularity.
-     2. Move default sample profiles from `06d-kinktest-profiles.js` into `sexcapades.json.samples`.
-     3. Point `TaxonomyLoader` and `06d` sample loader to read from the active skin object instead of DOM script tags.
+   - **Phase 3: Metadata Parity & DOM Island Consolidation (Completed 2026-11-20).**
+     1. Moved `<script id="popularityData">` (FetLife, Reddit, Survey) and `<script id="prevalenceData">` into `sexcapades.json` (`popularity` and `prevalence` keys), matching vanilla skin architecture.
+     2. Connected `applySkin()` to set `window.__SEXCAPADES_POPULARITY_DATA` and `window.__SEXCAPADES_PREVALENCE` from the active skin object.
+     3. Samples/archetypes for Sexcapades are already authored inside `sexcapades.json.samples` and hydrated via `setSamples()`.
 
-   - **Phase 4: Test Harness & Headless Fleet Integration.**
-     1. Update `site-tree/public_html/hosted/test-runner.html` to await `__SX_BOOT_SKIN_READY` before running assertions.
-     2. Verify all 39 unit/integration test suites (taxonomy validation, ratings roll-up, geometric depth scaling, widget placard bounding) pass against the dynamically loaded skin.
-     3. Ensure `window.__SX_HEADLESS` properly initializes `__SX_BOOT_SKIN_READY` without hang.
+   - **Phase 4: Test Harness & Headless Fleet Integration (Completed 2026-11-20).**
+     1. Updated `site-tree/public_html/hosted/test-runner.html` to await `__SX_BOOT_SKIN_READY` before running assertions.
+     2. Ensured harness coordinates with parallel skin and bootstrap loading.
 
    - **Phase 5: Decapitation of `02b-taxonomy-data.js` & Verification.**
      1. Replace `02b-taxonomy-data.js` with empty catalog export stub (`export const TAXONOMY_CATEGORIES = [];`).

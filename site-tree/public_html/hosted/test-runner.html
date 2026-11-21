@@ -209,7 +209,7 @@
   <script>
     console.log("[Harness] Test runner script parsed, readyState:", document.readyState);
     async function startHarness() {
-      console.log("[Harness] Waiting for Sexcapades bundle...");
+      console.log("[Harness] Waiting for Sexcapades bundle and boot skin...");
       const start = performance.now();
       while (!window.__sexcapades && (performance.now() - start < 6000)) {
         await new Promise(r => setTimeout(r, 40));
@@ -217,7 +217,18 @@
       if (!window.__sexcapades) {
         console.error("[Harness] Timed out waiting for window.__sexcapades!");
       } else {
-        console.log("[Harness] Sexcapades bundle detected in", Math.round(performance.now() - start), "ms. Running tests...");
+        console.log("[Harness] Sexcapades bundle detected in", Math.round(performance.now() - start), "ms.");
+      }
+      if (window.__SX_BOOT_SKIN_READY && typeof window.__SX_BOOT_SKIN_READY.then === "function") {
+        try {
+          const skin = await Promise.race([
+            window.__SX_BOOT_SKIN_READY,
+            new Promise((_, reject) => setTimeout(() => reject(new Error("Skin boot timeout")), 5000))
+          ]);
+          console.log("[Harness] Boot skin ready:", skin);
+        } catch (e) {
+          console.warn("[Harness] Boot skin wait resolved with:", e);
+        }
       }
       runAllTests();
     }
