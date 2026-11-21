@@ -498,7 +498,7 @@
         }
         function ui(e, t = Vi()) {
             const n = da(e, t);
-            return n.giveKnown && n.receiveKnown;
+            return Boolean(n.giveKnown || n.receiveKnown || n.lineKnown || n.polesKnown);
         }
         function pi(e, t = Vi()) {
             if (ui(e, t)) return !0;
@@ -1262,8 +1262,7 @@
         function setGlobalTopicVisibility(t) {
             Sn = "rated" === t || "unrated" === t ? t : "all", kn = !0, xn = null;
             h.forEach(t => {
-                un.set(catId(t.name), Sn), (t.subcategories || []).forEach(n => un.set(Un(t.name, n.name), Sn)),
-                t.topics.forEach(t => un.set(Wn(t), Sn));
+                un.set(catId(t.name), Sn);
             }), Object.keys(qn).forEach(e => un.set(e, Sn)), syncGlobalVisibilityControl(), Mr({
                 animate: !1,
                 forceRepaint: !0

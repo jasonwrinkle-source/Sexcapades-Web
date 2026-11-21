@@ -15142,7 +15142,7 @@ const TAXONOMY_CATEGORIES = [];
         }
         function ui(e, t = Vi()) {
             const n = da(e, t);
-            return n.giveKnown && n.receiveKnown;
+            return Boolean(n.giveKnown || n.receiveKnown || n.lineKnown || n.polesKnown);
         }
         function pi(e, t = Vi()) {
             if (ui(e, t)) return !0;
@@ -15906,8 +15906,7 @@ const TAXONOMY_CATEGORIES = [];
         function setGlobalTopicVisibility(t) {
             Sn = "rated" === t || "unrated" === t ? t : "all", kn = !0, xn = null;
             h.forEach(t => {
-                un.set(catId(t.name), Sn), (t.subcategories || []).forEach(n => un.set(Un(t.name, n.name), Sn)),
-                t.topics.forEach(t => un.set(Wn(t), Sn));
+                un.set(catId(t.name), Sn);
             }), Object.keys(qn).forEach(e => un.set(e, Sn)), syncGlobalVisibilityControl(), Mr({
                 animate: !1,
                 forceRepaint: !0
@@ -31720,7 +31719,18 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         }
         function cc(e, t, n, i, a) {
             const r = ca(n, i), o = [];
-            if (r.giveKnown && o.push(r.give), r.receiveKnown && o.push(r.receive), !o.length) return;
+            if (r.giveKnown) o.push(r.give);
+            if (r.receiveKnown) o.push(r.receive);
+            if (r.lineKnown) o.push(r.line);
+            if (r.polesKnown && r.poles) {
+                const vals = Object.values(r.poles).filter(Number.isFinite);
+                if (vals.length) {
+                    const maxV = Math.max(...vals);
+                    const minV = Math.min(...vals);
+                    o.push(maxV > 0 ? maxV : minV);
+                }
+            }
+            if (!o.length) return;
             const s = o.reduce((e, t) => e + t, 0) / o.length, l = s > 35 ? "green" : s >= 0 ? "yellow" : "red", c = function(e) {
                 const t = Math.max(-100, Math.min(100, Number(e) || 0));
                 return t >= 0 ? {
