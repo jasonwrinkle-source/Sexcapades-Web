@@ -1558,48 +1558,36 @@
     var boot = fromUrl || skinForHostname(window.location.hostname);
     if (boot === "sexcapades") { registerSexcapadesWidgets(); setBrand("sexcapades"); return; }
 
-    /* Immediately fetch skin JSON without waiting for layout hook or engine.
-       This eliminates the delay where sexcapades was briefly active on boot. */
+    /* Immediately fetch skin JSON across network in parallel with data-bootstrap stream loading. */
     var url = SKIN_DIR + boot + ".json";
-    var fetchPromise = (cache[boot]
+    var fetchPromise = cache[boot]
       ? Promise.resolve(cache[boot])
       : fetch(url).then(function (r) {
           if (!r.ok) throw new Error("skin file not found: " + url);
           return r.json();
-        }).then(function (data) { cache[boot] = data; return data; }))
-      .then(function (data) {
-        applySkin(data);
-        setBrand(boot, data.name);
-        applyTerms(boot, data);
-        rebuildOutlineIfOpen();
-        return data;
-      });
-
-    fetchPromise.catch(function (err) {
-      if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin fetch failed:", err);
-      registerSexcapadesWidgets();
-      setBrand("sexcapades");
-      setManifestForSkin("sexcapades");
-      if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
-    });
+        }).then(function (data) { cache[boot] = data; return data; });
 
     var tries = 0;
     var timer = setInterval(function () {
       tries += 1;
       var hook = window.__SEXCAPADES_LAYOUT_TEST;
       var engine = window.FlexcapadesEngine;
-      if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map) {
+      var tl = window.TaxonomyLoader;
+      if (!hook || typeof hook.importText !== "function" || !engine || !engine.Map || !tl || typeof tl.loadTaxonomy !== "function") {
         if (tries >= 300) {
           clearInterval(timer);
           if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin layout not applied: engine not ready");
           registerSexcapadesWidgets();
           setBrand("sexcapades");
           setManifestForSkin("sexcapades");
+          if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
         }
         return;
       }
       clearInterval(timer);
       fetchPromise.then(function (data) {
+        applySkin(data);
+        setBrand(boot, data.name);
         sxArmSwitchPaint();
         return Promise.resolve(rerender()).then(function () {
           sxArmSwitchPaint();
@@ -1610,10 +1598,11 @@
       }).catch(function (err) {
         if (typeof console !== "undefined" && console.warn) console.warn("[FlexcapadesSkins] boot skin failed, staying on Sexcapades:", err);
         registerSexcapadesWidgets();
+        setBrand("sexcapades");
         setManifestForSkin("sexcapades");
         if (typeof window.__SX_REBUILD_OUTLINE === "function") window.__SX_REBUILD_OUTLINE();
       });
-    }, 50);
+    }, 25);
   })();
   /* No skin picked (flex.capades.io / capades.io): open the skin menu
      once the menu hook exists (view-nav registers it at boot) and the
