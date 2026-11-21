@@ -37,7 +37,7 @@ fi
 
 python3 "$DIR/packaging-scripts/bump-build.py" "$TS"
 
-EXPECTED_BUILD=$(grep -o 'Version [0-9.]* · Build [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}_[0-9]\{4\}' "$APP_EXPORT" | head -1 || true)
+EXPECTED_BUILD=$(python3 -c "import re; m = re.search(r'Version [0-9.]+ · Build \d{4}-\d{2}-\d{2}_\d{4}', open('$APP_EXPORT').read()); print(m.group(0) if m else '')")
 if [ -z "$EXPECTED_BUILD" ]; then
   echo "ERROR: Could not read build marker from app export"
   exit 1

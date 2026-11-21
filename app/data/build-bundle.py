@@ -44,6 +44,8 @@ parts = [
     "06b-fetlife-importer.js",
     "06-pdf-exporter.js",
     "06d-profile-sheet.js",
+    "06c1-profile-ingest.js",
+    "06c2-profile-converter.js",
     "06c-converter-pipeline.js",
     "06e-kinktest-routes.js",
     "07-header-hug.js",

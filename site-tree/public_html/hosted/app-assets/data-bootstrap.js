@@ -45124,7 +45124,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (box && heading && list) {
                 list.textContent = "";
                 const entries = Array.isArray(dropped) ? dropped : [];
-                entries.length ? (heading.textContent = `${entries.length} ${1 === entries.length ? "entry was" : "entries were"} not imported because their topic keys match no current topic, or their values are not allowed:`, 
+                entries.length ? (heading.textContent = `${entries.length} ${1 === entries.length ? "entry was" : "entries were"} not imported because their topic keys match no current topic, or their values are not allowed:`,
                 entries.forEach(rec => {
                     const li = document.createElement("li");
                     li.textContent = importDroppedLine(rec), list.append(li);
@@ -45138,7 +45138,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             if (rBox && rHeading && rList) {
                 rList.textContent = "";
                 const rEntries = Array.isArray(retired) ? retired : [];
-                rEntries.length ? (rHeading.textContent = `${rEntries.length} ${1 === rEntries.length ? "entry was" : "entries were"} retired by ruling and ${1 === rEntries.length ? "was" : "were"} not imported:`, 
+                rEntries.length ? (rHeading.textContent = `${rEntries.length} ${1 === rEntries.length ? "entry was" : "entries were"} retired by ruling and ${1 === rEntries.length ? "was" : "were"} not imported:`,
                 rEntries.forEach(rec => {
                     const li = document.createElement("li");
                     li.textContent = `${rec.key} — ${BURIED_TOPIC_IDS[rec.key] || "Direction (topic deleted)"}`, rList.append(li);
@@ -45264,7 +45264,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 "string" == typeof guessed && guessed && (rec.label = guessed), dropped.push(rec);
             };
             Object.keys(e.ratings).forEach(k => {
-                if (!isCatId(k) && !isSubId(k) && !r.has(k)) noteDropped(k, "ratings", e.ratings[k]), 
+                if (!isCatId(k) && !isSubId(k) && !r.has(k)) noteDropped(k, "ratings", e.ratings[k]),
                 delete e.ratings[k];
             });
             return {
@@ -45764,11 +45764,11 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const t = Array.isArray(e.comparisonIds) ? e.comparisonIds : Yi(), n = [ ...new Set(t.filter(e => vt[e])) ];
                 return n.length >= 2 ? n : [];
             }(n)), l = !0 === e.blind && s.length >= 2, c = ik(o);
-            n.quiet || sxSel(c), SX_PROFILE_RECORD_LISTS.forEach(e => e[c] = {}), wt[c] = o, profileUuids[c] = /^[0-9a-f-]{36}$/i.test(String(e.profileUuid || "")) ? String(e.profileUuid) : makeProfileUuid(), sampleProfileFlags[c] = !0 === e.sampleProfile, rt[c] = bb(e.gender), pz[c] = String(e.pronouns || "").trim().slice(0, 60), 
-            ot[c] = iv(e.sexuality), st[c] = Gb(e.roles || e.role), lt[c] = Xv(e.age), ct[c] = Zv(e.location), 
-            dt[c] = Vv(e.photos), ut[c] = Rv(e.contact), nt[c] = String(e.aboutMe || "").trim().slice(0, 1500), 
-            it[c] = String(e.termsOfService || "").trim().slice(0, 1500), vpt[c] = av(null != e.veil ? e.veil : e.net), 
-            vht[c] = Boolean(null != e.veilEnabled ? e.veilEnabled : e.netEnabled), at[c] = a, gt[c] = e.loaderState && "object" == typeof e.loaderState ? e.loaderState : {}, 
+            n.quiet || sxSel(c), SX_PROFILE_RECORD_LISTS.forEach(e => e[c] = {}), wt[c] = o, profileUuids[c] = /^[0-9a-f-]{36}$/i.test(String(e.profileUuid || "")) ? String(e.profileUuid) : makeProfileUuid(), sampleProfileFlags[c] = !0 === e.sampleProfile, rt[c] = bb(e.gender), pz[c] = String(e.pronouns || "").trim().slice(0, 60),
+            ot[c] = iv(e.sexuality), st[c] = Gb(e.roles || e.role), lt[c] = Xv(e.age), ct[c] = Zv(e.location),
+            dt[c] = Vv(e.photos), ut[c] = Rv(e.contact), nt[c] = String(e.aboutMe || "").trim().slice(0, 1500),
+            it[c] = String(e.termsOfService || "").trim().slice(0, 1500), vpt[c] = av(null != e.veil ? e.veil : e.net),
+            vht[c] = Boolean(null != e.veilEnabled ? e.veilEnabled : e.netEnabled), at[c] = a, gt[c] = e.loaderState && "object" == typeof e.loaderState ? e.loaderState : {},
             mt[c] = St(e.completionTimes), delete ft[c], "group" === e.pairKind && (ft[c] = {
                 kind: "group",
                 pairOp: sxNormalizePairOp(e.pairOp)
@@ -46147,7 +46147,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 direction: "both",
                 uncertain: !0
             }
-        }, yx = Object.freeze({
+        };
+        const yx = Object.freeze({
             importData(data, opts) {
                 return wx(data, Object.assign({ quiet: true }, opts));
             },
