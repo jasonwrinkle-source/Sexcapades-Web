@@ -2,7 +2,7 @@
   "skin": "mattercapades",
   "meter": "understanding",
   "name": "Mattercapades",
-  "about": "Mattercapades is an interactive hypermap for rating and visualizing where you stand on the stuff the world is made of and the energy that moves it — materials, power, and what to build with them — and comparing your positions with another person's, choice by choice, on the same picture. Build a personal profile, see where your choices meet and where they part, use Scribe to write up the build you'd back, and Scene Setter to plan how it gets made — all in the same shared vocabulary.",
+  "about": "Mattercapades is an interactive hypermap for rating and visualizing where you stand on the stuff the world is made of and the energy that moves it \u2014 materials, power, and what to build with them \u2014 and comparing your positions with another person's, choice by choice, on the same picture. Build a personal profile, see where your choices meet and where they part, use Scribe to write up the build you'd back, and Scene Setter to plan how it gets made \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Applied Physics — Materials & Quantum Technologies",
+  "domain": "Applied Physics \u2014 Materials & Quantum Technologies",
   "categories": [
     {
       "id": "xmac01",
@@ -133,12 +133,16 @@
               "label": "Fundamental Physical Mechanism First"
             },
             {
+              "key": "mechanism-in-service-of-the-metric",
+              "label": "Mechanism in service of the metric"
+            },
+            {
               "key": "device-figure-of-merit-first",
               "label": "Device Figure of Merit First"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is the goal of applied physics microscopic understanding or record-breaking device performance?",
             "poles": [
@@ -147,13 +151,17 @@
                 "text": "You do not truly understand a device until you can explain its microscopic electronic, magnetic, or optical mechanism; performance follows understanding."
               },
               {
+                "label": "Mechanism in service of the metric",
+                "text": "Understand the mechanism far enough to move the figure of merit."
+              },
+              {
                 "label": "Device Figure of Merit First",
                 "text": "Optimize the metric that matters: $Q$-factor, power conversion efficiency, electron mobility, ON/OFF ratio, noise figure; the exact microscopic physics is secondary to beating the record."
               }
             ]
           },
           "question": "Is the goal of applied physics microscopic understanding or record-breaking device performance?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -177,12 +185,16 @@
               "label": "Rational Computational Design"
             },
             {
+              "key": "design-build-loop",
+              "label": "Design-build loop"
+            },
+            {
               "key": "edisonian-empirical-synthesis",
               "label": "Edisonian Empirical Synthesis"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you discover new materials on a supercomputer or by mixing chemicals in the lab?",
             "poles": [
@@ -191,13 +203,17 @@
                 "text": "Predict crystal structures, calculate DFT bandgaps, screen materials databases, and design novel heterostructures before touching a chemical precursor."
               },
               {
+                "label": "Design-build loop",
+                "text": "Compute, synthesize, measure, repeat \u2014 the loop is the method."
+              },
+              {
                 "label": "Edisonian Empirical Synthesis",
                 "text": "Mix precursors in the furnace, explore high-throughput combinatorial libraries, follow intuitive lab bench chemistry; nature always surprises computational models."
               }
             ]
           },
           "question": "Do you discover new materials on a supercomputer or by mixing chemicals in the lab?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -221,12 +237,16 @@
               "label": "Low-TRL Deep Physics Discovery"
             },
             {
+              "key": "mid-trl-translation",
+              "label": "Mid-TRL translation"
+            },
+            {
               "key": "high-trl-industrial-scalability",
               "label": "High-TRL Industrial Scalability"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?",
             "poles": [
@@ -235,13 +255,17 @@
                 "text": "Proof-of-principle demonstrations in millikelvin dilution fridges under 14-Tesla magnetic fields; celebrate the exotic physical phenomenon regardless of manufacturing hurdles."
               },
               {
+                "label": "Mid-TRL translation",
+                "text": "Work at the translation band, carrying discoveries toward scale."
+              },
+              {
                 "label": "High-TRL Industrial Scalability",
                 "text": "Focus on room-temperature operation, earth-abundant non-toxic elements, CMOS foundry compatibility, and wafer-scale yield."
               }
             ]
           },
           "question": "Do you prefer exploring exotic low-temperature physics or scalable room-temperature devices?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.3"
         },
         {
           "id": "xma0004",
@@ -253,27 +277,35 @@
               "label": "Fundamental"
             },
             {
+              "key": "use-inspired",
+              "label": "Use-inspired"
+            },
+            {
               "key": "applied",
               "label": "Applied"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Even inside applied physics, do you lean toward the fundamental or the applied?",
             "poles": [
               {
                 "label": "Fundamental",
-                "text": "the physics itself is the point — understanding how the world works, even inside an applied context; the device is a way of learning."
+                "text": "the physics itself is the point \u2014 understanding how the world works, even inside an applied context; the device is a way of learning."
+              },
+              {
+                "label": "Use-inspired",
+                "text": "Fundamental questions chosen inside an applied field."
               },
               {
                 "label": "Applied",
-                "text": "the application is the point — solving a real problem, building something useful; the physics is a means to an end."
+                "text": "the application is the point \u2014 solving a real problem, building something useful; the physics is a means to an end."
               }
             ]
           },
           "question": "Even inside applied physics, do you lean toward the fundamental or the applied?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.4"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.4"
         }
       ]
     },
@@ -285,8 +317,6 @@
         {
           "id": "xma0005",
           "name": "The Four Domains",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -330,7 +360,7 @@
             ]
           },
           "question": "Where does your primary applied physics heart reside?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -354,27 +384,35 @@
               "label": "Continue"
             },
             {
+              "key": "slowing-not-stopped",
+              "label": "Slowing, not stopped"
+            },
+            {
               "key": "plateau",
               "label": "Plateau"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Does miniaturization keep going, or have we hit the wall?",
             "poles": [
               {
                 "label": "Continue",
-                "text": "miniaturization keeps going — smaller, denser, more capable; the trend continues down to the atomic limit."
+                "text": "miniaturization keeps going \u2014 smaller, denser, more capable; the trend continues down to the atomic limit."
+              },
+              {
+                "label": "Slowing, not stopped",
+                "text": "Shrinking continues, at a slowing pace and rising cost."
               },
               {
                 "label": "Plateau",
-                "text": "we have hit the wall — atomic limits, quantum tunneling, heat dissipation; miniaturization is over and the future is elsewhere."
+                "text": "we have hit the wall \u2014 atomic limits, quantum tunneling, heat dissipation; miniaturization is over and the future is elsewhere."
               }
             ]
           },
           "question": "Does miniaturization keep going, or have we hit the wall?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -398,27 +436,35 @@
               "label": "Reliability"
             },
             {
+              "key": "performance-within-reliability-bounds",
+              "label": "Performance within reliability bounds"
+            },
+            {
               "key": "performance",
               "label": "Performance"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you optimize for reliability or for peak performance?",
             "poles": [
               {
                 "label": "Reliability",
-                "text": "it has to work every time, for years, in the field — robustness beats peak numbers."
+                "text": "it has to work every time, for years, in the field \u2014 robustness beats peak numbers."
+              },
+              {
+                "label": "Performance within reliability bounds",
+                "text": "Peak performance, inside a reliability envelope."
               },
               {
                 "label": "Performance",
-                "text": "peak numbers are what matter — the fastest, the most efficient, the record-breaking, even if it is fragile."
+                "text": "peak numbers are what matter \u2014 the fastest, the most efficient, the record-breaking, even if it is fragile."
               }
             ]
           },
           "question": "Do you optimize for reliability or for peak performance?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §2.3"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a72.3"
         }
       ]
     },
@@ -430,8 +476,6 @@
         {
           "id": "xma0008",
           "name": "Quantum Computing Architecture Quartet",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -475,7 +519,7 @@
             ]
           },
           "question": "Which physical platform will win the quantum computing race?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -504,12 +548,16 @@
               "label": "Near-Term NISQ Optimism"
             },
             {
+              "key": "nisq-now-fault-tolerance-as-the-goal",
+              "label": "NISQ now, fault-tolerance as the goal"
+            },
+            {
               "key": "fault-tolerant-error-correction-purism",
               "label": "Fault-Tolerant Error-Correction Purism"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Can noisy quantum computers provide real value, or is error correction essential?",
             "poles": [
@@ -518,13 +566,17 @@
                 "text": "Noisy Intermediate-Scale Quantum hardware will demonstrate real, commercial advantage in quantum chemistry, materials discovery, or optimization before full error correction."
               },
               {
+                "label": "NISQ now, fault-tolerance as the goal",
+                "text": "Extract NISQ value on the road to fault tolerance."
+              },
+              {
                 "label": "Fault-Tolerant Error-Correction Purism",
                 "text": "NISQ is an over-hyped dead end; without millions of physical qubits executing surface codes for fault tolerance, quantum computing cannot deliver economic value."
               }
             ]
           },
           "question": "Can noisy quantum computers provide real value, or is error correction essential?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -553,12 +605,16 @@
               "label": "Quantum Sensing & Metrology Priority"
             },
             {
+              "key": "both-races",
+              "label": "Both races"
+            },
+            {
               "key": "quantum-computing-supremacy",
               "label": "Quantum Computing Supremacy"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Which will change the world more: quantum computation or quantum sensing?",
             "poles": [
@@ -567,13 +623,17 @@
                 "text": "Quantum computing is speculative and decades away; the real immediate triumph of applied quantum physics is ultra-precise sensing: NV-centers in diamond, SQUIDs, atomic gravimeters, optical clocks."
               },
               {
+                "label": "Both races",
+                "text": "Sensing and computing both matter; the order is timing, not allegiance."
+              },
+              {
                 "label": "Quantum Computing Supremacy",
                 "text": "Quantum computation is the singular civilizational transformation; sensing is an incremental improvement to existing metrology."
               }
             ]
           },
           "question": "Which will change the world more: quantum computation or quantum sensing?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -602,27 +662,35 @@
               "label": "Hype"
             },
             {
+              "key": "cautious-optimism",
+              "label": "Cautious optimism"
+            },
+            {
               "key": "reality",
               "label": "Reality"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is quantum technology a revolution or a bubble?",
             "poles": [
               {
                 "label": "Hype",
-                "text": "quantum is the next revolution — the breakthroughs are real, the timeline is short, the investment is justified."
+                "text": "quantum is the next revolution \u2014 the breakthroughs are real, the timeline is short, the investment is justified."
+              },
+              {
+                "label": "Cautious optimism",
+                "text": "Real progress, slower than the hype."
               },
               {
                 "label": "Reality",
-                "text": "quantum is oversold — the timelines are fantasy, the breakthroughs are incremental, the money is chasing a mirage."
+                "text": "quantum is oversold \u2014 the timelines are fantasy, the breakthroughs are incremental, the money is chasing a mirage."
               }
             ]
           },
           "question": "Is quantum technology a revolution or a bubble?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §3.4",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a73.4",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -651,8 +719,6 @@
         {
           "id": "xma0012",
           "name": "Energy",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -679,16 +745,16 @@
               },
               {
                 "label": "Fission",
-                "text": "Proven, dense, baseload — but the waste and the fear."
+                "text": "Proven, dense, baseload \u2014 but the waste and the fear."
               },
               {
                 "label": "Renewables",
-                "text": "Solar, wind, distributed — but intermittent and land-hungry."
+                "text": "Solar, wind, distributed \u2014 but intermittent and land-hungry."
               }
             ]
           },
           "question": "Which energy source powers the future?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -712,12 +778,16 @@
               "label": "Magnetic Confinement Fusion (MCF)"
             },
             {
+              "key": "pursue-both",
+              "label": "Pursue both"
+            },
+            {
               "key": "inertial-confinement-fusion",
               "label": "Inertial Confinement Fusion (ICF)"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Will fusion energy be commercialized via magnetic confinement or inertial laser compression?",
             "poles": [
@@ -726,13 +796,17 @@
                 "text": "Tokamaks, Stellarators, SPARC, ITER; continuous, steady-state burning plasma confined by powerful superconducting magnetic fields."
               },
               {
+                "label": "Pursue both",
+                "text": "Magnetic and inertial pursued in parallel; the market decides."
+              },
+              {
                 "label": "Inertial Confinement Fusion (ICF)",
                 "text": "Laser target compression, NIF, pulsed power; rapid microexplosions compressing deuterium-tritium capsules to extreme densities."
               }
             ]
           },
           "question": "Will fusion energy be commercialized via magnetic confinement or inertial laser compression?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -752,31 +826,31 @@
           "risk": false,
           "poles": [
             {
-              "key": "high-density-advanced-nuclear-fusion",
-              "label": "High-Density Advanced Nuclear & Fusion"
+              "key": "nuclear-fusion-source",
+              "label": "Nuclear & fusion source"
             },
             {
-              "key": "solid-state-photovoltaics-advanced-storage",
-              "label": "Solid-State Photovoltaics & Advanced Storage"
+              "key": "centralized-grid",
+              "label": "Centralized grid"
             }
           ],
-          "widget": "linear-sliders",
+          "widget": "xy-switchbox",
           "archetype": null,
           "hovertip": {
             "issue": "Should clean energy rely on centralized high-density nuclear/fusion or distributed solid-state solar/storage?",
             "poles": [
               {
-                "label": "High-Density Advanced Nuclear & Fusion",
-                "text": "Small Modular Fission Reactors [SMR], molten salt, and fusion power plants providing dense, 24/7 baseload power with minimal land footprint."
+                "label": "Nuclear & fusion source",
+                "text": "Affinity for nuclear and fusion as the primary clean source."
               },
               {
-                "label": "Solid-State Photovoltaics & Advanced Storage",
-                "text": "Perovskite-silicon tandem solar cells, flow batteries, and solid-state lithium-metal batteries distributed across the grid."
+                "label": "Centralized grid",
+                "text": "Affinity for a centralized, high-density grid over a distributed one."
               }
             ]
           },
           "question": "Should clean energy rely on centralized high-density nuclear/fusion or distributed solid-state solar/storage?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -800,18 +874,26 @@
               "label": "Short-Duration"
             },
             {
+              "key": "layered-durations",
+              "label": "Layered durations"
+            },
+            {
               "key": "long-duration",
               "label": "Long-Duration"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you store energy for hours or for seasons?",
             "poles": [
               {
                 "label": "Short-Duration",
-                "text": "Batteries — lithium, solid-state, flow; hours of storage, the workhorse of daily cycling."
+                "text": "Batteries \u2014 lithium, solid-state, flow; hours of storage, the workhorse of daily cycling."
+              },
+              {
+                "label": "Layered durations",
+                "text": "Short-duration for the daily cycle, long-duration for the seasons."
               },
               {
                 "label": "Long-Duration",
@@ -820,7 +902,7 @@
             ]
           },
           "question": "Do you store energy for hours or for seasons?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.4",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.4",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -844,27 +926,35 @@
               "label": "Efficiency"
             },
             {
+              "key": "efficiency-at-a-price-point",
+              "label": "Efficiency at a price point"
+            },
+            {
               "key": "cost",
               "label": "Cost"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you optimize for efficiency or for cost?",
             "poles": [
               {
                 "label": "Efficiency",
-                "text": "the most efficient device wins — squeeze every percent, the physics is the point."
+                "text": "the most efficient device wins \u2014 squeeze every percent, the physics is the point."
+              },
+              {
+                "label": "Efficiency at a price point",
+                "text": "As efficient as the cost target allows."
               },
               {
                 "label": "Cost",
-                "text": "the cheapest device wins — cost per watt, cost per unit; economics beats efficiency."
+                "text": "the cheapest device wins \u2014 cost per watt, cost per unit; economics beats efficiency."
               }
             ]
           },
           "question": "Do you optimize for efficiency or for cost?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §4.5"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a74.5"
         }
       ]
     },
@@ -883,27 +973,35 @@
               "label": "Natural"
             },
             {
+              "key": "biomimicry",
+              "label": "Biomimicry"
+            },
+            {
               "key": "engineered",
               "label": "Engineered"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you work with nature's materials or build your own?",
             "poles": [
               {
                 "label": "Natural",
-                "text": "nature's materials — wood, silk, bone, the materials evolution built; work with what exists."
+                "text": "nature's materials \u2014 wood, silk, bone, the materials evolution built; work with what exists."
+              },
+              {
+                "label": "Biomimicry",
+                "text": "Engineering inspired by nature's materials \u2014 neither raw natural nor designed from scratch."
               },
               {
                 "label": "Engineered",
-                "text": "designed materials — metamaterials, composites, alloys; build what nature never made."
+                "text": "designed materials \u2014 metamaterials, composites, alloys; build what nature never made."
               }
             ]
           },
           "question": "Do you work with nature's materials or build your own?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -927,27 +1025,35 @@
               "label": "Revolution"
             },
             {
+              "key": "useful-not-revolutionary",
+              "label": "Useful, not revolutionary"
+            },
+            {
               "key": "hype",
               "label": "Hype"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Are 2D materials a revolution or a hype cycle?",
             "poles": [
               {
                 "label": "Revolution",
-                "text": "graphene and 2D materials change everything — the thinnest, strongest, most conductive materials ever made; a new era."
+                "text": "graphene and 2D materials change everything \u2014 the thinnest, strongest, most conductive materials ever made; a new era."
+              },
+              {
+                "label": "Useful, not revolutionary",
+                "text": "Genuinely useful in niches; not a revolution."
               },
               {
                 "label": "Hype",
-                "text": "graphene is oversold — a decade of promises, no killer app; the Nobel was for the physics, not the product."
+                "text": "graphene is oversold \u2014 a decade of promises, no killer app; the Nobel was for the physics, not the product."
               }
             ]
           },
           "question": "Are 2D materials a revolution or a hype cycle?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -971,12 +1077,16 @@
               "label": "The Holy Grail of Room-Temperature Superconductors"
             },
             {
+              "key": "deploy-now-chase-the-grail",
+              "label": "Deploy now, chase the grail"
+            },
+            {
               "key": "pragmatic-high-t-c-engineering",
               "label": "Pragmatic High-$T_c$ Engineering"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Should we pursue room-temperature superconductors or deploy high-$T_c$ liquid nitrogen systems?",
             "poles": [
@@ -985,13 +1095,17 @@
                 "text": "Chasing hydrides under megabar diamond-anvil pressures and hunting ambient superconductors; the ultimate prize in condensed matter."
               },
               {
+                "label": "Deploy now, chase the grail",
+                "text": "Deploy 77-K systems now; keep chasing ambient."
+              },
+              {
                 "label": "Pragmatic High-$T_c$ Engineering",
                 "text": "Stop chasing unverified ambient miracles; master REBCO coated conductors, reduce manufacturing costs, and deploy 77-Kelvin liquid nitrogen systems today."
               }
             ]
           },
           "question": "Should we pursue room-temperature superconductors or deploy high-$T_c$ liquid nitrogen systems?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1015,12 +1129,16 @@
               "label": "Active Electronic Circuits"
             },
             {
+              "key": "hybrid-active-metasurfaces",
+              "label": "Hybrid active metasurfaces"
+            },
+            {
               "key": "passive-geometric-metasurfaces",
               "label": "Passive Geometric Metasurfaces"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you control waves with active electronic chips or passive geometric metamaterials?",
             "poles": [
@@ -1029,13 +1147,17 @@
                 "text": "Solid-state amplifiers, transistors, digital signal processing chips."
               },
               {
+                "label": "Hybrid active metasurfaces",
+                "text": "Passive geometry with active elements fused in one device."
+              },
+              {
                 "label": "Passive Geometric Metasurfaces",
                 "text": "Sub-wavelength patterned metal/dielectric resonators that manipulate light, phase, and acoustic waves purely through geometry."
               }
             ]
           },
           "question": "Do you control waves with active electronic chips or passive geometric metamaterials?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.4",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.4",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1059,12 +1181,16 @@
               "label": "Top-Down Extreme Lithography"
             },
             {
+              "key": "combined-processes",
+              "label": "Combined processes"
+            },
+            {
               "key": "bottom-up-supramolecular-self-assembly",
               "label": "Bottom-Up Supramolecular Self-Assembly"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you build nanostructures by carving top-down or assembling bottom-up?",
             "poles": [
@@ -1073,13 +1199,17 @@
                 "text": "Extreme Ultraviolet [EUV] steppers, focused ion beam etching, carving nanostructures from solid crystalline bulk with sub-nanometer precision."
               },
               {
+                "label": "Combined processes",
+                "text": "Carve top-down, assemble bottom-up, in one flow."
+              },
+              {
                 "label": "Bottom-Up Supramolecular Self-Assembly",
                 "text": "DNA origami, block copolymer phase separation, chemical vapor epitaxial growth; letting thermodynamic free energy assemble the nanostructure."
               }
             ]
           },
           "question": "Do you build nanostructures by carving top-down or assembling bottom-up?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.5",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.5",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1103,12 +1233,16 @@
               "label": "Dimensional Silicon Scaling (Moore's Law)"
             },
             {
+              "key": "scale-silicon-integrate-beyond",
+              "label": "Scale silicon, integrate beyond"
+            },
+            {
               "key": "beyond-silicon-heterogeneous-integration",
               "label": "Beyond-Silicon Heterogeneous Integration"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Does the future of computing belong to silicon scaling or beyond-silicon materials?",
             "poles": [
@@ -1117,13 +1251,17 @@
                 "text": "Gate-all-around nanosheets, complementary FETs, atomic layer deposition; pushing silicon down to the 1-nanometer node."
               },
               {
+                "label": "Scale silicon, integrate beyond",
+                "text": "Squeeze silicon further while integrating beyond-silicon parts."
+              },
+              {
                 "label": "Beyond-Silicon Heterogeneous Integration",
                 "text": "Silicon is exhausted; integrate carbon nanotubes, 2D transition metal dichalcogenides, and optical chiplets on chip."
               }
             ]
           },
           "question": "Does the future of computing belong to silicon scaling or beyond-silicon materials?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §5.6",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a75.6",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1154,27 +1292,35 @@
               "label": "Physics of Life"
             },
             {
+              "key": "method-not-reduction",
+              "label": "Method, not reduction"
+            },
+            {
               "key": "life-as-physics",
               "label": "Life as Physics"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is biophysics physics applied to life, or life explained by physics?",
             "poles": [
               {
                 "label": "Physics of Life",
-                "text": "physics applied to biology — use physical tools to understand living systems; biology is the subject, physics is the method."
+                "text": "physics applied to biology \u2014 use physical tools to understand living systems; biology is the subject, physics is the method."
+              },
+              {
+                "label": "Method, not reduction",
+                "text": "Physics supplies the method; life keeps its own level of description."
               },
               {
                 "label": "Life as Physics",
-                "text": "living systems ARE physical systems — the laws of physics explain life itself; biology reduces to physics."
+                "text": "living systems ARE physical systems \u2014 the laws of physics explain life itself; biology reduces to physics."
               }
             ]
           },
           "question": "Is biophysics physics applied to life, or life explained by physics?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.1",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1209,16 +1355,16 @@
             "poles": [
               {
                 "label": "Therapy",
-                "text": "treat the patient — radiation therapy, proton beams, focused ultrasound; physics that heals."
+                "text": "treat the patient \u2014 radiation therapy, proton beams, focused ultrasound; physics that heals."
               },
               {
                 "label": "Diagnostics",
-                "text": "see inside the patient — MRI, PET, CT, imaging; physics that reveals."
+                "text": "see inside the patient \u2014 MRI, PET, CT, imaging; physics that reveals."
               }
             ]
           },
           "question": "Does medical physics treat or diagnose?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.2",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1242,27 +1388,35 @@
               "label": "Resolution"
             },
             {
+              "key": "resolution-at-the-dose-limit",
+              "label": "Resolution at the dose limit"
+            },
+            {
               "key": "dose",
               "label": "Dose"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you push for sharper images or lower doses?",
             "poles": [
               {
                 "label": "Resolution",
-                "text": "see more clearly — sharper images, finer detail, the physics of seeing."
+                "text": "see more clearly \u2014 sharper images, finer detail, the physics of seeing."
+              },
+              {
+                "label": "Resolution at the dose limit",
+                "text": "As sharp as the dose budget allows."
               },
               {
                 "label": "Dose",
-                "text": "do less harm — lower radiation, safer scans; the patient comes first."
+                "text": "do less harm \u2014 lower radiation, safer scans; the patient comes first."
               }
             ]
           },
           "question": "Do you push for sharper images or lower doses?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.3",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1286,27 +1440,35 @@
               "label": "Industry"
             },
             {
+              "key": "straddling-both",
+              "label": "Straddling both"
+            },
+            {
               "key": "academia",
               "label": "Academia"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you do applied physics in industry or in academia?",
             "poles": [
               {
                 "label": "Industry",
-                "text": "build products, ship them, make money — the applied physicist in the company."
+                "text": "build products, ship them, make money \u2014 the applied physicist in the company."
+              },
+              {
+                "label": "Straddling both",
+                "text": "A career straddling industry and academia."
               },
               {
                 "label": "Academia",
-                "text": "publish papers, teach students, chase knowledge — the applied physicist in the university."
+                "text": "publish papers, teach students, chase knowledge \u2014 the applied physicist in the university."
               }
             ]
           },
           "question": "Do you do applied physics in industry or in academia?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.4"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.4"
         },
         {
           "id": "xma0027",
@@ -1318,18 +1480,26 @@
               "label": "Proud Applied Physicist"
             },
             {
+              "key": "physicist-engineer",
+              "label": "Physicist-engineer"
+            },
+            {
               "key": "pragmatic-specialized-engineer",
               "label": "Pragmatic Specialized Engineer"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you view yourself as a physicist solving practical problems or as a high-level engineer?",
             "poles": [
               {
                 "label": "Proud Applied Physicist",
-                "text": "Grounding in Maxwell, Schrödinger, thermodynamics, and quantum mechanics provides a deeper, first-principles insight that specialized engineers lack."
+                "text": "Grounding in Maxwell, Schr\u00f6dinger, thermodynamics, and quantum mechanics provides a deeper, first-principles insight that specialized engineers lack."
+              },
+              {
+                "label": "Physicist-engineer",
+                "text": "An applied physicist who ships like an engineer."
               },
               {
                 "label": "Pragmatic Specialized Engineer",
@@ -1338,7 +1508,7 @@
             ]
           },
           "question": "Do you view yourself as a physicist solving practical problems or as a high-level engineer?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.5"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.5"
         },
         {
           "id": "xma0028",
@@ -1350,12 +1520,16 @@
               "label": "Commercial Patents & Spin-Out Startups"
             },
             {
+              "key": "patent-then-publish",
+              "label": "Patent, then publish"
+            },
+            {
               "key": "open-academic-publishing",
               "label": "Open Academic Publishing"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Should breakthrough applied physics be patented for commercial spin-outs or published openly?",
             "poles": [
@@ -1364,19 +1538,21 @@
                 "text": "File provisional patents immediately, keep secret sauce proprietary, raise venture capital, and build commercial enterprise."
               },
               {
+                "label": "Patent, then publish",
+                "text": "Protect the breakthrough, then publish it openly."
+              },
+              {
                 "label": "Open Academic Publishing",
                 "text": "Publish methods openly on arXiv, contribute to public scientific literature, and reject patent restrictions on physical knowledge."
               }
             ]
           },
           "question": "Should breakthrough applied physics be patented for commercial spin-outs or published openly?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.6"
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.6"
         },
         {
           "id": "xma0029",
           "name": "Triumph",
-          "poleReading": "antipodal",
-          "poleEnemies": [["paper", "product"]],
           "risk": false,
           "poles": [
             {
@@ -1395,7 +1571,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "What is the ultimate triumph of applied physics — a product, a prototype, or a paper?",
+            "issue": "What is the ultimate triumph of applied physics \u2014 a product, a prototype, or a paper?",
             "poles": [
               {
                 "label": "Product",
@@ -1411,8 +1587,8 @@
               }
             ]
           },
-          "question": "What is the ultimate triumph of applied physics — a product, a prototype, or a paper?",
-          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md §6.7"
+          "question": "What is the ultimate triumph of applied physics \u2014 a product, a prototype, or a paper?",
+          "source": "BRIEFING_MATTERCAPADES_TAXONOMY.md \u00a76.7"
         }
       ]
     }
@@ -3401,7 +3577,7 @@
       "about": "Argues that nuclear power is an essential part of low-carbon energy: dense, reliable, and proven at scale, able to run day and night regardless of weather. The stance is that decarbonization without nuclear is slower and harder than with it.",
       "links": [
         {
-          "label": "World Nuclear Association — Nuclear Power in the World Today",
+          "label": "World Nuclear Association \u2014 Nuclear Power in the World Today",
           "url": "https://world-nuclear.org/information-library/current-and-future-generation/nuclear-power-in-the-world-today"
         }
       ],
@@ -3415,19 +3591,23 @@
         "ratings": {
           "xma0001": {
             "fundamental-physical-mechanism-first": 50,
-            "device-figure-of-merit-first": 50
+            "device-figure-of-merit-first": 50,
+            "mechanism-in-service-of-the-metric": 100
           },
           "xma0002": {
             "rational-computational-design": 50,
-            "edisonian-empirical-synthesis": 40
+            "edisonian-empirical-synthesis": 40,
+            "design-build-loop": 90
           },
           "xma0003": {
             "low-trl-deep-physics-discovery": 30,
-            "high-trl-industrial-scalability": 80
+            "high-trl-industrial-scalability": 80,
+            "mid-trl-translation": 50
           },
           "xma0004": {
             "fundamental": 30,
-            "applied": 70
+            "applied": 70,
+            "use-inspired": 60
           },
           "xma0005": {
             "condensed-matter-quantum-materials": 40,
@@ -3437,23 +3617,28 @@
           },
           "xma0006": {
             "continue": 60,
-            "plateau": 10
+            "plateau": 10,
+            "slowing-not-stopped": 50
           },
           "xma0007": {
             "reliability": 85,
-            "performance": 40
+            "performance": 40,
+            "performance-within-reliability-bounds": 55
           },
           "xma0009": {
             "near-term-nisq-optimism": 20,
-            "fault-tolerant-error-correction-purism": 60
+            "fault-tolerant-error-correction-purism": 60,
+            "nisq-now-fault-tolerance-as-the-goal": 60
           },
           "xma0010": {
             "quantum-sensing-metrology-priority": 40,
-            "quantum-computing-supremacy": 40
+            "quantum-computing-supremacy": 40,
+            "both-races": 100
           },
           "xma0011": {
             "hype": 0,
-            "reality": 70
+            "reality": 70,
+            "cautious-optimism": 30
           },
           "xma0012": {
             "fusion": 40,
@@ -3462,55 +3647,67 @@
           },
           "xma0013": {
             "magnetic-confinement-fusion": 60,
-            "inertial-confinement-fusion": 30
+            "inertial-confinement-fusion": 30,
+            "pursue-both": 70
           },
           "xma0014": {
-            "high-density-advanced-nuclear-fusion": 90,
-            "solid-state-photovoltaics-advanced-storage": -40
+            "nuclear-fusion-source": 90,
+            "centralized-grid": 70
           },
           "xma0015": {
             "short-duration": 30,
-            "long-duration": 70
+            "long-duration": 70,
+            "layered-durations": 60
           },
           "xma0016": {
             "efficiency": 50,
-            "cost": 60
+            "cost": 60,
+            "efficiency-at-a-price-point": 90
           },
           "xma0017": {
             "natural": 20,
-            "engineered": 70
+            "engineered": 70,
+            "biomimicry": 50
           },
           "xma0018": {
             "revolution": 30,
-            "hype": 50
+            "hype": 50,
+            "useful-not-revolutionary": 80
           },
           "xma0019": {
             "the-holy-grail-of-room-temperature-superconductors": 30,
-            "pragmatic-high-t-c-engineering": 60
+            "pragmatic-high-t-c-engineering": 60,
+            "deploy-now-chase-the-grail": 70
           },
           "xma0020": {
             "active-electronic-circuits": 50,
-            "passive-geometric-metasurfaces": 30
+            "passive-geometric-metasurfaces": 30,
+            "hybrid-active-metasurfaces": 80
           },
           "xma0021": {
             "top-down-extreme-lithography": 60,
-            "bottom-up-supramolecular-self-assembly": 30
+            "bottom-up-supramolecular-self-assembly": 30,
+            "combined-processes": 70
           },
           "xma0022": {
             "dimensional-silicon-scaling": 50,
-            "beyond-silicon-heterogeneous-integration": 40
+            "beyond-silicon-heterogeneous-integration": 40,
+            "scale-silicon-integrate-beyond": 90
           },
           "xma0026": {
             "industry": 80,
-            "academia": 20
+            "academia": 20,
+            "straddling-both": 40
           },
           "xma0027": {
             "proud-applied-physicist": 50,
-            "pragmatic-specialized-engineer": 60
+            "pragmatic-specialized-engineer": 60,
+            "physicist-engineer": 90
           },
           "xma0028": {
             "commercial-patents-spin-out-startups": 60,
-            "open-academic-publishing": 30
+            "open-academic-publishing": 30,
+            "patent-then-publish": 70
           },
           "xma0029": {
             "product": 70,
@@ -3526,11 +3723,11 @@
       "about": "Argues that wind, solar, hydro, and geothermal energy are the path forward: clean, abundant, and getting cheaper every year. The stance is that renewables plus storage can carry the energy transition.",
       "links": [
         {
-          "label": "U.S. Dept. of Energy — Renewable Energy",
+          "label": "U.S. Dept. of Energy \u2014 Renewable Energy",
           "url": "https://www.energy.gov/eere/renewable-energy"
         },
         {
-          "label": "International Energy Agency — Renewables",
+          "label": "International Energy Agency \u2014 Renewables",
           "url": "https://www.iea.org/energy-system/renewables"
         }
       ],
@@ -3544,19 +3741,23 @@
         "ratings": {
           "xma0001": {
             "fundamental-physical-mechanism-first": 30,
-            "device-figure-of-merit-first": 70
+            "device-figure-of-merit-first": 70,
+            "mechanism-in-service-of-the-metric": 60
           },
           "xma0002": {
             "rational-computational-design": 60,
-            "edisonian-empirical-synthesis": 30
+            "edisonian-empirical-synthesis": 30,
+            "design-build-loop": 70
           },
           "xma0003": {
             "low-trl-deep-physics-discovery": 10,
-            "high-trl-industrial-scalability": 90
+            "high-trl-industrial-scalability": 90,
+            "mid-trl-translation": 20
           },
           "xma0004": {
             "fundamental": 20,
-            "applied": 85
+            "applied": 85,
+            "use-inspired": 35
           },
           "xma0005": {
             "condensed-matter-quantum-materials": 60,
@@ -3566,23 +3767,28 @@
           },
           "xma0006": {
             "continue": 70,
-            "plateau": 0
+            "plateau": 0,
+            "slowing-not-stopped": 30
           },
           "xma0007": {
             "reliability": 70,
-            "performance": 50
+            "performance": 50,
+            "performance-within-reliability-bounds": 80
           },
           "xma0009": {
             "near-term-nisq-optimism": 30,
-            "fault-tolerant-error-correction-purism": 40
+            "fault-tolerant-error-correction-purism": 40,
+            "nisq-now-fault-tolerance-as-the-goal": 90
           },
           "xma0010": {
             "quantum-sensing-metrology-priority": 50,
-            "quantum-computing-supremacy": 20
+            "quantum-computing-supremacy": 20,
+            "both-races": 70
           },
           "xma0011": {
             "hype": 10,
-            "reality": 60
+            "reality": 60,
+            "cautious-optimism": 50
           },
           "xma0012": {
             "fusion": 20,
@@ -3591,55 +3797,67 @@
           },
           "xma0013": {
             "magnetic-confinement-fusion": 30,
-            "inertial-confinement-fusion": 20
+            "inertial-confinement-fusion": 20,
+            "pursue-both": 90
           },
           "xma0014": {
-            "high-density-advanced-nuclear-fusion": -70,
-            "solid-state-photovoltaics-advanced-storage": 90
+            "nuclear-fusion-source": -75,
+            "centralized-grid": -75
           },
           "xma0015": {
             "short-duration": 50,
-            "long-duration": 80
+            "long-duration": 80,
+            "layered-durations": 70
           },
           "xma0016": {
             "efficiency": 60,
-            "cost": 80
+            "cost": 80,
+            "efficiency-at-a-price-point": 80
           },
           "xma0017": {
             "natural": 40,
-            "engineered": 60
+            "engineered": 60,
+            "biomimicry": 80
           },
           "xma0018": {
             "revolution": 60,
-            "hype": 20
+            "hype": 20,
+            "useful-not-revolutionary": 60
           },
           "xma0019": {
             "the-holy-grail-of-room-temperature-superconductors": 20,
-            "pragmatic-high-t-c-engineering": 50
+            "pragmatic-high-t-c-engineering": 50,
+            "deploy-now-chase-the-grail": 70
           },
           "xma0020": {
             "active-electronic-circuits": 60,
-            "passive-geometric-metasurfaces": 40
+            "passive-geometric-metasurfaces": 40,
+            "hybrid-active-metasurfaces": 80
           },
           "xma0021": {
             "top-down-extreme-lithography": 50,
-            "bottom-up-supramolecular-self-assembly": 50
+            "bottom-up-supramolecular-self-assembly": 50,
+            "combined-processes": 100
           },
           "xma0022": {
             "dimensional-silicon-scaling": 40,
-            "beyond-silicon-heterogeneous-integration": 70
+            "beyond-silicon-heterogeneous-integration": 70,
+            "scale-silicon-integrate-beyond": 70
           },
           "xma0026": {
             "industry": 70,
-            "academia": 30
+            "academia": 30,
+            "straddling-both": 60
           },
           "xma0027": {
             "proud-applied-physicist": 40,
-            "pragmatic-specialized-engineer": 70
+            "pragmatic-specialized-engineer": 70,
+            "physicist-engineer": 70
           },
           "xma0028": {
             "commercial-patents-spin-out-startups": 50,
-            "open-academic-publishing": 50
+            "open-academic-publishing": 50,
+            "patent-then-publish": 100
           },
           "xma0029": {
             "product": 80,
@@ -3652,10 +3870,10 @@
     "mat-fusion": {
       "name": "The Fusion Optimist",
       "count": 25,
-      "about": "Believes fusion — fusing light nuclei the way the Sun does — is the long-term answer to clean energy: near-limitless fuel, no long-lived waste, and no carbon. The stance is that the engineering is hard but the physics is sound, and the payoff justifies the wait.",
+      "about": "Believes fusion \u2014 fusing light nuclei the way the Sun does \u2014 is the long-term answer to clean energy: near-limitless fuel, no long-lived waste, and no carbon. The stance is that the engineering is hard but the physics is sound, and the payoff justifies the wait.",
       "links": [
         {
-          "label": "ITER — Fusion Energy",
+          "label": "ITER \u2014 Fusion Energy",
           "url": "https://www.iter.org/"
         }
       ],
@@ -3669,19 +3887,23 @@
         "ratings": {
           "xma0001": {
             "fundamental-physical-mechanism-first": 70,
-            "device-figure-of-merit-first": 40
+            "device-figure-of-merit-first": 40,
+            "mechanism-in-service-of-the-metric": 70
           },
           "xma0002": {
             "rational-computational-design": 70,
-            "edisonian-empirical-synthesis": 30
+            "edisonian-empirical-synthesis": 30,
+            "design-build-loop": 60
           },
           "xma0003": {
             "low-trl-deep-physics-discovery": 70,
-            "high-trl-industrial-scalability": 40
+            "high-trl-industrial-scalability": 40,
+            "mid-trl-translation": 70
           },
           "xma0004": {
             "fundamental": 60,
-            "applied": 40
+            "applied": 40,
+            "use-inspired": 80
           },
           "xma0005": {
             "condensed-matter-quantum-materials": 50,
@@ -3691,23 +3913,28 @@
           },
           "xma0006": {
             "continue": 60,
-            "plateau": 20
+            "plateau": 20,
+            "slowing-not-stopped": 60
           },
           "xma0007": {
             "reliability": 50,
-            "performance": 80
+            "performance": 80,
+            "performance-within-reliability-bounds": 70
           },
           "xma0009": {
             "near-term-nisq-optimism": 30,
-            "fault-tolerant-error-correction-purism": 50
+            "fault-tolerant-error-correction-purism": 50,
+            "nisq-now-fault-tolerance-as-the-goal": 80
           },
           "xma0010": {
             "quantum-sensing-metrology-priority": 30,
-            "quantum-computing-supremacy": 50
+            "quantum-computing-supremacy": 50,
+            "both-races": 80
           },
           "xma0011": {
             "hype": -20,
-            "reality": 60
+            "reality": 60,
+            "cautious-optimism": 20
           },
           "xma0012": {
             "fusion": 95,
@@ -3716,55 +3943,67 @@
           },
           "xma0013": {
             "magnetic-confinement-fusion": 85,
-            "inertial-confinement-fusion": 40
+            "inertial-confinement-fusion": 40,
+            "pursue-both": 55
           },
           "xma0014": {
-            "high-density-advanced-nuclear-fusion": 90,
-            "solid-state-photovoltaics-advanced-storage": 10
+            "nuclear-fusion-source": 90,
+            "centralized-grid": 75
           },
           "xma0015": {
             "short-duration": 20,
-            "long-duration": 80
+            "long-duration": 80,
+            "layered-durations": 40
           },
           "xma0016": {
             "efficiency": 70,
-            "cost": 30
+            "cost": 30,
+            "efficiency-at-a-price-point": 60
           },
           "xma0017": {
             "natural": 10,
-            "engineered": 80
+            "engineered": 80,
+            "biomimicry": 30
           },
           "xma0018": {
             "revolution": 70,
-            "hype": 10
+            "hype": 10,
+            "useful-not-revolutionary": 40
           },
           "xma0019": {
             "the-holy-grail-of-room-temperature-superconductors": 60,
-            "pragmatic-high-t-c-engineering": 40
+            "pragmatic-high-t-c-engineering": 40,
+            "deploy-now-chase-the-grail": 80
           },
           "xma0020": {
             "active-electronic-circuits": 60,
-            "passive-geometric-metasurfaces": 40
+            "passive-geometric-metasurfaces": 40,
+            "hybrid-active-metasurfaces": 80
           },
           "xma0021": {
             "top-down-extreme-lithography": 50,
-            "bottom-up-supramolecular-self-assembly": 40
+            "bottom-up-supramolecular-self-assembly": 40,
+            "combined-processes": 90
           },
           "xma0022": {
             "dimensional-silicon-scaling": 40,
-            "beyond-silicon-heterogeneous-integration": 60
+            "beyond-silicon-heterogeneous-integration": 60,
+            "scale-silicon-integrate-beyond": 80
           },
           "xma0026": {
             "industry": 50,
-            "academia": 60
+            "academia": 60,
+            "straddling-both": 90
           },
           "xma0027": {
             "proud-applied-physicist": 80,
-            "pragmatic-specialized-engineer": 30
+            "pragmatic-specialized-engineer": 30,
+            "physicist-engineer": 50
           },
           "xma0028": {
             "commercial-patents-spin-out-startups": 40,
-            "open-academic-publishing": 60
+            "open-academic-publishing": 60,
+            "patent-then-publish": 80
           },
           "xma0029": {
             "product": 40,
@@ -3780,7 +4019,7 @@
       "about": "Champions technologies built directly on quantum mechanics: quantum computers, quantum sensors, and quantum communications. The stance is that controlling single atoms and photons will open capabilities classical devices cannot match.",
       "links": [
         {
-          "label": "National Quantum Initiative — quantum.gov",
+          "label": "National Quantum Initiative \u2014 quantum.gov",
           "url": "https://www.quantum.gov/"
         }
       ],
@@ -3794,19 +4033,23 @@
         "ratings": {
           "xma0001": {
             "fundamental-physical-mechanism-first": 80,
-            "device-figure-of-merit-first": 50
+            "device-figure-of-merit-first": 50,
+            "mechanism-in-service-of-the-metric": 70
           },
           "xma0002": {
             "rational-computational-design": 80,
-            "edisonian-empirical-synthesis": 20
+            "edisonian-empirical-synthesis": 20,
+            "design-build-loop": 40
           },
           "xma0003": {
             "low-trl-deep-physics-discovery": 80,
-            "high-trl-industrial-scalability": 30
+            "high-trl-industrial-scalability": 30,
+            "mid-trl-translation": 50
           },
           "xma0004": {
             "fundamental": 70,
-            "applied": 40
+            "applied": 40,
+            "use-inspired": 70
           },
           "xma0005": {
             "condensed-matter-quantum-materials": 90,
@@ -3816,11 +4059,13 @@
           },
           "xma0006": {
             "continue": 80,
-            "plateau": -20
+            "plateau": -20,
+            "slowing-not-stopped": 0
           },
           "xma0007": {
             "reliability": 40,
-            "performance": 85
+            "performance": 85,
+            "performance-within-reliability-bounds": 55
           },
           "xma0008": {
             "superconducting-transmons": 70,
@@ -3830,15 +4075,18 @@
           },
           "xma0009": {
             "near-term-nisq-optimism": 40,
-            "fault-tolerant-error-correction-purism": 85
+            "fault-tolerant-error-correction-purism": 85,
+            "nisq-now-fault-tolerance-as-the-goal": 55
           },
           "xma0010": {
             "quantum-sensing-metrology-priority": 60,
-            "quantum-computing-supremacy": 80
+            "quantum-computing-supremacy": 80,
+            "both-races": 80
           },
           "xma0011": {
             "hype": -40,
-            "reality": 80
+            "reality": 80,
+            "cautious-optimism": -20
           },
           "xma0012": {
             "fusion": 30,
@@ -3846,52 +4094,63 @@
             "renewables": 30
           },
           "xma0014": {
-            "high-density-advanced-nuclear-fusion": 20,
-            "solid-state-photovoltaics-advanced-storage": 40
+            "nuclear-fusion-source": -10,
+            "centralized-grid": -20
           },
           "xma0015": {
             "short-duration": 40,
-            "long-duration": 40
+            "long-duration": 40,
+            "layered-durations": 100
           },
           "xma0016": {
             "efficiency": 70,
-            "cost": 20
+            "cost": 20,
+            "efficiency-at-a-price-point": 50
           },
           "xma0017": {
             "natural": 10,
-            "engineered": 85
+            "engineered": 85,
+            "biomimicry": 25
           },
           "xma0018": {
             "revolution": 80,
-            "hype": -20
+            "hype": -20,
+            "useful-not-revolutionary": 0
           },
           "xma0019": {
             "the-holy-grail-of-room-temperature-superconductors": 70,
-            "pragmatic-high-t-c-engineering": 40
+            "pragmatic-high-t-c-engineering": 40,
+            "deploy-now-chase-the-grail": 70
           },
           "xma0020": {
             "active-electronic-circuits": 70,
-            "passive-geometric-metasurfaces": 50
+            "passive-geometric-metasurfaces": 50,
+            "hybrid-active-metasurfaces": 80
           },
           "xma0021": {
             "top-down-extreme-lithography": 70,
-            "bottom-up-supramolecular-self-assembly": 50
+            "bottom-up-supramolecular-self-assembly": 50,
+            "combined-processes": 80
           },
           "xma0022": {
             "dimensional-silicon-scaling": 20,
-            "beyond-silicon-heterogeneous-integration": 90
+            "beyond-silicon-heterogeneous-integration": 90,
+            "scale-silicon-integrate-beyond": 30
           },
           "xma0026": {
             "industry": 60,
-            "academia": 50
+            "academia": 50,
+            "straddling-both": 90
           },
           "xma0027": {
             "proud-applied-physicist": 85,
-            "pragmatic-specialized-engineer": 20
+            "pragmatic-specialized-engineer": 20,
+            "physicist-engineer": 35
           },
           "xma0028": {
             "commercial-patents-spin-out-startups": 50,
-            "open-academic-publishing": 60
+            "open-academic-publishing": 60,
+            "patent-then-publish": 90
           },
           "xma0029": {
             "product": 30,
@@ -3907,7 +4166,7 @@
       "about": "Judges energy and technology by what actually works in the field: deployed devices, cost, reliability, and maintenance, rather than by ideology or promise. If a device does the job affordably and durably, it wins; if it does not, no amount of elegance saves it.",
       "links": [
         {
-          "label": "IEEE Spectrum — Technology and Engineering News",
+          "label": "IEEE Spectrum \u2014 Technology and Engineering News",
           "url": "https://spectrum.ieee.org/"
         }
       ],
@@ -3921,19 +4180,23 @@
         "ratings": {
           "xma0001": {
             "fundamental-physical-mechanism-first": -20,
-            "device-figure-of-merit-first": 90
+            "device-figure-of-merit-first": 90,
+            "mechanism-in-service-of-the-metric": -10
           },
           "xma0002": {
             "rational-computational-design": 40,
-            "edisonian-empirical-synthesis": 70
+            "edisonian-empirical-synthesis": 70,
+            "design-build-loop": 70
           },
           "xma0003": {
             "low-trl-deep-physics-discovery": -30,
-            "high-trl-industrial-scalability": 90
+            "high-trl-industrial-scalability": 90,
+            "mid-trl-translation": -20
           },
           "xma0004": {
             "fundamental": -40,
-            "applied": 90
+            "applied": 90,
+            "use-inspired": -30
           },
           "xma0005": {
             "condensed-matter-quantum-materials": 50,
@@ -3943,23 +4206,28 @@
           },
           "xma0006": {
             "continue": 50,
-            "plateau": 30
+            "plateau": 30,
+            "slowing-not-stopped": 80
           },
           "xma0007": {
             "reliability": 90,
-            "performance": 60
+            "performance": 60,
+            "performance-within-reliability-bounds": 70
           },
           "xma0009": {
             "near-term-nisq-optimism": 60,
-            "fault-tolerant-error-correction-purism": 20
+            "fault-tolerant-error-correction-purism": 20,
+            "nisq-now-fault-tolerance-as-the-goal": 60
           },
           "xma0010": {
             "quantum-sensing-metrology-priority": 70,
-            "quantum-computing-supremacy": 30
+            "quantum-computing-supremacy": 30,
+            "both-races": 60
           },
           "xma0011": {
             "hype": 20,
-            "reality": 80
+            "reality": 80,
+            "cautious-optimism": 40
           },
           "xma0012": {
             "fusion": 30,
@@ -3968,55 +4236,67 @@
           },
           "xma0013": {
             "magnetic-confinement-fusion": 40,
-            "inertial-confinement-fusion": 30
+            "inertial-confinement-fusion": 30,
+            "pursue-both": 90
           },
           "xma0014": {
-            "high-density-advanced-nuclear-fusion": 50,
-            "solid-state-photovoltaics-advanced-storage": 70
+            "nuclear-fusion-source": -15,
+            "centralized-grid": 0
           },
           "xma0015": {
             "short-duration": 60,
-            "long-duration": 50
+            "long-duration": 50,
+            "layered-durations": 90
           },
           "xma0016": {
             "efficiency": 50,
-            "cost": 85
+            "cost": 85,
+            "efficiency-at-a-price-point": 65
           },
           "xma0017": {
             "natural": 20,
-            "engineered": 80
+            "engineered": 80,
+            "biomimicry": 40
           },
           "xma0018": {
             "revolution": 40,
-            "hype": 40
+            "hype": 40,
+            "useful-not-revolutionary": 100
           },
           "xma0019": {
             "the-holy-grail-of-room-temperature-superconductors": 10,
-            "pragmatic-high-t-c-engineering": 80
+            "pragmatic-high-t-c-engineering": 80,
+            "deploy-now-chase-the-grail": 30
           },
           "xma0020": {
             "active-electronic-circuits": 80,
-            "passive-geometric-metasurfaces": 40
+            "passive-geometric-metasurfaces": 40,
+            "hybrid-active-metasurfaces": 60
           },
           "xma0021": {
             "top-down-extreme-lithography": 80,
-            "bottom-up-supramolecular-self-assembly": 20
+            "bottom-up-supramolecular-self-assembly": 20,
+            "combined-processes": 40
           },
           "xma0022": {
             "dimensional-silicon-scaling": 70,
-            "beyond-silicon-heterogeneous-integration": 50
+            "beyond-silicon-heterogeneous-integration": 50,
+            "scale-silicon-integrate-beyond": 80
           },
           "xma0026": {
             "industry": 90,
-            "academia": -30
+            "academia": -30,
+            "straddling-both": -20
           },
           "xma0027": {
             "proud-applied-physicist": 20,
-            "pragmatic-specialized-engineer": 90
+            "pragmatic-specialized-engineer": 90,
+            "physicist-engineer": 30
           },
           "xma0028": {
             "commercial-patents-spin-out-startups": 85,
-            "open-academic-publishing": 10
+            "open-academic-publishing": 10,
+            "patent-then-publish": 25
           },
           "xma0029": {
             "product": 95,
