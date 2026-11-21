@@ -2405,15 +2405,6 @@
               "receive_label": "receive affectionate cruelty"
             },
             {
-              "id": "t0254",
-              "name": "Crying",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "make cry",
-              "receive_label": "cry",
-              "kinksters": 98651
-            },
-            {
               "id": "t0255",
               "name": "Dacryphilia",
               "risk": false,
@@ -2421,15 +2412,6 @@
               "give_label": "make cry",
               "receive_label": "cry",
               "kinksters": 24335
-            },
-            {
-              "id": "t0256",
-              "name": "Tears",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "make cry",
-              "receive_label": "cry",
-              "kinksters": 65630
             },
             {
               "id": "t0257",
@@ -3540,15 +3522,6 @@
           "id": "t0341",
           "name": "Spit",
           "risk": false
-        },
-        {
-          "id": "t0342",
-          "name": "Enemas",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "give enema",
-          "receive_label": "take enema",
-          "kinksters": 208615
         },
         {
           "id": "t0343",
@@ -12310,10 +12283,6 @@
             "give": -25,
             "receive": 75
           },
-          "t0254": {
-            "give": -30,
-            "receive": 65
-          },
           "t0257": {
             "give": -20,
             "receive": 60
@@ -12362,6 +12331,10 @@
           "t0405": {
             "give": -35,
             "receive": 55
+          },
+          "t0255": {
+            "give": -30,
+            "receive": 65
           }
         },
         "app": "sexcapades",
@@ -12451,10 +12424,6 @@
             "give": 75,
             "receive": -25
           },
-          "t0254": {
-            "give": 65,
-            "receive": -30
-          },
           "t0257": {
             "give": 60,
             "receive": -20
@@ -12503,6 +12472,10 @@
           "t0405": {
             "give": 55,
             "receive": -35
+          },
+          "t0255": {
+            "give": 65,
+            "receive": -30
           }
         },
         "app": "sexcapades",
@@ -15596,10 +15569,6 @@
             "give": 70,
             "receive": -50
           },
-          "t0342": {
-            "give": 60,
-            "receive": -30
-          },
           "t0340": {
             "give": -70,
             "receive": -70
@@ -15671,6 +15640,10 @@
           "t0404": {
             "give": 80,
             "receive": 80
+          },
+          "t0350": {
+            "give": 60,
+            "receive": -30
           }
         },
         "ratingSources": {
