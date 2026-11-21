@@ -4270,7 +4270,7 @@ const TAXONOMY_CATEGORIES = [
             markMeta: ".mark-meta",
             outlineRating: ".outline-rating",
             outlineSubcategoryDisclosure: ".outline-subcategory-disclosure,.glance-tooltip-practice-icon",
-            outlineTooltipSource: ".outline-branch-disclosure[data-outline-disclosure-tooltip],.outline-description-trigger[data-outline-description],.glance-tooltip-practice-icon[data-popularity-tooltip],.outline-rating[data-rating-tooltip]",
+            outlineTooltipSource: ".outline-branch-disclosure[data-outline-disclosure-tooltip],.outline-description-trigger[data-outline-description],.glance-tooltip-practice-icon[data-popularity-tooltip],.outline-rating[data-rating-tooltip],[data-rating-tooltip]",
             outlineBranchDisclosure: ".outline-branch-disclosure[data-outline-disclosure-tooltip]",
             outlineSubcategory: ".outline-subcategory",
             outlineBranch: ".outline-branch",
@@ -32895,6 +32895,31 @@ const TAXONOMY_CATEGORIES = [
                 inline.innerHTML = '<canvas class="outline-inline-canvas" width="148" height="148" aria-label="Topic widget"></canvas><label class="outline-inline-intensity"><span>Intensity</span><input class="outline-inline-slider" type="range" min="-100" max="100" step="1" value="0" aria-label="Intensity"><output class="outline-inline-out">0</output></label><button class="outline-inline-clear" type="button">Clear</button>';
                 h.append(inline);
                 typeof window.sxOpenHotListWidgetPopup === "function" && window.sxOpenHotListWidgetPopup(e.id, t, inline);
+            } else if (i.widget === "trilinear-line") {
+                const r = document.createElement("label");
+                r.className = "outline-rating";
+                const s = document.createElement("span");
+                s.className = "outline-rating-label";
+                const triParts = [i.labels[0] || "", i.labels[1] || "", i.labels[2] || ""];
+                triParts.forEach((p, idx) => {
+                    if (idx > 0) s.appendChild(document.createTextNode(" — "));
+                    const sp = document.createElement("span");
+                    sp.textContent = p;
+                    const poleKey = (i.poleKeys && i.poleKeys[idx]) || (i.keys && i.keys[idx]);
+                    const pTip = typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, poleKey) : null;
+                    if (pTip) {
+                        sp.dataset.ratingTooltip = pTip;
+                        sp.setAttribute("data-tooltip-tap-first", "");
+                    }
+                    s.appendChild(sp);
+                });
+                const firstTip = (i.poleKeys && typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, i.poleKeys[0]) : null) || s.textContent;
+                firstTip && (r.dataset.ratingTooltip = firstTip, r.setAttribute("data-tooltip-tap-first", ""));
+                const c = document.createElement("input");
+                c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = "line",
+                c.setAttribute("aria-label", `${e.label}, ${s.textContent}`);
+                const d = document.createElement("output");
+                r.append(s, c, d), h.append(r);
             } else (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
                 const r = document.createElement("label"), o = !i.single && "give" === i.labels[0] && "receive" === i.labels[1];
                 r.className = "outline-rating";
@@ -33763,7 +33788,7 @@ const TAXONOMY_CATEGORIES = [
             });
         }
         function Hs(e) {
-            return e.dataset.popularityTooltip ? "Popularity" : e.dataset.ratingTooltip ? e.querySelector?.(".outline-rating-label")?.textContent?.trim() || "Rating" : getOutlineRow(e)?.querySelector?.(".outline-topic-label")?.textContent?.trim() || e.getAttribute("aria-label") || "Topic details";
+            return e.dataset.popularityTooltip ? "Popularity" : e.dataset.ratingTooltip ? (e.textContent?.trim() || e.querySelector?.(".outline-rating-label")?.textContent?.trim() || "Rating") : getOutlineRow(e)?.querySelector?.(".outline-topic-label")?.textContent?.trim() || e.getAttribute("aria-label") || "Topic details";
         }
         function Ws(e, t) {
             qs(e, e?.dataset.outlineDescription || "", t);

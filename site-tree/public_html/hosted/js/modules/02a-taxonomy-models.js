@@ -191,7 +191,7 @@
             markMeta: ".mark-meta",
             outlineRating: ".outline-rating",
             outlineSubcategoryDisclosure: ".outline-subcategory-disclosure,.glance-tooltip-practice-icon",
-            outlineTooltipSource: ".outline-branch-disclosure[data-outline-disclosure-tooltip],.outline-description-trigger[data-outline-description],.glance-tooltip-practice-icon[data-popularity-tooltip],.outline-rating[data-rating-tooltip]",
+            outlineTooltipSource: ".outline-branch-disclosure[data-outline-disclosure-tooltip],.outline-description-trigger[data-outline-description],.glance-tooltip-practice-icon[data-popularity-tooltip],.outline-rating[data-rating-tooltip],[data-rating-tooltip]",
             outlineBranchDisclosure: ".outline-branch-disclosure[data-outline-disclosure-tooltip]",
             outlineSubcategory: ".outline-subcategory",
             outlineBranch: ".outline-branch",
