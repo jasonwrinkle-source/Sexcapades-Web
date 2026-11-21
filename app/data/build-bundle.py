@@ -35,6 +35,7 @@ parts = [
     "03e1-mark-dialog.js",
     "03f1-polygon-math.js",
     "03f-polygon-widgets.js",
+    "03f2-switchbox-widget.js",
     "03d-outline.js",
     "04-topic-picker.js",
     "05a-sync-engine.js",
