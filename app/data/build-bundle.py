@@ -37,6 +37,7 @@ parts = [
     "03d-outline.js",
     "04-topic-picker.js",
     "05a-sync-engine.js",
+    "05b1-sync-compute.js",
     "05b-scribe.js",
     "05-compatibility.js",
     "05c-share-qr.js",
