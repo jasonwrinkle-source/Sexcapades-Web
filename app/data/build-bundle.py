@@ -32,6 +32,7 @@ parts = [
     "03-map-geometry.js",
     "03c-map-vault.js",
     "03e-map-paint.js",
+    "03e1-mark-dialog.js",
     "03f1-polygon-math.js",
     "03f-polygon-widgets.js",
     "03d-outline.js",

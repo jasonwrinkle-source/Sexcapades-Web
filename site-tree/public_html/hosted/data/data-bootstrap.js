@@ -24590,6 +24590,7 @@ const TAXONOMY_CATEGORIES = [];
                 recovery: !0
             }), Ih();
         });
+
         const Ir = Object.freeze({
             "Rope bondage": "https://en.wikipedia.org/wiki/Rope_bondage",
             "Japanese bondage": "https://en.wikipedia.org/wiki/Japanese_bondage",
