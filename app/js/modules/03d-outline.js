@@ -565,7 +565,8 @@
                 if ("limit" === a[s] || ja(s, e)) return;
                 const l = ca(s, e), c = Ge(s, e);
                 if (!l.giveKnown && !l.receiveKnown) {
-                    if (i.size && (i.has(s) || i.has(node.catId) || node.subId && i.has(node.subId))) return void t.tier1.push(s);
+                    const ancestors = (typeof sxNodeAncestorIds === "function") ? sxNodeAncestorIds(s, e) : [ node.subId, node.catId ].filter(Boolean);
+                    if (i.size && (i.has(s) || ancestors.some(ancId => i.has(ancId)))) return void t.tier1.push(s);
                     if (a[s] || r[s] || o[s]) t.tier2.push(s);
                     return;
                 }

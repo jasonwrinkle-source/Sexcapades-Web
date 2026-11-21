@@ -217,13 +217,14 @@
             return "topic-" + Hn(String(e || "")) + "-" + Hn(String(t || ""));
         }
         function zn(e) {
-            for (const t of h) for (const n of t.subcategories || []) if (Un(t.name, n.name) === e) return {
+            for (const t of h) for (const n of t.subcategories || []) if (Un(t.name, n.name) === e || n.id === e) return {
                 id: e,
                 label: n.name,
                 branch: t.name,
                 kind: "Subcategory",
                 risk: t.risk,
                 parentId: catId(t.name),
+                depth: 2,
                 topics: n.topics
             };
             return null;
@@ -236,10 +237,26 @@
             return e.subcategories?.length ? (e.parentTopics || []).map(Wn).concat(e.subcategories.map(t => Un(e.name, t.name))) : e.topics.map(Wn);
         }
         function Xn(e) {
+            if (!e) return null;
+            for (const cat of h) {
+                if (cat.id === e || catId(cat.name) === e || cat.name === e) {
+                    return {
+                        id: cat.id || catId(cat.name),
+                        label: cat.name,
+                        branch: cat.name,
+                        kind: "Category",
+                        risk: Boolean(cat.risk),
+                        parentId: null,
+                        depth: 1,
+                        subcategories: (cat.subcategories || []).map(s => Un(cat.name, s.name)),
+                        topics: (cat.topics || []).map(Wn)
+                    };
+                }
+            }
             const t = zn(e);
             if (t) return t;
             for (const t of h) {
-                const n = t.topics.find(t => Wn(t) === e);
+                const n = t.topics.find(top => Wn(top) === e);
                 if (n) {
                     const i = Vn(t, n);
                     return {
@@ -248,7 +265,8 @@
                         branch: t.name,
                         kind: "Topic",
                         risk: Boolean(((t.topics || []).find(topic => sxName(topic) === sxName(n)) || {}).risk),
-                        parentId: i ? Un(t.name, i.name) : null,
+                        parentId: i ? Un(t.name, i.name) : catId(t.name),
+                        depth: i ? 3 : 2,
                         poleReading: n.poleReading || null,
                         poleEnemies: Array.isArray(n.poleEnemies) ? n.poleEnemies : null
                     };
@@ -256,6 +274,112 @@
             }
             return null;
         }
+
+        // ===== Phase 4 Uniform Node Type: Universal Node Engine =====
+        function sxNodeRecord(id, profileId = Vi()) {
+            if (!id) return null;
+            let rec = qn[id] || Xn(id);
+            if (!rec && typeof at !== "undefined" && at[profileId]) {
+                rec = at[profileId][id] || null;
+            }
+            if (!rec && typeof li === "function") {
+                rec = li().find(x => x.id === id) || null;
+            }
+            if (rec && !rec.depth) {
+                if ("Category" === rec.kind) rec.depth = 1;
+                else if ("Subcategory" === rec.kind) rec.depth = 2;
+                else if (rec.parentId && (isSubId(rec.parentId) || (qn[rec.parentId] || {}).kind === "Subcategory")) rec.depth = 3;
+                else if (rec.parentId) rec.depth = ((qn[rec.parentId] || {}).depth || 2) + 1;
+                else rec.depth = 2;
+            }
+            return rec;
+        }
+        function sxNodeAncestorIds(id, profileId = Vi()) {
+            const ancestors = [];
+            const seen = new Set();
+            let curr = id;
+            while (curr && !seen.has(curr)) {
+                seen.add(curr);
+                const rec = sxNodeRecord(curr, profileId);
+                if (!rec) break;
+                let parentId = rec.parentId || null;
+                if (!parentId && rec.branch && "Category" !== rec.kind) {
+                    try { parentId = catId(rec.branch); } catch (_) {}
+                }
+                if (parentId && parentId !== curr && !seen.has(parentId)) {
+                    ancestors.push(parentId);
+                    curr = parentId;
+                } else {
+                    break;
+                }
+            }
+            return ancestors;
+        }
+        function sxNodeChildrenIds(id, profileId = Vi()) {
+            const rec = sxNodeRecord(id, profileId);
+            if (!rec) return [];
+            const children = [];
+            if ("Category" === rec.kind) {
+                const cat = h.find(c => (c.id === id || catId(c.name) === id));
+                if (cat) {
+                    (cat.subcategories || []).forEach(s => children.push(Un(cat.name, s.name)));
+                    (cat.parentTopics || []).forEach(t => children.push(Wn(t)));
+                    if (!(cat.subcategories || []).length) {
+                        (cat.topics || []).forEach(t => children.push(Wn(t)));
+                    }
+                }
+            } else if ("Subcategory" === rec.kind) {
+                const sub = sgSub(id);
+                if (sub) {
+                    (sub.topics || []).forEach(t => children.push(Wn(t)));
+                }
+                if (typeof ai === "function") {
+                    ai(id, profileId).forEach(cid => children.push(cid));
+                }
+            }
+            if (typeof at !== "undefined" && at[profileId]) {
+                Object.values(at[profileId]).forEach(ch => {
+                    if (ch && ch.parentId === id && !children.includes(ch.id)) {
+                        children.push(ch.id);
+                    }
+                });
+            }
+            return children;
+        }
+        function sxNodeRollup(id, profileId = Vi(), flank = "give", currentDepth = null, maxDepth = 3) {
+            const rec = sxNodeRecord(id, profileId);
+            if (!rec) return { value: null, rated: 0, total: 0 };
+            const depth = currentDepth ?? (rec.depth || 1);
+            const direct = ha(id, profileId, flank);
+            if (null != direct) {
+                return { value: direct, rated: 1, total: 1, isDirect: !0 };
+            }
+            const childIds = sxNodeChildrenIds(id, profileId);
+            if (!childIds.length) {
+                return { value: null, rated: 0, total: 0 };
+            }
+            let weightedSum = 0, totalWeight = 0, ratedCount = 0;
+            const childDepth = depth + 1;
+            const weight = Math.pow(2 / 3, Math.max(0, maxDepth - childDepth));
+            childIds.forEach(cid => {
+                const childRes = sxNodeRollup(cid, profileId, flank, childDepth, maxDepth);
+                if (null != childRes.value) {
+                    const w = childRes.isDirect ? weight : (weight * (childRes.rated || 1));
+                    weightedSum += childRes.value * w;
+                    totalWeight += w;
+                    ratedCount += childRes.rated || 1;
+                }
+            });
+            return {
+                value: totalWeight > 0 ? Math.max(-100, Math.min(100, weightedSum / totalWeight)) : null,
+                rated: ratedCount,
+                total: childIds.length
+            };
+        }
+        window.sxNodeRecord = sxNodeRecord;
+        window.sxNodeAncestorIds = sxNodeAncestorIds;
+        window.sxNodeChildrenIds = sxNodeChildrenIds;
+        window.sxNodeRollup = sxNodeRollup;
         function Zn(e, t) {
             if ("give" !== t && "receive" !== t) return "";
             const n = qn[e] || Xn(e) || (at[Vi()] || {})[e], i = n && n.parentId && (qn[n.parentId] || Xn(n.parentId)), a = n && (He[n.label] || i && He[i.label]);
@@ -415,14 +539,19 @@
             rn.add(t.branch), "Topic" === t.kind && on.add(e), wn = !1, Lt = e, vn = e, Mr()) : Si(e));
         }
         function wi(e) {
-            const t = bi(e), n = [];
-            return t.forEach(e => {
-                n.push(e);
-                const t = Xn(e);
-                "Subcategory" === t?.kind ? bi(t).forEach(e => {
-                    n.push(e, ...ai(e, Vi()));
-                }) : n.push(...ai(e, Vi()));
-            }), new Set(n);
+            const collected = new Set();
+            function gather(node) {
+                const kids = bi(node);
+                kids.forEach(kidId => {
+                    if (!collected.has(kidId)) {
+                        collected.add(kidId);
+                        const kidRec = qn[kidId] || Xn(kidId);
+                        if (kidRec) gather(kidRec);
+                    }
+                });
+            }
+            gather(e);
+            return collected;
         }
         let ki = 0;
         function xi(e) {
@@ -1297,6 +1426,8 @@
             if (i) {
                 const direct = ha(i, t, n);
                 if (null != direct) return direct;
+                const roll = sxNodeRollup(i, t, n, 2, 3);
+                if (null !== roll.value) return roll.value;
             }
             // Child topics sit at depth 3; depth weight = 1.0
             const a = (e?.topics || []).map(Wn).concat(i ? ai(i, t) : []);
@@ -1315,6 +1446,14 @@
                     value: direct,
                     rated: 1,
                     total: totalChildren || 1
+                };
+            }
+            const roll = sxNodeRollup(catId(e.name), t, n, 1, 3);
+            if (null !== roll.value || roll.total > 0) {
+                return {
+                    value: roll.value,
+                    rated: roll.rated,
+                    total: roll.total
                 };
             }
             const s = e.subcategories || [], u = [], weights = [];
@@ -1426,11 +1565,8 @@
             return av(e);
         }
         function Ca(e, t = {}, n = {}) {
-            const info = qn[e] || Xn(e);
-            const isBranchLimited = !(!info || "Category" === info.kind) && Boolean(
-                (info.parentId && n && "limit" === n[info.parentId]) ||
-                (info.branch && n && "limit" === n[catId(info.branch)])
-            );
+            const ancestors = sxNodeAncestorIds(e);
+            const isBranchLimited = Boolean(ancestors.length && n && ancestors.some(ancId => n[ancId] === "limit"));
             if (n && ("limit" === n[e] || "notinterested" === n[e] || isBranchLimited)) return -100;
             if (n && "favorite" === n[e] && !isBranchLimited) return 100;
             const i = t && t[e], a = [];
@@ -1470,14 +1606,21 @@
             return Boolean(vht[e] || $n);
         }
         function Pa(e, t) {
-            const n = da(e, t), i = qn[e];
-            if (!i || "Category" === i.kind || !i.parentId) return n;
-            const a = da(i.parentId, t);
+            const n = da(e, t);
+            if (n.giveKnown && n.receiveKnown) return n;
+            const ancestors = sxNodeAncestorIds(e, t);
+            let g = n.give, r = n.receive, gk = n.giveKnown, rk = n.receiveKnown;
+            for (const ancId of ancestors) {
+                if (gk && rk) break;
+                const a = da(ancId, t);
+                if (!gk && a.giveKnown) { g = a.give; gk = !0; }
+                if (!rk && a.receiveKnown) { r = a.receive; rk = !0; }
+            }
             return {
-                give: n.giveKnown ? n.give : a.give,
-                receive: n.receiveKnown ? n.receive : a.receive,
-                giveKnown: n.giveKnown || a.giveKnown,
-                receiveKnown: n.receiveKnown || a.receiveKnown
+                give: g,
+                receive: r,
+                giveKnown: gk,
+                receiveKnown: rk
             };
         }
         function La(e, t, n) {
@@ -1572,16 +1715,12 @@
         function sxIsBranchLimited(e, t = Vi()) {
             const grp = Kd();
             const pIds = grp && Array.isArray(grp.sourceIds) ? grp.sourceIds.filter(id => vt[id]) : (Qi() ? Xi() : [ t ]);
-            const i = qn[e] || Xn(e) || (at[t] || {})[e];
-            if (!i || "Category" === i.kind) return !1;
-            const catNodeId = i.branch ? catId(i.branch) : null;
-            const subNodeId = i.parentId || null;
+            const ancestors = sxNodeAncestorIds(e, t);
+            if (!ancestors.length) return !1;
             return pIds.some(pid => {
                 const ann = Qe[pid];
                 if (!ann) return !1;
-                if (subNodeId && ann[subNodeId] === "limit") return !0;
-                if (catNodeId && ann[catNodeId] === "limit") return !0;
-                return !1;
+                return ancestors.some(ancId => ann[ancId] === "limit");
             });
         }
         function RaSingle(e, t) {
@@ -1597,25 +1736,22 @@
             return "other";
         }
         function Oa(e, t) {
-            const i = qn[e] || Xn(e) || (at[t] || {})[e];
-            const isBranchLimited = !(!i || "Category" === i.kind) && Boolean(
-                (i.parentId && Qe[t]?.[i.parentId] === "limit") ||
-                (i.branch && Qe[t]?.[catId(i.branch)] === "limit")
-            );
+            const ancestors = sxNodeAncestorIds(e, t);
+            const isBranchLimited = Boolean(ancestors.length && ancestors.some(ancId => Qe[t]?.[ancId] === "limit"));
             if (isBranchLimited) return "limit";
             const n = Qe[t]?.[e];
             if (n) {
                 if ("favorite" === n && isBranchLimited) return "limit";
                 return n;
             }
-            return i && "Category" !== i.kind && (i.parentId && Qe[t]?.[i.parentId] || (i.branch && Qe[t]?.[catId(i.branch)])) || null;
+            for (const ancId of ancestors) {
+                if (Qe[t]?.[ancId]) return Qe[t][ancId];
+            }
+            return null;
         }
         function Ba(e, t, n) {
-            const i = qn[e] || Xn(e) || (at[t] || {})[e];
-            const isBranchLimited = !(!i || "Category" === i.kind) && Boolean(
-                (i.parentId && Qe[t]?.[i.parentId] === "limit") ||
-                (i.branch && Qe[t]?.[catId(i.branch)] === "limit")
-            );
+            const ancestors = sxNodeAncestorIds(e, t);
+            const isBranchLimited = Boolean(ancestors.length && ancestors.some(ancId => Qe[t]?.[ancId] === "limit"));
             if (isBranchLimited) {
                 if ("limit" === n) return !0;
                 if ("favorite" === n) return !1;
@@ -1624,7 +1760,7 @@
                 if ("favorite" === n && (Qe[t]?.[e] === "limit" || isBranchLimited)) return !1;
                 return !0;
             }
-            return !(!i || "Category" === i.kind) && Boolean(i.parentId && Qe[t]?.[i.parentId] === n || (i.branch && Qe[t]?.[catId(i.branch)] === n));
+            return Boolean(ancestors.some(ancId => Qe[t]?.[ancId] === n));
         }
         function ja(e, t) {
             return Ba(e, t, "limit") || Ba(e, t, "notinterested");

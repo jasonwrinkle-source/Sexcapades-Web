@@ -1137,10 +1137,15 @@
             return (e.annotations || {})[t] || null;
         }
         function Fd(e, t) {
-            const n = e => "limit" === e || "notinterested" === e;
+            const n = val => "limit" === val || "notinterested" === val;
             if (n(Td(e, t))) return !0;
-            const i = qn[t] || Xn(t) || (e.importedChildren || {})[t];
-            return !(!i || "Category" === i.kind) && Boolean(i.parentId && n(Td(e, i.parentId)) || n(Td(e, catId(i.branch))));
+            const ancestors = (typeof sxNodeAncestorIds === "function")
+                ? sxNodeAncestorIds(t, e?.id)
+                : (() => {
+                    const i = qn[t] || Xn(t) || (e.importedChildren || {})[t];
+                    return [ i?.parentId, i?.branch ? catId(i.branch) : null ].filter(Boolean);
+                })();
+            return ancestors.some(ancId => n(Td(e, ancId)));
         }
         /* ===== Sync comparison engine v1.1 (ruled algorithm) =====
            The single computation behind every sync percentage in the app:
@@ -1179,23 +1184,36 @@
         }
         function sxAnnoScope(profile, id, meta, value) {
             const a = profile.annotations || {};
+            const ancestors = (typeof sxNodeAncestorIds === "function")
+                ? sxNodeAncestorIds(id, profile?.id)
+                : [ meta?.parentId, meta?.branch ? catId(meta.branch) : null ].filter(Boolean);
             // Interim unification: Branch Limit beats topic Favorite.
-            // If checking "favorite", a branch (category or subcategory) limit strictly overrides and cancels it.
+            // If checking "favorite", any ancestor limit strictly overrides and cancels it.
             if ("favorite" === value) {
                 if (a[id] === "limit") return null;
-                if (meta && meta.branch && a[catId(meta.branch)] === "limit") return null;
-                if (meta && meta.parentId && a[meta.parentId] === "limit") return null;
+                if (ancestors.some(ancId => a[ancId] === "limit")) return null;
             }
             if (a[id] === value) return "topic";
-            if (meta && meta.parentId && a[meta.parentId] === value) return "subcategory";
-            if (meta && meta.branch && a[catId(meta.branch)] === value) return "category";
+            for (const ancId of ancestors) {
+                if (a[ancId] === value) {
+                    const ancRec = (typeof sxNodeRecord === "function") ? sxNodeRecord(ancId, profile?.id) : null;
+                    return ancRec?.kind?.toLowerCase() || (isCatId(ancId) ? "category" : "subcategory");
+                }
+            }
             return null;
         }
         function sxFlagScope(store, id, meta) {
             if (!store) return null;
             if (store[id]) return "topic";
-            if (meta && meta.parentId && store[meta.parentId]) return "subcategory";
-            if (meta && meta.branch && store[catId(meta.branch)]) return "category";
+            const ancestors = (typeof sxNodeAncestorIds === "function")
+                ? sxNodeAncestorIds(id)
+                : [ meta?.parentId, meta?.branch ? catId(meta.branch) : null ].filter(Boolean);
+            for (const ancId of ancestors) {
+                if (store[ancId]) {
+                    const ancRec = (typeof sxNodeRecord === "function") ? sxNodeRecord(ancId) : null;
+                    return ancRec?.kind?.toLowerCase() || (isCatId(ancId) ? "category" : "subcategory");
+                }
+            }
             return null;
         }
         function sxTopicData(profile, id, meta) {

@@ -432,7 +432,13 @@
             list.forEach(rec => {
                 (rec.limiters || []).forEach(lm => {
                     if ("topic" === lm.scope) return void blocks.push(`<div class="sx-row"><div class="sx-row-top"><strong>${Hi(rec.label)}</strong><span class="sx-badge is-limit">limit, ${Hi(lm.name)}</span></div></div>`);
-                    const meta = qn[rec.id] || Xn(rec.id) || null, gname = "category" === lm.scope ? rec.branch : meta && meta.parentId && (qn[meta.parentId] || {}).label || rec.branch, key = `${lm.scope}|${lm.name}|${gname}`;
+                    const meta = (typeof sxNodeRecord === "function") ? sxNodeRecord(rec.id) : (qn[rec.id] || Xn(rec.id) || null);
+                    let gname = rec.branch;
+                    if ("category" !== lm.scope && meta && meta.parentId) {
+                        const parentRec = (typeof sxNodeRecord === "function") ? sxNodeRecord(meta.parentId) : (qn[meta.parentId] || null);
+                        if (parentRec && parentRec.label) gname = parentRec.label;
+                    }
+                    const key = `${lm.scope}|${lm.name}|${gname}`;
                     if (!groups.has(key)) {
                         const g = { name: lm.name, gname: gname, topics: [] };
                         groups.set(key, g), blocks.push(g);

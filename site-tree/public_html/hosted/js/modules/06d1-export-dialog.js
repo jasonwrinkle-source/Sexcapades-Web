@@ -210,8 +210,11 @@
                         const n = getComputedStyle(e);
                         "none" !== n.display && "hidden" !== n.visibility && 0 !== Number(n.opacity) && r.add(t);
                     }), Array.from(r).forEach(t => {
-                        const n = qn[t] || Xn(t) || (at[e] || {})[t];
-                        n?.parentId && r.add(n.parentId), n?.branch && r.add(catId(n.branch));
+                        const ancestors = (typeof sxNodeAncestorIds === "function") ? sxNodeAncestorIds(t, e) : (() => {
+                            const n = qn[t] || Xn(t) || (at[e] || {})[t];
+                            return [ n?.parentId, n?.branch ? catId(n.branch) : null ].filter(Boolean);
+                        })();
+                        ancestors.forEach(ancId => r.add(ancId));
                     });
                 } finally {
                     a && (Mt = t, It = n, sxSel(i, "set"), Mr({

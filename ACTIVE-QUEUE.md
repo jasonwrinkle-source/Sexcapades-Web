@@ -23,10 +23,11 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Docs dropdown stays or folds in (Jason's call); four App-menu links (Examples, Privacy, Contact, Sitemap) move with it.
    - *Status:* Undecided, unanswered, not built. Awaiting Jason's direction.
 
-2. ~~**Uniform Node Type — Phase 4 Step 4 (Layout Editor Integration):**~~ Settled 2026-11-21.
+2. ~~**Uniform Node Type — Phase 4 (Layout Editor Integration & Recursive Engine):**~~ Settled 2026-11-21.
    - Unified `branchOverrides`, `subcatOverrides`, and `kinkOverrides` into a depth-agnostic `nodeOverrides[nodeId]` schema in `layout-editor.js` with bidirectional syncing and legacy fallback.
    - Added multi-generation live crossing counting in `__sxCrossingMeasure` (`byDepth`, `byGen`, `byNode`, `subclouds`, `generations`).
-   - *Phase 4 (N-Depth Scaling Law & Map-Paint Decomposition) now fully complete (Steps 1–4).*
+   - Implemented Arbitrary $N$-Depth Recursive Hierarchy & Unified Node Engine (`sxNodeRecord`, `sxNodeAncestorIds`, `sxNodeChildrenIds`, `sxNodeRollup` with $(2/3)^{D_{\max}-d}$ depth-weighting and per-flank direct wins, full ancestor limit cascade across matching/negotiation/outline, and recursive subtree collection `wi`).
+   - *Phase 4 (N-Depth Scaling Law, Map-Paint Decomposition & Unified Node Engine) now fully complete.*
 
 3. **Shel's Sync-Card Fit:**
    - Waiting on Shel's fresh complete profile copy (handle: `BothInches`).

@@ -47,10 +47,11 @@ without his daylight say-so and his own cold-open acceptance. Address him as
    - Intensity slider writes only the +1; brightness ramps up to full at ±100, dims at zero, negative paints complementary colors.
    - Scoring weights topics by smaller relevance; straight evaluates similar roles, cross evaluates complementary roles.
    - Depth factor stops being sign-blind; shared aversions marked explicitly.
-3. **Uniform Node Type (Phases 1–3 Complete):**
+3. **Uniform Node Type (Phases 1–4 Complete):**
    - Phase 1: Categories, subcategories, and topics share uniform evaluation; per-flank direct wins over roll-up.
    - Phase 2: "Branch Limit beats topic Favorite" wired across matching, negotiation, and map display.
    - Phase 3: Importer and On Deck support uniform parent node IDs.
+   - Phase 4: Arbitrary $N$-Depth Recursive Hierarchy & Unified Node Engine (`sxNodeRecord`, `sxNodeAncestorIds`, `sxNodeChildrenIds`, `sxNodeRollup` with $(2/3)^{D_{\max}-d}$ depth-weighting and per-flank direct wins, full ancestor limit cascade across matching/negotiation/outline, and recursive subtree collection `wi`).
 4. **N-Depth Scaling Law & Map-Paint Decomposition (Steps 1–4 Complete):**
    - Step 1: Live icon depth law ($D_1 \approx \frac{1}{3} D_{\text{avatar}}$, gentle $(3/4)^{d-1}$ decay) and dynamic clearance solvers.
    - Step 2: `03e-map-paint.js` decomposed into modular renderers (`SpokeRenderer`, `HubRenderer`, `LabelRenderer`).
