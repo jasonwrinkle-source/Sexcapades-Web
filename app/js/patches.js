@@ -312,16 +312,14 @@ __sxInit(function initScribeGeminiBYOK() {
   // stops early at its own default. The target is read from the
   // dialog inputs (the bundle's module state is not reachable from
   // this file). A blank length on a YoBitch play-guide prompt means
-  // Token budget from the Scribe target length (2026-11-17): the model
-  // needs enough output tokens to actually reach the target, or it
-  // stops early at its own default. The target is read from the
-  // dialog inputs (the bundle's module state is not reachable from
-  // this file). A blank length defaults to 5 paragraphs.
-  // Words convert at ~1.35 tokens per word; pages ~450 words,
-  // paragraphs ~140, chapters ~2500, minutes ~150 (spoken pace).
-  // Floored at 2048, capped at 32768.
+  // Token budget from the Scribe target length: the model needs generous
+  // output tokens to actually develop rich paragraphs and reach the full target,
+  // without being cut short mid-sentence by an artificially tight token ceiling.
+  // The target is read from dialog inputs. Blank length defaults to 5 paragraphs.
+  // Words convert at ~1.35 tokens per word; floored at 8192 tokens so the model
+  // never gets starved of completion headroom, capped at 32768.
   function scribeTokenBudget(promptText) {
-    var wordsPerUnit = { words: 1, paragraphs: 140, pages: 450, chapters: 2500, minutes: 150 };
+    var wordsPerUnit = { words: 1, paragraphs: 150, pages: 500, chapters: 2500, minutes: 160 };
     var unit = "paragraphs", val = 5, blank = true;
     try {
       var lenEl = document.getElementById("scribePageCount");
@@ -336,14 +334,14 @@ __sxInit(function initScribeGeminiBYOK() {
       }
     } catch (_) {}
     if (blank) { val = 5; }
-    var words = val * (wordsPerUnit[unit] || 140);
+    var words = val * (wordsPerUnit[unit] || 150);
     var singular = unit.replace(/s$/, "");
     return {
       unit: unit,
       val: val,
       words: words,
       text: val + " " + (1 === val ? singular : unit),
-      tokens: Math.min(32768, Math.max(2048, Math.round(words * 2.5)))
+      tokens: Math.min(32768, Math.max(8192, Math.round(words * 4)))
     };
   }
 
@@ -490,7 +488,7 @@ __sxInit(function initScribeGeminiBYOK() {
                 { role: "user", content: fullPrompt }
               ],
               temperature: 0.9,
-              max_tokens: scribeBudget.tokens,
+              max_tokens: Math.min(16384, scribeBudget.tokens),
               stream: true
             }),
             signal: activeAbortController.signal
@@ -561,7 +559,7 @@ __sxInit(function initScribeGeminiBYOK() {
             generationConfig: {
               temperature: 0.9,
               topP: 0.95,
-              maxOutputTokens: scribeBudget.tokens
+              maxOutputTokens: Math.min(8192, scribeBudget.tokens)
             }
           };
 
@@ -607,6 +605,8 @@ __sxInit(function initScribeGeminiBYOK() {
                 }
                 throw new Error(errMsg);
               }
+
+              clearTimeout(fetchTimer);
 
               if (response.body && response.body.getReader) {
                 var reader = response.body.getReader();

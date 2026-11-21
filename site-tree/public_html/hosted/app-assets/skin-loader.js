@@ -1110,9 +1110,11 @@
   }
 
   function setBrand(skinId, displayName) {
-    var name = skinId === "sexcapades" ? "Sex.Capades.IO" : displayName;
-    var brand = skinId === "sexcapades" ? "Sex.Capades.IO" : "Flex.Capades.IO";
-    document.title = skinId === "sexcapades" ? "Sex.Capades.IO" : displayName + " — Flexcapades";
+    var prefix = skinPrefixFor(skinId);
+    var dotted = prefix ? (prefix.charAt(0).toUpperCase() + prefix.slice(1) + ".Capades.IO") : "Sex.Capades.IO";
+    var name = dotted;
+    var brand = dotted;
+    document.title = dotted + (skinId === "sexcapades" ? "" : " — " + (displayName || skinId));
     var btn = document.getElementById("openAppAbout");
     if (btn) btn.textContent = name;
     var about = document.getElementById("appAboutTitle");

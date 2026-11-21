@@ -492,14 +492,21 @@ __sxInit(function () {
 
   function showNote(text) {
     if (!note) return;
+    var host = document.querySelector("dialog[open]") || document.body;
+    if (note.parentNode !== host) host.appendChild(note);
     note.textContent = text;
     note.hidden = false;
     if (noteTimer) clearTimeout(noteTimer);
-    noteTimer = setTimeout(function () { note.hidden = true; noteTimer = null; }, 5000);
+    noteTimer = setTimeout(function () {
+      note.hidden = true;
+      noteTimer = null;
+      if (note.parentNode !== document.body) document.body.appendChild(note);
+    }, 5000);
   }
   if (note) note.addEventListener("click", function () {
     note.hidden = true;
     if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
+    if (note.parentNode !== document.body) document.body.appendChild(note);
   });
 
   function positionMenu(x, y) {
@@ -513,7 +520,18 @@ __sxInit(function () {
     menu.style.top = top + "px";
     menu.style.visibility = "";
   }
-  function openMenu(x, y, swallow) {
+  function openMenu(x, y, swallow, targetEl) {
+    /* If a modal dialog is open, move menu into that dialog so it stays
+       interactive and visible above the modal dialog backdrop; otherwise body. */
+    var host = (targetEl && targetEl.closest && targetEl.closest("dialog")) || document.querySelector("dialog[open]") || document.body;
+    if (menu.parentNode !== host) host.appendChild(menu);
+
+    if (targetEl && targetEl.getBoundingClientRect) {
+      var r = targetEl.getBoundingClientRect();
+      x = r.left;
+      y = r.bottom;
+    }
+
     positionMenu(x, y);
     /* Swallow the click that ends this very press: it lands on the menu
        (or outside it) a beat after pointerup, and must neither select
@@ -538,6 +556,7 @@ __sxInit(function () {
   function closeMenu() {
     if (!menuOpen()) return;
     menu.hidden = true;
+    if (menu.parentNode !== document.body) document.body.appendChild(menu);
   }
   /* Programmatic open for the flex.capades.io boot (skin-loader calls
      this once when the hostname picks no skin): opens just below the
@@ -606,59 +625,62 @@ __sxInit(function () {
     if (it && menu.contains(it)) choose(it);
   });
 
+  function isBrandTitle(el) {
+    return !!(el && el.closest && el.closest("#openAppAbout, .app-title-button, [data-open-about], .sx-brand"));
+  }
+  function isHeaderOrTitle(el) {
+    return !!(el && el.closest && el.closest("header.intro, .sx-titlebar, #openAppAbout, .app-title-button, [data-open-about], .sx-brand"));
+  }
+
   function cancelHold() {
     if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
     holdPointerId = null;
     holdFired = false;
   }
-  header.addEventListener("pointerdown", function (ev) {
+  document.addEventListener("pointerdown", function (ev) {
     if (holdPointerId !== null) { cancelHold(); return; }
-    /* The title button is interactive, but it is also a hold trigger:
-       a hold on it opens the menu exactly like a hold on empty header
-       space — same timer, same ending-click swallow, so the title's
-       About handler never sees that click. Long-press is the secondary
-       trigger beside Shift+Click, and the title is where the finger
-       lands. Every other interactive control still opts out of the hold. */
-    var onTitle = !!(ev.target && ev.target.closest && ev.target.closest("#openAppAbout"));
+    var hit = ev.target && isHeaderOrTitle(ev.target) ? ev.target.closest("header.intro, .sx-titlebar, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
+    if (!hit) return;
+    var onTitle = isBrandTitle(ev.target);
     if (isInteractive(ev.target) && !onTitle) return;
     if (ev.button !== undefined && ev.button !== 0) return;
     holdPointerId = ev.pointerId;
     holdX = ev.clientX; holdY = ev.clientY;
     holdFired = false;
+    var holdTarget = hit;
     holdTimer = setTimeout(function () {
       holdTimer = null;
       holdFired = true;
-      openMenu(holdX, holdY, true);
+      openMenu(holdX, holdY, true, holdTarget);
     }, LONG_PRESS_MS);
   });
-  header.addEventListener("pointermove", function (ev) {
+  document.addEventListener("pointermove", function (ev) {
     if (holdPointerId === null || ev.pointerId !== holdPointerId) return;
     if (Math.abs(ev.clientX - holdX) > MOVE_CANCEL_PX || Math.abs(ev.clientY - holdY) > MOVE_CANCEL_PX) cancelHold();
   });
-  header.addEventListener("pointerup", function (ev) {
+  document.addEventListener("pointerup", function (ev) {
     if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
   });
-  header.addEventListener("pointercancel", function (ev) {
+  document.addEventListener("pointercancel", function (ev) {
     if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
   });
-  /* Shift+Click trigger (replaces triple-click, removed 2026-11-15: tap
-     counting fought the title's About button and could never work
-     there). A capture-phase click listener on the header: a Shift+Click
-     anywhere on the header opens the menu at the click point, with no
-     click-swallow armed (nothing is pending after the click). The click
-     is stopped here so it never reaches the title's About handler or
-     any other header control. Normal clicks (shiftKey false) pass
-     through untouched and are never counted — there is no counting
-     anywhere now. If the menu is already open, a Shift+Click closes it
-     in the document capture listener and reopens it here, so it ends
-     open. */
-  header.addEventListener("click", function (ev) {
+  /* Shift+Click trigger: capture-phase click listener on document.
+     A Shift+Click anywhere on the main header, dialog titlebars (.sx-titlebar),
+     or brand buttons (.app-title-button, [data-open-about], #openAppAbout, .sx-brand)
+     opens the skin menu at the click point, whether in the main view or inside Scribe /
+     Scene Setter / Hot list / Scene Sentinel dialogs.
+     The click is stopped in capture phase so it never reaches data-open-about or
+     openAppAbout handlers. Normal clicks pass through untouched. */
+  document.addEventListener("click", function (ev) {
     if (!ev.shiftKey) return;
+    var t = ev.target;
+    var hit = t && isHeaderOrTitle(t) ? t.closest("header.intro, .sx-titlebar, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
+    if (!hit) return;
     ev.stopPropagation();
     ev.preventDefault();
-    openMenu(ev.clientX, ev.clientY, false);
+    openMenu(ev.clientX, ev.clientY, false, hit);
   }, true);
-  header.addEventListener("contextmenu", function (ev) {
+  document.addEventListener("contextmenu", function (ev) {
     /* A touch long-press raises contextmenu while the menu is open —
        suppress the browser's own callout so the skin menu owns the
        gesture. Never suppressed when the skin menu is closed. */
