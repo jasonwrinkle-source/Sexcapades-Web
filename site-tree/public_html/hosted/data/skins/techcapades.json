@@ -2,7 +2,7 @@
   "skin": "techcapades",
   "meter": "stance",
   "name": "Techcapades",
-  "about": "Techcapades is an interactive hypermap for rating and visualizing where you stand on the machines we're building — intelligence, privacy, attention, and who they serve — and comparing your positions with another person's, stance by stance, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to write the future you'd want, and Scene Setter to plan the conversation about what to build next — all in the same shared vocabulary.",
+  "about": "Techcapades is an interactive hypermap for rating and visualizing where you stand on the machines we're building \u2014 intelligence, privacy, attention, and who they serve \u2014 and comparing your positions with another person's, stance by stance, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to write the future you'd want, and Scene Setter to plan the conversation about what to build next \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,18 +116,16 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Technology & Digital Life — AI, Privacy & Living with the Machines",
+  "domain": "Technology & Digital Life \u2014 AI, Privacy & Living with the Machines",
   "categories": [
     {
       "id": "xtec01",
       "name": "AI & Intelligence",
-      "about": "What you think of AI — its impact, its autonomy, and whether its weights should be open.",
+      "about": "What you think of AI \u2014 its impact, its autonomy, and whether its weights should be open.",
       "topics": [
         {
           "id": "xte0001",
           "name": "AI Impact",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -179,7 +177,7 @@
             ]
           },
           "question": "Where do you see AI's impact landing?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 1.1",
           "communities": [
             {
               "network": "Reddit",
@@ -208,12 +206,16 @@
               "label": "Tool"
             },
             {
+              "key": "supervised-agent",
+              "label": "Supervised agent"
+            },
+            {
               "key": "agent",
               "label": "Agent"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much autonomy should AI have?",
             "poles": [
@@ -222,13 +224,17 @@
                 "text": "AI does what you tell it."
               },
               {
+                "label": "Supervised agent",
+                "text": "An agent that acts on its own inside set bounds, with a human able to step in."
+              },
+              {
                 "label": "Agent",
                 "text": "AI acts on its own."
               }
             ]
           },
           "question": "How much autonomy should AI have?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 1.2",
           "communities": [
             {
               "network": "Reddit",
@@ -257,12 +263,16 @@
               "label": "Open Source / Decentralized"
             },
             {
+              "key": "structured-access",
+              "label": "Structured Access"
+            },
+            {
               "key": "guarded-moats-frontier-containment",
               "label": "Guarded Moats / Frontier Containment"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Should AI weights be open or guarded?",
             "poles": [
@@ -271,13 +281,17 @@
                 "text": "Democratized weights, public inspection."
               },
               {
+                "label": "Structured Access",
+                "text": "Vetted researchers get access to closed weights, under conditions."
+              },
+              {
                 "label": "Guarded Moats",
                 "text": "Closed APIs, centralized safety oversight."
               }
             ]
           },
           "question": "Should AI weights be open or guarded?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 1.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 1.3",
           "communities": [
             {
               "network": "Reddit",
@@ -313,12 +327,16 @@
               "label": "Privacy"
             },
             {
+              "key": "selective-sharing",
+              "label": "Selective sharing"
+            },
+            {
               "key": "convenience",
               "label": "Convenience"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "What do you give up, and what do you get?",
             "poles": [
@@ -327,13 +345,17 @@
                 "text": "Protect my data."
               },
               {
+                "label": "Selective sharing",
+                "text": "Share what is worth the convenience; keep the rest private."
+              },
+              {
                 "label": "Convenience",
                 "text": "Use my data to make things easy."
               }
             ]
           },
-          "question": "The classic tradeoff — what do you give up, and what do you get?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.1",
+          "question": "The classic tradeoff \u2014 what do you give up, and what do you get?",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.1",
           "communities": [
             {
               "network": "Reddit",
@@ -357,12 +379,16 @@
               "label": "Trust"
             },
             {
+              "key": "company-by-company",
+              "label": "Company by company"
+            },
+            {
               "key": "distrust",
               "label": "Distrust"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you trust the companies that hold your data?",
             "poles": [
@@ -371,13 +397,17 @@
                 "text": "They mostly mean well."
               },
               {
+                "label": "Company by company",
+                "text": "Trust judged holder by holder, not as a blanket verdict."
+              },
+              {
                 "label": "Distrust",
                 "text": "They mostly extract."
               }
             ]
           },
           "question": "Do you trust the companies that hold your data?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.2",
           "communities": [
             {
               "network": "Reddit",
@@ -401,12 +431,16 @@
               "label": "Safety"
             },
             {
+              "key": "proportionality",
+              "label": "Proportionality"
+            },
+            {
               "key": "freedom",
               "label": "Freedom"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "When safety and freedom conflict, which wins?",
             "poles": [
@@ -415,13 +449,17 @@
                 "text": "Surveillance keeps us safe."
               },
               {
+                "label": "Proportionality",
+                "text": "Safety measures proportioned to the risk they answer."
+              },
+              {
                 "label": "Freedom",
                 "text": "Surveillance threatens liberty."
               }
             ]
           },
           "question": "When safety and freedom conflict, which wins?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.3",
           "communities": [
             {
               "network": "Reddit",
@@ -445,12 +483,16 @@
               "label": "Sovereign Computing"
             },
             {
+              "key": "self-host-the-critical-parts",
+              "label": "Self-host the critical parts"
+            },
+            {
               "key": "managed-cloud",
               "label": "Managed Cloud"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you own your computing or rent it?",
             "poles": [
@@ -459,13 +501,17 @@
                 "text": "Self-hosting, local hardware, data ownership."
               },
               {
+                "label": "Self-host the critical parts",
+                "text": "Own the critical systems; rent the rest."
+              },
+              {
                 "label": "Managed Cloud",
                 "text": "Apple/Google ecosystem, seamless convenience."
               }
             ]
           },
           "question": "Do you own your computing or rent it?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 2.4",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 2.4",
           "communities": [
             {
               "network": "Reddit",
@@ -496,12 +542,16 @@
               "label": "Screen-light"
             },
             {
+              "key": "screen-deliberate",
+              "label": "Screen-deliberate"
+            },
+            {
               "key": "screen-heavy",
               "label": "Screen-heavy"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much of your day lives behind a screen?",
             "poles": [
@@ -510,13 +560,17 @@
                 "text": "Minimal, deliberate."
               },
               {
+                "label": "Screen-deliberate",
+                "text": "A middling amount of screen time, chosen rather than drifted into."
+              },
+              {
                 "label": "Screen-heavy",
                 "text": "Always connected."
               }
             ]
           },
           "question": "How much of your day lives behind a screen?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 3.1",
           "communities": [
             {
               "network": "Reddit",
@@ -535,12 +589,16 @@
               "label": "All on"
             },
             {
+              "key": "digest",
+              "label": "Digest"
+            },
+            {
               "key": "all-off",
               "label": "All off"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How interruptible are you?",
             "poles": [
@@ -549,13 +607,17 @@
                 "text": "Interrupt me."
               },
               {
+                "label": "Digest",
+                "text": "Notifications batched into a scheduled summary \u2014 neither live interruption nor silence."
+              },
+              {
                 "label": "All off",
                 "text": "Silent, check on my terms."
               }
             ]
           },
           "question": "How interruptible are you?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 3.2",
           "communities": [
             {
               "network": "Reddit",
@@ -567,8 +629,6 @@
         {
           "id": "xte0010",
           "name": "Digital Detox",
-          "poleReading": "antipodal",
-          "poleEnemies": [["detox-regularly", "never-detox"]],
           "risk": false,
           "poles": [
             {
@@ -604,7 +664,7 @@
             ]
           },
           "question": "Do you step away from the screen, and how often?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 3.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 3.3",
           "communities": [
             {
               "network": "Reddit",
@@ -623,8 +683,6 @@
         {
           "id": "xte0011",
           "name": "Social Media",
-          "poleReading": "antipodal",
-          "poleEnemies": [["love", "hate"]],
           "risk": false,
           "poles": [
             {
@@ -660,7 +718,7 @@
             ]
           },
           "question": "What do you think of social media?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.1",
           "communities": [
             {
               "network": "Reddit",
@@ -679,12 +737,16 @@
               "label": "Online connection"
             },
             {
+              "key": "hybrid-social-life",
+              "label": "Hybrid social life"
+            },
+            {
               "key": "in-person-connection",
               "label": "In-person connection"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Where do your real relationships live?",
             "poles": [
@@ -693,13 +755,17 @@
                 "text": "Connection online."
               },
               {
+                "label": "Hybrid social life",
+                "text": "Relational life split between online and in-person."
+              },
+              {
                 "label": "In-person",
                 "text": "Connection in person."
               }
             ]
           },
           "question": "Where do your real relationships live?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.2",
           "communities": [
             {
               "network": "Reddit",
@@ -718,12 +784,16 @@
               "label": "Poster"
             },
             {
+              "key": "occasional-contributor",
+              "label": "Occasional contributor"
+            },
+            {
               "key": "lurker",
               "label": "Lurker"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How do you participate online?",
             "poles": [
@@ -732,13 +802,17 @@
                 "text": "Share, create, speak."
               },
               {
+                "label": "Occasional contributor",
+                "text": "Mostly reads; posts when there is something to add."
+              },
+              {
                 "label": "Lurker",
                 "text": "Consume, observe, stay quiet."
               }
             ]
           },
           "question": "How do you participate online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.3",
           "communities": [
             {
               "network": "Reddit",
@@ -757,12 +831,16 @@
               "label": "Embrace Synthetic Bonds"
             },
             {
+              "key": "companionship-without-intimacy",
+              "label": "Companionship without intimacy"
+            },
+            {
               "key": "human-exclusivity",
               "label": "Human Exclusivity"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Are you open to emotional or intimate connections with synthetic agents?",
             "poles": [
@@ -771,13 +849,17 @@
                 "text": "AI partners, parasocial companions, digital confidants."
               },
               {
+                "label": "Companionship without intimacy",
+                "text": "Synthetic company welcomed; intimacy reserved for humans."
+              },
+              {
                 "label": "Human Exclusivity",
                 "text": "Intimacy reserved for biological humans."
               }
             ]
           },
           "question": "Are you open to emotional or intimate connections with synthetic agents?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 4.4",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 4.4",
           "communities": [
             {
               "network": "Reddit",
@@ -801,7 +883,7 @@
     {
       "id": "xtec05",
       "name": "Digital Identity & Self",
-      "about": "Who you are when you are digital — your name, your face, and your archive.",
+      "about": "Who you are when you are digital \u2014 your name, your face, and your archive.",
       "topics": [
         {
           "id": "xte0015",
@@ -813,12 +895,16 @@
               "label": "Anonymous"
             },
             {
+              "key": "persistent-pseudonym",
+              "label": "Persistent Pseudonym"
+            },
+            {
               "key": "real-identity",
               "label": "Real identity"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you use your real name online?",
             "poles": [
@@ -827,13 +913,17 @@
                 "text": "Pseudonym, no real name."
               },
               {
+                "label": "Persistent Pseudonym",
+                "text": "A stable, reputation-bearing handle that is not your legal name."
+              },
+              {
                 "label": "Real identity",
                 "text": "Your name, your face."
               }
             ]
           },
           "question": "Do you use your real name online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 5.1",
           "communities": [
             {
               "network": "Reddit",
@@ -852,12 +942,16 @@
               "label": "Curated"
             },
             {
+              "key": "lightly-edited-honesty",
+              "label": "Lightly edited honesty"
+            },
+            {
               "key": "authentic",
               "label": "Authentic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How do you present yourself online?",
             "poles": [
@@ -866,13 +960,17 @@
                 "text": "Polished, managed, the highlight reel."
               },
               {
+                "label": "Lightly edited honesty",
+                "text": "Honest, with the rough edges tidied."
+              },
+              {
                 "label": "Authentic",
                 "text": "Raw, unfiltered, the real thing."
               }
             ]
           },
           "question": "How do you present yourself online?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 5.2",
           "communities": [
             {
               "network": "Reddit",
@@ -891,12 +989,16 @@
               "label": "Erase"
             },
             {
+              "key": "curated-legacy",
+              "label": "Curated Legacy"
+            },
+            {
               "key": "archive",
               "label": "Archive"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "What happens to your data when you die?",
             "poles": [
@@ -905,13 +1007,17 @@
                 "text": "Delete it all when you go."
               },
               {
+                "label": "Curated Legacy",
+                "text": "A named legacy contact, and deliberate choices about what is kept and what is deleted."
+              },
+              {
                 "label": "Archive",
                 "text": "Preserve it, let it stand."
               }
             ]
           },
           "question": "What happens to your data when you die?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 5.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 5.3",
           "communities": [
             {
               "network": "Reddit",
@@ -937,12 +1043,16 @@
               "label": "Job loss"
             },
             {
+              "key": "displacement-with-transition",
+              "label": "Displacement with transition"
+            },
+            {
               "key": "liberation",
               "label": "Liberation"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Does automation take your job, or give you your life back?",
             "poles": [
@@ -951,13 +1061,17 @@
                 "text": "Automation destroys work."
               },
               {
+                "label": "Displacement with transition",
+                "text": "Jobs displaced, with real paths into the new ones."
+              },
+              {
                 "label": "Liberation",
                 "text": "Automation frees us from work."
               }
             ]
           },
           "question": "Does automation take your job, or give you your life back?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.1",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 6.1",
           "communities": [
             {
               "network": "Reddit",
@@ -979,8 +1093,6 @@
         {
           "id": "xte0019",
           "name": "Transhumanism",
-          "poleReading": "antipodal",
-          "poleEnemies": [["embrace-enhancement", "reject-enhancement"]],
           "risk": false,
           "poles": [
             {
@@ -1016,7 +1128,7 @@
             ]
           },
           "question": "Would you enhance yourself with technology?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.2",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 6.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1035,12 +1147,16 @@
               "label": "Accelerate"
             },
             {
+              "key": "differential-pace",
+              "label": "Differential Pace"
+            },
+            {
               "key": "decelerate",
               "label": "Decelerate"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Should we build faster, or pump the brakes?",
             "poles": [
@@ -1049,13 +1165,17 @@
                 "text": "Move fast, build more."
               },
               {
+                "label": "Differential Pace",
+                "text": "Accelerate beneficial technology; brake the dangerous."
+              },
+              {
                 "label": "Decelerate",
                 "text": "Slow down, be careful."
               }
             ]
           },
           "question": "Should we build faster, or pump the brakes?",
-          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md §2, topic 6.3",
+          "source": "BRIEFING_TECHCAPADES_TAXONOMY.md \u00a72, topic 6.3",
           "communities": [
             {
               "network": "Reddit",
@@ -2943,7 +3063,7 @@
       "about": "The accelerationist holds that technological progress, especially in AI, should be pushed forward as fast as possible, believing rapid development is the best route to abundance and human flourishing. It opposes slowing or heavily restricting technological advance.",
       "links": [
         {
-          "label": "Wikipedia — Effective Accelerationism",
+          "label": "Wikipedia \u2014 Effective Accelerationism",
           "url": "https://en.wikipedia.org/wiki/Effective_accelerationism"
         }
       ],
@@ -2964,35 +3084,43 @@
           },
           "xte0002": {
             "tool": -30,
-            "agent": 80
+            "agent": 80,
+            "supervised-agent": -10
           },
           "xte0003": {
             "open-source-decentralized": 60,
-            "guarded-moats-frontier-containment": -60
+            "guarded-moats-frontier-containment": -60,
+            "structured-access": -20
           },
           "xte0004": {
             "privacy": 10,
-            "convenience": 70
+            "convenience": 70,
+            "selective-sharing": 40
           },
           "xte0005": {
             "trust": 50,
-            "distrust": -40
+            "distrust": -40,
+            "company-by-company": 10
           },
           "xte0006": {
             "safety": -20,
-            "freedom": 70
+            "freedom": 70,
+            "proportionality": 10
           },
           "xte0007": {
             "sovereign-computing": -20,
-            "managed-cloud": 60
+            "managed-cloud": 60,
+            "self-host-the-critical-parts": 20
           },
           "xte0008": {
             "screen-light": -60,
-            "screen-heavy": 80
+            "screen-heavy": 80,
+            "screen-deliberate": -40
           },
           "xte0009": {
             "all-on": 70,
-            "all-off": -60
+            "all-off": -60,
+            "digest": -30
           },
           "xte0010": {
             "detox-regularly": -70,
@@ -3006,19 +3134,23 @@
           },
           "xte0012": {
             "online-connection": 70,
-            "in-person-connection": 20
+            "in-person-connection": 20,
+            "hybrid-social-life": 50
           },
           "xte0013": {
             "poster": 60,
-            "lurker": -20
+            "lurker": -20,
+            "occasional-contributor": 20
           },
           "xte0014": {
             "embrace-synthetic-bonds": 80,
-            "human-exclusivity": -60
+            "human-exclusivity": -60,
+            "companionship-without-intimacy": -40
           },
           "xte0018": {
             "job-loss": -40,
-            "liberation": 85
+            "liberation": 85,
+            "displacement-with-transition": -25
           },
           "xte0019": {
             "embrace-enhancement": 85,
@@ -3027,7 +3159,8 @@
           },
           "xte0020": {
             "accelerate": 95,
-            "decelerate": -90
+            "decelerate": -90,
+            "differential-pace": -85
           }
         }
       }
@@ -3063,31 +3196,38 @@
           },
           "xte0002": {
             "tool": 70,
-            "agent": -60
+            "agent": -60,
+            "supervised-agent": -30
           },
           "xte0003": {
             "open-source-decentralized": -40,
-            "guarded-moats-frontier-containment": 80
+            "guarded-moats-frontier-containment": 80,
+            "structured-access": -20
           },
           "xte0004": {
             "privacy": 60,
-            "convenience": 0
+            "convenience": 0,
+            "selective-sharing": 40
           },
           "xte0005": {
             "trust": -30,
-            "distrust": 60
+            "distrust": 60,
+            "company-by-company": 10
           },
           "xte0006": {
             "safety": 90,
-            "freedom": -20
+            "freedom": -20,
+            "proportionality": -10
           },
           "xte0007": {
             "sovereign-computing": 30,
-            "managed-cloud": 20
+            "managed-cloud": 20,
+            "self-host-the-critical-parts": 90
           },
           "xte0008": {
             "screen-light": 30,
-            "screen-heavy": 0
+            "screen-heavy": 0,
+            "screen-deliberate": 70
           },
           "xte0010": {
             "detox-regularly": 40,
@@ -3101,19 +3241,23 @@
           },
           "xte0014": {
             "embrace-synthetic-bonds": -50,
-            "human-exclusivity": 70
+            "human-exclusivity": 70,
+            "companionship-without-intimacy": -20
           },
           "xte0015": {
             "anonymous": 30,
-            "real-identity": 40
+            "real-identity": 40,
+            "persistent-pseudonym": 90
           },
           "xte0017": {
             "erase": 40,
-            "archive": 30
+            "archive": 30,
+            "curated-legacy": 90
           },
           "xte0018": {
             "job-loss": 60,
-            "liberation": -20
+            "liberation": -20,
+            "displacement-with-transition": 20
           },
           "xte0019": {
             "embrace-enhancement": -40,
@@ -3122,7 +3266,8 @@
           },
           "xte0020": {
             "accelerate": -85,
-            "decelerate": 90
+            "decelerate": 90,
+            "differential-pace": -75
           }
         }
       }
@@ -3133,7 +3278,7 @@
       "about": "The privacy defender holds that personal data and communications should stay under the individual's control, not harvested or surveilled by companies or governments. They value encryption, data minimization and strong legal protections.",
       "links": [
         {
-          "label": "Electronic Frontier Foundation — Privacy",
+          "label": "Electronic Frontier Foundation \u2014 Privacy",
           "url": "https://www.eff.org/issues/privacy"
         }
       ],
@@ -3154,35 +3299,43 @@
           },
           "xte0002": {
             "tool": 60,
-            "agent": -30
+            "agent": -30,
+            "supervised-agent": 10
           },
           "xte0003": {
             "open-source-decentralized": 85,
-            "guarded-moats-frontier-containment": -20
+            "guarded-moats-frontier-containment": -20,
+            "structured-access": -5
           },
           "xte0004": {
             "privacy": 95,
-            "convenience": -70
+            "convenience": -70,
+            "selective-sharing": -65
           },
           "xte0005": {
             "trust": -80,
-            "distrust": 90
+            "distrust": 90,
+            "company-by-company": -70
           },
           "xte0006": {
             "safety": 30,
-            "freedom": 80
+            "freedom": 80,
+            "proportionality": 50
           },
           "xte0007": {
             "sovereign-computing": 95,
-            "managed-cloud": -80
+            "managed-cloud": -80,
+            "self-host-the-critical-parts": -75
           },
           "xte0008": {
             "screen-light": 50,
-            "screen-heavy": -20
+            "screen-heavy": -20,
+            "screen-deliberate": 30
           },
           "xte0009": {
             "all-on": -80,
-            "all-off": 85
+            "all-off": 85,
+            "digest": -65
           },
           "xte0010": {
             "detox-regularly": 60,
@@ -3196,27 +3349,33 @@
           },
           "xte0012": {
             "online-connection": 20,
-            "in-person-connection": 70
+            "in-person-connection": 70,
+            "hybrid-social-life": 50
           },
           "xte0013": {
             "poster": -60,
-            "lurker": 80
+            "lurker": 80,
+            "occasional-contributor": -40
           },
           "xte0015": {
             "anonymous": 90,
-            "real-identity": -70
+            "real-identity": -70,
+            "persistent-pseudonym": -60
           },
           "xte0016": {
             "curated": -40,
-            "authentic": 70
+            "authentic": 70,
+            "lightly-edited-honesty": -10
           },
           "xte0017": {
             "erase": 85,
-            "archive": -40
+            "archive": -40,
+            "curated-legacy": -25
           },
           "xte0020": {
             "accelerate": -40,
-            "decelerate": 50
+            "decelerate": 50,
+            "differential-pace": 10
           }
         }
       }
@@ -3224,14 +3383,14 @@
     "tec-commons": {
       "name": "The Open-Source Commons Builder",
       "count": 16,
-      "about": "The open-source commons builder believes software — and knowledge — should be freely shared, studied, modified and redistributed. They contribute to and rely on open licences and collaborative communities rather than closed, proprietary systems.",
+      "about": "The open-source commons builder believes software \u2014 and knowledge \u2014 should be freely shared, studied, modified and redistributed. They contribute to and rely on open licences and collaborative communities rather than closed, proprietary systems.",
       "links": [
         {
           "label": "Open Source Initiative",
           "url": "https://opensource.org/"
         },
         {
-          "label": "Wikipedia — Open-Source Software",
+          "label": "Wikipedia \u2014 Open-Source Software",
           "url": "https://en.wikipedia.org/wiki/Open-source_software"
         }
       ],
@@ -3252,27 +3411,33 @@
           },
           "xte0002": {
             "tool": 40,
-            "agent": 40
+            "agent": 40,
+            "supervised-agent": 100
           },
           "xte0003": {
             "open-source-decentralized": 95,
-            "guarded-moats-frontier-containment": -85
+            "guarded-moats-frontier-containment": -85,
+            "structured-access": -80
           },
           "xte0004": {
             "privacy": 70,
-            "convenience": 20
+            "convenience": 20,
+            "selective-sharing": 50
           },
           "xte0005": {
             "trust": -50,
-            "distrust": 60
+            "distrust": 60,
+            "company-by-company": -10
           },
           "xte0006": {
             "safety": 20,
-            "freedom": 80
+            "freedom": 80,
+            "proportionality": 40
           },
           "xte0007": {
             "sovereign-computing": 80,
-            "managed-cloud": -30
+            "managed-cloud": -30,
+            "self-host-the-critical-parts": -10
           },
           "xte0011": {
             "love": 40,
@@ -3281,35 +3446,43 @@
           },
           "xte0012": {
             "online-connection": 80,
-            "in-person-connection": 30
+            "in-person-connection": 30,
+            "hybrid-social-life": 50
           },
           "xte0013": {
             "poster": 80,
-            "lurker": -40
+            "lurker": -40,
+            "occasional-contributor": -20
           },
           "xte0014": {
             "embrace-synthetic-bonds": 40,
-            "human-exclusivity": -10
+            "human-exclusivity": -10,
+            "companionship-without-intimacy": 50
           },
           "xte0015": {
             "anonymous": 50,
-            "real-identity": 30
+            "real-identity": 30,
+            "persistent-pseudonym": 80
           },
           "xte0016": {
             "curated": 0,
-            "authentic": 60
+            "authentic": 60,
+            "lightly-edited-honesty": 40
           },
           "xte0017": {
             "erase": 10,
-            "archive": 80
+            "archive": 80,
+            "curated-legacy": 30
           },
           "xte0018": {
             "job-loss": 0,
-            "liberation": 70
+            "liberation": 70,
+            "displacement-with-transition": 30
           },
           "xte0020": {
             "accelerate": 60,
-            "decelerate": -40
+            "decelerate": -40,
+            "differential-pace": 0
           }
         }
       }
@@ -3320,7 +3493,7 @@
       "about": "The digital minimalist holds that technology should serve a life well lived, not consume it. They deliberately cut back on apps, feeds and screen time to keep only the tools that clearly support their values.",
       "links": [
         {
-          "label": "Cal Newport — Digital Minimalism",
+          "label": "Cal Newport \u2014 Digital Minimalism",
           "url": "https://www.calnewport.com/books/digital-minimalism/"
         }
       ],
@@ -3334,23 +3507,28 @@
         "ratings": {
           "xte0004": {
             "privacy": 50,
-            "convenience": -40
+            "convenience": -40,
+            "selective-sharing": 10
           },
           "xte0005": {
             "trust": -20,
-            "distrust": 40
+            "distrust": 40,
+            "company-by-company": 40
           },
           "xte0006": {
             "safety": 40,
-            "freedom": 50
+            "freedom": 50,
+            "proportionality": 90
           },
           "xte0008": {
             "screen-light": 95,
-            "screen-heavy": -90
+            "screen-heavy": -90,
+            "screen-deliberate": -85
           },
           "xte0009": {
             "all-on": -90,
-            "all-off": 95
+            "all-off": 95,
+            "digest": -85
           },
           "xte0010": {
             "detox-regularly": 90,
@@ -3364,31 +3542,38 @@
           },
           "xte0012": {
             "online-connection": -60,
-            "in-person-connection": 90
+            "in-person-connection": 90,
+            "hybrid-social-life": -50
           },
           "xte0013": {
             "poster": -70,
-            "lurker": 70
+            "lurker": 70,
+            "occasional-contributor": -40
           },
           "xte0014": {
             "embrace-synthetic-bonds": -70,
-            "human-exclusivity": 85
+            "human-exclusivity": 85,
+            "companionship-without-intimacy": -55
           },
           "xte0015": {
             "anonymous": 40,
-            "real-identity": 30
+            "real-identity": 30,
+            "persistent-pseudonym": 90
           },
           "xte0016": {
             "curated": -60,
-            "authentic": 85
+            "authentic": 85,
+            "lightly-edited-honesty": -45
           },
           "xte0017": {
             "erase": 60,
-            "archive": 20
+            "archive": 20,
+            "curated-legacy": 60
           },
           "xte0018": {
             "job-loss": 20,
-            "liberation": 60
+            "liberation": 60,
+            "displacement-with-transition": 60
           },
           "xte0019": {
             "embrace-enhancement": -50,
@@ -3397,7 +3582,8 @@
           },
           "xte0020": {
             "accelerate": -50,
-            "decelerate": 70
+            "decelerate": 70,
+            "differential-pace": -20
           }
         }
       }
