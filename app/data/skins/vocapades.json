@@ -24,7 +24,7 @@
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
       "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
-      "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
+      "lengthHelp": "Discussions can target a word count, paragraphs, pages, chapters, or minutes. Enter one number or a range; blank defaults to 5 paragraphs.",
       "downloadIntro": "Generated from the selected profile data.",
       "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
     },
@@ -35,7 +35,7 @@
         "Show where the stances agree, where they part, and what follows from each position.",
         "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
-        "Do not invent positions, sources, or facts beyond the supplied data."
+        "Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics."
       ],
       "rigor": "At maximum depth, length, and rigor, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
     },
@@ -99,7 +99,7 @@
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
-        "Do not invent positions, sources, or facts beyond the supplied data."
+        "Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics."
       ],
       "rigor": "At full detail, write at dissertation-defense standard: state each position precisely, raise the strongest objections to each, answer them, and defend the conclusion against a skeptical examiner."
     },

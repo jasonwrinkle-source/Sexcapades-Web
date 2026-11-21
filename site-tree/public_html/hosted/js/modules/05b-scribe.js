@@ -555,7 +555,7 @@
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, isDisc ? "- Use individual-only details for character texture, reactions, and dialogue—not as permission to add a position outside the authoritative shared ground." : "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "minutes", scribeDetailLevel = "balanced", scribeRigor = 4;
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced", scribeRigor = 4;
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -687,7 +687,7 @@
             return "1" === String(e) ? n[0] : n[1];
         }
         // Effective target text: the user's target. A blank length
-        // means the 5-minute default (value 5, unit minutes).
+        // means the 5-paragraph default (value 5, unit paragraphs).
         function sxScribeTargetText() {
             return `${scribeLengthValue} ${unitWord(scribeLengthValue, scribeLengthUnit)}`;
         }
@@ -853,7 +853,8 @@
             const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f } = ctx, { A, C, M, I, F, _, D, R, O, B, j, q, H } = ctx.sections;
             const spec = window.__SX_SCRIBE || null, pr = (spec && spec.prompt) || {};
             const opening = pr.opening || "Write an informed discussion between the stances recorded on this map.";
-            const rules = Array.isArray(pr.rules) ? pr.rules : [];
+            const rawRules = Array.isArray(pr.rules) ? pr.rules : [];
+            const rules = rawRules.map(r => r === "Do not invent positions, sources, or facts beyond the supplied data." ? "Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics." : r);
             const rigor = pr.rigor || "";
             // The cast, by name only: gender, orientation, and
             // give/receive roles are Sexcapades data and have no meaning
@@ -878,7 +879,8 @@
             // because the slider is the depth/rigor control and the
             // length/detail lines already reflect the other two.
             const rigorLine = 5 === scribeRigor && rigor ? rigor : "";
-            const lengthLine = `- Target approximately ${scribeLengthValue} ${j} of discussion text. Return only the finished discussion directly as plain text. ${"concise" === scribeDetailLevel ? "Keep the discussion concise: short sections and only the essential arguments." : "detailed" === scribeDetailLevel ? "Use high detail: full arguments, objections, and replies." : "Use balanced detail: enough argument and reply to follow without over-writing."}`;
+            const estWords = "paragraphs" === scribeLengthUnit ? Math.round((Number(String(scribeLengthValue).match(/\d+/)?.[0]) || 5) * 140) : null;
+            const lengthLine = `- Target approximately ${scribeLengthValue} ${j}${estWords ? ` (around ${estWords} words total; each paragraph must be a substantive, fully developed paragraph of multiple sentences, never a brief or one-sentence paragraph)` : ""} of discussion text. Return only the finished discussion directly as plain text. ${"concise" === scribeDetailLevel ? "Keep the discussion concise: short sections and only the essential arguments." : "detailed" === scribeDetailLevel ? "Use high detail: full arguments, objections, and replies." : "Use balanced detail: enough argument and reply to follow without over-writing."}`;
             return [
                 opening,
                 "",
@@ -897,7 +899,7 @@
                 s ? "- Use the one profile as the source of stance detail." : "- Use the authoritative shared ground above as the position boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.",
                 "- Treat curious items as mild stances: include them as open questions, not settled positions.",
                 "- Use each profile's recorded stance as emphasis: 80–100 central, 56–79 strong support, 36–55 light, and 0–35 optional curiosity. When two profiles disagree, give each side its strongest form before comparing them.",
-                "- Do not invent identity, physical details, relationship history, or permissions beyond the supplied data.",
+                "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth.",
                 sharedLine ? "" : "",
                 sharedLine
             ].filter(e => "" !== e).join("\n\n");

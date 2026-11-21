@@ -312,12 +312,17 @@ __sxInit(function initScribeGeminiBYOK() {
   // stops early at its own default. The target is read from the
   // dialog inputs (the bundle's module state is not reachable from
   // this file). A blank length on a YoBitch play-guide prompt means
-  // the 5-minute default. Words convert at ~1.35 tokens
-  // per word; pages ~450 words, paragraphs ~120, chapters ~2500,
-  // minutes ~150 (spoken pace). Floored at 512, capped at 32768.
+  // Token budget from the Scribe target length (2026-11-17): the model
+  // needs enough output tokens to actually reach the target, or it
+  // stops early at its own default. The target is read from the
+  // dialog inputs (the bundle's module state is not reachable from
+  // this file). A blank length defaults to 5 paragraphs.
+  // Words convert at ~1.35 tokens per word; pages ~450 words,
+  // paragraphs ~140, chapters ~2500, minutes ~150 (spoken pace).
+  // Floored at 2048, capped at 32768.
   function scribeTokenBudget(promptText) {
-    var wordsPerUnit = { words: 1, paragraphs: 120, pages: 450, chapters: 2500, minutes: 150 };
-    var unit = "pages", val = 1, blank = true;
+    var wordsPerUnit = { words: 1, paragraphs: 140, pages: 450, chapters: 2500, minutes: 150 };
+    var unit = "paragraphs", val = 5, blank = true;
     try {
       var lenEl = document.getElementById("scribePageCount");
       var unitEl = document.getElementById("scribeLengthUnit");
@@ -331,9 +336,15 @@ __sxInit(function initScribeGeminiBYOK() {
       }
     } catch (_) {}
     if (blank) { val = 5; }
-    var words = val * (wordsPerUnit[unit] || 450);
+    var words = val * (wordsPerUnit[unit] || 140);
     var singular = unit.replace(/s$/, "");
-    return { text: val + " " + (1 === val ? singular : unit), tokens: Math.min(32768, Math.max(512, Math.round(words * 1.35))) };
+    return {
+      unit: unit,
+      val: val,
+      words: words,
+      text: val + " " + (1 === val ? singular : unit),
+      tokens: Math.min(32768, Math.max(2048, Math.round(words * 2.5)))
+    };
   }
 
   if (genStoryBtn) {
@@ -401,9 +412,18 @@ __sxInit(function initScribeGeminiBYOK() {
         }
       }, 120000);
 
+      var isDisc = Boolean(window.__SX_SCRIBE && "discussion" === window.__SX_SCRIBE.genre);
+      var systemPrompt = isDisc
+        ? "You are an expert essayist, philosopher, and analytical discussion moderator specializing in deeply thoughtful, balanced, and intellectually rigorous discourse between differing viewpoints."
+        : "You are an expert creative writer specializing in rich, consensual, descriptive adult fiction and Literotica-style narratives.";
+
       var scribeBudget = scribeTokenBudget(prompt);
       var hitTokenLimit = false;
-      var fullPrompt = prompt + "\n\nWrite the complete, immersive narrative scene now as plain text, strictly honoring all character roles, boundaries, and pacing detailed above. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or PDF/file outputs." + "\n\nTarget length: " + scribeBudget.text + ". Do not stop early: keep writing until the full target length is reached.";
+      var fullPrompt = prompt + (isDisc
+        ? ("\n\nWrite the complete, comprehensive, and intellectually rigorous discussion now as plain text. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or meta commentary." +
+           "\n\nTarget length: approximately " + scribeBudget.text + " (around " + scribeBudget.words + " words total). Each paragraph must be rich, substantive, and fully developed across multiple sentences, thoroughly examining the principles, objections, and implications. Do not output brief or one-sentence paragraphs. Do not stop early: keep writing until the full target length is reached.")
+        : ("\n\nWrite the complete, immersive narrative scene now as plain text, strictly honoring all character roles, boundaries, and pacing detailed above. Return ONLY plain text prose: do NOT generate code, Python scripts, ReportLab commands, or PDF/file outputs." +
+           "\n\nTarget length: " + scribeBudget.text + ". Do not stop early: keep writing until the full target length is reached."));
 
       try {
         var totalText = "";
@@ -443,7 +463,7 @@ __sxInit(function initScribeGeminiBYOK() {
           }
           var wc = (totalText.trim().match(/\S+/g) || []).length;
           if (storyStatus) {
-            storyStatus.textContent = "Streaming story (" + wc + " words)…";
+            storyStatus.textContent = (isDisc ? "Streaming discussion (" : "Streaming story (") + wc + " words)…";
           }
           if (liveNarrator) {
             liveNarrator.feed(chunk);
@@ -455,7 +475,7 @@ __sxInit(function initScribeGeminiBYOK() {
           var chatEndpoint = prov === "grok" ? "https://api.x.ai/v1/chat/completions" : "https://api.openai.com/v1/chat/completions";
           console.log("[Scribe " + prov.toUpperCase() + "] Sending streaming request to:", chatEndpoint);
 
-          if (storyStatus) storyStatus.textContent = "Writing story with " + prov.toUpperCase() + " (" + model + ")…";
+          if (storyStatus) storyStatus.textContent = (isDisc ? "Writing discussion with " : "Writing story with ") + prov.toUpperCase() + " (" + model + ")…";
 
           var response = await fetch(chatEndpoint, {
             method: "POST",
@@ -466,7 +486,7 @@ __sxInit(function initScribeGeminiBYOK() {
             body: JSON.stringify({
               model: model,
               messages: [
-                { role: "system", content: "You are an expert creative writer specializing in rich, consensual, descriptive adult fiction and Literotica-style narratives." },
+                { role: "system", content: systemPrompt },
                 { role: "user", content: fullPrompt }
               ],
               temperature: 0.9,
@@ -523,6 +543,9 @@ __sxInit(function initScribeGeminiBYOK() {
         } else {
           // Google Gemini API with SSE streaming & fallback cascade
           var payload = {
+            systemInstruction: {
+              parts: [{ text: systemPrompt }]
+            },
             contents: [
               {
                 role: "user",
