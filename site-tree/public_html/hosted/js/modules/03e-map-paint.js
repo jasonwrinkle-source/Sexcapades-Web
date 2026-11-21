@@ -621,6 +621,8 @@
             // paint, and the boot driver keeps stepping until its 50ms
             // budget is used, so these checks do not add a frame per topic.
             let sxBootSlice = performance.now();
+            const sxActiveProfile = Vi();
+            const sxHasSomeRatings = Boolean(!Rt && typeof cs === "function" && cs(sxActiveProfile)?.rated > 0);
             for (let t = 0; t < d.branches.length; t++) {
                 const e = d.branches[t];
                 yield;
@@ -698,6 +700,9 @@
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
                     const D = Vi();
+                    const R = Rt ? null : o ? function(e, t) {
+                        return pa((e?.topics || []).map(Wn), t, e => ua(e, t));
+                    }(n.group, D) : ua(r, D);
                     const A = cn[D], C = dn[D];
                     o || Rt || !Qi() && !Kd() || !qa(r, Je) || E.push("is-fantasy-only"), o || Rt || !Qi() && !Kd() || !qa(r, et) || E.push("is-already-tried"), 
                     !o && A && A.has(r) && !Eo(D, r) && E.push("import-updated"), !o && C && C.has(r) && !Eo(D, r) && E.push("import-newest");
@@ -705,7 +710,7 @@
                     "all" === Pt || o || x === Pt || M || E.push("is-hidden"), !Tt || String(a || "").toLowerCase().includes(Tt) || String(i.name || "").toLowerCase().includes(Tt) || n.allImported.some(e => String(e.label || "").toLowerCase().includes(Tt)) || E.push("is-dim");
                     if (sxIsBranchLimited(r, D)) E.push("is-hidden");
                     o && n.unratedHub && E.push("is-unrated"); /* DIMFIX F2 (was HUB-BACKBONE W4): the dim reads the F1 rating-presence flag, not the Net-filtered allImported list; the dedicated class (never is-dim) keeps selection/focus precedence clean */
-                    !o && !Rt && Kd() && !sxTopicKnownInOpenGroup(r) && E.push("is-unrated");
+                    !o && !Rt && (Kd() ? !sxTopicKnownInOpenGroup(r) : (sxHasSomeRatings && null === R)) && E.push("is-unrated");
                     const I = null !== Dt && (r === Dt || dCat === Dt || t.children.some(e => e.child.id === Dt));
                     Dt && !I && E.push("is-dim"), Dt && r === Dt && E.push("is-preview");
                     const P = Za.topicLabelOffset(y.routedLength, y.labelOffset, t.cloudIndex), L = Math.cos(s) < 0, T = L ? `pr-${r}` : `p-${r}`;
@@ -727,9 +732,7 @@
                     const anchored2 = LabelRenderer.computeAnchoredOffset(y.routedLength, renderedW2, hubR2, iconR2, gap2, L);
                     F = anchored2.offset;
                     N = anchored2.anchor;
-                    const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", R = Rt ? null : o ? function(e, t) {
-                        return pa((e?.topics || []).map(Wn), t, e => ua(e, t));
-                    }(n.group, D) : ua(r, D), O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null;
+                    const sxRevPath = L ? `<path id="pr-${r}" class="concept-path" d="${y.reverseD}" fill="none" stroke="transparent"/>` : "", O = o || Rt ? null : Qe[D]?.[r], B = o ? Ae(a, i.name) : Oe(a, i.name), j = o || Rt ? null : ca(r, D), q = o && !Rt ? ya(n.group, D, "give", r) : null, H = o && !Rt ? ya(n.group, D, "receive", r) : null;
                     const shape2 = Ge(r, D);
                     const isTriple2 = Boolean(shape2 && shape2.keys && shape2.keys.length === 3);
                     let W, U, midVal2 = null, midKnown2 = !1;
@@ -831,7 +834,7 @@
                         !Rt && (Qi() || Kd()) && qa(n.id, Je) && O.push("is-fantasy-only"), !Rt && (Qi() || Kd()) && qa(n.id, et) && O.push("is-already-tried"), 
                         C && C.has(n.id) && !Eo(Vi(), n.id) && O.push("import-newest"), "all" !== Pt && Ra(n.id) !== Pt && O.push("is-hidden"), 
                         sxIsBranchLimited(n.id, D) && O.push("is-hidden"),
-                        Tt && !R && O.push("is-dim"), Kd() && !sxTopicKnownInOpenGroup(n.id) && O.push("is-unrated");
+                        Tt && !R && O.push("is-dim"), !Rt && (Kd() ? !sxTopicKnownInOpenGroup(n.id) : (sxHasSomeRatings && null === w)) && O.push("is-unrated");
                         const B = null !== Dt && (n.id === Dt || r === Dt || dCat === Dt);
                         Dt && !B && O.push("is-dim"), Dt && n.id === Dt && O.push("is-preview");
                         const midColor3 = isTriple3 && midKnown3 ? zi(midVal3) : $.lineColor;
@@ -1642,9 +1645,12 @@
                     const labelNode = e.querySelector(":scope > .category-label, :scope > .map-label");
                     if (labelNode) {
                         const stackItem = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                        stackItem.setAttribute("class", "map-label-stack-item");
+                        stackItem.setAttribute("class", "map-label-stack-item" + (e.classList.contains("is-unrated") ? " is-unrated" : ""));
                         const stackStyle = e.getAttribute("style");
-                        stackStyle && stackItem.setAttribute("style", stackStyle), e.classList.contains("is-dim") && stackItem.setAttribute("opacity", ".18"), 
+                        stackStyle && stackItem.setAttribute("style", stackStyle);
+                        if ((e.classList.contains("is-dim") || e.classList.contains("is-unrated")) && !e.classList.contains("is-preview")) {
+                            stackItem.setAttribute("opacity", ".18");
+                        }
                         stackItem.appendChild(labelNode), sxLabels.appendChild(stackItem);
                     }
                     if (performance.now() - sxStackSlice >= 40) {
@@ -1664,9 +1670,12 @@
                 const controls = Array.from(e.querySelectorAll(":scope > .direction-control"));
                 if (controls.length) {
                     const stackItem = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                    stackItem.setAttribute("class", "node-group rating-control-stack-item");
+                    stackItem.setAttribute("class", "node-group rating-control-stack-item" + (e.classList.contains("is-unrated") ? " is-unrated" : ""));
                     const stackStyle = e.getAttribute("style");
-                    stackStyle && stackItem.setAttribute("style", stackStyle), e.classList.contains("is-dim") && stackItem.setAttribute("opacity", ".18"), 
+                    stackStyle && stackItem.setAttribute("style", stackStyle);
+                    if ((e.classList.contains("is-dim") || e.classList.contains("is-unrated")) && !e.classList.contains("is-preview")) {
+                        stackItem.setAttribute("opacity", ".18");
+                    }
                     controls.forEach(el => stackItem.appendChild(el)), sxControls.appendChild(stackItem);
                 }
                 if (performance.now() - sxStackSlice >= 40) {
