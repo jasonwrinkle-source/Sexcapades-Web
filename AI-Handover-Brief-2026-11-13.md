@@ -430,14 +430,13 @@ audit: `~/workspace/scratch/handover-review/AUDIT.md`.
      categories arrive. Updated `__sxOnDeckIndex` and `__sxOnDeckMembers`
      in `03d-outline.js` so category and subcategory nodes function as
      first-class On Deck proposal targets across all proposal tiers.
-   - **Phase 4: N-Depth Scaling Law & Map-Paint Decomposition (Planned 2026-11-20).**
+   - **Phase 4: N-Depth Scaling Law & Map-Paint Decomposition (In Progress 2026-11-20).**
      Unify arbitrary N-depth tree layout with the decomposition of `03e-map-paint.js`:
-     1. **Geometric Scaling Law (`02c-layout-solver.js`):**
-        - Gen-1 root radius allocation: $L_1 \approx \frac{1}{3} R_{\text{canvas}}$.
-        - Descendant generation spoke scaling: $L_d = L_1 \cdot (2/3)^{d-1} \cdot \mu_{\text{override}}$.
-        - Icon/hub diameters: $D_1 = 48\text{px}$, $D_2 = 36\text{px}$, $D_d = \max(16\text{px}, 48 \cdot (3/4)^{d-1})$.
-        - Font scale: $\text{fontSize}(d) = \text{baseFont} \cdot (4/5)^{d-1}$.
-        - Angular fan spread: recursive child sector apportioning $\Delta \theta_c = \frac{\Delta \theta_p}{\text{count}} \cdot \text{spreadFactor}$.
+     1. **Geometric Scaling Law (`02c-layout-solver.js`, `03-map-geometry.js`, `02e-font-ladder.js`) — Step 1 Completed:**
+        - Calibrated live icon depth law ($D_1 \approx \frac{1}{3} D_{\text{avatar}}$, gentle $(3/4)^{d-1}$ child decay).
+        - Generalized `sxSpokeBase(count, hubDepth)` to accept arbitrary depth $d$ so any parent tier calculates radial allocation uniformly.
+        - Unified `applyLengthOverride` to look up multi-tier overrides across branches, subcategories, and kinks or direct node IDs.
+        - Replaced hardcoded icon dimension constants (`pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96`) across solvers (`02c`, `02m`, `02n`, `03a`, `03e`) with live `sxIconRadius(d) + sxIconRadius(d+1) + 96`.
      2. **Map-Paint Decomposition (`03e-map-paint.js`):**
         - Refactor the monolithic 3-nested rendering loop (categories $\to$ subcategories $\to$ topics) into a recursive node walk: `renderNode(node, parentCoords, depth, arcSector, options)`.
         - Decompose rendering into discrete sub-modules: `SpokeRenderer` (lines, ribbons, hanky dashes, tapers), `HubRenderer` (concentric discs, glyphs, heat rings, badges), `LabelRenderer` (curved/tangential text paths, clearance offsets), and `ControlRenderer` (rating controls, sliders, wedges).
