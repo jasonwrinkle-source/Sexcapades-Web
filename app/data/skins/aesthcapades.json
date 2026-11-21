@@ -2,7 +2,7 @@
   "skin": "aesthcapades",
   "meter": "taste",
   "name": "Aesthcapades",
-  "about": "Aesthcapades is an interactive hypermap for rating and visualizing what moves you — the art, music, stories, and flavors you love, and the taste you trust — and comparing your sensibility with another person's, liking by liking, on the same picture. Build a personal profile, see where your tastes meet and where they part, use Scribe to write the review you'd give, and Scene Setter to plan what to see, hear, and taste together — all in the same shared vocabulary.",
+  "about": "Aesthcapades is an interactive hypermap for rating and visualizing what moves you \u2014 the art, music, stories, and flavors you love, and the taste you trust \u2014 and comparing your sensibility with another person's, liking by liking, on the same picture. Build a personal profile, see where your tastes meet and where they part, use Scribe to write the review you'd give, and Scene Setter to plan what to see, hear, and taste together \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Aesthetics — Taste Preferences & Judgments of Beauty",
+  "domain": "Aesthetics \u2014 Taste Preferences & Judgments of Beauty",
   "categories": [
     {
       "id": "xaec01",
@@ -133,12 +133,16 @@
               "label": "Representational"
             },
             {
+              "key": "stylized",
+              "label": "Stylized"
+            },
+            {
               "key": "abstract",
               "label": "Abstract"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much should art look like the world?",
             "poles": [
@@ -147,13 +151,17 @@
                 "text": "Art depicts the world as it is."
               },
               {
+                "label": "Stylized",
+                "text": "A deliberate departure from likeness, in a style of its own."
+              },
+              {
                 "label": "Abstract",
                 "text": "Art departs from likeness."
               }
             ]
           },
           "question": "How much do you want art to look like the world vs. depart from it?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.1",
           "communities": [
             {
               "network": "Reddit",
@@ -197,7 +205,7 @@
             ]
           },
           "question": "Do you trust the old masters or the new edge?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.2",
           "communities": [
             {
               "network": "Reddit",
@@ -209,8 +217,6 @@
         {
           "id": "xae0003",
           "name": "Photo purpose",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -246,7 +252,7 @@
             ]
           },
           "question": "What is a photograph for?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.3",
           "communities": [
             {
               "network": "Reddit",
@@ -270,12 +276,16 @@
               "label": "Tactile"
             },
             {
+              "key": "subtle-texture",
+              "label": "Subtle texture"
+            },
+            {
               "key": "flat",
               "label": "Flat"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you prefer art you can feel or art that's seamless?",
             "poles": [
@@ -284,13 +294,17 @@
                 "text": "Heavy paint, sculptural impasto, visible brushwork."
               },
               {
+                "label": "Subtle texture",
+                "text": "Some surface to the hand and eye, kept quiet."
+              },
+              {
                 "label": "Flat",
                 "text": "Vector smoothness, digital gradient, airbrushed finish."
               }
             ]
           },
           "question": "Do you prefer art you can feel or art that's seamless?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §1.4",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a71.4",
           "communities": [
             {
               "network": "Reddit",
@@ -316,12 +330,16 @@
               "label": "Words"
             },
             {
+              "key": "both-carry-it",
+              "label": "Both carry it"
+            },
+            {
               "key": "music",
               "label": "Music"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you listen for the lyrics or the sound?",
             "poles": [
@@ -330,13 +348,17 @@
                 "text": "Lyrics carry the song."
               },
               {
+                "label": "Both carry it",
+                "text": "The song carried by words and music in equal measure."
+              },
+              {
                 "label": "Music",
                 "text": "The sound carries the song."
               }
             ]
           },
           "question": "Do you listen for the lyrics or the sound?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a72.1",
           "communities": [
             {
               "network": "Reddit",
@@ -375,7 +397,7 @@
             ]
           },
           "question": "The room or the record?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a72.2",
           "communities": [
             {
               "network": "Reddit",
@@ -387,8 +409,6 @@
         {
           "id": "xae0007",
           "name": "Music taste",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -424,7 +444,7 @@
             ]
           },
           "question": "Where does your ear live?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §2.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a72.3",
           "communities": [
             {
               "network": "Reddit",
@@ -450,12 +470,16 @@
               "label": "Genre"
             },
             {
+              "key": "literary-genre",
+              "label": "Literary genre"
+            },
+            {
               "key": "literary",
               "label": "Literary"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you read for the story or the sentence?",
             "poles": [
@@ -464,13 +488,17 @@
                 "text": "Plot-driven."
               },
               {
+                "label": "Literary genre",
+                "text": "Genre storytelling written with literary craft."
+              },
+              {
                 "label": "Literary",
                 "text": "Character-driven."
               }
             ]
           },
           "question": "Do you read for the story or the sentence?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a73.1",
           "communities": [
             {
               "network": "Reddit",
@@ -489,18 +517,26 @@
               "label": "Plot"
             },
             {
+              "key": "plot-through-character",
+              "label": "Plot through character"
+            },
+            {
               "key": "character",
               "label": "Character"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
-            "issue": "What carries a story — what happens, or who it happens to?",
+            "issue": "What carries a story \u2014 what happens, or who it happens to?",
             "poles": [
               {
                 "label": "Plot",
                 "text": "What happens."
+              },
+              {
+                "label": "Plot through character",
+                "text": "Story carried by what happens to people you follow."
               },
               {
                 "label": "Character",
@@ -508,8 +544,8 @@
               }
             ]
           },
-          "question": "What carries a story for you — what happens, or who it happens to?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.2",
+          "question": "What carries a story for you \u2014 what happens, or who it happens to?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a73.2",
           "communities": [
             {
               "network": "Reddit",
@@ -548,7 +584,7 @@
             ]
           },
           "question": "Which medium do you prefer for story?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §3.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a73.3",
           "communities": [
             {
               "network": "Reddit",
@@ -574,12 +610,16 @@
               "label": "Natural"
             },
             {
+              "key": "subtly-enhanced",
+              "label": "Subtly enhanced"
+            },
+            {
               "key": "enhanced",
               "label": "Enhanced"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How do you feel about cosmetic enhancement?",
             "poles": [
@@ -588,13 +628,17 @@
                 "text": "Unaugmented, as you are."
               },
               {
+                "label": "Subtly enhanced",
+                "text": "A light touch: enhancement you notice only up close."
+              },
+              {
                 "label": "Enhanced",
                 "text": "Makeup, grooming, cosmetic procedures."
               }
             ]
           },
           "question": "Attitudes toward makeup, grooming, cosmetic procedures, enhancement.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a74.1",
           "communities": [
             {
               "network": "Reddit",
@@ -613,12 +657,16 @@
               "label": "Minimal"
             },
             {
+              "key": "edited-boldness",
+              "label": "Edited boldness"
+            },
+            {
               "key": "maximal",
               "label": "Maximal"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much is enough, on the body?",
             "poles": [
@@ -627,13 +675,17 @@
                 "text": "Understated."
               },
               {
+                "label": "Edited boldness",
+                "text": "Bold choices, few of them."
+              },
+              {
                 "label": "Maximal",
                 "text": "Bold."
               }
             ]
           },
           "question": "How much is enough, on the body?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a74.2",
           "communities": [
             {
               "network": "Reddit",
@@ -652,12 +704,16 @@
               "label": "Self-expression"
             },
             {
+              "key": "coded-expression",
+              "label": "Coded expression"
+            },
+            {
               "key": "conformity",
               "label": "Conformity"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you dress to say something, or to belong?",
             "poles": [
@@ -666,13 +722,17 @@
                 "text": "Dress to say something."
               },
               {
+                "label": "Coded expression",
+                "text": "Expressing yourself in the code of your group."
+              },
+              {
                 "label": "Conformity",
                 "text": "Dress to belong."
               }
             ]
           },
           "question": "Do you dress to say something, or to belong?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §4.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a74.3",
           "communities": [
             {
               "network": "Reddit",
@@ -698,12 +758,16 @@
               "label": "Modern"
             },
             {
+              "key": "transitional",
+              "label": "Transitional"
+            },
+            {
               "key": "traditional",
               "label": "Traditional"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Glass and steel, or stone and arch?",
             "poles": [
@@ -712,13 +776,17 @@
                 "text": "Minimal, glass and steel."
               },
               {
+                "label": "Transitional",
+                "text": "Traditional forms in modern materials and lines."
+              },
+              {
                 "label": "Traditional",
                 "text": "Ornamental, stone and arch."
               }
             ]
           },
           "question": "Glass and steel, or stone and arch?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a75.1",
           "communities": [
             {
               "network": "Reddit",
@@ -737,12 +805,16 @@
               "label": "Minimal"
             },
             {
+              "key": "warm-minimal",
+              "label": "Warm minimal"
+            },
+            {
               "key": "cozy",
               "label": "Cozy"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much stuff does a room need to feel like home?",
             "poles": [
@@ -751,13 +823,17 @@
                 "text": "Sparse."
               },
               {
+                "label": "Warm minimal",
+                "text": "Few things, warmly chosen."
+              },
+              {
                 "label": "Cozy",
                 "text": "Layered."
               }
             ]
           },
           "question": "How much stuff does a room need to feel like home?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a75.2",
           "communities": [
             {
               "network": "Reddit",
@@ -783,7 +859,7 @@
           "widget": "linear-sliders",
           "archetype": null,
           "hovertip": {
-            "issue": "Which landscapes move you — the skyline or the wilderness?",
+            "issue": "Which landscapes move you \u2014 the skyline or the wilderness?",
             "poles": [
               {
                 "label": "Urban",
@@ -795,8 +871,8 @@
               }
             ]
           },
-          "question": "Which landscapes move you — the skyline or the wilderness?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §5.3",
+          "question": "Which landscapes move you \u2014 the skyline or the wilderness?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a75.3",
           "communities": [
             {
               "network": "Reddit",
@@ -815,8 +891,6 @@
         {
           "id": "xae0017",
           "name": "Culture",
-          "poleReading": "antipodal",
-          "poleEnemies": [["high", "low"]],
           "risk": false,
           "poles": [
             {
@@ -835,7 +909,7 @@
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Where do you place your taste — the canon, the mainstream, or the gutter?",
+            "issue": "Where do you place your taste \u2014 the canon, the mainstream, or the gutter?",
             "poles": [
               {
                 "label": "High",
@@ -851,8 +925,8 @@
               }
             ]
           },
-          "question": "Where do you place your taste — the canon, the mainstream, or the gutter?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.1",
+          "question": "Where do you place your taste \u2014 the canon, the mainstream, or the gutter?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.1",
           "communities": [
             {
               "network": "Reddit",
@@ -881,12 +955,16 @@
               "label": "Trust the canon"
             },
             {
+              "key": "canon-as-counsel",
+              "label": "Canon as counsel"
+            },
+            {
               "key": "trust-your-own-taste",
               "label": "Trust your own taste"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "When the canon and your gut disagree, who wins?",
             "poles": [
@@ -895,13 +973,17 @@
                 "text": "The consecrated judgment."
               },
               {
+                "label": "Canon as counsel",
+                "text": "The canon advises; your own taste decides."
+              },
+              {
                 "label": "Trust your own taste",
                 "text": "Your gut."
               }
             ]
           },
           "question": "When the canon and your gut disagree, who wins?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.2",
           "communities": [
             {
               "network": "Reddit",
@@ -925,12 +1007,16 @@
               "label": "Minimalism"
             },
             {
+              "key": "curated-plenty",
+              "label": "Curated plenty"
+            },
+            {
               "key": "maximalism",
               "label": "Maximalism"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Less is more, or more is more?",
             "poles": [
@@ -939,13 +1025,17 @@
                 "text": "Less is more."
               },
               {
+                "label": "Curated plenty",
+                "text": "Plenty, but every piece chosen."
+              },
+              {
                 "label": "Maximalism",
                 "text": "More is more."
               }
             ]
           },
-          "question": "The meta-aesthetic stance — the one that predicts most of the others.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.3",
+          "question": "The meta-aesthetic stance \u2014 the one that predicts most of the others.",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.3",
           "communities": [
             {
               "network": "Reddit",
@@ -962,8 +1052,6 @@
         {
           "id": "xae0020",
           "name": "Kitsch & Camp",
-          "poleReading": "antipodal",
-          "poleEnemies": [["sincere-enjoyment", "ironic-appreciation"]],
           "risk": false,
           "poles": [
             {
@@ -999,7 +1087,7 @@
             ]
           },
           "question": "Do you love kitsch, love it ironically, or not at all?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.4",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.4",
           "communities": [
             {
               "network": "Reddit",
@@ -1021,8 +1109,6 @@
         {
           "id": "xae0021",
           "name": "Theories of Beauty",
-          "poleReading": "antipodal",
-          "poleEnemies": [["classical-harmony", "grotesque"]],
           "risk": false,
           "poles": [
             {
@@ -1066,7 +1152,7 @@
             ]
           },
           "question": "What kind of beauty moves you?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.5",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.5",
           "communities": [
             {
               "network": "Reddit",
@@ -1090,12 +1176,16 @@
               "label": "Wabi-Sabi"
             },
             {
+              "key": "lived-in-polish",
+              "label": "Lived-in polish"
+            },
+            {
               "key": "pristine",
               "label": "Pristine"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you prefer imperfection or flawlessness?",
             "poles": [
@@ -1104,13 +1194,17 @@
                 "text": "Imperfection, transience, natural weathering, raw patina."
               },
               {
+                "label": "Lived-in polish",
+                "text": "Polish that lets the wear show."
+              },
+              {
                 "label": "Pristine",
                 "text": "Flawless surfaces, high polish, geometric symmetry."
               }
             ]
           },
           "question": "Do you prefer imperfection or flawlessness?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §6.6",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a76.6",
           "communities": [
             {
               "network": "Reddit",
@@ -1146,12 +1240,16 @@
               "label": "Adventurous"
             },
             {
+              "key": "cautiously-adventurous",
+              "label": "Cautiously adventurous"
+            },
+            {
               "key": "cautious",
               "label": "Cautious"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "The weird restaurant or the safe place?",
             "poles": [
@@ -1160,13 +1258,17 @@
                 "text": "Try anything."
               },
               {
+                "label": "Cautiously adventurous",
+                "text": "New dishes, one at a time."
+              },
+              {
                 "label": "Cautious",
                 "text": "Stick to the familiar."
               }
             ]
           },
           "question": "Do you want the weird restaurant or the safe place? The classic friends-compatibility axis.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.1",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.1",
           "communities": [
             {
               "network": "Reddit",
@@ -1185,12 +1287,16 @@
               "label": "Mild"
             },
             {
+              "key": "warm",
+              "label": "Warm"
+            },
+            {
               "key": "fiery",
               "label": "Fiery"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much heat do you want?",
             "poles": [
@@ -1199,13 +1305,17 @@
                 "text": "Little or no spice."
               },
               {
+                "label": "Warm",
+                "text": "Heat you feel without a fire alarm."
+              },
+              {
                 "label": "Fiery",
                 "text": "As hot as it gets."
               }
             ]
           },
           "question": "How much heat do you want? Spice tolerance as a preference axis.",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.2",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1217,8 +1327,6 @@
         {
           "id": "xae0025",
           "name": "Dining",
-          "poleReading": "antipodal",
-          "poleEnemies": [["comfort", "fine"]],
           "risk": false,
           "poles": [
             {
@@ -1254,7 +1362,7 @@
             ]
           },
           "question": "What register of food do you live in?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.3",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.3",
           "communities": [
             {
               "network": "Reddit",
@@ -1266,8 +1374,6 @@
         {
           "id": "xae0026",
           "name": "Five Tastes",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1319,7 +1425,7 @@
             ]
           },
           "question": "The five basic tastes, as a five-pole star. How much do you seek each one?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.4",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.4",
           "communities": [
             {
               "network": "Reddit",
@@ -1331,8 +1437,6 @@
         {
           "id": "xae0027",
           "name": "Dietary Identity",
-          "poleReading": "antipodal",
-          "poleEnemies": [["carnivore", "fruitarian"]],
           "risk": false,
           "poles": [
             {
@@ -1367,7 +1471,7 @@
           "widget": "heptad-radar",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "What do you eat — and what won't you?",
+            "issue": "What do you eat \u2014 and what won't you?",
             "poles": [
               {
                 "label": "Carnivore",
@@ -1399,8 +1503,8 @@
               }
             ]
           },
-          "question": "What do you eat — and what won't you?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.5",
+          "question": "What do you eat \u2014 and what won't you?",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.5",
           "communities": [
             {
               "network": "Reddit",
@@ -1432,7 +1536,7 @@
             ]
           },
           "question": "How strictly do you follow keto?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.6",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.6",
           "communities": [
             {
               "network": "Reddit",
@@ -1471,7 +1575,7 @@
             ]
           },
           "question": "Do you prefer to cook, or to be cooked for?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.7",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.7",
           "communities": [
             {
               "network": "Reddit",
@@ -1490,12 +1594,16 @@
               "label": "Fuel"
             },
             {
+              "key": "weekday-fuel-weekend-feast",
+              "label": "Weekday fuel, weekend feast"
+            },
+            {
               "key": "feast",
               "label": "Feast"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is food fuel or feast?",
             "poles": [
@@ -1504,13 +1612,17 @@
                 "text": "Functional sustenance; efficiency, fast preparation, minimal fuss."
               },
               {
+                "label": "Weekday fuel, weekend feast",
+                "text": "Fuel on weekdays; a feast when there is occasion."
+              },
+              {
                 "label": "Feast",
                 "text": "Sensory theater; multi-hour shared dining, ritual, pleasure."
               }
             ]
           },
           "question": "Is food fuel or feast?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.8",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.8",
           "communities": [
             {
               "network": "Reddit",
@@ -1529,12 +1641,16 @@
               "label": "Authentic Purism"
             },
             {
+              "key": "rooted-fusion",
+              "label": "Rooted fusion"
+            },
+            {
               "key": "experimental-fusion",
               "label": "Experimental Fusion"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you cook by tradition or by experiment?",
             "poles": [
@@ -1543,13 +1659,17 @@
                 "text": "Heritage recipes, regional terroir, grandmother's technique."
               },
               {
+                "label": "Rooted fusion",
+                "text": "Fusion grounded in the traditions it borrows from."
+              },
+              {
                 "label": "Experimental Fusion",
                 "text": "Molecular gastronomy, boundary-breaking crossovers."
               }
             ]
           },
           "question": "Do you cook by tradition or by experiment?",
-          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md §7.9",
+          "source": "BRIEFING_AESTHCAPADES_TAXONOMY.md \u00a77.9",
           "communities": [
             {
               "network": "Reddit",
@@ -3593,7 +3713,7 @@
       "about": "Classicism looks back to the art and literature of ancient Greece and Rome as the model of excellence, valuing order, balance, clarity and restraint over emotional excess. In visual art it favours idealized forms, harmonious composition and measured proportion.",
       "links": [
         {
-          "label": "Tate — Classicism",
+          "label": "Tate \u2014 Classicism",
           "url": "https://www.tate.org.uk/art/art-terms/c/classicism"
         }
       ],
@@ -3607,7 +3727,8 @@
         "ratings": {
           "xae0001": {
             "representational": 85,
-            "abstract": -70
+            "abstract": -70,
+            "stylized": -55
           },
           "xae0002": {
             "classical": 90,
@@ -3620,11 +3741,13 @@
           },
           "xae0004": {
             "tactile": 30,
-            "flat": 40
+            "flat": 40,
+            "subtle-texture": 90
           },
           "xae0005": {
             "words": 40,
-            "music": 50
+            "music": 50,
+            "both-carry-it": 90
           },
           "xae0006": {
             "live": 60,
@@ -3637,11 +3760,13 @@
           },
           "xae0008": {
             "genre": 20,
-            "literary": 70
+            "literary": 70,
+            "literary-genre": 50
           },
           "xae0009": {
             "plot": 50,
-            "character": 60
+            "character": 60,
+            "plot-through-character": 90
           },
           "xae0010": {
             "film": 20,
@@ -3649,23 +3774,28 @@
           },
           "xae0011": {
             "natural": 60,
-            "enhanced": -50
+            "enhanced": -50,
+            "subtly-enhanced": -10
           },
           "xae0012": {
             "minimal": 50,
-            "maximal": -40
+            "maximal": -40,
+            "edited-boldness": 10
           },
           "xae0013": {
             "self-expression": 10,
-            "conformity": 50
+            "conformity": 50,
+            "coded-expression": 60
           },
           "xae0014": {
             "modern": -70,
-            "traditional": 85
+            "traditional": 85,
+            "transitional": -55
           },
           "xae0015": {
             "minimal": 60,
-            "cozy": 30
+            "cozy": 30,
+            "warm-minimal": 70
           },
           "xae0016": {
             "urban": 30,
@@ -3678,11 +3808,13 @@
           },
           "xae0018": {
             "trust-the-canon": 85,
-            "trust-your-own-taste": -40
+            "trust-your-own-taste": -40,
+            "canon-as-counsel": -25
           },
           "xae0019": {
             "minimalism": 60,
-            "maximalism": -50
+            "maximalism": -50,
+            "curated-plenty": -10
           },
           "xae0020": {
             "sincere-enjoyment": 30,
@@ -3697,15 +3829,18 @@
           },
           "xae0022": {
             "wabi-sabi": -60,
-            "pristine": 80
+            "pristine": 80,
+            "lived-in-polish": -40
           },
           "xae0023": {
             "adventurous": 20,
-            "cautious": 50
+            "cautious": 50,
+            "cautiously-adventurous": 70
           },
           "xae0024": {
             "mild": 50,
-            "fiery": -30
+            "fiery": -30,
+            "warm": 20
           },
           "xae0025": {
             "comfort": 30,
@@ -3735,11 +3870,13 @@
           },
           "xae0030": {
             "fuel": 20,
-            "feast": 70
+            "feast": 70,
+            "weekday-fuel-weekend-feast": 50
           },
           "xae0031": {
             "authentic-purism": 80,
-            "experimental-fusion": -60
+            "experimental-fusion": -60,
+            "rooted-fusion": -40
           }
         }
       }
@@ -3750,7 +3887,7 @@
       "about": "Romanticism prized intense feeling, imagination and the individual over reason and classical rules. Its art and literature celebrate nature, the sublime, heroism and the exotic, often with dramatic colour and movement.",
       "links": [
         {
-          "label": "Tate — Romanticism",
+          "label": "Tate \u2014 Romanticism",
           "url": "https://www.tate.org.uk/art/art-terms/r/romanticism"
         }
       ],
@@ -3764,7 +3901,8 @@
         "ratings": {
           "xae0001": {
             "representational": 40,
-            "abstract": 30
+            "abstract": 30,
+            "stylized": 90
           },
           "xae0002": {
             "classical": -50,
@@ -3777,11 +3915,13 @@
           },
           "xae0004": {
             "tactile": 70,
-            "flat": -50
+            "flat": -50,
+            "subtle-texture": -20
           },
           "xae0005": {
             "words": 70,
-            "music": 60
+            "music": 60,
+            "both-carry-it": 90
           },
           "xae0006": {
             "live": 80,
@@ -3794,11 +3934,13 @@
           },
           "xae0008": {
             "genre": 40,
-            "literary": 60
+            "literary": 60,
+            "literary-genre": 80
           },
           "xae0009": {
             "plot": 30,
-            "character": 85
+            "character": 85,
+            "plot-through-character": 45
           },
           "xae0010": {
             "film": 50,
@@ -3806,23 +3948,28 @@
           },
           "xae0011": {
             "natural": 85,
-            "enhanced": -60
+            "enhanced": -60,
+            "subtly-enhanced": -45
           },
           "xae0012": {
             "minimal": -50,
-            "maximal": 70
+            "maximal": 70,
+            "edited-boldness": -20
           },
           "xae0013": {
             "self-expression": 90,
-            "conformity": -70
+            "conformity": -70,
+            "coded-expression": -60
           },
           "xae0014": {
             "modern": 10,
-            "traditional": 40
+            "traditional": 40,
+            "transitional": 70
           },
           "xae0015": {
             "minimal": -40,
-            "cozy": 80
+            "cozy": 80,
+            "warm-minimal": -20
           },
           "xae0016": {
             "urban": -50,
@@ -3835,11 +3982,13 @@
           },
           "xae0018": {
             "trust-the-canon": 10,
-            "trust-your-own-taste": 80
+            "trust-your-own-taste": 80,
+            "canon-as-counsel": 30
           },
           "xae0019": {
             "minimalism": -60,
-            "maximalism": 80
+            "maximalism": 80,
+            "curated-plenty": -40
           },
           "xae0020": {
             "sincere-enjoyment": 70,
@@ -3854,15 +4003,18 @@
           },
           "xae0022": {
             "wabi-sabi": 60,
-            "pristine": -40
+            "pristine": -40,
+            "lived-in-polish": 0
           },
           "xae0023": {
             "adventurous": 70,
-            "cautious": -30
+            "cautious": -30,
+            "cautiously-adventurous": 0
           },
           "xae0024": {
             "mild": -20,
-            "fiery": 70
+            "fiery": 70,
+            "warm": 10
           },
           "xae0025": {
             "comfort": 60,
@@ -3892,11 +4044,13 @@
           },
           "xae0030": {
             "fuel": -20,
-            "feast": 80
+            "feast": 80,
+            "weekday-fuel-weekend-feast": 0
           },
           "xae0031": {
             "authentic-purism": 30,
-            "experimental-fusion": 50
+            "experimental-fusion": 50,
+            "rooted-fusion": 80
           }
         }
       }
@@ -3907,7 +4061,7 @@
       "about": "Modernism was the early-20th-century break with traditional forms, as artists and writers experimented with abstraction, fragmentation and new techniques to capture modern life. It rejected academic realism in favour of innovation and self-conscious form.",
       "links": [
         {
-          "label": "Tate — Modernism",
+          "label": "Tate \u2014 Modernism",
           "url": "https://www.tate.org.uk/art/art-terms/m/modernism"
         }
       ],
@@ -3921,7 +4075,8 @@
         "ratings": {
           "xae0001": {
             "representational": -70,
-            "abstract": 85
+            "abstract": 85,
+            "stylized": -55
           },
           "xae0002": {
             "classical": -70,
@@ -3934,11 +4089,13 @@
           },
           "xae0004": {
             "tactile": 40,
-            "flat": 60
+            "flat": 60,
+            "subtle-texture": 80
           },
           "xae0005": {
             "words": -20,
-            "music": 80
+            "music": 80,
+            "both-carry-it": 0
           },
           "xae0006": {
             "live": 30,
@@ -3951,11 +4108,13 @@
           },
           "xae0008": {
             "genre": -30,
-            "literary": 80
+            "literary": 80,
+            "literary-genre": -10
           },
           "xae0009": {
             "plot": -20,
-            "character": 60
+            "character": 60,
+            "plot-through-character": 20
           },
           "xae0010": {
             "film": 60,
@@ -3963,23 +4122,28 @@
           },
           "xae0011": {
             "natural": 30,
-            "enhanced": 40
+            "enhanced": 40,
+            "subtly-enhanced": 90
           },
           "xae0012": {
             "minimal": 85,
-            "maximal": -60
+            "maximal": -60,
+            "edited-boldness": -45
           },
           "xae0013": {
             "self-expression": 60,
-            "conformity": -60
+            "conformity": -60,
+            "coded-expression": -20
           },
           "xae0014": {
             "modern": 90,
-            "traditional": -80
+            "traditional": -80,
+            "transitional": -70
           },
           "xae0015": {
             "minimal": 90,
-            "cozy": -50
+            "cozy": -50,
+            "warm-minimal": -40
           },
           "xae0016": {
             "urban": 80,
@@ -3992,11 +4156,13 @@
           },
           "xae0018": {
             "trust-the-canon": -50,
-            "trust-your-own-taste": 70
+            "trust-your-own-taste": 70,
+            "canon-as-counsel": -20
           },
           "xae0019": {
             "minimalism": 90,
-            "maximalism": -70
+            "maximalism": -70,
+            "curated-plenty": -60
           },
           "xae0020": {
             "sincere-enjoyment": -20,
@@ -4011,15 +4177,18 @@
           },
           "xae0022": {
             "wabi-sabi": 20,
-            "pristine": 70
+            "pristine": 70,
+            "lived-in-polish": 50
           },
           "xae0023": {
             "adventurous": 80,
-            "cautious": -50
+            "cautious": -50,
+            "cautiously-adventurous": -30
           },
           "xae0024": {
             "mild": -10,
-            "fiery": 60
+            "fiery": 60,
+            "warm": 30
           },
           "xae0025": {
             "comfort": -30,
@@ -4049,11 +4218,13 @@
           },
           "xae0030": {
             "fuel": 40,
-            "feast": 40
+            "feast": 40,
+            "weekday-fuel-weekend-feast": 100
           },
           "xae0031": {
             "authentic-purism": -40,
-            "experimental-fusion": 80
+            "experimental-fusion": 80,
+            "rooted-fusion": -20
           }
         }
       }
@@ -4064,7 +4235,7 @@
       "about": "Postmodernism questions the idea of a single true style or grand narrative, mixing high and popular culture, irony, pastiche and quotation. It treats styles as material to borrow and remix rather than rules to follow.",
       "links": [
         {
-          "label": "Tate — Postmodernism",
+          "label": "Tate \u2014 Postmodernism",
           "url": "https://www.tate.org.uk/art/art-terms/p/postmodernism"
         }
       ],
@@ -4078,7 +4249,8 @@
         "ratings": {
           "xae0001": {
             "representational": 30,
-            "abstract": 50
+            "abstract": 50,
+            "stylized": 80
           },
           "xae0002": {
             "classical": -40,
@@ -4091,11 +4263,13 @@
           },
           "xae0004": {
             "tactile": 20,
-            "flat": 70
+            "flat": 70,
+            "subtle-texture": 50
           },
           "xae0005": {
             "words": 60,
-            "music": 50
+            "music": 50,
+            "both-carry-it": 90
           },
           "xae0006": {
             "live": 40,
@@ -4108,11 +4282,13 @@
           },
           "xae0008": {
             "genre": 80,
-            "literary": 40
+            "literary": 40,
+            "literary-genre": 60
           },
           "xae0009": {
             "plot": 70,
-            "character": 40
+            "character": 40,
+            "plot-through-character": 70
           },
           "xae0010": {
             "film": 80,
@@ -4120,23 +4296,28 @@
           },
           "xae0011": {
             "natural": -30,
-            "enhanced": 70
+            "enhanced": 70,
+            "subtly-enhanced": 0
           },
           "xae0012": {
             "minimal": -70,
-            "maximal": 85
+            "maximal": 85,
+            "edited-boldness": -55
           },
           "xae0013": {
             "self-expression": 70,
-            "conformity": -30
+            "conformity": -30,
+            "coded-expression": 0
           },
           "xae0014": {
             "modern": 50,
-            "traditional": 20
+            "traditional": 20,
+            "transitional": 70
           },
           "xae0015": {
             "minimal": -60,
-            "cozy": 60
+            "cozy": 60,
+            "warm-minimal": -20
           },
           "xae0016": {
             "urban": 70,
@@ -4149,11 +4330,13 @@
           },
           "xae0018": {
             "trust-the-canon": -80,
-            "trust-your-own-taste": 80
+            "trust-your-own-taste": 80,
+            "canon-as-counsel": -60
           },
           "xae0019": {
             "minimalism": -70,
-            "maximalism": 85
+            "maximalism": 85,
+            "curated-plenty": -55
           },
           "xae0020": {
             "sincere-enjoyment": 40,
@@ -4168,15 +4351,18 @@
           },
           "xae0022": {
             "wabi-sabi": 50,
-            "pristine": -50
+            "pristine": -50,
+            "lived-in-polish": 0
           },
           "xae0023": {
             "adventurous": 85,
-            "cautious": -60
+            "cautious": -60,
+            "cautiously-adventurous": -45
           },
           "xae0024": {
             "mild": -40,
-            "fiery": 80
+            "fiery": 80,
+            "warm": -20
           },
           "xae0025": {
             "comfort": 40,
@@ -4206,11 +4392,13 @@
           },
           "xae0030": {
             "fuel": 10,
-            "feast": 80
+            "feast": 80,
+            "weekday-fuel-weekend-feast": 30
           },
           "xae0031": {
             "authentic-purism": -80,
-            "experimental-fusion": 90
+            "experimental-fusion": 90,
+            "rooted-fusion": -70
           }
         }
       }
@@ -4221,7 +4409,7 @@
       "about": "The cultural omnivore is a sociological concept: someone whose tastes span both high culture and popular culture, from opera to pop music, rather than sticking to one level. Sociologist Richard Peterson coined the term in 1992 to describe how cultural elites had stopped being snobs and become broad in their tastes.",
       "links": [
         {
-          "label": "EBSCO Research Starters — Cultural Omnivorousness",
+          "label": "EBSCO Research Starters \u2014 Cultural Omnivorousness",
           "url": "https://www.ebsco.com/research-starters/arts-and-entertainment/cultural-omnivorousness"
         }
       ],
@@ -4235,7 +4423,8 @@
         "ratings": {
           "xae0001": {
             "representational": 60,
-            "abstract": 60
+            "abstract": 60,
+            "stylized": 100
           },
           "xae0002": {
             "classical": 60,
@@ -4248,11 +4437,13 @@
           },
           "xae0004": {
             "tactile": 50,
-            "flat": 50
+            "flat": 50,
+            "subtle-texture": 100
           },
           "xae0005": {
             "words": 60,
-            "music": 70
+            "music": 70,
+            "both-carry-it": 90
           },
           "xae0006": {
             "live": 70,
@@ -4265,11 +4456,13 @@
           },
           "xae0008": {
             "genre": 70,
-            "literary": 60
+            "literary": 60,
+            "literary-genre": 90
           },
           "xae0009": {
             "plot": 60,
-            "character": 60
+            "character": 60,
+            "plot-through-character": 100
           },
           "xae0010": {
             "film": 70,
@@ -4277,23 +4470,28 @@
           },
           "xae0011": {
             "natural": 50,
-            "enhanced": 40
+            "enhanced": 40,
+            "subtly-enhanced": 90
           },
           "xae0012": {
             "minimal": 40,
-            "maximal": 50
+            "maximal": 50,
+            "edited-boldness": 90
           },
           "xae0013": {
             "self-expression": 60,
-            "conformity": 20
+            "conformity": 20,
+            "coded-expression": 60
           },
           "xae0014": {
             "modern": 60,
-            "traditional": 60
+            "traditional": 60,
+            "transitional": 100
           },
           "xae0015": {
             "minimal": 40,
-            "cozy": 60
+            "cozy": 60,
+            "warm-minimal": 80
           },
           "xae0016": {
             "urban": 60,
@@ -4306,11 +4504,13 @@
           },
           "xae0018": {
             "trust-the-canon": 30,
-            "trust-your-own-taste": 70
+            "trust-your-own-taste": 70,
+            "canon-as-counsel": 60
           },
           "xae0019": {
             "minimalism": 40,
-            "maximalism": 50
+            "maximalism": 50,
+            "curated-plenty": 90
           },
           "xae0020": {
             "sincere-enjoyment": 70,
@@ -4325,15 +4525,18 @@
           },
           "xae0022": {
             "wabi-sabi": 50,
-            "pristine": 40
+            "pristine": 40,
+            "lived-in-polish": 90
           },
           "xae0023": {
             "adventurous": 85,
-            "cautious": -40
+            "cautious": -40,
+            "cautiously-adventurous": -25
           },
           "xae0024": {
             "mild": 30,
-            "fiery": 60
+            "fiery": 60,
+            "warm": 70
           },
           "xae0025": {
             "comfort": 70,
@@ -4363,11 +4566,13 @@
           },
           "xae0030": {
             "fuel": 30,
-            "feast": 80
+            "feast": 80,
+            "weekday-fuel-weekend-feast": 50
           },
           "xae0031": {
             "authentic-purism": 50,
-            "experimental-fusion": 70
+            "experimental-fusion": 70,
+            "rooted-fusion": 80
           }
         }
       }
