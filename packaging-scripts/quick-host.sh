@@ -37,6 +37,11 @@ DEPLOY_CMD="scp \"$TAR_PATH\" hostinger:~/domains/ && ssh hostinger \"cd ~/domai
 HOST_NOTE="direct SCP + SSH unpack"
 URL="ssh://hostinger"
 
+echo "Executing deployment to Hostinger..."
+scp "$TAR_PATH" hostinger:~/domains/
+ssh hostinger "cd ~/domains && tar -xzf $TARBALL && rm $TARBALL"
+echo "Deployment unpacked successfully on Hostinger!"
+
 # --- Mirror methods commented out (ssh is working well) ---
 # echo "Uploading $TARBALL ($(stat -c %s "$TAR_PATH" | awk '{print int($1/1024/1024)"MB"}')) to temporary storage..."
 # # Try Litterbox (72h) first
