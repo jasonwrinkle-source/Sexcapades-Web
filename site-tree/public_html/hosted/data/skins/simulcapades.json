@@ -2,7 +2,7 @@
   "skin": "simulcapades",
   "meter": "stance",
   "name": "Simulcapades",
-  "about": "Simulcapades is an interactive hypermap for rating and visualizing what you trust about copies of the world — what a simulation can show, where it lies, and when it's real enough — and comparing your trust with another person's, claim by claim, on the same picture. Build a personal profile, see where your trust meets and where it parts, use Scribe to write the simulation you'd build, and Scene Setter to plan the check that proves it — all in the same shared vocabulary.",
+  "about": "Simulcapades is an interactive hypermap for rating and visualizing what you trust about copies of the world \u2014 what a simulation can show, where it lies, and when it's real enough \u2014 and comparing your trust with another person's, claim by claim, on the same picture. Build a personal profile, see where your trust meets and where it parts, use Scribe to write the simulation you'd build, and Scene Setter to plan the check that proves it \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Computational Physics — the Computer as a Virtual Laboratory",
+  "domain": "Computational Physics \u2014 the Computer as a Virtual Laboratory",
   "categories": [
     {
       "id": "xsic01",
@@ -126,8 +126,6 @@
         {
           "id": "xsi0001",
           "name": "The Three Pillars: What Is a Simulation?",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -146,7 +144,7 @@
           "widget": "triangle",
           "archetype": null,
           "hovertip": {
-            "issue": "What is a simulation — a kind of theory, a kind of experiment, or a third pillar of its own?",
+            "issue": "What is a simulation \u2014 a kind of theory, a kind of experiment, or a third pillar of its own?",
             "poles": [
               {
                 "label": "Virtual Experiment",
@@ -162,8 +160,8 @@
               }
             ]
           },
-          "question": "What is a simulation — a kind of theory, a kind of experiment, or a third pillar of its own?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1",
+          "question": "What is a simulation \u2014 a kind of theory, a kind of experiment, or a third pillar of its own?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.1",
           "communities": [
             {
               "network": "Reddit",
@@ -198,16 +196,16 @@
             "poles": [
               {
                 "label": "Discovery",
-                "text": "Simulation as a tool for finding new physics — exploring parameter space, finding emergent phenomena, predicting what no one has seen."
+                "text": "Simulation as a tool for finding new physics \u2014 exploring parameter space, finding emergent phenomena, predicting what no one has seen."
               },
               {
                 "label": "Verification",
-                "text": "Simulation as a tool for checking what you already believe — confirming analytic predictions, testing a theory against its consequences."
+                "text": "Simulation as a tool for checking what you already believe \u2014 confirming analytic predictions, testing a theory against its consequences."
               }
             ]
           },
           "question": "Do you simulate to discover new physics, or to verify what you already think is true?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.2",
           "communities": [
             {
               "network": "Reddit",
@@ -231,27 +229,35 @@
               "label": "Real"
             },
             {
+              "key": "quasi-experiment",
+              "label": "Quasi-experiment"
+            },
+            {
               "key": "metaphor",
               "label": "Metaphor"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is a simulation a real experiment, or is \"experiment\" just a metaphor for a calculation?",
             "poles": [
               {
                 "label": "Real",
-                "text": "A simulation IS an experiment — it has a setup, a run, data, and error bars, and the results count as evidence in the same way lab data does."
+                "text": "A simulation IS an experiment \u2014 it has a setup, a run, data, and error bars, and the results count as evidence in the same way lab data does."
+              },
+              {
+                "label": "Quasi-experiment",
+                "text": "Not a real experiment, but more than a metaphor: it interrogates a model of the world."
               },
               {
                 "label": "Metaphor",
-                "text": "Calling it an \"experiment\" is just a metaphor — it is a calculation, and its results are only as good as the equations you fed in."
+                "text": "Calling it an \"experiment\" is just a metaphor \u2014 it is a calculation, and its results are only as good as the equations you fed in."
               }
             ]
           },
           "question": "Is a simulation a real experiment, or is \"experiment\" just a metaphor for a calculation?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.3",
           "communities": [
             {
               "network": "Reddit",
@@ -275,12 +281,16 @@
               "label": "Maximum Physical Fidelity"
             },
             {
+              "key": "fidelity-where-it-matters",
+              "label": "Fidelity where it matters"
+            },
+            {
               "key": "high-throughput-speed-scalability",
               "label": "High-Throughput Speed & Scalability"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you prioritize uncompromising physical fidelity or high-throughput computational speed?",
             "poles": [
@@ -289,13 +299,17 @@
                 "text": "Double/quad precision, all electron shells, full quantum electrodynamics, zero empirical fudge factors; willing to wait 6 months on a supercomputer."
               },
               {
+                "label": "Fidelity where it matters",
+                "text": "Full fidelity at the sensitive points; speed everywhere else."
+              },
+              {
                 "label": "High-Throughput Speed & Scalability",
                 "text": "Coarse-grained approximations, GPU parallelism, real-time interactive parameter exploration; \"good enough\" physics at 100x the speed."
               }
             ]
           },
           "question": "Do you prioritize uncompromising physical fidelity or high-throughput computational speed?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.4",
           "communities": [
             {
               "network": "Reddit",
@@ -339,7 +353,7 @@
             ]
           },
           "question": "Is a simulation validated by matching lab data or by mathematical convergence?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.5",
           "communities": [
             {
               "network": "Reddit",
@@ -363,12 +377,16 @@
               "label": "Bold Simulation Confidence"
             },
             {
+              "key": "calibrated-trust",
+              "label": "Calibrated trust"
+            },
+            {
               "key": "permanent-self-skepticism",
               "label": "Permanent Self-Skepticism"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "How much inherent trust do you place in simulation results?",
             "poles": [
@@ -377,13 +395,17 @@
                 "text": "Trust the computational output as ground truth; modern simulations are often cleaner and less prone to systematic errors than real-world noise."
               },
               {
+                "label": "Calibrated trust",
+                "text": "Trust proportioned to the validation behind the result."
+              },
+              {
                 "label": "Permanent Self-Skepticism",
                 "text": "Never trust a simulation fully; discretization errors, floating-point roundoff, and unmodeled boundary artifacts are always lurking."
               }
             ]
           },
           "question": "How much inherent trust do you place in simulation results?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.6",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.6",
           "communities": [
             {
               "network": "Reddit",
@@ -407,8 +429,6 @@
         {
           "id": "xsi0007",
           "name": "Computational Methods",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -452,7 +472,7 @@
             ]
           },
           "question": "Which computational physics methodology is your primary weapon?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.1",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.1",
           "communities": [
             {
               "network": "Reddit",
@@ -492,7 +512,7 @@
             "poles": [
               {
                 "label": "Ab Initio Quantum Purity (DFT)",
-                "text": "Calculate electronic forces directly from Schrödinger/Kohn-Sham equations; zero fitted parameters; limited to thousands of atoms."
+                "text": "Calculate electronic forces directly from Schr\u00f6dinger/Kohn-Sham equations; zero fitted parameters; limited to thousands of atoms."
               },
               {
                 "label": "Empirical Classical Potentials",
@@ -501,7 +521,7 @@
             ]
           },
           "question": "Do you calculate forces from first principles or fit empirical potential functions?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.2",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.2",
           "communities": [
             {
               "network": "Reddit",
@@ -530,12 +550,16 @@
               "label": "Classical Supercomputing Algorithms"
             },
             {
+              "key": "hybrid-credence",
+              "label": "Hybrid credence"
+            },
+            {
               "key": "quantum-hardware-analog-simulators",
               "label": "Quantum Hardware / Analog Simulators"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Will strongly correlated quantum systems be solved by classical algorithms or quantum hardware?",
             "poles": [
@@ -544,13 +568,17 @@
                 "text": "Tensor networks, DMRG, Quantum Monte Carlo on classical exascale clusters."
               },
               {
+                "label": "Hybrid credence",
+                "text": "Classical and quantum simulators, each where it is strong."
+              },
+              {
                 "label": "Quantum Hardware / Analog Simulators",
                 "text": "Mapping the Hamiltonian directly onto neutral atom arrays, superconducting qubits, or Rydberg quantum simulators."
               }
             ]
           },
           "question": "Will strongly correlated quantum systems be solved by classical algorithms or quantum hardware?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.3",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.3",
           "communities": [
             {
               "network": "Reddit",
@@ -579,27 +607,35 @@
               "label": "Continuum"
             },
             {
+              "key": "continuum-from-discrete",
+              "label": "Continuum from discrete"
+            },
+            {
               "key": "discrete",
               "label": "Discrete"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
-            "issue": "Is the world continuous or discrete — and does your simulation treat it that way?",
+            "issue": "Is the world continuous or discrete \u2014 and does your simulation treat it that way?",
             "poles": [
               {
                 "label": "Continuum",
-                "text": "Fields, PDEs, smooth functions — the world is continuous and the math is calculus."
+                "text": "Fields, PDEs, smooth functions \u2014 the world is continuous and the math is calculus."
+              },
+              {
+                "label": "Continuum from discrete",
+                "text": "A discrete substrate that behaves as a continuum at scale."
               },
               {
                 "label": "Discrete",
-                "text": "Particles, lattices, graphs — the world is granular and the math is counting."
+                "text": "Particles, lattices, graphs \u2014 the world is granular and the math is counting."
               }
             ]
           },
-          "question": "Is the world continuous or discrete — and does your simulation treat it that way?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.4",
+          "question": "Is the world continuous or discrete \u2014 and does your simulation treat it that way?",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.4",
           "communities": [
             {
               "network": "Reddit",
@@ -628,27 +664,35 @@
               "label": "Deterministic"
             },
             {
+              "key": "laws-with-noise",
+              "label": "Laws with noise"
+            },
+            {
               "key": "stochastic",
               "label": "Stochastic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Is your simulation a clockwork or a dice roll?",
             "poles": [
               {
                 "label": "Deterministic",
-                "text": "Same input, same output, every time — the physics is a clockwork and the simulation should be too."
+                "text": "Same input, same output, every time \u2014 the physics is a clockwork and the simulation should be too."
+              },
+              {
+                "label": "Laws with noise",
+                "text": "Deterministic structure carrying stochastic detail."
               },
               {
                 "label": "Stochastic",
-                "text": "Randomness is in the physics — Monte Carlo, thermal fluctuations, quantum measurement — and the simulation must sample, not solve."
+                "text": "Randomness is in the physics \u2014 Monte Carlo, thermal fluctuations, quantum measurement \u2014 and the simulation must sample, not solve."
               }
             ]
           },
           "question": "Is your simulation a clockwork or a dice roll?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §2.5",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a72.5",
           "communities": [
             {
               "network": "Reddit",
@@ -704,7 +748,7 @@
             ]
           },
           "question": "Do you couple multi-scale models concurrently or pass parameters hierarchically?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.1",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a73.1",
           "communities": [
             {
               "network": "Reddit",
@@ -748,7 +792,7 @@
             ]
           },
           "question": "Do you prioritize symplectic geometric conservation or high-order adaptive accuracy?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.2",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a73.2",
           "communities": [
             {
               "network": "Reddit",
@@ -765,8 +809,6 @@
         {
           "id": "xsi0014",
           "name": "Spatial discretization",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -802,7 +844,7 @@
             ]
           },
           "question": "How do you discretize physical space?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.3",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a73.3",
           "communities": [
             {
               "network": "Reddit",
@@ -826,27 +868,35 @@
               "label": "Resolution"
             },
             {
+              "key": "resolve-the-region-that-matters",
+              "label": "Resolve the region that matters"
+            },
+            {
               "key": "domain-size",
               "label": "Domain Size"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you resolve the fine detail or cover the whole system?",
             "poles": [
               {
                 "label": "Resolution",
-                "text": "Fine grids, small timesteps, resolve every detail — the physics is in the fine structure."
+                "text": "Fine grids, small timesteps, resolve every detail \u2014 the physics is in the fine structure."
+              },
+              {
+                "label": "Resolve the region that matters",
+                "text": "High resolution in the region of interest; a coarse domain around it."
               },
               {
                 "label": "Domain Size",
-                "text": "Big boxes, long times, the whole system — the physics is in the large-scale behavior."
+                "text": "Big boxes, long times, the whole system \u2014 the physics is in the large-scale behavior."
               }
             ]
           },
           "question": "Do you resolve the fine detail or cover the whole system?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.4",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a73.4",
           "communities": [
             {
               "network": "Reddit",
@@ -870,27 +920,35 @@
               "label": "Strict"
             },
             {
+              "key": "converged-enough-checked",
+              "label": "Converged enough, checked"
+            },
+            {
               "key": "pragmatic",
               "label": "Pragmatic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you prove convergence, or just check it looks right?",
             "poles": [
               {
                 "label": "Strict",
-                "text": "Prove convergence — grid refinement studies, Richardson extrapolation, error bounds; no result counts until the convergence is demonstrated."
+                "text": "Prove convergence \u2014 grid refinement studies, Richardson extrapolation, error bounds; no result counts until the convergence is demonstrated."
+              },
+              {
+                "label": "Converged enough, checked",
+                "text": "Pragmatic convergence, with the check documented."
               },
               {
                 "label": "Pragmatic",
-                "text": "If it looks converged, it is converged — run it twice at different resolutions, check the answer doesn't move much, and get on with the physics."
+                "text": "If it looks converged, it is converged \u2014 run it twice at different resolutions, check the answer doesn't move much, and get on with the physics."
               }
             ]
           },
           "question": "Do you prove convergence, or just check it looks right?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §3.5",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a73.5",
           "communities": [
             {
               "network": "Reddit",
@@ -917,31 +975,31 @@
           "risk": false,
           "poles": [
             {
-              "key": "national-leadership-supercomputers",
-              "label": "National Leadership Supercomputers"
+              "key": "leadership-scale",
+              "label": "Leadership scale"
             },
             {
               "key": "hardware-you-control",
-              "label": "Hardware You Control"
+              "label": "Hardware you control"
             }
           ],
-          "widget": "linear-sliders",
+          "widget": "xy-switchbox",
           "archetype": null,
           "hovertip": {
             "issue": "Do you run on national supercomputers or on hardware you control?",
             "poles": [
               {
-                "label": "National Leadership Supercomputers",
-                "text": "Frontier, Aurora, Summit; 100,000+ nodes, massive MPI scaling, rigorous grant allocation proposals and queue waits."
+                "label": "Leadership scale",
+                "text": "Affinity for national leadership-class supercomputers."
               },
               {
-                "label": "Hardware You Control",
-                "text": "Local dedicated workstations or cloud instances; instant turnaround, interactive debugging, zero grant bureaucracy — or pay-as-you-go cloud."
+                "label": "Hardware you control",
+                "text": "Affinity for hardware you control yourself."
               }
             ]
           },
           "question": "Do you run on national supercomputers or on hardware you control?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.1",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a74.1",
           "communities": [
             {
               "network": "Reddit",
@@ -958,8 +1016,6 @@
         {
           "id": "xsi0018",
           "name": "Processor",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -995,7 +1051,7 @@
             ]
           },
           "question": "Is your physics algorithm better suited for high-memory CPUs, dense streaming GPUs, or quantum hardware?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.2",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a74.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1039,7 +1095,7 @@
             ]
           },
           "question": "Do you build upon 40-year-old Fortran monoliths or modern modular scientific languages?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.3",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a74.3",
           "communities": [
             {
               "network": "Reddit",
@@ -1068,12 +1124,16 @@
               "label": "AI & Neural Operators (PINNs/FNO)"
             },
             {
+              "key": "hybrid-solvers",
+              "label": "Hybrid solvers"
+            },
+            {
               "key": "traditional-numerical-analysis",
               "label": "Traditional Numerical Analysis (FEM/FVM)"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Will deep learning neural operators replace traditional numerical solvers?",
             "poles": [
@@ -1082,13 +1142,17 @@
                 "text": "Train neural networks on physics loss functions; instantaneous surrogate inference, mesh-free, solves inverse problems effortlessly."
               },
               {
+                "label": "Hybrid solvers",
+                "text": "Neural operators where validated; traditional solvers as the backbone."
+              },
+              {
                 "label": "Traditional Numerical Analysis (FEM/FVM)",
                 "text": "Strictly mathematically verified error bounds, exact conservation laws, no hallucinated physics, guaranteed stability."
               }
             ]
           },
           "question": "Will deep learning neural operators replace traditional numerical solvers?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.4",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a74.4",
           "communities": [
             {
               "network": "Reddit",
@@ -1117,12 +1181,16 @@
               "label": "MLIP Enthusiast"
             },
             {
+              "key": "cautious-adopter",
+              "label": "Cautious adopter"
+            },
+            {
               "key": "mlip-skeptic",
               "label": "MLIP Skeptic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you trust machine-learned interatomic potentials for new physics discovery?",
             "poles": [
@@ -1131,13 +1199,17 @@
                 "text": "Neural network potentials like MACE, NequIP, and ANI achieve near-DFT quantum accuracy at classical molecular dynamics speed; the holy grail is here."
               },
               {
+                "label": "Cautious adopter",
+                "text": "Machine-learned potentials used where they have earned trust."
+              },
+              {
                 "label": "MLIP Skeptic",
                 "text": "Machine learning potentials fail unpredictably outside their training manifold; dangerous and untrustworthy for unexpected phase transitions or extreme pressures."
               }
             ]
           },
           "question": "Do you trust machine-learned interatomic potentials for new physics discovery?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §4.5",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a74.5",
           "communities": [
             {
               "network": "Reddit",
@@ -1173,27 +1245,35 @@
               "label": "Honest"
             },
             {
+              "key": "mostly-honest",
+              "label": "Mostly honest"
+            },
+            {
               "key": "optimistic",
               "label": "Optimistic"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do your error bars tell the truth, or tell the story you want?",
             "poles": [
               {
                 "label": "Honest",
-                "text": "Report the full error — systematic and statistical, all of it, even when it makes the result look weak."
+                "text": "Report the full error \u2014 systematic and statistical, all of it, even when it makes the result look weak."
+              },
+              {
+                "label": "Mostly honest",
+                "text": "Error bars honest in method, optimistic at the edges."
               },
               {
                 "label": "Optimistic",
-                "text": "Report the error that makes the result look good — the statistical error only, or the best-case systematics, because the paper needs a clean number."
+                "text": "Report the error that makes the result look good \u2014 the statistical error only, or the best-case systematics, because the paper needs a clean number."
               }
             ]
           },
           "question": "Do your error bars tell the truth, or tell the story you want?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.1",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a75.1",
           "communities": [
             {
               "network": "Reddit",
@@ -1233,16 +1313,16 @@
             "poles": [
               {
                 "label": "Code",
-                "text": "Reproducibility means the code — publish the source, the input decks, the random seeds, and anyone can re-run it."
+                "text": "Reproducibility means the code \u2014 publish the source, the input decks, the random seeds, and anyone can re-run it."
               },
               {
                 "label": "Results",
-                "text": "Reproducibility means the results — an independent group with different code should get the same physics, and re-running your code only proves your code runs."
+                "text": "Reproducibility means the results \u2014 an independent group with different code should get the same physics, and re-running your code only proves your code runs."
               }
             ]
           },
           "question": "Does reproducibility mean sharing your code, or getting the same answer independently?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.2",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a75.2",
           "communities": [
             {
               "network": "Reddit",
@@ -1271,27 +1351,35 @@
               "label": "Trust"
             },
             {
+              "key": "verify-the-load-bearing-parts",
+              "label": "Verify the load-bearing parts"
+            },
+            {
               "key": "verify",
               "label": "Verify"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you trust the solver, or do you verify it first?",
             "poles": [
               {
                 "label": "Trust",
-                "text": "Use the library, the package, the solver — it works, the authors know what they're doing, and your job is the physics, not the numerics."
+                "text": "Use the library, the package, the solver \u2014 it works, the authors know what they're doing, and your job is the physics, not the numerics."
+              },
+              {
+                "label": "Verify the load-bearing parts",
+                "text": "Trust the box where it is cheap; verify what the result stands on."
               },
               {
                 "label": "Verify",
-                "text": "Never trust a black box — read the source, test it against known solutions, understand what it does before you let it touch your physics."
+                "text": "Never trust a black box \u2014 read the source, test it against known solutions, understand what it does before you let it touch your physics."
               }
             ]
           },
           "question": "Do you trust the solver, or do you verify it first?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.3",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a75.3",
           "communities": [
             {
               "network": "Reddit",
@@ -1320,12 +1408,16 @@
               "label": "Radical Open-Source Science"
             },
             {
+              "key": "open-on-publication",
+              "label": "Open on publication"
+            },
+            {
               "key": "protected-competitive-advantage",
               "label": "Protected Competitive Advantage"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Should simulation source code and input decks be fully open upon publication?",
             "poles": [
@@ -1334,13 +1426,17 @@
                 "text": "Publishing all solver code, input decks, random seeds, and raw trajectory data on GitHub/Zenodo with Docker containers for 100% reproduction."
               },
               {
+                "label": "Open on publication",
+                "text": "Protected while it competes; open when published."
+              },
+              {
                 "label": "Protected Competitive Advantage",
                 "text": "Keeping custom in-house physics algorithms proprietary until all papers and grants are extracted."
               }
             ]
           },
           "question": "Should simulation source code and input decks be fully open upon publication?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §5.4",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a75.4",
           "communities": [
             {
               "network": "Reddit",
@@ -1376,27 +1472,35 @@
               "label": "Maintain"
             },
             {
+              "key": "incremental-refactor-strangler",
+              "label": "Incremental Refactor (Strangler)"
+            },
+            {
               "key": "rewrite",
               "label": "Rewrite"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you maintain the legacy code or rewrite it?",
             "poles": [
               {
                 "label": "Maintain",
-                "text": "The old code works — it has been validated for decades, the bugs are known, and rewriting risks losing physics that nobody remembers is in there."
+                "text": "The old code works \u2014 it has been validated for decades, the bugs are known, and rewriting risks losing physics that nobody remembers is in there."
+              },
+              {
+                "label": "Incremental Refactor (Strangler)",
+                "text": "Replace the old system piece by piece, strangling it with the new one."
               },
               {
                 "label": "Rewrite",
-                "text": "The old code is unmaintainable — spaghetti Fortran, no tests, no documentation, and the only way forward is to start clean."
+                "text": "The old code is unmaintainable \u2014 spaghetti Fortran, no tests, no documentation, and the only way forward is to start clean."
               }
             ]
           },
           "question": "Do you maintain the legacy code or rewrite it?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.1",
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a76.1",
           "communities": [
             {
               "network": "Reddit",
@@ -1415,27 +1519,35 @@
               "label": "Specialist"
             },
             {
+              "key": "t-shaped",
+              "label": "T-shaped"
+            },
+            {
               "key": "generalist",
               "label": "Generalist"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Are you a specialist in one method or a generalist across many?",
             "poles": [
               {
                 "label": "Specialist",
-                "text": "One method, deeply — you are the DFT person, or the Monte Carlo person, and your depth is your value."
+                "text": "One method, deeply \u2014 you are the DFT person, or the Monte Carlo person, and your depth is your value."
+              },
+              {
+                "label": "T-shaped",
+                "text": "Depth in one area, working range across the rest."
               },
               {
                 "label": "Generalist",
-                "text": "Many methods, broadly — you pick the right tool for each problem, and your range is your value."
+                "text": "Many methods, broadly \u2014 you pick the right tool for each problem, and your range is your value."
               }
             ]
           },
           "question": "Are you a specialist in one method or a generalist across many?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.2"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a76.2"
         },
         {
           "id": "xsi0028",
@@ -1447,27 +1559,35 @@
               "label": "Theory"
             },
             {
+              "key": "start-where-it-is-cheaper",
+              "label": "Start where it is cheaper"
+            },
+            {
               "key": "implementation",
               "label": "Implementation"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you start from the theory or from the implementation?",
             "poles": [
               {
                 "label": "Theory",
-                "text": "The physics comes first — the equations, the model, the understanding; the code is just how you evaluate it."
+                "text": "The physics comes first \u2014 the equations, the model, the understanding; the code is just how you evaluate it."
+              },
+              {
+                "label": "Start where it is cheaper",
+                "text": "Begin with theory or code, whichever the problem makes cheaper."
               },
               {
                 "label": "Implementation",
-                "text": "The code comes first — the algorithm, the data structures, the performance; a theory you can't compute is a wish, not a result."
+                "text": "The code comes first \u2014 the algorithm, the data structures, the performance; a theory you can't compute is a wish, not a result."
               }
             ]
           },
           "question": "Do you start from the theory or from the implementation?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.3"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a76.3"
         },
         {
           "id": "xsi0029",
@@ -1479,12 +1599,16 @@
               "label": "Physicist First"
             },
             {
+              "key": "physicist-who-ships-software",
+              "label": "Physicist who ships software"
+            },
+            {
               "key": "research-software-engineer",
               "label": "Research Software Engineer (RSE)"
             }
           ],
-          "widget": "linear-sliders",
-          "archetype": null,
+          "widget": "trilinear-line",
+          "archetype": "line",
           "hovertip": {
             "issue": "Do you view yourself primarily as a physicist who codes, or as a scientific software engineer?",
             "poles": [
@@ -1493,13 +1617,17 @@
                 "text": "Code is just an incidental vehicle to understand the physics; quick-and-dirty scripts are fine if the physical insight is sound."
               },
               {
+                "label": "Physicist who ships software",
+                "text": "A physicist's questions, an engineer's craft."
+              },
+              {
                 "label": "Research Software Engineer (RSE)",
                 "text": "Code quality, unit testing, continuous integration, version control, and memory safety are as crucial as the physical equations."
               }
             ]
           },
           "question": "Do you view yourself primarily as a physicist who codes, or as a scientific software engineer?",
-          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md §6.4"
+          "source": "BRIEFING_SIMULCAPADES_TAXONOMY.md \u00a76.4"
         }
       ]
     }
@@ -3488,7 +3616,7 @@
       "about": "The Simulation Optimist finds Bostrom's simulation argument persuasive: if posthuman civilizations are likely to run many ancestor simulations, then simulated minds would vastly outnumber unsimulated ones, and we are probably living in a simulation. This stance treats the hypothesis as a live, likely possibility rather than a curiosity.",
       "links": [
         {
-          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "label": "Nick Bostrom \u2014 Are You Living in a Computer Simulation?",
           "url": "https://www.simulation-argument.com/simulation.html"
         },
         {
@@ -3515,11 +3643,13 @@
           },
           "xsi0003": {
             "real": 80,
-            "metaphor": -50
+            "metaphor": -50,
+            "quasi-experiment": -30
           },
           "xsi0004": {
             "maximum-physical-fidelity": 60,
-            "high-throughput-speed-scalability": 60
+            "high-throughput-speed-scalability": 60,
+            "fidelity-where-it-matters": 100
           },
           "xsi0005": {
             "empirical-validation-first": 70,
@@ -3527,7 +3657,8 @@
           },
           "xsi0006": {
             "bold-simulation-confidence": 85,
-            "permanent-self-skepticism": -40
+            "permanent-self-skepticism": -40,
+            "calibrated-trust": -25
           },
           "xsi0007": {
             "electronic-structure-ab-initio-quantum": 60,
@@ -3541,15 +3672,18 @@
           },
           "xsi0009": {
             "classical-supercomputing-algorithms": 50,
-            "quantum-hardware-analog-simulators": 70
+            "quantum-hardware-analog-simulators": 70,
+            "hybrid-credence": 80
           },
           "xsi0010": {
             "continuum": 40,
-            "discrete": 50
+            "discrete": 50,
+            "continuum-from-discrete": 90
           },
           "xsi0011": {
             "deterministic": 40,
-            "stochastic": 60
+            "stochastic": 60,
+            "laws-with-noise": 80
           },
           "xsi0012": {
             "direct-concurrent-multi-scale": 70,
@@ -3566,14 +3700,16 @@
           },
           "xsi0015": {
             "resolution": 60,
-            "domain-size": 60
+            "domain-size": 60,
+            "resolve-the-region-that-matters": 100
           },
           "xsi0016": {
             "strict": 40,
-            "pragmatic": 70
+            "pragmatic": 70,
+            "converged-enough-checked": 70
           },
           "xsi0017": {
-            "national-leadership-supercomputers": 70,
+            "leadership-scale": 70,
             "hardware-you-control": 30
           },
           "xsi0018": {
@@ -3587,15 +3723,18 @@
           },
           "xsi0020": {
             "ai-neural-operators": 85,
-            "traditional-numerical-analysis": 20
+            "traditional-numerical-analysis": 20,
+            "hybrid-solvers": 35
           },
           "xsi0021": {
             "mlip-enthusiast": 85,
-            "mlip-skeptic": -60
+            "mlip-skeptic": -60,
+            "cautious-adopter": -45
           },
           "xsi0022": {
             "honest": 70,
-            "optimistic": 40
+            "optimistic": 40,
+            "mostly-honest": 70
           },
           "xsi0023": {
             "code": 60,
@@ -3603,27 +3742,33 @@
           },
           "xsi0024": {
             "trust": 60,
-            "verify": 50
+            "verify": 50,
+            "verify-the-load-bearing-parts": 90
           },
           "xsi0025": {
             "radical-open-source-science": 80,
-            "protected-competitive-advantage": -40
+            "protected-competitive-advantage": -40,
+            "open-on-publication": -20
           },
           "xsi0026": {
             "maintain": 20,
-            "rewrite": 70
+            "rewrite": 70,
+            "incremental-refactor-strangler": 50
           },
           "xsi0027": {
             "specialist": 30,
-            "generalist": 70
+            "generalist": 70,
+            "t-shaped": 60
           },
           "xsi0028": {
             "theory": 40,
-            "implementation": 70
+            "implementation": 70,
+            "start-where-it-is-cheaper": 70
           },
           "xsi0029": {
             "physicist-first": 40,
-            "research-software-engineer": 60
+            "research-software-engineer": 60,
+            "physicist-who-ships-software": 80
           }
         }
       }
@@ -3631,10 +3776,10 @@
     "sim-skeptic": {
       "name": "The Simulation Skeptic",
       "count": 29,
-      "about": "The Simulation Skeptic doubts the simulation argument's premises — for example, that conscious minds can be simulated at all, or that advanced civilizations would choose to run many ancestor simulations. On this stance, the argument's trilemma does not compel belief: the likely truth is that we are not simulated, or that the argument cannot show we are.",
+      "about": "The Simulation Skeptic doubts the simulation argument's premises \u2014 for example, that conscious minds can be simulated at all, or that advanced civilizations would choose to run many ancestor simulations. On this stance, the argument's trilemma does not compel belief: the likely truth is that we are not simulated, or that the argument cannot show we are.",
       "links": [
         {
-          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "label": "Nick Bostrom \u2014 Are You Living in a Computer Simulation?",
           "url": "https://www.simulation-argument.com/simulation.html"
         },
         {
@@ -3661,11 +3806,13 @@
           },
           "xsi0003": {
             "real": -70,
-            "metaphor": 85
+            "metaphor": 85,
+            "quasi-experiment": -55
           },
           "xsi0004": {
             "maximum-physical-fidelity": 90,
-            "high-throughput-speed-scalability": -50
+            "high-throughput-speed-scalability": -50,
+            "fidelity-where-it-matters": -40
           },
           "xsi0005": {
             "empirical-validation-first": 90,
@@ -3673,7 +3820,8 @@
           },
           "xsi0006": {
             "bold-simulation-confidence": -80,
-            "permanent-self-skepticism": 90
+            "permanent-self-skepticism": 90,
+            "calibrated-trust": -70
           },
           "xsi0007": {
             "electronic-structure-ab-initio-quantum": 70,
@@ -3687,15 +3835,18 @@
           },
           "xsi0009": {
             "classical-supercomputing-algorithms": 70,
-            "quantum-hardware-analog-simulators": -30
+            "quantum-hardware-analog-simulators": -30,
+            "hybrid-credence": 0
           },
           "xsi0010": {
             "continuum": 60,
-            "discrete": 20
+            "discrete": 20,
+            "continuum-from-discrete": 60
           },
           "xsi0011": {
             "deterministic": 70,
-            "stochastic": 20
+            "stochastic": 20,
+            "laws-with-noise": 50
           },
           "xsi0012": {
             "direct-concurrent-multi-scale": 20,
@@ -3712,14 +3863,16 @@
           },
           "xsi0015": {
             "resolution": 80,
-            "domain-size": 20
+            "domain-size": 20,
+            "resolve-the-region-that-matters": 40
           },
           "xsi0016": {
             "strict": 90,
-            "pragmatic": -50
+            "pragmatic": -50,
+            "converged-enough-checked": -40
           },
           "xsi0017": {
-            "national-leadership-supercomputers": 40,
+            "leadership-scale": 40,
             "hardware-you-control": 60
           },
           "xsi0018": {
@@ -3733,15 +3886,18 @@
           },
           "xsi0020": {
             "ai-neural-operators": -80,
-            "traditional-numerical-analysis": 90
+            "traditional-numerical-analysis": 90,
+            "hybrid-solvers": -70
           },
           "xsi0021": {
             "mlip-enthusiast": -80,
-            "mlip-skeptic": 90
+            "mlip-skeptic": 90,
+            "cautious-adopter": -70
           },
           "xsi0022": {
             "honest": 95,
-            "optimistic": -70
+            "optimistic": -70,
+            "mostly-honest": -65
           },
           "xsi0023": {
             "code": 50,
@@ -3749,27 +3905,33 @@
           },
           "xsi0024": {
             "trust": -70,
-            "verify": 95
+            "verify": 95,
+            "verify-the-load-bearing-parts": -65
           },
           "xsi0025": {
             "radical-open-source-science": 50,
-            "protected-competitive-advantage": 20
+            "protected-competitive-advantage": 20,
+            "open-on-publication": 70
           },
           "xsi0026": {
             "maintain": 70,
-            "rewrite": -30
+            "rewrite": -30,
+            "incremental-refactor-strangler": 0
           },
           "xsi0027": {
             "specialist": 70,
-            "generalist": 20
+            "generalist": 20,
+            "t-shaped": 50
           },
           "xsi0028": {
             "theory": 80,
-            "implementation": 20
+            "implementation": 20,
+            "start-where-it-is-cheaper": 40
           },
           "xsi0029": {
             "physicist-first": 85,
-            "research-software-engineer": -30
+            "research-software-engineer": -30,
+            "physicist-who-ships-software": -15
           }
         }
       }
@@ -3777,10 +3939,10 @@
     "sim-pragmatist": {
       "name": "The Pragmatic Engineer",
       "count": 29,
-      "about": "The Pragmatic Engineer sidesteps whether we are simulated and asks what the simulation framing is good for: what can be built, tested, or exploited from it. Whether base reality or a simulation, the focus is on practical implications — looking for glitches, limits, or leverage — rather than settling the metaphysics.",
+      "about": "The Pragmatic Engineer sidesteps whether we are simulated and asks what the simulation framing is good for: what can be built, tested, or exploited from it. Whether base reality or a simulation, the focus is on practical implications \u2014 looking for glitches, limits, or leverage \u2014 rather than settling the metaphysics.",
       "links": [
         {
-          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "label": "Nick Bostrom \u2014 Are You Living in a Computer Simulation?",
           "url": "https://www.simulation-argument.com/simulation.html"
         },
         {
@@ -3807,11 +3969,13 @@
           },
           "xsi0003": {
             "real": 50,
-            "metaphor": 10
+            "metaphor": 10,
+            "quasi-experiment": 60
           },
           "xsi0004": {
             "maximum-physical-fidelity": 20,
-            "high-throughput-speed-scalability": 90
+            "high-throughput-speed-scalability": 90,
+            "fidelity-where-it-matters": 30
           },
           "xsi0005": {
             "empirical-validation-first": 80,
@@ -3819,7 +3983,8 @@
           },
           "xsi0006": {
             "bold-simulation-confidence": 50,
-            "permanent-self-skepticism": 20
+            "permanent-self-skepticism": 20,
+            "calibrated-trust": 70
           },
           "xsi0007": {
             "electronic-structure-ab-initio-quantum": 30,
@@ -3833,15 +3998,18 @@
           },
           "xsi0009": {
             "classical-supercomputing-algorithms": 60,
-            "quantum-hardware-analog-simulators": 20
+            "quantum-hardware-analog-simulators": 20,
+            "hybrid-credence": 60
           },
           "xsi0010": {
             "continuum": 50,
-            "discrete": 50
+            "discrete": 50,
+            "continuum-from-discrete": 100
           },
           "xsi0011": {
             "deterministic": 50,
-            "stochastic": 50
+            "stochastic": 50,
+            "laws-with-noise": 100
           },
           "xsi0012": {
             "direct-concurrent-multi-scale": 40,
@@ -3858,14 +4026,16 @@
           },
           "xsi0015": {
             "resolution": 30,
-            "domain-size": 80
+            "domain-size": 80,
+            "resolve-the-region-that-matters": 50
           },
           "xsi0016": {
             "strict": 10,
-            "pragmatic": 90
+            "pragmatic": 90,
+            "converged-enough-checked": 20
           },
           "xsi0017": {
-            "national-leadership-supercomputers": 60,
+            "leadership-scale": 60,
             "hardware-you-control": 50
           },
           "xsi0018": {
@@ -3879,15 +4049,18 @@
           },
           "xsi0020": {
             "ai-neural-operators": 70,
-            "traditional-numerical-analysis": 40
+            "traditional-numerical-analysis": 40,
+            "hybrid-solvers": 70
           },
           "xsi0021": {
             "mlip-enthusiast": 60,
-            "mlip-skeptic": -20
+            "mlip-skeptic": -20,
+            "cautious-adopter": 20
           },
           "xsi0022": {
             "honest": 60,
-            "optimistic": 50
+            "optimistic": 50,
+            "mostly-honest": 90
           },
           "xsi0023": {
             "code": 70,
@@ -3895,27 +4068,33 @@
           },
           "xsi0024": {
             "trust": 50,
-            "verify": 60
+            "verify": 60,
+            "verify-the-load-bearing-parts": 90
           },
           "xsi0025": {
             "radical-open-source-science": 60,
-            "protected-competitive-advantage": 10
+            "protected-competitive-advantage": 10,
+            "open-on-publication": 50
           },
           "xsi0026": {
             "maintain": 40,
-            "rewrite": 50
+            "rewrite": 50,
+            "incremental-refactor-strangler": 90
           },
           "xsi0027": {
             "specialist": 30,
-            "generalist": 80
+            "generalist": 80,
+            "t-shaped": 50
           },
           "xsi0028": {
             "theory": 20,
-            "implementation": 85
+            "implementation": 85,
+            "start-where-it-is-cheaper": 35
           },
           "xsi0029": {
             "physicist-first": 10,
-            "research-software-engineer": 85
+            "research-software-engineer": 85,
+            "physicist-who-ships-software": 25
           }
         }
       }
@@ -3923,10 +4102,10 @@
     "sim-purist": {
       "name": "The First-Principles Purist",
       "count": 29,
-      "about": "The First-Principles Purist insists on grounding everything in base-reality physics before entertaining simulation talk. Until there is testable evidence — a prediction that distinguishes a simulation from base reality — the hypothesis is speculation, however elegant, and the real work is in the physics itself.",
+      "about": "The First-Principles Purist insists on grounding everything in base-reality physics before entertaining simulation talk. Until there is testable evidence \u2014 a prediction that distinguishes a simulation from base reality \u2014 the hypothesis is speculation, however elegant, and the real work is in the physics itself.",
       "links": [
         {
-          "label": "Nick Bostrom — Are You Living in a Computer Simulation?",
+          "label": "Nick Bostrom \u2014 Are You Living in a Computer Simulation?",
           "url": "https://www.simulation-argument.com/simulation.html"
         },
         {
@@ -3953,11 +4132,13 @@
           },
           "xsi0003": {
             "real": 30,
-            "metaphor": 30
+            "metaphor": 30,
+            "quasi-experiment": 100
           },
           "xsi0004": {
             "maximum-physical-fidelity": 95,
-            "high-throughput-speed-scalability": -40
+            "high-throughput-speed-scalability": -40,
+            "fidelity-where-it-matters": -35
           },
           "xsi0005": {
             "empirical-validation-first": 60,
@@ -3965,7 +4146,8 @@
           },
           "xsi0006": {
             "bold-simulation-confidence": 30,
-            "permanent-self-skepticism": 60
+            "permanent-self-skepticism": 60,
+            "calibrated-trust": 70
           },
           "xsi0007": {
             "electronic-structure-ab-initio-quantum": 95,
@@ -3979,15 +4161,18 @@
           },
           "xsi0009": {
             "classical-supercomputing-algorithms": 80,
-            "quantum-hardware-analog-simulators": 50
+            "quantum-hardware-analog-simulators": 50,
+            "hybrid-credence": 70
           },
           "xsi0010": {
             "continuum": 70,
-            "discrete": 10
+            "discrete": 10,
+            "continuum-from-discrete": 40
           },
           "xsi0011": {
             "deterministic": 80,
-            "stochastic": 0
+            "stochastic": 0,
+            "laws-with-noise": 20
           },
           "xsi0012": {
             "direct-concurrent-multi-scale": 60,
@@ -4004,14 +4189,16 @@
           },
           "xsi0015": {
             "resolution": 85,
-            "domain-size": 10
+            "domain-size": 10,
+            "resolve-the-region-that-matters": 25
           },
           "xsi0016": {
             "strict": 85,
-            "pragmatic": -20
+            "pragmatic": -20,
+            "converged-enough-checked": -5
           },
           "xsi0017": {
-            "national-leadership-supercomputers": 80,
+            "leadership-scale": 80,
             "hardware-you-control": 20
           },
           "xsi0018": {
@@ -4025,15 +4212,18 @@
           },
           "xsi0020": {
             "ai-neural-operators": -50,
-            "traditional-numerical-analysis": 80
+            "traditional-numerical-analysis": 80,
+            "hybrid-solvers": -30
           },
           "xsi0021": {
             "mlip-enthusiast": -70,
-            "mlip-skeptic": 80
+            "mlip-skeptic": 80,
+            "cautious-adopter": -50
           },
           "xsi0022": {
             "honest": 85,
-            "optimistic": -30
+            "optimistic": -30,
+            "mostly-honest": -15
           },
           "xsi0023": {
             "code": 80,
@@ -4041,27 +4231,33 @@
           },
           "xsi0024": {
             "trust": 10,
-            "verify": 90
+            "verify": 90,
+            "verify-the-load-bearing-parts": 20
           },
           "xsi0025": {
             "radical-open-source-science": 70,
-            "protected-competitive-advantage": -20
+            "protected-competitive-advantage": -20,
+            "open-on-publication": 10
           },
           "xsi0026": {
             "maintain": 50,
-            "rewrite": 30
+            "rewrite": 30,
+            "incremental-refactor-strangler": 80
           },
           "xsi0027": {
             "specialist": 85,
-            "generalist": 10
+            "generalist": 10,
+            "t-shaped": 25
           },
           "xsi0028": {
             "theory": 90,
-            "implementation": 10
+            "implementation": 10,
+            "start-where-it-is-cheaper": 20
           },
           "xsi0029": {
             "physicist-first": 90,
-            "research-software-engineer": -40
+            "research-software-engineer": -40,
+            "physicist-who-ships-software": -30
           }
         }
       }
