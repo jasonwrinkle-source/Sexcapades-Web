@@ -25627,15 +25627,6 @@ const TAXONOMY_CATEGORIES = [];
             "Escape" === e.key && ((!Ur || Ur.hidden) ? so() : oo());
         });
 
-        let sxTriState = {
-            topicId: null,
-            w0: 1 / 3,
-            w1: 1 / 3,
-            w2: 1 / 3,
-            intensity: 0,
-            isDragging: !1
-        };
-
         /* --- Widget approachability: one shared pole-label system (T5/T6/T3/T7) ---
            Every polygon widget except the triangle draws its pole names
            the same way: rotated to the tangent of the circumscribing
@@ -26131,6 +26122,16 @@ const TAXONOMY_CATEGORIES = [];
             if (sliderOut) sliderOut.textContent = String(Math.round(intensity));
             return intensity;
         }
+
+        let sxTriState = {
+            topicId: null,
+            w0: 1 / 3,
+            w1: 1 / 3,
+            w2: 1 / 3,
+            intensity: 0,
+            isDragging: !1
+        };
+
         function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
             if (typeof intensity !== "number" && weights && typeof weights.intensity === "number") intensity = weights.intensity;
             if (!canvas) return;

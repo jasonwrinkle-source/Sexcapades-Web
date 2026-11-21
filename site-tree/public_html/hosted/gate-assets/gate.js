@@ -176,7 +176,7 @@
            all (no gate to pass), so in practice this is "sexcapades";
            the field is here so the record is complete and the bundle's
            gate-passed event and this one share the same shape. */
-        var GATE_SKIN_IDS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+        var GATE_SKIN_IDS = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades", nous: "nouscapades" };
         function gateAnalyticsSkin() {
           try {
             if (typeof gateSkinPrefix === "string" && GATE_SKIN_IDS[gateSkinPrefix]) return GATE_SKIN_IDS[gateSkinPrefix];
@@ -386,7 +386,8 @@
           experi: ["Expericapades", "Experi.Capades.IO"],
           simul: ["Simulcapades", "Simul.Capades.IO"],
           matter: ["Mattercapades", "Matter.Capades.IO"],
-          chem: ["Chemcapades", "Chem.Capades.IO"]
+          chem: ["Chemcapades", "Chem.Capades.IO"],
+          nous: ["Nouscapades", "Nous.Capades.IO"]
         };
         var gateSkinPrefix = "";
         try {
