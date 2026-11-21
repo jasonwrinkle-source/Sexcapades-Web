@@ -4493,21 +4493,17 @@
           ]
         },
         {
-          "archetype": "simplex",
+          "archetype": null,
           "hovertip": {
             "issue": "What counts as a marriage and a family, and whether the government may define them.",
             "poles": [
               {
-                "label": "Marriage equality for all",
-                "text": "Marriage equality for all"
+                "label": "Marriage equality",
+                "text": "Affinity for marriage equality for all."
               },
               {
-                "label": "One man and one woman",
-                "text": "marriage is one man and one woman"
-              },
-              {
-                "label": "Government shouldn't define it",
-                "text": "the government shouldn't define it at all."
+                "label": "Government out",
+                "text": "Affinity for government not defining marriage at all."
               }
             ]
           },
@@ -4515,22 +4511,18 @@
           "name": "Marriage & Family",
           "poles": [
             {
-              "key": "marriage-equality-for-all",
-              "label": "Marriage equality for all"
+              "key": "marriage-equality",
+              "label": "Marriage equality"
             },
             {
-              "key": "one-man-and-one-woman",
-              "label": "One man and one woman"
-            },
-            {
-              "key": "government-shouldnt-define-it",
-              "label": "Government shouldn't define it"
+              "key": "government-out",
+              "label": "Government out"
             }
           ],
           "question": "What counts as a marriage and a family, and whether the government may define them.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0052)",
-          "widget": "triangle",
+          "widget": "xy-switchbox",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -9700,9 +9692,8 @@
             "legal-with-limits": -80
           },
           "xpo0067": {
-            "marriage-equality-for-all": 90,
-            "one-man-and-one-woman": -85,
-            "government-shouldnt-define-it": -10
+            "marriage-equality": 90,
+            "government-out": -10
           },
           "xpo0068": {
             "full-equality-and-protection": 90,
@@ -9914,9 +9905,8 @@
             "legal-with-limits": -70
           },
           "xpo0067": {
-            "marriage-equality-for-all": -70,
-            "one-man-and-one-woman": 75,
-            "government-shouldnt-define-it": 20
+            "marriage-equality": -70,
+            "government-out": 20
           },
           "xpo0068": {
             "full-equality-and-protection": -70,
@@ -10128,9 +10118,8 @@
             "legal-with-limits": 60
           },
           "xpo0067": {
-            "marriage-equality-for-all": 60,
-            "one-man-and-one-woman": -60,
-            "government-shouldnt-define-it": 85
+            "marriage-equality": 55,
+            "government-out": 85
           },
           "xpo0068": {
             "full-equality-and-protection": 75,
@@ -10342,9 +10331,8 @@
             "legal-with-limits": -80
           },
           "xpo0067": {
-            "marriage-equality-for-all": 95,
-            "one-man-and-one-woman": -90,
-            "government-shouldnt-define-it": 0
+            "marriage-equality": 95,
+            "government-out": 0
           },
           "xpo0068": {
             "full-equality-and-protection": 95,
@@ -10556,9 +10544,8 @@
             "legal-with-limits": -90
           },
           "xpo0067": {
-            "marriage-equality-for-all": -90,
-            "one-man-and-one-woman": 95,
-            "government-shouldnt-define-it": -30
+            "marriage-equality": -90,
+            "government-out": -30
           },
           "xpo0068": {
             "full-equality-and-protection": -90,
