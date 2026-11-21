@@ -12,7 +12,12 @@
       <excludeFolder url="file://$MODULE_DIR$/deploy-all-v4.0-2026-11-09_1300-optimized.tar.gz" />
       <excludeFolder url="file://$MODULE_DIR$/pages/archive-nov06-exports" />
       <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/data/data-bootstrap.js" />
-      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/assets/sample-maps" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/app-assets/data-bootstrap.js" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/app-assets/app.js" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/js/modules" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/hosted/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/site-tree/public_html/qa" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
