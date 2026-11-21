@@ -570,15 +570,9 @@ __sxInit(function () {
     var loader = window.FlexcapadesSkins;
     var prefix = SKIN_SUBDOMAIN[skin];
     if (prefix) {
-      /* Already on this skin — nothing to do (avoids a pointless reload). */
-      if (loader && typeof loader.active === "function" && loader.active() === skin) return;
-      /* Stay on this origin. A sex host is the one exception: the gate
-         will not let ?skin= replace the age gate, so switching away
-         from Sexcapades still uses that skin's own subdomain. */
-      var host = "";
-      try { host = window.location.hostname.toLowerCase(); } catch (e) { host = ""; }
-      var sexHost = host === "sexcapades.io" || host === "www.sexcapades.io" || host === "sex.capades.io" || host === "www.sex.capades.io";
-      window.location.href = sexHost ? ("https://" + prefix + ".capades.io/") : ("/hosted/gate.html?skin=" + prefix);
+      /* Navigating between skins: always navigate to that skin's subdomain on capades.io.
+         Sexcapades routes to sex.capades.io (never sexcapades.io). */
+      window.location.href = "https://" + prefix + ".capades.io/";
       return;
     }
     /* No prefix in the map — fall back to the in-app load. */
