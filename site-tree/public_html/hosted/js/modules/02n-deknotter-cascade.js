@@ -1780,6 +1780,7 @@
             // never armed is pinned at its thrown radius here,
             // exactly as the armed items are pinned above, so
             // its ladder's first stage has a starting target.
+            // Generalized dynamic depth floor: scales label length with depth ladder
             const subcatKeys = [], subcatFloors = {};
             dkFitBranchItems(name).forEach(w => {
                 if (!w.topic || !w.topic.isSubcategory) return;
@@ -1787,12 +1788,9 @@
                 if (subcatKeys.indexOf(k) >= 0) return;
                 subcatKeys.push(k);
                 const nt = dkNameFitTargetForKey(k);
-                // SUBCATEGORY FIT FLOOR = 3 x the subcategory
-                // name length (SHRINK_FLOOR_FACTOR) — this is
-                // the floorFor endpoint the fit ladder in
-                // runLadder descends to via dkLadderSteps /
-                // dkLadderValue(stageFrom[k], floorFor, ...).
-                const subcatFitFloor1x = null != nt && Number.isFinite(nt) ? nt * SX_SCORE.SHRINK_FLOOR_FACTOR : (null != fullFitTargets[k] && Number.isFinite(fullFitTargets[k]) ? fullFitTargets[k] * SX_SCORE.SHRINK_FLOOR_FACTOR : fullFitTargets[k]);
+                // DYNAMIC DEPTH FLOOR: 3x the name length (SHRINK_FLOOR_FACTOR) scaled with depth
+                const depthScale = typeof sxFontFactor === "function" ? sxFontFactor(2) : 1;
+                const subcatFitFloor1x = null != nt && Number.isFinite(nt) ? nt * SX_SCORE.SHRINK_FLOOR_FACTOR * depthScale : (null != fullFitTargets[k] && Number.isFinite(fullFitTargets[k]) ? fullFitTargets[k] * SX_SCORE.SHRINK_FLOOR_FACTOR * depthScale : fullFitTargets[k]);
                 subcatFloors[k] = subcatFitFloor1x;
                 if (null == fullFitTargets[k] && Number.isFinite(stageFrom[k])) dk.setFitTarget(k, stageFrom[k]), fullFitTargets[k] = stageFrom[k];
             });
