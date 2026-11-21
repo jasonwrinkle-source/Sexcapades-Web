@@ -362,24 +362,33 @@
                         a = Math.round(parseFloat(l[0]) || 0);
                     }
                 } catch (e) { __sxErrLog("number-parse", e); }
-                r && (r.textContent = "Your Charted ring is " + a + "%. Raise it by rating or marking more of the map; your Personal Kink Factor ring rises as your strongest direction reaches further."), 
-                o && n(o, '<p style="font-size:12px;opacity:0.7;">Loading community stats...</p>'), 
-                Wi(t), function(){ try { return fetch("/hosted/api/completion.php", { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : void 0 }); } catch(e) { return Promise.reject(e); } }().then(function(e) {
-                    return e.json();
-                }).then(function(e) {
-                    (t.open || t.hasAttribute("open")) && function(e) {
-                        if (e && e.ok) if (e.enough_data) {
-                            for (var t = e.bins, i = Math.max.apply(null, t.concat([ 1 ])), a = '<div style="margin:8px 0;">', r = 0; r < t.length; r++) {
-                                var s = Math.round(t[r] / i * 100);
-                                a += '<div style="display:flex;align-items:center;gap:8px;margin:3px 0;font-size:11px;"><span style="width:90px;flex-shrink:0;opacity:0.8;">' + (e.bin_labels ? e.bin_labels[r] : "Bin " + (r + 1)) + '</span><div style="flex:1;background:var(--line,#333);border-radius:3px;height:14px;position:relative;"><div style="position:absolute;left:0;top:0;bottom:0;width:' + s + '%;background:linear-gradient(90deg,#2a8a6e,#3dbb96);border-radius:3px;"></div></div><span style="width:36px;text-align:right;opacity:0.8;">' + t[r] + "</span></div>";
-                            }
-                            a += "</div>", null != e.avg_topics && (a += '<p style="font-size:11px;opacity:0.7;margin:6px 0;">Average: ' + Math.round(e.avg_topics) + " of 403 topics rated.</p>"), 
-                            n(o, a);
-                        } else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> ' + e.count + " of " + e.min_required + " surveys submitted; community comparisons appear after the minimum is reached.</p>"); else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data is not available.</p>');
-                    }(e);
-                }).catch(function() {
-                    o && n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data could not be loaded.</p>');
-                });
+                var kfTerm = (typeof sxTerm === "function" ? sxTerm("kinkFactor") : null) || "Depth Factor";
+                r && (r.textContent = "Your Charted ring is " + a + "%. Raise it by rating or marking more of the map; your Personal " + kfTerm + " ring rises as your strongest direction reaches further.");
+                var wrapEl = e.byId("horizonCommunityWrap");
+                var activeSkin = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+                if (activeSkin !== "sexcapades") {
+                    if (wrapEl) wrapEl.hidden = true;
+                } else {
+                    if (wrapEl) wrapEl.hidden = false;
+                    o && n(o, '<p style="font-size:12px;opacity:0.7;">Loading community stats...</p>');
+                    Wi(t);
+                    (function(){ try { return fetch("/hosted/api/completion.php", { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : void 0 }); } catch(e) { return Promise.reject(e); } })().then(function(e) {
+                        return e.json();
+                    }).then(function(e) {
+                        (t.open || t.hasAttribute("open")) && function(e) {
+                            if (e && e.ok) if (e.enough_data) {
+                                for (var t = e.bins, i = Math.max.apply(null, t.concat([ 1 ])), a = '<div style="margin:8px 0;">', r = 0; r < t.length; r++) {
+                                    var s = Math.round(t[r] / i * 100);
+                                    a += '<div style="display:flex;align-items:center;gap:8px;margin:3px 0;font-size:11px;"><span style="width:90px;flex-shrink:0;opacity:0.8;">' + (e.bin_labels ? e.bin_labels[r] : "Bin " + (r + 1)) + '</span><div style="flex:1;background:var(--line,#333);border-radius:3px;height:14px;position:relative;"><div style="position:absolute;left:0;top:0;bottom:0;width:' + s + '%;background:linear-gradient(90deg,#2a8a6e,#3dbb96);border-radius:3px;"></div></div><span style="width:36px;text-align:right;opacity:0.8;">' + t[r] + "</span></div>";
+                                }
+                                a += "</div>", null != e.avg_topics && (a += '<p style="font-size:11px;opacity:0.7;margin:6px 0;">Average: ' + Math.round(e.avg_topics) + " of 403 topics rated.</p>"),
+                                n(o, a);
+                            } else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> ' + e.count + " of " + e.min_required + " surveys submitted; community comparisons appear after the minimum is reached.</p>"); else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data is not available.</p>');
+                        }(e);
+                    }).catch(function() {
+                        o && n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data could not be loaded.</p>');
+                    });
+                }
             }
         }();
         const wc = e.byId("glanceTooltip"), kc = e.byId("glanceTooltipTitle"), xc = e.byId("glanceTooltipText"), Sc = e.byId("copyGlanceTopics"), $c = e.byId("glanceCopyStatus");

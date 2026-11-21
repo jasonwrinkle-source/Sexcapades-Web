@@ -15839,7 +15839,7 @@ const TAXONOMY_CATEGORIES = [];
         function ta(e) {
             const t = Uc(), n = t.length, i = t.filter(t => {
                 const n = (e || {})[t];
-                return "number" == typeof n || Boolean(n && "object" == typeof n && (Object.prototype.hasOwnProperty.call(n, "give") || Object.prototype.hasOwnProperty.call(n, "receive")));
+                return "number" == typeof n || Boolean(n && "object" == typeof n && (Object.prototype.hasOwnProperty.call(n, "give") || Object.prototype.hasOwnProperty.call(n, "receive") || Object.prototype.hasOwnProperty.call(n, "line") || Object.keys(n).some(k => k !== "intensity" && Number.isFinite(Number(n[k])))));
             }).length;
             return {
                 rated: i,
@@ -15943,16 +15943,34 @@ const TAXONOMY_CATEGORIES = [];
                 give: n,
                 receive: n,
                 giveKnown: !0,
-                receiveKnown: !0
+                receiveKnown: !0,
+                line: null,
+                lineKnown: !1,
+                poles: null,
+                polesKnown: !1
             };
             if (n && "object" == typeof n) {
-                const e = Object.prototype.hasOwnProperty.call(n, "give"), t = Object.prototype.hasOwnProperty.call(n, "receive");
+                const hasGive = Object.prototype.hasOwnProperty.call(n, "give"), hasReceive = Object.prototype.hasOwnProperty.call(n, "receive");
+                const hasLine = Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line));
                 const res = {
-                    give: e && Number(n.give) || 0,
-                    receive: t && Number(n.receive) || 0,
-                    giveKnown: e,
-                    receiveKnown: t
+                    give: hasGive && Number(n.give) || 0,
+                    receive: hasReceive && Number(n.receive) || 0,
+                    giveKnown: hasGive,
+                    receiveKnown: hasReceive,
+                    line: hasLine ? Number(n.line) : null,
+                    lineKnown: hasLine,
+                    poles: null,
+                    polesKnown: !1
                 };
+                if (!hasGive && !hasReceive && !hasLine) {
+                    const poleKeys = Object.keys(n).filter(k => k !== "intensity" && Number.isFinite(Number(n[k])));
+                    if (poleKeys.length) {
+                        const p = {};
+                        poleKeys.forEach(k => { p[k] = Number(n[k]); });
+                        res.poles = p;
+                        res.polesKnown = !0;
+                    }
+                }
                 Object.keys(n).forEach(k => {
                     res[k] = Number(n[k]) || 0;
                     res[k + "Known"] = !0;
@@ -15963,7 +15981,11 @@ const TAXONOMY_CATEGORIES = [];
                 give: 0,
                 receive: 0,
                 giveKnown: !1,
-                receiveKnown: !1
+                receiveKnown: !1,
+                line: null,
+                lineKnown: !1,
+                poles: null,
+                polesKnown: !1
             };
         }
         function da(e, t) {
@@ -16170,7 +16192,19 @@ const TAXONOMY_CATEGORIES = [];
                 return null !== gv && a.push(`give ${ba(gv)}`), null !== rv && a.push(`receive ${ba(rv)}`), a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
             }
             const i = ca(e, t), a = [];
-            return i.giveKnown && a.push(`give ${ba(i.give)}`), i.receiveKnown && a.push(`receive ${ba(i.receive)}`), a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
+            if (i.giveKnown) a.push(`give ${ba(i.give)}`);
+            if (i.receiveKnown) a.push(`receive ${ba(i.receive)}`);
+            if (i.lineKnown) a.push(`line ${ba(i.line)}`);
+            if (i.polesKnown && i.poles) {
+                const geom = Ge(e);
+                const poleKeys = Object.keys(i.poles);
+                poleKeys.forEach(pk => {
+                    const poleObj = geom && geom.poles && geom.poles.find(p => p.key === pk);
+                    const label = poleObj ? poleObj.label : pk;
+                    a.push(`${label}: ${ba(i.poles[pk])}`);
+                });
+            }
+            return a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
         }
         function wa(e, t, n = Vi()) {
             return `${lo(t)} ${va(e, n)}`;
@@ -22444,12 +22478,28 @@ const TAXONOMY_CATEGORIES = [];
                     return null;
                 })();
                 const sxArc = v => null == v || !Number.isFinite(v) ? 0 : Math.max(0, Math.min(100, v)),
-                    sxOuterEl = e.byId("headerHorizonValue"), sxInnerEl = e.byId("headerPersonalValue"), sxCapEl = e.byId("headerRingCaption"), sxCtl = e.byId("headerHorizonControl");
+                    sxOuterEl = e.byId("headerHorizonValue"), sxInnerEl = e.byId("headerPersonalValue"), sxCapEl = e.byId("headerRingCaption"), sxCtl = e.byId("headerHorizonControl"), sxInnerCtl = e.byId("headerPersonalControl") || (sxCtl && sxCtl.nextElementSibling);
                 if (sxOuterEl) { const a = sxArc(sxHdrVals && sxHdrVals.outer); sxOuterEl.style.strokeDasharray = `${a} ${100 - a}`; sxOuterEl.style.opacity = sxHdrVals && null != sxHdrVals.outer ? "1" : "0"; }
                 if (sxInnerEl) { const a = sxArc(sxHdrVals && sxHdrVals.inner); sxInnerEl.style.strokeDasharray = `${a} ${100 - a}`; sxInnerEl.style.opacity = sxHdrVals && null != sxHdrVals.inner ? "1" : "0"; }
                 if (sxCapEl) sxCapEl.textContent = sxHdrVals ? `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)} · ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}` : "";
-                if (sxCtl && sxHdrVals) { const t2 = `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}; ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`; sxCtl.setAttribute("aria-label", `Open Charted details. ${t2}`); sxCtl.dataset.uiTooltip = t2; }
-                else if (sxCtl) sxCtl.setAttribute("aria-label", "Open Charted details."), delete sxCtl.dataset.uiTooltip;
+                if (sxCtl && sxHdrVals) {
+                    const outerTip = `${sxHdrVals.outerLabel}: ${sxPctText(sxHdrVals.outer)}. The share of the whole map attended to — rated or marked. Tap for details.`;
+                    sxCtl.setAttribute("aria-label", outerTip);
+                    sxCtl.dataset.uiTooltip = outerTip;
+                    sxCtl.setAttribute("data-tooltip-name", sxHdrVals.outerLabel);
+                } else if (sxCtl) {
+                    sxCtl.setAttribute("aria-label", "Outer ring: Charted. Tap for details.");
+                    delete sxCtl.dataset.uiTooltip;
+                }
+                if (sxInnerCtl && sxHdrVals) {
+                    const innerTip = `${sxHdrVals.innerLabel}: ${sxPctText(sxHdrVals.inner)}. How far into the map your strongest direction reaches. Tap for details.`;
+                    sxInnerCtl.setAttribute("aria-label", innerTip);
+                    sxInnerCtl.dataset.uiTooltip = innerTip;
+                    sxInnerCtl.setAttribute("data-tooltip-name", sxHdrVals.innerLabel);
+                } else if (sxInnerCtl) {
+                    sxInnerCtl.setAttribute("aria-label", "Inner ring. Tap for details.");
+                    delete sxInnerCtl.dataset.uiTooltip;
+                }
                 const sxRingSvg = e.byId("headerHorizonRing");
                 if (sxRingSvg && sxHdrVals) sxRingSvg.setAttribute("aria-label", `Open Charted details. ${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}, ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`);
                 else if (sxRingSvg) sxRingSvg.setAttribute("aria-label", "Open Charted details.");
@@ -22502,7 +22552,7 @@ const TAXONOMY_CATEGORIES = [];
             let v = function(e) {
                 const t = !(Qi() ? Xi() : [ Vi() ]).some(e => {
                     const t = e === Et ? At : vt[e] || {};
-                    return Object.values(t).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive"))));
+                    return Object.values(t).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive") || Object.prototype.hasOwnProperty.call(e, "line") || Object.keys(e).some(k => k !== "intensity" && Number.isFinite(Number(e[k]))))));
                 }), n = new Map, i = new Map;
                 e.forEach(e => {
                     const t = e.entry.branch;
@@ -32200,24 +32250,33 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         a = Math.round(parseFloat(l[0]) || 0);
                     }
                 } catch (e) { __sxErrLog("number-parse", e); }
-                r && (r.textContent = "Your Charted ring is " + a + "%. Raise it by rating or marking more of the map; your Personal Kink Factor ring rises as your strongest direction reaches further."), 
-                o && n(o, '<p style="font-size:12px;opacity:0.7;">Loading community stats...</p>'), 
-                Wi(t), function(){ try { return fetch("/hosted/api/completion.php", { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : void 0 }); } catch(e) { return Promise.reject(e); } }().then(function(e) {
-                    return e.json();
-                }).then(function(e) {
-                    (t.open || t.hasAttribute("open")) && function(e) {
-                        if (e && e.ok) if (e.enough_data) {
-                            for (var t = e.bins, i = Math.max.apply(null, t.concat([ 1 ])), a = '<div style="margin:8px 0;">', r = 0; r < t.length; r++) {
-                                var s = Math.round(t[r] / i * 100);
-                                a += '<div style="display:flex;align-items:center;gap:8px;margin:3px 0;font-size:11px;"><span style="width:90px;flex-shrink:0;opacity:0.8;">' + (e.bin_labels ? e.bin_labels[r] : "Bin " + (r + 1)) + '</span><div style="flex:1;background:var(--line,#333);border-radius:3px;height:14px;position:relative;"><div style="position:absolute;left:0;top:0;bottom:0;width:' + s + '%;background:linear-gradient(90deg,#2a8a6e,#3dbb96);border-radius:3px;"></div></div><span style="width:36px;text-align:right;opacity:0.8;">' + t[r] + "</span></div>";
-                            }
-                            a += "</div>", null != e.avg_topics && (a += '<p style="font-size:11px;opacity:0.7;margin:6px 0;">Average: ' + Math.round(e.avg_topics) + " of 403 topics rated.</p>"), 
-                            n(o, a);
-                        } else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> ' + e.count + " of " + e.min_required + " surveys submitted; community comparisons appear after the minimum is reached.</p>"); else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data is not available.</p>');
-                    }(e);
-                }).catch(function() {
-                    o && n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data could not be loaded.</p>');
-                });
+                var kfTerm = (typeof sxTerm === "function" ? sxTerm("kinkFactor") : null) || "Depth Factor";
+                r && (r.textContent = "Your Charted ring is " + a + "%. Raise it by rating or marking more of the map; your Personal " + kfTerm + " ring rises as your strongest direction reaches further.");
+                var wrapEl = e.byId("horizonCommunityWrap");
+                var activeSkin = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+                if (activeSkin !== "sexcapades") {
+                    if (wrapEl) wrapEl.hidden = true;
+                } else {
+                    if (wrapEl) wrapEl.hidden = false;
+                    o && n(o, '<p style="font-size:12px;opacity:0.7;">Loading community stats...</p>');
+                    Wi(t);
+                    (function(){ try { return fetch("/hosted/api/completion.php", { signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : void 0 }); } catch(e) { return Promise.reject(e); } })().then(function(e) {
+                        return e.json();
+                    }).then(function(e) {
+                        (t.open || t.hasAttribute("open")) && function(e) {
+                            if (e && e.ok) if (e.enough_data) {
+                                for (var t = e.bins, i = Math.max.apply(null, t.concat([ 1 ])), a = '<div style="margin:8px 0;">', r = 0; r < t.length; r++) {
+                                    var s = Math.round(t[r] / i * 100);
+                                    a += '<div style="display:flex;align-items:center;gap:8px;margin:3px 0;font-size:11px;"><span style="width:90px;flex-shrink:0;opacity:0.8;">' + (e.bin_labels ? e.bin_labels[r] : "Bin " + (r + 1)) + '</span><div style="flex:1;background:var(--line,#333);border-radius:3px;height:14px;position:relative;"><div style="position:absolute;left:0;top:0;bottom:0;width:' + s + '%;background:linear-gradient(90deg,#2a8a6e,#3dbb96);border-radius:3px;"></div></div><span style="width:36px;text-align:right;opacity:0.8;">' + t[r] + "</span></div>";
+                                }
+                                a += "</div>", null != e.avg_topics && (a += '<p style="font-size:11px;opacity:0.7;margin:6px 0;">Average: ' + Math.round(e.avg_topics) + " of 403 topics rated.</p>"),
+                                n(o, a);
+                            } else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> ' + e.count + " of " + e.min_required + " surveys submitted; community comparisons appear after the minimum is reached.</p>"); else n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data is not available.</p>');
+                        }(e);
+                    }).catch(function() {
+                        o && n(o, '<p class="horizon-no-data" style="font-size:12px;margin:8px 0;"><strong>No data yet.</strong> Community completion data could not be loaded.</p>');
+                    });
+                }
             }
         }();
         const wc = e.byId("glanceTooltip"), kc = e.byId("glanceTooltipTitle"), xc = e.byId("glanceTooltipText"), Sc = e.byId("copyGlanceTopics"), $c = e.byId("glanceCopyStatus");

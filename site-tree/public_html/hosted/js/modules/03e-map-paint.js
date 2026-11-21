@@ -266,12 +266,28 @@
                     return null;
                 })();
                 const sxArc = v => null == v || !Number.isFinite(v) ? 0 : Math.max(0, Math.min(100, v)),
-                    sxOuterEl = e.byId("headerHorizonValue"), sxInnerEl = e.byId("headerPersonalValue"), sxCapEl = e.byId("headerRingCaption"), sxCtl = e.byId("headerHorizonControl");
+                    sxOuterEl = e.byId("headerHorizonValue"), sxInnerEl = e.byId("headerPersonalValue"), sxCapEl = e.byId("headerRingCaption"), sxCtl = e.byId("headerHorizonControl"), sxInnerCtl = e.byId("headerPersonalControl") || (sxCtl && sxCtl.nextElementSibling);
                 if (sxOuterEl) { const a = sxArc(sxHdrVals && sxHdrVals.outer); sxOuterEl.style.strokeDasharray = `${a} ${100 - a}`; sxOuterEl.style.opacity = sxHdrVals && null != sxHdrVals.outer ? "1" : "0"; }
                 if (sxInnerEl) { const a = sxArc(sxHdrVals && sxHdrVals.inner); sxInnerEl.style.strokeDasharray = `${a} ${100 - a}`; sxInnerEl.style.opacity = sxHdrVals && null != sxHdrVals.inner ? "1" : "0"; }
                 if (sxCapEl) sxCapEl.textContent = sxHdrVals ? `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)} · ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}` : "";
-                if (sxCtl && sxHdrVals) { const t2 = `${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}; ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`; sxCtl.setAttribute("aria-label", `Open Charted details. ${t2}`); sxCtl.dataset.uiTooltip = t2; }
-                else if (sxCtl) sxCtl.setAttribute("aria-label", "Open Charted details."), delete sxCtl.dataset.uiTooltip;
+                if (sxCtl && sxHdrVals) {
+                    const outerTip = `${sxHdrVals.outerLabel}: ${sxPctText(sxHdrVals.outer)}. The share of the whole map attended to — rated or marked. Tap for details.`;
+                    sxCtl.setAttribute("aria-label", outerTip);
+                    sxCtl.dataset.uiTooltip = outerTip;
+                    sxCtl.setAttribute("data-tooltip-name", sxHdrVals.outerLabel);
+                } else if (sxCtl) {
+                    sxCtl.setAttribute("aria-label", "Outer ring: Charted. Tap for details.");
+                    delete sxCtl.dataset.uiTooltip;
+                }
+                if (sxInnerCtl && sxHdrVals) {
+                    const innerTip = `${sxHdrVals.innerLabel}: ${sxPctText(sxHdrVals.inner)}. How far into the map your strongest direction reaches. Tap for details.`;
+                    sxInnerCtl.setAttribute("aria-label", innerTip);
+                    sxInnerCtl.dataset.uiTooltip = innerTip;
+                    sxInnerCtl.setAttribute("data-tooltip-name", sxHdrVals.innerLabel);
+                } else if (sxInnerCtl) {
+                    sxInnerCtl.setAttribute("aria-label", "Inner ring. Tap for details.");
+                    delete sxInnerCtl.dataset.uiTooltip;
+                }
                 const sxRingSvg = e.byId("headerHorizonRing");
                 if (sxRingSvg && sxHdrVals) sxRingSvg.setAttribute("aria-label", `Open Charted details. ${sxHdrVals.outerLabel} ${sxPctText(sxHdrVals.outer)}, ${sxHdrVals.innerLabel} ${sxPctText(sxHdrVals.inner)}.`);
                 else if (sxRingSvg) sxRingSvg.setAttribute("aria-label", "Open Charted details.");
@@ -324,7 +340,7 @@
             let v = function(e) {
                 const t = !(Qi() ? Xi() : [ Vi() ]).some(e => {
                     const t = e === Et ? At : vt[e] || {};
-                    return Object.values(t).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive"))));
+                    return Object.values(t).some(e => "number" == typeof e || Boolean(e && "object" == typeof e && (Object.prototype.hasOwnProperty.call(e, "give") || Object.prototype.hasOwnProperty.call(e, "receive") || Object.prototype.hasOwnProperty.call(e, "line") || Object.keys(e).some(k => k !== "intensity" && Number.isFinite(Number(e[k]))))));
                 }), n = new Map, i = new Map;
                 e.forEach(e => {
                     const t = e.entry.branch;

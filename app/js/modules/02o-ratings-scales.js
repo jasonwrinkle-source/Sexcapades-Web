@@ -1195,7 +1195,7 @@
         function ta(e) {
             const t = Uc(), n = t.length, i = t.filter(t => {
                 const n = (e || {})[t];
-                return "number" == typeof n || Boolean(n && "object" == typeof n && (Object.prototype.hasOwnProperty.call(n, "give") || Object.prototype.hasOwnProperty.call(n, "receive")));
+                return "number" == typeof n || Boolean(n && "object" == typeof n && (Object.prototype.hasOwnProperty.call(n, "give") || Object.prototype.hasOwnProperty.call(n, "receive") || Object.prototype.hasOwnProperty.call(n, "line") || Object.keys(n).some(k => k !== "intensity" && Number.isFinite(Number(n[k])))));
             }).length;
             return {
                 rated: i,
@@ -1299,16 +1299,34 @@
                 give: n,
                 receive: n,
                 giveKnown: !0,
-                receiveKnown: !0
+                receiveKnown: !0,
+                line: null,
+                lineKnown: !1,
+                poles: null,
+                polesKnown: !1
             };
             if (n && "object" == typeof n) {
-                const e = Object.prototype.hasOwnProperty.call(n, "give"), t = Object.prototype.hasOwnProperty.call(n, "receive");
+                const hasGive = Object.prototype.hasOwnProperty.call(n, "give"), hasReceive = Object.prototype.hasOwnProperty.call(n, "receive");
+                const hasLine = Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line));
                 const res = {
-                    give: e && Number(n.give) || 0,
-                    receive: t && Number(n.receive) || 0,
-                    giveKnown: e,
-                    receiveKnown: t
+                    give: hasGive && Number(n.give) || 0,
+                    receive: hasReceive && Number(n.receive) || 0,
+                    giveKnown: hasGive,
+                    receiveKnown: hasReceive,
+                    line: hasLine ? Number(n.line) : null,
+                    lineKnown: hasLine,
+                    poles: null,
+                    polesKnown: !1
                 };
+                if (!hasGive && !hasReceive && !hasLine) {
+                    const poleKeys = Object.keys(n).filter(k => k !== "intensity" && Number.isFinite(Number(n[k])));
+                    if (poleKeys.length) {
+                        const p = {};
+                        poleKeys.forEach(k => { p[k] = Number(n[k]); });
+                        res.poles = p;
+                        res.polesKnown = !0;
+                    }
+                }
                 Object.keys(n).forEach(k => {
                     res[k] = Number(n[k]) || 0;
                     res[k + "Known"] = !0;
@@ -1319,7 +1337,11 @@
                 give: 0,
                 receive: 0,
                 giveKnown: !1,
-                receiveKnown: !1
+                receiveKnown: !1,
+                line: null,
+                lineKnown: !1,
+                poles: null,
+                polesKnown: !1
             };
         }
         function da(e, t) {
@@ -1526,7 +1548,19 @@
                 return null !== gv && a.push(`give ${ba(gv)}`), null !== rv && a.push(`receive ${ba(rv)}`), a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
             }
             const i = ca(e, t), a = [];
-            return i.giveKnown && a.push(`give ${ba(i.give)}`), i.receiveKnown && a.push(`receive ${ba(i.receive)}`), a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
+            if (i.giveKnown) a.push(`give ${ba(i.give)}`);
+            if (i.receiveKnown) a.push(`receive ${ba(i.receive)}`);
+            if (i.lineKnown) a.push(`line ${ba(i.line)}`);
+            if (i.polesKnown && i.poles) {
+                const geom = Ge(e);
+                const poleKeys = Object.keys(i.poles);
+                poleKeys.forEach(pk => {
+                    const poleObj = geom && geom.poles && geom.poles.find(p => p.key === pk);
+                    const label = poleObj ? poleObj.label : pk;
+                    a.push(`${label}: ${ba(i.poles[pk])}`);
+                });
+            }
+            return a.length ? "Rating values: " + a.join(" · ") + "." : "Unrated.";
         }
         function wa(e, t, n = Vi()) {
             return `${lo(t)} ${va(e, n)}`;
