@@ -526,7 +526,7 @@ __sxInit(function () {
     var host = (targetEl && targetEl.closest && targetEl.closest("dialog")) || document.querySelector("dialog[open]") || document.body;
     if (menu.parentNode !== host) host.appendChild(menu);
 
-    if (targetEl && targetEl.getBoundingClientRect) {
+    if (targetEl && isBrandTitle(targetEl) && targetEl.getBoundingClientRect) {
       var r = targetEl.getBoundingClientRect();
       x = r.left;
       y = r.bottom;
@@ -629,7 +629,7 @@ __sxInit(function () {
     return !!(el && el.closest && el.closest("#openAppAbout, .app-title-button, [data-open-about], .sx-brand"));
   }
   function isHeaderOrTitle(el) {
-    return !!(el && el.closest && el.closest("header.intro, .sx-titlebar, #openAppAbout, .app-title-button, [data-open-about], .sx-brand"));
+    return !!(el && el.closest && el.closest("header.intro, header.outline-head, header.layout-editor-head, header, .sx-titlebar, .dialog-head, #openAppAbout, .app-title-button, [data-open-about], .sx-brand"));
   }
 
   function cancelHold() {
@@ -639,7 +639,7 @@ __sxInit(function () {
   }
   document.addEventListener("pointerdown", function (ev) {
     if (holdPointerId !== null) { cancelHold(); return; }
-    var hit = ev.target && isHeaderOrTitle(ev.target) ? ev.target.closest("header.intro, .sx-titlebar, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
+    var hit = ev.target && isHeaderOrTitle(ev.target) ? ev.target.closest("header.intro, header.outline-head, header.layout-editor-head, header, .sx-titlebar, .dialog-head, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
     if (!hit) return;
     var onTitle = isBrandTitle(ev.target);
     if (isInteractive(ev.target) && !onTitle) return;
@@ -665,18 +665,19 @@ __sxInit(function () {
     if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
   });
   /* Shift+Click trigger: capture-phase click listener on document.
-     A Shift+Click anywhere on the main header, dialog titlebars (.sx-titlebar),
-     or brand buttons (.app-title-button, [data-open-about], #openAppAbout, .sx-brand)
-     opens the skin menu at the click point, whether in the main view or inside Scribe /
-     Scene Setter / Hot list / Scene Sentinel dialogs.
-     The click is stopped in capture phase so it never reaches data-open-about or
-     openAppAbout handlers. Normal clicks pass through untouched. */
+     A Shift+Click anywhere on headers (main header, outline head, layout editor head),
+     dialog titlebars (.sx-titlebar, .dialog-head), or brand buttons (.app-title-button,
+     [data-open-about], #openAppAbout, .sx-brand) opens the skin menu at the click point,
+     whether in the main view or inside Scribe / Scene Setter / Hot list / Scene Sentinel dialogs.
+     The click is stopped in capture phase with stopImmediatePropagation so it never reaches
+     data-open-about, openAppAbout, or the document-level outside-click closer. Normal clicks
+     pass through untouched. */
   document.addEventListener("click", function (ev) {
     if (!ev.shiftKey) return;
     var t = ev.target;
-    var hit = t && isHeaderOrTitle(t) ? t.closest("header.intro, .sx-titlebar, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
+    var hit = t && isHeaderOrTitle(t) ? t.closest("header.intro, header.outline-head, header.layout-editor-head, header, .sx-titlebar, .dialog-head, #openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
     if (!hit) return;
-    ev.stopPropagation();
+    ev.stopImmediatePropagation();
     ev.preventDefault();
     openMenu(ev.clientX, ev.clientY, false, hit);
   }, true);
@@ -689,6 +690,7 @@ __sxInit(function () {
   window.addEventListener("scroll", function () { cancelHold(); if (menuOpen()) closeMenu(); }, true);
   window.addEventListener("blur", cancelHold);
   document.addEventListener("click", function (ev) {
+    if (ev.shiftKey) return;
     if (swallowClick) { swallowClick = false; ev.stopPropagation(); return; }
     if (!menuOpen()) return;
     var t = ev.target;
