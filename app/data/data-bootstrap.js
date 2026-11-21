@@ -33573,7 +33573,41 @@ const TAXONOMY_CATEGORIES = [
            live in profile state, not in the rows, so a rebuild keeps
            them; timer and dialog state are untouched (this is Cs, not
            Ms). */
+        function sxIsBootSkinPending() {
+            try {
+                const active = window.__SX_ACTIVE_SKIN || "sexcapades";
+                let target = "sexcapades";
+                if (typeof window.__SX_SKIN_FROM_URL === "function") {
+                    const u = window.__SX_SKIN_FROM_URL();
+                    if (u) target = u;
+                    else if (typeof window.__SX_SKIN_FOR_HOSTNAME === "function") {
+                        target = window.__SX_SKIN_FOR_HOSTNAME(location.hostname);
+                    }
+                }
+                if (!target || target === "sexcapades") {
+                    const q = new URLSearchParams(location.search || "").get("skin");
+                    const known = ["sexcapades", "poliscapades", "forescapades", "philoscapades", "aesthcapades", "vocapades", "techcapades", "dharmacapades", "theoricapades", "praxicapades", "quantacapades", "expericapades", "simulcapades", "mattercapades", "chemcapades"];
+                    if (q && known.indexOf(q) !== -1) target = q;
+                    else {
+                        const host = (location.hostname || "").toLowerCase();
+                        const map = { sex: "sexcapades", polis: "poliscapades", fores: "forescapades", philo: "philoscapades", aesth: "aesthcapades", voca: "vocapades", tech: "techcapades", dharma: "dharmacapades", theori: "theoricapades", praxi: "praxicapades", quanta: "quantacapades", experi: "expericapades", simul: "simulcapades", matter: "mattercapades", chem: "chemcapades" };
+                        const prefix = /\.capades\.io$/.test(host) ? host.split(".")[0] : "";
+                        if (prefix && map[prefix]) target = map[prefix];
+                    }
+                }
+                return target !== "sexcapades" && active !== target;
+            } catch (e) {
+                return false;
+            }
+        }
         window.__SX_REBUILD_OUTLINE = function () {
+            if (window.__SX_PENDING_OUTLINE_BOOT) {
+                const pendingArg = window.__SX_PENDING_OUTLINE_BOOT;
+                window.__SX_PENDING_OUTLINE_BOOT = null;
+                Ms(pendingArg);
+                document.documentElement.classList.remove("route-listview-pending");
+                return true;
+            }
             if (!Do || !Do.open) return false;
             Cs();
             if (typeof window.__SX_SYNC_OUTLINE_LADDER === "function") window.__SX_SYNC_OUTLINE_LADDER();
@@ -33581,6 +33615,10 @@ const TAXONOMY_CATEGORIES = [
         };
         function Ms(n = Vi()) {
             p("quickstart_started");
+            if (sxIsBootSkinPending()) {
+                window.__SX_PENDING_OUTLINE_BOOT = n || Vi();
+                return;
+            }
             const i = n === Et;
             if (!i && !vt[n]) return Vy = e => Ms(e), void bw(null);
             const a = i ? null : St(mt[n]).outline, r = cs(n);
@@ -52258,7 +52296,16 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             } finally {
                 // A throw inside the list open used to skip this and leave
                 // the whole page visibility:hidden, including the list.
-                document.documentElement.classList.remove("route-listview-pending");
+                if (!window.__SX_PENDING_OUTLINE_BOOT) {
+                    document.documentElement.classList.remove("route-listview-pending");
+                } else {
+                    setTimeout(() => {
+                        if (window.__SX_PENDING_OUTLINE_BOOT) {
+                            window.__SX_REBUILD_OUTLINE && window.__SX_REBUILD_OUTLINE();
+                            document.documentElement.classList.remove("route-listview-pending");
+                        }
+                    }, 3000);
+                }
             }
         }(), t.setTimeout(Nu, 0)) : vS ? (mS(),
         document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : (async () => {

@@ -1041,7 +1041,16 @@
             } finally {
                 // A throw inside the list open used to skip this and leave
                 // the whole page visibility:hidden, including the list.
-                document.documentElement.classList.remove("route-listview-pending");
+                if (!window.__SX_PENDING_OUTLINE_BOOT) {
+                    document.documentElement.classList.remove("route-listview-pending");
+                } else {
+                    setTimeout(() => {
+                        if (window.__SX_PENDING_OUTLINE_BOOT) {
+                            window.__SX_REBUILD_OUTLINE && window.__SX_REBUILD_OUTLINE();
+                            document.documentElement.classList.remove("route-listview-pending");
+                        }
+                    }, 3000);
+                }
             }
         }(), t.setTimeout(Nu, 0)) : vS ? (mS(),
         document.documentElement.classList.remove("route-listview-pending"), t.setTimeout(Nu, 0)) : (async () => {
