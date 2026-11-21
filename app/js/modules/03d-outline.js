@@ -1888,6 +1888,7 @@
                 const n = Date.now() - vl < 900;
                 kl(), n || (vl = Date.now(), wl(), el(t.dataset.view));
             });
+            let sxLastTabTapTime = 0, sxLastTabTapId = null;
             tl.addEventListener("click", t => {
                 const n = __sxClosestAction(t.target, "profileVeil");
                 if (n) {
@@ -1935,7 +1936,29 @@
                 if (yl) return yl = !1, void t.preventDefault();
                 const c = l.dataset.view;
                 if (t.ctrlKey || t.metaKey) return t.preventDefault(), kl(), void el(c);
-                yl = !1, c !== Mt && Js(c);
+                yl = !1;
+                const now = performance.now();
+                const isDbl = t.detail >= 2 || (now - sxLastTabTapTime < 450 && sxLastTabTapId === c);
+                if (isDbl) {
+                    sxLastTabTapTime = 0;
+                    sxLastTabTapId = null;
+                    c !== Mt && Js(c);
+                    bw(c, { mode: "about" });
+                    return;
+                }
+                sxLastTabTapTime = now;
+                sxLastTabTapId = c;
+                c !== Mt && Js(c);
+            });
+            tl.addEventListener("dblclick", t => {
+                const l = __sxClosestAction(t.target, "viewButton");
+                if (!l) return;
+                const c = l.dataset.view;
+                if (!c || !vt[c]) return;
+                t.preventDefault(), t.stopPropagation();
+                sxLastTabTapTime = 0, sxLastTabTapId = null;
+                c !== Mt && Js(c);
+                bw(c, { mode: "about" });
             });
         }
         e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", ev => {

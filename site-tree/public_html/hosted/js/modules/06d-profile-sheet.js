@@ -2504,7 +2504,7 @@
                 const [e, t] = await Promise.all([ Aw(), Mw(n) ]), r = e && e[n];
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
-                o.profileName = i, o.sampleProfile = !0, !t || Array.isArray(o.photos) && o.photos.length || (o.photos = [ t ]);
+                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades", !t || Array.isArray(o.photos) && o.photos.length || (o.photos = [ t ]);
                 const s = wx(o, {
                     autoSelect: !0
                 });

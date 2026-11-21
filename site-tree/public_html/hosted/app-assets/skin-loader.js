@@ -1027,6 +1027,7 @@
         btn.type = "button";
         btn.setAttribute("role", "menuitem");
         btn.setAttribute("data-sample-profile", key);
+        var isArchetype = entry.kind !== "sample";
         btn.setAttribute("data-sample-name", entry.name || key);
         btn.setAttribute("data-sample-count", String(count));
         if (entry.photo) {
@@ -1040,9 +1041,21 @@
         var strong = document.createElement("strong");
         strong.textContent = entry.name || key;
         btn.appendChild(strong);
-        var small = document.createElement("small");
-        small.textContent = count + " rated topics";
-        btn.appendChild(small);
+        if (isArchetype) {
+          /* Archetypes (2026-11-21, Jason): list just the name with the
+             description contained in a hover tip (data-ui-tooltip).
+             No inline topic count, no inline about paragraphs, no inline links. */
+          if (entry.about) {
+            btn.setAttribute("data-ui-tooltip", entry.about);
+            btn.setAttribute("data-tooltip-name", entry.name || key);
+            btn.setAttribute("data-tooltip-definition", entry.about);
+            btn.setAttribute("data-tooltip-tap-first", "");
+          }
+        } else {
+          var small = document.createElement("small");
+          small.textContent = count + " rated topics";
+          btn.appendChild(small);
+        }
         item.appendChild(btn);
         /* Local sample (2026-11-18): a Remove button under the load
            button, so a chapter roster doesn't accumulate junk. It sits
@@ -1059,18 +1072,15 @@
           removeBtn.textContent = "Remove from samples";
           item.appendChild(removeBtn);
         }
-        /* Archetype about + learn-more links (2026-11-17): the skin JSON
-           carries `about` (1-3 sentences) and `links` per archetype.
-           They render UNDER the button, not inside it — a link inside a
-           <button> is invalid HTML and would load the profile on click.
-           Samples (Adam/Eve) carry no about/links, so they render as before. */
-        if (entry.about) {
+        /* Archetype about + learn-more links: only samples render inline
+           about/links if present; archetypes keep the description in hover tips. */
+        if (!isArchetype && entry.about) {
           var about = document.createElement("p");
           about.className = "sample-profile-about";
           about.textContent = entry.about;
           item.appendChild(about);
         }
-        if (entry.links && entry.links.length) {
+        if (!isArchetype && entry.links && entry.links.length) {
           var links = document.createElement("div");
           links.className = "sample-profile-links";
           entry.links.forEach(function (l) {

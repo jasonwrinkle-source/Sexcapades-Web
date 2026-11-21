@@ -21650,10 +21650,39 @@ const TAXONOMY_CATEGORIES = [];
                 "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), Fo(e.dataset.id, e.dataset.direction));
             }));
             const x = In.querySelector(".center-hit");
+            let sxCenterTapTime = 0, sxCenterTapX = 0, sxCenterTapY = 0, sxCenterSingleTimer = null;
+            function sxCenterFitViewport() {
+                if (mn && mn.staticMap) return;
+                const fitBtn = document.getElementById("mapFit");
+                if (fitBtn) fitBtn.click();
+                else if (typeof Ih === "function") Ih();
+            }
             x && (x.addEventListener("keydown", e => {
                 "Enter" !== e.key && " " !== e.key || (e.preventDefault(), e.stopPropagation(), sh());
             }), x.addEventListener("click", e => {
-                e.preventDefault(), e.stopPropagation(), performance.now() - Dp <= 700 || sh();
+                e.preventDefault(), e.stopPropagation();
+                const now = performance.now();
+                const dist = Math.hypot(e.clientX - sxCenterTapX, e.clientY - sxCenterTapY);
+                const isDbl = e.detail >= 2 || (now - sxCenterTapTime < 450 && dist < 45);
+                if (isDbl) {
+                    if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
+                    sxCenterTapTime = 0;
+                    sh();
+                } else {
+                    sxCenterTapTime = now;
+                    sxCenterTapX = e.clientX;
+                    sxCenterTapY = e.clientY;
+                    if (sxCenterSingleTimer) clearTimeout(sxCenterSingleTimer);
+                    sxCenterSingleTimer = setTimeout(() => {
+                        sxCenterSingleTimer = null;
+                        sxCenterFitViewport();
+                    }, 280);
+                }
+            }), x.addEventListener("dblclick", e => {
+                e.preventDefault(), e.stopPropagation();
+                if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
+                sxCenterTapTime = 0;
+                sh();
             }), x.addEventListener("contextmenu", e => {
                 e.preventDefault();
             }));
@@ -30668,6 +30697,7 @@ const TAXONOMY_CATEGORIES = [];
                 const n = Date.now() - vl < 900;
                 kl(), n || (vl = Date.now(), wl(), el(t.dataset.view));
             });
+            let sxLastTabTapTime = 0, sxLastTabTapId = null;
             tl.addEventListener("click", t => {
                 const n = __sxClosestAction(t.target, "profileVeil");
                 if (n) {
@@ -30715,7 +30745,29 @@ const TAXONOMY_CATEGORIES = [];
                 if (yl) return yl = !1, void t.preventDefault();
                 const c = l.dataset.view;
                 if (t.ctrlKey || t.metaKey) return t.preventDefault(), kl(), void el(c);
-                yl = !1, c !== Mt && Js(c);
+                yl = !1;
+                const now = performance.now();
+                const isDbl = t.detail >= 2 || (now - sxLastTabTapTime < 450 && sxLastTabTapId === c);
+                if (isDbl) {
+                    sxLastTabTapTime = 0;
+                    sxLastTabTapId = null;
+                    c !== Mt && Js(c);
+                    bw(c, { mode: "about" });
+                    return;
+                }
+                sxLastTabTapTime = now;
+                sxLastTabTapId = c;
+                c !== Mt && Js(c);
+            });
+            tl.addEventListener("dblclick", t => {
+                const l = __sxClosestAction(t.target, "viewButton");
+                if (!l) return;
+                const c = l.dataset.view;
+                if (!c || !vt[c]) return;
+                t.preventDefault(), t.stopPropagation();
+                sxLastTabTapTime = 0, sxLastTabTapId = null;
+                c !== Mt && Js(c);
+                bw(c, { mode: "about" });
             });
         }
         e.byId("overlayTab") && e.byId("overlayTab").addEventListener("click", ev => {
@@ -37620,11 +37672,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 profileName: n || wt[e] || "Profile",
                 profileUuid: profileUuids[e] || (profileUuids[e] = makeProfileUuid()),
                 sampleProfile: Boolean(sampleProfileFlags[e]),
-                /* Skin tag (2026-11-17): rides the export so a Remember
-                   restore or a re-import keeps the profile on its own
-                   skin. Additive only — the format version is unchanged
-                   and loaders ignore unknown fields. */
-                skin: profileSkins[e] || void 0,
+                /* Skin tag (2026-11-17, 2026-11-21): always include the skin
+                   name on exported profiles so re-imports and cross-skin
+                   import checks know which map this profile is for. */
+                skin: profileSkins[e] || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades",
                 gender: bb(rt[e]),
                 pronouns: String(pz[e] || ""),
                 sexuality: iv(ot[e]),
@@ -37711,6 +37762,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 app: r.app,
                 version: r.version,
                 taxonomyVersion: r.taxonomyVersion,
+                skin: r.skin || profileSkins[e] || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades",
                 topicNames: names,
                 profileName: "Shared profile",
                 ...a ? {
@@ -40700,14 +40752,10 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
             }
             if (Fp && Fp.pointerId === e.pointerId) {
                 const t = Fp;
-                // Center disc tap (owner ruling, 2026-10-27): a tap
-                // opens the profile's About/details dialog (sh, the
-                // same opener the long-press has always used). It no
-                // longer calls Oi/Ci, so a tap never toggles the
-                // map's expand/collapse state. The collapse/restore
-                // behavior itself (Ci/Ei) is NOT removed — it stays
-                // wired to the center card's Expand/collapse button.
-                return Fp = null, oh(), Dp = performance.now(), void ("pointerup" !== e.type || t.longPressed || sh());
+                // Center disc tap: single click fits to viewport, double
+                // click opens About Profile (sh). The click listener on
+                // .center-hit arbitrates single vs double tap.
+                return Fp = null, oh(), Dp = performance.now(), void ("pointerup" !== e.type || t.longPressed);
             }
             if (yn && yn.pointerId === e.pointerId) return "pointerup" === e.type && kr(yn, Sr(yn, e.clientX, e.clientY)), 
             void xr(!0);
@@ -44418,7 +44466,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 const [e, t] = await Promise.all([ Aw(), Mw(n) ]), r = e && e[n];
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
-                o.profileName = i, o.sampleProfile = !0, !t || Array.isArray(o.photos) && o.photos.length || (o.photos = [ t ]);
+                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades", !t || Array.isArray(o.photos) && o.photos.length || (o.photos = [ t ]);
                 const s = wx(o, {
                     autoSelect: !0
                 });
@@ -45625,10 +45673,28 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 merged.length > 16 && noteDropped(id, "notes", merged.slice(16), "value"), capped.length && (tt[c][id] = capped);
             });
         }
+        function sxCheckSkinCompatibility(e) {
+            const curSkin = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+            const fileSkin = (typeof e.skin === "string" && e.skin.trim()) ? e.skin.trim().toLowerCase() : null;
+            const skinTitle = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : "Sexcapades";
+            if (curSkin === "sexcapades") {
+                if (fileSkin && fileSkin !== "sexcapades") {
+                    throw new Error(`This profile is for the ${skinTitle(fileSkin)} skin, not Sexcapades.`);
+                }
+            } else {
+                if (!fileSkin) {
+                    throw new Error(`This profile does not specify a skin (legacy Sexcapades profile) and cannot be imported into ${skinTitle(curSkin)}.`);
+                }
+                if (fileSkin !== curSkin) {
+                    throw new Error(`This profile is for the ${skinTitle(fileSkin)} skin, not ${skinTitle(curSkin)}.`);
+                }
+            }
+        }
         function rk(e, n = {}) {
             eS();
             const i = ("string" == typeof e.profileName ? e.profileName : "").trim().replace(/\s+/g, " ").slice(0, 40);
             if (!i) throw new Error("This profile file does not include a profile name.");
+            sxCheckSkinCompatibility(e);
             importTopicNames = e.topicNames && "object" == typeof e.topicNames ? e.topicNames : null;
             const a = {};
             e.importedChildren && "object" == typeof e.importedChildren && Object.values(e.importedChildren).forEach(e => {
@@ -46450,6 +46516,7 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 }
                 if (Yw(t), !Uw(t)) throw new Error("This is not a valid current Sexcapades profile.");
                 if (!("string" == typeof t.profileName ? t.profileName : "").trim()) throw new Error("This profile file does not include a profile name.");
+                sxCheckSkinCompatibility(t);
                 return t;
             },
             merge(e, t, n = {}) {

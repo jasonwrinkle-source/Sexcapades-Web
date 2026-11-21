@@ -796,14 +796,10 @@
             }
             if (Fp && Fp.pointerId === e.pointerId) {
                 const t = Fp;
-                // Center disc tap (owner ruling, 2026-10-27): a tap
-                // opens the profile's About/details dialog (sh, the
-                // same opener the long-press has always used). It no
-                // longer calls Oi/Ci, so a tap never toggles the
-                // map's expand/collapse state. The collapse/restore
-                // behavior itself (Ci/Ei) is NOT removed — it stays
-                // wired to the center card's Expand/collapse button.
-                return Fp = null, oh(), Dp = performance.now(), void ("pointerup" !== e.type || t.longPressed || sh());
+                // Center disc tap: single click fits to viewport, double
+                // click opens About Profile (sh). The click listener on
+                // .center-hit arbitrates single vs double tap.
+                return Fp = null, oh(), Dp = performance.now(), void ("pointerup" !== e.type || t.longPressed);
             }
             if (yn && yn.pointerId === e.pointerId) return "pointerup" === e.type && kr(yn, Sr(yn, e.clientX, e.clientY)), 
             void xr(!0);

@@ -589,10 +589,28 @@
                 merged.length > 16 && noteDropped(id, "notes", merged.slice(16), "value"), capped.length && (tt[c][id] = capped);
             });
         }
+        function sxCheckSkinCompatibility(e) {
+            const curSkin = (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+            const fileSkin = (typeof e.skin === "string" && e.skin.trim()) ? e.skin.trim().toLowerCase() : null;
+            const skinTitle = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : "Sexcapades";
+            if (curSkin === "sexcapades") {
+                if (fileSkin && fileSkin !== "sexcapades") {
+                    throw new Error(`This profile is for the ${skinTitle(fileSkin)} skin, not Sexcapades.`);
+                }
+            } else {
+                if (!fileSkin) {
+                    throw new Error(`This profile does not specify a skin (legacy Sexcapades profile) and cannot be imported into ${skinTitle(curSkin)}.`);
+                }
+                if (fileSkin !== curSkin) {
+                    throw new Error(`This profile is for the ${skinTitle(fileSkin)} skin, not ${skinTitle(curSkin)}.`);
+                }
+            }
+        }
         function rk(e, n = {}) {
             eS();
             const i = ("string" == typeof e.profileName ? e.profileName : "").trim().replace(/\s+/g, " ").slice(0, 40);
             if (!i) throw new Error("This profile file does not include a profile name.");
+            sxCheckSkinCompatibility(e);
             importTopicNames = e.topicNames && "object" == typeof e.topicNames ? e.topicNames : null;
             const a = {};
             e.importedChildren && "object" == typeof e.importedChildren && Object.values(e.importedChildren).forEach(e => {
@@ -1414,6 +1432,7 @@
                 }
                 if (Yw(t), !Uw(t)) throw new Error("This is not a valid current Sexcapades profile.");
                 if (!("string" == typeof t.profileName ? t.profileName : "").trim()) throw new Error("This profile file does not include a profile name.");
+                sxCheckSkinCompatibility(t);
                 return t;
             },
             merge(e, t, n = {}) {

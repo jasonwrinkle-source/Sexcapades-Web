@@ -145,10 +145,39 @@
                 "Enter" !== t.key && " " !== t.key || (t.preventDefault(), t.stopPropagation(), Fo(e.dataset.id, e.dataset.direction));
             }));
             const x = In.querySelector(".center-hit");
+            let sxCenterTapTime = 0, sxCenterTapX = 0, sxCenterTapY = 0, sxCenterSingleTimer = null;
+            function sxCenterFitViewport() {
+                if (mn && mn.staticMap) return;
+                const fitBtn = document.getElementById("mapFit");
+                if (fitBtn) fitBtn.click();
+                else if (typeof Ih === "function") Ih();
+            }
             x && (x.addEventListener("keydown", e => {
                 "Enter" !== e.key && " " !== e.key || (e.preventDefault(), e.stopPropagation(), sh());
             }), x.addEventListener("click", e => {
-                e.preventDefault(), e.stopPropagation(), performance.now() - Dp <= 700 || sh();
+                e.preventDefault(), e.stopPropagation();
+                const now = performance.now();
+                const dist = Math.hypot(e.clientX - sxCenterTapX, e.clientY - sxCenterTapY);
+                const isDbl = e.detail >= 2 || (now - sxCenterTapTime < 450 && dist < 45);
+                if (isDbl) {
+                    if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
+                    sxCenterTapTime = 0;
+                    sh();
+                } else {
+                    sxCenterTapTime = now;
+                    sxCenterTapX = e.clientX;
+                    sxCenterTapY = e.clientY;
+                    if (sxCenterSingleTimer) clearTimeout(sxCenterSingleTimer);
+                    sxCenterSingleTimer = setTimeout(() => {
+                        sxCenterSingleTimer = null;
+                        sxCenterFitViewport();
+                    }, 280);
+                }
+            }), x.addEventListener("dblclick", e => {
+                e.preventDefault(), e.stopPropagation();
+                if (sxCenterSingleTimer) { clearTimeout(sxCenterSingleTimer); sxCenterSingleTimer = null; }
+                sxCenterTapTime = 0;
+                sh();
             }), x.addEventListener("contextmenu", e => {
                 e.preventDefault();
             }));

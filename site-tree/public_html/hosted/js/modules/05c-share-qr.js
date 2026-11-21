@@ -561,11 +561,10 @@
                 profileName: n || wt[e] || "Profile",
                 profileUuid: profileUuids[e] || (profileUuids[e] = makeProfileUuid()),
                 sampleProfile: Boolean(sampleProfileFlags[e]),
-                /* Skin tag (2026-11-17): rides the export so a Remember
-                   restore or a re-import keeps the profile on its own
-                   skin. Additive only — the format version is unchanged
-                   and loaders ignore unknown fields. */
-                skin: profileSkins[e] || void 0,
+                /* Skin tag (2026-11-17, 2026-11-21): always include the skin
+                   name on exported profiles so re-imports and cross-skin
+                   import checks know which map this profile is for. */
+                skin: profileSkins[e] || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades",
                 gender: bb(rt[e]),
                 pronouns: String(pz[e] || ""),
                 sexuality: iv(ot[e]),
@@ -652,6 +651,7 @@
                 app: r.app,
                 version: r.version,
                 taxonomyVersion: r.taxonomyVersion,
+                skin: r.skin || profileSkins[e] || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades",
                 topicNames: names,
                 profileName: "Shared profile",
                 ...a ? {
