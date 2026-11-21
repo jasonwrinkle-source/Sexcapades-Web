@@ -2,7 +2,7 @@
   "skin": "philoscapades",
   "meter": "position",
   "name": "Philoscapades",
-  "about": "Philoscapades is an interactive hypermap for rating and visualizing where you stand on the oldest questions — what is true, what is real, what is right — and comparing your positions with another person's, claim by claim, on the same picture. Build a personal profile, see where your thinking meets and where it parts, use Scribe to set out the argument you'd make, and Scene Setter to plan a conversation that goes deep — all in the same shared vocabulary.",
+  "about": "Philoscapades is an interactive hypermap for rating and visualizing where you stand on the oldest questions \u2014 what is true, what is real, what is right \u2014 and comparing your positions with another person's, claim by claim, on the same picture. Build a personal profile, see where your thinking meets and where it parts, use Scribe to set out the argument you'd make, and Scene Setter to plan a conversation that goes deep \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -18,22 +18,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -58,8 +58,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -69,33 +69,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -116,7 +116,7 @@
       "help": "Enabled phases are added to the generated moderation prompt as a Discussion structure section, in opening, development, closing order. Turn a phase off to leave it out."
     }
   },
-  "domain": "Philosophy — Human Intellectual Commitments, Metaphysical Worldviews & Normative Frameworks",
+  "domain": "Philosophy \u2014 Human Intellectual Commitments, Metaphysical Worldviews & Normative Frameworks",
   "categories": [
     {
       "id": "xphc01",
@@ -126,8 +126,6 @@
         {
           "id": "xph0001",
           "name": "The Agrippan Trilemma",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -146,7 +144,7 @@
           "widget": "triangle",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "How is a belief justified — what stops the regress?",
+            "issue": "How is a belief justified \u2014 what stops the regress?",
             "poles": [
               {
                 "label": "Foundationalism",
@@ -162,8 +160,8 @@
               }
             ]
           },
-          "question": "How is a belief justified — what stops the regress?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §1.1",
+          "question": "How is a belief justified \u2014 what stops the regress?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a71.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -185,8 +183,6 @@
         {
           "id": "xph0002",
           "name": "Epistemic Grounds",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -230,7 +226,7 @@
             ]
           },
           "question": "What counts as grounds for knowing?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §1.2",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a71.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -252,8 +248,6 @@
         {
           "id": "xph0003",
           "name": "Theories of Truth",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -297,7 +291,7 @@
             ]
           },
           "question": "What makes a statement true?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §1.3",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a71.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -319,8 +313,6 @@
         {
           "id": "xph0015",
           "name": "The Epistemological Octad",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -396,7 +388,7 @@
             ]
           },
           "question": "The Epistemological Octad",
-          "source": "02i-taxonomy-catalog.js Ge() entry 'topic-eight-epistemologies' — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
+          "source": "02i-taxonomy-catalog.js Ge() entry 'topic-eight-epistemologies' \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -425,52 +417,34 @@
         {
           "id": "xph0004",
           "name": "The Mind-Body Ontology Matrix",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
-              "key": "substance-dualism",
-              "label": "Substance Dualism"
+              "key": "matter-fundamental",
+              "label": "Matter fundamental"
             },
             {
-              "key": "physicalism",
-              "label": "Physicalism"
-            },
-            {
-              "key": "objective-idealism",
-              "label": "Objective Idealism"
-            },
-            {
-              "key": "neutral-monism",
-              "label": "Neutral Monism"
+              "key": "mind-fundamental",
+              "label": "Mind fundamental"
             }
           ],
-          "widget": "diamond",
-          "archetype": "simplex",
+          "widget": "xy-switchbox",
+          "archetype": null,
           "hovertip": {
             "issue": "What is the mind, and how does it relate to the body?",
             "poles": [
               {
-                "label": "Substance Dualism",
-                "text": "Mind and physical matter are distinct, mutually irreducible ontologies."
+                "label": "Matter fundamental",
+                "text": "Affinity for matter as fundamental \u2014 what exists at bottom is physical."
               },
               {
-                "label": "Physicalism",
-                "text": "All reality is physical; mental phenomena reduce to brain states."
-              },
-              {
-                "label": "Objective Idealism",
-                "text": "Consciousness is primary; the physical world is a cognitive manifestation."
-              },
-              {
-                "label": "Neutral Monism",
-                "text": "Mind and matter are two aspects of one neutral substance."
+                "label": "Mind fundamental",
+                "text": "Affinity for mind as fundamental \u2014 what exists at bottom is mental."
               }
             ]
           },
           "question": "What is the mind, and how does it relate to the body?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.1",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a72.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -492,52 +466,34 @@
         {
           "id": "xph0005",
           "name": "Free Will",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
-              "key": "hard-determinism",
-              "label": "Hard Determinism"
+              "key": "determinism",
+              "label": "Determinism"
             },
             {
-              "key": "libertarian-agency",
-              "label": "Libertarian Agency"
-            },
-            {
-              "key": "classical-compatibilism",
-              "label": "Classical Compatibilism"
-            },
-            {
-              "key": "hard-incompatibilism",
-              "label": "Hard Incompatibilism"
+              "key": "free-will",
+              "label": "Free will"
             }
           ],
-          "widget": "diamond",
-          "archetype": "simplex",
+          "widget": "xy-switchbox",
+          "archetype": null,
           "hovertip": {
             "issue": "Are we free, or is everything determined?",
             "poles": [
               {
-                "label": "Hard Determinism",
-                "text": "Causal closure renders free will an illusion."
+                "label": "Determinism",
+                "text": "Affinity for determinism: every event fixed by prior causes."
               },
               {
-                "label": "Libertarian Agency",
-                "text": "Conscious agents possess genuine causal origination."
-              },
-              {
-                "label": "Classical Compatibilism",
-                "text": "Freedom is acting according to internal motives, even if determined."
-              },
-              {
-                "label": "Hard Incompatibilism",
-                "text": "Free will is impossible under determinism and indeterminism alike."
+                "label": "Free will",
+                "text": "Affinity for genuine free will: agents originate their choices."
               }
             ]
           },
           "question": "Are we free, or is everything determined?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.2",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a72.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -559,8 +515,6 @@
         {
           "id": "xph0006",
           "name": "The Ontology of Universals",
-          "poleReading": "antipodal",
-          "poleEnemies": [["platonic-realism", "nominalism"]],
           "risk": false,
           "poles": [
             {
@@ -579,7 +533,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "Do universals — redness, justice, triangularity — really exist?",
+            "issue": "Do universals \u2014 redness, justice, triangularity \u2014 really exist?",
             "poles": [
               {
                 "label": "Platonic Realism",
@@ -595,8 +549,8 @@
               }
             ]
           },
-          "question": "Do universals — redness, justice, triangularity — really exist?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.3",
+          "question": "Do universals \u2014 redness, justice, triangularity \u2014 really exist?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a72.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -618,8 +572,6 @@
         {
           "id": "xph0007",
           "name": "The Metaphysics of Time",
-          "poleReading": "antipodal",
-          "poleEnemies": [["presentism", "eternalism"]],
           "risk": false,
           "poles": [
             {
@@ -638,7 +590,7 @@
           "widget": "trilinear-line",
           "archetype": "line",
           "hovertip": {
-            "issue": "What exists in time — only now, or past and future too?",
+            "issue": "What exists in time \u2014 only now, or past and future too?",
             "poles": [
               {
                 "label": "Presentism",
@@ -654,8 +606,8 @@
               }
             ]
           },
-          "question": "What exists in time — only now, or past and future too?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §2.4",
+          "question": "What exists in time \u2014 only now, or past and future too?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a72.4",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -684,8 +636,6 @@
         {
           "id": "xph0008",
           "name": "The Grand Normative Ethical Quartet",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -729,7 +679,7 @@
             ]
           },
           "question": "What makes an act right?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §3.1",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a73.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -751,8 +701,6 @@
         {
           "id": "xph0009",
           "name": "Meta-Ethics Compass",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -796,7 +744,7 @@
             ]
           },
           "question": "What kind of thing is a moral claim?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §3.2",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a73.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -818,8 +766,6 @@
         {
           "id": "xph0010",
           "name": "Intrinsic Value",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -863,7 +809,7 @@
             ]
           },
           "question": "What has intrinsic value?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §3.3",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a73.3",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -892,8 +838,6 @@
         {
           "id": "xph0011",
           "name": "The Consciousness Spectrum",
-          "poleReading": "antipodal",
-          "poleEnemies": [["illusionism", "cosmopsychism"]],
           "risk": false,
           "poles": [
             {
@@ -945,7 +889,7 @@
             ]
           },
           "question": "What is consciousness, and where does it come from?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §4.1",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a74.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -969,13 +913,11 @@
     {
       "id": "xphc05",
       "name": "Existentialism & The Human Condition",
-      "about": "Life has no built-in meaning — what do you do about it?",
+      "about": "Life has no built-in meaning \u2014 what do you do about it?",
       "topics": [
         {
           "id": "xph0012",
           "name": "Responses to the Absurd",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1006,7 +948,7 @@
           "widget": "hexad-radar",
           "archetype": "simplex",
           "hovertip": {
-            "issue": "Life has no built-in meaning — what do you do about it?",
+            "issue": "Life has no built-in meaning \u2014 what do you do about it?",
             "poles": [
               {
                 "label": "Camusian Revolt",
@@ -1022,7 +964,7 @@
               },
               {
                 "label": "Nietzschean Overcoming",
-                "text": "Transvalue old dogmas; forge the Übermensch."
+                "text": "Transvalue old dogmas; forge the \u00dcbermensch."
               },
               {
                 "label": "Stoic Acceptance",
@@ -1034,8 +976,8 @@
               }
             ]
           },
-          "question": "Life has no built-in meaning — what do you do about it?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §5.1",
+          "question": "Life has no built-in meaning \u2014 what do you do about it?",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a75.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1064,8 +1006,6 @@
         {
           "id": "xph0013",
           "name": "The Four Theories of Justice",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1109,7 +1049,7 @@
             ]
           },
           "question": "What is justice?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §6.1",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a76.1",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1131,8 +1071,6 @@
         {
           "id": "xph0014",
           "name": "Seven Theories of Truth",
-          "poleReading": "same",
-          "poleEnemies": [],
           "risk": false,
           "poles": [
             {
@@ -1200,7 +1138,7 @@
             ]
           },
           "question": "Where does truth reside?",
-          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md §6.2",
+          "source": "BRIEFING_PHILOSCAPADES_TAXONOMY.md \u00a76.2",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -3038,7 +2976,7 @@
       "about": "Empiricism holds that sense experience is the ultimate source of our concepts and knowledge. On this view there is no knowledge independent of experience: what we know, we know because we have observed it, or because it can be traced back to observation.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Rationalism vs. Empiricism",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Rationalism vs. Empiricism",
           "url": "https://plato.stanford.edu/entries/rationalism-empiricism/"
         }
       ],
@@ -3078,16 +3016,12 @@
             "dialectics": -20
           },
           "xph0004": {
-            "substance-dualism": -50,
-            "physicalism": 60,
-            "objective-idealism": -60,
-            "neutral-monism": 10
+            "matter-fundamental": 30,
+            "mind-fundamental": -90
           },
           "xph0005": {
-            "hard-determinism": 40,
-            "libertarian-agency": -30,
-            "classical-compatibilism": 65,
-            "hard-incompatibilism": -40
+            "determinism": 88,
+            "free-will": 18
           },
           "xph0006": {
             "platonic-realism": -70,
@@ -3131,10 +3065,10 @@
     "philo-rationalism": {
       "name": "Rationalism",
       "count": 12,
-      "about": "Rationalism holds that reason — intuition, deduction, and ideas we are born with — is a genuine source of knowledge independent of sense experience. Some truths, on this view, can be known a priori, by thinking alone, rather than by looking at the world.",
+      "about": "Rationalism holds that reason \u2014 intuition, deduction, and ideas we are born with \u2014 is a genuine source of knowledge independent of sense experience. Some truths, on this view, can be known a priori, by thinking alone, rather than by looking at the world.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Rationalism vs. Empiricism",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Rationalism vs. Empiricism",
           "url": "https://plato.stanford.edu/entries/rationalism-empiricism/"
         }
       ],
@@ -3174,16 +3108,12 @@
             "dialectics": 10
           },
           "xph0004": {
-            "substance-dualism": 70,
-            "physicalism": -50,
-            "objective-idealism": 40,
-            "neutral-monism": 50
+            "matter-fundamental": -35,
+            "mind-fundamental": 55
           },
           "xph0005": {
-            "hard-determinism": 50,
-            "libertarian-agency": 10,
-            "classical-compatibilism": 30,
-            "hard-incompatibilism": -20
+            "determinism": 45,
+            "free-will": 5
           },
           "xph0006": {
             "platonic-realism": 80,
@@ -3227,10 +3157,10 @@
     "philo-pragmatism": {
       "name": "Pragmatism",
       "count": 12,
-      "about": "Pragmatism judges ideas by their practical consequences: a belief is true insofar as it works — it guides action successfully and resolves doubt in inquiry. Meaning, on this view, is found in what an idea does, not in a picture of reality it supposedly mirrors.",
+      "about": "Pragmatism judges ideas by their practical consequences: a belief is true insofar as it works \u2014 it guides action successfully and resolves doubt in inquiry. Meaning, on this view, is found in what an idea does, not in a picture of reality it supposedly mirrors.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Pragmatism",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Pragmatism",
           "url": "https://plato.stanford.edu/entries/pragmatism/"
         }
       ],
@@ -3270,16 +3200,12 @@
             "dialectics": 20
           },
           "xph0004": {
-            "substance-dualism": -70,
-            "physicalism": 40,
-            "objective-idealism": -30,
-            "neutral-monism": 50
+            "matter-fundamental": -25,
+            "mind-fundamental": -95
           },
           "xph0005": {
-            "hard-determinism": -40,
-            "libertarian-agency": 40,
-            "classical-compatibilism": 20,
-            "hard-incompatibilism": -50
+            "determinism": -5,
+            "free-will": 75
           },
           "xph0006": {
             "platonic-realism": -50,
@@ -3323,10 +3249,10 @@
     "philo-phenomenology": {
       "name": "Phenomenology",
       "count": 12,
-      "about": "Phenomenology is the study of conscious experience as it is lived from the first-person point of view. It sets aside assumptions about what causes experience in order to describe carefully how things show up for us — perception, memory, imagination, emotion, and the sense of self.",
+      "about": "Phenomenology is the study of conscious experience as it is lived from the first-person point of view. It sets aside assumptions about what causes experience in order to describe carefully how things show up for us \u2014 perception, memory, imagination, emotion, and the sense of self.",
       "links": [
         {
-          "label": "Stanford Encyclopedia of Philosophy — Phenomenology",
+          "label": "Stanford Encyclopedia of Philosophy \u2014 Phenomenology",
           "url": "https://plato.stanford.edu/entries/phenomenology/"
         }
       ],
@@ -3366,16 +3292,12 @@
             "dialectics": 40
           },
           "xph0004": {
-            "substance-dualism": -60,
-            "physicalism": -50,
-            "objective-idealism": 30,
-            "neutral-monism": 40
+            "matter-fundamental": -90,
+            "mind-fundamental": -10
           },
           "xph0005": {
-            "hard-determinism": -50,
-            "libertarian-agency": 50,
-            "classical-compatibilism": 10,
-            "hard-incompatibilism": -30
+            "determinism": -30,
+            "free-will": 70
           },
           "xph0006": {
             "platonic-realism": 40,
