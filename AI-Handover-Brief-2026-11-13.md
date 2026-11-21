@@ -16,11 +16,10 @@ that forced the 2026-11-19 audit.
 **What this is:** the standing switch document for edit ownership of the
 Sexcapades / Flexcapades repo. When Jason moves the saddle between AI engines,
 this brief is what the incoming editor reads first.
-**Refreshed:** 2026-11-19 by YoBiche (Yolanda Biche, Muse), who held edit
-ownership from 2026-11-15.
+**Refreshed:** 2026-11-20 (Sexcapades Full Decoupling 5-phase plan added to Item 5).
 **The saddle passes to:** Grok and Cursor, on Jason's word.
 **Repo:** `jasonwrinkle-source/Sexcapades-Web`, branch `main`.
-**Remote head:** past `c8e56f8e`; the repo About stamp is `2026-11-19_2321` (`131cdcf`). **Live build:** sex.capades.io About says `2026-11-19_2321`. Confirm a deploy with that one line on `https://sex.capades.io/hosted/app.html`.
+**Remote head:** commit `6ad8759`; the repo About stamp is `2026-11-20_2226`.
 **Version:** 5.0.
 
 **Authority.** Jason Mark Wrinkle is the PI and sole owner. His latest ruling
@@ -328,35 +327,34 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    `python3 app/data/build-bundle.py` so the hosted copy is the same
    file.
 
-   **How to do it, in order.**
-   1. Snapshot. Then stop if it failed.
-   2. Script the merge. Do not open 02b or the JSON in the editor.
-      Match topics by id. Start from the 17 widget topics already in
-      the JSON (keep `poles`, `hovertip`, `widget`, `question`,
-      `poleReading`, `poleEnemies`, `archetype`). Fill in every other
-      topic from 02b, including subcategory membership. Carry
-      `give_label`, `receive_label`, `note`, and `risk`. Emit the shape
-      `mergedCategory` already understands: `subcategories[].topics`,
-      and `parentTopics` where the category has parents. Keep the JSON's
-      other top-level keys byte for byte.
-   3. Check the script's output before wiring it: 381 unique topic ids,
-      same set as 02b, zero id changes, the 17 widget topics still have
-      their poles, `defaultLayout` still present.
-   4. Point Sexcapades boot at that file through the same category swap
-      the other skins use (`applySkin` / `mergedCategory`), and keep
-      widget registration. `restoreSexcapades()` must clone the JSON
-      tree, not the old 02b tree, and must still reattach `toString` so
-      a Fores round-trip does not paint `[object Object]`.
-   5. Leave `m`, `topicRecords`, and `legacyTopicIdByOpaque` alone.
-      `m` renames short catalog names for display (`Nylon` →
-      `NylonLegs & Feet`). Baking those display names into `name` and
-      deleting `m` breaks every `m[name]` lookup. A later pass can retire
-      them. This pass does not.
-   6. Prove it in the browser, then stop 02b from being the boot source.
-      One ordinary give/receive topic still shows both labels. One
-      n-pole topic still draws (BDSM archetypes). Switch to Fores and
-      back. Hot List rows still show names. Only then is 02b allowed to
-      stop feeding `loadTaxonomy`. Do not delete 02i.
+   **Phased Implementation Plan (Ruled 2026-11-20):**
+
+   - **Phase 1: Catalog Reconciliation & `sexcapades.json` Completeness.**
+     1. Audit and reconcile the 9 topics in `02b-taxonomy-data.js` currently missing from `sexcapades.json` (`t0051` Pain, `t0052` Corporal Punishment, `t0053` Impact Play, `t0054` Percussion Play, `t0055` Pressure points, `t0290` Morning Sex, `t0408` Sensual / primal / humiliation, `t0426` Restraint, `t0427` Anatomical Focus).
+     2. Ensure `sexcapades.json` contains exactly 381 unique topic IDs matching the 02b catalog, retaining all 17 multi-pole widget configs, hovertip poles, notes, give/receive labels, risk flags, and `defaultLayout`.
+     3. Verify output with automated check: exactly 381 topic IDs, 18 categories, 0 ID mutations.
+
+   - **Phase 2: Asynchronous Boot Seam & Unified Skin Lifecycle.**
+     1. Establish `window.__SX_BOOT_SKIN_READY` Promise in `02a-taxonomy-models.js` and `skin-loader.js`.
+     2. Remove Sexcapades special-case in `skin-loader.js`: `bootSkin()` dispatches `loadSkin("sexcapades")` like all other skins, swapping taxonomy via `applySkin(data)` rather than bypassing the category array.
+     3. Bridge profile hydration (`vt`), warm-boot restoration, and deep-link routing (`#app/map`, `#app/list`, `#app/compare`) to await `__SX_BOOT_SKIN_READY`.
+     4. Hot List route `#app/list` executes directly against the newly loaded skin, making deferred-boot masks redundant.
+
+   - **Phase 3: Metadata Parity & DOM Island Consolidation.**
+     1. Move `<script id="popularityData">` (FetLife counts) and `<script id="prevalenceData">` into `sexcapades.json` (`popularity` and `prevalence` keys), matching how vanilla skins package popularity.
+     2. Move default sample profiles from `06d-kinktest-profiles.js` into `sexcapades.json.samples`.
+     3. Point `TaxonomyLoader` and `06d` sample loader to read from the active skin object instead of DOM script tags.
+
+   - **Phase 4: Test Harness & Headless Fleet Integration.**
+     1. Update `site-tree/public_html/hosted/test-runner.html` to await `__SX_BOOT_SKIN_READY` before running assertions.
+     2. Verify all 39 unit/integration test suites (taxonomy validation, ratings roll-up, geometric depth scaling, widget placard bounding) pass against the dynamically loaded skin.
+     3. Ensure `window.__SX_HEADLESS` properly initializes `__SX_BOOT_SKIN_READY` without hang.
+
+   - **Phase 5: Decapitation of `02b-taxonomy-data.js` & Verification.**
+     1. Replace `02b-taxonomy-data.js` with empty catalog export stub (`export const TAXONOMY_CATEGORIES = [];`).
+     2. Run `python3 app/data/build-bundle.py` to compile bundle; confirm ~220 KB reduction in `data-bootstrap.js`.
+     3. Run `bash packaging-scripts/package-deploy-all-5.0.sh` and confirm all 11 packaging verification gates pass.
+     4. Cold-open verification: verify `sex.capades.io`, `fores.capades.io`, and `polis.capades.io` boot cleanly without race condition, flash, or regression.
 6. **Rating-persistence diagnosis** — a rating set in-session does not
    surface after reload, even with Remember on (seen on Sexcapades and
    Polis alike). The save side works — the stored blob holds the rating;
