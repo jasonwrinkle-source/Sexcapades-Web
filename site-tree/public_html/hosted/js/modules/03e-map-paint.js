@@ -2810,6 +2810,7 @@
                     const w = allWraps[i];
                     if (w) w.hidden = (w !== activeWrap);
                 }
+                linearRatings && linearRatings.classList.remove("is-trilinear");
                 sxSetMeterLine(activeWrap, id);
             };
 
@@ -3129,25 +3130,27 @@
                 // sits at 0. Stored under the single key "line" (bind writes via
                 // shape.keys[0]); derived weights: middle = 1 - |V|/100.
                 setOnlyWrap(linearRatings);
+                linearRatings && linearRatings.classList.add("is-trilinear");
                 recvRow && (recvRow.hidden = !0);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
                 role7Row && (role7Row.hidden = !0);
-                // T8: three separate spans (each with its own pole hovertip)
-                // instead of one joined string — the old joined label crammed
-                // three names into one slider label.
                 if (giveLabel) {
-                    giveLabel.textContent = "";
+                    giveLabel.innerHTML = "";
+                    const poleBox = document.createElement("div");
+                    poleBox.className = "mark-trilinear-poles";
                     const triParts = [shape.labels[0] || "", shape.labels[1] || "", shape.labels[2] || ""];
+                    const poleClasses = ["tri-pole-left", "tri-pole-center", "tri-pole-right"];
                     triParts.forEach((p, i) => {
-                        if (i > 0) giveLabel.appendChild(document.createTextNode(" — "));
                         const sp = document.createElement("span");
+                        sp.className = `mark-trilinear-pole ${poleClasses[i]}`;
                         sp.textContent = p;
                         sxSetPoleTip(sp, id, (shape.poleKeys && shape.poleKeys[i]) || (shape.keys && shape.keys[i]));
-                        giveLabel.appendChild(sp);
+                        poleBox.appendChild(sp);
                     });
+                    giveLabel.appendChild(poleBox);
                 }
                 give.value = rec.lineKnown ? rec.line : 0;
                 giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");

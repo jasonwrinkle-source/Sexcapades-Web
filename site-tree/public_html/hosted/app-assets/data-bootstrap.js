@@ -28486,6 +28486,7 @@ const TAXONOMY_CATEGORIES = [
                     const w = allWraps[i];
                     if (w) w.hidden = (w !== activeWrap);
                 }
+                linearRatings && linearRatings.classList.remove("is-trilinear");
                 sxSetMeterLine(activeWrap, id);
             };
 
@@ -28805,25 +28806,27 @@ const TAXONOMY_CATEGORIES = [
                 // sits at 0. Stored under the single key "line" (bind writes via
                 // shape.keys[0]); derived weights: middle = 1 - |V|/100.
                 setOnlyWrap(linearRatings);
+                linearRatings && linearRatings.classList.add("is-trilinear");
                 recvRow && (recvRow.hidden = !0);
                 role3Row && (role3Row.hidden = !0);
                 role4Row && (role4Row.hidden = !0);
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
                 role7Row && (role7Row.hidden = !0);
-                // T8: three separate spans (each with its own pole hovertip)
-                // instead of one joined string — the old joined label crammed
-                // three names into one slider label.
                 if (giveLabel) {
-                    giveLabel.textContent = "";
+                    giveLabel.innerHTML = "";
+                    const poleBox = document.createElement("div");
+                    poleBox.className = "mark-trilinear-poles";
                     const triParts = [shape.labels[0] || "", shape.labels[1] || "", shape.labels[2] || ""];
+                    const poleClasses = ["tri-pole-left", "tri-pole-center", "tri-pole-right"];
                     triParts.forEach((p, i) => {
-                        if (i > 0) giveLabel.appendChild(document.createTextNode(" — "));
                         const sp = document.createElement("span");
+                        sp.className = `mark-trilinear-pole ${poleClasses[i]}`;
                         sp.textContent = p;
                         sxSetPoleTip(sp, id, (shape.poleKeys && shape.poleKeys[i]) || (shape.keys && shape.keys[i]));
-                        giveLabel.appendChild(sp);
+                        poleBox.appendChild(sp);
                     });
+                    giveLabel.appendChild(poleBox);
                 }
                 give.value = rec.lineKnown ? rec.line : 0;
                 giveOut && (giveOut.textContent = rec.lineKnown ? String(Math.round(rec.line)) : "Unrated");
@@ -32896,14 +32899,15 @@ const TAXONOMY_CATEGORIES = [
                 h.append(inline);
                 typeof window.sxOpenHotListWidgetPopup === "function" && window.sxOpenHotListWidgetPopup(e.id, t, inline);
             } else if (i.widget === "trilinear-line") {
-                const r = document.createElement("label");
-                r.className = "outline-rating";
-                const s = document.createElement("span");
-                s.className = "outline-rating-label";
+                const r = document.createElement("div");
+                r.className = "outline-rating outline-rating-trilinear";
+                const poleBar = document.createElement("div");
+                poleBar.className = "outline-trilinear-poles";
                 const triParts = [i.labels[0] || "", i.labels[1] || "", i.labels[2] || ""];
+                const poleClasses = ["tri-pole-left", "tri-pole-center", "tri-pole-right"];
                 triParts.forEach((p, idx) => {
-                    if (idx > 0) s.appendChild(document.createTextNode(" — "));
                     const sp = document.createElement("span");
+                    sp.className = `outline-trilinear-pole ${poleClasses[idx]}`;
                     sp.textContent = p;
                     const poleKey = (i.poleKeys && i.poleKeys[idx]) || (i.keys && i.keys[idx]);
                     const pTip = typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, poleKey) : null;
@@ -32911,15 +32915,16 @@ const TAXONOMY_CATEGORIES = [
                         sp.dataset.ratingTooltip = pTip;
                         sp.setAttribute("data-tooltip-tap-first", "");
                     }
-                    s.appendChild(sp);
+                    poleBar.appendChild(sp);
                 });
-                const firstTip = (i.poleKeys && typeof window.__SX_POLE_LINE_FOR === "function" ? window.__SX_POLE_LINE_FOR(e.id, i.poleKeys[0]) : null) || s.textContent;
-                firstTip && (r.dataset.ratingTooltip = firstTip, r.setAttribute("data-tooltip-tap-first", ""));
+                const sliderRow = document.createElement("div");
+                sliderRow.className = "outline-trilinear-slider-row";
                 const c = document.createElement("input");
                 c.type = "range", c.min = "-100", c.max = "100", c.step = "1", c.value = "0", c.dataset.outlineDirection = "line",
-                c.setAttribute("aria-label", `${e.label}, ${s.textContent}`);
+                c.setAttribute("aria-label", `${e.label}: -100 ${triParts[0]}, 0 ${triParts[1]}, +100 ${triParts[2]}`);
                 const d = document.createElement("output");
-                r.append(s, c, d), h.append(r);
+                sliderRow.append(c, d);
+                r.append(poleBar, sliderRow), h.append(r);
             } else (i.single ? [ "give" ] : i.keys).forEach((n, a) => {
                 const r = document.createElement("label"), o = !i.single && "give" === i.labels[0] && "receive" === i.labels[1];
                 r.className = "outline-rating";
