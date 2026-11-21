@@ -376,13 +376,17 @@
           "name": "public finance",
           "topics": [
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How much different income levels should pay in federal income tax.",
                 "poles": [
                   {
                     "label": "Higher taxes on the wealthy",
                     "text": "Higher taxes on the wealthy"
+                  },
+                  {
+                    "label": "Moderate, flatter rates",
+                    "text": "Lower and simplify rates, with modest progressivity."
                   },
                   {
                     "label": "Lower taxes across the board",
@@ -398,6 +402,10 @@
                   "label": "Higher taxes on the wealthy"
                 },
                 {
+                  "key": "moderate-flatter-rates",
+                  "label": "Moderate, flatter rates"
+                },
+                {
                   "key": "lower-taxes-across-the-board",
                   "label": "Lower taxes across the board"
                 }
@@ -405,7 +413,7 @@
               "question": "How much different income levels should pay in federal income tax.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0003)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -440,13 +448,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How corporations are taxed, and whether loopholes and subsidies should close.",
                 "poles": [
                   {
                     "label": "Close loopholes, tax more",
                     "text": "Close loopholes and tax corporations more"
+                  },
+                  {
+                    "label": "Competitive rate",
+                    "text": "A lower headline rate, paid for by closing loopholes."
                   },
                   {
                     "label": "Cut corporate taxes",
@@ -462,6 +474,10 @@
                   "label": "Close loopholes, tax more"
                 },
                 {
+                  "key": "competitive-rate-fewer-loopholes",
+                  "label": "Competitive rate, fewer loopholes"
+                },
+                {
                   "key": "cut-corporate-taxes",
                   "label": "Cut corporate taxes"
                 }
@@ -469,7 +485,7 @@
               "question": "How corporations are taxed, and whether loopholes and subsidies should close.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0004)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -504,13 +520,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How much the federal government should spend, and whether deficits matter.",
                 "poles": [
                   {
                     "label": "Invest generously",
                     "text": "Invest generously (deficits acceptable)"
+                  },
+                  {
+                    "label": "Bend the curve",
+                    "text": "Keep investing while slowing the growth of spending toward balance."
                   },
                   {
                     "label": "Cut spending to balance",
@@ -526,6 +546,10 @@
                   "label": "Invest generously"
                 },
                 {
+                  "key": "spend-but-bend-the-curve",
+                  "label": "Spend, but bend the curve"
+                },
+                {
                   "key": "cut-spending-to-balance",
                   "label": "Cut spending to balance"
                 }
@@ -533,7 +557,7 @@
               "question": "How much the federal government should spend, and whether deficits matter.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0005)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -632,13 +656,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the government should act to reduce the gap between rich and poor, and how.",
                 "poles": [
                   {
                     "label": "Reduce inequality",
                     "text": "Reduce inequality through redistribution"
+                  },
+                  {
+                    "label": "Ease at the margins",
+                    "text": "Let markets distribute, with policy softening the extremes."
                   },
                   {
                     "label": "Market outcome",
@@ -654,6 +682,10 @@
                   "label": "Reduce inequality"
                 },
                 {
+                  "key": "ease-inequality-at-the-margins",
+                  "label": "Ease inequality at the margins"
+                },
+                {
                   "key": "market-outcome",
                   "label": "Market outcome"
                 }
@@ -661,7 +693,7 @@
               "question": "Whether the government should act to reduce the gap between rich and poor, and how.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0078)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -713,13 +745,17 @@
           "name": "economic statecraft",
           "topics": [
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the US should use tariffs and what kind of trade deals it should sign.",
                 "poles": [
                   {
                     "label": "Free trade",
                     "text": "Free trade"
+                  },
+                  {
+                    "label": "Fair trade",
+                    "text": "Targeted, reciprocal tariffs: open trade, but conditioned on fair terms."
                   },
                   {
                     "label": "Protective tariffs",
@@ -735,6 +771,10 @@
                   "label": "Free trade"
                 },
                 {
+                  "key": "fair-trade",
+                  "label": "Fair trade"
+                },
+                {
                   "key": "protective-tariffs",
                   "label": "Protective tariffs"
                 }
@@ -742,7 +782,7 @@
               "question": "Whether the US should use tariffs and what kind of trade deals it should sign.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0007)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -782,13 +822,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the government should actively bring manufacturing and supply chains home.",
                 "poles": [
                   {
                     "label": "Industrial policy & reshoring",
                     "text": "Industrial policy and reshoring"
+                  },
+                  {
+                    "label": "Targeted support",
+                    "text": "Help strategic industries only; the rest is the market's."
                   },
                   {
                     "label": "Leave it to the market",
@@ -804,6 +848,10 @@
                   "label": "Industrial policy & reshoring"
                 },
                 {
+                  "key": "targeted-support",
+                  "label": "Targeted support"
+                },
+                {
                   "key": "leave-it-to-the-market",
                   "label": "Leave it to the market"
                 }
@@ -811,7 +859,7 @@
               "question": "Whether the government should actively bring manufacturing and supply chains home.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0008)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -846,13 +894,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How the US should handle economic competition with China.",
                 "poles": [
                   {
                     "label": "Managed competition",
                     "text": "Managed competition and cooperation"
+                  },
+                  {
+                    "label": "Selective decoupling",
+                    "text": "Compete and cooperate, decoupling only in sensitive sectors."
                   },
                   {
                     "label": "Economic decoupling",
@@ -868,6 +920,10 @@
                   "label": "Managed competition"
                 },
                 {
+                  "key": "selective-decoupling",
+                  "label": "Selective decoupling"
+                },
+                {
                   "key": "economic-decoupling",
                   "label": "Economic decoupling"
                 }
@@ -875,7 +931,7 @@
               "question": "How the US should handle economic competition with China.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0009)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -921,13 +977,17 @@
           "name": "the value of money",
           "topics": [
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Who controls the money supply, and how.",
                 "poles": [
                   {
                     "label": "Independent central bank",
                     "text": "An independent central bank"
+                  },
+                  {
+                    "label": "Constrain the Fed",
+                    "text": "Keep the central bank, but bind it: audits and rules-based policy."
                   },
                   {
                     "label": "Abolish the Fed",
@@ -943,6 +1003,10 @@
                   "label": "Independent central bank"
                 },
                 {
+                  "key": "constrain-the-fed",
+                  "label": "Constrain the Fed"
+                },
+                {
                   "key": "abolish-the-fed",
                   "label": "Abolish the Fed"
                 }
@@ -950,7 +1014,7 @@
               "question": "Who controls the money supply, and how.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0010)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1049,13 +1113,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the government should act to bring down the prices people pay, and how.",
                 "poles": [
                   {
                     "label": "Act to bring prices down",
                     "text": "Act to bring prices down"
+                  },
+                  {
+                    "label": "Hands off prices",
+                    "text": "Fight inflation through money and supply, not price controls."
                   },
                   {
                     "label": "Leave prices to the market",
@@ -1071,6 +1139,10 @@
                   "label": "Act to bring prices down"
                 },
                 {
+                  "key": "guard-the-currency-hands-off-prices",
+                  "label": "Guard the currency, hands off prices"
+                },
+                {
                   "key": "leave-prices-to-the-market",
                   "label": "Leave prices to the market"
                 }
@@ -1078,7 +1150,7 @@
               "question": "Whether the government should act to bring down the prices people pay, and how.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0079)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1130,13 +1202,17 @@
           "name": "livelihood",
           "topics": [
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the federal government should set a minimum wage, and at what level.",
                 "poles": [
                   {
                     "label": "Higher federal floor",
                     "text": "A higher federal floor"
+                  },
+                  {
+                    "label": "A modest floor",
+                    "text": "A lower federal floor, with states free to go higher."
                   },
                   {
                     "label": "No federal floor",
@@ -1152,6 +1228,10 @@
                   "label": "Higher federal floor"
                 },
                 {
+                  "key": "a-modest-federal-floor",
+                  "label": "A modest federal floor"
+                },
+                {
                   "key": "no-federal-floor",
                   "label": "No federal floor"
                 }
@@ -1159,7 +1239,7 @@
               "question": "Whether the federal government should set a minimum wage, and at what level.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0001)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1194,13 +1274,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Workers' right to organize and bargain, and the rules around it.",
                 "poles": [
                   {
                     "label": "Strong labor protections",
                     "text": "Strong labor protections"
+                  },
+                  {
+                    "label": "Basic protections",
+                    "text": "Legal protection for organizing, without compelled membership or dues."
                   },
                   {
                     "label": "Voluntary association only",
@@ -1216,6 +1300,10 @@
                   "label": "Strong labor protections"
                 },
                 {
+                  "key": "basic-protections-voluntary-association",
+                  "label": "Basic protections, voluntary association"
+                },
+                {
                   "key": "voluntary-association-only",
                   "label": "Voluntary association only"
                 }
@@ -1223,7 +1311,7 @@
               "question": "Workers' right to organize and bargain, and the rules around it.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0002)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1253,13 +1341,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether Social Security should be protected, reformed, or phased out.",
                 "poles": [
                   {
                     "label": "Protect and expand",
                     "text": "Protect and expand it"
+                  },
+                  {
+                    "label": "Preserve with reforms",
+                    "text": "Keep the program solvent with adjustments: retirement age, means-testing, tax caps."
                   },
                   {
                     "label": "Phase it out",
@@ -1275,6 +1367,10 @@
                   "label": "Protect and expand"
                 },
                 {
+                  "key": "preserve-with-reforms",
+                  "label": "Preserve with reforms"
+                },
+                {
                   "key": "phase-it-out",
                   "label": "Phase it out"
                 }
@@ -1282,7 +1378,7 @@
               "question": "Whether Social Security should be protected, reformed, or phased out.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0012)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1312,13 +1408,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the federal government should run anti-poverty programs.",
                 "poles": [
                   {
                     "label": "Strong safety net",
                     "text": "A strong safety net"
+                  },
+                  {
+                    "label": "A limited safety net",
+                    "text": "Help for the truly needy, time-limited and work-conditioned."
                   },
                   {
                     "label": "No federal welfare",
@@ -1334,6 +1434,10 @@
                   "label": "Strong safety net"
                 },
                 {
+                  "key": "a-limited-safety-net",
+                  "label": "A limited safety net"
+                },
+                {
                   "key": "no-federal-welfare",
                   "label": "No federal welfare"
                 }
@@ -1341,7 +1445,7 @@
               "question": "Whether the federal government should run anti-poverty programs.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0013)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1371,13 +1475,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "What the government should do about the cost of housing.",
                 "poles": [
                   {
                     "label": "Build and subsidize more",
                     "text": "Build and subsidize more housing"
+                  },
+                  {
+                    "label": "Deregulate & build",
+                    "text": "Cut zoning and permitting barriers so private building can meet demand."
                   },
                   {
                     "label": "Leave it to the market",
@@ -1393,6 +1501,10 @@
                   "label": "Build and subsidize more"
                 },
                 {
+                  "key": "deregulate-build-yimby",
+                  "label": "Deregulate & build (YIMBY)"
+                },
+                {
                   "key": "leave-it-to-the-market",
                   "label": "Leave it to the market"
                 }
@@ -1400,7 +1512,7 @@
               "question": "What the government should do about the cost of housing.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0014)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1521,13 +1633,17 @@
           }
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government should cap or negotiate drug prices.",
             "poles": [
               {
                 "label": "Negotiate and cap prices",
                 "text": "Negotiate and cap prices"
+              },
+              {
+                "label": "Negotiate excesses",
+                "text": "Negotiate a few high-cost drugs; leave the rest to the market."
               },
               {
                 "label": "Leave prices to the market",
@@ -1543,6 +1659,10 @@
               "label": "Negotiate and cap prices"
             },
             {
+              "key": "negotiate-the-worst-excesses",
+              "label": "Negotiate the worst excesses"
+            },
+            {
               "key": "leave-prices-to-the-market",
               "label": "Leave prices to the market"
             }
@@ -1550,7 +1670,7 @@
           "question": "Whether the government should cap or negotiate drug prices.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0016)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1706,13 +1826,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government should make child care affordable.",
             "poles": [
               {
                 "label": "Guaranteed affordable care",
                 "text": "Guaranteed affordable care"
+              },
+              {
+                "label": "Subsidize",
+                "text": "Tax help and subsidies for care, without a public guarantee."
               },
               {
                 "label": "Families pay themselves",
@@ -1728,6 +1852,10 @@
               "label": "Guaranteed affordable care"
             },
             {
+              "key": "subsidize-don-t-guarantee",
+              "label": "Subsidize, don't guarantee"
+            },
+            {
               "key": "families-pay-themselves",
               "label": "Families pay themselves"
             }
@@ -1735,7 +1863,7 @@
           "question": "Whether the government should make child care affordable.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0019)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1765,13 +1893,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether workers should get guaranteed paid time off to care for family or recover from illness.",
             "poles": [
               {
                 "label": "National paid-leave program",
                 "text": "A national paid-leave program"
+              },
+              {
+                "label": "Incentivize",
+                "text": "Tax credits for employers who offer paid leave, no mandate."
               },
               {
                 "label": "Leave it to employers",
@@ -1787,6 +1919,10 @@
               "label": "National paid-leave program"
             },
             {
+              "key": "incentivize-employer-leave",
+              "label": "Incentivize employer leave"
+            },
+            {
               "key": "leave-it-to-employers",
               "label": "Leave it to employers"
             }
@@ -1794,7 +1930,7 @@
           "question": "Whether workers should get guaranteed paid time off to care for family or recover from illness.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0020)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1824,13 +1960,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government can require vaccines or other public-health measures.",
             "poles": [
               {
                 "label": "Mandates legitimate",
                 "text": "Public-health mandates are legitimate"
+              },
+              {
+                "label": "Mandates with exemptions",
+                "text": "Mandates for core vaccines, with medical and conscience exemptions."
               },
               {
                 "label": "Mandates violate autonomy",
@@ -1846,6 +1986,10 @@
               "label": "Mandates legitimate"
             },
             {
+              "key": "mandates-with-exemptions",
+              "label": "Mandates with exemptions"
+            },
+            {
               "key": "mandates-violate-autonomy",
               "label": "Mandates violate autonomy"
             }
@@ -1853,7 +1997,7 @@
           "question": "Whether the government can require vaccines or other public-health measures.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0021)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1889,13 +2033,17 @@
       "name": "Climate, Energy & Environment",
       "topics": [
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether climate change is a crisis and what the government should do about emissions.",
             "poles": [
               {
                 "label": "Urgent action",
                 "text": "Urgent action and emissions cuts"
+              },
+              {
+                "label": "Gradual action",
+                "text": "Act on climate at a measured pace, through markets more than mandates."
               },
               {
                 "label": "No government action",
@@ -1911,6 +2059,10 @@
               "label": "Urgent action"
             },
             {
+              "key": "gradual-market-led-action",
+              "label": "Gradual, market-led action"
+            },
+            {
               "key": "no-government-action",
               "label": "No government action"
             }
@@ -1918,7 +2070,7 @@
           "question": "Whether climate change is a crisis and what the government should do about emissions.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0022)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -1964,13 +2116,17 @@
           }
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government should expand, restrict, or phase out oil, gas, and coal.",
             "poles": [
               {
                 "label": "Drill and expand",
                 "text": "Drill and expand"
+              },
+              {
+                "label": "All of the above",
+                "text": "Keep drilling while renewables grow; transition by addition, not bans."
               },
               {
                 "label": "Phase out",
@@ -1986,6 +2142,10 @@
               "label": "Drill and expand"
             },
             {
+              "key": "all-of-the-above-in-transition",
+              "label": "All of the above, in transition"
+            },
+            {
               "key": "phase-out",
               "label": "Phase out"
             }
@@ -1993,7 +2153,7 @@
           "question": "Whether the government should expand, restrict, or phase out oil, gas, and coal.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0023)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2023,13 +2183,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether nuclear energy has a place in the energy mix.",
             "poles": [
               {
                 "label": "Keep and expand",
                 "text": "Keep and expand nuclear"
+              },
+              {
+                "label": "Keep and build selectively",
+                "text": "Maintain existing plants, and add new ones where they pencil out."
               },
               {
                 "label": "Phase it out",
@@ -2045,6 +2209,10 @@
               "label": "Keep and expand"
             },
             {
+              "key": "keep-the-fleet-build-selectively",
+              "label": "Keep the fleet, build selectively"
+            },
+            {
               "key": "phase-it-out",
               "label": "Phase it out"
             }
@@ -2052,7 +2220,7 @@
           "question": "Whether nuclear energy has a place in the energy mix.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0024)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2082,13 +2250,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "How far and how fast the government should push solar, wind, and other renewables.",
             "poles": [
               {
                 "label": "Massive public investment",
                 "text": "Massive public investment"
+              },
+              {
+                "label": "Incentives, not mandates",
+                "text": "Tax credits and research, without mandates or massive programs."
               },
               {
                 "label": "Let the market decide",
@@ -2104,6 +2276,10 @@
               "label": "Massive public investment"
             },
             {
+              "key": "incentives-not-mandates",
+              "label": "Incentives, not mandates"
+            },
+            {
               "key": "let-the-market-decide",
               "label": "Let the market decide"
             }
@@ -2111,7 +2287,7 @@
           "question": "How far and how fast the government should push solar, wind, and other renewables.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0025)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2141,13 +2317,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government should promote or mandate electric vehicles.",
             "poles": [
               {
                 "label": "Incentivize and mandate EVs",
                 "text": "Incentivize and mandate EVs"
+              },
+              {
+                "label": "Incentives, no mandates",
+                "text": "Encourage EVs with incentives; no bans or mandates."
               },
               {
                 "label": "Cancel EV mandates",
@@ -2163,6 +2343,10 @@
               "label": "Incentivize and mandate EVs"
             },
             {
+              "key": "incentives-no-mandates",
+              "label": "Incentives, no mandates"
+            },
+            {
               "key": "cancel-ev-mandates",
               "label": "Cancel EV mandates"
             }
@@ -2170,7 +2354,7 @@
           "question": "Whether the government should promote or mandate electric vehicles.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0026)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2200,13 +2384,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Who pays for pollution, and whether overburdened communities get special protection.",
             "poles": [
               {
                 "label": "Strict rules, polluter-pays",
                 "text": "Strict rules and polluter-pays"
+              },
+              {
+                "label": "Property remedies",
+                "text": "Baseline pollution rules, enforced mainly through courts and property rights."
               },
               {
                 "label": "Property rights & courts only",
@@ -2222,6 +2410,10 @@
               "label": "Strict rules, polluter-pays"
             },
             {
+              "key": "rules-with-property-remedies",
+              "label": "Rules with property remedies"
+            },
+            {
               "key": "property-rights-courts-only",
               "label": "Property rights & courts only"
             }
@@ -2229,7 +2421,7 @@
           "question": "Who pays for pollution, and whether overburdened communities get special protection.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0027)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2259,13 +2451,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Who owns and manages public lands, and how wildlife and nature are protected.",
             "poles": [
               {
                 "label": "Federal conservation",
                 "text": "Federal conservation"
+              },
+              {
+                "label": "Shared stewardship",
+                "text": "Federal conservation of core lands, with states and private owners managing the rest."
               },
               {
                 "label": "Return to states / private",
@@ -2281,6 +2477,10 @@
               "label": "Federal conservation"
             },
             {
+              "key": "shared-stewardship",
+              "label": "Shared stewardship"
+            },
+            {
               "key": "return-to-states-private",
               "label": "Return to states / private"
             }
@@ -2288,7 +2488,7 @@
           "question": "Who owns and manages public lands, and how wildlife and nature are protected.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0028)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2318,13 +2518,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "What the government should do for farmers and the food system.",
             "poles": [
               {
                 "label": "Support farmers & reform",
                 "text": "Support farmers and reform the food system"
+              },
+              {
+                "label": "Safety net only",
+                "text": "Crop insurance and disaster help, without standing subsidies."
               },
               {
                 "label": "Leave it to the market",
@@ -2340,6 +2544,10 @@
               "label": "Support farmers & reform"
             },
             {
+              "key": "a-safety-net-market-led",
+              "label": "A safety net, market-led"
+            },
+            {
               "key": "leave-it-to-the-market",
               "label": "Leave it to the market"
             }
@@ -2347,7 +2555,7 @@
           "question": "What the government should do for farmers and the food system.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0029)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2442,13 +2650,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether and how unauthorized immigrants should be removed.",
             "poles": [
               {
                 "label": "Mass deportation",
                 "text": "Mass deportation"
+              },
+              {
+                "label": "Prioritized removal",
+                "text": "Remove criminals and recent arrivals first; process the rest case by case."
               },
               {
                 "label": "Removal after fair process",
@@ -2464,6 +2676,10 @@
               "label": "Mass deportation"
             },
             {
+              "key": "prioritized-removal",
+              "label": "Prioritized removal"
+            },
+            {
               "key": "removal-after-fair-process",
               "label": "Removal after fair process"
             }
@@ -2471,7 +2687,7 @@
           "question": "Whether and how unauthorized immigrants should be removed.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0031)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2560,13 +2776,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "How asylum claims should be handled.",
             "poles": [
               {
                 "label": "Fair, humane process",
                 "text": "Fair, humane asylum process"
+              },
+              {
+                "label": "Screened asylum",
+                "text": "A humane process with real screening and timely decisions."
               },
               {
                 "label": "Strict vetting & deterrence",
@@ -2582,6 +2802,10 @@
               "label": "Fair, humane process"
             },
             {
+              "key": "orderly-screened-asylum",
+              "label": "Orderly, screened asylum"
+            },
+            {
               "key": "strict-vetting-deterrence",
               "label": "Strict vetting & deterrence"
             }
@@ -2589,7 +2813,7 @@
           "question": "How asylum claims should be handled.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0033)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2619,13 +2843,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether long-term unauthorized residents and Dreamers should get a path to citizenship.",
             "poles": [
               {
                 "label": "Path to citizenship",
                 "text": "A path to citizenship"
+              },
+              {
+                "label": "Legal status without citizenship",
+                "text": "Legalize presence and work, without a path to citizenship."
               },
               {
                 "label": "Enforcement only, no amnesty",
@@ -2641,6 +2869,10 @@
               "label": "Path to citizenship"
             },
             {
+              "key": "legal-status-without-citizenship",
+              "label": "Legal status without citizenship"
+            },
+            {
               "key": "enforcement-only-no-amnesty",
               "label": "Enforcement only, no amnesty"
             }
@@ -2648,7 +2880,7 @@
           "question": "Whether long-term unauthorized residents and Dreamers should get a path to citizenship.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0034)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2678,13 +2910,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether children born in the US to unauthorized immigrants are citizens.",
             "poles": [
               {
                 "label": "Keep birthright citizenship",
                 "text": "Keep birthright citizenship"
+              },
+              {
+                "label": "Restrict at the edges",
+                "text": "Keep birthright citizenship, with limits for the children of temporary visitors."
               },
               {
                 "label": "End it",
@@ -2700,6 +2936,10 @@
               "label": "Keep birthright citizenship"
             },
             {
+              "key": "restrict-it-at-the-edges",
+              "label": "Restrict it at the edges"
+            },
+            {
               "key": "end-it",
               "label": "End it"
             }
@@ -2707,7 +2947,7 @@
           "question": "Whether children born in the US to unauthorized immigrants are citizens.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0035)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2737,13 +2977,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether local governments may limit cooperation with federal immigration enforcement.",
             "poles": [
               {
                 "label": "Let cities decide",
                 "text": "Let cities decide"
+              },
+              {
+                "label": "Cooperate on serious crimes",
+                "text": "Local discretion generally, but cooperation on serious criminal offenders."
               },
               {
                 "label": "Cut federal funding",
@@ -2759,6 +3003,10 @@
               "label": "Let cities decide"
             },
             {
+              "key": "cooperate-on-serious-crimes",
+              "label": "Cooperate on serious crimes"
+            },
+            {
               "key": "cut-federal-funding",
               "label": "Cut federal funding"
             }
@@ -2766,7 +3014,7 @@
           "question": "Whether local governments may limit cooperation with federal immigration enforcement.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0036)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -3119,13 +3367,17 @@
           "name": "democratic process",
           "topics": [
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How easy it should be to vote, and what identification should be required.",
                 "poles": [
                   {
                     "label": "Expand access, no ID",
                     "text": "Expand access and oppose ID requirements"
+                  },
+                  {
+                    "label": "Easy voting with ID",
+                    "text": "Wide access \u2014 early, mail, same-day \u2014 with voter ID."
                   },
                   {
                     "label": "Require ID & same-day voting",
@@ -3141,6 +3393,10 @@
                   "label": "Expand access, no ID"
                 },
                 {
+                  "key": "easy-voting-with-id",
+                  "label": "Easy voting with ID"
+                },
+                {
                   "key": "require-id-same-day-voting",
                   "label": "Require ID & same-day voting"
                 }
@@ -3148,7 +3404,7 @@
               "question": "How easy it should be to vote, and what identification should be required.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0037)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3178,13 +3434,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether money in politics should be limited, publicly funded, or unrestricted.",
                 "poles": [
                   {
                     "label": "Limit and publicly fund",
                     "text": "Limit and publicly fund"
+                  },
+                  {
+                    "label": "Disclosure without caps",
+                    "text": "Unlimited financing, fully and promptly disclosed."
                   },
                   {
                     "label": "Unrestricted private financing",
@@ -3200,6 +3460,10 @@
                   "label": "Limit and publicly fund"
                 },
                 {
+                  "key": "disclosure-without-caps",
+                  "label": "Disclosure without caps"
+                },
+                {
                   "key": "unrestricted-private-financing",
                   "label": "Unrestricted private financing"
                 }
@@ -3207,7 +3471,7 @@
               "question": "Whether money in politics should be limited, publicly funded, or unrestricted.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0038)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3237,13 +3501,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the Electoral College should stay, and whether representation should be proportional.",
                 "poles": [
                   {
                     "label": "Keep the Electoral College",
                     "text": "Keep the Electoral College"
+                  },
+                  {
+                    "label": "Reform the College",
+                    "text": "Keep the Electoral College, but allocate electors proportionally."
                   },
                   {
                     "label": "Abolish it, proportional representation",
@@ -3259,6 +3527,10 @@
                   "label": "Keep the Electoral College"
                 },
                 {
+                  "key": "reform-the-college",
+                  "label": "Reform the College"
+                },
+                {
                   "key": "abolish-it-proportional-representation",
                   "label": "Abolish it, proportional representation"
                 }
@@ -3266,7 +3538,7 @@
               "question": "Whether the Electoral College should stay, and whether representation should be proportional.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0039)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3296,13 +3568,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether elections should use ranked-choice voting and open primaries.",
                 "poles": [
                   {
                     "label": "Reform the ballot",
                     "text": "Reform the ballot (ranked choice, open primaries)"
+                  },
+                  {
+                    "label": "Modest reforms",
+                    "text": "Keep the basic ballot; adopt small reforms, like ranked choice locally."
                   },
                   {
                     "label": "Keep the current system",
@@ -3318,6 +3594,10 @@
                   "label": "Reform the ballot"
                 },
                 {
+                  "key": "modest-reforms",
+                  "label": "Modest reforms"
+                },
+                {
                   "key": "keep-the-current-system",
                   "label": "Keep the current system"
                 }
@@ -3325,7 +3605,7 @@
               "question": "Whether elections should use ranked-choice voting and open primaries.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0040)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3355,13 +3635,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Who draws congressional district maps, and whether gerrymandering should end.",
                 "poles": [
                   {
                     "label": "Independent, fair maps",
                     "text": "Independent, fair maps"
+                  },
+                  {
+                    "label": "Fairness rules",
+                    "text": "Legislatures draw the maps, under court-enforced fairness criteria."
                   },
                   {
                     "label": "Leave to state legislatures",
@@ -3377,6 +3661,10 @@
                   "label": "Independent, fair maps"
                 },
                 {
+                  "key": "legislatures-with-fairness-rules",
+                  "label": "Legislatures with fairness rules"
+                },
+                {
                   "key": "leave-to-state-legislatures",
                   "label": "Leave to state legislatures"
                 }
@@ -3384,7 +3672,7 @@
               "question": "Who draws congressional district maps, and whether gerrymandering should end.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0041)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3414,13 +3702,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether DC and the territories should get statehood or a different status.",
                 "poles": [
                   {
                     "label": "Statehood / self-determination",
                     "text": "Statehood / self-determination"
+                  },
+                  {
+                    "label": "Free association",
+                    "text": "Neither statehood nor the status quo: a sovereign association with the US, terminable by either side."
                   },
                   {
                     "label": "Keep current status",
@@ -3436,6 +3728,10 @@
                   "label": "Statehood / self-determination"
                 },
                 {
+                  "key": "free-association",
+                  "label": "Free association"
+                },
+                {
                   "key": "keep-current-status",
                   "label": "Keep current status"
                 }
@@ -3443,7 +3739,7 @@
               "question": "Whether DC and the territories should get statehood or a different status.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0042)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3479,13 +3775,17 @@
           "name": "the structure of power",
           "topics": [
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How big the Supreme Court should be and how it should be checked.",
                 "poles": [
                   {
                     "label": "Expand or reform",
                     "text": "Expand or reform the Court"
+                  },
+                  {
+                    "label": "Term limits, no expansion",
+                    "text": "Reform the Court with term limits, without changing its size."
                   },
                   {
                     "label": "Keep it at nine",
@@ -3501,6 +3801,10 @@
                   "label": "Expand or reform"
                 },
                 {
+                  "key": "term-limits-no-expansion",
+                  "label": "Term limits, no expansion"
+                },
+                {
                   "key": "keep-it-at-nine",
                   "label": "Keep it at nine"
                 }
@@ -3508,7 +3812,7 @@
               "question": "How big the Supreme Court should be and how it should be checked.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0043)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3538,13 +3842,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "What kind of judges should be appointed?",
                 "poles": [
                   {
                     "label": "Protect rights and freedoms",
                     "text": "Judges who actively protect rights and freedoms"
+                  },
+                  {
+                    "label": "Judicial restraint",
+                    "text": "Judges should defer to the democratic branches and decide narrowly."
                   },
                   {
                     "label": "Apply the law as written",
@@ -3560,6 +3868,10 @@
                   "label": "Protect rights and freedoms"
                 },
                 {
+                  "key": "judicial-restraint",
+                  "label": "Judicial restraint"
+                },
+                {
                   "key": "apply-the-law-as-written",
                   "label": "Apply the law as written"
                 }
@@ -3567,7 +3879,7 @@
               "question": "What kind of judges should be appointed?",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0044)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3597,13 +3909,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Which level of government should decide \u2014 Washington or the states.",
                 "poles": [
                   {
                     "label": "Strong federal standards",
                     "text": "Strong federal standards"
+                  },
+                  {
+                    "label": "Federal floors",
+                    "text": "National minimum standards; states run everything above the floor."
                   },
                   {
                     "label": "Powers to the states",
@@ -3619,6 +3935,10 @@
                   "label": "Strong federal standards"
                 },
                 {
+                  "key": "federal-floors-state-freedom",
+                  "label": "Federal floors, state freedom"
+                },
+                {
                   "key": "powers-to-the-states",
                   "label": "Powers to the states"
                 }
@@ -3626,7 +3946,7 @@
               "question": "Which level of government should decide \u2014 Washington or the states.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0045)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3656,13 +3976,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How big and active the federal government should be.",
                 "poles": [
                   {
                     "label": "Active federal government",
                     "text": "An active federal government"
+                  },
+                  {
+                    "label": "Lean but capable",
+                    "text": "A smaller government that still does its core jobs well."
                   },
                   {
                     "label": "Minimal government",
@@ -3678,6 +4002,10 @@
                   "label": "Active federal government"
                 },
                 {
+                  "key": "lean-but-capable",
+                  "label": "Lean but capable"
+                },
+                {
                   "key": "minimal-government",
                   "label": "Minimal government"
                 }
@@ -3685,7 +4013,7 @@
               "question": "How big and active the federal government should be.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0046)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3726,13 +4054,17 @@
               }
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "How much the federal government should regulate business and the economy.",
                 "poles": [
                   {
                     "label": "Regulate to protect",
                     "text": "Regulate to protect people"
+                  },
+                  {
+                    "label": "Smarter regulation",
+                    "text": "Keep protective rules, but cost-checked and sunset-reviewed."
                   },
                   {
                     "label": "Deregulate",
@@ -3748,6 +4080,10 @@
                   "label": "Regulate to protect"
                 },
                 {
+                  "key": "smarter-regulation",
+                  "label": "Smarter regulation"
+                },
+                {
                   "key": "deregulate",
                   "label": "Deregulate"
                 }
@@ -3755,7 +4091,7 @@
               "question": "How much the federal government should regulate business and the economy.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0047)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3791,13 +4127,17 @@
           "name": "the limits of power",
           "topics": [
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "What the government may collect and watch, and what privacy rights people have.",
                 "poles": [
                   {
                     "label": "Strong privacy protections",
                     "text": "Strong privacy protections and limits on surveillance"
+                  },
+                  {
+                    "label": "Warrants and oversight",
+                    "text": "Security powers exercised under warrants and judicial oversight."
                   },
                   {
                     "label": "Security first",
@@ -3813,6 +4153,10 @@
                   "label": "Strong privacy protections"
                 },
                 {
+                  "key": "warrants-and-oversight",
+                  "label": "Warrants and oversight"
+                },
+                {
                   "key": "security-first",
                   "label": "Security first"
                 }
@@ -3820,7 +4164,7 @@
               "question": "What the government may collect and watch, and what privacy rights people have.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0048)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3855,13 +4199,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the government may restrict speech, fund or pressure media, or police content.",
                 "poles": [
                   {
                     "label": "No government censorship",
                     "text": "No government censorship"
+                  },
+                  {
+                    "label": "Narrow limits",
+                    "text": "Near-absolute protection, with narrow obscenity and incitement limits."
                   },
                   {
                     "label": "Act against obscenity",
@@ -3877,6 +4225,10 @@
                   "label": "No government censorship"
                 },
                 {
+                  "key": "protect-speech-narrow-limits",
+                  "label": "Protect speech, narrow limits"
+                },
+                {
                   "key": "act-against-obscenity",
                   "label": "Act against obscenity"
                 }
@@ -3884,7 +4236,7 @@
               "question": "Whether the government may restrict speech, fund or pressure media, or police content.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0049)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -3914,13 +4266,17 @@
               ]
             },
             {
-              "archetype": null,
+              "archetype": "line",
               "hovertip": {
                 "issue": "Whether the government should set rules for artificial intelligence, and how strict.",
                 "poles": [
                   {
                     "label": "Regulate AI",
                     "text": "Regulate AI and set guardrails"
+                  },
+                  {
+                    "label": "Light-touch guardrails",
+                    "text": "Guardrails for the highest-risk uses; leave the rest alone."
                   },
                   {
                     "label": "Minimal regulation",
@@ -3936,6 +4292,10 @@
                   "label": "Regulate AI"
                 },
                 {
+                  "key": "light-touch-guardrails",
+                  "label": "Light-touch guardrails"
+                },
+                {
                   "key": "minimal-regulation",
                   "label": "Minimal regulation"
                 }
@@ -3943,7 +4303,7 @@
               "question": "Whether the government should set rules for artificial intelligence, and how strict.",
               "risk": false,
               "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0081)",
-              "widget": "linear-sliders",
+              "widget": "trilinear-line",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -4007,13 +4367,17 @@
       "name": "Rights & Freedoms",
       "topics": [
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether and how abortion should be legal and accessible.",
             "poles": [
               {
                 "label": "Pro-choice",
                 "text": "Pro-choice"
+              },
+              {
+                "label": "Legal with limits",
+                "text": "Legal early, restricted later: gestational limits with exceptions."
               },
               {
                 "label": "Pro-life",
@@ -4029,6 +4393,10 @@
               "label": "Pro-choice"
             },
             {
+              "key": "legal-with-limits",
+              "label": "Legal with limits"
+            },
+            {
               "key": "pro-life",
               "label": "Pro-life"
             }
@@ -4036,7 +4404,7 @@
           "question": "Whether and how abortion should be legal and accessible.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0050)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4082,13 +4450,17 @@
           }
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether birth control and fertility treatments like IVF should be protected and accessible.",
             "poles": [
               {
                 "label": "Guaranteed access",
                 "text": "Guaranteed access"
+              },
+              {
+                "label": "Conscience carve-outs",
+                "text": "Access protected in law, with exemptions for objecting providers."
               },
               {
                 "label": "Restricted or unprotected",
@@ -4104,6 +4476,10 @@
               "label": "Guaranteed access"
             },
             {
+              "key": "protected-with-conscience-carve-outs",
+              "label": "Protected, with conscience carve-outs"
+            },
+            {
               "key": "restricted-or-unprotected",
               "label": "Restricted or unprotected"
             }
@@ -4111,7 +4487,7 @@
           "question": "Whether birth control and fertility treatments like IVF should be protected and accessible.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0051)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4208,13 +4584,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether LGBTQ+ people get equal treatment in law, schools, sports, and health care.",
             "poles": [
               {
                 "label": "Full equality and protection",
                 "text": "Full equality and protection"
+              },
+              {
+                "label": "Limited mandates",
+                "text": "Equal treatment under law, without expansive new mandates."
               },
               {
                 "label": "Restrictions",
@@ -4230,6 +4610,10 @@
               "label": "Full equality and protection"
             },
             {
+              "key": "equal-treatment-limited-mandates",
+              "label": "Equal treatment, limited mandates"
+            },
+            {
               "key": "restrictions",
               "label": "Restrictions"
             }
@@ -4237,7 +4621,7 @@
           "question": "Whether LGBTQ+ people get equal treatment in law, schools, sports, and health care.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0053)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4278,13 +4662,17 @@
           }
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "How far religious freedom extends, and whether it covers acting on beliefs in everyday life.",
             "poles": [
               {
                 "label": "Freedom to worship & act",
                 "text": "Freedom to worship and act on beliefs"
+              },
+              {
+                "label": "Accommodation",
+                "text": "Free exercise accommodated, within a neutral public square."
               },
               {
                 "label": "Strict separation",
@@ -4300,6 +4688,10 @@
               "label": "Freedom to worship & act"
             },
             {
+              "key": "accommodation-in-a-neutral-square",
+              "label": "Accommodation in a neutral square"
+            },
+            {
               "key": "strict-separation",
               "label": "Strict separation"
             }
@@ -4307,7 +4699,7 @@
           "question": "How far religious freedom extends, and whether it covers acting on beliefs in everyday life.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0054)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4337,13 +4729,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether and how the government may regulate firearms.",
             "poles": [
               {
                 "label": "Strict regulation",
                 "text": "Strict regulation"
+              },
+              {
+                "label": "Checks, broadly legal",
+                "text": "Guns broadly legal, with universal background checks."
               },
               {
                 "label": "No regulation at all",
@@ -4359,6 +4755,10 @@
               "label": "Strict regulation"
             },
             {
+              "key": "background-checks-broadly-legal",
+              "label": "Background checks, broadly legal"
+            },
+            {
               "key": "no-regulation-at-all",
               "label": "No regulation at all"
             }
@@ -4366,7 +4766,7 @@
           "question": "Whether and how the government may regulate firearms.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0055)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4466,13 +4866,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the justice system should be reformed, and how harshly crimes should be punished.",
             "poles": [
               {
                 "label": "Reform, reduce incarceration",
                 "text": "Reform and reduce incarceration"
+              },
+              {
+                "label": "Firm and fair",
+                "text": "Real sentences for serious crime, reform for the rest."
               },
               {
                 "label": "Tougher enforcement & sentencing",
@@ -4488,6 +4892,10 @@
               "label": "Reform, reduce incarceration"
             },
             {
+              "key": "firm-and-fair",
+              "label": "Firm and fair"
+            },
+            {
               "key": "tougher-enforcement-sentencing",
               "label": "Tougher enforcement & sentencing"
             }
@@ -4495,7 +4903,7 @@
           "question": "Whether the justice system should be reformed, and how harshly crimes should be punished.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0057)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4525,13 +4933,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the state should be able to execute people.",
             "poles": [
               {
                 "label": "Abolish it",
                 "text": "Abolish it"
+              },
+              {
+                "label": "Keep it, narrowly",
+                "text": "Retain it for the worst murders, with heightened safeguards."
               },
               {
                 "label": "Keep it",
@@ -4547,6 +4959,10 @@
               "label": "Abolish it"
             },
             {
+              "key": "keep-it-narrowly",
+              "label": "Keep it, narrowly"
+            },
+            {
               "key": "keep-it",
               "label": "Keep it"
             }
@@ -4554,7 +4970,7 @@
           "question": "Whether the state should be able to execute people.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0058)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4584,13 +5000,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether drug use should be a crime, a health issue, or a free choice.",
             "poles": [
               {
                 "label": "Legalize, treat as health",
                 "text": "Legalize and treat as health"
+              },
+              {
+                "label": "Decriminalize use",
+                "text": "Possession treated as a health issue; trafficking still criminal."
               },
               {
                 "label": "Keep criminal, enforce hard",
@@ -4606,6 +5026,10 @@
               "label": "Legalize, treat as health"
             },
             {
+              "key": "decriminalize-use-fight-supply",
+              "label": "Decriminalize use, fight supply"
+            },
+            {
               "key": "keep-criminal-enforce-hard",
               "label": "Keep criminal, enforce hard"
             }
@@ -4613,7 +5037,7 @@
           "question": "Whether drug use should be a crime, a health issue, or a free choice.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0059)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4718,13 +5142,17 @@
           }
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government should actively address racial disparities.",
             "poles": [
               {
                 "label": "Active equity programs",
                 "text": "Active equity programs"
+              },
+              {
+                "label": "Targeted help",
+                "text": "Formal equality, with narrowly targeted help where disparities are proven."
               },
               {
                 "label": "Equal treatment only",
@@ -4740,6 +5168,10 @@
               "label": "Active equity programs"
             },
             {
+              "key": "equal-treatment-targeted-help",
+              "label": "Equal treatment, targeted help"
+            },
+            {
               "key": "equal-treatment-only",
               "label": "Equal treatment only"
             }
@@ -4747,7 +5179,7 @@
           "question": "Whether the government should actively address racial disparities.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0060)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -4950,13 +5382,17 @@
       "name": "Education & Culture",
       "topics": [
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Who chooses a child's school, and how schools are funded.",
             "poles": [
               {
                 "label": "Universal choice & vouchers",
                 "text": "Universal choice and vouchers"
+              },
+              {
+                "label": "Charter schools",
+                "text": "Publicly funded, independently run schools, between vouchers and traditional publics."
               },
               {
                 "label": "Invest in public schools",
@@ -4972,6 +5408,10 @@
               "label": "Universal choice & vouchers"
             },
             {
+              "key": "charter-schools",
+              "label": "Charter schools"
+            },
+            {
               "key": "invest-in-public-schools",
               "label": "Invest in public schools"
             }
@@ -4979,7 +5419,7 @@
           "question": "Who chooses a child's school, and how schools are funded.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0064)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5009,13 +5449,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "What schools should teach \u2014 and what they should not.",
             "poles": [
               {
                 "label": "Honest, inclusive curriculum",
                 "text": "Honest, inclusive curriculum"
+              },
+              {
+                "label": "Honestly taught",
+                "text": "Back to basics, with history taught whole."
               },
               {
                 "label": "Fundamentals & patriotic civics",
@@ -5031,6 +5475,10 @@
               "label": "Honest, inclusive curriculum"
             },
             {
+              "key": "fundamentals-honestly-taught",
+              "label": "Fundamentals, honestly taught"
+            },
+            {
               "key": "fundamentals-patriotic-civics",
               "label": "Fundamentals & patriotic civics"
             }
@@ -5038,7 +5486,7 @@
           "question": "What schools should teach \u2014 and what they should not.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0065)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5068,13 +5516,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether Washington should have any role in education at all.",
             "poles": [
               {
                 "label": "Active federal role",
                 "text": "An active federal role"
+              },
+              {
+                "label": "Shrink the Department",
+                "text": "Keep a small federal role \u2014 data, civil rights, loans \u2014 without the full Department."
               },
               {
                 "label": "Close the Department",
@@ -5090,6 +5542,10 @@
               "label": "Active federal role"
             },
             {
+              "key": "shrink-the-department",
+              "label": "Shrink the Department"
+            },
+            {
               "key": "close-the-department",
               "label": "Close the Department"
             }
@@ -5097,7 +5553,7 @@
           "question": "Whether Washington should have any role in education at all.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0066)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5127,13 +5583,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Who pays for college, and what happens to student debt.",
             "poles": [
               {
                 "label": "Free college & debt cancellation",
                 "text": "Free college and debt cancellation"
+              },
+              {
+                "label": "Cheaper, not free",
+                "text": "Cut costs and reform loans; no blanket cancellation."
               },
               {
                 "label": "Market-priced, no forgiveness",
@@ -5149,6 +5609,10 @@
               "label": "Free college & debt cancellation"
             },
             {
+              "key": "cheaper-not-free",
+              "label": "Cheaper, not free"
+            },
+            {
               "key": "market-priced-no-forgiveness",
               "label": "Market-priced, no forgiveness"
             }
@@ -5156,7 +5620,7 @@
           "question": "Who pays for college, and what happens to student debt.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0067)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5186,13 +5650,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government should fund the arts and humanities.",
             "poles": [
               {
                 "label": "Fund them",
                 "text": "Fund them"
+              },
+              {
+                "label": "Modest funding",
+                "text": "Some public funding, matched by private support."
               },
               {
                 "label": "Leave to private support",
@@ -5208,6 +5676,10 @@
               "label": "Fund them"
             },
             {
+              "key": "modest-public-funding",
+              "label": "Modest public funding"
+            },
+            {
               "key": "leave-to-private-support",
               "label": "Leave to private support"
             }
@@ -5215,7 +5687,7 @@
           "question": "Whether the government should fund the arts and humanities.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0068)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5486,13 +5958,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "How much to spend on the military, and what it is for.",
             "poles": [
               {
                 "label": "Bigger, stronger military",
                 "text": "A bigger, stronger military"
+              },
+              {
+                "label": "Hold the line",
+                "text": "Keep defense roughly level: modernize within the current budget."
               },
               {
                 "label": "Cut the defense budget",
@@ -5508,6 +5984,10 @@
               "label": "Bigger, stronger military"
             },
             {
+              "key": "hold-the-line",
+              "label": "Hold the line"
+            },
+            {
               "key": "cut-the-defense-budget",
               "label": "Cut the defense budget"
             }
@@ -5515,7 +5995,7 @@
           "question": "How much to spend on the military, and what it is for.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0069)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5550,13 +6030,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the government can compel military service.",
             "poles": [
               {
                 "label": "Keep the draft",
                 "text": "Keep the draft as an option"
+              },
+              {
+                "label": "Dormant draft",
+                "text": "A draft on the books, never activated short of existential war."
               },
               {
                 "label": "Abolish it",
@@ -5572,6 +6056,10 @@
               "label": "Keep the draft"
             },
             {
+              "key": "dormant-draft",
+              "label": "Dormant draft"
+            },
+            {
               "key": "abolish-it",
               "label": "Abolish it"
             }
@@ -5579,7 +6067,7 @@
           "question": "Whether the government can compel military service.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0070)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5671,13 +6159,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the US should stay in alliances like NATO.",
             "poles": [
               {
                 "label": "Strengthen alliances",
                 "text": "Strengthen alliances"
+              },
+              {
+                "label": "Alliances with limits",
+                "text": "Keep core alliances; no open-ended commitments."
               },
               {
                 "label": "Avoid entangling alliances",
@@ -5693,6 +6185,10 @@
               "label": "Strengthen alliances"
             },
             {
+              "key": "alliances-with-limits",
+              "label": "Alliances with limits"
+            },
+            {
               "key": "avoid-entangling-alliances",
               "label": "Avoid entangling alliances"
             }
@@ -5700,7 +6196,7 @@
           "question": "Whether the US should stay in alliances like NATO.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0072)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5735,13 +6231,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "How the US should handle China as a rival.",
             "poles": [
               {
                 "label": "Managed competition",
                 "text": "Managed competition"
+              },
+              {
+                "label": "Compete, don't decouple",
+                "text": "Firm competition and deterrence, without full confrontation."
               },
               {
                 "label": "Confrontation & decoupling",
@@ -5757,6 +6257,10 @@
               "label": "Managed competition"
             },
             {
+              "key": "compete-without-decoupling",
+              "label": "Compete without decoupling"
+            },
+            {
               "key": "confrontation-decoupling",
               "label": "Confrontation & decoupling"
             }
@@ -5764,7 +6268,7 @@
           "question": "How the US should handle China as a rival.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0073)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5874,13 +6378,17 @@
           }
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the US should send aid, intervene abroad, or stay out.",
             "poles": [
               {
                 "label": "Lead and intervene",
                 "text": "Lead and intervene where needed"
+              },
+              {
+                "label": "Selective engagement",
+                "text": "Aid and intervene only where vital interests are at stake."
               },
               {
                 "label": "Non-intervention",
@@ -5896,6 +6404,10 @@
               "label": "Lead and intervene"
             },
             {
+              "key": "selective-engagement",
+              "label": "Selective engagement"
+            },
+            {
               "key": "non-intervention",
               "label": "Non-intervention"
             }
@@ -5903,7 +6415,7 @@
           "question": "Whether the US should send aid, intervene abroad, or stay out.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0075)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -5938,13 +6450,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "Whether the US should keep, modernize, or eliminate nuclear weapons.",
             "poles": [
               {
                 "label": "Modernize the deterrent",
                 "text": "Modernize the deterrent and missile defense"
+              },
+              {
+                "label": "Minimum deterrent",
+                "text": "Keep a small deterrent; no modernization or buildup."
               },
               {
                 "label": "Disarm",
@@ -5960,6 +6476,10 @@
               "label": "Modernize the deterrent"
             },
             {
+              "key": "minimum-deterrent",
+              "label": "Minimum deterrent"
+            },
+            {
               "key": "disarm",
               "label": "Disarm"
             }
@@ -5967,7 +6487,7 @@
           "question": "Whether the US should keep, modernize, or eliminate nuclear weapons.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0076)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -6002,13 +6522,17 @@
           ]
         },
         {
-          "archetype": null,
+          "archetype": "line",
           "hovertip": {
             "issue": "What the US should do about Iran \u2014 its nuclear program, its role in the region, and whether to pressure it or engage it.",
             "poles": [
               {
                 "label": "Confront and pressure",
                 "text": "Confront and pressure Iran"
+              },
+              {
+                "label": "Pressure, open channel",
+                "text": "Maximum pressure, with negotiation always on the table."
               },
               {
                 "label": "Engage and negotiate",
@@ -6024,6 +6548,10 @@
               "label": "Confront and pressure"
             },
             {
+              "key": "pressure-with-an-open-channel",
+              "label": "Pressure with an open channel"
+            },
+            {
               "key": "engage-and-negotiate",
               "label": "Engage and negotiate"
             }
@@ -6031,7 +6559,7 @@
           "question": "What the US should do about Iran \u2014 its nuclear program, its role in the region, and whether to pressure it or engage it.",
           "risk": false,
           "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0077)",
-          "widget": "linear-sliders",
+          "widget": "trilinear-line",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -9083,39 +9611,48 @@
           },
           "xpo0015": {
             "higher-taxes-on-the-wealthy": 85,
-            "lower-taxes-across-the-board": -70
+            "lower-taxes-across-the-board": -70,
+            "moderate-flatter-rates": -55
           },
           "xpo0016": {
             "close-loopholes-tax-more": 80,
-            "cut-corporate-taxes": -60
+            "cut-corporate-taxes": -60,
+            "competitive-rate-fewer-loopholes": -40
           },
           "xpo0017": {
             "invest-generously": 75,
-            "cut-spending-to-balance": -60
+            "cut-spending-to-balance": -60,
+            "spend-but-bend-the-curve": -35
           },
           "xpo0019": {
             "reduce-inequality": 80,
-            "market-outcome": -65
+            "market-outcome": -65,
+            "ease-inequality-at-the-margins": -45
           },
           "xpo0020": {
             "free-trade": 10,
-            "protective-tariffs": 50
+            "protective-tariffs": 50,
+            "fair-trade": 60
           },
           "xpo0023": {
             "independent-central-bank": 70,
-            "abolish-the-fed": -70
+            "abolish-the-fed": -70,
+            "constrain-the-fed": -40
           },
           "xpo0013": {
             "higher-federal-floor": 85,
-            "no-federal-floor": -80
+            "no-federal-floor": -80,
+            "a-modest-federal-floor": -65
           },
           "xpo0026": {
             "protect-and-expand": 85,
-            "phase-it-out": -85
+            "phase-it-out": -85,
+            "preserve-with-reforms": -70
           },
           "xpo0027": {
             "strong-safety-net": 85,
-            "no-federal-welfare": -80
+            "no-federal-welfare": -80,
+            "a-limited-safety-net": -65
           },
           "xpo0029": {
             "single-payer": 20,
@@ -9124,7 +9661,8 @@
           },
           "xpo0030": {
             "negotiate-and-cap-prices": 85,
-            "leave-prices-to-the-market": -75
+            "leave-prices-to-the-market": -75,
+            "negotiate-the-worst-excesses": -60
           },
           "xpo0031": {
             "protect-and-expand": 80,
@@ -9133,15 +9671,18 @@
           },
           "xpo0036": {
             "urgent-action": 90,
-            "no-government-action": -85
+            "no-government-action": -85,
+            "gradual-market-led-action": -75
           },
           "xpo0037": {
             "drill-and-expand": -55,
-            "phase-out": 60
+            "phase-out": 60,
+            "all-of-the-above-in-transition": -15
           },
           "xpo0039": {
             "massive-public-investment": 80,
-            "let-the-market-decide": -70
+            "let-the-market-decide": -70,
+            "incentives-not-mandates": -50
           },
           "xpo0044": {
             "wall-and-hard-enforcement": -60,
@@ -9149,39 +9690,48 @@
           },
           "xpo0045": {
             "mass-deportation": -85,
-            "removal-after-fair-process": 80
+            "removal-after-fair-process": 80,
+            "prioritized-removal": -65
           },
           "xpo0048": {
             "path-to-citizenship": 90,
-            "enforcement-only-no-amnesty": -85
+            "enforcement-only-no-amnesty": -85,
+            "legal-status-without-citizenship": -75
           },
           "xpo0049": {
             "keep-birthright-citizenship": 85,
-            "end-it": -85
+            "end-it": -85,
+            "restrict-it-at-the-edges": -70
           },
           "xpo0051": {
             "expand-access-no-id": 90,
-            "require-id-same-day-voting": -80
+            "require-id-same-day-voting": -80,
+            "easy-voting-with-id": -70
           },
           "xpo0052": {
             "limit-and-publicly-fund": 85,
-            "unrestricted-private-financing": -70
+            "unrestricted-private-financing": -70,
+            "disclosure-without-caps": -55
           },
           "xpo0053": {
             "keep-the-electoral-college": -30,
-            "abolish-it-proportional-representation": 55
+            "abolish-it-proportional-representation": 55,
+            "reform-the-college": 15
           },
           "xpo0059": {
             "strong-federal-standards": 70,
-            "powers-to-the-states": -60
+            "powers-to-the-states": -60,
+            "federal-floors-state-freedom": -30
           },
           "xpo0060": {
             "active-federal-government": 80,
-            "minimal-government": -75
+            "minimal-government": -75,
+            "lean-but-capable": -55
           },
           "xpo0065": {
             "pro-choice": 90,
-            "pro-life": -90
+            "pro-life": -90,
+            "legal-with-limits": -80
           },
           "xpo0067": {
             "marriage-equality-for-all": 90,
@@ -9190,39 +9740,48 @@
           },
           "xpo0068": {
             "full-equality-and-protection": 90,
-            "restrictions": -85
+            "restrictions": -85,
+            "equal-treatment-limited-mandates": -75
           },
           "xpo0070": {
             "strict-regulation": 85,
-            "no-regulation-at-all": -80
+            "no-regulation-at-all": -80,
+            "background-checks-broadly-legal": -65
           },
           "xpo0072": {
             "reform-reduce-incarceration": 70,
-            "tougher-enforcement-sentencing": -60
+            "tougher-enforcement-sentencing": -60,
+            "firm-and-fair": -30
           },
           "xpo0073": {
             "abolish-it": 70,
-            "keep-it": -60
+            "keep-it": -60,
+            "keep-it-narrowly": -30
           },
           "xpo0074": {
             "legalize-treat-as-health": 60,
-            "keep-criminal-enforce-hard": -50
+            "keep-criminal-enforce-hard": -50,
+            "decriminalize-use-fight-supply": -10
           },
           "xpo0080": {
             "universal-choice-vouchers": -75,
-            "invest-in-public-schools": 85
+            "invest-in-public-schools": 85,
+            "charter-schools": -60
           },
           "xpo0083": {
             "free-college-debt-cancellation": 60,
-            "market-priced-no-forgiveness": -50
+            "market-priced-no-forgiveness": -50,
+            "cheaper-not-free": -10
           },
           "xpo0085": {
             "bigger-stronger-military": 20,
-            "cut-the-defense-budget": -10
+            "cut-the-defense-budget": -10,
+            "hold-the-line": 70
           },
           "xpo0088": {
             "strengthen-alliances": 85,
-            "avoid-entangling-alliances": -75
+            "avoid-entangling-alliances": -75,
+            "alliances-with-limits": -60
           },
           "xpo0090": {
             "stand-with-israel": 40,
@@ -9230,7 +9789,8 @@
           },
           "xpo0091": {
             "lead-and-intervene": 60,
-            "non-intervention": -50
+            "non-intervention": -50,
+            "selective-engagement": -10
           },
           "xpo0024": {
             "private-crypto": -20,
@@ -9268,39 +9828,48 @@
           },
           "xpo0015": {
             "higher-taxes-on-the-wealthy": -60,
-            "lower-taxes-across-the-board": 80
+            "lower-taxes-across-the-board": 80,
+            "moderate-flatter-rates": -40
           },
           "xpo0016": {
             "close-loopholes-tax-more": -55,
-            "cut-corporate-taxes": 70
+            "cut-corporate-taxes": 70,
+            "competitive-rate-fewer-loopholes": -25
           },
           "xpo0017": {
             "invest-generously": -50,
-            "cut-spending-to-balance": 70
+            "cut-spending-to-balance": 70,
+            "spend-but-bend-the-curve": -20
           },
           "xpo0019": {
             "reduce-inequality": -60,
-            "market-outcome": 70
+            "market-outcome": 70,
+            "ease-inequality-at-the-margins": -30
           },
           "xpo0020": {
             "free-trade": -20,
-            "protective-tariffs": 75
+            "protective-tariffs": 75,
+            "fair-trade": 5
           },
           "xpo0023": {
             "independent-central-bank": 40,
-            "abolish-the-fed": -20
+            "abolish-the-fed": -20,
+            "constrain-the-fed": 40
           },
           "xpo0013": {
             "higher-federal-floor": -60,
-            "no-federal-floor": 60
+            "no-federal-floor": 60,
+            "a-modest-federal-floor": -20
           },
           "xpo0026": {
             "protect-and-expand": 55,
-            "phase-it-out": -40
+            "phase-it-out": -40,
+            "preserve-with-reforms": 5
           },
           "xpo0027": {
             "strong-safety-net": -55,
-            "no-federal-welfare": 60
+            "no-federal-welfare": 60,
+            "a-limited-safety-net": -15
           },
           "xpo0029": {
             "single-payer": -85,
@@ -9309,7 +9878,8 @@
           },
           "xpo0030": {
             "negotiate-and-cap-prices": 30,
-            "leave-prices-to-the-market": -10
+            "leave-prices-to-the-market": -10,
+            "negotiate-the-worst-excesses": 60
           },
           "xpo0031": {
             "protect-and-expand": 60,
@@ -9318,15 +9888,18 @@
           },
           "xpo0036": {
             "urgent-action": -70,
-            "no-government-action": 70
+            "no-government-action": 70,
+            "gradual-market-led-action": -40
           },
           "xpo0037": {
             "drill-and-expand": 85,
-            "phase-out": -80
+            "phase-out": -80,
+            "all-of-the-above-in-transition": -65
           },
           "xpo0039": {
             "massive-public-investment": -55,
-            "let-the-market-decide": 60
+            "let-the-market-decide": 60,
+            "incentives-not-mandates": -15
           },
           "xpo0044": {
             "wall-and-hard-enforcement": 90,
@@ -9334,39 +9907,48 @@
           },
           "xpo0045": {
             "mass-deportation": 85,
-            "removal-after-fair-process": -30
+            "removal-after-fair-process": -30,
+            "prioritized-removal": -15
           },
           "xpo0048": {
             "path-to-citizenship": -70,
-            "enforcement-only-no-amnesty": 75
+            "enforcement-only-no-amnesty": 75,
+            "legal-status-without-citizenship": -45
           },
           "xpo0049": {
             "keep-birthright-citizenship": -60,
-            "end-it": 65
+            "end-it": 65,
+            "restrict-it-at-the-edges": -25
           },
           "xpo0051": {
             "expand-access-no-id": -75,
-            "require-id-same-day-voting": 85
+            "require-id-same-day-voting": 85,
+            "easy-voting-with-id": -60
           },
           "xpo0052": {
             "limit-and-publicly-fund": -50,
-            "unrestricted-private-financing": 55
+            "unrestricted-private-financing": 55,
+            "disclosure-without-caps": -5
           },
           "xpo0053": {
             "keep-the-electoral-college": 85,
-            "abolish-it-proportional-representation": -85
+            "abolish-it-proportional-representation": -85,
+            "reform-the-college": -70
           },
           "xpo0059": {
             "strong-federal-standards": -50,
-            "powers-to-the-states": 70
+            "powers-to-the-states": 70,
+            "federal-floors-state-freedom": -20
           },
           "xpo0060": {
             "active-federal-government": -55,
-            "minimal-government": 65
+            "minimal-government": 65,
+            "lean-but-capable": -20
           },
           "xpo0065": {
             "pro-choice": -85,
-            "pro-life": 85
+            "pro-life": 85,
+            "legal-with-limits": -70
           },
           "xpo0067": {
             "marriage-equality-for-all": -70,
@@ -9375,39 +9957,48 @@
           },
           "xpo0068": {
             "full-equality-and-protection": -70,
-            "restrictions": 70
+            "restrictions": 70,
+            "equal-treatment-limited-mandates": -40
           },
           "xpo0070": {
             "strict-regulation": -80,
-            "no-regulation-at-all": 75
+            "no-regulation-at-all": 75,
+            "background-checks-broadly-legal": -55
           },
           "xpo0072": {
             "reform-reduce-incarceration": -50,
-            "tougher-enforcement-sentencing": 65
+            "tougher-enforcement-sentencing": 65,
+            "firm-and-fair": -15
           },
           "xpo0073": {
             "abolish-it": -70,
-            "keep-it": 70
+            "keep-it": 70,
+            "keep-it-narrowly": -40
           },
           "xpo0074": {
             "legalize-treat-as-health": -55,
-            "keep-criminal-enforce-hard": 60
+            "keep-criminal-enforce-hard": 60,
+            "decriminalize-use-fight-supply": -15
           },
           "xpo0080": {
             "universal-choice-vouchers": 80,
-            "invest-in-public-schools": -70
+            "invest-in-public-schools": -70,
+            "charter-schools": -50
           },
           "xpo0083": {
             "free-college-debt-cancellation": -60,
-            "market-priced-no-forgiveness": 65
+            "market-priced-no-forgiveness": 65,
+            "cheaper-not-free": -25
           },
           "xpo0085": {
             "bigger-stronger-military": 85,
-            "cut-the-defense-budget": -75
+            "cut-the-defense-budget": -75,
+            "hold-the-line": -60
           },
           "xpo0088": {
             "strengthen-alliances": -30,
-            "avoid-entangling-alliances": 40
+            "avoid-entangling-alliances": 40,
+            "alliances-with-limits": 30
           },
           "xpo0090": {
             "stand-with-israel": 90,
@@ -9415,7 +10006,8 @@
           },
           "xpo0091": {
             "lead-and-intervene": 30,
-            "non-intervention": -20
+            "non-intervention": -20,
+            "selective-engagement": 50
           },
           "xpo0024": {
             "private-crypto": 85,
@@ -9453,39 +10045,48 @@
           },
           "xpo0015": {
             "higher-taxes-on-the-wealthy": -70,
-            "lower-taxes-across-the-board": 90
+            "lower-taxes-across-the-board": 90,
+            "moderate-flatter-rates": -60
           },
           "xpo0016": {
             "close-loopholes-tax-more": -40,
-            "cut-corporate-taxes": 85
+            "cut-corporate-taxes": 85,
+            "competitive-rate-fewer-loopholes": -25
           },
           "xpo0017": {
             "invest-generously": -85,
-            "cut-spending-to-balance": 90
+            "cut-spending-to-balance": 90,
+            "spend-but-bend-the-curve": -75
           },
           "xpo0019": {
             "reduce-inequality": -80,
-            "market-outcome": 85
+            "market-outcome": 85,
+            "ease-inequality-at-the-margins": -65
           },
           "xpo0020": {
             "free-trade": 95,
-            "protective-tariffs": -90
+            "protective-tariffs": -90,
+            "fair-trade": -85
           },
           "xpo0023": {
             "independent-central-bank": -60,
-            "abolish-the-fed": 90
+            "abolish-the-fed": 90,
+            "constrain-the-fed": -50
           },
           "xpo0013": {
             "higher-federal-floor": -85,
-            "no-federal-floor": 90
+            "no-federal-floor": 90,
+            "a-modest-federal-floor": -75
           },
           "xpo0026": {
             "protect-and-expand": -80,
-            "phase-it-out": 85
+            "phase-it-out": 85,
+            "preserve-with-reforms": -65
           },
           "xpo0027": {
             "strong-safety-net": -90,
-            "no-federal-welfare": 90
+            "no-federal-welfare": 90,
+            "a-limited-safety-net": -80
           },
           "xpo0029": {
             "single-payer": -95,
@@ -9494,7 +10095,8 @@
           },
           "xpo0030": {
             "negotiate-and-cap-prices": -80,
-            "leave-prices-to-the-market": 85
+            "leave-prices-to-the-market": 85,
+            "negotiate-the-worst-excesses": -65
           },
           "xpo0031": {
             "protect-and-expand": -80,
@@ -9503,15 +10105,18 @@
           },
           "xpo0036": {
             "urgent-action": -75,
-            "no-government-action": 80
+            "no-government-action": 80,
+            "gradual-market-led-action": -55
           },
           "xpo0037": {
             "drill-and-expand": 70,
-            "phase-out": -60
+            "phase-out": -60,
+            "all-of-the-above-in-transition": -30
           },
           "xpo0039": {
             "massive-public-investment": -80,
-            "let-the-market-decide": 85
+            "let-the-market-decide": 85,
+            "incentives-not-mandates": -65
           },
           "xpo0044": {
             "wall-and-hard-enforcement": -70,
@@ -9519,39 +10124,48 @@
           },
           "xpo0045": {
             "mass-deportation": -80,
-            "removal-after-fair-process": 60
+            "removal-after-fair-process": 60,
+            "prioritized-removal": -40
           },
           "xpo0048": {
             "path-to-citizenship": 70,
-            "enforcement-only-no-amnesty": -60
+            "enforcement-only-no-amnesty": -60,
+            "legal-status-without-citizenship": -30
           },
           "xpo0049": {
             "keep-birthright-citizenship": 70,
-            "end-it": -60
+            "end-it": -60,
+            "restrict-it-at-the-edges": -30
           },
           "xpo0051": {
             "expand-access-no-id": 20,
-            "require-id-same-day-voting": -10
+            "require-id-same-day-voting": -10,
+            "easy-voting-with-id": 70
           },
           "xpo0052": {
             "limit-and-publicly-fund": -70,
-            "unrestricted-private-financing": 75
+            "unrestricted-private-financing": 75,
+            "disclosure-without-caps": -45
           },
           "xpo0053": {
             "keep-the-electoral-college": -40,
-            "abolish-it-proportional-representation": 60
+            "abolish-it-proportional-representation": 60,
+            "reform-the-college": 0
           },
           "xpo0059": {
             "strong-federal-standards": -80,
-            "powers-to-the-states": 90
+            "powers-to-the-states": 90,
+            "federal-floors-state-freedom": -70
           },
           "xpo0060": {
             "active-federal-government": -95,
-            "minimal-government": 95
+            "minimal-government": 95,
+            "lean-but-capable": -90
           },
           "xpo0065": {
             "pro-choice": 20,
-            "pro-life": -20
+            "pro-life": -20,
+            "legal-with-limits": 60
           },
           "xpo0067": {
             "marriage-equality-for-all": 60,
@@ -9560,39 +10174,48 @@
           },
           "xpo0068": {
             "full-equality-and-protection": 75,
-            "restrictions": -70
+            "restrictions": -70,
+            "equal-treatment-limited-mandates": -45
           },
           "xpo0070": {
             "strict-regulation": -85,
-            "no-regulation-at-all": 85
+            "no-regulation-at-all": 85,
+            "background-checks-broadly-legal": -70
           },
           "xpo0072": {
             "reform-reduce-incarceration": 85,
-            "tougher-enforcement-sentencing": -80
+            "tougher-enforcement-sentencing": -80,
+            "firm-and-fair": -65
           },
           "xpo0073": {
             "abolish-it": 80,
-            "keep-it": -75
+            "keep-it": -75,
+            "keep-it-narrowly": -55
           },
           "xpo0074": {
             "legalize-treat-as-health": 95,
-            "keep-criminal-enforce-hard": -90
+            "keep-criminal-enforce-hard": -90,
+            "decriminalize-use-fight-supply": -85
           },
           "xpo0080": {
             "universal-choice-vouchers": 85,
-            "invest-in-public-schools": -80
+            "invest-in-public-schools": -80,
+            "charter-schools": -65
           },
           "xpo0083": {
             "free-college-debt-cancellation": -85,
-            "market-priced-no-forgiveness": 90
+            "market-priced-no-forgiveness": 90,
+            "cheaper-not-free": -75
           },
           "xpo0085": {
             "bigger-stronger-military": -85,
-            "cut-the-defense-budget": 85
+            "cut-the-defense-budget": 85,
+            "hold-the-line": -70
           },
           "xpo0088": {
             "strengthen-alliances": -85,
-            "avoid-entangling-alliances": 90
+            "avoid-entangling-alliances": 90,
+            "alliances-with-limits": -75
           },
           "xpo0090": {
             "stand-with-israel": -70,
@@ -9600,7 +10223,8 @@
           },
           "xpo0091": {
             "lead-and-intervene": -90,
-            "non-intervention": 95
+            "non-intervention": 95,
+            "selective-engagement": -85
           },
           "xpo0024": {
             "private-crypto": 100,
@@ -9638,39 +10262,48 @@
           },
           "xpo0015": {
             "higher-taxes-on-the-wealthy": 90,
-            "lower-taxes-across-the-board": -80
+            "lower-taxes-across-the-board": -80,
+            "moderate-flatter-rates": -70
           },
           "xpo0016": {
             "close-loopholes-tax-more": 85,
-            "cut-corporate-taxes": -70
+            "cut-corporate-taxes": -70,
+            "competitive-rate-fewer-loopholes": -55
           },
           "xpo0017": {
             "invest-generously": 80,
-            "cut-spending-to-balance": -55
+            "cut-spending-to-balance": -55,
+            "spend-but-bend-the-curve": -35
           },
           "xpo0019": {
             "reduce-inequality": 90,
-            "market-outcome": -80
+            "market-outcome": -80,
+            "ease-inequality-at-the-margins": -70
           },
           "xpo0020": {
             "free-trade": -40,
-            "protective-tariffs": 30
+            "protective-tariffs": 30,
+            "fair-trade": 30
           },
           "xpo0023": {
             "independent-central-bank": 30,
-            "abolish-the-fed": -10
+            "abolish-the-fed": -10,
+            "constrain-the-fed": 60
           },
           "xpo0013": {
             "higher-federal-floor": 90,
-            "no-federal-floor": -85
+            "no-federal-floor": -85,
+            "a-modest-federal-floor": -75
           },
           "xpo0026": {
             "protect-and-expand": 85,
-            "phase-it-out": -80
+            "phase-it-out": -80,
+            "preserve-with-reforms": -65
           },
           "xpo0027": {
             "strong-safety-net": 90,
-            "no-federal-welfare": -85
+            "no-federal-welfare": -85,
+            "a-limited-safety-net": -75
           },
           "xpo0029": {
             "single-payer": 95,
@@ -9679,7 +10312,8 @@
           },
           "xpo0030": {
             "negotiate-and-cap-prices": 90,
-            "leave-prices-to-the-market": -85
+            "leave-prices-to-the-market": -85,
+            "negotiate-the-worst-excesses": -75
           },
           "xpo0031": {
             "protect-and-expand": 40,
@@ -9688,15 +10322,18 @@
           },
           "xpo0036": {
             "urgent-action": 95,
-            "no-government-action": -95
+            "no-government-action": -95,
+            "gradual-market-led-action": -90
           },
           "xpo0037": {
             "drill-and-expand": -95,
-            "phase-out": 95
+            "phase-out": 95,
+            "all-of-the-above-in-transition": -90
           },
           "xpo0039": {
             "massive-public-investment": 95,
-            "let-the-market-decide": -90
+            "let-the-market-decide": -90,
+            "incentives-not-mandates": -85
           },
           "xpo0044": {
             "wall-and-hard-enforcement": -85,
@@ -9704,39 +10341,48 @@
           },
           "xpo0045": {
             "mass-deportation": -90,
-            "removal-after-fair-process": 85
+            "removal-after-fair-process": 85,
+            "prioritized-removal": -75
           },
           "xpo0048": {
             "path-to-citizenship": 90,
-            "enforcement-only-no-amnesty": -85
+            "enforcement-only-no-amnesty": -85,
+            "legal-status-without-citizenship": -75
           },
           "xpo0049": {
             "keep-birthright-citizenship": 85,
-            "end-it": -85
+            "end-it": -85,
+            "restrict-it-at-the-edges": -70
           },
           "xpo0051": {
             "expand-access-no-id": 90,
-            "require-id-same-day-voting": -80
+            "require-id-same-day-voting": -80,
+            "easy-voting-with-id": -70
           },
           "xpo0052": {
             "limit-and-publicly-fund": 90,
-            "unrestricted-private-financing": -85
+            "unrestricted-private-financing": -85,
+            "disclosure-without-caps": -75
           },
           "xpo0053": {
             "keep-the-electoral-college": -80,
-            "abolish-it-proportional-representation": 90
+            "abolish-it-proportional-representation": 90,
+            "reform-the-college": -70
           },
           "xpo0059": {
             "strong-federal-standards": 60,
-            "powers-to-the-states": -50
+            "powers-to-the-states": -50,
+            "federal-floors-state-freedom": -10
           },
           "xpo0060": {
             "active-federal-government": 85,
-            "minimal-government": -70
+            "minimal-government": -70,
+            "lean-but-capable": -55
           },
           "xpo0065": {
             "pro-choice": 90,
-            "pro-life": -90
+            "pro-life": -90,
+            "legal-with-limits": -80
           },
           "xpo0067": {
             "marriage-equality-for-all": 95,
@@ -9745,39 +10391,48 @@
           },
           "xpo0068": {
             "full-equality-and-protection": 95,
-            "restrictions": -90
+            "restrictions": -90,
+            "equal-treatment-limited-mandates": -85
           },
           "xpo0070": {
             "strict-regulation": 80,
-            "no-regulation-at-all": -75
+            "no-regulation-at-all": -75,
+            "background-checks-broadly-legal": -55
           },
           "xpo0072": {
             "reform-reduce-incarceration": 90,
-            "tougher-enforcement-sentencing": -85
+            "tougher-enforcement-sentencing": -85,
+            "firm-and-fair": -75
           },
           "xpo0073": {
             "abolish-it": 90,
-            "keep-it": -85
+            "keep-it": -85,
+            "keep-it-narrowly": -75
           },
           "xpo0074": {
             "legalize-treat-as-health": 90,
-            "keep-criminal-enforce-hard": -85
+            "keep-criminal-enforce-hard": -85,
+            "decriminalize-use-fight-supply": -75
           },
           "xpo0080": {
             "universal-choice-vouchers": -70,
-            "invest-in-public-schools": 80
+            "invest-in-public-schools": 80,
+            "charter-schools": -50
           },
           "xpo0083": {
             "free-college-debt-cancellation": 90,
-            "market-priced-no-forgiveness": -85
+            "market-priced-no-forgiveness": -85,
+            "cheaper-not-free": -75
           },
           "xpo0085": {
             "bigger-stronger-military": -85,
-            "cut-the-defense-budget": 90
+            "cut-the-defense-budget": 90,
+            "hold-the-line": -75
           },
           "xpo0088": {
             "strengthen-alliances": -40,
-            "avoid-entangling-alliances": 50
+            "avoid-entangling-alliances": 50,
+            "alliances-with-limits": 10
           },
           "xpo0090": {
             "stand-with-israel": -80,
@@ -9785,7 +10440,8 @@
           },
           "xpo0091": {
             "lead-and-intervene": -70,
-            "non-intervention": 80
+            "non-intervention": 80,
+            "selective-engagement": -50
           },
           "xpo0024": {
             "private-crypto": -40,
@@ -9823,39 +10479,48 @@
           },
           "xpo0015": {
             "higher-taxes-on-the-wealthy": -80,
-            "lower-taxes-across-the-board": 85
+            "lower-taxes-across-the-board": 85,
+            "moderate-flatter-rates": -65
           },
           "xpo0016": {
             "close-loopholes-tax-more": -50,
-            "cut-corporate-taxes": 80
+            "cut-corporate-taxes": 80,
+            "competitive-rate-fewer-loopholes": -30
           },
           "xpo0017": {
             "invest-generously": -90,
-            "cut-spending-to-balance": 90
+            "cut-spending-to-balance": 90,
+            "spend-but-bend-the-curve": -80
           },
           "xpo0019": {
             "reduce-inequality": -70,
-            "market-outcome": 75
+            "market-outcome": 75,
+            "ease-inequality-at-the-margins": -45
           },
           "xpo0020": {
             "free-trade": -70,
-            "protective-tariffs": 90
+            "protective-tariffs": 90,
+            "fair-trade": -60
           },
           "xpo0023": {
             "independent-central-bank": -80,
-            "abolish-the-fed": 95
+            "abolish-the-fed": 95,
+            "constrain-the-fed": -75
           },
           "xpo0013": {
             "higher-federal-floor": -90,
-            "no-federal-floor": 90
+            "no-federal-floor": 90,
+            "a-modest-federal-floor": -80
           },
           "xpo0026": {
             "protect-and-expand": -85,
-            "phase-it-out": 90
+            "phase-it-out": 90,
+            "preserve-with-reforms": -75
           },
           "xpo0027": {
             "strong-safety-net": -95,
-            "no-federal-welfare": 95
+            "no-federal-welfare": 95,
+            "a-limited-safety-net": -90
           },
           "xpo0029": {
             "single-payer": -95,
@@ -9864,7 +10529,8 @@
           },
           "xpo0030": {
             "negotiate-and-cap-prices": -70,
-            "leave-prices-to-the-market": 75
+            "leave-prices-to-the-market": 75,
+            "negotiate-the-worst-excesses": -45
           },
           "xpo0031": {
             "protect-and-expand": -85,
@@ -9873,15 +10539,18 @@
           },
           "xpo0036": {
             "urgent-action": -80,
-            "no-government-action": 85
+            "no-government-action": 85,
+            "gradual-market-led-action": -65
           },
           "xpo0037": {
             "drill-and-expand": 80,
-            "phase-out": -70
+            "phase-out": -70,
+            "all-of-the-above-in-transition": -50
           },
           "xpo0039": {
             "massive-public-investment": -75,
-            "let-the-market-decide": 80
+            "let-the-market-decide": 80,
+            "incentives-not-mandates": -55
           },
           "xpo0044": {
             "wall-and-hard-enforcement": 95,
@@ -9889,39 +10558,48 @@
           },
           "xpo0045": {
             "mass-deportation": 90,
-            "removal-after-fair-process": -40
+            "removal-after-fair-process": -40,
+            "prioritized-removal": -30
           },
           "xpo0048": {
             "path-to-citizenship": -90,
-            "enforcement-only-no-amnesty": 90
+            "enforcement-only-no-amnesty": 90,
+            "legal-status-without-citizenship": -80
           },
           "xpo0049": {
             "keep-birthright-citizenship": -90,
-            "end-it": 90
+            "end-it": 90,
+            "restrict-it-at-the-edges": -80
           },
           "xpo0051": {
             "expand-access-no-id": -60,
-            "require-id-same-day-voting": 70
+            "require-id-same-day-voting": 70,
+            "easy-voting-with-id": -30
           },
           "xpo0052": {
             "limit-and-publicly-fund": -40,
-            "unrestricted-private-financing": 50
+            "unrestricted-private-financing": 50,
+            "disclosure-without-caps": 10
           },
           "xpo0053": {
             "keep-the-electoral-college": 80,
-            "abolish-it-proportional-representation": -80
+            "abolish-it-proportional-representation": -80,
+            "reform-the-college": -60
           },
           "xpo0059": {
             "strong-federal-standards": -90,
-            "powers-to-the-states": 95
+            "powers-to-the-states": 95,
+            "federal-floors-state-freedom": -85
           },
           "xpo0060": {
             "active-federal-government": -95,
-            "minimal-government": 95
+            "minimal-government": 95,
+            "lean-but-capable": -90
           },
           "xpo0065": {
             "pro-choice": -95,
-            "pro-life": 95
+            "pro-life": 95,
+            "legal-with-limits": -90
           },
           "xpo0067": {
             "marriage-equality-for-all": -90,
@@ -9930,39 +10608,48 @@
           },
           "xpo0068": {
             "full-equality-and-protection": -90,
-            "restrictions": 90
+            "restrictions": 90,
+            "equal-treatment-limited-mandates": -80
           },
           "xpo0070": {
             "strict-regulation": -85,
-            "no-regulation-at-all": 90
+            "no-regulation-at-all": 90,
+            "background-checks-broadly-legal": -75
           },
           "xpo0072": {
             "reform-reduce-incarceration": -60,
-            "tougher-enforcement-sentencing": 70
+            "tougher-enforcement-sentencing": 70,
+            "firm-and-fair": -30
           },
           "xpo0073": {
             "abolish-it": -80,
-            "keep-it": 85
+            "keep-it": 85,
+            "keep-it-narrowly": -65
           },
           "xpo0074": {
             "legalize-treat-as-health": -70,
-            "keep-criminal-enforce-hard": 75
+            "keep-criminal-enforce-hard": 75,
+            "decriminalize-use-fight-supply": -45
           },
           "xpo0080": {
             "universal-choice-vouchers": 85,
-            "invest-in-public-schools": -85
+            "invest-in-public-schools": -85,
+            "charter-schools": -70
           },
           "xpo0083": {
             "free-college-debt-cancellation": -85,
-            "market-priced-no-forgiveness": 90
+            "market-priced-no-forgiveness": 90,
+            "cheaper-not-free": -75
           },
           "xpo0085": {
             "bigger-stronger-military": 60,
-            "cut-the-defense-budget": -50
+            "cut-the-defense-budget": -50,
+            "hold-the-line": -10
           },
           "xpo0088": {
             "strengthen-alliances": -70,
-            "avoid-entangling-alliances": 80
+            "avoid-entangling-alliances": 80,
+            "alliances-with-limits": -50
           },
           "xpo0090": {
             "stand-with-israel": 10,
@@ -9970,7 +10657,8 @@
           },
           "xpo0091": {
             "lead-and-intervene": -85,
-            "non-intervention": 90
+            "non-intervention": 90,
+            "selective-engagement": -75
           },
           "xpo0024": {
             "private-crypto": 30,
