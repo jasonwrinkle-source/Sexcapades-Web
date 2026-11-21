@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lost? — Sexcapades</title>
-<meta name="description" content="This page doesn't exist — but 404 kinks do. Open the Sexcapades app, quick start, or guide." />
-<link rel="icon" type="image/svg+xml" href="https://sexcapades.io/hosted/favicon.svg" />
+<title>Lost? — flex.capades.io</title>
+<meta name="description" content="This page doesn't exist — but 404 topics do. Open the flex.capades.io app, quick start, or guide." />
+<link rel="icon" type="image/svg+xml" href="/hosted/favicon.svg" />
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -37,15 +37,25 @@
 </head>
 <body>
 <main>
-  <img class="egg" src="/hosted/og-image.png" alt="Sexcapades — cracked egg" width="640" height="336" />
+  <img class="egg" src="/hosted/og-image.png" alt="flex.capades.io — cracked egg" width="640" height="336" />
   <h1>Even explorers get lost.</h1>
-  <p class="teaser"><strong>404</strong> kinks mapped. Zero found here.</p>
+  <p class="teaser"><strong>404</strong> topics mapped. Zero found here.</p>
   <nav>
     <a class="btn primary" href="/hosted/app.html">Open the App</a>
     <a class="btn" href="/hosted/quickstart.html">Quick Start</a>
     <a class="btn" href="/hosted/guide.html">Read the Guide</a>
   </nav>
-  <footer>Sexcapades — Compare Hypermaps</footer>
+  <footer><span id="brandName">flex.capades.io</span> — Compare Hypermaps</footer>
 </main>
+<script>
+  (function () {
+    var host = window.location.hostname;
+    if (host && host.indexOf("capades.io") !== -1) {
+      document.title = "Lost? — " + host;
+      var brandEl = document.getElementById("brandName");
+      if (brandEl) brandEl.textContent = host;
+    }
+  })();
+</script>
 </body>
 </html>
