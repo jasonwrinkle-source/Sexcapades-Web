@@ -1556,7 +1556,8 @@ details.scene-phase ul {
 .outline-trilinear-slider-row{display:flex;align-items:center;gap:8px;width:100%;}
 .outline-trilinear-slider-row input[type=range]{flex:1 1 auto;width:100%;margin:0;}
 .outline-trilinear-slider-row output{flex:0 0 3ch;min-width:3ch;text-align:right;font-size:11px;font-weight:600;}
-#markRatings.is-trilinear .mark-rating{display:grid!important;grid-template-areas:"poles poles poles" "slider output clear";grid-template-columns:1fr auto auto!important;align-items:center;gap:4px 8px;}
+#markRatings.is-trilinear .mark-rating:first-child{display:grid!important;grid-template-areas:"poles poles poles" "slider output clear";grid-template-columns:1fr auto auto!important;align-items:center;gap:4px 8px;}
+#markRatings.is-trilinear .mark-rating[hidden]{display:none!important;}
 #markRatings.is-trilinear #markGiveLabel{grid-area:poles;width:100%;}
 #markRatings.is-trilinear #markGive{grid-area:slider;width:100%;}
 #markRatings.is-trilinear #markGiveOut{grid-area:output;}

@@ -2746,6 +2746,7 @@
             const role5 = e.byId("markRole5"), role5Out = e.byId("markRole5Out"), role5Label = e.byId("markRole5Label"), role5Row = e.byId("markRole5Row");
             const role6Row = e.byId("markRole6Row"), role6 = e.byId("markRole6"), role6Out = e.byId("markRole6Out"), role6Label = e.byId("markRole6Label");
             const role7Row = e.byId("markRole7Row"), role7 = e.byId("markRole7"), role7Out = e.byId("markRole7Out"), role7Label = e.byId("markRole7Label");
+            const role8Row = e.byId("markRole8Row"), role8 = e.byId("markRole8"), role8Out = e.byId("markRole8Out"), role8Label = e.byId("markRole8Label");
 
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
@@ -3075,6 +3076,7 @@
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
                 role7Row && (role7Row.hidden = !0);
+                role8Row && (role8Row.hidden = !0);
 
                 give.value = rec[k0 + "Known"] ? rec[k0] : 0;
                 recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
@@ -3102,6 +3104,7 @@
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
                 role7Row && (role7Row.hidden = !0);
+                role8Row && (role8Row.hidden = !0);
 
                 give.value = rec[k0 + "Known"] ? rec[k0] : 0;
                 recv && (recv.value = rec[k1 + "Known"] ? rec[k1] : 0);
@@ -3122,6 +3125,7 @@
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
                 role7Row && (role7Row.hidden = !0);
+                role8Row && (role8Row.hidden = !0);
                 giveLabel && (giveLabel.textContent = shape.labels[0] || "Rating");
                 give.value = rec.giveKnown ? rec.give : 0;
                 giveOut && (giveOut.textContent = rec.giveKnown ? String(Math.round(rec.give)) : "Unrated");
@@ -3137,6 +3141,7 @@
                 role5Row && (role5Row.hidden = !0);
                 role6Row && (role6Row.hidden = !0);
                 role7Row && (role7Row.hidden = !0);
+                role8Row && (role8Row.hidden = !0);
                 if (giveLabel) {
                     giveLabel.innerHTML = "";
                     const poleBox = document.createElement("div");
@@ -3164,6 +3169,7 @@
                     role5Row && (role5Row.hidden = !0);
                     role6Row && (role6Row.hidden = !0);
                     role7Row && (role7Row.hidden = !0);
+                    role8Row && (role8Row.hidden = !0);
                     giveLabel && (giveLabel.textContent = shape.labels[0] || "Give");
                     recvLabel && (recvLabel.textContent = shape.labels[1] || "Receive");
                     /* Per-key display: bind writes via shape.keys, so the readout must
