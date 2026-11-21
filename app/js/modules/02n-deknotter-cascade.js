@@ -134,7 +134,9 @@
             const est = Za.topicSpokeEstimate(t.label || "", Number(item.cloudRadius) || 0);
             let h = est.spokeLength;
             if (t.isSubcategory) {
-                h = Math.max(h, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(item.cloudCount)), h = Za.hubSpokeLength(t.label || "", est.fontSize, h, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                h = Math.max(h, hubR1 + hubR2 + 96, sxSpokeBase(item.cloudCount, 1)), h = Za.hubSpokeLength(t.label || "", est.fontSize, h, hubR1, hubR2);
                 const so = mn.subcatOverrides && mn.subcatOverrides[t.label];
                 return h * (so && Number(so.length) > 0 ? Number(so.length) : 1);
             }

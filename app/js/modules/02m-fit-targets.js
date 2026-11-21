@@ -330,7 +330,9 @@
                             if (!t || !t.topic || null == t.topic.id) return;
                             const label = t.topic.label || "", isSub = !!t.topic.isSubcategory, est = Za.topicSpokeEstimate(label, t.cloudRadius || sec.topicCloudRadius);
                             let h = est.spokeLength;
-                            if (isSub) h = Math.max(h, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(t.cloudCount)), h = Za.hubSpokeLength(label, est.fontSize, h, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                            const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                            const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                            if (isSub) h = Math.max(h, hubR1 + hubR2 + 96, sxSpokeBase(t.cloudCount, 1)), h = Za.hubSpokeLength(label, est.fontSize, h, hubR1, hubR2);
                             const ov = isSub ? mn.subcatOverrides && mn.subcatOverrides[label] : mn.kinkOverrides && mn.kinkOverrides[t.topic.id], mul = ov && Number(ov.length) > 0 ? Number(ov.length) : 1;
                             h = h * mul;
                             const tp = {

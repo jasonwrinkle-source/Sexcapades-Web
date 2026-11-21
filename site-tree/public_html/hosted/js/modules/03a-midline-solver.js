@@ -1031,7 +1031,9 @@
                         const u = Za.topicSpokeEstimate(label, w || br.topicCloudRadius);
                         let h = u.spokeLength;
                         if (isSub) {
-                            h = Math.max(h, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(item.cloudCount)), h = Za.hubSpokeLength(label, u.fontSize, h, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                            const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                            const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                            h = Math.max(h, hubR1 + hubR2 + 96, sxSpokeBase(item.cloudCount, 1)), h = Za.hubSpokeLength(label, u.fontSize, h, hubR1, hubR2);
                             const ov = mn.subcatOverrides && mn.subcatOverrides[label];
                             if (ov && typeof ov.length === "number" && ov.length > 0) h *= ov.length;
                         } else {

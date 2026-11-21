@@ -632,7 +632,7 @@
                     const leafRadius2 = sxIconRadius(2);
                     if (o) {
                         const e = hubRadius1 + leafRadius2 + 96;
-                        h = Math.max(h, e, sxSpokeBase(t.cloudCount)), h = Za.hubSpokeLength(a, p, h, hubRadius1, leafRadius2);
+                        h = Math.max(h, e, sxSpokeBase(t.cloudCount, 1)), h = Za.hubSpokeLength(a, p, h, hubRadius1, leafRadius2);
                     }
                     // Per-subcategory length override (Build
                     // 2026-10-20_0023): the multiplier is applied to the

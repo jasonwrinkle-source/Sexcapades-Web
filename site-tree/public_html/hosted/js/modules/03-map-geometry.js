@@ -368,10 +368,23 @@
         // never read these tables — the multiplier lived only in the
         // collision estimate — until Builds 2026-10-19_0255 and
         // 2026-10-20_0023 wired the draw sites.)
+        // N-depth generalized: accepts node object or key, checks unified tables.
         function applyLengthOverride(length, key, table) {
             try {
+                if (key && typeof key === "object") {
+                    const k = key.id || key.name || key.label;
+                    return applyLengthOverride(length, k, table);
+                }
                 const ov = table ? table[key] : null;
                 if (ov && typeof ov.length === "number" && ov.length > 0) return length * ov.length;
+                if (!table && typeof mn !== "undefined") {
+                    const b = mn.branchOverrides?.[key]?.length;
+                    if (typeof b === "number" && b > 0) return length * b;
+                    const s = mn.subcatOverrides?.[key]?.length;
+                    if (typeof s === "number" && s > 0) return length * s;
+                    const k = mn.kinkOverrides?.[key]?.length;
+                    if (typeof k === "number" && k > 0) return length * k;
+                }
             } catch (_) { __sxErrLog("layout-override", _); }
             return length;
         }

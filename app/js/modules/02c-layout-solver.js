@@ -55,10 +55,12 @@
                     i = Za.topicSpokeEstimate(n, t).spokeLength;
                 } catch (e) { __sxErrLog("layout-measure", e); }
                 if (e.topic && e.topic.isSubcategory) {
-                    i = Math.max(i, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(e.cloudCount));
+                    const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                    const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                    i = Math.max(i, hubR1 + hubR2 + 96, sxSpokeBase(e.cloudCount, 1));
                     try {
-                        const e = Za.topicSpokeEstimate(n, t);
-                        i = Za.hubSpokeLength(n, e.fontSize, i, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                        const est = Za.topicSpokeEstimate(n, t);
+                        i = Za.hubSpokeLength(n, est.fontSize, i, hubR1, hubR2);
                     } catch (e) { __sxErrLog("layout-measure", e); }
                 }
                 var subMul = 1, cloudMul = 1, kinkMul = 1;
@@ -707,9 +709,11 @@
         // delivered-radius reading, the solver's renderedSpokeLength,
         // the SCC geometry build's drawH, and Ar's paint) calls it,
         // so solve, delivered, capsule and paint stay one formula.
-        function sxSpokeBase(spokeCount) {
+        // N-depth generalized: accepts optional hubDepth (default 1).
+        function sxSpokeBase(spokeCount, hubDepth = 1) {
             const n = Math.max(1, Number(spokeCount) || 1);
-            return sxIconRadius(1) * (5 * Math.PI / 3) / n;
+            const d = Math.max(1, Number(hubDepth) || 1);
+            return sxIconRadius(d) * (5 * Math.PI / 3) / n;
         }
         // Slider size repair #2 (2026-11-01): the rating rail's visible
         // thickness and its hit strokes are screen-px quantities

@@ -15134,7 +15134,9 @@ const TAXONOMY_CATEGORIES = [
                             if (!t || !t.topic || null == t.topic.id) return;
                             const label = t.topic.label || "", isSub = !!t.topic.isSubcategory, est = Za.topicSpokeEstimate(label, t.cloudRadius || sec.topicCloudRadius);
                             let h = est.spokeLength;
-                            if (isSub) h = Math.max(h, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(t.cloudCount)), h = Za.hubSpokeLength(label, est.fontSize, h, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                            const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                            const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                            if (isSub) h = Math.max(h, hubR1 + hubR2 + 96, sxSpokeBase(t.cloudCount, 1)), h = Za.hubSpokeLength(label, est.fontSize, h, hubR1, hubR2);
                             const ov = isSub ? mn.subcatOverrides && mn.subcatOverrides[label] : mn.kinkOverrides && mn.kinkOverrides[t.topic.id], mul = ov && Number(ov.length) > 0 ? Number(ov.length) : 1;
                             h = h * mul;
                             const tp = {
@@ -15502,7 +15504,9 @@ const TAXONOMY_CATEGORIES = [
             const est = Za.topicSpokeEstimate(t.label || "", Number(item.cloudRadius) || 0);
             let h = est.spokeLength;
             if (t.isSubcategory) {
-                h = Math.max(h, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(item.cloudCount)), h = Za.hubSpokeLength(t.label || "", est.fontSize, h, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                h = Math.max(h, hubR1 + hubR2 + 96, sxSpokeBase(item.cloudCount, 1)), h = Za.hubSpokeLength(t.label || "", est.fontSize, h, hubR1, hubR2);
                 const so = mn.subcatOverrides && mn.subcatOverrides[t.label];
                 return h * (so && Number(so.length) > 0 ? Number(so.length) : 1);
             }
@@ -21775,10 +21779,12 @@ const TAXONOMY_CATEGORIES = [
                     i = Za.topicSpokeEstimate(n, t).spokeLength;
                 } catch (e) { __sxErrLog("layout-measure", e); }
                 if (e.topic && e.topic.isSubcategory) {
-                    i = Math.max(i, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(e.cloudCount));
+                    const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                    const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                    i = Math.max(i, hubR1 + hubR2 + 96, sxSpokeBase(e.cloudCount, 1));
                     try {
-                        const e = Za.topicSpokeEstimate(n, t);
-                        i = Za.hubSpokeLength(n, e.fontSize, i, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                        const est = Za.topicSpokeEstimate(n, t);
+                        i = Za.hubSpokeLength(n, est.fontSize, i, hubR1, hubR2);
                     } catch (e) { __sxErrLog("layout-measure", e); }
                 }
                 var subMul = 1, cloudMul = 1, kinkMul = 1;
@@ -22427,9 +22433,11 @@ const TAXONOMY_CATEGORIES = [
         // delivered-radius reading, the solver's renderedSpokeLength,
         // the SCC geometry build's drawH, and Ar's paint) calls it,
         // so solve, delivered, capsule and paint stay one formula.
-        function sxSpokeBase(spokeCount) {
+        // N-depth generalized: accepts optional hubDepth (default 1).
+        function sxSpokeBase(spokeCount, hubDepth = 1) {
             const n = Math.max(1, Number(spokeCount) || 1);
-            return sxIconRadius(1) * (5 * Math.PI / 3) / n;
+            const d = Math.max(1, Number(hubDepth) || 1);
+            return sxIconRadius(d) * (5 * Math.PI / 3) / n;
         }
         // Slider size repair #2 (2026-11-01): the rating rail's visible
         // thickness and its hit strokes are screen-px quantities
@@ -23736,7 +23744,9 @@ const TAXONOMY_CATEGORIES = [
                         const u = Za.topicSpokeEstimate(label, w || br.topicCloudRadius);
                         let h = u.spokeLength;
                         if (isSub) {
-                            h = Math.max(h, pr.categoryIcon / 2 + pr.subcategoryIcon / 2 + 96, sxSpokeBase(item.cloudCount)), h = Za.hubSpokeLength(label, u.fontSize, h, pr.categoryIcon / 2, pr.subcategoryIcon / 2);
+                            const hubR1 = typeof sxIconRadius === "function" ? sxIconRadius(1) : pr.categoryIcon / 2;
+                            const hubR2 = typeof sxIconRadius === "function" ? sxIconRadius(2) : pr.subcategoryIcon / 2;
+                            h = Math.max(h, hubR1 + hubR2 + 96, sxSpokeBase(item.cloudCount, 1)), h = Za.hubSpokeLength(label, u.fontSize, h, hubR1, hubR2);
                             const ov = mn.subcatOverrides && mn.subcatOverrides[label];
                             if (ov && typeof ov.length === "number" && ov.length > 0) h *= ov.length;
                         } else {
@@ -25209,10 +25219,23 @@ const TAXONOMY_CATEGORIES = [
         // never read these tables — the multiplier lived only in the
         // collision estimate — until Builds 2026-10-19_0255 and
         // 2026-10-20_0023 wired the draw sites.)
+        // N-depth generalized: accepts node object or key, checks unified tables.
         function applyLengthOverride(length, key, table) {
             try {
+                if (key && typeof key === "object") {
+                    const k = key.id || key.name || key.label;
+                    return applyLengthOverride(length, k, table);
+                }
                 const ov = table ? table[key] : null;
                 if (ov && typeof ov.length === "number" && ov.length > 0) return length * ov.length;
+                if (!table && typeof mn !== "undefined") {
+                    const b = mn.branchOverrides?.[key]?.length;
+                    if (typeof b === "number" && b > 0) return length * b;
+                    const s = mn.subcatOverrides?.[key]?.length;
+                    if (typeof s === "number" && s > 0) return length * s;
+                    const k = mn.kinkOverrides?.[key]?.length;
+                    if (typeof k === "number" && k > 0) return length * k;
+                }
             } catch (_) { __sxErrLog("layout-override", _); }
             return length;
         }
@@ -26287,7 +26310,7 @@ const TAXONOMY_CATEGORIES = [
                     const leafRadius2 = sxIconRadius(2);
                     if (o) {
                         const e = hubRadius1 + leafRadius2 + 96;
-                        h = Math.max(h, e, sxSpokeBase(t.cloudCount)), h = Za.hubSpokeLength(a, p, h, hubRadius1, leafRadius2);
+                        h = Math.max(h, e, sxSpokeBase(t.cloudCount, 1)), h = Za.hubSpokeLength(a, p, h, hubRadius1, leafRadius2);
                     }
                     // Per-subcategory length override (Build
                     // 2026-10-20_0023): the multiplier is applied to the
