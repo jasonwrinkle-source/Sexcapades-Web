@@ -11,7 +11,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "How should the economy be organized — by the state, the market, or the commons?",
+                "issue": "How should the economy be organized \u2014 by the state, the market, or the commons?",
                 "poles": [
                   {
                     "label": "The State",
@@ -29,8 +29,6 @@
               },
               "id": "xpo0001",
               "name": "Economic Structure",
-              "poleReading": "same",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "the-state-command-redistribution",
@@ -45,9 +43,9 @@
                   "label": "The Commons (Civil Society & Mutual Aid)"
                 }
               ],
-              "question": "How should the economy be organized — by the state, the market, or the commons?",
+              "question": "How should the economy be organized \u2014 by the state, the market, or the commons?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.1.1",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.1.1",
               "widget": "triangle",
               "communities": [
                 {
@@ -93,8 +91,6 @@
               },
               "id": "xpo0003",
               "name": "Theories of Distributive Justice Triad",
-              "poleReading": "same",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "need-marxian-welfare",
@@ -111,7 +107,7 @@
               ],
               "question": "What makes a distribution of resources just?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.1.3",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.1.3",
               "widget": "triangle",
               "communities": [
                 {
@@ -162,8 +158,6 @@
               },
               "id": "xpo0006",
               "name": "Macroeconomic Policy",
-              "poleReading": "same",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "modern-monetary-theory-mmt",
@@ -184,7 +178,7 @@
               ],
               "question": "How should the state manage money and debt?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.2.3",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.2.3",
               "widget": "diamond",
               "communities": [
                 {
@@ -238,8 +232,6 @@
               },
               "id": "xpo0007",
               "name": "Civic Resource Allocation Pentad",
-              "poleReading": "complement",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "healthcare-social-welfare",
@@ -264,7 +256,7 @@
               ],
               "question": "How should society divide its finite budget across five vital priorities?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.3.1",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.3.1",
               "widget": "star-radar",
               "communities": [
                 {
@@ -318,8 +310,6 @@
               },
               "id": "xpo0008",
               "name": "Who owns what",
-              "poleReading": "same",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "private-absolute-allodial-capitalist",
@@ -344,7 +334,7 @@
               ],
               "question": "Who can own what, and on what terms?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.3.2",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.3.2",
               "widget": "star-radar",
               "communities": [
                 {
@@ -414,7 +404,7 @@
               ],
               "question": "How much different income levels should pay in federal income tax.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0003)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0003)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -478,7 +468,7 @@
               ],
               "question": "How corporations are taxed, and whether loopholes and subsidies should close.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0004)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0004)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -542,7 +532,7 @@
               ],
               "question": "How much the federal government should spend, and whether deficits matter.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0005)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0005)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -606,7 +596,7 @@
               ],
               "question": "What to do about the federal debt.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0006)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0006)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -670,7 +660,7 @@
               ],
               "question": "Whether the government should act to reduce the gap between rich and poor, and how.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0078)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0078)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -751,7 +741,7 @@
               ],
               "question": "Whether the US should use tariffs and what kind of trade deals it should sign.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0007)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0007)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -820,7 +810,7 @@
               ],
               "question": "Whether the government should actively bring manufacturing and supply chains home.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0008)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0008)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -884,7 +874,7 @@
               ],
               "question": "How the US should handle economic competition with China.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0009)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0009)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -959,7 +949,7 @@
               ],
               "question": "Who controls the money supply, and how.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0010)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0010)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -1000,12 +990,12 @@
                 "issue": "Whether crypto should be protected, regulated, or replaced by a government digital currency.",
                 "poles": [
                   {
-                    "label": "Protect crypto, ban gov coin",
-                    "text": "Protect crypto and ban a government coin"
+                    "label": "Private crypto",
+                    "text": "Affinity for permitting and protecting private cryptocurrencies."
                   },
                   {
-                    "label": "Regulate or adopt CBDC",
-                    "text": "regulate or adopt a central bank digital currency."
+                    "label": "Government coin (CBDC)",
+                    "text": "Affinity for a government-issued digital dollar."
                   }
                 ]
               },
@@ -1013,18 +1003,18 @@
               "name": "Digital Currency",
               "poles": [
                 {
-                  "key": "protect-crypto-ban-gov-coin",
-                  "label": "Protect crypto, ban gov coin"
+                  "key": "private-crypto",
+                  "label": "Private crypto"
                 },
                 {
-                  "key": "regulate-or-adopt-cbdc",
-                  "label": "Regulate or adopt CBDC"
+                  "key": "government-coin",
+                  "label": "Government coin (CBDC)"
                 }
               ],
               "question": "Whether crypto should be protected, regulated, or replaced by a government digital currency.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0011)",
-              "widget": "linear-sliders",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0011)",
+              "widget": "xy-switchbox",
               "communities": [
                 {
                   "network": "Stack Exchange",
@@ -1087,7 +1077,7 @@
               ],
               "question": "Whether the government should act to bring down the prices people pay, and how.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0079)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0079)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -1168,7 +1158,7 @@
               ],
               "question": "Whether the federal government should set a minimum wage, and at what level.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0001)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0001)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -1232,7 +1222,7 @@
               ],
               "question": "Workers' right to organize and bargain, and the rules around it.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0002)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0002)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -1291,7 +1281,7 @@
               ],
               "question": "Whether Social Security should be protected, reformed, or phased out.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0012)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0012)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -1350,7 +1340,7 @@
               ],
               "question": "Whether the federal government should run anti-poverty programs.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0013)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0013)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -1409,7 +1399,7 @@
               ],
               "question": "What the government should do about the cost of housing.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0014)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0014)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -1450,7 +1440,7 @@
         {
           "archetype": "line",
           "hovertip": {
-            "issue": "Whether health coverage should be public, private, or a mix — and whether it is a right.",
+            "issue": "Whether health coverage should be public, private, or a mix \u2014 and whether it is a right.",
             "poles": [
               {
                 "label": "Single-payer",
@@ -1468,8 +1458,6 @@
           },
           "id": "xpo0029",
           "name": "Health insurance system",
-          "poleReading": "antipodal",
-          "poleEnemies": [["single-payer", "free-market"]],
           "poles": [
             {
               "key": "single-payer",
@@ -1484,9 +1472,9 @@
               "label": "Keep and fix the ACA"
             }
           ],
-          "question": "Whether health coverage should be public, private, or a mix — and whether it is a right.",
+          "question": "Whether health coverage should be public, private, or a mix \u2014 and whether it is a right.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0015)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0015)",
           "widget": "trilinear-line",
           "communities": [
             {
@@ -1561,7 +1549,7 @@
           ],
           "question": "Whether the government should cap or negotiate drug prices.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0016)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0016)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -1612,8 +1600,6 @@
           },
           "id": "xpo0031",
           "name": "Medicare",
-          "poleReading": "same",
-          "poleEnemies": [],
           "poles": [
             {
               "key": "protect-and-expand",
@@ -1630,7 +1616,7 @@
           ],
           "question": "Whether Medicare should be protected, expanded, or replaced.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0017)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0017)",
           "widget": "triangle",
           "communities": [
             {
@@ -1689,7 +1675,7 @@
           ],
           "question": "How the government should respond to mental illness and the opioid epidemic.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0018)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0018)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -1748,7 +1734,7 @@
           ],
           "question": "Whether the government should make child care affordable.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0019)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0019)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -1807,7 +1793,7 @@
           ],
           "question": "Whether workers should get guaranteed paid time off to care for family or recover from illness.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0020)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0020)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -1866,7 +1852,7 @@
           ],
           "question": "Whether the government can require vaccines or other public-health measures.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0021)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0021)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -1931,7 +1917,7 @@
           ],
           "question": "Whether climate change is a crisis and what the government should do about emissions.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0022)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0022)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2006,7 +1992,7 @@
           ],
           "question": "Whether the government should expand, restrict, or phase out oil, gas, and coal.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0023)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0023)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2065,7 +2051,7 @@
           ],
           "question": "Whether nuclear energy has a place in the energy mix.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0024)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0024)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2124,7 +2110,7 @@
           ],
           "question": "How far and how fast the government should push solar, wind, and other renewables.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0025)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0025)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2183,7 +2169,7 @@
           ],
           "question": "Whether the government should promote or mandate electric vehicles.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0026)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0026)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2242,7 +2228,7 @@
           ],
           "question": "Who pays for pollution, and whether overburdened communities get special protection.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0027)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0027)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2301,7 +2287,7 @@
           ],
           "question": "Who owns and manages public lands, and how wildlife and nature are protected.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0028)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0028)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2360,7 +2346,7 @@
           ],
           "question": "What the government should do for farmers and the food system.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0029)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0029)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2425,7 +2411,7 @@
           ],
           "question": "How the southern border should be secured.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0030)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0030)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2484,7 +2470,7 @@
           ],
           "question": "Whether and how unauthorized immigrants should be removed.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0031)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0031)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2520,12 +2506,12 @@
             "issue": "How many legal immigrants the US should admit, and through which channels.",
             "poles": [
               {
-                "label": "Expand legal immigration",
-                "text": "Expand legal immigration"
+                "label": "Expand admissions",
+                "text": "Affinity for expanding legal immigration overall \u2014 how many are admitted."
               },
               {
-                "label": "Merit-based only",
-                "text": "restrict it to merit-based admissions."
+                "label": "Merit-based selection",
+                "text": "Affinity for selecting by merit and points over family and humanitarian channels \u2014 by what criteria."
               }
             ]
           },
@@ -2533,18 +2519,18 @@
           "name": "Legal Immigration",
           "poles": [
             {
-              "key": "expand-legal-immigration",
-              "label": "Expand legal immigration"
+              "key": "expand-admissions",
+              "label": "Expand admissions"
             },
             {
-              "key": "merit-based-only",
-              "label": "Merit-based only"
+              "key": "merit-selection",
+              "label": "Merit-based selection"
             }
           ],
           "question": "How many legal immigrants the US should admit, and through which channels.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0032)",
-          "widget": "linear-sliders",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0032)",
+          "widget": "xy-switchbox",
           "communities": [
             {
               "network": "Stack Exchange",
@@ -2602,7 +2588,7 @@
           ],
           "question": "How asylum claims should be handled.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0033)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0033)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2661,7 +2647,7 @@
           ],
           "question": "Whether long-term unauthorized residents and Dreamers should get a path to citizenship.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0034)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0034)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2720,7 +2706,7 @@
           ],
           "question": "Whether children born in the US to unauthorized immigrants are citizens.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0035)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0035)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2779,7 +2765,7 @@
           ],
           "question": "Whether local governments may limit cooperation with federal immigration enforcement.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0036)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0036)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -2823,7 +2809,7 @@
               "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
               "archetype": null,
               "hovertip": {
-                "issue": "Where do you stand on the two axes of political orientation — economic and authority?",
+                "issue": "Where do you stand on the two axes of political orientation \u2014 economic and authority?",
                 "poles": [
                   {
                     "label": "Authoritarian Left",
@@ -2845,8 +2831,6 @@
               },
               "id": "xpo0004",
               "name": "The Classic Political Compass Tetrad",
-              "poleReading": "antipodal",
-              "poleEnemies": [["authoritarian-left-state-socialism", "libertarian-right-anarcho-capitalism-minarchism"], ["authoritarian-right-traditionalist-fascist", "libertarian-left-democratic-confederalism-anarcho-syndicalism"]],
               "poles": [
                 {
                   "key": "authoritarian-left-state-socialism",
@@ -2865,9 +2849,9 @@
                   "label": "Libertarian Left (Democratic Confederalism / Anarcho-Syndicalism)"
                 }
               ],
-              "question": "Where do you stand on the two axes of political orientation — economic and authority?",
+              "question": "Where do you stand on the two axes of political orientation \u2014 economic and authority?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.2.1",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.2.1",
               "widget": "quad-compass",
               "axes": [
                 "Economic",
@@ -2895,7 +2879,7 @@
               "approx": "orthogonal diamond deformation polygon rendered as diamond; real diamond-deformation renderer is follow-up work",
               "archetype": "multi-affinity",
               "hovertip": {
-                "issue": "Who should decide, and how — executive, experts, assembly, or consensus?",
+                "issue": "Who should decide, and how \u2014 executive, experts, assembly, or consensus?",
                 "poles": [
                   {
                     "label": "Executive Mandate",
@@ -2917,8 +2901,6 @@
               },
               "id": "xpo0005",
               "name": "Decision Ecology",
-              "poleReading": "same",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "executive-mandate-decisive-sovereign",
@@ -2937,9 +2919,9 @@
                   "label": "Consensus Federation (Veto / Unanimity)"
                 }
               ],
-              "question": "Who should decide, and how — executive, experts, assembly, or consensus?",
+              "question": "Who should decide, and how \u2014 executive, experts, assembly, or consensus?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.2.2",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.2.2",
               "widget": "quad-sliders",
               "communities": [
                 {
@@ -2992,8 +2974,6 @@
               },
               "id": "xpo0009",
               "name": "Macro Political Matrix Hexad",
-              "poleReading": "same",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "free-market-capitalism",
@@ -3022,7 +3002,7 @@
               ],
               "question": "Which civilizational operating system should govern society?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.4.1",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.4.1",
               "widget": "hexad-radar",
               "communities": [
                 {
@@ -3080,8 +3060,6 @@
               },
               "id": "xpo0011",
               "name": "Seven Theories of Political Legitimacy",
-              "poleReading": "same",
-              "poleEnemies": [],
               "poles": [
                 {
                   "key": "divine-right-cosmic-order",
@@ -3114,7 +3092,7 @@
               ],
               "question": "Where does the moral authority to govern originate?",
               "risk": false,
-              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.5.1",
+              "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.5.1",
               "widget": "heptad-radar",
               "communities": [
                 {
@@ -3169,7 +3147,7 @@
               ],
               "question": "How easy it should be to vote, and what identification should be required.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0037)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0037)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3228,7 +3206,7 @@
               ],
               "question": "Whether money in politics should be limited, publicly funded, or unrestricted.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0038)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0038)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3287,7 +3265,7 @@
               ],
               "question": "Whether the Electoral College should stay, and whether representation should be proportional.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0039)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0039)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3346,7 +3324,7 @@
               ],
               "question": "Whether elections should use ranked-choice voting and open primaries.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0040)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0040)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3405,7 +3383,7 @@
               ],
               "question": "Who draws congressional district maps, and whether gerrymandering should end.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0041)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0041)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3464,7 +3442,7 @@
               ],
               "question": "Whether DC and the territories should get statehood or a different status.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0042)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0042)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3529,7 +3507,7 @@
               ],
               "question": "How big the Supreme Court should be and how it should be checked.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0043)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0043)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3588,7 +3566,7 @@
               ],
               "question": "What kind of judges should be appointed?",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0044)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0044)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3621,7 +3599,7 @@
             {
               "archetype": null,
               "hovertip": {
-                "issue": "Which level of government should decide — Washington or the states.",
+                "issue": "Which level of government should decide \u2014 Washington or the states.",
                 "poles": [
                   {
                     "label": "Strong federal standards",
@@ -3645,9 +3623,9 @@
                   "label": "Powers to the states"
                 }
               ],
-              "question": "Which level of government should decide — Washington or the states.",
+              "question": "Which level of government should decide \u2014 Washington or the states.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0045)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0045)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3706,7 +3684,7 @@
               ],
               "question": "How big and active the federal government should be.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0046)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0046)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3776,7 +3754,7 @@
               ],
               "question": "How much the federal government should regulate business and the economy.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0047)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0047)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3841,7 +3819,7 @@
               ],
               "question": "What the government may collect and watch, and what privacy rights people have.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0048)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0048)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3905,7 +3883,7 @@
               ],
               "question": "Whether the government may restrict speech, fund or pressure media, or police content.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0049)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0049)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -3964,7 +3942,7 @@
               ],
               "question": "Whether the government should set rules for artificial intelligence, and how strict.",
               "risk": false,
-              "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0081)",
+              "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0081)",
               "widget": "linear-sliders",
               "communities": [
                 {
@@ -4039,7 +4017,7 @@
               },
               {
                 "label": "Pro-life",
-                "text": "pro-life (legal access ↔ restrictions / bans)."
+                "text": "pro-life (legal access \u2194 restrictions / bans)."
               }
             ]
           },
@@ -4057,7 +4035,7 @@
           ],
           "question": "Whether and how abortion should be legal and accessible.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0050)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0050)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4132,7 +4110,7 @@
           ],
           "question": "Whether birth control and fertility treatments like IVF should be protected and accessible.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0051)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0051)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4183,8 +4161,6 @@
           },
           "id": "xpo0067",
           "name": "Marriage & Family",
-          "poleReading": "same",
-          "poleEnemies": [],
           "poles": [
             {
               "key": "marriage-equality-for-all",
@@ -4201,7 +4177,7 @@
           ],
           "question": "What counts as a marriage and a family, and whether the government may define them.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0052)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0052)",
           "widget": "triangle",
           "communities": [
             {
@@ -4260,7 +4236,7 @@
           ],
           "question": "Whether LGBTQ+ people get equal treatment in law, schools, sports, and health care.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0053)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0053)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4330,7 +4306,7 @@
           ],
           "question": "How far religious freedom extends, and whether it covers acting on beliefs in everyday life.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0054)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0054)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4389,7 +4365,7 @@
           ],
           "question": "Whether and how the government may regulate firearms.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0055)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0055)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4459,7 +4435,7 @@
           ],
           "question": "How police should be funded, trained, and held accountable.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0056)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0056)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4518,7 +4494,7 @@
           ],
           "question": "Whether the justice system should be reformed, and how harshly crimes should be punished.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0057)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0057)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4577,7 +4553,7 @@
           ],
           "question": "Whether the state should be able to execute people.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0058)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0058)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4636,7 +4612,7 @@
           ],
           "question": "Whether drug use should be a crime, a health issue, or a free choice.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0059)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0059)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4669,15 +4645,15 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "How the government should respond to crime — crack down on it, or prevent it.",
+            "issue": "How the government should respond to crime \u2014 crack down on it, or prevent it.",
             "poles": [
               {
                 "label": "Crack down",
-                "text": "Crack down — enforcement and punishment"
+                "text": "Crack down \u2014 enforcement and punishment"
               },
               {
-                "label": "Prevent — root causes",
-                "text": "prevent — root causes and community investment."
+                "label": "Prevent \u2014 root causes",
+                "text": "prevent \u2014 root causes and community investment."
               }
             ]
           },
@@ -4690,12 +4666,12 @@
             },
             {
               "key": "prevent-root-causes",
-              "label": "Prevent — root causes"
+              "label": "Prevent \u2014 root causes"
             }
           ],
-          "question": "How the government should respond to crime — crack down on it, or prevent it.",
+          "question": "How the government should respond to crime \u2014 crack down on it, or prevent it.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0080)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0080)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4770,7 +4746,7 @@
           ],
           "question": "Whether the government should actively address racial disparities.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0060)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0060)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -4832,7 +4808,7 @@
           ],
           "question": "What protections and support people with disabilities should get.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0061)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0061)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -4884,7 +4860,7 @@
           ],
           "question": "Whether the Constitution and the law should guarantee women's equality.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0062)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0062)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -4936,7 +4912,7 @@
           ],
           "question": "How the federal government should treat Tribal Nations and their treaty rights.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0063)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0063)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -5002,7 +4978,7 @@
           ],
           "question": "Who chooses a child's school, and how schools are funded.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0064)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0064)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5035,7 +5011,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What schools should teach — and what they should not.",
+            "issue": "What schools should teach \u2014 and what they should not.",
             "poles": [
               {
                 "label": "Honest, inclusive curriculum",
@@ -5059,9 +5035,9 @@
               "label": "Fundamentals & patriotic civics"
             }
           ],
-          "question": "What schools should teach — and what they should not.",
+          "question": "What schools should teach \u2014 and what they should not.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0065)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0065)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5102,7 +5078,7 @@
               },
               {
                 "label": "Close the Department",
-                "text": "none — close the Department of Education."
+                "text": "none \u2014 close the Department of Education."
               }
             ]
           },
@@ -5120,7 +5096,7 @@
           ],
           "question": "Whether Washington should have any role in education at all.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0066)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0066)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5179,7 +5155,7 @@
           ],
           "question": "Who pays for college, and what happens to student debt.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0067)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0067)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5238,7 +5214,7 @@
           ],
           "question": "Whether the government should fund the arts and humanities.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0068)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0068)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5295,8 +5271,6 @@
           },
           "id": "xpo0002",
           "name": "Rodrik's Trilemma",
-          "poleReading": "trilemma",
-          "poleEnemies": [["hyperglobalization", "national-sovereignty"], ["hyperglobalization", "democratic-politics"], ["national-sovereignty", "democratic-politics"]],
           "poles": [
             {
               "key": "hyperglobalization",
@@ -5313,7 +5287,7 @@
           ],
           "question": "Can a society have hyperglobalization, national sovereignty, and democratic politics all at once?",
           "risk": false,
-          "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.1.2",
+          "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.1.2",
           "widget": "triangle",
           "communities": [
             {
@@ -5371,8 +5345,6 @@
           },
           "id": "xpo0010",
           "name": "Grand Strategy",
-          "poleReading": "same",
-          "poleEnemies": [],
           "poles": [
             {
               "key": "realpolitik-hegemony",
@@ -5401,7 +5373,7 @@
           ],
           "question": "How should a nation act in the world?",
           "risk": false,
-          "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.4.2",
+          "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.4.2",
           "widget": "hexad-radar",
           "communities": [
             {
@@ -5456,8 +5428,6 @@
           },
           "id": "xpo0012",
           "name": "Civilizational Resilience",
-          "poleReading": "complement",
-          "poleEnemies": [],
           "poles": [
             {
               "key": "energy-density-grid-security",
@@ -5490,7 +5460,7 @@
           ],
           "question": "What makes a civilization resilient?",
           "risk": false,
-          "source": "BRIEFING_POLISCAPADES_TAXONOMY.md §3.5.2",
+          "source": "BRIEFING_POLISCAPADES_TAXONOMY.md \u00a73.5.2",
           "widget": "heptad-radar",
           "communities": [
             {
@@ -5544,7 +5514,7 @@
           ],
           "question": "How much to spend on the military, and what it is for.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0069)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0069)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5608,7 +5578,7 @@
           ],
           "question": "Whether the government can compel military service.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0070)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0070)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5664,7 +5634,7 @@
           ],
           "question": "What veterans are owed after service.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0071)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0071)",
           "type": "single",
           "widget": "monopole-slider",
           "communities": [
@@ -5729,7 +5699,7 @@
           ],
           "question": "Whether the US should stay in alliances like NATO.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0072)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0072)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5793,7 +5763,7 @@
           ],
           "question": "How the US should handle China as a rival.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0073)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0073)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5857,7 +5827,7 @@
           ],
           "question": "What the US position should be in the Middle East, including on Israel.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0074)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0074)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5932,7 +5902,7 @@
           ],
           "question": "Whether the US should send aid, intervene abroad, or stay out.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0075)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0075)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -5996,7 +5966,7 @@
           ],
           "question": "Whether the US should keep, modernize, or eliminate nuclear weapons.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0076)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0076)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -6034,7 +6004,7 @@
         {
           "archetype": null,
           "hovertip": {
-            "issue": "What the US should do about Iran — its nuclear program, its role in the region, and whether to pressure it or engage it.",
+            "issue": "What the US should do about Iran \u2014 its nuclear program, its role in the region, and whether to pressure it or engage it.",
             "poles": [
               {
                 "label": "Confront and pressure",
@@ -6058,9 +6028,9 @@
               "label": "Engage and negotiate"
             }
           ],
-          "question": "What the US should do about Iran — its nuclear program, its role in the region, and whether to pressure it or engage it.",
+          "question": "What the US should do about Iran \u2014 its nuclear program, its role in the region, and whether to pressure it or engage it.",
           "risk": false,
-          "source": "poliscapades-taxonomy-draft-2026-11-10.md §4 (t0077)",
+          "source": "poliscapades-taxonomy-draft-2026-11-10.md \u00a74 (t0077)",
           "widget": "linear-sliders",
           "communities": [
             {
@@ -6111,7 +6081,7 @@
   ],
   "domain": "Political Economy, Civic Allocation & Governance",
   "name": "Poliscapades",
-  "about": "Poliscapades is an interactive hypermap for rating and visualizing where you stand on the questions that run a country — the economy, health and care, who holds power — and comparing your positions with another person's, stance by stance, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to draft the case you'd make, and Scene Setter to plan the conversation — all in the same shared vocabulary.",
+  "about": "Poliscapades is an interactive hypermap for rating and visualizing where you stand on the questions that run a country \u2014 the economy, health and care, who holds power \u2014 and comparing your positions with another person's, stance by stance, on the same picture. Build a personal profile, see where you meet and where you part, use Scribe to draft the case you'd make, and Scene Setter to plan the conversation \u2014 all in the same shared vocabulary.",
   "scribe": {
     "genre": "discussion",
     "output": "discussion",
@@ -6127,22 +6097,22 @@
       "help": "Depth 1 (Overview) is a light survey of the recorded stances. Depth 5 (Dissertation defense) is full scholarly rigor: steelman each stance, raise the strongest objections, and answer them."
     },
     "panel": {
-      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map — the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map — where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
+      "modeSingle": "One profile creates an informed discussion between the stances recorded on this map \u2014 the positions held, where they agree, and where they part. For a moderated discussion plan, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into an informed discussion between the stances recorded on this map \u2014 where the profiles agree, where they part, and what follows from each position. For a moderated discussion plan, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create an informed discussion between the stances.",
       "introMulti": "Multiple profiles selected: Scribe will create an informed discussion between the stances.",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the angle, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
       "detailsHelp": "Don't re-enter your stances here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Discussions can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data.",
-      "summary": "An informed discussion between the recorded stances — the positions speak for themselves, not a story."
+      "summary": "An informed discussion between the recorded stances \u2014 the positions speak for themselves, not a story."
     },
     "prompt": {
       "opening": "Write an informed discussion between the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
         "Do not invent positions, sources, or facts beyond the supplied data."
       ],
@@ -6167,8 +6137,8 @@
     "panel": {
       "subtitleSuffix": "the ground rules stay in every discussion plan.",
       "detailsLabel": "Discussion details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid — e.g. “a point-by-point comparison of the two leading positions, with objections answered.”",
-      "detailsHelp": "Don’t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
+      "detailsPlaceholder": "The map provides your stances and positions. Describe the setting, framing, or specific questions to emphasize or avoid \u2014 e.g. \u201ca point-by-point comparison of the two leading positions, with objections answered.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your stances here. Scene Setter already uses the selected hypermap data, and the ground rules below still control the plan.",
       "playGuideLegend": "Discussion plan length",
       "playGuideHelp": "Length for the AI discussion-plan prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Discussion agreement length",
@@ -6178,33 +6148,33 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same ground-rules content.",
       "negotiationTitle": "Discussion agreement",
-      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed ground rules as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Discussion plan",
-      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI discussion-plan prompt, with the ground rules embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the plan, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy discussion agreement",
       "downloadNegotiationGuide": "Download discussion agreement (.txt)",
       "copyPlayGuide": "Copy discussion plan prompt",
       "downloadPlayGuide": "Download discussion plan prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts the ground rules and shared positions into a discussion agreement first. Its moderation-plan source is inspiration only; the agreement always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated discussion plan will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared discussion agreement and an AI-ready moderation plan from two or more selected profiles.",
       "viewNavTip": "Build a moderated discussion plan for 2 or more profiles, with ground rules and timed segments.",
-      "legendRow": "<b>Scene Setter</b> — Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
+      "legendRow": "<b>Scene Setter</b> \u2014 Moderating a discussion between the stances: a ground-rules agreement and a moderated discussion plan."
     },
     "groundRules": [
-      "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+      "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
       "Speak from your own recorded stance; don't speak for the other side.",
       "Take turns: one position at a time, each side heard fully before replies.",
       "Objections go to the position, not the person holding it.",
       "Anyone may call a pause; the discussion resumes only when everyone is ready.",
-      "What the profiles agree on is common ground — start there, and return to it when the discussion stalls."
+      "What the profiles agree on is common ground \u2014 start there, and return to it when the discussion stalls."
     ],
     "prompt": {
       "opening": "Write a moderated discussion plan for the stances recorded on this map.",
       "rules": [
-        "Present each recorded stance fairly and in its strongest form — steelman, don't strawman.",
+        "Present each recorded stance fairly and in its strongest form \u2014 steelman, don't strawman.",
         "Show where the stances agree, where they part, and what follows from each position.",
-        "Use the recorded ratings as emphasis: 80–100 central, 56–79 strong support, 36–55 lighter, and 0–35 optional curiosity.",
+        "Use the recorded ratings as emphasis: 80\u2013100 central, 56\u201379 strong support, 36\u201355 lighter, and 0\u201335 optional curiosity.",
         "Structure the plan in Opening, Development, and Closing, with timed segments and a check-in between segments.",
         "Give each side its strongest form before comparing them; never let one side speak for the other.",
         "Use only the named topics below. Do not add, imply, or reference any unlisted stance.",
@@ -9261,6 +9231,14 @@
           "xpo0091": {
             "lead-and-intervene": 60,
             "non-intervention": -50
+          },
+          "xpo0024": {
+            "private-crypto": -20,
+            "government-coin": 20
+          },
+          "xpo0046": {
+            "expand-admissions": 75,
+            "merit-selection": -30
           }
         }
       }
@@ -9438,6 +9416,14 @@
           "xpo0091": {
             "lead-and-intervene": 30,
             "non-intervention": -20
+          },
+          "xpo0024": {
+            "private-crypto": 85,
+            "government-coin": -90
+          },
+          "xpo0046": {
+            "expand-admissions": -40,
+            "merit-selection": 85
           }
         }
       }
@@ -9615,6 +9601,14 @@
           "xpo0091": {
             "lead-and-intervene": -90,
             "non-intervention": 95
+          },
+          "xpo0024": {
+            "private-crypto": 100,
+            "government-coin": -100
+          },
+          "xpo0046": {
+            "expand-admissions": 100,
+            "merit-selection": -70
           }
         }
       }
@@ -9792,6 +9786,14 @@
           "xpo0091": {
             "lead-and-intervene": -70,
             "non-intervention": 80
+          },
+          "xpo0024": {
+            "private-crypto": -40,
+            "government-coin": 40
+          },
+          "xpo0046": {
+            "expand-admissions": 80,
+            "merit-selection": -60
           }
         }
       }
@@ -9969,6 +9971,14 @@
           "xpo0091": {
             "lead-and-intervene": -85,
             "non-intervention": 90
+          },
+          "xpo0024": {
+            "private-crypto": 30,
+            "government-coin": -90
+          },
+          "xpo0046": {
+            "expand-admissions": -90,
+            "merit-selection": -20
           }
         }
       }
