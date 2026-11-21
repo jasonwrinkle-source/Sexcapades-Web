@@ -33432,13 +33432,44 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // (every other pole is a complement). Complement keeps that
         // cross. Same poles are talk only. Antipodal and trilemma put
         // the feud on enemy and do not treat the other poles as partners.
+        // Coverage pricing (ruled 2026-11-21): the overlaps are priced
+        // from the holdings themselves, not from shares. Straight is
+        // the diagonal of the pair's joint engagement (sum of the
+        // same-pole products, /10000, capped at 1); Cross is the
+        // off-diagonal (sum of the cross-pole products, /10000,
+        // capped) — completion, normalized by what a pair could
+        // cover: two fully committed holders on disjoint poles score
+        // the full 10000. Enemy pairs price the same way over the
+        // stored enemy pole pairs only. The product grades itself,
+        // so weak holdings cross weakly; the readings still decide
+        // WHICH poles complete and which are enemies. Empty-vector
+        // conventions follow the old share overlap: both empty
+        // straight 1, one empty both 0.
         function sxPoleMatch(meta, polesA, polesB) {
-            const base = sxRoleOverlap(polesA, polesB);
-            if (!base) return null;
-            const reading = meta && meta.poleReading;
-            if (!reading || "complement" === reading) return { straight: base.straight, cross: base.cross, enemy: 0 };
-            if ("same" === reading) return { straight: base.straight, cross: 0, enemy: 0 };
-            return { straight: base.straight, cross: 0, enemy: sxEnemyOverlap(base.shareA, base.shareB, meta.poleEnemies) };
+            if (!polesA || !polesB) return null;
+            const keys = [ ...new Set([ ...Object.keys(polesA), ...Object.keys(polesB) ]) ];
+            if (keys.length < 2) return null;
+            const hA = {}, hB = {};
+            let sA = 0, sB = 0;
+            keys.forEach(k => {
+                hA[k] = Math.max(0, Number(polesA[k]) || 0), hB[k] = Math.max(0, Number(polesB[k]) || 0);
+                sA += hA[k], sB += hB[k];
+            });
+            if (sA <= 0 && sB <= 0) return { straight: 1, cross: 0, enemy: 0 };
+            if (sA <= 0 || sB <= 0) return { straight: 0, cross: 0, enemy: 0 };
+            let diag = 0, crossSum = 0;
+            keys.forEach(k => { diag += hA[k] * hB[k]; });
+            keys.forEach(i => { keys.forEach(j => { if (i !== j) crossSum += hA[i] * hB[j]; }); });
+            const straight = Math.min(1, diag / 10000), crossAll = Math.min(1, crossSum / 10000),
+                reading = meta && meta.poleReading;
+            if (!reading || "complement" === reading) return { straight: straight, cross: crossAll, enemy: 0 };
+            if ("same" === reading) return { straight: straight, cross: 0, enemy: 0 };
+            let enemy = 0;
+            (meta.poleEnemies || []).forEach(pair => {
+                if (!pair || pair.length < 2) return;
+                enemy += (hA[pair[0]] || 0) * (hB[pair[1]] || 0) + (hA[pair[1]] || 0) * (hB[pair[0]] || 0);
+            });
+            return { straight: straight, cross: 0, enemy: Math.min(1, enemy / 10000) };
         }
         // Group feud: the strongest way two different people sit on the
         // two poles of one stored enemy pair.
@@ -33848,6 +33879,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                    in the design; the samples carry no flags, so the
                    entries are the agreement and agreement ×
                    intensity exactly.) */
+                rec.polesA = a.poles, rec.polesB = b.poles, rec.lineA = a.line, rec.lineB = b.line;
                 const agreement = sxPoleAgreement(a, b);
                 const role = a.polesKnown && b.polesKnown ? sxPoleMatch(meta, a.poles, b.poles) : null;
                 if (role) {
@@ -33885,6 +33917,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     rec.relevanceOpposed = Boolean(rel && rel.opposed);
                     rec.intensityA = a.intensity;
                     rec.intensityB = b.intensity;
+                    // Effective care for the debate factor and the
+                    // play-list gates: the stored relevance when there
+                    // is one, else the strongest stance's size (a line
+                    // topic's scalar is its stance).
+                    rec.careA = null != a.intensity ? a.intensity : Math.abs(a.strongest || 0);
+                    rec.careB = null != b.intensity ? b.intensity : Math.abs(b.strongest || 0);
+                    rec.debateIntensity = sxDebateFactor([ rec.careA, rec.careB ]);
                     rec.crossFitGive = null, rec.crossFitReceive = null;
                     rec.playMSEntry = agreement * (rel ? intensity : 1);
                     rec.playKFEntry = agreement * intensity;
@@ -33942,6 +33981,27 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         rec.strength = Math.round(rec.roleCross * rec.poleIntensity * 100);
                     }
                 }
+                // A line topic (and any shared pole topic the role
+                // reading did not claim) joins the play lists from its
+                // agreement, under the same gates the role topics use
+                // (ruled 2026-11-21: pole topics are visible to the
+                // match lists in every mode). Both members must care,
+                // neither may be averse or opposed, and agreement of
+                // at least half makes a match; any lesser shared
+                // ground is a curious fit. Shared aversion and a
+                // don't-care stay out of the "do this" lists.
+                if (!rec.poleRole && null != rec.agreement) {
+                    const Ta2 = sxClamp(35 - heatA, 0, 85), Tb2 = sxClamp(35 - heatB, 0, 85);
+                    rec.strength = null, rec.bestFit = null;
+                    if (rec.sharedAversion || rec.relevanceOpposed || !(rec.careA > 0 && rec.careB > 0) || !(rec.agreement > 0)) rec.outcome = "not-topics";
+                    else if (rec.careA > Ta2 && rec.careB > Tb2 && rec.agreement >= .5) {
+                        rec.outcome = "match";
+                        rec.strength = Math.round(rec.agreement * rec.poleIntensity * 100);
+                    } else {
+                        rec.outcome = "curious-fit";
+                        rec.strength = Math.round(rec.agreement * rec.poleIntensity * 100);
+                    }
+                }
                 rec.playOutcome = fantasy ? "fantasy-excluded" : rec.outcome;
                 if ("conflict" === rec.outcome) rec.mismatchShape = `opposed — ${rec.clashes[0].against}`;
                 if ("one-sided" === rec.outcome) rec.mismatchShape = sxOneSidedShape(sA, sB, nameA, nameB);
@@ -33974,8 +34034,11 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     recvRecv = ra.receiveKnown && rb.receiveKnown ? ra.receive * rb.receive : null,
                     // A role topic's straight sum is the similar-role
                     // overlap times the smaller relevance. Give/receive
-                    // topics keep their flank products.
-                    sum = rec.poleRole ? rec.straightEntry > 0 ? rec.straightEntry * 100 : null : null == giveGive && null == recvRecv ? null : (giveGive || 0) + (recvRecv || 0),
+                    // topics keep their flank products. A line topic
+                    // (agreement, no flanks) sums its agreement times
+                    // its relevance, so it bands and lists with the
+                    // rest of the register (ruled 2026-11-21).
+                    sum = rec.poleRole ? rec.straightEntry > 0 ? rec.straightEntry * 100 : null : null == giveGive && null == recvRecv ? null != rec.agreement && rec.poleIntensity > 0 ? rec.agreement * rec.poleIntensity * 100 : null : (giveGive || 0) + (recvRecv || 0),
                     // Multi-pole comparison (ruled 2026-11-16): a pole
                     // vector or a line scalar counts as rated here too,
                     // so a shared multi-pole topic is "shared" in the
@@ -33986,7 +34049,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 if (rec.limiters.length) status = "limit-blocked", straightLimitBlocked++;
                 else if (!(aRated && bRated)) status = "invisible", aRated !== bRated && straightOneSided++;
                 else status = "shared", straightShared++;
-                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null, roleStraight: null != rec.roleStraight ? rec.roleStraight : null, roleCross: null != rec.roleCross ? rec.roleCross : null, roleEnemy: null != rec.roleEnemy ? rec.roleEnemy : null, debateIntensity: null != rec.debateIntensity ? rec.debateIntensity : null, sharedAversion: Boolean(rec.sharedAversion) };
+                const srec = { id: rec.id, label: rec.label, branch: rec.branch, giveGive: giveGive, recvRecv: recvRecv, sum: sum, status: status, ratings: rec.ratings, flags: rec.flags, agreement: null != rec.agreement ? rec.agreement : null, poleIntensity: null != rec.poleIntensity ? rec.poleIntensity : null, roleStraight: null != rec.roleStraight ? rec.roleStraight : null, roleCross: null != rec.roleCross ? rec.roleCross : null, roleEnemy: null != rec.roleEnemy ? rec.roleEnemy : null, debateIntensity: null != rec.debateIntensity ? rec.debateIntensity : null, sharedAversion: Boolean(rec.sharedAversion), polesA: rec.polesA || null, polesB: rec.polesB || null, lineA: null != rec.lineA ? rec.lineA : null, lineB: null != rec.lineB ? rec.lineB : null };
                 straightTopics.push(srec), straightById[rec.id] = srec;
             });
             const straightList = straightTopics.filter(s => "shared" === s.status && null != s.sum && s.sum > 0).sort((x, y) => (y.sum || 0) - (x.sum || 0) || x.label.localeCompare(y.label)),
@@ -34286,8 +34349,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                             if (pr.i !== pi && pr.j !== pi) return;
                             const sr = pr.straight && pr.straight.byId ? pr.straight.byId[id] : null;
                             if (!sr) return;
-                            if ((sxSplitMagnitude(sr.giveGive) || 0) > sxGroupEps) giveFit = !0;
-                            if ((sxSplitMagnitude(sr.recvRecv) || 0) > sxGroupEps) recvFit = !0;
+                            if ((sxSplitMagnitude(sr.giveGive) || 0) > 0) giveFit = !0;
+                            if ((sxSplitMagnitude(sr.recvRecv) || 0) > 0) recvFit = !0;
                         });
                         return (giveFit ? 1 : 0) + (recvFit ? 1 : 0) + (gTd[pi] ? sxParlayTableFlags(gTd[pi]) : 0);
                     }), dCMax = Math.max(...dCs);
@@ -34416,7 +34479,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 debate = {
                     considered: msDebateAggG.considered, counted: msDebateAggG.counted,
                     headline: msDebateAggG.pct, kinkFactor: kfDebateAggG.pct,
-                    label: sxTerm("parlayMS"), kfLabel: sxTerm("parlayKF")
+                    label: sxTerm("debateMS"), kfLabel: sxTerm("debateKF")
                 };
             debate.headlineText = sxHeadlineText(debate.headline, msDebateAggG.counted, msDebateAggG.considered);
             debate.kfHeadlineText = sxHeadlineText(debate.kinkFactor, kfDebateAggG.counted, kfDebateAggG.considered);
@@ -34567,6 +34630,36 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         function sxSplitMagnitude(product) {
             return null != product && product < 0 ? -product / 100 : null;
         }
+        // The strongest argument on one shared straight-register
+        // record, as a fraction 0–1 (ruled 2026-11-21: circle minus
+        // is a measure, defined per pole as well as per flank, on
+        // vanilla maps as well as Sexcapades). A stored enemy
+        // overlap, a negative same-flank product, a line scalar
+        // product across zero, and a same-pole sign split on a pole
+        // vector all count; the topic's feud is the strongest of
+        // them. No floor and no epsilon: the product grades itself,
+        // so a −5 against a +5 is a feud of 0.0025 — formally a
+        // debate topic, priced as nearly nothing. Declared once;
+        // the pair rings, the minus adapter, and the minus tab's
+        // buckets all read this.
+        function sxDebateFeud(s) {
+            let feud = 0;
+            if (null != s.roleEnemy) feud = Math.max(feud, s.roleEnemy);
+            [ sxSplitMagnitude(s.giveGive), sxSplitMagnitude(s.recvRecv) ].forEach(f => { if (null != f) feud = Math.max(feud, f / 100); });
+            if (null != s.lineA && null != s.lineB) {
+                const f = sxSplitMagnitude(s.lineA * s.lineB);
+                if (null != f) feud = Math.max(feud, f / 100);
+            }
+            if (s.polesA && s.polesB) {
+                const keys = [ ...new Set([ ...Object.keys(s.polesA), ...Object.keys(s.polesB) ]) ];
+                keys.forEach(k => {
+                    const va = k in s.polesA ? Number(s.polesA[k]) || 0 : 0, vb = k in s.polesB ? Number(s.polesB[k]) || 0 : 0,
+                        f = sxSplitMagnitude(va * vb);
+                    if (null != f) feud = Math.max(feud, f / 100);
+                });
+            }
+            return feud;
+        }
         function sxStraightInterim(pair) {
             if (!pair || !pair.straight) return { outer: null, inner: null };
             /* Parlay KF / Parlay MS (six-scores provisional build,
@@ -34662,17 +34755,25 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // can draw them. Shared topics with no argument stay in the
         // denominator, so an all-agreement pair scores low.
         function sxDebateInterim(pair) {
-            if (!pair || !pair.straight) return { outer: null, inner: null };
-            const eps = sxPlayEpsilon(pair.heat ? [ pair.heat.a, pair.heat.b ] : []),
-                recs = pair.straight.topics.map(s => {
+            if (!pair || !pair.straight) return { outer: null, inner: null, counted: 0, considered: 0 };
+            const recs = pair.straight.topics.map(s => {
                     if ("shared" !== s.status) return { id: s.id, entryKF: null, entryMS: null, consideredKF: !1, consideredMS: !1 };
-                    if (null != s.roleEnemy) return {
-                        id: s.id,
-                        entryKF: s.roleEnemy * (null != s.debateIntensity ? s.debateIntensity : 0),
-                        entryMS: s.roleEnemy,
-                        consideredKF: !0,
-                        consideredMS: !0
-                    };
+                    // Pole and line topics (ruled 2026-11-21): the
+                    // feud is the strongest per-pole split
+                    // (sxDebateFeud), the Kink Factor entry prices it
+                    // by the debate factor, and the Match Score entry
+                    // is the feud itself — any topic carrying a split
+                    // counts, at its own strength.
+                    if (null != s.agreement || null != s.roleEnemy) {
+                        const feud = sxDebateFeud(s);
+                        return {
+                            id: s.id,
+                            entryKF: feud * (null != s.debateIntensity ? s.debateIntensity : 0),
+                            entryMS: feud,
+                            consideredKF: !0,
+                            consideredMS: !0
+                        };
+                    }
                     const rec = pair.topicsById ? pair.topicsById[s.id] : null, fl = rec ? rec.flags || {} : {},
                         ra = rec ? rec.ratings.a : null, rb = rec ? rec.ratings.b : null,
                         mkTd = (r, name) => ({
@@ -34688,7 +34789,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                         maxFit = fits.length ? Math.max(...fits) : null,
                         totA = sxParlayMemberTotal(tdA), totB = sxParlayMemberTotal(tdB), totMax = Math.max(totA, totB),
                         gm = totMax > 0 ? sxPlayGeoMean([ totA / totMax, totB / totMax ]) : 0,
-                        binFit = (null != fitG && fitG > eps ? 1 : 0) + (null != fitR && fitR > eps ? 1 : 0),
+                        binFit = (null != fitG && fitG > 0 ? 1 : 0) + (null != fitR && fitR > 0 ? 1 : 0),
                         cA = binFit + sxParlayTableFlags(tdA), cB = binFit + sxParlayTableFlags(tdB), cMax = Math.max(cA, cB);
                     return {
                         id: s.id,
@@ -34700,7 +34801,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 }),
                 msAgg = sxPlayWeightedPct(recs, r => r.entryMS, r => r.consideredMS),
                 kfAgg = sxPlayWeightedPct(recs, r => r.entryKF, r => r.consideredKF);
-            return { outer: msAgg.pct, inner: kfAgg.pct };
+            return { outer: msAgg.pct, inner: kfAgg.pct, counted: msAgg.counted, considered: msAgg.considered };
         }
         /* Domain-terms skinning (first i18n step, 2026-11-15): the active
            skin's words, resolved by the skin loader into
@@ -34715,7 +34816,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             var T = (typeof window !== "undefined" && window.__SX_TERMS) || null;
             var v = T && T[key];
             if (typeof v === "string" && v) return v;
-            var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife" };
+            var fallback = { krossmatch: "Krossmatch", kinkFactor: "Kink Factor", playMode: "Play", parlayMode: "Parlay", conversationMode: "Conversation", playMS: "Play MS", playKF: "Play KF", parlayMS: "Parlay MS", parlayKF: "Parlay KF", debateMS: "Debate MS", debateKF: "Debate Kink Factor", getRatings: "Hot list · KinkTest · BDSMtest · Yes / No / Maybe · FetLife" };
             return fallback[key] || key;
         }
         /* Score-ring values for a tab/profile context. kind: "profile"
@@ -34739,10 +34840,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if ("minus" === pairOp) {
                 if (!isPair) {
                     const deb = grp.debate;
-                    return { outerLabel: sxTerm("parlayMS"), outer: deb ? deb.headline : null, innerLabel: sxTerm("parlayKF"), inner: deb ? deb.kinkFactor : null };
+                    return { outerLabel: sxTerm("debateMS"), outer: deb ? deb.headline : null, innerLabel: sxTerm("debateKF"), inner: deb ? deb.kinkFactor : null };
                 }
                 const di = sxDebateInterim(pair);
-                return { outerLabel: sxTerm("parlayMS"), outer: di.outer, innerLabel: sxTerm("parlayKF"), inner: di.inner };
+                return { outerLabel: sxTerm("debateMS"), outer: di.outer, innerLabel: sxTerm("debateKF"), inner: di.inner };
             }
             if ("straight" === pairOp) {
                 if (!isPair) {
@@ -34947,7 +35048,10 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             // products, stored as positive magnitudes so the map can
             // paint them. Pole topics stay off the map; their feud is
             // the header rings, the same way circle dot leaves pole
-            // topics uncolored and reads them from the rings.
+            // topics uncolored and reads them from the rings. Circle
+            // minus is a measure (ruled 2026-11-21): the adapter also
+            // carries the pair's Debate MS headline and counts, so
+            // the rings and the pair tab answer to a real aggregate.
             const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
             if (pair && pair.straight) pair.straight.topics.forEach(srec => {
@@ -34964,6 +35068,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                     t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
                 });
             });
+            const di = pair ? sxDebateInterim(pair) : null, deb = !pair ? grp.debate : null,
+                debateLabels = pair && pair.straight ? pair.straight.topics.filter(s => "shared" === s.status && sxDebateFeud(s) > 0).sort((x, y) => sxDebateFeud(y) - sxDebateFeud(x) || x.label.localeCompare(y.label)).map(s => s.label) : [];
             return {
                 ratings: n,
                 marks: i,
@@ -34971,13 +35077,13 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 triedFlags: r,
                 children: o,
                 matchDetails: {},
-                percent: 0,
-                noScore: !0,
-                things: 0,
-                clicks: 0,
+                percent: di ? di.outer || 0 : deb ? deb.headline || 0 : 0,
+                noScore: di ? null == di.outer : deb ? null == deb.headline : !0,
+                things: di ? di.considered : deb ? deb.considered : 0,
+                clicks: di ? di.counted : deb ? deb.counted : 0,
                 limits: pair && pair.straight ? pair.straight.coverage.limitBlocked : 0,
                 results: {
-                    matches: [],
+                    matches: debateLabels,
                     curiousAbout: [],
                     mismatched: []
                 },
@@ -35632,6 +35738,36 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 topics: lists[ringOrder[i]].map(s => s.label)
             }));
         }
+        /* Circle-minus buckets (ruled 2026-11-21): the minus tab's
+           rings sort the pair's shared topics by what circle minus
+           measures — a topic carrying a split (sxDebateFeud) and no
+           shared ground is Debate; a topic with both a split and
+           shared ground is Mixed; shared ground with no split is
+           Common ground. Ring slots keep the crossed tab's order:
+           green, yellow, red. Membership is display-only, read off
+           the straight register exactly as the straight bands are. */
+        function sxMinusBuckets(pair) {
+            const base = sxEmptyBuckets(), agree = [], mixed = [], debate = [];
+            if (pair && pair.straight) pair.straight.topics.forEach(s => {
+                if ("shared" !== s.status) return;
+                const feud = sxDebateFeud(s),
+                    hasAgree = (null != s.giveGive && s.giveGive > 0) || (null != s.recvRecv && s.recvRecv > 0) || (null != s.agreement && s.agreement > 0);
+                if (feud > 0 && hasAgree) mixed.push(s);
+                else if (feud > 0) debate.push(s);
+                else if (hasAgree) agree.push(s);
+            });
+            debate.sort((x, y) => sxDebateFeud(y) - sxDebateFeud(x) || x.label.localeCompare(y.label)),
+            mixed.sort((x, y) => x.label.localeCompare(y.label)), agree.sort((x, y) => x.label.localeCompare(y.label));
+            const counts = [ agree.length, mixed.length, debate.length ], shares = uc(counts),
+                names = [ "Common ground", "Mixed", "Debate" ], lists = [ agree, mixed, debate ];
+            return base.map((b, i) => ({
+                ...b,
+                label: names[i],
+                count: counts[i],
+                percent: shares[i],
+                topics: lists[i].map(s => s.label)
+            }));
+        }
         function sxRenderStraightTab(tab) {
             const ctx = sxTabContext(tab);
             sxRenderPairLine(tab, ctx);
@@ -35670,7 +35806,8 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             pk && (pk.innerHTML = sxPickerHtml());
             const st = tab.section.querySelector("[data-sx-stamp]");
             st && (st.textContent = "");
-            tab.buckets = sxEmptyBuckets(), sxUpdateMatchRings(tab);
+            const pair = ctx && 2 === ctx.profiles.length ? sxPairCompute(ctx.profiles[0], ctx.profiles[1], {}) : null;
+            tab.buckets = sxMinusBuckets(pair), sxUpdateMatchRings(tab);
         }
         function sxRenderMatchTab(tab) {
             if (!tab || !tab.section) return;
