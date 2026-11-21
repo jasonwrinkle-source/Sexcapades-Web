@@ -1447,9 +1447,22 @@
             if (s <= 0) return null;
             return raw.map(v => v / s);
         }
+        // One person's holdings on the same pole list: each pole's
+        // value as a fraction of full, max(0, v) / 100 — NOT shares of
+        // the person's total. A share row throws away how much anyone
+        // holds (30/30 and 100/100 are the same shape, and a lone 30
+        // fills its role like a lone 100); the group numbers are
+        // priced by what is actually held, like the pair tensor.
+        // (Jason, 2026-11-21: the group scorer includes how much
+        // anyone holds a stance.) Intensity keeps its own ruled role
+        // on top, as the relevance factor — it is not folded in here,
+        // so it is never counted twice.
+        function sxHeldRow(poles, keys) {
+            return keys.map(k => Math.max(0, Number(poles[k]) || 0) / 100);
+        }
         // Best way to give every pole a different person. The score is
-        // the product of those shares, so a missing role scores 0 and a
-        // pure one-person-per-role cast scores 1.
+        // the product of those holdings, so a missing role scores 0 and a
+        // pure one-person-per-role group scores 1.
         function sxBestRoleProduct(rows) {
             const n = rows.length, k = n && rows[0] ? rows[0].length : 0;
             if (!k || n < k || rows.some(r => !r)) return 0;
@@ -1478,9 +1491,9 @@
             if (rated.length < 2) return empty;
             const keys = [ ...new Set(rated.flatMap(m => Object.keys(m.poles))) ];
             if (keys.length < 2) return empty;
-            const rows = rated.map(m => sxShareRow(m.poles, keys));
+            const rows = rated.map(m => sxHeldRow(m.poles, keys));
             let straight = 0;
-            if (rows.every(Boolean)) keys.forEach((k, j) => {
+            keys.forEach((k, j) => {
                 let mn = 1;
                 rows.forEach(r => { mn = Math.min(mn, r[j]); });
                 if (mn > straight) straight = mn;
