@@ -1,10 +1,10 @@
 # U2 — One Engine, Many Maps
 **Treatment:** E1 Treatment (Extended)
-**Brief:** The family song: sixteen doors, one house. Each skin named by its full web address in the verses.
+**Brief:** The family song: many doors, one house. Each skin named by its full web address in the verses.
 
 [Verse]
 It started with a spark and grew to a flame
-Sixteen doors but the house is the same
+So many doors but the house is the same
 Dharmacapades dot io to find your path
 Chemcapades dot io to do the math
 Expericapades dot io for the null result
@@ -43,8 +43,8 @@ Nouscapades dot io asks what makes a mind
 The frog and the robot and what they find
 And sex dot capades dot io where it began
 Desire and limits drawn up in a plan
-Sixteen ways to look in the glass
-Sixteen ways to let the truth pass
+So many ways to look in the glass
+So many ways to let the truth pass
 
 [Chorus]
 The engine doesn't care what the conversation's about
@@ -55,7 +55,7 @@ From the stars in the sky to the thoughts in your head
 TaxoPolemics hears what is said
 
 [Outro]
-One house, sixteen doors
+One house, many doors
 Mine and theirs and his and yours
  flex dot capades dot io
 That's the place to go
