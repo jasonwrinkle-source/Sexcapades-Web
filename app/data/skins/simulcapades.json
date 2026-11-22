@@ -3633,142 +3633,396 @@
         "aboutMe": "Simulations are a third pillar of science: they discover, they predict, and they deserve trust earned by validation.",
         "ratings": {
           "xsi0001": {
-            "virtual-experiment": 80,
-            "extended-theory-numerical-calculation": 50,
-            "autonomous-instrument": 60
+            "advocacy": {
+              "virtual-experiment": 80,
+              "extended-theory-numerical-calculation": 50,
+              "autonomous-instrument": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "virtual-experiment": 60,
+              "extended-theory-numerical-calculation": 38,
+              "autonomous-instrument": 45,
+              "intensity": 60
+            }
           },
           "xsi0002": {
-            "discovery": 85,
-            "verification": 40
+            "advocacy": {
+              "discovery": 85,
+              "verification": 40,
+              "intensity": 85
+            },
+            "receptivity": {
+              "discovery": 64,
+              "verification": 30,
+              "intensity": 64
+            }
           },
           "xsi0003": {
-            "real": 80,
-            "metaphor": -50,
-            "quasi-experiment": -30
+            "advocacy": {
+              "real": 80,
+              "metaphor": -50,
+              "quasi-experiment": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "real": 60,
+              "metaphor": -38,
+              "quasi-experiment": -22,
+              "intensity": 60
+            }
           },
           "xsi0004": {
-            "maximum-physical-fidelity": 60,
-            "high-throughput-speed-scalability": 60,
-            "fidelity-where-it-matters": 100
+            "advocacy": {
+              "maximum-physical-fidelity": 60,
+              "high-throughput-speed-scalability": 60,
+              "fidelity-where-it-matters": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "maximum-physical-fidelity": 45,
+              "high-throughput-speed-scalability": 45,
+              "fidelity-where-it-matters": 75,
+              "intensity": 75
+            }
           },
           "xsi0005": {
-            "empirical-validation-first": 70,
-            "internal-code-verification-first": 50
+            "advocacy": {
+              "empirical-validation-first": 70,
+              "internal-code-verification-first": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "empirical-validation-first": 52,
+              "internal-code-verification-first": 38,
+              "intensity": 52
+            }
           },
           "xsi0006": {
-            "bold-simulation-confidence": 85,
-            "permanent-self-skepticism": -40,
-            "calibrated-trust": -25
+            "advocacy": {
+              "bold-simulation-confidence": 85,
+              "permanent-self-skepticism": -40,
+              "calibrated-trust": -25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "bold-simulation-confidence": 64,
+              "permanent-self-skepticism": -30,
+              "calibrated-trust": -19,
+              "intensity": 64
+            }
           },
           "xsi0007": {
-            "electronic-structure-ab-initio-quantum": 60,
-            "classical-molecular-dynamics": 60,
-            "mesh-continuum-solvers": 50,
-            "statistical-stochastic-monte-carlo": 50
+            "advocacy": {
+              "electronic-structure-ab-initio-quantum": 60,
+              "classical-molecular-dynamics": 60,
+              "mesh-continuum-solvers": 50,
+              "statistical-stochastic-monte-carlo": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "electronic-structure-ab-initio-quantum": 45,
+              "classical-molecular-dynamics": 45,
+              "mesh-continuum-solvers": 38,
+              "statistical-stochastic-monte-carlo": 38,
+              "intensity": 45
+            }
           },
           "xsi0008": {
-            "ab-initio-quantum-purity": 50,
-            "empirical-classical-potentials": 50
+            "advocacy": {
+              "ab-initio-quantum-purity": 50,
+              "empirical-classical-potentials": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "ab-initio-quantum-purity": 38,
+              "empirical-classical-potentials": 38,
+              "intensity": 38
+            }
           },
           "xsi0009": {
-            "classical-supercomputing-algorithms": 50,
-            "quantum-hardware-analog-simulators": 70,
-            "hybrid-credence": 80
+            "advocacy": {
+              "classical-supercomputing-algorithms": 50,
+              "quantum-hardware-analog-simulators": 70,
+              "hybrid-credence": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "classical-supercomputing-algorithms": 38,
+              "quantum-hardware-analog-simulators": 52,
+              "hybrid-credence": 60,
+              "intensity": 60
+            }
           },
           "xsi0010": {
-            "continuum": 40,
-            "discrete": 50,
-            "continuum-from-discrete": 90
+            "advocacy": {
+              "continuum": 40,
+              "discrete": 50,
+              "continuum-from-discrete": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "continuum": 30,
+              "discrete": 38,
+              "continuum-from-discrete": 68,
+              "intensity": 68
+            }
           },
           "xsi0011": {
-            "deterministic": 40,
-            "stochastic": 60,
-            "laws-with-noise": 80
+            "advocacy": {
+              "deterministic": 40,
+              "stochastic": 60,
+              "laws-with-noise": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "deterministic": 30,
+              "stochastic": 45,
+              "laws-with-noise": 60,
+              "intensity": 60
+            }
           },
           "xsi0012": {
-            "direct-concurrent-multi-scale": 70,
-            "hierarchical-parameter-hand-off": 40
+            "advocacy": {
+              "direct-concurrent-multi-scale": 70,
+              "hierarchical-parameter-hand-off": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "direct-concurrent-multi-scale": 52,
+              "hierarchical-parameter-hand-off": 30,
+              "intensity": 52
+            }
           },
           "xsi0013": {
-            "symplectic-integrators": 40,
-            "high-order-adaptive-steppers": 60
+            "advocacy": {
+              "symplectic-integrators": 40,
+              "high-order-adaptive-steppers": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "symplectic-integrators": 30,
+              "high-order-adaptive-steppers": 45,
+              "intensity": 45
+            }
           },
           "xsi0014": {
-            "structured-uniform-grids-spectral-methods": 50,
-            "unstructured-adaptive-meshes": 60,
-            "mesh-free-particle-methods": 50
+            "advocacy": {
+              "structured-uniform-grids-spectral-methods": 50,
+              "unstructured-adaptive-meshes": 60,
+              "mesh-free-particle-methods": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "structured-uniform-grids-spectral-methods": 38,
+              "unstructured-adaptive-meshes": 45,
+              "mesh-free-particle-methods": 38,
+              "intensity": 45
+            }
           },
           "xsi0015": {
-            "resolution": 60,
-            "domain-size": 60,
-            "resolve-the-region-that-matters": 100
+            "advocacy": {
+              "resolution": 60,
+              "domain-size": 60,
+              "resolve-the-region-that-matters": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "resolution": 45,
+              "domain-size": 45,
+              "resolve-the-region-that-matters": 75,
+              "intensity": 75
+            }
           },
           "xsi0016": {
-            "strict": 40,
-            "pragmatic": 70,
-            "converged-enough-checked": 70
+            "advocacy": {
+              "strict": 40,
+              "pragmatic": 70,
+              "converged-enough-checked": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict": 30,
+              "pragmatic": 52,
+              "converged-enough-checked": 52,
+              "intensity": 52
+            }
           },
           "xsi0017": {
-            "leadership-scale": 70,
-            "hardware-you-control": 30
+            "advocacy": {
+              "leadership-scale": 70,
+              "hardware-you-control": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "leadership-scale": 52,
+              "hardware-you-control": 22,
+              "intensity": 52
+            }
           },
           "xsi0018": {
-            "massive-cpu-cores": 40,
-            "dense-gpu-tensor-accelerators": 80,
-            "quantum-processors": 60
+            "advocacy": {
+              "massive-cpu-cores": 40,
+              "dense-gpu-tensor-accelerators": 80,
+              "quantum-processors": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "massive-cpu-cores": 30,
+              "dense-gpu-tensor-accelerators": 60,
+              "quantum-processors": 45,
+              "intensity": 60
+            }
           },
           "xsi0019": {
-            "battle-tested-fortran-c-codebases": 20,
-            "modern-composable-high-level-stacks": 80
+            "advocacy": {
+              "battle-tested-fortran-c-codebases": 20,
+              "modern-composable-high-level-stacks": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "battle-tested-fortran-c-codebases": 15,
+              "modern-composable-high-level-stacks": 60,
+              "intensity": 60
+            }
           },
           "xsi0020": {
-            "ai-neural-operators": 85,
-            "traditional-numerical-analysis": 20,
-            "hybrid-solvers": 35
+            "advocacy": {
+              "ai-neural-operators": 85,
+              "traditional-numerical-analysis": 20,
+              "hybrid-solvers": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "ai-neural-operators": 64,
+              "traditional-numerical-analysis": 15,
+              "hybrid-solvers": 26,
+              "intensity": 64
+            }
           },
           "xsi0021": {
-            "mlip-enthusiast": 85,
-            "mlip-skeptic": -60,
-            "cautious-adopter": -45
+            "advocacy": {
+              "mlip-enthusiast": 85,
+              "mlip-skeptic": -60,
+              "cautious-adopter": -45,
+              "intensity": 85
+            },
+            "receptivity": {
+              "mlip-enthusiast": 64,
+              "mlip-skeptic": -45,
+              "cautious-adopter": -34,
+              "intensity": 64
+            }
           },
           "xsi0022": {
-            "honest": 70,
-            "optimistic": 40,
-            "mostly-honest": 70
+            "advocacy": {
+              "honest": 70,
+              "optimistic": 40,
+              "mostly-honest": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "honest": 52,
+              "optimistic": 30,
+              "mostly-honest": 52,
+              "intensity": 52
+            }
           },
           "xsi0023": {
-            "code": 60,
-            "results": 60
+            "advocacy": {
+              "code": 60,
+              "results": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "code": 45,
+              "results": 45,
+              "intensity": 45
+            }
           },
           "xsi0024": {
-            "trust": 60,
-            "verify": 50,
-            "verify-the-load-bearing-parts": 90
+            "advocacy": {
+              "trust": 60,
+              "verify": 50,
+              "verify-the-load-bearing-parts": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "trust": 45,
+              "verify": 38,
+              "verify-the-load-bearing-parts": 68,
+              "intensity": 68
+            }
           },
           "xsi0025": {
-            "radical-open-source-science": 80,
-            "protected-competitive-advantage": -40,
-            "open-on-publication": -20
+            "advocacy": {
+              "radical-open-source-science": 80,
+              "protected-competitive-advantage": -40,
+              "open-on-publication": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "radical-open-source-science": 60,
+              "protected-competitive-advantage": -30,
+              "open-on-publication": -15,
+              "intensity": 60
+            }
           },
           "xsi0026": {
-            "maintain": 20,
-            "rewrite": 70,
-            "incremental-refactor-strangler": 50
+            "advocacy": {
+              "maintain": 20,
+              "rewrite": 70,
+              "incremental-refactor-strangler": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "maintain": 15,
+              "rewrite": 52,
+              "incremental-refactor-strangler": 38,
+              "intensity": 52
+            }
           },
           "xsi0027": {
-            "specialist": 30,
-            "generalist": 70,
-            "t-shaped": 60
+            "advocacy": {
+              "specialist": 30,
+              "generalist": 70,
+              "t-shaped": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "specialist": 22,
+              "generalist": 52,
+              "t-shaped": 45,
+              "intensity": 52
+            }
           },
           "xsi0028": {
-            "theory": 40,
-            "implementation": 70,
-            "start-where-it-is-cheaper": 70
+            "advocacy": {
+              "theory": 40,
+              "implementation": 70,
+              "start-where-it-is-cheaper": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "theory": 30,
+              "implementation": 52,
+              "start-where-it-is-cheaper": 52,
+              "intensity": 52
+            }
           },
           "xsi0029": {
-            "physicist-first": 40,
-            "research-software-engineer": 60,
-            "physicist-who-ships-software": 80
+            "advocacy": {
+              "physicist-first": 40,
+              "research-software-engineer": 60,
+              "physicist-who-ships-software": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "physicist-first": 30,
+              "research-software-engineer": 45,
+              "physicist-who-ships-software": 60,
+              "intensity": 60
+            }
           }
         },
         "skin": "simulcapades"
@@ -3799,142 +4053,396 @@
         "aboutMe": "Nobody believes the simulation - and they shouldn't: a calculation is a metaphor until experiment and strict convergence say otherwise.",
         "ratings": {
           "xsi0001": {
-            "virtual-experiment": -40,
-            "extended-theory-numerical-calculation": 80,
-            "autonomous-instrument": -30
+            "advocacy": {
+              "virtual-experiment": -40,
+              "extended-theory-numerical-calculation": 80,
+              "autonomous-instrument": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "virtual-experiment": -26,
+              "extended-theory-numerical-calculation": 52,
+              "autonomous-instrument": -20,
+              "intensity": 52
+            }
           },
           "xsi0002": {
-            "discovery": 10,
-            "verification": 90
+            "advocacy": {
+              "discovery": 10,
+              "verification": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "discovery": 6,
+              "verification": 58,
+              "intensity": 58
+            }
           },
           "xsi0003": {
-            "real": -70,
-            "metaphor": 85,
-            "quasi-experiment": -55
+            "advocacy": {
+              "real": -70,
+              "metaphor": 85,
+              "quasi-experiment": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "real": -46,
+              "metaphor": 55,
+              "quasi-experiment": -36,
+              "intensity": 55
+            }
           },
           "xsi0004": {
-            "maximum-physical-fidelity": 90,
-            "high-throughput-speed-scalability": -50,
-            "fidelity-where-it-matters": -40
+            "advocacy": {
+              "maximum-physical-fidelity": 90,
+              "high-throughput-speed-scalability": -50,
+              "fidelity-where-it-matters": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "maximum-physical-fidelity": 58,
+              "high-throughput-speed-scalability": -32,
+              "fidelity-where-it-matters": -26,
+              "intensity": 58
+            }
           },
           "xsi0005": {
-            "empirical-validation-first": 90,
-            "internal-code-verification-first": 60
+            "advocacy": {
+              "empirical-validation-first": 90,
+              "internal-code-verification-first": 60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "empirical-validation-first": 58,
+              "internal-code-verification-first": 39,
+              "intensity": 58
+            }
           },
           "xsi0006": {
-            "bold-simulation-confidence": -80,
-            "permanent-self-skepticism": 90,
-            "calibrated-trust": -70
+            "advocacy": {
+              "bold-simulation-confidence": -80,
+              "permanent-self-skepticism": 90,
+              "calibrated-trust": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "bold-simulation-confidence": -52,
+              "permanent-self-skepticism": 58,
+              "calibrated-trust": -46,
+              "intensity": 58
+            }
           },
           "xsi0007": {
-            "electronic-structure-ab-initio-quantum": 70,
-            "classical-molecular-dynamics": 40,
-            "mesh-continuum-solvers": 50,
-            "statistical-stochastic-monte-carlo": 40
+            "advocacy": {
+              "electronic-structure-ab-initio-quantum": 70,
+              "classical-molecular-dynamics": 40,
+              "mesh-continuum-solvers": 50,
+              "statistical-stochastic-monte-carlo": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "electronic-structure-ab-initio-quantum": 46,
+              "classical-molecular-dynamics": 26,
+              "mesh-continuum-solvers": 32,
+              "statistical-stochastic-monte-carlo": 26,
+              "intensity": 46
+            }
           },
           "xsi0008": {
-            "ab-initio-quantum-purity": 80,
-            "empirical-classical-potentials": -30
+            "advocacy": {
+              "ab-initio-quantum-purity": 80,
+              "empirical-classical-potentials": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "ab-initio-quantum-purity": 52,
+              "empirical-classical-potentials": -20,
+              "intensity": 52
+            }
           },
           "xsi0009": {
-            "classical-supercomputing-algorithms": 70,
-            "quantum-hardware-analog-simulators": -30,
-            "hybrid-credence": 0
+            "advocacy": {
+              "classical-supercomputing-algorithms": 70,
+              "quantum-hardware-analog-simulators": -30,
+              "hybrid-credence": 0,
+              "intensity": 70
+            },
+            "receptivity": {
+              "classical-supercomputing-algorithms": 46,
+              "quantum-hardware-analog-simulators": -20,
+              "hybrid-credence": 0,
+              "intensity": 46
+            }
           },
           "xsi0010": {
-            "continuum": 60,
-            "discrete": 20,
-            "continuum-from-discrete": 60
+            "advocacy": {
+              "continuum": 60,
+              "discrete": 20,
+              "continuum-from-discrete": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "continuum": 39,
+              "discrete": 13,
+              "continuum-from-discrete": 39,
+              "intensity": 39
+            }
           },
           "xsi0011": {
-            "deterministic": 70,
-            "stochastic": 20,
-            "laws-with-noise": 50
+            "advocacy": {
+              "deterministic": 70,
+              "stochastic": 20,
+              "laws-with-noise": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "deterministic": 46,
+              "stochastic": 13,
+              "laws-with-noise": 32,
+              "intensity": 46
+            }
           },
           "xsi0012": {
-            "direct-concurrent-multi-scale": 20,
-            "hierarchical-parameter-hand-off": 70
+            "advocacy": {
+              "direct-concurrent-multi-scale": 20,
+              "hierarchical-parameter-hand-off": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "direct-concurrent-multi-scale": 13,
+              "hierarchical-parameter-hand-off": 46,
+              "intensity": 46
+            }
           },
           "xsi0013": {
-            "symplectic-integrators": 80,
-            "high-order-adaptive-steppers": 30
+            "advocacy": {
+              "symplectic-integrators": 80,
+              "high-order-adaptive-steppers": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "symplectic-integrators": 52,
+              "high-order-adaptive-steppers": 20,
+              "intensity": 52
+            }
           },
           "xsi0014": {
-            "structured-uniform-grids-spectral-methods": 70,
-            "unstructured-adaptive-meshes": 40,
-            "mesh-free-particle-methods": 20
+            "advocacy": {
+              "structured-uniform-grids-spectral-methods": 70,
+              "unstructured-adaptive-meshes": 40,
+              "mesh-free-particle-methods": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "structured-uniform-grids-spectral-methods": 46,
+              "unstructured-adaptive-meshes": 26,
+              "mesh-free-particle-methods": 13,
+              "intensity": 46
+            }
           },
           "xsi0015": {
-            "resolution": 80,
-            "domain-size": 20,
-            "resolve-the-region-that-matters": 40
+            "advocacy": {
+              "resolution": 80,
+              "domain-size": 20,
+              "resolve-the-region-that-matters": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "resolution": 52,
+              "domain-size": 13,
+              "resolve-the-region-that-matters": 26,
+              "intensity": 52
+            }
           },
           "xsi0016": {
-            "strict": 90,
-            "pragmatic": -50,
-            "converged-enough-checked": -40
+            "advocacy": {
+              "strict": 90,
+              "pragmatic": -50,
+              "converged-enough-checked": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strict": 58,
+              "pragmatic": -32,
+              "converged-enough-checked": -26,
+              "intensity": 58
+            }
           },
           "xsi0017": {
-            "leadership-scale": 40,
-            "hardware-you-control": 60
+            "advocacy": {
+              "leadership-scale": 40,
+              "hardware-you-control": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "leadership-scale": 26,
+              "hardware-you-control": 39,
+              "intensity": 39
+            }
           },
           "xsi0018": {
-            "massive-cpu-cores": 70,
-            "dense-gpu-tensor-accelerators": 20,
-            "quantum-processors": -40
+            "advocacy": {
+              "massive-cpu-cores": 70,
+              "dense-gpu-tensor-accelerators": 20,
+              "quantum-processors": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "massive-cpu-cores": 46,
+              "dense-gpu-tensor-accelerators": 13,
+              "quantum-processors": -26,
+              "intensity": 46
+            }
           },
           "xsi0019": {
-            "battle-tested-fortran-c-codebases": 80,
-            "modern-composable-high-level-stacks": 10
+            "advocacy": {
+              "battle-tested-fortran-c-codebases": 80,
+              "modern-composable-high-level-stacks": 10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "battle-tested-fortran-c-codebases": 52,
+              "modern-composable-high-level-stacks": 6,
+              "intensity": 52
+            }
           },
           "xsi0020": {
-            "ai-neural-operators": -80,
-            "traditional-numerical-analysis": 90,
-            "hybrid-solvers": -70
+            "advocacy": {
+              "ai-neural-operators": -80,
+              "traditional-numerical-analysis": 90,
+              "hybrid-solvers": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "ai-neural-operators": -52,
+              "traditional-numerical-analysis": 58,
+              "hybrid-solvers": -46,
+              "intensity": 58
+            }
           },
           "xsi0021": {
-            "mlip-enthusiast": -80,
-            "mlip-skeptic": 90,
-            "cautious-adopter": -70
+            "advocacy": {
+              "mlip-enthusiast": -80,
+              "mlip-skeptic": 90,
+              "cautious-adopter": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "mlip-enthusiast": -52,
+              "mlip-skeptic": 58,
+              "cautious-adopter": -46,
+              "intensity": 58
+            }
           },
           "xsi0022": {
-            "honest": 95,
-            "optimistic": -70,
-            "mostly-honest": -65
+            "advocacy": {
+              "honest": 95,
+              "optimistic": -70,
+              "mostly-honest": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "honest": 62,
+              "optimistic": -46,
+              "mostly-honest": -42,
+              "intensity": 62
+            }
           },
           "xsi0023": {
-            "code": 50,
-            "results": 80
+            "advocacy": {
+              "code": 50,
+              "results": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "code": 32,
+              "results": 52,
+              "intensity": 52
+            }
           },
           "xsi0024": {
-            "trust": -70,
-            "verify": 95,
-            "verify-the-load-bearing-parts": -65
+            "advocacy": {
+              "trust": -70,
+              "verify": 95,
+              "verify-the-load-bearing-parts": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "trust": -46,
+              "verify": 62,
+              "verify-the-load-bearing-parts": -42,
+              "intensity": 62
+            }
           },
           "xsi0025": {
-            "radical-open-source-science": 50,
-            "protected-competitive-advantage": 20,
-            "open-on-publication": 70
+            "advocacy": {
+              "radical-open-source-science": 50,
+              "protected-competitive-advantage": 20,
+              "open-on-publication": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "radical-open-source-science": 32,
+              "protected-competitive-advantage": 13,
+              "open-on-publication": 46,
+              "intensity": 46
+            }
           },
           "xsi0026": {
-            "maintain": 70,
-            "rewrite": -30,
-            "incremental-refactor-strangler": 0
+            "advocacy": {
+              "maintain": 70,
+              "rewrite": -30,
+              "incremental-refactor-strangler": 0,
+              "intensity": 70
+            },
+            "receptivity": {
+              "maintain": 46,
+              "rewrite": -20,
+              "incremental-refactor-strangler": 0,
+              "intensity": 46
+            }
           },
           "xsi0027": {
-            "specialist": 70,
-            "generalist": 20,
-            "t-shaped": 50
+            "advocacy": {
+              "specialist": 70,
+              "generalist": 20,
+              "t-shaped": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "specialist": 46,
+              "generalist": 13,
+              "t-shaped": 32,
+              "intensity": 46
+            }
           },
           "xsi0028": {
-            "theory": 80,
-            "implementation": 20,
-            "start-where-it-is-cheaper": 40
+            "advocacy": {
+              "theory": 80,
+              "implementation": 20,
+              "start-where-it-is-cheaper": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "theory": 52,
+              "implementation": 13,
+              "start-where-it-is-cheaper": 26,
+              "intensity": 52
+            }
           },
           "xsi0029": {
-            "physicist-first": 85,
-            "research-software-engineer": -30,
-            "physicist-who-ships-software": -15
+            "advocacy": {
+              "physicist-first": 85,
+              "research-software-engineer": -30,
+              "physicist-who-ships-software": -15,
+              "intensity": 85
+            },
+            "receptivity": {
+              "physicist-first": 55,
+              "research-software-engineer": -20,
+              "physicist-who-ships-software": -10,
+              "intensity": 55
+            }
           }
         },
         "skin": "simulcapades"
@@ -3965,142 +4473,396 @@
         "aboutMe": "Speed and scale win: a simulation that runs today and guides the build beats a perfect one that never finishes.",
         "ratings": {
           "xsi0001": {
-            "virtual-experiment": 60,
-            "extended-theory-numerical-calculation": 40,
-            "autonomous-instrument": 50
+            "advocacy": {
+              "virtual-experiment": 60,
+              "extended-theory-numerical-calculation": 40,
+              "autonomous-instrument": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "virtual-experiment": 42,
+              "extended-theory-numerical-calculation": 28,
+              "autonomous-instrument": 35,
+              "intensity": 42
+            }
           },
           "xsi0002": {
-            "discovery": 50,
-            "verification": 60
+            "advocacy": {
+              "discovery": 50,
+              "verification": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "discovery": 35,
+              "verification": 42,
+              "intensity": 42
+            }
           },
           "xsi0003": {
-            "real": 50,
-            "metaphor": 10,
-            "quasi-experiment": 60
+            "advocacy": {
+              "real": 50,
+              "metaphor": 10,
+              "quasi-experiment": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "real": 35,
+              "metaphor": 7,
+              "quasi-experiment": 42,
+              "intensity": 42
+            }
           },
           "xsi0004": {
-            "maximum-physical-fidelity": 20,
-            "high-throughput-speed-scalability": 90,
-            "fidelity-where-it-matters": 30
+            "advocacy": {
+              "maximum-physical-fidelity": 20,
+              "high-throughput-speed-scalability": 90,
+              "fidelity-where-it-matters": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "maximum-physical-fidelity": 14,
+              "high-throughput-speed-scalability": 63,
+              "fidelity-where-it-matters": 21,
+              "intensity": 63
+            }
           },
           "xsi0005": {
-            "empirical-validation-first": 80,
-            "internal-code-verification-first": 40
+            "advocacy": {
+              "empirical-validation-first": 80,
+              "internal-code-verification-first": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "empirical-validation-first": 56,
+              "internal-code-verification-first": 28,
+              "intensity": 56
+            }
           },
           "xsi0006": {
-            "bold-simulation-confidence": 50,
-            "permanent-self-skepticism": 20,
-            "calibrated-trust": 70
+            "advocacy": {
+              "bold-simulation-confidence": 50,
+              "permanent-self-skepticism": 20,
+              "calibrated-trust": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "bold-simulation-confidence": 35,
+              "permanent-self-skepticism": 14,
+              "calibrated-trust": 49,
+              "intensity": 49
+            }
           },
           "xsi0007": {
-            "electronic-structure-ab-initio-quantum": 30,
-            "classical-molecular-dynamics": 70,
-            "mesh-continuum-solvers": 80,
-            "statistical-stochastic-monte-carlo": 50
+            "advocacy": {
+              "electronic-structure-ab-initio-quantum": 30,
+              "classical-molecular-dynamics": 70,
+              "mesh-continuum-solvers": 80,
+              "statistical-stochastic-monte-carlo": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "electronic-structure-ab-initio-quantum": 21,
+              "classical-molecular-dynamics": 49,
+              "mesh-continuum-solvers": 56,
+              "statistical-stochastic-monte-carlo": 35,
+              "intensity": 56
+            }
           },
           "xsi0008": {
-            "ab-initio-quantum-purity": -20,
-            "empirical-classical-potentials": 80
+            "advocacy": {
+              "ab-initio-quantum-purity": -20,
+              "empirical-classical-potentials": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "ab-initio-quantum-purity": -14,
+              "empirical-classical-potentials": 56,
+              "intensity": 56
+            }
           },
           "xsi0009": {
-            "classical-supercomputing-algorithms": 60,
-            "quantum-hardware-analog-simulators": 20,
-            "hybrid-credence": 60
+            "advocacy": {
+              "classical-supercomputing-algorithms": 60,
+              "quantum-hardware-analog-simulators": 20,
+              "hybrid-credence": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "classical-supercomputing-algorithms": 42,
+              "quantum-hardware-analog-simulators": 14,
+              "hybrid-credence": 42,
+              "intensity": 42
+            }
           },
           "xsi0010": {
-            "continuum": 50,
-            "discrete": 50,
-            "continuum-from-discrete": 100
+            "advocacy": {
+              "continuum": 50,
+              "discrete": 50,
+              "continuum-from-discrete": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "continuum": 35,
+              "discrete": 35,
+              "continuum-from-discrete": 70,
+              "intensity": 70
+            }
           },
           "xsi0011": {
-            "deterministic": 50,
-            "stochastic": 50,
-            "laws-with-noise": 100
+            "advocacy": {
+              "deterministic": 50,
+              "stochastic": 50,
+              "laws-with-noise": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "deterministic": 35,
+              "stochastic": 35,
+              "laws-with-noise": 70,
+              "intensity": 70
+            }
           },
           "xsi0012": {
-            "direct-concurrent-multi-scale": 40,
-            "hierarchical-parameter-hand-off": 70
+            "advocacy": {
+              "direct-concurrent-multi-scale": 40,
+              "hierarchical-parameter-hand-off": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "direct-concurrent-multi-scale": 28,
+              "hierarchical-parameter-hand-off": 49,
+              "intensity": 49
+            }
           },
           "xsi0013": {
-            "symplectic-integrators": 20,
-            "high-order-adaptive-steppers": 80
+            "advocacy": {
+              "symplectic-integrators": 20,
+              "high-order-adaptive-steppers": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "symplectic-integrators": 14,
+              "high-order-adaptive-steppers": 56,
+              "intensity": 56
+            }
           },
           "xsi0014": {
-            "structured-uniform-grids-spectral-methods": 40,
-            "unstructured-adaptive-meshes": 80,
-            "mesh-free-particle-methods": 60
+            "advocacy": {
+              "structured-uniform-grids-spectral-methods": 40,
+              "unstructured-adaptive-meshes": 80,
+              "mesh-free-particle-methods": 60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "structured-uniform-grids-spectral-methods": 28,
+              "unstructured-adaptive-meshes": 56,
+              "mesh-free-particle-methods": 42,
+              "intensity": 56
+            }
           },
           "xsi0015": {
-            "resolution": 30,
-            "domain-size": 80,
-            "resolve-the-region-that-matters": 50
+            "advocacy": {
+              "resolution": 30,
+              "domain-size": 80,
+              "resolve-the-region-that-matters": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "resolution": 21,
+              "domain-size": 56,
+              "resolve-the-region-that-matters": 35,
+              "intensity": 56
+            }
           },
           "xsi0016": {
-            "strict": 10,
-            "pragmatic": 90,
-            "converged-enough-checked": 20
+            "advocacy": {
+              "strict": 10,
+              "pragmatic": 90,
+              "converged-enough-checked": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strict": 7,
+              "pragmatic": 63,
+              "converged-enough-checked": 14,
+              "intensity": 63
+            }
           },
           "xsi0017": {
-            "leadership-scale": 60,
-            "hardware-you-control": 50
+            "advocacy": {
+              "leadership-scale": 60,
+              "hardware-you-control": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "leadership-scale": 42,
+              "hardware-you-control": 35,
+              "intensity": 42
+            }
           },
           "xsi0018": {
-            "massive-cpu-cores": 30,
-            "dense-gpu-tensor-accelerators": 90,
-            "quantum-processors": 20
+            "advocacy": {
+              "massive-cpu-cores": 30,
+              "dense-gpu-tensor-accelerators": 90,
+              "quantum-processors": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "massive-cpu-cores": 21,
+              "dense-gpu-tensor-accelerators": 63,
+              "quantum-processors": 14,
+              "intensity": 63
+            }
           },
           "xsi0019": {
-            "battle-tested-fortran-c-codebases": 30,
-            "modern-composable-high-level-stacks": 80
+            "advocacy": {
+              "battle-tested-fortran-c-codebases": 30,
+              "modern-composable-high-level-stacks": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "battle-tested-fortran-c-codebases": 21,
+              "modern-composable-high-level-stacks": 56,
+              "intensity": 56
+            }
           },
           "xsi0020": {
-            "ai-neural-operators": 70,
-            "traditional-numerical-analysis": 40,
-            "hybrid-solvers": 70
+            "advocacy": {
+              "ai-neural-operators": 70,
+              "traditional-numerical-analysis": 40,
+              "hybrid-solvers": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "ai-neural-operators": 49,
+              "traditional-numerical-analysis": 28,
+              "hybrid-solvers": 49,
+              "intensity": 49
+            }
           },
           "xsi0021": {
-            "mlip-enthusiast": 60,
-            "mlip-skeptic": -20,
-            "cautious-adopter": 20
+            "advocacy": {
+              "mlip-enthusiast": 60,
+              "mlip-skeptic": -20,
+              "cautious-adopter": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "mlip-enthusiast": 42,
+              "mlip-skeptic": -14,
+              "cautious-adopter": 14,
+              "intensity": 42
+            }
           },
           "xsi0022": {
-            "honest": 60,
-            "optimistic": 50,
-            "mostly-honest": 90
+            "advocacy": {
+              "honest": 60,
+              "optimistic": 50,
+              "mostly-honest": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "honest": 42,
+              "optimistic": 35,
+              "mostly-honest": 63,
+              "intensity": 63
+            }
           },
           "xsi0023": {
-            "code": 70,
-            "results": 60
+            "advocacy": {
+              "code": 70,
+              "results": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "code": 49,
+              "results": 42,
+              "intensity": 49
+            }
           },
           "xsi0024": {
-            "trust": 50,
-            "verify": 60,
-            "verify-the-load-bearing-parts": 90
+            "advocacy": {
+              "trust": 50,
+              "verify": 60,
+              "verify-the-load-bearing-parts": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "trust": 35,
+              "verify": 42,
+              "verify-the-load-bearing-parts": 63,
+              "intensity": 63
+            }
           },
           "xsi0025": {
-            "radical-open-source-science": 60,
-            "protected-competitive-advantage": 10,
-            "open-on-publication": 50
+            "advocacy": {
+              "radical-open-source-science": 60,
+              "protected-competitive-advantage": 10,
+              "open-on-publication": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "radical-open-source-science": 42,
+              "protected-competitive-advantage": 7,
+              "open-on-publication": 35,
+              "intensity": 42
+            }
           },
           "xsi0026": {
-            "maintain": 40,
-            "rewrite": 50,
-            "incremental-refactor-strangler": 90
+            "advocacy": {
+              "maintain": 40,
+              "rewrite": 50,
+              "incremental-refactor-strangler": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "maintain": 28,
+              "rewrite": 35,
+              "incremental-refactor-strangler": 63,
+              "intensity": 63
+            }
           },
           "xsi0027": {
-            "specialist": 30,
-            "generalist": 80,
-            "t-shaped": 50
+            "advocacy": {
+              "specialist": 30,
+              "generalist": 80,
+              "t-shaped": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "specialist": 21,
+              "generalist": 56,
+              "t-shaped": 35,
+              "intensity": 56
+            }
           },
           "xsi0028": {
-            "theory": 20,
-            "implementation": 85,
-            "start-where-it-is-cheaper": 35
+            "advocacy": {
+              "theory": 20,
+              "implementation": 85,
+              "start-where-it-is-cheaper": 35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "theory": 14,
+              "implementation": 59,
+              "start-where-it-is-cheaper": 24,
+              "intensity": 59
+            }
           },
           "xsi0029": {
-            "physicist-first": 10,
-            "research-software-engineer": 85,
-            "physicist-who-ships-software": 25
+            "advocacy": {
+              "physicist-first": 10,
+              "research-software-engineer": 85,
+              "physicist-who-ships-software": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "physicist-first": 7,
+              "research-software-engineer": 59,
+              "physicist-who-ships-software": 18,
+              "intensity": 59
+            }
           }
         },
         "skin": "simulcapades"
@@ -4131,142 +4893,396 @@
         "aboutMe": "Forces from quantum mechanics or nothing: empirical potentials are fitting, not physics, and only ab initio earns the name.",
         "ratings": {
           "xsi0001": {
-            "virtual-experiment": 40,
-            "extended-theory-numerical-calculation": 85,
-            "autonomous-instrument": 10
+            "advocacy": {
+              "virtual-experiment": 40,
+              "extended-theory-numerical-calculation": 85,
+              "autonomous-instrument": 10,
+              "intensity": 85
+            },
+            "receptivity": {
+              "virtual-experiment": 20,
+              "extended-theory-numerical-calculation": 42,
+              "autonomous-instrument": 5,
+              "intensity": 42
+            }
           },
           "xsi0002": {
-            "discovery": 60,
-            "verification": 70
+            "advocacy": {
+              "discovery": 60,
+              "verification": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "discovery": 30,
+              "verification": 35,
+              "intensity": 35
+            }
           },
           "xsi0003": {
-            "real": 30,
-            "metaphor": 30,
-            "quasi-experiment": 100
+            "advocacy": {
+              "real": 30,
+              "metaphor": 30,
+              "quasi-experiment": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "real": 15,
+              "metaphor": 15,
+              "quasi-experiment": 50,
+              "intensity": 50
+            }
           },
           "xsi0004": {
-            "maximum-physical-fidelity": 95,
-            "high-throughput-speed-scalability": -40,
-            "fidelity-where-it-matters": -35
+            "advocacy": {
+              "maximum-physical-fidelity": 95,
+              "high-throughput-speed-scalability": -40,
+              "fidelity-where-it-matters": -35,
+              "intensity": 95
+            },
+            "receptivity": {
+              "maximum-physical-fidelity": 48,
+              "high-throughput-speed-scalability": -20,
+              "fidelity-where-it-matters": -18,
+              "intensity": 48
+            }
           },
           "xsi0005": {
-            "empirical-validation-first": 60,
-            "internal-code-verification-first": 85
+            "advocacy": {
+              "empirical-validation-first": 60,
+              "internal-code-verification-first": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "empirical-validation-first": 30,
+              "internal-code-verification-first": 42,
+              "intensity": 42
+            }
           },
           "xsi0006": {
-            "bold-simulation-confidence": 30,
-            "permanent-self-skepticism": 60,
-            "calibrated-trust": 70
+            "advocacy": {
+              "bold-simulation-confidence": 30,
+              "permanent-self-skepticism": 60,
+              "calibrated-trust": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "bold-simulation-confidence": 15,
+              "permanent-self-skepticism": 30,
+              "calibrated-trust": 35,
+              "intensity": 35
+            }
           },
           "xsi0007": {
-            "electronic-structure-ab-initio-quantum": 95,
-            "classical-molecular-dynamics": -40,
-            "mesh-continuum-solvers": 20,
-            "statistical-stochastic-monte-carlo": 30
+            "advocacy": {
+              "electronic-structure-ab-initio-quantum": 95,
+              "classical-molecular-dynamics": -40,
+              "mesh-continuum-solvers": 20,
+              "statistical-stochastic-monte-carlo": 30,
+              "intensity": 95
+            },
+            "receptivity": {
+              "electronic-structure-ab-initio-quantum": 48,
+              "classical-molecular-dynamics": -20,
+              "mesh-continuum-solvers": 10,
+              "statistical-stochastic-monte-carlo": 15,
+              "intensity": 48
+            }
           },
           "xsi0008": {
-            "ab-initio-quantum-purity": 95,
-            "empirical-classical-potentials": -85
+            "advocacy": {
+              "ab-initio-quantum-purity": 95,
+              "empirical-classical-potentials": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "ab-initio-quantum-purity": 48,
+              "empirical-classical-potentials": -42,
+              "intensity": 48
+            }
           },
           "xsi0009": {
-            "classical-supercomputing-algorithms": 80,
-            "quantum-hardware-analog-simulators": 50,
-            "hybrid-credence": 70
+            "advocacy": {
+              "classical-supercomputing-algorithms": 80,
+              "quantum-hardware-analog-simulators": 50,
+              "hybrid-credence": 70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "classical-supercomputing-algorithms": 40,
+              "quantum-hardware-analog-simulators": 25,
+              "hybrid-credence": 35,
+              "intensity": 40
+            }
           },
           "xsi0010": {
-            "continuum": 70,
-            "discrete": 10,
-            "continuum-from-discrete": 40
+            "advocacy": {
+              "continuum": 70,
+              "discrete": 10,
+              "continuum-from-discrete": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "continuum": 35,
+              "discrete": 5,
+              "continuum-from-discrete": 20,
+              "intensity": 35
+            }
           },
           "xsi0011": {
-            "deterministic": 80,
-            "stochastic": 0,
-            "laws-with-noise": 20
+            "advocacy": {
+              "deterministic": 80,
+              "stochastic": 0,
+              "laws-with-noise": 20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "deterministic": 40,
+              "stochastic": 0,
+              "laws-with-noise": 10,
+              "intensity": 40
+            }
           },
           "xsi0012": {
-            "direct-concurrent-multi-scale": 60,
-            "hierarchical-parameter-hand-off": 50
+            "advocacy": {
+              "direct-concurrent-multi-scale": 60,
+              "hierarchical-parameter-hand-off": 50,
+              "intensity": 60
+            },
+            "receptivity": {
+              "direct-concurrent-multi-scale": 30,
+              "hierarchical-parameter-hand-off": 25,
+              "intensity": 30
+            }
           },
           "xsi0013": {
-            "symplectic-integrators": 70,
-            "high-order-adaptive-steppers": 50
+            "advocacy": {
+              "symplectic-integrators": 70,
+              "high-order-adaptive-steppers": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "symplectic-integrators": 35,
+              "high-order-adaptive-steppers": 25,
+              "intensity": 35
+            }
           },
           "xsi0014": {
-            "structured-uniform-grids-spectral-methods": 80,
-            "unstructured-adaptive-meshes": 30,
-            "mesh-free-particle-methods": 0
+            "advocacy": {
+              "structured-uniform-grids-spectral-methods": 80,
+              "unstructured-adaptive-meshes": 30,
+              "mesh-free-particle-methods": 0,
+              "intensity": 80
+            },
+            "receptivity": {
+              "structured-uniform-grids-spectral-methods": 40,
+              "unstructured-adaptive-meshes": 15,
+              "mesh-free-particle-methods": 0,
+              "intensity": 40
+            }
           },
           "xsi0015": {
-            "resolution": 85,
-            "domain-size": 10,
-            "resolve-the-region-that-matters": 25
+            "advocacy": {
+              "resolution": 85,
+              "domain-size": 10,
+              "resolve-the-region-that-matters": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "resolution": 42,
+              "domain-size": 5,
+              "resolve-the-region-that-matters": 12,
+              "intensity": 42
+            }
           },
           "xsi0016": {
-            "strict": 85,
-            "pragmatic": -20,
-            "converged-enough-checked": -5
+            "advocacy": {
+              "strict": 85,
+              "pragmatic": -20,
+              "converged-enough-checked": -5,
+              "intensity": 85
+            },
+            "receptivity": {
+              "strict": 42,
+              "pragmatic": -10,
+              "converged-enough-checked": -2,
+              "intensity": 42
+            }
           },
           "xsi0017": {
-            "leadership-scale": 80,
-            "hardware-you-control": 20
+            "advocacy": {
+              "leadership-scale": 80,
+              "hardware-you-control": 20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "leadership-scale": 40,
+              "hardware-you-control": 10,
+              "intensity": 40
+            }
           },
           "xsi0018": {
-            "massive-cpu-cores": 80,
-            "dense-gpu-tensor-accelerators": 30,
-            "quantum-processors": 40
+            "advocacy": {
+              "massive-cpu-cores": 80,
+              "dense-gpu-tensor-accelerators": 30,
+              "quantum-processors": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "massive-cpu-cores": 40,
+              "dense-gpu-tensor-accelerators": 15,
+              "quantum-processors": 20,
+              "intensity": 40
+            }
           },
           "xsi0019": {
-            "battle-tested-fortran-c-codebases": 60,
-            "modern-composable-high-level-stacks": 30
+            "advocacy": {
+              "battle-tested-fortran-c-codebases": 60,
+              "modern-composable-high-level-stacks": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "battle-tested-fortran-c-codebases": 30,
+              "modern-composable-high-level-stacks": 15,
+              "intensity": 30
+            }
           },
           "xsi0020": {
-            "ai-neural-operators": -50,
-            "traditional-numerical-analysis": 80,
-            "hybrid-solvers": -30
+            "advocacy": {
+              "ai-neural-operators": -50,
+              "traditional-numerical-analysis": 80,
+              "hybrid-solvers": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "ai-neural-operators": -25,
+              "traditional-numerical-analysis": 40,
+              "hybrid-solvers": -15,
+              "intensity": 40
+            }
           },
           "xsi0021": {
-            "mlip-enthusiast": -70,
-            "mlip-skeptic": 80,
-            "cautious-adopter": -50
+            "advocacy": {
+              "mlip-enthusiast": -70,
+              "mlip-skeptic": 80,
+              "cautious-adopter": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "mlip-enthusiast": -35,
+              "mlip-skeptic": 40,
+              "cautious-adopter": -25,
+              "intensity": 40
+            }
           },
           "xsi0022": {
-            "honest": 85,
-            "optimistic": -30,
-            "mostly-honest": -15
+            "advocacy": {
+              "honest": 85,
+              "optimistic": -30,
+              "mostly-honest": -15,
+              "intensity": 85
+            },
+            "receptivity": {
+              "honest": 42,
+              "optimistic": -15,
+              "mostly-honest": -8,
+              "intensity": 42
+            }
           },
           "xsi0023": {
-            "code": 80,
-            "results": 50
+            "advocacy": {
+              "code": 80,
+              "results": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "code": 40,
+              "results": 25,
+              "intensity": 40
+            }
           },
           "xsi0024": {
-            "trust": 10,
-            "verify": 90,
-            "verify-the-load-bearing-parts": 20
+            "advocacy": {
+              "trust": 10,
+              "verify": 90,
+              "verify-the-load-bearing-parts": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "trust": 5,
+              "verify": 45,
+              "verify-the-load-bearing-parts": 10,
+              "intensity": 45
+            }
           },
           "xsi0025": {
-            "radical-open-source-science": 70,
-            "protected-competitive-advantage": -20,
-            "open-on-publication": 10
+            "advocacy": {
+              "radical-open-source-science": 70,
+              "protected-competitive-advantage": -20,
+              "open-on-publication": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "radical-open-source-science": 35,
+              "protected-competitive-advantage": -10,
+              "open-on-publication": 5,
+              "intensity": 35
+            }
           },
           "xsi0026": {
-            "maintain": 50,
-            "rewrite": 30,
-            "incremental-refactor-strangler": 80
+            "advocacy": {
+              "maintain": 50,
+              "rewrite": 30,
+              "incremental-refactor-strangler": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "maintain": 25,
+              "rewrite": 15,
+              "incremental-refactor-strangler": 40,
+              "intensity": 40
+            }
           },
           "xsi0027": {
-            "specialist": 85,
-            "generalist": 10,
-            "t-shaped": 25
+            "advocacy": {
+              "specialist": 85,
+              "generalist": 10,
+              "t-shaped": 25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "specialist": 42,
+              "generalist": 5,
+              "t-shaped": 12,
+              "intensity": 42
+            }
           },
           "xsi0028": {
-            "theory": 90,
-            "implementation": 10,
-            "start-where-it-is-cheaper": 20
+            "advocacy": {
+              "theory": 90,
+              "implementation": 10,
+              "start-where-it-is-cheaper": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "theory": 45,
+              "implementation": 5,
+              "start-where-it-is-cheaper": 10,
+              "intensity": 45
+            }
           },
           "xsi0029": {
-            "physicist-first": 90,
-            "research-software-engineer": -40,
-            "physicist-who-ships-software": -30
+            "advocacy": {
+              "physicist-first": 90,
+              "research-software-engineer": -40,
+              "physicist-who-ships-software": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "physicist-first": 45,
+              "research-software-engineer": -20,
+              "physicist-who-ships-software": -15,
+              "intensity": 45
+            }
           }
         },
         "skin": "simulcapades"

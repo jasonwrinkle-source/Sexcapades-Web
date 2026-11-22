@@ -3387,96 +3387,260 @@
         "aboutMe": "Work is a calling in service of others: meaning first, money and status a distant second.",
         "ratings": {
           "xvo0001": {
-            "calling": 90,
-            "career": 10,
-            "job": -60
+            "advocacy": {
+              "calling": 90,
+              "career": 10,
+              "job": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "calling": 50,
+              "career": 6,
+              "job": -33,
+              "intensity": 50
+            }
           },
           "xvo0002": {
-            "serve-others": 85,
-            "serve-yourself": -40,
-            "serve-the-work": 50
+            "advocacy": {
+              "serve-others": 85,
+              "serve-yourself": -40,
+              "serve-the-work": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "serve-others": 47,
+              "serve-yourself": -22,
+              "serve-the-work": 28,
+              "intensity": 47
+            }
           },
           "xvo0003": {
-            "hustle-grind": 30,
-            "bursts-recovery": 80,
-            "balance-rest": 50
+            "advocacy": {
+              "hustle-grind": 30,
+              "bursts-recovery": 80,
+              "balance-rest": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "hustle-grind": 16,
+              "bursts-recovery": 44,
+              "balance-rest": 28,
+              "intensity": 44
+            }
           },
           "xvo0004": {
-            "contentment": 60,
-            "balanced": 60,
-            "ambition": 20
+            "advocacy": {
+              "contentment": 60,
+              "balanced": 60,
+              "ambition": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "contentment": 33,
+              "balanced": 33,
+              "ambition": 11,
+              "intensity": 33
+            }
           },
           "xvo0005": {
-            "safe-stable": 40,
-            "calculated": 40,
-            "risky-entrepreneurial": -20
+            "advocacy": {
+              "safe-stable": 40,
+              "calculated": 40,
+              "risky-entrepreneurial": -20,
+              "intensity": 40
+            },
+            "receptivity": {
+              "safe-stable": 22,
+              "calculated": 22,
+              "risky-entrepreneurial": -11,
+              "intensity": 22
+            }
           },
           "xvo0008": {
-            "solo-independent": 20,
-            "mixed": 50,
-            "team-collaborative": 70
+            "advocacy": {
+              "solo-independent": 20,
+              "mixed": 50,
+              "team-collaborative": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "solo-independent": 11,
+              "mixed": 28,
+              "team-collaborative": 38,
+              "intensity": 38
+            }
           },
           "xvo0010": {
-            "hierarchical": -30,
-            "hybrid": 10,
-            "flat": 60
+            "advocacy": {
+              "hierarchical": -30,
+              "hybrid": 10,
+              "flat": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "hierarchical": -16,
+              "hybrid": 6,
+              "flat": 33,
+              "intensity": 33
+            }
           },
           "xvo0011": {
-            "autonomy": 60,
-            "guardrails": 60,
-            "direction": 20
+            "advocacy": {
+              "autonomy": 60,
+              "guardrails": 60,
+              "direction": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "autonomy": 33,
+              "guardrails": 33,
+              "direction": 11,
+              "intensity": 33
+            }
           },
           "xvo0012": {
-            "command": -40,
-            "coach": 70,
-            "laissez-faire": 30
+            "advocacy": {
+              "command": -40,
+              "coach": 70,
+              "laissez-faire": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "command": -22,
+              "coach": 38,
+              "laissez-faire": 16,
+              "intensity": 38
+            }
           },
           "xvo0013": {
-            "corporate-capital-hierarchy": -60,
-            "shared-ownership": -30,
-            "worker-cooperative-collective": 70
+            "advocacy": {
+              "corporate-capital-hierarchy": -60,
+              "shared-ownership": -30,
+              "worker-cooperative-collective": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "corporate-capital-hierarchy": -33,
+              "shared-ownership": -16,
+              "worker-cooperative-collective": 38,
+              "intensity": 38
+            }
           },
           "xvo0014": {
-            "full-time-employee": 40,
-            "freelancer-independent": 20,
-            "founder-entrepreneur": -30,
-            "part-time-portfolio": 30,
-            "public-service-nonprofit": 90
+            "advocacy": {
+              "full-time-employee": 40,
+              "freelancer-independent": 20,
+              "founder-entrepreneur": -30,
+              "part-time-portfolio": 30,
+              "public-service-nonprofit": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "full-time-employee": 22,
+              "freelancer-independent": 11,
+              "founder-entrepreneur": -16,
+              "part-time-portfolio": 16,
+              "public-service-nonprofit": 50,
+              "intensity": 50
+            }
           },
           "xvo0015": {
-            "high-pay": -30,
-            "good-perks-benefits": 50
+            "advocacy": {
+              "high-pay": -30,
+              "good-perks-benefits": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "high-pay": -16,
+              "good-perks-benefits": 28,
+              "intensity": 28
+            }
           },
           "xvo0016": {
-            "security": 40,
-            "balanced-package": 70,
-            "upside": 10
+            "advocacy": {
+              "security": 40,
+              "balanced-package": 70,
+              "upside": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "security": 22,
+              "balanced-package": 38,
+              "upside": 6,
+              "intensity": 38
+            }
           },
           "xvo0017": {
-            "quiet-contribution": 80,
-            "selective": -10,
-            "public-recognition": -30
+            "advocacy": {
+              "quiet-contribution": 80,
+              "selective": -10,
+              "public-recognition": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "quiet-contribution": 44,
+              "selective": -6,
+              "public-recognition": -16,
+              "intensity": 44
+            }
           },
           "xvo0018": {
-            "technical-craft-mastery": 50,
-            "executive-managerial-authority": -50,
-            "autonomy-creative-freedom": 60,
-            "security-institutional-stability": 30
+            "advocacy": {
+              "technical-craft-mastery": 50,
+              "executive-managerial-authority": -50,
+              "autonomy-creative-freedom": 60,
+              "security-institutional-stability": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "technical-craft-mastery": 28,
+              "executive-managerial-authority": -28,
+              "autonomy-creative-freedom": 33,
+              "security-institutional-stability": 16,
+              "intensity": 33
+            }
           },
           "xvo0019": {
-            "job-is-who-i-am": 80,
-            "part-of-me": -30,
-            "job-is-what-i-do": -50
+            "advocacy": {
+              "job-is-who-i-am": 80,
+              "part-of-me": -30,
+              "job-is-what-i-do": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "job-is-who-i-am": 44,
+              "part-of-me": -16,
+              "job-is-what-i-do": -28,
+              "intensity": 44
+            }
           },
           "xvo0020": {
-            "permeable": 60,
-            "flexible": 10,
-            "firm": -30
+            "advocacy": {
+              "permeable": 60,
+              "flexible": 10,
+              "firm": -30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "permeable": 33,
+              "flexible": 6,
+              "firm": -16,
+              "intensity": 33
+            }
           },
           "xvo0021": {
-            "retire": -60,
-            "phased-encore": -45,
-            "work-for-life": 85
+            "advocacy": {
+              "retire": -60,
+              "phased-encore": -45,
+              "work-for-life": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "retire": -33,
+              "phased-encore": -25,
+              "work-for-life": 47,
+              "intensity": 47
+            }
           }
         },
         "skin": "vocapades"
@@ -3498,96 +3662,260 @@
         "aboutMe": "Climb the ladder: ambition, visibility, and upside - work is the arena where you prove yourself.",
         "ratings": {
           "xvo0001": {
-            "calling": -20,
-            "career": 90,
-            "job": -30
+            "advocacy": {
+              "calling": -20,
+              "career": 90,
+              "job": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "calling": -10,
+              "career": 45,
+              "job": -15,
+              "intensity": 45
+            }
           },
           "xvo0002": {
-            "serve-others": 10,
-            "serve-yourself": 70,
-            "serve-the-work": 40
+            "advocacy": {
+              "serve-others": 10,
+              "serve-yourself": 70,
+              "serve-the-work": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "serve-others": 5,
+              "serve-yourself": 35,
+              "serve-the-work": 20,
+              "intensity": 35
+            }
           },
           "xvo0003": {
-            "hustle-grind": 85,
-            "bursts-recovery": -35,
-            "balance-rest": -50
+            "advocacy": {
+              "hustle-grind": 85,
+              "bursts-recovery": -35,
+              "balance-rest": -50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "hustle-grind": 42,
+              "bursts-recovery": -18,
+              "balance-rest": -25,
+              "intensity": 42
+            }
           },
           "xvo0004": {
-            "contentment": -60,
-            "balanced": -50,
-            "ambition": 90
+            "advocacy": {
+              "contentment": -60,
+              "balanced": -50,
+              "ambition": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "contentment": -30,
+              "balanced": -25,
+              "ambition": 45,
+              "intensity": 45
+            }
           },
           "xvo0005": {
-            "safe-stable": -60,
-            "calculated": -30,
-            "risky-entrepreneurial": 70
+            "advocacy": {
+              "safe-stable": -60,
+              "calculated": -30,
+              "risky-entrepreneurial": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "safe-stable": -30,
+              "calculated": -15,
+              "risky-entrepreneurial": 35,
+              "intensity": 35
+            }
           },
           "xvo0006": {
-            "polymath-generalist": 40,
-            "unformed": 100,
-            "deep-specialist": 40
+            "advocacy": {
+              "polymath-generalist": 40,
+              "unformed": 100,
+              "deep-specialist": 40,
+              "intensity": 100
+            },
+            "receptivity": {
+              "polymath-generalist": 20,
+              "unformed": 50,
+              "deep-specialist": 20,
+              "intensity": 50
+            }
           },
           "xvo0008": {
-            "solo-independent": 30,
-            "mixed": 70,
-            "team-collaborative": 60
+            "advocacy": {
+              "solo-independent": 30,
+              "mixed": 70,
+              "team-collaborative": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "solo-independent": 15,
+              "mixed": 35,
+              "team-collaborative": 30,
+              "intensity": 35
+            }
           },
           "xvo0010": {
-            "hierarchical": 60,
-            "hybrid": 20,
-            "flat": -20
+            "advocacy": {
+              "hierarchical": 60,
+              "hybrid": 20,
+              "flat": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "hierarchical": 30,
+              "hybrid": 10,
+              "flat": -10,
+              "intensity": 30
+            }
           },
           "xvo0011": {
-            "autonomy": 50,
-            "guardrails": 80,
-            "direction": 30
+            "advocacy": {
+              "autonomy": 50,
+              "guardrails": 80,
+              "direction": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "autonomy": 25,
+              "guardrails": 40,
+              "direction": 15,
+              "intensity": 40
+            }
           },
           "xvo0012": {
-            "command": 50,
-            "coach": 50,
-            "laissez-faire": -30
+            "advocacy": {
+              "command": 50,
+              "coach": 50,
+              "laissez-faire": -30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "command": 25,
+              "coach": 25,
+              "laissez-faire": -15,
+              "intensity": 25
+            }
           },
           "xvo0013": {
-            "corporate-capital-hierarchy": 70,
-            "shared-ownership": -20,
-            "worker-cooperative-collective": -50
+            "advocacy": {
+              "corporate-capital-hierarchy": 70,
+              "shared-ownership": -20,
+              "worker-cooperative-collective": -50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "corporate-capital-hierarchy": 35,
+              "shared-ownership": -10,
+              "worker-cooperative-collective": -25,
+              "intensity": 35
+            }
           },
           "xvo0014": {
-            "full-time-employee": 70,
-            "freelancer-independent": 20,
-            "founder-entrepreneur": 60,
-            "part-time-portfolio": -40,
-            "public-service-nonprofit": -20
+            "advocacy": {
+              "full-time-employee": 70,
+              "freelancer-independent": 20,
+              "founder-entrepreneur": 60,
+              "part-time-portfolio": -40,
+              "public-service-nonprofit": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "full-time-employee": 35,
+              "freelancer-independent": 10,
+              "founder-entrepreneur": 30,
+              "part-time-portfolio": -20,
+              "public-service-nonprofit": -10,
+              "intensity": 35
+            }
           },
           "xvo0015": {
-            "high-pay": 85,
-            "good-perks-benefits": 20
+            "advocacy": {
+              "high-pay": 85,
+              "good-perks-benefits": 20,
+              "intensity": 85
+            },
+            "receptivity": {
+              "high-pay": 42,
+              "good-perks-benefits": 10,
+              "intensity": 42
+            }
           },
           "xvo0016": {
-            "security": -20,
-            "balanced-package": -5,
-            "upside": 85
+            "advocacy": {
+              "security": -20,
+              "balanced-package": -5,
+              "upside": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "security": -10,
+              "balanced-package": -2,
+              "upside": 42,
+              "intensity": 42
+            }
           },
           "xvo0017": {
-            "quiet-contribution": -50,
-            "selective": -35,
-            "public-recognition": 85
+            "advocacy": {
+              "quiet-contribution": -50,
+              "selective": -35,
+              "public-recognition": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "quiet-contribution": -25,
+              "selective": -18,
+              "public-recognition": 42,
+              "intensity": 42
+            }
           },
           "xvo0018": {
-            "technical-craft-mastery": 40,
-            "executive-managerial-authority": 90,
-            "autonomy-creative-freedom": 30,
-            "security-institutional-stability": 20
+            "advocacy": {
+              "technical-craft-mastery": 40,
+              "executive-managerial-authority": 90,
+              "autonomy-creative-freedom": 30,
+              "security-institutional-stability": 20,
+              "intensity": 90
+            },
+            "receptivity": {
+              "technical-craft-mastery": 20,
+              "executive-managerial-authority": 45,
+              "autonomy-creative-freedom": 15,
+              "security-institutional-stability": 10,
+              "intensity": 45
+            }
           },
           "xvo0019": {
-            "job-is-who-i-am": 70,
-            "part-of-me": -10,
-            "job-is-what-i-do": -40
+            "advocacy": {
+              "job-is-who-i-am": 70,
+              "part-of-me": -10,
+              "job-is-what-i-do": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "job-is-who-i-am": 35,
+              "part-of-me": -5,
+              "job-is-what-i-do": -20,
+              "intensity": 35
+            }
           },
           "xvo0021": {
-            "retire": 30,
-            "phased-encore": 90,
-            "work-for-life": 40
+            "advocacy": {
+              "retire": 30,
+              "phased-encore": 90,
+              "work-for-life": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "retire": 15,
+              "phased-encore": 45,
+              "work-for-life": 20,
+              "intensity": 45
+            }
           }
         },
         "skin": "vocapades"
@@ -3609,96 +3937,260 @@
         "aboutMe": "A steady job, well held: security, predictability, and a life outside work matter more than the ladder.",
         "ratings": {
           "xvo0001": {
-            "calling": -40,
-            "career": 30,
-            "job": 80
+            "advocacy": {
+              "calling": -40,
+              "career": 30,
+              "job": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "calling": -18,
+              "career": 14,
+              "job": 36,
+              "intensity": 36
+            }
           },
           "xvo0002": {
-            "serve-others": 40,
-            "serve-yourself": 50,
-            "serve-the-work": 20
+            "advocacy": {
+              "serve-others": 40,
+              "serve-yourself": 50,
+              "serve-the-work": 20,
+              "intensity": 50
+            },
+            "receptivity": {
+              "serve-others": 18,
+              "serve-yourself": 22,
+              "serve-the-work": 9,
+              "intensity": 22
+            }
           },
           "xvo0003": {
-            "hustle-grind": -60,
-            "bursts-recovery": -30,
-            "balance-rest": 70
+            "advocacy": {
+              "hustle-grind": -60,
+              "bursts-recovery": -30,
+              "balance-rest": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "hustle-grind": -27,
+              "bursts-recovery": -14,
+              "balance-rest": 32,
+              "intensity": 32
+            }
           },
           "xvo0004": {
-            "contentment": 80,
-            "balanced": -30,
-            "ambition": -50
+            "advocacy": {
+              "contentment": 80,
+              "balanced": -30,
+              "ambition": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "contentment": 36,
+              "balanced": -14,
+              "ambition": -22,
+              "intensity": 36
+            }
           },
           "xvo0005": {
-            "safe-stable": 90,
-            "calculated": -70,
-            "risky-entrepreneurial": -80
+            "advocacy": {
+              "safe-stable": 90,
+              "calculated": -70,
+              "risky-entrepreneurial": -80,
+              "intensity": 90
+            },
+            "receptivity": {
+              "safe-stable": 40,
+              "calculated": -32,
+              "risky-entrepreneurial": -36,
+              "intensity": 40
+            }
           },
           "xvo0007": {
-            "remote": 50,
-            "hybrid": 60,
-            "office": 40
+            "advocacy": {
+              "remote": 50,
+              "hybrid": 60,
+              "office": 40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "remote": 22,
+              "hybrid": 27,
+              "office": 18,
+              "intensity": 27
+            }
           },
           "xvo0008": {
-            "solo-independent": 30,
-            "mixed": 80,
-            "team-collaborative": 50
+            "advocacy": {
+              "solo-independent": 30,
+              "mixed": 80,
+              "team-collaborative": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "solo-independent": 14,
+              "mixed": 36,
+              "team-collaborative": 22,
+              "intensity": 36
+            }
           },
           "xvo0009": {
-            "fixed-schedule": 70,
-            "core-hours": 50,
-            "flexible-async": 20
+            "advocacy": {
+              "fixed-schedule": 70,
+              "core-hours": 50,
+              "flexible-async": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "fixed-schedule": 32,
+              "core-hours": 22,
+              "flexible-async": 9,
+              "intensity": 32
+            }
           },
           "xvo0010": {
-            "hierarchical": 50,
-            "hybrid": 50,
-            "flat": 0
+            "advocacy": {
+              "hierarchical": 50,
+              "hybrid": 50,
+              "flat": 0,
+              "intensity": 50
+            },
+            "receptivity": {
+              "hierarchical": 22,
+              "hybrid": 22,
+              "flat": 0,
+              "intensity": 22
+            }
           },
           "xvo0011": {
-            "autonomy": 30,
-            "guardrails": 70,
-            "direction": 60
+            "advocacy": {
+              "autonomy": 30,
+              "guardrails": 70,
+              "direction": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "autonomy": 14,
+              "guardrails": 32,
+              "direction": 27,
+              "intensity": 32
+            }
           },
           "xvo0014": {
-            "full-time-employee": 90,
-            "freelancer-independent": -60,
-            "founder-entrepreneur": -70,
-            "part-time-portfolio": 20,
-            "public-service-nonprofit": 40
+            "advocacy": {
+              "full-time-employee": 90,
+              "freelancer-independent": -60,
+              "founder-entrepreneur": -70,
+              "part-time-portfolio": 20,
+              "public-service-nonprofit": 40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "full-time-employee": 40,
+              "freelancer-independent": -27,
+              "founder-entrepreneur": -32,
+              "part-time-portfolio": 9,
+              "public-service-nonprofit": 18,
+              "intensity": 40
+            }
           },
           "xvo0015": {
-            "high-pay": 40,
-            "good-perks-benefits": 80
+            "advocacy": {
+              "high-pay": 40,
+              "good-perks-benefits": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "high-pay": 18,
+              "good-perks-benefits": 36,
+              "intensity": 36
+            }
           },
           "xvo0016": {
-            "security": 90,
-            "balanced-package": -50,
-            "upside": -60
+            "advocacy": {
+              "security": 90,
+              "balanced-package": -50,
+              "upside": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "security": 40,
+              "balanced-package": -22,
+              "upside": -27,
+              "intensity": 40
+            }
           },
           "xvo0017": {
-            "quiet-contribution": 60,
-            "selective": 40,
-            "public-recognition": 0
+            "advocacy": {
+              "quiet-contribution": 60,
+              "selective": 40,
+              "public-recognition": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "quiet-contribution": 27,
+              "selective": 18,
+              "public-recognition": 0,
+              "intensity": 27
+            }
           },
           "xvo0018": {
-            "technical-craft-mastery": 40,
-            "executive-managerial-authority": 10,
-            "autonomy-creative-freedom": 10,
-            "security-institutional-stability": 90
+            "advocacy": {
+              "technical-craft-mastery": 40,
+              "executive-managerial-authority": 10,
+              "autonomy-creative-freedom": 10,
+              "security-institutional-stability": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "technical-craft-mastery": 18,
+              "executive-managerial-authority": 4,
+              "autonomy-creative-freedom": 4,
+              "security-institutional-stability": 40,
+              "intensity": 40
+            }
           },
           "xvo0019": {
-            "job-is-who-i-am": -60,
-            "part-of-me": -40,
-            "job-is-what-i-do": 80
+            "advocacy": {
+              "job-is-who-i-am": -60,
+              "part-of-me": -40,
+              "job-is-what-i-do": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "job-is-who-i-am": -27,
+              "part-of-me": -18,
+              "job-is-what-i-do": 36,
+              "intensity": 36
+            }
           },
           "xvo0020": {
-            "permeable": -50,
-            "flexible": -30,
-            "firm": 80
+            "advocacy": {
+              "permeable": -50,
+              "flexible": -30,
+              "firm": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "permeable": -22,
+              "flexible": -14,
+              "firm": 36,
+              "intensity": 36
+            }
           },
           "xvo0021": {
-            "retire": 80,
-            "phased-encore": -40,
-            "work-for-life": -60
+            "advocacy": {
+              "retire": 80,
+              "phased-encore": -40,
+              "work-for-life": -60,
+              "intensity": 80
+            },
+            "receptivity": {
+              "retire": 36,
+              "phased-encore": -18,
+              "work-for-life": -27,
+              "intensity": 36
+            }
           }
         },
         "skin": "vocapades"
@@ -3725,96 +4217,260 @@
         "aboutMe": "Work funds a life, it is not the life: firm boundaries, enough money, and time kept for what matters.",
         "ratings": {
           "xvo0001": {
-            "calling": -30,
-            "career": 20,
-            "job": 70
+            "advocacy": {
+              "calling": -30,
+              "career": 20,
+              "job": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "calling": -18,
+              "career": 12,
+              "job": 42,
+              "intensity": 42
+            }
           },
           "xvo0002": {
-            "serve-others": 30,
-            "serve-yourself": 70,
-            "serve-the-work": 10
+            "advocacy": {
+              "serve-others": 30,
+              "serve-yourself": 70,
+              "serve-the-work": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "serve-others": 18,
+              "serve-yourself": 42,
+              "serve-the-work": 6,
+              "intensity": 42
+            }
           },
           "xvo0003": {
-            "hustle-grind": -80,
-            "bursts-recovery": -70,
-            "balance-rest": 90
+            "advocacy": {
+              "hustle-grind": -80,
+              "bursts-recovery": -70,
+              "balance-rest": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hustle-grind": -48,
+              "bursts-recovery": -42,
+              "balance-rest": 54,
+              "intensity": 54
+            }
           },
           "xvo0004": {
-            "contentment": 85,
-            "balanced": -45,
-            "ambition": -60
+            "advocacy": {
+              "contentment": 85,
+              "balanced": -45,
+              "ambition": -60,
+              "intensity": 85
+            },
+            "receptivity": {
+              "contentment": 51,
+              "balanced": -27,
+              "ambition": -36,
+              "intensity": 51
+            }
           },
           "xvo0005": {
-            "safe-stable": 60,
-            "calculated": 0,
-            "risky-entrepreneurial": -40
+            "advocacy": {
+              "safe-stable": 60,
+              "calculated": 0,
+              "risky-entrepreneurial": -40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "safe-stable": 36,
+              "calculated": 0,
+              "risky-entrepreneurial": -24,
+              "intensity": 36
+            }
           },
           "xvo0007": {
-            "remote": 80,
-            "hybrid": 50,
-            "office": -40
+            "advocacy": {
+              "remote": 80,
+              "hybrid": 50,
+              "office": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "remote": 48,
+              "hybrid": 30,
+              "office": -24,
+              "intensity": 48
+            }
           },
           "xvo0008": {
-            "solo-independent": 60,
-            "mixed": 60,
-            "team-collaborative": 20
+            "advocacy": {
+              "solo-independent": 60,
+              "mixed": 60,
+              "team-collaborative": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "solo-independent": 36,
+              "mixed": 36,
+              "team-collaborative": 12,
+              "intensity": 36
+            }
           },
           "xvo0009": {
-            "fixed-schedule": -20,
-            "core-hours": -5,
-            "flexible-async": 85
+            "advocacy": {
+              "fixed-schedule": -20,
+              "core-hours": -5,
+              "flexible-async": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "fixed-schedule": -12,
+              "core-hours": -3,
+              "flexible-async": 51,
+              "intensity": 51
+            }
           },
           "xvo0010": {
-            "hierarchical": -40,
-            "hybrid": 0,
-            "flat": 60
+            "advocacy": {
+              "hierarchical": -40,
+              "hybrid": 0,
+              "flat": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "hierarchical": -24,
+              "hybrid": 0,
+              "flat": 36,
+              "intensity": 36
+            }
           },
           "xvo0011": {
-            "autonomy": 80,
-            "guardrails": 10,
-            "direction": -10
+            "advocacy": {
+              "autonomy": 80,
+              "guardrails": 10,
+              "direction": -10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "autonomy": 48,
+              "guardrails": 6,
+              "direction": -6,
+              "intensity": 48
+            }
           },
           "xvo0014": {
-            "full-time-employee": 50,
-            "freelancer-independent": 50,
-            "founder-entrepreneur": -30,
-            "part-time-portfolio": 80,
-            "public-service-nonprofit": 30
+            "advocacy": {
+              "full-time-employee": 50,
+              "freelancer-independent": 50,
+              "founder-entrepreneur": -30,
+              "part-time-portfolio": 80,
+              "public-service-nonprofit": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "full-time-employee": 30,
+              "freelancer-independent": 30,
+              "founder-entrepreneur": -18,
+              "part-time-portfolio": 48,
+              "public-service-nonprofit": 18,
+              "intensity": 48
+            }
           },
           "xvo0015": {
-            "high-pay": 20,
-            "good-perks-benefits": 70
+            "advocacy": {
+              "high-pay": 20,
+              "good-perks-benefits": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "high-pay": 12,
+              "good-perks-benefits": 42,
+              "intensity": 42
+            }
           },
           "xvo0016": {
-            "security": 60,
-            "balanced-package": 40,
-            "upside": 0
+            "advocacy": {
+              "security": 60,
+              "balanced-package": 40,
+              "upside": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "security": 36,
+              "balanced-package": 24,
+              "upside": 0,
+              "intensity": 36
+            }
           },
           "xvo0017": {
-            "quiet-contribution": 50,
-            "selective": 30,
-            "public-recognition": -20
+            "advocacy": {
+              "quiet-contribution": 50,
+              "selective": 30,
+              "public-recognition": -20,
+              "intensity": 50
+            },
+            "receptivity": {
+              "quiet-contribution": 30,
+              "selective": 18,
+              "public-recognition": -12,
+              "intensity": 30
+            }
           },
           "xvo0018": {
-            "technical-craft-mastery": 30,
-            "executive-managerial-authority": -60,
-            "autonomy-creative-freedom": 85,
-            "security-institutional-stability": 50
+            "advocacy": {
+              "technical-craft-mastery": 30,
+              "executive-managerial-authority": -60,
+              "autonomy-creative-freedom": 85,
+              "security-institutional-stability": 50,
+              "intensity": 85
+            },
+            "receptivity": {
+              "technical-craft-mastery": 18,
+              "executive-managerial-authority": -36,
+              "autonomy-creative-freedom": 51,
+              "security-institutional-stability": 30,
+              "intensity": 51
+            }
           },
           "xvo0019": {
-            "job-is-who-i-am": -80,
-            "part-of-me": -65,
-            "job-is-what-i-do": 85
+            "advocacy": {
+              "job-is-who-i-am": -80,
+              "part-of-me": -65,
+              "job-is-what-i-do": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "job-is-who-i-am": -48,
+              "part-of-me": -39,
+              "job-is-what-i-do": 51,
+              "intensity": 51
+            }
           },
           "xvo0020": {
-            "permeable": -80,
-            "flexible": -70,
-            "firm": 90
+            "advocacy": {
+              "permeable": -80,
+              "flexible": -70,
+              "firm": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "permeable": -48,
+              "flexible": -42,
+              "firm": 54,
+              "intensity": 54
+            }
           },
           "xvo0021": {
-            "retire": 70,
-            "phased-encore": -20,
-            "work-for-life": -50
+            "advocacy": {
+              "retire": 70,
+              "phased-encore": -20,
+              "work-for-life": -50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "retire": 42,
+              "phased-encore": -12,
+              "work-for-life": -30,
+              "intensity": 42
+            }
           }
         },
         "skin": "vocapades"
@@ -3841,96 +4497,260 @@
         "aboutMe": "Mastery is the reward: deep skill in the craft itself, done well and quietly, is what a working life is for.",
         "ratings": {
           "xvo0001": {
-            "calling": 60,
-            "career": 40,
-            "job": 0
+            "advocacy": {
+              "calling": 60,
+              "career": 40,
+              "job": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "calling": 36,
+              "career": 24,
+              "job": 0,
+              "intensity": 36
+            }
           },
           "xvo0002": {
-            "serve-others": 30,
-            "serve-yourself": 20,
-            "serve-the-work": 90
+            "advocacy": {
+              "serve-others": 30,
+              "serve-yourself": 20,
+              "serve-the-work": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "serve-others": 18,
+              "serve-yourself": 12,
+              "serve-the-work": 54,
+              "intensity": 54
+            }
           },
           "xvo0003": {
-            "hustle-grind": 40,
-            "bursts-recovery": 90,
-            "balance-rest": 30
+            "advocacy": {
+              "hustle-grind": 40,
+              "bursts-recovery": 90,
+              "balance-rest": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "hustle-grind": 24,
+              "bursts-recovery": 54,
+              "balance-rest": 18,
+              "intensity": 54
+            }
           },
           "xvo0004": {
-            "contentment": 60,
-            "balanced": 70,
-            "ambition": 30
+            "advocacy": {
+              "contentment": 60,
+              "balanced": 70,
+              "ambition": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "contentment": 36,
+              "balanced": 42,
+              "ambition": 18,
+              "intensity": 42
+            }
           },
           "xvo0005": {
-            "safe-stable": 50,
-            "calculated": 50,
-            "risky-entrepreneurial": 0
+            "advocacy": {
+              "safe-stable": 50,
+              "calculated": 50,
+              "risky-entrepreneurial": 0,
+              "intensity": 50
+            },
+            "receptivity": {
+              "safe-stable": 30,
+              "calculated": 30,
+              "risky-entrepreneurial": 0,
+              "intensity": 30
+            }
           },
           "xvo0006": {
-            "polymath-generalist": -50,
-            "unformed": -40,
-            "deep-specialist": 90
+            "advocacy": {
+              "polymath-generalist": -50,
+              "unformed": -40,
+              "deep-specialist": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "polymath-generalist": -30,
+              "unformed": -24,
+              "deep-specialist": 54,
+              "intensity": 54
+            }
           },
           "xvo0008": {
-            "solo-independent": 70,
-            "mixed": 50,
-            "team-collaborative": 20
+            "advocacy": {
+              "solo-independent": 70,
+              "mixed": 50,
+              "team-collaborative": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "solo-independent": 42,
+              "mixed": 30,
+              "team-collaborative": 12,
+              "intensity": 42
+            }
           },
           "xvo0009": {
-            "fixed-schedule": 30,
-            "core-hours": 80,
-            "flexible-async": 50
+            "advocacy": {
+              "fixed-schedule": 30,
+              "core-hours": 80,
+              "flexible-async": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "fixed-schedule": 18,
+              "core-hours": 48,
+              "flexible-async": 30,
+              "intensity": 48
+            }
           },
           "xvo0010": {
-            "hierarchical": -20,
-            "hybrid": 30,
-            "flat": 50
+            "advocacy": {
+              "hierarchical": -20,
+              "hybrid": 30,
+              "flat": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "hierarchical": -12,
+              "hybrid": 18,
+              "flat": 30,
+              "intensity": 30
+            }
           },
           "xvo0011": {
-            "autonomy": 85,
-            "guardrails": -5,
-            "direction": -20
+            "advocacy": {
+              "autonomy": 85,
+              "guardrails": -5,
+              "direction": -20,
+              "intensity": 85
+            },
+            "receptivity": {
+              "autonomy": 51,
+              "guardrails": -3,
+              "direction": -12,
+              "intensity": 51
+            }
           },
           "xvo0012": {
-            "command": -50,
-            "coach": 40,
-            "laissez-faire": 70
+            "advocacy": {
+              "command": -50,
+              "coach": 40,
+              "laissez-faire": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "command": -30,
+              "coach": 24,
+              "laissez-faire": 42,
+              "intensity": 42
+            }
           },
           "xvo0014": {
-            "full-time-employee": 50,
-            "freelancer-independent": 70,
-            "founder-entrepreneur": 20,
-            "part-time-portfolio": 30,
-            "public-service-nonprofit": 20
+            "advocacy": {
+              "full-time-employee": 50,
+              "freelancer-independent": 70,
+              "founder-entrepreneur": 20,
+              "part-time-portfolio": 30,
+              "public-service-nonprofit": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "full-time-employee": 30,
+              "freelancer-independent": 42,
+              "founder-entrepreneur": 12,
+              "part-time-portfolio": 18,
+              "public-service-nonprofit": 12,
+              "intensity": 42
+            }
           },
           "xvo0015": {
-            "high-pay": 30,
-            "good-perks-benefits": 40
+            "advocacy": {
+              "high-pay": 30,
+              "good-perks-benefits": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "high-pay": 18,
+              "good-perks-benefits": 24,
+              "intensity": 24
+            }
           },
           "xvo0016": {
-            "security": 40,
-            "balanced-package": 90,
-            "upside": 30
+            "advocacy": {
+              "security": 40,
+              "balanced-package": 90,
+              "upside": 30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "security": 24,
+              "balanced-package": 54,
+              "upside": 18,
+              "intensity": 54
+            }
           },
           "xvo0017": {
-            "quiet-contribution": 90,
-            "selective": -30,
-            "public-recognition": -40
+            "advocacy": {
+              "quiet-contribution": 90,
+              "selective": -30,
+              "public-recognition": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "quiet-contribution": 54,
+              "selective": -18,
+              "public-recognition": -24,
+              "intensity": 54
+            }
           },
           "xvo0018": {
-            "technical-craft-mastery": 95,
-            "executive-managerial-authority": -70,
-            "autonomy-creative-freedom": 70,
-            "security-institutional-stability": 30
+            "advocacy": {
+              "technical-craft-mastery": 95,
+              "executive-managerial-authority": -70,
+              "autonomy-creative-freedom": 70,
+              "security-institutional-stability": 30,
+              "intensity": 95
+            },
+            "receptivity": {
+              "technical-craft-mastery": 57,
+              "executive-managerial-authority": -42,
+              "autonomy-creative-freedom": 42,
+              "security-institutional-stability": 18,
+              "intensity": 57
+            }
           },
           "xvo0019": {
-            "job-is-who-i-am": 60,
-            "part-of-me": 50,
-            "job-is-what-i-do": 10
+            "advocacy": {
+              "job-is-who-i-am": 60,
+              "part-of-me": 50,
+              "job-is-what-i-do": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "job-is-who-i-am": 36,
+              "part-of-me": 30,
+              "job-is-what-i-do": 6,
+              "intensity": 36
+            }
           },
           "xvo0021": {
-            "retire": -20,
-            "phased-encore": 20,
-            "work-for-life": 60
+            "advocacy": {
+              "retire": -20,
+              "phased-encore": 20,
+              "work-for-life": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "retire": -12,
+              "phased-encore": 12,
+              "work-for-life": 36,
+              "intensity": 36
+            }
           }
         },
         "skin": "vocapades"
@@ -3952,96 +4772,260 @@
         "aboutMe": "Build it yourself: bet on your own venture, own the upside, and trade security for freedom and control.",
         "ratings": {
           "xvo0001": {
-            "calling": 50,
-            "career": 50,
-            "job": -70
+            "advocacy": {
+              "calling": 50,
+              "career": 50,
+              "job": -70,
+              "intensity": -70
+            },
+            "receptivity": {
+              "calling": 28,
+              "career": 28,
+              "job": -38,
+              "intensity": -38
+            }
           },
           "xvo0003": {
-            "hustle-grind": 80,
-            "bursts-recovery": -20,
-            "balance-rest": -40
+            "advocacy": {
+              "hustle-grind": 80,
+              "bursts-recovery": -20,
+              "balance-rest": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "hustle-grind": 44,
+              "bursts-recovery": -11,
+              "balance-rest": -22,
+              "intensity": 44
+            }
           },
           "xvo0004": {
-            "contentment": -40,
-            "balanced": -25,
-            "ambition": 85
+            "advocacy": {
+              "contentment": -40,
+              "balanced": -25,
+              "ambition": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "contentment": -22,
+              "balanced": -14,
+              "ambition": 47,
+              "intensity": 47
+            }
           },
           "xvo0005": {
-            "safe-stable": -80,
-            "calculated": -75,
-            "risky-entrepreneurial": 95
+            "advocacy": {
+              "safe-stable": -80,
+              "calculated": -75,
+              "risky-entrepreneurial": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "safe-stable": -44,
+              "calculated": -41,
+              "risky-entrepreneurial": 52,
+              "intensity": 52
+            }
           },
           "xvo0006": {
-            "polymath-generalist": 80,
-            "unformed": 20,
-            "deep-specialist": 0
+            "advocacy": {
+              "polymath-generalist": 80,
+              "unformed": 20,
+              "deep-specialist": 0,
+              "intensity": 80
+            },
+            "receptivity": {
+              "polymath-generalist": 44,
+              "unformed": 11,
+              "deep-specialist": 0,
+              "intensity": 44
+            }
           },
           "xvo0007": {
-            "remote": 60,
-            "hybrid": 40,
-            "office": -20
+            "advocacy": {
+              "remote": 60,
+              "hybrid": 40,
+              "office": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "remote": 33,
+              "hybrid": 22,
+              "office": -11,
+              "intensity": 33
+            }
           },
           "xvo0008": {
-            "solo-independent": 70,
-            "mixed": 70,
-            "team-collaborative": 40
+            "advocacy": {
+              "solo-independent": 70,
+              "mixed": 70,
+              "team-collaborative": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "solo-independent": 38,
+              "mixed": 38,
+              "team-collaborative": 22,
+              "intensity": 38
+            }
           },
           "xvo0009": {
-            "fixed-schedule": -60,
-            "core-hours": -45,
-            "flexible-async": 85
+            "advocacy": {
+              "fixed-schedule": -60,
+              "core-hours": -45,
+              "flexible-async": 85,
+              "intensity": 85
+            },
+            "receptivity": {
+              "fixed-schedule": -33,
+              "core-hours": -25,
+              "flexible-async": 47,
+              "intensity": 47
+            }
           },
           "xvo0010": {
-            "hierarchical": -60,
-            "hybrid": -40,
-            "flat": 80
+            "advocacy": {
+              "hierarchical": -60,
+              "hybrid": -40,
+              "flat": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "hierarchical": -33,
+              "hybrid": -22,
+              "flat": 44,
+              "intensity": 44
+            }
           },
           "xvo0011": {
-            "autonomy": 95,
-            "guardrails": -45,
-            "direction": -50
+            "advocacy": {
+              "autonomy": 95,
+              "guardrails": -45,
+              "direction": -50,
+              "intensity": 95
+            },
+            "receptivity": {
+              "autonomy": 52,
+              "guardrails": -25,
+              "direction": -28,
+              "intensity": 52
+            }
           },
           "xvo0012": {
-            "command": 30,
-            "coach": 40,
-            "laissez-faire": 70
+            "advocacy": {
+              "command": 30,
+              "coach": 40,
+              "laissez-faire": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "command": 16,
+              "coach": 22,
+              "laissez-faire": 38,
+              "intensity": 38
+            }
           },
           "xvo0013": {
-            "corporate-capital-hierarchy": -70,
-            "shared-ownership": 10,
-            "worker-cooperative-collective": 20
+            "advocacy": {
+              "corporate-capital-hierarchy": -70,
+              "shared-ownership": 10,
+              "worker-cooperative-collective": 20,
+              "intensity": -70
+            },
+            "receptivity": {
+              "corporate-capital-hierarchy": -38,
+              "shared-ownership": 6,
+              "worker-cooperative-collective": 11,
+              "intensity": -38
+            }
           },
           "xvo0014": {
-            "full-time-employee": -70,
-            "freelancer-independent": 50,
-            "founder-entrepreneur": 95,
-            "part-time-portfolio": 0,
-            "public-service-nonprofit": -40
+            "advocacy": {
+              "full-time-employee": -70,
+              "freelancer-independent": 50,
+              "founder-entrepreneur": 95,
+              "part-time-portfolio": 0,
+              "public-service-nonprofit": -40,
+              "intensity": 95
+            },
+            "receptivity": {
+              "full-time-employee": -38,
+              "freelancer-independent": 28,
+              "founder-entrepreneur": 52,
+              "part-time-portfolio": 0,
+              "public-service-nonprofit": -22,
+              "intensity": 52
+            }
           },
           "xvo0015": {
-            "high-pay": 60,
-            "good-perks-benefits": -20
+            "advocacy": {
+              "high-pay": 60,
+              "good-perks-benefits": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "high-pay": 33,
+              "good-perks-benefits": -11,
+              "intensity": 33
+            }
           },
           "xvo0016": {
-            "security": -80,
-            "balanced-package": -75,
-            "upside": 95
+            "advocacy": {
+              "security": -80,
+              "balanced-package": -75,
+              "upside": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "security": -44,
+              "balanced-package": -41,
+              "upside": 52,
+              "intensity": 52
+            }
           },
           "xvo0018": {
-            "technical-craft-mastery": 40,
-            "executive-managerial-authority": 70,
-            "autonomy-creative-freedom": 90,
-            "security-institutional-stability": -70
+            "advocacy": {
+              "technical-craft-mastery": 40,
+              "executive-managerial-authority": 70,
+              "autonomy-creative-freedom": 90,
+              "security-institutional-stability": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "technical-craft-mastery": 22,
+              "executive-managerial-authority": 38,
+              "autonomy-creative-freedom": 50,
+              "security-institutional-stability": -38,
+              "intensity": 50
+            }
           },
           "xvo0019": {
-            "job-is-who-i-am": 60,
-            "part-of-me": 10,
-            "job-is-what-i-do": -30
+            "advocacy": {
+              "job-is-who-i-am": 60,
+              "part-of-me": 10,
+              "job-is-what-i-do": -30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "job-is-who-i-am": 33,
+              "part-of-me": 6,
+              "job-is-what-i-do": -16,
+              "intensity": 33
+            }
           },
           "xvo0020": {
-            "permeable": 70,
-            "flexible": -10,
-            "firm": -40
+            "advocacy": {
+              "permeable": 70,
+              "flexible": -10,
+              "firm": -40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "permeable": 38,
+              "flexible": -6,
+              "firm": -22,
+              "intensity": 38
+            }
           }
         },
         "skin": "vocapades"

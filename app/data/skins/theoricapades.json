@@ -3921,134 +3921,371 @@
         "aboutMe": "Mathematics is the manipulation of symbols by fixed rules; consistency, not meaning, is what a system must prove.",
         "ratings": {
           "xth0001": {
-            "platonism": -60,
-            "formalism": 95,
-            "intuitionism": -50,
-            "logicism": 30,
-            "structuralism": 40
+            "advocacy": {
+              "platonism": -60,
+              "formalism": 95,
+              "intuitionism": -50,
+              "logicism": 30,
+              "structuralism": 40,
+              "intensity": 95
+            },
+            "receptivity": {
+              "platonism": -33,
+              "formalism": 52,
+              "intuitionism": -28,
+              "logicism": 16,
+              "structuralism": 22,
+              "intensity": 52
+            }
           },
           "xth0002": {
-            "zfc-set-theory": 80,
-            "category-theory-topoi": 20,
-            "homotopy-type-theory-hott": 10
+            "advocacy": {
+              "zfc-set-theory": 80,
+              "category-theory-topoi": 20,
+              "homotopy-type-theory-hott": 10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "zfc-set-theory": 44,
+              "category-theory-topoi": 11,
+              "homotopy-type-theory-hott": 6,
+              "intensity": 44
+            }
           },
           "xth0003": {
-            "classical-logic": 85,
-            "constructive-logic": -60,
-            "classical-constructively-careful": -45
+            "advocacy": {
+              "classical-logic": 85,
+              "constructive-logic": -60,
+              "classical-constructively-careful": -45,
+              "intensity": 85
+            },
+            "receptivity": {
+              "classical-logic": 47,
+              "constructive-logic": -33,
+              "classical-constructively-careful": -25,
+              "intensity": 47
+            }
           },
           "xth0004": {
-            "discovered": -50,
-            "invented": 80,
-            "invented-then-discovered": -30
+            "advocacy": {
+              "discovered": -50,
+              "invented": 80,
+              "invented-then-discovered": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "discovered": -28,
+              "invented": 44,
+              "invented-then-discovered": -16,
+              "intensity": 44
+            }
           },
           "xth0005": {
-            "radical-mathematical-realism": -60,
-            "epistemic-anti-realism": 70,
-            "structural-realism": -30
+            "advocacy": {
+              "radical-mathematical-realism": -60,
+              "epistemic-anti-realism": 70,
+              "structural-realism": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "radical-mathematical-realism": -33,
+              "epistemic-anti-realism": 38,
+              "structural-realism": -16,
+              "intensity": 38
+            }
           },
           "xth0006": {
-            "actual-infinity": 70,
-            "potential-infinity": -40,
-            "working-actual-infinity": -10
+            "advocacy": {
+              "actual-infinity": 70,
+              "potential-infinity": -40,
+              "working-actual-infinity": -10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "actual-infinity": 38,
+              "potential-infinity": -22,
+              "working-actual-infinity": -6,
+              "intensity": 38
+            }
           },
           "xth0007": {
-            "the-rising-sea": 40,
-            "the-hammer-chisel": 20
+            "advocacy": {
+              "the-rising-sea": 40,
+              "the-hammer-chisel": 20,
+              "intensity": 40
+            },
+            "receptivity": {
+              "the-rising-sea": 22,
+              "the-hammer-chisel": 11,
+              "intensity": 22
+            }
           },
           "xth0008": {
-            "extreme-structural-abstraction": 60,
-            "exceptional-concrete-jewels": 0
+            "advocacy": {
+              "extreme-structural-abstraction": 60,
+              "exceptional-concrete-jewels": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "extreme-structural-abstraction": 33,
+              "exceptional-concrete-jewels": 0,
+              "intensity": 33
+            }
           },
           "xth0009": {
-            "high-abstraction": 70,
-            "low-abstraction": -50,
-            "problem-pitched": -20
+            "advocacy": {
+              "high-abstraction": 70,
+              "low-abstraction": -50,
+              "problem-pitched": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "high-abstraction": 38,
+              "low-abstraction": -28,
+              "problem-pitched": -11,
+              "intensity": 38
+            }
           },
           "xth0010": {
-            "luminous-simplicity-the-book": 30,
-            "architectural-monumentality": 60,
-            "constructive-computational-revelation": 40
+            "advocacy": {
+              "luminous-simplicity-the-book": 30,
+              "architectural-monumentality": 60,
+              "constructive-computational-revelation": 40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "luminous-simplicity-the-book": 16,
+              "architectural-monumentality": 33,
+              "constructive-computational-revelation": 22,
+              "intensity": 33
+            }
           },
           "xth0011": {
-            "visual": -20,
-            "symbolic": 80
+            "advocacy": {
+              "visual": -20,
+              "symbolic": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "visual": -11,
+              "symbolic": 44,
+              "intensity": 44
+            }
           },
           "xth0012": {
-            "trust": 0,
-            "distrust": 50,
-            "trust-but-verify": 50
+            "advocacy": {
+              "trust": 0,
+              "distrust": 50,
+              "trust-but-verify": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "trust": 0,
+              "distrust": 28,
+              "trust-but-verify": 28,
+              "intensity": 28
+            }
           },
           "xth0013": {
-            "algebra-symmetry": 60,
-            "geometry-topology": 20,
-            "analysis-continua": 40,
-            "number-theory-arithmetic": 30
+            "advocacy": {
+              "algebra-symmetry": 60,
+              "geometry-topology": 20,
+              "analysis-continua": 40,
+              "number-theory-arithmetic": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "algebra-symmetry": 33,
+              "geometry-topology": 11,
+              "analysis-continua": 22,
+              "number-theory-arithmetic": 16,
+              "intensity": 33
+            }
           },
           "xth0014": 50,
           "xth0015": {
-            "discrete": 60,
-            "continuous": 10
+            "advocacy": {
+              "discrete": 60,
+              "continuous": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "discrete": 33,
+              "continuous": 6,
+              "intensity": 33
+            }
           },
           "xth0016": {
-            "pure": 80,
-            "applied": -40,
-            "use-inspired-basic-research-pasteur-s-quadrant": -20
+            "advocacy": {
+              "pure": 80,
+              "applied": -40,
+              "use-inspired-basic-research-pasteur-s-quadrant": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "pure": 44,
+              "applied": -22,
+              "use-inspired-basic-research-pasteur-s-quadrant": -11,
+              "intensity": 44
+            }
           },
           "xth0017": {
-            "accept": 70,
-            "reject": -60,
-            "accept-with-audit": -30
+            "advocacy": {
+              "accept": 70,
+              "reject": -60,
+              "accept-with-audit": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "accept": 38,
+              "reject": -33,
+              "accept-with-audit": -16,
+              "intensity": 38
+            }
           },
           "xth0018": {
-            "machine-checked-formalization": 80,
-            "human-social-consensus": -30
+            "advocacy": {
+              "machine-checked-formalization": 80,
+              "human-social-consensus": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "machine-checked-formalization": 44,
+              "human-social-consensus": -16,
+              "intensity": 44
+            }
           },
           "xth0019": {
-            "unconditional-acceptance-zfc": 85,
-            "skeptical-restriction-zf-dependent-choice": -40,
-            "defiant-rejection-constructive-determinacy": -80
+            "advocacy": {
+              "unconditional-acceptance-zfc": 85,
+              "skeptical-restriction-zf-dependent-choice": -40,
+              "defiant-rejection-constructive-determinacy": -80,
+              "intensity": 85
+            },
+            "receptivity": {
+              "unconditional-acceptance-zfc": 47,
+              "skeptical-restriction-zf-dependent-choice": -22,
+              "defiant-rejection-constructive-determinacy": -44,
+              "intensity": 47
+            }
           },
           "xth0020": {
-            "conjecture-solver": 20,
-            "theory-builder": 60,
-            "solve-by-building": 60
+            "advocacy": {
+              "conjecture-solver": 20,
+              "theory-builder": 60,
+              "solve-by-building": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "conjecture-solver": 11,
+              "theory-builder": 33,
+              "solve-by-building": 33,
+              "intensity": 33
+            }
           },
           "xth0021": {
-            "rigor": 90,
-            "intuition": -50,
-            "intuition-guided-rigor": -40
+            "advocacy": {
+              "rigor": 90,
+              "intuition": -50,
+              "intuition-guided-rigor": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "rigor": 50,
+              "intuition": -28,
+              "intuition-guided-rigor": -22,
+              "intensity": 50
+            }
           },
           "xth0022": {
-            "elegance": 40,
-            "power": 50
+            "advocacy": {
+              "elegance": 40,
+              "power": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "elegance": 22,
+              "power": 28,
+              "intensity": 28
+            }
           },
           "xth0023": {
-            "simplicity": 30,
-            "depth": 60
+            "advocacy": {
+              "simplicity": 30,
+              "depth": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "simplicity": 16,
+              "depth": 33,
+              "intensity": 33
+            }
           },
           "xth0024": {
-            "essential": 20,
-            "incidental": 30,
-            "beauty-as-a-clue": 90
+            "advocacy": {
+              "essential": 20,
+              "incidental": 30,
+              "beauty-as-a-clue": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "essential": 11,
+              "incidental": 16,
+              "beauty-as-a-clue": 50,
+              "intensity": 50
+            }
           },
           "xth0025": {
-            "proud-inutility-hardy-s-apology": 60,
-            "unreasonable-effectiveness-wigner": -20,
-            "pleased-when-it-applies": 20
+            "advocacy": {
+              "proud-inutility-hardy-s-apology": 60,
+              "unreasonable-effectiveness-wigner": -20,
+              "pleased-when-it-applies": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "proud-inutility-hardy-s-apology": 33,
+              "unreasonable-effectiveness-wigner": -11,
+              "pleased-when-it-applies": 11,
+              "intensity": 33
+            }
           },
           "xth0026": {
-            "autonomous-self-reference": 80,
-            "physical-symbiosis": -50,
-            "autonomous-physically-nourished": -30
+            "advocacy": {
+              "autonomous-self-reference": 80,
+              "physical-symbiosis": -50,
+              "autonomous-physically-nourished": -30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "autonomous-self-reference": 44,
+              "physical-symbiosis": -28,
+              "autonomous-physically-nourished": -16,
+              "intensity": 44
+            }
           },
           "xth0028": {
-            "traditional-chalkboard": -10,
-            "digital-computational-experimentation": 60
+            "advocacy": {
+              "traditional-chalkboard": -10,
+              "digital-computational-experimentation": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "traditional-chalkboard": -6,
+              "digital-computational-experimentation": 33,
+              "intensity": 33
+            }
           },
           "xth0029": {
-            "private-aesthetic-epiphany": 50,
-            "institutional-immortality": -10
+            "advocacy": {
+              "private-aesthetic-epiphany": 50,
+              "institutional-immortality": -10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "private-aesthetic-epiphany": 28,
+              "institutional-immortality": -6,
+              "intensity": 28
+            }
           }
         },
         "skin": "theoricapades"
@@ -4075,134 +4312,371 @@
         "aboutMe": "Mathematics is a mental construction; a statement is true only when we can construct a proof of it, and the law of excluded middle does not hold for the infinite.",
         "ratings": {
           "xth0001": {
-            "platonism": -70,
-            "formalism": -60,
-            "intuitionism": 95,
-            "logicism": -40,
-            "structuralism": 0
+            "advocacy": {
+              "platonism": -70,
+              "formalism": -60,
+              "intuitionism": 95,
+              "logicism": -40,
+              "structuralism": 0,
+              "intensity": 95
+            },
+            "receptivity": {
+              "platonism": -35,
+              "formalism": -30,
+              "intuitionism": 48,
+              "logicism": -20,
+              "structuralism": 0,
+              "intensity": 48
+            }
           },
           "xth0002": {
-            "zfc-set-theory": -50,
-            "category-theory-topoi": 30,
-            "homotopy-type-theory-hott": 60
+            "advocacy": {
+              "zfc-set-theory": -50,
+              "category-theory-topoi": 30,
+              "homotopy-type-theory-hott": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "zfc-set-theory": -25,
+              "category-theory-topoi": 15,
+              "homotopy-type-theory-hott": 30,
+              "intensity": 30
+            }
           },
           "xth0003": {
-            "classical-logic": -90,
-            "constructive-logic": 95,
-            "classical-constructively-careful": -85
+            "advocacy": {
+              "classical-logic": -90,
+              "constructive-logic": 95,
+              "classical-constructively-careful": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "classical-logic": -45,
+              "constructive-logic": 48,
+              "classical-constructively-careful": -42,
+              "intensity": 48
+            }
           },
           "xth0004": {
-            "discovered": -60,
-            "invented": 85,
-            "invented-then-discovered": -45
+            "advocacy": {
+              "discovered": -60,
+              "invented": 85,
+              "invented-then-discovered": -45,
+              "intensity": 85
+            },
+            "receptivity": {
+              "discovered": -30,
+              "invented": 42,
+              "invented-then-discovered": -22,
+              "intensity": 42
+            }
           },
           "xth0005": {
-            "radical-mathematical-realism": -80,
-            "epistemic-anti-realism": 85,
-            "structural-realism": -65
+            "advocacy": {
+              "radical-mathematical-realism": -80,
+              "epistemic-anti-realism": 85,
+              "structural-realism": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "radical-mathematical-realism": -40,
+              "epistemic-anti-realism": 42,
+              "structural-realism": -32,
+              "intensity": 42
+            }
           },
           "xth0006": {
-            "actual-infinity": -80,
-            "potential-infinity": 90,
-            "working-actual-infinity": -70
+            "advocacy": {
+              "actual-infinity": -80,
+              "potential-infinity": 90,
+              "working-actual-infinity": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "actual-infinity": -40,
+              "potential-infinity": 45,
+              "working-actual-infinity": -35,
+              "intensity": 45
+            }
           },
           "xth0007": {
-            "the-rising-sea": -30,
-            "the-hammer-chisel": 60
+            "advocacy": {
+              "the-rising-sea": -30,
+              "the-hammer-chisel": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "the-rising-sea": -15,
+              "the-hammer-chisel": 30,
+              "intensity": 30
+            }
           },
           "xth0008": {
-            "extreme-structural-abstraction": -40,
-            "exceptional-concrete-jewels": 50
+            "advocacy": {
+              "extreme-structural-abstraction": -40,
+              "exceptional-concrete-jewels": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "extreme-structural-abstraction": -20,
+              "exceptional-concrete-jewels": 25,
+              "intensity": 25
+            }
           },
           "xth0009": {
-            "high-abstraction": -50,
-            "low-abstraction": 60,
-            "problem-pitched": -10
+            "advocacy": {
+              "high-abstraction": -50,
+              "low-abstraction": 60,
+              "problem-pitched": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "high-abstraction": -25,
+              "low-abstraction": 30,
+              "problem-pitched": -5,
+              "intensity": 30
+            }
           },
           "xth0010": {
-            "luminous-simplicity-the-book": 60,
-            "architectural-monumentality": -30,
-            "constructive-computational-revelation": 70
+            "advocacy": {
+              "luminous-simplicity-the-book": 60,
+              "architectural-monumentality": -30,
+              "constructive-computational-revelation": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "luminous-simplicity-the-book": 30,
+              "architectural-monumentality": -15,
+              "constructive-computational-revelation": 35,
+              "intensity": 35
+            }
           },
           "xth0011": {
-            "visual": 40,
-            "symbolic": -10
+            "advocacy": {
+              "visual": 40,
+              "symbolic": -10,
+              "intensity": 40
+            },
+            "receptivity": {
+              "visual": 20,
+              "symbolic": -5,
+              "intensity": 20
+            }
           },
           "xth0012": {
-            "trust": 70,
-            "distrust": -50,
-            "trust-but-verify": -20
+            "advocacy": {
+              "trust": 70,
+              "distrust": -50,
+              "trust-but-verify": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "trust": 35,
+              "distrust": -25,
+              "trust-but-verify": -10,
+              "intensity": 35
+            }
           },
           "xth0013": {
-            "algebra-symmetry": 20,
-            "geometry-topology": 30,
-            "analysis-continua": 50,
-            "number-theory-arithmetic": 60
+            "advocacy": {
+              "algebra-symmetry": 20,
+              "geometry-topology": 30,
+              "analysis-continua": 50,
+              "number-theory-arithmetic": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "algebra-symmetry": 10,
+              "geometry-topology": 15,
+              "analysis-continua": 25,
+              "number-theory-arithmetic": 30,
+              "intensity": 30
+            }
           },
           "xth0014": 60,
           "xth0015": {
-            "discrete": 50,
-            "continuous": 40
+            "advocacy": {
+              "discrete": 50,
+              "continuous": 40,
+              "intensity": 50
+            },
+            "receptivity": {
+              "discrete": 25,
+              "continuous": 20,
+              "intensity": 25
+            }
           },
           "xth0016": {
-            "pure": 60,
-            "applied": -20,
-            "use-inspired-basic-research-pasteur-s-quadrant": 20
+            "advocacy": {
+              "pure": 60,
+              "applied": -20,
+              "use-inspired-basic-research-pasteur-s-quadrant": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "pure": 30,
+              "applied": -10,
+              "use-inspired-basic-research-pasteur-s-quadrant": 10,
+              "intensity": 30
+            }
           },
           "xth0017": {
-            "accept": -30,
-            "reject": 50,
-            "accept-with-audit": 20
+            "advocacy": {
+              "accept": -30,
+              "reject": 50,
+              "accept-with-audit": 20,
+              "intensity": 50
+            },
+            "receptivity": {
+              "accept": -15,
+              "reject": 25,
+              "accept-with-audit": 10,
+              "intensity": 25
+            }
           },
           "xth0018": {
-            "machine-checked-formalization": 30,
-            "human-social-consensus": 20
+            "advocacy": {
+              "machine-checked-formalization": 30,
+              "human-social-consensus": 20,
+              "intensity": 30
+            },
+            "receptivity": {
+              "machine-checked-formalization": 15,
+              "human-social-consensus": 10,
+              "intensity": 15
+            }
           },
           "xth0019": {
-            "unconditional-acceptance-zfc": -80,
-            "skeptical-restriction-zf-dependent-choice": 60,
-            "defiant-rejection-constructive-determinacy": 70
+            "advocacy": {
+              "unconditional-acceptance-zfc": -80,
+              "skeptical-restriction-zf-dependent-choice": 60,
+              "defiant-rejection-constructive-determinacy": 70,
+              "intensity": -80
+            },
+            "receptivity": {
+              "unconditional-acceptance-zfc": -40,
+              "skeptical-restriction-zf-dependent-choice": 30,
+              "defiant-rejection-constructive-determinacy": 35,
+              "intensity": -40
+            }
           },
           "xth0020": {
-            "conjecture-solver": 40,
-            "theory-builder": 30,
-            "solve-by-building": 90
+            "advocacy": {
+              "conjecture-solver": 40,
+              "theory-builder": 30,
+              "solve-by-building": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "conjecture-solver": 20,
+              "theory-builder": 15,
+              "solve-by-building": 45,
+              "intensity": 45
+            }
           },
           "xth0021": {
-            "rigor": 60,
-            "intuition": 80,
-            "intuition-guided-rigor": 80
+            "advocacy": {
+              "rigor": 60,
+              "intuition": 80,
+              "intuition-guided-rigor": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "rigor": 30,
+              "intuition": 40,
+              "intuition-guided-rigor": 40,
+              "intensity": 40
+            }
           },
           "xth0022": {
-            "elegance": 60,
-            "power": 20
+            "advocacy": {
+              "elegance": 60,
+              "power": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "elegance": 30,
+              "power": 10,
+              "intensity": 30
+            }
           },
           "xth0023": {
-            "simplicity": 70,
-            "depth": 40
+            "advocacy": {
+              "simplicity": 70,
+              "depth": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "simplicity": 35,
+              "depth": 20,
+              "intensity": 35
+            }
           },
           "xth0024": {
-            "essential": 50,
-            "incidental": 0,
-            "beauty-as-a-clue": 50
+            "advocacy": {
+              "essential": 50,
+              "incidental": 0,
+              "beauty-as-a-clue": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "essential": 25,
+              "incidental": 0,
+              "beauty-as-a-clue": 25,
+              "intensity": 25
+            }
           },
           "xth0025": {
-            "proud-inutility-hardy-s-apology": 40,
-            "unreasonable-effectiveness-wigner": -10,
-            "pleased-when-it-applies": 50
+            "advocacy": {
+              "proud-inutility-hardy-s-apology": 40,
+              "unreasonable-effectiveness-wigner": -10,
+              "pleased-when-it-applies": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "proud-inutility-hardy-s-apology": 20,
+              "unreasonable-effectiveness-wigner": -5,
+              "pleased-when-it-applies": 25,
+              "intensity": 25
+            }
           },
           "xth0026": {
-            "autonomous-self-reference": 60,
-            "physical-symbiosis": -30,
-            "autonomous-physically-nourished": 10
+            "advocacy": {
+              "autonomous-self-reference": 60,
+              "physical-symbiosis": -30,
+              "autonomous-physically-nourished": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "autonomous-self-reference": 30,
+              "physical-symbiosis": -15,
+              "autonomous-physically-nourished": 5,
+              "intensity": 30
+            }
           },
           "xth0028": {
-            "traditional-chalkboard": 50,
-            "digital-computational-experimentation": 0
+            "advocacy": {
+              "traditional-chalkboard": 50,
+              "digital-computational-experimentation": 0,
+              "intensity": 50
+            },
+            "receptivity": {
+              "traditional-chalkboard": 25,
+              "digital-computational-experimentation": 0,
+              "intensity": 25
+            }
           },
           "xth0029": {
-            "private-aesthetic-epiphany": 70,
-            "institutional-immortality": -30
+            "advocacy": {
+              "private-aesthetic-epiphany": 70,
+              "institutional-immortality": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "private-aesthetic-epiphany": 35,
+              "institutional-immortality": -15,
+              "intensity": 35
+            }
           }
         },
         "skin": "theoricapades"
@@ -4229,134 +4703,371 @@
         "aboutMe": "Mathematical objects exist independently of us in an abstract realm; mathematicians discover truths, they do not invent them.",
         "ratings": {
           "xth0001": {
-            "platonism": 95,
-            "formalism": -60,
-            "intuitionism": -30,
-            "logicism": 20,
-            "structuralism": 50
+            "advocacy": {
+              "platonism": 95,
+              "formalism": -60,
+              "intuitionism": -30,
+              "logicism": 20,
+              "structuralism": 50,
+              "intensity": 95
+            },
+            "receptivity": {
+              "platonism": 52,
+              "formalism": -33,
+              "intuitionism": -16,
+              "logicism": 11,
+              "structuralism": 28,
+              "intensity": 52
+            }
           },
           "xth0002": {
-            "zfc-set-theory": 70,
-            "category-theory-topoi": 40,
-            "homotopy-type-theory-hott": 20
+            "advocacy": {
+              "zfc-set-theory": 70,
+              "category-theory-topoi": 40,
+              "homotopy-type-theory-hott": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "zfc-set-theory": 38,
+              "category-theory-topoi": 22,
+              "homotopy-type-theory-hott": 11,
+              "intensity": 38
+            }
           },
           "xth0003": {
-            "classical-logic": 80,
-            "constructive-logic": -40,
-            "classical-constructively-careful": -20
+            "advocacy": {
+              "classical-logic": 80,
+              "constructive-logic": -40,
+              "classical-constructively-careful": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "classical-logic": 44,
+              "constructive-logic": -22,
+              "classical-constructively-careful": -11,
+              "intensity": 44
+            }
           },
           "xth0004": {
-            "discovered": 95,
-            "invented": -85,
-            "invented-then-discovered": -80
+            "advocacy": {
+              "discovered": 95,
+              "invented": -85,
+              "invented-then-discovered": -80,
+              "intensity": 95
+            },
+            "receptivity": {
+              "discovered": 52,
+              "invented": -47,
+              "invented-then-discovered": -44,
+              "intensity": 52
+            }
           },
           "xth0005": {
-            "radical-mathematical-realism": 80,
-            "epistemic-anti-realism": -70,
-            "structural-realism": -50
+            "advocacy": {
+              "radical-mathematical-realism": 80,
+              "epistemic-anti-realism": -70,
+              "structural-realism": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "radical-mathematical-realism": 44,
+              "epistemic-anti-realism": -38,
+              "structural-realism": -28,
+              "intensity": 44
+            }
           },
           "xth0006": {
-            "actual-infinity": 90,
-            "potential-infinity": -60,
-            "working-actual-infinity": -50
+            "advocacy": {
+              "actual-infinity": 90,
+              "potential-infinity": -60,
+              "working-actual-infinity": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "actual-infinity": 50,
+              "potential-infinity": -33,
+              "working-actual-infinity": -28,
+              "intensity": 50
+            }
           },
           "xth0007": {
-            "the-rising-sea": 50,
-            "the-hammer-chisel": 30
+            "advocacy": {
+              "the-rising-sea": 50,
+              "the-hammer-chisel": 30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "the-rising-sea": 28,
+              "the-hammer-chisel": 16,
+              "intensity": 28
+            }
           },
           "xth0008": {
-            "extreme-structural-abstraction": 50,
-            "exceptional-concrete-jewels": 40
+            "advocacy": {
+              "extreme-structural-abstraction": 50,
+              "exceptional-concrete-jewels": 40,
+              "intensity": 50
+            },
+            "receptivity": {
+              "extreme-structural-abstraction": 28,
+              "exceptional-concrete-jewels": 22,
+              "intensity": 28
+            }
           },
           "xth0009": {
-            "high-abstraction": 60,
-            "low-abstraction": -30,
-            "problem-pitched": 10
+            "advocacy": {
+              "high-abstraction": 60,
+              "low-abstraction": -30,
+              "problem-pitched": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "high-abstraction": 33,
+              "low-abstraction": -16,
+              "problem-pitched": 6,
+              "intensity": 33
+            }
           },
           "xth0010": {
-            "luminous-simplicity-the-book": 50,
-            "architectural-monumentality": 50,
-            "constructive-computational-revelation": 0
+            "advocacy": {
+              "luminous-simplicity-the-book": 50,
+              "architectural-monumentality": 50,
+              "constructive-computational-revelation": 0,
+              "intensity": 50
+            },
+            "receptivity": {
+              "luminous-simplicity-the-book": 28,
+              "architectural-monumentality": 28,
+              "constructive-computational-revelation": 0,
+              "intensity": 28
+            }
           },
           "xth0011": {
-            "visual": 30,
-            "symbolic": 40
+            "advocacy": {
+              "visual": 30,
+              "symbolic": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "visual": 16,
+              "symbolic": 22,
+              "intensity": 22
+            }
           },
           "xth0012": {
-            "trust": 60,
-            "distrust": -30,
-            "trust-but-verify": 10
+            "advocacy": {
+              "trust": 60,
+              "distrust": -30,
+              "trust-but-verify": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "trust": 33,
+              "distrust": -16,
+              "trust-but-verify": 6,
+              "intensity": 33
+            }
           },
           "xth0013": {
-            "algebra-symmetry": 40,
-            "geometry-topology": 50,
-            "analysis-continua": 40,
-            "number-theory-arithmetic": 70
+            "advocacy": {
+              "algebra-symmetry": 40,
+              "geometry-topology": 50,
+              "analysis-continua": 40,
+              "number-theory-arithmetic": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "algebra-symmetry": 22,
+              "geometry-topology": 28,
+              "analysis-continua": 22,
+              "number-theory-arithmetic": 38,
+              "intensity": 38
+            }
           },
           "xth0014": 40,
           "xth0015": {
-            "discrete": 30,
-            "continuous": 50
+            "advocacy": {
+              "discrete": 30,
+              "continuous": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "discrete": 16,
+              "continuous": 28,
+              "intensity": 28
+            }
           },
           "xth0016": {
-            "pure": 85,
-            "applied": -50,
-            "use-inspired-basic-research-pasteur-s-quadrant": -35
+            "advocacy": {
+              "pure": 85,
+              "applied": -50,
+              "use-inspired-basic-research-pasteur-s-quadrant": -35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "pure": 47,
+              "applied": -28,
+              "use-inspired-basic-research-pasteur-s-quadrant": -19,
+              "intensity": 47
+            }
           },
           "xth0017": {
-            "accept": 40,
-            "reject": -20,
-            "accept-with-audit": 40
+            "advocacy": {
+              "accept": 40,
+              "reject": -20,
+              "accept-with-audit": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "accept": 22,
+              "reject": -11,
+              "accept-with-audit": 22,
+              "intensity": 22
+            }
           },
           "xth0018": {
-            "machine-checked-formalization": 40,
-            "human-social-consensus": 10
+            "advocacy": {
+              "machine-checked-formalization": 40,
+              "human-social-consensus": 10,
+              "intensity": 40
+            },
+            "receptivity": {
+              "machine-checked-formalization": 22,
+              "human-social-consensus": 6,
+              "intensity": 22
+            }
           },
           "xth0019": {
-            "unconditional-acceptance-zfc": 70,
-            "skeptical-restriction-zf-dependent-choice": -20,
-            "defiant-rejection-constructive-determinacy": -60
+            "advocacy": {
+              "unconditional-acceptance-zfc": 70,
+              "skeptical-restriction-zf-dependent-choice": -20,
+              "defiant-rejection-constructive-determinacy": -60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "unconditional-acceptance-zfc": 38,
+              "skeptical-restriction-zf-dependent-choice": -11,
+              "defiant-rejection-constructive-determinacy": -33,
+              "intensity": 38
+            }
           },
           "xth0020": {
-            "conjecture-solver": 50,
-            "theory-builder": 40,
-            "solve-by-building": 90
+            "advocacy": {
+              "conjecture-solver": 50,
+              "theory-builder": 40,
+              "solve-by-building": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "conjecture-solver": 28,
+              "theory-builder": 22,
+              "solve-by-building": 50,
+              "intensity": 50
+            }
           },
           "xth0021": {
-            "rigor": 70,
-            "intuition": 50,
-            "intuition-guided-rigor": 80
+            "advocacy": {
+              "rigor": 70,
+              "intuition": 50,
+              "intuition-guided-rigor": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "rigor": 38,
+              "intuition": 28,
+              "intuition-guided-rigor": 44,
+              "intensity": 44
+            }
           },
           "xth0022": {
-            "elegance": 70,
-            "power": 30
+            "advocacy": {
+              "elegance": 70,
+              "power": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "elegance": 38,
+              "power": 16,
+              "intensity": 38
+            }
           },
           "xth0023": {
-            "simplicity": 40,
-            "depth": 70
+            "advocacy": {
+              "simplicity": 40,
+              "depth": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "simplicity": 22,
+              "depth": 38,
+              "intensity": 38
+            }
           },
           "xth0024": {
-            "essential": 80,
-            "incidental": -40,
-            "beauty-as-a-clue": -20
+            "advocacy": {
+              "essential": 80,
+              "incidental": -40,
+              "beauty-as-a-clue": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "essential": 44,
+              "incidental": -22,
+              "beauty-as-a-clue": -11,
+              "intensity": 44
+            }
           },
           "xth0025": {
-            "proud-inutility-hardy-s-apology": 50,
-            "unreasonable-effectiveness-wigner": 50,
-            "pleased-when-it-applies": 100
+            "advocacy": {
+              "proud-inutility-hardy-s-apology": 50,
+              "unreasonable-effectiveness-wigner": 50,
+              "pleased-when-it-applies": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "proud-inutility-hardy-s-apology": 28,
+              "unreasonable-effectiveness-wigner": 28,
+              "pleased-when-it-applies": 55,
+              "intensity": 55
+            }
           },
           "xth0026": {
-            "autonomous-self-reference": 60,
-            "physical-symbiosis": 20,
-            "autonomous-physically-nourished": 60
+            "advocacy": {
+              "autonomous-self-reference": 60,
+              "physical-symbiosis": 20,
+              "autonomous-physically-nourished": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "autonomous-self-reference": 33,
+              "physical-symbiosis": 11,
+              "autonomous-physically-nourished": 33,
+              "intensity": 33
+            }
           },
           "xth0028": {
-            "traditional-chalkboard": 30,
-            "digital-computational-experimentation": 10
+            "advocacy": {
+              "traditional-chalkboard": 30,
+              "digital-computational-experimentation": 10,
+              "intensity": 30
+            },
+            "receptivity": {
+              "traditional-chalkboard": 16,
+              "digital-computational-experimentation": 6,
+              "intensity": 16
+            }
           },
           "xth0029": {
-            "private-aesthetic-epiphany": 80,
-            "institutional-immortality": 0
+            "advocacy": {
+              "private-aesthetic-epiphany": 80,
+              "institutional-immortality": 0,
+              "intensity": 80
+            },
+            "receptivity": {
+              "private-aesthetic-epiphany": 44,
+              "institutional-immortality": 0,
+              "intensity": 44
+            }
           }
         },
         "skin": "theoricapades"
@@ -4383,134 +5094,371 @@
         "aboutMe": "Mathematics is logic in disguise; every mathematical truth can be derived from purely logical principles.",
         "ratings": {
           "xth0001": {
-            "platonism": 40,
-            "formalism": 30,
-            "intuitionism": -50,
-            "logicism": 95,
-            "structuralism": 20
+            "advocacy": {
+              "platonism": 40,
+              "formalism": 30,
+              "intuitionism": -50,
+              "logicism": 95,
+              "structuralism": 20,
+              "intensity": 95
+            },
+            "receptivity": {
+              "platonism": 22,
+              "formalism": 16,
+              "intuitionism": -28,
+              "logicism": 52,
+              "structuralism": 11,
+              "intensity": 52
+            }
           },
           "xth0002": {
-            "zfc-set-theory": 50,
-            "category-theory-topoi": 20,
-            "homotopy-type-theory-hott": 30
+            "advocacy": {
+              "zfc-set-theory": 50,
+              "category-theory-topoi": 20,
+              "homotopy-type-theory-hott": 30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "zfc-set-theory": 28,
+              "category-theory-topoi": 11,
+              "homotopy-type-theory-hott": 16,
+              "intensity": 28
+            }
           },
           "xth0003": {
-            "classical-logic": 85,
-            "constructive-logic": -50,
-            "classical-constructively-careful": -35
+            "advocacy": {
+              "classical-logic": 85,
+              "constructive-logic": -50,
+              "classical-constructively-careful": -35,
+              "intensity": 85
+            },
+            "receptivity": {
+              "classical-logic": 47,
+              "constructive-logic": -28,
+              "classical-constructively-careful": -19,
+              "intensity": 47
+            }
           },
           "xth0004": {
-            "discovered": 60,
-            "invented": -30,
-            "invented-then-discovered": 10
+            "advocacy": {
+              "discovered": 60,
+              "invented": -30,
+              "invented-then-discovered": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "discovered": 33,
+              "invented": -16,
+              "invented-then-discovered": 6,
+              "intensity": 33
+            }
           },
           "xth0005": {
-            "radical-mathematical-realism": 30,
-            "epistemic-anti-realism": -20,
-            "structural-realism": 50
+            "advocacy": {
+              "radical-mathematical-realism": 30,
+              "epistemic-anti-realism": -20,
+              "structural-realism": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "radical-mathematical-realism": 16,
+              "epistemic-anti-realism": -11,
+              "structural-realism": 28,
+              "intensity": 28
+            }
           },
           "xth0006": {
-            "actual-infinity": 60,
-            "potential-infinity": -30,
-            "working-actual-infinity": 10
+            "advocacy": {
+              "actual-infinity": 60,
+              "potential-infinity": -30,
+              "working-actual-infinity": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "actual-infinity": 33,
+              "potential-infinity": -16,
+              "working-actual-infinity": 6,
+              "intensity": 33
+            }
           },
           "xth0007": {
-            "the-rising-sea": 30,
-            "the-hammer-chisel": 40
+            "advocacy": {
+              "the-rising-sea": 30,
+              "the-hammer-chisel": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "the-rising-sea": 16,
+              "the-hammer-chisel": 22,
+              "intensity": 22
+            }
           },
           "xth0008": {
-            "extreme-structural-abstraction": 60,
-            "exceptional-concrete-jewels": 10
+            "advocacy": {
+              "extreme-structural-abstraction": 60,
+              "exceptional-concrete-jewels": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "extreme-structural-abstraction": 33,
+              "exceptional-concrete-jewels": 6,
+              "intensity": 33
+            }
           },
           "xth0009": {
-            "high-abstraction": 65,
-            "low-abstraction": -40,
-            "problem-pitched": -5
+            "advocacy": {
+              "high-abstraction": 65,
+              "low-abstraction": -40,
+              "problem-pitched": -5,
+              "intensity": 65
+            },
+            "receptivity": {
+              "high-abstraction": 36,
+              "low-abstraction": -22,
+              "problem-pitched": -3,
+              "intensity": 36
+            }
           },
           "xth0010": {
-            "luminous-simplicity-the-book": 40,
-            "architectural-monumentality": 50,
-            "constructive-computational-revelation": 20
+            "advocacy": {
+              "luminous-simplicity-the-book": 40,
+              "architectural-monumentality": 50,
+              "constructive-computational-revelation": 20,
+              "intensity": 50
+            },
+            "receptivity": {
+              "luminous-simplicity-the-book": 22,
+              "architectural-monumentality": 28,
+              "constructive-computational-revelation": 11,
+              "intensity": 28
+            }
           },
           "xth0011": {
-            "visual": -40,
-            "symbolic": 90
+            "advocacy": {
+              "visual": -40,
+              "symbolic": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "visual": -22,
+              "symbolic": 50,
+              "intensity": 50
+            }
           },
           "xth0012": {
-            "trust": -10,
-            "distrust": 60,
-            "trust-but-verify": 30
+            "advocacy": {
+              "trust": -10,
+              "distrust": 60,
+              "trust-but-verify": 30,
+              "intensity": 60
+            },
+            "receptivity": {
+              "trust": -6,
+              "distrust": 33,
+              "trust-but-verify": 16,
+              "intensity": 33
+            }
           },
           "xth0013": {
-            "algebra-symmetry": 50,
-            "geometry-topology": 10,
-            "analysis-continua": 40,
-            "number-theory-arithmetic": 50
+            "advocacy": {
+              "algebra-symmetry": 50,
+              "geometry-topology": 10,
+              "analysis-continua": 40,
+              "number-theory-arithmetic": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "algebra-symmetry": 28,
+              "geometry-topology": 6,
+              "analysis-continua": 22,
+              "number-theory-arithmetic": 28,
+              "intensity": 28
+            }
           },
           "xth0014": 50,
           "xth0015": {
-            "discrete": 50,
-            "continuous": 20
+            "advocacy": {
+              "discrete": 50,
+              "continuous": 20,
+              "intensity": 50
+            },
+            "receptivity": {
+              "discrete": 28,
+              "continuous": 11,
+              "intensity": 28
+            }
           },
           "xth0016": {
-            "pure": 70,
-            "applied": -30,
-            "use-inspired-basic-research-pasteur-s-quadrant": 0
+            "advocacy": {
+              "pure": 70,
+              "applied": -30,
+              "use-inspired-basic-research-pasteur-s-quadrant": 0,
+              "intensity": 70
+            },
+            "receptivity": {
+              "pure": 38,
+              "applied": -16,
+              "use-inspired-basic-research-pasteur-s-quadrant": 0,
+              "intensity": 38
+            }
           },
           "xth0017": {
-            "accept": 60,
-            "reject": -40,
-            "accept-with-audit": 0
+            "advocacy": {
+              "accept": 60,
+              "reject": -40,
+              "accept-with-audit": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "accept": 33,
+              "reject": -22,
+              "accept-with-audit": 0,
+              "intensity": 33
+            }
           },
           "xth0018": {
-            "machine-checked-formalization": 70,
-            "human-social-consensus": -20
+            "advocacy": {
+              "machine-checked-formalization": 70,
+              "human-social-consensus": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "machine-checked-formalization": 38,
+              "human-social-consensus": -11,
+              "intensity": 38
+            }
           },
           "xth0019": {
-            "unconditional-acceptance-zfc": 60,
-            "skeptical-restriction-zf-dependent-choice": -10,
-            "defiant-rejection-constructive-determinacy": -70
+            "advocacy": {
+              "unconditional-acceptance-zfc": 60,
+              "skeptical-restriction-zf-dependent-choice": -10,
+              "defiant-rejection-constructive-determinacy": -70,
+              "intensity": -70
+            },
+            "receptivity": {
+              "unconditional-acceptance-zfc": 33,
+              "skeptical-restriction-zf-dependent-choice": -6,
+              "defiant-rejection-constructive-determinacy": -38,
+              "intensity": -38
+            }
           },
           "xth0020": {
-            "conjecture-solver": 30,
-            "theory-builder": 70,
-            "solve-by-building": 60
+            "advocacy": {
+              "conjecture-solver": 30,
+              "theory-builder": 70,
+              "solve-by-building": 60,
+              "intensity": 70
+            },
+            "receptivity": {
+              "conjecture-solver": 16,
+              "theory-builder": 38,
+              "solve-by-building": 33,
+              "intensity": 38
+            }
           },
           "xth0021": {
-            "rigor": 95,
-            "intuition": -60,
-            "intuition-guided-rigor": -55
+            "advocacy": {
+              "rigor": 95,
+              "intuition": -60,
+              "intuition-guided-rigor": -55,
+              "intensity": 95
+            },
+            "receptivity": {
+              "rigor": 52,
+              "intuition": -33,
+              "intuition-guided-rigor": -30,
+              "intensity": 52
+            }
           },
           "xth0022": {
-            "elegance": 50,
-            "power": 40
+            "advocacy": {
+              "elegance": 50,
+              "power": 40,
+              "intensity": 50
+            },
+            "receptivity": {
+              "elegance": 28,
+              "power": 22,
+              "intensity": 28
+            }
           },
           "xth0023": {
-            "simplicity": 50,
-            "depth": 50
+            "advocacy": {
+              "simplicity": 50,
+              "depth": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "simplicity": 28,
+              "depth": 28,
+              "intensity": 28
+            }
           },
           "xth0024": {
-            "essential": 60,
-            "incidental": -20,
-            "beauty-as-a-clue": 20
+            "advocacy": {
+              "essential": 60,
+              "incidental": -20,
+              "beauty-as-a-clue": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "essential": 33,
+              "incidental": -11,
+              "beauty-as-a-clue": 11,
+              "intensity": 33
+            }
           },
           "xth0025": {
-            "proud-inutility-hardy-s-apology": 40,
-            "unreasonable-effectiveness-wigner": 20,
-            "pleased-when-it-applies": 80
+            "advocacy": {
+              "proud-inutility-hardy-s-apology": 40,
+              "unreasonable-effectiveness-wigner": 20,
+              "pleased-when-it-applies": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "proud-inutility-hardy-s-apology": 22,
+              "unreasonable-effectiveness-wigner": 11,
+              "pleased-when-it-applies": 44,
+              "intensity": 44
+            }
           },
           "xth0026": {
-            "autonomous-self-reference": 70,
-            "physical-symbiosis": -20,
-            "autonomous-physically-nourished": 10
+            "advocacy": {
+              "autonomous-self-reference": 70,
+              "physical-symbiosis": -20,
+              "autonomous-physically-nourished": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "autonomous-self-reference": 38,
+              "physical-symbiosis": -11,
+              "autonomous-physically-nourished": 6,
+              "intensity": 38
+            }
           },
           "xth0028": {
-            "traditional-chalkboard": 0,
-            "digital-computational-experimentation": 40
+            "advocacy": {
+              "traditional-chalkboard": 0,
+              "digital-computational-experimentation": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "traditional-chalkboard": 0,
+              "digital-computational-experimentation": 22,
+              "intensity": 22
+            }
           },
           "xth0029": {
-            "private-aesthetic-epiphany": 60,
-            "institutional-immortality": -10
+            "advocacy": {
+              "private-aesthetic-epiphany": 60,
+              "institutional-immortality": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "private-aesthetic-epiphany": 33,
+              "institutional-immortality": -6,
+              "intensity": 33
+            }
           }
         },
         "skin": "theoricapades"

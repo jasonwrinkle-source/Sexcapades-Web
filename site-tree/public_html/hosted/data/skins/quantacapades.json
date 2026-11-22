@@ -3706,128 +3706,352 @@
         "aboutMe": "The quantum state is a tool for predicting measurement outcomes, not a picture of reality; measurement brings a definite result out of irreducible chance.",
         "ratings": {
           "xqu0001": {
-            "copenhagen-epistemic-orthodox": 95,
-            "many-worlds-everettian": -80,
-            "de-broglie-bohm-pilot-wave": -70,
-            "qbism-relational-quantum-mechanics-rqm": -30
+            "advocacy": {
+              "copenhagen-epistemic-orthodox": 95,
+              "many-worlds-everettian": -80,
+              "de-broglie-bohm-pilot-wave": -70,
+              "qbism-relational-quantum-mechanics-rqm": -30,
+              "intensity": 95
+            },
+            "receptivity": {
+              "copenhagen-epistemic-orthodox": 52,
+              "many-worlds-everettian": -44,
+              "de-broglie-bohm-pilot-wave": -38,
+              "qbism-relational-quantum-mechanics-rqm": -16,
+              "intensity": 52
+            }
           },
           "xqu0002": {
-            "psi-ontic": -70,
-            "psi-epistemic": 85,
-            "agnostic": -55
+            "advocacy": {
+              "psi-ontic": -70,
+              "psi-epistemic": 85,
+              "agnostic": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "psi-ontic": -38,
+              "psi-epistemic": 47,
+              "agnostic": -30,
+              "intensity": 47
+            }
           },
           "xqu0003": {
-            "collapse": 80,
-            "decoherence": 40,
-            "no-collapse": -70
+            "advocacy": {
+              "collapse": 80,
+              "decoherence": 40,
+              "no-collapse": -70,
+              "intensity": 80
+            },
+            "receptivity": {
+              "collapse": 44,
+              "decoherence": 22,
+              "no-collapse": -38,
+              "intensity": 44
+            }
           },
           "xqu0004": {
-            "strict-determinism": -85,
-            "irreducible-randomness": 90,
-            "mostly-deterministic": -75
+            "advocacy": {
+              "strict-determinism": -85,
+              "irreducible-randomness": 90,
+              "mostly-deterministic": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "strict-determinism": -47,
+              "irreducible-randomness": 50,
+              "mostly-deterministic": -41,
+              "intensity": 50
+            }
           },
           "xqu0005": {
-            "non-local-realism": -50,
-            "local-anti-realism": 70,
-            "superdeterminism-retrocausality": -20
+            "advocacy": {
+              "non-local-realism": -50,
+              "local-anti-realism": 70,
+              "superdeterminism-retrocausality": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "non-local-realism": -28,
+              "local-anti-realism": 38,
+              "superdeterminism-retrocausality": -11,
+              "intensity": 38
+            }
           },
           "xqu0007": {
-            "fundamental-spacetime": 10,
-            "emergent-spacetime": 0,
-            "partially-emergent": 90
+            "advocacy": {
+              "fundamental-spacetime": 10,
+              "emergent-spacetime": 0,
+              "partially-emergent": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "fundamental-spacetime": 6,
+              "emergent-spacetime": 0,
+              "partially-emergent": 50,
+              "intensity": 50
+            }
           },
           "xqu0009": {
-            "quantum-bounce-invariant-cutoff": 0,
-            "physical-singularity-spacetime-breakdown": 0,
-            "finite-density": 100
+            "advocacy": {
+              "quantum-bounce-invariant-cutoff": 0,
+              "physical-singularity-spacetime-breakdown": 0,
+              "finite-density": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "quantum-bounce-invariant-cutoff": 0,
+              "physical-singularity-spacetime-breakdown": 0,
+              "finite-density": 55,
+              "intensity": 55
+            }
           },
           "xqu0010": {
-            "gut": 0,
-            "eft": 0,
-            "eft-now-gut-as-horizon": 100
+            "advocacy": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 55,
+              "intensity": 55
+            }
           },
           "xqu0011": {
-            "grand-unified-ambition-toe": 0,
-            "pragmatic-effective-field-theory-eft": 0,
-            "hedged-ambition": 100
+            "advocacy": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 55,
+              "intensity": 55
+            }
           },
           "xqu0012": {
-            "big-bang": 75,
-            "cyclic": 10,
-            "steady-state": -85
+            "advocacy": {
+              "big-bang": 75,
+              "cyclic": 10,
+              "steady-state": -85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "big-bang": 41,
+              "cyclic": 6,
+              "steady-state": -47,
+              "intensity": -47
+            }
           },
           "xqu0013": {
-            "particle-dark-matter": 10,
-            "modified-gravity-mond": -10,
-            "hybrid-models": 80
+            "advocacy": {
+              "particle-dark-matter": 10,
+              "modified-gravity-mond": -10,
+              "hybrid-models": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "particle-dark-matter": 6,
+              "modified-gravity-mond": -6,
+              "hybrid-models": 44,
+              "intensity": 44
+            }
           },
           "xqu0014": {
-            "constant": 20,
-            "dynamical": -10,
-            "slowly-dynamical": 70
+            "advocacy": {
+              "constant": 20,
+              "dynamical": -10,
+              "slowly-dynamical": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "constant": 11,
+              "dynamical": -6,
+              "slowly-dynamical": 38,
+              "intensity": 38
+            }
           },
           "xqu0015": {
-            "anthropic-multiverse": -30,
-            "undiscovered-symmetry": 40,
-            "modified-cosmic-gravity": 10
+            "advocacy": {
+              "anthropic-multiverse": -30,
+              "undiscovered-symmetry": 40,
+              "modified-cosmic-gravity": 10,
+              "intensity": 40
+            },
+            "receptivity": {
+              "anthropic-multiverse": -16,
+              "undiscovered-symmetry": 22,
+              "modified-cosmic-gravity": 6,
+              "intensity": 22
+            }
           },
           "xqu0016": {
-            "multiverse": -60,
-            "one-universe": 70,
-            "undecided": -30
+            "advocacy": {
+              "multiverse": -60,
+              "one-universe": 70,
+              "undecided": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "multiverse": -33,
+              "one-universe": 38,
+              "undecided": -16,
+              "intensity": 38
+            }
           },
           "xqu0017": {
-            "past-hypothesis-statistical-fluke": 30,
-            "fundamental-dynamical-irreversibility": 0,
-            "both-contribute": 70
+            "advocacy": {
+              "past-hypothesis-statistical-fluke": 30,
+              "fundamental-dynamical-irreversibility": 0,
+              "both-contribute": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "past-hypothesis-statistical-fluke": 16,
+              "fundamental-dynamical-irreversibility": 0,
+              "both-contribute": 38,
+              "intensity": 38
+            }
           },
           "xqu0018": {
-            "block-universe-eternalism": 10,
-            "presentism-dynamic-time": 10,
-            "growing-block": 100
+            "advocacy": {
+              "block-universe-eternalism": 10,
+              "presentism-dynamic-time": 10,
+              "growing-block": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "block-universe-eternalism": 6,
+              "presentism-dynamic-time": 6,
+              "growing-block": 55,
+              "intensity": 55
+            }
           },
           "xqu0019": {
-            "fundamental-reductionism": 0,
-            "autonomous-emergence": 40,
-            "duality-equivalence": 30
+            "advocacy": {
+              "fundamental-reductionism": 0,
+              "autonomous-emergence": 40,
+              "duality-equivalence": 30,
+              "intensity": 40
+            },
+            "receptivity": {
+              "fundamental-reductionism": 0,
+              "autonomous-emergence": 22,
+              "duality-equivalence": 16,
+              "intensity": 22
+            }
           },
           "xqu0020": {
-            "fundamental-it-from-bit": 30,
-            "derived": -10,
-            "information-as-structure": 60
+            "advocacy": {
+              "fundamental-it-from-bit": 30,
+              "derived": -10,
+              "information-as-structure": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "fundamental-it-from-bit": 16,
+              "derived": -6,
+              "information-as-structure": 33,
+              "intensity": 33
+            }
           },
           "xqu0021": {
-            "realism": -40,
-            "instrumentalism": 70,
-            "structural-realism": -10
+            "advocacy": {
+              "realism": -40,
+              "instrumentalism": 70,
+              "structural-realism": -10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "realism": -22,
+              "instrumentalism": 38,
+              "structural-realism": -6,
+              "intensity": 38
+            }
           },
           "xqu0022": {
-            "fundamental": 0,
-            "broken": 0
+            "advocacy": {
+              "fundamental": 0,
+              "broken": 0,
+              "intensity": 0
+            },
+            "receptivity": {
+              "fundamental": 0,
+              "broken": 0,
+              "intensity": 0
+            }
           },
           "xqu0023": {
-            "naturalness-dogma": 10,
-            "acceptance-of-fine-tuning": 0,
-            "naturalness-as-a-heuristic": 90
+            "advocacy": {
+              "naturalness-dogma": 10,
+              "acceptance-of-fine-tuning": 0,
+              "naturalness-as-a-heuristic": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "naturalness-dogma": 6,
+              "acceptance-of-fine-tuning": 0,
+              "naturalness-as-a-heuristic": 50,
+              "intensity": 50
+            }
           },
           "xqu0024": {
-            "accept": -20,
-            "reject": 30,
-            "weak-anthropic-only": 50
+            "advocacy": {
+              "accept": -20,
+              "reject": 30,
+              "weak-anthropic-only": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "accept": -11,
+              "reject": 16,
+              "weak-anthropic-only": 28,
+              "intensity": 28
+            }
           },
           "xqu0025": {
-            "aesthetic-structural-beauty-dirac": 0,
-            "strict-falsifiability-popper": 40
+            "advocacy": {
+              "aesthetic-structural-beauty-dirac": 0,
+              "strict-falsifiability-popper": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "aesthetic-structural-beauty-dirac": 0,
+              "strict-falsifiability-popper": 22,
+              "intensity": 22
+            }
           },
           "xqu0026": {
-            "unitary-hawking-radiation": 60,
-            "true-information-loss": -50,
-            "remnants-firewalls": 0
+            "advocacy": {
+              "unitary-hawking-radiation": 60,
+              "true-information-loss": -50,
+              "remnants-firewalls": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "unitary-hawking-radiation": 33,
+              "true-information-loss": -28,
+              "remnants-firewalls": 0,
+              "intensity": 33
+            }
           },
           "xqu0028": {
-            "discovered": -20,
-            "invented": 20,
-            "invented-then-discovered": 60
+            "advocacy": {
+              "discovered": -20,
+              "invented": 20,
+              "invented-then-discovered": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "discovered": -11,
+              "invented": 11,
+              "invented-then-discovered": 33,
+              "intensity": 33
+            }
           }
         },
         "skin": "quantacapades"
@@ -3854,128 +4078,352 @@
         "aboutMe": "The wavefunction is real and never collapses; every measurement outcome happens, each in its own branch of reality.",
         "ratings": {
           "xqu0001": {
-            "copenhagen-epistemic-orthodox": -85,
-            "many-worlds-everettian": 95,
-            "de-broglie-bohm-pilot-wave": -60,
-            "qbism-relational-quantum-mechanics-rqm": -70
+            "advocacy": {
+              "copenhagen-epistemic-orthodox": -85,
+              "many-worlds-everettian": 95,
+              "de-broglie-bohm-pilot-wave": -60,
+              "qbism-relational-quantum-mechanics-rqm": -70,
+              "intensity": 95
+            },
+            "receptivity": {
+              "copenhagen-epistemic-orthodox": -51,
+              "many-worlds-everettian": 57,
+              "de-broglie-bohm-pilot-wave": -36,
+              "qbism-relational-quantum-mechanics-rqm": -42,
+              "intensity": 57
+            }
           },
           "xqu0002": {
-            "psi-ontic": 95,
-            "psi-epistemic": -90,
-            "agnostic": -85
+            "advocacy": {
+              "psi-ontic": 95,
+              "psi-epistemic": -90,
+              "agnostic": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "psi-ontic": 57,
+              "psi-epistemic": -54,
+              "agnostic": -51,
+              "intensity": 57
+            }
           },
           "xqu0003": {
-            "collapse": -90,
-            "decoherence": 80,
-            "no-collapse": 90
+            "advocacy": {
+              "collapse": -90,
+              "decoherence": 80,
+              "no-collapse": 90,
+              "intensity": -90
+            },
+            "receptivity": {
+              "collapse": -54,
+              "decoherence": 48,
+              "no-collapse": 54,
+              "intensity": -54
+            }
           },
           "xqu0004": {
-            "strict-determinism": 80,
-            "irreducible-randomness": -70,
-            "mostly-deterministic": -50
+            "advocacy": {
+              "strict-determinism": 80,
+              "irreducible-randomness": -70,
+              "mostly-deterministic": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "strict-determinism": 48,
+              "irreducible-randomness": -42,
+              "mostly-deterministic": -30,
+              "intensity": 48
+            }
           },
           "xqu0005": {
-            "non-local-realism": -30,
-            "local-anti-realism": -50,
-            "superdeterminism-retrocausality": 80
+            "advocacy": {
+              "non-local-realism": -30,
+              "local-anti-realism": -50,
+              "superdeterminism-retrocausality": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "non-local-realism": -18,
+              "local-anti-realism": -30,
+              "superdeterminism-retrocausality": 48,
+              "intensity": 48
+            }
           },
           "xqu0007": {
-            "fundamental-spacetime": 20,
-            "emergent-spacetime": 0,
-            "partially-emergent": 80
+            "advocacy": {
+              "fundamental-spacetime": 20,
+              "emergent-spacetime": 0,
+              "partially-emergent": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "fundamental-spacetime": 12,
+              "emergent-spacetime": 0,
+              "partially-emergent": 48,
+              "intensity": 48
+            }
           },
           "xqu0009": {
-            "quantum-bounce-invariant-cutoff": 0,
-            "physical-singularity-spacetime-breakdown": 0,
-            "finite-density": 100
+            "advocacy": {
+              "quantum-bounce-invariant-cutoff": 0,
+              "physical-singularity-spacetime-breakdown": 0,
+              "finite-density": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "quantum-bounce-invariant-cutoff": 0,
+              "physical-singularity-spacetime-breakdown": 0,
+              "finite-density": 60,
+              "intensity": 60
+            }
           },
           "xqu0010": {
-            "gut": 0,
-            "eft": 0,
-            "eft-now-gut-as-horizon": 100
+            "advocacy": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 60,
+              "intensity": 60
+            }
           },
           "xqu0011": {
-            "grand-unified-ambition-toe": 0,
-            "pragmatic-effective-field-theory-eft": 0,
-            "hedged-ambition": 100
+            "advocacy": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 60,
+              "intensity": 60
+            }
           },
           "xqu0012": {
-            "big-bang": 75,
-            "cyclic": 0,
-            "steady-state": -85
+            "advocacy": {
+              "big-bang": 75,
+              "cyclic": 0,
+              "steady-state": -85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "big-bang": 45,
+              "cyclic": 0,
+              "steady-state": -51,
+              "intensity": -51
+            }
           },
           "xqu0013": {
-            "particle-dark-matter": 10,
-            "modified-gravity-mond": -10,
-            "hybrid-models": 80
+            "advocacy": {
+              "particle-dark-matter": 10,
+              "modified-gravity-mond": -10,
+              "hybrid-models": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "particle-dark-matter": 6,
+              "modified-gravity-mond": -6,
+              "hybrid-models": 48,
+              "intensity": 48
+            }
           },
           "xqu0014": {
-            "constant": 20,
-            "dynamical": -10,
-            "slowly-dynamical": 70
+            "advocacy": {
+              "constant": 20,
+              "dynamical": -10,
+              "slowly-dynamical": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "constant": 12,
+              "dynamical": -6,
+              "slowly-dynamical": 42,
+              "intensity": 42
+            }
           },
           "xqu0015": {
-            "anthropic-multiverse": 85,
-            "undiscovered-symmetry": -30,
-            "modified-cosmic-gravity": -40
+            "advocacy": {
+              "anthropic-multiverse": 85,
+              "undiscovered-symmetry": -30,
+              "modified-cosmic-gravity": -40,
+              "intensity": 85
+            },
+            "receptivity": {
+              "anthropic-multiverse": 51,
+              "undiscovered-symmetry": -18,
+              "modified-cosmic-gravity": -24,
+              "intensity": 51
+            }
           },
           "xqu0016": {
-            "multiverse": 95,
-            "one-universe": -95,
-            "undecided": -90
+            "advocacy": {
+              "multiverse": 95,
+              "one-universe": -95,
+              "undecided": -90,
+              "intensity": 95
+            },
+            "receptivity": {
+              "multiverse": 57,
+              "one-universe": -57,
+              "undecided": -54,
+              "intensity": 57
+            }
           },
           "xqu0017": {
-            "past-hypothesis-statistical-fluke": 50,
-            "fundamental-dynamical-irreversibility": -20,
-            "both-contribute": 30
+            "advocacy": {
+              "past-hypothesis-statistical-fluke": 50,
+              "fundamental-dynamical-irreversibility": -20,
+              "both-contribute": 30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "past-hypothesis-statistical-fluke": 30,
+              "fundamental-dynamical-irreversibility": -12,
+              "both-contribute": 18,
+              "intensity": 30
+            }
           },
           "xqu0018": {
-            "block-universe-eternalism": 60,
-            "presentism-dynamic-time": -50,
-            "growing-block": -10
+            "advocacy": {
+              "block-universe-eternalism": 60,
+              "presentism-dynamic-time": -50,
+              "growing-block": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "block-universe-eternalism": 36,
+              "presentism-dynamic-time": -30,
+              "growing-block": -6,
+              "intensity": 36
+            }
           },
           "xqu0019": {
-            "fundamental-reductionism": 70,
-            "autonomous-emergence": 10,
-            "duality-equivalence": 20
+            "advocacy": {
+              "fundamental-reductionism": 70,
+              "autonomous-emergence": 10,
+              "duality-equivalence": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "fundamental-reductionism": 42,
+              "autonomous-emergence": 6,
+              "duality-equivalence": 12,
+              "intensity": 42
+            }
           },
           "xqu0020": {
-            "fundamental-it-from-bit": -20,
-            "derived": 40,
-            "information-as-structure": 40
+            "advocacy": {
+              "fundamental-it-from-bit": -20,
+              "derived": 40,
+              "information-as-structure": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "fundamental-it-from-bit": -12,
+              "derived": 24,
+              "information-as-structure": 24,
+              "intensity": 24
+            }
           },
           "xqu0021": {
-            "realism": 95,
-            "instrumentalism": -90,
-            "structural-realism": -85
+            "advocacy": {
+              "realism": 95,
+              "instrumentalism": -90,
+              "structural-realism": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "realism": 57,
+              "instrumentalism": -54,
+              "structural-realism": -51,
+              "intensity": 57
+            }
           },
           "xqu0022": {
-            "fundamental": 20,
-            "broken": 0
+            "advocacy": {
+              "fundamental": 20,
+              "broken": 0,
+              "intensity": 20
+            },
+            "receptivity": {
+              "fundamental": 12,
+              "broken": 0,
+              "intensity": 12
+            }
           },
           "xqu0023": {
-            "naturalness-dogma": -40,
-            "acceptance-of-fine-tuning": 60,
-            "naturalness-as-a-heuristic": 0
+            "advocacy": {
+              "naturalness-dogma": -40,
+              "acceptance-of-fine-tuning": 60,
+              "naturalness-as-a-heuristic": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "naturalness-dogma": -24,
+              "acceptance-of-fine-tuning": 36,
+              "naturalness-as-a-heuristic": 0,
+              "intensity": 36
+            }
           },
           "xqu0024": {
-            "accept": 80,
-            "reject": -70,
-            "weak-anthropic-only": -50
+            "advocacy": {
+              "accept": 80,
+              "reject": -70,
+              "weak-anthropic-only": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "accept": 48,
+              "reject": -42,
+              "weak-anthropic-only": -30,
+              "intensity": 48
+            }
           },
           "xqu0025": {
-            "aesthetic-structural-beauty-dirac": 50,
-            "strict-falsifiability-popper": -10
+            "advocacy": {
+              "aesthetic-structural-beauty-dirac": 50,
+              "strict-falsifiability-popper": -10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "aesthetic-structural-beauty-dirac": 30,
+              "strict-falsifiability-popper": -6,
+              "intensity": 30
+            }
           },
           "xqu0026": {
-            "unitary-hawking-radiation": 90,
-            "true-information-loss": -90,
-            "remnants-firewalls": -40
+            "advocacy": {
+              "unitary-hawking-radiation": 90,
+              "true-information-loss": -90,
+              "remnants-firewalls": -40,
+              "intensity": 90
+            },
+            "receptivity": {
+              "unitary-hawking-radiation": 54,
+              "true-information-loss": -54,
+              "remnants-firewalls": -24,
+              "intensity": 54
+            }
           },
           "xqu0028": {
-            "discovered": 50,
-            "invented": -30,
-            "invented-then-discovered": 20
+            "advocacy": {
+              "discovered": 50,
+              "invented": -30,
+              "invented-then-discovered": 20,
+              "intensity": 50
+            },
+            "receptivity": {
+              "discovered": 30,
+              "invented": -18,
+              "invented-then-discovered": 12,
+              "intensity": 30
+            }
           }
         },
         "skin": "quantacapades"
@@ -4002,128 +4450,352 @@
         "aboutMe": "Particles always have definite positions, guided by a real pilot wave; quantum randomness is ignorance of initial conditions, at the price of nonlocality.",
         "ratings": {
           "xqu0001": {
-            "copenhagen-epistemic-orthodox": -70,
-            "many-worlds-everettian": -60,
-            "de-broglie-bohm-pilot-wave": 95,
-            "qbism-relational-quantum-mechanics-rqm": -60
+            "advocacy": {
+              "copenhagen-epistemic-orthodox": -70,
+              "many-worlds-everettian": -60,
+              "de-broglie-bohm-pilot-wave": 95,
+              "qbism-relational-quantum-mechanics-rqm": -60,
+              "intensity": 95
+            },
+            "receptivity": {
+              "copenhagen-epistemic-orthodox": -38,
+              "many-worlds-everettian": -33,
+              "de-broglie-bohm-pilot-wave": 52,
+              "qbism-relational-quantum-mechanics-rqm": -33,
+              "intensity": 52
+            }
           },
           "xqu0002": {
-            "psi-ontic": 95,
-            "psi-epistemic": -80,
-            "agnostic": -75
+            "advocacy": {
+              "psi-ontic": 95,
+              "psi-epistemic": -80,
+              "agnostic": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "psi-ontic": 52,
+              "psi-epistemic": -44,
+              "agnostic": -41,
+              "intensity": 52
+            }
           },
           "xqu0003": {
-            "collapse": -80,
-            "decoherence": 50,
-            "no-collapse": 80
+            "advocacy": {
+              "collapse": -80,
+              "decoherence": 50,
+              "no-collapse": 80,
+              "intensity": -80
+            },
+            "receptivity": {
+              "collapse": -44,
+              "decoherence": 28,
+              "no-collapse": 44,
+              "intensity": -44
+            }
           },
           "xqu0004": {
-            "strict-determinism": 95,
-            "irreducible-randomness": -90,
-            "mostly-deterministic": -85
+            "advocacy": {
+              "strict-determinism": 95,
+              "irreducible-randomness": -90,
+              "mostly-deterministic": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "strict-determinism": 52,
+              "irreducible-randomness": -50,
+              "mostly-deterministic": -47,
+              "intensity": 52
+            }
           },
           "xqu0005": {
-            "non-local-realism": 90,
-            "local-anti-realism": -85,
-            "superdeterminism-retrocausality": -75
+            "advocacy": {
+              "non-local-realism": 90,
+              "local-anti-realism": -85,
+              "superdeterminism-retrocausality": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "non-local-realism": 50,
+              "local-anti-realism": -47,
+              "superdeterminism-retrocausality": -41,
+              "intensity": 50
+            }
           },
           "xqu0007": {
-            "fundamental-spacetime": 60,
-            "emergent-spacetime": -40,
-            "partially-emergent": 0
+            "advocacy": {
+              "fundamental-spacetime": 60,
+              "emergent-spacetime": -40,
+              "partially-emergent": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "fundamental-spacetime": 33,
+              "emergent-spacetime": -22,
+              "partially-emergent": 0,
+              "intensity": 33
+            }
           },
           "xqu0009": {
-            "quantum-bounce-invariant-cutoff": 40,
-            "physical-singularity-spacetime-breakdown": -30,
-            "finite-density": 30
+            "advocacy": {
+              "quantum-bounce-invariant-cutoff": 40,
+              "physical-singularity-spacetime-breakdown": -30,
+              "finite-density": 30,
+              "intensity": 40
+            },
+            "receptivity": {
+              "quantum-bounce-invariant-cutoff": 22,
+              "physical-singularity-spacetime-breakdown": -16,
+              "finite-density": 16,
+              "intensity": 22
+            }
           },
           "xqu0010": {
-            "gut": 0,
-            "eft": 0,
-            "eft-now-gut-as-horizon": 100
+            "advocacy": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 55,
+              "intensity": 55
+            }
           },
           "xqu0011": {
-            "grand-unified-ambition-toe": 0,
-            "pragmatic-effective-field-theory-eft": 0,
-            "hedged-ambition": 100
+            "advocacy": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 55,
+              "intensity": 55
+            }
           },
           "xqu0012": {
-            "big-bang": 75,
-            "cyclic": 10,
-            "steady-state": -85
+            "advocacy": {
+              "big-bang": 75,
+              "cyclic": 10,
+              "steady-state": -85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "big-bang": 41,
+              "cyclic": 6,
+              "steady-state": -47,
+              "intensity": -47
+            }
           },
           "xqu0013": {
-            "particle-dark-matter": 10,
-            "modified-gravity-mond": -10,
-            "hybrid-models": 80
+            "advocacy": {
+              "particle-dark-matter": 10,
+              "modified-gravity-mond": -10,
+              "hybrid-models": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "particle-dark-matter": 6,
+              "modified-gravity-mond": -6,
+              "hybrid-models": 44,
+              "intensity": 44
+            }
           },
           "xqu0014": {
-            "constant": 20,
-            "dynamical": -10,
-            "slowly-dynamical": 70
+            "advocacy": {
+              "constant": 20,
+              "dynamical": -10,
+              "slowly-dynamical": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "constant": 11,
+              "dynamical": -6,
+              "slowly-dynamical": 38,
+              "intensity": 38
+            }
           },
           "xqu0015": {
-            "anthropic-multiverse": -40,
-            "undiscovered-symmetry": 30,
-            "modified-cosmic-gravity": 0
+            "advocacy": {
+              "anthropic-multiverse": -40,
+              "undiscovered-symmetry": 30,
+              "modified-cosmic-gravity": 0,
+              "intensity": -40
+            },
+            "receptivity": {
+              "anthropic-multiverse": -22,
+              "undiscovered-symmetry": 16,
+              "modified-cosmic-gravity": 0,
+              "intensity": -22
+            }
           },
           "xqu0016": {
-            "multiverse": -50,
-            "one-universe": 60,
-            "undecided": -10
+            "advocacy": {
+              "multiverse": -50,
+              "one-universe": 60,
+              "undecided": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "multiverse": -28,
+              "one-universe": 33,
+              "undecided": -6,
+              "intensity": 33
+            }
           },
           "xqu0017": {
-            "past-hypothesis-statistical-fluke": 40,
-            "fundamental-dynamical-irreversibility": -20,
-            "both-contribute": 40
+            "advocacy": {
+              "past-hypothesis-statistical-fluke": 40,
+              "fundamental-dynamical-irreversibility": -20,
+              "both-contribute": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "past-hypothesis-statistical-fluke": 22,
+              "fundamental-dynamical-irreversibility": -11,
+              "both-contribute": 22,
+              "intensity": 22
+            }
           },
           "xqu0018": {
-            "block-universe-eternalism": 40,
-            "presentism-dynamic-time": -20,
-            "growing-block": 40
+            "advocacy": {
+              "block-universe-eternalism": 40,
+              "presentism-dynamic-time": -20,
+              "growing-block": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "block-universe-eternalism": 22,
+              "presentism-dynamic-time": -11,
+              "growing-block": 22,
+              "intensity": 22
+            }
           },
           "xqu0019": {
-            "fundamental-reductionism": 60,
-            "autonomous-emergence": 0,
-            "duality-equivalence": 10
+            "advocacy": {
+              "fundamental-reductionism": 60,
+              "autonomous-emergence": 0,
+              "duality-equivalence": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "fundamental-reductionism": 33,
+              "autonomous-emergence": 0,
+              "duality-equivalence": 6,
+              "intensity": 33
+            }
           },
           "xqu0020": {
-            "fundamental-it-from-bit": -40,
-            "derived": 50,
-            "information-as-structure": 10
+            "advocacy": {
+              "fundamental-it-from-bit": -40,
+              "derived": 50,
+              "information-as-structure": 10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "fundamental-it-from-bit": -22,
+              "derived": 28,
+              "information-as-structure": 6,
+              "intensity": 28
+            }
           },
           "xqu0021": {
-            "realism": 95,
-            "instrumentalism": -85,
-            "structural-realism": -80
+            "advocacy": {
+              "realism": 95,
+              "instrumentalism": -85,
+              "structural-realism": -80,
+              "intensity": 95
+            },
+            "receptivity": {
+              "realism": 52,
+              "instrumentalism": -47,
+              "structural-realism": -44,
+              "intensity": 52
+            }
           },
           "xqu0022": {
-            "fundamental": 10,
-            "broken": 0
+            "advocacy": {
+              "fundamental": 10,
+              "broken": 0,
+              "intensity": 10
+            },
+            "receptivity": {
+              "fundamental": 6,
+              "broken": 0,
+              "intensity": 6
+            }
           },
           "xqu0023": {
-            "naturalness-dogma": 0,
-            "acceptance-of-fine-tuning": 0,
-            "naturalness-as-a-heuristic": 100
+            "advocacy": {
+              "naturalness-dogma": 0,
+              "acceptance-of-fine-tuning": 0,
+              "naturalness-as-a-heuristic": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "naturalness-dogma": 0,
+              "acceptance-of-fine-tuning": 0,
+              "naturalness-as-a-heuristic": 55,
+              "intensity": 55
+            }
           },
           "xqu0024": {
-            "accept": -20,
-            "reject": 20,
-            "weak-anthropic-only": 60
+            "advocacy": {
+              "accept": -20,
+              "reject": 20,
+              "weak-anthropic-only": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "accept": -11,
+              "reject": 11,
+              "weak-anthropic-only": 33,
+              "intensity": 33
+            }
           },
           "xqu0025": {
-            "aesthetic-structural-beauty-dirac": 30,
-            "strict-falsifiability-popper": 20
+            "advocacy": {
+              "aesthetic-structural-beauty-dirac": 30,
+              "strict-falsifiability-popper": 20,
+              "intensity": 30
+            },
+            "receptivity": {
+              "aesthetic-structural-beauty-dirac": 16,
+              "strict-falsifiability-popper": 11,
+              "intensity": 16
+            }
           },
           "xqu0026": {
-            "unitary-hawking-radiation": 70,
-            "true-information-loss": -70,
-            "remnants-firewalls": -20
+            "advocacy": {
+              "unitary-hawking-radiation": 70,
+              "true-information-loss": -70,
+              "remnants-firewalls": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "unitary-hawking-radiation": 38,
+              "true-information-loss": -38,
+              "remnants-firewalls": -11,
+              "intensity": 38
+            }
           },
           "xqu0028": {
-            "discovered": 30,
-            "invented": -10,
-            "invented-then-discovered": 60
+            "advocacy": {
+              "discovered": 30,
+              "invented": -10,
+              "invented-then-discovered": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "discovered": 16,
+              "invented": -6,
+              "invented-then-discovered": 33,
+              "intensity": 33
+            }
           }
         },
         "skin": "quantacapades"
@@ -4150,128 +4822,352 @@
         "aboutMe": "Quantum probabilities are personal degrees of belief; the theory is a user's manual for agents betting on their own future experiences.",
         "ratings": {
           "xqu0001": {
-            "copenhagen-epistemic-orthodox": -30,
-            "many-worlds-everettian": -75,
-            "de-broglie-bohm-pilot-wave": -70,
-            "qbism-relational-quantum-mechanics-rqm": 95
+            "advocacy": {
+              "copenhagen-epistemic-orthodox": -30,
+              "many-worlds-everettian": -75,
+              "de-broglie-bohm-pilot-wave": -70,
+              "qbism-relational-quantum-mechanics-rqm": 95,
+              "intensity": 95
+            },
+            "receptivity": {
+              "copenhagen-epistemic-orthodox": -22,
+              "many-worlds-everettian": -56,
+              "de-broglie-bohm-pilot-wave": -52,
+              "qbism-relational-quantum-mechanics-rqm": 71,
+              "intensity": 71
+            }
           },
           "xqu0002": {
-            "psi-ontic": -95,
-            "psi-epistemic": 95,
-            "agnostic": -90
+            "advocacy": {
+              "psi-ontic": -95,
+              "psi-epistemic": 95,
+              "agnostic": -90,
+              "intensity": -95
+            },
+            "receptivity": {
+              "psi-ontic": -71,
+              "psi-epistemic": 71,
+              "agnostic": -68,
+              "intensity": -71
+            }
           },
           "xqu0003": {
-            "collapse": -30,
-            "decoherence": 20,
-            "no-collapse": 60
+            "advocacy": {
+              "collapse": -30,
+              "decoherence": 20,
+              "no-collapse": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "collapse": -22,
+              "decoherence": 15,
+              "no-collapse": 45,
+              "intensity": 45
+            }
           },
           "xqu0004": {
-            "strict-determinism": -60,
-            "irreducible-randomness": 70,
-            "mostly-deterministic": -30
+            "advocacy": {
+              "strict-determinism": -60,
+              "irreducible-randomness": 70,
+              "mostly-deterministic": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "strict-determinism": -45,
+              "irreducible-randomness": 52,
+              "mostly-deterministic": -22,
+              "intensity": 52
+            }
           },
           "xqu0005": {
-            "non-local-realism": -70,
-            "local-anti-realism": 80,
-            "superdeterminism-retrocausality": -50
+            "advocacy": {
+              "non-local-realism": -70,
+              "local-anti-realism": 80,
+              "superdeterminism-retrocausality": -50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "non-local-realism": -52,
+              "local-anti-realism": 60,
+              "superdeterminism-retrocausality": -38,
+              "intensity": 60
+            }
           },
           "xqu0007": {
-            "fundamental-spacetime": -20,
-            "emergent-spacetime": 30,
-            "partially-emergent": 50
+            "advocacy": {
+              "fundamental-spacetime": -20,
+              "emergent-spacetime": 30,
+              "partially-emergent": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "fundamental-spacetime": -15,
+              "emergent-spacetime": 22,
+              "partially-emergent": 38,
+              "intensity": 38
+            }
           },
           "xqu0009": {
-            "quantum-bounce-invariant-cutoff": 0,
-            "physical-singularity-spacetime-breakdown": 0,
-            "finite-density": 100
+            "advocacy": {
+              "quantum-bounce-invariant-cutoff": 0,
+              "physical-singularity-spacetime-breakdown": 0,
+              "finite-density": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "quantum-bounce-invariant-cutoff": 0,
+              "physical-singularity-spacetime-breakdown": 0,
+              "finite-density": 75,
+              "intensity": 75
+            }
           },
           "xqu0010": {
-            "gut": 0,
-            "eft": 0,
-            "eft-now-gut-as-horizon": 100
+            "advocacy": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "gut": 0,
+              "eft": 0,
+              "eft-now-gut-as-horizon": 75,
+              "intensity": 75
+            }
           },
           "xqu0011": {
-            "grand-unified-ambition-toe": 0,
-            "pragmatic-effective-field-theory-eft": 0,
-            "hedged-ambition": 100
+            "advocacy": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "grand-unified-ambition-toe": 0,
+              "pragmatic-effective-field-theory-eft": 0,
+              "hedged-ambition": 75,
+              "intensity": 75
+            }
           },
           "xqu0012": {
-            "big-bang": 75,
-            "cyclic": 0,
-            "steady-state": -85
+            "advocacy": {
+              "big-bang": 75,
+              "cyclic": 0,
+              "steady-state": -85,
+              "intensity": -85
+            },
+            "receptivity": {
+              "big-bang": 56,
+              "cyclic": 0,
+              "steady-state": -64,
+              "intensity": -64
+            }
           },
           "xqu0013": {
-            "particle-dark-matter": 10,
-            "modified-gravity-mond": -10,
-            "hybrid-models": 80
+            "advocacy": {
+              "particle-dark-matter": 10,
+              "modified-gravity-mond": -10,
+              "hybrid-models": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "particle-dark-matter": 8,
+              "modified-gravity-mond": -8,
+              "hybrid-models": 60,
+              "intensity": 60
+            }
           },
           "xqu0014": {
-            "constant": 20,
-            "dynamical": -10,
-            "slowly-dynamical": 70
+            "advocacy": {
+              "constant": 20,
+              "dynamical": -10,
+              "slowly-dynamical": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "constant": 15,
+              "dynamical": -8,
+              "slowly-dynamical": 52,
+              "intensity": 52
+            }
           },
           "xqu0015": {
-            "anthropic-multiverse": -50,
-            "undiscovered-symmetry": 30,
-            "modified-cosmic-gravity": 0
+            "advocacy": {
+              "anthropic-multiverse": -50,
+              "undiscovered-symmetry": 30,
+              "modified-cosmic-gravity": 0,
+              "intensity": -50
+            },
+            "receptivity": {
+              "anthropic-multiverse": -38,
+              "undiscovered-symmetry": 22,
+              "modified-cosmic-gravity": 0,
+              "intensity": -38
+            }
           },
           "xqu0016": {
-            "multiverse": -70,
-            "one-universe": 75,
-            "undecided": -45
+            "advocacy": {
+              "multiverse": -70,
+              "one-universe": 75,
+              "undecided": -45,
+              "intensity": 75
+            },
+            "receptivity": {
+              "multiverse": -52,
+              "one-universe": 56,
+              "undecided": -34,
+              "intensity": 56
+            }
           },
           "xqu0017": {
-            "past-hypothesis-statistical-fluke": 10,
-            "fundamental-dynamical-irreversibility": 0,
-            "both-contribute": 90
+            "advocacy": {
+              "past-hypothesis-statistical-fluke": 10,
+              "fundamental-dynamical-irreversibility": 0,
+              "both-contribute": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "past-hypothesis-statistical-fluke": 8,
+              "fundamental-dynamical-irreversibility": 0,
+              "both-contribute": 68,
+              "intensity": 68
+            }
           },
           "xqu0018": {
-            "block-universe-eternalism": -30,
-            "presentism-dynamic-time": 40,
-            "growing-block": 30
+            "advocacy": {
+              "block-universe-eternalism": -30,
+              "presentism-dynamic-time": 40,
+              "growing-block": 30,
+              "intensity": 40
+            },
+            "receptivity": {
+              "block-universe-eternalism": -22,
+              "presentism-dynamic-time": 30,
+              "growing-block": 22,
+              "intensity": 30
+            }
           },
           "xqu0019": {
-            "fundamental-reductionism": -50,
-            "autonomous-emergence": 50,
-            "duality-equivalence": 10
+            "advocacy": {
+              "fundamental-reductionism": -50,
+              "autonomous-emergence": 50,
+              "duality-equivalence": 10,
+              "intensity": -50
+            },
+            "receptivity": {
+              "fundamental-reductionism": -38,
+              "autonomous-emergence": 38,
+              "duality-equivalence": 8,
+              "intensity": -38
+            }
           },
           "xqu0020": {
-            "fundamental-it-from-bit": 90,
-            "derived": -80,
-            "information-as-structure": -70
+            "advocacy": {
+              "fundamental-it-from-bit": 90,
+              "derived": -80,
+              "information-as-structure": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "fundamental-it-from-bit": 68,
+              "derived": -60,
+              "information-as-structure": -52,
+              "intensity": 68
+            }
           },
           "xqu0021": {
-            "realism": -85,
-            "instrumentalism": 85,
-            "structural-realism": -70
+            "advocacy": {
+              "realism": -85,
+              "instrumentalism": 85,
+              "structural-realism": -70,
+              "intensity": -85
+            },
+            "receptivity": {
+              "realism": -64,
+              "instrumentalism": 64,
+              "structural-realism": -52,
+              "intensity": -64
+            }
           },
           "xqu0022": {
-            "fundamental": 0,
-            "broken": 0
+            "advocacy": {
+              "fundamental": 0,
+              "broken": 0,
+              "intensity": 0
+            },
+            "receptivity": {
+              "fundamental": 0,
+              "broken": 0,
+              "intensity": 0
+            }
           },
           "xqu0023": {
-            "naturalness-dogma": 0,
-            "acceptance-of-fine-tuning": 0,
-            "naturalness-as-a-heuristic": 100
+            "advocacy": {
+              "naturalness-dogma": 0,
+              "acceptance-of-fine-tuning": 0,
+              "naturalness-as-a-heuristic": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "naturalness-dogma": 0,
+              "acceptance-of-fine-tuning": 0,
+              "naturalness-as-a-heuristic": 75,
+              "intensity": 75
+            }
           },
           "xqu0024": {
-            "accept": -30,
-            "reject": 30,
-            "weak-anthropic-only": 40
+            "advocacy": {
+              "accept": -30,
+              "reject": 30,
+              "weak-anthropic-only": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "accept": -22,
+              "reject": 22,
+              "weak-anthropic-only": 30,
+              "intensity": 30
+            }
           },
           "xqu0025": {
-            "aesthetic-structural-beauty-dirac": -10,
-            "strict-falsifiability-popper": 30
+            "advocacy": {
+              "aesthetic-structural-beauty-dirac": -10,
+              "strict-falsifiability-popper": 30,
+              "intensity": 30
+            },
+            "receptivity": {
+              "aesthetic-structural-beauty-dirac": -8,
+              "strict-falsifiability-popper": 22,
+              "intensity": 22
+            }
           },
           "xqu0026": {
-            "unitary-hawking-radiation": 40,
-            "true-information-loss": -40,
-            "remnants-firewalls": 0
+            "advocacy": {
+              "unitary-hawking-radiation": 40,
+              "true-information-loss": -40,
+              "remnants-firewalls": 0,
+              "intensity": 40
+            },
+            "receptivity": {
+              "unitary-hawking-radiation": 30,
+              "true-information-loss": -30,
+              "remnants-firewalls": 0,
+              "intensity": 30
+            }
           },
           "xqu0028": {
-            "discovered": -20,
-            "invented": 30,
-            "invented-then-discovered": 50
+            "advocacy": {
+              "discovered": -20,
+              "invented": 30,
+              "invented-then-discovered": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "discovered": -15,
+              "invented": 22,
+              "invented-then-discovered": 38,
+              "intensity": 38
+            }
           }
         },
         "skin": "quantacapades"

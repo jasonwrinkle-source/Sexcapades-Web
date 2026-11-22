@@ -3076,91 +3076,246 @@
         "aboutMe": "Build faster: intelligence compounds, abundance follows, and slowing down only delays the future.",
         "ratings": {
           "xte0001": {
-            "post-scarcity-flourishing": 90,
-            "corporate-algorithmic-feudalism": -20,
-            "labor-cognitive-atrophy": -50,
-            "existential-misalignment": -60,
-            "epistemic-fragmentation": -30
+            "advocacy": {
+              "post-scarcity-flourishing": 90,
+              "corporate-algorithmic-feudalism": -20,
+              "labor-cognitive-atrophy": -50,
+              "existential-misalignment": -60,
+              "epistemic-fragmentation": -30,
+              "intensity": 90
+            },
+            "receptivity": {
+              "post-scarcity-flourishing": 45,
+              "corporate-algorithmic-feudalism": -10,
+              "labor-cognitive-atrophy": -25,
+              "existential-misalignment": -30,
+              "epistemic-fragmentation": -15,
+              "intensity": 45
+            }
           },
           "xte0002": {
-            "tool": -30,
-            "agent": 80,
-            "supervised-agent": -10
+            "advocacy": {
+              "tool": -30,
+              "agent": 80,
+              "supervised-agent": -10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "tool": -15,
+              "agent": 40,
+              "supervised-agent": -5,
+              "intensity": 40
+            }
           },
           "xte0003": {
-            "open-source-decentralized": 60,
-            "guarded-moats-frontier-containment": -60,
-            "structured-access": -20
+            "advocacy": {
+              "open-source-decentralized": 60,
+              "guarded-moats-frontier-containment": -60,
+              "structured-access": -20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "open-source-decentralized": 30,
+              "guarded-moats-frontier-containment": -30,
+              "structured-access": -10,
+              "intensity": 30
+            }
           },
           "xte0004": {
-            "privacy": 10,
-            "convenience": 70,
-            "selective-sharing": 40
+            "advocacy": {
+              "privacy": 10,
+              "convenience": 70,
+              "selective-sharing": 40,
+              "intensity": 70
+            },
+            "receptivity": {
+              "privacy": 5,
+              "convenience": 35,
+              "selective-sharing": 20,
+              "intensity": 35
+            }
           },
           "xte0005": {
-            "trust": 50,
-            "distrust": -40,
-            "company-by-company": 10
+            "advocacy": {
+              "trust": 50,
+              "distrust": -40,
+              "company-by-company": 10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "trust": 25,
+              "distrust": -20,
+              "company-by-company": 5,
+              "intensity": 25
+            }
           },
           "xte0006": {
-            "safety": -20,
-            "freedom": 70,
-            "proportionality": 10
+            "advocacy": {
+              "safety": -20,
+              "freedom": 70,
+              "proportionality": 10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "safety": -10,
+              "freedom": 35,
+              "proportionality": 5,
+              "intensity": 35
+            }
           },
           "xte0007": {
-            "sovereign-computing": -20,
-            "managed-cloud": 60,
-            "self-host-the-critical-parts": 20
+            "advocacy": {
+              "sovereign-computing": -20,
+              "managed-cloud": 60,
+              "self-host-the-critical-parts": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "sovereign-computing": -10,
+              "managed-cloud": 30,
+              "self-host-the-critical-parts": 10,
+              "intensity": 30
+            }
           },
           "xte0008": {
-            "screen-light": -60,
-            "screen-heavy": 80,
-            "screen-deliberate": -40
+            "advocacy": {
+              "screen-light": -60,
+              "screen-heavy": 80,
+              "screen-deliberate": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "screen-light": -30,
+              "screen-heavy": 40,
+              "screen-deliberate": -20,
+              "intensity": 40
+            }
           },
           "xte0009": {
-            "all-on": 70,
-            "all-off": -60,
-            "digest": -30
+            "advocacy": {
+              "all-on": 70,
+              "all-off": -60,
+              "digest": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "all-on": 35,
+              "all-off": -30,
+              "digest": -15,
+              "intensity": 35
+            }
           },
           "xte0010": {
-            "detox-regularly": -70,
-            "detox-occasionally": 0,
-            "never-detox": 80
+            "advocacy": {
+              "detox-regularly": -70,
+              "detox-occasionally": 0,
+              "never-detox": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "detox-regularly": -35,
+              "detox-occasionally": 0,
+              "never-detox": 40,
+              "intensity": 40
+            }
           },
           "xte0011": {
-            "love": 70,
-            "tolerate": 30,
-            "hate": -80
+            "advocacy": {
+              "love": 70,
+              "tolerate": 30,
+              "hate": -80,
+              "intensity": -80
+            },
+            "receptivity": {
+              "love": 35,
+              "tolerate": 15,
+              "hate": -40,
+              "intensity": -40
+            }
           },
           "xte0012": {
-            "online-connection": 70,
-            "in-person-connection": 20,
-            "hybrid-social-life": 50
+            "advocacy": {
+              "online-connection": 70,
+              "in-person-connection": 20,
+              "hybrid-social-life": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "online-connection": 35,
+              "in-person-connection": 10,
+              "hybrid-social-life": 25,
+              "intensity": 35
+            }
           },
           "xte0013": {
-            "poster": 60,
-            "lurker": -20,
-            "occasional-contributor": 20
+            "advocacy": {
+              "poster": 60,
+              "lurker": -20,
+              "occasional-contributor": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "poster": 30,
+              "lurker": -10,
+              "occasional-contributor": 10,
+              "intensity": 30
+            }
           },
           "xte0014": {
-            "embrace-synthetic-bonds": 80,
-            "human-exclusivity": -60,
-            "companionship-without-intimacy": -40
+            "advocacy": {
+              "embrace-synthetic-bonds": 80,
+              "human-exclusivity": -60,
+              "companionship-without-intimacy": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "embrace-synthetic-bonds": 40,
+              "human-exclusivity": -30,
+              "companionship-without-intimacy": -20,
+              "intensity": 40
+            }
           },
           "xte0018": {
-            "job-loss": -40,
-            "liberation": 85,
-            "displacement-with-transition": -25
+            "advocacy": {
+              "job-loss": -40,
+              "liberation": 85,
+              "displacement-with-transition": -25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "job-loss": -20,
+              "liberation": 42,
+              "displacement-with-transition": -12,
+              "intensity": 42
+            }
           },
           "xte0019": {
-            "embrace-enhancement": 85,
-            "cautious-augmentation": 20,
-            "reject-enhancement": -80
+            "advocacy": {
+              "embrace-enhancement": 85,
+              "cautious-augmentation": 20,
+              "reject-enhancement": -80,
+              "intensity": 85
+            },
+            "receptivity": {
+              "embrace-enhancement": 42,
+              "cautious-augmentation": 10,
+              "reject-enhancement": -40,
+              "intensity": 42
+            }
           },
           "xte0020": {
-            "accelerate": 95,
-            "decelerate": -90,
-            "differential-pace": -85
+            "advocacy": {
+              "accelerate": 95,
+              "decelerate": -90,
+              "differential-pace": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "accelerate": 48,
+              "decelerate": -45,
+              "differential-pace": -42,
+              "intensity": 48
+            }
           }
         },
         "skin": "techcapades"
@@ -3191,86 +3346,232 @@
         "aboutMe": "Slow down and prove it safe: powerful AI is the highest-stakes engineering problem ever, and caution is not Luddism.",
         "ratings": {
           "xte0001": {
-            "post-scarcity-flourishing": 20,
-            "corporate-algorithmic-feudalism": 40,
-            "labor-cognitive-atrophy": 60,
-            "existential-misalignment": 90,
-            "epistemic-fragmentation": 70
+            "advocacy": {
+              "post-scarcity-flourishing": 20,
+              "corporate-algorithmic-feudalism": 40,
+              "labor-cognitive-atrophy": 60,
+              "existential-misalignment": 90,
+              "epistemic-fragmentation": 70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "post-scarcity-flourishing": 12,
+              "corporate-algorithmic-feudalism": 24,
+              "labor-cognitive-atrophy": 36,
+              "existential-misalignment": 54,
+              "epistemic-fragmentation": 42,
+              "intensity": 54
+            }
           },
           "xte0002": {
-            "tool": 70,
-            "agent": -60,
-            "supervised-agent": -30
+            "advocacy": {
+              "tool": 70,
+              "agent": -60,
+              "supervised-agent": -30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "tool": 42,
+              "agent": -36,
+              "supervised-agent": -18,
+              "intensity": 42
+            }
           },
           "xte0003": {
-            "open-source-decentralized": -40,
-            "guarded-moats-frontier-containment": 80,
-            "structured-access": -20
+            "advocacy": {
+              "open-source-decentralized": -40,
+              "guarded-moats-frontier-containment": 80,
+              "structured-access": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "open-source-decentralized": -24,
+              "guarded-moats-frontier-containment": 48,
+              "structured-access": -12,
+              "intensity": 48
+            }
           },
           "xte0004": {
-            "privacy": 60,
-            "convenience": 0,
-            "selective-sharing": 40
+            "advocacy": {
+              "privacy": 60,
+              "convenience": 0,
+              "selective-sharing": 40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "privacy": 36,
+              "convenience": 0,
+              "selective-sharing": 24,
+              "intensity": 36
+            }
           },
           "xte0005": {
-            "trust": -30,
-            "distrust": 60,
-            "company-by-company": 10
+            "advocacy": {
+              "trust": -30,
+              "distrust": 60,
+              "company-by-company": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "trust": -18,
+              "distrust": 36,
+              "company-by-company": 6,
+              "intensity": 36
+            }
           },
           "xte0006": {
-            "safety": 90,
-            "freedom": -20,
-            "proportionality": -10
+            "advocacy": {
+              "safety": 90,
+              "freedom": -20,
+              "proportionality": -10,
+              "intensity": 90
+            },
+            "receptivity": {
+              "safety": 54,
+              "freedom": -12,
+              "proportionality": -6,
+              "intensity": 54
+            }
           },
           "xte0007": {
-            "sovereign-computing": 30,
-            "managed-cloud": 20,
-            "self-host-the-critical-parts": 90
+            "advocacy": {
+              "sovereign-computing": 30,
+              "managed-cloud": 20,
+              "self-host-the-critical-parts": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "sovereign-computing": 18,
+              "managed-cloud": 12,
+              "self-host-the-critical-parts": 54,
+              "intensity": 54
+            }
           },
           "xte0008": {
-            "screen-light": 30,
-            "screen-heavy": 0,
-            "screen-deliberate": 70
+            "advocacy": {
+              "screen-light": 30,
+              "screen-heavy": 0,
+              "screen-deliberate": 70,
+              "intensity": 70
+            },
+            "receptivity": {
+              "screen-light": 18,
+              "screen-heavy": 0,
+              "screen-deliberate": 42,
+              "intensity": 42
+            }
           },
           "xte0010": {
-            "detox-regularly": 40,
-            "detox-occasionally": 50,
-            "never-detox": -30
+            "advocacy": {
+              "detox-regularly": 40,
+              "detox-occasionally": 50,
+              "never-detox": -30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "detox-regularly": 24,
+              "detox-occasionally": 30,
+              "never-detox": -18,
+              "intensity": 30
+            }
           },
           "xte0011": {
-            "love": -30,
-            "tolerate": 50,
-            "hate": 20
+            "advocacy": {
+              "love": -30,
+              "tolerate": 50,
+              "hate": 20,
+              "intensity": 50
+            },
+            "receptivity": {
+              "love": -18,
+              "tolerate": 30,
+              "hate": 12,
+              "intensity": 30
+            }
           },
           "xte0014": {
-            "embrace-synthetic-bonds": -50,
-            "human-exclusivity": 70,
-            "companionship-without-intimacy": -20
+            "advocacy": {
+              "embrace-synthetic-bonds": -50,
+              "human-exclusivity": 70,
+              "companionship-without-intimacy": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "embrace-synthetic-bonds": -30,
+              "human-exclusivity": 42,
+              "companionship-without-intimacy": -12,
+              "intensity": 42
+            }
           },
           "xte0015": {
-            "anonymous": 30,
-            "real-identity": 40,
-            "persistent-pseudonym": 90
+            "advocacy": {
+              "anonymous": 30,
+              "real-identity": 40,
+              "persistent-pseudonym": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "anonymous": 18,
+              "real-identity": 24,
+              "persistent-pseudonym": 54,
+              "intensity": 54
+            }
           },
           "xte0017": {
-            "erase": 40,
-            "archive": 30,
-            "curated-legacy": 90
+            "advocacy": {
+              "erase": 40,
+              "archive": 30,
+              "curated-legacy": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "erase": 24,
+              "archive": 18,
+              "curated-legacy": 54,
+              "intensity": 54
+            }
           },
           "xte0018": {
-            "job-loss": 60,
-            "liberation": -20,
-            "displacement-with-transition": 20
+            "advocacy": {
+              "job-loss": 60,
+              "liberation": -20,
+              "displacement-with-transition": 20,
+              "intensity": 60
+            },
+            "receptivity": {
+              "job-loss": 36,
+              "liberation": -12,
+              "displacement-with-transition": 12,
+              "intensity": 36
+            }
           },
           "xte0019": {
-            "embrace-enhancement": -40,
-            "cautious-augmentation": 80,
-            "reject-enhancement": 20
+            "advocacy": {
+              "embrace-enhancement": -40,
+              "cautious-augmentation": 80,
+              "reject-enhancement": 20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "embrace-enhancement": -24,
+              "cautious-augmentation": 48,
+              "reject-enhancement": 12,
+              "intensity": 48
+            }
           },
           "xte0020": {
-            "accelerate": -85,
-            "decelerate": 90,
-            "differential-pace": -75
+            "advocacy": {
+              "accelerate": -85,
+              "decelerate": 90,
+              "differential-pace": -75,
+              "intensity": 90
+            },
+            "receptivity": {
+              "accelerate": -51,
+              "decelerate": 54,
+              "differential-pace": -45,
+              "intensity": 54
+            }
           }
         },
         "skin": "techcapades"
@@ -3297,91 +3598,246 @@
         "aboutMe": "Your data is yours: privacy first, sovereign computing, and no trust without verification.",
         "ratings": {
           "xte0001": {
-            "post-scarcity-flourishing": 0,
-            "corporate-algorithmic-feudalism": 80,
-            "labor-cognitive-atrophy": 40,
-            "existential-misalignment": 30,
-            "epistemic-fragmentation": 50
+            "advocacy": {
+              "post-scarcity-flourishing": 0,
+              "corporate-algorithmic-feudalism": 80,
+              "labor-cognitive-atrophy": 40,
+              "existential-misalignment": 30,
+              "epistemic-fragmentation": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "post-scarcity-flourishing": 0,
+              "corporate-algorithmic-feudalism": 44,
+              "labor-cognitive-atrophy": 22,
+              "existential-misalignment": 16,
+              "epistemic-fragmentation": 28,
+              "intensity": 44
+            }
           },
           "xte0002": {
-            "tool": 60,
-            "agent": -30,
-            "supervised-agent": 10
+            "advocacy": {
+              "tool": 60,
+              "agent": -30,
+              "supervised-agent": 10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "tool": 33,
+              "agent": -16,
+              "supervised-agent": 6,
+              "intensity": 33
+            }
           },
           "xte0003": {
-            "open-source-decentralized": 85,
-            "guarded-moats-frontier-containment": -20,
-            "structured-access": -5
+            "advocacy": {
+              "open-source-decentralized": 85,
+              "guarded-moats-frontier-containment": -20,
+              "structured-access": -5,
+              "intensity": 85
+            },
+            "receptivity": {
+              "open-source-decentralized": 47,
+              "guarded-moats-frontier-containment": -11,
+              "structured-access": -3,
+              "intensity": 47
+            }
           },
           "xte0004": {
-            "privacy": 95,
-            "convenience": -70,
-            "selective-sharing": -65
+            "advocacy": {
+              "privacy": 95,
+              "convenience": -70,
+              "selective-sharing": -65,
+              "intensity": 95
+            },
+            "receptivity": {
+              "privacy": 52,
+              "convenience": -38,
+              "selective-sharing": -36,
+              "intensity": 52
+            }
           },
           "xte0005": {
-            "trust": -80,
-            "distrust": 90,
-            "company-by-company": -70
+            "advocacy": {
+              "trust": -80,
+              "distrust": 90,
+              "company-by-company": -70,
+              "intensity": 90
+            },
+            "receptivity": {
+              "trust": -44,
+              "distrust": 50,
+              "company-by-company": -38,
+              "intensity": 50
+            }
           },
           "xte0006": {
-            "safety": 30,
-            "freedom": 80,
-            "proportionality": 50
+            "advocacy": {
+              "safety": 30,
+              "freedom": 80,
+              "proportionality": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "safety": 16,
+              "freedom": 44,
+              "proportionality": 28,
+              "intensity": 44
+            }
           },
           "xte0007": {
-            "sovereign-computing": 95,
-            "managed-cloud": -80,
-            "self-host-the-critical-parts": -75
+            "advocacy": {
+              "sovereign-computing": 95,
+              "managed-cloud": -80,
+              "self-host-the-critical-parts": -75,
+              "intensity": 95
+            },
+            "receptivity": {
+              "sovereign-computing": 52,
+              "managed-cloud": -44,
+              "self-host-the-critical-parts": -41,
+              "intensity": 52
+            }
           },
           "xte0008": {
-            "screen-light": 50,
-            "screen-heavy": -20,
-            "screen-deliberate": 30
+            "advocacy": {
+              "screen-light": 50,
+              "screen-heavy": -20,
+              "screen-deliberate": 30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "screen-light": 28,
+              "screen-heavy": -11,
+              "screen-deliberate": 16,
+              "intensity": 28
+            }
           },
           "xte0009": {
-            "all-on": -80,
-            "all-off": 85,
-            "digest": -65
+            "advocacy": {
+              "all-on": -80,
+              "all-off": 85,
+              "digest": -65,
+              "intensity": 85
+            },
+            "receptivity": {
+              "all-on": -44,
+              "all-off": 47,
+              "digest": -36,
+              "intensity": 47
+            }
           },
           "xte0010": {
-            "detox-regularly": 60,
-            "detox-occasionally": 40,
-            "never-detox": -60
+            "advocacy": {
+              "detox-regularly": 60,
+              "detox-occasionally": 40,
+              "never-detox": -60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "detox-regularly": 33,
+              "detox-occasionally": 22,
+              "never-detox": -33,
+              "intensity": 33
+            }
           },
           "xte0011": {
-            "love": -60,
-            "tolerate": 20,
-            "hate": 60
+            "advocacy": {
+              "love": -60,
+              "tolerate": 20,
+              "hate": 60,
+              "intensity": -60
+            },
+            "receptivity": {
+              "love": -33,
+              "tolerate": 11,
+              "hate": 33,
+              "intensity": -33
+            }
           },
           "xte0012": {
-            "online-connection": 20,
-            "in-person-connection": 70,
-            "hybrid-social-life": 50
+            "advocacy": {
+              "online-connection": 20,
+              "in-person-connection": 70,
+              "hybrid-social-life": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "online-connection": 11,
+              "in-person-connection": 38,
+              "hybrid-social-life": 28,
+              "intensity": 38
+            }
           },
           "xte0013": {
-            "poster": -60,
-            "lurker": 80,
-            "occasional-contributor": -40
+            "advocacy": {
+              "poster": -60,
+              "lurker": 80,
+              "occasional-contributor": -40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "poster": -33,
+              "lurker": 44,
+              "occasional-contributor": -22,
+              "intensity": 44
+            }
           },
           "xte0015": {
-            "anonymous": 90,
-            "real-identity": -70,
-            "persistent-pseudonym": -60
+            "advocacy": {
+              "anonymous": 90,
+              "real-identity": -70,
+              "persistent-pseudonym": -60,
+              "intensity": 90
+            },
+            "receptivity": {
+              "anonymous": 50,
+              "real-identity": -38,
+              "persistent-pseudonym": -33,
+              "intensity": 50
+            }
           },
           "xte0016": {
-            "curated": -40,
-            "authentic": 70,
-            "lightly-edited-honesty": -10
+            "advocacy": {
+              "curated": -40,
+              "authentic": 70,
+              "lightly-edited-honesty": -10,
+              "intensity": 70
+            },
+            "receptivity": {
+              "curated": -22,
+              "authentic": 38,
+              "lightly-edited-honesty": -6,
+              "intensity": 38
+            }
           },
           "xte0017": {
-            "erase": 85,
-            "archive": -40,
-            "curated-legacy": -25
+            "advocacy": {
+              "erase": 85,
+              "archive": -40,
+              "curated-legacy": -25,
+              "intensity": 85
+            },
+            "receptivity": {
+              "erase": 47,
+              "archive": -22,
+              "curated-legacy": -14,
+              "intensity": 47
+            }
           },
           "xte0020": {
-            "accelerate": -40,
-            "decelerate": 50,
-            "differential-pace": 10
+            "advocacy": {
+              "accelerate": -40,
+              "decelerate": 50,
+              "differential-pace": 10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "accelerate": -22,
+              "decelerate": 28,
+              "differential-pace": 6,
+              "intensity": 28
+            }
           }
         },
         "skin": "techcapades"
@@ -3412,86 +3868,232 @@
         "aboutMe": "Code belongs to everyone: open weights, open tools, and shared infrastructure beat any moat.",
         "ratings": {
           "xte0001": {
-            "post-scarcity-flourishing": 70,
-            "corporate-algorithmic-feudalism": -70,
-            "labor-cognitive-atrophy": 0,
-            "existential-misalignment": -20,
-            "epistemic-fragmentation": 20
+            "advocacy": {
+              "post-scarcity-flourishing": 70,
+              "corporate-algorithmic-feudalism": -70,
+              "labor-cognitive-atrophy": 0,
+              "existential-misalignment": -20,
+              "epistemic-fragmentation": 20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "post-scarcity-flourishing": 49,
+              "corporate-algorithmic-feudalism": -49,
+              "labor-cognitive-atrophy": 0,
+              "existential-misalignment": -14,
+              "epistemic-fragmentation": 14,
+              "intensity": 49
+            }
           },
           "xte0002": {
-            "tool": 40,
-            "agent": 40,
-            "supervised-agent": 100
+            "advocacy": {
+              "tool": 40,
+              "agent": 40,
+              "supervised-agent": 100,
+              "intensity": 100
+            },
+            "receptivity": {
+              "tool": 28,
+              "agent": 28,
+              "supervised-agent": 70,
+              "intensity": 70
+            }
           },
           "xte0003": {
-            "open-source-decentralized": 95,
-            "guarded-moats-frontier-containment": -85,
-            "structured-access": -80
+            "advocacy": {
+              "open-source-decentralized": 95,
+              "guarded-moats-frontier-containment": -85,
+              "structured-access": -80,
+              "intensity": 95
+            },
+            "receptivity": {
+              "open-source-decentralized": 66,
+              "guarded-moats-frontier-containment": -59,
+              "structured-access": -56,
+              "intensity": 66
+            }
           },
           "xte0004": {
-            "privacy": 70,
-            "convenience": 20,
-            "selective-sharing": 50
+            "advocacy": {
+              "privacy": 70,
+              "convenience": 20,
+              "selective-sharing": 50,
+              "intensity": 70
+            },
+            "receptivity": {
+              "privacy": 49,
+              "convenience": 14,
+              "selective-sharing": 35,
+              "intensity": 49
+            }
           },
           "xte0005": {
-            "trust": -50,
-            "distrust": 60,
-            "company-by-company": -10
+            "advocacy": {
+              "trust": -50,
+              "distrust": 60,
+              "company-by-company": -10,
+              "intensity": 60
+            },
+            "receptivity": {
+              "trust": -35,
+              "distrust": 42,
+              "company-by-company": -7,
+              "intensity": 42
+            }
           },
           "xte0006": {
-            "safety": 20,
-            "freedom": 80,
-            "proportionality": 40
+            "advocacy": {
+              "safety": 20,
+              "freedom": 80,
+              "proportionality": 40,
+              "intensity": 80
+            },
+            "receptivity": {
+              "safety": 14,
+              "freedom": 56,
+              "proportionality": 28,
+              "intensity": 56
+            }
           },
           "xte0007": {
-            "sovereign-computing": 80,
-            "managed-cloud": -30,
-            "self-host-the-critical-parts": -10
+            "advocacy": {
+              "sovereign-computing": 80,
+              "managed-cloud": -30,
+              "self-host-the-critical-parts": -10,
+              "intensity": 80
+            },
+            "receptivity": {
+              "sovereign-computing": 56,
+              "managed-cloud": -21,
+              "self-host-the-critical-parts": -7,
+              "intensity": 56
+            }
           },
           "xte0011": {
-            "love": 40,
-            "tolerate": 50,
-            "hate": -30
+            "advocacy": {
+              "love": 40,
+              "tolerate": 50,
+              "hate": -30,
+              "intensity": 50
+            },
+            "receptivity": {
+              "love": 28,
+              "tolerate": 35,
+              "hate": -21,
+              "intensity": 35
+            }
           },
           "xte0012": {
-            "online-connection": 80,
-            "in-person-connection": 30,
-            "hybrid-social-life": 50
+            "advocacy": {
+              "online-connection": 80,
+              "in-person-connection": 30,
+              "hybrid-social-life": 50,
+              "intensity": 80
+            },
+            "receptivity": {
+              "online-connection": 56,
+              "in-person-connection": 21,
+              "hybrid-social-life": 35,
+              "intensity": 56
+            }
           },
           "xte0013": {
-            "poster": 80,
-            "lurker": -40,
-            "occasional-contributor": -20
+            "advocacy": {
+              "poster": 80,
+              "lurker": -40,
+              "occasional-contributor": -20,
+              "intensity": 80
+            },
+            "receptivity": {
+              "poster": 56,
+              "lurker": -28,
+              "occasional-contributor": -14,
+              "intensity": 56
+            }
           },
           "xte0014": {
-            "embrace-synthetic-bonds": 40,
-            "human-exclusivity": -10,
-            "companionship-without-intimacy": 50
+            "advocacy": {
+              "embrace-synthetic-bonds": 40,
+              "human-exclusivity": -10,
+              "companionship-without-intimacy": 50,
+              "intensity": 50
+            },
+            "receptivity": {
+              "embrace-synthetic-bonds": 28,
+              "human-exclusivity": -7,
+              "companionship-without-intimacy": 35,
+              "intensity": 35
+            }
           },
           "xte0015": {
-            "anonymous": 50,
-            "real-identity": 30,
-            "persistent-pseudonym": 80
+            "advocacy": {
+              "anonymous": 50,
+              "real-identity": 30,
+              "persistent-pseudonym": 80,
+              "intensity": 80
+            },
+            "receptivity": {
+              "anonymous": 35,
+              "real-identity": 21,
+              "persistent-pseudonym": 56,
+              "intensity": 56
+            }
           },
           "xte0016": {
-            "curated": 0,
-            "authentic": 60,
-            "lightly-edited-honesty": 40
+            "advocacy": {
+              "curated": 0,
+              "authentic": 60,
+              "lightly-edited-honesty": 40,
+              "intensity": 60
+            },
+            "receptivity": {
+              "curated": 0,
+              "authentic": 42,
+              "lightly-edited-honesty": 28,
+              "intensity": 42
+            }
           },
           "xte0017": {
-            "erase": 10,
-            "archive": 80,
-            "curated-legacy": 30
+            "advocacy": {
+              "erase": 10,
+              "archive": 80,
+              "curated-legacy": 30,
+              "intensity": 80
+            },
+            "receptivity": {
+              "erase": 7,
+              "archive": 56,
+              "curated-legacy": 21,
+              "intensity": 56
+            }
           },
           "xte0018": {
-            "job-loss": 0,
-            "liberation": 70,
-            "displacement-with-transition": 30
+            "advocacy": {
+              "job-loss": 0,
+              "liberation": 70,
+              "displacement-with-transition": 30,
+              "intensity": 70
+            },
+            "receptivity": {
+              "job-loss": 0,
+              "liberation": 49,
+              "displacement-with-transition": 21,
+              "intensity": 49
+            }
           },
           "xte0020": {
-            "accelerate": 60,
-            "decelerate": -40,
-            "differential-pace": 0
+            "advocacy": {
+              "accelerate": 60,
+              "decelerate": -40,
+              "differential-pace": 0,
+              "intensity": 60
+            },
+            "receptivity": {
+              "accelerate": 42,
+              "decelerate": -28,
+              "differential-pace": 0,
+              "intensity": 42
+            }
           }
         },
         "skin": "techcapades"
@@ -3518,84 +4120,228 @@
         "aboutMe": "Attention is the scarcest resource: fewer screens, fewer notifications, and a life lived mostly offline.",
         "ratings": {
           "xte0004": {
-            "privacy": 50,
-            "convenience": -40,
-            "selective-sharing": 10
+            "advocacy": {
+              "privacy": 50,
+              "convenience": -40,
+              "selective-sharing": 10,
+              "intensity": 50
+            },
+            "receptivity": {
+              "privacy": 28,
+              "convenience": -22,
+              "selective-sharing": 6,
+              "intensity": 28
+            }
           },
           "xte0005": {
-            "trust": -20,
-            "distrust": 40,
-            "company-by-company": 40
+            "advocacy": {
+              "trust": -20,
+              "distrust": 40,
+              "company-by-company": 40,
+              "intensity": 40
+            },
+            "receptivity": {
+              "trust": -11,
+              "distrust": 22,
+              "company-by-company": 22,
+              "intensity": 22
+            }
           },
           "xte0006": {
-            "safety": 40,
-            "freedom": 50,
-            "proportionality": 90
+            "advocacy": {
+              "safety": 40,
+              "freedom": 50,
+              "proportionality": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "safety": 22,
+              "freedom": 28,
+              "proportionality": 50,
+              "intensity": 50
+            }
           },
           "xte0008": {
-            "screen-light": 95,
-            "screen-heavy": -90,
-            "screen-deliberate": -85
+            "advocacy": {
+              "screen-light": 95,
+              "screen-heavy": -90,
+              "screen-deliberate": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "screen-light": 52,
+              "screen-heavy": -50,
+              "screen-deliberate": -47,
+              "intensity": 52
+            }
           },
           "xte0009": {
-            "all-on": -90,
-            "all-off": 95,
-            "digest": -85
+            "advocacy": {
+              "all-on": -90,
+              "all-off": 95,
+              "digest": -85,
+              "intensity": 95
+            },
+            "receptivity": {
+              "all-on": -50,
+              "all-off": 52,
+              "digest": -47,
+              "intensity": 52
+            }
           },
           "xte0010": {
-            "detox-regularly": 90,
-            "detox-occasionally": 30,
-            "never-detox": -90
+            "advocacy": {
+              "detox-regularly": 90,
+              "detox-occasionally": 30,
+              "never-detox": -90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "detox-regularly": 50,
+              "detox-occasionally": 16,
+              "never-detox": -50,
+              "intensity": 50
+            }
           },
           "xte0011": {
-            "love": -80,
-            "tolerate": 0,
-            "hate": 80
+            "advocacy": {
+              "love": -80,
+              "tolerate": 0,
+              "hate": 80,
+              "intensity": -80
+            },
+            "receptivity": {
+              "love": -44,
+              "tolerate": 0,
+              "hate": 44,
+              "intensity": -44
+            }
           },
           "xte0012": {
-            "online-connection": -60,
-            "in-person-connection": 90,
-            "hybrid-social-life": -50
+            "advocacy": {
+              "online-connection": -60,
+              "in-person-connection": 90,
+              "hybrid-social-life": -50,
+              "intensity": 90
+            },
+            "receptivity": {
+              "online-connection": -33,
+              "in-person-connection": 50,
+              "hybrid-social-life": -28,
+              "intensity": 50
+            }
           },
           "xte0013": {
-            "poster": -70,
-            "lurker": 70,
-            "occasional-contributor": -40
+            "advocacy": {
+              "poster": -70,
+              "lurker": 70,
+              "occasional-contributor": -40,
+              "intensity": -70
+            },
+            "receptivity": {
+              "poster": -38,
+              "lurker": 38,
+              "occasional-contributor": -22,
+              "intensity": -38
+            }
           },
           "xte0014": {
-            "embrace-synthetic-bonds": -70,
-            "human-exclusivity": 85,
-            "companionship-without-intimacy": -55
+            "advocacy": {
+              "embrace-synthetic-bonds": -70,
+              "human-exclusivity": 85,
+              "companionship-without-intimacy": -55,
+              "intensity": 85
+            },
+            "receptivity": {
+              "embrace-synthetic-bonds": -38,
+              "human-exclusivity": 47,
+              "companionship-without-intimacy": -30,
+              "intensity": 47
+            }
           },
           "xte0015": {
-            "anonymous": 40,
-            "real-identity": 30,
-            "persistent-pseudonym": 90
+            "advocacy": {
+              "anonymous": 40,
+              "real-identity": 30,
+              "persistent-pseudonym": 90,
+              "intensity": 90
+            },
+            "receptivity": {
+              "anonymous": 22,
+              "real-identity": 16,
+              "persistent-pseudonym": 50,
+              "intensity": 50
+            }
           },
           "xte0016": {
-            "curated": -60,
-            "authentic": 85,
-            "lightly-edited-honesty": -45
+            "advocacy": {
+              "curated": -60,
+              "authentic": 85,
+              "lightly-edited-honesty": -45,
+              "intensity": 85
+            },
+            "receptivity": {
+              "curated": -33,
+              "authentic": 47,
+              "lightly-edited-honesty": -25,
+              "intensity": 47
+            }
           },
           "xte0017": {
-            "erase": 60,
-            "archive": 20,
-            "curated-legacy": 60
+            "advocacy": {
+              "erase": 60,
+              "archive": 20,
+              "curated-legacy": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "erase": 33,
+              "archive": 11,
+              "curated-legacy": 33,
+              "intensity": 33
+            }
           },
           "xte0018": {
-            "job-loss": 20,
-            "liberation": 60,
-            "displacement-with-transition": 60
+            "advocacy": {
+              "job-loss": 20,
+              "liberation": 60,
+              "displacement-with-transition": 60,
+              "intensity": 60
+            },
+            "receptivity": {
+              "job-loss": 11,
+              "liberation": 33,
+              "displacement-with-transition": 33,
+              "intensity": 33
+            }
           },
           "xte0019": {
-            "embrace-enhancement": -50,
-            "cautious-augmentation": 40,
-            "reject-enhancement": 50
+            "advocacy": {
+              "embrace-enhancement": -50,
+              "cautious-augmentation": 40,
+              "reject-enhancement": 50,
+              "intensity": -50
+            },
+            "receptivity": {
+              "embrace-enhancement": -28,
+              "cautious-augmentation": 22,
+              "reject-enhancement": 28,
+              "intensity": -28
+            }
           },
           "xte0020": {
-            "accelerate": -50,
-            "decelerate": 70,
-            "differential-pace": -20
+            "advocacy": {
+              "accelerate": -50,
+              "decelerate": 70,
+              "differential-pace": -20,
+              "intensity": 70
+            },
+            "receptivity": {
+              "accelerate": -28,
+              "decelerate": 38,
+              "differential-pace": -11,
+              "intensity": 38
+            }
           }
         },
         "skin": "techcapades"
