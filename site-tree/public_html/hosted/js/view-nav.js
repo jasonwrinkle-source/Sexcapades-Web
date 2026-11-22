@@ -664,6 +664,82 @@ __sxInit(function () {
   document.addEventListener("pointercancel", function (ev) {
     if (holdPointerId !== null && ev.pointerId === holdPointerId) cancelHold();
   });
+  var brandClickTimer = null;
+  var BRAND_DBLCLICK_DELAY = 220;
+
+  function triggerAppAbout() {
+    var dlg = document.getElementById("appAboutDialog");
+    if (!dlg) return;
+    if (window.__sxDialog && window.__sxDialog.open) {
+      window.__sxDialog.open(dlg);
+    } else if (typeof dlg.showModal === "function") {
+      if (!dlg.open) dlg.showModal();
+    } else {
+      dlg.setAttribute("open", "");
+      dlg.classList.add("fallback-open");
+    }
+    var closeBtn = document.getElementById("closeAppAbout");
+    if (closeBtn) requestAnimationFrame(function () { closeBtn.focus(); });
+  }
+
+  /* Brand title click swap (2026-11-22):
+     Single click on *capades brand title drops down / toggles the skin picker menu.
+     Double click on *capades brand title opens the About dialog.
+     Captured on document so normal click listeners on #openAppAbout / [data-open-about]
+     do not immediately open the About dialog on single click. */
+  document.addEventListener("click", function (ev) {
+    if (ev.shiftKey) return;
+    var t = ev.target;
+    var hit = t && isBrandTitle(t) ? t.closest("#openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
+    if (!hit) return;
+
+    if (swallowClick) {
+      swallowClick = false;
+      ev.stopImmediatePropagation();
+      ev.preventDefault();
+      return;
+    }
+
+    ev.stopImmediatePropagation();
+    ev.preventDefault();
+
+    if (ev.detail >= 2) {
+      if (brandClickTimer) {
+        clearTimeout(brandClickTimer);
+        brandClickTimer = null;
+      }
+      if (menuOpen()) closeMenu();
+      triggerAppAbout();
+      return;
+    }
+
+    if (brandClickTimer) clearTimeout(brandClickTimer);
+    var clickX = ev.clientX, clickY = ev.clientY;
+    var targetEl = hit;
+    brandClickTimer = setTimeout(function () {
+      brandClickTimer = null;
+      if (menuOpen()) {
+        closeMenu();
+      } else {
+        openMenu(clickX, clickY, false, targetEl);
+      }
+    }, BRAND_DBLCLICK_DELAY);
+  }, true);
+
+  document.addEventListener("dblclick", function (ev) {
+    var t = ev.target;
+    var hit = t && isBrandTitle(t) ? t.closest("#openAppAbout, .app-title-button, [data-open-about], .sx-brand") : null;
+    if (!hit) return;
+    ev.stopImmediatePropagation();
+    ev.preventDefault();
+    if (brandClickTimer) {
+      clearTimeout(brandClickTimer);
+      brandClickTimer = null;
+    }
+    if (menuOpen()) closeMenu();
+    triggerAppAbout();
+  }, true);
+
   /* Shift+Click trigger: capture-phase click listener on document.
      A Shift+Click anywhere on headers (main header, outline head, layout editor head),
      dialog titlebars (.sx-titlebar, .dialog-head), or brand buttons (.app-title-button,

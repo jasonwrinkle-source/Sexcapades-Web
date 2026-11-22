@@ -15,9 +15,6 @@
         var aboutBtn = document.getElementById("gateAppAboutBtn");
         var aboutDlg = document.getElementById("gateAboutDialog");
         var aboutClose = document.getElementById("gateCloseAbout");
-        if (aboutBtn && aboutDlg && aboutDlg.showModal) {
-          aboutBtn.addEventListener("click", function () { aboutDlg.showModal(); });
-        }
         if (aboutClose && aboutDlg) {
           aboutClose.addEventListener("click", function () { aboutDlg.close(); });
         }
@@ -456,10 +453,30 @@
             var compareItem = document.getElementById("gateCompareLinkItem");
             if (compareItem) compareItem.style.display = "none";
           }
+        } else if (gateSkinPrefix === "flex" || window.__SX_IS_PICKER) {
+          try { document.title = "Flexcapades — Pick a Map"; } catch (e) {}
+          var aboutBtn = document.getElementById("gateAppAboutBtn");
+          if (aboutBtn) aboutBtn.textContent = "Flex.Capades.IO";
+          destinationMenu.setAttribute("aria-label", "Flexcapades destinations");
+          var gateAboutTitle = document.getElementById("gateAboutTitle");
+          if (gateAboutTitle) gateAboutTitle.textContent = "About Flex.Capades.IO";
+          var gateCloseAbout = document.getElementById("gateCloseAbout");
+          if (gateCloseAbout) gateCloseAbout.setAttribute("aria-label", "Close About Flex.Capades.IO");
+          document.querySelectorAll(".sx-tally-brand").forEach(function (b) { b.textContent = "Flex.Capades.IO"; });
+          revealDestinations();
         } else if (gateSkinPrefix !== "sex") {
           var hasReturn = false;
           try { hasReturn = !!new URLSearchParams(window.location.search).get("return"); } catch (e) { hasReturn = false; }
           if (!hasReturn) window.location.replace("/picker.html");
+        }
+
+        if (!isVanillaSkinGate && (gateSkinPrefix === "sex" || !gateSkinPrefix)) {
+          var c2 = document.getElementById("mapCenterLine2");
+          if (c2) c2.textContent = "DESIRES";
+          var l1 = document.getElementById("mapLeaf1");
+          if (l1) l1.textContent = "WHAT I WANT";
+          var l2 = document.getElementById("mapLeaf2");
+          if (l2) l2.textContent = "MY LIMITS";
         }
 
         // When this host does not already name the skin (flex, localhost,
@@ -853,6 +870,75 @@
             if (it && menu.contains(it)) choose(it);
           });
 
+          var brandClickTimer = null;
+          var BRAND_DBLCLICK_DELAY = 220;
+
+          function triggerGateAbout() {
+            var dlg = document.getElementById("gateAboutDialog");
+            if (!dlg) return;
+            if (typeof dlg.showModal === "function") {
+              if (!dlg.open) dlg.showModal();
+            } else {
+              dlg.setAttribute("open", "");
+            }
+            var closeBtn = document.getElementById("gateCloseAbout");
+            if (closeBtn) requestAnimationFrame(function () { closeBtn.focus(); });
+          }
+
+          /* Brand title click swap (2026-11-22):
+             Single click on brand title drops down / toggles the skin picker menu.
+             Double click on brand title opens the About dialog. */
+          if (titleBtn) {
+            titleBtn.addEventListener("click", function (ev) {
+              if (swallowClick) {
+                swallowClick = false;
+                ev.preventDefault();
+                ev.stopPropagation();
+                return;
+              }
+              if (ev.shiftKey) {
+                ev.preventDefault();
+                ev.stopPropagation();
+                openMenu(ev.clientX, ev.clientY, false, titleBtn);
+                return;
+              }
+              ev.preventDefault();
+              ev.stopPropagation();
+
+              if (ev.detail >= 2) {
+                if (brandClickTimer) {
+                  clearTimeout(brandClickTimer);
+                  brandClickTimer = null;
+                }
+                if (menuOpen()) closeMenu();
+                triggerGateAbout();
+                return;
+              }
+
+              if (brandClickTimer) clearTimeout(brandClickTimer);
+              var clickX = ev.clientX, clickY = ev.clientY;
+              brandClickTimer = setTimeout(function () {
+                brandClickTimer = null;
+                if (menuOpen()) {
+                  closeMenu();
+                } else {
+                  openMenu(clickX, clickY, false, titleBtn);
+                }
+              }, BRAND_DBLCLICK_DELAY);
+            });
+
+            titleBtn.addEventListener("dblclick", function (ev) {
+              ev.preventDefault();
+              ev.stopPropagation();
+              if (brandClickTimer) {
+                clearTimeout(brandClickTimer);
+                brandClickTimer = null;
+              }
+              if (menuOpen()) closeMenu();
+              triggerGateAbout();
+            });
+          }
+
           // Shift+Click on the header title or header bar opens the skin menu instantly
           header.addEventListener("click", function(ev) {
             if (swallowClick) {
@@ -908,6 +994,13 @@
               if (titleBtn) titleBtn.focus();
             }
           });
+
+          if (window.__SX_AUTO_OPEN_PICKER) {
+            revealDestinations();
+            setTimeout(function () {
+              if (titleBtn) openMenu(0, 0, false, titleBtn);
+            }, 60);
+          }
         })();
 
       }());

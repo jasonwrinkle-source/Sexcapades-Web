@@ -1712,10 +1712,6 @@
     </style>
   </head>
   <body>
-    <header class="site-header">
-      <p class="site-title">Sexcapades</p>
-      <p class="site-header-note"><span class="age-badge">18+</span><span>Adults only</span></p>
-    </header>
     <main>
             <section class="panel gate" id="ageGate" aria-labelledby="gateTitle">
         <div class="gate-body">
@@ -1812,8 +1808,8 @@
               </div>
             </nav>
             <svg class="mind-map-art" viewBox="0 0 520 430" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapArtTitle mapArtDescription">
-              <title id="mapArtTitle">A mind map demonstrating the power of mapping desires</title>
-              <desc id="mapArtDescription">Mapping desires branches into clarifying wants, noticing patterns, seeing connections, and guiding conversations, with practical insights grouped beneath each theme.</desc>
+              <title id="mapArtTitle">A mind map demonstrating the power of visual mapping</title>
+              <desc id="mapArtDescription">Visual mapping branches into clarifying concepts, noticing patterns, seeing connections, and guiding conversations, with practical insights grouped beneath each theme.</desc>
               <defs>
                 <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
                   <stop offset="0" stop-color="#ff8a62" stop-opacity=".3" />
@@ -1832,8 +1828,8 @@
               <g class="concept-nodes">
                 <g class="concept-center">
                   <rect x="204" y="183" width="112" height="64" rx="32" />
-                  <text x="260" y="209">MAPPING</text>
-                  <text x="260" y="227">DESIRES</text>
+                  <text id="mapCenterLine1" x="260" y="209">MAPPING</text>
+                  <text id="mapCenterLine2" x="260" y="227">TOPICS</text>
                 </g>
 
                 <g class="concept-node connect-node">
@@ -1842,9 +1838,9 @@
                 </g>
                 <g class="concept-leaf connect-leaf">
                   <rect x="10" y="57" width="80" height="32" rx="16" />
-                  <text x="50" y="78">WHAT I WANT</text>
+                  <text id="mapLeaf1" x="50" y="78">CORE IDEAS</text>
                   <rect x="10" y="114" width="86" height="32" rx="16" />
-                  <text x="53" y="135">MY LIMITS</text>
+                  <text id="mapLeaf2" x="53" y="135">BOUNDARIES</text>
                 </g>
 
                 <g class="concept-node explore-node">
@@ -1902,8 +1898,8 @@
         <button type="button" class="close-btn" id="gateCloseAbout" aria-label="Close About Sex.Capades.IO">×</button>
       </div>
       <div class="dialog-body">
-        <p class="app-about-version">Version 5.0 · Build 2026-11-22_1138</p>
-        <p class="app-about-version">release-5.0-1122-1138</p>
+        <p class="app-about-version">Version 5.0 · Build 2026-11-22_1752</p>
+        <p class="app-about-version">release-5.0-1122-1752</p>
         <p id="gateAboutDescription">Sexcapades is an interactive hypermap for rating and visualizing adult interests. Build a personal profile, compare where partners align, use Scribe to write stories and scenes, and Scene Setter to plan and negotiate play — all in the same shared vocabulary.</p>
         <p><a href="https://patreon.com/FlexCapadesIO" rel="noopener" target="_blank">Support Flexcapades on Patreon</a></p>
         <p>Built with Muse. <a href="https://muse.ai/join" rel="noopener" target="_blank">Join Muse for free</a>, then redeem invite code <strong>GV7QUD</strong> in the About box within 48 hours; you and the inviter each get <strong>1 billion tokens</strong>.</p>
@@ -1951,9 +1947,6 @@
         var aboutBtn = document.getElementById("gateAppAboutBtn");
         var aboutDlg = document.getElementById("gateAboutDialog");
         var aboutClose = document.getElementById("gateCloseAbout");
-        if (aboutBtn && aboutDlg && aboutDlg.showModal) {
-          aboutBtn.addEventListener("click", function () { aboutDlg.showModal(); });
-        }
         if (aboutClose && aboutDlg) {
           aboutClose.addEventListener("click", function () { aboutDlg.close(); });
         }
@@ -2392,10 +2385,30 @@
             var compareItem = document.getElementById("gateCompareLinkItem");
             if (compareItem) compareItem.style.display = "none";
           }
+        } else if (gateSkinPrefix === "flex" || window.__SX_IS_PICKER) {
+          try { document.title = "Flexcapades — Pick a Map"; } catch (e) {}
+          var aboutBtn = document.getElementById("gateAppAboutBtn");
+          if (aboutBtn) aboutBtn.textContent = "Flex.Capades.IO";
+          destinationMenu.setAttribute("aria-label", "Flexcapades destinations");
+          var gateAboutTitle = document.getElementById("gateAboutTitle");
+          if (gateAboutTitle) gateAboutTitle.textContent = "About Flex.Capades.IO";
+          var gateCloseAbout = document.getElementById("gateCloseAbout");
+          if (gateCloseAbout) gateCloseAbout.setAttribute("aria-label", "Close About Flex.Capades.IO");
+          document.querySelectorAll(".sx-tally-brand").forEach(function (b) { b.textContent = "Flex.Capades.IO"; });
+          revealDestinations();
         } else if (gateSkinPrefix !== "sex") {
           var hasReturn = false;
           try { hasReturn = !!new URLSearchParams(window.location.search).get("return"); } catch (e) { hasReturn = false; }
           if (!hasReturn) window.location.replace("/picker.html");
+        }
+
+        if (!isVanillaSkinGate && (gateSkinPrefix === "sex" || !gateSkinPrefix)) {
+          var c2 = document.getElementById("mapCenterLine2");
+          if (c2) c2.textContent = "DESIRES";
+          var l1 = document.getElementById("mapLeaf1");
+          if (l1) l1.textContent = "WHAT I WANT";
+          var l2 = document.getElementById("mapLeaf2");
+          if (l2) l2.textContent = "MY LIMITS";
         }
 
         // When this host does not already name the skin (flex, localhost,
@@ -2789,6 +2802,75 @@
             if (it && menu.contains(it)) choose(it);
           });
 
+          var brandClickTimer = null;
+          var BRAND_DBLCLICK_DELAY = 220;
+
+          function triggerGateAbout() {
+            var dlg = document.getElementById("gateAboutDialog");
+            if (!dlg) return;
+            if (typeof dlg.showModal === "function") {
+              if (!dlg.open) dlg.showModal();
+            } else {
+              dlg.setAttribute("open", "");
+            }
+            var closeBtn = document.getElementById("gateCloseAbout");
+            if (closeBtn) requestAnimationFrame(function () { closeBtn.focus(); });
+          }
+
+          /* Brand title click swap (2026-11-22):
+             Single click on brand title drops down / toggles the skin picker menu.
+             Double click on brand title opens the About dialog. */
+          if (titleBtn) {
+            titleBtn.addEventListener("click", function (ev) {
+              if (swallowClick) {
+                swallowClick = false;
+                ev.preventDefault();
+                ev.stopPropagation();
+                return;
+              }
+              if (ev.shiftKey) {
+                ev.preventDefault();
+                ev.stopPropagation();
+                openMenu(ev.clientX, ev.clientY, false, titleBtn);
+                return;
+              }
+              ev.preventDefault();
+              ev.stopPropagation();
+
+              if (ev.detail >= 2) {
+                if (brandClickTimer) {
+                  clearTimeout(brandClickTimer);
+                  brandClickTimer = null;
+                }
+                if (menuOpen()) closeMenu();
+                triggerGateAbout();
+                return;
+              }
+
+              if (brandClickTimer) clearTimeout(brandClickTimer);
+              var clickX = ev.clientX, clickY = ev.clientY;
+              brandClickTimer = setTimeout(function () {
+                brandClickTimer = null;
+                if (menuOpen()) {
+                  closeMenu();
+                } else {
+                  openMenu(clickX, clickY, false, titleBtn);
+                }
+              }, BRAND_DBLCLICK_DELAY);
+            });
+
+            titleBtn.addEventListener("dblclick", function (ev) {
+              ev.preventDefault();
+              ev.stopPropagation();
+              if (brandClickTimer) {
+                clearTimeout(brandClickTimer);
+                brandClickTimer = null;
+              }
+              if (menuOpen()) closeMenu();
+              triggerGateAbout();
+            });
+          }
+
           // Shift+Click on the header title or header bar opens the skin menu instantly
           header.addEventListener("click", function(ev) {
             if (swallowClick) {
@@ -2844,6 +2926,13 @@
               if (titleBtn) titleBtn.focus();
             }
           });
+
+          if (window.__SX_AUTO_OPEN_PICKER) {
+            revealDestinations();
+            setTimeout(function () {
+              if (titleBtn) openMenu(0, 0, false, titleBtn);
+            }, 60);
+          }
         })();
 
       }());

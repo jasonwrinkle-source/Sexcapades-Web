@@ -1,155 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Flexcapades — Pick a Map</title>
-<meta name="description" content="Flexcapades — fifteen maps, one engine. Pick a map. Each one opens a different hard conversation." />
-<meta property="og:title" content="Flexcapades — Pick a Map" />
-<meta property="og:description" content="Fifteen maps, one engine. Each one opens a different hard conversation." />
-<meta property="og:url" content="https://flex.capades.io/picker.html" />
-<meta property="og:type" content="website" />
-<meta property="og:image" content="https://sexcapades.io/hosted/og-image.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Flexcapades — Pick a Map" />
-<meta name="twitter:description" content="Fifteen maps, one engine. Each one opens a different hard conversation." />
-<meta name="twitter:image" content="https://sexcapades.io/hosted/og-image.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#0b1014" />
-<style>
-  :root {
-    --bg: #0b1014;
-    --surface: #191d21;
-    --surface-raised: #20252a;
-    --text: #f4f5f6;
-    --muted: #9aa3a8;
-    --line: #343a40;
-    --link: #65d7dc;
-    --accent: #ff4d64;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
-    line-height: 1.5;
-    min-height: 100dvh;
-  }
-  main { max-width: 960px; margin: 0 auto; padding: 48px 20px 64px; }
-  header { margin-bottom: 32px; }
-  h1 {
-    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
-    font-size: clamp(2.6rem, 7vw, 4rem);
-    line-height: 1;
-    margin: 0 0 8px;
-    letter-spacing: .02em;
-  }
-  .tagline { font-size: 1.15rem; color: var(--text); margin: 0 0 4px; }
-  .sub { color: var(--muted); margin: 0; }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 14px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .card {
-    display: block;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 18px 20px;
-    color: var(--text);
-    text-decoration: none;
-  }
-  .card:hover, .card:focus-visible { border-color: var(--link); background: var(--surface-raised); outline: none; }
-  .card-name {
-    font-family: "Barlow Condensed", "IBM Plex Sans", sans-serif;
-    font-size: 1.5rem;
-    line-height: 1.1;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .card-desc { color: var(--muted); margin: 6px 0 0; }
-  .badge {
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
-    font-size: .7rem;
-    font-weight: 700;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-    padding: 1px 8px;
-    letter-spacing: .04em;
-  }
-  footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
-  footer a { color: var(--link); }
-</style>
-</head>
-<body>
-<main>
-  <header>
-    <h1>Flexcapades</h1>
-    <p class="tagline">Sixteen maps, one engine — hard conversations, mapped.</p>
-    <p class="sub">Pick a map. Each one opens a different conversation.</p>
-  </header>
-  <ul class="grid">
-    <li><a class="card" href="/hosted/gate.html?skin=aesth"><span class="card-name">Aesth.capades.io</span><p class="card-desc">Beauty.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=chem"><span class="card-name">Chem.capades.io</span><p class="card-desc">How molecules combine.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=dharma"><span class="card-name">Dharma.capades.io</span><p class="card-desc">How we walk the earth.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=experi"><span class="card-name">Experi.capades.io</span><p class="card-desc">How experiments are done.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=fores"><span class="card-name">Fores.capades.io</span><p class="card-desc">Abrahamic faith.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=matter"><span class="card-name">Matter.capades.io</span><p class="card-desc">Stuff and energy.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=nous"><span class="card-name">Nous.capades.io</span><p class="card-desc">what counts as a mind</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=philo"><span class="card-name">Philo.capades.io</span><p class="card-desc">How we know.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=polis"><span class="card-name">Polis.capades.io</span><p class="card-desc">Power and the vote.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=praxi"><span class="card-name">Praxi.capades.io</span><p class="card-desc">What we do.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=quanta"><span class="card-name">Quanta.capades.io</span><p class="card-desc">The small and strange.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=simul"><span class="card-name">Simul.capades.io</span><p class="card-desc">Copies, what's real and what is show.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=tech"><span class="card-name">Tech.capades.io</span><p class="card-desc">What we build.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=theori"><span class="card-name">Theori.capades.io</span><p class="card-desc">The big picture.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=voca"><span class="card-name">Voca.capades.io</span><p class="card-desc">Work and worth.</p></a></li>
-    <li><a class="card" href="/hosted/gate.html?skin=sex"><span class="card-name">Sex.capades.io <span class="badge">18+</span></span><p class="card-desc">The bedroom talk.</p></a></li>
-  </ul>
-  <footer>
-    <p>Sixteen maps, one engine.</p>
-  </footer>
-</main>
-<script>
-/* Picker landing ping: counts flex.capades.io visits in the shared analytics.
-   One picker_landing event per load, fire-and-forget. The page renders
-   whether the ping succeeds or not. UUID is per-load (same as the app —
-   the app keeps no stored UUID key). */
-(function () {
-  try {
-    var uuid = '';
-    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-      uuid = window.crypto.randomUUID();
-    } else {
-      var b = new Uint8Array(16);
-      if (window.crypto && typeof window.crypto.getRandomValues === 'function') { window.crypto.getRandomValues(b); }
-      else { for (var i = 0; i < 16; i++) { b[i] = Math.floor(Math.random() * 256); } }
-      b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
-      uuid = Array.from(b, function (v, n) { return (n === 4 || n === 6 || n === 8 || n === 10 ? '-' : '') + v.toString(16).padStart(2, '0'); }).join('');
-    }
-    var utm = '';
-    try { utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 128); } catch (e) { utm = ''; }
-    var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'picker_landing', utm_source: utm });
-    var endpoint = '/hosted/api/collect.php';
-    if (navigator.sendBeacon) {
-      try { if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return; } catch (e) { /* fall through to fetch */ }
-    }
-    fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
-  } catch (e) { /* Tracking must never break the page. */ }
-})();
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/hosted/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/hosted/favicon.ico" />
+    <meta name="description" content="Flexcapades — sixteen maps, one engine. Pick a map. Each one opens a different hard conversation." />
+    <meta property="og:title" content="Flexcapades — Pick a Map" />
+    <meta property="og:description" content="Sixteen maps, one engine. Each one opens a different hard conversation." />
+    <meta property="og:url" content="https://flex.capades.io/picker.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://sexcapades.io/hosted/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Flexcapades — Pick a Map" />
+    <meta name="twitter:description" content="Sixteen maps, one engine. Each one opens a different hard conversation." />
+    <meta name="twitter:image" content="https://sexcapades.io/hosted/og-image.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+    <title>Flexcapades — Pick a Map</title>
+    <link rel="stylesheet" href="/hosted/gate-assets/gate.css"/>
+    <script>
+      window.__SX_IS_PICKER = true;
+      window.__SX_AUTO_OPEN_PICKER = true;
+    </script>
+  </head>
+  <body>
+    <main>
+      <section class="panel gate" id="ageGate" aria-labelledby="gateTitle">
+        <div class="gate-body">
+          <figure class="concept-graphic" aria-labelledby="mapArtTitle mapArtDescription">
+            <nav class="destination-menu" id="destinationMenu" aria-label="Flexcapades destinations" aria-hidden="true">
+              <div class="app-header" id="gateAppHeader">
+                <h1 class="app-header-title"><button type="button" class="app-title-button" id="gateAppAboutBtn" aria-controls="gateAboutDialog" aria-haspopup="dialog">Flex.Capades.IO</button></h1>
+                <div class="app-header-nav">
+                  <div class="app-view-group">
+                    <button class="action-btn map-view-switch view-nav-btn" id="appViewTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="appViewMenu">Hypermap ▾</button>
+                    <div class="view-nav-menu" id="appViewMenu" role="menu" hidden>
+                      <a class="view-nav-item" href="/hosted/app.html#app/import" role="menuitem">
+                        <span class="view-nav-text"><strong>Scan or Import</strong><small>Import a profile from PNG, sync card, or test results.</small></span>
+                      </a>
+                      <a class="view-nav-item is-current" aria-checked="true" href="/hosted/app.html#app/map" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Hypermap</strong><small>The visual hypermap — rate and visualize interests branch by branch.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#app/list" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Hot List</strong><small>Rate topic by topic: all 400+ topics sorted by popularity.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#setter" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Scene Setter</strong><small>Build a binding negotiation checklist and practical play guide.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#sentinel" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Scene Sentinel</strong><small>Safety signals, check-in timers, and emergency contacts.</small></span>
+                      </a>
+                      <a class="view-nav-item" aria-checked="false" href="/hosted/app.html#scribe" role="menuitemradio">
+                        <span class="view-nav-text"><strong>Scribe</strong><small>Generate immersive stories and dialectics from partner profiles.</small></span>
+                      </a>
+                      <div class="view-nav-divider" aria-hidden="true"></div>
+                      <div class="view-nav-aux-row">
+                        <a class="view-nav-aux-link" href="/hosted/privacy.html">Privacy</a>
+                        <a class="view-nav-aux-link" href="/sitemap.html">Sitemap</a>
+                        <a class="view-nav-aux-link" href="/engine.html">TaxoPolemics</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="app-view-group docs-view-group">
+                    <button class="action-btn docs-nav-btn" id="docsViewTrigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="docsViewMenu">Docs ▾</button>
+                    <ul class="app-view-menu docs-dropdown-menu" id="docsViewMenu" hidden>
+                      <li><a href="/hosted/how-it-works.html">How it works</a></li>
+                      <li><a href="/hosted/quickstart.html">Quick Start</a></li>
+                      <li><a href="/hosted/guide.html">Guide</a></li>
+                      <li id="gateCompareLinkItem"><a href="/compare">Compare</a></li>
+                      <li class="docs-submenu-item">
+                        <button class="docs-submenu-trigger" type="button" id="docsGlossaryTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="docsGlossaryFlyout"><span>Glossary</span><span class="docs-flyout-arrow">▸</span></button>
+                      </li>
+                      <li class="docs-submenu-item">
+                        <button class="docs-submenu-trigger" type="button" id="docsFaqTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="docsFaqFlyout"><span>FAQ</span><span class="docs-flyout-arrow">▸</span></button>
+                      </li>
+                      <li><a href="/hosted/flyer.html">Flyer</a></li>
+                      <li class="docs-divider" aria-hidden="true" style="height:1px;margin:6px 4px;background:var(--line);"></li>
+                      <li><a href="/hosted/privacy.html">Privacy Policy</a></li>
+                      <li><a href="/hosted/methodology.html">Methodology</a></li>
+                      <li><a href="/sitemap.html">Sitemap</a></li>
+                      <li><a href="/engine.html">TaxoPolemics</a></li>
+                    </ul>
+                    <ul class="app-view-menu docs-flyout" id="docsGlossaryFlyout" hidden role="menu" aria-label="Glossary links">
+                      <li><a class="docs-main-link" href="/hosted/glossary.html">All Glossary Terms</a></li>
+                      <li><a href="/hosted/glossary.html#sync-map">Hypermap</a></li>
+                      <li><a href="/hosted/glossary.html#quick-start">Quick Start</a></li>
+                      <li><a href="/hosted/glossary.html#net">Net</a></li>
+                      <li><a href="/hosted/glossary.html#cast">Cast</a></li>
+                      <li><a href="/hosted/glossary.html#scribe">Scribe</a></li>
+                      <li><a href="/hosted/glossary.html#scene-setter">Scene Setter</a></li>
+                      <li><a href="/hosted/glossary.html#scan-or-import">Scan or Import</a></li>
+                      <li><a href="/hosted/glossary.html#sync-card">Sync Card</a></li>
+                      <li><a href="/hosted/glossary.html#qr-sheet">QR Sheet</a></li>
+                      <li><a href="/hosted/glossary.html#compare-sync-maps">Compare hypermaps?</a></li>
+                      <li><a href="/hosted/glossary.html#kink-categories">Kink categories</a></li>
+                      <li><a href="/hosted/glossary.html#kink-lines">Kink lines</a></li>
+                    </ul>
+                    <ul class="app-view-menu docs-flyout" id="docsFaqFlyout" hidden role="menu" aria-label="FAQ links">
+                      <li><a class="docs-main-link" href="/hosted/faq.html">All FAQ Questions</a></li>
+                      <li><a href="/hosted/faq.html#loading">The site won’t load, or I see an old version</a></li>
+                      <li><a href="/hosted/faq.html#profile">My profile disappeared after refresh</a></li>
+                      <li><a href="/hosted/faq.html#compare">How do I compare with a partner?</a></li>
+                      <li><a href="/hosted/faq.html#privacy">Is my data private?</a></li>
+                      <li><a href="/hosted/faq.html#import">Import isn’t working</a></li>
+                      <li><a href="/hosted/faq.html#views">What’s the difference between list view and map view?</a></li>
+                      <li><a href="/hosted/faq.html#sharing">How do I share my profile?</a></li>
+                      <li><a href="/hosted/faq.html#colors">What do the colors mean?</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="app-header-actions">
+                  <span class="guide-avatar-wrap">
+                    <button type="button" class="avatar-music-btn" id="gateAvatarMusicBtn" aria-pressed="false" aria-label="Play the verse for the Hypermap">
+                      <img src="/hosted/images/img-0.webp" alt='Yolanda "Yo" Biche — close-up of her smiling face, one paw raised in a wave' decoding="async">
+                    </button>
+                  </span>
+                  <a class="review-callout" href="/hosted/gate.html#guide" id="gateReviewLink" target="_blank" rel="noopener noreferrer" aria-label="Open the Syncing Sexcapades Guide" data-ui-tooltip="Learn how to build, compare, save, and share hypermaps."><strong class="guide-qmark" aria-hidden="true">?</strong></a>
+                </div>
+              </div>
+            </nav>
+            <svg class="mind-map-art" viewBox="0 0 520 430" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapArtTitle mapArtDescription">
+              <title id="mapArtTitle">A mind map demonstrating the power of visual mapping</title>
+              <desc id="mapArtDescription">Visual mapping branches into clarifying concepts, noticing patterns, seeing connections, and guiding conversations, with practical insights grouped beneath each theme.</desc>
+              <defs>
+                <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0" stop-color="#ff8a62" stop-opacity=".3" />
+                  <stop offset="1" stop-color="#ff8a62" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle cx="260" cy="215" r="105" fill="url(#centerGlow)" />
+
+              <g fill="none" stroke-linecap="round">
+                <path class="branch connect" d="M218 196 C176 171 158 132 136 102 M136 102 C105 83 78 75 47 74 M136 102 C114 119 86 129 53 130" />
+                <path class="branch explore" d="M302 196 C344 171 362 132 384 102 M384 102 C415 83 443 76 473 74 M384 102 C406 120 434 130 467 131" />
+                <path class="branch restore" d="M218 235 C175 259 158 298 136 328 M136 328 C106 347 78 355 47 356 M136 328 C114 311 86 301 53 300" />
+                <path class="branch create" d="M302 235 C345 259 362 298 384 328 M384 328 C414 347 442 355 473 356 M384 328 C406 311 434 301 467 300" />
+              </g>
+
+              <g class="concept-nodes">
+                <g class="concept-center">
+                  <rect x="204" y="183" width="112" height="64" rx="32" />
+                  <text id="mapCenterLine1" x="260" y="209">MAPPING</text>
+                  <text id="mapCenterLine2" x="260" y="227">TOPICS</text>
+                </g>
+
+                <g class="concept-node connect-node">
+                  <rect x="89" y="82" width="94" height="40" rx="20" />
+                  <text x="136" y="107">CLARIFY</text>
+                </g>
+                <g class="concept-leaf connect-leaf">
+                  <rect x="10" y="57" width="80" height="32" rx="16" />
+                  <text id="mapLeaf1" x="50" y="78">CORE IDEAS</text>
+                  <rect x="10" y="114" width="86" height="32" rx="16" />
+                  <text id="mapLeaf2" x="53" y="135">BOUNDARIES</text>
+                </g>
+
+                <g class="concept-node explore-node">
+                  <rect x="337" y="82" width="94" height="40" rx="20" />
+                  <text x="384" y="107">NOTICE</text>
+                </g>
+                <g class="concept-leaf explore-leaf">
+                  <rect x="430" y="57" width="80" height="32" rx="16" />
+                  <text x="470" y="78">PATTERNS</text>
+                  <rect x="422" y="114" width="88" height="32" rx="16" />
+                  <text x="466" y="135">SURPRISES</text>
+                </g>
+
+                <g class="concept-node restore-node">
+                  <rect x="89" y="308" width="94" height="40" rx="20" />
+                  <text x="136" y="333">CONNECT</text>
+                </g>
+                <g class="concept-leaf restore-leaf">
+                  <rect x="10" y="340" width="80" height="32" rx="16" />
+                  <text x="50" y="361">COMMON GROUND</text>
+                  <rect x="10" y="284" width="86" height="32" rx="16" />
+                  <text x="53" y="305">DIFFERENCES</text>
+                </g>
+
+                <g class="concept-node create-node">
+                  <rect x="337" y="308" width="94" height="40" rx="20" />
+                  <text x="384" y="333">TALK</text>
+                </g>
+                <g class="concept-leaf create-leaf">
+                  <rect x="430" y="340" width="80" height="32" rx="16" />
+                  <text x="470" y="361">ASK CLEARLY</text>
+                  <rect x="425" y="284" width="85" height="32" rx="16" />
+                  <text x="467" y="305">LISTEN BETTER</text>
+                </g>
+              </g>
+            </svg>
+          </figure>
+          <div class="hero">
+            <h1 id="gateTitle">Sixteen maps, one engine.</h1>
+            <p class="value-prop">Pick a map. Each one opens a different conversation — personal reflection, alignment, comparison, and exploration.</p>
+            <div class="actions">
+              <button type="button" id="enterButton" aria-expanded="false" aria-controls="destinationMenu">Choose a map</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="gateAboutDialog" aria-labelledby="gateAboutTitle" aria-describedby="gateAboutDescription">
+      <div class="dialog-head">
+        <h2 id="gateAboutTitle">About Flex.Capades.IO</h2>
+        <button type="button" class="close-btn" id="gateCloseAbout" aria-label="Close About Flex.Capades.IO">×</button>
+      </div>
+      <div class="dialog-body">
+        <p class="app-about-version">Version 5.0 · Build 2026-11-22_1138</p>
+        <p class="app-about-version">release-5.0-1122-1138</p>
+        <p id="gateAboutDescription">Flexcapades is an engine for visual mapping and structured exploration across 16 different knowledge and experience domains.</p>
+        <p><a href="https://patreon.com/FlexCapadesIO" rel="noopener" target="_blank">Support Flexcapades on Patreon</a></p>
+        <p>© 2026 Jason Mark Wrinkle. All rights reserved.</p>
+      </div>
+    </dialog>
+
+    <div aria-label="Choose a skin" class="skin-menu" hidden="" id="skinMenu" role="menu">
+      <button aria-checked="false" class="view-nav-item" data-skin="sexcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Sexcapades</span><span class="skin-desc">kink &amp; sexuality (18+)</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="poliscapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Poliscapades</span><span class="skin-desc">politics</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="forescapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Forescapades</span><span class="skin-desc">religion — Abrahamic faiths</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="philoscapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Philoscapades</span><span class="skin-desc">philosophy</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="aesthcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Aesthcapades</span><span class="skin-desc">aesthetics &amp; taste</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="vocapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Vocapades</span><span class="skin-desc">vocation &amp; work</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="techcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Techcapades</span><span class="skin-desc">technology</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="dharmacapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Dharmacapades</span><span class="skin-desc">eastern religions</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="theoricapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Theoricapades</span><span class="skin-desc">pure mathematics</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="praxicapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Praxicapades</span><span class="skin-desc">applied mathematics</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="quantacapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Quantacapades</span><span class="skin-desc">theoretical physics</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="expericapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Expericapades</span><span class="skin-desc">experimental physics</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="simulcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Simulcapades</span><span class="skin-desc">computational physics</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="mattercapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Mattercapades</span><span class="skin-desc">applied physics</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="chemcapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Chemcapades</span><span class="skin-desc">chemistry</span></span></button>
+      <button aria-checked="false" class="view-nav-item" data-skin="nouscapades" role="menuitemradio" type="button"><span class="skin-label"><span class="skin-name">Nouscapades</span><span class="skin-desc">what counts as a mind</span></span></button>
+    </div>
+    <div aria-live="polite" class="skin-note" hidden="" id="skinNote" role="status"></div>
+
+    <script defer="" src="/hosted/gate-assets/gate.js"></script>
+
+    <script>
+      /* Picker landing ping: counts flex.capades.io visits in the shared analytics */
+      (function () {
+        try {
+          var uuid = '';
+          if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+            uuid = window.crypto.randomUUID();
+          } else {
+            var b = new Uint8Array(16);
+            if (window.crypto && typeof window.crypto.getRandomValues === 'function') { window.crypto.getRandomValues(b); }
+            else { for (var i = 0; i < 16; i++) { b[i] = Math.floor(Math.random() * 256); } }
+            b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+            uuid = Array.from(b, function (v, n) { return (n === 4 || n === 6 || n === 8 || n === 10 ? '-' : '') + v.toString(16).padStart(2, '0'); }).join('');
+          }
+          var utm = '';
+          try { utm = (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 128); } catch (e) { utm = ''; }
+          var payload = JSON.stringify({ action: 'event', uuid: uuid, event_type: 'picker_landing', utm_source: utm });
+          var endpoint = '/hosted/api/collect.php';
+          if (navigator.sendBeacon) {
+            try { if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return; } catch (e) {}
+          }
+          fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
+        } catch (e) {}
+      })();
+    </script>
+  </body>
 </html>
