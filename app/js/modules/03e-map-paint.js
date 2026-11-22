@@ -812,12 +812,14 @@
                     // finalized; kinkOverrides is keyed by topic id and
                     // defaults to {} so the stock layout is unchanged.
                     if (!o) h = applyLengthOverride(h, r, mn.kinkOverrides);
-                    const fsEst = sxFontSize(2);
-                    const tabWEst = 5 * Za.measure(" ", fsEst, "topic");
-                    const textWEst = Za.measure(a, fsEst, "topic") + tabWEst;
-                    const gapEst = Math.max(20, 6 * Za.measure(" ", fsEst, "topic"));
-                    const minReqSpoke = hubRadius1 + leafRadius2 + textWEst + gapEst + 48;
-                    if (h < minReqSpoke) h = minReqSpoke;
+                    const fsEst = sxFontSize(2) * 14 / 17;
+                    const textWEst = Za.measure(a, fsEst, "topic");
+                    const gapEst = Math.max(18, 6 * Za.measure(" ", fsEst, "topic"));
+                    const minReqSpoke = hubRadius1 + leafRadius2 + textWEst + gapEst + 28;
+                    const koEntry = mn.kinkOverrides && mn.kinkOverrides[r];
+                    const hasExplicitKo = koEntry && typeof koEntry.length === "number" && koEntry.length > 0;
+                    if (!hasExplicitKo && h < minReqSpoke) h = minReqSpoke;
+                    else if (hasExplicitKo && h < (hubRadius1 + leafRadius2 + 20)) h = hubRadius1 + leafRadius2 + 20;
                     const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m, hubRadius1), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
@@ -1656,10 +1658,12 @@
                 if (e2.cloud !== branch) return;
                 const id = (e2.rec && (e2.rec.id || e2.rec.label)) || "";
                 if (e2.S) {
-                    // Underlay border for high contrast
-                    lines.push({ k: "Sb:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: (e2.F || F) + 8, s: "#02131b", o: .95 });
-                    // Vibrant high-contrast paddle pill
-                    lines.push({ k: "S:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: e2.F || F, s: "#06b6d4", o: .85 });
+                    // Underlay border for maximum contrast against dark canvas
+                    lines.push({ k: "Sb:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: (e2.F || F) + 10, s: "#000000", o: 1.0 });
+                    // Vibrant high-contrast cyan paddle pill
+                    lines.push({ k: "S:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: e2.F || F, s: "#00f0ff", o: .95 });
+                    // High-contrast white core highlight
+                    lines.push({ k: "Sc:" + id, x1: e2.S[0].x, y1: e2.S[0].y, x2: e2.S[1].x, y2: e2.S[1].y, w: Math.max(4, (e2.F || F) * .28), s: "#ffffff", o: .9 });
                 }
                 if (e2.M) {
                     // Leaf spoke line abuts the icon's inside edge
@@ -1675,15 +1679,17 @@
                     lines.push({ k: "M:" + id, x1: e2.M[0].x, y1: e2.M[0].y, x2: x2, y2: y2, w: Math.max(10, F * .18), s: "#ffffff", o: .95 });
                 }
                 if (e2.node) {
-                    circles.push({ k: "nb:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(30, F * .52), f: "#02131b", o: 1.0 });
-                    circles.push({ k: "n:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(26, F * .45), f: "#a5f3fc", o: 1.0 });
+                    circles.push({ k: "nb:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(32, F * .54), f: "#000000", o: 1.0 });
+                    circles.push({ k: "n:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(26, F * .45), f: "#38bdf8", o: 1.0 });
+                    circles.push({ k: "nc:" + id, cx: e2.node.x, cy: e2.node.y, r: Math.max(12, F * .22), f: "#ffffff", o: 1.0 });
                 }
             });
             geo.spokes.forEach(sp => {
                 if (sp.cloud !== branch || "sub" !== sp.kind || !sp.seg) return;
                 const id = (sp.entry && sp.entry.rec && (sp.entry.rec.id || sp.entry.rec.label)) || sp.cloud;
-                circles.push({ k: "sb:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(36, F * .72), f: "#02131b", o: 1.0 });
+                circles.push({ k: "sb:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(38, F * .74), f: "#000000", o: 1.0 });
                 circles.push({ k: "s:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(30, F * .6), f: "#38bdf8", o: 1.0 });
+                circles.push({ k: "sc:" + id, cx: sp.seg[1].x, cy: sp.seg[1].y, r: Math.max(14, F * .28), f: "#ffffff", o: 1.0 });
             });
             return { F: F, lines: lines, circles: circles, anchor: anchor };
         }
@@ -1743,18 +1749,18 @@
             });
             if (!Number.isFinite(minX) || !Number.isFinite(maxX)) return;
             const spanX = Math.max(0, maxX - minX), spanY = Math.max(0, maxY - minY);
-            const padX = Math.max(4800, spanX * 0.16);
-            const padY = Math.max(4800, spanY * 0.16);
+            const padX = Math.max(400, spanX * 0.14);
+            const padY = Math.max(400, spanY * 0.14);
             minX -= padX; maxX += padX;
             minY -= padY; maxY += padY;
-            const bw = Math.max(6400, maxX - minX);
-            const bh = Math.max(6400, maxY - minY);
+            const bw = Math.max(1600, maxX - minX);
+            const bh = Math.max(1200, maxY - minY);
             const cx = (minX + maxX) / 2;
             const cy = (minY + maxY) / 2;
             const svg = document.getElementById("mapSvg");
             const vb = (svg && svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width > 0) ? svg.viewBox.baseVal : { x: 0, y: 0, width: 1800, height: 1240 };
-            const fitScale = Math.min((vb.width * 0.86) / bw, (vb.height * 0.78) / bh);
-            const targetScale = Math.max(1e-9, Math.min(2, fitScale));
+            const fitScale = Math.min((vb.width * 0.88) / bw, (vb.height * 0.84) / bh);
+            const targetScale = Math.max(0.01, Math.min(2.5, fitScale));
             const tx = (vb.x + vb.width / 2) - cx * targetScale;
             const ty = (vb.y + vb.height / 2) - cy * targetScale;
             if (typeof window.__sxPanZoomCamera === "function") {

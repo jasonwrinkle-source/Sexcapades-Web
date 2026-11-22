@@ -449,7 +449,7 @@ import {
             // the report so the receipt lead can surface it.
             report.fitDeviationTotal = tallyFitDev(report);
             }
-        async function stepThrow(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP) {
+        async function stepThrow(name, preDelivered, tax, report, staged, runPhase, opts, dk, diagCaptureFields, witnessTrippingLabel, WITNESS_EPS, WITNESS_ONE_STEP, attempt = 1) {
             // (4) THROW: one commit. The branch is thrown to a
             // delivered distance of 50 center-avatar radii
             // from the center and every subcategory to a

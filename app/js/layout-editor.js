@@ -135,7 +135,7 @@
         }else if(entry.kind==="subcat"||entry.cloud!==undefined||(target.subcatOverrides&&target.subcatOverrides[key]!==undefined)){
           target.subcatOverrides[key]=subcatOverrideEntry(target.subcatOverrides[key],entry);
         }else if(entry.kind==="kink"||key.charAt(0)==="t"||(target.kinkOverrides&&target.kinkOverrides[key]!==undefined)){
-          target.kinkOverrides[key]=kinkOverrideEntry(entry.length);
+          if(!target.kinkOverrides[key]||target.kinkOverrides[key].length===undefined)target.kinkOverrides[key]=kinkOverrideEntry(entry.length);
         }
       });
     }
@@ -3172,6 +3172,7 @@
       }
       var next=collect();
       next.kinkOverrides=res.kinkOverrides;
+      syncNodeOverrides(next);
       applyBusyBtn=document.getElementById("layoutAutofitBtn");
       apply(next,"Autofit: kink spokes fitted",scope.scoped?scopedScope("applyAutofit",scope.branches[0]):null);
       noteSettlePending();

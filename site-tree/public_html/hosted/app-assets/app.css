@@ -277,7 +277,7 @@ html{background:#151816}body{background:#151816}/* Interest-color stops: --red-d
 @media(max-width:520px){#profileDetailsBody>.profile-dialog-primary-actions{margin:-5px -6px 0}.profile-dialog-primary-actions .action-btn{flex:1 1 0}}
 
 
-#sxBootDialog{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#151816;color:#eff2ec;font-family:"Source Sans 3",sans-serif;pointer-events:auto;opacity:1;transition:opacity .3s ease;--pw-watch:72px;--pw-pct:36px;--pw-label:15px;--pw-barw:min(260px,60%);--pw-ink:#eff2ec;--pw-muted:#c5cbc5;--pw-track:#3b423d;--pw-accent:#63c796;--pw-spin:sxBootRingSpin}
+#sxBootDialog{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#151816;color:#eff2ec;font-family:"Source Sans 3",sans-serif;pointer-events:auto;opacity:1;transition:opacity .3s ease;--pw-watch:72px;--pw-pct:36px;--pw-label:15px;--pw-barw:min(440px,80%);--pw-ink:#eff2ec;--pw-muted:#c5cbc5;--pw-track:#3b423d;--pw-accent:#63c796;--pw-spin:sxBootRingSpin}
 #sxBootDialog[hidden]{display:none}
 #sxBootDialog.is-done{opacity:0;pointer-events:none}
 /* F5: ONE shared structural block paints both progress-widget instances
@@ -289,9 +289,9 @@ html{background:#151816}body{background:#151816}/* Interest-color stops: --red-d
 .sx-boot-watch,.map-load-watch{width:var(--pw-watch);height:var(--pw-watch);color:var(--pw-ink)}
 .sx-boot-hand,.map-load-hand{transform-box:view-box;transform-origin:24px 27px}
 .sx-boot-pct,.map-load-pct{font-size:var(--pw-pct);font-weight:700;line-height:1;color:var(--pw-ink);font-variant-numeric:tabular-nums}
-.sx-boot-bar,.map-load-bar{width:var(--pw-barw);height:6px;border-radius:3px;background:var(--pw-track);overflow:hidden}
-.sx-boot-bar span,.map-load-bar span{display:block;height:100%;width:0;background:var(--pw-accent);border-radius:3px;transition:width .18s ease}
-.sx-boot-label,.map-load-label{max-width:min(420px,88vw);padding:0 16px;font-size:var(--pw-label);color:var(--pw-muted);text-align:center;line-height:1.35}
+.sx-boot-bar,.map-load-bar{width:var(--pw-barw);height:8px;border-radius:4px;background:var(--pw-track);overflow:hidden}
+.sx-boot-bar span,.map-load-bar span{display:block;height:100%;width:0;background:var(--pw-accent);border-radius:4px;transition:width .04s linear}
+.sx-boot-label,.map-load-label{max-width:min(460px,90vw);padding:0 16px;font-size:var(--pw-label);color:var(--pw-muted);text-align:center;line-height:1.35}
 .sx-boot-ring,.map-load-ring{fill:none;stroke:var(--pw-accent);stroke-width:1.6;stroke-dasharray:4 5;opacity:.65;transform-box:fill-box;transform-origin:center;animation:var(--pw-spin) 7s linear infinite}
 @keyframes sxBootRingSpin{to{transform:rotate(360deg)}}
 @keyframes mapLoadRingSpin{to{transform:rotate(360deg)}}
@@ -311,7 +311,7 @@ html{background:#151816}body{background:#151816}/* Interest-color stops: --red-d
    still running (revealed by the bootstrap script below after ~1s, so fast
    loads never flash it). Progress percentages are reported by the render
    pipeline itself via window.__sxLoad at its natural checkpoints. */
-#mapLoadOverlay{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(21,24,22,.88);opacity:0;pointer-events:none;transition:opacity .3s ease;--pw-watch:64px;--pw-pct:34px;--pw-label:14px;--pw-barw:min(240px,60%);--pw-ink:var(--ink);--pw-muted:var(--muted);--pw-track:var(--line);--pw-accent:var(--green);--pw-spin:mapLoadRingSpin}
+#mapLoadOverlay{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(21,24,22,.88);opacity:0;pointer-events:none;transition:opacity .3s ease;--pw-watch:64px;--pw-pct:34px;--pw-label:14px;--pw-barw:min(440px,80%);--pw-ink:var(--ink);--pw-muted:var(--muted);--pw-track:var(--line);--pw-accent:var(--green);--pw-spin:mapLoadRingSpin}
 #mapLoadOverlay[hidden]{display:none}
 #mapLoadOverlay.is-visible{opacity:1}
 #mapLoadOverlay.is-done{opacity:0}

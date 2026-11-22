@@ -761,7 +761,7 @@
             "t0403": "topic-next-day-check-in",
             "t0404": "topic-affection",
             "t0405": "topic-forniphilia",
-            "t0406": "topic-cuckquean-stag-vixen",
+            "t0406": "topic-cuckqueen-stag-vixen",
             "t0407": "topic-top-bottom-side",
             "t0408": "topic-sensual-primal-humiliation",
             "t0409": "topic-sensation-power-intimacy",

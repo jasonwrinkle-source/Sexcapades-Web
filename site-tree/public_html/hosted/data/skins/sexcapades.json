@@ -2606,12 +2606,12 @@
           "widget": "triangle"
         },
         {
-          "name": "Cuckquean / stag / vixen",
+          "name": "Cuckqueen / stag / vixen",
           "id": "t0406",
           "risk": false,
           "archetype": "multi-affinity",
           "hovertip": {
-            "issue": "Cuckquean / stag / vixen",
+            "issue": "Cuckqueen / stag / vixen",
             "poles": [
               {
                 "label": "Vixen",
@@ -2622,7 +2622,7 @@
                 "text": ""
               },
               {
-                "label": "Cuckquean",
+                "label": "Cuckqueen",
                 "text": ""
               }
             ]
@@ -2639,12 +2639,12 @@
               "label": "Stag"
             },
             {
-              "key": "cuckquean",
-              "label": "Cuckquean"
+              "key": "cuckqueen",
+              "label": "Cuckqueen"
             }
           ],
-          "question": "Cuckquean / stag / vixen",
-          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
+          "question": "Cuckqueen / stag / vixen",
+          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
           "widget": "triangle"
         },
         {

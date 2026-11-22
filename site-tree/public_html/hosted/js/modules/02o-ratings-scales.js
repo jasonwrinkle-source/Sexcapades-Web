@@ -122,7 +122,8 @@
     "topic-hotwife": "t0281",
     "topic-cuckold-hotwife": "t0281",
     "topic-bull-hotwife-cuckold": "t0281",
-    "topic-cuckqueen-stag-vixen": "t0406"
+    "topic-cuckqueen-stag-vixen": "t0406",
+    "topic-cuckquean-stag-vixen": "t0406"
 });
         function migrateNodeKey(id) {
             const s = String(id == null ? "" : id);
