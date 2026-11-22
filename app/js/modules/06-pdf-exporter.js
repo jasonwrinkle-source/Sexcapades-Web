@@ -103,12 +103,38 @@
                 dy: r * (1 - o) + t * (Ap - o * th.ty)
             };
         }
+        // On-map widget zoom gate (Jason, 2026-11-22): below a
+        // reasonable zoom the on-map rating widgets are hard to hit
+        // accurately, so the spoke renderer swaps them for a readout
+        // chip (strongest poles) that opens the full widget popup on
+        // click. Threshold is the camera scale relative to fit.
+        window.SX_MAP_WIDGET_MIN_ZOOM = 2;
+        let sxFitScaleCache = 0, sxZoomGateSide = null;
+        window.sxMapZoomRatio = function() {
+            if (!(sxFitScaleCache > 0)) try {
+                const f = sxFitFrame();
+                if (f && f.scale > 0) sxFitScaleCache = f.scale;
+            } catch (e) {}
+            return sxFitScaleCache > 0 ? $p / sxFitScaleCache : 1;
+        };
+        window.sxMapZoomAllowsWidgets = function() {
+            return window.sxMapZoomRatio() >= window.SX_MAP_WIDGET_MIN_ZOOM;
+        };
+        function sxZoomGateCheck() {
+            const side = window.sxMapZoomAllowsWidgets();
+            if (null === sxZoomGateSide) return void (sxZoomGateSide = side);
+            if (side !== sxZoomGateSide) {
+                sxZoomGateSide = side;
+                if (typeof Mr === "function") Mr();
+            }
+        }
         function dh() {
             if (!Yp) return;
             const e = Yp;
             Yp = null, e.animation.onfinish = null, e.animation.oncancel = null, e.animation.cancel(), 
             Ep = e.tx, Ap = e.ty, $p = e.scale, Jp.setAttribute("transform", `translate(${Ep} ${Ap}) scale(${$p})`), 
             wh(), th.scale = $p, th.tx = Ep, th.ty = Ap, Mn.style.transform = "none";
+            sxZoomGateCheck();
         }
         function uh() {
             Xp && (cancelAnimationFrame(Xp), Xp = 0, Cn.classList.remove("is-camera-moving"));
@@ -225,7 +251,7 @@
             noteFitUserCamera();
             const a = $p;
             $p = Math.max(1e-9, Math.min(Eh(), e)), Ep = t - $p / a * (t - Ep), Ap = n - $p / a * (n - Ap), 
-            i ? (bh(), Sh()) : $h();
+            i ? (bh(), Sh()) : $h(), sxZoomGateCheck();
         }
         function Ch() {
             const e = Array.from(eh.values());
@@ -377,7 +403,7 @@
         }
         function Ih() {
             const f = sxFitFrame();
-            $p = f.scale, Ep = f.x, Ap = f.y, $h(), armFitSettleRefit();
+            $p = f.scale, Ep = f.x, Ap = f.y, sxFitScaleCache = f.scale, $h(), armFitSettleRefit(), sxZoomGateCheck();
         }
         window.sxCenterFitViewport = Ih;
         let sxCenterPointerTapTime = 0, sxCenterPointerTapX = 0, sxCenterPointerTapY = 0, sxCenterPointerSingleTimer = null;
@@ -1352,9 +1378,42 @@
                 gh(t) && (hh(), t = ch()), Mn.style.transform = `matrix(${t.ratio},0,0,${t.ratio},${t.dx},${t.dy})`, 
                 Sh();
             }();
+            sxZoomGateCheck();
         }, {
             passive: !1
         });
+        // Readout chip (zoom gate): a click opens the full widget in
+        // the popup, exactly like a Hot List row's widget button.
+        const sxOpenChipPopup = chip => {
+            const id = chip.getAttribute("data-id");
+            if (id && "function" === typeof window.sxOpenHotListWidgetPopup) window.sxOpenHotListWidgetPopup(id, Vi());
+        };
+        // The chip paints inside its spoke group, under the map's
+        // hit paths, so a real click usually lands on a hit path
+        // rather than the chip itself: hit-test the click point
+        // against the chips' screen rects as well as the target.
+        const sxChipFromEvent = e => {
+            const direct = e.target && e.target.closest ? e.target.closest(".map-readout-chip") : null;
+            if (direct) return direct;
+            if (!Cn || !e.target || !Cn.contains(e.target)) return null;
+            const chips = Cn.querySelectorAll(".map-readout-chip");
+            for (const chip of chips) {
+                const r = chip.getBoundingClientRect();
+                if (e.clientX >= r.left - 2 && e.clientX <= r.right + 2 && e.clientY >= r.top - 2 && e.clientY <= r.bottom + 2) return chip;
+            }
+            return null;
+        };
+        document.addEventListener("click", e => {
+            const chip = sxChipFromEvent(e);
+            if (!chip) return;
+            e.preventDefault(), e.stopPropagation(), sxOpenChipPopup(chip);
+        }, !0);
+        document.addEventListener("keydown", e => {
+            if ("Enter" !== e.key && " " !== e.key) return;
+            const chip = e.target && e.target.closest ? e.target.closest(".map-readout-chip") : null;
+            if (!chip) return;
+            e.preventDefault(), e.stopPropagation(), sxOpenChipPopup(chip);
+        }, !0);
         // Tap zooms. A hold shows the same tip a mouse hover shows.
         // A second tap opens the About and note sheet. A finger that
         // drifts a little, or a long-press the browser ends itself,

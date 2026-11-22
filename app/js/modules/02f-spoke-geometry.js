@@ -627,6 +627,7 @@
             }, P = (wa(e, I, M), da(e, M)), L = $a(e, "give", M), T = $a(e, "receive", M), F = Sa(e, I, M), N = ka(i, L, P.giveKnown ? ba(P.give) : "Unrated", { tapFirst: !0 }), _ = ka(i, T, P.receiveKnown ? ba(P.receive) : "Unrated", { tapFirst: !0 });
             let D = "";
             const sxShowMapSliders = Boolean(mn && mn.mapSliders);
+            const sxZoomOk = "function" !== typeof window.sxMapZoomAllowsWidgets || window.sxMapZoomAllowsWidgets();
             const R = g && !Rt ? Ua(e) : null, O = Ga.heatWidths(n, sxD);
             if (SpokeGeometry.taperedPath(t, O.w0, O.w1), R) {
                 const overlayTip = "Overlaid profiles into this topic", a = `${R.count}/${R.total}`;
@@ -712,6 +713,48 @@
                     return 1 === t.length ? `${Math.round(e.score)}% · ${_d(t[0])}` : `${Math.round(e.score)}% · ${t.length} matched routes`;
                 }(U), d = (U.routes || []).map(e => `${_d(e, !0)}; combined ${Math.round(e.score)}%`).join(" · "), p = Za.controlTagWidth(r, "group") * a, h = 24 * a, g = l, m = c;
                 D += `<g class="direction-control group-match-control" data-id="${e}" data-direction="group" data-base-cx="${g}" data-base-cy="${m}" data-base-angle="${i}" data-index="0" data-tag-width="${p}" data-tag-height="${h}" data-control-scale="${a}" role="img" tabindex="0" aria-label="Combined match ${Math.round(U.score)} percent. ${Hi(d)}"><title>Combined match ${Math.round(U.score)}%. ${Hi(d)}</title><rect class="direction-tag-bg" x="${(g - p / 2).toFixed(2)}" y="${(m - h / 2).toFixed(2)}" width="${p.toFixed(2)}" height="${h.toFixed(2)}" rx="${6 * a}" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" fill="${zi(U.score)}"/><text class="direction-tag" x="${g.toFixed(2)}" y="${m.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${i.toFixed(2)} ${g.toFixed(2)} ${m.toFixed(2)})" textLength="${Math.max(50, p - 12 * a).toFixed(2)}" lengthAdjust="spacing" style="font-size:${5.5 * a}px">${Hi(r)}</text></g>`;
+            } else if (g && S && d && sxShowMapSliders && !sxZoomOk) {
+                // Zoom gate (Jason, 2026-11-22): below the reasonable
+                // zoom the full on-map widget is too small to hit
+                // accurately, so show a readout chip instead — the
+                // rating itself (strongest poles per placement) —
+                // and let a click open the full widget in the popup.
+                const t = da(e, S), n = l - o, i = c - s, dd = Math.hypot(n, i) || 1, p = n / dd, h = i / dd, m = sxControlScale(sxD, u), f = $.keys || [], y = $.labels || [];
+                const strongest = obj => {
+                    if (!obj) return null;
+                    let best = null;
+                    f.forEach((k, ix) => {
+                        if (null == obj[k]) return;
+                        if (!best || Math.abs(obj[k]) > Math.abs(best.v)) best = { label: y[ix] || k, v: obj[k] };
+                    });
+                    return best;
+                };
+                const dual = "function" === typeof sxDualPlacements && sxDualPlacements(e);
+                const advObj = dual ? (t.advocacy || t.givePlacement) : null, recObj = dual ? (t.receptivity || t.receivePlacement) : null;
+                let chipText = "", chipFill = Ga.NO_CODE_COLOR, chipRated = !1;
+                if (advObj || recObj) {
+                    const aB = strongest(advObj), rB = strongest(recObj), aName = dual && window.__SX_ACTIVE_SKIN && "sexcapades" === window.__SX_ACTIVE_SKIN ? "Give" : "Adv", rName = aName === "Give" ? "Receive" : "Rec";
+                    const parts = [];
+                    if (aB) parts.push(`${aName} ${aB.label} ${Math.round(aB.v)}`);
+                    if (rB) parts.push(`${rName} ${rB.label} ${Math.round(rB.v)}`);
+                    chipText = parts.length ? parts.join(" \u00b7 ") : "Unrated";
+                    const top = aB && rB ? (Math.abs(aB.v) >= Math.abs(rB.v) ? aB : rB) : aB || rB;
+                    if (top) chipFill = zi(top.v), chipRated = !0;
+                } else if (!$.single && 2 === f.length && "give" === f[0] && "receive" === f[1]) {
+                    const parts = [];
+                    if (t.giveKnown) parts.push(`Give ${Math.round(t.give)}`);
+                    if (t.receiveKnown) parts.push(`Receive ${Math.round(t.receive)}`);
+                    chipText = parts.length ? parts.join(" \u00b7 ") : "Unrated";
+                    if (parts.length) chipFill = zi(t.giveKnown && (!t.receiveKnown || Math.abs(t.give) >= Math.abs(t.receive)) ? t.give : t.receive), chipRated = !0;
+                } else if (f.length >= 2 && !$.single) {
+                    const b = strongest(t);
+                    if (b) chipText = `${b.label} ${Math.round(b.v)}`, chipFill = zi(b.v), chipRated = !0;
+                    else chipText = "Unrated";
+                } else if ($.single || t.giveKnown) {
+                    chipText = `${Math.round(t.give || 0)}`, chipFill = zi(t.give || 0), chipRated = !0;
+                } else chipText = "Unrated";
+                const chipW = Za.controlTagWidth(chipText, "pair") * m, chipH = 24 * m, iconR = (null != sxLeafD ? sxLeafD : u * mapFontScale()) / 2, gx = l + p * (iconR + chipH / 2 + 6 * m), gy = c + h * (iconR + chipH / 2 + 6 * m), rot = (180 * Math.atan2(h, p) / Math.PI).toFixed(2);
+                D += `<g class="direction-control map-readout-chip" data-id="${e}" role="button" tabindex="0" aria-label="${Hi(`${I.label || e}: ${chipText}. Activate to open the full rating widget.`)}"><title>${Hi(chipText)}</title><rect class="direction-tag-bg" x="${(gx - chipW / 2).toFixed(2)}" y="${(gy - chipH / 2).toFixed(2)}" width="${chipW.toFixed(2)}" height="${chipH.toFixed(2)}" rx="${(6 * m).toFixed(2)}" transform="rotate(${rot} ${gx.toFixed(2)} ${gy.toFixed(2)})" fill="${chipFill}"/><text class="direction-tag" x="${gx.toFixed(2)}" y="${gy.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${rot} ${gx.toFixed(2)} ${gy.toFixed(2)})" textLength="${Math.max(30, chipW - 12 * m).toFixed(2)}" lengthAdjust="spacing" style="font-size:${(5.5 * m).toFixed(2)}px">${Hi(chipText)}</text></g>`;
             } else if (g && S && d && sxShowMapSliders) {
                 const t = da(e, S), n = l - o, i = c - s, d = Math.hypot(n, i), p = n / d, h = i / d, g = 180 * Math.atan2(i, n) / Math.PI, m = sxControlScale(sxD, u), f = $.keys, y = $.labels, b = !$.single && "give" === y[0] && "receive" === y[1], v = e => Za.controlTagWidth(e, "pair") * m, w = {};
                 // On-map pole tips (Build 2026-11-18): each pole label
