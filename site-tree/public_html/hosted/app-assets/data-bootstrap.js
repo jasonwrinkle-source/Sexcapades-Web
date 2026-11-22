@@ -12139,17 +12139,36 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             // only) and in the run log.
             const throwCenterRadius = eaBase.photoRadius * centerRingScale();
             const attemptMultiplier = 1 + (attempt - 1) * 0.35;
-            const throwBranchTarget = Math.max(preDelivered && Number.isFinite(preDelivered.branch) && preDelivered.branch > 0 ? preDelivered.branch * 1.75 : 0, throwCenterRadius * SX_SCORE.THROW_BRANCH, 100000) * attemptMultiplier;
+            const throwBranchTarget = Math.max(preDelivered && Number.isFinite(preDelivered.branch) && preDelivered.branch > 0 ? preDelivered.branch * 1.75 : 0, throwCenterRadius * SX_SCORE.THROW_BRANCH, 120000) * attemptMultiplier;
             const throwSubcatTarget = throwCenterRadius * SX_SCORE.THROW_SUBCAT * attemptMultiplier;
             const throwConvert = (curLen, delivered, target) => dkConvertRenderedToOverride(curLen, delivered, target);
             const branchCurEntry = snapshot && snapshot.branchOverrides
                 ? snapshot.branchOverrides[name] : null;
             const branchCurLen = branchCurEntry && Number(branchCurEntry.length) > 0
                 ? Number(branchCurEntry.length) : 1;
-            const throwBranchRaw = throwConvert(branchCurLen,
-                preDelivered ? preDelivered.branch : NaN, throwBranchTarget);
-            const throwBranchLen = Number.isFinite(throwBranchRaw) && throwBranchRaw > 0
-                ? throwBranchRaw : null;
+
+            // Calculate required branch override to actually deliver throwBranchTarget in world units:
+            // yr(branchObj) = Math.max(SX_MIN_BRANCH_THROW, 1450 * spokeLen * manualFactor * stag * coll + extra)
+            let throwBranchRaw = NaN;
+            try {
+                const branchObj = h.find(b => b.name === name);
+                const nIdx = Math.max(0, h.indexOf(branchObj));
+                const stag = (typeof mn !== "undefined" && mn.stagger) ? (nIdx % 2 ? 1.18 : 0.82) : 1;
+                const coll = 1.3; // staged "grow" collision factor during throw
+                const spokeBase = 1450 * ((typeof mn !== "undefined" && Number(mn.spokeLen)) || 1) * stag * coll;
+                const extra = (Number(branchObj && branchObj._spokeAdjust20) || 0) + (typeof pr !== "undefined" && pr.categoryIcon ? pr.categoryIcon / 2 : 132) + 30;
+                if (spokeBase > 0) {
+                    throwBranchRaw = Math.max(branchCurLen * (1.6 + (attempt - 1) * 0.35), (throwBranchTarget - extra) / spokeBase);
+                }
+            } catch (_) {}
+            if (!Number.isFinite(throwBranchRaw) || throwBranchRaw <= 0) {
+                throwBranchRaw = throwConvert(branchCurLen, preDelivered ? preDelivered.branch : NaN, throwBranchTarget);
+            }
+            if (!Number.isFinite(throwBranchRaw) || throwBranchRaw <= 0) {
+                throwBranchRaw = branchCurLen * (1.6 + (attempt - 1) * 0.35);
+            }
+            const throwBranchLen = Math.min(195, Math.max(branchCurLen * 1.5, throwBranchRaw));
+
             const throwSubcatLens = {}, throwSubcatSkipped = [];
             tax.subLabels.forEach(l => {
                 const curEntry = snapshot && snapshot.subcatOverrides
@@ -12158,10 +12177,11 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
                     ? Number(curEntry.length) : 1;
                 const delivered = preDelivered && preDelivered.items
                     ? preDelivered.items["subcat|" + name + "|" + l] : NaN;
-                const subTarget = Math.max(Number.isFinite(delivered) && delivered > 0 ? delivered * 1.5 : 0, throwSubcatTarget);
-                const len = throwConvert(curLen, delivered, subTarget);
-                if (Number.isFinite(len) && len > 0) throwSubcatLens[l] = len;
-                else throwSubcatSkipped.push(l);
+                const subTarget = Math.max(Number.isFinite(delivered) && delivered > 0 ? delivered * (1.6 + (attempt - 1) * 0.25) : 0, throwSubcatTarget);
+                let len = throwConvert(curLen, delivered, subTarget);
+                if (!Number.isFinite(len) || len <= 0) len = curLen * (1.6 + (attempt - 1) * 0.25);
+                const effLen = Math.min(195, Math.max(curLen * 1.4, len));
+                throwSubcatLens[l] = effLen;
             });
             report.throwRadii = {
                 centerRadius: throwCenterRadius,
@@ -13431,15 +13451,10 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
                 const baselineForThrow = (report.baseline.adjacentFirst != null && Number.isFinite(report.baseline.adjacentFirst))
                     ? Math.max(Number(report.baseline.first), Number(report.baseline.adjacentFirst))
                     : Number(report.baseline.first);
-                const fineTuneActive = Number.isFinite(baselineForThrow) && baselineForThrow < SX_SCORE.FINE_TUNE_BELOW;
+                const fineTuneActive = Number.isFinite(baselineForThrow) && baselineForThrow <= 0;
                 report.fineTune = { active: fineTuneActive, baseline: baselineForThrow, selfBaseline: report.baseline.first, below: SX_SCORE.FINE_TUNE_BELOW, margin: null, armPhase: null, holds: [], branchFloor: null };
                 fineTuneActive && dkLog.push({ type: "fine-tune-skip-throw", branch: name, baseline: baselineForThrow, below: SX_SCORE.FINE_TUNE_BELOW });
                 if (!fineTuneActive) {
-                    if (sxAnnealStageCtx && sxAnnealStageCtx.branch === name) {
-                        sxAnnealStageCtx.adjacent = !0;
-                        report.stagedScoring.adjacentFromPhase = "throw";
-                        dkLog.push({ type: "staged-scoring-switch", branch: name, stage: "same-plus-adjacent", at: "throw-entry" });
-                    }
                     if (Number.isFinite(baselineForThrow)) {
                         prevPhaseCloud = baselineForThrow;
                     }
