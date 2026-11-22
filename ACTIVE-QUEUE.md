@@ -54,7 +54,7 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - An operation applied to a selection of profiles yields a first-class derived object: named by operation + parties, storing a recipe + ratings fingerprint (never editable, never rateable, recomputes when a source changes).
    - It renders its OWN map on the skin's neutral atlas: nodes carry both parties' holdings, spokes carry the operation's per-topic value; Circle Minus gets map paint for the first time (split depth × joint relevance). Supersedes the pair taper painting.
    - Full spec: `ADVOCACY_RECEPTIVITY_AND_OPERATION_MAPS_SPECIFICATION.md`, Part 2. Foundation for item 8.
-   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Design point held open in spec: atlas positions vs operation-solved layout (atlas recommended).
+   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Geography RULED 2026-11-22: **atlas positions**; operation-solved layout noted in spec as a deferred portrait view for later.
 
 8. **Scribe — Operation Chooser / Full Arc (Spec Part 3):**
    - Scribe dialog gains an operation choice for multi-profile writings: Communion (Cross), Common ground (Straight), Dialectic (Circle Minus), or Full arc (all three as movements).

@@ -187,13 +187,18 @@ sketch of the Cross/Straight dialect of this map; it is superseded
 when this part lands, and Circle Minus gets map paint for the first
 time.)
 
-- **Geography belongs to the taxonomy, not to a party.** Node
-  positions come from the skin's neutral atlas (the default layout),
-  so the operation's map is a shared place whose geography no party
-  owns. (Design point for Jason at kickoff: atlas positions vs. a
-  layout solved from the operation's own values. The atlas is
-  recommended — a map whose geography moves per operation stops being
-  a place two people can point at together.)
+- **Geography belongs to the taxonomy, not to a party (ruled by
+  Jason, 2026-11-22).** Node positions come from the skin's neutral
+  atlas (the default layout), so the operation's map is a shared
+  place whose geography no party owns.
+- **Noted for later (Jason, 2026-11-22 — deferred, not in this
+  build):** an *operation-solved* layout, in which the solver runs on
+  the operation's own per-topic values (Cross pulling well-fitting
+  topics inward, Minus pushing deep feuds outward) so the map's shape
+  itself becomes the operation's portrait. Jason finds great appeal
+  in it; it is recorded here so it is not lost. If it is ever built,
+  it is a separate portrait view — the atlas map above remains the
+  shared place two people point at together.
 - **Nodes carry both parties.** Per topic, the disc shows each side's
   holding (e.g. split disc, or disc-and-ring in the parties' glyph
   order), so the map stops showing products with their factors
