@@ -15388,7 +15388,7 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
             // the widgets do — the signed strongest holding. (Pairs
             // have no polygon family, so the seeder never persists
             // one for them; the record carries the derivation.)
-            const vals = Object.keys(p).filter(k => "intensity" !== k && "line" !== k && Number.isFinite(Number(p[k]))).map(k => Number(p[k]));
+            const vals = Object.keys(p).filter(k => "intensity" !== k && "line" !== k && "known" !== k && Number.isFinite(Number(p[k]))).map(k => Number(p[k]));
             return vals.length && "function" == typeof sxSignedIntensity ? sxSignedIntensity(vals) : null;
         }
         function sxPlacementMirrors(res) {
@@ -15454,10 +15454,18 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
                     keys: keys,
                     isMultiPole: Boolean(shape && shape.keys && shape.keys.length > 2),
                     isMonopole: isSingle,
-                    advocacy: hasAdv ? Object.assign({}, n.advocacy) : null,
+                    advocacy: hasAdv ? Object.assign({}, n.advocacy, { known: !0 }) : null,
                     advocacyKnown: hasAdv,
-                    receptivity: hasRec ? Object.assign({}, n.receptivity) : null,
-                    receptivityKnown: hasRec
+                    receptivity: hasRec ? Object.assign({}, n.receptivity, { known: !0 }) : null,
+                    receptivityKnown: hasRec,
+                    givePlacement: null,
+                    givePlacementKnown: !1,
+                    receivePlacement: null,
+                    receivePlacementKnown: !1,
+                    givePlacementIntensity: null,
+                    givePlacementIntensityKnown: !1,
+                    receivePlacementIntensity: null,
+                    receivePlacementIntensityKnown: !1
                 };
                 if (hasAdv || hasRec) {
                     const primary = hasAdv ? n.advocacy : n.receptivity;
@@ -15476,6 +15484,62 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
                     }
                     return sxPlacementMirrors(res);
                 }
+                // Classic placements (2026-11-22): an n-pole rating on the
+                // sex skin may carry give/receive PLACEMENT objects --
+                // { give: {...poles, intensity}, receive: {...} } -- the
+                // mirror of advocacy/receptivity on stance skins. The give
+                // placement is primary: flat pole fields, res.poles and the
+                // (n+1) intensity mirror from it, exactly as the advocacy
+                // branch above does from its primary.
+                const hasGivePl = Boolean(n.give && "object" == typeof n.give), hasRecPl = Boolean(n.receive && "object" == typeof n.receive);
+                if ((hasGivePl || hasRecPl) && res.isMultiPole) {
+                    const primary = hasGivePl ? n.give : n.receive;
+                    const p = {};
+                    keys.forEach(k => {
+                        const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
+                        res[k] = val;
+                        res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
+                        p[k] = val;
+                    });
+                    res.poles = p;
+                    res.polesKnown = keys.some(k => res[k + "Known"]);
+                    if (Number.isFinite(Number(primary.intensity))) {
+                        res.intensity = Number(primary.intensity);
+                        res.intensityKnown = !0;
+                    }
+                    res.give = 0;
+                    res.giveKnown = !1;
+                    res.receive = 0;
+                    res.receiveKnown = !1;
+                    if (hasGivePl) {
+                        res.givePlacement = Object.assign({}, n.give);
+                        res.givePlacementKnown = !0;
+                        const gi = sxPlacementIntensity(n.give);
+                        if (null != gi) { res.givePlacementIntensity = gi; res.givePlacementIntensityKnown = !0; }
+                    }
+                    if (hasRecPl) {
+                        res.receivePlacement = Object.assign({}, n.receive);
+                        res.receivePlacementKnown = !0;
+                        const ri = sxPlacementIntensity(n.receive);
+                        if (null != ri) { res.receivePlacementIntensity = ri; res.receivePlacementIntensityKnown = !0; }
+                    }
+                    // Widget-layer alias: the dual-puck machinery reads
+                    // rec.advocacy / rec.receptivity (with a .known flag
+                    // on the object) on every skin. On the classic skin
+                    // the give placement plays the advocacy role and the
+                    // receive placement the receptivity role.
+                    if (hasGivePl) {
+                        res.advocacy = Object.assign({}, n.give, { known: !0 });
+                        res.advocacyKnown = !0;
+                        if (res.givePlacementIntensityKnown) { res.advocacyIntensity = res.givePlacementIntensity; res.advocacyIntensityKnown = !0; }
+                    }
+                    if (hasRecPl) {
+                        res.receptivity = Object.assign({}, n.receive, { known: !0 });
+                        res.receptivityKnown = !0;
+                        if (res.receivePlacementIntensityKnown) { res.receptivityIntensity = res.receivePlacementIntensity; res.receptivityIntensityKnown = !0; }
+                    }
+                    return res;
+                }
                 if (!hasGive && !hasReceive && !hasLine) {
                     const poleKeys = Object.keys(n).filter(k => k !== "intensity" && k !== "advocacy" && k !== "receptivity" && Number.isFinite(Number(n[k])));
                     if (poleKeys.length) {
@@ -15488,6 +15552,15 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
                             res.advocacyKnown = !0;
                             res.receptivity = null;
                             res.receptivityKnown = !1;
+                            if (!window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades") {
+                                res.givePlacement = Object.assign({}, n);
+                                res.givePlacementKnown = !0;
+                                const gi = sxPlacementIntensity(res.givePlacement);
+                                if (null != gi) { res.givePlacementIntensity = gi; res.givePlacementIntensityKnown = !0; }
+                                res.advocacy = Object.assign({}, n, { known: !0 });
+                                res.advocacyKnown = !0;
+                                if (null != gi) { res.advocacyIntensity = gi; res.advocacyIntensityKnown = !0; }
+                            }
                         }
                     }
                 }
@@ -15711,6 +15784,19 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
                 if (null != aI || null != rI) return { left: null != aI ? zi(aI) : CHAR, right: null != rI ? zi(rI) : CHAR, ring: SEAM };
                 return { single: CHAR, ring: SEAM };
             }
+            // Classic placements (2026-11-22): on the sex skin an
+            // n-pole topic's disc splits by its give/receive placement
+            // intensities -- give left, receive right -- mirroring the
+            // stance branch above; an unplaced flank keeps charcoal.
+            if (!sxStance && (rec.givePlacementKnown || rec.receivePlacementKnown)) {
+                const plKeys = (shape && shape.keys) || rec.keys || [];
+                if (plKeys.length >= 3) {
+                    const gI = rec.givePlacementIntensityKnown ? rec.givePlacementIntensity : null;
+                    const rI = rec.receivePlacementIntensityKnown ? rec.receivePlacementIntensity : null;
+                    if (null != gI || null != rI) return { left: null != gI ? zi(gI) : CHAR, right: null != rI ? zi(rI) : CHAR, ring: SEAM };
+                    return { single: CHAR, ring: SEAM };
+                }
+            }
             if (rec.lineKnown) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
             const keys = (shape && shape.keys) || rec.keys || [];
             if (keys.length === 3) {
@@ -15738,6 +15824,8 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // flanks, the category's intensity rollup colors it whole.
         function sxCategoryInterestDisc(e, t) {
             const CHAR = "#151917", SEAM = "#78817e";
+            const GA = fa(e, t, "givePlacementIntensity"), GR = fa(e, t, "receivePlacementIntensity");
+            if (null != GA || null != GR) return { left: null != GA ? zi(GA) : CHAR, right: null != GR ? zi(GR) : CHAR, ring: SEAM };
             const A = fa(e, t, "advocacyIntensity"), R = fa(e, t, "receptivityIntensity");
             if (null != A || null != R) return { left: null != A ? zi(A) : CHAR, right: null != R ? zi(R) : CHAR, ring: SEAM };
             const T = fa(e, t, "give"), F = fa(e, t, "receive");
@@ -15748,6 +15836,8 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         }
         function sxSubInterestDisc(e, t, i) {
             const CHAR = "#151917", SEAM = "#78817e";
+            const GA = ya(e, t, "givePlacementIntensity", i), GR = ya(e, t, "receivePlacementIntensity", i);
+            if (null != GA || null != GR) return { left: null != GA ? zi(GA) : CHAR, right: null != GR ? zi(GR) : CHAR, ring: SEAM };
             const A = ya(e, t, "advocacyIntensity", i), R = ya(e, t, "receptivityIntensity", i);
             if (null != A || null != R) return { left: null != A ? zi(A) : CHAR, right: null != R ? zi(R) : CHAR, ring: SEAM };
             const T = ya(e, t, "give", i), F = ya(e, t, "receive", i);
@@ -15762,21 +15852,38 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         // unplaced flank stays null (no taper). Pair/pseudo spoke colors are
         // consulted before these at every call site.
         function sxPlacementFlankColors(rec) {
-            if (!rec || !(rec.advocacyKnown || rec.receptivityKnown)) return null;
-            if (!("undefined" != typeof window && Boolean(window.__SX_ACTIVE_SKIN) && "sexcapades" !== window.__SX_ACTIVE_SKIN)) return null;
-            if (!rec.advocacyIntensityKnown && !rec.receptivityIntensityKnown) return null;
+            if (!rec) return null;
+            const sxStance = "undefined" != typeof window && Boolean(window.__SX_ACTIVE_SKIN) && "sexcapades" !== window.__SX_ACTIVE_SKIN;
+            if (sxStance) {
+                if (!(rec.advocacyKnown || rec.receptivityKnown)) return null;
+                if (!rec.advocacyIntensityKnown && !rec.receptivityIntensityKnown) return null;
+                return {
+                    give: rec.advocacyIntensityKnown ? zi(rec.advocacyIntensity) : null,
+                    receive: rec.receptivityIntensityKnown ? zi(rec.receptivityIntensity) : null
+                };
+            }
+            // Classic placements (2026-11-22): on the sex skin an n-pole
+            // topic's spoke flanks speak give (top) and receive (bottom),
+            // each by its own placement intensity.
+            if (!(rec.givePlacementKnown || rec.receivePlacementKnown)) return null;
+            if (!rec.givePlacementIntensityKnown && !rec.receivePlacementIntensityKnown) return null;
             return {
-                give: rec.advocacyIntensityKnown ? zi(rec.advocacyIntensity) : null,
-                receive: rec.receptivityIntensityKnown ? zi(rec.receptivityIntensity) : null
+                give: rec.givePlacementIntensityKnown ? zi(rec.givePlacementIntensity) : null,
+                receive: rec.receivePlacementIntensityKnown ? zi(rec.receivePlacementIntensity) : null
             };
         }
         function sxSubPlacementFlankColors(e, t, i) {
             if (!e) return null;
             const A = ya(e, t, "advocacyIntensity", i), R = ya(e, t, "receptivityIntensity", i);
-            if (null == A && null == R) return null;
-            return {
+            if (null != A || null != R) return {
                 give: null != A ? zi(A) : null,
                 receive: null != R ? zi(R) : null
+            };
+            const GA = ya(e, t, "givePlacementIntensity", i), GR = ya(e, t, "receivePlacementIntensity", i);
+            if (null == GA && null == GR) return null;
+            return {
+                give: null != GA ? zi(GA) : null,
+                receive: null != GR ? zi(GR) : null
             };
         }
         function ya(e, t, n, i) {
@@ -22820,6 +22927,16 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             To(topicId, "intensity", v, !1, profileId || null);
             return v;
         }
+        // Dual placements apply on every stance skin, and -- since
+        // 2026-11-22 -- on n-pole topics on the classic skin too, where
+        // the placements are named give/receive. Single and dual topics
+        // on the classic skin keep the flat behavior.
+        function sxDualPlacements(topicId) {
+            if (window.__SX_ACTIVE_SKIN && "sexcapades" !== window.__SX_ACTIVE_SKIN) return !0;
+            if (!topicId) return !1;
+            const shape = typeof Ge === "function" ? Ge(topicId) : null;
+            return Boolean(shape && shape.keys && shape.keys.length >= 3);
+        }
         function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
             let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
             if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return;
@@ -22839,6 +22956,38 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             const existing = o[topicId] && typeof o[topicId] === "object" ? Object.assign({}, o[topicId]) : {};
             const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
             if (isClassic) {
+                // Classic placements (2026-11-22): on the sex skin an
+                // n-pole topic stores give/receive PLACEMENTS --
+                // { give: {...poles, intensity}, receive: {...} } --
+                // mirroring advocacy/receptivity on stance skins (mode
+                // "advocacy" writes give, "receptivity" writes receive);
+                // the give placement mirrors flat, as advocacy does.
+                const shape = typeof Ge === "function" ? Ge(topicId, r) : null;
+                if (shape && shape.keys && shape.keys.length > 2) {
+                    const placement = Object.assign({}, values);
+                    if (intensity != null) placement.intensity = intensity;
+                    if (mode === "receptivity") {
+                        existing.receive = placement;
+                        if (!existing.give) {
+                            const gv = {};
+                            let hasGv = false;
+                            Object.keys(existing).forEach(k => {
+                                if (k !== "give" && k !== "receive" && k !== "advocacy" && k !== "receptivity") {
+                                    gv[k] = existing[k];
+                                    hasGv = true;
+                                }
+                            });
+                            if (hasGv) existing.give = gv;
+                        }
+                    } else {
+                        existing.give = placement;
+                        Object.keys(placement).forEach(k => { existing[k] = placement[k]; });
+                    }
+                    o[topicId] = existing;
+                    zt(r);
+                    $o(topicId, r);
+                    return;
+                }
                 Object.keys(values).forEach(k => { existing[k] = values[k]; });
                 if (intensity != null) existing.intensity = intensity;
                 o[topicId] = existing;
@@ -22877,12 +23026,14 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 delete vt[r][topicId];
             } else if (mode === "receptivity") {
                 delete existing.receptivity;
+                delete existing.receive;
             } else {
                 delete existing.advocacy;
+                delete existing.give;
                 const shape = typeof Ge === "function" ? Ge(topicId, r) : null;
                 if (shape && shape.keys) shape.keys.forEach(k => delete existing[k]);
                 delete existing.intensity;
-                if (!existing.receptivity) delete vt[r][topicId];
+                if (!existing.receptivity && !existing.receive) delete vt[r][topicId];
             }
             zt(r);
             $o(topicId, r);
@@ -23032,7 +23183,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             ctx.setLineDash([]);
 
             // 3. Advocacy polygon & Receptivity polygon
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
             const pVals = [];
             for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k] != null ? state["p" + k] : 0);
             const sxMaxAbs = Math.abs(sxSignedIntensity(pVals));
@@ -23259,7 +23410,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 sxPersistIntensity(topicId, state.intensity);
                 for (let k = 0; k < poleCount; k++) {
@@ -23288,7 +23439,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 Fo(topicId, "intensity", !1);
                 for (let k = 0; k < poleCount; k++) {
@@ -23348,7 +23499,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 const { cx, cy, r, vertices } = getVerticesFn(canvas.width, canvas.height);
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 const mode = isClassic ? "advocacy" : (state.mode || "advocacy");
                 const prefix = (mode === "receptivity") ? "recP" : "p";
 
@@ -23410,7 +23561,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 if (!isClassic && canvas.__sxPucks) {
                     const rect = canvas.getBoundingClientRect();
                     const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
@@ -23433,7 +23584,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 state.isDragging = !0;
                 state.activeVertex = null;
                 state.vertexLocked = !1;
-                const isClassicCheck = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassicCheck = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 const mode = isClassicCheck ? "advocacy" : (state.mode || "advocacy");
                 const prefix = (mode === "receptivity") ? "recP" : "p";
 
@@ -23464,7 +23615,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
 
             // Wheel strictly scoped to centroid pucks
             canvas.addEventListener("wheel", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
                 const rect = canvas.getBoundingClientRect();
                 const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
                 const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
@@ -23773,7 +23924,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             sxDrawTriPoleLabel(ctx, canvas, V2.x, V2.y, labels[2], triCols[2], triKeys && triKeys[2], triHalfW, false);
 
             // 5. Active point puck position(s): Advocacy (● disc) & Receptivity (○ ring)
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(weights && weights.topicId ? weights.topicId : null);
             const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
             const pxAdv = w0 * V0.x + w1 * V1.x + w2 * V2.x;
             const pyAdv = w0 * V0.y + w1 * V1.y + w2 * V2.y;
@@ -23877,7 +24028,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 3) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const { w0, w1, w2, intensity } = sxTriState;
                 const v0 = Math.round(w0 * 100);
@@ -23910,7 +24061,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
 
         function sxClearTriRatings(topicId) {
             if (!topicId) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const shape = Ge(topicId);
                 if (!shape || !shape.keys || shape.keys.length < 3) return;
@@ -24133,7 +24284,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             });
 
             // 6. Active point puck position(s): Advocacy (● disc) & Receptivity (○ ring)
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
             const u = (state && typeof state.u === "number") ? state.u : 0.5;
             const v = (state && typeof state.v === "number") ? state.v : 0.5;
             const pxAdv = x0 + u * s, pyAdv = y0 + v * s;
@@ -24235,7 +24386,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
                 sxPersistIntensity(topicId, sxCompassState.intensity);
@@ -24262,7 +24413,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
 
         function sxClearCompassRatings(topicId) {
             if (!topicId) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const shape = Ge(topicId);
                 if (!shape || !shape.keys || shape.keys.length < 4) return;
@@ -24309,7 +24460,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
                 const sq = sxGetCompassSquare(canvas.width, canvas.height);
                 const { u, v } = sxCompassPointToUV(px, py, sq);
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxCompassState.topicId);
                 const mode = isClassic ? "advocacy" : (sxCompassState.mode || "advocacy");
 
                 if (mode === "receptivity") {
@@ -24343,7 +24494,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxCompassState.topicId);
                 if (!isClassic && canvas.__sxPucks) {
                     const rect = canvas.getBoundingClientRect();
                     const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
@@ -24382,7 +24533,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
 
             // Mouse wheel strictly scoped to puck hover
             canvas.addEventListener("wheel", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxCompassState.topicId);
                 const rect = canvas.getBoundingClientRect();
                 const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
                 const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
@@ -24783,6 +24934,23 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 });
             };
 
+            // Placement-shaped topics (2026-11-22): where the engine
+            // carries dual placements -- stance skins, and n-pole topics
+            // on the classic skin -- the popup edits the PRIMARY
+            // placement (advocacy on stance skins, give on the classic
+            // skin) through the placement persister, so its writes are
+            // what the parser reads back. Flat topics keep the flat
+            // setter paths below.
+            const dualRec = () => {
+                if (!sxDualPlacements(topicId)) return null;
+                const r = ca(topicId, freshPid());
+                return (r.advocacyKnown || r.givePlacementKnown) ? r : null;
+            };
+            const persistPrimary = (valsArr, intensity) => {
+                const obj = {};
+                keys.forEach((k, idx) => { obj[k] = Math.round(valsArr[idx]); });
+                sxPersistAdvocacyReceptivity(topicId, "advocacy", obj, intensity, freshPid());
+            };
             const redraw = () => {
                 pId = freshPid();
                 sxSeedProfileIntensities(pId);
@@ -24819,27 +24987,33 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 if (isCompass) {
                     const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
                     pt.intensity = sliderVal;
+                    pt.topicId = topicId;
+                    if (curRec.receptivityKnown && curRec.receptivity) {
+                        const rp = sxCompassPointFromValues(Number(curRec.receptivity[keys[0]]) || 0, Number(curRec.receptivity[keys[1]]) || 0, Number(curRec.receptivity[keys[2]]) || 0, Number(curRec.receptivity[keys[3]]) || 0);
+                        pt.recU = rp.u; pt.recV = rp.v; pt.recRated = !0;
+                        pt.recIntensity = curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0;
+                    }
                     sxDrawCompassWidget(canvas, shape, pt);
                 } else if (isOctad) {
-                    sxDrawOctadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawOctadWidget(canvas, shape, radarState);
                 } else if (isHeptad) {
-                    sxDrawHeptadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawHeptadWidget(canvas, shape, radarState);
                 } else if (isHexad) {
-                    sxDrawHexadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawHexadWidget(canvas, shape, radarState);
                 } else if (isPentad) {
-                    sxDrawPentadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawPentadWidget(canvas, shape, radarState);
                 } else if (isTetrad) {
-                    sxDrawTetradWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawTetradWidget(canvas, shape, radarState);
                 } else if (isTriad) {
                     // 2026-11-18 (puck-drag smoothness): the weights must
                     // sum to 1 — the draw places the puck at w0*V0 +
@@ -24850,8 +25024,15 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     // value, mirroring the placard's derivation.
                     const sumAbs = Math.abs(vals[0]) + Math.abs(vals[1]) + Math.abs(vals[2]);
                     const nw = sumAbs > 0 ? [Math.abs(vals[0]) / sumAbs, Math.abs(vals[1]) / sumAbs, Math.abs(vals[2]) / sumAbs] : [1 / 3, 1 / 3, 1 / 3];
+                    const recVals = keys.map(k => (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0);
+                    const recSum = Math.abs(recVals[0]) + Math.abs(recVals[1]) + Math.abs(recVals[2]);
+                    const rnw = recSum > 0 ? [Math.abs(recVals[0]) / recSum, Math.abs(recVals[1]) / recSum, Math.abs(recVals[2]) / recSum] : [1 / 3, 1 / 3, 1 / 3];
                     sxDrawTriangleWidget(canvas, shape, {
-                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal
+                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal,
+                        topicId: topicId, mode: "advocacy",
+                        recW0: rnw[0], recW1: rnw[1], recW2: rnw[2],
+                        recRated: Boolean(curRec.receptivityKnown),
+                        recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0
                     });
                 } else {
                     sxDrawSwitchboxWidget(canvas, shape, {
@@ -24914,7 +25095,15 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
                     const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                    if (isAllZero && val > 0) {
+                    const dRec = dualRec();
+                    if (dRec) {
+                        const newVals = curVals.slice();
+                        if (isAllZero && val > 0) {
+                            const base = Math.max(20, Math.round(val * 0.5));
+                            keys.forEach((k, idx) => { newVals[idx] = (idx === activeIdx) ? val : base; });
+                        } else newVals[activeIdx] = val;
+                        persistPrimary(newVals, dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals(newVals, "radar"));
+                    } else if (isAllZero && val > 0) {
                         const base = Math.max(20, Math.round(val * 0.5));
                         keys.forEach((k, idx) => {
                             To(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
@@ -24928,15 +25117,21 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     const sq = sxGetCompassSquare(canvas.width, canvas.height);
                     const { u, v } = sxCompassPointToUV(px, py, sq);
                     const vals = sxCompassValuesFromPoint(u, v, 100);
-                    keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
+                    const dRec = dualRec();
+                    if (dRec) persistPrimary(vals, dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals(vals, "compass"));
+                    else keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
                     redraw();
                     paintRow();
                 } else if (isTriad) {
                     const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                     const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                    To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
-                    To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
-                    To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
+                    const dRec = dualRec();
+                    if (dRec) persistPrimary([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], "triad"));
+                    else {
+                        To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
+                        To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
+                        To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
+                    }
                     redraw();
                     paintRow();
                 } else if (is2Pole && !shape.single) {
@@ -24997,7 +25192,8 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
                 const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
-                sxPersistIntensity(topicId, cur + step, pId);
+                if (dualRec()) persistPrimary(vals, cur + step);
+                else sxPersistIntensity(topicId, cur + step, pId);
                 redraw();
                 if (root) {
                     clearTimeout(root.__sxWheelWs);
@@ -25015,7 +25211,11 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     pId = freshPid();
                     if (isSwitch) return;
                     // The slider edits only the stored +1. Pole numbers stay.
-                    sxPersistIntensity(topicId, Number(slider.value), pId);
+                    const dRecS = dualRec();
+                    if (dRecS) {
+                        const curRecS = ca(topicId, pId);
+                        persistPrimary(keys.map(k => (curRecS[k + "Known"] ? curRecS[k] : 0)), Number(slider.value));
+                    } else sxPersistIntensity(topicId, Number(slider.value), pId);
                     redraw();
                     paintRow();
                 };
@@ -25026,6 +25226,14 @@ function* sxRunNodeSettle(scCtx, blitSess) {
 
             if (clearBtn) {
                 clearBtn.onclick = () => {
+                    if (dualRec()) {
+                        sxClearAdvocacyReceptivity(topicId, "advocacy", pId);
+                        sxClearAdvocacyReceptivity(topicId, "receptivity", pId);
+                        redraw();
+                        if (root) finishGesture();
+                        else paintRow();
+                        return;
+                    }
                     Fo(topicId, "intensity", !1, pId);
                     keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
                     redraw();
@@ -25084,7 +25292,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
                 const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                 const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxTriState.topicId);
                 const mode = isClassic ? "advocacy" : (sxTriState.mode || "advocacy");
 
                 if (mode === "receptivity") {
@@ -25133,7 +25341,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxTriState.topicId);
                 if (!isClassic && canvas.__sxPucks) {
                     const rect = canvas.getBoundingClientRect();
                     const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
@@ -25173,7 +25381,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
 
             // Mouse wheel strictly scoped to puck hover
             canvas.addEventListener("wheel", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxTriState.topicId);
                 const rect = canvas.getBoundingClientRect();
                 const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
                 const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
@@ -26317,12 +26525,13 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 const sxCatHeat = sxCatHeatVals.length ? zi(sxCatHeatVals.reduce((s, v) => s + +v, 0) / sxCatHeatVals.length) : null;
                 const sxCatDisc = Rt ? null : sxCategoryInterestDisc(i, C);
                 const sxCatAdv = Rt ? null : fa(i, C, "advocacyIntensity"), sxCatRec = Rt ? null : fa(i, C, "receptivityIntensity");
+                const sxCatGv = Rt ? null : fa(i, C, "givePlacementIntensity"), sxCatRc = Rt ? null : fa(i, C, "receivePlacementIntensity");
                 const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
                 }(l.x, l.y, n.densityHidden, X, g.ux, g.uy) : "";
-                const branchSpokeSvg = SpokeRenderer.renderBranchSpoke(dCat, m, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, sxCatHeat, L, D, null != sxCatAdv ? zi(sxCatAdv) : null === I ? L : N, null != sxCatRec ? zi(sxCatRec) : null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I || null != sxCatAdv || null != sxCatRec, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1));
+                const branchSpokeSvg = SpokeRenderer.renderBranchSpoke(dCat, m, i.name, g.nx, g.ny, o2.x, o2.y, c.x, c.y, sxCatHeat, L, D, null != sxCatAdv ? zi(sxCatAdv) : null != sxCatGv ? zi(sxCatGv) : null === I ? L : N, null != sxCatRec ? zi(sxCatRec) : null != sxCatRc ? zi(sxCatRc) : null === I ? L : _, ("noCode" === P.key ? Ga.FALLBACK_COLOR : P.lineColor || P.color || Ga.FALLBACK_COLOR), "noCode" === P.key, null !== I || null != sxCatAdv || null != sxCatRec || null != sxCatGv || null != sxCatRc, p, SpokeGeometry.buildBaseCircle(pr.centerX, pr.centerY, gen1SpokeBaseRadius()), sxIconDiameter(1));
                 v += `<g class="${w.join(" ")} gen1-line-group" data-layout-key="${dCat}" data-layout-x="${J.x.toFixed(2)}" data-layout-y="${J.y.toFixed(2)}" data-icon-distance-override="${g.labelWidth.toFixed(2)}" data-rated="${null === I ? "false" : "true"}" style="--profile-color:${f};--family-color:${sxCatHeat || (Q && Q.color) || Ga.FALLBACK_COLOR};--gen1-line-color:${sxCatHeat || L};--gen1-line-dash:${R}">${branchSpokeSvg}${sxCatHeat ? `<path class="branch-heat" d="${m}" fill="none" stroke="${sxCatHeat}" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pointer-events="none"/>` : ""}${ee}${te}${ae}${se}${le}<path id="p-${dCat}" d="${y}" fill="none" stroke="transparent"/><line class="node-label-underline" style="stroke:${f}" data-offset="0" x1="${j.toFixed(2)}" y1="${q.toFixed(2)}" x2="${(j + g.ux * catUnderlineW).toFixed(2)}" y2="${(q + g.uy * catUnderlineW).toFixed(2)}"/><text class="category-label" data-id="${dCat}" data-path-id="p-${dCat}" data-label-offset="${E}" ${Sa(dCat, qn[dCat], C)} tabindex="0" role="button" aria-expanded="${r}" aria-label="${Hi(i.name)}${i.risk ? ", higher-risk practice requiring specialized knowledge and explicit negotiation" : ""}${x && x.has(i.name) ? ", contains newly imported additions" : ""}. ${r ? `${h.mode} children shown; press Enter to collapse` : `Children hidden; press Enter to expand with ${h.mode} children`}; press Shift Enter for description and markers." style="font-size:${catFs.toFixed(2)}px" x="${G.toFixed(2)}" y="${K.toFixed(2)}" dominant-baseline="middle"${V} transform="rotate(${z.toFixed(2)} ${G.toFixed(2)} ${K.toFixed(2)})">${Hi(i.name)}</text></g>`;
                 for (let sxTi = 0; sxTi < e.topics.length; sxTi++) {
                     const t = e.topics[sxTi];
@@ -27982,7 +28191,18 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             const role7Row = e.byId("markRole7Row"), role7 = e.byId("markRole7"), role7Out = e.byId("markRole7Out"), role7Label = e.byId("markRole7Label");
             const role8Row = e.byId("markRole8Row"), role8 = e.byId("markRole8"), role8Out = e.byId("markRole8Out"), role8Label = e.byId("markRole8Label");
 
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(id);
+            // On the classic skin the dual placements are give/receive:
+            // relabel the dual-slider columns for n-pole topics (and
+            // restore the advocacy/receptivity wording otherwise).
+            {
+                const sxClassicSkin = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                document.querySelectorAll(".mark-tri-slider-label").forEach(el => {
+                    const isRecLbl = "Receptivity" === el.getAttribute("title");
+                    if (sxClassicSkin && !isClassic) el.textContent = isRecLbl ? "○ Receive" : "● Give";
+                    else el.textContent = isRecLbl ? "○ Rec" : "● Adv";
+                });
+            }
 
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
@@ -46829,7 +47049,14 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                 // replaces that side wholesale (per-pole mixing would blend
                 // two distributions); pole values clamp to [-100, 100] like
                 // flanks, placement intensity to the stored [-400, 400].
-                if (rating && "object" == typeof rating && (rating.advocacy && "object" == typeof rating.advocacy || rating.receptivity && "object" == typeof rating.receptivity)) {
+                // Classic skins carry the same shape under give/receive
+                // for n-pole topics: { give: {...poles, intensity},
+                // receive: {...} } (2026-11-22). A give/receive OBJECT is
+                // only a placement on a multi-pole topic -- on a dual
+                // topic those keys are the numeric flanks themselves.
+                const hasStancePl = rating && "object" == typeof rating && (rating.advocacy && "object" == typeof rating.advocacy || rating.receptivity && "object" == typeof rating.receptivity);
+                const hasClassicPl = rating && "object" == typeof rating && flanks.length > 2 && (rating.give && "object" == typeof rating.give || rating.receive && "object" == typeof rating.receive);
+                if (hasStancePl || hasClassicPl) {
                     const validKeys = new Set(flanks);
                     const cleanPlacement = pl => {
                         const out = {};
@@ -46843,6 +47070,8 @@ yk([ "Spitting", "Spit play", "Being spit on", "Spitting on someone" ], "t0341")
                     const placed = {};
                     rating.advocacy && "object" == typeof rating.advocacy && (placed.advocacy = cleanPlacement(rating.advocacy));
                     rating.receptivity && "object" == typeof rating.receptivity && (placed.receptivity = cleanPlacement(rating.receptivity));
+                    rating.give && "object" == typeof rating.give && (placed.give = cleanPlacement(rating.give));
+                    rating.receive && "object" == typeof rating.receive && (placed.receive = cleanPlacement(rating.receive));
                     Object.keys(placed).forEach(side => { if (!Object.keys(placed[side]).length) delete placed[side]; });
                     if (Object.keys(placed).length) {
                         const strongest = o => { let best = 0; Object.entries(o || {}).forEach(([k, v]) => { "intensity" !== k && Math.abs(v) > Math.abs(best) && (best = v); }); return best; };
