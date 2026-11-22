@@ -34332,49 +34332,6 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const t = Math.max(0, Math.min(100, Number(e) || 0));
             return t <= 20 ? "tentatively Curious about" : t <= 35 ? "strongly Curious about" : t <= 55 ? "moderately Want to do" : t <= 79 ? "strongly Want to do" : "very strongly Want to do";
         }
-        // Stance-strength word for a pole affinity v in [-100, 100],
-        // on the same 80-100 / 56-79 / 36-55 / 0-35 emphasis bands
-        // Scribe uses for give/receive. A negative affinity is a stance
-        // AGAINST the pole; 0 is a recorded don't-care.
-        function sxPoleBand(v) {
-            const a = Math.abs(Number(v) || 0);
-            if (0 === a) return "don't care";
-            const s = a > 79 ? "very strong" : a > 55 ? "strong" : a > 35 ? "moderate" : a > 20 ? "mild" : "slight";
-            return (Number(v) || 0) < 0 ? s + ", against" : s;
-        }
-        // The absolute pole affinities (or the line scalar's absolute
-        // value) for a multi-pole / line topic, from a ca() rating.
-        // Null for a give/receive or single-slider topic, or when the
-        // profile holds no pole/line rating on the topic.
-        function sxPoleAffinities(topicId, rating) {
-            const w = Ge(topicId);
-            if (!w || !Array.isArray(w.keys) || w.single) return null;
-            if (1 === w.keys.length && "line" === w.keys[0]) return rating.lineKnown ? [ Math.abs(Number(rating.line) || 0) ] : null;
-            const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
-            if (!poleKeys.length) return null;
-            const vals = poleKeys.filter(k => rating[k + "Known"]).map(k => Math.abs(Number(rating[k]) || 0));
-            return vals.length ? vals : null;
-        }
-        // The strongest stance a profile holds on a multi-pole / line
-        // topic: the signed pole affinity with the largest absolute
-        // value, or the line scalar. Null when the profile holds no
-        // pole/line rating there. Built from ca() + the widget config,
-        // so it works wherever a pair record's reduced ratings cannot
-        // carry the pole vector.
-        function sxStrongestPole(topicId, profileId) {
-            const w = Ge(topicId), s = ca(topicId, profileId);
-            if (!w || !Array.isArray(w.keys) || w.single) return null;
-            if (1 === w.keys.length && "line" === w.keys[0]) return s.lineKnown ? Number(s.line) || 0 : null;
-            const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
-            if (!poleKeys.length) return null;
-            let best = null;
-            poleKeys.forEach(k => {
-                if (!s[k + "Known"]) return;
-                const v = Number(s[k]) || 0;
-                if (null == best || Math.abs(v) > Math.abs(best)) best = v;
-            });
-            return best;
-        }
         // The active skin's Scribe genre: "discussion" on the vanilla
         // stance/belief maps, "story" on Sexcapades. The loader sets
         // window.__SX_SCRIBE from the skin JSON's `scribe` section.
@@ -34388,62 +34345,6 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // stays in place) — honest, not stale.
         function sxSetterIsModeration() {
             return !!(window.__SX_SETTER && "moderation" === window.__SX_SETTER.genre);
-        }
-        function ad(e, t = "") {
-            const n = Ge(t), i = [];
-            // Pole/line topic: the rating is a per-pole affinity vector
-            // (or a line scalar), not give/receive. Name each recorded
-            // pole with its value and strength; a 0 is a rating (don't
-            // care). Flanked give/receive topics carry keys give/receive
-            // and fall through to the give/receive branch below.
-            if (n && Array.isArray(n.keys) && !n.single) {
-                const keys = n.keys;
-                if (1 === keys.length && "line" === keys[0] && e.lineKnown) {
-                    const v = Number(e.line) || 0;
-                    if (n.labels && n.labels.length >= 3) {
-                        // 3-pole trilinear line: -100 left, 0 center, +100 right
-                        if (v > 20) i.push(`affirms "${n.labels[2]}" (${Math.round(v)}% conviction)`);
-                        else if (v < -20) i.push(`affirms "${n.labels[0]}" (${Math.round(Math.abs(v))}% conviction)`);
-                        else i.push(`affirms center/moderate position "${n.labels[1]}" (neutral/balanced)`);
-                    } else {
-                        i.push(`${(n.labels && n.labels[0]) || "Line"} ${Math.round(v)} (${sxPoleBand(v)})`);
-                    }
-                    return i.join(" · ");
-                }
-                const poleKeys = keys.filter(k => "give" !== k && "receive" !== k);
-                if (poleKeys.length && poleKeys.some(k => e[k + "Known"])) {
-                    const affirmed = [], rejected = [];
-                    poleKeys.forEach(k => {
-                        if (!e[k + "Known"]) return;
-                        const v = Number(e[k]) || 0;
-                        const label = (n.labels && n.labels[keys.indexOf(k)]) || k;
-                        if (v > 20) {
-                            affirmed.push(`affirms "${label}" (${Math.round(v)}% conviction)`);
-                        } else if (v < -35) {
-                            rejected.push(`rejects "${label}"`);
-                        }
-                    });
-                    if (affirmed.length) {
-                        let res = affirmed.join(" and ");
-                        if (rejected.length) res += ` [explicitly rejects: ${rejected.join(", ")}]`;
-                        return res;
-                    } else if (rejected.length) {
-                        return `rejects: ${rejected.join(", ")}`;
-                    } else {
-                        // All neutral or low
-                        poleKeys.forEach(k => {
-                            if (!e[k + "Known"]) return;
-                            const v = Number(e[k]) || 0;
-                            const label = (n.labels && n.labels[keys.indexOf(k)]) || k;
-                            i.push(`${label} ${Math.round(v)} (${sxPoleBand(v)})`);
-                        });
-                        return i.join(" · ");
-                    }
-                }
-            }
-            return e.giveKnown && e.give >= 0 && i.push(`${n.labels[0]} ${Math.round(e.give)} (${id(e.give)})`), 
-            !n.single && e.receiveKnown && e.receive >= 0 && i.push(`${n.labels[1]} ${Math.round(e.receive)} (${id(e.receive)})`), 
-            i.join(" · ");
         }
         function rd(e) {
             const t = wt[e] || "Participant";
@@ -35072,26 +34973,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 };
             }).filter(Boolean);
         }
-        function Ad(e) {
-            const t = String(scribeRequestText || "").trim();
-            const kind = sxScribeIsDiscussion() ? "DISCUSSION" : e ? "STORY" : "PLAY-GUIDE";
-            return t ? [ `USER’S ${kind} REQUEST — CREATIVE DIRECTION`, t, "Honor this request wherever it fits the selected hypermap data. If any part conflicts with a hard exclusion, recorded role, shared-ground boundary, consent rule, or other binding requirement below, omit the conflicting part and preserve the binding profile data." ].join("\n") : "";
-        }
-        function unitWord(e, t) {
-            const n = {
-                words: [ "word", "words" ],
-                paragraphs: [ "paragraph", "paragraphs" ],
-                pages: [ "page", "pages" ],
-                minutes: [ "minute", "minutes" ],
-                chapters: [ "chapter", "chapters" ]
-            }[t] || [ "paragraph", "paragraphs" ];
-            return "1" === String(e) ? n[0] : n[1];
-        }
-        // Effective target text: the user's target. A blank length
-        // means the 5-paragraph default (value 5, unit paragraphs).
-        function sxScribeTargetText() {
-            return `${scribeLengthValue} ${unitWord(scribeLengthValue, scribeLengthUnit)}`;
-        }
+
         // One parameterized phase-section builder (refactor F2): the
         // Scribe and Scene Setter dialogs have identical phase controls
         // apart from the element-ID prefix (scribePhase* / setterPhase*)
@@ -35146,6 +35028,229 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             const t = String(e.byId("setterDetails")?.value || "").trim();
             return t ? [ "SCENE DETAILS — PROVIDED BY THE PARTICIPANTS", t, "Weave these details into the play guide wherever they fit the binding negotiation checklist above. If any part conflicts with a hard limit, a red topic, or another binding requirement, omit the conflicting part." ].join("\n") : "";
         }
+
+        // On-screen brief rendering (writers refactor, Phase 1):
+        // the brief meta line, the negotiation title and list, and
+        // the four phase lists, split out of the prompt builder.
+        // DOM writes only — the prompt text itself is assembled by
+        // the composers and the finisher below.
+        function sxRenderScribeBrief(ctx) {
+            const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f, targetInfo, targetDisplayName: k } = ctx;
+            const isDisc = sxScribeIsDiscussion();
+            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span><span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${f.established.length} ${y}${1 === f.established.length ? "" : "s"}</span><span>${f.curious.length} curious</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
+            const establishedLabels = f.established.map(e => e.label).join(" · ") || "None recorded", curiousLabels = f.curious.map(e => e.label).join(" · ") || "None recorded";
+            e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? "Discussion ingredients" : "Story ingredients") : "Negotiation notes";
+            const roleDynamicItem = p.length ? `<li><strong>Established role dynamic</strong><span>${Hi(h)} Keep these dominant/submissive roles stable; do not suggest switching them.</span></li>` : "";
+            if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${Hi(s ? (isDisc ? d : d + " with an unnamed adult partner") : w)}</span></li>${roleDynamicItem}<li><strong>${isDisc ? "Established stances" : "Want to do"}</strong><span>${Hi(establishedLabels)}</span></li><li><strong>${isDisc ? "Curious stances" : "Curious about"}</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Keep these fictional; they do not signal real-world willingness.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
+                const t = s ? `<li><strong>Source profile</strong><span>${Hi(d)} only. A partner’s preferences are not assumed.</span></li>` : `<li><strong>Group profiles</strong><span>${Hi(w)}</span></li>`;
+                n(e.byId("sceneNegotiation"), `${t}${roleDynamicItem}<li><strong>Want to do</strong><span>${Hi(establishedLabels)}</span></li><li><strong>Curious about</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only — excluded</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Do not schedule or suggest these in real-world play.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Prior experience may inform pacing and check-ins.</span></li>` : ""}<li><strong>Before starting</strong><span>Confirm every named activity, actual intensity, pacing, roles, stop signals, and practical details. Curious about is not Want to do; ask explicitly before including it.</span></li>`);
+            }
+            const renderPhaseList = (listId, items, emptyText) => {
+                const r = e.byId(listId);
+                items.length ? n(r, items.map(e => `<li><strong>${Hi(function(e) {
+                    const t = "curious" === e.kind ? (isDisc ? "Mild stance · " : "Curious about · ") : "favorite" === e.kind ? "Favorite · " : "", n = e.matchLabel ? ` · ${Math.round(e.score)}% ${e.matchLabel}` : "curious" === e.kind ? ` · ${isDisc ? "mild stance" : "curious"} ${Math.round(e.score)}` : ` · ${isDisc ? "stance" : "interest"} ${Math.round(e.score)}`;
+                    return t + e.label + n;
+                }(e))}</strong><span>${Hi(ed(e.detail))}</span></li>`).join("")) : n(r, `<li>${Hi(emptyText)}</li>`);
+            };
+            renderPhaseList("sceneWarmup", f.warmup, u ? (isDisc ? "Open with the positions." : "Open directly into the fantasy.") : "No separate warm-up item is recorded."), 
+            renderPhaseList("sceneEscalation", f.escalation, u ? (isDisc ? "Develop the strongest stances." : "Escalate naturally from the listed interests.") : "No additional escalation or exploration item is recorded."), 
+            renderPhaseList("scenePeak", f.peak, u ? (isDisc ? "Give the strongest stance the fullest treatment." : "Choose the strongest listed interest for the climax.") : "No established non-aftercare favorite or interest is recorded for a peak. Keep it open until agreed together."), 
+            __sxClosestAction(e.one("#sceneAftercare"), "scenePhase").querySelector("h4").textContent = u ? "Closing" : "Aftercare", 
+            renderPhaseList("sceneAftercare", u ? [] : f.aftercare, u ? (isDisc ? "Close by drawing the threads together." : "End with a satisfying erotic denouement after the climax.") : "No aftercare preference is recorded. Agree on aftercare before beginning.");
+        }
+
+        function sxBuildScribePrompt(precomputed) {
+            if (!vt[scribeLeadId]) return;
+            const requestedCastIds = scribeCastIds.filter(e => vt[e]), castIds = requestedCastIds.length ? requestedCastIds : [ scribeLeadId ], isSingle = 1 === castIds.length;
+            // Missing gender/orientation is handled neutrally downstream
+            // (unspecified wording, neutral pronouns): it no longer
+            // blocks Scribe.
+            const rawMatchData = precomputed || sxScribeMatchData(castIds, isSingle), leadName = rd(castIds[0]), isStory = "porn" === scribeMode, roleDynamics = isSingle ? [] : sxRoleDynamics(castIds), roleDynamicText = roleDynamics.map(e => e.text).join(" "), fantasyTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.fantasyOnly), triedTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.alreadyTried && (isStory || !e.fantasyOnly)), promptMatchData = isStory ? rawMatchData : Object.assign({}, rawMatchData, {
+                established: rawMatchData.established.filter(e => !e.fantasyOnly),
+                curious: rawMatchData.curious.filter(e => !e.fantasyOnly),
+                warmup: rawMatchData.warmup.filter(e => !e.fantasyOnly),
+                escalation: rawMatchData.escalation.filter(e => !e.fantasyOnly),
+                peak: rawMatchData.peak.filter(e => !e.fantasyOnly),
+                aftercare: rawMatchData.aftercare.filter(e => !e.fantasyOnly)
+            });
+            if (!(promptMatchData.established.length + promptMatchData.curious.length)) return e.byId("sceneAvailability").textContent = sxScribeIsDiscussion() ? "No strong or mild stances are recorded yet." : !isStory && fantasyTopics.length ? "Only fantasy-only topics are available. Add a real-world interest before creating a practical play guide." : "No favorites, positive interests, or curious ratings are available yet.", 
+            void (e.byId("sceneBrief").hidden = !0);
+            const establishedKindLabel = isSingle ? "favorite / interest" : "compatible interest", castSummary = castIds.map(e => `${rd(e)} · ${vb(rt[e]) || "gender unspecified"} · ${Nb(ot[e]) || "orientation unspecified"}`).join(" + "), castNames = castIds.map(e => rd(e)), castNameList = castNames.length < 2 ? castNames[0] : 2 === castNames.length ? castNames.join(" and ") : `${castNames.slice(0, -1).join(", ")}, and ${castNames[castNames.length - 1]}`, targetInfo = sxScribeTargetInfo(scribeTarget), targetDisplayName = targetInfo.displayName;
+            const promptCtx = { castIds, isSingle, isStory, leadName, castNames, castNameList, castSummary, establishedKindLabel, targetInfo, targetDisplayName, roleDynamics, roleDynamicText, fantasyTopics, triedTopics, promptMatchData, sections: null };
+            sxRenderScribeBrief(promptCtx);
+            promptCtx.sections = sxScribeSharedSections(castIds, isSingle, isStory, roleDynamics, promptMatchData, fantasyTopics, triedTopics);
+            const composedPrompt = isStory ? (sxScribeIsDiscussion() ? sxComposeScribeDiscussion(promptCtx) : sxComposeScribeStory(promptCtx)) : sxComposeScribeGuide(promptCtx), finalPrompt = sxFinishScribePrompt(composedPrompt, promptCtx);
+            scribePromptCache = finalPrompt, e.byId("scenePromptText").value = scribePromptCache, e.byId("sceneAvailability").textContent = targetInfo.note(isStory, isSingle), 
+            e.byId("sceneDownloadStatus").textContent = "", e.byId("copyScenePrompt").textContent = "Copy", 
+            e.byId("sceneBrief").hidden = !1;
+        }
+        // Scribe dialog prep counts (refactor F8): the count
+        // computation, split out of the dialog prep below. It reads
+        // the generation's shared match data when the generate
+        // handler supplies it, or computes the match data itself on
+        // the standalone counts-only path (profile-save refresh while
+        // the dialog is open). Pure computation: it returns the counts
+        // and the availability line; it writes no dialog state.
+        function sxScribeCounts(precomputed, ids, isSingle) {
+            const l = precomputed || sxScribeMatchData(ids, isSingle), c = l.established.length, d = l.curious.length, u = ids.filter(e => od(e).length), p = c + d;
+            return {
+                data: l,
+                established: c,
+                curious: d,
+                missing: u,
+                total: p,
+                availability: p ? `${c} established ${1 === c ? "item" : "items"} and ${d} curious ${1 === d ? "topic" : "topics"} ready, weighted by each person’s ratings.` : isSingle ? "Mark a topic Favorite, rate it above curious, or record a curious rating to build a scene brief." : "Add compatible positive or curious ratings to build a scene brief."
+            };
+        }
+        // Scribe dialog prep (refactor F8): the heading, brief title,
+        // brief intro, and prompt help come from the shared target table
+        // (refactor F5) and are this function's dialog updates; the
+        // counts come from sxScribeCounts() above, split out of the
+        // dialog updates. The prompt-state reset happens only when
+        // resetDraft is passed (the generate handler, which rebuilds
+        // the prompt immediately after) — that ordering is
+        // contractual; other callers refresh chrome/counts only.
+        function sxPrepScribeDialog(precomputed, resetDraft) {
+            if (!vt[scribeLeadId]) return;
+            const t = scribeCastIds.filter(e => vt[e]), n = t.length ? t : [ scribeLeadId ], i = 1 === n.length, story = "porn" === scribeMode, info = sxScribeTargetInfo(scribeTarget);
+            const headP = e.one("#scribeChoiceDialog .dialog-head p, #scribeDialog .dialog-head p");
+            if (headP) headP.textContent = info.head(story);
+            scribeCastKey = `${scribeLeadId || ""}|${i ? "single" : scribePartnerId || ""}`;
+            if (e.byId("sceneBriefTitle")) e.byId("sceneBriefTitle").textContent = info.title(story);
+            if (e.byId("sceneBriefIntro")) e.byId("sceneBriefIntro").textContent = info.intro(story, i);
+            if (e.byId("scenePromptHelp")) e.byId("scenePromptHelp").textContent = info.help();
+            const counts = sxScribeCounts(precomputed, n, i);
+            if (e.byId("sceneAvailability")) e.byId("sceneAvailability").textContent = counts.availability;
+            if (e.byId("sceneBrief")) e.byId("sceneBrief").hidden = !0;
+            // Draft ownership (writers refactor): the generated prompt
+            // is cleared ONLY when the caller rebuilds it immediately
+            // after (the generate handler, resetDraft). The
+            // profile-save refresh path calls this prep to refresh
+            // chrome and counts and must not wipe a draft it does
+            // not rebuild.
+            resetDraft && (scribePromptCache = "", e.byId("scenePromptText") && (e.byId("scenePromptText").value = ""));
+            e.byId("sceneDownloadStatus").textContent = "";
+        }
+
+        // Stance-strength word for a pole affinity v in [-100, 100],
+        // on the same 80-100 / 56-79 / 36-55 / 0-35 emphasis bands
+        // Scribe uses for give/receive. A negative affinity is a stance
+        // AGAINST the pole; 0 is a recorded don't-care.
+        function sxPoleBand(v) {
+            const a = Math.abs(Number(v) || 0);
+            if (0 === a) return "don't care";
+            const s = a > 79 ? "very strong" : a > 55 ? "strong" : a > 35 ? "moderate" : a > 20 ? "mild" : "slight";
+            return (Number(v) || 0) < 0 ? s + ", against" : s;
+        }
+        // The absolute pole affinities (or the line scalar's absolute
+        // value) for a multi-pole / line topic, from a ca() rating.
+        // Null for a give/receive or single-slider topic, or when the
+        // profile holds no pole/line rating on the topic.
+        function sxPoleAffinities(topicId, rating) {
+            const w = Ge(topicId);
+            if (!w || !Array.isArray(w.keys) || w.single) return null;
+            if (1 === w.keys.length && "line" === w.keys[0]) return rating.lineKnown ? [ Math.abs(Number(rating.line) || 0) ] : null;
+            const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
+            if (!poleKeys.length) return null;
+            const vals = poleKeys.filter(k => rating[k + "Known"]).map(k => Math.abs(Number(rating[k]) || 0));
+            return vals.length ? vals : null;
+        }
+        // The strongest stance a profile holds on a multi-pole / line
+        // topic: the signed pole affinity with the largest absolute
+        // value, or the line scalar. Null when the profile holds no
+        // pole/line rating there. Built from ca() + the widget config,
+        // so it works wherever a pair record's reduced ratings cannot
+        // carry the pole vector.
+        function sxStrongestPole(topicId, profileId) {
+            const w = Ge(topicId), s = ca(topicId, profileId);
+            if (!w || !Array.isArray(w.keys) || w.single) return null;
+            if (1 === w.keys.length && "line" === w.keys[0]) return s.lineKnown ? Number(s.line) || 0 : null;
+            const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
+            if (!poleKeys.length) return null;
+            let best = null;
+            poleKeys.forEach(k => {
+                if (!s[k + "Known"]) return;
+                const v = Number(s[k]) || 0;
+                if (null == best || Math.abs(v) > Math.abs(best)) best = v;
+            });
+            return best;
+        }
+        function ad(e, t = "") {
+            const n = Ge(t), i = [];
+            // Pole/line topic: the rating is a per-pole affinity vector
+            // (or a line scalar), not give/receive. Name each recorded
+            // pole with its value and strength; a 0 is a rating (don't
+            // care). Flanked give/receive topics carry keys give/receive
+            // and fall through to the give/receive branch below.
+            if (n && Array.isArray(n.keys) && !n.single) {
+                const keys = n.keys;
+                if (1 === keys.length && "line" === keys[0] && e.lineKnown) {
+                    const v = Number(e.line) || 0;
+                    if (n.labels && n.labels.length >= 3) {
+                        // 3-pole trilinear line: -100 left, 0 center, +100 right
+                        if (v > 20) i.push(`affirms "${n.labels[2]}" (${Math.round(v)}% conviction)`);
+                        else if (v < -20) i.push(`affirms "${n.labels[0]}" (${Math.round(Math.abs(v))}% conviction)`);
+                        else i.push(`affirms center/moderate position "${n.labels[1]}" (neutral/balanced)`);
+                    } else {
+                        i.push(`${(n.labels && n.labels[0]) || "Line"} ${Math.round(v)} (${sxPoleBand(v)})`);
+                    }
+                    return i.join(" · ");
+                }
+                const poleKeys = keys.filter(k => "give" !== k && "receive" !== k);
+                if (poleKeys.length && poleKeys.some(k => e[k + "Known"])) {
+                    const affirmed = [], rejected = [];
+                    poleKeys.forEach(k => {
+                        if (!e[k + "Known"]) return;
+                        const v = Number(e[k]) || 0;
+                        const label = (n.labels && n.labels[keys.indexOf(k)]) || k;
+                        if (v > 20) {
+                            affirmed.push(`affirms "${label}" (${Math.round(v)}% conviction)`);
+                        } else if (v < -35) {
+                            rejected.push(`rejects "${label}"`);
+                        }
+                    });
+                    if (affirmed.length) {
+                        let res = affirmed.join(" and ");
+                        if (rejected.length) res += ` [explicitly rejects: ${rejected.join(", ")}]`;
+                        return res;
+                    } else if (rejected.length) {
+                        return `rejects: ${rejected.join(", ")}`;
+                    } else {
+                        // All neutral or low
+                        poleKeys.forEach(k => {
+                            if (!e[k + "Known"]) return;
+                            const v = Number(e[k]) || 0;
+                            const label = (n.labels && n.labels[keys.indexOf(k)]) || k;
+                            i.push(`${label} ${Math.round(v)} (${sxPoleBand(v)})`);
+                        });
+                        return i.join(" · ");
+                    }
+                }
+            }
+            return e.giveKnown && e.give >= 0 && i.push(`${n.labels[0]} ${Math.round(e.give)} (${id(e.give)})`),
+            !n.single && e.receiveKnown && e.receive >= 0 && i.push(`${n.labels[1]} ${Math.round(e.receive)} (${id(e.receive)})`),
+            i.join(" · ");
+        }
+        function Ad(e) {
+            const t = String(scribeRequestText || "").trim();
+            const kind = sxScribeIsDiscussion() ? "DISCUSSION" : e ? "STORY" : "PLAY-GUIDE";
+            return t ? [ `USER’S ${kind} REQUEST — CREATIVE DIRECTION`, t, "Honor this request wherever it fits the selected hypermap data. If any part conflicts with a hard exclusion, recorded role, shared-ground boundary, consent rule, or other binding requirement below, omit the conflicting part and preserve the binding profile data." ].join("\n") : "";
+        }
+        function unitWord(e, t) {
+            const n = {
+                words: [ "word", "words" ],
+                paragraphs: [ "paragraph", "paragraphs" ],
+                pages: [ "page", "pages" ],
+                minutes: [ "minute", "minutes" ],
+                chapters: [ "chapter", "chapters" ]
+            }[t] || [ "paragraph", "paragraphs" ];
+            return "1" === String(e) ? n[0] : n[1];
+        }
+        // Effective target text: the user's target. A blank length
+        // means the 5-paragraph default (value 5, unit paragraphs).
+        function sxScribeTargetText() {
+            return `${scribeLengthValue} ${unitWord(scribeLengthValue, scribeLengthUnit)}`;
+        }
         // Shared prompt sections for both Scribe composers (refactor
         // F1): the cast line and unnamed-partner line, the established /
         // curious splits, marker handling + rated preference detail, the
@@ -35177,35 +35282,6 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 excludeFantasy: !u
             }) ].filter(Boolean).join("  "), j = unitWord(scribeLengthValue, scribeLengthUnit), z = "concise" === scribeDetailLevel ? "Keep the document concise: short phase notes and only essential check-ins." : "detailed" === scribeDetailLevel ? "Use high detail: specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Use balanced detail: enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.", q = !u ? `- Plan approximately ${scribeLengthValue} ${j}, with flexible phase pacing that adds up to that target while allowing check-ins, pauses, or stopping. ${z}` : `- Target approximately ${scribeLengthValue} ${j} of story text. Return only the finished story directly as plain text. ${z}`, H = [ "", `CAST, GENDER & SEXUALITY: ${A}${C}`, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `HARD-EXCLUDED LIMITS: ${_}` ];
             return { A: A, C: C, M: M, I: I, F: F, _: _, D: D, R: R, O: O, B: B, j: j, q: q, H: H };
-        }
-        // On-screen brief rendering (writers refactor, Phase 1):
-        // the brief meta line, the negotiation title and list, and
-        // the four phase lists, split out of the prompt builder.
-        // DOM writes only — the prompt text itself is assembled by
-        // the composers and the finisher below.
-        function sxRenderScribeBrief(ctx) {
-            const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f, targetInfo, targetDisplayName: k } = ctx;
-            const isDisc = sxScribeIsDiscussion();
-            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span><span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${f.established.length} ${y}${1 === f.established.length ? "" : "s"}</span><span>${f.curious.length} curious</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
-            const establishedLabels = f.established.map(e => e.label).join(" · ") || "None recorded", curiousLabels = f.curious.map(e => e.label).join(" · ") || "None recorded";
-            e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? "Discussion ingredients" : "Story ingredients") : "Negotiation notes";
-            const roleDynamicItem = p.length ? `<li><strong>Established role dynamic</strong><span>${Hi(h)} Keep these dominant/submissive roles stable; do not suggest switching them.</span></li>` : "";
-            if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${Hi(s ? (isDisc ? d : d + " with an unnamed adult partner") : w)}</span></li>${roleDynamicItem}<li><strong>${isDisc ? "Established stances" : "Want to do"}</strong><span>${Hi(establishedLabels)}</span></li><li><strong>${isDisc ? "Curious stances" : "Curious about"}</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Keep these fictional; they do not signal real-world willingness.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
-                const t = s ? `<li><strong>Source profile</strong><span>${Hi(d)} only. A partner’s preferences are not assumed.</span></li>` : `<li><strong>Group profiles</strong><span>${Hi(w)}</span></li>`;
-                n(e.byId("sceneNegotiation"), `${t}${roleDynamicItem}<li><strong>Want to do</strong><span>${Hi(establishedLabels)}</span></li><li><strong>Curious about</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only — excluded</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Do not schedule or suggest these in real-world play.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Prior experience may inform pacing and check-ins.</span></li>` : ""}<li><strong>Before starting</strong><span>Confirm every named activity, actual intensity, pacing, roles, stop signals, and practical details. Curious about is not Want to do; ask explicitly before including it.</span></li>`);
-            }
-            const renderPhaseList = (listId, items, emptyText) => {
-                const r = e.byId(listId);
-                items.length ? n(r, items.map(e => `<li><strong>${Hi(function(e) {
-                    const t = "curious" === e.kind ? (isDisc ? "Mild stance · " : "Curious about · ") : "favorite" === e.kind ? "Favorite · " : "", n = e.matchLabel ? ` · ${Math.round(e.score)}% ${e.matchLabel}` : "curious" === e.kind ? ` · ${isDisc ? "mild stance" : "curious"} ${Math.round(e.score)}` : ` · ${isDisc ? "stance" : "interest"} ${Math.round(e.score)}`;
-                    return t + e.label + n;
-                }(e))}</strong><span>${Hi(ed(e.detail))}</span></li>`).join("")) : n(r, `<li>${Hi(emptyText)}</li>`);
-            };
-            renderPhaseList("sceneWarmup", f.warmup, u ? (isDisc ? "Open with the positions." : "Open directly into the fantasy.") : "No separate warm-up item is recorded."), 
-            renderPhaseList("sceneEscalation", f.escalation, u ? (isDisc ? "Develop the strongest stances." : "Escalate naturally from the listed interests.") : "No additional escalation or exploration item is recorded."), 
-            renderPhaseList("scenePeak", f.peak, u ? (isDisc ? "Give the strongest stance the fullest treatment." : "Choose the strongest listed interest for the climax.") : "No established non-aftercare favorite or interest is recorded for a peak. Keep it open until agreed together."), 
-            __sxClosestAction(e.one("#sceneAftercare"), "scenePhase").querySelector("h4").textContent = u ? "Closing" : "Aftercare", 
-            renderPhaseList("sceneAftercare", u ? [] : f.aftercare, u ? (isDisc ? "Close by drawing the threads together." : "End with a satisfying erotic denouement after the climax.") : "No aftercare preference is recorded. Agree on aftercare before beginning.");
         }
         // Story composer (refactor F1): assembles the story-mode
         // prompt for the resolved target from the shared sections.
@@ -35345,7 +35421,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // prompt text; the builder performs the state writes.
         function sxFinishScribePrompt(promptText, ctx) {
             const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f } = ctx, { A, C, M, I, F, _, D, R, O, B, j, q, H } = ctx.sections;
-            if ("strictai" === scribeTarget && !u && (promptText = [ "SAFE FOR STRICT AI — TONED-DOWN PLAY GUIDE", "Keep the response practical, mature, consent-focused, and non-graphic. Avoid explicit anatomical detail, bodily-fluid descriptions, and step-by-step depictions of sexual acts. Refer to supplied activities discreetly and generally; fade to black or summarize transitions whenever needed. Preserve the useful sequence, roles, timing, boundaries, check-ins, stop options, and aftercare. If one detail cannot be described under these constraints, omit or neutralize that detail rather than refusing the entire guide.", "", promptText ].join(" ")), "suggestive" === scribeTarget && !u && (promptText = [ "SUGGESTIVE PLAY GUIDE — MODERATE AI", "Keep the response practical, mature, and consent-focused, using warm, sensual language for the activities. Avoid explicit anatomical detail, bodily-fluid descriptions, and step-by-step depictions of sexual acts. Preserve the useful sequence, roles, timing, boundaries, check-ins, stop options, and aftercare.", "", promptText ].join(" ")), "explicit" === scribeTarget && !u && (promptText = [ "EXPLICIT PLAY GUIDE — RESTRAINED TONE", "Keep the response practical, mature, and consent-focused with a restrained, elegant tone. Explicit anatomical and practical detail is allowed where the supplied data requires it. Preserve the useful sequence, roles, timing, boundaries, check-ins, stop options, and aftercare.", "", promptText ].join(" ")), 
+            if ("strictai" === scribeTarget && !u && (promptText = [ "SAFE FOR STRICT AI — TONED-DOWN PLAY GUIDE", "Keep the response practical, mature, consent-focused, and non-graphic. Avoid explicit anatomical detail, bodily-fluid descriptions, and step-by-step depictions of sexual acts. Refer to supplied activities discreetly and generally; fade to black or summarize transitions whenever needed. Preserve the useful sequence, roles, timing, boundaries, check-ins, stop options, and aftercare. If one detail cannot be described under these constraints, omit or neutralize that detail rather than refusing the entire guide.", "", promptText ].join(" ")), "suggestive" === scribeTarget && !u && (promptText = [ "SUGGESTIVE PLAY GUIDE — MODERATE AI", "Keep the response practical, mature, and consent-focused, using warm, sensual language for the activities. Avoid explicit anatomical detail, bodily-fluid descriptions, and step-by-step depictions of sexual acts. Preserve the useful sequence, roles, timing, boundaries, check-ins, stop options, and aftercare.", "", promptText ].join(" ")), "explicit" === scribeTarget && !u && (promptText = [ "EXPLICIT PLAY GUIDE — RESTRAINED TONE", "Keep the response practical, mature, and consent-focused with a restrained, elegant tone. Explicit anatomical and practical detail is allowed where the supplied data requires it. Preserve the useful sequence, roles, timing, boundaries, check-ins, stop options, and aftercare.", "", promptText ].join(" ")),
             "yobitch" === scribeTarget) {
                 const e = Iu(o, {
                     hideExcludedNames: !0,
@@ -35384,78 +35460,6 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 promptText = [ promptText, "", `LENGTH — FINAL CHECK: this ${kind} must run ${sxScribeTargetText()}. Do not stop early: if you reach what feels like a natural ending before that length, keep going — add ${"story" === kind ? "scenes, tension, and development" : "discussion" === kind ? "arguments, objections, and replies" : "phases, detail, and check-ins"} — until the full length is reached.` ].join("\n");
             }
             return [ sxWriterStamp(o), "", promptText ].join("\n");
-        }
-        function sxBuildScribePrompt(precomputed) {
-            if (!vt[scribeLeadId]) return;
-            const requestedCastIds = scribeCastIds.filter(e => vt[e]), castIds = requestedCastIds.length ? requestedCastIds : [ scribeLeadId ], isSingle = 1 === castIds.length;
-            // Missing gender/orientation is handled neutrally downstream
-            // (unspecified wording, neutral pronouns): it no longer
-            // blocks Scribe.
-            const rawMatchData = precomputed || sxScribeMatchData(castIds, isSingle), leadName = rd(castIds[0]), isStory = "porn" === scribeMode, roleDynamics = isSingle ? [] : sxRoleDynamics(castIds), roleDynamicText = roleDynamics.map(e => e.text).join(" "), fantasyTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.fantasyOnly), triedTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.alreadyTried && (isStory || !e.fantasyOnly)), promptMatchData = isStory ? rawMatchData : Object.assign({}, rawMatchData, {
-                established: rawMatchData.established.filter(e => !e.fantasyOnly),
-                curious: rawMatchData.curious.filter(e => !e.fantasyOnly),
-                warmup: rawMatchData.warmup.filter(e => !e.fantasyOnly),
-                escalation: rawMatchData.escalation.filter(e => !e.fantasyOnly),
-                peak: rawMatchData.peak.filter(e => !e.fantasyOnly),
-                aftercare: rawMatchData.aftercare.filter(e => !e.fantasyOnly)
-            });
-            if (!(promptMatchData.established.length + promptMatchData.curious.length)) return e.byId("sceneAvailability").textContent = sxScribeIsDiscussion() ? "No strong or mild stances are recorded yet." : !isStory && fantasyTopics.length ? "Only fantasy-only topics are available. Add a real-world interest before creating a practical play guide." : "No favorites, positive interests, or curious ratings are available yet.", 
-            void (e.byId("sceneBrief").hidden = !0);
-            const establishedKindLabel = isSingle ? "favorite / interest" : "compatible interest", castSummary = castIds.map(e => `${rd(e)} · ${vb(rt[e]) || "gender unspecified"} · ${Nb(ot[e]) || "orientation unspecified"}`).join(" + "), castNames = castIds.map(e => rd(e)), castNameList = castNames.length < 2 ? castNames[0] : 2 === castNames.length ? castNames.join(" and ") : `${castNames.slice(0, -1).join(", ")}, and ${castNames[castNames.length - 1]}`, targetInfo = sxScribeTargetInfo(scribeTarget), targetDisplayName = targetInfo.displayName;
-            const promptCtx = { castIds, isSingle, isStory, leadName, castNames, castNameList, castSummary, establishedKindLabel, targetInfo, targetDisplayName, roleDynamics, roleDynamicText, fantasyTopics, triedTopics, promptMatchData, sections: null };
-            sxRenderScribeBrief(promptCtx);
-            promptCtx.sections = sxScribeSharedSections(castIds, isSingle, isStory, roleDynamics, promptMatchData, fantasyTopics, triedTopics);
-            const composedPrompt = isStory ? (sxScribeIsDiscussion() ? sxComposeScribeDiscussion(promptCtx) : sxComposeScribeStory(promptCtx)) : sxComposeScribeGuide(promptCtx), finalPrompt = sxFinishScribePrompt(composedPrompt, promptCtx);
-            scribePromptCache = finalPrompt, e.byId("scenePromptText").value = scribePromptCache, e.byId("sceneAvailability").textContent = targetInfo.note(isStory, isSingle), 
-            e.byId("sceneDownloadStatus").textContent = "", e.byId("copyScenePrompt").textContent = "Copy", 
-            e.byId("sceneBrief").hidden = !1;
-        }
-        // Scribe dialog prep counts (refactor F8): the count
-        // computation, split out of the dialog prep below. It reads
-        // the generation's shared match data when the generate
-        // handler supplies it, or computes the match data itself on
-        // the standalone counts-only path (profile-save refresh while
-        // the dialog is open). Pure computation: it returns the counts
-        // and the availability line; it writes no dialog state.
-        function sxScribeCounts(precomputed, ids, isSingle) {
-            const l = precomputed || sxScribeMatchData(ids, isSingle), c = l.established.length, d = l.curious.length, u = ids.filter(e => od(e).length), p = c + d;
-            return {
-                data: l,
-                established: c,
-                curious: d,
-                missing: u,
-                total: p,
-                availability: p ? `${c} established ${1 === c ? "item" : "items"} and ${d} curious ${1 === d ? "topic" : "topics"} ready, weighted by each person’s ratings.` : isSingle ? "Mark a topic Favorite, rate it above curious, or record a curious rating to build a scene brief." : "Add compatible positive or curious ratings to build a scene brief."
-            };
-        }
-        // Scribe dialog prep (refactor F8): the heading, brief title,
-        // brief intro, and prompt help come from the shared target table
-        // (refactor F5) and are this function's dialog updates; the
-        // counts come from sxScribeCounts() above, split out of the
-        // dialog updates. The prompt-state reset happens only when
-        // resetDraft is passed (the generate handler, which rebuilds
-        // the prompt immediately after) — that ordering is
-        // contractual; other callers refresh chrome/counts only.
-        function sxPrepScribeDialog(precomputed, resetDraft) {
-            if (!vt[scribeLeadId]) return;
-            const t = scribeCastIds.filter(e => vt[e]), n = t.length ? t : [ scribeLeadId ], i = 1 === n.length, story = "porn" === scribeMode, info = sxScribeTargetInfo(scribeTarget);
-            const headP = e.one("#scribeChoiceDialog .dialog-head p, #scribeDialog .dialog-head p");
-            if (headP) headP.textContent = info.head(story);
-            scribeCastKey = `${scribeLeadId || ""}|${i ? "single" : scribePartnerId || ""}`;
-            if (e.byId("sceneBriefTitle")) e.byId("sceneBriefTitle").textContent = info.title(story);
-            if (e.byId("sceneBriefIntro")) e.byId("sceneBriefIntro").textContent = info.intro(story, i);
-            if (e.byId("scenePromptHelp")) e.byId("scenePromptHelp").textContent = info.help();
-            const counts = sxScribeCounts(precomputed, n, i);
-            if (e.byId("sceneAvailability")) e.byId("sceneAvailability").textContent = counts.availability;
-            if (e.byId("sceneBrief")) e.byId("sceneBrief").hidden = !0;
-            // Draft ownership (writers refactor): the generated prompt
-            // is cleared ONLY when the caller rebuilds it immediately
-            // after (the generate handler, resetDraft). The
-            // profile-save refresh path calls this prep to refresh
-            // chrome and counts and must not wipe a draft it does
-            // not rebuild.
-            resetDraft && (scribePromptCache = "", e.byId("scenePromptText") && (e.byId("scenePromptText").value = ""));
-            e.byId("sceneDownloadStatus").textContent = "";
         }
 
         function _d(e, t = !1) {
