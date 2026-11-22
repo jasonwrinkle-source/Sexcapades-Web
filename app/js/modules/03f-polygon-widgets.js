@@ -619,7 +619,7 @@
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxCompassState.intensity) || 0) + step)));
                 if (slider) slider.value = String(Math.round(sxCompassState.intensity));
                 const out = e.byId("markCompassIntensityOut");
@@ -795,7 +795,7 @@
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 sxTetradState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxTetradState.intensity) || 0) + step)));
                 if (slider) slider.value = String(Math.round(sxTetradState.intensity));
                 const out = e.byId("markTetradIntensityOut");
@@ -1064,7 +1064,7 @@
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 sxPentadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxPentadState.intensity) || 0) + step)));
                 if (slider) slider.value = String(Math.round(sxPentadState.intensity));
                 const out = e.byId("markPentadIntensityOut");
@@ -1335,7 +1335,7 @@
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 sxHexadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxHexadState.intensity) || 0) + step)));
                 if (slider) slider.value = String(Math.round(sxHexadState.intensity));
                 const out = e.byId("markHexadIntensityOut");
@@ -1609,7 +1609,7 @@
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 sxHeptadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxHeptadState.intensity) || 0) + step)));
                 if (slider) slider.value = String(Math.round(sxHeptadState.intensity));
                 const out = e.byId("markHeptadIntensityOut");
@@ -1889,7 +1889,7 @@
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 sxOctadState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxOctadState.intensity) || 0) + step)));
                 if (slider) slider.value = String(Math.round(sxOctadState.intensity));
                 const out = e.byId("markOctadIntensityOut");
@@ -1974,7 +1974,11 @@
             badgeEl && (badgeEl.textContent = isCompass ? "Political Compass" : isOctad ? "8-Pole Octad" : isHeptad ? "7-Pole Heptad" : isHexad ? "6-Pole Hexad" : isPentad ? "5-Pole Pentad" : isTetrad ? "4-Pole Tetrad" : isTriad ? "3-Pole Triad" : (shape.single ? "Monopole" : "2D Role Switch-Box"));
 
             const keys = shape.keys || [];
-            readoutEl && (readoutEl.innerHTML = "");
+            if (readoutEl) {
+                readoutEl.innerHTML = "";
+                readoutEl.style.display = "none";
+                readoutEl.hidden = true;
+            }
             const valSpans = [];
             keys.forEach((k, idx) => {
                 const statBox = document.createElement("div");
@@ -2206,7 +2210,7 @@
                 evt.preventDefault();
                 evt.stopPropagation();
                 if (isSwitch) return;
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 const curRec = ca(topicId, pId);
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
@@ -2342,7 +2346,7 @@
             canvas.addEventListener("wheel", (evt) => {
                 evt.preventDefault();
                 evt.stopPropagation();
-                const step = (evt.shiftKey ? 10 : 50) * (evt.deltaY < 0 ? 1 : -1);
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
                 const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
                 sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(current + step)));
                 if (slider) slider.value = String(Math.round(sxTriState.intensity));
