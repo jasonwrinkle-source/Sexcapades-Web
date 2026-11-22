@@ -64,10 +64,22 @@ dimming to don't-care at zero, complementary colours below zero).
 - **Scope.** Stance skins' pole topics only. Sexcapades topics are
   untouched: give/receive already *is* the two-mode structure there.
 
-**Open sub-question for Jason (do not assume at build time):** the
-present single intensity carries issue-aversion on its sign. With two
-intensities, state where aversion lives — on both, on advocacy's only,
-or as a separate per-topic fact — before building the storage shape.
+**Aversion (ruled by Jason, 2026-11-22).** Issue-aversion is not a
+separate per-topic fact, and it does not live on one shared sign. Each
+mode's intensity is signed, and each negative carries *its own kind*
+of aversion:
+
+- Negative **Advocacy** intensity is aversion in the outward mode: the
+  person is repelled by engaging the issue — will not make a case on
+  it, wants it not pressed.
+- Negative **Receptivity** intensity is aversion in the inward mode:
+  the person refuses to take the issue in — the ears are not merely
+  idle but closed against it.
+
+The two are independent facts: a person may argue a topic fiercely
+while refusing to hear it, or refuse to argue while remaining willing
+to listen. In Circle Minus, a negative Receptivity is a stronger feud
+signal than an absent one — absent is unmeasured; negative is refused.
 
 ### 1.2 The widget (ruled by Jason, 2026-11-22)
 
@@ -219,15 +231,18 @@ writings:
 - **Communion** (Cross ⋈) — roughly today's behaviour: topics the
   pair/group completes in each other.
 - **Common ground** (Straight ⊙) — topics banded by agreement.
-- **Dialectic** (Circle Minus ⊖) — the split topics, written as a
-  traditional dialectic of opposing views.
+- **Dialectic / Polylectic** (Circle Minus ⊖) — the split topics,
+  written as a dialectic of opposing views: a *dialectic* for two
+  parties, a *polylectic* when three or more parties hold the sides
+  (Jason's term, 2026-11-22 — the design hopes to support more than
+  two 'sides' of a dialectic).
 - **Full arc** — all three as movements of one document, in the order
   Communion → Common ground → Dialectic, the closing phase drawing
   the threads together.
 
 Defaults: Sexcapades story/guide writings keep Cross (Play) as the
-default. The vanilla discussion default — Dialectic or Full arc — is
-Jason's to set at kickoff.
+default. **The vanilla discussion default is Full arc** (ruled by
+Jason, 2026-11-22).
 
 ### 3.2 Selection per operation
 
@@ -269,7 +284,10 @@ dialectic of *these* people rather than of positions in the abstract.
   either side. An honest impasse is a legitimate ending; the writer
   does not manufacture agreement. The discussion phases map onto it:
   Opening states the positions, Development argues them, Closing
-  draws threads together or names the impasse.
+  draws threads together or names the impasse. **Polylectic framing**
+  (a group) runs the same discipline per side, a side being a party
+  or a coalition of parties holding it, each case attributed to its
+  holders.
 - **Communion framing:** as today's discussion framing (steelman each
   side, follow the completion).
 - **Common ground framing:** the shared ground first, its strength,

@@ -60,14 +60,14 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Scribe dialog gains an operation choice for multi-profile writings: Communion (Cross), Common ground (Straight), Dialectic (Circle Minus), or Full arc (all three as movements).
    - Dialectic selection comes from the debate register (feud depth × joint relevance); prompt framing steelmans each side, names where the split lives, allows an honest impasse. Attribution always carried per party in the receipts — never flattened.
    - Full spec: `ADVOCACY_RECEPTIVITY_AND_OPERATION_MAPS_SPECIFICATION.md`, Part 3. Builds on item 7.
-   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Held open in spec: vanilla discussion default (Dialectic vs Full arc).
+   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Vanilla discussion default RULED 2026-11-22: **Full arc**. The Minus writing is a Dialectic for a pair, a **Polylectic** for a group (Jason's term).
 
 9. **Advocacy / Receptivity (Spec Part 1):**
    - Stance skins' pole topics decompose into two placements: Advocacy (distribution of arguing over the poles) and Receptivity (distribution of hearing — not a stance), each with its own signed intensity; never contracted; unrated means absent from all math.
    - Widget ruled 2026-11-22: filled disc = Advocacy puck, open ring = Receptivity puck, each coloured by its own intensity; two intensity sliders whose thumbs ARE the glyphs; wheel over a puck sets its intensity; mode entry by tapping the puck or its slider; unplaced ring rests as a dashed ghost at centre.
    - Usage: Cross gains the Advocacy × Receptivity deliberative channel alongside the coverage Cross; Circle Minus gains the unreceptivity feud signal. Sexcapades topics untouched.
    - Full spec: `ADVOCACY_RECEPTIVITY_AND_OPERATION_MAPS_SPECIFICATION.md`, Part 1.
-   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Held open in spec: where issue-aversion lives with two intensities; migration seeding (Advocacy inherits current blend + intensity, Receptivity starts unrated — proposal).
+   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Issue-aversion RULED 2026-11-22: it lives on each mode's own negative intensity, each carrying its own type of aversion (Advocacy-negative = repelled by engaging/pressing the issue; Receptivity-negative = refuses to take it in). Migration seeding still a proposal (Advocacy inherits current blend + intensity, Receptivity starts unrated).
 
 ---
 
