@@ -62,9 +62,7 @@
             const hubRadius1 = sxIconRadius(1), leafRadius2 = sxIconRadius(2);
             const fsEst = sxFontSize(2) * 14 / 17;
             const minReqSpoke = hubRadius1 + leafRadius2 + Za.measure(t.label || "", fsEst, "topic") + Math.max(18, 6 * Za.measure(" ", fsEst, "topic")) + 28;
-            const hasExplicitKo = ko && Number(ko.length) > 0;
-            if (!hasExplicitKo && h < minReqSpoke) h = minReqSpoke;
-            else if (hasExplicitKo && h < (hubRadius1 + leafRadius2 + 20)) h = hubRadius1 + leafRadius2 + 20;
+            if (h < minReqSpoke) h = minReqSpoke;
             return h;
         }
 

@@ -10992,9 +10992,7 @@ const Ce = {
             const hubRadius1 = sxIconRadius(1), leafRadius2 = sxIconRadius(2);
             const fsEst = sxFontSize(2) * 14 / 17;
             const minReqSpoke = hubRadius1 + leafRadius2 + Za.measure(t.label || "", fsEst, "topic") + Math.max(18, 6 * Za.measure(" ", fsEst, "topic")) + 28;
-            const hasExplicitKo = ko && Number(ko.length) > 0;
-            if (!hasExplicitKo && h < minReqSpoke) h = minReqSpoke;
-            else if (hasExplicitKo && h < (hubRadius1 + leafRadius2 + 20)) h = hubRadius1 + leafRadius2 + 20;
+            if (h < minReqSpoke) h = minReqSpoke;
             return h;
         }
 
@@ -26167,20 +26165,36 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             const LabelRenderer = {
                 computeAnchoredOffset(routedLength, renderedW, hubR, iconR, gap, isReverse) {
                     let offset, anchor;
+                    const hubMargin = 16;
+                    const leafMargin = 12;
+                    const availSpan = Math.max(10, routedLength - hubR - iconR - hubMargin - leafMargin);
+                    const effectiveW = Math.min(renderedW, availSpan);
+                    let textLengthAttr = "";
+                    if (renderedW > availSpan) {
+                        textLengthAttr = ` textLength="${availSpan.toFixed(1)}" lengthAdjust="spacingAndGlyphs"`;
+                    }
                     if (isReverse) {
-                        offset = iconR + gap + renderedW;
-                        const maxOff = routedLength - hubR - 20;
-                        if (offset > maxOff) offset = maxOff;
-                        if (offset < iconR + renderedW + 10) offset = iconR + renderedW + 10;
+                        const idealOffset = iconR + gap + effectiveW;
+                        const minOff = iconR + leafMargin + effectiveW;
+                        const maxOff = routedLength - hubR - hubMargin;
+                        if (minOff <= maxOff) {
+                            offset = Math.min(maxOff, Math.max(idealOffset, minOff));
+                        } else {
+                            offset = maxOff;
+                        }
                         anchor = ' text-anchor="end"';
                     } else {
-                        offset = routedLength - iconR - gap - renderedW;
-                        const minOff = hubR + 20;
-                        if (offset < minOff) offset = minOff;
-                        if (offset > routedLength - iconR - renderedW - 10) offset = routedLength - iconR - renderedW - 10;
+                        const idealOffset = routedLength - iconR - gap - effectiveW;
+                        const minOff = hubR + hubMargin;
+                        const maxOff = routedLength - iconR - leafMargin - effectiveW;
+                        if (minOff <= maxOff) {
+                            offset = Math.max(minOff, Math.min(idealOffset, maxOff));
+                        } else {
+                            offset = minOff;
+                        }
                         anchor = "";
                     }
-                    return { offset, anchor };
+                    return { offset, anchor, textLengthAttr, effectiveW };
                 }
             };
 
@@ -26315,10 +26329,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     const textWEst = Za.measure(a, fsEst, "topic");
                     const gapEst = Math.max(18, 6 * Za.measure(" ", fsEst, "topic"));
                     const minReqSpoke = hubRadius1 + leafRadius2 + textWEst + gapEst + 28;
-                    const koEntry = mn.kinkOverrides && mn.kinkOverrides[r];
-                    const hasExplicitKo = koEntry && typeof koEntry.length === "number" && koEntry.length > 0;
-                    if (!hasExplicitKo && h < minReqSpoke) h = minReqSpoke;
-                    else if (hasExplicitKo && h < (hubRadius1 + leafRadius2 + 20)) h = hubRadius1 + leafRadius2 + 20;
+                    if (h < minReqSpoke) h = minReqSpoke;
                     const g = l.x + Math.cos(s) * h, m = l.y + Math.sin(s) * h, y = Ya(l.x, l.y, g, m, hubRadius1), b = Math.max(12, Math.min(17, Za.fittedSize(a, y.labelWidth, void 0))), w = y.labelD, x = o ? "all" : Ra(r);
                     const E = [ "node-group" ];
                     o && E.push("subcategory-node");
@@ -26337,11 +26348,19 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     const I = null !== Dt && (r === Dt || dCat === Dt || t.children.some(e => e.child.id === Dt));
                     Dt && !I && E.push("is-dim"), Dt && r === Dt && E.push("is-preview");
                     const P = Za.topicLabelOffset(y.routedLength, y.labelOffset, t.cloudIndex), L = Math.cos(s) < 0, T = L ? `pr-${r}` : `p-${r}`;
-                    const fs2 = (sxFontSize(2) * b / 17);
-                    const textW2 = Za.measure(a, fs2, "topic");
-                    const gap2 = Math.max(18, 6 * Za.measure(" ", fs2, "topic"));
                     const hubR2 = sxIconRadius(1);
                     const iconR2 = sxIconRadius(2);
+                    let fs2 = (sxFontSize(2) * b / 17);
+                    let textW2 = Za.measure(a, fs2, "topic");
+                    let renderedW2 = textW2 - 6 * Math.max(0, a.length - 1);
+                    const maxSpan2 = Math.max(10, y.routedLength - hubR2 - iconR2 - 28);
+                    if (renderedW2 > maxSpan2) {
+                        const fitScale2 = Math.min(1, maxSpan2 / Math.max(1, renderedW2));
+                        fs2 = Math.max(9, fs2 * fitScale2);
+                        textW2 = Za.measure(a, fs2, "topic");
+                        renderedW2 = textW2 - 6 * Math.max(0, a.length - 1);
+                    }
+                    const gap2 = Math.max(18, 6 * Za.measure(" ", fs2, "topic"));
                     let F, N;
                     // ICON-ANCHORED LABEL (2026-11-18): the label sits
                     // at the far end of the spoke, its icon-side end a
@@ -26351,7 +26370,6 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     // measured width minus the halo (6 per character
                     // gap) the render does not draw, so the gap is
                     // measured to the glyphs actually drawn.
-                    const renderedW2 = textW2 - 6 * Math.max(0, a.length - 1);
                     const anchored2 = LabelRenderer.computeAnchoredOffset(y.routedLength, renderedW2, hubR2, iconR2, gap2, L);
                     F = anchored2.offset;
                     N = anchored2.anchor;
@@ -26375,7 +26393,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, sxIconInterest ? sxIconInterest.ring : B.color, V, Y, false, o, getPartyHoldings(r), sxIconInterest), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = isPseudo ? sxGetPseudoSpokeColors(r, B ? B.lineColor : null) : (sxPairTapers ? sxPairTapers(r) : null), peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : (sxFl && sxFl.mid ? sxFl.mid : midColor2), sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
-                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${Hi(a)}</textPath></text></g>`,
+                    v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}${anchored2.textLengthAttr}>${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
                         // Per-kink length override for subcategory
@@ -26427,16 +26445,23 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                                 pointAtDistance: x
                             };
                         }(V, Y, l.x, l.y, 0, s, hr(3), pr.importedIcon / 2 + 10, e.curve, 270, c.offset, u, c.limit), h = Math.cos(s) < 0, g = h ? `pr-${n.id}` : `p-${n.id}`;
-                        const fs3 = sxFontSize(3);
-                        const textW3 = Za.measure(n.label, fs3, "topic");
-                        const gap3 = Math.max(16, 6 * Za.measure(" ", fs3, "topic"));
+                        let fs3 = sxFontSize(3);
+                        let textW3 = Za.measure(n.label, fs3, "topic");
+                        let renderedW3 = textW3 - 6 * Math.max(0, n.label.length - 1);
                         const hubR3 = sxIconRadius(2);
                         const iconR3 = sxIconRadius(3);
+                        const maxSpan3 = Math.max(10, p.routedLength - hubR3 - iconR3 - 28);
+                        if (renderedW3 > maxSpan3) {
+                            const fitScale3 = Math.min(1, maxSpan3 / Math.max(1, renderedW3));
+                            fs3 = Math.max(9, fs3 * fitScale3);
+                            textW3 = Za.measure(n.label, fs3, "topic");
+                            renderedW3 = textW3 - 6 * Math.max(0, n.label.length - 1);
+                        }
+                        const gap3 = Math.max(16, 6 * Za.measure(" ", fs3, "topic"));
                         let m, y;
                         // ICON-ANCHORED LABEL (2026-11-18): same as the
                         // cloud-topics loop above — far end of the spoke,
                         // six-space gap inside the icon, rendered width.
-                        const renderedW3 = textW3 - 6 * Math.max(0, n.label.length - 1);
                         const anchored3 = LabelRenderer.computeAnchoredOffset(p.routedLength, renderedW3, hubR3, iconR3, gap3, h);
                         m = anchored3.offset;
                         y = anchored3.anchor;
@@ -26466,7 +26491,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                         const sxIconInterest3 = !Rt && !isPseudo && !sxPairTapers && !getPartyHoldings(n.id) ? sxDiscFor(S, shape3) : null;
                         const q = HubRenderer.renderIcon(n.id, T, L, ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 }), sxIconInterest3 ? sxIconInterest3.ring : L.color, N, _, false, false, getPartyHoldings(n.id), sxIconInterest3);
                         const H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = isPseudo ? sxGetPseudoSpokeColors(n.id, $.lineColor) : (sxPairTapers ? sxPairTapers(n.id) : null), pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, sxFl && sxFl.mid ? sxFl.mid : midColor3, sxFl ? sxFl.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, N, _, true, pr.topicIcon, P, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(3), 3)}</g>` : SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, l.x, l.y, false, pr.importedIcon, P, true, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
-                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}>${Hi(n.label)}</textPath></text></g>`;
+                        v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}${anchored3.textLengthAttr}>${Hi(n.label)}</textPath></text></g>`;
                     });
                 }
             }
