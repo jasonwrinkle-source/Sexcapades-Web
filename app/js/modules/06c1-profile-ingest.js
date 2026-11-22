@@ -248,6 +248,16 @@
                     id = "t0255"; // Duplicate crying topics (Crying, Tears) removed 2026-11-21, remapped to Dacryphilia (kept *philia name)
                 } else if (id === "t0342") {
                     id = "t0350"; // Duplicate Enemas removed 2026-11-21, remapped to Klismaphilia (kept *philia name)
+                } else if (id === "t0392" || id === "topic-transvestism") {
+                    id = "t0385"; // Transvestism removed 2026-11-22 (minimal-spanning rulings), remapped to Crossdressing
+                } else if (id === "t0173" || id === "topic-military") {
+                    id = "t0174"; // Military removed 2026-11-22, remapped to Military Uniforms
+                } else if (id === "t0165" || id === "topic-boot") {
+                    id = "t0166"; // Boot removed 2026-11-22, remapped to Heels & boots
+                } else if (id === "t0270" || id === "topic-exhibition-voyeurism") {
+                    id = "t0266"; // Exhibition / voyeurism removed 2026-11-22, remapped to Watching & being watched
+                } else if (id === "t0058" || id === "topic-breast-spanking") {
+                    id = "t0061"; // Breast Spanking removed 2026-11-22, remapped to Tit Slapping (survivor per Jason's ruling)
                 }
                 if (!Ke.has(id) && !isCatId(id) && !isSubId(id) && !(at[c] && at[c][id]) && !(window.__SEXCAPADES_TOPIC_CATALOG && window.__SEXCAPADES_TOPIC_CATALOG.labelForId(id))) {
                     if (typeof window.__SX_SKIN_LAYOUT_SYNC === "function") {
