@@ -371,7 +371,18 @@
             const role7Row = e.byId("markRole7Row"), role7 = e.byId("markRole7"), role7Out = e.byId("markRole7Out"), role7Label = e.byId("markRole7Label");
             const role8Row = e.byId("markRole8Row"), role8 = e.byId("markRole8"), role8Out = e.byId("markRole8Out"), role8Label = e.byId("markRole8Label");
 
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(id);
+            // On the classic skin the dual placements are give/receive:
+            // relabel the dual-slider columns for n-pole topics (and
+            // restore the advocacy/receptivity wording otherwise).
+            {
+                const sxClassicSkin = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                document.querySelectorAll(".mark-tri-slider-label").forEach(el => {
+                    const isRecLbl = "Receptivity" === el.getAttribute("title");
+                    if (sxClassicSkin && !isClassic) el.textContent = isRecLbl ? "○ Receive" : "● Give";
+                    else el.textContent = isRecLbl ? "○ Rec" : "● Adv";
+                });
+            }
 
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
