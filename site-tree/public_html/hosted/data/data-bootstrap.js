@@ -25044,7 +25044,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             };
 
             const HubRenderer = {
-                renderIcon(id, diameter, glyphData, tapTarget, color, cx, cy, isBranch = false, isSubcategory = false) {
+                renderIcon(id, diameter, glyphData, tapTarget, color, cx, cy, isBranch = false, isSubcategory = false, partyHoldings = null) {
                     const r = diameter / 2, scale = diameter / 24, shift = diameter / 6;
                     const fallbackAttr = glyphData.glyphFallback ? ' data-glyph-fallback="star"' : "";
                     const cls = isBranch ? `branch-icon${"noCode" === glyphData.hankyKey ? " no-hanky-code-icon" : ""}` :
@@ -25052,7 +25052,30 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     const innerContent = isBranch ?
                         `<g transform="scale(${scale.toFixed(5)})">${glyphData.glyph}</g>` :
                         `<g transform="translate(${shift.toFixed(3)} ${shift.toFixed(3)}) scale(${scale.toFixed(5)})">${glyphData.glyph}${glyphData.accent || ""}</g>`;
-                    return `<g class="${cls}"${fallbackAttr} data-diameter="${diameter}" ${tapTarget} aria-hidden="true" style="color:${color}" transform="translate(${(cx - r).toFixed(2)} ${(cy - r).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${r}" cy="${r}" r="${r - .5}"/><circle class="icon-disc" cx="${r}" cy="${r}" r="${r - 2}"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="${r}" cy="${r}" r="${r - 3.5}"/>${innerContent}</g>`;
+                    let discMarkup;
+                    const rd = r - 2;
+                    if (partyHoldings && partyHoldings.length === 2 && !isBranch) {
+                        const colA = partyHoldings[0].color || "rgba(128,128,128,0.25)";
+                        const colB = partyHoldings[1].color || "rgba(128,128,128,0.25)";
+                        discMarkup = `<path class="icon-disc icon-disc-left" d="M ${r} 2 A ${rd} ${rd} 0 0 0 ${r} ${r * 2 - 2} Z" fill="${colA}" style="fill:${colA}"/><path class="icon-disc icon-disc-right" d="M ${r} 2 A ${rd} ${rd} 0 0 1 ${r} ${r * 2 - 2} Z" fill="${colB}" style="fill:${colB}"/><line x1="${r}" y1="2" x2="${r}" y2="${r * 2 - 2}" stroke="rgba(0,0,0,0.4)" stroke-width="0.75"/>`;
+                    } else if (partyHoldings && partyHoldings.length > 2 && !isBranch) {
+                        const nParts = partyHoldings.length;
+                        let wedges = "";
+                        for (let k = 0; k < nParts; k++) {
+                            const a0 = -Math.PI / 2 + (2 * Math.PI * k) / nParts;
+                            const a1 = -Math.PI / 2 + (2 * Math.PI * (k + 1)) / nParts;
+                            const x0 = (r + rd * Math.cos(a0)).toFixed(2);
+                            const y0 = (r + rd * Math.sin(a0)).toFixed(2);
+                            const x1 = (r + rd * Math.cos(a1)).toFixed(2);
+                            const y1 = (r + rd * Math.sin(a1)).toFixed(2);
+                            const colK = partyHoldings[k].color || "rgba(128,128,128,0.25)";
+                            wedges += `<path class="icon-disc icon-disc-wedge" d="M ${r} ${r} L ${x0} ${y0} A ${rd} ${rd} 0 0 1 ${x1} ${y1} Z" fill="${colK}" style="fill:${colK}"/>`;
+                        }
+                        discMarkup = wedges;
+                    } else {
+                        discMarkup = `<circle class="icon-disc" cx="${r}" cy="${r}" r="${rd}"/>`;
+                    }
+                    return `<g class="${cls}"${fallbackAttr} data-diameter="${diameter}" ${tapTarget} aria-hidden="true" style="color:${color}" transform="translate(${(cx - r).toFixed(2)} ${(cy - r).toFixed(2)})"><circle class="icon-ring-outline icon-ring-outline-outer" cx="${r}" cy="${r}" r="${r - .5}"/>${discMarkup}<circle class="icon-ring-outline icon-ring-outline-inner" cx="${r}" cy="${r}" r="${r - 3.5}"/>${innerContent}</g>`;
                 },
                 renderBadges(cx, cy, count, id, ux = 0, uy = 0, offset = 0, isCategory = false) {
                     return yi(cx + ux * offset, cy + uy * offset, count, id, isCategory);
@@ -25084,6 +25107,59 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             // budget is used, so these checks do not add a frame per topic.
             let sxBootSlice = performance.now();
             const sxActiveProfile = Vi();
+            if (typeof sxEnsurePseudoProfileCurrent === "function") {
+                sxEnsurePseudoProfileCurrent(sxActiveProfile);
+            }
+            const isPseudo = typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(sxActiveProfile);
+            const pseudoMeta = isPseudo && typeof ft !== "undefined" ? ft[sxActiveProfile] : null;
+            const pseudoOp = pseudoMeta ? (pseudoMeta.operation || pseudoMeta.pairOp) : null;
+            const pseudoSources = isPseudo && Array.isArray(pseudoMeta.sourceProfiles) && pseudoMeta.sourceProfiles.length >= 2 ? pseudoMeta.sourceProfiles : null;
+            const getPartyHoldings = (topicId) => {
+                if (!pseudoSources) return null;
+                return pseudoSources.map(sp => {
+                    const sRatings = sp.ratings || {};
+                    const sVal = sRatings[topicId];
+                    let num = null;
+                    if (typeof sVal === "number") num = sVal;
+                    else if (sVal && typeof sVal === "object") {
+                        const g = typeof sVal.give === "number" ? sVal.give : null;
+                        const r = typeof sVal.receive === "number" ? sVal.receive : null;
+                        if (null !== g && null !== r) num = (g + r) / 2;
+                        else if (null !== g) num = g;
+                        else if (null !== r) num = r;
+                        else if (typeof sVal.intensity === "number") num = sVal.intensity;
+                    }
+                    const col = (null === num || isNaN(num)) ? "rgba(128,128,128,0.25)" : zi(num);
+                    return { name: sp.name, rating: num, color: col };
+                });
+            };
+            const sxGetPseudoSpokeColors = (topicId, lineColor) => {
+                if (!isPseudo || !vt[sxActiveProfile]) return null;
+                const rec = vt[sxActiveProfile][topicId];
+                if (!rec) return null;
+                if (pseudoOp === "minus") {
+                    const gv = typeof rec.give === "number" ? rec.give : (typeof rec.singleValue === "number" ? rec.singleValue : 0);
+                    const rv = typeof rec.receive === "number" ? rec.receive : (typeof rec.singleValue === "number" ? rec.singleValue : 0);
+                    if (gv <= 0 && rv <= 0) return null;
+                    return {
+                        give: gv > 0 ? zi(-gv) : Te(lineColor || "var(--neutral-line)"),
+                        receive: rv > 0 ? zi(-rv) : Te(lineColor || "var(--neutral-line)"),
+                        mid: zi(-Math.max(gv, rv)),
+                        isRated: !0
+                    };
+                } else {
+                    const gv = typeof rec.give === "number" ? rec.give : null;
+                    const rv = typeof rec.receive === "number" ? rec.receive : null;
+                    if (null == gv && null == rv) return null;
+                    const mid = (null != gv && null != rv) ? (gv + rv) / 2 : (null != gv ? gv : rv);
+                    return {
+                        give: null != gv ? zi(gv) : null,
+                        receive: null != rv ? zi(rv) : null,
+                        mid: zi(mid),
+                        isRated: !0
+                    };
+                }
+            };
             const sxHasSomeRatings = Boolean(!Rt && typeof cs === "function" && cs(sxActiveProfile)?.rated > 0);
             for (let t = 0; t < d.branches.length; t++) {
                 const e = d.branches[t];
@@ -25212,7 +25288,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     const midColor2 = isTriple2 && midKnown2 ? zi(midVal2) : (j && (j.giveKnown || j.receiveKnown) ? zi(((j.giveKnown ? j.give : 0) + (j.receiveKnown ? j.receive : 0)) / ((j.giveKnown ? 1 : 0) + (j.receiveKnown ? 1 : 0))) : B.lineColor);
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
-                    }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, B.color, V, Y, false, o), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = sxPairTapers ? sxPairTapers(r) : null, peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : midColor2, sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
+                    }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, B.color, V, Y, false, o, getPartyHoldings(r)), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = isPseudo ? sxGetPseudoSpokeColors(r, B ? B.lineColor : null) : (sxPairTapers ? sxPairTapers(r) : null), peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : (sxFl && sxFl.mid ? sxFl.mid : midColor2), sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
                     v += `<g class="${E.join(" ")}" data-layout-key="${r}" data-layout-x="${V.toFixed(2)}" data-layout-y="${Y.toFixed(2)}" data-has-visible-children="${t.children.length ? "true" : "false"}" data-hanky-color="${B.hankyKey}" data-rated="${null === R ? "false" : "true"}" style="--profile-color:${f};--family-color:${o ? Q.color : B.color};--hanky-color:${B.labelColor};--hanky-label-stroke:${B.labelStroke}">${ue}${pe}${re}${oe}${le}<path id="p-${r}" class="concept-path" d="${w}" fill="none" stroke="transparent"/>${sxRevPath}<text class="${he}" data-topic-id="${r}" data-id="${r}" data-path-id="p-${r}" data-label-offset="${F.toFixed(2)}" ${Sa(r, qn[r], D)} tabindex="0" role="button"${ce} aria-label="${ge}" style="font-size:${fs2.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${T}" xlink:href="#${T}" startOffset="${F.toFixed(2)}"${N}>${Hi(a)}</textPath></text></g>`,
                     t.children.forEach(e => {
                         window.__sxNodeTick && window.__sxNodeTick();
@@ -25301,8 +25377,8 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                         Dt && !B && O.push("is-dim"), Dt && n.id === Dt && O.push("is-preview");
                         const midColor3 = isTriple3 && midKnown3 ? zi(midVal3) : $.lineColor;
                         const j = !o && Boolean(si(n.id)) ? ` Tap to adopt it into ${wt[Vi()] || "the active profile"} unrated, then use the normal give and receive controls.` : "";
-                        const q = HubRenderer.renderIcon(n.id, T, L, ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 }), L.color, N, _, false, false);
-                        const H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = sxPairTapers ? sxPairTapers(n.id) : null, pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, midColor3, sxFl ? sxFl.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, N, _, true, pr.topicIcon, P, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(3), 3)}</g>` : SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, l.x, l.y, false, pr.importedIcon, P, true, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
+                        const q = HubRenderer.renderIcon(n.id, T, L, ka(n.label, $e(n, L, w, $, x), xa(n.id, D), { tapFirst: !0 }), L.color, N, _, false, false, getPartyHoldings(n.id));
+                        const H = k(n.id, x, !Rt && qa(n.id, Je), !Rt && qa(n.id, et), !Rt && Boolean(tt[D]?.[n.id]?.length), p.icon, p.ux, p.uy), sxFl = isPseudo ? sxGetPseudoSpokeColors(n.id, $.lineColor) : (sxPairTapers ? sxPairTapers(n.id) : null), pTr = Ga.trimToIcons(V, Y, o ? N : l.x, o ? _ : l.y, sxIconRadius(2), sxIconRadius(3)), pT = `M ${pTr.sx0.toFixed(2)} ${pTr.sy0.toFixed(2)} L ${pTr.sx1.toFixed(2)} ${pTr.sy1.toFixed(2)}`, W = o ? renderKinkLine(V, Y, N, _, $.key, sxFl && sxFl.mid ? sxFl.mid : midColor3, sxFl ? sxFl.give : Rt || (isTriple3 ? S && S[shape3.keys[0] + "Known"] : S && S.giveKnown) ? M : null, sxFl ? sxFl.receive : Rt || (isTriple3 ? S && S[shape3.keys[2] + "Known"] : S && S.receiveKnown) ? I : null, sxFl ? !0 : null !== w, e.cloudCount, n.id, n.label, D, pr.subcategoryIcon, 48, sxIconDiameter(2), sxIconDiameter(3), 3) : "", U = o ? `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, N, _, true, pr.topicIcon, P, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(3), 3)}</g>` : SpokeRenderer.renderTopicSpoke(n.id, pT, n.label, p.nx, p.ny, V, Y, l.x, l.y, false, pr.importedIcon, P, true, null === w && "noCode" === $.key ? "no-hanky-code-line" : "", null, null, $.lineColor, "noCode" === $.key, null !== w, h.length, SpokeGeometry.buildBaseCircle(V, Y, sxIconRadius(2)), sxIconDiameter(3), 3), G = o ? `${Hi(n.label)} in ${Hi(a)}. Press Shift Enter for description and markers.` : `${Hi(n.label)}, imported under ${Hi(a)}.${Hi(j)} Press Shift Enter for description and markers.`;
                         v += `<g class="${O.join(" ")}" data-layout-key="${n.id}" data-layout-x="${N.toFixed(2)}" data-layout-y="${_.toFixed(2)}" data-rated="${null === w ? "false" : "true"}" style="--profile-color:${f};--family-color:${Q.color}">${W}${U}${q}${H}<path id="p-${n.id}" class="concept-path" d="${p.labelD}" fill="none" stroke="transparent"/>${b}<text class="map-label concept-path-label${o ? " hanky-topic-label" : ""}" data-topic-id="${n.id}" data-id="${n.id}" data-path-id="p-${n.id}" data-label-offset="${m.toFixed(2)}" ${Sa(n.id, n, D)} tabindex="0" role="button" aria-label="${G}" style="font-size:${fs3.toFixed(2)}px" dominant-baseline="middle" xml:space="preserve"><textPath href="#${g}" xlink:href="#${g}" startOffset="${m.toFixed(2)}"${y}>${Hi(n.label)}</textPath></text></g>`;
                     });
                 }
@@ -27537,6 +27613,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         // minted, on the first write, and later writes reuse it.
         function To(e, t, n, i = !0, a = null) {
             let r = a && vt[a] ? a : Mt && vt[Mt] ? Mt : Et;
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return 0;
             if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
@@ -27563,6 +27640,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         // mint a profile per call.
         function Fo(e, t, n = !0, i = null) {
             let a = i && vt[i] ? i : Mt && vt[Mt] ? Mt : Et;
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(a)) return;
             if (a === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
@@ -27642,12 +27720,16 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         }
         Pr && Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
-            const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
+            const t = Vi();
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(t)) return;
+            const previousRatedCount = cs(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
             "neutral" === i ? delete Qe[t][n] : Qe[t][n] = i, Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === ("neutral" === i ? "neutral" : i)))), 
             a !== ("neutral" === i ? void 0 : i) && zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
         })), Pr && Pr.querySelectorAll("[data-topic-flag]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
-            const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
+            const t = Vi();
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(t)) return;
+            const previousRatedCount = cs(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
             i[t] || (i[t] = {}), a ? i[t][n] = !0 : delete i[t][n], e.setAttribute("aria-pressed", String(a)), 
             zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
         })), Zr && Zr.addEventListener("change", () => {
@@ -32825,13 +32907,39 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 roleLocked: !1
             };
         }
+        function sxComputeProfileFingerprint(id) {
+            if (!id || !vt[id]) return "";
+            const r = vt[id] || {}, q = Qe[id] || {}, j = Je[id] || {}, e = et[id] || {};
+            return Object.keys(r).length + ":" + JSON.stringify(r) + "|" + JSON.stringify(q) + "|" + JSON.stringify(j) + "|" + JSON.stringify(e);
+        }
+        function sxSourcesFingerprint(sourceIds) {
+            return (sourceIds || []).map(id => id + "=" + sxComputeProfileFingerprint(id)).join(";");
+        }
+        function sxIsPseudoProfile(id) {
+            if (!id || typeof ft === "undefined") return !1;
+            const meta = ft[id];
+            return Boolean(meta && (meta.isPseudoProfile || meta.pairOp));
+        }
+        function sxEnsurePseudoProfileCurrent(id) {
+            if (!id || typeof ft === "undefined") return;
+            const meta = ft[id];
+            if (!meta || !meta.isPseudoProfile || !Array.isArray(meta.sourceIds) || meta.sourceIds.length < 2) return;
+            const currentFp = sxSourcesFingerprint(meta.sourceIds);
+            if (meta.fingerprint !== currentFp) {
+                if (typeof Rd === "function") Rd(id);
+            }
+        }
         window.__SEXCAPADES_SYNC_ENGINE = {
             version: "1.1",
             pair: sxPairCompute,
             group: sxGroupCompute,
             pairByIds: sxPairByIds,
             livePair: sxLivePair,
-            profileById: sxProfileById
+            profileById: sxProfileById,
+            computeProfileFingerprint: sxComputeProfileFingerprint,
+            sourcesFingerprint: sxSourcesFingerprint,
+            isPseudoProfile: sxIsPseudoProfile,
+            ensurePseudoProfileCurrent: sxEnsurePseudoProfileCurrent
         };
 
         const Oc = e.byId("scribeDialog"), Bc = e.byId("scribeChoiceDialog"), jc = e.byId("novelAiDialog");
@@ -34094,11 +34202,27 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             let p = 0;
             recs.forEach(rec => {
                 if (rec.groupLimited || "limit-blocked" === rec.playOutcome) return void p++;
-                if ("match" === rec.playOutcome) {
-                    l.push(rec.label), n[rec.id] = {
-                        give: rec.strength || 0,
-                        receive: rec.strength || 0
+                const prec = isPair && pair ? pair.topicsById[rec.id] : null;
+                const gvFit = prec ? prec.crossFitGive : null, rvFit = prec ? prec.crossFitReceive : null;
+                if (null != gvFit || null != rvFit) {
+                    n[rec.id] = {
+                        give: null != gvFit ? gvFit : 0,
+                        receive: null != rvFit ? rvFit : 0
                     };
+                } else if (null != rec.strength) {
+                    n[rec.id] = {
+                        give: rec.strength,
+                        receive: rec.strength
+                    };
+                }
+                if ("match" === rec.playOutcome) {
+                    l.push(rec.label);
+                    if (!n[rec.id]) {
+                        n[rec.id] = {
+                            give: rec.strength || 0,
+                            receive: rec.strength || 0
+                        };
+                    }
                     const routes = isPair ? pair.topicsById[rec.id].fits.filter(f => !f.shed).map(f => sxRouteRecord(f, rec.id)) : grp.pairs.map(pr => pr.topicsById[rec.id]).filter(pr => pr && pr.bestFit).map(pr => sxRouteRecord(pr.bestFit, rec.id));
                     s[rec.id] = {
                         score: rec.strength || 0,
@@ -34199,31 +34323,56 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             };
         }
         function DdMinus(e, heat) {
-            // Circle-minus adapter, the DdStraight analog for ⊖ pairs.
-            // Give/receive arguments are the negative same-flank
-            // products, stored as positive magnitudes so the map can
-            // paint them. Pole topics stay off the map; their feud is
-            // the header rings, the same way circle dot leaves pole
-            // topics uncolored and reads them from the rings. Circle
-            // minus is a measure (ruled 2026-11-21): the adapter also
-            // carries the pair's Debate MS headline and counts, so
-            // the rings and the pair tab answer to a real aggregate.
+            // Circle-minus adapter: disagreement map (Spec Part 2).
+            // Spokes carry split depth weighted by joint relevance:
+            // for give/receive flanks, the negative same-flank product weighted by joint care;
+            // for pole and line topics, the feud from sxDebateFeud weighted by debateIntensity.
             const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
-            if (pair && pair.straight) pair.straight.topics.forEach(srec => {
-                if ("shared" !== srec.status || null != srec.roleEnemy) return;
-                const v = {};
-                null != srec.giveGive && srec.giveGive < 0 && (v.give = -srec.giveGive / 100), null != srec.recvRecv && srec.recvRecv < 0 && (v.receive = -srec.recvRecv / 100);
-                if (!Object.keys(v).length) return;
-                n[srec.id] = v;
-                const rec = pair.topicsById[srec.id];
-                rec && rec.flags.favoriteBy.length === e.length && (i[srec.id] = "favorite"),
-                rec && rec.flags.fantasyBy.length && (a[srec.id] = !0), rec && rec.flags.triedBy.length && (r[srec.id] = !0),
-                e.forEach(p => {
-                    const t = (p.importedChildren || {})[srec.id];
-                    t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
+            if (pair && pair.straight) {
+                pair.straight.topics.forEach(srec => {
+                    if ("shared" !== srec.status) return;
+                    const rec = pair.topicsById ? pair.topicsById[srec.id] : null;
+                    const v = {};
+                    if (null != srec.agreement || null != srec.roleEnemy) {
+                        const feud = sxDebateFeud(srec);
+                        if (feud > 0) {
+                            const deb = (null != srec.debateIntensity ? srec.debateIntensity : 1);
+                            const feudScore = Math.max(1, Math.round(feud * deb * 100));
+                            v.single = feudScore;
+                            v.singleValue = feudScore;
+                            v.give = feudScore;
+                            v.receive = feudScore;
+                        }
+                    } else if (rec && rec.ratings) {
+                        const ra = rec.ratings.a, rb = rec.ratings.b;
+                        if (null != srec.giveGive && srec.giveGive < 0) {
+                            const splitMag = -srec.giveGive / 100;
+                            const careA = Math.abs(ra.give || 0), careB = Math.abs(rb.give || 0);
+                            const jointRel = Math.sqrt(careA * careB) / 100;
+                            v.give = Math.max(1, Math.round(splitMag * jointRel));
+                        }
+                        if (null != srec.recvRecv && srec.recvRecv < 0) {
+                            const splitMag = -srec.recvRecv / 100;
+                            const careA = Math.abs(ra.receive || 0), careB = Math.abs(rb.receive || 0);
+                            const jointRel = Math.sqrt(careA * careB) / 100;
+                            v.receive = Math.max(1, Math.round(splitMag * jointRel));
+                        }
+                    }
+                    if (Object.keys(v).length) {
+                        n[srec.id] = v;
+                    }
+                    if (rec) {
+                        rec.flags.favoriteBy.length === e.length && (i[srec.id] = "favorite");
+                        rec.flags.fantasyBy.length && (a[srec.id] = !0);
+                        rec.flags.triedBy.length && (r[srec.id] = !0);
+                    }
+                    e.forEach(p => {
+                        const t = (p.importedChildren || {})[srec.id];
+                        t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
+                    });
                 });
-            });
+            }
             const di = pair ? sxDebateInterim(pair) : null, deb = !pair ? grp.debate : null,
                 debateLabels = pair && pair.straight ? pair.straight.topics.filter(s => "shared" === s.status && sxDebateFeud(s) > 0).sort((x, y) => sxDebateFeud(y) - sxDebateFeud(x) || x.label.localeCompare(y.label)).map(s => s.label) : [];
             return {
@@ -34331,7 +34480,15 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             } ])), Qe[e] = a.marks, Je[e] = a.fantasyFlags, et[e] = a.triedFlags, at[e] = a.children,
             n.percent = a.percent, n.things = a.things, n.clicks = a.clicks, 
             n.noScore = a.noScore, n.sxEngine = a.sx, 
-            n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails, (function() {
+            n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails,
+            n.isPseudoProfile = !0,
+            n.operation = "straight" === n.pairOp ? "straight" : "minus" === n.pairOp ? "minus" : "cross",
+            n.fingerprint = typeof sxSourcesFingerprint === "function" ? sxSourcesFingerprint(n.sourceIds) : "",
+            n.recipe = {
+                operation: n.operation,
+                sourceProfileIds: (n.sourceIds || []).slice(),
+                sourceNames: (n.sourceNames || []).slice()
+            }, (function() {
                 try {
                     n.sxMode = sxcv.mode, n.sxHeat = (n.sourceIds || []).map(id => sxHeatFor(id)), n.sxVeil = (n.sourceIds || []).map(id => sxVeilFor(id));
                 } catch (err) {
@@ -35334,17 +35491,9 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 veilEnabled: Boolean(vht[e]),
                 net: av(vpt[e]),
                 netEnabled: Boolean(vht[e])
-            })), i = function(e) {
-                const t = e.map(e => String(wt[e] || "").trim()), n = t.map(e => (e.match(/[\p{L}\p{N}]/u) || [ "?" ])[0].toLocaleUpperCase()), i = new Set(n).size < n.length;
-                return t.map((e, t) => i ? e.replace(/[^\p{L}\p{N}]/gu, "").slice(0, 2).replace(/^./u, e => e.toLocaleUpperCase()) || n[t] : n[t]).join(sxPairJoin(sxPairOp)).slice(0, 40);
-            }(t);
-            // Duplicate names (owner ruling, 2026-10-27): a forked pair
-            // keeps the CLEAN feeder name — no version suffix is baked
-            // into the underlying group profile name. Identity rides the
-            // internal id (ik disambiguates ids), and same-name tabs are
-            // told apart by a display-only "-2"/"-3" suffix on the tab
-            // label (see sxDupTabLabel in Jw).
-            const a = i, o = ik(a);
+            const a = t.map(e => String(wt[e] || "Profile").trim()).join(sxPairJoin(sxPairOp));
+            const o = ik(a);
+            const opName = "straight" === sxPairOp ? "straight" : "minus" === sxPairOp ? "minus" : "cross";
             // Match-tab fix (2026-10-26): saving CLOSES the match view.
             // Every match tab is torn down and the stage deactivated
             // before the strip rebuilds below, so post-save the screen is
@@ -35361,9 +35510,17 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             vht[o] = !1, ft[o] = {
                 kind: "group",
                 pairOp: sxPairOp,
+                isPseudoProfile: !0,
+                operation: opName,
                 sourceIds: t.slice(),
-                sourceNames: t.map(e => wt[e]),
+                sourceNames: t.map(e => wt[e] || "Profile"),
                 sourceProfiles: n,
+                fingerprint: typeof sxSourcesFingerprint === "function" ? sxSourcesFingerprint(t) : "",
+                recipe: {
+                    operation: opName,
+                    sourceProfileIds: t.slice(),
+                    sourceNames: t.map(e => wt[e] || "Profile")
+                },
                 percent: 0,
                 things: 0,
                 clicks: 0,

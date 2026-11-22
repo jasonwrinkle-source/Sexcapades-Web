@@ -48,11 +48,10 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - **Watch copy NEVER mentions sexcapades.io.**
    - *Open:* Investigate audible-sounds cause (Jason, 2026-11-08: needs investigation, not guessing); entertainment idea (genre map + live group enjoyment meter) open.
 
-7. **Operation Maps — Pseudo-Profiles (Spec Part 2):**
-   - An operation applied to a selection of profiles yields a first-class derived object: named by operation + parties, storing a recipe + ratings fingerprint (never editable, never rateable, recomputes when a source changes).
-   - It renders its OWN map on the skin's neutral atlas: nodes carry both parties' holdings, spokes carry the operation's per-topic value; Circle Minus gets map paint for the first time (split depth × joint relevance). Supersedes the pair taper painting.
-   - Full spec: `ADVOCACY_RECEPTIVITY_AND_OPERATION_MAPS_SPECIFICATION.md`, Part 2. Foundation for item 8.
-   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Geography RULED 2026-11-22: **atlas positions**; operation-solved layout noted in spec as a deferred portrait view for later.
+7. ~~**Operation Maps — Pseudo-Profiles (Spec Part 2):**~~ Settled 2026-11-22.
+   - Operations (⋈, ⊙, ⊖) yield first-class pseudo-profile objects storing a recipe, operation name, source profile IDs, and ratings fingerprint; automatically recomputed on source staleness; strictly non-editable and non-rateable.
+   - Renders on the skin's neutral atlas layout: topic node discs carry both parties' holdings (split disc with left/right party ratings or $N$-wedge group pie); spokes carry the operation's per-topic values (Cross: crossed fit per flank; Straight: likeness; Circle Minus: split depth × joint relevance feud heatmap).
+   - *Spec Part 2 complete; foundation laid for item 8.*
 
 8. **Scribe — Operation Chooser / Full Arc (Spec Part 3):**
    - Scribe dialog gains an operation choice for multi-profile writings: Communion (Cross), Common ground (Straight), Dialectic (Circle Minus), or Full arc (all three as movements).

@@ -1201,6 +1201,7 @@
         // minted, on the first write, and later writes reuse it.
         function To(e, t, n, i = !0, a = null) {
             let r = a && vt[a] ? a : Mt && vt[Mt] ? Mt : Et;
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return 0;
             if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
@@ -1227,6 +1228,7 @@
         // mint a profile per call.
         function Fo(e, t, n = !0, i = null) {
             let a = i && vt[i] ? i : Mt && vt[Mt] ? Mt : Et;
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(a)) return;
             if (a === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
                 const pid = ik("New profile");
                 SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
@@ -1306,12 +1308,16 @@
         }
         Pr && Pr.querySelectorAll("[data-mark]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
-            const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
+            const t = Vi();
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(t)) return;
+            const previousRatedCount = cs(t).rated, n = Qr, i = e.dataset.mark, a = Qe[t][n];
             "neutral" === i ? delete Qe[t][n] : Qe[t][n] = i, Pr.querySelectorAll("[data-mark]").forEach(e => e.setAttribute("aria-checked", String(e.dataset.mark === ("neutral" === i ? "neutral" : i)))), 
             a !== ("neutral" === i ? void 0 : i) && zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
         })), Pr && Pr.querySelectorAll("[data-topic-flag]").forEach(e => e.addEventListener("click", () => {
             if (!Qr || performance.now() - Number(Pr.dataset.openedAt || 0) < 400) return;
-            const t = Vi(), previousRatedCount = cs(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
+            const t = Vi();
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(t)) return;
+            const previousRatedCount = cs(t).rated, n = Qr, i = "fantasy" === e.dataset.topicFlag ? Je : et, a = !i[t]?.[n];
             i[t] || (i[t] = {}), a ? i[t][n] = !0 : delete i[t][n], e.setAttribute("aria-pressed", String(a)), 
             zt(t), Mr(), checkMilestoneTransition(t, previousRatedCount);
         })), Zr && Zr.addEventListener("change", () => {

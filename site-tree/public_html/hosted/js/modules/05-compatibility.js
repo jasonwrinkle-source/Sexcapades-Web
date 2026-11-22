@@ -13,11 +13,27 @@
             let p = 0;
             recs.forEach(rec => {
                 if (rec.groupLimited || "limit-blocked" === rec.playOutcome) return void p++;
-                if ("match" === rec.playOutcome) {
-                    l.push(rec.label), n[rec.id] = {
-                        give: rec.strength || 0,
-                        receive: rec.strength || 0
+                const prec = isPair && pair ? pair.topicsById[rec.id] : null;
+                const gvFit = prec ? prec.crossFitGive : null, rvFit = prec ? prec.crossFitReceive : null;
+                if (null != gvFit || null != rvFit) {
+                    n[rec.id] = {
+                        give: null != gvFit ? gvFit : 0,
+                        receive: null != rvFit ? rvFit : 0
                     };
+                } else if (null != rec.strength) {
+                    n[rec.id] = {
+                        give: rec.strength,
+                        receive: rec.strength
+                    };
+                }
+                if ("match" === rec.playOutcome) {
+                    l.push(rec.label);
+                    if (!n[rec.id]) {
+                        n[rec.id] = {
+                            give: rec.strength || 0,
+                            receive: rec.strength || 0
+                        };
+                    }
                     const routes = isPair ? pair.topicsById[rec.id].fits.filter(f => !f.shed).map(f => sxRouteRecord(f, rec.id)) : grp.pairs.map(pr => pr.topicsById[rec.id]).filter(pr => pr && pr.bestFit).map(pr => sxRouteRecord(pr.bestFit, rec.id));
                     s[rec.id] = {
                         score: rec.strength || 0,
@@ -118,31 +134,56 @@
             };
         }
         function DdMinus(e, heat) {
-            // Circle-minus adapter, the DdStraight analog for ⊖ pairs.
-            // Give/receive arguments are the negative same-flank
-            // products, stored as positive magnitudes so the map can
-            // paint them. Pole topics stay off the map; their feud is
-            // the header rings, the same way circle dot leaves pole
-            // topics uncolored and reads them from the rings. Circle
-            // minus is a measure (ruled 2026-11-21): the adapter also
-            // carries the pair's Debate MS headline and counts, so
-            // the rings and the pair tab answer to a real aggregate.
+            // Circle-minus adapter: disagreement map (Spec Part 2).
+            // Spokes carry split depth weighted by joint relevance:
+            // for give/receive flanks, the negative same-flank product weighted by joint care;
+            // for pole and line topics, the feud from sxDebateFeud weighted by debateIntensity.
             const grp = sxGroupCompute(e, { heat: heat || [] }), pair = 2 === e.length ? grp.pairs[0] : null,
                 n = {}, i = {}, a = {}, r = {}, o = {};
-            if (pair && pair.straight) pair.straight.topics.forEach(srec => {
-                if ("shared" !== srec.status || null != srec.roleEnemy) return;
-                const v = {};
-                null != srec.giveGive && srec.giveGive < 0 && (v.give = -srec.giveGive / 100), null != srec.recvRecv && srec.recvRecv < 0 && (v.receive = -srec.recvRecv / 100);
-                if (!Object.keys(v).length) return;
-                n[srec.id] = v;
-                const rec = pair.topicsById[srec.id];
-                rec && rec.flags.favoriteBy.length === e.length && (i[srec.id] = "favorite"),
-                rec && rec.flags.fantasyBy.length && (a[srec.id] = !0), rec && rec.flags.triedBy.length && (r[srec.id] = !0),
-                e.forEach(p => {
-                    const t = (p.importedChildren || {})[srec.id];
-                    t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
+            if (pair && pair.straight) {
+                pair.straight.topics.forEach(srec => {
+                    if ("shared" !== srec.status) return;
+                    const rec = pair.topicsById ? pair.topicsById[srec.id] : null;
+                    const v = {};
+                    if (null != srec.agreement || null != srec.roleEnemy) {
+                        const feud = sxDebateFeud(srec);
+                        if (feud > 0) {
+                            const deb = (null != srec.debateIntensity ? srec.debateIntensity : 1);
+                            const feudScore = Math.max(1, Math.round(feud * deb * 100));
+                            v.single = feudScore;
+                            v.singleValue = feudScore;
+                            v.give = feudScore;
+                            v.receive = feudScore;
+                        }
+                    } else if (rec && rec.ratings) {
+                        const ra = rec.ratings.a, rb = rec.ratings.b;
+                        if (null != srec.giveGive && srec.giveGive < 0) {
+                            const splitMag = -srec.giveGive / 100;
+                            const careA = Math.abs(ra.give || 0), careB = Math.abs(rb.give || 0);
+                            const jointRel = Math.sqrt(careA * careB) / 100;
+                            v.give = Math.max(1, Math.round(splitMag * jointRel));
+                        }
+                        if (null != srec.recvRecv && srec.recvRecv < 0) {
+                            const splitMag = -srec.recvRecv / 100;
+                            const careA = Math.abs(ra.receive || 0), careB = Math.abs(rb.receive || 0);
+                            const jointRel = Math.sqrt(careA * careB) / 100;
+                            v.receive = Math.max(1, Math.round(splitMag * jointRel));
+                        }
+                    }
+                    if (Object.keys(v).length) {
+                        n[srec.id] = v;
+                    }
+                    if (rec) {
+                        rec.flags.favoriteBy.length === e.length && (i[srec.id] = "favorite");
+                        rec.flags.fantasyBy.length && (a[srec.id] = !0);
+                        rec.flags.triedBy.length && (r[srec.id] = !0);
+                    }
+                    e.forEach(p => {
+                        const t = (p.importedChildren || {})[srec.id];
+                        t && !o[srec.id] && (o[srec.id] = Object.assign({}, t));
+                    });
                 });
-            });
+            }
             const di = pair ? sxDebateInterim(pair) : null, deb = !pair ? grp.debate : null,
                 debateLabels = pair && pair.straight ? pair.straight.topics.filter(s => "shared" === s.status && sxDebateFeud(s) > 0).sort((x, y) => sxDebateFeud(y) - sxDebateFeud(x) || x.label.localeCompare(y.label)).map(s => s.label) : [];
             return {
@@ -250,7 +291,15 @@
             } ])), Qe[e] = a.marks, Je[e] = a.fantasyFlags, et[e] = a.triedFlags, at[e] = a.children,
             n.percent = a.percent, n.things = a.things, n.clicks = a.clicks, 
             n.noScore = a.noScore, n.sxEngine = a.sx, 
-            n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails, (function() {
+            n.limits = a.limits, n.results = a.results, n.matchDetails = a.matchDetails,
+            n.isPseudoProfile = !0,
+            n.operation = "straight" === n.pairOp ? "straight" : "minus" === n.pairOp ? "minus" : "cross",
+            n.fingerprint = typeof sxSourcesFingerprint === "function" ? sxSourcesFingerprint(n.sourceIds) : "",
+            n.recipe = {
+                operation: n.operation,
+                sourceProfileIds: (n.sourceIds || []).slice(),
+                sourceNames: (n.sourceNames || []).slice()
+            }, (function() {
                 try {
                     n.sxMode = sxcv.mode, n.sxHeat = (n.sourceIds || []).map(id => sxHeatFor(id)), n.sxVeil = (n.sourceIds || []).map(id => sxVeilFor(id));
                 } catch (err) {
@@ -1253,17 +1302,9 @@
                 veilEnabled: Boolean(vht[e]),
                 net: av(vpt[e]),
                 netEnabled: Boolean(vht[e])
-            })), i = function(e) {
-                const t = e.map(e => String(wt[e] || "").trim()), n = t.map(e => (e.match(/[\p{L}\p{N}]/u) || [ "?" ])[0].toLocaleUpperCase()), i = new Set(n).size < n.length;
-                return t.map((e, t) => i ? e.replace(/[^\p{L}\p{N}]/gu, "").slice(0, 2).replace(/^./u, e => e.toLocaleUpperCase()) || n[t] : n[t]).join(sxPairJoin(sxPairOp)).slice(0, 40);
-            }(t);
-            // Duplicate names (owner ruling, 2026-10-27): a forked pair
-            // keeps the CLEAN feeder name — no version suffix is baked
-            // into the underlying group profile name. Identity rides the
-            // internal id (ik disambiguates ids), and same-name tabs are
-            // told apart by a display-only "-2"/"-3" suffix on the tab
-            // label (see sxDupTabLabel in Jw).
-            const a = i, o = ik(a);
+            const a = t.map(e => String(wt[e] || "Profile").trim()).join(sxPairJoin(sxPairOp));
+            const o = ik(a);
+            const opName = "straight" === sxPairOp ? "straight" : "minus" === sxPairOp ? "minus" : "cross";
             // Match-tab fix (2026-10-26): saving CLOSES the match view.
             // Every match tab is torn down and the stage deactivated
             // before the strip rebuilds below, so post-save the screen is
@@ -1280,9 +1321,17 @@
             vht[o] = !1, ft[o] = {
                 kind: "group",
                 pairOp: sxPairOp,
+                isPseudoProfile: !0,
+                operation: opName,
                 sourceIds: t.slice(),
-                sourceNames: t.map(e => wt[e]),
+                sourceNames: t.map(e => wt[e] || "Profile"),
                 sourceProfiles: n,
+                fingerprint: typeof sxSourcesFingerprint === "function" ? sxSourcesFingerprint(t) : "",
+                recipe: {
+                    operation: opName,
+                    sourceProfileIds: t.slice(),
+                    sourceNames: t.map(e => wt[e] || "Profile")
+                },
                 percent: 0,
                 things: 0,
                 clicks: 0,

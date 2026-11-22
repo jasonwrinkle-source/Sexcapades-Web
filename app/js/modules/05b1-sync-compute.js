@@ -1853,11 +1853,37 @@
                 roleLocked: !1
             };
         }
+        function sxComputeProfileFingerprint(id) {
+            if (!id || !vt[id]) return "";
+            const r = vt[id] || {}, q = Qe[id] || {}, j = Je[id] || {}, e = et[id] || {};
+            return Object.keys(r).length + ":" + JSON.stringify(r) + "|" + JSON.stringify(q) + "|" + JSON.stringify(j) + "|" + JSON.stringify(e);
+        }
+        function sxSourcesFingerprint(sourceIds) {
+            return (sourceIds || []).map(id => id + "=" + sxComputeProfileFingerprint(id)).join(";");
+        }
+        function sxIsPseudoProfile(id) {
+            if (!id || typeof ft === "undefined") return !1;
+            const meta = ft[id];
+            return Boolean(meta && (meta.isPseudoProfile || meta.pairOp));
+        }
+        function sxEnsurePseudoProfileCurrent(id) {
+            if (!id || typeof ft === "undefined") return;
+            const meta = ft[id];
+            if (!meta || !meta.isPseudoProfile || !Array.isArray(meta.sourceIds) || meta.sourceIds.length < 2) return;
+            const currentFp = sxSourcesFingerprint(meta.sourceIds);
+            if (meta.fingerprint !== currentFp) {
+                if (typeof Rd === "function") Rd(id);
+            }
+        }
         window.__SEXCAPADES_SYNC_ENGINE = {
             version: "1.1",
             pair: sxPairCompute,
             group: sxGroupCompute,
             pairByIds: sxPairByIds,
             livePair: sxLivePair,
-            profileById: sxProfileById
+            profileById: sxProfileById,
+            computeProfileFingerprint: sxComputeProfileFingerprint,
+            sourcesFingerprint: sxSourcesFingerprint,
+            isPseudoProfile: sxIsPseudoProfile,
+            ensurePseudoProfileCurrent: sxEnsurePseudoProfileCurrent
         };
