@@ -1701,6 +1701,29 @@
             if (null != inten) return { single: zi(inten), ring: zi(inten) };
             return { single: CHAR, ring: SEAM };
         }
+        // Spoke flank (taper) colors for the placements (Jason, 2026-11-22):
+        // on stance skins a rated topic's spoke flanks speak advocacy (give
+        // slot) and receptivity (receive slot), each by its own intensity; an
+        // unplaced flank stays null (no taper). Pair/pseudo spoke colors are
+        // consulted before these at every call site.
+        function sxPlacementFlankColors(rec) {
+            if (!rec || !(rec.advocacyKnown || rec.receptivityKnown)) return null;
+            if (!("undefined" != typeof window && Boolean(window.__SX_ACTIVE_SKIN) && "sexcapades" !== window.__SX_ACTIVE_SKIN)) return null;
+            if (!rec.advocacyIntensityKnown && !rec.receptivityIntensityKnown) return null;
+            return {
+                give: rec.advocacyIntensityKnown ? zi(rec.advocacyIntensity) : null,
+                receive: rec.receptivityIntensityKnown ? zi(rec.receptivityIntensity) : null
+            };
+        }
+        function sxSubPlacementFlankColors(e, t, i) {
+            if (!e) return null;
+            const A = ya(e, t, "advocacyIntensity", i), R = ya(e, t, "receptivityIntensity", i);
+            if (null == A && null == R) return null;
+            return {
+                give: null != A ? zi(A) : null,
+                receive: null != R ? zi(R) : null
+            };
+        }
         function ya(e, t, n, i) {
             if (null == i && e) for (const c of h) {
                 const s = (c.subcategories || []).find(s => s === e);
