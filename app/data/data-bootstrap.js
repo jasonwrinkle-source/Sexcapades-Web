@@ -34399,18 +34399,46 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
             if (n && Array.isArray(n.keys) && !n.single) {
                 const keys = n.keys;
                 if (1 === keys.length && "line" === keys[0] && e.lineKnown) {
-                    i.push(`${(n.labels && n.labels[0]) || "Line"} ${Math.round(e.line)} (${sxPoleBand(e.line)})`);
+                    const v = Number(e.line) || 0;
+                    if (n.labels && n.labels.length >= 3) {
+                        // 3-pole trilinear line: -100 left, 0 center, +100 right
+                        if (v > 20) i.push(`affirms "${n.labels[2]}" (${Math.round(v)}% conviction)`);
+                        else if (v < -20) i.push(`affirms "${n.labels[0]}" (${Math.round(Math.abs(v))}% conviction)`);
+                        else i.push(`affirms center/moderate position "${n.labels[1]}" (neutral/balanced)`);
+                    } else {
+                        i.push(`${(n.labels && n.labels[0]) || "Line"} ${Math.round(v)} (${sxPoleBand(v)})`);
+                    }
                     return i.join(" · ");
                 }
                 const poleKeys = keys.filter(k => "give" !== k && "receive" !== k);
                 if (poleKeys.length && poleKeys.some(k => e[k + "Known"])) {
+                    const affirmed = [], rejected = [];
                     poleKeys.forEach(k => {
                         if (!e[k + "Known"]) return;
                         const v = Number(e[k]) || 0;
                         const label = (n.labels && n.labels[keys.indexOf(k)]) || k;
-                        i.push(`${label} ${Math.round(v)} (${sxPoleBand(v)})`);
+                        if (v > 20) {
+                            affirmed.push(`affirms "${label}" (${Math.round(v)}% conviction)`);
+                        } else if (v < -35) {
+                            rejected.push(`rejects "${label}"`);
+                        }
                     });
-                    return i.join(" · ");
+                    if (affirmed.length) {
+                        let res = affirmed.join(" and ");
+                        if (rejected.length) res += ` [explicitly rejects: ${rejected.join(", ")}]`;
+                        return res;
+                    } else if (rejected.length) {
+                        return `rejects: ${rejected.join(", ")}`;
+                    } else {
+                        // All neutral or low
+                        poleKeys.forEach(k => {
+                            if (!e[k + "Known"]) return;
+                            const v = Number(e[k]) || 0;
+                            const label = (n.labels && n.labels[keys.indexOf(k)]) || k;
+                            i.push(`${label} ${Math.round(v)} (${sxPoleBand(v)})`);
+                        });
+                        return i.join(" · ");
+                    }
                 }
             }
             return e.giveKnown && e.give >= 0 && i.push(`${n.labels[0]} ${Math.round(e.give)} (${id(e.give)})`), 
@@ -35268,6 +35296,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
                 rigorLine ? `- ${rigorLine}` : "",
                 lengthLine,
                 "- Use only the named topics below as the positions in the discussion. Do not add, imply, or reference any unlisted stance.",
+                "- Pay strict attention to affirmed versus rejected stances: when a profile affirms a position (e.g. bodily resurrection, virgin birth) and explicitly rejects opposing positions, present their affirmed conviction faithfully. Do not invert or reverse their stated beliefs.",
                 "- Every marked Limit has been hard-excluded. Never reintroduce an excluded topic — not as a position, an objection, a suggestion, or background detail.",
                 s ? "- Use the one profile as the source of stance detail." : "- Use the authoritative shared ground above as the position boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.",
                 "- Treat curious items as mild stances: include them as open questions, not settled positions.",
