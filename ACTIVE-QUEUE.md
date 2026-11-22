@@ -17,11 +17,10 @@ settled batches periodically so this list reflects only live items.
 
 Each item waits for Jason's kickoff; nothing here dispatches itself.
 
-1. **Gate / Header Unification:**
-   - Give the gate the app's header view-selector pattern (five views + Scan or Import, current view on button + checkmark, one-line descriptions).
-   - Remove "Choose where to go" row, keep age gate unchanged.
-   - Docs dropdown stays or folds in (Jason's call); four App-menu links (Examples, Privacy, Contact, Sitemap) move with it.
-   - *Status:* Undecided, unanswered, not built. Awaiting Jason's direction.
+1. ~~**Gate / Header Unification:**~~ Settled 2026-11-22.
+   - Unified gate top navigation bar with the app header's view selector pattern (Hypermap, Hot List, Scene Setter, Scene Sentinel, Scribe, and Scan or Import).
+   - Folded auxiliary links (Privacy, Methodology, Sitemap, TaxoPolemics) into the unified Docs dropdown.
+   - Preserved age gate flow and responsive layout.
 
 2. ~~**Uniform Node Type — Phase 4 (Layout Editor Integration & Recursive Engine):**~~ Settled 2026-11-21.
    - Unified `branchOverrides`, `subcatOverrides`, and `kinkOverrides` into a depth-agnostic `nodeOverrides[nodeId]` schema in `layout-editor.js` with bidirectional syncing and legacy fallback.
