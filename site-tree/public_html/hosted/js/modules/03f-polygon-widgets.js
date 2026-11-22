@@ -165,7 +165,7 @@
             sxDrawTriPoleLabel(ctx, canvas, V2.x, V2.y, labels[2], triCols[2], triKeys && triKeys[2], triHalfW, false);
 
             // 5. Active point puck position(s): Advocacy (● disc) & Receptivity (○ ring)
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(weights && weights.topicId ? weights.topicId : null);
             const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
             const pxAdv = w0 * V0.x + w1 * V1.x + w2 * V2.x;
             const pyAdv = w0 * V0.y + w1 * V1.y + w2 * V2.y;
@@ -269,7 +269,7 @@
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 3) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const { w0, w1, w2, intensity } = sxTriState;
                 const v0 = Math.round(w0 * 100);
@@ -302,7 +302,7 @@
 
         function sxClearTriRatings(topicId) {
             if (!topicId) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const shape = Ge(topicId);
                 if (!shape || !shape.keys || shape.keys.length < 3) return;
@@ -525,7 +525,7 @@
             });
 
             // 6. Active point puck position(s): Advocacy (● disc) & Receptivity (○ ring)
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(state && state.topicId ? state.topicId : null);
             const u = (state && typeof state.u === "number") ? state.u : 0.5;
             const v = (state && typeof state.v === "number") ? state.v : 0.5;
             const pxAdv = x0 + u * s, pyAdv = y0 + v * s;
@@ -627,7 +627,7 @@
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
                 sxPersistIntensity(topicId, sxCompassState.intensity);
@@ -654,7 +654,7 @@
 
         function sxClearCompassRatings(topicId) {
             if (!topicId) return;
-            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const isClassic = !sxDualPlacements(topicId);
             if (isClassic) {
                 const shape = Ge(topicId);
                 if (!shape || !shape.keys || shape.keys.length < 4) return;
@@ -701,7 +701,7 @@
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
                 const sq = sxGetCompassSquare(canvas.width, canvas.height);
                 const { u, v } = sxCompassPointToUV(px, py, sq);
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxCompassState.topicId);
                 const mode = isClassic ? "advocacy" : (sxCompassState.mode || "advocacy");
 
                 if (mode === "receptivity") {
@@ -735,7 +735,7 @@
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxCompassState.topicId);
                 if (!isClassic && canvas.__sxPucks) {
                     const rect = canvas.getBoundingClientRect();
                     const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
@@ -774,7 +774,7 @@
 
             // Mouse wheel strictly scoped to puck hover
             canvas.addEventListener("wheel", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxCompassState.topicId);
                 const rect = canvas.getBoundingClientRect();
                 const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
                 const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
@@ -1175,6 +1175,23 @@
                 });
             };
 
+            // Placement-shaped topics (2026-11-22): where the engine
+            // carries dual placements -- stance skins, and n-pole topics
+            // on the classic skin -- the popup edits the PRIMARY
+            // placement (advocacy on stance skins, give on the classic
+            // skin) through the placement persister, so its writes are
+            // what the parser reads back. Flat topics keep the flat
+            // setter paths below.
+            const dualRec = () => {
+                if (!sxDualPlacements(topicId)) return null;
+                const r = ca(topicId, freshPid());
+                return (r.advocacyKnown || r.givePlacementKnown) ? r : null;
+            };
+            const persistPrimary = (valsArr, intensity) => {
+                const obj = {};
+                keys.forEach((k, idx) => { obj[k] = Math.round(valsArr[idx]); });
+                sxPersistAdvocacyReceptivity(topicId, "advocacy", obj, intensity, freshPid());
+            };
             const redraw = () => {
                 pId = freshPid();
                 sxSeedProfileIntensities(pId);
@@ -1211,27 +1228,33 @@
                 if (isCompass) {
                     const pt = sxCompassPointFromValues(vals[0], vals[1], vals[2], vals[3]);
                     pt.intensity = sliderVal;
+                    pt.topicId = topicId;
+                    if (curRec.receptivityKnown && curRec.receptivity) {
+                        const rp = sxCompassPointFromValues(Number(curRec.receptivity[keys[0]]) || 0, Number(curRec.receptivity[keys[1]]) || 0, Number(curRec.receptivity[keys[2]]) || 0, Number(curRec.receptivity[keys[3]]) || 0);
+                        pt.recU = rp.u; pt.recV = rp.v; pt.recRated = !0;
+                        pt.recIntensity = curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0;
+                    }
                     sxDrawCompassWidget(canvas, shape, pt);
                 } else if (isOctad) {
-                    sxDrawOctadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], p7: vals[7], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawOctadWidget(canvas, shape, radarState);
                 } else if (isHeptad) {
-                    sxDrawHeptadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], p6: vals[6], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawHeptadWidget(canvas, shape, radarState);
                 } else if (isHexad) {
-                    sxDrawHexadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], p5: vals[5], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawHexadWidget(canvas, shape, radarState);
                 } else if (isPentad) {
-                    sxDrawPentadWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], p4: vals[4], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawPentadWidget(canvas, shape, radarState);
                 } else if (isTetrad) {
-                    sxDrawTetradWidget(canvas, shape, {
-                        p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal
-                    });
+                    const radarState = { p0: vals[0], p1: vals[1], p2: vals[2], p3: vals[3], intensity: sliderVal, topicId: topicId, mode: "advocacy", recRated: Boolean(curRec.receptivityKnown), recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0 };
+                    keys.forEach((k, idx) => { radarState["recP" + idx] = (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0; });
+                    sxDrawTetradWidget(canvas, shape, radarState);
                 } else if (isTriad) {
                     // 2026-11-18 (puck-drag smoothness): the weights must
                     // sum to 1 — the draw places the puck at w0*V0 +
@@ -1242,8 +1265,15 @@
                     // value, mirroring the placard's derivation.
                     const sumAbs = Math.abs(vals[0]) + Math.abs(vals[1]) + Math.abs(vals[2]);
                     const nw = sumAbs > 0 ? [Math.abs(vals[0]) / sumAbs, Math.abs(vals[1]) / sumAbs, Math.abs(vals[2]) / sumAbs] : [1 / 3, 1 / 3, 1 / 3];
+                    const recVals = keys.map(k => (curRec.receptivity && null != curRec.receptivity[k]) ? Number(curRec.receptivity[k]) : 0);
+                    const recSum = Math.abs(recVals[0]) + Math.abs(recVals[1]) + Math.abs(recVals[2]);
+                    const rnw = recSum > 0 ? [Math.abs(recVals[0]) / recSum, Math.abs(recVals[1]) / recSum, Math.abs(recVals[2]) / recSum] : [1 / 3, 1 / 3, 1 / 3];
                     sxDrawTriangleWidget(canvas, shape, {
-                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal
+                        x: 0, y: 0, w0: nw[0], w1: nw[1], w2: nw[2], intensity: sliderVal,
+                        topicId: topicId, mode: "advocacy",
+                        recW0: rnw[0], recW1: rnw[1], recW2: rnw[2],
+                        recRated: Boolean(curRec.receptivityKnown),
+                        recIntensity: curRec.receptivityIntensityKnown ? curRec.receptivityIntensity : 0
                     });
                 } else {
                     sxDrawSwitchboxWidget(canvas, shape, {
@@ -1306,7 +1336,15 @@
                     const dot = (px - cx) * Math.cos(angle) + (py - cy) * Math.sin(angle);
                     const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
 
-                    if (isAllZero && val > 0) {
+                    const dRec = dualRec();
+                    if (dRec) {
+                        const newVals = curVals.slice();
+                        if (isAllZero && val > 0) {
+                            const base = Math.max(20, Math.round(val * 0.5));
+                            keys.forEach((k, idx) => { newVals[idx] = (idx === activeIdx) ? val : base; });
+                        } else newVals[activeIdx] = val;
+                        persistPrimary(newVals, dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals(newVals, "radar"));
+                    } else if (isAllZero && val > 0) {
                         const base = Math.max(20, Math.round(val * 0.5));
                         keys.forEach((k, idx) => {
                             To(topicId, k, (idx === activeIdx) ? val : base, !1, pId);
@@ -1320,15 +1358,21 @@
                     const sq = sxGetCompassSquare(canvas.width, canvas.height);
                     const { u, v } = sxCompassPointToUV(px, py, sq);
                     const vals = sxCompassValuesFromPoint(u, v, 100);
-                    keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
+                    const dRec = dualRec();
+                    if (dRec) persistPrimary(vals, dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals(vals, "compass"));
+                    else keys.forEach((k, idx) => To(topicId, k, vals[idx], !1, pId));
                     redraw();
                     paintRow();
                 } else if (isTriad) {
                     const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                     const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                    To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
-                    To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
-                    To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
+                    const dRec = dualRec();
+                    if (dRec) persistPrimary([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], dRec.intensityKnown ? dRec.intensity : sxDerivedFromVals([Math.round(w0 * 100), Math.round(w1 * 100), Math.round(w2 * 100)], "triad"));
+                    else {
+                        To(topicId, keys[0], Math.round(w0 * 100), !1, pId);
+                        To(topicId, keys[1], Math.round(w1 * 100), !1, pId);
+                        To(topicId, keys[2], Math.round(w2 * 100), !1, pId);
+                    }
                     redraw();
                     paintRow();
                 } else if (is2Pole && !shape.single) {
@@ -1389,7 +1433,8 @@
                 const vals = keys.map(k => (curRec[k + "Known"] ? curRec[k] : 0));
                 const family = isCompass ? "compass" : isTriad ? "triad" : "radar";
                 const cur = curRec.intensityKnown ? Number(curRec.intensity) || 0 : sxDerivedFromVals(vals, family);
-                sxPersistIntensity(topicId, cur + step, pId);
+                if (dualRec()) persistPrimary(vals, cur + step);
+                else sxPersistIntensity(topicId, cur + step, pId);
                 redraw();
                 if (root) {
                     clearTimeout(root.__sxWheelWs);
@@ -1407,7 +1452,11 @@
                     pId = freshPid();
                     if (isSwitch) return;
                     // The slider edits only the stored +1. Pole numbers stay.
-                    sxPersistIntensity(topicId, Number(slider.value), pId);
+                    const dRecS = dualRec();
+                    if (dRecS) {
+                        const curRecS = ca(topicId, pId);
+                        persistPrimary(keys.map(k => (curRecS[k + "Known"] ? curRecS[k] : 0)), Number(slider.value));
+                    } else sxPersistIntensity(topicId, Number(slider.value), pId);
                     redraw();
                     paintRow();
                 };
@@ -1418,6 +1467,14 @@
 
             if (clearBtn) {
                 clearBtn.onclick = () => {
+                    if (dualRec()) {
+                        sxClearAdvocacyReceptivity(topicId, "advocacy", pId);
+                        sxClearAdvocacyReceptivity(topicId, "receptivity", pId);
+                        redraw();
+                        if (root) finishGesture();
+                        else paintRow();
+                        return;
+                    }
                     Fo(topicId, "intensity", !1, pId);
                     keys.forEach((k, idx) => Fo(topicId, k, !root && idx === keys.length - 1, pId));
                     redraw();
@@ -1476,7 +1533,7 @@
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
                 const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                 const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxTriState.topicId);
                 const mode = isClassic ? "advocacy" : (sxTriState.mode || "advocacy");
 
                 if (mode === "receptivity") {
@@ -1525,7 +1582,7 @@
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxTriState.topicId);
                 if (!isClassic && canvas.__sxPucks) {
                     const rect = canvas.getBoundingClientRect();
                     const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
@@ -1565,7 +1622,7 @@
 
             // Mouse wheel strictly scoped to puck hover
             canvas.addEventListener("wheel", (evt) => {
-                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const isClassic = !sxDualPlacements(sxTriState.topicId);
                 const rect = canvas.getBoundingClientRect();
                 const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
                 const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
