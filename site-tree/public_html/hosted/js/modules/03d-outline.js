@@ -21,7 +21,8 @@
         let milestoneProfileId = null, milestoneValue = 0;
         function ls(e, t) {
             const n = ca(e, t);
-            return !!Ge(e, t).keys.some(e => Boolean(n[e + "Known"])) || !!Boolean((Qe[t] || {})[e]) || !!Boolean((Je[t] || {})[e]) || Boolean((et[t] || {})[e]);
+            const keys = (n.keys && Array.isArray(n.keys)) ? n.keys : [ "give", "receive" ];
+            return !!keys.some(k => Boolean(n[k + "Known"])) || !!Boolean((Qe[t] || {})[e]) || !!Boolean((Je[t] || {})[e]) || Boolean((et[t] || {})[e]);
         }
         function cs(e, t = null) {
             const n = function(e) {
@@ -936,7 +937,7 @@
                         if (!e.length) return !1;
                         let n = !1, i = !0;
                         return e.forEach(e => {
-                            const a = ca(e, t), r = Ge(e, t).keys.map(e => Boolean(a[e + "Known"]));
+                            const a = ca(e, t), keys = (a.keys && Array.isArray(a.keys)) ? a.keys : [ "give", "receive" ], r = keys.map(k => Boolean(a[k + "Known"]));
                             r.some(Boolean) && (n = !0), r.every(Boolean) || (i = !1);
                         }), n && !i;
                     }(p, t)), g = As({

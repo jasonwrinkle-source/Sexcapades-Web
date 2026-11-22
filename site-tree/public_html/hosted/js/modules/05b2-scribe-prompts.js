@@ -13,7 +13,7 @@
         // Null for a give/receive or single-slider topic, or when the
         // profile holds no pole/line rating on the topic.
         function sxPoleAffinities(topicId, rating) {
-            const w = Ge(topicId);
+            const w = (rating && rating.shape) || (typeof Ge === "function" ? Ge(topicId) : null);
             if (!w || !Array.isArray(w.keys) || w.single) return null;
             if (1 === w.keys.length && "line" === w.keys[0]) return rating.lineKnown ? [ Math.abs(Number(rating.line) || 0) ] : null;
             const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
@@ -28,7 +28,7 @@
         // so it works wherever a pair record's reduced ratings cannot
         // carry the pole vector.
         function sxStrongestPole(topicId, profileId) {
-            const w = Ge(topicId), s = ca(topicId, profileId);
+            const s = ca(topicId, profileId), w = s.shape || (typeof Ge === "function" ? Ge(topicId) : null);
             if (!w || !Array.isArray(w.keys) || w.single) return null;
             if (1 === w.keys.length && "line" === w.keys[0]) return s.lineKnown ? Number(s.line) || 0 : null;
             const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);

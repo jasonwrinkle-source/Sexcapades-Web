@@ -15295,18 +15295,67 @@ const Ce = {
             }
             return tn[e];
         }
+        function sxTopicPoles(topicId, profileId = Vi()) {
+            const shape = typeof Ge === "function" ? Ge(topicId, profileId) : null;
+            const rec = ca(topicId, profileId);
+            const keys = (shape && Array.isArray(shape.keys) && shape.keys.length) ? shape.keys : [ "give", "receive" ];
+            const labels = (shape && Array.isArray(shape.labels) && shape.labels.length) ? shape.labels : keys;
+            const isMultiPole = Boolean(shape && shape.keys && shape.keys.length > 2);
+            const isMonopole = Boolean(shape && shape.single);
+            const values = {};
+            let hasAny = !1;
+            keys.forEach(k => {
+                if (rec[k + "Known"]) {
+                    values[k] = Number(rec[k]) || 0;
+                    hasAny = !0;
+                } else {
+                    values[k] = null;
+                }
+            });
+            return {
+                topicId,
+                profileId,
+                shape,
+                keys,
+                labels,
+                values,
+                known: hasAny,
+                isMultiPole,
+                isMonopole,
+                record: rec
+            };
+        }
+        window.sxTopicPoles = sxTopicPoles;
+
         function ca(e, t) {
             const n = (t === Et ? At : vt[t] || {})[e];
-            if ("number" == typeof n) return {
-                give: n,
-                receive: n,
-                giveKnown: !0,
-                receiveKnown: !0,
-                line: null,
-                lineKnown: !1,
-                poles: null,
-                polesKnown: !1
-            };
+            const shape = typeof Ge === "function" ? Ge(e, t) : null;
+            const isSingle = Boolean(shape && shape.single);
+            const keys = (shape && Array.isArray(shape.keys) && shape.keys.length) ? shape.keys : [ "give", "receive" ];
+
+            if ("number" == typeof n) {
+                const res = {
+                    give: n,
+                    receive: n,
+                    giveKnown: !0,
+                    receiveKnown: !0,
+                    line: null,
+                    lineKnown: !1,
+                    poles: null,
+                    polesKnown: !1,
+                    shape: shape,
+                    keys: keys,
+                    isMultiPole: !1,
+                    isMonopole: isSingle
+                };
+                if (isSingle && keys.length) {
+                    keys.forEach(k => {
+                        res[k] = n;
+                        res[k + "Known"] = !0;
+                    });
+                }
+                return res;
+            }
             if (n && "object" == typeof n) {
                 const hasGive = Object.prototype.hasOwnProperty.call(n, "give"), hasReceive = Object.prototype.hasOwnProperty.call(n, "receive");
                 const hasLine = Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line));
@@ -15318,7 +15367,11 @@ const Ce = {
                     line: hasLine ? Number(n.line) : null,
                     lineKnown: hasLine,
                     poles: null,
-                    polesKnown: !1
+                    polesKnown: !1,
+                    shape: shape,
+                    keys: keys,
+                    isMultiPole: Boolean(shape && shape.keys && shape.keys.length > 2),
+                    isMonopole: isSingle
                 };
                 if (!hasGive && !hasReceive && !hasLine) {
                     const poleKeys = Object.keys(n).filter(k => k !== "intensity" && Number.isFinite(Number(n[k])));
@@ -15343,7 +15396,11 @@ const Ce = {
                 line: null,
                 lineKnown: !1,
                 poles: null,
-                polesKnown: !1
+                polesKnown: !1,
+                shape: shape,
+                keys: keys,
+                isMultiPole: Boolean(shape && shape.keys && shape.keys.length > 2),
+                isMonopole: isSingle
             };
         }
         function da(e, t) {
@@ -15411,15 +15468,10 @@ const Ce = {
         }
         function ua(e, t) {
             const n = ca(e, t), i = [];
-            const shape = typeof Ge === "function" ? Ge(e, t) : null;
-            if (shape && shape.keys) {
-                shape.keys.forEach(k => {
-                    if (n[k + "Known"]) i.push(n[k]);
-                });
-            } else {
-                n.giveKnown && i.push(n.give);
-                n.receiveKnown && i.push(n.receive);
-            }
+            const keys = (n.keys && Array.isArray(n.keys)) ? n.keys : [ "give", "receive" ];
+            keys.forEach(k => {
+                if (n[k + "Known"]) i.push(n[k]);
+            });
             return i.length ? i.reduce((e, t) => e + t, 0) / i.length : null;
         }
         function pa(e, t, n, w) {
@@ -15584,12 +15636,12 @@ const Ce = {
         function Ea(e, t = {}, n = {}, i = {}) {
             const a = e.topics.map(e => Wn(e)).concat(Object.values(i || {}).filter(t => t && t.branch === e.name).map(e => e.id));
             let r = null;
-            return a.forEach(e => {
-                if (n && "favorite" === n[e]) return void (r = 100);
-                const i = t && t[e];
-                "number" == typeof i ? r = null === r ? Number(i) : Math.max(r, Number(i)) : i && "object" == typeof i && [ "give", "receive" ].forEach(e => {
-                    Object.prototype.hasOwnProperty.call(i, e) && Number.isFinite(Number(i[e])) && (r = null === r ? Number(i[e]) : Math.max(r, Number(i[e])));
-                });
+            return a.forEach(id => {
+                if (n && "favorite" === n[id]) return void (r = 100);
+                const score = Ca(id, t, n);
+                if (null !== score) {
+                    r = null === r ? score : Math.max(r, score);
+                }
             }), r;
         }
         function Aa(e) {
@@ -15604,10 +15656,23 @@ const Ce = {
             const isBranchLimited = Boolean(ancestors.length && n && ancestors.some(ancId => n[ancId] === "limit"));
             if (n && ("limit" === n[e] || "notinterested" === n[e] || isBranchLimited)) return -100;
             if (n && "favorite" === n[e] && !isBranchLimited) return 100;
-            const i = t && t[e], a = [];
-            return "number" == typeof i && Number.isFinite(Number(i)) ? a.push(Number(i)) : i && "object" == typeof i && [ "give", "receive" ].forEach(e => {
-                Object.prototype.hasOwnProperty.call(i, e) && Number.isFinite(Number(i[e])) && a.push(Number(i[e]));
-            }), a.length ? Math.max(...a) : null;
+            const i = t && t[e];
+            if ("number" == typeof i && Number.isFinite(Number(i))) return Number(i);
+            if (i && "object" == typeof i) {
+                const shape = typeof Ge === "function" ? Ge(e) : null;
+                const keys = (shape && Array.isArray(shape.keys) && shape.keys.length) ? shape.keys : [ "give", "receive" ];
+                const a = [];
+                keys.forEach(k => {
+                    Object.prototype.hasOwnProperty.call(i, k) && Number.isFinite(Number(i[k])) && a.push(Number(i[k]));
+                });
+                if (!a.length) {
+                    Object.keys(i).forEach(k => {
+                        k !== "intensity" && Number.isFinite(Number(i[k])) && a.push(Number(i[k]));
+                    });
+                }
+                return a.length ? Math.max(...a) : null;
+            }
+            return null;
         }
         function Ma(e, t) {
             const n = catId(e.name), i = ft[t], a = i && "group" === i.kind && Array.isArray(i.sourceIds) ? i.sourceIds.filter(e => vt[e] && vht[e]) : [];
@@ -28497,7 +28562,8 @@ function* sxRunNodeSettle(scCtx, blitSess) {
         let milestoneProfileId = null, milestoneValue = 0;
         function ls(e, t) {
             const n = ca(e, t);
-            return !!Ge(e, t).keys.some(e => Boolean(n[e + "Known"])) || !!Boolean((Qe[t] || {})[e]) || !!Boolean((Je[t] || {})[e]) || Boolean((et[t] || {})[e]);
+            const keys = (n.keys && Array.isArray(n.keys)) ? n.keys : [ "give", "receive" ];
+            return !!keys.some(k => Boolean(n[k + "Known"])) || !!Boolean((Qe[t] || {})[e]) || !!Boolean((Je[t] || {})[e]) || Boolean((et[t] || {})[e]);
         }
         function cs(e, t = null) {
             const n = function(e) {
@@ -29412,7 +29478,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                         if (!e.length) return !1;
                         let n = !1, i = !0;
                         return e.forEach(e => {
-                            const a = ca(e, t), r = Ge(e, t).keys.map(e => Boolean(a[e + "Known"]));
+                            const a = ca(e, t), keys = (a.keys && Array.isArray(a.keys)) ? a.keys : [ "give", "receive" ], r = keys.map(k => Boolean(a[k + "Known"]));
                             r.some(Boolean) && (n = !0), r.every(Boolean) || (i = !1);
                         }), n && !i;
                     }(p, t)), g = As({
@@ -34510,7 +34576,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // Null for a give/receive or single-slider topic, or when the
         // profile holds no pole/line rating on the topic.
         function sxPoleAffinities(topicId, rating) {
-            const w = Ge(topicId);
+            const w = (rating && rating.shape) || (typeof Ge === "function" ? Ge(topicId) : null);
             if (!w || !Array.isArray(w.keys) || w.single) return null;
             if (1 === w.keys.length && "line" === w.keys[0]) return rating.lineKnown ? [ Math.abs(Number(rating.line) || 0) ] : null;
             const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
@@ -34525,7 +34591,7 @@ zlRenderRows(), t.length ? d(Math.max(0, t.findIndex(e => e.value === s)), {
         // so it works wherever a pair record's reduced ratings cannot
         // carry the pole vector.
         function sxStrongestPole(topicId, profileId) {
-            const w = Ge(topicId), s = ca(topicId, profileId);
+            const s = ca(topicId, profileId), w = s.shape || (typeof Ge === "function" ? Ge(topicId) : null);
             if (!w || !Array.isArray(w.keys) || w.single) return null;
             if (1 === w.keys.length && "line" === w.keys[0]) return s.lineKnown ? Number(s.line) || 0 : null;
             const poleKeys = w.keys.filter(k => "give" !== k && "receive" !== k);
