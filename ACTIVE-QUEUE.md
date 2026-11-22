@@ -77,7 +77,7 @@ Items to verify or address when relevant to their subsystem:
 - **The 7 Ambiguous Sliders (pending Shel):**
   - Sliders with text: Nyotaimori ("lie as platter / eat from body"), Siblings ("be the sister / be the brother"), Superheroes ("be the hero / be the villain").
   - Topics without sliders (pole hints only): Growth / shrinking, Size contrast, Surrogacy, Hotwife (live row is Bull / Hotwife / Cuckold triad `t0281`).
-- **R9f — Sadomasochism Reorganization:** Not applied. `t0051` is still "Pain"; `t0252` is still "Sadism". Standing ruling: rename Pain to Sadomasochism, retire `t0252` (Sadism → give / Masochism → receive). Emotional Sadism untouched.
+- **R9f — Sadomasochism Reorganization:** APPLIED + PUSHED 2026-11-22 (Jason's "apply now"; commits f21f86a skins, ff2f512/6dca12e modules, bundles 058776a/831e42b/d99b674). Pain (t0051) renamed Sadomasochism with flank labels Sadism/Masochism; Sadism (t0252) retired — sample ratings folded same-direction, converter remaps t0252/topic-sadism to t0051, importer sends Sadism/Sadist to the give side and Masochism/Masochist to the receive side of Sadomasochism, "Pain" kept as alias. Emotional Sadism untouched. Merged catalog now 374 topics. Deployment + cold-open owed.
 - **Triangle Palette:** Barycentric corners currently use red / green / blue; center is the mix, not black, and does not deepen as pole numbers spread. Check if spec adjustment is desired.
 - **GibberWear Tester Count:** Currently at 3 of 12; 14-day testing bar pending.
 - **Paddle Formula Live Flip:** `capEnd` matches; live flip verification check (crossing numbers move, placard ratings survive reload) open.
