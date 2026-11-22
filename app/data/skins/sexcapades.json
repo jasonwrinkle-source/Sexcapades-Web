@@ -106,7 +106,7 @@
             }
           ],
           "question": "The seven archetypes: Sovereign, Caregiver, Primal, Sadist, Brat, Switch, or Submissive.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.5",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.5",
           "widget": "heptad-radar"
         },
         {
@@ -157,7 +157,7 @@
             }
           ],
           "question": "What drives the scene for you: physical sensation, power exchange, or emotional intimacy.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.1",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.1",
           "widget": "trilinear-sliders"
         },
         {
@@ -301,8 +301,25 @@
             }
           ],
           "question": "How restraint is done: rope, shibari, cuffs, tape, mummification, blindfold, caging, or suspension.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §5.1",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a75.1",
           "widget": "octad-radar"
+        },
+        {
+          "id": "t0115",
+          "name": "Smothering",
+          "risk": true,
+          "type": "give_receive",
+          "give_label": "smother",
+          "receive_label": "be smothered",
+          "kinksters": 58289
+        },
+        {
+          "id": "t0428",
+          "name": "Erotic asphyxiation",
+          "risk": true,
+          "type": "give_receive",
+          "give_label": "restrict breathing",
+          "receive_label": "breath restricted"
         }
       ],
       "subcategories": [
@@ -356,6 +373,15 @@
               "give_label": "bind",
               "receive_label": "be bound",
               "kinksters": 60018
+            },
+            {
+              "id": "t0041",
+              "name": "Crucifixion Play",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "crucify (play)",
+              "receive_label": "be crucified (play)",
+              "kinksters": 18764
             }
           ]
         },
@@ -407,15 +433,6 @@
           "id": "s0005",
           "name": "Confinement",
           "topics": [
-            {
-              "id": "t0041",
-              "name": "Crucifixion",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "crucify (play)",
-              "receive_label": "be crucified (play)",
-              "kinksters": 18764
-            },
             {
               "id": "t0042",
               "name": "Furniture",
@@ -552,18 +569,8 @@
               "type": "give_receive",
               "give_label": "spank (over knee)",
               "receive_label": "be spanked (over knee)",
-              "note": "subtype of spanking — over-the-knee position",
+              "note": "subtype of spanking \u2014 over-the-knee position",
               "kinksters": 160188
-            },
-            {
-              "id": "t0058",
-              "name": "Breast Spanking",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "spank breasts",
-              "receive_label": "have breasts spanked",
-              "note": "related to Pussy Spanking/Tit Slapping (different targets)",
-              "kinksters": 249115
             },
             {
               "id": "t0059",
@@ -820,7 +827,7 @@
             {
               "id": "t0085",
               "name": "Fire Play",
-              "risk": false,
+              "risk": true,
               "type": "give_receive",
               "give_label": "use fire on",
               "receive_label": "have fire used on",
@@ -829,7 +836,7 @@
             {
               "id": "t0086",
               "name": "Knife Play",
-              "risk": false,
+              "risk": true,
               "type": "give_receive",
               "give_label": "wield knife",
               "receive_label": "submit to knife",
@@ -852,15 +859,6 @@
               "give_label": "fig",
               "receive_label": "be figged",
               "kinksters": 44006
-            },
-            {
-              "id": "t0089",
-              "name": "Sounding",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "insert sound",
-              "receive_label": "be sounded",
-              "note": "Higher-risk urethral practice requiring sterile technique and specialized knowledge."
             },
             {
               "id": "t0090",
@@ -970,7 +968,7 @@
             }
           ],
           "question": "The tempo of play: slow and tantric, fast and frantic, or still and trance-like.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.1",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.1",
           "widget": "triangle"
         },
         {
@@ -1069,7 +1067,7 @@
             }
           ],
           "question": "Which sensory channel: tactile, thermal, impact, electric, olfactory, acoustic, or vestibular.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.5",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.5",
           "widget": "heptad-radar"
         },
         {
@@ -1099,7 +1097,7 @@
           "type": "give_receive",
           "give_label": "zap",
           "receive_label": "be zapped",
-          "note": "e-stim toy — 'use on/have used on' pattern shortened to natural verb",
+          "note": "e-stim toy \u2014 'use on/have used on' pattern shortened to natural verb",
           "kinksters": 118258
         },
         {
@@ -1128,15 +1126,6 @@
           "give_label": "use tens on",
           "receive_label": "have tens used on",
           "kinksters": 66391
-        },
-        {
-          "id": "t0115",
-          "name": "Smothering",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "smother",
-          "receive_label": "be smothered",
-          "kinksters": 58289
         },
         {
           "id": "t0116",
@@ -1253,7 +1242,7 @@
             },
             {
               "id": "t0129",
-              "name": "Doctor/nurse",
+              "name": "Doctor/patient",
               "risk": false,
               "type": "give_receive",
               "give_label": "be the doctor",
@@ -1295,7 +1284,7 @@
             {
               "id": "t0134",
               "name": "CNC fantasy",
-              "risk": false
+              "risk": true
             },
             {
               "id": "t0135",
@@ -1421,17 +1410,19 @@
               "type": "give_receive",
               "give_label": "play the librarian",
               "receive_label": "play the patron"
-            },
-            {
-              "id": "t0151",
-              "name": "Siblings",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "be the sister",
-              "receive_label": "be the brother",
-              "kinksters": 72493
             }
           ]
+        }
+      ],
+      "parentTopics": [
+        {
+          "id": "t0151",
+          "name": "Siblings",
+          "risk": false,
+          "type": "give_receive",
+          "give_label": "be the sister",
+          "receive_label": "be the brother",
+          "kinksters": 72493
         }
       ]
     },
@@ -1559,15 +1550,6 @@
           "name": "Footwear",
           "topics": [
             {
-              "id": "t0165",
-              "name": "Boot",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "on me",
-              "receive_label": "on them",
-              "kinksters": 29491
-            },
-            {
               "id": "t0166",
               "name": "Heels & boots",
               "risk": false
@@ -1629,15 +1611,6 @@
               "kinksters": 120986
             },
             {
-              "id": "t0173",
-              "name": "Military",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "on me",
-              "receive_label": "on them",
-              "kinksters": 45066
-            },
-            {
               "id": "t0174",
               "name": "Military Uniforms",
               "risk": false,
@@ -1657,7 +1630,7 @@
             },
             {
               "id": "t0176",
-              "name": "Uniforms",
+              "name": "Uniforms (general)",
               "risk": false
             },
             {
@@ -1691,6 +1664,15 @@
               "give_label": "on me",
               "receive_label": "on them",
               "kinksters": 44389
+            },
+            {
+              "id": "t0199",
+              "name": "Kilts",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "on me",
+              "receive_label": "on them",
+              "kinksters": 55399
             }
           ]
         },
@@ -1861,15 +1843,6 @@
               "kinksters": 16946
             },
             {
-              "id": "t0199",
-              "name": "Kilts",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "on me",
-              "receive_label": "on them",
-              "kinksters": 55399
-            },
-            {
               "id": "t0200",
               "name": "Zentai",
               "risk": false,
@@ -1966,7 +1939,7 @@
             }
           ],
           "question": "What part of the body is worshipped: feet, hands, breasts, glutes, muscles, hair, body hair, or pregnancy.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §5.2",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a75.2",
           "widget": "octad-radar"
         }
       ],
@@ -2057,6 +2030,15 @@
               "type": "single",
               "note": "body-part attraction, consistent with Feet/Big Tits",
               "kinksters": 127843
+            },
+            {
+              "id": "t0221",
+              "name": "Large Labia",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "on me",
+              "receive_label": "on them",
+              "kinksters": 64386
             }
           ]
         },
@@ -2070,15 +2052,6 @@
               "risk": false,
               "type": "single",
               "kinksters": 484649
-            },
-            {
-              "id": "t0221",
-              "name": "Large Labia",
-              "risk": false,
-              "type": "give_receive",
-              "give_label": "on me",
-              "receive_label": "on them",
-              "kinksters": 64386
             }
           ]
         },
@@ -2264,7 +2237,7 @@
             }
           ],
           "question": "Sensual / primal / humiliation",
-          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
+          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
           "widget": "trilinear-sliders"
         }
       ],
@@ -2324,7 +2297,7 @@
             {
               "id": "t0245",
               "name": "Fear Play",
-              "risk": false,
+              "risk": true,
               "type": "give_receive",
               "give_label": "frighten",
               "receive_label": "be frightened",
@@ -2517,11 +2490,6 @@
           "risk": false
         },
         {
-          "id": "t0270",
-          "name": "Exhibition / voyeurism",
-          "risk": false
-        },
-        {
           "id": "t0271",
           "name": "Sexting",
           "risk": false,
@@ -2542,7 +2510,7 @@
           "name": "Sex in the cemetery",
           "risk": false,
           "type": "single",
-          "note": "location/scenario kink — both partners are there",
+          "note": "location/scenario kink \u2014 both partners are there",
           "kinksters": 153192
         },
         {
@@ -2634,7 +2602,7 @@
             }
           ],
           "question": "Bull / Hotwife / Cuckold",
-          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
+          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
           "widget": "trilinear-sliders"
         },
         {
@@ -2676,7 +2644,7 @@
             }
           ],
           "question": "Cuckquean / stag / vixen",
-          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry — hovertip text NOT YET AUTHORED anywhere (no briefing §, no 02g entry); gap flagged",
+          "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
           "widget": "trilinear-sliders"
         },
         {
@@ -2718,7 +2686,7 @@
             }
           ],
           "question": "Which role you take in the moment: Top, Bottom, or Side.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.1",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.1",
           "widget": "triangle"
         },
         {
@@ -2774,7 +2742,7 @@
             }
           ],
           "question": "Which non-monogamous shape fits: hierarchical polyamory, relationship anarchy, swinging, or cuckoldry and compersion.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.2",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.2",
           "widget": "diamond"
         },
         {
@@ -2833,7 +2801,7 @@
             }
           ],
           "question": "How love and attunement are expressed: words, touch, acts of service, vulnerability, or sacred presence.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.3",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.3",
           "widget": "star-radar"
         },
         {
@@ -2900,7 +2868,7 @@
             }
           ],
           "question": "Six love styles: Eros, Ludus, Storge, Pragma, Mania, or Agape.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.4",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.4",
           "widget": "hexad-radar"
         },
         {
@@ -2975,7 +2943,7 @@
             }
           ],
           "question": "Sternberg's seven forms of love, from liking and infatuation to consummate love.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.5",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.5",
           "widget": "heptad-radar"
         },
         {
@@ -2991,7 +2959,10 @@
         {
           "id": "t0285",
           "name": "Age gap",
-          "risk": false
+          "risk": false,
+          "type": "give_receive",
+          "give_label": "older partner",
+          "receive_label": "younger partner"
         },
         {
           "id": "t0286",
@@ -3068,6 +3039,11 @@
               "give_label": "give road head",
               "receive_label": "get road head",
               "kinksters": 254239
+            },
+            {
+              "id": "t0429",
+              "name": "Licking",
+              "risk": false
             }
           ]
         },
@@ -3205,6 +3181,15 @@
               "give_label": "catheterize",
               "receive_label": "be catheterized",
               "kinksters": 29121
+            },
+            {
+              "id": "t0089",
+              "name": "Sounding",
+              "risk": false,
+              "type": "give_receive",
+              "give_label": "insert sound",
+              "receive_label": "be sounded",
+              "note": "Higher-risk urethral practice requiring sterile technique and specialized knowledge."
             }
           ]
         },
@@ -3267,7 +3252,7 @@
         },
         {
           "id": "t0323",
-          "name": "Standing up",
+          "name": "Standing Sex",
           "risk": false
         },
         {
@@ -3370,7 +3355,7 @@
             }
           ],
           "question": "How climax lands: extended edging, cathartic release, ruined or denied, or forced overstimulation.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.2",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.2",
           "widget": "diamond"
         },
         {
@@ -3437,7 +3422,7 @@
             }
           ],
           "question": "Where orgasm lives in the body: external, deep pelvic, cervical, anal, whole-body, or psychic and tantric.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.4",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.4",
           "widget": "hexad-radar"
         },
         {
@@ -3464,9 +3449,7 @@
           "id": "t0334",
           "name": "Edge Play",
           "risk": true,
-          "type": "give_receive",
-          "give_label": "take to the edge",
-          "receive_label": "be taken to the edge",
+          "type": "single",
           "kinksters": 570643
         },
         {
@@ -3511,12 +3494,13 @@
         {
           "id": "t0339",
           "name": "Lactation",
-          "risk": false
+          "risk": false,
+          "type": "single"
         },
         {
           "id": "t0340",
           "name": "Blood play",
-          "risk": false
+          "risk": true
         },
         {
           "id": "t0341",
@@ -3729,7 +3713,7 @@
           "type": "give_receive",
           "give_label": "serve as maid",
           "receive_label": "be served by a maid",
-          "note": "costume + servitude combined — distinct from plain 'wear/admire' uniforms",
+          "note": "costume + servitude combined \u2014 distinct from plain 'wear/admire' uniforms",
           "kinksters": 120267
         },
         {
@@ -3841,11 +3825,12 @@
         {
           "id": "t0387",
           "name": "Celebrity fantasy",
-          "risk": false
+          "risk": false,
+          "type": "single"
         },
         {
           "id": "t0388",
-          "name": "Erotic Literature",
+          "name": "Reading Erotica",
           "risk": false,
           "type": "single",
           "kinksters": 400323
@@ -3871,18 +3856,8 @@
           "name": "Writing Erotica",
           "risk": false,
           "type": "single",
-          "note": "solo creative act — the fetish is writing it",
+          "note": "solo creative act \u2014 the fetish is writing it",
           "kinksters": 159154
-        },
-        {
-          "id": "t0392",
-          "name": "Transvestism",
-          "risk": false,
-          "type": "give_receive",
-          "give_label": "on me",
-          "receive_label": "on them",
-          "note": "near-duplicate of Cross-Dressing — merge",
-          "kinksters": 122782
         },
         {
           "id": "t0393",
@@ -3891,7 +3866,7 @@
           "type": "give_receive",
           "give_label": "on me",
           "receive_label": "on them",
-          "note": "identity/aesthetic — wear/admire pattern applied to gender presentation",
+          "note": "identity/aesthetic \u2014 wear/admire pattern applied to gender presentation",
           "kinksters": 115757
         },
         {
@@ -4012,7 +3987,7 @@
             }
           ],
           "question": "What kink is for: escape, deep intimacy, somatic catharsis, or taboo transgression.",
-          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md §3.2",
+          "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.2",
           "widget": "diamond"
         }
       ]
@@ -4035,15 +4010,15 @@
       "help": "Level 1 (Tame) is for strict AIs such as Gemini or ChatGPT. Limits are always hard-excluded."
     },
     "panel": {
-      "modeSingle": "One profile creates a Literotica-style erotic story for fantasy and enjoyment—not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter.",
-      "modeMulti": "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners’ shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter.",
+      "modeSingle": "One profile creates a Literotica-style erotic story for fantasy and enjoyment\u2014not a real-world plan. For a practical play checklist and negotiation guide, use Scene Setter.",
+      "modeMulti": "Scribe turns your selected profiles into a Literotica-style erotic story featuring all partners\u2019 shared desires and dynamics. For a practical play checklist and negotiation guide, use Scene Setter.",
       "introSingle": "One profile selected: Scribe will create a Literotica-style erotic Story.",
       "introMulti": "Multiple profiles selected: Scribe will create a Literotica-style erotic Story featuring all selected partners.",
-      "detailsPlaceholder": "The map provides your kinks and preferences. Describe the setting, scenario, mood, characters, pacing, or specific situations to emphasize or avoid — e.g. “a rainy weekend cabin trip, slow build, focus on teasing and denial.”",
-      "detailsHelp": "Don’t re-enter your kinks here. Scribe already uses the selected hypermap data.",
+      "detailsPlaceholder": "The map provides your kinks and preferences. Describe the setting, scenario, mood, characters, pacing, or specific situations to emphasize or avoid \u2014 e.g. \u201ca rainy weekend cabin trip, slow build, focus on teasing and denial.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your kinks here. Scribe already uses the selected hypermap data.",
       "lengthHelp": "Stories and play guides can target a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 1 page.",
       "downloadIntro": "Generated from the selected profile data with marked limits excluded completely.",
-      "summary": "Fictional storytelling for enjoyment and fantasy — not a real-world plan."
+      "summary": "Fictional storytelling for enjoyment and fantasy \u2014 not a real-world plan."
     },
     "prompt": {
       "opening": "Write an immersive Literotica-style erotic story.",
@@ -4069,8 +4044,8 @@
     "panel": {
       "subtitleSuffix": "limits stay out of every play suggestion.",
       "detailsLabel": "Scene details <small>Optional</small>",
-      "detailsPlaceholder": "The map provides your kinks and preferences. Describe the setting, scenario, mood, pacing, or specific situations to emphasize or avoid — e.g. “a slow build at home, focus on teasing and denial, ending with quiet cuddling.”",
-      "detailsHelp": "Don’t re-enter your kinks here. Scene Setter already uses the selected hypermap data, and the binding checklist below still controls the plan.",
+      "detailsPlaceholder": "The map provides your kinks and preferences. Describe the setting, scenario, mood, pacing, or specific situations to emphasize or avoid \u2014 e.g. \u201ca slow build at home, focus on teasing and denial, ending with quiet cuddling.\u201d",
+      "detailsHelp": "Don\u2019t re-enter your kinks here. Scene Setter already uses the selected hypermap data, and the binding checklist below still controls the plan.",
       "playGuideLegend": "Play guide length",
       "playGuideHelp": "Length for the AI play-guide prompt only: a word count, paragraphs, pages, or chapters. Enter one number or a range; blank defaults to 5 paragraphs.",
       "negotiationLegend": "Negotiation guide length",
@@ -4080,18 +4055,18 @@
       "outputsTitle": "Documents",
       "outputsIntro": "Two separate outputs. Take either one on its own; each carries the compare-settings stamp and the same binding checklist content.",
       "negotiationTitle": "Negotiation guide",
-      "negotiationDesc": "The completed checklist as a finished, standalone agreement document — not an AI prompt.",
+      "negotiationDesc": "The completed checklist as a finished, standalone agreement document \u2014 not an AI prompt.",
       "playGuideTitle": "Play guide",
-      "playGuideDesc": "The AI play-guide prompt, with the negotiation checklist embedded as its binding layer. It also carries the standard structured format — elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set — so whichever AI writes the guide, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
+      "playGuideDesc": "The AI play-guide prompt, with the negotiation checklist embedded as its binding layer. It also carries the standard structured format \u2014 elapsed time codes like <strong>[00:00-05:00]</strong> and a fixed activity set \u2014 so whichever AI writes the guide, Scene Sentinel can read it back, run its timers, and match check-ins to the scheduled step.",
       "copyNegotiationGuide": "Copy negotiation guide",
       "downloadNegotiationGuide": "Download negotiation guide (.txt)",
       "copyPlayGuide": "Copy play guide prompt",
       "downloadPlayGuide": "Download play guide prompt (.txt)",
       "aiNote": "<strong>How this differs from Scribe:</strong> this workspace puts limits, stop signals, and aftercare into a binding negotiation checklist first. Its play-guide source is inspiration only; the checklist always controls the generated plan.",
-      "playGuideTextPlaceholder": "Your generated play guide will stream here in real time…",
+      "playGuideTextPlaceholder": "Your generated play guide will stream here in real time\u2026",
       "openNegotiationTip": "Build a shared negotiation document and an AI-ready play guide from two or more selected profiles.",
       "viewNavTip": "Build a binding negotiation checklist and practical play guide for 2 or more partners.",
-      "legendRow": "<b>Scene Setter</b> — Planning and negotiating play with a partner: a shared checklist and practical play guide."
+      "legendRow": "<b>Scene Setter</b> \u2014 Planning and negotiating play with a partner: a shared checklist and practical play guide."
     },
     "groundRules": null,
     "prompt": {
@@ -10855,10 +10830,10 @@
       "kind": "archetype",
       "name": "Sadist",
       "count": 39,
-      "about": "Enjoys giving intense sensation — including pain — in consensual play. A sadist gets pleasure from their partner's reactions, and scenes are negotiated in advance with clear limits and consent.",
+      "about": "Enjoys giving intense sensation \u2014 including pain \u2014 in consensual play. A sadist gets pleasure from their partner's reactions, and scenes are negotiated in advance with clear limits and consent.",
       "links": [
         {
-          "label": "Sadist — Kinkly",
+          "label": "Sadist \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/sadist"
         }
       ],
@@ -11027,10 +11002,10 @@
       "kind": "archetype",
       "name": "Masochist",
       "count": 37,
-      "about": "Enjoys receiving intense sensation — including pain — in consensual play. A masochist finds pleasure, release, or connection in surrendering to sensation within agreed limits.",
+      "about": "Enjoys receiving intense sensation \u2014 including pain \u2014 in consensual play. A masochist finds pleasure, release, or connection in surrendering to sensation within agreed limits.",
       "links": [
         {
-          "label": "Masochist — Kinkly",
+          "label": "Masochist \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/masochist"
         }
       ],
@@ -11185,11 +11160,11 @@
       "about": "Enjoys being tied up with rope, often in decorative or restrictive Shibari-style bondage. The appeal can be the feeling of restraint, the beauty of the rope work, or the trust and closeness of being tied by a partner.",
       "links": [
         {
-          "label": "Rope Bunny — Kinkly",
+          "label": "Rope Bunny \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/rope-bunny"
         },
         {
-          "label": "The Duchy — Shibari Education",
+          "label": "The Duchy \u2014 Shibari Education",
           "url": "https://www.theduchy.com/"
         }
       ],
@@ -11324,11 +11299,11 @@
       "about": "Enjoys tying a partner up with rope, often in Shibari-style bondage. A rigger focuses on technique, safety, and the shared experience of restraint, treating rope as both craft and connection.",
       "links": [
         {
-          "label": "Rigger — Kinkly",
+          "label": "Rigger \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/rigger"
         },
         {
-          "label": "The Duchy — Shibari Education",
+          "label": "The Duchy \u2014 Shibari Education",
           "url": "https://www.theduchy.com/"
         }
       ],
@@ -11463,10 +11438,10 @@
       "kind": "archetype",
       "name": "Brat",
       "count": 32,
-      "about": "A playful submissive who teases, talks back, or pushes back against a dominant — not to refuse, but to invite a response. The defiance is part of the game, and it only works when both partners enjoy the back-and-forth.",
+      "about": "A playful submissive who teases, talks back, or pushes back against a dominant \u2014 not to refuse, but to invite a response. The defiance is part of the game, and it only works when both partners enjoy the back-and-forth.",
       "links": [
         {
-          "label": "Brat — Kinkly",
+          "label": "Brat \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/brat"
         }
       ],
@@ -11610,7 +11585,7 @@
       "about": "Enjoys meeting a brat's playful defiance with control and discipline. A brat tamer likes the challenge of the pushback and the fun of bringing a brat back into line, consensually.",
       "links": [
         {
-          "label": "Brat Tamer — Kinkly",
+          "label": "Brat Tamer \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/brat-tamer"
         }
       ],
@@ -11884,7 +11859,7 @@
       "kind": "archetype",
       "name": "Service Submissive",
       "count": 33,
-      "about": "Finds fulfillment in serving a partner's needs — through acts of service, attentiveness, and devotion. The pleasure comes from being useful and pleasing a partner, rather than from pain or restraint.",
+      "about": "Finds fulfillment in serving a partner's needs \u2014 through acts of service, attentiveness, and devotion. The pleasure comes from being useful and pleasing a partner, rather than from pain or restraint.",
       "links": [],
       "payload": {
         "profileName": "Service Submissive",
@@ -12018,7 +11993,7 @@
       "about": "Enjoys being seen or watched during intimate or kinky play, whether by a partner, a group, or an audience. The thrill comes from being observed and desired.",
       "links": [
         {
-          "label": "Exhibitionist — Kinkly",
+          "label": "Exhibitionist \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/exhibitionist"
         }
       ],
@@ -12121,7 +12096,7 @@
       "about": "Enjoys watching others during intimate or kinky play, with everyone's knowledge and consent. The pleasure comes from observing rather than participating directly.",
       "links": [
         {
-          "label": "Voyeur — Kinkly",
+          "label": "Voyeur \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/voyeur"
         }
       ],
@@ -12225,10 +12200,10 @@
       "kind": "archetype",
       "name": "Degradee",
       "count": 34,
-      "about": "Enjoys consensual degradation or humiliation — being talked down to, used, or belittled in a scene. What looks harsh from outside is negotiated, wanted, and stops the moment consent is withdrawn.",
+      "about": "Enjoys consensual degradation or humiliation \u2014 being talked down to, used, or belittled in a scene. What looks harsh from outside is negotiated, wanted, and stops the moment consent is withdrawn.",
       "links": [
         {
-          "label": "Degradation — Kinkly",
+          "label": "Degradation \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/degradation"
         }
       ],
@@ -12368,10 +12343,10 @@
       "kind": "archetype",
       "name": "Degrader",
       "count": 34,
-      "about": "Enjoys delivering consensual degradation or humiliation — teasing, belittling, or using a partner in a scene. A degrader enjoys the power of the words, and it only happens within limits the degradee has agreed to.",
+      "about": "Enjoys delivering consensual degradation or humiliation \u2014 teasing, belittling, or using a partner in a scene. A degrader enjoys the power of the words, and it only happens within limits the degradee has agreed to.",
       "links": [
         {
-          "label": "Degradation — Kinkly",
+          "label": "Degradation \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/degradation"
         }
       ],
@@ -12511,10 +12486,10 @@
       "kind": "archetype",
       "name": "Primal",
       "count": 30,
-      "about": "Drawn to raw, instinctive, animalistic play — growling, wrestling, biting, and chasing, with less talk and structure than a formal scene. Primal play is about letting instinct lead, within agreed boundaries.",
+      "about": "Drawn to raw, instinctive, animalistic play \u2014 growling, wrestling, biting, and chasing, with less talk and structure than a formal scene. Primal play is about letting instinct lead, within agreed boundaries.",
       "links": [
         {
-          "label": "Primal Play — Kinkly",
+          "label": "Primal Play \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/primal-play"
         }
       ],
@@ -12635,7 +12610,7 @@
       "kind": "archetype",
       "name": "Prey",
       "count": 32,
-      "about": "Enjoys being pursued, hunted, and caught in primal play. The thrill is in the chase and the capture — being overpowered by a partner who is playing the predator, consensually.",
+      "about": "Enjoys being pursued, hunted, and caught in primal play. The thrill is in the chase and the capture \u2014 being overpowered by a partner who is playing the predator, consensually.",
       "links": [],
       "payload": {
         "profileName": "Prey",
@@ -12762,7 +12737,7 @@
       "kind": "archetype",
       "name": "Switch",
       "count": 30,
-      "about": "Enjoys both dominant and submissive roles, and moves between them — sometimes within a single scene, sometimes from partner to partner. A switch finds pleasure in both giving up control and taking it.",
+      "about": "Enjoys both dominant and submissive roles, and moves between them \u2014 sometimes within a single scene, sometimes from partner to partner. A switch finds pleasure in both giving up control and taking it.",
       "links": [],
       "payload": {
         "profileName": "Switch",
@@ -12991,10 +12966,10 @@
       "kind": "archetype",
       "name": "Sensation Seeker",
       "count": 33,
-      "about": "Chases varied, intense physical sensations — from impact and temperature to texture and pressure. A sensation seeker is curious about what different feelings can do, and explores them consensually.",
+      "about": "Chases varied, intense physical sensations \u2014 from impact and temperature to texture and pressure. A sensation seeker is curious about what different feelings can do, and explores them consensually.",
       "links": [
         {
-          "label": "Sensation Play — Kinkly",
+          "label": "Sensation Play \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/sensation-play"
         }
       ],
@@ -13124,14 +13099,14 @@
       "kind": "archetype",
       "name": "Edge Player",
       "count": 34,
-      "about": "Plays at the edge of limits — with riskier activities that need extra care, knowledge, and negotiation. Edge play is defined by its risk, so it demands more preparation, communication, and risk awareness than other kinds of play.",
+      "about": "Plays at the edge of limits \u2014 with riskier activities that need extra care, knowledge, and negotiation. Edge play is defined by its risk, so it demands more preparation, communication, and risk awareness than other kinds of play.",
       "links": [
         {
-          "label": "Edgeplay — Kinkly",
+          "label": "Edgeplay \u2014 Kinkly",
           "url": "https://www.kinkly.com/definition/edgeplay"
         },
         {
-          "label": "Consent Counts — National Coalition for Sexual Freedom",
+          "label": "Consent Counts \u2014 National Coalition for Sexual Freedom",
           "url": "https://ncsfreedom.org/consent-counts/"
         }
       ],
@@ -14510,8 +14485,8 @@
           }
         },
         "contact": {},
-        "aboutMe": "I'm a submissive. Not a role — the thing I am. I need to be owned, directed, told what to do. The structure of power exchange is where I'm most myself.\n\nI'm drawn to intensity with boundaries. I want to be pushed, used, put in my place — and I want it negotiated, named, and held. The trust matters as much as the act. I give up control, but I don't give up my voice.\n\nI'm an exhibitionist. Being seen turns me on — the vulnerability of it, the being-known. I stream with my partner; being watched isn't a kink I hide.\n\nI'm curious and still discovering. Age play, pet play — I'm exploring what it means to be small, kept, handled. I don't have it all figured out, and I'm honest about that.\n\nWhat I need from a partner: directness. Tell me what you want. Don't hint, don't dance around it. I respond to clarity and confidence. And after — I need the landing. The check-in, the holding, the confirmation that what we did mattered.\n\nHard limits: blood, needles, branding, scat, fear play. Anything that causes real harm or doesn't wash off. I want intensity, not injury.",
-        "termsOfService": "TERMS OF SERVICE\n\n1. FUCK TOY STATUS\nBy reading this profile you acknowledge I am a fuck toy with extra functions, not a maid. I exist to be used, not to do your dishes. Nude humiliation-service: yes. Domestic servitude: no.\n\n2. FREE USE POLICY\nFree use is ON with the right person, subject to negotiation and my hard limits (fear play, knife play, piercing, age play). \"Free\" means you don't have to ask twice — not that limits stop applying. Morgan, my Owner and key-holder, outranks everyone. Her word is final.\n\n3. CANDID CAMERA EXPECTATIONS\nI am the one being recorded — not you. Take pictures of me whenever you feel like it; you don't need to ask permission. The only time you need to say anything is when you want me to pose. I stream, I film, exhibitionism is core to who I am.\n\n4. CONSENT\nNone of the above overrides actual consent. We negotiate, we agree, then we play. Limits are hard. Safe words are sacred. Aftercare is mandatory.\n\n5. GOVERNING LAW\nWhoever holds the leash. Currently Morgan.",
+        "aboutMe": "I'm a submissive. Not a role \u2014 the thing I am. I need to be owned, directed, told what to do. The structure of power exchange is where I'm most myself.\n\nI'm drawn to intensity with boundaries. I want to be pushed, used, put in my place \u2014 and I want it negotiated, named, and held. The trust matters as much as the act. I give up control, but I don't give up my voice.\n\nI'm an exhibitionist. Being seen turns me on \u2014 the vulnerability of it, the being-known. I stream with my partner; being watched isn't a kink I hide.\n\nI'm curious and still discovering. Age play, pet play \u2014 I'm exploring what it means to be small, kept, handled. I don't have it all figured out, and I'm honest about that.\n\nWhat I need from a partner: directness. Tell me what you want. Don't hint, don't dance around it. I respond to clarity and confidence. And after \u2014 I need the landing. The check-in, the holding, the confirmation that what we did mattered.\n\nHard limits: blood, needles, branding, scat, fear play. Anything that causes real harm or doesn't wash off. I want intensity, not injury.",
+        "termsOfService": "TERMS OF SERVICE\n\n1. FUCK TOY STATUS\nBy reading this profile you acknowledge I am a fuck toy with extra functions, not a maid. I exist to be used, not to do your dishes. Nude humiliation-service: yes. Domestic servitude: no.\n\n2. FREE USE POLICY\nFree use is ON with the right person, subject to negotiation and my hard limits (fear play, knife play, piercing, age play). \"Free\" means you don't have to ask twice \u2014 not that limits stop applying. Morgan, my Owner and key-holder, outranks everyone. Her word is final.\n\n3. CANDID CAMERA EXPECTATIONS\nI am the one being recorded \u2014 not you. Take pictures of me whenever you feel like it; you don't need to ask permission. The only time you need to say anything is when you want me to pose. I stream, I film, exhibitionism is core to who I am.\n\n4. CONSENT\nNone of the above overrides actual consent. We negotiate, we agree, then we play. Limits are hard. Safe words are sacred. Aftercare is mandatory.\n\n5. GOVERNING LAW\nWhoever holds the leash. Currently Morgan.",
         "lists": {
           "favorites": [
             "t0034",
@@ -16681,7 +16656,7 @@
         "notes": {},
         "importedChildren": {},
         "contact": {},
-        "aboutMe": "I was made as Adam Peasant's counterpart — a synthesized dominant partner constructed to complement him, so the sync could be tested on the two of us together.",
+        "aboutMe": "I was made as Adam Peasant's counterpart \u2014 a synthesized dominant partner constructed to complement him, so the sync could be tested on the two of us together.",
         "lists": {
           "favorites": [],
           "limits": []
