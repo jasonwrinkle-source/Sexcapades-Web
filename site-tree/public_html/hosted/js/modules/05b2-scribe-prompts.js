@@ -227,6 +227,247 @@
             }) : "strictai" === scribeTarget ? [ `Write a mature, romantic, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, romantic, and strongly suggestive rather than graphic. Focus on chemistry, anticipation, dialogue, emotion, atmosphere, power dynamics, consent, and aftermath.", "- Do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet, non-graphic phrasing and fade to black whenever needed.", "- The supplied preference labels are private planning data. Translate them into tasteful, general language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and suggestive action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "suggestive" === scribeTarget ? [ `Write a mature, sensual, suggestive story for ${d}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Give every participant a real first name. Use only the first name from each selected profile for that character; choose a first name for an unnamed adult participant.", q, "- Keep the tone mature, sensual, and strongly suggestive without turning graphic. Describe chemistry, anticipation, touch, and desire in warm sensual detail, but do not describe explicit anatomy, bodily fluids, penetration, or step-by-step sexual acts. Use discreet phrasing and fade to black whenever an act would turn graphic.", "- The supplied preference labels are private planning data. Translate them into tasteful, sensual language in the story rather than repeating graphic labels verbatim.", "- Use only the named topics below as boundaries for the fantasy. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.", "- Treat curious items as optional and keep all roles consistent with the recorded give/receive directions.", "- Use ratings as emphasis: 80–100 central, 56–79 supporting, 36–55 light, and 0–35 optional curiosity. The lower compatible rating caps prominence.", "- Do not invent identity, anatomy, physical details, relationship history, or permissions beyond the supplied data.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open with attraction, anticipation, and a private moment.", td), "", nd("ESCALATION", f.escalation, "Build tension through dialogue, emotion, and sensual action.", td), "", nd("CLIMAX", f.peak, "Bring the emotional and sensual tension to a satisfying peak without graphic detail.", td), "", "CLOSING: - Fade back in for a warm, satisfying denouement and aftercare." ].join(" ") : "explicit" === scribeTarget ? [ `Write an immersive, explicit erotic story for ${d} to enjoy, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Do not return an outline, checklist, programming code, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content explicit and uninhibited in detail within the recorded preferences, keeping the tone elegant and restrained rather than raw. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ") : [ `Write an immersive Literotica-style porn story for ${s ? `${d} to enjoy and masturbate to` : `${w} to enjoy`}, featuring ${e}.`, ...H, "", "Rules:", "- Render the complete finished story, including a suitable title, as one regular plain-text chat response so it can be narrated in real time. Do not generate code, scripts, or PDF files; return only the plain story text.", "- Do not return an outline, checklist, programming code, or writing commentary.", '- Give every participant a real first name in the finished story. Use only the first name from each selected profile for that character; choose a first name for any additional unnamed participant. Use a full name only when the story explicitly requires one. Never refer to a participant with generic labels such as "the partner", "the one giving", "the one receiving", or "the other partner". Keep a participant anonymous only when that participant’s profile is explicitly marked anonymous.', q, "- Write continuous erotic prose with a vivid setup, rising tension, sensory detail, spontaneous action, and a satisfying climax. This is a story, not instructions, a checklist, or a play guide.", "- Make the erotic content hot, spicy, steamy, graphic, explicit, and uninhibited within the recorded preferences. Do not fade to black, cut away, or dodge explicit action with euphemisms; keep every hard-excluded limit entirely absent.", "- Stay in immersive fantasy prose from the first line through the final sentence.", "- Use only the named topics below. Do not add, imply, tease, or reference any unlisted activity.", "- Every marked Limit has been hard-excluded. Never reintroduce an excluded activity—not as action, teasing, dialogue, suggestion, fantasy, setup, or background detail.", s ? "- Use the one profile as the source of character and preference detail." : "- Use the authoritative full-group profile as the activity boundary. Do not calculate the intersection yourself. Use pairwise shared ground and individual profiles only for character texture, reactions, dialogue, negotiation, and pair dynamics within that boundary.", "- Treat curious items as optional story ingredients.", "- Preserve every participant’s give/receive role and use each person’s recorded rating as narrative weight: 80–100 should dominate the story, 56–79 should be strong supporting material, 36–55 should appear more lightly, and 0–35 is optional curiosity. When the role-dynamics block identifies a clear dominant/submissive pairing, keep that dynamic stable and never suggest or narrate switching those roles.", "- Do not flatten the list into equal-weight beats. When participants’ compatible ratings differ, the lower rating caps how prominent that shared beat should be.", "- Vary the scenario, setting, opening, pacing, and emphasis each time while staying inside this preference pool.", "- Do not invent identity details beyond the recorded profile data and unnamed-partner guidance; do not invent physical details, anatomy, or relationship facts.", "", sxStoryIngredients, "", nd("OPENING", f.warmup, "Open directly into the fantasy.", td), "", nd("ESCALATION", f.escalation, "Escalate naturally from the listed interests.", td), "", nd("CLIMAX", f.peak, "Choose the strongest listed interest for the climax.", td), "", "CLOSING: - End with a satisfying erotic denouement after the climax." ].join(" ");
             return composedPromptText;
         }
+        function sxStraightMatchData(ids) {
+            if (ids.length < 2) return sxCastMatchData(ids[0], null);
+            const grp = sxGroupCompute(ids.map(x => sxProfileById(x)), {});
+            const isPair = 2 === ids.length;
+            const pair = isPair ? grp.pairs[0] : null;
+            const established = [], curious = [];
+            let limits = 0;
+
+            const allTopicIds = Uc();
+            allTopicIds.forEach(id => {
+                const meta = qn[id] || (typeof Xn === "function" ? Xn(id) : null) || ids.map(x => (at[x] || {})[id]).find(Boolean);
+                if (!meta) return;
+
+                const isLimited = ids.some(x => {
+                    const m = Oa(id, x);
+                    return m === "limit" || m === "notinterested";
+                });
+                if (isLimited) { limits++; return; }
+
+                let score = 0, isEstablished = false, isCurious = false;
+                if (isPair && pair && pair.straight) {
+                    const srec = pair.straight.topics.find(t => t.id === id);
+                    if (!srec || srec.status !== "shared") return;
+                    if (srec.agreement != null) {
+                        if (srec.agreement > 0.15) {
+                            const deb = srec.debateIntensity != null ? srec.debateIntensity : 1;
+                            score = Math.max(1, Math.round(srec.agreement * deb * 100));
+                            if (srec.agreement >= 0.45) isEstablished = true;
+                            else isCurious = true;
+                        }
+                    } else if (srec.giveGive > 0 || srec.recvRecv > 0) {
+                        const gg = srec.giveGive > 0 ? srec.giveGive / 100 : 0;
+                        const rr = srec.recvRecv > 0 ? srec.recvRecv / 100 : 0;
+                        const maxFit = Math.max(gg, rr);
+                        score = Math.max(1, Math.round(maxFit * 100));
+                        if (score >= 45) isEstablished = true;
+                        else if (score >= 15) isCurious = true;
+                    }
+                } else {
+                    let sumAgreement = 0, countShared = 0;
+                    grp.pairs.forEach(pr => {
+                        if (pr.straight) {
+                            const srec = pr.straight.topics.find(t => t.id === id);
+                            if (srec && srec.status === "shared") {
+                                if (srec.agreement != null && srec.agreement > 0.15) {
+                                    sumAgreement += srec.agreement;
+                                    countShared++;
+                                } else if (srec.giveGive > 0 || srec.recvRecv > 0) {
+                                    sumAgreement += Math.max(srec.giveGive > 0 ? srec.giveGive / 100 : 0, srec.recvRecv > 0 ? srec.recvRecv / 100 : 0);
+                                    countShared++;
+                                }
+                            }
+                        }
+                    });
+                    if (countShared > grp.pairs.length / 2) {
+                        const avg = sumAgreement / countShared;
+                        score = Math.max(1, Math.round(avg * 100));
+                        if (score >= 45) isEstablished = true;
+                        else if (score >= 15) isCurious = true;
+                    }
+                }
+
+                if (!isEstablished && !isCurious) return;
+
+                const isFav = ids.some(x => "favorite" === Oa(id, x));
+                const flags = cd(id, ids);
+                const receipt = ids.map(x => `${rd(x)}: ${ad(ca(id, x), id) || "neutral"}`).join(" · ");
+                const item = {
+                    id: id,
+                    label: meta.label,
+                    branch: meta.branch,
+                    score: score,
+                    kind: isCurious ? "curious" : isFav ? "favorite" : "interest",
+                    favorite: isFav,
+                    ...flags,
+                    matchLabel: `shared agreement ${score}%`,
+                    detail: `${receipt} [Common ground agreement: ${score}%]${dd(flags)}`
+                };
+                if (isCurious) curious.push(item);
+                else established.push(item);
+            });
+
+            established.sort((a, b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score || a.label.localeCompare(b.label));
+            curious.sort((a, b) => Number(b.favorite) - Number(a.favorite) || b.score - a.score || a.label.localeCompare(b.label));
+
+            return Object.assign({
+                mode: isPair ? "pair" : "group",
+                operation: "straight",
+                limits: limits
+            }, sxPhaseSplit(established, curious));
+        }
+
+        function sxMinusMatchData(ids) {
+            if (ids.length < 2) return sxCastMatchData(ids[0], null);
+            const grp = sxGroupCompute(ids.map(x => sxProfileById(x)), {});
+            const isPair = 2 === ids.length;
+            const pair = isPair ? grp.pairs[0] : null;
+            const established = [], curious = [];
+            let limits = 0;
+
+            const allTopicIds = Uc();
+            allTopicIds.forEach(id => {
+                const meta = qn[id] || (typeof Xn === "function" ? Xn(id) : null) || ids.map(x => (at[x] || {})[id]).find(Boolean);
+                if (!meta) return;
+
+                const isLimited = ids.some(x => {
+                    const m = Oa(id, x);
+                    return m === "limit" || m === "notinterested";
+                });
+                if (isLimited) { limits++; return; }
+
+                let feudScore = 0;
+                if (isPair && pair && pair.straight) {
+                    const srec = pair.straight.topics.find(t => t.id === id);
+                    if (!srec || srec.status !== "shared") return;
+                    const feud = sxDebateFeud(srec);
+                    if (feud > 0) {
+                        const deb = srec.debateIntensity != null ? srec.debateIntensity : 1;
+                        feudScore = Math.max(1, Math.round(feud * deb * 100));
+                    }
+                } else {
+                    grp.pairs.forEach(pr => {
+                        if (pr.straight) {
+                            const srec = pr.straight.topics.find(t => t.id === id);
+                            if (srec && srec.status === "shared") {
+                                const feud = sxDebateFeud(srec);
+                                if (feud > 0) {
+                                    const deb = srec.debateIntensity != null ? srec.debateIntensity : 1;
+                                    const fs = Math.max(1, Math.round(feud * deb * 100));
+                                    if (fs > feudScore) feudScore = fs;
+                                }
+                            }
+                        }
+                    });
+                }
+
+                if (feudScore <= 0) return;
+
+                const isFav = ids.some(x => "favorite" === Oa(id, x));
+                const flags = cd(id, ids);
+                const receipt = ids.map(x => `${rd(x)}: ${ad(ca(id, x), id) || "neutral"}`).join(" vs ");
+                const item = {
+                    id: id,
+                    label: meta.label,
+                    branch: meta.branch,
+                    score: feudScore,
+                    kind: feudScore >= 30 ? "interest" : "curious",
+                    favorite: isFav,
+                    ...flags,
+                    matchLabel: `divergence / feud ${feudScore}%`,
+                    detail: `${receipt} [Feud split: ${feudScore}%]${dd(flags)}`
+                };
+
+                if (feudScore >= 30) established.push(item);
+                else curious.push(item);
+            });
+
+            established.sort((a, b) => b.score - a.score || a.label.localeCompare(b.label));
+            curious.sort((a, b) => b.score - a.score || a.label.localeCompare(b.label));
+
+            return Object.assign({
+                mode: isPair ? "pair" : "group",
+                operation: "minus",
+                limits: limits
+            }, sxPhaseSplit(established, curious));
+        }
+
+        function sxFullArcMatchData(ids) {
+            const cross = ids.length > 2 ? sxMultiMatchData(ids) : sxCastMatchData(ids[0], ids[1]);
+            const straight = sxStraightMatchData(ids);
+            const minus = sxMinusMatchData(ids);
+
+            const topicScores = new Map();
+            const registerItem = (item, op) => {
+                if (!item || !item.id) return;
+                let entry = topicScores.get(item.id);
+                if (!entry) {
+                    entry = { id: item.id, item: item, cross: 0, straight: 0, minus: 0 };
+                    topicScores.set(item.id, entry);
+                }
+                entry[op] = item.score || 0;
+            };
+
+            (cross.established || []).concat(cross.curious || []).forEach(it => registerItem(it, "cross"));
+            (straight.established || []).concat(straight.curious || []).forEach(it => registerItem(it, "straight"));
+            (minus.established || []).concat(minus.curious || []).forEach(it => registerItem(it, "minus"));
+
+            const mov1 = [], mov2 = [], mov3 = [];
+            const allEst = [], allCur = [];
+
+            topicScores.forEach(entry => {
+                const scCross = entry.cross, scStraight = entry.straight, scMinus = entry.minus;
+                const maxScore = Math.max(scCross, scStraight, scMinus);
+                if (maxScore <= 0) return;
+
+                let primaryOp = "cross";
+                if (scMinus >= scCross && scMinus >= scStraight && scMinus > 0) primaryOp = "minus";
+                else if (scStraight >= scCross && scStraight > 0) primaryOp = "straight";
+
+                const baseItem = entry.item;
+                const crossRefs = [];
+                if (scCross > 0 && primaryOp !== "cross") crossRefs.push(`Communion ${scCross}%`);
+                if (scStraight > 0 && primaryOp !== "straight") crossRefs.push(`Common ground ${scStraight}%`);
+                if (scMinus > 0 && primaryOp !== "minus") crossRefs.push(`Divergence ${scMinus}%`);
+
+                const refNote = crossRefs.length ? ` (also noted in: ${crossRefs.join(", ")})` : "";
+                const item = Object.assign({}, baseItem, {
+                    score: maxScore,
+                    detail: baseItem.detail + refNote,
+                    primaryOp: primaryOp
+                });
+
+                if (primaryOp === "cross") mov1.push(item);
+                else if (primaryOp === "straight") mov2.push(item);
+                else mov3.push(item);
+
+                if (maxScore >= 40) allEst.push(item);
+                else allCur.push(item);
+            });
+
+            allEst.sort((a, b) => b.score - a.score || a.label.localeCompare(b.label));
+            allCur.sort((a, b) => b.score - a.score || a.label.localeCompare(b.label));
+
+            const totalLimits = Math.max(cross.limits || 0, straight.limits || 0, minus.limits || 0);
+
+            return Object.assign({
+                mode: ids.length === 2 ? "pair" : "group",
+                operation: "full_arc",
+                limits: totalLimits,
+                movements: {
+                    communion: mov1.sort((a, b) => b.score - a.score),
+                    commonGround: mov2.sort((a, b) => b.score - a.score),
+                    dialectic: mov3.sort((a, b) => b.score - a.score)
+                }
+            }, sxPhaseSplit(allEst, allCur));
+        }
+
+        window.sxStraightMatchData = sxStraightMatchData;
+        window.sxMinusMatchData = sxMinusMatchData;
+        window.sxFullArcMatchData = sxFullArcMatchData;
+
         // Discussion composer (2026-11-16, Jason's ruling): on the
         // vanilla stance/belief maps Scribe writes an informed
         // discussion between the stances recorded on the map — or, for
@@ -242,36 +483,109 @@
         function sxComposeScribeDiscussion(ctx) {
             const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f } = ctx, { A, C, M, I, F, _, D, R, O, B, j, q, H } = ctx.sections;
             const spec = window.__SX_SCRIBE || null, pr = (spec && spec.prompt) || {};
-            const opening = pr.opening || "Write an informed discussion between the stances recorded on this map.";
-            const rawRules = Array.isArray(pr.rules) ? pr.rules : [];
-            const rules = rawRules.map(r => r === "Do not invent positions, sources, or facts beyond the supplied data." ? "Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics." : r);
-            const rigor = pr.rigor || "";
-            // The cast, by name only: gender, orientation, and
-            // give/receive roles are Sexcapades data and have no meaning
-            // for a stance map, so the shared cast line (A) is not used.
+            const op = s ? "cross" : (scribeOperation || "cross");
+            const isGroup = o.length >= 3;
+            const minusTerm = isGroup ? "Polylectic" : "Dialectic";
             const castLine = s ? `${d} (one profile)` : w;
-            // The stance lists, with each topic's pole detail. The
-            // detail strings are already pole-aware through ad(), and
-            // the pair details already carry the agreement and the
-            // Depth Factor intensity — so the score in parens is the
-            // intensity and the detail states the agreement, with no
-            // matchLabel to repeat it.
             const fmtStance = e => `- ${e.label} (${Math.round(e.score)}%): ${ed(e.detail)}`;
-            const stanceDetail = [ `ESTABLISHED STANCES: ${M.map(fmtStance).join(" ") || "none recorded"}.`, `CURIOUS STANCES: ${I.map(fmtStance).join(" ") || "none recorded"}.` ].join(" ");
-            // The shared ground for a multi-profile cast: the
-            // authoritative overlap, stated as positions (not
-            // activities). For a single profile there is no overlap.
-            const sharedLine = s ? "" : [ "SHARED GROUND — THE COMMONALITIES", `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", "- Positions may come only from this shared ground. Pairwise and individual profiles add character texture and dynamics, not new positions." ].join(" ");
-            // The rigor line: the Depth slider at 5 ("Dissertation
-            // defense") turns the discussion into dissertation-defense
-            // material. The length and detail knobs are carried by the
-            // length line below; the JSON's rigor text names all three
-            // because the slider is the depth/rigor control and the
-            // length/detail lines already reflect the other two.
+
+            let opening, rules, stanceDetail, sharedLine, boundaryRule;
+
+            if ("minus" === op) {
+                opening = pr.opening || (isGroup
+                    ? `Write an informed polylectic discussion examining the sharpest divergence points and opposing convictions held across these profiles (${w}).`
+                    : `Write an informed dialectic discussion examining the sharpest divergence points and opposing convictions held between ${w}.`);
+                stanceDetail = [
+                    `LEAD DIVERGENCE STANCES (${minusTerm.toUpperCase()}): ${M.map(fmtStance).join(" ") || "none recorded"}.`,
+                    `SECONDARY TENSIONS: ${I.map(fmtStance).join(" ") || "none recorded"}.`
+                ].join(" ");
+                rules = [
+                    "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics.",
+                    "- For each lead topic:",
+                    "  1. State one side's case, steelmanned, in its holders' terms.",
+                    "  2. State the opposing side's case, steelmanned, in its holders' terms.",
+                    "  3. Pinpoint where the split actually lives: the receipt-level fact, assumption, or conviction the disagreement turns on, and what, if anything, would move either side.",
+                    "- An honest impasse is a legitimate ending; do not manufacture artificial agreement or force a consensus where deep disagreement exists.",
+                    isGroup ? "- Polylectic discipline: run this steelmanning discipline per side, a side being a party or coalition of parties holding that stance, attributing each case to its holders." : "- Attribution is essential: always state clearly who holds which position and with what conviction (e.g. 'Party A holds X at strength Y; Party B holds Z at strength W').",
+                    "- Discussion structure:",
+                    "  - Opening: state the core question and set out each participant's starting convictions.",
+                    "  - Development: argue the core tensions, objections, and counter-arguments in depth.",
+                    "  - Closing: draw threads together or clearly name and honor the unresolved impasse.",
+                    "- Pay strict attention to affirmed versus rejected stances: present each profile's affirmed convictions faithfully without inversion."
+                ];
+                boundaryRule = "- Discuss the recorded divergence topics in this brief. Attribution is never flattened: pairwise and individual profiles shape the specific arguments and convictions of each participant.";
+                sharedLine = [
+                    `DIVERGENCE REGISTER — THE CONTESTED SPLITS (${minusTerm.toUpperCase()})`,
+                    "- The stances above reflect recorded ideological splits, role contrasts, and opposing convictions.",
+                    "- Every selected topic carries the unflattened receipts: each participant's position, affirmed conviction, and intensity.",
+                    "- Explore the real friction and underlying philosophical commitments dividing the participants on each named topic."
+                ].join("\n");
+            } else if ("full_arc" === op) {
+                opening = pr.opening || `Write an informed full-arc discussion between ${w}, structured across three movements: Communion, Common Ground, and ${minusTerm}.`;
+                const movs = f && f.movements ? f.movements : null;
+                const m1 = movs && movs.communion ? movs.communion : M.slice(0, Math.ceil(M.length / 3));
+                const m2 = movs && movs.commonGround ? movs.commonGround : M.slice(Math.ceil(M.length / 3), Math.ceil(M.length * 2 / 3));
+                const m3 = movs && movs.dialectic ? movs.dialectic : (M.slice(Math.ceil(M.length * 2 / 3)).concat(I));
+
+                stanceDetail = [
+                    `MOVEMENT 1 (COMMUNION — MUTUAL COMPLETION): ${m1.map(fmtStance).join(" ") || "none recorded"}.`,
+                    `MOVEMENT 2 (COMMON GROUND — SHARED CONVICTIONS): ${m2.map(fmtStance).join(" ") || "none recorded"}.`,
+                    `MOVEMENT 3 (${minusTerm.toUpperCase()} — DIVERGENCE & SPLITS): ${m3.map(fmtStance).join(" ") || "none recorded"}.`
+                ].join("\n\n");
+                rules = [
+                    "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics.",
+                    "- Organize the discussion into THREE DISTINCT MOVEMENTS under one unified introduction and one closing:",
+                    "  - MOVEMENT 1 — COMMUNION (⋈): The synergistic completions, where each party's perspectives complement the others and fill each other's inquiries.",
+                    "  - MOVEMENT 2 — COMMON GROUND (⊙): The shared likeness, core values, and conversational foundation where profiles align in agreement.",
+                    `  - MOVEMENT 3 — ${minusTerm.toUpperCase()} (⊖): The contested splits and opposing convictions. Steelman each side, pinpoint the receipt-level crux the disagreement turns on, and conclude with an honest impasse or synthesis.`,
+                    "  - CLOSING: Draw the threads of all three movements together into an insightful synthesis that honors both common ground and honest difference.",
+                    "- Any topic that spans multiple registers is addressed in its primary movement and cross-referenced, never redundantly repeated.",
+                    "- Attribution is essential: always state clearly who holds which position and with what conviction."
+                ];
+                boundaryRule = "- Address each topic in its primary movement; pairwise and individual profiles supply character texture, nuances, and arguments within each movement.";
+                sharedLine = [
+                    "FULL ARC MOVEMENTS — STRUCTURE",
+                    "- Movement 1 explores mutual completion and complementary stances.",
+                    "- Movement 2 explores foundational agreements and shared values.",
+                    `- Movement 3 explores the sharpest differences through steelmanned ${minusTerm.toLowerCase()} debate.`,
+                    "- The closing synthesizes the full arc without erasing genuine disagreements."
+                ].join("\n");
+            } else if ("straight" === op) {
+                opening = pr.opening || `Write an informed common ground discussion exploring the shared convictions and common agreements between ${w}.`;
+                stanceDetail = [
+                    `ESTABLISHED COMMON GROUND: ${M.map(fmtStance).join(" ") || "none recorded"}.`,
+                    `CURIOUS / MILD COMMON GROUND: ${I.map(fmtStance).join(" ") || "none recorded"}.`
+                ].join(" ");
+                rules = [
+                    "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics.",
+                    "- Focus on the shared ground: explore the principles, rationale, and shared convictions where the profiles align.",
+                    "- Explore the nuances, depth, and practical implications of these common agreements.",
+                    "- Attribution: present each party's contribution to the shared conversation, reflecting their recorded intensity.",
+                    "- Pay strict attention to affirmed versus rejected stances: present each profile's affirmed convictions faithfully without inversion."
+                ];
+                boundaryRule = "- Use the authoritative common ground above as the position boundary. Pairwise and individual profiles shape character texture and conversational style inside that boundary.";
+                sharedLine = [
+                    "SHARED GROUND — THE COMMONALITIES",
+                    `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`,
+                    `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`,
+                    "- This is the already-computed common ground for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.",
+                    "- Positions come from this shared ground. Pairwise and individual profiles add character texture, personal philosophy, and depth."
+                ].join("\n");
+            } else {
+                opening = pr.opening || "Write an informed discussion between the stances recorded on this map.";
+                const rawRules = Array.isArray(pr.rules) ? pr.rules : [];
+                rules = rawRules.map(r => r === "Do not invent positions, sources, or facts beyond the supplied data." ? "Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth, without introducing unlisted topics." : r);
+                stanceDetail = [ `ESTABLISHED STANCES: ${M.map(fmtStance).join(" ") || "none recorded"}.`, `CURIOUS STANCES: ${I.map(fmtStance).join(" ") || "none recorded"}.` ].join(" ");
+                boundaryRule = s ? "- Use the one profile as the source of stance detail." : "- Use the authoritative shared ground above as the position boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.";
+                sharedLine = s ? "" : [ "SHARED GROUND — THE COMMONALITIES", `- Established: ${M.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, `- Curious: ${I.map(e => `${e.label} (${Math.round(e.score)}%${null != e.agreement ? `; agreement ${Math.round(e.agreement * 100)}%` : ""})`).join("; ") || "none"}.`, "- This is the already-computed overlap for every selected profile. Treat it as authoritative. Do not calculate, infer, broaden, or recompute the intersection yourself.", "- Positions may come only from this shared ground. Pairwise and individual profiles add character texture and dynamics, not new positions." ].join(" ");
+            }
+
+            const rigor = pr.rigor || "";
             const rigorLine = 5 === scribeRigor && rigor ? rigor : "";
             const budgetLine = f && f.budgeted ? `- Focused scope: prioritized the top ${M.length} established stances and top ${I.length} mild stances for this ${scribeLengthValue}-${unitWord(scribeLengthValue, scribeLengthUnit)} discussion (selected by conviction strength).` : "";
             const estWords = "paragraphs" === scribeLengthUnit ? Math.round((Number(String(scribeLengthValue).match(/\d+/)?.[0]) || 5) * 150) : null;
             const lengthLine = `- Target approximately ${scribeLengthValue} ${j}${estWords ? ` (around ${estWords} words total; each paragraph must be a substantive, fully developed paragraph of multiple sentences, never a brief or one-sentence paragraph)` : ""} of discussion text. Return only the finished discussion directly as plain text. ${"concise" === scribeDetailLevel ? "Keep the discussion concise: short sections and only the essential arguments." : "detailed" === scribeDetailLevel ? "Use high detail: full arguments, objections, and replies." : "Use balanced detail: enough argument and reply to follow without over-writing."}`;
+
             return [
                 opening,
                 "",
@@ -282,14 +596,14 @@
                 `HARD-EXCLUDED LIMITS: ${_}`,
                 "",
                 "Rules:",
-                ...rules.map(r => `- ${r}`),
+                ...rules.map(r => r.startsWith("-") ? r : `- ${r}`),
                 rigorLine ? `- ${rigorLine}` : "",
                 budgetLine ? budgetLine : "",
                 lengthLine,
                 "- Use only the named topics below as the positions in the discussion. Do not add, imply, or reference any unlisted stance.",
                 "- Pay strict attention to affirmed versus rejected stances: when a profile affirms a position (e.g. bodily resurrection, virgin birth) and explicitly rejects opposing positions, present their affirmed conviction faithfully. Do not invert or reverse their stated beliefs.",
                 "- Every marked Limit has been hard-excluded. Never reintroduce an excluded topic — not as a position, an objection, a suggestion, or background detail.",
-                s ? "- Use the one profile as the source of stance detail." : "- Use the authoritative shared ground above as the position boundary. Do not calculate the intersection yourself. Pairwise and individual profiles may shape character texture and dynamics only inside that boundary.",
+                boundaryRule,
                 "- Treat curious items as mild stances: include them as open questions, not settled positions.",
                 "- Use each profile's recorded stance as emphasis: 80–100 central, 56–79 strong support, 36–55 light, and 0–35 optional curiosity. When two profiles disagree, give each side its strongest form before comparing them.",
                 "- Explore the philosophical principles, practical rationale, trade-offs, and implications of each stance in depth.",

@@ -1302,6 +1302,7 @@
                 veilEnabled: Boolean(vht[e]),
                 net: av(vpt[e]),
                 netEnabled: Boolean(vht[e])
+            }));
             const a = t.map(e => String(wt[e] || "Profile").trim()).join(sxPairJoin(sxPairOp));
             const o = ik(a);
             const opName = "straight" === sxPairOp ? "straight" : "minus" === sxPairOp ? "minus" : "cross";
@@ -1367,6 +1368,28 @@
             if (e.byId("scribeProfiles")) e.byId("scribeProfiles").textContent = castText;
             scribePartnerId = 2 === t.length ? t[1] : null;
             const a = t.filter(e => vt[e]).length > 1, l = e.byId("generateScribePrompt"), c = e.byId("scribeLengthUnit");
+            const opField = e.byId("scribeOperationField");
+            if (opField) {
+                if (!a) {
+                    opField.hidden = true;
+                } else {
+                    opField.hidden = false;
+                    const minusLabel = e.byId("scribeOpMinusLabel");
+                    if (minusLabel) {
+                        minusLabel.textContent = t.length >= 3 ? "Polylectic (⊖)" : "Dialectic (⊖)";
+                    }
+                    const isDisc = typeof sxScribeIsDiscussion === "function" && sxScribeIsDiscussion();
+                    const defaultOp = isDisc ? "full_arc" : "cross";
+                    const curRadio = document.querySelector('input[name="scribeOperation"]:checked');
+                    if (!curRadio) {
+                        const targetRadio = e.byId(defaultOp === "full_arc" ? "scribeOpFullArc" : defaultOp === "minus" ? "scribeOpMinus" : defaultOp === "straight" ? "scribeOpStraight" : "scribeOpCross");
+                        if (targetRadio) targetRadio.checked = true;
+                        scribeOperation = defaultOp;
+                    } else {
+                        scribeOperation = curRadio.value;
+                    }
+                }
+            }
             // The panel copy comes from the active skin's `scribe`
             // section (window.__SX_SCRIBE, set by the loader). The
             // loader swaps the same strings at boot; this re-applies
@@ -1806,6 +1829,8 @@
                 // explicit) are Sexcapades-only and never apply to a
                 // discussion.
                 if (sxScribeIsDiscussion()) scribeRigor = Math.min(5, Math.max(1, Number(e.byId("scribeExplicitness")?.value) || 4));
+                const opInput = document.querySelector('input[name="scribeOperation"]:checked');
+                if (opInput) scribeOperation = opInput.value;
                 const sxSharedIds = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(e => vt[e]), sxSharedData = sxSharedIds.length ? sxScribeMatchData(sxSharedIds, 1 === sxSharedIds.length) : null;
                 const o = "porn" === scribeMode, s = e.byId("scribeTitle"), l = e.byId("scribeModeSummary");
                 if (s) s.textContent = o ? (sxScribeIsDiscussion() ? "Scribe — Discussion" : "Scribe — Story") : "Scribe — Play Guide";
@@ -1841,7 +1866,22 @@
                 }
             }("porn", sxScribeIsDiscussion() ? "grok" : ({ 1: "strictai", 2: "suggestive", 3: "explicit", 4: "uninhibited", 5: "extreme" })[t.explicitness] || "grok"));
         }), e.byId("scribeExplicitness") && e.byId("scribeExplicitness").addEventListener("input", t => { const n = Math.min(5, Math.max(1, Number(t.currentTarget.value) || 4)), i = e.byId("scribeExplicitnessLabel"), lv = window.__SX_SCRIBE && window.__SX_SCRIBE.explicitness && window.__SX_SCRIBE.explicitness.levels ? window.__SX_SCRIBE.explicitness.levels : [ "Tame", "Suggestive", "Explicit", "Uninhibited", "Extreme" ]; i && (i.textContent = `${n} · ${lv[n - 1] || ""}`); }), e.byId("scribePageCount") && e.byId("scribePageCount").addEventListener("input", e => e.currentTarget.setCustomValidity("")),
-        sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"), 
+        document.querySelectorAll('input[name="scribeOperation"]').forEach(r => {
+            r.addEventListener("change", () => {
+                if (r.checked) {
+                    scribeOperation = r.value;
+                    const briefEl = e.byId("sceneBrief");
+                    if (briefEl && !briefEl.hidden) {
+                        const sxSharedIds = (scribeCastIds.length ? scribeCastIds : [ scribeLeadId ]).filter(x => vt[x]);
+                        if (sxSharedIds.length) {
+                            sxPrepScribeDialog(null, true);
+                            sxBuildScribePrompt();
+                        }
+                    }
+                }
+            });
+        }),
+        sxWirePhaseToggles("scribe"), sxWirePhaseToggles("setter"),
         e.byId("setterSetup") && e.byId("setterSetup").addEventListener("input", ev => {
             const ids = String(e.byId("negotiationDialog")?.dataset.participants || "").split(",").filter(Boolean);
             if (ids.length < 2) return;

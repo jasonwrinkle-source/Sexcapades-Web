@@ -580,7 +580,7 @@
                 return [ `${rd(e)} — INDIVIDUAL PROFILE`, `- Within shared ground: ${o.map(l).join("; ") || "none recorded"}.`, `- Individual desires and differences: ${s.map(l).join("; ") || "none recorded"}.`, isDisc ? "- Use individual-only details for character texture, reactions, and dialogue—not as permission to add a position outside the authoritative shared ground." : "- Use individual-only details for character texture, reactions, dialogue, and negotiation—not as permission to add an activity outside the authoritative shared ground." ].join(" ");
             }).join("  ");
         }
-        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced", scribeRigor = 4;
+        let sxNovelAiFields = null, scribeMode = "porn", scribeTarget = "grok", scribeCastKey = "", scribePromptCache = "", scribeLengthValue = "5", scribeLengthDisplay = "~5", scribeRequestText = "", scribeLengthUnit = "paragraphs", scribeDetailLevel = "balanced", scribeRigor = 4, scribeOperation = "cross";
         // Mode resolution (refactor F5), stated plainly: the target list
         // mixes outside-AI targets (novelai, yobitch, strictai) with
         // tones (suggestive, explicit); anything unrecognized falls back
@@ -676,7 +676,12 @@
         // Standalone callers (profile-save refresh) pass nothing and the
         // prep computes it itself, exactly as before.
         function sxScribeMatchData(ids, single) {
-            return "novelai" === scribeTarget || ids.length > 2 ? sxMultiMatchData(ids) : sxCastMatchData(scribeLeadId, single ? null : scribePartnerId);
+            if (single || ids.length < 2) return sxCastMatchData(ids[0], null);
+            const op = scribeOperation || "cross";
+            if ("minus" === op && typeof sxMinusMatchData === "function") return sxMinusMatchData(ids);
+            if ("straight" === op && typeof sxStraightMatchData === "function") return sxStraightMatchData(ids);
+            if ("full_arc" === op && typeof sxFullArcMatchData === "function") return sxFullArcMatchData(ids);
+            return "novelai" === scribeTarget || ids.length > 2 ? sxMultiMatchData(ids) : sxCastMatchData(scribeLeadId, scribePartnerId);
         }
         // Established dominant/submissive pairings from recorded
         // direction scores, one entry per profile pair (extracted from
@@ -766,9 +771,10 @@
             const curCountText = f && f.budgeted && f.totalCurious > f.curious.length
                 ? `Top ${f.curious.length} of ${f.totalCurious} curious`
                 : `${f.curious.length} curious`;
-            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span><span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${estCountText}</span><span>${curCountText}</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
+            const opLabel = s ? "" : "full_arc" === scribeOperation ? "Full arc (⋈⊙⊖)" : "minus" === scribeOperation ? (o.length >= 3 ? "Polylectic (⊖)" : "Dialectic (⊖)") : "straight" === scribeOperation ? "Common ground (⊙)" : "Communion (⋈)";
+            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span>${opLabel ? `<span>${Hi(opLabel)}</span>` : ""}<span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${estCountText}</span><span>${curCountText}</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
             const establishedLabels = f.established.map(e => e.label).join(" · ") || "None recorded", curiousLabels = f.curious.map(e => e.label).join(" · ") || "None recorded";
-            e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? "Discussion ingredients" : "Story ingredients") : "Negotiation notes";
+            e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? ("minus" === scribeOperation ? (o.length >= 3 ? "Polylectic debate ingredients" : "Dialectic debate ingredients") : "straight" === scribeOperation ? "Common ground ingredients" : "full_arc" === scribeOperation ? "Full arc ingredients (3 movements)" : "Discussion ingredients") : ("minus" === scribeOperation ? "Contrasting story ingredients" : "Story ingredients")) : "Negotiation notes";
             const roleDynamicItem = p.length ? `<li><strong>Established role dynamic</strong><span>${Hi(h)} Keep these dominant/submissive roles stable; do not suggest switching them.</span></li>` : "";
             if (u) n(e.byId("sceneNegotiation"), `<li><strong>Cast</strong><span>${Hi(s ? (isDisc ? d : d + " with an unnamed adult partner") : w)}</span></li>${roleDynamicItem}<li><strong>${isDisc ? "Established stances" : "Want to do"}</strong><span>${Hi(establishedLabels)}</span></li><li><strong>${isDisc ? "Curious stances" : "Curious about"}</strong><span>${Hi(curiousLabels)}</span></li>${g.length ? `<li><strong>Fantasy only</strong><span>${Hi(g.map(e => e.label).join(" · "))}. Keep these fictional; they do not signal real-world willingness.</span></li>` : ""}${m.length ? `<li><strong>Already tried</strong><span>${Hi(m.map(e => e.label).join(" · "))}. Past experience may shape the story without inventing details.</span></li>` : ""}`); else {
                 const t = s ? `<li><strong>Source profile</strong><span>${Hi(d)} only. A partner’s preferences are not assumed.</span></li>` : `<li><strong>Group profiles</strong><span>${Hi(w)}</span></li>`;
@@ -825,13 +831,15 @@
         // and the availability line; it writes no dialog state.
         function sxScribeCounts(precomputed, ids, isSingle) {
             const l = precomputed || sxScribeMatchData(ids, isSingle), c = l.established.length, d = l.curious.length, u = ids.filter(e => od(e).length), p = c + d;
+            const op = isSingle ? "cross" : (scribeOperation || "cross");
+            const opName = op === "minus" ? (ids.length >= 3 ? "polylectic" : "dialectic") : op === "straight" ? "common ground" : op === "full_arc" ? "full-arc" : "communion";
             return {
                 data: l,
                 established: c,
                 curious: d,
                 missing: u,
                 total: p,
-                availability: p ? `${c} established ${1 === c ? "item" : "items"} and ${d} curious ${1 === d ? "topic" : "topics"} ready, weighted by each person’s ratings.` : isSingle ? "Mark a topic Favorite, rate it above curious, or record a curious rating to build a scene brief." : "Add compatible positive or curious ratings to build a scene brief."
+                availability: p ? `${c} established ${1 === c ? "item" : "items"} and ${d} curious ${1 === d ? "topic" : "topics"} ready (${opName}), weighted by each person’s ratings.` : isSingle ? "Mark a topic Favorite, rate it above curious, or record a curious rating to build a scene brief." : "Add compatible positive or curious ratings to build a scene brief."
             };
         }
         // Scribe dialog prep (refactor F8): the heading, brief title,
@@ -851,6 +859,31 @@
             if (e.byId("sceneBriefTitle")) e.byId("sceneBriefTitle").textContent = info.title(story);
             if (e.byId("sceneBriefIntro")) e.byId("sceneBriefIntro").textContent = info.intro(story, i);
             if (e.byId("scenePromptHelp")) e.byId("scenePromptHelp").textContent = info.help();
+
+            // Operation Chooser (Spec Part 3):
+            const opField = e.byId("scribeOperationField");
+            if (opField) {
+                if (i) {
+                    opField.hidden = true;
+                } else {
+                    opField.hidden = false;
+                    const minusLabel = e.byId("scribeOpMinusLabel");
+                    if (minusLabel) {
+                        minusLabel.textContent = n.length >= 3 ? "Polylectic (⊖)" : "Dialectic (⊖)";
+                    }
+                    const isDisc = sxScribeIsDiscussion();
+                    const defaultOp = isDisc ? "full_arc" : "cross";
+                    const checkedRadio = document.querySelector('input[name="scribeOperation"]:checked');
+                    if (!checkedRadio) {
+                        const targetRadio = e.byId(defaultOp === "full_arc" ? "scribeOpFullArc" : defaultOp === "minus" ? "scribeOpMinus" : defaultOp === "straight" ? "scribeOpStraight" : "scribeOpCross");
+                        if (targetRadio) targetRadio.checked = true;
+                        scribeOperation = defaultOp;
+                    } else {
+                        scribeOperation = checkedRadio.value;
+                    }
+                }
+            }
+
             const counts = sxScribeCounts(precomputed, n, i);
             if (e.byId("sceneAvailability")) e.byId("sceneAvailability").textContent = counts.availability;
             if (e.byId("sceneBrief")) e.byId("sceneBrief").hidden = !0;

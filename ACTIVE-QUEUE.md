@@ -53,11 +53,11 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Renders on the skin's neutral atlas layout: topic node discs carry both parties' holdings (split disc with left/right party ratings or $N$-wedge group pie); spokes carry the operation's per-topic values (Cross: crossed fit per flank; Straight: likeness; Circle Minus: split depth × joint relevance feud heatmap).
    - *Spec Part 2 complete; foundation laid for item 8.*
 
-8. **Scribe — Operation Chooser / Full Arc (Spec Part 3):**
-   - Scribe dialog gains an operation choice for multi-profile writings: Communion (Cross), Common ground (Straight), Dialectic (Circle Minus), or Full arc (all three as movements).
-   - Dialectic selection comes from the debate register (feud depth × joint relevance); prompt framing steelmans each side, names where the split lives, allows an honest impasse. Attribution always carried per party in the receipts — never flattened.
-   - Full spec: `ADVOCACY_RECEPTIVITY_AND_OPERATION_MAPS_SPECIFICATION.md`, Part 3. Builds on item 7.
-   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Vanilla discussion default RULED 2026-11-22: **Full arc**. The Minus writing is a Dialectic for a pair, a **Polylectic** for a group (Jason's term).
+8. ~~**Scribe — Operation Chooser / Full Arc (Spec Part 3):**~~ Settled 2026-11-22.
+   - Scribe dialog gains an operation choice for multi-profile writings: Communion (⋈), Common ground (⊙), Dialectic / Polylectic (⊖), or Full arc (⋈⊙⊖).
+   - Dynamically labels Dialectic for 2 parties, Polylectic for 3+ parties (ruled 2026-11-22); defaults to Full arc for vanilla discussions (ruled 2026-11-22) and Communion for Sexcapades.
+   - Dialectic / Polylectic selection ranks by debate register feud depth × joint relevance; prompt framing steelmans each side, pinpoints the receipt-level crux, and allows honest impasse without manufacturing artificial agreement; boundary rules never leak agreement limitations into Dialectic framing.
+   - Full arc structures writing into 3 distinct movements (Communion → Common Ground → Dialectic/Polylectic) with de-duplication cross-referencing. Attribution is never flattened across any operation.
 
 9. **Advocacy / Receptivity (Spec Part 1):**
    - Stance skins' pole topics decompose into two placements: Advocacy (distribution of arguing over the poles) and Receptivity (distribution of hearing — not a stance), each with its own signed intensity; never contracted; unrated means absent from all math.
