@@ -527,3 +527,298 @@
             if (sliderOut) sliderOut.textContent = String(Math.round(intensity));
             return intensity;
         }
+
+        function sxFindClosestAxis(px, py, cx, cy, vertices, currentValues, handleRadius = 22) {
+            let bestHandleIdx = null, bestHandleDist = handleRadius;
+            if (currentValues && currentValues.length) {
+                vertices.forEach((v, idx) => {
+                    const s = Math.max(0, Math.min(100, Math.abs(currentValues[idx] || 0))) / 100;
+                    const vx = cx + (v.x - cx) * s, vy = cy + (v.y - cy) * s;
+                    const d = Math.hypot(px - vx, py - vy);
+                    if (d < bestHandleDist) {
+                        bestHandleDist = d;
+                        bestHandleIdx = idx;
+                    }
+                });
+                if (bestHandleIdx !== null) return bestHandleIdx;
+            }
+
+            const clickAngle = Math.atan2(py - cy, px - cx);
+            let bestAngleIdx = 0, minAngleDiff = Infinity;
+            vertices.forEach((v, idx) => {
+                let diff = (clickAngle - v.angle) % (2 * Math.PI);
+                if (diff < -Math.PI) diff += 2 * Math.PI;
+                if (diff > Math.PI) diff -= 2 * Math.PI;
+                const absDiff = Math.abs(diff);
+                if (absDiff < minAngleDiff) {
+                    minAngleDiff = absDiff;
+                    bestAngleIdx = idx;
+                }
+            });
+            return bestAngleIdx;
+        }
+
+        function sxClosestVertexByAngle(px, py, cx, cy, vertices) {
+            const ptrAngle = Math.atan2(py - cy, px - cx);
+            let best = 0, bestD = Infinity;
+            for (let i = 0; i < vertices.length; i++) {
+                let d = Math.abs(vertices[i].angle - ptrAngle);
+                if (d > Math.PI) d = 2 * Math.PI - d;
+                if (d < bestD) { bestD = d; best = i; }
+            }
+            return best;
+        }
+
+        function sxGetRegularPolygonVertices(width, height, n, margin = 24) {
+            const cx = width / 2, cy = height / 2;
+            const r = Math.min(width, height) / 2 - margin;
+            const vertices = [];
+            for (let k = 0; k < n; k++) {
+                const angle = -Math.PI / 2 + k * (2 * Math.PI / n);
+                vertices.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle });
+            }
+            return { cx, cy, r, vertices };
+        }
+
+        function sxDrawRadarPolygonWidget(canvas, shape, state, poleCount, getVerticesFn, colors) {
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const width = canvas.width, height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+
+            const { cx, cy, r, vertices } = getVerticesFn(width, height);
+
+            // 1. Concentric reference polygon rings (25%, 50%, 75%, 100%)
+            [0.25, 0.5, 0.75, 1.0].forEach(frac => {
+                ctx.beginPath();
+                for (let k = 0; k < poleCount; k++) {
+                    const angle = vertices[k].angle;
+                    const x = cx + r * frac * Math.cos(angle);
+                    const y = cy + r * frac * Math.sin(angle);
+                    if (k === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.lineWidth = frac === 1.0 ? 1.5 : 0.8;
+                ctx.strokeStyle = frac === 1.0 ? "rgba(255, 255, 255, 0.45)" : "rgba(255, 255, 255, 0.15)";
+                ctx.stroke();
+            });
+
+            // 2. Radial spoke axes from center to each vertex
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+            for (let k = 0; k < poleCount; k++) {
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(vertices[k].x, vertices[k].y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Deformed Polygon from active ratings
+            const pVals = [];
+            for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
+            const sxMaxAbs = Math.abs(sxSignedIntensity(pVals));
+            const s = pVals.map(val => (sxMaxAbs > 0 ? Math.abs(val) / sxMaxAbs : 0));
+
+            const polyPts = vertices.map((v, k) => ({
+                x: cx + (v.x - cx) * s[k],
+                y: cy + (v.y - cy) * s[k]
+            }));
+
+            const maxVal = sxSignedIntensity(pVals);
+            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
+
+            // Filled shape
+            ctx.beginPath();
+            polyPts.forEach((pt, k) => {
+                if (k === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            });
+            ctx.closePath();
+            ctx.fillStyle = polyCol;
+            ctx.globalAlpha = 0.45;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+
+            // 4. Pole vertex handles
+            polyPts.forEach((pt, idx) => {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                ctx.fillStyle = colors[idx];
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+            });
+
+            // 5. Pole Labels — tangent-rotated (T5).
+            canvas.__sxLabelRects = [];
+            const labels = sxPoleLabels(shape, poleCount);
+            vertices.forEach((v, idx) => {
+                sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], colors[idx], shape && shape.keys && shape.keys[idx], labels[idx], poleCount, r);
+            });
+        }
+
+        function sxApplyPolygonRatings(topicId, state, poleCount) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < poleCount) return;
+            sxPersistIntensity(topicId, state.intensity);
+            for (let k = 0; k < poleCount; k++) {
+                To(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
+            }
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxClearPolygonRatings(topicId, poleCount) {
+            if (!topicId) return;
+            const shape = Ge(topicId);
+            if (!shape || !shape.keys || shape.keys.length < poleCount) return;
+            Fo(topicId, "intensity", !1);
+            for (let k = 0; k < poleCount; k++) {
+                Fo(topicId, shape.keys[k], k === poleCount - 1);
+            }
+            sxSyncMarkRatings(topicId);
+        }
+
+        function sxBindPolygonRadarWidget({
+            canvasId,
+            sliderId,
+            clearBtnId,
+            intensityOutId,
+            state,
+            poleCount,
+            getVerticesFn,
+            drawFn,
+            applyFn,
+            clearFn
+        }) {
+            const canvas = e.byId(canvasId);
+            const slider = e.byId(sliderId);
+            const clearBtn = e.byId(clearBtnId);
+            if (!canvas || canvas.dataset.bound) return;
+            canvas.dataset.bound = "1";
+            sxBindPoleHover(canvas, () => state.isDragging);
+
+            const updateFromPointer = (evt) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                const px = (clientX - rect.left) * (canvas.width / rect.width);
+                const py = (clientY - rect.top) * (canvas.height / rect.height);
+
+                const { cx, cy, r, vertices } = getVerticesFn(canvas.width, canvas.height);
+                const curVals = [];
+                for (let k = 0; k < poleCount; k++) curVals.push(state["p" + k]);
+                const isAllZero = curVals.every(v => !v);
+
+                if (state.activeVertex === null) {
+                    state.activeVertex = sxFindClosestAxis(px, py, cx, cy, vertices, isAllZero ? null : curVals, 22);
+                }
+
+                if (state.dragFromZero && !state.vertexLocked) {
+                    state.activeVertex = sxClosestVertexByAngle(px, py, cx, cy, vertices);
+                }
+
+                const v = state.activeVertex;
+                const angle = vertices[v].angle;
+                const cosA = Math.cos(angle), sinA = Math.sin(angle);
+                const dot = (px - cx) * cosA + (py - cy) * sinA;
+                const val = Math.max(0, Math.min(100, Math.round((dot / r) * 100)));
+
+                if ((isAllZero || (state.dragFromZero && !state.vertexLocked)) && val > 0) {
+                    const base = Math.max(20, Math.round(val * 0.5));
+                    for (let k = 0; k < poleCount; k++) {
+                        state[`p${k}`] = (k === v) ? val : base;
+                    }
+                    if (val > base) state.vertexLocked = true;
+                } else {
+                    state[`p${v}`] = val;
+                }
+
+                const pVals = [];
+                for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
+                const maxVal = sxSignedIntensity(pVals);
+                if (slider) slider.value = String(Math.round(maxVal));
+                const out = e.byId(intensityOutId);
+                if (out) out.textContent = String(Math.round(maxVal));
+
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    drawFn(canvas, shape, state);
+                    applyFn(Qr);
+                }
+            };
+
+            canvas.addEventListener("pointerdown", (evt) => {
+                state.isDragging = !0;
+                state.activeVertex = null;
+                state.vertexLocked = !1;
+                let allZero = true;
+                for (let k = 0; k < poleCount; k++) {
+                    if (state["p" + k]) { allZero = false; break; }
+                }
+                state.dragFromZero = allZero;
+                canvas.setPointerCapture(evt.pointerId);
+                updateFromPointer(evt);
+            });
+
+            canvas.addEventListener("pointermove", (evt) => {
+                if (!state.isDragging) return;
+                updateFromPointer(evt);
+            });
+
+            const stopDrag = (evt) => {
+                if (state.isDragging) {
+                    state.isDragging = !1;
+                    state.activeVertex = null;
+                    try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                }
+            };
+            canvas.addEventListener("pointerup", stopDrag);
+            canvas.addEventListener("pointercancel", stopDrag);
+
+            canvas.addEventListener("wheel", (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
+                state.intensity = Math.max(-400, Math.min(400, Math.round((Number(state.intensity) || 0) + step)));
+                if (slider) slider.value = String(Math.round(state.intensity));
+                const out = e.byId(intensityOutId);
+                if (out) out.textContent = String(Math.round(state.intensity));
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    drawFn(canvas, shape, state);
+                    applyFn(Qr);
+                }
+            }, { passive: false });
+
+            if (slider) {
+                slider.addEventListener("input", () => {
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+                    state.intensity = val;
+                    const out = e.byId(intensityOutId);
+                    out && (out.textContent = String(val));
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        drawFn(canvas, shape, state);
+                        applyFn(Qr);
+                    }
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener("click", () => {
+                    if (Qr) {
+                        clearFn(Qr);
+                    }
+                });
+            }
+        }
+
