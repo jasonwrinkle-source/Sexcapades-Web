@@ -248,13 +248,14 @@
                 if (ja(r, e)) return void a++;
                 const o = qn[r];
                 if (!o) return;
-                // Multi-pole / line topic (2026-11-16): the strongest pole
+                // Multi-pole / line topic: the strongest pole
                 // affinity (or the line scalar) joins the give/receive
                 // ratings in the same 35 threshold — established when
-                // |strongest| > 35, curious when 0 <= |strongest| <= 35,
-                // score = the strongest affinity. A 0 is a rating, so an
-                // all-zero vector lands in curious, not in "unrated".
-                const s = ca(r, e), l = "favorite" === Qe[e]?.[r], pa = sxPoleAffinities(r, s), c = [ s.giveKnown && s.give > 35 ? s.give : null, s.receiveKnown && s.receive > 35 ? s.receive : null ].concat(pa ? pa.filter(v => v > 35) : []).filter(e => null !== e), d = [ s.giveKnown && s.give >= 0 && s.give <= 35 ? s.give : null, s.receiveKnown && s.receive >= 0 && s.receive <= 35 ? s.receive : null ].concat(pa ? pa.filter(v => v >= 0 && v <= 35) : []).filter(e => null !== e);
+                // |strongest| > 35, curious when 15 < |strongest| <= 35,
+                // score = the strongest affinity. Low-signal / near-zero
+                // (|affinity| <= 15) are neutral noise and omitted unless
+                // marked Favorite or Fantasy-only.
+                const s = ca(r, e), l = "favorite" === Qe[e]?.[r], pa = sxPoleAffinities(r, s), c = [ s.giveKnown && s.give > 35 ? s.give : null, s.receiveKnown && s.receive > 35 ? s.receive : null ].concat(pa ? pa.filter(v => v > 35) : []).filter(e => null !== e), d = [ s.giveKnown && s.give > 15 && s.give <= 35 ? s.give : null, s.receiveKnown && s.receive > 15 && s.receive <= 35 ? s.receive : null ].concat(pa ? pa.filter(v => v > 15 && v <= 35) : []).filter(e => null !== e);
                 if (l || c.length) {
                     const i = c.length ? Math.max(...c) : 100, a = cd(r, e), stance = ad(s, r);
                     n.push({
@@ -437,6 +438,8 @@
                     const d = qn[rec.id];
                     if (!d) return;
                     const y = [ e, t ].some(x => "favorite" === Oa(rec.id, x)), b = cd(rec.id, [ e, t ]), l = rec.bestFit ? sxRouteRecord(rec.bestFit, rec.id) : null, g = rec.strength || 0;
+                    // Token efficiency: omit near-zero/low-signal curious matches unless favorite or fantasy-only
+                    if (g <= 15 && !y && !b.fantasyOnly) return;
                     o.push({
                         id: rec.id,
                         label: d.label,
@@ -451,24 +454,29 @@
                 // Multi-pole topics (2026-11-16): both rated but NOT
                 // both strong (|strongest| > 35 for both) land here as
                 // a mild shared stance, mirroring the single-profile
-                // 0–35 curious band. The strong list above already
+                // 16–35 curious band. The strong list above already
                 // holds the both-strong ones (excluded via n), and the
                 // both-strong guard below is belt-and-braces. Score is
                 // the same Depth Factor intensity as the strong list.
                 pair.topics.forEach(rec => {
                     if (n.has(rec.id)) return;
+                    const y = [ e, t ].some(x => "favorite" === Oa(rec.id, x)), b = cd(rec.id, [ e, t ]);
                     if (rec.poleRole) {
                         if (rec.sharedAversion || rec.relevanceOpposed || !(rec.poleIntensity > 0)) return;
                         if (rec.intensityA > 35 && rec.intensityB > 35) return;
+                        // Token efficiency: if both are near-zero (<= 15), omit unless favorite or fantasy-only
+                        if (rec.intensityA <= 15 && rec.intensityB <= 15 && !y && !b.fantasyOnly) return;
                     } else {
                         if (null == rec.agreement || "not-topics" !== rec.outcome) return;
                         const aStrong = sxStrongestPole(rec.id, e), bStrong = sxStrongestPole(rec.id, t);
                         if (null == aStrong || null == bStrong) return;
                         if (Math.abs(aStrong) > 35 && Math.abs(bStrong) > 35) return;
+                        // Token efficiency: if both are near-zero (<= 15), omit unless favorite or fantasy-only
+                        if (Math.abs(aStrong) <= 15 && Math.abs(bStrong) <= 15 && !y && !b.fantasyOnly) return;
                     }
                     const d = qn[rec.id];
                     if (!d) return;
-                    const g = (rec.poleIntensity || 0) * 100, y = [ e, t ].some(x => "favorite" === Oa(rec.id, x)), b = cd(rec.id, [ e, t ]);
+                    const g = (rec.poleIntensity || 0) * 100;
                     o.push({
                         id: rec.id,
                         label: d.label,
@@ -752,7 +760,13 @@
         function sxRenderScribeBrief(ctx) {
             const { castIds: o, isSingle: s, isStory: u, leadName: d, castNames: v, castNameList: w, castSummary: b, establishedKindLabel: y, roleDynamics: p, roleDynamicText: h, fantasyTopics: g, triedTopics: m, promptMatchData: f, targetInfo, targetDisplayName: k } = ctx;
             const isDisc = sxScribeIsDiscussion();
-            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span><span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${f.established.length} ${y}${1 === f.established.length ? "" : "s"}</span><span>${f.curious.length} curious</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
+            const estCountText = f && f.budgeted && f.totalEstablished > f.established.length
+                ? `Top ${f.established.length} of ${f.totalEstablished} ${y}s`
+                : `${f.established.length} ${y}${1 === f.established.length ? "" : "s"}`;
+            const curCountText = f && f.budgeted && f.totalCurious > f.curious.length
+                ? `Top ${f.curious.length} of ${f.totalCurious} curious`
+                : `${f.curious.length} curious`;
+            n(e.byId("sceneBriefMeta"), `<span>${Hi(b)}</span><span>${u ? (isDisc ? "Informed discussion" : targetInfo.storyMeta) : `${k} play guide`}</span><span>Target ${Hi(scribeLengthValue)} ${unitWord(scribeLengthValue, scribeLengthUnit)} · ${Hi("detailed" === scribeDetailLevel ? "high detail" : "concise" === scribeDetailLevel ? "concise" : "balanced detail")}</span>${s ? "" : `<span>Cast ${sxWriterLeniency}</span>`}<span>${estCountText}</span><span>${curCountText}</span>${g.length ? `<span>${g.length} fantasy-only ${u ? "kept fictional" : "excluded"}</span>` : ""}${m.length ? `<span>${m.length} already tried</span>` : ""}<span>${f.limits} limit${1 === f.limits ? "" : "s"} excluded</span>`);
             const establishedLabels = f.established.map(e => e.label).join(" · ") || "None recorded", curiousLabels = f.curious.map(e => e.label).join(" · ") || "None recorded";
             e.byId("sceneNegotiationTitle").textContent = u ? (isDisc ? "Discussion ingredients" : "Story ingredients") : "Negotiation notes";
             const roleDynamicItem = p.length ? `<li><strong>Established role dynamic</strong><span>${Hi(h)} Keep these dominant/submissive roles stable; do not suggest switching them.</span></li>` : "";
@@ -780,7 +794,7 @@
             // Missing gender/orientation is handled neutrally downstream
             // (unspecified wording, neutral pronouns): it no longer
             // blocks Scribe.
-            const rawMatchData = precomputed || sxScribeMatchData(castIds, isSingle), leadName = rd(castIds[0]), isStory = "porn" === scribeMode, roleDynamics = isSingle ? [] : sxRoleDynamics(castIds), roleDynamicText = roleDynamics.map(e => e.text).join(" "), fantasyTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.fantasyOnly), triedTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.alreadyTried && (isStory || !e.fantasyOnly)), promptMatchData = isStory ? rawMatchData : Object.assign({}, rawMatchData, {
+            const rawMatchData = precomputed || sxScribeMatchData(castIds, isSingle), leadName = rd(castIds[0]), isStory = "porn" === scribeMode, roleDynamics = isSingle ? [] : sxRoleDynamics(castIds), roleDynamicText = roleDynamics.map(e => e.text).join(" "), filteredMatchData = isStory ? rawMatchData : Object.assign({}, rawMatchData, {
                 established: rawMatchData.established.filter(e => !e.fantasyOnly),
                 curious: rawMatchData.curious.filter(e => !e.fantasyOnly),
                 warmup: rawMatchData.warmup.filter(e => !e.fantasyOnly),
@@ -788,7 +802,10 @@
                 peak: rawMatchData.peak.filter(e => !e.fantasyOnly),
                 aftercare: rawMatchData.aftercare.filter(e => !e.fantasyOnly)
             });
-            if (!(promptMatchData.established.length + promptMatchData.curious.length)) return e.byId("sceneAvailability").textContent = sxScribeIsDiscussion() ? "No strong or mild stances are recorded yet." : !isStory && fantasyTopics.length ? "Only fantasy-only topics are available. Add a real-world interest before creating a practical play guide." : "No favorites, positive interests, or curious ratings are available yet.", 
+            const promptMatchData = sxBudgetPromptMatchData(filteredMatchData);
+            const allowedPromptIds = new Set([ ...promptMatchData.established.map(e => e.id), ...promptMatchData.curious.map(e => e.id) ]);
+            const fantasyTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.fantasyOnly && allowedPromptIds.has(e.id)), triedTopics = [ ...rawMatchData.established, ...rawMatchData.curious ].filter(e => e.alreadyTried && (isStory || !e.fantasyOnly) && allowedPromptIds.has(e.id));
+            if (!(promptMatchData.established.length + promptMatchData.curious.length)) return e.byId("sceneAvailability").textContent = sxScribeIsDiscussion() ? "No strong or mild stances are recorded yet." : !isStory && fantasyTopics.length ? "Only fantasy-only topics are available. Add a real-world interest before creating a practical play guide." : "No favorites, positive interests, or curious ratings are available yet.",
             void (e.byId("sceneBrief").hidden = !0);
             const establishedKindLabel = isSingle ? "favorite / interest" : "compatible interest", castSummary = castIds.map(e => `${rd(e)} · ${vb(rt[e]) || "gender unspecified"} · ${Nb(ot[e]) || "orientation unspecified"}`).join(" + "), castNames = castIds.map(e => rd(e)), castNameList = castNames.length < 2 ? castNames[0] : 2 === castNames.length ? castNames.join(" and ") : `${castNames.slice(0, -1).join(", ")}, and ${castNames[castNames.length - 1]}`, targetInfo = sxScribeTargetInfo(scribeTarget), targetDisplayName = targetInfo.displayName;
             const promptCtx = { castIds, isSingle, isStory, leadName, castNames, castNameList, castSummary, establishedKindLabel, targetInfo, targetDisplayName, roleDynamics, roleDynamicText, fantasyTopics, triedTopics, promptMatchData, sections: null };

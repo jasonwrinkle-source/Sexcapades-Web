@@ -117,6 +117,53 @@
         function sxScribeTargetText() {
             return `${scribeLengthValue} ${unitWord(scribeLengthValue, scribeLengthUnit)}`;
         }
+        // Dynamic topic budgeting (refactor 2026-11-21): calculates
+        // target-appropriate limits on established and curious topics
+        // injected into Scribe prompts. Prevents flooding small prompts
+        // (1-2 paragraphs) with dozens of topics, cutting prompt token
+        // sizes dramatically. When depth/rigor is set to 5 ("Dissertation
+        // defense"), the cap is removed and all stances are included.
+        function sxGetScribeTopicBudget() {
+            if (5 === scribeRigor) return { established: Infinity, curious: Infinity };
+            const num = Number(String(scribeLengthValue).match(/\d+/)?.[0]) || 5;
+            const unit = String(scribeLengthUnit || "paragraphs").toLowerCase();
+            let paraEq = num;
+            if (unit.startsWith("page")) paraEq = num * 3;
+            else if (unit.startsWith("word")) paraEq = Math.max(1, Math.round(num / 150));
+            else if (unit.startsWith("chapter")) paraEq = num * 5;
+            else if (unit.startsWith("minute")) paraEq = num;
+
+            if (paraEq <= 2) {
+                return { established: 8, curious: 4 };
+            } else if (paraEq <= 5) {
+                return "concise" === scribeDetailLevel ? { established: 12, curious: 6 } : { established: 18, curious: 8 };
+            } else if (paraEq <= 10) {
+                return { established: 30, curious: 12 };
+            } else {
+                return { established: 50, curious: 20 };
+            }
+        }
+        function sxBudgetPromptMatchData(data) {
+            if (!data) return data;
+            const budget = sxGetScribeTopicBudget();
+            if (!Number.isFinite(budget.established) && !Number.isFinite(budget.curious)) return data;
+            const allEst = data.established || [], allCur = data.curious || [];
+            if (allEst.length <= budget.established && allCur.length <= budget.curious) return data;
+            const est = allEst.slice(0, budget.established);
+            const cur = allCur.slice(0, budget.curious);
+            const allowedIds = new Set(est.concat(cur).map(e => e.id));
+            return Object.assign({}, data, {
+                established: est,
+                curious: cur,
+                warmup: (data.warmup || []).filter(e => allowedIds.has(e.id)),
+                escalation: (data.escalation || []).filter(e => allowedIds.has(e.id)),
+                peak: (data.peak || []).filter(e => allowedIds.has(e.id)),
+                aftercare: (data.aftercare || []).filter(e => allowedIds.has(e.id)),
+                budgeted: (allEst.length > est.length) || (allCur.length > cur.length),
+                totalEstablished: allEst.length,
+                totalCurious: allCur.length
+            });
+        }
         // Shared prompt sections for both Scribe composers (refactor
         // F1): the cast line and unnamed-partner line, the established /
         // curious splits, marker handling + rated preference detail, the
@@ -146,7 +193,7 @@
                 excludeFantasy: !u
             }), B = [ D, R, O, s ? "" : sxIndividualProfileTexts(o, f, {
                 excludeFantasy: !u
-            }) ].filter(Boolean).join("  "), j = unitWord(scribeLengthValue, scribeLengthUnit), z = "concise" === scribeDetailLevel ? "Keep the document concise: short phase notes and only essential check-ins." : "detailed" === scribeDetailLevel ? "Use high detail: specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Use balanced detail: enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.", q = !u ? `- Plan approximately ${scribeLengthValue} ${j}, with flexible phase pacing that adds up to that target while allowing check-ins, pauses, or stopping. ${z}` : `- Target approximately ${scribeLengthValue} ${j} of story text. Return only the finished story directly as plain text. ${z}`, H = [ "", `CAST, GENDER & SEXUALITY: ${A}${C}`, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `HARD-EXCLUDED LIMITS: ${_}` ];
+            }) ].filter(Boolean).join("  "), j = unitWord(scribeLengthValue, scribeLengthUnit), z = "concise" === scribeDetailLevel ? "Keep the document concise: short phase notes and only essential check-ins." : "detailed" === scribeDetailLevel ? "Use high detail: specific phase timing, transitions, role cues, check-ins, stop options, and aftercare steps." : "Use balanced detail: enough timing, transitions, role cues, check-ins, and aftercare to follow without over-scripting.", budgetNote = f && f.budgeted ? ` Prioritized the top ${M.length} established ${u ? "interests" : "activities"} and top ${I.length} curious topics for this ${scribeLengthValue}-${j} ${u ? "story" : "guide"} (selected by preference strength).` : "", q = !u ? `- Plan approximately ${scribeLengthValue} ${j}, with flexible phase pacing that adds up to that target while allowing check-ins, pauses, or stopping. ${z}${budgetNote}` : `- Target approximately ${scribeLengthValue} ${j} of story text. Return only the finished story directly as plain text. ${z}${budgetNote}`, H = [ "", `CAST, GENDER & SEXUALITY: ${A}${C}`, s ? "" : ` ${B}`, "", `RATED PREFERENCE DETAIL: ${F}`, "", `HARD-EXCLUDED LIMITS: ${_}` ];
             return { A: A, C: C, M: M, I: I, F: F, _: _, D: D, R: R, O: O, B: B, j: j, q: q, H: H };
         }
         // Story composer (refactor F1): assembles the story-mode
@@ -222,6 +269,7 @@
             // because the slider is the depth/rigor control and the
             // length/detail lines already reflect the other two.
             const rigorLine = 5 === scribeRigor && rigor ? rigor : "";
+            const budgetLine = f && f.budgeted ? `- Focused scope: prioritized the top ${M.length} established stances and top ${I.length} mild stances for this ${scribeLengthValue}-${unitWord(scribeLengthValue, scribeLengthUnit)} discussion (selected by conviction strength).` : "";
             const estWords = "paragraphs" === scribeLengthUnit ? Math.round((Number(String(scribeLengthValue).match(/\d+/)?.[0]) || 5) * 150) : null;
             const lengthLine = `- Target approximately ${scribeLengthValue} ${j}${estWords ? ` (around ${estWords} words total; each paragraph must be a substantive, fully developed paragraph of multiple sentences, never a brief or one-sentence paragraph)` : ""} of discussion text. Return only the finished discussion directly as plain text. ${"concise" === scribeDetailLevel ? "Keep the discussion concise: short sections and only the essential arguments." : "detailed" === scribeDetailLevel ? "Use high detail: full arguments, objections, and replies." : "Use balanced detail: enough argument and reply to follow without over-writing."}`;
             return [
@@ -236,6 +284,7 @@
                 "Rules:",
                 ...rules.map(r => `- ${r}`),
                 rigorLine ? `- ${rigorLine}` : "",
+                budgetLine ? budgetLine : "",
                 lengthLine,
                 "- Use only the named topics below as the positions in the discussion. Do not add, imply, or reference any unlisted stance.",
                 "- Pay strict attention to affirmed versus rejected stances: when a profile affirms a position (e.g. bodily resurrection, virgin birth) and explicitly rejects opposing positions, present their affirmed conviction faithfully. Do not invert or reverse their stated beliefs.",
