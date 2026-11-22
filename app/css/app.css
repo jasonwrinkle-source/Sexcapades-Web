@@ -1574,3 +1574,20 @@ details.scene-phase ul {
 .mark-trilinear-pole.tri-pole-center{position:absolute;left:50%;transform:translateX(-50%);text-align:center;max-width:36%;color:#fbbf24;font-weight:600;}
 .mark-trilinear-pole.tri-pole-right{text-align:right;max-width:32%;margin-left:auto;color:#4ade80;font-weight:600;}
 
+body.sx-no-importers [data-converter="kinktest"],
+body.sx-no-importers [data-converter="checklist"],
+body.sx-no-importers [data-converter="fetlife"],
+body.sx-no-importers [data-converter="bdsmtest"],
+body.sx-no-importers [data-profile-converter="kinktest"],
+body.sx-no-importers [data-profile-converter="checklist"],
+body.sx-no-importers [data-profile-converter="fetlife"],
+body.sx-no-importers [data-profile-converter="bdsmtest"],
+body.sx-no-importers [data-profile-details-converter="kinktest"],
+body.sx-no-importers [data-profile-details-converter="checklist"],
+body.sx-no-importers [data-profile-details-converter="fetlife"],
+body.sx-no-importers [data-profile-details-converter="bdsmtest"],
+body.sx-no-importers [data-test-choice="kinktest"],
+body.sx-no-importers [data-test-choice="checklist"] {
+  display: none !important;
+}
+

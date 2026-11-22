@@ -1258,23 +1258,35 @@
   }
 
   function applyImporterGating(hasImporters) {
+    if (typeof document !== "undefined" && document.body) {
+      document.body.classList.toggle("sx-has-importers", !!hasImporters);
+      document.body.classList.toggle("sx-no-importers", !hasImporters);
+    }
     SX_IMPORTER_SELECTORS.forEach(function (sel) {
       document.querySelectorAll(sel).forEach(function (el) {
         if (hasImporters) {
           el.disabled = false;
+          el.hidden = false;
+          if (el.style.display === "none") el.style.display = "";
           if (el.__sxOrigTitle !== undefined) {
             if (el.__sxOrigTitle) el.setAttribute("title", el.__sxOrigTitle);
             else el.removeAttribute("title");
             delete el.__sxOrigTitle;
           }
         } else {
-          if (!el.disabled) {
-            el.__sxOrigTitle = el.getAttribute("title") || "";
-            el.setAttribute("title", "Not available for this skin — it has no importers");
-          }
           el.disabled = true;
+          el.hidden = true;
+          el.style.display = "none";
         }
       });
+    });
+  }
+
+  if (typeof document !== "undefined" && document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof window.__SX_HAS_IMPORTERS === "boolean") {
+        applyImporterGating(window.__SX_HAS_IMPORTERS);
+      }
     });
   }
 
