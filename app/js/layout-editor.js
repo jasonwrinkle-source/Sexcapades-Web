@@ -1419,12 +1419,40 @@
     // structural (segments sharing an endpoint node never pair).
     function topBranchKey(key){
       if(!key)return null;
-      var branches=branchNames(),i,b,bs;
-      if(key.indexOf("cat-")===0){var slug=key.slice(4);for(i=0;i<branches.length;i++)if(slugify(branches[i])===slug)return branches[i];return null}
-      if(key.indexOf("subcategory-")===0){var rest=key.slice(12);for(i=0;i<branches.length;i++){bs=slugify(branches[i]);if(rest===bs||rest.indexOf(bs+"-")===0)return branches[i]}return null}
+      var branches=branchNames(),i;
+      for(i=0;i<branches.length;i++)if(branches[i]===key)return branches[i];
+      if(key.indexOf("cat-")===0){var slug=key.slice(4);for(i=0;i<branches.length;i++)if(slugify(branches[i])===slug)return branches[i];}
+      if(key.indexOf("subcategory-")===0){var rest=key.slice(12);for(i=0;i<branches.length;i++){var bs=slugify(branches[i]);if(rest===bs||rest.indexOf(bs+"-")===0)return branches[i]}}
+      var tax=taxonomy();
+      if(tax&&tax.categories){
+        for(i=0;i<tax.categories.length;i++){
+          var cat=tax.categories[i];
+          if(cat.id===key||cat.name===key||slugify(cat.name)===key)return cat.name;
+          var subs=cat.subcategories||[];
+          for(var j=0;j<subs.length;j++){
+            if(subs[j].id===key||subs[j].name===key||slugify(subs[j].name)===key)return cat.name;
+          }
+        }
+      }
       var entry=topicEntry(key);
       if(entry&&entry.category)return entry.category;
-      if(key.indexOf("topic-")===0){var trest=key.slice(6);for(i=0;i<branches.length;i++){bs=slugify(branches[i]);if(trest.indexOf(bs+"-")===0)return branches[i]}}
+      if(key.indexOf("topic-")===0){var trest=key.slice(6);for(i=0;i<branches.length;i++){var bs2=slugify(branches[i]);if(trest.indexOf(bs2+"-")===0)return branches[i]}}
+      return null;
+    }
+    function subcloudKey(key){
+      if(!key)return null;
+      var tax=taxonomy(),i,j;
+      if(tax&&tax.categories){
+        for(i=0;i<tax.categories.length;i++){
+          var subs=tax.categories[i].subcategories||[];
+          for(j=0;j<subs.length;j++){
+            if(subs[j].id===key||subs[j].name===key||slugify(subs[j].name)===key)return subs[j].name;
+            if(key.indexOf("subcategory-")===0&&key.slice(12)===slugify(subs[j].name))return subs[j].name;
+          }
+        }
+      }
+      var entry=topicEntry(key);
+      if(entry&&entry.subcategory)return entry.subcategory;
       return null;
     }
     function segMetrics(ax1,ay1,ax2,ay2,bx1,by1,bx2,by2){
@@ -1690,6 +1718,7 @@
     // slider's cloud from its own data-id (a topic id) first, falling
     // back to an ancestor node-group key when there is one.
     function cloudOfEl(el){var key=el.getAttribute("data-id");if(key)return topBranchKey(key);var g=el.closest?el.closest(".node-group[data-layout-key]"):null;return g?topBranchKey(g.getAttribute("data-layout-key")):null}
+    function subcloudOfEl(el){var key=el.getAttribute("data-id");if(key)return subcloudKey(key);var g=el.closest?el.closest(".node-group[data-layout-key]"):null;return g?subcloudKey(g.getAttribute("data-layout-key")):null}
     LayoutMetrics.defs.z90.clouds=function(ctx,done,isCancelled){
       var els=document.querySelectorAll(z90Selector()),inv=metricWorldFrame(),fitScale=metricFitScale(),byCloud={},i=0;
       function defer(){if(window.requestIdleCallback)window.requestIdleCallback(chunk,{timeout:250});else setTimeout(chunk,0)}
@@ -1846,7 +1875,19 @@
     }});
     LayoutMetrics.defs.crossingnumber.clouds=function(ctx,done,isCancelled){
       function defer(){if(window.requestIdleCallback)window.requestIdleCallback(chunk,{timeout:250});else setTimeout(chunk,0)}
-      function chunk(){if(isCancelled())return;var m=crossingReadout();if(!m){done({});return}var out={};Object.keys(m.clouds).forEach(function(c){out[c]={value:m.clouds[c],text:crossingText(m.clouds[c])}});done(out)}
+      function chunk(){
+        if(isCancelled())return;
+        var m=crossingReadout();
+        if(!m){done({});return}
+        var out={};
+        Object.keys(m.clouds||{}).forEach(function(c){out[c]={value:m.clouds[c],text:crossingText(m.clouds[c])}});
+        if(m.subclouds){
+          Object.keys(m.subclouds).forEach(function(sc){
+            if(m.subclouds[sc]>0){out[sc]={value:m.subclouds[sc],text:crossingText(m.subclouds[sc])}}
+          });
+        }
+        done(out)
+      }
       defer();
     };
     // World-frame helpers (Metrics rebuild, Edit 1): the rebuilt
@@ -1891,7 +1932,7 @@
         var inv=world?MetricGeometry.inverseFrame():null,pos={},keys=[];
         Array.prototype.forEach.call(svg.querySelectorAll(".node-group[data-layout-key]:not(.is-hidden)"),function(g){
           var key=g.getAttribute("data-layout-key");if(!key||pos[key])return;
-          var icon=g.querySelector(":scope > .branch-icon, :scope > .topic-icon");if(!icon)return;
+          var icon=g.querySelector(".branch-icon, .topic-icon");if(!icon)return;
           var r=icon.getBoundingClientRect();
           if(world){
             var p=inv?MetricGeometry.worldPoint(inv,r):null;
@@ -2067,9 +2108,24 @@
         var sums={},counts={};
         function add(c,x,y){if(!c)return;(sums[c]=sums[c]||{x:0,y:0});sums[c].x+=x;sums[c].y+=y;counts[c]=(counts[c]||0)+1}
         var els=document.querySelectorAll(z90Selector()),i;
-        for(i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();if(!(r.width>0||r.height>0))continue;add(cloudOfEl(els[i]),r.left+r.width/2,r.top+r.height/2)}
+        for(i=0;i<els.length;i++){
+          var r=els[i].getBoundingClientRect();
+          if(!(r.width>0||r.height>0))continue;
+          var cEl=cloudOfEl(els[i]);
+          if(cEl)add(cEl,r.left+r.width/2,r.top+r.height/2);
+          var scEl=subcloudOfEl(els[i]);
+          if(scEl)add(scEl,r.left+r.width/2,r.top+r.height/2);
+        }
         var svg=document.getElementById("mapSvg");
-        if(svg){var np=metricNodePositions(svg);np.keys.forEach(function(k){var c=topBranchKey(k);if(c&&!sums[c])add(c,np.pos[k].x,np.pos[k].y)})}
+        if(svg){
+          var np=metricNodePositions(svg);
+          np.keys.forEach(function(k){
+            var c=topBranchKey(k);
+            if(c)add(c,np.pos[k].x,np.pos[k].y);
+            var sc=subcloudKey(k);
+            if(sc)add(sc,np.pos[k].x,np.pos[k].y);
+          });
+        }
         var out={};Object.keys(sums).forEach(function(c){out[c]={x:sums[c].x/counts[c],y:sums[c].y/counts[c]}});
         return out;
       },

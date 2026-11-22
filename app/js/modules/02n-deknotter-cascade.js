@@ -544,7 +544,7 @@ import {
             // is recorded on report.throwRadii (fields added
             // only) and in the run log.
             const throwCenterRadius = eaBase.photoRadius * centerRingScale();
-            const throwBranchTarget = throwCenterRadius * SX_SCORE.THROW_BRANCH;
+            const throwBranchTarget = Math.max(preDelivered && Number.isFinite(preDelivered.branch) && preDelivered.branch > 0 ? preDelivered.branch * 1.75 : 0, throwCenterRadius * SX_SCORE.THROW_BRANCH, 100000);
             const throwSubcatTarget = throwCenterRadius * SX_SCORE.THROW_SUBCAT;
             const throwConvert = (curLen, delivered, target) => dkConvertRenderedToOverride(curLen, delivered, target);
             const branchCurEntry = snapshot && snapshot.branchOverrides
@@ -563,7 +563,8 @@ import {
                     ? Number(curEntry.length) : 1;
                 const delivered = preDelivered && preDelivered.items
                     ? preDelivered.items["subcat|" + name + "|" + l] : NaN;
-                const len = throwConvert(curLen, delivered, throwSubcatTarget);
+                const subTarget = Math.max(Number.isFinite(delivered) && delivered > 0 ? delivered * 1.5 : 0, throwSubcatTarget);
+                const len = throwConvert(curLen, delivered, subTarget);
                 if (Number.isFinite(len) && len > 0) throwSubcatLens[l] = len;
                 else throwSubcatSkipped.push(l);
             });
