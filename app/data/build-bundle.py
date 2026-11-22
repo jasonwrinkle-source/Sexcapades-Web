@@ -21,6 +21,7 @@ parts = [
     "02h-inner-opener.js",
     "02i-taxonomy-catalog.js",
     "02i1-topic-descriptions.js",
+    "02i2-widget-geometry.js",
     "02j-profile-state.js",
     "02k-compare-dials.js",
     "02l-deknotter-session.js",
