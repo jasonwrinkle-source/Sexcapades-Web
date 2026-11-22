@@ -1333,7 +1333,7 @@
             // the widgets do — the signed strongest holding. (Pairs
             // have no polygon family, so the seeder never persists
             // one for them; the record carries the derivation.)
-            const vals = Object.keys(p).filter(k => "intensity" !== k && "line" !== k && Number.isFinite(Number(p[k]))).map(k => Number(p[k]));
+            const vals = Object.keys(p).filter(k => "intensity" !== k && "line" !== k && "known" !== k && Number.isFinite(Number(p[k]))).map(k => Number(p[k]));
             return vals.length && "function" == typeof sxSignedIntensity ? sxSignedIntensity(vals) : null;
         }
         function sxPlacementMirrors(res) {
@@ -1399,10 +1399,18 @@
                     keys: keys,
                     isMultiPole: Boolean(shape && shape.keys && shape.keys.length > 2),
                     isMonopole: isSingle,
-                    advocacy: hasAdv ? Object.assign({}, n.advocacy) : null,
+                    advocacy: hasAdv ? Object.assign({}, n.advocacy, { known: !0 }) : null,
                     advocacyKnown: hasAdv,
-                    receptivity: hasRec ? Object.assign({}, n.receptivity) : null,
-                    receptivityKnown: hasRec
+                    receptivity: hasRec ? Object.assign({}, n.receptivity, { known: !0 }) : null,
+                    receptivityKnown: hasRec,
+                    givePlacement: null,
+                    givePlacementKnown: !1,
+                    receivePlacement: null,
+                    receivePlacementKnown: !1,
+                    givePlacementIntensity: null,
+                    givePlacementIntensityKnown: !1,
+                    receivePlacementIntensity: null,
+                    receivePlacementIntensityKnown: !1
                 };
                 if (hasAdv || hasRec) {
                     const primary = hasAdv ? n.advocacy : n.receptivity;
@@ -1421,6 +1429,62 @@
                     }
                     return sxPlacementMirrors(res);
                 }
+                // Classic placements (2026-11-22): an n-pole rating on the
+                // sex skin may carry give/receive PLACEMENT objects --
+                // { give: {...poles, intensity}, receive: {...} } -- the
+                // mirror of advocacy/receptivity on stance skins. The give
+                // placement is primary: flat pole fields, res.poles and the
+                // (n+1) intensity mirror from it, exactly as the advocacy
+                // branch above does from its primary.
+                const hasGivePl = Boolean(n.give && "object" == typeof n.give), hasRecPl = Boolean(n.receive && "object" == typeof n.receive);
+                if ((hasGivePl || hasRecPl) && res.isMultiPole) {
+                    const primary = hasGivePl ? n.give : n.receive;
+                    const p = {};
+                    keys.forEach(k => {
+                        const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
+                        res[k] = val;
+                        res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
+                        p[k] = val;
+                    });
+                    res.poles = p;
+                    res.polesKnown = keys.some(k => res[k + "Known"]);
+                    if (Number.isFinite(Number(primary.intensity))) {
+                        res.intensity = Number(primary.intensity);
+                        res.intensityKnown = !0;
+                    }
+                    res.give = 0;
+                    res.giveKnown = !1;
+                    res.receive = 0;
+                    res.receiveKnown = !1;
+                    if (hasGivePl) {
+                        res.givePlacement = Object.assign({}, n.give);
+                        res.givePlacementKnown = !0;
+                        const gi = sxPlacementIntensity(n.give);
+                        if (null != gi) { res.givePlacementIntensity = gi; res.givePlacementIntensityKnown = !0; }
+                    }
+                    if (hasRecPl) {
+                        res.receivePlacement = Object.assign({}, n.receive);
+                        res.receivePlacementKnown = !0;
+                        const ri = sxPlacementIntensity(n.receive);
+                        if (null != ri) { res.receivePlacementIntensity = ri; res.receivePlacementIntensityKnown = !0; }
+                    }
+                    // Widget-layer alias: the dual-puck machinery reads
+                    // rec.advocacy / rec.receptivity (with a .known flag
+                    // on the object) on every skin. On the classic skin
+                    // the give placement plays the advocacy role and the
+                    // receive placement the receptivity role.
+                    if (hasGivePl) {
+                        res.advocacy = Object.assign({}, n.give, { known: !0 });
+                        res.advocacyKnown = !0;
+                        if (res.givePlacementIntensityKnown) { res.advocacyIntensity = res.givePlacementIntensity; res.advocacyIntensityKnown = !0; }
+                    }
+                    if (hasRecPl) {
+                        res.receptivity = Object.assign({}, n.receive, { known: !0 });
+                        res.receptivityKnown = !0;
+                        if (res.receivePlacementIntensityKnown) { res.receptivityIntensity = res.receivePlacementIntensity; res.receptivityIntensityKnown = !0; }
+                    }
+                    return res;
+                }
                 if (!hasGive && !hasReceive && !hasLine) {
                     const poleKeys = Object.keys(n).filter(k => k !== "intensity" && k !== "advocacy" && k !== "receptivity" && Number.isFinite(Number(n[k])));
                     if (poleKeys.length) {
@@ -1433,6 +1497,15 @@
                             res.advocacyKnown = !0;
                             res.receptivity = null;
                             res.receptivityKnown = !1;
+                            if (!window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades") {
+                                res.givePlacement = Object.assign({}, n);
+                                res.givePlacementKnown = !0;
+                                const gi = sxPlacementIntensity(res.givePlacement);
+                                if (null != gi) { res.givePlacementIntensity = gi; res.givePlacementIntensityKnown = !0; }
+                                res.advocacy = Object.assign({}, n, { known: !0 });
+                                res.advocacyKnown = !0;
+                                if (null != gi) { res.advocacyIntensity = gi; res.advocacyIntensityKnown = !0; }
+                            }
                         }
                     }
                 }
@@ -1656,6 +1729,19 @@
                 if (null != aI || null != rI) return { left: null != aI ? zi(aI) : CHAR, right: null != rI ? zi(rI) : CHAR, ring: SEAM };
                 return { single: CHAR, ring: SEAM };
             }
+            // Classic placements (2026-11-22): on the sex skin an
+            // n-pole topic's disc splits by its give/receive placement
+            // intensities -- give left, receive right -- mirroring the
+            // stance branch above; an unplaced flank keeps charcoal.
+            if (!sxStance && (rec.givePlacementKnown || rec.receivePlacementKnown)) {
+                const plKeys = (shape && shape.keys) || rec.keys || [];
+                if (plKeys.length >= 3) {
+                    const gI = rec.givePlacementIntensityKnown ? rec.givePlacementIntensity : null;
+                    const rI = rec.receivePlacementIntensityKnown ? rec.receivePlacementIntensity : null;
+                    if (null != gI || null != rI) return { left: null != gI ? zi(gI) : CHAR, right: null != rI ? zi(rI) : CHAR, ring: SEAM };
+                    return { single: CHAR, ring: SEAM };
+                }
+            }
             if (rec.lineKnown) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
             const keys = (shape && shape.keys) || rec.keys || [];
             if (keys.length === 3) {
@@ -1683,6 +1769,8 @@
         // flanks, the category's intensity rollup colors it whole.
         function sxCategoryInterestDisc(e, t) {
             const CHAR = "#151917", SEAM = "#78817e";
+            const GA = fa(e, t, "givePlacementIntensity"), GR = fa(e, t, "receivePlacementIntensity");
+            if (null != GA || null != GR) return { left: null != GA ? zi(GA) : CHAR, right: null != GR ? zi(GR) : CHAR, ring: SEAM };
             const A = fa(e, t, "advocacyIntensity"), R = fa(e, t, "receptivityIntensity");
             if (null != A || null != R) return { left: null != A ? zi(A) : CHAR, right: null != R ? zi(R) : CHAR, ring: SEAM };
             const T = fa(e, t, "give"), F = fa(e, t, "receive");
@@ -1693,6 +1781,8 @@
         }
         function sxSubInterestDisc(e, t, i) {
             const CHAR = "#151917", SEAM = "#78817e";
+            const GA = ya(e, t, "givePlacementIntensity", i), GR = ya(e, t, "receivePlacementIntensity", i);
+            if (null != GA || null != GR) return { left: null != GA ? zi(GA) : CHAR, right: null != GR ? zi(GR) : CHAR, ring: SEAM };
             const A = ya(e, t, "advocacyIntensity", i), R = ya(e, t, "receptivityIntensity", i);
             if (null != A || null != R) return { left: null != A ? zi(A) : CHAR, right: null != R ? zi(R) : CHAR, ring: SEAM };
             const T = ya(e, t, "give", i), F = ya(e, t, "receive", i);
@@ -1707,21 +1797,38 @@
         // unplaced flank stays null (no taper). Pair/pseudo spoke colors are
         // consulted before these at every call site.
         function sxPlacementFlankColors(rec) {
-            if (!rec || !(rec.advocacyKnown || rec.receptivityKnown)) return null;
-            if (!("undefined" != typeof window && Boolean(window.__SX_ACTIVE_SKIN) && "sexcapades" !== window.__SX_ACTIVE_SKIN)) return null;
-            if (!rec.advocacyIntensityKnown && !rec.receptivityIntensityKnown) return null;
+            if (!rec) return null;
+            const sxStance = "undefined" != typeof window && Boolean(window.__SX_ACTIVE_SKIN) && "sexcapades" !== window.__SX_ACTIVE_SKIN;
+            if (sxStance) {
+                if (!(rec.advocacyKnown || rec.receptivityKnown)) return null;
+                if (!rec.advocacyIntensityKnown && !rec.receptivityIntensityKnown) return null;
+                return {
+                    give: rec.advocacyIntensityKnown ? zi(rec.advocacyIntensity) : null,
+                    receive: rec.receptivityIntensityKnown ? zi(rec.receptivityIntensity) : null
+                };
+            }
+            // Classic placements (2026-11-22): on the sex skin an n-pole
+            // topic's spoke flanks speak give (top) and receive (bottom),
+            // each by its own placement intensity.
+            if (!(rec.givePlacementKnown || rec.receivePlacementKnown)) return null;
+            if (!rec.givePlacementIntensityKnown && !rec.receivePlacementIntensityKnown) return null;
             return {
-                give: rec.advocacyIntensityKnown ? zi(rec.advocacyIntensity) : null,
-                receive: rec.receptivityIntensityKnown ? zi(rec.receptivityIntensity) : null
+                give: rec.givePlacementIntensityKnown ? zi(rec.givePlacementIntensity) : null,
+                receive: rec.receivePlacementIntensityKnown ? zi(rec.receivePlacementIntensity) : null
             };
         }
         function sxSubPlacementFlankColors(e, t, i) {
             if (!e) return null;
             const A = ya(e, t, "advocacyIntensity", i), R = ya(e, t, "receptivityIntensity", i);
-            if (null == A && null == R) return null;
-            return {
+            if (null != A || null != R) return {
                 give: null != A ? zi(A) : null,
                 receive: null != R ? zi(R) : null
+            };
+            const GA = ya(e, t, "givePlacementIntensity", i), GR = ya(e, t, "receivePlacementIntensity", i);
+            if (null == GA && null == GR) return null;
+            return {
+                give: null != GA ? zi(GA) : null,
+                receive: null != GR ? zi(GR) : null
             };
         }
         function ya(e, t, n, i) {

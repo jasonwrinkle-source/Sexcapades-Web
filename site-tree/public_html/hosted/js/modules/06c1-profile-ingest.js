@@ -294,7 +294,14 @@
                 // replaces that side wholesale (per-pole mixing would blend
                 // two distributions); pole values clamp to [-100, 100] like
                 // flanks, placement intensity to the stored [-400, 400].
-                if (rating && "object" == typeof rating && (rating.advocacy && "object" == typeof rating.advocacy || rating.receptivity && "object" == typeof rating.receptivity)) {
+                // Classic skins carry the same shape under give/receive
+                // for n-pole topics: { give: {...poles, intensity},
+                // receive: {...} } (2026-11-22). A give/receive OBJECT is
+                // only a placement on a multi-pole topic -- on a dual
+                // topic those keys are the numeric flanks themselves.
+                const hasStancePl = rating && "object" == typeof rating && (rating.advocacy && "object" == typeof rating.advocacy || rating.receptivity && "object" == typeof rating.receptivity);
+                const hasClassicPl = rating && "object" == typeof rating && flanks.length > 2 && (rating.give && "object" == typeof rating.give || rating.receive && "object" == typeof rating.receive);
+                if (hasStancePl || hasClassicPl) {
                     const validKeys = new Set(flanks);
                     const cleanPlacement = pl => {
                         const out = {};
@@ -308,6 +315,8 @@
                     const placed = {};
                     rating.advocacy && "object" == typeof rating.advocacy && (placed.advocacy = cleanPlacement(rating.advocacy));
                     rating.receptivity && "object" == typeof rating.receptivity && (placed.receptivity = cleanPlacement(rating.receptivity));
+                    rating.give && "object" == typeof rating.give && (placed.give = cleanPlacement(rating.give));
+                    rating.receive && "object" == typeof rating.receive && (placed.receive = cleanPlacement(rating.receive));
                     Object.keys(placed).forEach(side => { if (!Object.keys(placed[side]).length) delete placed[side]; });
                     if (Object.keys(placed).length) {
                         const strongest = o => { let best = 0; Object.entries(o || {}).forEach(([k, v]) => { "intensity" !== k && Math.abs(v) > Math.abs(best) && (best = v); }); return best; };
