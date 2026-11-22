@@ -508,11 +508,11 @@
       "parentTopics": [
         {
           "id": "t0051",
-          "name": "Pain",
+          "name": "Sadomasochism",
           "risk": false,
           "type": "give_receive",
-          "give_label": "inflict pain",
-          "receive_label": "feel pain",
+          "give_label": "Sadism",
+          "receive_label": "Masochism",
           "kinksters": 938200
         },
         {
@@ -2363,11 +2363,6 @@
               "give_label": "hurt emotionally",
               "receive_label": "be hurt emotionally",
               "kinksters": 55465
-            },
-            {
-              "id": "t0252",
-              "name": "Sadism",
-              "risk": false
             },
             {
               "id": "t0253",
@@ -9144,7 +9139,10 @@
               "cloudIndex": 2,
               "curve": false,
               "radialFit20": null,
-              "children": []
+              "children": [],
+              "name": "Sadomasochism",
+              "give_label": "Sadism",
+              "receive_label": "Masochism"
             },
             {
               "id": "s0012",
@@ -10964,10 +10962,6 @@
             "give": 60,
             "receive": -35
           },
-          "t0252": {
-            "give": 90,
-            "receive": -30
-          },
           "t0253": {
             "give": 70,
             "receive": -20
@@ -11115,10 +11109,6 @@
           "t0112": {
             "give": -20,
             "receive": 60
-          },
-          "t0252": {
-            "give": -30,
-            "receive": 80
           },
           "t0253": {
             "give": -20,
@@ -12270,10 +12260,6 @@
             "give": -35,
             "receive": 70
           },
-          "t0252": {
-            "give": -30,
-            "receive": 65
-          },
           "t0253": {
             "give": -25,
             "receive": 75
@@ -12328,6 +12314,10 @@
             "receive": 55
           },
           "t0255": {
+            "give": -30,
+            "receive": 65
+          },
+          "t0051": {
             "give": -30,
             "receive": 65
           }
@@ -12413,10 +12403,6 @@
             "give": 70,
             "receive": -35
           },
-          "t0252": {
-            "give": 65,
-            "receive": -30
-          },
           "t0253": {
             "give": 75,
             "receive": -25
@@ -12471,6 +12457,10 @@
             "receive": -35
           },
           "t0255": {
+            "give": 65,
+            "receive": -30
+          },
+          "t0051": {
             "give": 65,
             "receive": -30
           }
@@ -15327,7 +15317,7 @@
             "receive": 30
           },
           "t0051": {
-            "give": 80,
+            "give": 85,
             "receive": -40
           },
           "t0052": {
@@ -15369,10 +15359,6 @@
           "t0095": {
             "give": 70,
             "receive": -40
-          },
-          "t0252": {
-            "give": 85,
-            "receive": -30
           },
           "t0073": {
             "give": -80,
@@ -16354,10 +16340,6 @@
             "receive": "manual"
           },
           "t0095": {
-            "give": "manual",
-            "receive": "manual"
-          },
-          "t0252": {
             "give": "manual",
             "receive": "manual"
           },
