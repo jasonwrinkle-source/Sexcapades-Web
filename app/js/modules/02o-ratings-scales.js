@@ -1609,6 +1609,67 @@
         function fa(e, t, n) {
             return cuCat(e, t, n).value;
         }
+        function sxBranchByName(name) {
+            return h.find(c => c.name === name) || null;
+        }
+        // The icon disc for one rating record, in the midline's
+        // coloration of interest (Jason, 2026-11-22): give/receive and
+        // pole pairs split (never averaged), a triad wears its middle,
+        // a line wears its intensity (position is not interest),
+        // larger pole sets wear their intensity, unrated wears the
+        // no-code charcoal with the seam-gray ring.
+        function sxInterestDiscFor(rec, shape) {
+            const CHAR = "#151917", SEAM = "#78817e";
+            if (!rec) return { single: CHAR, ring: SEAM };
+            if (rec.lineKnown) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
+            const keys = (shape && shape.keys) || rec.keys || [];
+            if (keys.length === 3) {
+                const mid = keys[1];
+                return rec[mid + "Known"] ? { single: zi(rec[mid]), ring: zi(rec[mid]) } : { single: CHAR, ring: SEAM };
+            }
+            if (keys.length === 2) {
+                const aK = rec[keys[0] + "Known"], bK = rec[keys[1] + "Known"];
+                if (aK && bK) return { left: zi(rec[keys[0]]), right: zi(rec[keys[1]]), ring: SEAM };
+                if (aK) return { single: zi(rec[keys[0]]), ring: zi(rec[keys[0]]) };
+                if (bK) return { single: zi(rec[keys[1]]), ring: zi(rec[keys[1]]) };
+                return { single: CHAR, ring: SEAM };
+            }
+            if (keys.length === 1) {
+                const k = keys[0];
+                return rec[k + "Known"] ? { single: zi(rec[k]), ring: zi(rec[k]) } : { single: CHAR, ring: SEAM };
+            }
+            if (keys.length > 3) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
+            if (rec.giveKnown && rec.receiveKnown) return { left: zi(rec.give), right: zi(rec.receive), ring: SEAM };
+            if (rec.giveKnown) return { single: zi(rec.give), ring: zi(rec.give) };
+            if (rec.receiveKnown) return { single: zi(rec.receive), ring: zi(rec.receive) };
+            return { single: CHAR, ring: SEAM };
+        }
+        function sxTopicInterestDisc(e, t) {
+            return sxInterestDiscFor(ca(e, t), "function" == typeof Ge ? Ge(e, t) : null);
+        }
+        // A category's disc follows the same scheme (Jason, 2026-11-22):
+        // the per-flank rollups split the disc; where the map has no
+        // flanks, the category's intensity rollup colors it whole.
+        function sxCategoryInterestDisc(e, t) {
+            const CHAR = "#151917", SEAM = "#78817e";
+            const T = fa(e, t, "give"), F = fa(e, t, "receive");
+            if (null != T && null != F) return { left: zi(T), right: zi(F), ring: SEAM };
+            if (null != T) return { single: zi(T), ring: zi(T) };
+            if (null != F) return { single: zi(F), ring: zi(F) };
+            const inten = fa(e, t, "intensity");
+            if (null != inten) return { single: zi(inten), ring: zi(inten) };
+            return { single: CHAR, ring: SEAM };
+        }
+        function sxSubInterestDisc(e, t, i) {
+            const CHAR = "#151917", SEAM = "#78817e";
+            const T = ya(e, t, "give", i), F = ya(e, t, "receive", i);
+            if (null != T && null != F) return { left: zi(T), right: zi(F), ring: SEAM };
+            if (null != T) return { single: zi(T), ring: zi(T) };
+            if (null != F) return { single: zi(F), ring: zi(F) };
+            const inten = ya(e, t, "intensity", i);
+            if (null != inten) return { single: zi(inten), ring: zi(inten) };
+            return { single: CHAR, ring: SEAM };
+        }
         function ya(e, t, n, i) {
             if (null == i && e) for (const c of h) {
                 const s = (c.subcategories || []).find(s => s === e);

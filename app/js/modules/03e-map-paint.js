@@ -14,6 +14,13 @@
                 });
             } catch (_) {}
             try { sxVaultCaptureCurrent(); } catch (_) {}
+            // Icons follow interest (2026-11-22): line topics and the
+            // category/subcategory rollups read the (n+1) intensity,
+            // which is seeded from the derivation once per profile.
+            // Run the seeder before painting so a freshly loaded
+            // profile's discs are colored on first paint, not only
+            // after a sheet has been opened.
+            try { "function" == typeof sxSeedProfileIntensities && sxSeedProfileIntensities(Vi()); } catch (_) {}
             const scT0 = performance.now();
             ki && (t.clear(ki), ki = 0), dh(), uh(), $r(), window.__sxLoad && window.__sxLoad(5 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — render start */);
             // Blit session (P3) paint-top gate: end the session
@@ -595,38 +602,7 @@
             // =========================================================================
             // MAP PAINT MODULAR RENDERERS (Phase 4 Step 2 Decomposition)
             // =========================================================================
-            // The icon disc for one rating record, in the midline's
-            // coloration of interest: give/receive and pole pairs split
-            // (never averaged), a triad wears its middle, a line wears
-            // its intensity (position is not interest), larger pole
-            // sets wear their intensity, unrated wears the no-code
-            // charcoal with the seam-gray ring.
-            const sxDiscFor = (rec, shape) => {
-                const CHAR = "#151917", SEAM = "#78817e";
-                if (!rec) return { single: CHAR, ring: SEAM };
-                if (rec.lineKnown) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
-                const keys = (shape && shape.keys) || rec.keys || [];
-                if (keys.length === 3) {
-                    const mid = keys[1];
-                    return rec[mid + "Known"] ? { single: zi(rec[mid]), ring: zi(rec[mid]) } : { single: CHAR, ring: SEAM };
-                }
-                if (keys.length === 2) {
-                    const aK = rec[keys[0] + "Known"], bK = rec[keys[1] + "Known"];
-                    if (aK && bK) return { left: zi(rec[keys[0]]), right: zi(rec[keys[1]]), ring: SEAM };
-                    if (aK) return { single: zi(rec[keys[0]]), ring: zi(rec[keys[0]]) };
-                    if (bK) return { single: zi(rec[keys[1]]), ring: zi(rec[keys[1]]) };
-                    return { single: CHAR, ring: SEAM };
-                }
-                if (keys.length === 1) {
-                    const k = keys[0];
-                    return rec[k + "Known"] ? { single: zi(rec[k]), ring: zi(rec[k]) } : { single: CHAR, ring: SEAM };
-                }
-                if (keys.length > 3) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
-                if (rec.giveKnown && rec.receiveKnown) return { left: zi(rec.give), right: zi(rec.receive), ring: SEAM };
-                if (rec.giveKnown) return { single: zi(rec.give), ring: zi(rec.give) };
-                if (rec.receiveKnown) return { single: zi(rec.receive), ring: zi(rec.receive) };
-                return { single: CHAR, ring: SEAM };
-            };
+            const sxDiscFor = sxInterestDiscFor;
 
             const SpokeRenderer = {
                 renderBranchSpoke(dCat, spokeD, name, nx, ny, o2X, o2Y, cX, cY, catHeat, lineColor, hankyLineClass, giveColor, receiveColor, hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter) {
@@ -800,7 +776,8 @@
                 var O, B;
                 const sxCatHeatVals = Rt ? [] : [ T, F ].filter(v => null != v && Number.isFinite(+v));
                 const sxCatHeat = sxCatHeatVals.length ? zi(sxCatHeatVals.reduce((s, v) => s + +v, 0) / sxCatHeatVals.length) : null;
-                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatHeat || "#78817e", J.x, J.y, true) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
+                const sxCatDisc = Rt ? null : sxCategoryInterestDisc(i, C);
+                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
@@ -893,7 +870,7 @@
                     }
                     const G = o ? Q.color : Rt ? "var(--green)" : null === R ? Te(B.lineColor) : zi(R), K = Rt ? "var(--green)" : null === W ? Te(B.lineColor) : zi(W), z = Rt ? "var(--green)" : null === U ? Te(B.lineColor) : zi(U);
                     const midColor2 = isTriple2 && midKnown2 ? zi(midVal2) : (j && (j.giveKnown || j.receiveKnown) ? zi(((j.giveKnown ? j.give : 0) + (j.receiveKnown ? j.receive : 0)) / ((j.giveKnown ? 1 : 0) + (j.receiveKnown ? 1 : 0))) : B.lineColor);
-                    const sxIconInterest = !Rt && !isPseudo && !sxPairTapers && !getPartyHoldings(r) ? (o ? (null !== W && null !== U ? { left: K, right: z, ring: "#78817e" } : null !== W ? { single: K, ring: K } : null !== U ? { single: z, ring: z } : { single: "#151917", ring: "#78817e" }) : sxDiscFor(j, shape2)) : null;
+                    const sxIconInterest = !Rt && !isPseudo && !sxPairTapers && !getPartyHoldings(r) ? (o ? sxSubInterestDisc(n.group, D, r) : sxDiscFor(j, shape2)) : null;
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, sxIconInterest ? sxIconInterest.ring : B.color, V, Y, false, o, getPartyHoldings(r), sxIconInterest), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = isPseudo ? sxGetPseudoSpokeColors(r, B ? B.lineColor : null) : (sxPairTapers ? sxPairTapers(r) : null), peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : (sxFl && sxFl.mid ? sxFl.mid : midColor2), sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
