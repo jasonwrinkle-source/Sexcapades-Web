@@ -1081,7 +1081,7 @@
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(0)} x="${l0x.toFixed(1)}" y="${l0y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#ef4444">${Hi(y[0])}</text>`;
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(1)} x="${l1x.toFixed(1)}" y="${l1y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#22c55e">${Hi(y[1])}</text>`;
                     D += `<text class="map-triangle-label"${sxPoleTipAttrs(2)} x="${l2x.toFixed(1)}" y="${l2y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${8 * m}px" font-weight="700" fill="#3b82f6">${Hi(y[2])}</text>`;
-                    D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
+                    D += `<circle class="slider-thumb map-triangle-puck${actCls}" data-id="${e}" data-direction="triangle" pointer-events="none" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${7.5 * m}" fill="${puckColor}" stroke="#ffffff" stroke-width="${1.5 * m}"/>`;
                     D += `</g>`;
                 } else {
                     f.forEach((k, idx) => {

@@ -158,7 +158,7 @@
           ],
           "question": "What drives the scene for you: physical sensation, power exchange, or emotional intimacy.",
           "source": "BRIEFING_SEXCAPADES_TAXONOMY.md \u00a73.1",
-          "widget": "trilinear-sliders"
+          "widget": "triangle"
         },
         {
           "id": "t0016",
@@ -2238,7 +2238,7 @@
           ],
           "question": "Sensual / primal / humiliation",
           "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
-          "widget": "trilinear-sliders"
+          "widget": "triangle"
         }
       ],
       "subcategories": [
@@ -2603,7 +2603,7 @@
           ],
           "question": "Bull / Hotwife / Cuckold",
           "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
-          "widget": "trilinear-sliders"
+          "widget": "triangle"
         },
         {
           "name": "Cuckquean / stag / vixen",
@@ -2645,7 +2645,7 @@
           ],
           "question": "Cuckquean / stag / vixen",
           "source": "02b-taxonomy-data.js + 02i-taxonomy-catalog.js Ge() entry \u2014 hovertip text NOT YET AUTHORED anywhere (no briefing \u00a7, no 02g entry); gap flagged",
-          "widget": "trilinear-sliders"
+          "widget": "triangle"
         },
         {
           "name": "Top / bottom / side",

@@ -1042,6 +1042,10 @@
             // |intensity| (mirrors the placard draw's brightness rule).
             const ctl = In.querySelector(`.map-triad-control[data-id="${CSS.escape(topicId)}"]`);
             if (!ctl) return;
+            if (!ctl.classList.contains("active-rating")) {
+                In.querySelectorAll(".active-rating").forEach(el => el.classList.remove("active-rating"));
+                ctl.classList.add("active-rating");
+            }
             const puck = ctl.querySelector(".map-triangle-puck");
             if (puck) {
                 const px = bary.w0 * v0.x + bary.w1 * v1.x + bary.w2 * v2.x;
@@ -1449,7 +1453,7 @@
             }(e.clientX, e.clientY), r = __sxClosestAction(e.target, "directionHit"), o = (__sxClosestAction(e.target, "curveEditHandle"), 
             __sxClosestAction(e.target, "conceptHit")), s = __sxClosestAction(e.target, "mapLabelHit") || (e.target.closest && e.target.closest(".concept-path,.tapered-stem,.hanky-midline,.spoke-underlay-item,.subcategory-node,.node-group,.node-circle,.node-icon,.leaf-node,.category-node")), l = __sxClosestAction(e.target, "ratingTrackHit"), c = __sxClosestAction(e.target, "ratingClearHit"), d = e => Boolean(e && Nt && e.dataset.id === Nt.id && e.dataset.direction === Nt.direction);
             const triHitEl = __sxClosestAction(e.target, "triangleHit") || (e.target.closest && e.target.closest(".map-triangle-hit, .map-triangle-puck, .map-triad-control"));
-            const triHit = triHitEl ? (triHitEl.classList.contains("map-triangle-hit") ? triHitEl : triHitEl.querySelector(".map-triangle-hit") || triHitEl) : null;
+            const triHit = triHitEl ? (triHitEl.classList.contains("map-triangle-hit") ? triHitEl : ((triHitEl.closest && triHitEl.closest(".map-triad-control")) || triHitEl).querySelector(".map-triangle-hit") || (triHitEl.classList.contains("map-triangle-hit") ? triHitEl : null)) : null;
             const tetradHit = __sxClosestAction(e.target, "tetradHit") || (e.target.closest && e.target.closest(".map-tetrad-hit, .map-tetrad-control"));
             const pentadHit = __sxClosestAction(e.target, "pentadHit") || (e.target.closest && e.target.closest(".map-pentad-hit, .map-pentad-control"));
             const hexadHit = __sxClosestAction(e.target, "hexadHit") || (e.target.closest && e.target.closest(".map-hexad-hit, .map-hexad-control"));
@@ -1516,6 +1520,12 @@
             if (triHit && 1 === eh.size) {
                 e.preventDefault(), e.stopPropagation(), rh(e.pointerId);
                 const topicId = triHit.dataset.id;
+                if (topicId) {
+                    Nt = { id: topicId, direction: "triangle" };
+                    In.querySelectorAll(".active-rating").forEach(el => el.classList.remove("active-rating"));
+                    const ctl = triHit.closest(".map-triad-control");
+                    ctl && ctl.classList.add("active-rating");
+                }
                 const v0x = parseFloat(triHit.dataset.v0x), v0y = parseFloat(triHit.dataset.v0y);
                 const v1x = parseFloat(triHit.dataset.v1x), v1y = parseFloat(triHit.dataset.v1y);
                 const v2x = parseFloat(triHit.dataset.v2x), v2y = parseFloat(triHit.dataset.v2y);
