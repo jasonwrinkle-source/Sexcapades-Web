@@ -1325,6 +1325,28 @@
         }
         window.sxTopicPoles = sxTopicPoles;
 
+        function sxPlacementIntensity(p) {
+            if (!p) return null;
+            if (Number.isFinite(Number(p.intensity))) return Number(p.intensity);
+            // No stored intensity on the placement: derive it the way
+            // the widgets do — the signed strongest holding. (Pairs
+            // have no polygon family, so the seeder never persists
+            // one for them; the record carries the derivation.)
+            const vals = Object.keys(p).filter(k => "intensity" !== k && "line" !== k && Number.isFinite(Number(p[k]))).map(k => Number(p[k]));
+            return vals.length && "function" == typeof sxSignedIntensity ? sxSignedIntensity(vals) : null;
+        }
+        function sxPlacementMirrors(res) {
+            const aI = sxPlacementIntensity(res.advocacy), rI = sxPlacementIntensity(res.receptivity);
+            if (null != aI) {
+                res.advocacyIntensity = aI;
+                res.advocacyIntensityKnown = !0;
+            }
+            if (null != rI) {
+                res.receptivityIntensity = rI;
+                res.receptivityIntensityKnown = !0;
+            }
+            return res;
+        }
         function ca(e, t) {
             const n = (t === Et ? At : vt[t] || {})[e];
             const shape = typeof Ge === "function" ? Ge(e, t) : null;
@@ -1396,7 +1418,7 @@
                         res.intensity = Number(primary.intensity);
                         res.intensityKnown = !0;
                     }
-                    return res;
+                    return sxPlacementMirrors(res);
                 }
                 if (!hasGive && !hasReceive && !hasLine) {
                     const poleKeys = Object.keys(n).filter(k => k !== "intensity" && k !== "advocacy" && k !== "receptivity" && Number.isFinite(Number(n[k])));
@@ -1419,7 +1441,7 @@
                         res[k + "Known"] = !0;
                     }
                 });
-                return res;
+                return sxPlacementMirrors(res);
             }
             return {
                 give: 0,
@@ -1621,6 +1643,18 @@
         function sxInterestDiscFor(rec, shape) {
             const CHAR = "#151917", SEAM = "#78817e";
             if (!rec) return { single: CHAR, ring: SEAM };
+            // Stance skins (Jason, 2026-11-22): the disc's flanks are
+            // the placements — advocacy left, receptivity right — each
+            // colored only by its own intensity. An unplaced flank
+            // keeps the charcoal; a flank's color never spreads over
+            // the whole disc and flanks are never blended.
+            const sxStance = "undefined" != typeof window && Boolean(window.__SX_ACTIVE_SKIN) && "sexcapades" !== window.__SX_ACTIVE_SKIN;
+            if (sxStance && (rec.advocacyKnown || rec.receptivityKnown)) {
+                const aI = rec.advocacyIntensityKnown ? rec.advocacyIntensity : null;
+                const rI = rec.receptivityIntensityKnown ? rec.receptivityIntensity : null;
+                if (null != aI || null != rI) return { left: null != aI ? zi(aI) : CHAR, right: null != rI ? zi(rI) : CHAR, ring: SEAM };
+                return { single: CHAR, ring: SEAM };
+            }
             if (rec.lineKnown) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
             const keys = (shape && shape.keys) || rec.keys || [];
             if (keys.length === 3) {
@@ -1629,9 +1663,7 @@
             }
             if (keys.length === 2) {
                 const aK = rec[keys[0] + "Known"], bK = rec[keys[1] + "Known"];
-                if (aK && bK) return { left: zi(rec[keys[0]]), right: zi(rec[keys[1]]), ring: SEAM };
-                if (aK) return { single: zi(rec[keys[0]]), ring: zi(rec[keys[0]]) };
-                if (bK) return { single: zi(rec[keys[1]]), ring: zi(rec[keys[1]]) };
+                if (aK || bK) return { left: aK ? zi(rec[keys[0]]) : CHAR, right: bK ? zi(rec[keys[1]]) : CHAR, ring: SEAM };
                 return { single: CHAR, ring: SEAM };
             }
             if (keys.length === 1) {
@@ -1639,9 +1671,7 @@
                 return rec[k + "Known"] ? { single: zi(rec[k]), ring: zi(rec[k]) } : { single: CHAR, ring: SEAM };
             }
             if (keys.length > 3) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
-            if (rec.giveKnown && rec.receiveKnown) return { left: zi(rec.give), right: zi(rec.receive), ring: SEAM };
-            if (rec.giveKnown) return { single: zi(rec.give), ring: zi(rec.give) };
-            if (rec.receiveKnown) return { single: zi(rec.receive), ring: zi(rec.receive) };
+            if (rec.giveKnown || rec.receiveKnown) return { left: rec.giveKnown ? zi(rec.give) : CHAR, right: rec.receiveKnown ? zi(rec.receive) : CHAR, ring: SEAM };
             return { single: CHAR, ring: SEAM };
         }
         function sxTopicInterestDisc(e, t) {
@@ -1652,20 +1682,20 @@
         // flanks, the category's intensity rollup colors it whole.
         function sxCategoryInterestDisc(e, t) {
             const CHAR = "#151917", SEAM = "#78817e";
+            const A = fa(e, t, "advocacyIntensity"), R = fa(e, t, "receptivityIntensity");
+            if (null != A || null != R) return { left: null != A ? zi(A) : CHAR, right: null != R ? zi(R) : CHAR, ring: SEAM };
             const T = fa(e, t, "give"), F = fa(e, t, "receive");
-            if (null != T && null != F) return { left: zi(T), right: zi(F), ring: SEAM };
-            if (null != T) return { single: zi(T), ring: zi(T) };
-            if (null != F) return { single: zi(F), ring: zi(F) };
+            if (null != T || null != F) return { left: null != T ? zi(T) : CHAR, right: null != F ? zi(F) : CHAR, ring: SEAM };
             const inten = fa(e, t, "intensity");
             if (null != inten) return { single: zi(inten), ring: zi(inten) };
             return { single: CHAR, ring: SEAM };
         }
         function sxSubInterestDisc(e, t, i) {
             const CHAR = "#151917", SEAM = "#78817e";
+            const A = ya(e, t, "advocacyIntensity", i), R = ya(e, t, "receptivityIntensity", i);
+            if (null != A || null != R) return { left: null != A ? zi(A) : CHAR, right: null != R ? zi(R) : CHAR, ring: SEAM };
             const T = ya(e, t, "give", i), F = ya(e, t, "receive", i);
-            if (null != T && null != F) return { left: zi(T), right: zi(F), ring: SEAM };
-            if (null != T) return { single: zi(T), ring: zi(T) };
-            if (null != F) return { single: zi(F), ring: zi(F) };
+            if (null != T || null != F) return { left: null != T ? zi(T) : CHAR, right: null != F ? zi(F) : CHAR, ring: SEAM };
             const inten = ya(e, t, "intensity", i);
             if (null != inten) return { single: zi(inten), ring: zi(inten) };
             return { single: CHAR, ring: SEAM };
