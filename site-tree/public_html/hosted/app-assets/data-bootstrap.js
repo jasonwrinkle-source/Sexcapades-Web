@@ -15649,6 +15649,67 @@ function dkEvaluateCrossingDrop(before, after, threshold = 0.75) {
         function fa(e, t, n) {
             return cuCat(e, t, n).value;
         }
+        function sxBranchByName(name) {
+            return h.find(c => c.name === name) || null;
+        }
+        // The icon disc for one rating record, in the midline's
+        // coloration of interest (Jason, 2026-11-22): give/receive and
+        // pole pairs split (never averaged), a triad wears its middle,
+        // a line wears its intensity (position is not interest),
+        // larger pole sets wear their intensity, unrated wears the
+        // no-code charcoal with the seam-gray ring.
+        function sxInterestDiscFor(rec, shape) {
+            const CHAR = "#151917", SEAM = "#78817e";
+            if (!rec) return { single: CHAR, ring: SEAM };
+            if (rec.lineKnown) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
+            const keys = (shape && shape.keys) || rec.keys || [];
+            if (keys.length === 3) {
+                const mid = keys[1];
+                return rec[mid + "Known"] ? { single: zi(rec[mid]), ring: zi(rec[mid]) } : { single: CHAR, ring: SEAM };
+            }
+            if (keys.length === 2) {
+                const aK = rec[keys[0] + "Known"], bK = rec[keys[1] + "Known"];
+                if (aK && bK) return { left: zi(rec[keys[0]]), right: zi(rec[keys[1]]), ring: SEAM };
+                if (aK) return { single: zi(rec[keys[0]]), ring: zi(rec[keys[0]]) };
+                if (bK) return { single: zi(rec[keys[1]]), ring: zi(rec[keys[1]]) };
+                return { single: CHAR, ring: SEAM };
+            }
+            if (keys.length === 1) {
+                const k = keys[0];
+                return rec[k + "Known"] ? { single: zi(rec[k]), ring: zi(rec[k]) } : { single: CHAR, ring: SEAM };
+            }
+            if (keys.length > 3) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
+            if (rec.giveKnown && rec.receiveKnown) return { left: zi(rec.give), right: zi(rec.receive), ring: SEAM };
+            if (rec.giveKnown) return { single: zi(rec.give), ring: zi(rec.give) };
+            if (rec.receiveKnown) return { single: zi(rec.receive), ring: zi(rec.receive) };
+            return { single: CHAR, ring: SEAM };
+        }
+        function sxTopicInterestDisc(e, t) {
+            return sxInterestDiscFor(ca(e, t), "function" == typeof Ge ? Ge(e, t) : null);
+        }
+        // A category's disc follows the same scheme (Jason, 2026-11-22):
+        // the per-flank rollups split the disc; where the map has no
+        // flanks, the category's intensity rollup colors it whole.
+        function sxCategoryInterestDisc(e, t) {
+            const CHAR = "#151917", SEAM = "#78817e";
+            const T = fa(e, t, "give"), F = fa(e, t, "receive");
+            if (null != T && null != F) return { left: zi(T), right: zi(F), ring: SEAM };
+            if (null != T) return { single: zi(T), ring: zi(T) };
+            if (null != F) return { single: zi(F), ring: zi(F) };
+            const inten = fa(e, t, "intensity");
+            if (null != inten) return { single: zi(inten), ring: zi(inten) };
+            return { single: CHAR, ring: SEAM };
+        }
+        function sxSubInterestDisc(e, t, i) {
+            const CHAR = "#151917", SEAM = "#78817e";
+            const T = ya(e, t, "give", i), F = ya(e, t, "receive", i);
+            if (null != T && null != F) return { left: zi(T), right: zi(F), ring: SEAM };
+            if (null != T) return { single: zi(T), ring: zi(T) };
+            if (null != F) return { single: zi(F), ring: zi(F) };
+            const inten = ya(e, t, "intensity", i);
+            if (null != inten) return { single: zi(inten), ring: zi(inten) };
+            return { single: CHAR, ring: SEAM };
+        }
         function ya(e, t, n, i) {
             if (null == i && e) for (const c of h) {
                 const s = (c.subcategories || []).find(s => s === e);
@@ -25404,6 +25465,13 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 });
             } catch (_) {}
             try { sxVaultCaptureCurrent(); } catch (_) {}
+            // Icons follow interest (2026-11-22): line topics and the
+            // category/subcategory rollups read the (n+1) intensity,
+            // which is seeded from the derivation once per profile.
+            // Run the seeder before painting so a freshly loaded
+            // profile's discs are colored on first paint, not only
+            // after a sheet has been opened.
+            try { "function" == typeof sxSeedProfileIntensities && sxSeedProfileIntensities(Vi()); } catch (_) {}
             const scT0 = performance.now();
             ki && (t.clear(ki), ki = 0), dh(), uh(), $r(), window.__sxLoad && window.__sxLoad(5 /* F5 checkpoint contract (at __sxProgressWidget in index.html): displayed band value — render start */);
             // Blit session (P3) paint-top gate: end the session
@@ -25985,38 +26053,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             // =========================================================================
             // MAP PAINT MODULAR RENDERERS (Phase 4 Step 2 Decomposition)
             // =========================================================================
-            // The icon disc for one rating record, in the midline's
-            // coloration of interest: give/receive and pole pairs split
-            // (never averaged), a triad wears its middle, a line wears
-            // its intensity (position is not interest), larger pole
-            // sets wear their intensity, unrated wears the no-code
-            // charcoal with the seam-gray ring.
-            const sxDiscFor = (rec, shape) => {
-                const CHAR = "#151917", SEAM = "#78817e";
-                if (!rec) return { single: CHAR, ring: SEAM };
-                if (rec.lineKnown) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
-                const keys = (shape && shape.keys) || rec.keys || [];
-                if (keys.length === 3) {
-                    const mid = keys[1];
-                    return rec[mid + "Known"] ? { single: zi(rec[mid]), ring: zi(rec[mid]) } : { single: CHAR, ring: SEAM };
-                }
-                if (keys.length === 2) {
-                    const aK = rec[keys[0] + "Known"], bK = rec[keys[1] + "Known"];
-                    if (aK && bK) return { left: zi(rec[keys[0]]), right: zi(rec[keys[1]]), ring: SEAM };
-                    if (aK) return { single: zi(rec[keys[0]]), ring: zi(rec[keys[0]]) };
-                    if (bK) return { single: zi(rec[keys[1]]), ring: zi(rec[keys[1]]) };
-                    return { single: CHAR, ring: SEAM };
-                }
-                if (keys.length === 1) {
-                    const k = keys[0];
-                    return rec[k + "Known"] ? { single: zi(rec[k]), ring: zi(rec[k]) } : { single: CHAR, ring: SEAM };
-                }
-                if (keys.length > 3) return rec.intensityKnown ? { single: zi(rec.intensity), ring: zi(rec.intensity) } : { single: CHAR, ring: SEAM };
-                if (rec.giveKnown && rec.receiveKnown) return { left: zi(rec.give), right: zi(rec.receive), ring: SEAM };
-                if (rec.giveKnown) return { single: zi(rec.give), ring: zi(rec.give) };
-                if (rec.receiveKnown) return { single: zi(rec.receive), ring: zi(rec.receive) };
-                return { single: CHAR, ring: SEAM };
-            };
+            const sxDiscFor = sxInterestDiscFor;
 
             const SpokeRenderer = {
                 renderBranchSpoke(dCat, spokeD, name, nx, ny, o2X, o2Y, cX, cY, catHeat, lineColor, hankyLineClass, giveColor, receiveColor, hankyColor, isNoCode, isRated, filterLen, baseCircle, iconDiameter) {
@@ -26190,7 +26227,8 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                 var O, B;
                 const sxCatHeatVals = Rt ? [] : [ T, F ].filter(v => null != v && Number.isFinite(+v));
                 const sxCatHeat = sxCatHeatVals.length ? zi(sxCatHeatVals.reduce((s, v) => s + +v, 0) / sxCatHeatVals.length) : null;
-                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatHeat || "#78817e", J.x, J.y, true) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
+                const sxCatDisc = Rt ? null : sxCategoryInterestDisc(i, C);
+                const j = g.labelStartX + g.ux * E, q = g.labelStartY + g.uy * E, H = Math.atan2(l.y - o.y, l.x - o.x), W = Math.cos(H) < 0, U = W ? -g.ux : g.ux, G = j + 0 * (W ? -g.uy : g.uy), K = q - 0 * U, z = 180 * (H + (W ? Math.PI : 0)) / Math.PI, V = W ? ' text-anchor="end"' : "", Y = sxIconDiameter(1), X = Y / 2, Z = Y / 24, Q = ge[i.name], J = Xa(a, yr(i)), ee = Q ? HubRenderer.renderIcon(dCat, Y, Q, Sa(dCat, qn[dCat], C, { tapFirst: !0 }), sxCatDisc ? sxCatDisc.ring : sxCatHeat || Q.color, J.x, J.y, true, false, null, sxCatDisc) : "", te = k(dCat, M, !Rt && qa(dCat, Je), !Rt && qa(dCat, et), !Rt && Boolean(tt[C]?.[dCat]?.length), J, g.ux, g.uy), ne = j - 11 * g.ux, ie = q - 11 * g.uy, ae = i.risk ? `<text class="risk-mark" x="${ne.toFixed(2)}" y="${ie.toFixed(2)}" dy="-8" text-anchor="middle" transform="rotate(${z.toFixed(2)} ${ne.toFixed(2)} ${ie.toFixed(2)})" aria-hidden="true">*</text>` : "", re = r ? h.hidden : n.topics.length, oe = X + 20, se = HubRenderer.renderBadges(J.x, J.y, re, dCat, -g.ux, -g.uy, oe, true), le = r ? function(e, t, n, i, a, r) {
                     if (!n) return "";
                     const o = `+${n} more`, s = Math.max(58, 7 * o.length + 16), l = i + s / 2 * Math.abs(a) + 12 * Math.abs(r), c = t + r * l;
                     return `<g class="hidden-count-badge density-count-badge" data-width="${s}" transform="translate(${(e + a * l - s / 2).toFixed(2)} ${(c - 12).toFixed(2)})" role="note" aria-label="${n} more ${1 === n ? "topic" : "topics"} hidden by hypermap density"><rect width="${s}" height="24" rx="7"/><text x="${(s / 2).toFixed(2)}" y="12" text-anchor="middle" dominant-baseline="middle">${o}</text></g>`;
@@ -26283,7 +26321,7 @@ function* sxRunNodeSettle(scCtx, blitSess) {
                     }
                     const G = o ? Q.color : Rt ? "var(--green)" : null === R ? Te(B.lineColor) : zi(R), K = Rt ? "var(--green)" : null === W ? Te(B.lineColor) : zi(W), z = Rt ? "var(--green)" : null === U ? Te(B.lineColor) : zi(U);
                     const midColor2 = isTriple2 && midKnown2 ? zi(midVal2) : (j && (j.giveKnown || j.receiveKnown) ? zi(((j.giveKnown ? j.give : 0) + (j.receiveKnown ? j.receive : 0)) / ((j.giveKnown ? 1 : 0) + (j.receiveKnown ? 1 : 0))) : B.lineColor);
-                    const sxIconInterest = !Rt && !isPseudo && !sxPairTapers && !getPartyHoldings(r) ? (o ? (null !== W && null !== U ? { left: K, right: z, ring: "#78817e" } : null !== W ? { single: K, ring: K } : null !== U ? { single: z, ring: z } : { single: "#151917", ring: "#78817e" }) : sxDiscFor(j, shape2)) : null;
+                    const sxIconInterest = !Rt && !isPseudo && !sxPairTapers && !getPartyHoldings(r) ? (o ? sxSubInterestDisc(n.group, D, r) : sxDiscFor(j, shape2)) : null;
                     const V = y.icon.x, Y = y.icon.y, X = n.allImported, Z = n.topicFilter, J = on.has(r), ee = o ? Sa(r, qn[r], D, { tapFirst: !0 }) : ka(a, $e(qn[r], B, R, {
                         key: B.hankyKey
                     }, O), xa(r, D), { tapFirst: !0 }), te = sxIconDiameter(2), ne = te / 2, ie = te / 6, ae = te / 24, re = HubRenderer.renderIcon(r, te, B, ee, sxIconInterest ? sxIconInterest.ring : B.color, V, Y, false, o, getPartyHoldings(r), sxIconInterest), oe = o ? "" : k(r, O, !Rt && qa(r, Je), !Rt && qa(r, et), !Rt && Boolean(tt[D]?.[r]?.length), y.icon, y.ux, y.uy), se = J ? Z.hidden : X.length || (o ? n.group.topics.length : 0), /* HUB-BACKBONE badge: a wholly-unrated collapsed hub wears +N with N = its TOTAL topic count (owner ruling 2026-10-23); expanded and partially-rated hubs keep today's counts; plain topics unchanged */ le = HubRenderer.renderBadges(y.icon.x, y.icon.y, se, r, y.ux, y.uy, ne + 20), ce = X.length ? ` aria-expanded="${J}"` : "", de = X.length ? `${J ? "Topics shown" : "Topics hidden"}; press Enter to ${J ? "collapse" : "expand"}. ` : "", sxFl = isPseudo ? sxGetPseudoSpokeColors(r, B ? B.lineColor : null) : (sxPairTapers ? sxPairTapers(r) : null), peTr = Ga.trimToIcons(l.x, l.y, V, Y, sxIconRadius(1), sxIconRadius(2)), peT = `M ${peTr.sx0.toFixed(2)} ${peTr.sy0.toFixed(2)} L ${peTr.sx1.toFixed(2)} ${peTr.sy1.toFixed(2)}`, ue = o ? renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : null != R ? zi(R) : Te(B.lineColor), sxFl ? sxFl.give : Rt || null !== q ? K : null, sxFl ? sxFl.receive : Rt || null !== H ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, pr.subcategoryIcon, sxIconDiameter(1), sxIconDiameter(2), 2) : renderKinkLine(l.x, l.y, V, Y, B.hankyKey, Rt ? "var(--green)" : (sxFl && sxFl.mid ? sxFl.mid : midColor2), sxFl ? sxFl.give : Rt || (isTriple2 ? j && j[shape2.keys[0] + "Known"] : j && j.giveKnown) ? K : null, sxFl ? sxFl.receive : Rt || (isTriple2 ? j && j[shape2.keys[2] + "Known"] : j && j.receiveKnown) ? z : null, sxFl ? !0 : null !== R, t.cloudCount, r, a, D, pr.categoryIcon, 48, sxIconDiameter(1), sxIconDiameter(2), 2), pe = o ? "" : `<g class="second-gen-rating-controls-only">${SpokeRenderer.renderTopicSpoke(r, peT, a, y.nx, y.ny, l.x, l.y, V, Y, true, pr.topicIcon, G, true, "", null, null, null, false, true, h.length, null, sxIconDiameter(2), 2)}</g>`, he = o ? "map-label concept-path-label subcategory-label" : "map-label concept-path-label hanky-topic-label", ge = o ? `${Hi(a)} subcategory. ${de}` : `${Hi(a)}. ${de}Press Shift Enter for description and markers.`;
@@ -28641,14 +28679,17 @@ function* sxRunNodeSettle(scCtx, blitSess) {
             if (Rt || !qn[e]) return;
             Qr && Qr !== e && ao();
             const r = qn[e], o = je[r.branch] || {}, s = Qe[Vi()][e];
+            const sxTitleBranch = "Category" === r.kind ? sxBranchByName(r.branch) : null;
+            const sxTitleDisc = sxTitleBranch ? sxCategoryInterestDisc(sxTitleBranch, Vi()) : "Subcategory" === r.kind ? (sgSub(e) ? sxSubInterestDisc(sgSub(e), Vi(), e) : null) : sxTopicInterestDisc(e, Vi());
+            const sxTitleDiscSvg = d => d.left ? `<path d="M 24 2 A 22 22 0 0 0 24 46 Z" fill="${d.left}" style="fill:${d.left}"/><path d="M 24 2 A 22 22 0 0 1 24 46 Z" fill="${d.right}" style="fill:${d.right}"/><line x1="24" y1="2" x2="24" y2="46" stroke="rgba(0,0,0,0.4)" stroke-width="0.75"/>` : `<circle class="icon-disc" cx="24" cy="24" r="22" fill="${d.single}" style="fill:${d.single}"/>`;
             Qr = e, n(Lr, function(e) {
                 const t = e.risk ? '<span class="mark-risk" role="img" aria-label="Higher-risk practice requiring specialized knowledge and explicit negotiation">*</span>' : "";
                 if ("Category" === e.kind) {
                     const n = ge[e.branch];
-                    return n ? `<span>${t}${Hi(e.label)}</span><svg class="mark-title-icon branch-icon${"noCode" === n.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${n.color};color:${n.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="scale(2)">${n.glyph}</g></svg><sup class="mark-menu-title-note">(${Hi(we[e.branch] || "symbol")})</sup>` : `<span>${t}${Hi(e.label)}</span>`;
+                    return n ? `<span>${t}${Hi(e.label)}</span><svg class="mark-title-icon branch-icon${sxTitleDisc ? "" : "noCode" === n.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${sxTitleDisc ? sxTitleDisc.ring : n.color};color:${sxTitleDisc ? sxTitleDisc.ring : n.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/>${sxTitleDisc ? sxTitleDiscSvg(sxTitleDisc) : '<circle class="icon-disc" cx="24" cy="24" r="22"/>'}<circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="scale(2)">${n.glyph}</g></svg><sup class="mark-menu-title-note">(${Hi(we[e.branch] || "symbol")})</sup>` : `<span>${t}${Hi(e.label)}</span>`;
                 }
                 const n = "Subcategory" === e.kind, i = n ? Ae(e.label, e.branch) : Oe(e.label, e.branch);
-                return `<span>${t}${Hi(e.label)}</span><svg class="mark-title-icon topic-icon${n ? " subcategory-icon" : "noCode" === i.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${i.color};color:${i.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/><circle class="icon-disc" cx="24" cy="24" r="22"/><circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="translate(8 8) scale(2)">${i.glyph}${i.accent}</g></svg><sup class="mark-menu-title-note">(${Hi(xe(i.key))})</sup>`;
+                return `<span>${t}${Hi(e.label)}</span><svg class="mark-title-icon topic-icon${n ? " subcategory-icon" : sxTitleDisc ? "" : "noCode" === i.hankyKey ? " no-hanky-code-icon" : ""}" viewBox="0 0 48 48" aria-hidden="true" style="--icon-family:${sxTitleDisc ? sxTitleDisc.ring : i.color};color:${sxTitleDisc ? sxTitleDisc.ring : i.color}"><circle class="icon-ring-outline icon-ring-outline-outer" cx="24" cy="24" r="23.5"/>${sxTitleDisc ? sxTitleDiscSvg(sxTitleDisc) : '<circle class="icon-disc" cx="24" cy="24" r="22"/>'}<circle class="icon-ring-outline icon-ring-outline-inner" cx="24" cy="24" r="20.5"/><g transform="translate(8 8) scale(2)">${i.glyph}${i.accent}</g></svg><sup class="mark-menu-title-note">(${Hi(xe(i.key))})</sup>`;
             }(r)), Tr.textContent = lo(r);
             const l = po(r), c = l ? null : co(r.label), d = l ? null : B(r.label);
             if (Fr.hidden = !l && !c && !Number.isFinite(d), l) {
