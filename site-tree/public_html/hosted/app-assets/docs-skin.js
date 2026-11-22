@@ -43,7 +43,8 @@
     experi: ["Expericapades", "Experi.Capades.IO"],
     simul: ["Simulcapades", "Simul.Capades.IO"],
     matter: ["Mattercapades", "Matter.Capades.IO"],
-    chem: ["Chemcapades", "Chem.Capades.IO"]
+    chem: ["Chemcapades", "Chem.Capades.IO"],
+    nous: ["Nouscapades", "Nous.Capades.IO"]
   };
   function detectSkin() {
     var host = "";
@@ -189,6 +190,15 @@
         return "https://" + skin.host + (tail || "");
       });
       if (nh !== h) links[l].setAttribute("href", nh);
+    }
+    /* Tear-off QR codes (flyer only): the flyer ships one static
+       Sexcapades QR picture as its default, which is correct on the
+       Sexcapades skin. On a vanilla skin, point every tear-off QR at
+       this skin's pre-generated picture, so a scan lands on the skin's
+       own list view instead of Sexcapades. */
+    var flyerQrs = document.querySelectorAll(".mini-qr");
+    for (var qi = 0; qi < flyerQrs.length; qi++) {
+      flyerQrs[qi].style.backgroundImage = 'url("/hosted/images/flyer-qr-' + prefix + '.svg")';
     }
     /* Sex-only blocks hide; vanilla-only blocks show (dropping the
        attribute lifts the no-JS <style> rule, restoring natural

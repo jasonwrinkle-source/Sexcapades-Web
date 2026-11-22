@@ -43,7 +43,8 @@
     experi: ["Expericapades", "Experi.Capades.IO"],
     simul: ["Simulcapades", "Simul.Capades.IO"],
     matter: ["Mattercapades", "Matter.Capades.IO"],
-    chem: ["Chemcapades", "Chem.Capades.IO"]
+    chem: ["Chemcapades", "Chem.Capades.IO"],
+    nous: ["Nouscapades", "Nous.Capades.IO"]
   };
   function detectSkin() {
     var host = "";

@@ -56,17 +56,97 @@
       // Browser-specific sample map formats: Firefox renders the interactive
       // SVGZ hypermap inline; other browsers get a low-res PNG thumbnail that
       // upgrades to the hi-res PNG inside the enlarge lightbox.
-      var MAP_FILES = {
-        unrated: { svgz: '/hosted/guide-assets/unrated-map.svgz', lowres: '/hosted/guide-assets/unrated-map-thumb.png', hires: '/hosted/guide-assets/unrated-map-full.png' },
-        adam: { svgz: '/hosted/guide-assets/adam-map.svgz', lowres: '/hosted/guide-assets/adam-map-thumb.png', hires: '/hosted/guide-assets/adam-map-full.png' }
+      // Per-skin map files: the Sexcapades guide shows the restored
+      // originals (Adam's map lives with the canonical sample maps);
+      // every other skin's guide shows that skin's own unrated map and
+      // its flagship sample's map, captured from the app itself.
+      var docSkin = window.__SX_DOC_SKIN || { prefix: 'sex' };
+      var skinPrefix = docSkin.prefix || 'sex';
+      var SKIN_FACTS = {
+        polis:  { topics: 93, sample: 'Democratic Party platform' },
+        fores:  { topics: 91, sample: 'Catholic creed' },
+        philo:  { topics: 15, sample: 'Empiricism' },
+        aesth:  { topics: 31, sample: 'Classicism' },
+        voca:   { topics: 21, sample: 'The Purpose-Driven Calling' },
+        tech:   { topics: 20, sample: 'The Accelerationist' },
+        dharma: { topics: 28, sample: 'Theravada Buddhism' },
+        theori: { topics: 31, sample: 'Formalism' },
+        praxi:  { topics: 26, sample: 'The Bayesian' },
+        quanta: { topics: 30, sample: 'Copenhagen interpretation' },
+        experi: { topics: 31, sample: 'The Big Science Collider Physicist' },
+        simul:  { topics: 29, sample: 'The Simulation Optimist' },
+        matter: { topics: 29, sample: 'The Nuclear Advocate' },
+        chem:   { topics: 40, sample: 'The Organic Chemist' },
+        nous:   { topics: 39, sample: 'The Brain Chauvinist' }
       };
+      var MAP_FILES;
+      if (skinPrefix === 'sex' || !SKIN_FACTS[skinPrefix]) {
+        MAP_FILES = {
+          unrated: { svgz: '/hosted/guide-assets/unrated-map.svgz', lowres: '/hosted/guide-assets/unrated-map-thumb.png', hires: '/hosted/guide-assets/unrated-map-full.png' },
+          adam: { svgz: '/hosted/assets/sample-maps/adam-map.svgz', lowres: '/hosted/assets/sample-maps/adam-map-lowres.png', hires: '/hosted/assets/sample-maps/adam-map-hires.png' }
+        };
+      } else {
+        MAP_FILES = {
+          unrated: { svgz: null, lowres: '/hosted/guide-assets/maps/' + skinPrefix + '-unrated-thumb.png', hires: '/hosted/guide-assets/maps/' + skinPrefix + '-unrated-full.png' },
+          adam: { svgz: null, lowres: '/hosted/guide-assets/maps/' + skinPrefix + '-sample-thumb.png', hires: '/hosted/guide-assets/maps/' + skinPrefix + '-sample-full.png' }
+        };
+      }
       var isFirefox = /firefox|fxios/i.test(navigator.userAgent);
       function resolveMapImage(mapImg) {
         var mapFiles = MAP_FILES[mapImg.getAttribute('data-map-key')];
         if (!mapFiles) return;
-        if (isFirefox) mapImg.src = mapFiles.svgz;
+        if (isFirefox && mapFiles.svgz) mapImg.src = mapFiles.svgz;
         else if (mapImg.getAttribute('data-map-role') === 'full') mapImg.src = mapFiles.hires;
         else mapImg.src = mapFiles.lowres;
+      }
+
+      // Per-skin dressing: the QR codes point at this skin, the showcase
+      // figures' links follow this skin's map files, and the captions name
+      // this skin's topic count and sample.
+      var guideQrImg = document.querySelector('img.guide-qr');
+      if (guideQrImg) guideQrImg.src = '/hosted/guide-assets/qr/' + skinPrefix + '-guide.png';
+      var appQrImg = document.querySelector('img.app-qr');
+      if (appQrImg) appQrImg.src = '/hosted/guide-assets/qr/' + skinPrefix + '-app.png';
+      document.querySelectorAll('figure').forEach(function(fig) {
+        var figImg = fig.querySelector('img[data-map-key]');
+        if (!figImg) return;
+        var figFiles = MAP_FILES[figImg.getAttribute('data-map-key')];
+        if (!figFiles) return;
+        var openLink = fig.querySelector('figcaption a:not(.map-svgz-download)');
+        if (openLink) openLink.setAttribute('href', figFiles.hires);
+        var dlLink = fig.querySelector('a.map-svgz-download');
+        if (dlLink) {
+          if (figFiles.svgz) dlLink.setAttribute('href', figFiles.svgz);
+          else {
+            dlLink.style.display = 'none';
+            var sep = dlLink.previousSibling;
+            if (sep && sep.nodeType === 3 && sep.textContent.indexOf('\u00b7') !== -1) sep.textContent = '';
+          }
+        }
+      });
+      var skinFacts = SKIN_FACTS[skinPrefix];
+      if (skinFacts) {
+        document.querySelectorAll('img[data-map-key="unrated"]').forEach(function(uImg) {
+          uImg.alt = uImg.alt.replace('404-topic', skinFacts.topics + '-topic');
+        });
+        var unratedThumb = document.querySelector('img[data-map-key="unrated"][data-map-role="thumb"]');
+        var unratedFig = unratedThumb ? unratedThumb.closest('figure') : null;
+        var capTip = unratedFig ? unratedFig.querySelector('.map-caption-tip') : null;
+        if (capTip) capTip.childNodes.forEach(function(node) {
+          if (node.nodeType === 3) node.textContent = node.textContent.replace('404-topic', skinFacts.topics + '-topic');
+        });
+        var adamThumb = document.querySelector('img[data-map-key="adam"][data-map-role="thumb"]');
+        var adamFig = adamThumb ? adamThumb.closest('figure') : null;
+        if (adamFig) {
+          var trigger = adamFig.querySelector('.map-dialog-trigger');
+          if (trigger) trigger.setAttribute('aria-label', trigger.getAttribute('aria-label').replace('Adam\u2019s', skinFacts.sample + '\u2019s'));
+          var cap = adamFig.querySelector('figcaption');
+          if (cap) cap.childNodes.forEach(function(node) {
+            if (node.nodeType === 3) node.textContent = node.textContent.replace('Adam\u2019s rated sync hypermap', skinFacts.sample + '\u2019s rated sync hypermap');
+          });
+        }
+        var adamDialog = document.getElementById('adam-map-lightbox');
+        if (adamDialog) adamDialog.setAttribute('aria-label', adamDialog.getAttribute('aria-label').replace('Adam rated', skinFacts.sample + ' rated'));
       }
       document.querySelectorAll('img[data-map-key][data-map-role="thumb"]').forEach(resolveMapImage);
 
