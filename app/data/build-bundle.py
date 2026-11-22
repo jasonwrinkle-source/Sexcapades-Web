@@ -33,6 +33,7 @@ parts = [
     "03a-midline-solver.js",
     "03-map-geometry.js",
     "03c-map-vault.js",
+    "03e2-settle-engine.js",
     "03e-map-paint.js",
     "03e1-mark-dialog.js",
     "03f1-polygon-math.js",
