@@ -228,24 +228,27 @@
             }
         }
         function sxSetMeterLine(wrap, topicId) {
-            // T9: one short line in the widget wrap stating what is being
-            // metered, from the skin JSON (per-skin default word, per-topic
-            // override where one exists). Hidden when no word is known.
+            // T9: label the intensity slider with the metered word, from
+            // the skin JSON (per-skin default word, per-topic override).
+            // Suppress the redundant "What this measures: ..." line.
             if (!wrap) return;
-            let line = wrap.querySelector(":scope > .sx-meter-line");
-            if (!line) {
-                line = document.createElement("div");
-                line.className = "sx-meter-line";
-                line.setAttribute("role", "note");
-                line.style.cssText = "font-size:11px;opacity:.75;margin:2px 0 6px;";
-                const header = wrap.querySelector(":scope > .mark-triangle-header");
-                if (header && header.nextSibling) wrap.insertBefore(line, header.nextSibling);
-                else if (header) wrap.appendChild(line);
-                else wrap.insertBefore(line, wrap.firstChild);
-            }
+            const existingLine = wrap.querySelector(":scope > .sx-meter-line");
+            if (existingLine) existingLine.remove();
+
             const word = (typeof window.__SX_METER_FOR_TOPIC === "function") ? window.__SX_METER_FOR_TOPIC(topicId) : null;
-            line.textContent = word ? ("What this measures: " + word + ".") : "";
-            line.hidden = !word;
+            const labelText = word ? (word.charAt(0).toUpperCase() + word.slice(1)) : "Intensity";
+
+            // Update any slider label in this wrap or the dialog stage
+            const labels = wrap.querySelectorAll(".mark-tri-slider-label");
+            labels.forEach(l => { l.textContent = labelText; });
+            const directLabel = wrap.querySelector(".mark-tri-slider-label");
+            if (!directLabel) {
+                // If wrap is parent container or dialog, search within it
+                const stageLabels = document.querySelectorAll("#hotListWidgetDialog .mark-tri-slider-label, #markMenu .mark-tri-slider-label");
+                stageLabels.forEach(l => {
+                    if (wrap.contains(l)) l.textContent = labelText;
+                });
+            }
         }
         function sxHitPoleLabel(canvas, evt) {
             const rects = canvas.__sxLabelRects;
