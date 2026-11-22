@@ -1344,7 +1344,11 @@
                     shape: shape,
                     keys: keys,
                     isMultiPole: !1,
-                    isMonopole: isSingle
+                    isMonopole: isSingle,
+                    advocacy: null,
+                    advocacyKnown: !1,
+                    receptivity: null,
+                    receptivityKnown: !1
                 };
                 if (isSingle && keys.length) {
                     keys.forEach(k => {
@@ -1357,6 +1361,8 @@
             if (n && "object" == typeof n) {
                 const hasGive = Object.prototype.hasOwnProperty.call(n, "give"), hasReceive = Object.prototype.hasOwnProperty.call(n, "receive");
                 const hasLine = Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line));
+                const hasAdv = Boolean(n.advocacy && "object" == typeof n.advocacy);
+                const hasRec = Boolean(n.receptivity && "object" == typeof n.receptivity);
                 const res = {
                     give: hasGive && Number(n.give) || 0,
                     receive: hasReceive && Number(n.receive) || 0,
@@ -1369,20 +1375,49 @@
                     shape: shape,
                     keys: keys,
                     isMultiPole: Boolean(shape && shape.keys && shape.keys.length > 2),
-                    isMonopole: isSingle
+                    isMonopole: isSingle,
+                    advocacy: hasAdv ? Object.assign({}, n.advocacy) : null,
+                    advocacyKnown: hasAdv,
+                    receptivity: hasRec ? Object.assign({}, n.receptivity) : null,
+                    receptivityKnown: hasRec
                 };
+                if (hasAdv || hasRec) {
+                    const primary = hasAdv ? n.advocacy : n.receptivity;
+                    const p = {};
+                    keys.forEach(k => {
+                        const val = Number.isFinite(Number(primary[k])) ? Number(primary[k]) : 0;
+                        res[k] = val;
+                        res[k + "Known"] = Object.prototype.hasOwnProperty.call(primary, k);
+                        p[k] = val;
+                    });
+                    res.poles = p;
+                    res.polesKnown = keys.some(k => res[k + "Known"]);
+                    if (Number.isFinite(Number(primary.intensity))) {
+                        res.intensity = Number(primary.intensity);
+                        res.intensityKnown = !0;
+                    }
+                    return res;
+                }
                 if (!hasGive && !hasReceive && !hasLine) {
-                    const poleKeys = Object.keys(n).filter(k => k !== "intensity" && Number.isFinite(Number(n[k])));
+                    const poleKeys = Object.keys(n).filter(k => k !== "intensity" && k !== "advocacy" && k !== "receptivity" && Number.isFinite(Number(n[k])));
                     if (poleKeys.length) {
                         const p = {};
                         poleKeys.forEach(k => { p[k] = Number(n[k]); });
                         res.poles = p;
                         res.polesKnown = !0;
+                        if (!isSingle) {
+                            res.advocacy = Object.assign({}, n);
+                            res.advocacyKnown = !0;
+                            res.receptivity = null;
+                            res.receptivityKnown = !1;
+                        }
                     }
                 }
                 Object.keys(n).forEach(k => {
-                    res[k] = Number(n[k]) || 0;
-                    res[k + "Known"] = !0;
+                    if (k !== "advocacy" && k !== "receptivity") {
+                        res[k] = Number(n[k]) || 0;
+                        res[k + "Known"] = !0;
+                    }
                 });
                 return res;
             }
@@ -1398,7 +1433,11 @@
                 shape: shape,
                 keys: keys,
                 isMultiPole: Boolean(shape && shape.keys && shape.keys.length > 2),
-                isMonopole: isSingle
+                isMonopole: isSingle,
+                advocacy: null,
+                advocacyKnown: !1,
+                receptivity: null,
+                receptivityKnown: !1
             };
         }
         function da(e, t) {

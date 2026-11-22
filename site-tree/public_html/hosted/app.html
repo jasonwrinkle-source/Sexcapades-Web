@@ -6,9 +6,9 @@
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="The Sexcapades hypermap: rate 400+ kinks across 18 categories on the visual map or in the Hot list, compare profiles with a partner, and generate stories and play guides." name="description"/>
 <meta content="dark" name="color-scheme"/>
-<meta content="2026-11-22_0340" name="sexcapades-build"/>
-<meta content="release-5.0-1122-0340" name="sexcapades-build-tag"/>
-<!-- BUILD-MANIFEST {"build": "2026-11-22_0340", "version": "5.0", "channel": "release"} -->
+<meta content="2026-11-22_0444" name="sexcapades-build"/>
+<meta content="release-5.0-1122-0444" name="sexcapades-build-tag"/>
+<!-- BUILD-MANIFEST {"build": "2026-11-22_0444", "version": "5.0", "channel": "release"} -->
 <script>/* BOOTLOAD-FIX (F1): __sxErrLog queue stub. The P0 shell block that defines
 the real logger now sits just after the boot dialog in the body, so the dialog can
 paint in the first kilobytes; the small head scripts call __sxErrLog from parse-time
@@ -363,13 +363,21 @@ if ('serviceWorker' in navigator) {
 .mark-triangle-stage{display:flex;align-items:center;justify-content:center;gap:8px;}
 .mark-triangle-canvas-box{position:relative;display:flex;align-items:center;justify-content:center;}
 .mark-triangle-canvas, .mark-tetrad-canvas, .mark-compass-canvas, .mark-pentad-canvas, .mark-hexad-canvas, .mark-heptad-canvas, .mark-switchbox-canvas{touch-action:none;cursor:crosshair;background:radial-gradient(circle at center,rgba(30,41,59,0.6) 0%,rgba(15,23,42,0.9) 100%);border-radius:6px;box-shadow:inset 0 0 12px rgba(0,0,0,0.5);}
-.mark-triangle-slider-box{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.mark-triangle-slider-box{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:6px;}
+.mark-slider-col{display:flex;flex-direction:column;align-items:center;gap:3px;transition:opacity 0.15s ease;}
+.mark-slider-col.is-active .mark-tri-slider-label{color:#f8fafc;font-weight:700;}
+.mark-slider-col:not(.is-active){opacity:0.45;}
+.mark-slider-col:not(.is-active):hover{opacity:0.8;}
 .mark-tri-slider-label{font-size:9px;text-transform:uppercase;color:#64748b;font-weight:600;}
 input[type=range].mark-tri-intensity{writing-mode:vertical-lr;direction:rtl;width:44px;height:120px;padding:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
 .mark-tri-intensity::-webkit-slider-runnable-track{width:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(180deg,var(--green-deep),var(--curious),var(--red-deep))}
 .mark-tri-intensity::-webkit-slider-thumb{width:20px;height:20px;appearance:none;-webkit-appearance:none;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073;margin-left:-6px}
 .mark-tri-intensity::-moz-range-track{width:10px;border:1px solid var(--line-strong);border-radius:5px;background:linear-gradient(180deg,var(--green-deep),var(--curious),var(--red-deep))}
 .mark-tri-intensity::-moz-range-thumb{width:15px;height:15px;border:3px solid var(--panel);border-radius:50%;background:#fff;box-shadow:0 1px 4px #00000073}
+input[type=range].mark-thumb-disc::-webkit-slider-thumb{background:var(--adv-color,#fff);border:2px solid var(--panel,#0f172a);border-radius:50%;}
+input[type=range].mark-thumb-disc::-moz-range-thumb{background:var(--adv-color,#fff);border:2px solid var(--panel,#0f172a);border-radius:50%;}
+input[type=range].mark-thumb-ring::-webkit-slider-thumb{background:#0f172a;border:3.5px solid var(--rec-color,#fff);border-radius:50%;}
+input[type=range].mark-thumb-ring::-moz-range-thumb{background:#0f172a;border:3.5px solid var(--rec-color,#fff);border-radius:50%;}
 .mark-tri-intensity:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
 .mark-tri-intensity-out{font-size:11px;font-weight:700;color:#38bdf8;}
 /* Hot List widget popup: the one HORIZONTAL intensity slider (2026-11-19). The base .mark-tri-intensity design is the placard's tall vertical slider — 180deg gradient, direction rtl — so laid on its side the rainbow ran across the track's height instead of along its length, and rtl flipped the ends. Same stops, laid along this slider: red at the extreme low (left) end, green at the extreme positive (right) end. The placard's vertical sliders keep their design untouched. */
@@ -1924,8 +1932,8 @@ window.__sxProgressWidget=function(refs){
 <h2 id="appAboutTitle">About Sex.Capades.IO</h2>
 <div class="app-about-header-meta">
 <div class="app-about-version-cluster">
-<span class="app-about-version">Version 5.0 · Build 2026-11-22_0340</span>
-<span class="app-about-version app-about-buildtag">release-5.0-1122-0340</span>
+<span class="app-about-version">Version 5.0 · Build 2026-11-22_0444</span>
+<span class="app-about-version app-about-buildtag">release-5.0-1122-0444</span>
 <label class="remember-profile-label"><input id="rememberProfileCheckbox2x" type="checkbox"/><span>Remember this tab's profiles on this device</span></label>
 <button class="flush-profiles-btn" id="flushProfilesBtn2x" title="Clear all saved profiles from this device" type="button">Flush profiles</button>
 </div>
@@ -2846,10 +2854,17 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-triangle-canvas-box">
 <canvas class="mark-triangle-canvas" height="230" id="markTriangleCanvas" width="280"></canvas>
 </div>
-<div class="mark-triangle-slider-box">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Triad intensity" class="mark-tri-intensity" id="markTriangleIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markTriAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Triad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markTriangleIntensity" max="100" min="-100" step="1" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="markTriangleIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markTriangleRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Triad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markTriangleRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markTriangleRecIntensityOut">—</output>
+</div>
 </div>
 </div>
 <div class="mark-triangle-readout" id="markTriangleReadout">
@@ -2867,10 +2882,17 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-triangle-canvas-box">
 <canvas class="mark-tetrad-canvas" height="180" id="markTetradCanvas" width="190"></canvas>
 </div>
-<div class="mark-triangle-slider-box">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Tetrad intensity" class="mark-tri-intensity" id="markTetradIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markTetradAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Tetrad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markTetradIntensity" max="100" min="-100" step="1" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="markTetradIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markTetradRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Tetrad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markTetradRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markTetradRecIntensityOut">—</output>
+</div>
 </div>
 </div>
 <div class="mark-triangle-readout" id="markTetradReadout">
@@ -2889,10 +2911,17 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-triangle-canvas-box">
 <canvas class="mark-compass-canvas" height="210" id="markCompassCanvas" width="240"></canvas>
 </div>
-<div class="mark-triangle-slider-box">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Compass intensity" class="mark-tri-intensity" id="markCompassIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markCompassAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Compass advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markCompassIntensity" max="100" min="-100" step="1" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="markCompassIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markCompassRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Compass receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markCompassRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markCompassRecIntensityOut">—</output>
+</div>
 </div>
 </div>
 <div class="mark-triangle-readout" id="markCompassReadout">
@@ -2911,10 +2940,17 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-triangle-canvas-box">
 <canvas class="mark-pentad-canvas" height="180" id="markPentadCanvas" width="190"></canvas>
 </div>
-<div class="mark-triangle-slider-box">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Pentad intensity" class="mark-tri-intensity" id="markPentadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markPentadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Pentad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markPentadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="markPentadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markPentadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Pentad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markPentadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markPentadRecIntensityOut">—</output>
+</div>
 </div>
 </div>
 <div class="mark-triangle-readout" id="markPentadReadout">
@@ -2934,10 +2970,17 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-triangle-canvas-box">
 <canvas class="mark-hexad-canvas" height="190" id="markHexadCanvas" width="200"></canvas>
 </div>
-<div class="mark-triangle-slider-box">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Hexad intensity" class="mark-tri-intensity" id="markHexadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markHexadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Hexad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markHexadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="markHexadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markHexadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Hexad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markHexadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markHexadRecIntensityOut">—</output>
+</div>
 </div>
 </div>
 <div class="mark-triangle-readout" id="markHexadReadout">
@@ -2958,10 +3001,17 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-triangle-canvas-box">
 <canvas class="mark-hexad-canvas mark-heptad-canvas" height="190" id="markHeptadCanvas" width="200"></canvas>
 </div>
-<div class="mark-triangle-slider-box">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Heptad intensity" class="mark-tri-intensity" id="markHeptadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markHeptadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Heptad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markHeptadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="markHeptadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markHeptadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Heptad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markHeptadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markHeptadRecIntensityOut">—</output>
+</div>
 </div>
 </div>
 <div class="mark-triangle-readout" id="markHeptadReadout">
@@ -2983,10 +3033,17 @@ window.__sxProgressWidget=function(refs){
 <div class="mark-triangle-canvas-box">
 <canvas class="mark-hexad-canvas mark-octad-canvas" height="190" id="markOctadCanvas" width="200"></canvas>
 </div>
-<div class="mark-triangle-slider-box">
-<span class="mark-tri-slider-label">Intensity</span>
-<input aria-label="Octad intensity" class="mark-tri-intensity" id="markOctadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<div class="mark-triangle-slider-box mark-dual-slider-box">
+<div class="mark-slider-col mark-slider-adv is-active" id="markOctadAdvCol">
+<span class="mark-tri-slider-label" title="Advocacy">● Adv</span>
+<input aria-label="Octad advocacy intensity" class="mark-tri-intensity mark-thumb-disc" id="markOctadIntensity" max="100" min="-100" step="1" type="range" value="0"/>
 <output class="mark-tri-intensity-out" id="markOctadIntensityOut">0</output>
+</div>
+<div class="mark-slider-col mark-slider-rec" id="markOctadRecCol">
+<span class="mark-tri-slider-label" title="Receptivity">○ Rec</span>
+<input aria-label="Octad receptivity intensity" class="mark-tri-intensity mark-thumb-ring" id="markOctadRecIntensity" max="100" min="-100" step="1" type="range" value="0"/>
+<output class="mark-tri-intensity-out" id="markOctadRecIntensityOut">—</output>
+</div>
 </div>
 </div>
 <div class="mark-triangle-readout" id="markOctadReadout">

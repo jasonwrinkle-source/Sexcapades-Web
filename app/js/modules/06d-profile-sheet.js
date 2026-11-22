@@ -110,21 +110,21 @@
         // submenu (both carry [data-sample-profile] buttons; the
         // loader is the same for archetypes and samples).
         async function sxSampleMenuClick(menu, e) {
-            const t = __sxClosestAction(e.target, "sampleProfile");
-            if (!t || !menu.contains(t) || t.disabled) return;
-            const n = t.dataset.sampleProfile, i = t.dataset.sampleName, a = Number(t.dataset.sampleCount), r = t.querySelector("small");
-            t.disabled = !0, r && (r.textContent = "Loading…"), Sw(), xw();
+            const sampleBtn = __sxClosestAction(e.target, "sampleProfile");
+            if (!sampleBtn || !menu.contains(sampleBtn) || sampleBtn.disabled) return;
+            const n = sampleBtn.dataset.sampleProfile, i = sampleBtn.dataset.sampleName, a = Number(sampleBtn.dataset.sampleCount), r = sampleBtn.querySelector("small");
+            sampleBtn.disabled = !0, r && (r.textContent = "Loading…"), Sw(), xw();
             try {
-                const [e, t] = await Promise.all([ Aw(), Mw(n) ]), r = e && e[n];
+                const [samplesMap, photo] = await Promise.all([ Aw(), Mw(n) ]), r = samplesMap && samplesMap[n];
                 if (!r || r.name !== i || r.count !== a || !r.payload || !0 !== r.payload.noFlash) throw new Error("The bundled sample is invalid.");
                 const o = JSON.parse(JSON.stringify(r.payload));
-                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || t.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
-                if (r.kind !== "sample" || !t) {
+                o.profileName = i, o.sampleProfile = !0, o.skin = o.skin || r.skin || sampleBtn.dataset.sampleSkin || (typeof window !== "undefined" && window.__SX_ACTIVE_SKIN) || "sexcapades";
+                if (r.kind !== "sample" || !photo) {
                     const archPhoto = typeof sxMakeArchetypePhoto === "function" ? sxMakeArchetypePhoto(r.name || i, o.skin) : null;
                     if (archPhoto) o.photos = [ archPhoto ];
-                    else if (t) o.photos = [ t ];
-                } else if (t) {
-                    o.photos = [ t ];
+                    else if (photo) o.photos = [ photo ];
+                } else if (photo) {
+                    o.photos = [ photo ];
                 }
                 const s = wx(o, {
                     autoSelect: !0
@@ -132,7 +132,7 @@
                 if (s && typeof Vt === "function") { Vt(s); }
                 Zy[n] = s, Ew();
             } catch (e) {
-                t.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
+                sampleBtn.disabled = !1, r && (r.textContent = `${a} rated topics`), tS(e.message || "Could not load that profile.", {
                     tone: "error",
                     persistent: !0
                 });

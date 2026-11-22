@@ -473,6 +473,73 @@
             To(topicId, "intensity", v, !1, profileId || null);
             return v;
         }
+        function sxPersistAdvocacyReceptivity(topicId, mode, values, intensity, profileId) {
+            let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
+            if (typeof sxIsPseudoProfile === "function" && sxIsPseudoProfile(r)) return;
+            if (r === Et && typeof ik === "function" && typeof SX_PROFILE_RECORD_LISTS !== "undefined") {
+                const pid = ik("New profile");
+                SX_PROFILE_RECORD_LISTS.forEach(k => k[pid] = {});
+                wt[pid] = "New profile";
+                vt[pid] = {};
+                Lo(pid);
+                Mt = pid;
+                if (typeof Go !== "undefined" && Go === Et) Go = pid;
+                if (typeof sxAutoSelect === "function") sxAutoSelect(pid);
+                r = pid;
+                if (typeof Jw === "function") Jw();
+            }
+            const o = Io(r);
+            const existing = o[topicId] && typeof o[topicId] === "object" ? Object.assign({}, o[topicId]) : {};
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            if (isClassic) {
+                Object.keys(values).forEach(k => { existing[k] = values[k]; });
+                if (intensity != null) existing.intensity = intensity;
+                o[topicId] = existing;
+                zt(r);
+                $o(topicId, r);
+                return;
+            }
+            const placement = Object.assign({}, values);
+            if (intensity != null) placement.intensity = intensity;
+            if (mode === "receptivity") {
+                existing.receptivity = placement;
+                if (!existing.advocacy) {
+                    const adv = {};
+                    let hasAdv = false;
+                    Object.keys(existing).forEach(k => {
+                        if (k !== "advocacy" && k !== "receptivity") {
+                            adv[k] = existing[k];
+                            hasAdv = true;
+                        }
+                    });
+                    if (hasAdv) existing.advocacy = adv;
+                }
+            } else {
+                existing.advocacy = placement;
+                Object.keys(placement).forEach(k => { existing[k] = placement[k]; });
+            }
+            o[topicId] = existing;
+            zt(r);
+            $o(topicId, r);
+        }
+        function sxClearAdvocacyReceptivity(topicId, mode, profileId) {
+            let r = profileId && vt[profileId] ? profileId : (Mt && vt[Mt] ? Mt : Et);
+            if (!r || !vt[r] || !vt[r][topicId]) return;
+            const existing = vt[r][topicId];
+            if (typeof existing !== "object") {
+                delete vt[r][topicId];
+            } else if (mode === "receptivity") {
+                delete existing.receptivity;
+            } else {
+                delete existing.advocacy;
+                const shape = typeof Ge === "function" ? Ge(topicId, r) : null;
+                if (shape && shape.keys) shape.keys.forEach(k => delete existing[k]);
+                delete existing.intensity;
+                if (!existing.receptivity) delete vt[r][topicId];
+            }
+            zt(r);
+            $o(topicId, r);
+        }
         function sxWidenIntensitySlider(slider, value) {
             if (!slider) return;
             const lim = Math.max(100, Math.abs(Math.round(Number(value) || 0)));
@@ -617,47 +684,223 @@
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // 3. Deformed Polygon from active ratings
+            // 3. Advocacy polygon & Receptivity polygon
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
             const pVals = [];
-            for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
+            for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k] != null ? state["p" + k] : 0);
             const sxMaxAbs = Math.abs(sxSignedIntensity(pVals));
             const s = pVals.map(val => (sxMaxAbs > 0 ? Math.abs(val) / sxMaxAbs : 0));
 
-            const polyPts = vertices.map((v, k) => ({
+            const polyPtsAdv = vertices.map((v, k) => ({
                 x: cx + (v.x - cx) * s[k],
                 y: cy + (v.y - cy) * s[k]
             }));
 
-            const maxVal = sxSignedIntensity(pVals);
-            const polyCol = sxIntensityRGB(61, 168, 116, state.intensity != null ? state.intensity : maxVal);
+            // Advocacy Centroid
+            let sumAdvX = 0, sumAdvY = 0;
+            polyPtsAdv.forEach(pt => { sumAdvX += pt.x; sumAdvY += pt.y; });
+            const cxAdv = sumAdvX / poleCount;
+            const cyAdv = sumAdvY / poleCount;
+            const advInt = state.intensity != null ? state.intensity : sxSignedIntensity(pVals);
+            const advCol = sxIntensityRGB(61, 168, 116, advInt);
 
-            // Filled shape
-            ctx.beginPath();
-            polyPts.forEach((pt, k) => {
-                if (k === 0) ctx.moveTo(pt.x, pt.y);
-                else ctx.lineTo(pt.x, pt.y);
-            });
-            ctx.closePath();
-            ctx.fillStyle = polyCol;
-            ctx.globalAlpha = 0.45;
-            ctx.fill();
-            ctx.globalAlpha = 1.0;
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = "#ffffff";
-            ctx.stroke();
-
-            // 4. Pole vertex handles
-            polyPts.forEach((pt, idx) => {
+            if (isClassic) {
+                // Filled shape
                 ctx.beginPath();
-                ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
-                ctx.fillStyle = colors[idx];
+                polyPtsAdv.forEach((pt, k) => {
+                    if (k === 0) ctx.moveTo(pt.x, pt.y);
+                    else ctx.lineTo(pt.x, pt.y);
+                });
+                ctx.closePath();
+                ctx.fillStyle = advCol;
+                ctx.globalAlpha = 0.45;
                 ctx.fill();
-                ctx.lineWidth = 1.5;
+                ctx.globalAlpha = 1.0;
+                ctx.lineWidth = 2;
                 ctx.strokeStyle = "#ffffff";
                 ctx.stroke();
-            });
 
-            // 5. Pole Labels — tangent-rotated (T5).
+                // Pole vertex handles
+                polyPtsAdv.forEach((pt, idx) => {
+                    ctx.beginPath();
+                    ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                    ctx.fillStyle = colors[idx];
+                    ctx.fill();
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = "#ffffff";
+                    ctx.stroke();
+                });
+
+                // Pole Labels
+                canvas.__sxLabelRects = [];
+                const labels = sxPoleLabels(shape, poleCount);
+                vertices.forEach((v, idx) => {
+                    sxDrawPoleLabel(ctx, canvas, v.x, v.y, v.angle, labels[idx], colors[idx], shape && shape.keys && shape.keys[idx], labels[idx], poleCount, r);
+                });
+
+                canvas.__sxPucks = { adv: { x: cxAdv, y: cyAdv }, rec: null };
+                return;
+            }
+
+            // Stance skin: Dual Mode (Advocacy ● disc & Receptivity ○ ring)
+            const activeMode = state.mode || "advocacy";
+            const recRated = Boolean(state.recRated);
+            const recPVals = [];
+            for (let k = 0; k < poleCount; k++) recPVals.push(state["recP" + k] != null ? state["recP" + k] : 0);
+            const recMaxAbs = Math.abs(sxSignedIntensity(recPVals));
+            const sRec = recPVals.map(val => (recMaxAbs > 0 ? Math.abs(val) / recMaxAbs : 0));
+
+            const polyPtsRec = vertices.map((v, k) => ({
+                x: cx + (v.x - cx) * sRec[k],
+                y: cy + (v.y - cy) * sRec[k]
+            }));
+
+            let sumRecX = 0, sumRecY = 0;
+            polyPtsRec.forEach(pt => { sumRecX += pt.x; sumRecY += pt.y; });
+            const cxRec = recRated ? (sumRecX / poleCount) : cx;
+            const cyRec = recRated ? (sumRecY / poleCount) : cy;
+            const recInt = Number(state.recIntensity) || 0;
+            const recCol = sxIntensityRGB(56, 189, 248, recInt);
+
+            canvas.__sxPucks = {
+                adv: { x: cxAdv, y: cyAdv },
+                rec: { x: cxRec, y: cyRec, rated: recRated }
+            };
+
+            // 3a. Draw Inactive Deformation first
+            if (activeMode === "receptivity") {
+                // Advocacy is inactive: dashed outline / dimmed fill
+                ctx.save();
+                ctx.beginPath();
+                polyPtsAdv.forEach((pt, k) => {
+                    if (k === 0) ctx.moveTo(pt.x, pt.y);
+                    else ctx.lineTo(pt.x, pt.y);
+                });
+                ctx.closePath();
+                ctx.fillStyle = advCol;
+                ctx.globalAlpha = 0.20;
+                ctx.fill();
+                ctx.globalAlpha = 0.50;
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 4]);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
+                ctx.stroke();
+                ctx.restore();
+            } else if (recRated) {
+                // Receptivity is inactive: dashed outline / dimmed cyan
+                ctx.save();
+                ctx.beginPath();
+                polyPtsRec.forEach((pt, k) => {
+                    if (k === 0) ctx.moveTo(pt.x, pt.y);
+                    else ctx.lineTo(pt.x, pt.y);
+                });
+                ctx.closePath();
+                ctx.fillStyle = recCol;
+                ctx.globalAlpha = 0.18;
+                ctx.fill();
+                ctx.globalAlpha = 0.50;
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 4]);
+                ctx.strokeStyle = "rgba(56, 189, 248, 0.75)";
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // 3b. Draw Active Deformation
+            const activePts = (activeMode === "receptivity") ? polyPtsRec : polyPtsAdv;
+            const activeColor = (activeMode === "receptivity") ? recCol : advCol;
+            if (activeMode === "advocacy" || recRated) {
+                ctx.save();
+                ctx.beginPath();
+                activePts.forEach((pt, k) => {
+                    if (k === 0) ctx.moveTo(pt.x, pt.y);
+                    else ctx.lineTo(pt.x, pt.y);
+                });
+                ctx.closePath();
+                ctx.fillStyle = activeColor;
+                ctx.globalAlpha = 0.42;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = (activeMode === "receptivity") ? "rgba(56, 189, 248, 0.95)" : "#ffffff";
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // 4. Pole vertex handles for the active shape
+            if (activeMode === "advocacy" || recRated) {
+                activePts.forEach((pt, idx) => {
+                    ctx.beginPath();
+                    ctx.arc(pt.x, pt.y, 5.5, 0, 2 * Math.PI);
+                    ctx.fillStyle = colors[idx];
+                    ctx.fill();
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = "#ffffff";
+                    ctx.stroke();
+                });
+            }
+
+            // 5. Centroid Pucks: Disc ● (Advocacy) and Ring ○ (Receptivity)
+            const drawDisc = (isActive) => {
+                ctx.save();
+                ctx.globalAlpha = isActive ? 1.0 : 0.45;
+                if (isActive) {
+                    ctx.beginPath();
+                    ctx.arc(cxAdv, cyAdv, 11, 0, 2 * Math.PI);
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                    ctx.fill();
+                }
+                ctx.beginPath();
+                ctx.arc(cxAdv, cyAdv, 6, 0, 2 * Math.PI);
+                ctx.fillStyle = advCol;
+                ctx.fill();
+                ctx.lineWidth = 1.6;
+                ctx.strokeStyle = "#0f172a";
+                ctx.stroke();
+                ctx.restore();
+            };
+
+            const drawRing = (isActive) => {
+                ctx.save();
+                if (!recRated) {
+                    ctx.setLineDash([3, 3]);
+                    ctx.lineWidth = 1.6;
+                    ctx.strokeStyle = isActive ? "rgba(56, 189, 248, 0.85)" : "rgba(255, 255, 255, 0.35)";
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 10.5, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                } else {
+                    ctx.globalAlpha = isActive ? 1.0 : 0.45;
+                    if (isActive) {
+                        ctx.beginPath();
+                        ctx.arc(cxRec, cyRec, 15, 0, 2 * Math.PI);
+                        ctx.fillStyle = "rgba(56, 189, 248, 0.25)";
+                        ctx.fill();
+                    }
+                    ctx.beginPath();
+                    ctx.arc(cxRec, cyRec, 10.5, 0, 2 * Math.PI);
+                    ctx.lineWidth = 3.2;
+                    ctx.strokeStyle = recCol;
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(cxRec, cyRec, 12.2, 0, 2 * Math.PI);
+                    ctx.lineWidth = 0.8;
+                    ctx.strokeStyle = "rgba(15, 23, 42, 0.8)";
+                    ctx.stroke();
+                }
+                ctx.restore();
+            };
+
+            if (activeMode === "receptivity") {
+                drawDisc(false);
+                drawRing(true);
+            } else {
+                drawRing(false);
+                drawDisc(true);
+            }
+
+            // 6. Pole Labels — tangent-rotated (T5).
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, poleCount);
             vertices.forEach((v, idx) => {
@@ -665,24 +908,49 @@
             });
         }
 
-        function sxApplyPolygonRatings(topicId, state, poleCount) {
+        function sxApplyPolygonRatings(topicId, state, poleCount, skipSync) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            sxPersistIntensity(topicId, state.intensity);
-            for (let k = 0; k < poleCount; k++) {
-                To(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            if (isClassic) {
+                sxPersistIntensity(topicId, state.intensity);
+                for (let k = 0; k < poleCount; k++) {
+                    To(topicId, shape.keys[k], Math.round(state["p" + k]), k === poleCount - 1);
+                }
+            } else {
+                const mode = state.mode || "advocacy";
+                if (mode === "receptivity") {
+                    const vals = {};
+                    for (let k = 0; k < poleCount; k++) {
+                        vals[shape.keys[k]] = Math.round(state["recP" + k] != null ? state["recP" + k] : 0);
+                    }
+                    sxPersistAdvocacyReceptivity(topicId, "receptivity", vals, state.recIntensity);
+                } else {
+                    const vals = {};
+                    for (let k = 0; k < poleCount; k++) {
+                        vals[shape.keys[k]] = Math.round(state["p" + k] != null ? state["p" + k] : 0);
+                    }
+                    sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, state.intensity);
+                }
             }
-            sxSyncMarkRatings(topicId);
+            if (!skipSync) sxSyncMarkRatings(topicId);
         }
 
         function sxClearPolygonRatings(topicId, poleCount) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < poleCount) return;
-            Fo(topicId, "intensity", !1);
-            for (let k = 0; k < poleCount; k++) {
-                Fo(topicId, shape.keys[k], k === poleCount - 1);
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            if (isClassic) {
+                Fo(topicId, "intensity", !1);
+                for (let k = 0; k < poleCount; k++) {
+                    Fo(topicId, shape.keys[k], k === poleCount - 1);
+                }
+            } else {
+                const state = (poleCount === 4) ? sxTetradState : (poleCount === 5) ? sxPentadState : (poleCount === 6) ? sxHexadState : (poleCount === 7) ? sxHeptadState : sxOctadState;
+                const mode = state.mode || "advocacy";
+                sxClearAdvocacyReceptivity(topicId, mode);
             }
             sxSyncMarkRatings(topicId);
         }
@@ -690,8 +958,12 @@
         function sxBindPolygonRadarWidget({
             canvasId,
             sliderId,
+            recSliderId,
+            advColId,
+            recColId,
             clearBtnId,
             intensityOutId,
+            recIntensityOutId,
             state,
             poleCount,
             getVerticesFn,
@@ -700,11 +972,26 @@
             clearFn
         }) {
             const canvas = e.byId(canvasId);
-            const slider = e.byId(sliderId);
+            const advSlider = e.byId(sliderId);
+            const advOut = e.byId(intensityOutId);
+            const advCol = advColId ? e.byId(advColId) : null;
+            const recSlider = recSliderId ? e.byId(recSliderId) : null;
+            const recOut = recIntensityOutId ? e.byId(recIntensityOutId) : null;
+            const recCol = recColId ? e.byId(recColId) : null;
             const clearBtn = e.byId(clearBtnId);
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
             sxBindPoleHover(canvas, () => state.isDragging);
+
+            const setMode = (newMode) => {
+                state.mode = newMode;
+                if (advCol) advCol.classList.toggle("is-active", newMode === "advocacy");
+                if (recCol) recCol.classList.toggle("is-active", newMode === "receptivity");
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    drawFn(canvas, shape, state);
+                }
+            };
 
             const updateFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -714,8 +1001,12 @@
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
 
                 const { cx, cy, r, vertices } = getVerticesFn(canvas.width, canvas.height);
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const mode = isClassic ? "advocacy" : (state.mode || "advocacy");
+                const prefix = (mode === "receptivity") ? "recP" : "p";
+
                 const curVals = [];
-                for (let k = 0; k < poleCount; k++) curVals.push(state["p" + k]);
+                for (let k = 0; k < poleCount; k++) curVals.push(state[prefix + k] != null ? state[prefix + k] : 0);
                 const isAllZero = curVals.every(v => !v);
 
                 if (state.activeVertex === null) {
@@ -735,34 +1026,73 @@
                 if ((isAllZero || (state.dragFromZero && !state.vertexLocked)) && val > 0) {
                     const base = Math.max(20, Math.round(val * 0.5));
                     for (let k = 0; k < poleCount; k++) {
-                        state[`p${k}`] = (k === v) ? val : base;
+                        state[`${prefix}${k}`] = (k === v) ? val : base;
                     }
                     if (val > base) state.vertexLocked = true;
                 } else {
-                    state[`p${v}`] = val;
+                    state[`${prefix}${v}`] = val;
                 }
 
                 const pVals = [];
-                for (let k = 0; k < poleCount; k++) pVals.push(state["p" + k]);
+                for (let k = 0; k < poleCount; k++) pVals.push(state[`${prefix}${k}`]);
                 const maxVal = sxSignedIntensity(pVals);
-                if (slider) slider.value = String(Math.round(maxVal));
-                const out = e.byId(intensityOutId);
-                if (out) out.textContent = String(Math.round(maxVal));
+
+                if (mode === "receptivity") {
+                    if (!state.recRated) {
+                        state.recRated = true;
+                        if (!state.recIntensity) state.recIntensity = Math.round(maxVal) || 70;
+                    }
+                    if (recSlider) {
+                        recSlider.value = String(Math.round(state.recIntensity || maxVal));
+                        recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, state.recIntensity || maxVal));
+                    }
+                    if (recOut) recOut.textContent = String(Math.round(state.recIntensity || maxVal));
+                } else {
+                    if (advSlider) {
+                        advSlider.value = String(Math.round(state.intensity != null && state.intensity !== 0 ? state.intensity : maxVal));
+                        advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, state.intensity != null && state.intensity !== 0 ? state.intensity : maxVal));
+                    }
+                    if (advOut) advOut.textContent = String(Math.round(state.intensity != null && state.intensity !== 0 ? state.intensity : maxVal));
+                }
 
                 if (Qr) {
                     const shape = Ge(Qr);
                     drawFn(canvas, shape, state);
-                    applyFn(Qr);
+                    applyFn(Qr, true);
                 }
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                if (!isClassic && canvas.__sxPucks) {
+                    const rect = canvas.getBoundingClientRect();
+                    const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                    const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                    const px = (clientX - rect.left) * (canvas.width / rect.width);
+                    const py = (clientY - rect.top) * (canvas.height / rect.height);
+                    const pucks = canvas.__sxPucks;
+                    const dAdv = pucks.adv ? Math.hypot(px - pucks.adv.x, py - pucks.adv.y) : Infinity;
+                    const dRec = pucks.rec ? Math.hypot(px - pucks.rec.x, py - pucks.rec.y) : Infinity;
+                    if (dAdv <= 18 && dRec <= 18) {
+                        if (dRec > 7 && dRec <= 18) setMode("receptivity");
+                        else setMode("advocacy");
+                    } else if (dRec <= 18) {
+                        setMode("receptivity");
+                    } else if (dAdv <= 18) {
+                        setMode("advocacy");
+                    }
+                }
+
                 state.isDragging = !0;
                 state.activeVertex = null;
                 state.vertexLocked = !1;
+                const isClassicCheck = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const mode = isClassicCheck ? "advocacy" : (state.mode || "advocacy");
+                const prefix = (mode === "receptivity") ? "recP" : "p";
+
                 let allZero = true;
                 for (let k = 0; k < poleCount; k++) {
-                    if (state["p" + k]) { allZero = false; break; }
+                    if (state[prefix + k]) { allZero = false; break; }
                 }
                 state.dragFromZero = allZero;
                 canvas.setPointerCapture(evt.pointerId);
@@ -779,36 +1109,95 @@
                     state.isDragging = !1;
                     state.activeVertex = null;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                    if (Qr) applyFn(Qr);
                 }
             };
             canvas.addEventListener("pointerup", stopDrag);
             canvas.addEventListener("pointercancel", stopDrag);
 
+            // Wheel strictly scoped to centroid pucks
             canvas.addEventListener("wheel", (evt) => {
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const rect = canvas.getBoundingClientRect();
+                const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
+                const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
+                const pucks = canvas.__sxPucks;
+                const dAdv = (pucks && pucks.adv) ? Math.hypot(px - pucks.adv.x, py - pucks.adv.y) : Infinity;
+                const dRec = (pucks && pucks.rec) ? Math.hypot(px - pucks.rec.x, py - pucks.rec.y) : Infinity;
+
+                let target = null;
+                if (dAdv <= 18 && (isClassic || dAdv < dRec)) {
+                    target = "advocacy";
+                } else if (!isClassic && dRec <= 18) {
+                    target = "receptivity";
+                }
+
+                if (!target) return;
+
                 evt.preventDefault();
                 evt.stopPropagation();
                 const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
-                state.intensity = Math.max(-400, Math.min(400, Math.round((Number(state.intensity) || 0) + step)));
-                if (slider) slider.value = String(Math.round(state.intensity));
-                const out = e.byId(intensityOutId);
-                if (out) out.textContent = String(Math.round(state.intensity));
+
+                if (target === "receptivity") {
+                    if (!state.recRated) {
+                        state.recRated = true;
+                        state.recIntensity = 70;
+                    }
+                    state.recIntensity = Math.max(-400, Math.min(400, Math.round((Number(state.recIntensity) || 0) + step)));
+                    if (recSlider) {
+                        recSlider.value = String(Math.round(state.recIntensity));
+                        recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, state.recIntensity));
+                    }
+                    if (recOut) recOut.textContent = String(Math.round(state.recIntensity));
+                    setMode("receptivity");
+                    if (Qr) applyFn(Qr, true);
+                } else {
+                    state.intensity = Math.max(-400, Math.min(400, Math.round((Number(state.intensity) || 0) + step)));
+                    if (advSlider) {
+                        advSlider.value = String(Math.round(state.intensity));
+                        advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, state.intensity));
+                    }
+                    if (advOut) advOut.textContent = String(Math.round(state.intensity));
+                    setMode("advocacy");
+                    if (Qr) applyFn(Qr, true);
+                }
                 if (Qr) {
                     const shape = Ge(Qr);
                     drawFn(canvas, shape, state);
-                    applyFn(Qr);
                 }
             }, { passive: false });
 
-            if (slider) {
-                slider.addEventListener("input", () => {
-                    const val = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
+            if (advSlider) {
+                advSlider.addEventListener("pointerdown", () => setMode("advocacy"));
+                advSlider.addEventListener("focus", () => setMode("advocacy"));
+                advSlider.addEventListener("input", () => {
+                    setMode("advocacy");
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(advSlider.value) || 0)));
                     state.intensity = val;
-                    const out = e.byId(intensityOutId);
-                    out && (out.textContent = String(val));
+                    if (advOut) advOut.textContent = String(val);
+                    advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, val));
                     if (Qr) {
                         const shape = Ge(Qr);
                         drawFn(canvas, shape, state);
-                        applyFn(Qr);
+                        applyFn(Qr, true);
+                    }
+                });
+            }
+
+            if (recSlider) {
+                recSlider.addEventListener("pointerdown", () => setMode("receptivity"));
+                recSlider.addEventListener("focus", () => setMode("receptivity"));
+                recSlider.addEventListener("input", () => {
+                    setMode("receptivity");
+                    if (!state.recRated) state.recRated = true;
+                    const val = Math.max(-400, Math.min(400, Math.round(Number(recSlider.value) || 0)));
+                    state.recIntensity = val;
+                    if (recOut) recOut.textContent = String(val);
+                    recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, val));
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        drawFn(canvas, shape, state);
+                        applyFn(Qr, true);
                     }
                 });
             }
@@ -821,4 +1210,51 @@
                 });
             }
         }
+
+        window.sxSyncDualSliders = function({
+            state,
+            rec,
+            isClassic,
+            advSlider,
+            advOut,
+            advCol,
+            recSlider,
+            recOut,
+            recCol
+        }) {
+            if (isClassic) {
+                if (recCol) { recCol.hidden = true; recCol.style.display = "none"; }
+                if (advCol) advCol.classList.remove("is-active");
+                return;
+            }
+            if (recCol) { recCol.hidden = false; recCol.style.display = ""; }
+            const mode = state.mode || "advocacy";
+            if (advCol) advCol.classList.toggle("is-active", mode === "advocacy");
+            if (recCol) recCol.classList.toggle("is-active", mode === "receptivity");
+
+            const recKnown = rec.receptivity && rec.receptivity.known;
+
+            if (recKnown) {
+                state.recRated = true;
+                state.recIntensity = Math.round(rec.receptivity.intensity);
+                if (recSlider) {
+                    sxWidenIntensitySlider(recSlider, state.recIntensity);
+                    recSlider.value = String(state.recIntensity);
+                    recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, state.recIntensity));
+                }
+                if (recOut) recOut.textContent = String(state.recIntensity);
+            } else {
+                state.recRated = false;
+                state.recIntensity = 0;
+                if (recSlider) {
+                    recSlider.value = "0";
+                    recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, 0));
+                }
+                if (recOut) recOut.textContent = "—";
+            }
+
+            if (advSlider) {
+                advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, state.intensity));
+            }
+        };
 

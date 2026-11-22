@@ -59,12 +59,13 @@ Each item waits for Jason's kickoff; nothing here dispatches itself.
    - Dialectic / Polylectic selection ranks by debate register feud depth × joint relevance; prompt framing steelmans each side, pinpoints the receipt-level crux, and allows honest impasse without manufacturing artificial agreement; boundary rules never leak agreement limitations into Dialectic framing.
    - Full arc structures writing into 3 distinct movements (Communion → Common Ground → Dialectic/Polylectic) with de-duplication cross-referencing. Attribution is never flattened across any operation.
 
-9. **Advocacy / Receptivity (Spec Part 1):**
+9. ~~**Advocacy / Receptivity (Spec Part 1):**~~ Settled 2026-11-22.
    - Stance skins' pole topics decompose into two placements: Advocacy (distribution of arguing over the poles) and Receptivity (distribution of hearing — not a stance), each with its own signed intensity; never contracted; unrated means absent from all math.
-   - Widget ruled 2026-11-22: filled disc = Advocacy puck, open ring = Receptivity puck, each coloured by its own intensity; two intensity sliders whose thumbs ARE the glyphs; wheel over a puck sets its intensity; mode entry by tapping the puck or its slider; unplaced ring rests as a dashed ghost at centre.
-   - Usage: Cross gains the Advocacy × Receptivity deliberative channel alongside the coverage Cross; Circle Minus gains the unreceptivity feud signal. Sexcapades topics untouched.
-   - Full spec: `ADVOCACY_RECEPTIVITY_AND_OPERATION_MAPS_SPECIFICATION.md`, Part 1.
-   - *Status:* Spec written 2026-11-22. Awaiting Jason's kickoff. Issue-aversion RULED 2026-11-22: it lives on each mode's own negative intensity, each carrying its own type of aversion (Advocacy-negative = repelled by engaging/pressing the issue; Receptivity-negative = refuses to take it in). Migration seeding still a proposal (Advocacy inherits current blend + intensity, Receptivity starts unrated).
+   - Dual-slider & canvas widget: filled disc = Advocacy puck (●), open ring = Receptivity puck (○), each coloured by its own intensity with dynamic brightness/complement ramps; dual intensity sliders with thumb glyphs (disc / ring); wheel over a puck strictly scoped to $d \le 18$ px hover; mode entry by touching/sliding either slider or tapping either puck on canvas; unplaced ring rests as dashed ghost ring at centroid with first-tap placement.
+   - Integrated across all 7 polygon widgets (Triangle simplex, Political Compass, Tetrad, Pentad, Hexad, Heptad, and Octad) with active deformation solid vs inactive dashed contour and centroid pucks.
+   - Operations integration: Cross (⋈) deliberative teaching/persuasion channels ($A_{\text{adv}} \times B_{\text{rec}}$ and $B_{\text{adv}} \times A_{\text{rec}}$) stored on `deliberative = { AtoB, BtoA }`; Straight (⊙) allied advocacy ($A_{\text{adv}} \times B_{\text{adv}}$) and mutual openness ($A_{\text{rec}} \times B_{\text{rec}}$); Circle Minus (⊖) unreceptivity feud signal amplification where strong advocacy and absent/negative receptivity heightens debate register ranking. Sexcapades topics untouched.
+   - Migration & persistence: `vt[profileId][topicId].advocacy` and `.receptivity` with legacy top-level mirroring; existing profiles seed Advocacy from flat blend + intensity, Receptivity starts unrated (`receptivityKnown = false`); archetype samples cleanly unrated for receptivity without dirtiness.
+
 
 ---
 

@@ -16,10 +16,16 @@
                 poles: null,
                 polesKnown: !1,
                 line: null,
-                lineKnown: !1
+                lineKnown: !1,
+                advocacy: null,
+                advocacyKnown: !1,
+                receptivity: null,
+                receptivityKnown: !1
             };
             if (n && "object" == typeof n) {
                 const e = Object.prototype.hasOwnProperty.call(n, "give"), t = Object.prototype.hasOwnProperty.call(n, "receive");
+                const hasAdv = Boolean(n.advocacy && "object" == typeof n.advocacy);
+                const hasRec = Boolean(n.receptivity && "object" == typeof n.receptivity);
                 const r = {
                     give: e && Number(n.give) || 0,
                     receive: t && Number(n.receive) || 0,
@@ -28,8 +34,39 @@
                     poles: null,
                     polesKnown: !1,
                     line: null,
-                    lineKnown: !1
+                    lineKnown: !1,
+                    advocacy: null,
+                    advocacyKnown: !1,
+                    receptivity: null,
+                    receptivityKnown: !1
                 };
+                if (hasAdv || hasRec) {
+                    const advObj = hasAdv ? n.advocacy : null;
+                    const recObj = hasRec ? n.receptivity : null;
+                    const advPoles = advObj ? {} : null;
+                    if (advObj) {
+                        Object.keys(advObj).forEach(k => {
+                            if (k !== "intensity" && Number.isFinite(Number(advObj[k]))) advPoles[k] = Number(advObj[k]);
+                        });
+                    }
+                    const recPoles = recObj ? {} : null;
+                    if (recObj) {
+                        Object.keys(recObj).forEach(k => {
+                            if (k !== "intensity" && Number.isFinite(Number(recObj[k]))) recPoles[k] = Number(recObj[k]);
+                        });
+                    }
+                    const advInt = (advObj && Number.isFinite(Number(advObj.intensity))) ? Number(advObj.intensity) : null;
+                    const recInt = (recObj && Number.isFinite(Number(recObj.intensity))) ? Number(recObj.intensity) : null;
+                    r.poles = advPoles || recPoles;
+                    r.polesKnown = Boolean((advPoles && Object.keys(advPoles).length) || (recPoles && Object.keys(recPoles).length));
+                    r.intensity = advInt != null ? advInt : recInt;
+                    r.intensityKnown = advInt != null || recInt != null;
+                    r.advocacy = advObj ? { poles: advPoles, intensity: advInt, intensityKnown: advInt != null } : null;
+                    r.advocacyKnown = hasAdv;
+                    r.receptivity = recObj ? { poles: recPoles, intensity: recInt, intensityKnown: recInt != null } : null;
+                    r.receptivityKnown = hasRec;
+                    return r;
+                }
                 // Line topic (trilinear-line): one scalar under "line".
                 // The converter derives it at load, so the store holds it.
                 if (Object.prototype.hasOwnProperty.call(n, "line") && Number.isFinite(Number(n.line))) {
@@ -51,12 +88,17 @@
                 // counts.)
                 if (!e && !t) {
                     // `intensity` is the (n+1) relevance, not a pole.
-                    const k = Object.keys(n).filter(j => "intensity" !== j && Number.isFinite(Number(n[j])));
+                    const k = Object.keys(n).filter(j => "intensity" !== j && "advocacy" !== j && "receptivity" !== j && Number.isFinite(Number(n[j])));
                     if (k.length) {
                         const p = {};
                         k.forEach(j => { p[j] = Number(n[j]); });
                         r.poles = p;
                         r.polesKnown = !0;
+                        const intVal = Object.prototype.hasOwnProperty.call(n, "intensity") && Number.isFinite(Number(n.intensity)) ? Number(n.intensity) : null;
+                        r.advocacy = { poles: p, intensity: intVal, intensityKnown: intVal != null };
+                        r.advocacyKnown = !0;
+                        r.receptivity = null;
+                        r.receptivityKnown = !1;
                     }
                 }
                 if (Object.prototype.hasOwnProperty.call(n, "intensity") && Number.isFinite(Number(n.intensity))) {
@@ -73,7 +115,11 @@
                 poles: null,
                 polesKnown: !1,
                 line: null,
-                lineKnown: !1
+                lineKnown: !1,
+                advocacy: null,
+                advocacyKnown: !1,
+                receptivity: null,
+                receptivityKnown: !1
             };
         }
         function Td(e, t) {
@@ -197,7 +243,7 @@
                 raw: raw,
                 single: single,
                 singleValue: singleValue,
-                rated: Boolean(raw.giveKnown || raw.receiveKnown || raw.polesKnown || raw.lineKnown),
+                rated: Boolean(raw.giveKnown || raw.receiveKnown || raw.polesKnown || raw.lineKnown || raw.advocacyKnown || raw.receptivityKnown),
                 poles: poles,
                 polesKnown: Boolean(raw.polesKnown),
                 line: line,
@@ -205,6 +251,10 @@
                 intensity: intensity,
                 intensityKnown: intensityKnown,
                 strongest: strongest,
+                advocacy: raw.advocacyKnown ? raw.advocacy : null,
+                advocacyKnown: Boolean(raw.advocacyKnown),
+                receptivity: raw.receptivityKnown ? raw.receptivity : null,
+                receptivityKnown: Boolean(raw.receptivityKnown),
                 limitScope: sxAnnoScope(profile, id, meta, "limit"),
                 notInterested: Boolean(sxAnnoScope(profile, id, meta, "notinterested")),
                 favorite: Boolean(sxAnnoScope(profile, id, meta, "favorite")),
@@ -780,6 +830,62 @@
                    entries are the agreement and agreement ×
                    intensity exactly.) */
                 rec.polesA = a.poles, rec.polesB = b.poles, rec.lineA = a.line, rec.lineB = b.line;
+                rec.advocacyA = a.advocacy;
+                rec.advocacyB = b.advocacy;
+                rec.receptivityA = a.receptivity;
+                rec.receptivityB = b.receptivity;
+
+                // Deliberative flow: A_adv x B_rec and B_adv x A_rec
+                let delibAtoB = null, delibBtoA = null;
+                if (a.advocacy && b.receptivity && a.advocacy.poles && b.receptivity.poles) {
+                    const pKeys = [...new Set([...Object.keys(a.advocacy.poles), ...Object.keys(b.receptivity.poles)])];
+                    let sum = 0;
+                    pKeys.forEach(k => {
+                        const va = Math.max(0, Number(a.advocacy.poles[k]) || 0);
+                        const vb = Math.max(0, Number(b.receptivity.poles[k]) || 0);
+                        sum += va * vb;
+                    });
+                    const iA = (a.advocacy.intensity != null) ? a.advocacy.intensity : 100;
+                    const iB = (b.receptivity.intensity != null) ? b.receptivity.intensity : 100;
+                    const rel = sxRelevancePair(iA, iB);
+                    delibAtoB = (sum / 10000) * (rel.aversion || rel.opposed ? 0 : rel.factor);
+                }
+                if (b.advocacy && a.receptivity && b.advocacy.poles && a.receptivity.poles) {
+                    const pKeys = [...new Set([...Object.keys(b.advocacy.poles), ...Object.keys(a.receptivity.poles)])];
+                    let sum = 0;
+                    pKeys.forEach(k => {
+                        const vb = Math.max(0, Number(b.advocacy.poles[k]) || 0);
+                        const va = Math.max(0, Number(a.receptivity.poles[k]) || 0);
+                        sum += vb * va;
+                    });
+                    const iB = (b.advocacy.intensity != null) ? b.advocacy.intensity : 100;
+                    const iA = (a.receptivity.intensity != null) ? a.receptivity.intensity : 100;
+                    const rel = sxRelevancePair(iB, iA);
+                    delibBtoA = (sum / 10000) * (rel.aversion || rel.opposed ? 0 : rel.factor);
+                }
+                rec.deliberative = (delibAtoB != null || delibBtoA != null) ? { AtoB: delibAtoB, BtoA: delibBtoA } : null;
+
+                // Straight components: Advocacy x Advocacy & Receptivity x Receptivity
+                if (a.advocacy && b.advocacy && a.advocacy.poles && b.advocacy.poles) {
+                    const pKeys = [...new Set([...Object.keys(a.advocacy.poles), ...Object.keys(b.advocacy.poles)])];
+                    let allied = 0;
+                    pKeys.forEach(k => {
+                        const va = Math.max(0, Number(a.advocacy.poles[k]) || 0);
+                        const vb = Math.max(0, Number(b.advocacy.poles[k]) || 0);
+                        allied += (va * vb) / 10000;
+                    });
+                    rec.straightAdvocacy = allied;
+                }
+                if (a.receptivity && b.receptivity && a.receptivity.poles && b.receptivity.poles) {
+                    const pKeys = [...new Set([...Object.keys(a.receptivity.poles), ...Object.keys(b.receptivity.poles)])];
+                    let open = 0;
+                    pKeys.forEach(k => {
+                        const va = Math.max(0, Number(a.receptivity.poles[k]) || 0);
+                        const vb = Math.max(0, Number(b.receptivity.poles[k]) || 0);
+                        open += (va * vb) / 10000;
+                    });
+                    rec.straightReceptivity = open;
+                }
                 const agreement = sxPoleAgreement(a, b);
                 const role = a.polesKnown && b.polesKnown ? sxPoleMatch(meta, a.poles, b.poles) : null;
                 if (role) {
@@ -1594,6 +1700,20 @@
                         f = sxSplitMagnitude(va * vb);
                     if (null != f) feud = Math.max(feud, f / 100);
                 });
+            }
+            // Circle Minus unreceptivity feud signal (Spec Part 1.4):
+            // Amplifies feud when both parties advocate and neither receives.
+            if (s.advocacyA && s.advocacyB) {
+                const advIntA = (s.advocacyA.intensity != null) ? s.advocacyA.intensity : (s.intensityA || 0);
+                const advIntB = (s.advocacyB.intensity != null) ? s.advocacyB.intensity : (s.intensityB || 0);
+                const recIntA = s.receptivityA && s.receptivityA.intensity != null ? s.receptivityA.intensity : null;
+                const recIntB = s.receptivityB && s.receptivityB.intensity != null ? s.receptivityB.intensity : null;
+                if (advIntA > 25 && advIntB > 25 && (recIntA == null || recIntA <= 0 || recIntB == null || recIntB <= 0)) {
+                    const negBonus = (recIntA != null && recIntA < 0 ? 0.25 : 0.1) + (recIntB != null && recIntB < 0 ? 0.25 : 0.1);
+                    const unrec = Math.min(1, (feud > 0 ? feud : 0.2) * (1 + negBonus));
+                    s.unreceptivityFeud = unrec;
+                    feud = Math.max(feud, unrec);
+                }
             }
             return feud;
         }

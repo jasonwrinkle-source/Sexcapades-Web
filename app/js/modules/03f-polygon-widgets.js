@@ -1,10 +1,17 @@
         var sxTriState = {
             topicId: null,
+            mode: "advocacy",
             w0: 1 / 3,
             w1: 1 / 3,
             w2: 1 / 3,
             intensity: 0,
-            isDragging: !1
+            recW0: 1 / 3,
+            recW1: 1 / 3,
+            recW2: 1 / 3,
+            recIntensity: 0,
+            recRated: !1,
+            isDragging: !1,
+            dragTarget: null
         };
 
         function sxDrawTriangleWidget(canvas, shape, weights, intensity) {
@@ -157,69 +164,174 @@
             sxDrawTriPoleLabel(ctx, canvas, V0.x, V0.y, labels[0], triCols[0], triKeys && triKeys[0], triHalfW, false);
             sxDrawTriPoleLabel(ctx, canvas, V2.x, V2.y, labels[2], triCols[2], triKeys && triKeys[2], triHalfW, false);
 
-            // 5. Active point puck position
+            // 5. Active point puck position(s): Advocacy (● disc) & Receptivity (○ ring)
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
             const w0 = weights.w0, w1 = weights.w1, w2 = weights.w2;
-            const px = w0 * V0.x + w1 * V1.x + w2 * V2.x;
-            const py = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+            const pxAdv = w0 * V0.x + w1 * V1.x + w2 * V2.x;
+            const pyAdv = w0 * V0.y + w1 * V1.y + w2 * V2.y;
+            const advInt = typeof intensity === "number" ? intensity : (weights.intensity || 0);
 
-            // Halo glow for puck
-            ctx.beginPath();
-            ctx.arc(px, py, 11, 0, 2 * Math.PI);
-            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.fill();
+            if (isClassic) {
+                ctx.beginPath();
+                ctx.arc(pxAdv, pyAdv, 11, 0, 2 * Math.PI);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                ctx.fill();
 
-            // Solid puck
-            ctx.beginPath();
-            ctx.arc(px, py, 6, 0, 2 * Math.PI);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-            ctx.lineWidth = 1.8;
-            ctx.strokeStyle = "#0f172a";
-            ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(pxAdv, pyAdv, 6, 0, 2 * Math.PI);
+                ctx.fillStyle = "#ffffff";
+                ctx.fill();
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = "#0f172a";
+                ctx.stroke();
+                canvas.__sxPucks = { adv: { x: pxAdv, y: pyAdv }, rec: null };
+                return;
+            }
+
+            const activeMode = weights.mode || "advocacy";
+            const recRated = Boolean(weights.recRated);
+            const rw0 = weights.recW0 != null ? weights.recW0 : 1 / 3;
+            const rw1 = weights.recW1 != null ? weights.recW1 : 1 / 3;
+            const rw2 = weights.recW2 != null ? weights.recW2 : 1 / 3;
+            const pxRec = recRated ? (rw0 * V0.x + rw1 * V1.x + rw2 * V2.x) : cx;
+            const pyRec = recRated ? (rw0 * V0.y + rw1 * V1.y + rw2 * V2.y) : cy;
+            const recInt = Number(weights.recIntensity) || 0;
+
+            canvas.__sxPucks = {
+                adv: { x: pxAdv, y: pyAdv },
+                rec: { x: pxRec, y: pyRec, rated: recRated }
+            };
+
+            const colAdv = sxIntensityRGB(255, 255, 255, advInt);
+            const colRec = sxIntensityRGB(56, 189, 248, recInt);
+
+            const drawDisc = (isActive) => {
+                ctx.save();
+                ctx.globalAlpha = isActive ? 1.0 : 0.45;
+                if (isActive) {
+                    ctx.beginPath();
+                    ctx.arc(pxAdv, pyAdv, 11, 0, 2 * Math.PI);
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                    ctx.fill();
+                }
+                ctx.beginPath();
+                ctx.arc(pxAdv, pyAdv, 6, 0, 2 * Math.PI);
+                ctx.fillStyle = colAdv;
+                ctx.fill();
+                ctx.lineWidth = 1.6;
+                ctx.strokeStyle = "#0f172a";
+                ctx.stroke();
+                ctx.restore();
+            };
+
+            const drawRing = (isActive) => {
+                ctx.save();
+                if (!recRated) {
+                    ctx.setLineDash([3, 3]);
+                    ctx.lineWidth = 1.6;
+                    ctx.strokeStyle = isActive ? "rgba(56, 189, 248, 0.85)" : "rgba(255, 255, 255, 0.35)";
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 10.5, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                } else {
+                    ctx.globalAlpha = isActive ? 1.0 : 0.45;
+                    if (isActive) {
+                        ctx.beginPath();
+                        ctx.arc(pxRec, pyRec, 15, 0, 2 * Math.PI);
+                        ctx.fillStyle = "rgba(56, 189, 248, 0.25)";
+                        ctx.fill();
+                    }
+                    ctx.beginPath();
+                    ctx.arc(pxRec, pyRec, 10.5, 0, 2 * Math.PI);
+                    ctx.lineWidth = 3.2;
+                    ctx.strokeStyle = colRec;
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(pxRec, pyRec, 12.2, 0, 2 * Math.PI);
+                    ctx.lineWidth = 0.8;
+                    ctx.strokeStyle = "rgba(15, 23, 42, 0.8)";
+                    ctx.stroke();
+                }
+                ctx.restore();
+            };
+
+            if (activeMode === "receptivity") {
+                drawDisc(false);
+                drawRing(true);
+            } else {
+                drawRing(false);
+                drawDisc(true);
+            }
         }
 
         function sxApplyTriRatings(topicId, skipSync) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 3) return;
-            const { w0, w1, w2, intensity } = sxTriState;
-            // Leanings are the weights on a 0–100 scale. Intensity is stored
-            // beside them and is not baked back into the pole numbers.
-            const v0 = Math.round(w0 * 100);
-            const v1 = Math.round(w1 * 100);
-            const v2 = Math.round(w2 * 100);
-            sxPersistIntensity(topicId, intensity);
-            To(topicId, shape.keys[0], v0, !1);
-            To(topicId, shape.keys[1], v1, !1);
-            To(topicId, shape.keys[2], v2, !0);
-            // During a drag the caller passes skipSync: the full placard
-            // re-sync re-derives the weights from the stored INTEGER
-            // ratings and redraws the triangle a second time, so the
-            // puck fought the pointer in quantized jumps on every move.
-            // Live drags write the ratings only; the drag-end call (no
-            // skipSync) does the one full sync.
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            if (isClassic) {
+                const { w0, w1, w2, intensity } = sxTriState;
+                const v0 = Math.round(w0 * 100);
+                const v1 = Math.round(w1 * 100);
+                const v2 = Math.round(w2 * 100);
+                sxPersistIntensity(topicId, intensity);
+                To(topicId, shape.keys[0], v0, !1);
+                To(topicId, shape.keys[1], v1, !1);
+                To(topicId, shape.keys[2], v2, !0);
+            } else {
+                const mode = sxTriState.mode || "advocacy";
+                if (mode === "receptivity") {
+                    const vals = {
+                        [shape.keys[0]]: Math.round(sxTriState.recW0 * 100),
+                        [shape.keys[1]]: Math.round(sxTriState.recW1 * 100),
+                        [shape.keys[2]]: Math.round(sxTriState.recW2 * 100)
+                    };
+                    sxPersistAdvocacyReceptivity(topicId, "receptivity", vals, sxTriState.recIntensity);
+                } else {
+                    const vals = {
+                        [shape.keys[0]]: Math.round(sxTriState.w0 * 100),
+                        [shape.keys[1]]: Math.round(sxTriState.w1 * 100),
+                        [shape.keys[2]]: Math.round(sxTriState.w2 * 100)
+                    };
+                    sxPersistAdvocacyReceptivity(topicId, "advocacy", vals, sxTriState.intensity);
+                }
+            }
             if (!skipSync) sxSyncMarkRatings(topicId);
         }
 
         function sxClearTriRatings(topicId) {
             if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < 3) return;
-            Fo(topicId, "intensity", !1);
-            Fo(topicId, shape.keys[0], !1);
-            Fo(topicId, shape.keys[1], !1);
-            Fo(topicId, shape.keys[2], !0);
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            if (isClassic) {
+                const shape = Ge(topicId);
+                if (!shape || !shape.keys || shape.keys.length < 3) return;
+                Fo(topicId, "intensity", !1);
+                Fo(topicId, shape.keys[0], !1);
+                Fo(topicId, shape.keys[1], !1);
+                Fo(topicId, shape.keys[2], !0);
+            } else {
+                const mode = sxTriState.mode || "advocacy";
+                sxClearAdvocacyReceptivity(topicId, mode);
+            }
             sxSyncMarkRatings(topicId);
         }
 
         // --- 4-Pole Tetrad Radar / Diamond Deformation State & Widget ---
         var sxTetradState = {
             topicId: null,
+            mode: "advocacy",
             intensity: 0,
+            recIntensity: 0,
+            recRated: !1,
             p0: 0,
             p1: 0,
             p2: 0,
             p3: 0,
+            recP0: 0,
+            recP1: 0,
+            recP2: 0,
+            recP3: 0,
             // Shape = pole values as ratios to the max (max = 1). Saved
             // whenever the values are non-zero, so the intensity slider can
             // restore the same shape after being taken to 0 (where the
@@ -249,8 +361,8 @@
             sxDrawRadarPolygonWidget(canvas, shape, state, 4, sxGetTetradVertices, SX_TETRAD_COLORS);
         }
 
-        function sxApplyTetradRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxTetradState, 4);
+        function sxApplyTetradRatings(topicId, skipSync) {
+            sxApplyPolygonRatings(topicId, sxTetradState, 4, skipSync);
         }
 
         function sxClearTetradRatings(topicId) {
@@ -268,7 +380,9 @@
         // from them: u = (v1 + v2) / I, v = (v2 + v3) / I, I = sum.
         var sxCompassState = {
             topicId: null,
+            mode: "advocacy",
             u: 0.5, v: 0.5, intensity: 0,
+            recU: 0.5, recV: 0.5, recIntensity: 0, recRated: !1,
             isDragging: !1
         };
 
@@ -339,9 +453,6 @@
 
             const sq = sxGetCompassSquare(width, height);
             const { cx, cy, s, x0, y0, x1, y1 } = sq;
-            const u = (state && typeof state.u === "number") ? state.u : 0.5;
-            const v = (state && typeof state.v === "number") ? state.v : 0.5;
-            const px = x0 + u * s, py = y0 + v * s;
 
             // 1. Tinted quadrant backgrounds. Brightness follows the stored
             // intensity; a negative intensity uses each quadrant's complement.
@@ -381,9 +492,7 @@
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // 4. Axis captions — from the topic's axes (T1). A compass
-            // topic without axes draws no captions: the old hardcoded
-            // "Economic"/"Authority" was live-wrong on Chemcapades.
+            // 4. Axis captions
             const axes = (shape && shape.axes) || null;
             ctx.font = "9px system-ui, sans-serif";
             if (axes && axes[0]) {
@@ -401,9 +510,7 @@
                 ctx.restore();
             }
 
-            // 5. Corner labels ride the tangent of the square's
-            // circumscribing circle (Jason, 2026-11-19). The short form
-            // is drawn; the full label is the hover name.
+            // 5. Corner labels
             canvas.__sxLabelRects = [];
             const labels = sxPoleLabels(shape, 4);
             const short = labels.map(l => sxCompassShortLabel(l));
@@ -417,54 +524,174 @@
                 sxDrawPoleLabel(ctx, canvas, corner.x, corner.y, Math.atan2(corner.y - cy, corner.x - cx), short[idx], SX_COMPASS_COLORS[idx], shape && shape.keys && shape.keys[idx], labels[idx], 4, Math.hypot(x0 - cx, y0 - cy));
             });
 
-            // 6. Draggable point puck (same pattern as the triangle widget)
-            ctx.beginPath();
-            ctx.arc(px, py, 11, 0, 2 * Math.PI);
-            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(px, py, 6, 0, 2 * Math.PI);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-            ctx.lineWidth = 1.8;
-            ctx.strokeStyle = "#0f172a";
-            ctx.stroke();
+            // 6. Active point puck position(s): Advocacy (● disc) & Receptivity (○ ring)
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            const u = (state && typeof state.u === "number") ? state.u : 0.5;
+            const v = (state && typeof state.v === "number") ? state.v : 0.5;
+            const pxAdv = x0 + u * s, pyAdv = y0 + v * s;
+            const advInt = Number(state && state.intensity) || 0;
+
+            if (isClassic) {
+                ctx.beginPath();
+                ctx.arc(pxAdv, pyAdv, 11, 0, 2 * Math.PI);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(pxAdv, pyAdv, 6, 0, 2 * Math.PI);
+                ctx.fillStyle = "#ffffff";
+                ctx.fill();
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = "#0f172a";
+                ctx.stroke();
+                canvas.__sxPucks = { adv: { x: pxAdv, y: pyAdv }, rec: null };
+                return;
+            }
+
+            const activeMode = (state && state.mode) || "advocacy";
+            const recRated = Boolean(state && state.recRated);
+            const recU = (state && typeof state.recU === "number") ? state.recU : 0.5;
+            const recV = (state && typeof state.recV === "number") ? state.recV : 0.5;
+            const pxRec = recRated ? (x0 + recU * s) : cx;
+            const pyRec = recRated ? (y0 + recV * s) : cy;
+            const recInt = Number(state && state.recIntensity) || 0;
+
+            canvas.__sxPucks = {
+                adv: { x: pxAdv, y: pyAdv },
+                rec: { x: pxRec, y: pyRec, rated: recRated }
+            };
+
+            const colAdv = sxIntensityRGB(255, 255, 255, advInt);
+            const colRec = sxIntensityRGB(56, 189, 248, recInt);
+
+            const drawDisc = (isActive) => {
+                ctx.save();
+                ctx.globalAlpha = isActive ? 1.0 : 0.45;
+                if (isActive) {
+                    ctx.beginPath();
+                    ctx.arc(pxAdv, pyAdv, 11, 0, 2 * Math.PI);
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                    ctx.fill();
+                }
+                ctx.beginPath();
+                ctx.arc(pxAdv, pyAdv, 6, 0, 2 * Math.PI);
+                ctx.fillStyle = colAdv;
+                ctx.fill();
+                ctx.lineWidth = 1.6;
+                ctx.strokeStyle = "#0f172a";
+                ctx.stroke();
+                ctx.restore();
+            };
+
+            const drawRing = (isActive) => {
+                ctx.save();
+                if (!recRated) {
+                    ctx.setLineDash([3, 3]);
+                    ctx.lineWidth = 1.6;
+                    ctx.strokeStyle = isActive ? "rgba(56, 189, 248, 0.85)" : "rgba(255, 255, 255, 0.35)";
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 10.5, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                } else {
+                    ctx.globalAlpha = isActive ? 1.0 : 0.45;
+                    if (isActive) {
+                        ctx.beginPath();
+                        ctx.arc(pxRec, pyRec, 15, 0, 2 * Math.PI);
+                        ctx.fillStyle = "rgba(56, 189, 248, 0.25)";
+                        ctx.fill();
+                    }
+                    ctx.beginPath();
+                    ctx.arc(pxRec, pyRec, 10.5, 0, 2 * Math.PI);
+                    ctx.lineWidth = 3.2;
+                    ctx.strokeStyle = colRec;
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(pxRec, pyRec, 12.2, 0, 2 * Math.PI);
+                    ctx.lineWidth = 0.8;
+                    ctx.strokeStyle = "rgba(15, 23, 42, 0.8)";
+                    ctx.stroke();
+                }
+                ctx.restore();
+            };
+
+            if (activeMode === "receptivity") {
+                drawDisc(false);
+                drawRing(true);
+            } else {
+                drawRing(false);
+                drawDisc(true);
+            }
         }
 
-        function sxApplyCompassRatings(topicId) {
+        function sxApplyCompassRatings(topicId, skipSync) {
             if (!topicId) return;
             const shape = Ge(topicId);
             if (!shape || !shape.keys || shape.keys.length < 4) return;
-            // The point is the leaning, stored at a fixed 100 scale so a
-            // later intensity change does not move the four pole numbers.
-            const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
-            sxPersistIntensity(topicId, sxCompassState.intensity);
-            To(topicId, shape.keys[0], vals[0], !1);
-            To(topicId, shape.keys[1], vals[1], !1);
-            To(topicId, shape.keys[2], vals[2], !1);
-            To(topicId, shape.keys[3], vals[3], !0);
-            sxSyncMarkRatings(topicId);
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            if (isClassic) {
+                const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
+                sxPersistIntensity(topicId, sxCompassState.intensity);
+                To(topicId, shape.keys[0], vals[0], !1);
+                To(topicId, shape.keys[1], vals[1], !1);
+                To(topicId, shape.keys[2], vals[2], !1);
+                To(topicId, shape.keys[3], vals[3], !0);
+            } else {
+                const mode = sxCompassState.mode || "advocacy";
+                if (mode === "receptivity") {
+                    const vals = sxCompassValuesFromPoint(sxCompassState.recU, sxCompassState.recV, 100);
+                    const obj = {};
+                    shape.keys.slice(0, 4).forEach((k, idx) => { obj[k] = vals[idx]; });
+                    sxPersistAdvocacyReceptivity(topicId, "receptivity", obj, sxCompassState.recIntensity);
+                } else {
+                    const vals = sxCompassValuesFromPoint(sxCompassState.u, sxCompassState.v, 100);
+                    const obj = {};
+                    shape.keys.slice(0, 4).forEach((k, idx) => { obj[k] = vals[idx]; });
+                    sxPersistAdvocacyReceptivity(topicId, "advocacy", obj, sxCompassState.intensity);
+                }
+            }
+            if (!skipSync) sxSyncMarkRatings(topicId);
         }
 
         function sxClearCompassRatings(topicId) {
             if (!topicId) return;
-            const shape = Ge(topicId);
-            if (!shape || !shape.keys || shape.keys.length < 4) return;
-            Fo(topicId, "intensity", !1);
-            Fo(topicId, shape.keys[0], !1);
-            Fo(topicId, shape.keys[1], !1);
-            Fo(topicId, shape.keys[2], !1);
-            Fo(topicId, shape.keys[3], !0);
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+            if (isClassic) {
+                const shape = Ge(topicId);
+                if (!shape || !shape.keys || shape.keys.length < 4) return;
+                Fo(topicId, "intensity", !1);
+                Fo(topicId, shape.keys[0], !1);
+                Fo(topicId, shape.keys[1], !1);
+                Fo(topicId, shape.keys[2], !1);
+                Fo(topicId, shape.keys[3], !0);
+            } else {
+                const mode = sxCompassState.mode || "advocacy";
+                sxClearAdvocacyReceptivity(topicId, mode);
+            }
             sxSyncMarkRatings(topicId);
         }
 
         function sxBindCompassWidget() {
             const canvas = e.byId("markCompassCanvas");
-            const slider = e.byId("markCompassIntensity");
+            const advSlider = e.byId("markCompassIntensity");
+            const advOut = e.byId("markCompassIntensityOut");
+            const advCol = e.byId("markCompassAdvCol");
+            const recSlider = e.byId("markCompassRecIntensity");
+            const recOut = e.byId("markCompassRecIntensityOut");
+            const recCol = e.byId("markCompassRecCol");
             const clearBtn = e.byId("markCompassClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
             sxBindPoleHover(canvas, () => sxCompassState.isDragging);
+
+            const setMode = (newMode) => {
+                sxCompassState.mode = newMode;
+                if (advCol) advCol.classList.toggle("is-active", newMode === "advocacy");
+                if (recCol) recCol.classList.toggle("is-active", newMode === "receptivity");
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawCompassWidget(canvas, shape, sxCompassState);
+                }
+            };
 
             const updatePointFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -474,22 +701,59 @@
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
                 const sq = sxGetCompassSquare(canvas.width, canvas.height);
                 const { u, v } = sxCompassPointToUV(px, py, sq);
-                sxCompassState.u = u;
-                sxCompassState.v = v;
-                if (!sxCompassState.intensity) {
-                    sxCompassState.intensity = 70;
-                    if (slider) slider.value = "70";
-                    const out = e.byId("markCompassIntensityOut");
-                    out && (out.textContent = "70");
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const mode = isClassic ? "advocacy" : (sxCompassState.mode || "advocacy");
+
+                if (mode === "receptivity") {
+                    sxCompassState.recU = u;
+                    sxCompassState.recV = v;
+                    if (!sxCompassState.recRated) {
+                        sxCompassState.recRated = true;
+                        if (!sxCompassState.recIntensity) {
+                            sxCompassState.recIntensity = 70;
+                            if (recSlider) recSlider.value = "70";
+                            if (recOut) recOut.textContent = "70";
+                        }
+                    }
+                    if (recSlider) recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxCompassState.recIntensity));
+                } else {
+                    sxCompassState.u = u;
+                    sxCompassState.v = v;
+                    if (!sxCompassState.intensity) {
+                        sxCompassState.intensity = 70;
+                        if (advSlider) advSlider.value = "70";
+                        if (advOut) advOut.textContent = "70";
+                    }
+                    if (advSlider) advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxCompassState.intensity));
                 }
+
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawCompassWidget(canvas, shape, sxCompassState);
-                    sxApplyCompassRatings(Qr);
+                    sxApplyCompassRatings(Qr, true);
                 }
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                if (!isClassic && canvas.__sxPucks) {
+                    const rect = canvas.getBoundingClientRect();
+                    const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                    const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                    const px = (clientX - rect.left) * (canvas.width / rect.width);
+                    const py = (clientY - rect.top) * (canvas.height / rect.height);
+                    const pucks = canvas.__sxPucks;
+                    const dAdv = pucks.adv ? Math.hypot(px - pucks.adv.x, py - pucks.adv.y) : Infinity;
+                    const dRec = pucks.rec ? Math.hypot(px - pucks.rec.x, py - pucks.rec.y) : Infinity;
+                    if (dAdv <= 18 && dRec <= 18) {
+                        if (dRec > 7 && dRec <= 18) setMode("receptivity");
+                        else setMode("advocacy");
+                    } else if (dRec <= 18) {
+                        setMode("receptivity");
+                    } else if (dAdv <= 18) {
+                        setMode("advocacy");
+                    }
+                }
                 sxCompassState.isDragging = !0;
                 canvas.setPointerCapture(evt.pointerId);
                 updatePointFromPointer(evt);
@@ -502,36 +766,94 @@
                 if (sxCompassState.isDragging) {
                     sxCompassState.isDragging = !1;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
+                    if (Qr) sxApplyCompassRatings(Qr);
                 }
             };
             canvas.addEventListener("pointerup", stopDrag);
             canvas.addEventListener("pointercancel", stopDrag);
 
-            // Mouse wheel scales the intensity (sum), point unchanged
+            // Mouse wheel strictly scoped to puck hover
             canvas.addEventListener("wheel", (evt) => {
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const rect = canvas.getBoundingClientRect();
+                const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
+                const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
+                const pucks = canvas.__sxPucks;
+                const dAdv = (pucks && pucks.adv) ? Math.hypot(px - pucks.adv.x, py - pucks.adv.y) : Infinity;
+                const dRec = (pucks && pucks.rec) ? Math.hypot(px - pucks.rec.x, py - pucks.rec.y) : Infinity;
+
+                let target = null;
+                if (dAdv <= 18 && (isClassic || dAdv < dRec)) {
+                    target = "advocacy";
+                } else if (!isClassic && dRec <= 18) {
+                    target = "receptivity";
+                }
+
+                if (!target) return;
+
                 evt.preventDefault();
                 evt.stopPropagation();
                 const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
-                sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxCompassState.intensity) || 0) + step)));
-                if (slider) slider.value = String(Math.round(sxCompassState.intensity));
-                const out = e.byId("markCompassIntensityOut");
-                out && (out.textContent = String(Math.round(sxCompassState.intensity)));
+
+                if (target === "receptivity") {
+                    if (!sxCompassState.recRated) {
+                        sxCompassState.recRated = true;
+                        sxCompassState.recIntensity = 70;
+                    }
+                    sxCompassState.recIntensity = Math.max(-400, Math.min(400, Math.round((Number(sxCompassState.recIntensity) || 0) + step)));
+                    if (recSlider) {
+                        recSlider.value = String(Math.round(sxCompassState.recIntensity));
+                        recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxCompassState.recIntensity));
+                    }
+                    if (recOut) recOut.textContent = String(Math.round(sxCompassState.recIntensity));
+                    setMode("receptivity");
+                    if (Qr) sxApplyCompassRatings(Qr, true);
+                } else {
+                    sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round((Number(sxCompassState.intensity) || 0) + step)));
+                    if (advSlider) {
+                        advSlider.value = String(Math.round(sxCompassState.intensity));
+                        advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxCompassState.intensity));
+                    }
+                    if (advOut) advOut.textContent = String(Math.round(sxCompassState.intensity));
+                    setMode("advocacy");
+                    if (Qr) sxApplyCompassRatings(Qr, true);
+                }
                 if (Qr) {
-                    sxPersistIntensity(Qr, sxCompassState.intensity);
                     const shape = Ge(Qr);
                     sxDrawCompassWidget(canvas, shape, sxCompassState);
                 }
             }, { passive: false });
 
-            if (slider) {
-                slider.addEventListener("input", () => {
-                    sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
-                    const out = e.byId("markCompassIntensityOut");
-                    out && (out.textContent = String(Math.round(sxCompassState.intensity)));
+            if (advSlider) {
+                advSlider.addEventListener("pointerdown", () => setMode("advocacy"));
+                advSlider.addEventListener("focus", () => setMode("advocacy"));
+                advSlider.addEventListener("input", () => {
+                    setMode("advocacy");
+                    sxCompassState.intensity = Math.max(-400, Math.min(400, Math.round(Number(advSlider.value) || 0)));
+                    if (advOut) advOut.textContent = String(Math.round(sxCompassState.intensity));
+                    advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxCompassState.intensity));
                     if (Qr) {
                         sxPersistIntensity(Qr, sxCompassState.intensity);
                         const shape = Ge(Qr);
                         sxDrawCompassWidget(canvas, shape, sxCompassState);
+                        sxApplyCompassRatings(Qr, true);
+                    }
+                });
+            }
+
+            if (recSlider) {
+                recSlider.addEventListener("pointerdown", () => setMode("receptivity"));
+                recSlider.addEventListener("focus", () => setMode("receptivity"));
+                recSlider.addEventListener("input", () => {
+                    setMode("receptivity");
+                    if (!sxCompassState.recRated) sxCompassState.recRated = true;
+                    sxCompassState.recIntensity = Math.max(-400, Math.min(400, Math.round(Number(recSlider.value) || 0)));
+                    if (recOut) recOut.textContent = String(Math.round(sxCompassState.recIntensity));
+                    recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxCompassState.recIntensity));
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawCompassWidget(canvas, shape, sxCompassState);
+                        sxApplyCompassRatings(Qr, true);
                     }
                 });
             }
@@ -549,8 +871,12 @@
             sxBindPolygonRadarWidget({
                 canvasId: "markTetradCanvas",
                 sliderId: "markTetradIntensity",
+                recSliderId: "markTetradRecIntensity",
+                advColId: "markTetradAdvCol",
+                recColId: "markTetradRecCol",
                 clearBtnId: "markTetradClear",
                 intensityOutId: "markTetradIntensityOut",
+                recIntensityOutId: "markTetradRecIntensityOut",
                 state: sxTetradState,
                 poleCount: 4,
                 getVerticesFn: sxGetTetradVertices,
@@ -563,8 +889,12 @@
         // --- 5-Pole Pentad Radar / Star Deformation State & Widget ---
         var sxPentadState = {
             topicId: null,
+            mode: "advocacy",
             intensity: 0,
+            recIntensity: 0,
+            recRated: !1,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0,
+            recP0: 0, recP1: 0, recP2: 0, recP3: 0, recP4: 0,
             shape: null,
             activeVertex: null,
             isDragging: !1,
@@ -582,8 +912,8 @@
             sxDrawRadarPolygonWidget(canvas, shape, state, 5, sxGetPentadVertices, SX_PENTAD_COLORS);
         }
 
-        function sxApplyPentadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxPentadState, 5);
+        function sxApplyPentadRatings(topicId, skipSync) {
+            sxApplyPolygonRatings(topicId, sxPentadState, 5, skipSync);
         }
 
         function sxClearPentadRatings(topicId) {
@@ -594,8 +924,12 @@
             sxBindPolygonRadarWidget({
                 canvasId: "markPentadCanvas",
                 sliderId: "markPentadIntensity",
+                recSliderId: "markPentadRecIntensity",
+                advColId: "markPentadAdvCol",
+                recColId: "markPentadRecCol",
                 clearBtnId: "markPentadClear",
                 intensityOutId: "markPentadIntensityOut",
+                recIntensityOutId: "markPentadRecIntensityOut",
                 state: sxPentadState,
                 poleCount: 5,
                 getVerticesFn: sxGetPentadVertices,
@@ -608,8 +942,12 @@
         // --- 6-Pole Hexad Radar Deformation State & Widget ---
         var sxHexadState = {
             topicId: null,
+            mode: "advocacy",
             intensity: 0,
+            recIntensity: 0,
+            recRated: !1,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0,
+            recP0: 0, recP1: 0, recP2: 0, recP3: 0, recP4: 0, recP5: 0,
             shape: null,
             activeVertex: null,
             isDragging: !1,
@@ -627,8 +965,8 @@
             sxDrawRadarPolygonWidget(canvas, shape, state, 6, sxGetHexadVertices, SX_HEXAD_COLORS);
         }
 
-        function sxApplyHexadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxHexadState, 6);
+        function sxApplyHexadRatings(topicId, skipSync) {
+            sxApplyPolygonRatings(topicId, sxHexadState, 6, skipSync);
         }
 
         function sxClearHexadRatings(topicId) {
@@ -639,8 +977,12 @@
             sxBindPolygonRadarWidget({
                 canvasId: "markHexadCanvas",
                 sliderId: "markHexadIntensity",
+                recSliderId: "markHexadRecIntensity",
+                advColId: "markHexadAdvCol",
+                recColId: "markHexadRecCol",
                 clearBtnId: "markHexadClear",
                 intensityOutId: "markHexadIntensityOut",
+                recIntensityOutId: "markHexadRecIntensityOut",
                 state: sxHexadState,
                 poleCount: 6,
                 getVerticesFn: sxGetHexadVertices,
@@ -653,8 +995,12 @@
         // --- 7-Pole Heptad Radar Deformation State & Widget ---
         var sxHeptadState = {
             topicId: null,
+            mode: "advocacy",
             intensity: 0,
+            recIntensity: 0,
+            recRated: !1,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0,
+            recP0: 0, recP1: 0, recP2: 0, recP3: 0, recP4: 0, recP5: 0, recP6: 0,
             shape: null,
             activeVertex: null,
             isDragging: !1,
@@ -672,8 +1018,8 @@
             sxDrawRadarPolygonWidget(canvas, shape, state, 7, sxGetHeptadVertices, SX_HEPTAD_COLORS);
         }
 
-        function sxApplyHeptadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxHeptadState, 7);
+        function sxApplyHeptadRatings(topicId, skipSync) {
+            sxApplyPolygonRatings(topicId, sxHeptadState, 7, skipSync);
         }
 
         function sxClearHeptadRatings(topicId) {
@@ -684,8 +1030,12 @@
             sxBindPolygonRadarWidget({
                 canvasId: "markHeptadCanvas",
                 sliderId: "markHeptadIntensity",
+                recSliderId: "markHeptadRecIntensity",
+                advColId: "markHeptadAdvCol",
+                recColId: "markHeptadRecCol",
                 clearBtnId: "markHeptadClear",
                 intensityOutId: "markHeptadIntensityOut",
+                recIntensityOutId: "markHeptadRecIntensityOut",
                 state: sxHeptadState,
                 poleCount: 7,
                 getVerticesFn: sxGetHeptadVertices,
@@ -698,8 +1048,12 @@
         // --- 8-Pole Octad Radar Deformation State & Widget ---
         var sxOctadState = {
             topicId: null,
+            mode: "advocacy",
             intensity: 0,
+            recIntensity: 0,
+            recRated: !1,
             p0: 0, p1: 0, p2: 0, p3: 0, p4: 0, p5: 0, p6: 0, p7: 0,
+            recP0: 0, recP1: 0, recP2: 0, recP3: 0, recP4: 0, recP5: 0, recP6: 0, recP7: 0,
             shape: null,
             activeVertex: null,
             isDragging: !1,
@@ -717,8 +1071,8 @@
             sxDrawRadarPolygonWidget(canvas, shape, state, 8, sxGetOctadVertices, SX_OCTAD_COLORS);
         }
 
-        function sxApplyOctadRatings(topicId) {
-            sxApplyPolygonRatings(topicId, sxOctadState, 8);
+        function sxApplyOctadRatings(topicId, skipSync) {
+            sxApplyPolygonRatings(topicId, sxOctadState, 8, skipSync);
         }
 
         function sxClearOctadRatings(topicId) {
@@ -729,8 +1083,12 @@
             sxBindPolygonRadarWidget({
                 canvasId: "markOctadCanvas",
                 sliderId: "markOctadIntensity",
+                recSliderId: "markOctadRecIntensity",
+                advColId: "markOctadAdvCol",
+                recColId: "markOctadRecCol",
                 clearBtnId: "markOctadClear",
                 intensityOutId: "markOctadIntensityOut",
+                recIntensityOutId: "markOctadRecIntensityOut",
                 state: sxOctadState,
                 poleCount: 8,
                 getVerticesFn: sxGetOctadVertices,
@@ -1089,11 +1447,26 @@
 
         function sxBindTriangleWidget() {
             const canvas = e.byId("markTriangleCanvas");
-            const slider = e.byId("markTriangleIntensity");
+            const advSlider = e.byId("markTriangleIntensity");
+            const advOut = e.byId("markTriangleIntensityOut");
+            const advCol = e.byId("markTriAdvCol");
+            const recSlider = e.byId("markTriangleRecIntensity");
+            const recOut = e.byId("markTriangleRecIntensityOut");
+            const recCol = e.byId("markTriangleRecCol");
             const clearBtn = e.byId("markTriangleClear");
             if (!canvas || canvas.dataset.bound) return;
             canvas.dataset.bound = "1";
             sxBindPoleHover(canvas, () => sxTriState.isDragging);
+
+            const setMode = (newMode) => {
+                sxTriState.mode = newMode;
+                if (advCol) advCol.classList.toggle("is-active", newMode === "advocacy");
+                if (recCol) recCol.classList.toggle("is-active", newMode === "receptivity");
+                if (Qr) {
+                    const shape = Ge(Qr);
+                    sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                }
+            };
 
             const updatePointFromPointer = (evt) => {
                 const rect = canvas.getBoundingClientRect();
@@ -1103,30 +1476,45 @@
                 const py = (clientY - rect.top) * (canvas.height / rect.height);
                 const { V0, V1, V2 } = sxGetTriVertices(canvas.width, canvas.height);
                 const { w0, w1, w2 } = sxPointToBarycentric(px, py, V0, V1, V2);
-                sxTriState.w0 = w0;
-                sxTriState.w1 = w1;
-                sxTriState.w2 = w2;
-                if (!sxTriState.intensity) {
-                    sxTriState.intensity = 70;
-                    if (slider) slider.value = "70";
-                    const out = e.byId("markTriangleIntensityOut");
-                    out && (out.textContent = "70");
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const mode = isClassic ? "advocacy" : (sxTriState.mode || "advocacy");
+
+                if (mode === "receptivity") {
+                    sxTriState.recW0 = w0;
+                    sxTriState.recW1 = w1;
+                    sxTriState.recW2 = w2;
+                    if (!sxTriState.recRated) {
+                        sxTriState.recRated = true;
+                        if (!sxTriState.recIntensity) {
+                            sxTriState.recIntensity = 70;
+                            if (recSlider) recSlider.value = "70";
+                            if (recOut) recOut.textContent = "70";
+                        }
+                    }
+                    if (recSlider) recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxTriState.recIntensity));
+                } else {
+                    sxTriState.w0 = w0;
+                    sxTriState.w1 = w1;
+                    sxTriState.w2 = w2;
+                    if (!sxTriState.intensity) {
+                        sxTriState.intensity = 70;
+                        if (advSlider) advSlider.value = "70";
+                        if (advOut) advOut.textContent = "70";
+                    }
+                    if (advSlider) advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxTriState.intensity));
                 }
+
                 if (Qr) {
                     const shape = Ge(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
-                    // Live drag (2026-11-18): the puck follows the pointer
-                    // from sxTriState alone — cheap text updates for the
-                    // three readout values, and the rating write coalesced
-                    // to one per animation frame, WITHOUT the full placard
-                    // re-sync (that re-derived the weights from stored
-                    // integers and redrew the triangle a second time, so
-                    // the puck jumped in quantized steps on every move).
-                    // The full sync runs once, on drag end (stopDrag).
                     const v0El = e.byId("markTriVal0"), v1El = e.byId("markTriVal1"), v2El = e.byId("markTriVal2");
-                    if (v0El) v0El.textContent = String(Math.round(sxTriState.w0 * sxTriState.intensity));
-                    if (v1El) v1El.textContent = String(Math.round(sxTriState.w1 * sxTriState.intensity));
-                    if (v2El) v2El.textContent = String(Math.round(sxTriState.w2 * sxTriState.intensity));
+                    const activeIntensity = (mode === "receptivity") ? sxTriState.recIntensity : sxTriState.intensity;
+                    const curW0 = (mode === "receptivity") ? sxTriState.recW0 : sxTriState.w0;
+                    const curW1 = (mode === "receptivity") ? sxTriState.recW1 : sxTriState.w1;
+                    const curW2 = (mode === "receptivity") ? sxTriState.recW2 : sxTriState.w2;
+                    if (v0El) v0El.textContent = String(Math.round(curW0 * activeIntensity));
+                    if (v1El) v1El.textContent = String(Math.round(curW1 * activeIntensity));
+                    if (v2El) v2El.textContent = String(Math.round(curW2 * activeIntensity));
                     if (!sxTriState.__sxApplyRaf) {
                         sxTriState.__sxApplyRaf = requestAnimationFrame(() => {
                             sxTriState.__sxApplyRaf = 0;
@@ -1137,6 +1525,25 @@
             };
 
             canvas.addEventListener("pointerdown", (evt) => {
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                if (!isClassic && canvas.__sxPucks) {
+                    const rect = canvas.getBoundingClientRect();
+                    const clientX = evt.clientX !== undefined ? evt.clientX : (evt.touches && evt.touches[0] ? evt.touches[0].clientX : 0);
+                    const clientY = evt.clientY !== undefined ? evt.clientY : (evt.touches && evt.touches[0] ? evt.touches[0].clientY : 0);
+                    const px = (clientX - rect.left) * (canvas.width / rect.width);
+                    const py = (clientY - rect.top) * (canvas.height / rect.height);
+                    const pucks = canvas.__sxPucks;
+                    const dAdv = pucks.adv ? Math.hypot(px - pucks.adv.x, py - pucks.adv.y) : Infinity;
+                    const dRec = pucks.rec ? Math.hypot(px - pucks.rec.x, py - pucks.rec.y) : Infinity;
+                    if (dAdv <= 18 && dRec <= 18) {
+                        if (dRec > 7 && dRec <= 18) setMode("receptivity");
+                        else setMode("advocacy");
+                    } else if (dRec <= 18) {
+                        setMode("receptivity");
+                    } else if (dAdv <= 18) {
+                        setMode("advocacy");
+                    }
+                }
                 sxTriState.isDragging = !0;
                 canvas.setPointerCapture(evt.pointerId);
                 updatePointFromPointer(evt);
@@ -1149,8 +1556,6 @@
                 if (sxTriState.isDragging) {
                     sxTriState.isDragging = !1;
                     try { canvas.releasePointerCapture(evt.pointerId); } catch (ignore) {}
-                    // Flush any coalesced live write, then the one full
-                    // placard sync for the finished drag.
                     if (sxTriState.__sxApplyRaf) { cancelAnimationFrame(sxTriState.__sxApplyRaf); sxTriState.__sxApplyRaf = 0; }
                     if (Qr) sxApplyTriRatings(Qr);
                 }
@@ -1158,32 +1563,90 @@
             canvas.addEventListener("pointerup", stopDrag);
             canvas.addEventListener("pointercancel", stopDrag);
 
-            // Mouse wheel adjustments on canvas directly adjust intensity
+            // Mouse wheel strictly scoped to puck hover
             canvas.addEventListener("wheel", (evt) => {
+                const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+                const rect = canvas.getBoundingClientRect();
+                const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
+                const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
+                const pucks = canvas.__sxPucks;
+                const dAdv = (pucks && pucks.adv) ? Math.hypot(px - pucks.adv.x, py - pucks.adv.y) : Infinity;
+                const dRec = (pucks && pucks.rec) ? Math.hypot(px - pucks.rec.x, py - pucks.rec.y) : Infinity;
+
+                let target = null;
+                if (dAdv <= 18 && (isClassic || dAdv < dRec)) {
+                    target = "advocacy";
+                } else if (!isClassic && dRec <= 18) {
+                    target = "receptivity";
+                }
+
+                if (!target) return;
+
                 evt.preventDefault();
                 evt.stopPropagation();
                 const step = (evt.shiftKey ? 5 : 1) * (evt.deltaY < 0 ? 1 : -1);
-                const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
-                sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(current + step)));
-                if (slider) slider.value = String(Math.round(sxTriState.intensity));
-                const out = e.byId("markTriangleIntensityOut");
-                out && (out.textContent = String(Math.round(sxTriState.intensity)));
+
+                if (target === "receptivity") {
+                    if (!sxTriState.recRated) {
+                        sxTriState.recRated = true;
+                        sxTriState.recIntensity = 70;
+                    }
+                    const current = typeof sxTriState.recIntensity === "number" ? sxTriState.recIntensity : 0;
+                    sxTriState.recIntensity = Math.max(-400, Math.min(400, Math.round(current + step)));
+                    if (recSlider) {
+                        recSlider.value = String(Math.round(sxTriState.recIntensity));
+                        recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxTriState.recIntensity));
+                    }
+                    if (recOut) recOut.textContent = String(Math.round(sxTriState.recIntensity));
+                    setMode("receptivity");
+                    if (Qr) sxApplyTriRatings(Qr, true);
+                } else {
+                    const current = typeof sxTriState.intensity === "number" ? sxTriState.intensity : 0;
+                    sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(current + step)));
+                    if (advSlider) {
+                        advSlider.value = String(Math.round(sxTriState.intensity));
+                        advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxTriState.intensity));
+                    }
+                    if (advOut) advOut.textContent = String(Math.round(sxTriState.intensity));
+                    setMode("advocacy");
+                    if (Qr) sxApplyTriRatings(Qr, true);
+                }
                 if (Qr) {
-                    sxPersistIntensity(Qr, sxTriState.intensity);
                     const shape = Ge(Qr);
                     sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
                 }
             }, { passive: false });
 
-            if (slider) {
-                slider.addEventListener("input", () => {
-                    sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(Number(slider.value) || 0)));
-                    const out = e.byId("markTriangleIntensityOut");
-                    out && (out.textContent = String(Math.round(sxTriState.intensity)));
+            if (advSlider) {
+                advSlider.addEventListener("pointerdown", () => setMode("advocacy"));
+                advSlider.addEventListener("focus", () => setMode("advocacy"));
+                advSlider.addEventListener("input", () => {
+                    setMode("advocacy");
+                    sxTriState.intensity = Math.max(-400, Math.min(400, Math.round(Number(advSlider.value) || 0)));
+                    if (advOut) advOut.textContent = String(Math.round(sxTriState.intensity));
+                    advSlider.style.setProperty("--adv-color", sxIntensityRGB(255, 255, 255, sxTriState.intensity));
                     if (Qr) {
                         sxPersistIntensity(Qr, sxTriState.intensity);
                         const shape = Ge(Qr);
                         sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                        sxApplyTriRatings(Qr, true);
+                    }
+                });
+            }
+
+            if (recSlider) {
+                recSlider.addEventListener("pointerdown", () => setMode("receptivity"));
+                recSlider.addEventListener("focus", () => setMode("receptivity"));
+                recSlider.addEventListener("input", () => {
+                    setMode("receptivity");
+                    if (!sxTriState.recRated) sxTriState.recRated = true;
+                    sxTriState.recIntensity = Math.max(-400, Math.min(400, Math.round(Number(recSlider.value) || 0)));
+                    if (recOut) recOut.textContent = String(Math.round(sxTriState.recIntensity));
+                    recSlider.style.setProperty("--rec-color", sxIntensityRGB(56, 189, 248, sxTriState.recIntensity));
+                    if (Qr) {
+                        const shape = Ge(Qr);
+                        sxDrawTriangleWidget(canvas, shape, sxTriState, sxTriState.intensity);
+                        sxApplyTriRatings(Qr, true);
                     }
                 });
             }

@@ -305,7 +305,7 @@
                 } catch (err) {
                     __sxErrLog("sx-stamp", err);
                 }
-            })(), zt(e), 
+            })(), (n.isPseudoProfile ? (delete yt[e], Gt(), Kt(e)) : zt(e)),
             !0;
         }
         // Live-own, snapshot-source (owner ruling, 2026-10-27): a match

@@ -371,10 +371,16 @@
             const role7Row = e.byId("markRole7Row"), role7 = e.byId("markRole7"), role7Out = e.byId("markRole7Out"), role7Label = e.byId("markRole7Label");
             const role8Row = e.byId("markRole8Row"), role8 = e.byId("markRole8"), role8Out = e.byId("markRole8Out"), role8Label = e.byId("markRole8Label");
 
+            const isClassic = !window.__SX_ACTIVE_SKIN || window.__SX_ACTIVE_SKIN === "sexcapades";
+
             const triWrap = e.byId("markTriangleWrap");
             const triCanvas = e.byId("markTriangleCanvas");
             const triIntensity = e.byId("markTriangleIntensity");
             const triIntensityOut = e.byId("markTriangleIntensityOut");
+            const triAdvCol = e.byId("markTriAdvCol");
+            const triRecCol = e.byId("markTriangleRecCol");
+            const triRecIntensity = e.byId("markTriangleRecIntensity");
+            const triRecIntensityOut = e.byId("markTriangleRecIntensityOut");
             const triVal0 = e.byId("markTriVal0"), triVal1 = e.byId("markTriVal1"), triVal2 = e.byId("markTriVal2");
             const triPole0 = e.byId("markTriPole0"), triPole1 = e.byId("markTriPole1"), triPole2 = e.byId("markTriPole2");
 
@@ -382,6 +388,10 @@
             const tetradCanvas = e.byId("markTetradCanvas");
             const tetradIntensity = e.byId("markTetradIntensity");
             const tetradIntensityOut = e.byId("markTetradIntensityOut");
+            const tetradAdvCol = e.byId("markTetradAdvCol");
+            const tetradRecCol = e.byId("markTetradRecCol");
+            const tetradRecIntensity = e.byId("markTetradRecIntensity");
+            const tetradRecIntensityOut = e.byId("markTetradRecIntensityOut");
             const tetradVal0 = e.byId("markTetradVal0"), tetradVal1 = e.byId("markTetradVal1"), tetradVal2 = e.byId("markTetradVal2"), tetradVal3 = e.byId("markTetradVal3");
             const tetradPole0 = e.byId("markTetradPole0"), tetradPole1 = e.byId("markTetradPole1"), tetradPole2 = e.byId("markTetradPole2"), tetradPole3 = e.byId("markTetradPole3");
 
@@ -389,6 +399,10 @@
             const compassCanvas = e.byId("markCompassCanvas");
             const compassIntensity = e.byId("markCompassIntensity");
             const compassIntensityOut = e.byId("markCompassIntensityOut");
+            const compassAdvCol = e.byId("markCompassAdvCol");
+            const compassRecCol = e.byId("markCompassRecCol");
+            const compassRecIntensity = e.byId("markCompassRecIntensity");
+            const compassRecIntensityOut = e.byId("markCompassRecIntensityOut");
             const compassVal0 = e.byId("markCompassVal0"), compassVal1 = e.byId("markCompassVal1"), compassVal2 = e.byId("markCompassVal2"), compassVal3 = e.byId("markCompassVal3");
             const compassPole0 = e.byId("markCompassPole0"), compassPole1 = e.byId("markCompassPole1"), compassPole2 = e.byId("markCompassPole2"), compassPole3 = e.byId("markCompassPole3");
 
@@ -396,6 +410,10 @@
             const pentadCanvas = e.byId("markPentadCanvas");
             const pentadIntensity = e.byId("markPentadIntensity");
             const pentadIntensityOut = e.byId("markPentadIntensityOut");
+            const pentadAdvCol = e.byId("markPentadAdvCol");
+            const pentadRecCol = e.byId("markPentadRecCol");
+            const pentadRecIntensity = e.byId("markPentadRecIntensity");
+            const pentadRecIntensityOut = e.byId("markPentadRecIntensityOut");
             const pentadVal0 = e.byId("markPentadVal0"), pentadVal1 = e.byId("markPentadVal1"), pentadVal2 = e.byId("markPentadVal2"), pentadVal3 = e.byId("markPentadVal3"), pentadVal4 = e.byId("markPentadVal4");
             const pentadPole0 = e.byId("markPentadPole0"), pentadPole1 = e.byId("markPentadPole1"), pentadPole2 = e.byId("markPentadPole2"), pentadPole3 = e.byId("markPentadPole3"), pentadPole4 = e.byId("markPentadPole4");
 
@@ -403,6 +421,10 @@
             const hexadCanvas = e.byId("markHexadCanvas");
             const hexadIntensity = e.byId("markHexadIntensity");
             const hexadIntensityOut = e.byId("markHexadIntensityOut");
+            const hexadAdvCol = e.byId("markHexadAdvCol");
+            const hexadRecCol = e.byId("markHexadRecCol");
+            const hexadRecIntensity = e.byId("markHexadRecIntensity");
+            const hexadRecIntensityOut = e.byId("markHexadRecIntensityOut");
             const hexadVal0 = e.byId("markHexadVal0"), hexadVal1 = e.byId("markHexadVal1"), hexadVal2 = e.byId("markHexadVal2"), hexadVal3 = e.byId("markHexadVal3"), hexadVal4 = e.byId("markHexadVal4"), hexadVal5 = e.byId("markHexadVal5");
             const hexadPole0 = e.byId("markHexadPole0"), hexadPole1 = e.byId("markHexadPole1"), hexadPole2 = e.byId("markHexadPole2"), hexadPole3 = e.byId("markHexadPole3"), hexadPole4 = e.byId("markHexadPole4"), hexadPole5 = e.byId("markHexadPole5");
 
@@ -410,6 +432,10 @@
             const heptadCanvas = e.byId("markHeptadCanvas");
             const heptadIntensity = e.byId("markHeptadIntensity");
             const heptadIntensityOut = e.byId("markHeptadIntensityOut");
+            const heptadAdvCol = e.byId("markHeptadAdvCol");
+            const heptadRecCol = e.byId("markHeptadRecCol");
+            const heptadRecIntensity = e.byId("markHeptadRecIntensity");
+            const heptadRecIntensityOut = e.byId("markHeptadRecIntensityOut");
             const heptadVal0 = e.byId("markHeptadVal0"), heptadVal1 = e.byId("markHeptadVal1"), heptadVal2 = e.byId("markHeptadVal2"), heptadVal3 = e.byId("markHeptadVal3"), heptadVal4 = e.byId("markHeptadVal4"), heptadVal5 = e.byId("markHeptadVal5"), heptadVal6 = e.byId("markHeptadVal6");
             const heptadPole0 = e.byId("markHeptadPole0"), heptadPole1 = e.byId("markHeptadPole1"), heptadPole2 = e.byId("markHeptadPole2"), heptadPole3 = e.byId("markHeptadPole3"), heptadPole4 = e.byId("markHeptadPole4"), heptadPole5 = e.byId("markHeptadPole5"), heptadPole6 = e.byId("markHeptadPole6");
 
@@ -417,6 +443,10 @@
             const octadCanvas = e.byId("markOctadCanvas");
             const octadIntensity = e.byId("markOctadIntensity");
             const octadIntensityOut = e.byId("markOctadIntensityOut");
+            const octadAdvCol = e.byId("markOctadAdvCol");
+            const octadRecCol = e.byId("markOctadRecCol");
+            const octadRecIntensity = e.byId("markOctadRecIntensity");
+            const octadRecIntensityOut = e.byId("markOctadRecIntensityOut");
             const octadVal0 = e.byId("markOctadVal0"), octadVal1 = e.byId("markOctadVal1"), octadVal2 = e.byId("markOctadVal2"), octadVal3 = e.byId("markOctadVal3"), octadVal4 = e.byId("markOctadVal4"), octadVal5 = e.byId("markOctadVal5"), octadVal6 = e.byId("markOctadVal6"), octadVal7 = e.byId("markOctadVal7");
             const octadPole0 = e.byId("markOctadPole0"), octadPole1 = e.byId("markOctadPole1"), octadPole2 = e.byId("markOctadPole2"), octadPole3 = e.byId("markOctadPole3"), octadPole4 = e.byId("markOctadPole4"), octadPole5 = e.byId("markOctadPole5"), octadPole6 = e.byId("markOctadPole6"), octadPole7 = e.byId("markOctadPole7");
 
@@ -467,17 +497,37 @@
                 sxOctadState.p6 = ratings[6];
                 sxOctadState.p7 = ratings[7];
 
+                for (let k = 0; k < 8; k++) {
+                    sxOctadState["recP" + k] = (rec.receptivity && rec.receptivity[keys[k]] != null) ? rec.receptivity[keys[k]] : 0;
+                }
+
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxOctadState.shape = ratings.map(v => v / maxR);
                 sxAdoptIntensity(sxOctadState, rec, maxR, octadIntensity, octadIntensityOut, id, Vi());
 
+                if (window.sxSyncDualSliders) {
+                    window.sxSyncDualSliders({
+                        state: sxOctadState, rec, isClassic,
+                        advSlider: octadIntensity, advOut: octadIntensityOut, advCol: octadAdvCol,
+                        recSlider: octadRecIntensity, recOut: octadRecIntensityOut, recCol: octadRecCol
+                    });
+                }
+
                 const poleEls = [octadPole0, octadPole1, octadPole2, octadPole3, octadPole4, octadPole5, octadPole6, octadPole7];
                 const valEls = [octadVal0, octadVal1, octadVal2, octadVal3, octadVal4, octadVal5, octadVal6, octadVal7];
+                const isRecMode = !isClassic && (sxOctadState.mode === "receptivity");
 
                 for (let k = 0; k < 8; k++) {
                     const col = SX_OCTAD_COLORS[k];
                     if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
-                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                    if (valEls[k]) {
+                        if (isRecMode) {
+                            valEls[k].textContent = (rec.receptivity && rec.receptivity.known && rec.receptivity[keys[k]] != null) ? String(Math.round(rec.receptivity[keys[k]])) : "—";
+                        } else {
+                            valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—";
+                        }
+                        valEls[k].style.color = col;
+                    }
                 }
 
                 sxDrawOctadWidget(octadCanvas, shape, sxOctadState);
@@ -496,17 +546,37 @@
                 sxHeptadState.p5 = ratings[5];
                 sxHeptadState.p6 = ratings[6];
 
+                for (let k = 0; k < 7; k++) {
+                    sxHeptadState["recP" + k] = (rec.receptivity && rec.receptivity[keys[k]] != null) ? rec.receptivity[keys[k]] : 0;
+                }
+
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxHeptadState.shape = ratings.map(v => v / maxR);
                 sxAdoptIntensity(sxHeptadState, rec, maxR, heptadIntensity, heptadIntensityOut, id, Vi());
 
+                if (window.sxSyncDualSliders) {
+                    window.sxSyncDualSliders({
+                        state: sxHeptadState, rec, isClassic,
+                        advSlider: heptadIntensity, advOut: heptadIntensityOut, advCol: heptadAdvCol,
+                        recSlider: heptadRecIntensity, recOut: heptadRecIntensityOut, recCol: heptadRecCol
+                    });
+                }
+
                 const poleEls = [heptadPole0, heptadPole1, heptadPole2, heptadPole3, heptadPole4, heptadPole5, heptadPole6];
                 const valEls = [heptadVal0, heptadVal1, heptadVal2, heptadVal3, heptadVal4, heptadVal5, heptadVal6];
+                const isRecMode = !isClassic && (sxHeptadState.mode === "receptivity");
 
                 for (let k = 0; k < 7; k++) {
                     const col = SX_HEPTAD_COLORS[k];
                     if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
-                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                    if (valEls[k]) {
+                        if (isRecMode) {
+                            valEls[k].textContent = (rec.receptivity && rec.receptivity.known && rec.receptivity[keys[k]] != null) ? String(Math.round(rec.receptivity[keys[k]])) : "—";
+                        } else {
+                            valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—";
+                        }
+                        valEls[k].style.color = col;
+                    }
                 }
 
                 sxDrawHeptadWidget(heptadCanvas, shape, sxHeptadState);
@@ -524,17 +594,37 @@
                 sxHexadState.p4 = ratings[4];
                 sxHexadState.p5 = ratings[5];
 
+                for (let k = 0; k < 6; k++) {
+                    sxHexadState["recP" + k] = (rec.receptivity && rec.receptivity[keys[k]] != null) ? rec.receptivity[keys[k]] : 0;
+                }
+
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxHexadState.shape = ratings.map(v => v / maxR);
                 sxAdoptIntensity(sxHexadState, rec, maxR, hexadIntensity, hexadIntensityOut, id, Vi());
 
+                if (window.sxSyncDualSliders) {
+                    window.sxSyncDualSliders({
+                        state: sxHexadState, rec, isClassic,
+                        advSlider: hexadIntensity, advOut: hexadIntensityOut, advCol: hexadAdvCol,
+                        recSlider: hexadRecIntensity, recOut: hexadRecIntensityOut, recCol: hexadRecCol
+                    });
+                }
+
                 const poleEls = [hexadPole0, hexadPole1, hexadPole2, hexadPole3, hexadPole4, hexadPole5];
                 const valEls = [hexadVal0, hexadVal1, hexadVal2, hexadVal3, hexadVal4, hexadVal5];
+                const isRecMode = !isClassic && (sxHexadState.mode === "receptivity");
 
                 for (let k = 0; k < 6; k++) {
                     const col = SX_HEXAD_COLORS[k];
                     if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
-                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                    if (valEls[k]) {
+                        if (isRecMode) {
+                            valEls[k].textContent = (rec.receptivity && rec.receptivity.known && rec.receptivity[keys[k]] != null) ? String(Math.round(rec.receptivity[keys[k]])) : "—";
+                        } else {
+                            valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—";
+                        }
+                        valEls[k].style.color = col;
+                    }
                 }
 
                 sxDrawHexadWidget(hexadCanvas, shape, sxHexadState);
@@ -551,17 +641,37 @@
                 sxPentadState.p3 = ratings[3];
                 sxPentadState.p4 = ratings[4];
 
+                for (let k = 0; k < 5; k++) {
+                    sxPentadState["recP" + k] = (rec.receptivity && rec.receptivity[keys[k]] != null) ? rec.receptivity[keys[k]] : 0;
+                }
+
                 const maxR = sxSignedIntensity(ratings);
                 if (maxR !== 0) sxPentadState.shape = ratings.map(v => v / maxR);
                 sxAdoptIntensity(sxPentadState, rec, maxR, pentadIntensity, pentadIntensityOut, id, Vi());
 
+                if (window.sxSyncDualSliders) {
+                    window.sxSyncDualSliders({
+                        state: sxPentadState, rec, isClassic,
+                        advSlider: pentadIntensity, advOut: pentadIntensityOut, advCol: pentadAdvCol,
+                        recSlider: pentadRecIntensity, recOut: pentadRecIntensityOut, recCol: pentadRecCol
+                    });
+                }
+
                 const poleEls = [pentadPole0, pentadPole1, pentadPole2, pentadPole3, pentadPole4];
                 const valEls = [pentadVal0, pentadVal1, pentadVal2, pentadVal3, pentadVal4];
+                const isRecMode = !isClassic && (sxPentadState.mode === "receptivity");
 
                 for (let k = 0; k < 5; k++) {
                     const col = SX_PENTAD_COLORS[k];
                     if (poleEls[k]) { poleEls[k].textContent = shape.labels[k] || keys[k]; poleEls[k].style.color = col; sxSetPoleTip(poleEls[k], id, keys[k]); }
-                    if (valEls[k]) { valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—"; valEls[k].style.color = col; }
+                    if (valEls[k]) {
+                        if (isRecMode) {
+                            valEls[k].textContent = (rec.receptivity && rec.receptivity.known && rec.receptivity[keys[k]] != null) ? String(Math.round(rec.receptivity[keys[k]])) : "—";
+                        } else {
+                            valEls[k].textContent = rec[keys[k] + "Known"] ? String(Math.round(ratings[k])) : "—";
+                        }
+                        valEls[k].style.color = col;
+                    }
                 }
 
                 sxDrawPentadWidget(pentadCanvas, shape, sxPentadState);
@@ -585,19 +695,49 @@
                     sxCompassState.u = pt.u;
                     sxCompassState.v = pt.v;
                 }
-                // Stored intensity wins. The sum of the pole numbers is only
-                // the seed for a rating that has never stored one.
+
+                if (rec.receptivity && rec.receptivity.known) {
+                    const recVals = [k0, k1, k2, k3].map(k => rec.receptivity[k] || 0);
+                    const recPt = sxCompassPointFromValues(recVals[0], recVals[1], recVals[2], recVals[3]);
+                    sxCompassState.recU = recPt.u;
+                    sxCompassState.recV = recPt.v;
+                } else {
+                    sxCompassState.recU = 0.5;
+                    sxCompassState.recV = 0.5;
+                }
+
                 sxAdoptIntensity(sxCompassState, rec, keepPoint ? 0 : pt.intensity, compassIntensity, compassIntensityOut, id, Vi());
+
+                if (window.sxSyncDualSliders) {
+                    window.sxSyncDualSliders({
+                        state: sxCompassState, rec, isClassic,
+                        advSlider: compassIntensity, advOut: compassIntensityOut, advCol: compassAdvCol,
+                        recSlider: compassRecIntensity, recOut: compassRecIntensityOut, recCol: compassRecCol
+                    });
+                }
 
                 if (compassPole0) { compassPole0.textContent = shape.labels[0] || k0; compassPole0.style.color = SX_COMPASS_COLORS[0]; sxSetPoleTip(compassPole0, id, k0); }
                 if (compassPole1) { compassPole1.textContent = shape.labels[1] || k1; compassPole1.style.color = SX_COMPASS_COLORS[1]; sxSetPoleTip(compassPole1, id, k1); }
                 if (compassPole2) { compassPole2.textContent = shape.labels[2] || k2; compassPole2.style.color = SX_COMPASS_COLORS[2]; sxSetPoleTip(compassPole2, id, k2); }
                 if (compassPole3) { compassPole3.textContent = shape.labels[3] || k3; compassPole3.style.color = SX_COMPASS_COLORS[3]; sxSetPoleTip(compassPole3, id, k3); }
 
-                if (compassVal0) { compassVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; compassVal0.style.color = SX_COMPASS_COLORS[0]; }
-                if (compassVal1) { compassVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; compassVal1.style.color = SX_COMPASS_COLORS[1]; }
-                if (compassVal2) { compassVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; compassVal2.style.color = SX_COMPASS_COLORS[2]; }
-                if (compassVal3) { compassVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; compassVal3.style.color = SX_COMPASS_COLORS[3]; }
+                const isRecMode = !isClassic && (sxCompassState.mode === "receptivity");
+                if (compassVal0) {
+                    compassVal0.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k0] != null) ? String(Math.round(rec.receptivity[k0])) : "—") : (rec[k0 + "Known"] ? String(Math.round(r0)) : "—");
+                    compassVal0.style.color = SX_COMPASS_COLORS[0];
+                }
+                if (compassVal1) {
+                    compassVal1.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k1] != null) ? String(Math.round(rec.receptivity[k1])) : "—") : (rec[k1 + "Known"] ? String(Math.round(r1)) : "—");
+                    compassVal1.style.color = SX_COMPASS_COLORS[1];
+                }
+                if (compassVal2) {
+                    compassVal2.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k2] != null) ? String(Math.round(rec.receptivity[k2])) : "—") : (rec[k2 + "Known"] ? String(Math.round(r2)) : "—");
+                    compassVal2.style.color = SX_COMPASS_COLORS[2];
+                }
+                if (compassVal3) {
+                    compassVal3.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k3] != null) ? String(Math.round(rec.receptivity[k3])) : "—") : (rec[k3 + "Known"] ? String(Math.round(r3)) : "—");
+                    compassVal3.style.color = SX_COMPASS_COLORS[3];
+                }
 
                 sxDrawCompassWidget(compassCanvas, shape, sxCompassState);
             } else if (widget === "diamond") {
@@ -616,19 +756,45 @@
                 sxTetradState.p2 = r2;
                 sxTetradState.p3 = r3;
 
+                sxTetradState.recP0 = (rec.receptivity && rec.receptivity[k0] != null) ? rec.receptivity[k0] : 0;
+                sxTetradState.recP1 = (rec.receptivity && rec.receptivity[k1] != null) ? rec.receptivity[k1] : 0;
+                sxTetradState.recP2 = (rec.receptivity && rec.receptivity[k2] != null) ? rec.receptivity[k2] : 0;
+                sxTetradState.recP3 = (rec.receptivity && rec.receptivity[k3] != null) ? rec.receptivity[k3] : 0;
+
                 const maxR = sxSignedIntensity([r0, r1, r2, r3]);
                 if (maxR !== 0) sxTetradState.shape = [r0 / maxR, r1 / maxR, r2 / maxR, r3 / maxR];
                 sxAdoptIntensity(sxTetradState, rec, maxR, tetradIntensity, tetradIntensityOut, id, Vi());
+
+                if (window.sxSyncDualSliders) {
+                    window.sxSyncDualSliders({
+                        state: sxTetradState, rec, isClassic,
+                        advSlider: tetradIntensity, advOut: tetradIntensityOut, advCol: tetradAdvCol,
+                        recSlider: tetradRecIntensity, recOut: tetradRecIntensityOut, recCol: tetradRecCol
+                    });
+                }
 
                 if (tetradPole0) { tetradPole0.textContent = shape.labels[0] || k0; tetradPole0.style.color = "#22c55e"; sxSetPoleTip(tetradPole0, id, k0); }
                 if (tetradPole1) { tetradPole1.textContent = shape.labels[1] || k1; tetradPole1.style.color = "#eab308"; sxSetPoleTip(tetradPole1, id, k1); }
                 if (tetradPole2) { tetradPole2.textContent = shape.labels[2] || k2; tetradPole2.style.color = "#ef4444"; sxSetPoleTip(tetradPole2, id, k2); }
                 if (tetradPole3) { tetradPole3.textContent = shape.labels[3] || k3; tetradPole3.style.color = "#3b82f6"; sxSetPoleTip(tetradPole3, id, k3); }
 
-                if (tetradVal0) { tetradVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; tetradVal0.style.color = "#22c55e"; }
-                if (tetradVal1) { tetradVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; tetradVal1.style.color = "#eab308"; }
-                if (tetradVal2) { tetradVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; tetradVal2.style.color = "#ef4444"; }
-                if (tetradVal3) { tetradVal3.textContent = rec[k3 + "Known"] ? String(Math.round(r3)) : "—"; tetradVal3.style.color = "#3b82f6"; }
+                const isRecMode = !isClassic && (sxTetradState.mode === "receptivity");
+                if (tetradVal0) {
+                    tetradVal0.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k0] != null) ? String(Math.round(rec.receptivity[k0])) : "—") : (rec[k0 + "Known"] ? String(Math.round(r0)) : "—");
+                    tetradVal0.style.color = "#22c55e";
+                }
+                if (tetradVal1) {
+                    tetradVal1.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k1] != null) ? String(Math.round(rec.receptivity[k1])) : "—") : (rec[k1 + "Known"] ? String(Math.round(r1)) : "—");
+                    tetradVal1.style.color = "#eab308";
+                }
+                if (tetradVal2) {
+                    tetradVal2.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k2] != null) ? String(Math.round(rec.receptivity[k2])) : "—") : (rec[k2 + "Known"] ? String(Math.round(r2)) : "—");
+                    tetradVal2.style.color = "#ef4444";
+                }
+                if (tetradVal3) {
+                    tetradVal3.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k3] != null) ? String(Math.round(rec.receptivity[k3])) : "—") : (rec[k3 + "Known"] ? String(Math.round(r3)) : "—");
+                    tetradVal3.style.color = "#3b82f6";
+                }
 
                 sxDrawTetradWidget(tetradCanvas, shape, sxTetradState);
             } else if (widget === "triangle") {
@@ -647,23 +813,12 @@
                     const abs0 = Math.abs(r0), abs1 = Math.abs(r1), abs2 = Math.abs(r2);
                     const sumAbs = abs0 + abs1 + abs2;
                     const sign = (r0 + r1 + r2 < 0) ? -1 : 1;
-                    // Intensity is the TOTAL (sum), not the max: the apply writes
-                    // v = w * intensity with normalized weights (sum w = 1), so
-                    // sum(v) = intensity. Deriving maxAbs here fed each drag's
-                    // stored max back as the new intensity (~intensity/3 per
-                    // move near center), collapsing every drag to ~0.
                     intensity = sign * sumAbs;
                     if (sumAbs > 0) {
                         w0 = abs0 / sumAbs;
                         w1 = abs1 / sumAbs;
                         w2 = abs2 / sumAbs;
                     } else if (sxTriState.topicId === id && (sxTriState.w0 + sxTriState.w1 + sxTriState.w2) > 0) {
-                        // All stored ratings are zero (intensity 0): the balance
-                        // cannot be recovered from the ratings, so keep the
-                        // weights the user set instead of resetting to the
-                        // centroid — otherwise the puck jumps to the middle
-                        // and the balance is lost when the intensity is
-                        // raised again.
                         w0 = sxTriState.w0; w1 = sxTriState.w1; w2 = sxTriState.w2;
                     }
                 }
@@ -671,15 +826,48 @@
                 sxTriState.w0 = w0;
                 sxTriState.w1 = w1;
                 sxTriState.w2 = w2;
+
+                if (rec.receptivity && rec.receptivity.known) {
+                    const rec0 = rec.receptivity[k0] || 0, rec1 = rec.receptivity[k1] || 0, rec2 = rec.receptivity[k2] || 0;
+                    const sumRec = Math.abs(rec0) + Math.abs(rec1) + Math.abs(rec2);
+                    if (sumRec > 0) {
+                        sxTriState.recW0 = Math.abs(rec0) / sumRec;
+                        sxTriState.recW1 = Math.abs(rec1) / sumRec;
+                        sxTriState.recW2 = Math.abs(rec2) / sumRec;
+                    } else {
+                        sxTriState.recW0 = 1 / 3; sxTriState.recW1 = 1 / 3; sxTriState.recW2 = 1 / 3;
+                    }
+                } else {
+                    sxTriState.recW0 = 1 / 3; sxTriState.recW1 = 1 / 3; sxTriState.recW2 = 1 / 3;
+                }
+
                 intensity = sxAdoptIntensity(sxTriState, rec, intensity, triIntensity, triIntensityOut, id, Vi());
+
+                if (window.sxSyncDualSliders) {
+                    window.sxSyncDualSliders({
+                        state: sxTriState, rec, isClassic,
+                        advSlider: triIntensity, advOut: triIntensityOut, advCol: triAdvCol,
+                        recSlider: triRecIntensity, recOut: triRecIntensityOut, recCol: triRecCol
+                    });
+                }
 
                 if (triPole0) { triPole0.textContent = shape.labels[0] || k0; triPole0.style.color = "#ef4444"; sxSetPoleTip(triPole0, id, k0); }
                 if (triPole1) { triPole1.textContent = shape.labels[1] || k1; triPole1.style.color = "#22c55e"; sxSetPoleTip(triPole1, id, k1); }
                 if (triPole2) { triPole2.textContent = shape.labels[2] || k2; triPole2.style.color = "#3b82f6"; sxSetPoleTip(triPole2, id, k2); }
 
-                if (triVal0) { triVal0.textContent = rec[k0 + "Known"] ? String(Math.round(r0)) : "—"; triVal0.style.color = "#ef4444"; }
-                if (triVal1) { triVal1.textContent = rec[k1 + "Known"] ? String(Math.round(r1)) : "—"; triVal1.style.color = "#22c55e"; }
-                if (triVal2) { triVal2.textContent = rec[k2 + "Known"] ? String(Math.round(r2)) : "—"; triVal2.style.color = "#3b82f6"; }
+                const isRecMode = !isClassic && (sxTriState.mode === "receptivity");
+                if (triVal0) {
+                    triVal0.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k0] != null) ? String(Math.round(rec.receptivity[k0])) : "—") : (rec[k0 + "Known"] ? String(Math.round(r0)) : "—");
+                    triVal0.style.color = "#ef4444";
+                }
+                if (triVal1) {
+                    triVal1.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k1] != null) ? String(Math.round(rec.receptivity[k1])) : "—") : (rec[k1 + "Known"] ? String(Math.round(r1)) : "—");
+                    triVal1.style.color = "#22c55e";
+                }
+                if (triVal2) {
+                    triVal2.textContent = isRecMode ? ((rec.receptivity && rec.receptivity.known && rec.receptivity[k2] != null) ? String(Math.round(rec.receptivity[k2])) : "—") : (rec[k2 + "Known"] ? String(Math.round(r2)) : "—");
+                    triVal2.style.color = "#3b82f6";
+                }
 
                 sxDrawTriangleWidget(triCanvas, shape, sxTriState, intensity);
             } else if (widget === "trilinear-sliders") {
